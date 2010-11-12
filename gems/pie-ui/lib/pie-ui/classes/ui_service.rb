@@ -9,7 +9,7 @@ class UiService
       when 'development'
         randstr #开发环境的话 不去缓存
       when 'production'
-        last_modified_file_id('/web/2010/pin-v4-web-ui/')
+        last_modified_file_id('/web/2010/pin-2010/sites/pin-v4-web-ui/')
       end
     end
 
