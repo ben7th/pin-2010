@@ -1,0 +1,73 @@
+<%accordion_bar :bgc=>"#99daff",:active_bgc=>"#ff7800" do%>
+
+  <%accordion_item '思维导图',:bgc=>"#0B243B",:active_bgc=>"#DF0174" do%>
+    <div class="padding10 font14" style="height:300px;margin-left:1.5em;line-height:1.5em;">
+      <div class="boxfix">
+        <div class="fleft">
+          <a id="mindmap_editor_preview" href="/app/mindmap_editor" title="访问思维导图编辑器主页">
+            <img alt="思维导图编辑器" src="/images/index/mindmap-editor.png"/>
+          </a>
+        </div>
+        <div id="mindmap_editor_intro" class="fleft marginl10">
+          <div>帮助您整理信息片段、撰写提纲，改善思维效果。</div>
+          <ul id="mindmap_editor_points">
+            <li><span>√</span> 直接使用，无需安装</li>
+            <li><span>√</span> 支持节点备注、图片</li>
+            <li><span>√</span> 支持从<a class="intro_quote" href="http://www.google.cn/search?hl=zh-CN&q=mindmanager&sourceid=navclient-ff&rlz=1B3GGGL_zh-CNCN299CN299&ie=UTF-8" target="_blank">Mindmanager</a>, <a class="intro_quote" href="http://www.google.cn/search?hl=zh-CN&q=freemind&sourceid=navclient-ff&rlz=1B3GGGL_zh-CNCN299CN299&ie=UTF-8" target="_blank">Freemind</a>导入</li>
+          </ul>
+          <%=hr%>
+          <ul id="mindmap_editor_actions">
+            <li><%=link_to('访问应用主页','/app/mindmap_editor',:id=>'btn1')%></li>
+            <li><%=link_to('工具演示','/app/mindmap_editor/mapdemo',:id=>'btn2',:target=>'_blank')%></li>
+            <li><%=link_to('使用帮助','/app/mindmap_editor/help',:id=>'btn3')%></li>
+          </ul>
+        </div>
+      </div>
+      <br/>
+      请您<br/>
+      <%if !current_user.installed_mindmap?%>
+        <%=link_to '&gt; 安装思维导图',install_mindmap_installings_path,:method=>:post%><br/>
+      <%end%>
+      <%=link_to '&gt; 点这里继续使用','/app/mindmap_editor'%><br/>
+      <%=link_to '&gt; 点这里查看你的导图列表',"/app/mindmap_editor/users/#{current_user.id}/mindmaps"%><br/>
+    </div>
+  <%end%>
+
+  <%accordion_item '漫游阅读' do%>
+    <div class="padding10 font14" style="height:300px;margin-left:1.5em;line-height:1.5em;">
+      不用费力选择，也不用四处寻找。<br/>
+      MindPin新的漫游阅读功能，自动向您提供种类繁多的不同信息。<br/>
+      只需要操作阅读工具，选择“下一个”，标记你喜欢或不喜欢的文章。<br/>
+      MindPin将自动记录您的选择，并推算你的阅读偏好。<br/><br/>
+      <img alt="阅读控制按钮" src="/images/piece/reader_btns.png"/><br/>
+      <%=link_to '&gt; 马上开始','/reader'%>
+    </div>
+  <%end%>
+
+  <%accordion_item '网页采集工具' do%>
+    <div class="padding10 quiet" style="height:300px;">
+      coming soon...
+    </div>
+    <div class="padding10 hide">
+      <p class="font14" style="margin-left:1.5em;line-height:1.5em;">
+        第一步：右键点击下面的按钮，选择右键菜单中的“将此链接加为书签”<br/>
+      </p>
+      <%
+      js_site = case RAILS_ENV
+      when 'production'
+        'http://ei.mindpin.com'
+      else
+        'http://192.168.1.8:3456'
+      end
+    %>
+      <div style="background:url(/images/piece/collector.png);width:507px;height:176px;position:relative;">
+        <a href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('src','<%=js_site%>/javascripts/page_collector/collector.<%=RAILS_ENV%>.js');document.body.appendChild(e);})())" style="position:absolute;display:block;width:162px;height:51px;left:59px;top:49px;line-height:400px;overflow:hidden;" onclick="alert('请把这个链接加入书签:)');return false;" title="MindPin ei">MindPin采集器</a>
+      </div>
+      <br/>
+      <p class="font14" style="margin-left:1.5em;line-height:1.5em;">
+        第二步：浏览其他页面时，点击浏览器收藏栏中的“MindPin采集器”，页面右侧出现采集器界面<br/>
+        工具的功能将陆续添加:)
+      </p>
+    </div>
+  <%end%>
+<%end%>

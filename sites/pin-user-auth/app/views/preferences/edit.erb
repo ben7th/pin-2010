@@ -1,0 +1,5 @@
+<%content_for :panel do%>
+  <%=render :partial=>"preferences/cell_selector"%>
+<%end%>
+
+<%=render :partial=>"preferences/cell_edit",:locals=>{:preference=>@preference}%>

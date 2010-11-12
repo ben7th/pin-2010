@@ -1,0 +1,10 @@
+=flash_info
+.p
+  %div 邮箱地址
+  .mail= current_user.email
+  %div
+    -if current_user.activated?
+      %span 已激活
+    -else
+      %span 未激活
+      %span= link_to '&gt; 发送激活邮件',send_activation_mail_path

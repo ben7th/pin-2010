@@ -1,0 +1,26 @@
+<%usually_used_apps = current_user.usually_used_apps%>
+<div class="check_toggle">
+  <div class="check_btn">
+    <span>
+      <%= check_box_tag "set_usually_used_apps",true,false %>
+    </span>
+    <span>设置常用应用</span>
+  </div>
+  <div class="check_area hide">
+    <%current_user.apps.each do |app|%>
+      <span>
+        <%= check_box_tag "usually_used_app_ids[]",app.id,usually_used_apps.include?(app) %>
+      </span>
+      <span>
+        <%=app.title%>
+      </span>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  try{
+    $$('div.check_toggle').each(function(div){
+      new CheckToggleBox(div)
+    })
+  }catch(e){}
+</script>

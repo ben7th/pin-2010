@@ -1,0 +1,29 @@
+- require_css 'views',true
+
+.grid_10.alpha
+  .dialog
+    %h3
+      MindPin 用户注册
+      %span.font12.normal 或 #{link_to '登录',login_path}
+    = flash_info
+    = render :partial=>'auth/parts/signup_form'
+    
+.grid_14.omega
+  .pad
+    .right-inner
+      %h3 注册新账号
+      .font13
+        %p
+          MindPin 使用电子邮件地址登录。
+        %p
+          注册后，
+          %span.loud> 一封欢迎/激活邮件会发送到您的邮箱。
+          %br
+          为了不影响正常使用网站服务，您应当使用有效的邮箱注册。
+        %p
+          请使用
+          %span.loud> 纯中文或者纯英文数字
+          的用户名。
+        %p by MindPin Team
+        %p
+          已经注册了账号？ 请#{link_to '直接登录',login_path}

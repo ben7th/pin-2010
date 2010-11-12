@@ -1,0 +1,7 @@
+<% content_cell do %>
+  <div class="cin">
+    <h2>主题设置</h2>
+    <%=hr%>
+    <%= render :partial=>"preferences/form_preference",:locals=>{:preference=>@preference} %>
+  </div>
+<% end %>

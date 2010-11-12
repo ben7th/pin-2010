@@ -1,0 +1,28 @@
+- require_css 'views',true
+
+.grid_9.alpha
+  .dialog.index
+    =render :partial=>'auth/parts/login_dialog'
+  .pad
+    这里放bug信息
+
+.grid_15.omega
+  .pad.clearfix.font13
+    .fleft=link_to "注册",signup_path,:class=>'reg-button hidetext'
+    .fleft.margint10.marginl10
+      %div
+        还没有账号..？
+        %span.loud 注册新的 MindPin 账号，只需30秒~
+  .clearfix
+    .grid_3.alpha
+      .pad.aligncenter
+        思维导图2.0
+    - 3.times do
+      .grid_3
+        .pad.aligncenter
+          ……
+    .grid_3.omega
+      .pad.aligncenter
+        ……
+  .pad
+    这里放最新公告

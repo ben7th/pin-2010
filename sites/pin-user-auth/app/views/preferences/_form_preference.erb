@@ -1,0 +1,59 @@
+<% mindpin_remote_form_for preference do |pre| %>
+  <div class="hide">
+    是否需要显示提示气泡
+    <%= pre.radio_button(:show_tooltip, :true) %>需要
+    <%= pre.radio_button(:show_tooltip, :false) %>不需要
+  </div>
+  <div class="hide">
+    <%= check_box_tag "clear_cookies_tooltip" %>重置提示气泡
+  </div>
+
+  <div class="marginb3em quiet">请选择一款主题</div>
+  
+  <div class="boxfix marginb5">
+    <% themes = {
+        :springtime=>"初春时节",
+        :starry=>"星空",
+        :sapphire=>"宝石蓝"
+      }
+    %>
+    <% themes.each do |key,value| %>
+      <% select_class_name = (current_user.preference.theme == key.to_s) ? "selected_theme" : "" %>
+      <%link_to "javascript:void(null)",:onclick=>"change_theme('#{key}')" do %>
+        <div class="show_theme <%= select_class_name %>" id="theme_<%=key%>">
+          <div class="marginb5"><%=value%></div>
+          <div class="theme-<%=key%>"></div>
+        </div>
+      <%end%>
+    <% end %>
+  </div>
+
+  <div class="margint10">
+    <span id="change_theme_message" class="flash-notice hide"></span>
+  </div>
+
+  <div class="hide">
+    <%=render :partial=>"preferences/parts/set_default_app"%>
+  </div>
+  <div class="hide">
+    <%=render :partial=>"preferences/parts/set_usually_used_app"%>
+  </div>
+  <div>
+  </div>
+<% end %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "/stylesheets/views/preference" %>
+<% end %>
+
+<script type="text/javascript">
+  function change_theme(theme_str){
+    new Ajax.Request('/preference',{
+      method: 'put',
+      parameters:{'preference[theme]' : theme_str}
+    });
+    toggle_theme(theme_str);
+    $$('.show_theme').each(function(theme){theme.removeClassName('selected_theme')});
+    $('theme_'+theme_str).addClassName('selected_theme');
+  }
+</script>

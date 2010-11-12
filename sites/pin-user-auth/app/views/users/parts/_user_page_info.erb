@@ -1,0 +1,39 @@
+<% last_login_time = user.last_login_time %>
+<% is_online = user.online_record.blank? ? "离线" : "在线" %>
+
+<div class="user_info marginb3em boxfix">
+  <div class="boxfix">
+
+    <div class="fleft">
+      <%=logo user,:medium%>
+    </div>
+
+    <div class="fleft marginl10">
+      <div>
+        <span class="bold"><%= user.name %></span> <span class="quiet">(<%= is_online %>)</span>
+      </div>
+      
+      <div class="boxfix margint5">
+        <div class="fleft" style="border-right:solid 1px #ddd;padding-right:10px;">
+          <div class="font16 bold"><%=link_to user.contacting.count,user_follows_path(user)%></div>
+          <div><%=link_to '关注',user_follows_path(user)%></div>
+        </div>
+        
+        <div class="fleft marginl10">
+          <div class="font16 bold"><%=link_to user.contacters.count,user_fans_path(user)%></div>
+          <div><%=link_to '被关注',user_fans_path(user)%></div>
+        </div>
+      </div>
+
+      <%if logged_in? && user !=current_user%>
+        <%=render :partial=>"contactings/parts/follow_action",:locals=>{:user=>user}%>
+      <%end%>
+
+    </div>
+  </div>
+  <div class="margint5">
+    <% if last_login_time %>
+      <span class="quiet">上次登录</span> <%=qdatetimefull last_login_time %>
+    <% end %>
+  </div>
+</div>

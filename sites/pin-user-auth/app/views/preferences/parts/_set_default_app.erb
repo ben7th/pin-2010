@@ -1,0 +1,45 @@
+<%default_app = current_user.default_app%>
+<%default_id = default_app ? default_app.id : nil%>
+
+<%if default_app%>
+  <div>
+    <span>默认应用</span>
+    <span><%=default_app.name%></span>
+  </div>
+<%else%>
+  <div>
+    <span>没有设置默认应用</span>
+  </div>
+<% end %>
+
+<div class="check_toggle">
+  <div class="check_btn">
+    <span>
+      <%= check_box_tag "set_default_app",true,false %>
+    </span>
+    <span>设置默认应用</span>
+  </div>
+  <div class="check_area hide">
+    <%current_user.apps.each do |app|%>
+      <span>
+        <%= radio_button_tag "default_app_id",app.id,app.id == default_id ? true :false %>
+      </span>
+      <span>
+        <%=app.title%>
+      </span>
+    <% end %>
+    <span>
+      <%= radio_button_tag "default_app_id","" %>
+    </span>
+    <span>
+      取消默认应用
+    </span>
+  </div>
+</div>
+<script type="text/javascript">
+  try{
+    $$('div.check_toggle').each(function(div){
+      new CheckToggleBox(div)
+    })
+  }catch(e){}
+</script>
