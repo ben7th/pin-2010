@@ -1,0 +1,49 @@
+#finder-sortby{float:right;}
+#finder-sortby span{font-size:12px !important;}
+#finder-sortby ul{list-style:none;display:inline;}
+#finder-sortby li{line-height:20px;font-size:12px;display:inline;margin:0 5px;}
+#finder-sortby li a.selected{font-weight:bold;border:none;}
+
+.paginate-bottom{margin:10px;}
+
+.private-mark{width:36px;height:36px;background-color:red;
+  position:absolute;top:0px;left:0px;
+  filter:alpha(opacity=0);
+  opacity:0;
+}
+.private-mark.p{
+  filter:alpha(opacity=30);
+  opacity:0.3;
+}
+
+.private-mark-link{width:24px;height:24px;background:url(/images/status/private.png) no-repeat;display:block;}
+.not-private-mark-link{width:24px;height:24px;background:url(/images/status/not-private.png) no-repeat;display:block;}
+
+.private-icon{width:24px;padding-top:6px;}
+
+.edit-link{width:24px;height:24px;background:url(/images/actions/edit.png) no-repeat;display:block;}
+.clone-link{width:24px;height:24px;background:url(/images/actions/clone.png) no-repeat;display:block;}
+.export-link{width:24px;height:24px;background:url(/images/actions/export.png) no-repeat;display:block;}
+.infoedit-link{width:24px;height:24px;background:url(/images/actions/infoedit.png) no-repeat;display:block;}
+.delete-link{width:24px;height:24px;background:url(/images/actions/delete.png) no-repeat;display:block;}
+.import-link{width:24px;height:24px;background:url(/images/actions/import.png) no-repeat;display:block;}
+
+li .detail-operation{display:none;}
+li.mouseover .detail-operation{display:block;}
+
+#mplist_mindmaps{overflow:hidden;}
+#mplist_mindmaps li.grid{float:left;width:198px;height:190px;margin:0 10px 10px 0;overflow:hidden;border:dotted 1px #888;}
+.mapthumb-box{width:120px;height:90px;padding:10px;}
+.mapthumb-box .mapthumb{height:90px;width:120px;}
+
+.maprankbg{width:36px;height:36px;background-image:url(/images/map-rank-bg.png);}
+.maprankbg .rank{padding-top:13px;color:#724C21;text-align:center;font-size:16px;font-weight:bold;line-height:20px;height:20px;
+  text-shadow:1px 1px 0 rgba(255, 255, 255, 0.6);
+}
+.low-value .maprankbg{background-image:url(/images/map-rank-bg-low.png);}
+.low-value .rank{color:#676767;}
+
+#mindmap-logo .logo{height:32px;width:32px;overflow:hidden;}
+
+ul.mplist li.mouseover{}
+ul.mplist li.mouseselected{}

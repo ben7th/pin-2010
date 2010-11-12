@@ -1,0 +1,3 @@
+=link_to workspace.name,workspace_path(workspace)
+=link_to_remote "编辑",:url=>edit_workspace_path(workspace),:method=>:get
+=link_to_remote "删除",:url=>workspace_path(workspace),:method=>:delete,:confirm=>"确认珊瑚？"

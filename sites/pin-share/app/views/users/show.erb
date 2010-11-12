@@ -1,0 +1,32 @@
+<div class="push_1 grid_14">
+  <% if current_user == User.find(params[:id]) %>
+    <div>
+      <%=render :partial=>"shares/form_share_only_content",:locals=>{:share=>Share.new}%>
+    </div>
+  <% end %>
+
+  <h3><%=@user.name%>的分享</h3>
+  <div>
+    <% mplist @user_shares,:for=>[@user,Share],:class=>"shares" %>
+    <%= will_paginate @user_shares,{:position=>:paper} %>
+  </div>
+</div>
+
+<div class="push_2 grid_7">
+  <!-- 个人信息 -->
+  <%=render :partial=>'users/parts/user_page_info',:locals=>{:user=>@user}%>
+</div>
+
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'views/tab_box' %>
+  <%= javascript_include_tag 'views/show_share_content' %>
+  <%= javascript_include_tag 'lightview/js/lightview' %>
+<% end %>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag "views/share"%>
+  <%= stylesheet_link_tag "/javascripts/prototip/css/prototip"%>
+  <%= stylesheet_link_tag '/javascripts/lightview/css/lightview'%>
+<% end %>
+

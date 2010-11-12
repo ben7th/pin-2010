@@ -1,0 +1,39 @@
+@import "../../misc";
+
+#simple_captcha{
+  overflow:hidden;
+  width:309px;
+  @include pie-pad(#C83914,#830300,5px);
+  padding:4px 4px 5px 4px;
+  margin-bottom:15px;
+  .simple_captcha_image{
+    padding:4px 10px;
+    height:43px;
+    width:110px;
+    float:right;
+    @include border-radius(3px);
+    border:solid 1px white;
+    background-color:#FFF;
+    margin-left:5px;
+  }
+  .simple_captcha_field{
+    padding:4px 10px;
+    height:45px;
+    float:right;
+    .simple_captcha_label{
+      color:#574B27;
+      margin-bottom:5px;
+    }
+    @include border-radius(3px);
+    background-color:#FFDC73;
+    input{
+      border:1px solid #CCA940;
+      width: 150px !important;
+      font-size: 12px;
+      padding:0;
+      background-color: white;
+      height:1.5em;
+    } 
+  }
+}
+

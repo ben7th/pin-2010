@@ -1,0 +1,4 @@
+*.log
+nbproject
+schema.rb
+.sass-cache

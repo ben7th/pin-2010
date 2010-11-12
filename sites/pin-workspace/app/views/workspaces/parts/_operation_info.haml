@@ -1,0 +1,10 @@
+.title.clearfix
+  .avatar.fleft.marginr10
+    #{avatar(user,:tiny)}
+  .fleft
+    #{user.name} 在
+    #{workspace_link(workspace)}
+    中#{operate_str(info)}
+    #{document_link(document)}
+    #{qdatetime info.date}
+  

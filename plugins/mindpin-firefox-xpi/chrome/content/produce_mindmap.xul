@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
+<window
+   id="produce_mindmap"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   title="生成导图"
+   persist="screenX screenY"
+   onload="Mindpin.PageParse.produce_mindmap()"
+   >
+
+    <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
+    <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_url.js"/>
+    <script src="chrome://mindpin/content/javascripts/mindpin_lib.js" type="application/x-javascript" />
+    <script src="chrome://mindpin/content/javascripts/login_manager.js" type="application/x-javascript" />
+    <script src="chrome://mindpin/content/javascripts/mindpin_sidebar.js" type="application/x-javascript" />
+    <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>
+    <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collector_clip.js"/>
+
+    <vbox style="height:200px;width:400px;">
+      <label id="tip" value="正在生成导图，请稍候..." style="padding:30px 0 30px 50px"/>
+      <label class="text-link" id="mindmap_list_url" hidden="true" onclick="Mindpin.PageParse.open_mindmap_list_page()" />
+      <hbox>
+        <button style="margin:50px 0 0 150px" id="close_button" label="关闭" oncommand="window.close();" align="center" hidden="true"/>
+      </hbox>
+    </vbox>
+    
+</window>

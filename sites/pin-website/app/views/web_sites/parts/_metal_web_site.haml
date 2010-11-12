@@ -1,0 +1,9 @@
+%div
+  = link_to web_site.title,"http://#{web_site.domain}",:target=>'_blank'
+%div
+  = web_site.domain
+%div{:class => "pagerank#{web_site.page_rank}"}
+
+-content_for :head do
+  = stylesheet_link_tag "/stylesheets/views/pagerank.css"
+  = stylesheet_link_tag "/stylesheets/views/feelings.css"

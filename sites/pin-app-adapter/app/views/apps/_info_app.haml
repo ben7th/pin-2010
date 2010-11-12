@@ -1,0 +1,10 @@
+.info_div
+  .meta
+    = meta(app)
+  .action
+    - if current_user.apps.include?(app)
+      - install = Installing.find_by_user_id_and_app_id(current_user.id,app.id)
+      = link_to '进入应用',"/app/#{app.name}"
+      = link_to_remote "卸载",:url=>installing_path(install),:method=>:delete,:confirm=>"确定卸载？"
+    - else
+      = link_to "进入应用",installings_path(:app_id=>app.id),:method=>:post

@@ -1,0 +1,17 @@
+.clearfix
+  .grid_15
+    .bug-info
+      =render :partial=>"bugs/parts/meta_bug",:locals=>{:bug=>@bug}
+      .bbody
+        %p.font14= @bug.content
+        %img{:src=>"#{@bug.attachment.url(:medium)}"}
+  .grid_15.overvisible
+    - if !@bug.closed && logged_in?
+      = render :partial=>"comments/form_comment",:locals=>{:markable=>@bug}
+    - mplist @bug.comments,:for=>Comment,:hide_empty_text=>true
+
+- content_for :css do
+  = stylesheet_link_tag "views/bugs/bugs"
+
+- content_for :javascripts do
+  = javascript_include_tag 'views/bugs/comment'

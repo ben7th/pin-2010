@@ -1,0 +1,10 @@
+Rails UI Lib，内部使用
+
+包含组件列表：
+
+* MpList
+
+需要依赖以下 Gem 包：
+
+* Nokogiri
+* Haml

@@ -1,0 +1,25 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: tags
+#
+#  id         :integer(4)      not null, primary key
+#  value      :string(255)     
+#  created_at :datetime        
+#  updated_at :datetime        
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+tag_1:
+  value: 香蕉
+  user: lifei
+tag_2:
+  value: 西瓜
+  user: lifei
+tag_3:
+  value: 苹果
+  user: lifei
+tag_4:
+  value: 柠檬
+  user: lifei

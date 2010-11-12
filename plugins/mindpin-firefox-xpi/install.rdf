@@ -1,0 +1,36 @@
+<?xml version="1.0"?> 
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+         xmlns:em="http://www.mozilla.org/2004/em-rdf#"> 
+
+    <Description about="urn:mozilla:install-manifest"> 
+        <!-- 指出扩展的ID。该ID应该是一个Email格式的字符串，或者是一个GUID。注意，使用Email的作用是保证该ID的唯一性，并不要求这个Email地址是有效的。必填。 --> 
+        <em:id>mindpin@mindpin.com</em:id> 
+        <!-- 指出插件的版本号。必填。 --> 
+        <em:version>1.0</em:version> 
+        <!-- 在这里的值必须是2。该标签说明该应用的Firefox扩展，而不是其他XUL应用程序。Firefox插件的代码是2，如果是Firefox主题则会是4。必填。 --> 
+        <em:type>2</em:type> 
+        
+        <!-- 安装扩展的目标应用程序以及最高版本和最低版本。必填。 --> 
+        <em:targetApplication> 
+            <Description> 
+                <!-- Firefox的ID，这个值不能改变。必填。 --> 
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> 
+  <!-- 指明能使用该扩展的Firefox最低版本。这里是指1.5。必填。 --> 
+                <em:minVersion>1.5</em:minVersion> 
+  <!-- 指明能使用该扩展的Firefox最高版本。这里是指3.0.x。结合minVersion，即是说本扩展只适用于1.5和3.0.x之间的版本。必填。 --> 
+                <em:maxVersion>3.6.*</em:maxVersion> 
+            </Description> 
+        </em:targetApplication> 
+        
+        <!-- 扩展的元数据。 --> 
+        <!-- 扩展名字。必填。 --> 
+        <em:name>mindpin</em:name> 
+        <!-- 扩展的描述。这里的描述将出现在Firefox的工具-附加组件的描述栏。选填。 --> 
+        <em:description>mindpin 插件</em:description> 
+        <!-- 扩展作者。选填。 --> 
+        <em:creator>mindpin.com</em:creator> 
+        <!-- 扩展主页的URL。选填。 --> 
+        <em:homepageURL>http://www.mindpin.com/</em:homepageURL> 
+    </Description>             
+</RDF>

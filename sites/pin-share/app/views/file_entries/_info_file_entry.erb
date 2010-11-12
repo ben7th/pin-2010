@@ -1,0 +1,33 @@
+<% checked ||=false %>
+
+<div class="<%=file_entry.used_for.blank? ? 'unused':'used'%> relative mdiv">
+  <span class="s40" class="checkbox absolute">
+    <%= check_box_tag 'resource_entry_ids[]',file_entry.resource_entry.id, checked%>
+  </span>
+  <span class="s100">
+    <%= truncate_filename(file_entry.title) %>
+  </span>
+  <span class="s80">
+    <%= file_entry.file_size_with_a_unit %>
+  </span>
+  <span class="s100">
+    <%= link_to t("page.file_entries.download"),download_file_entry_path(file_entry),:title=>t('page.file_entries.download'),
+      :class=>'attachment_32 hidetext',:style=>'border:solid 1px #eee;padding:1px;display:inline-block;-moz-box-shadow: 1px 1px 2px #333;-webkit-box-shadow: 1px 1px 2px #333;' %>
+  </span>
+  <span class="s100">
+    <%= time_str_by_distance_of_now(file_entry.created_at) %>
+  </span>
+  <span class="s100">
+    <%= used_for_link_for_entry(file_entry) %>
+  </span>
+  <span class="s100">
+    <% file_entry.resource_entry.tags_of(current_user).each do |tag| %>
+      <%= render :partial=>'tags/info_only_tag',:locals=>{:tag=>tag,:taggable=>file_entry.resource_entry} %>
+    <% end %>
+  </span>
+  <% if file_entry.is_image? %>
+    <% lightview_a :href=>"#{file_entry.content.url}",:parent=>:entries do%>
+      <%= image_tag file_entry.content.url(:mini),:class=>'logo' %>
+    <%end%>
+  <%end%>
+</div>

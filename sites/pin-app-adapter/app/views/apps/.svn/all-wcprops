@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/e_prototype/!svn/ver/3266/trunk/education_prototype/app/views/apps
+END
+_info_app.erb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/e_prototype/!svn/ver/3251/trunk/education_prototype/app/views/apps/_info_app.erb
+END
+_cell_selector.erb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/e_prototype/!svn/ver/3266/trunk/education_prototype/app/views/apps/_cell_selector.erb
+END
+_meta_app.erb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/e_prototype/!svn/ver/3246/trunk/education_prototype/app/views/apps/_meta_app.erb
+END
+index.erb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/e_prototype/!svn/ver/3247/trunk/education_prototype/app/views/apps/index.erb
+END

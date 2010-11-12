@@ -1,0 +1,13 @@
+<div id="shareable_<%=shareable.class.to_s%>_<%=shareable.id%>_shared_count" class="shared_count">
+  <%=shareable.shared_count%>
+</div>
+
+<div class="share_condition">
+  <% if logged_in? %>
+    <span id="shareable_<%=shareable.class.to_s%>_<%=shareable.id%>_share_button">
+      <%= link_to_remote "分享",
+        :url=>polymorphic_url([:new,shareable,:share]),
+        :method=>:get %>
+    </span>
+  <% end %>
+</div>

@@ -1,0 +1,93 @@
+.open_status{
+  background:url(ico.png) no-repeat 0px 5px;
+  height:24px;width:24px;display:block;
+}
+
+.close_status{
+  background:url(ico.png) no-repeat -24px 5px;
+  height:24px;width:24px;display:block;
+}
+
+.choose_close_button{
+  background:url(highlight-close.png) no-repeat 0px 0px;
+  height:16px;width:16px;display:block;
+}
+
+.m_s_tps{
+  padding-left:0px
+}
+#mindpin_tab_tip_box{
+  padding-left:50px;
+  padding-top:200px;
+}
+
+#mindpin_tab_list{
+  margin-top:10px;
+}
+
+#mindpin_tab_list tab[selected="true"]{
+  -moz-appearance: none;
+  margin-right:2px;
+  height:20px;
+  background-color:#5A95F6;
+  border-width:0px !important;
+  border-style:solid !important;
+  border-color:#2976F8 !important;
+  -moz-border-radius:3px 3px 0 0;
+  -moz-box-shadow:black 0px 0px 1px !important;
+}
+
+#mindpin_tab_list tabpanels{
+  padding:0;
+  border:none;
+}
+
+.mindpin_plugin{
+  background-color:#EAF4F7;
+  button{
+    -moz-appearance: none;
+    -moz-border-top-colors: #71AFC4 #FFFFFF !important;
+    -moz-border-left-colors: #71AFC4 #FFFFFF !important;
+    -moz-border-right-colors: #71AFC4 #FFFFFF !important;
+    -moz-border-bottom-colors: #71AFC4 #FFFFFF !important;
+    border:solid 2px;
+    background-color: #E5F4F8;
+    -moz-border-radius:3px;
+    font-weight:bold;
+    text-shadow:1px 1px 0 #FFFFFF;
+    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.3);
+    height: 24px;
+    line-height: 24px;
+    
+    &:hover{
+      background:-moz-linear-gradient(-90deg, #599BDC, #3072B3) repeat scroll 0 0 transparent;
+      color:#fff;
+      text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
+      -moz-border-top-colors: #71AFC4 #518CC6 !important;
+      -moz-border-left-colors: #71AFC4 #518CC6 !important;
+      -moz-border-right-colors: #71AFC4 #518CC6 !important;
+      -moz-border-bottom-colors: #71AFC4 #518CC6 !important;
+    };
+    
+    &:active{
+      background:-moz-linear-gradient(-90deg, #3072B3, #599BDC) repeat scroll 0 0 transparent;
+      color:#fff;
+      text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
+      -moz-border-top-colors: #71AFC4 #518CC6 !important;
+      -moz-border-left-colors: #71AFC4 #518CC6 !important;
+      -moz-border-right-colors: #71AFC4 #518CC6 !important;
+      -moz-border-bottom-colors: #71AFC4 #518CC6 !important;
+      -moz-box-shadow:0 0px 0px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  #mindpin_tab_tip_box{
+    #mindpin_tab_tip_box{
+      border:solid 1px;
+    }
+    #mindpin_tab_tip_label{
+      font-weight:bold;
+      border:solid 1px;
+    }
+  }
+}

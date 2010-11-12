@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
+<window
+   id="dlg-login-window"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   xmlns:html="http://www.w3.org/1999/xhtml"
+   title="打包发送"
+   width="640px"
+   height="540px"
+   persist="screenX screenY" onload="Mindpin.PackageSendWindow.init();" >
+
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_url.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_lib.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/login_manager.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_text_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/message.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/package_send_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collector_clip.js"/>
+
+  <vbox>
+    <vbox>
+      <label value="以下内容将打包发送到工作空间"/>
+    </vbox>
+
+    <vbox id="package_content" style="overflow:scroll;height:280px;">
+    </vbox>
+
+    <vbox>
+      <hbox style="padding:5px 0px 0px 10px" flex="1">
+        <label id="send_tip" value="评注" />
+        <image id="send_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
+      </hbox>
+
+      <textbox id="send_content" multiline="true" rows="5" cols="70" flex="5"/>
+    </vbox>
+
+    <hbox id="create_workspace_tip" style="-moz-box-align:center;margin:10px 0;visibility:hidden;" >
+      <label value="您还没有工作空间"/>
+      <label class="text-link" value="点击创建" onclick="Mindpin.CollectionTextWindow.open_new_workspace_page();" />
+    </hbox>
+
+    <hbox align="center">
+      <label value="选择工作空间"/>
+
+      <menulist id="send_workspace" oncommand="Mindpin.CollectionTextWindow.select_workspace();">
+        <menupopup>
+        </menupopup>
+      </menulist>
+
+      <button id="send_button" label="发送" disabled="true" onclick="Mindpin.PackageSendWindow.send();"/>
+    </hbox>
+  </vbox>
+
+</window>

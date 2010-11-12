@@ -1,0 +1,5 @@
+<% form_tag [@introductable,@introduction],:method=>:put do%>
+  <%= text_area_tag :content,@content %>
+  <%= hidden_field_tag :section,params[:section] %>
+  <%= submit_tag "提交" %>
+<% end %>

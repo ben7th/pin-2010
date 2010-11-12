@@ -1,0 +1,19 @@
+div.handled {height:48px;width:48px;background:url(/images/piece/bugs.png) no-repeat 0px 0px;}
+div.closed {height:48px;width:48px;background:url(/images/piece/bugs.png) no-repeat -49px 0px;}
+
+div.ua_chrome_icon_48 {height:48px;width:48px;background:url() no-repeat}
+div.ua_ie_icon_48{height:48px;width:48px;background:url() no-repeat}
+div.ua_firefox_icon_48{height:48px;width:48px;background:url() no-repeat}
+div.ua_safari_icon_48{height:48px;width:48px;background:url() no-repeat}
+div.ua_unknown_48{height:48px;width:48px;background:url() no-repeat}
+
+.bug-info{border:1px solid #CACACA;margin:5px 0;}
+.bug-info .meta{background-image:url(/images/piece/metabar.gif);
+     height:33px;line-height:33px;overflow:hidden;padding:0 6px;border-bottom:1px solid #CCCCCC;}
+.bug-info .username{color:#222 !important;}
+.bug-info .date{color:#777 !important;}
+
+.bug-info .tiny{height:20px;width:20px;border:1px solid #C8C8C8;margin-top:5px;}
+
+.bug-info .bbody{background-color:#FBFBFB;padding:0 6px;overflow:hidden;}
+.bug-info .bbody p{margin:12px 0 !important;}

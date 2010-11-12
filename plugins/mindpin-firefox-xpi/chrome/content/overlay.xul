@@ -1,0 +1,36 @@
+<?xml version="1.0"?> 
+<?xml-stylesheet href="chrome://mindpin/skin/mindpin_sidebar.css" type="text/css"?>
+<overlay id="mindpin"    
+                 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" > 
+                 
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_url.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/overlay.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_lib.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/login_manager.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_text_window.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_image_window.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/message.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collector_clip.js"/>
+
+
+//toolbar
+ <menupopup id="viewSidebarMenu">
+    <menuitem observes="mindpin_siderbar"  />
+  </menupopup>
+
+  <broadcasterset id="mainBroadcasterSet"> 
+    <broadcaster id="mindpin_siderbar" 
+                 label="mindpin 侧边栏"
+    	           tooltiptext="查看 mindpin.com 的帮助信息"
+                 autoCheck="false"
+                 type="checkbox"
+                 group="sidebar"
+                 sidebarurl="chrome://mindpin/content/mindpin_sidebar.xul"
+                 sidebartitle="mindpin"
+                 oncommand="toggleSidebar('mindpin_siderbar');" />
+  </broadcasterset>
+
+</overlay>

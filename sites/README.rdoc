@@ -1,0 +1,29 @@
+# ben7th/pin-user-auth
+用户认证的web服务。
+
+# ben7th/pin-discuss
+基于git版本库的讨论。
+
+# ben7th/pin-workspace
+工作空间。
+
+# ben7th/pin-website
+网站资料库。
+
+# ben7th/pin-share
+个人用户共享。（类似微博）
+
+# ben7th/pin-notes
+note，类似grit。
+
+# ben7th/pin-v4-web-ui
+存放css，js
+
+# ben7th/pin-app-adapter
+app代理，用于连接应用，如思维导图
+
+# ben7th/pin-config-manager
+基本配置管理
+
+# ben7th/pin-bugs
+bug列表

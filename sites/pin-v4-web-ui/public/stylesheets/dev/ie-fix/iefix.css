@@ -1,0 +1,56 @@
+* html legend { margin:0px -8px 16px 0; padding:0; }
+sup { vertical-align:text-top; }
+sub { vertical-align:text-bottom; }
+html>body p code { *white-space: normal; }
+hr  { margin:-8px auto 11px; }
+img { -ms-interpolation-mode:bicubic; }
+fieldset { padding-top:0; }
+
+/************/
+
+a{behavior:url("/stylesheets/framework/link_ie.htc");}
+
+body{font-family:arial,宋体,sans-serif;}
+
+.start{line-height:1.231em;}
+
+.nav .site-logo a{
+  background-image: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/mindpin.png',sizingMethod='scale');
+}
+.nav .start{float:right;margin:11px 10px 0 0;overflow:hidden;}
+    .nav .start span.line{width:1px;height:1em;line-height:1em;margin:0.1em 10px 0.4em;overflow:hidden;}
+
+.page-container{zoom:1;}
+.page-content{zoom:1;}
+
+.page-footer{zoom:1;}
+.page-footer .sitename{float:left;}
+.page-footer .beian{float:left;margin-left:3px;}
+
+div.page-selector{zoom:1;}
+.PL{zoom:1;}
+
+#PL-panel {_margin-right:-3px;} /*ie6*/
+#PL-paper {_margin-left:0px;} /*ie6*/
+
+div.cell{zoom:1;}
+div.cell .cell-body{_height:400px;overflow:hidden;_overflow:visible;zoom:1;}
+div.cell .cell-body .cc{zoom:1;}
+
+ul.mplist li.mli{zoom:1;}
+
+form{zoom:1}
+
+
+.tab-control{zoom:1;}
+.tab-control .tab-control-li{zoom:1;*display:inline;margin:0 5px 0 0;}
+.tab-control .tab-control-li a{zoom:1;*display:inline;}
+
+.cell-body{zoom:1;}
+
+.boxfix{zoom:1;}
+
+.flash-error,.flash-notice,.flash-success{zoom:1;}
+
+.p{zoom:1;}

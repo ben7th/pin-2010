@@ -1,0 +1,13 @@
+.boxfix
+  .fleft
+    %div
+      = logo app
+  %div{:style => "margin-left:80px;"}
+    %h2
+      = app.title
+    .quiet
+      由 #{app.developer || '未知'} 开发
+    %div
+      = app.subject || '暂无简介'
+    %div
+      总用户 #{app.installings.count} 人

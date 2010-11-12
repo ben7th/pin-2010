@@ -1,0 +1,13 @@
+<% target_user = contacting.contact -%>
+<% viewing_user = contacting.host -%>
+
+<% html = capture do %>
+  <%if logged_in?%>
+    <%=contact_each_other_icon(current_user,target_user)%>
+    <%=cancel_follow_link(target_user)%>
+    <%=setting_contacting_show_share(contacting)%>
+  <% end %>
+<% end %>
+
+<%=render :partial=>'contactings/parts/infodiv',
+  :locals=>{:viewing_user=>viewing_user,:user=>target_user,:html=>html}%>

@@ -1,0 +1,22 @@
+cn:
+  activerecord:
+    attributes:
+      app:
+        name: 应用标示
+        title: 名称
+        callback_url: 地址
+        port: 端口
+        logo: logo
+        developer: 开发者
+        subject: 应用说明
+    errors:
+      models:
+        app:
+          attributes:
+            name:
+              blank: 标示不能为空
+              taken: 标示已经存在，请尝试其他
+            title:
+              blank: 标题不能为空
+            callback_url:
+              blank: 地址不能为空

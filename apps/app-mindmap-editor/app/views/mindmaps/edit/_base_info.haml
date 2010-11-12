@@ -1,0 +1,25 @@
+#mindmap-info.clearfix
+  .fleft.marginr5
+    =logoss @mindmap
+  .fleft
+    %h4.title=escape_title(@mindmap,10)
+    %div
+      =link_to "<mp:user-name userid='#{@mindmap.user_id}'/>",[@mindmap.user,:mindmaps]
+      %span.quiet 创建于
+      =created_at @mindmap
+
+- if logged_in? && @mindmap.user_id == current_user.id
+  .font12.normal
+    %mp:show-box{:box_id=>"paramsedit_mindmap_#{@mindmap.id}"}
+      [修改]
+    %mp:box{:id=>"paramsedit_mindmap_#{@mindmap.id}"}
+      %mp:box-title 修改#{escape_title(@mindmap)}
+      %mp:box-content
+        = render :partial=>"/mindmaps/form/form",:locals=>{:mindmap=>@mindmap,:new=>false,:button_name=>"确认以上修改",:form_id=>"edit_mindmap_form_#{@mindmap.id}"}
+      %mp:box-button{:onsuccess=>"update_mindmap_property", :value=>"保存修改", :close_box=>'true', :form_id=>"edit_mindmap_form_#{@mindmap.id}",:ajax_list_id=>"mplist_mindmaps",:ajax=>'iframe'}
+
+:javascript
+  function update_mindmap_property(json){
+    $$("#mindmap-info h4.title").each(function(title){title.update(json.title)});
+    $$("#mindmap-info img.logo").each(function(img){img.src=(json.logo_url)});
+  }

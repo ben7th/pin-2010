@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/e_prototype/!svn/ver/4155/trunk/education_prototype/app/views/app_render
+END
+pack_full.erb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/e_prototype/!svn/ver/3730/trunk/education_prototype/app/views/app_render/pack_full.erb
+END
+pack.haml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/e_prototype/!svn/ver/4123/trunk/education_prototype/app/views/app_render/pack.haml
+END
+pack_tools.haml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/e_prototype/!svn/ver/4155/trunk/education_prototype/app/views/app_render/pack_tools.haml
+END

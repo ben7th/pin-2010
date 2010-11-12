@@ -1,0 +1,32 @@
+mkdir build
+cp -r chrome build
+cp install.rdf build
+cp chrome.manifest build
+
+cd build
+
+zip -r mindpin-firefox-xpi-development.xpi chrome chrome.manifest install.rdf
+
+cd ..
+
+mv build/mindpin-firefox-xpi-development.xpi mindpin-firefox-xpi-development.xpi
+
+rm -rf build
+
+mkdir build
+cp -r chrome build
+cp install.rdf build
+cp chrome.manifest build
+
+cp production_mindpin_url.js build/chrome/content/javascripts/mindpin_url.js
+
+cd build
+
+zip -r mindpin-firefox-xpi-production.xpi chrome chrome.manifest install.rdf
+
+cd ..
+
+mv build/mindpin-firefox-xpi-production.xpi mindpin-firefox-xpi-production.xpi
+
+rm -rf build
+

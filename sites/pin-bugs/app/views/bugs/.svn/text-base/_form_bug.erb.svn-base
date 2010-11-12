@@ -1,0 +1,29 @@
+<% mindpin_form_for bug,:html=>{:class=>'common_form',:multipart=>true,:target=>"upload_frame"} do |f|%>
+  <%#*<div>%>
+  <%#*<span>%>
+  <%#=f.radio_button :kind,Bug::ERROR,:checked=>true %>
+  <%#*</span>%>
+  <%#*<span>程序错误（BUG）</span>%>
+  <%#*</div>%>
+  <%#*<div>%>
+  <%#*<span>%>
+  <%#=f.radio_button :kind,Bug::PROPOSITION %>
+  <%#*</span>%>
+  <%#*<span>功能建议</span>%>
+  <%#*</div>%>
+  <span class="font14">请将您的意见写在这里</span>
+  <%=f.text_area :content,:show_label=>false%>
+  <%=f.file_field :attachment%>
+  <% if logged_in? %>
+    <span>放入分享</span><%=check_box_tag 'share','1',true%>
+  <% end %>
+  <% if !logged_in? %>
+    <%= show_simple_captcha(:label=>"请输入验证码",:object=>"bug") %>
+  <% end %>
+  <span style="color:#DF0101">
+    <% if bug.errors  %>
+      <%= bug.errors[:base] %>
+    <% end %>
+  </span>
+  <%=f.submit "写好了，确定"%>
+<%end%>

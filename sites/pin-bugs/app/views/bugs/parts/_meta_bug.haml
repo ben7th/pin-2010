@@ -1,0 +1,15 @@
+.meta.clearfix
+  .fleft.marginr5
+    =bug_commiter_logo(bug)
+  .fleft.marginr5
+    %b= bug_commiter(bug)
+  .browser.fleft.shadow.marginr5
+    (#{bug.browser_type})
+
+  .fright
+    .bug_status.fleft.marginr5
+      =bug_status_icon(bug)
+    .fleft.font12
+      =time_str_by_distance_of_now(bug.created_at)
+
+

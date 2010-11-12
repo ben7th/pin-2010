@@ -1,0 +1,15 @@
+<%contacting = current_user.contactings.find_by_contact_id(user)%>
+<div id="follow_<%=user.id%>_action">
+  <% follow = current_user.follow?(user)%>
+  <% if follow %>
+    <div class="followed">
+      <span>已关注</span>
+      <%=link_to_remote "取消",:url=>contacting,:method=>:delete%>
+    </div>
+  <%else%>
+    <div class="add_follow">
+      <%=link_to_remote "+关注",:url=>"/contactings?contact_id=#{user.id}",:method=>:post,
+        :html=>{:class=>"follow"}%>
+    </div>
+  <%end%>
+</div>

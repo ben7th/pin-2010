@@ -1,0 +1,9 @@
+<div class="margint5">
+  <% if bookmark_entry.is_video_url? %>
+    <%=render :partial=>"bookmark_entries/meta_video",:locals=>{:bookmark_entry=>bookmark_entry}%>
+  <% end %>
+
+  <%if bookmark_entry.is_audio_url?%>
+    <%=render :partial=>"bookmark_entries/parts/audio",:locals=>{:bookmark_entry=>bookmark_entry}%>
+  <%end%>
+</div>

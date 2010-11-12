@@ -1,0 +1,14 @@
+<%count = feelable.count_of_feel_good%>
+<%title = "我喜欢"%>
+<%title = "#{title}(#{count})" if count != 0%>
+
+<% if feelable.feel_of(current_user) != Feeling::GOOD %>
+  <%share_id_feeling = "#{feelable.class.to_s}_#{feelable.id}_feeling"%>
+  <span id="<%=share_id_feeling%>">
+    <%= link_to_remote title,
+      :url=>polymorphic_url([feelable,:feeling],:evaluation=>Feeling::GOOD),
+      :method=>:put%>
+  </span>
+<%else%>
+  <span class="quiet"><%=title%></span>
+<%end%>

@@ -1,0 +1,12 @@
+-form_tag add_members_workspace_memberships_path(@workspace), :method => :post do
+  .p
+    %div 邮件列表
+  =text_area_tag 'emails'
+  .p
+    %div 欢迎邮件正文
+  =text_area_tag 'message'
+  .p
+  =submit_tag '确认'
+
+
+

@@ -1,0 +1,120 @@
+#facebox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: left; }
+  #facebox .b {
+    background: url(/images/plugins/facebox/b.png); }
+  #facebox .tl {
+    background: url(/images/plugins/facebox/tl.png); }
+  #facebox .tr {
+    background: url(/images/plugins/facebox/tr.png); }
+  #facebox .bl {
+    background: url(/images/plugins/facebox/bl.png); }
+  #facebox .br {
+    background: url(/images/plugins/facebox/br.png); }
+  #facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
+    height: 10px;
+    width: 10px;
+    overflow: hidden;
+    padding: 0; }
+  #facebox .popup {
+    position: relative; }
+  #facebox table {
+    border-collapse: collapse; }
+    #facebox table td {
+      border-bottom: 0;
+      padding: 0; }
+  #facebox .body {
+    padding: 10px;
+    background: #fff;
+    width: 370px; }
+  #facebox .loading {
+    text-align: center;
+    margin: auto;
+    width: 32px;
+    height: 32px;
+    background: url(/images/plugins/facebox/loading.gif); }
+  #facebox .image {
+    text-align: center; }
+  #facebox img {
+    border: 0;
+    margin: 0; }
+  #facebox .footer {
+    border-top: 1px solid #DDDDDD;
+    padding-top: 5px;
+    margin-top: 10px;
+    text-align: right;
+    overflow: hidden; }
+    #facebox .footer .close {
+      float: right;
+      display: block;
+      width: 66px;
+      height: 22px;
+      background: url(/images/plugins/facebox/closelabel.gif); }
+
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%; }
+
+.facebox_hide {
+  z-index: -100; }
+
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 99; }
+
+* html #facebox_overlay {
+  /* ie6 hack */
+  position: absolute;
+  height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px'); }
+
+/*mindpin*/
+#facebox .body {
+  color: #222; }
+#facebox h3.f_box {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: -moz-linear-gradient(-90deg, #4086ff, #2b5aab);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4086ff), to(#2b5aab));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4086ff',endColorstr='#2b5aab');
+  color: white;
+  text-shadow: 1px 1px 0 #333;
+  letter-spacing: 4px;
+  margin: -7px -7px 10px;
+  text-align: center; }
+#facebox form .text, #facebox form textarea {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #eee; }
+#facebox form .active .text, #facebox form .active textarea {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: white; }
+#facebox form .fieldWithErrors .text, #facebox form .fieldWithErrors textarea {
+  background-color: #FEF1D9;
+  border-color: #FCCC9C; }
+#facebox form .fielderror {
+  color: red; }
+#facebox .flash-error {
+  background: -moz-linear-gradient(-90deg, #df0024, #960014);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#df0024), to(#960014));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df0024',endColorstr='#960014');
+  text-shadow: 1px 1px 0 #333;
+  margin-bottom: 15px; }
+  #facebox .flash-error span {
+    background-image: url(/images/piece/notice-error-icon.png);
+    background-position: 0 4px;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    line-height: 32px;
+    height: 32px;
+    padding-left: 27px;
+    display: block; }

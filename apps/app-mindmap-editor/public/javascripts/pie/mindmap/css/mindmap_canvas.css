@@ -1,0 +1,47 @@
+.root,.node{font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;cursor:pointer;}
+
+.root{font-size:14px;line-height:21px;
+  border:2px solid #77AAFF;padding:3px 5px;color:#333;background-color:#E9F0FF;
+  -moz-border-radius:5px;-webkit-border-radius:5px;}
+
+.root_over{background-color:#d2e0ff;}
+.root_selected{border-color:#113B8F;}
+
+.node{font-size:12px;color:#333;line-height:16px;padding:2px 3px 3px 3px;margin:3px 0;
+  -moz-border-radius:4px;-webkit-border-radius:4px;}
+.node_over{border:solid 3px #ffed80;padding:2px 0;margin:0;}
+.node_selected{border:solid 3px #113B8F;padding:2px 0;margin:0;}
+
+.nodeimg{}
+.nodeimg img{margin:0 3px;}
+.nodebody{}
+.nodetitle{margin:0 3px;display:inline-block;*display:inline;zoom:1;}
+.noteicon{width:10px;height:9px;background-image:url("../img/status_icons.gif");background-repeat:no-repeat;background-position:30% 0px;vertical-align:top;display:inline-block;*display:inline;zoom:1;}
+
+/*拖拽提示*/
+.root.dropon{border:solid 2px #F56F00 !important;padding:3px 5px;margin:0;}
+.node.dropon{border:solid 3px #F56F00 !important;padding:2px 0;margin:0;}
+
+/*折叠展开控制图标*/
+.foldhandler_plus{width:11px;height:11px;padding:0;font-size:0;line-height:0px;background-image:url("../img/icon_plus.gif");}
+.foldhandler_minus{width:11px;height:11px;padding:0;font-size:0;line-height:0px;background-image:url("../img/icon_minus.gif");}
+.foldhandler_over{background-position:0 -30px;}
+.foldhandler_down{background-position:0 -60px;}
+
+/*节点标题编辑*/
+.editorbox{border:solid 3px #7f7ff7;background-color:white;position:absolute;z-index:103;overflow:hidden;
+  -moz-border-radius:4px;-webkit-border-radius:4px;}
+
+.title_textarea,.title_textarea_root{font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;border:none !important;color:#333;}
+.title_textarea{font-size:12px;line-height:16px;padding:2px 2px;*padding:1px 2px;}
+.title_textarea_root{font-size:14px;line-height:21px;padding:2px 3px;*padding:1px 3px;}
+
+/*图像选择器*/
+#imgurl,#imgwidth,#imgheight,#imgborder{font-size:12px;font-family:"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;padding-left:3px;border:solid 1px #999;}
+#imgurl{width:300px;}
+#imgwidth,#imgheight,#imgborder{width:60px;}
+#imgselector .label{display:block;width:100px;font-weight:bolder;}
+#imgselector .btn{font-family:"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;}
+#imgselector .ok{float:left;padding:0;margin:10px 0;width:65px;height:65px;}
+#imgpreview{border:solid 1px #ccc;width:290px;height:220px;padding:5px;overflow:auto;}
+#imgpreview img{border:solid 1px;}

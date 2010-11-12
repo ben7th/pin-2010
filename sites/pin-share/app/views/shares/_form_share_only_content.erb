@@ -1,0 +1,208 @@
+<div id="new_share">
+  <div style="position:relative;">
+    <textarea rows="20" name="share[content]" id="share_content" cols="40" class="marginb10"></textarea>
+    <div id="null_content_tip" class="hide"></div>
+  </div>
+  <div class="boxfix">
+    <div class="fleft lineheight16">
+
+      <div class="fleft marginr10 relative boxfix">
+        <span id="share_img" class="image-icon fleft marginr2"></span>
+        <a href="javascript:void(0)" class="word_link_for_share">图片</a>
+        <span class="hide when_file_is_uploading">图片上传中，请稍候...</span>
+        <span class="upload_file_name"></span>
+        <a href="#" id="delete_file_button" class="hide">X</a>
+        <% form_tag "/shares/img",:method=>"post",:multipart=>true,:target=>"upload_frame",:id=>"file_upload_form" do %>
+          <%= file_field_tag "entry[resource_meta][data][content]",:onchange=>"share_file_upload()",:class=>"hide_file_input_field" %>
+        <% end %>
+      </div>
+      
+      <div class="fleft marginr10">
+        <span class="video-icon fleft marginr2"></span>
+        <span id="share_video" class="share_video fleft">
+          <%=link_to '视频','javascript:void(0)',:onclick=>"show_share_video_form_div();"%>
+        </span>
+      </div>
+
+      <div class="fleft marginr10">
+        <span class="audio-icon fleft marginr2"></span>
+        <span id="share_audio" class="share_audio fleft">
+          <%=link_to '音乐','javascript:void(0)',:onclick=>"show_share_audio_form_div();"%>
+        </span>
+      </div>
+    </div>
+
+    <div class="fleft marginl10">
+      <span class="ui-button-span">
+        <button class="ui-button" onclick="submit_share_form();return false;">发表</button>
+      </span>
+    </div>
+  </div>
+  <div class="share_img_input">
+
+  </div>
+</div>
+
+<div id="share_video_form_div" class="hide">
+  <div>
+    <% form_remote_tag :url=>video_shares_path,:method=>:post,:html=>{:id=>"video_form"} do%>
+      <div>请输入优酷的页面地址</div>
+      <%=text_field_tag "entry[resource_meta][data][url]" %>
+      <%=submit_tag "提交"%>
+      <div class="error_tip hide">
+        <div class="error">该地址不是有效的视频地址</div>
+        <a href="#" onclick="share_url(this);return false;">作为普通的链接发布</a>
+      </div>
+    <%end%>
+  </div>
+</div>
+
+<div id="share_audio_form_div" class="hide">
+  <div>
+    <% form_remote_tag :url=>audio_shares_path,:method=>:post,:html=>{:id=>"audio_form"} do%>
+      <div>请输入音乐的网络地址</div>
+      <%=text_field_tag "entry[resource_meta][data][url]" %>
+      <%= submit_to_remote 'add', '增加', :url =>audio_valid_shares_path%>
+      <div class="error_tip hide">
+        <div class="error">该地址不是有效的音乐地址</div>
+        <a href="#" onclick="share_url(this);return false;">作为普通的链接发布</a>
+      </div>
+      <div class="audio_info hide">
+        <div>为了方便大家听歌，请花一点点时间完善歌曲资料...</div>
+        <div>音乐名称</div>
+        <%=text_field_tag "entry[resource_meta][data][title]" %>
+        <%=submit_tag "確定"%>
+      </div>
+    <%end%>
+  </div>
+</div>
+<%content_for :javascripts do%>
+  <%= javascript_include_tag 'prototip/js/prototip/prototip' %>
+  <script type="text/javascript">
+    $("delete_file_button").observe("click",function(evt){
+      init_img_relative_dom();
+      evt.stop();
+    });
+    // 图片上传成功或取消后，初始化图片相关 dom
+    function init_img_relative_dom(){
+      var share_form_div = $("new_share")
+      // 去除 input[name=entry_id]
+      share_form_div.down(".share_img_input").update("");
+      // 去除 文件名
+      share_form_div.down(".upload_file_name").update("");
+      share_form_div.down(".upload_file_name").addClassName("hide")
+      // 去除 X 按钮
+      $('delete_file_button').addClassName("hide")
+      // 显示图片选择框和按钮
+      $('entry_resource_meta_data_content').removeClassName('hide');
+      // 显示上传图片链接
+      share_form_div.down('a.word_link_for_share').removeClassName('hide');
+      // 清空图片的显示区
+      $('share_img').tip_instant.tip.update("")
+      $('share_img').prototip.hide();
+    }
+
+    // 图片上传表单的处理
+    // 提交图片上传的表单，并且显示"图片正在上传中"这些字样
+    function share_file_upload(){
+      var form = $$('form#file_upload_form')[0];
+      var word_link = form.previous('a.word_link_for_share')
+      var tip = form.previous('span.when_file_is_uploading')
+      form.submit();
+      word_link.toggleClassName('hide')
+      tip.toggleClassName('hide')
+    }
+
+    // 发表内容的表单
+    function submit_share_form(){
+      var textarea = $('share_content').value;
+      var kind = '<%= Share::TALK %>';
+      // 检测内容时候为空，如果为空，则不能发表
+      if(textarea.blank()){
+        Effect.Pulsate('null_content_tip',{
+          beforeStart : function(o){
+            o.element.removeClassName('hide')
+          },
+          afterFinish : function(o){
+            o.element.addClassName('hide')
+          }
+        });
+        return
+      }
+      var params = {"share[content]":textarea,"share[kind]":kind}
+      // 检测是否有上传的entry，如果有改变参数
+      var entry_id_input = $$('input#entry_id')[0]
+      if(entry_id_input){
+        var entry_id = $$('input#entry_id')[0].value;
+        kind = '<%= Share::SHARE %>';
+        params = {"share[content]":textarea,"share[kind]":kind,"entry_id":entry_id};
+      }
+      // 发起请求，发表内容
+      new Ajax.Request('/shares',{
+        method:'post',
+        parameters:params,
+        onSuccess:function(){
+          $('share_content').value = "";
+          init_img_relative_dom();
+        }
+      });
+    }
+    // 显示分享视频的 表单
+    function show_share_video_form_div(){
+      $('share_audio').prototip.hide();
+      $('share_video').prototip.show();
+      var form_div = $('share_video').tip_instant.tip.down("form")
+      form_div.removeClassName('hide')
+      form_div.down('.error_tip').addClassName('hide')
+      form_div.down('input[type=text]').value = ""
+    }
+    // 显示分享音乐的 表单
+    function show_share_audio_form_div(){
+      $('share_video').prototip.hide();
+      $('share_audio').prototip.show();
+      var form_div = $('share_audio').tip_instant.tip.down("form")
+      form_div.down('input[type=text]').value = ""
+      form_div.down('.error_tip').addClassName('hide')
+      form_div.down('.audio_info').addClassName('hide')
+    }
+    // 作为普通地址分享
+    function share_url(a){
+      var new_share_div = $('new_share')
+      var url = a.up('form').down('input[type=text]').value
+      var text_area = new_share_div.down('textarea#share_content')
+      text_area.value = text_area.value + " " + url
+      $('share_video').prototip.hide();
+      $('share_audio').prototip.hide();
+    }
+
+
+    $('share_audio').tip_instant = new Tip($('share_audio'),$('share_audio_form_div').innerHTML, {
+      closeButton: true,
+      showOn: 'click',
+      hideOn: { element: 'closeButton', event: 'click'},
+      stem: 'topLeft',
+      hook: { target: 'bottomRight', tip: 'toLeft' },
+      offset: { x: 0, y: 5 },
+      width: 'auto'
+    });
+
+    $('share_video').tip_instant = new Tip($('share_video'),$('share_video_form_div').innerHTML, {
+      closeButton: true,
+      showOn: 'click',
+      hideOn: { element: 'closeButton', event: 'click'},
+      stem: 'topLeft',
+      hook: { target: 'bottomRight', tip: 'toLeft' },
+      offset: { x: 0, y: 5 },
+      width: 'auto'
+    });
+
+    $('share_img').tip_instant = new Tip($('share_img'),"<div></div>", {
+      closeButton: true,
+      showOn: 'change',
+      hideOn: { element: 'closeButton', event: 'click'},
+      stem: 'topLeft',
+      hook: { target: 'bottomRight', tip: 'toLeft' },
+      offset: { x: 10, y: 5 }
+    });
+  </script>
+<%end%>

@@ -1,0 +1,4 @@
+<% content_cell :title=>"" do %>
+  <%= selector_link_to "全部",apps_path %>
+  <%= selector_link_to "已安装",installed_apps_path %>
+<% end %>

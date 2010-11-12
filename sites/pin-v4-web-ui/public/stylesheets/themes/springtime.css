@@ -1,0 +1,65 @@
+body {background-color:#F5F7EA;background-image:url(/images/themes/springtime/bg.jpg);background-repeat:repeat-x;}
+
+.nav{background:#8F9E27;color:#fff;}
+  .nav a{color:#fff;}
+  .nav a:hover{color:#fff;}
+  .nav .start span.line{background-color: #efefef;}
+
+.page-container{color:#1E1F1E;}
+.page-footer{background-color:#A1B259;color:#EFF2E5;}
+.page-footer a.bug-rep{color:#F8F400;}
+
+div.page-selector.url-active{background-color:#C1C99A;}
+  div.page-selector.url-active a{color:#EFF2E5;}
+
+a{color:#6E7746;}
+a:hover {color:#B8C271;}
+.date{color:#6D8FA2;}
+
+/*facebox*/
+#facebox h3.f_box{background-color:#FFEE94 !important;color:#444444 !important;}
+
+/*cell*/
+div#PL-panel{}
+div#PL-panel h3.cell-title{display:none;}
+
+div#PL-paper{background-color:#C1C99A;}
+div#PL-paper h3.cell-title{background: url("/images/themes/starry/selector_bg.png") repeat scroll 0 0 transparent;}
+
+div#PL-paper .cell-body{background-color:#F7F9FB;}
+.page-bg{background-color:#F7F9FB;}
+
+.cell-head{background-color:#F0F2E5;}
+
+.cell-body a.rclink,
+.cell-body input.rcbtn{
+  color:white !important;background-color:#404F62;
+  font-size:12px;cursor:pointer;border:none;
+  text-align:center;margin-right:1px;padding:1px 5px;text-decoration:none;
+  -moz-border-radius:3px;-webkit-border-radius:3px;}
+
+.cell-body a.rclink:hover,
+.cell-body input.rcbtn:hover{
+  text-decoration: underline;background-color:#404F62}
+
+ul.mplist li div.info_div{border-left:solid 20px #1C3D52;}
+
+.ui-button-span{
+  border-color:#B8B8B8 #B8B8B8 #BEBEBE;
+  background-color:#EFEFEF;color:white;
+  background-image:url(/images/piece/button-bg.png);
+  background-position: 0 -144px;
+  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+  .ui-button-span .ui-button{color:#1E1F1E;}
+  .ui-button-span .ui-button.disabled{color:#ccc}
+
+input.text, input.title, textarea, select {border-color: #999;}
+div.message_participants_inputer  {border-color: #999 !important;background-color:white;}
+
+ul.mplist li div.info_div.unread{background-color:#122835;}
+ul.mplist li div.info_div .has_draft{color:#FF7713}
+
+ul.mplist li div.info_div{border-color:#E8ECE3}
+
+.quote_content {background:#F6F6F6;border:solid 1px #E5E5E5}

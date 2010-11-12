@@ -1,0 +1,19 @@
+#imgselector{:style=>"background-color:white;clear:both;text-align:left;display:none;"}
+  .bold
+    图片url:
+    %span#imginfo
+
+  .clearfix
+    .span-x
+      %input#imgurl{:type=>"text",:onmouseup=>"this.select();"}
+    .span-x
+      %a#load_img{:href=>"javascript:void(0);"} <em>&lt;<em> 载入
+
+  .clearfix
+    .clearfix
+      <div><span class="label">宽度:</span><input id="imgwidth" type="text" /></div>
+      <div><span class="label">高度:</span><input id="imgheight" type="text" /></div>
+      <div><button class="btn ok" disabled='true' id="accept_img">确定</button></div>
+    .clearfix
+      <div class="bold">图片预览:</div>
+      <div id="imgpreview"></div>

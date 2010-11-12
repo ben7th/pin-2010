@@ -1,0 +1,10 @@
+%div
+  来自#{@workspace.user.name}的空间欢迎信件
+  =@message
+  -join_link = File.join(pin_url_for('pin-workspace'),"workspaces/#{@workspace.id}")
+  =link_to join_link,join_link
+
+  %p
+  如果你不想加入，点击下面这个链接退出此工作空间
+  -quit_link = File.join(pin_url_for("pin-workspace"),"workspaces/#{@workspace.id}/memberships/quit?code=#{@membership.uuid_code}")
+  =link_to quit_link,quit_link

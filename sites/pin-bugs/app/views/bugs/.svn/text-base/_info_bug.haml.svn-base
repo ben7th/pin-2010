@@ -1,0 +1,27 @@
+.bug-info
+  = meta(bug)
+  .bbody
+    %p.font14= bug.content
+    %img{:src=>"#{bug.attachment.url(:medium)}"}
+
+    .baction.fright
+      = link_to "查看详情",bug
+      = action_to "评论(#{bug.comments.count})","#",:class=>"comments_link"
+      = render :partial=>"favorites/favorites",:locals=>{:favorable=>bug}
+
+    - if logged_in? && current_user.is_admin?
+      .action
+        - if !bug.closed
+          %span
+            = link_to_remote "回复",:url=>[:new,bug,:comment],:method=>:get
+        - unless bug.handled?
+          %span{:id => "bug_#{bug.id}_handle_button"}
+            = link_to_remote "处理",:url=>bug_path(bug,:operate=>"handle"),:method=>:put
+        - unless bug.closed?
+          %span{:id => "bug_#{bug.id}_close_button"}
+            = link_to_remote "关闭",:url=>bug_path(bug,:operate=>"close"),:method=>:put
+        %span
+          = link_to_remote "删除",:url=>bug_path(bug),:method=>:delete,:confirm=>"确认删除？"
+    .font13{:style => "color:#CB3234;"}
+      - mplist bug.comments_of_admin,:for=>[bug,"admin",Comment],:hide_empty_text=>true do |comment|
+        = render :partial=>"bug_comments/info_admin_bug_comment",:locals=>{:comment=>comment}

@@ -1,0 +1,10 @@
+<%url = bookmark_entry.url -%>
+<div><span><%=bookmark_entry.title%></span></div>
+<object width="290" height="24" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000">
+  <param value="290" name="width"/>
+  <param value="24" name="height"/>
+  <param name="wmode" value="transparent"/>
+  <param value="playerID=15367&amp;loop=no&amp;autostart=no&amp;soundFile=<%=url%>" name="flashvars"/>
+  <param value="/flash/audio.swf" name="src"/>
+  <embed wmode="transparent" width="290" height="24" src="/flash/audio.swf" flashvars="playerID=15367&amp;loop=no&amp;autostart=no&amp;soundFile=<%=url%>" type="application/x-shockwave-flash"/>
+</object>

@@ -1,0 +1,37 @@
+@import "misc";
+
+.no-operations{
+  font-size:14px;
+}
+
+.operations-list{
+  .operation{
+    .title{
+      font-weight:bold;
+      padding:0 0 0.25em;
+      margin:0 0 10px;
+      border-bottom:solid 1px #333350;
+      line-height:24px;
+    }
+    .avatar .tiny{
+      weight:20px;height:20px;
+    }
+  }
+}
+
+.your_workspaces{
+  @include border-radius(5px);
+  @include box-shadow(0 0 10px #09070E);
+  .top-bar{
+    background-color:#222433;
+    @include border-radius-side(top,left,5px);
+    @include border-radius-side(top,right,5px);
+    padding:10px;
+  }
+  .workspace-list{
+    background-color:#323546;
+    padding:10px;
+    @include border-radius-side(bottom,left,5px);
+    @include border-radius-side(bottom,right,5px);
+  }
+}

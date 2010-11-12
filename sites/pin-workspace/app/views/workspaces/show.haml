@@ -1,0 +1,10 @@
+%div 欢迎来到工作空间"#{@workspace.name}"
+
+%div 创建者#{@workspace.user.email}
+
+%div 成员列表
+
+-@workspace.member_emails.each do |email|
+  %div= email
+-if current_user
+  =show_operate_by_status(@workspace)

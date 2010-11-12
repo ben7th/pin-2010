@@ -1,0 +1,17 @@
+setup :fixtures=>:all
+
+# 登陆
+open '/logout'
+type 'login','dave'
+type 'password','123456'
+click_and_wait "commit"
+
+open '/'
+
+# 点击最小化到任务栏
+click "//div[@id='mplistpanel']//h3[@class='cell-title']/div[@class='minimize-to-taskbar']"
+assert_element_present "//ul[@id='page-taskbar']//div[@class='minimize taskbar-cell']"
+
+# 点击从任务栏还原
+click "//ul[@id='page-taskbar']//div[@class='minimize taskbar-cell']//h3[@class='cell-title']/div[@class='minimize-to-taskbar']"
+assert_element_present "//div[@id='mplistpanel']//h3[@class='cell-title']/div[@class='minimize-to-taskbar']"

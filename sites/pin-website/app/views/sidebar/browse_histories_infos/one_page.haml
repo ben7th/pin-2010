@@ -1,0 +1,27 @@
+=@browse_historie.url
+
+%br
+=================
+%br
+Rss订阅源
+.rss_feeds
+  -@browse_historie.rss_feeds.each do |rss_feed|
+    =link_to rss_feed[:title],rss_feed[:url],:target=>"_blank"
+
+%br
+=====================
+%br
+链接资源
+.links
+  -@browse_historie.links.each do |link|
+    %br
+    =link_to link[:title],link[:href],:target=>"_blank"
+
+%br
+=====================
+%br
+图片资源
+.images
+  -@browse_historie.images.each do |image|
+    %br
+    =image

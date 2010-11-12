@@ -1,0 +1,7 @@
+.page-footer
+  %div{:class=>container_classname}
+    .page-footer-content{:class=>grid_classname}
+      %div{:class=>grid_classname}
+        %span.sitename &copy; 2006-2010 mindpin.com. all rights reserved.
+        %span.beian [京ICP备06063955号]
+        %span.links=link_to '<em>&gt;</em> 给MindPin提意见',pin_url_for('pin-bugs','/'),:target=>'_blank',:class=>'loud'

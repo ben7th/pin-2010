@@ -1,0 +1,12 @@
+- content_for :css do
+  = stylesheet_link_tag 'app_tools',:media=>'screen, projection'
+
+= render :partial=>'app_render/parts/page_misc'
+
+- if @mpml.blank?
+  - content_cell do
+    .padding10
+      .flash-error.font14 应用 #{@app.title} 目前不能正常访问，可能正在维护...
+- else
+  .tools-paper.page-bg
+    =@mpml.body

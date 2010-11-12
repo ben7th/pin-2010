@@ -1,0 +1,41 @@
+/*静谧之黑*/
+@import "../ui/misc";
+
+$text-color:#ddd;
+
+body{
+  background-color:#36384A;
+  background-image:url(/images/themes/black/bg2.png);
+  background-repeat:repeat-x;
+  color:$text-color;
+}
+
+.page-head{
+  background:url(/images/themes/black/head-background.png) 0 100% repeat-x;
+  color:white;
+  a{
+    color:$text-color;
+    text-shadow:1px 1px #555;
+    &:hover{color:$text-color}
+  }
+  .line{background-color:#999;}
+}
+
+.page-footer{
+  background:url(/images/themes/black/footer-background.png) repeat-x;
+}
+
+.loud{color:#FF7F2F !important;}
+.quiet{color:#B5B5B5;}
+.date{color:#B5B5B5;}
+
+a{
+  color:#1681FF;
+  &:hover{color:#4198FF;}
+}
+
+.quote_content{
+  background:#F6F6F6;
+  border:solid 1px #E5E5E5
+}
+

@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://mindpin/skin/mindpin_sidebar.css" type="text/css" ?>
+<page id="mindpin_win" 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+  onload="Mindpin.MindpinSidebar.init();"
+  >
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_url.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_lib.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/login_manager.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_text_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_image_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/message.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collector_clip.js"/>
+  
+  
+  <vbox class='mindpin_plugin' flex="1">
+    <hbox id="unlogin_action" hidden="true">
+      <hbox align="center">
+        <label value="您还没有登录" align="center"/>
+        <image id="user_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
+      </hbox>
+      <hbox align="center">
+        <button label="登录" oncommand="Mindpin.MindpinSidebar.login();" align="center"/>
+        <button label="注册" oncommand="Mindpin.MindpinSidebar.register();" align="center"/>
+      </hbox>
+    </hbox>
+
+    <hbox id="login_action" hidden="true" >
+      <hbox align="center">
+        <label value="登录用户"/>
+        <label id="lbl_user_name" value="nil"/>
+        <image id="lbl_user_avatar" src="" width="32px" height="32px" />
+      </hbox>
+      <hbox align="center">
+        <button label="退出登录" oncommand="Mindpin.MindpinSidebar.logout();" />
+      </hbox>
+    </hbox>
+    
+    <hbox id="mindpin_tab_tip_box" hidden="true" flex="1">
+      <image id="mindpin_tab_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
+      <label id="mindpin_tab_tip_label" hidden="true" flex="1"/>
+    </hbox>
+
+    <tabbox id="mindpin_tab_list" selectedIndex="0" hidden="true" flex="1" >
+      <tabs>
+        <tab label="网站资料" onclick="Mindpin.MindpinSidebar.select_tab(0)"/>
+        <tab label="浏览历史" onclick="Mindpin.MindpinSidebar.select_tab(1)"/>
+        <tab label="网页信息" onclick="Mindpin.MindpinSidebar.select_tab(2)"/>
+      </tabs>
+
+      <tabpanels class="m_s_tps" flex="1">
+        <tabpanel>
+          <vbox flex="1">
+            <browser id="web_site_info" type="content" flex="1" />
+            <splitter/>
+            <browser id="web_site_comments" type="content" flex="1"/>
+          </vbox>
+        </tabpanel>
+        <tabpanel>
+          <browser id="side_browse_histories" type="content" flex="1"/>
+        </tabpanel>
+        <tabpanel>
+          <label style="margin:200px 0 0 50px" id="parse_page_info_loading" value="正在等待网页加载.." hidden="false"/>
+          <vbox flex="1" id="parse_page_info" hidden="true">
+            <vbox flex="1">
+              <vbox align="start" id="current_page_info_rss" type="content" flex='1' style="overflow:scroll;" height="10%" />
+              <vbox align="start" id="current_page_info_links" type="content" flex='5' style="overflow:scroll;" height="50%" />
+              <vbox style="overflow:scroll;" flex='4' height="40%">
+                <vbox align="start" id="current_page_info_images" type="content" flex='1' style="display:inline-table;" />
+              </vbox>
+            </vbox>
+            <button id="package_send_button" label="打包发送" disabled="true" oncommand="Mindpin.PageParse.package_send();" align="center"/>
+            <button id="begin_clip_button" label="开始捕捉" style="display:block;" oncommand="Mindpin.CollectorClip.begin_clip();" align="center"/>
+            <button id="cancel_clip_button" label="取消捕捉" style="display:none;" oncommand="Mindpin.CollectorClip.cancel_clip();" align="center"/>
+            <button id="send_clip_button" label="发送捕捉到的元素" style="display:none;" disabled="true" oncommand="Mindpin.CollectorClip.send_clip_elements();" align="center"/>
+            <button id="produce_mindmap" label="生成导图" oncommand="Mindpin.PageParse.produce_mindmap_ui();" align="center"/>
+          </vbox>
+        </tabpanel>
+      </tabpanels>
+    </tabbox>
+	
+  </vbox>
+</page>

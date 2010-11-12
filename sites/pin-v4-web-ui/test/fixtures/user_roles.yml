@@ -1,0 +1,108 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: user_roles
+#
+#  id      :integer(4)      not null, primary key
+#  user_id :integer(4)      not null
+#  role_id :integer(4)      not null
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+songliang_role:
+  user: songliang
+  role: role_student
+
+lifei_role:
+  user: lifei
+  role: role_student
+
+chengliwen_role:
+  user: chengliwen
+  role: role_student
+
+hanmeimei_role:
+  user: hanmeimei
+  role: role_student
+
+xiaolifeidao_role:
+  user: xiaolifeidao
+  role: role_student
+
+admin_role:
+  user: admin
+  role: role_admin
+
+teacher_1_role:
+  user: teacher_1
+  role: role_teacher
+
+chinacheng_role:
+  user: chinacheng
+  role: role_student
+
+lucy_role:
+  user: lucy
+  role: role_student
+
+dave_role:
+  user: dave
+  role: role_teacher
+  
+jim_role:
+  user: jim
+  role: role_student
+
+jone_role:
+  user: jone
+  role: role_student
+
+tom_role:
+  user: tom
+  role: role_student
+
+creator_role:
+  user: creator
+  role: role_creator
+
+teacher_cheng_role:
+  user: teacher_cheng
+  role: role_teacher
+
+teacher_song_role:
+  user: teacher_song
+  role: role_teacher
+
+teacher_li_role:
+  user: teacher_li
+  role: role_teacher
+
+assign_student_li_role:
+  user: assign_student_li
+  role: role_student
+
+assign_student_cheng_role:
+  user: assign_student_cheng
+  role: role_student
+
+assign_student_song_role:
+  user: assign_student_song
+  role: role_student
+
+assign_student_tom_role:
+  user: assign_student_tom
+  role: role_student
+
+assign_student_jim_role:
+  user: assign_student_jim
+  role: role_student
+
+assign_student_sam_role:
+  user: assign_student_sam
+  role: role_student

@@ -1,0 +1,22 @@
+<div class="boxfix">
+
+  <div class="fleft" style="width:84px">
+    <%=render :partial=>"file_entries/parts/#{file_entry.file_view_type}",:locals=>{:file_entry=>file_entry}%>
+  </div>
+
+  <div class="fleft">
+    <div class="bold"><%=truncate_filename file_entry.file_name %></div>
+    <div>
+      <span>
+        <%=file_entry.file_size_with_a_unit %>
+      </span>
+      <span>
+        <%= link_to t('page.resource_packs.attachment_btn_download'),
+          download_entry_path(file_entry.entry),
+          :title=>t('page.resource_packs.attachment_btn_download')
+        %>
+      </span>
+    </div>
+  </div>
+
+</div>

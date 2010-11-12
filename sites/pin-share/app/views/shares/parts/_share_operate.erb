@@ -1,0 +1,8 @@
+<%title = "分享"%>
+<% shared_count = shareable.shared_count %>
+<%title = "#{title}(#{shared_count})" if shared_count != 0%>
+<span id="shareable_<%=shareable.class.to_s%>_<%=shareable.id%>">
+  <%= link_to_remote title,
+    :url=>polymorphic_url([:new,shareable,:share]),
+    :method=>:get %>
+</span>

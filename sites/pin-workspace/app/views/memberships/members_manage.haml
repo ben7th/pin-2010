@@ -1,0 +1,18 @@
+%div 成员列表
+
+-@workspace.joined_memberships.each do |joined_membership|
+  %div
+    =joined_membership.email
+    =link_to "移除",kick_out_workspace_membership_path(@workspace,joined_membership),:method=>:put
+    =link_to "加入黑名单",ban_workspace_membership_path(@workspace,joined_membership),:method=>:put
+
+-@workspace.apply_memberships.each do |apply_membership|
+  %div
+    =apply_membership.email
+    =link_to "同意",approve_workspace_membership_path(@workspace,apply_membership),:method=>:put
+    =link_to "拒绝",refuse_workspace_membership_path(@workspace,apply_membership),:method=>:put
+
+-@workspace.baned_memberships.each do |baned_membership|
+  %div
+    =baned_membership.email
+    =link_to "解除黑名单",unban_workspace_membership_path(@workspace,baned_membership),:method=>:put

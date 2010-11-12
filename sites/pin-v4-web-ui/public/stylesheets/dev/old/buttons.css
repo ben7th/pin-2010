@@ -1,0 +1,116 @@
+.hidetext {text-indent:-200em;overflow:hidden;display:block;}
+
+.img-button{float:left;}
+.img-button a{margin:0;}
+
+.img-button.right{float:right;}
+
+.logout_btn {margin:0 0 0 10px;width:24px !important;height:24px !important;background:url('/images/icons/icons.png') -163px 0 no-repeat;}
+.logout_btn:hover {background:url('/images/icons/icons.png') -163px -25px no-repeat;}
+
+.new_lesson_doc_btn {width:64px;height:64px;background:url('/images/icons/icons.png') 0 0 no-repeat;}
+.new_lesson_doc_btn:hover {background:url('/images/icons/icons.png') -65px 0 no-repeat;}
+
+.new_lesson_doc_btn_s {width:32px;height:32px;background:url('/images/icons/icons.png') 0 -65px no-repeat;}
+.new_lesson_doc_btn_s:hover {background:url('/images/icons/icons.png') -32px -65px no-repeat;}
+
+.delete_btn_s {width:32px;height:32px;background:url('/images/icons/icons.png') -130px -0px no-repeat;}
+.delete_btn_s:hover {background:url('/images/icons/icons.png') -130px -32px no-repeat;}
+.delete_btn_s.disable {background:url('/images/icons/icons.png') -130px -65px no-repeat;cursor:default;}
+
+.file_type{font-family:arial,sans-serif;font-size:10px;background-color:#FBEB96;padding:1px 2px;text-align:center;
+  -moz-border-radius:6px;-webkit-border-radius:6px;}
+.file_name{font-family:arial,sans-serif;font-size:12px;background-color:#FBEB96;padding:1px 4px;
+  -moz-border-radius:6px;-webkit-border-radius:6px;}
+
+.delete_btn_16 {width:16px;height:16px;background:url(/images/piece/delete.png);}
+.edit_btn_16 {width:16px;height:16px;background:url(/images/piece/edit.png);}
+.design_btn_16 {width:16px;height:16px;background:url(/images/piece/design.png);}
+.topic_btn_16 {width:16px;height:16px;background:url(/images/piece/topic.png);}
+.attachment_btn_16 {width:16px;height:16px;background:url(/images/piece/attachment.png);}
+.image_btn_16 {width:16px;height:16px;background:url(/images/piece/image.png);}
+.requirement_btn_16 {width:16px;height:16px;background:url(/images/piece/requirement.png);}
+.read_btn_16 {width:16px;height:16px;background:url(/images/piece/read.png);}
+.section_btn_16 {width:16px;height:16px;background:url(/images/piece/section.png);}
+.go_up_btn_16 {width:16px;height:16px;background:url(/images/piece/go-up.png);}
+.go_down_btn_16 {width:16px;height:16px;background:url(/images/piece/go-down.png);}
+.checked_btn_16 {width:16px;height:16px;background:url(/images/piece/checkbox_checked.png);}
+.unchecked_btn_16 {width:16px;height:16px;background:url(/images/piece/checkbox_unchecked.png);}
+.disabled_btn_16 {width:16px;height:16px;background:url(/images/piece/checkbox_disabled.png);}
+
+.previous_unit_32{width:28px;height:40px;background:url(/images/piece/previous.png) no-repeat -2px center;}
+.previous_unit_32.disable{background:url(/images/piece/previous_disable.png) no-repeat -2px center;}
+.next_unit_32{width:28px;height:40px;background:url(/images/piece/next.png) no-repeat center right;}
+.next_unit_32.disable{background:url(/images/piece/next_disable.png) no-repeat center right;}
+
+.attachment_btn_24 {width:24px;height:24px;background:url(/images/piece/attachment_24.png);}
+
+.attachment_32 {width:32px;height:32px;background:url(/images/piece/attachment_32.png) no-repeat;}
+
+.show_with_mouseover{visibility:hidden;}
+.mouseover .show_with_mouseover{visibility:visible;}
+.mouseover .mplist .show_with_mouseover{visibility:hidden;}
+
+.lesson_design_btn {width:140px;height:50px;background:url(/images/icons/lesson_design.png);}
+
+.icon_teaching_unit{background:url(/images/model_icons/unit.png) no-repeat;padding-left:20px;}
+.icon_teaching_procedure{background:url(/images/model_icons/procedure.png) no-repeat;padding-left:20px;}
+
+div.req_text_icon{/*background:url(/images/icons/entries.png) no-repeat 0 -8px;*/background-color:#FCECE1;display:block;width:31px;height:16px;float:left;margin:0;
+  font-family:arial,sans-serif;text-align:center;font-size:10px;line-height:16px;color:#F3541D;
+  -moz-border-radius:5px;-webkit-border-radius:5px;
+  -moz-border-radius-bottomright:0;-moz-border-radius-topright:0;
+  -webkit-border-bottom-right-radius:0;-webkit-border-top-right-radius:0;}
+div.req_file_icon{/*background:url(/images/icons/entries.png) no-repeat -32px -8px;*/background-color:#DBE6FC;display:block;width:31px;height:16px;float:left;margin:0;
+  font-family:arial,sans-serif;text-align:center;font-size:10px;line-height:16px;color:#3476FC;
+  -moz-border-radius:5px;-webkit-border-radius:5px;
+  -moz-border-radius-bottomright:0;-moz-border-radius-topright:0;
+  -webkit-border-bottom-right-radius:0;-webkit-border-top-right-radius:0;}
+div.require_text_icon_div{border:solid 1px #FCECE1;margin:0 0 7px 31px;padding:0 10px 3px;
+  -moz-border-radius:5px;-webkit-border-radius:5px;
+  -moz-border-radius-topleft:0;-webkit-border-top-left-radius:0;}
+div.require_file_icon_div{border:solid 1px #DBE6FC;margin:0 0 7px 31px;padding:0 10px 3px;
+  -moz-border-radius:5px;-webkit-border-radius:5px;
+  -moz-border-radius-topleft:0;-webkit-border-top-left-radius:0;}
+
+div.topic-lside{float:left;height:21px;width:11px;position:relative;left:2px;
+  background:url(/images/piece/topic_lside.png) center center no-repeat;}
+div.topic-rside{float:right;height:21px;width:11px;position:relative;left:-2px;
+  background:url(/images/piece/topic_rside.png) center center no-repeat;}
+div.topic-div{border:solid 1px #DADADA;overflow:hidden;margin:0 0 7px 0;padding:3px 10px;
+  background-color:#F7F7F7;
+  -moz-border-radius:5px;-webkit-border-radius:5px;}
+
+div.wizard-step{background:#eee;float:left;line-height:30px;font-size:14px;padding:5px 15px;margin:0 10px;
+  -moz-border-radius:6px;-webkit-border-radius:6px;}
+div.wizard-step.active{background:#FBEB96;font-weight:bold;}
+div.next-step{height:40px;width:6px;font-size:14px;float:left;background:url(/images/piece/next-step.png) no-repeat center center;}
+div.wizard-start{height:40px;width:27px;font-size:14px;float:left;background:url(/images/piece/start.png) no-repeat center center;margin:0 10px;}
+
+.feelgood {background:url(/images/piece/votemark.png) no-repeat 0px 0px;height:25px;width:25px; display:inline-block;}
+.feelbad {background:url(/images/piece/votemark.png) no-repeat -25px 0px;height:25px;width:25px; display:inline-block;}
+
+/*Share相关*/
+.image-icon {background:url(/images/piece/sicon.gif) no-repeat 0px 0px;height:16px;width:16px;}
+.video-icon {background:url(/images/piece/sicon.gif) no-repeat -34px 0px;height:16px;width:16px;}
+.audio-icon {background:url(/images/piece/sicon.gif) no-repeat -17px 0px;height:16px;width:16px;}
+.feedvideoplay-icon{
+  margin-top:-16px;margin-left:-16px;position:absolute;top:50%;left:50%;opacity:0.7;
+  width:33px;height:33px;display:block;background-image:url(/images/feedvideoplay.gif);
+}
+.video_img span{margin:0;padding:0;position:relative;display:inline-block;}
+
+/*成就*/
+.honor-div{width:500px;background-color:#FFFDE8;border:solid 1px #FFF100;padding:10px;}
+.honor-div h3{margin-bottom:5px;}
+.honor-div .icon{width:80px;}
+.honor-div .d{}
+.honor-pic { height:54px;width:54px;display:block;}
+.honor-background {background:url(/images/achievement/box.gif) no-repeat 0px 0px;height:54px;width:54px;display:block;padding:5px;}
+.honor-background-32 {height:36px;width:36px;display:block;padding:10px;}
+.honor-background-32 .honor-pic {height:32px;width:32px;border:solid 2px #9E8B75;display:block;
+  -moz-border-radius:3px;-webkit-border-radius:3px;}
+.honor-background-32 .honor-pic .award{height:16px;width:16px;
+      position:relative;left:-10px;top:-6px;
+      background:url(/images/achievement/award.png) no-repeat;}
+.honor-div-32 .d{height:56px;line-height:56px;float:left;}

@@ -1,0 +1,32 @@
+/*will_pageinate style*/
+@import "misc";
+
+div.pagination{
+  font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+  padding:0;margin:3px 0;overflow:hidden;clear:both;
+  
+  a, span {
+    float:left;height:16px;line-height:16px;padding:2px 5px;
+  }
+  a {
+    margin:0 3px;border:1px solid #e9e9e9;text-decoration:none;color:#6d6c5d;background-color:#F0F3F7;
+    @include border-radius(4px);
+    &:hover,&:active{
+      border:1px solid #d0bb99 !important;color:#eb7c22;background:#fff;
+    };
+    &.prev_page,&.next_page{
+      border:1px solid #e9e9e9;
+    }
+  }
+  span{
+    &.current {
+      margin:1px 3px;border:0px solid #3274D0;font-weight:bold;color:#3274d0;
+    }
+    &.disabled {
+      margin:0 3px;border:1px solid #eee;color:#ddd;
+      @include border-radius(4px);
+    }
+  }
+  .prev_page{margin-left:0px !important;}
+  .next_page{margin-right:0px !important;}
+}

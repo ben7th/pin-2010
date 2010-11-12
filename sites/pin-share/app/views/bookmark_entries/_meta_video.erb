@@ -1,0 +1,22 @@
+<div class="video_toggle">
+  <div class="video_img">
+    <span>
+      <img src="<%=bookmark_entry.image_src%>" alt="<%=bookmark_entry.title%>" class="logo b2" />
+      <a class="show_btn feedvideoplay-icon"></a>
+    </span>
+  </div>
+  <div class="toggle_box quote_content hide">
+    <div>
+      <a class="hidden_btn">收起</a>
+      <span><%=bookmark_entry.title%></span>
+    </div>
+    <div class="video" data-url="<%=bookmark_entry.video_src%>"></div>
+  </div>
+</div>
+<script type="text/javascript">
+  try{
+    $$('div.video_toggle').each(function(div){
+      new VideoToggleBox(div)
+    })
+  }catch(e){}
+</script>

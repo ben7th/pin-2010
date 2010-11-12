@@ -1,0 +1,11 @@
+cn:
+  activerecord:
+    attributes:
+      workspace:
+        name: 名称
+    errors:
+      models:
+        workspace:
+          attributes:
+            name:
+              blank: 名称不能为空

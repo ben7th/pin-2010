@@ -1,0 +1,12 @@
+<% introduction = introductable.introduction %>
+<% if introduction.blank? %>
+  <span>暂时没有简介</span>
+  <%if logged_in?%>
+    <%= link_to "创建一下",[:new,introductable,:introduction] %>
+  <%end%>
+<% else %>
+  <%if logged_in?%>
+    <%= link_to "全文编辑",[:edit,introductable,introduction] %>
+  <%end%>
+  <%= render :partial=>"introductions/meta_introduction",:locals=>{:introduction=>introduction} %>
+<% end %>

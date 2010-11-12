@@ -1,0 +1,19 @@
+<% if @user.installed_mindmap? %>
+  <h3>最近创建的导图</h3>
+  <div class="marginb3em">
+    <% mindmaps = @user.get_recently_mindmaps %>
+    <% if mindmaps %>
+      <% mplist mindmaps do |mindmap| %>
+        <div class="boxfix padding5">
+          <div class="fleft" style="width:36px;height:36px;"><%=image_tag mindmap[:logo],:class=>"logo" %></div>
+          <div class="fleft marginl10" style="line-height:36px;"><%=link_to mindmap[:title],mindmap[:href] %></div>
+        </div>
+      <% end %>
+      <div class="textright marginr3em margint5">
+        <%=link_to "<em>&gt;&gt;</em> 更多 ","#{THIS_SITE}app/#{App::MINDMAP_EDITOR}/users/#{@user.id}/mindmaps" %>
+      </div>
+    <% else %>
+      <span class="padding5 quiet">应用 <%= App.find_by_name(App::MINDMAP_EDITOR).title %> 正在维护</span>
+    <% end %>
+  </div>
+<% end %>

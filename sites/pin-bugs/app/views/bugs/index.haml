@@ -1,0 +1,16 @@
+- content_for :css do
+  = stylesheet_link_tag "views/bugs/bugs"
+
+- content_for :javascripts do
+  = javascript_include_tag 'views/bugs/comment'
+  :javascript
+    new MarkableListComments("mplist_bugs",{markable:"bugs"})
+
+= render :partial=>"/bugs/form_bug",:locals=>{:bug=>Bug.new}
+
+.margint20
+  - mplist @bugs,:for=>Bug,:class=>'no-line'
+
+= will_paginate @bugs,{:position=>:paper}
+
+  

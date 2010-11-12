@@ -1,0 +1,16 @@
+<div class="boxfix margint10 marginb10">
+  <% if user %>
+    <%=render :partial=>'contactings/parts/contact_user_info',:locals=>{:user=>user}%>
+    <% if logged_in? %>
+      <div class='actions fright right'>
+        <% if viewing_user == current_user %>
+          <%=html%>
+        <%elsif user != current_user%>
+          <%= follow_info_in_other_user_page(user) %>
+        <%end%>
+      </div>
+    <%end%>
+  <% else %>
+    <%=contacting_user_not_found(contacting)%>
+  <% end %>
+</div>

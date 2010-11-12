@@ -1,0 +1,26 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: pin-app-adapter-development
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: pin-app-adapter-test
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: pin-app-adapter
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000

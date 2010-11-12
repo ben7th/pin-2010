@@ -1,0 +1,18 @@
+<% content_cell :title=>t("page.file_entries.file_mamage") do -%>
+  <div class='page-selector'>
+    <%= page_link :paper,t("page.file_entries.file_mamage_all"),:url=>file_entries_path,:method=>:get%>
+  </div>
+  <div class='page-selector'>
+    <%= page_link :paper,t("page.entries.used"),:url=>file_entries_path(:used_info=>"used"),:method=>:get %>
+  </div>
+  <div class='page-selector'>
+    <%= page_link :paper,t("page.entries.unused"),:url=>file_entries_path(:used_info=>"unused"),:method=>:get %>
+  </div>
+
+  <% Entry.tags_of(current_user,:conditions=>["entries.resource_type = ?","FileEntry"]).each do |tag| %>
+    <div class='page-selector'>
+      <%=page_link :paper, tag.value,:url=>file_entries_path(:tag_id=>tag.id) ,:method=>:get %>
+    </div>
+  <% end %>
+
+<% end -%>

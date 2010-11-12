@@ -1,0 +1,16 @@
+textarea {
+  overflow: auto; }
+
+input.text {
+  font-family: 宋体;
+  vertical-align: baseline;
+  padding: 10px 7px 4px;
+  zoom: 1; }
+
+input.checkbox {
+  position: relative;
+  top: 1px; }
+
+form .submit {
+  font-family: 宋体;
+  zoom: 1; }

@@ -1,0 +1,19 @@
+-@mindpin_layout.theme = 'black'
+-@mindpin_layout.grid = 24
+-@mindpin_layout.yield_partial = 'application'
+
+!!! Strict
+%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
+
+%head
+  %meta{"http-equiv"=>"content-type",:content=>"text/html;charset=UTF-8"}
+  %meta{"http-equiv"=>"X-UA-Compatible",:content=>"chrome=1"}
+  %meta{"http-equiv"=>"X-UA-Compatible",:content=>"IE=EmulateIE7"}
+  %meta{:content=>"提供包括思维导图，阅读分享在内知识型网络服务。",:name=>"description"}
+  %title MindPin v4 #{@pagetitle||(yield :title)}
+
+  =render :partial=>base_layout_path('parts/css.haml')
+%body
+  =yield
+  =render :partial=>base_layout_path('parts/javascripts.haml')
+  =javascript_include_tag "views/tip.js"

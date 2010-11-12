@@ -1,0 +1,17 @@
+.subscriber_count{background-color:#DFF1FF;color:#678AA8;width:50px;margin:0 2px 2px 2px;text-align:center;font-weight: bold;
+  line-height:16px;
+  -moz-border-radius:3px;-webkit-border-radius:3px;}
+.subscription{background-color:#F1F1F1;width:50px;margin:0 2px 2px 2px;text-align:center;line-height:16px;
+  -moz-border-radius:3px;-webkit-border-radius:3px;color:#666;}
+.subscription a{color:#105CB6;}
+.rss-feed-tip{width:200px;position:absolute;background-color:#F1F1F1;}
+.good_vote .num, .bad_vote .num{font-size:14px;font-weight:bold;}
+.rss_item_meta h4 { font-weight:bold;font-size:16px; margin-top:20px;margin-bottom:15px; }
+.rss_item_meta .author{margin-left:8px;margin-bottom:20px; }
+.rss_item_meta .description{ font-size: 13px;}
+.rss_item_meta_brief .author{margin-top:10px;}
+.rss_item_meta_brief .description{ font-size: 12px; }
+.good_vote .num, .bad_vote .num{font-size:14px;font-weight:bold;}
+.r_i_actions{position:absolute;right:10px;}
+.r_i_content_area{padding-left:1em;min-height:200px;}
+.r_i_comments{margin-top:10px;padding-top:20px;border-top:solid 1px #ccc;}

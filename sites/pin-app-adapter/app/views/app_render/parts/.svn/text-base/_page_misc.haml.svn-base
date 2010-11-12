@@ -1,0 +1,12 @@
+- content_for :title do
+  = "#{@mpml.app.title} - #{@mpml.title}"
+
+- content_for :javascripts do
+  - @mpml.javascripts.each do |jssrc|
+    = javascript_include_tag jssrc
+  - @mpml.scripts.each do |script|
+    = script
+
+- content_for :css do
+  - @mpml.stylesheets.each do |csshref|
+    = stylesheet_link_tag csshref,:media=>'screen, projection'

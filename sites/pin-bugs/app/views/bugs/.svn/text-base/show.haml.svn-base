@@ -1,0 +1,7 @@
+.clearfix
+  .grid_15
+    = render :partial=>"bugs/meta_bug",:locals=>{:bug=>@bug}
+  .grid_15.overvisible
+    - if !@bug.closed && logged_in?
+      = render :partial=>"comments/form_comment",:locals=>{:markable=>@bug}
+    - mplist @bug.comments,:for=>Comment,:hide_empty_text=>true

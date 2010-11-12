@@ -1,0 +1,4 @@
+<% size ||= :mini -%>
+<% lightview_a :href=>"#{file_entry.content.url}" do%>
+  <%= image_tag file_entry.content.url(size),:class=>'logo b2 cur_big' %>
+<%end%>

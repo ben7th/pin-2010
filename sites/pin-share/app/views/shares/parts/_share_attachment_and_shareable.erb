@@ -1,0 +1,13 @@
+<% if share.shareable %>
+  <div class="quote_content padding10 margint5 width500 marginl10" >
+    <%=render :partial=>"shares/meta_share",:locals=>{:share=>share}%>
+  </div>
+<% end %>
+
+<!-- 显示share的附件和关联的entries -->
+<%= render :partial=>"/shares/parts/show_share_attachment_and_entries",:locals=>{:share=>share} %>
+
+<!-- 显示 content 中思维导图 的缩略图 -->
+<%#= mindmap_thumb(share) %>
+<!-- 显示 content 中的 关于 bug 的内容 -->
+<%#= bugs_content(share) %>

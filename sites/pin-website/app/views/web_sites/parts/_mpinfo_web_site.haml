@@ -1,0 +1,10 @@
+.info_div
+  .meta
+    = render :partial=>"web_sites/parts/metal_web_site",:locals=>{:web_site=>web_site}
+  %div
+    %span
+      好(#{web_site.count_of_feel_good})
+    %span
+      差(#{web_site.count_of_feel_bad})
+  %div
+    = link_to "查看",web_site

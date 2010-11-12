@@ -1,0 +1,131 @@
+<script type="text/javascript">	
+	function show_widget_demo(id) {
+		var str = [];
+		str.push('<link rel="stylesheet" type="text/css" media="all" href="<%=URL_PREFIX%>/stylesheets/widget.css" />');
+		str.push('<div class="mindpin-mindmap-widget">');
+		str.push('    <div class="mindmap-title" style="width:590px !important;">');
+		str.push('        <span><a href="<%=URL_PREFIX%>/mindmaps/'+id+'?sure=1" target="_blank">MindPin 思维导图 - tu</a></span>');
+		str.push('    </div>');
+		str.push('    <div class="mindmap-viewport" style="height:300px !important;width:600px !important;">');
+		str.push('        <iframe style="height:300px !important;width:600px !important;" src="<%=URL_PREFIX%>/mindmaps/'+id+'/widget"></iframe>');
+		str.push('    </div>');
+		str.push('    <div class="widget-footer" style="width:590px !important;">');
+		str.push('        <a href="<%=URL_PREFIX%>/mindmaps" target="_blank">Go to MindPin</a>');
+		str.push('    </div>');
+		str.push('</div>');
+		str=str.join('');
+		
+		var winname = window.open(Math.random(), "_blank", '');
+		winname.document.open('text/html', 'replace');
+		winname.document.write(str);
+		winname.document.close();
+	}
+</script>
+
+<%if @mindmap.private%>
+<mp:title>私有导图：<%=truncate_u(@mindmap.title,37)%> 无法被引用</mp:title>
+<div class="cc padding10">
+  <div style="float:left;width:540px;overflow:hidden;">
+    <div style="padding:5px 0 10px 25px;">思维导图 <b><%=truncate_u(@mindmap.title,37)%></b> 目前是私有的</div>
+    <div style="padding:5px 0 10px 25px;">只有公有导图可以被引用</div>
+    <br/>
+    <div style="padding:5px 0 10px 25px;">
+      <span style="color:#E8641B;">您可以将图片另存到本地 </span>
+      <span> - </span>
+      <span>[<%=link_to 'jpg',"/mindmaps/#{@mindmap.id}.jpg",:target=>'_blank'%>] </span>
+      <span>[<%=link_to 'png',"/mindmaps/#{@mindmap.id}.png",:target=>'_blank'%>] </span>
+      <span>[<%=link_to 'gif',"/mindmaps/#{@mindmap.id}.gif",:target=>'_blank'%>] </span>
+    </div>
+  </div>
+</div>
+<%else%>
+<mp:title>获取导图引用：<%=truncate_u(@mindmap.title,37)%></mp:title>
+<div class="cc padding10">
+  <div class="cmain">
+    <p style="padding:5px 0 10px 25px;"><%=current_user.name%>，您好，请按以下方法引用导图：<%=truncate_u(@mindmap.title,37)%></p>
+    <h3>引用导图小组件</h3>
+    <div style="padding:5px 0 10px 10px;zoom:1;">
+      <p>MindPin提供页面小组件，添加到你的页面后，将呈现一个动态浏览导图的“观察窗”区域</p>
+      <p class="bold">使用方法：将以下的代码添加到你的主页或者BLOG里：</p>
+      <div style="overflow:hidden;zoom:1;">
+        <div style="float:left;overflow:hidden;">
+          <textarea cols="5" id="js_widget_code" style="width:500px;height:60px;font-size:14px;"><script type="text/javascript" src="http://www.mindpin.com/mindmap_editor/mindmaps/<%=@mindmap.id%>/widget.js?w=600&h=300"></script></textarea>
+        </div>
+        <div style="padding:0 0 0 15px;float:left;overflow:hidden;">
+          <div><b>参数：</b></div>
+          <div><b>w</b> 宽度值，如w=600</div>
+          <div><b>h</b> 高度值，如h=300</div>
+        </div>
+      </div>
+      <div>
+      <a class="func" href="javascript:show_widget_demo(<%=@mindmap.id%>)"><span style="font-size:14px;">看效果预览</span></a>
+      </div>
+      <br/>
+      <p class="quiet">MindPin小提示：如果您使用的是第三方提供的主页或BLOG环境，需要支持粘贴脚本才可以 :)</p>
+    </div>
+    <hr/>
+    <h3>引用静态图片</h3>
+    <div style="padding:5px 0 10px 25px;zoom:1;">
+      <p>MindPin提供静态图片引用，任何可以贴图的地方，都可以引用我们的图片</p>
+      <p>如果您需要<b>打印导图</b>，或者<b>保存导图的图片</b>，也可以利用这个方式 :)</p>
+      <p class="bold">导图 <%=truncate_u(@mindmap.title,37)%> 的图片链接：</p>
+      <br/>
+      <div style="padding:0 0 0 20px;">
+        <div style="overflow:hidden;zoom:1;">
+          <div style="width:70px;float:left;overflow:hidden;">JPG格式：</div>
+          <div style="float:left;overflow:hidden;">
+            <%=link_to "#{URL_PREFIX}/mindmaps/#{@mindmap.id}.jpg","#{URL_PREFIX}/mindmaps/#{@mindmap.id}.jpg",:class=>"func",:target=>'_blank'%>
+          </div>
+        </div>
+        <div style="overflow:hidden;zoom:1;">
+          <div style="width:70px;float:left;overflow:hidden;">PNG格式：</div>
+          <div style="float:left;overflow:hidden;">
+            <%=link_to "#{URL_PREFIX}/mindmaps/#{@mindmap.id}.png","#{URL_PREFIX}/mindmaps/#{@mindmap.id}.png",:class=>"func",:target=>'_blank'%>
+          </div>
+        </div>
+        <div style="overflow:hidden;zoom:1;">
+          <div style="width:70px;float:left;overflow:hidden;">GIF格式：</div>
+          <div style="float:left;overflow:hidden;">
+            <%=link_to "#{URL_PREFIX}/mindmaps/#{@mindmap.id}.gif","#{URL_PREFIX}/mindmaps/#{@mindmap.id}.gif",:class=>"func",:target=>'_blank'%>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div style="padding:10px 0 0 0;">
+        <div class="bold">HTML代码：</div>
+        <div>
+          <input id="html_code_jpg" style="width:430px;" class="text" type="text" value="<img src='<%=URL_PREFIX%>/mindmaps/<%=@mindmap.id%>.jpg' alt='<%=@mindmap.title%>'/>" />
+        </div>
+        <div>
+          <input id="html_code_png" style="width:430px;" class="text" type="text" value="<img src='<%=URL_PREFIX%>/mindmaps/<%=@mindmap.id%>.png' alt='<%=@mindmap.title%>'/>" />
+        </div>
+        <div>
+          <input id="html_code_gif" style="width:430px;" class="text" type="text" value="<img src='<%=URL_PREFIX%>/mindmaps/<%=@mindmap.id%>.gif' alt='<%=@mindmap.title%>'/>" />
+        </div>
+      </div>
+      <br/>
+      <div style="padding:10px 0 0 0;">
+        <div class="bold">BBCODE代码：</div>
+        <div>
+          <input id="html_code_jpg" style="width:430px;" class="text" type="text" value='[img]<%=URL_PREFIX%>/mindmaps/<%=@mindmap.id%>.jpg[/img]' />
+        </div>
+        <div>
+          <input id="html_code_png" style="width:430px;" class="text" value='[img]<%=URL_PREFIX%>/mindmaps/<%=@mindmap.id%>.png[/img]' />
+        </div>
+        <div>
+          <input id="html_code_gif" style="width:430px;" class="text" value='[img]<%=URL_PREFIX%>/mindmaps/<%=@mindmap.id%>.gif[/img]' />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cright">
+    <div style="padding:0 0 10px 0;">
+      <div>要把思维导图显示在博客，</div>
+      <div>论坛，个人主页里？</div>
+      <br/>
+      <div>让我们来帮助您 :)</div>
+    </div>
+  </div>
+</div>
+<%end%>

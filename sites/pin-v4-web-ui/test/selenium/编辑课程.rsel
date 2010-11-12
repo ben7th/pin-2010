@@ -1,0 +1,25 @@
+setup :fixtures=>:all
+
+# 登陆
+lesson = Lesson.find_by_name "未发布理科课程"
+open '/logout'
+echo lesson.subject
+type 'login','teacher_1'
+type 'password','123456'
+click_and_wait "commit"
+
+open "/lessons/#{lesson.id}"
+verify_text "//div[@id='mplistpanel']/div/h3/span[@class='cell-title-text']", "未发布理科课程"
+verify_text "//div[@class='cell-meta']", lesson.subject
+click 'edit_class_info'
+wait_for_element_present "exitButton"
+verify_value "lesson_name", "未发布理科课程"
+verify_value 'lesson_subject',lesson.subject
+type 'lesson_name',"未发布理科课程修改"
+type 'lesson_subject',"再次修改再次修改再次修改再次修改"
+click "//input[@id='lesson_submit' and @name='commit' and @value='确定']"
+wait_for_condition("selenium.browserbot.getCurrentWindow().document.body.children.length == 2",3000)
+verify_text "//div[@id='mplistpanel']/div/h3/span[@class='cell-title-text']", "未发布理科课程修改"
+verify_text "//div[@class='cell-meta']", "再次修改再次修改再次修改再次修改"
+
+setup :fixtures=>:all

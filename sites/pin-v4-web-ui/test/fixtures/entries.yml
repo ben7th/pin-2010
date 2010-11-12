@@ -1,0 +1,79 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: resource_entries
+#
+#  id            :integer(4)      not null, primary key
+#  user_id       :integer(4)      
+#  resource_id   :integer(4)      
+#  resource_type :string(255)     
+#  created_at    :datetime        
+#  updated_at    :datetime        
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+entry_1:
+  user: lifei
+  resource: text_1
+  resource_type: TextEntry
+
+entry_2:
+  user: lifei
+  resource: text_2
+  resource_type: TextEntry
+
+entry_3:
+  user: songliang
+  resource: text_3
+  resource_type: TextEntry
+
+entry_4:
+  user: songliang
+  resource: text_4
+  resource_type: TextEntry
+
+entry_5:
+  user: songliang
+  resource: text_5
+  resource_type: TextEntry
+
+entry_6:
+  user: songliang
+  resource: text_6
+  resource_type: TextEntry
+
+entry_7:
+  user: songliang
+  resource: text_7
+  resource_type: TextEntry
+
+entry_8:
+  user: songliang
+  resource: text_8
+  resource_type: TextEntry
+
+entry_9:
+  user: songliang
+  resource: text_9
+  resource_type: TextEntry
+
+entry_file_1:
+  user: lifei
+  resource: file_1
+  resource_type: FileEntry
+
+entry_file_2:
+  user: lifei
+  resource: file_2
+  resource_type: FileEntry
+
+entry_file_3:
+  user: lifei
+  resource: file_3
+  resource_type: FileEntry

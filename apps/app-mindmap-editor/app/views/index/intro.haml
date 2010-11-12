@@ -1,0 +1,64 @@
+%mp:title 工具简介
+
+%link{:href=>"#{THIS_SITE}/stylesheets/index.css",:media=>"screen",:rel=>"stylesheet",:type=>"text/css"}
+=render :partial=>'layouts/nav',:locals=>{:active=>'工具简介'}
+
+#you-can-do
+  .tips
+    %a{:href=>"/intro/mindmap",:title=>"简介：思维导图"}
+      %span.tips-img
+        =image_tag('new.png')
+      %span.tips-info
+        %b 创建思维导图
+        %span.tips-detail
+          %span 增加标签
+          %span 管理和展示
+  .tips
+    %a{:href=>"/intro/editor",:title=>"简介：导图编辑器"}
+      %span.tips-img
+        =image_tag('edit.png')
+      %span.tips-info
+        %b 进行在线编辑
+        %span.tips-detail
+          %span 自动保存
+          %span 支持图片/备注
+  .tips.last
+    %a{:href=>"/intro/mapimport",:title=>"简介：文件导入"}
+      %span.tips-img
+        =image_tag('import.png')
+      %span.tips-info
+        %b 导入其他格式
+        %span.tips-detail
+          %span MindManager
+          %span Freemind
+
+#video-div
+  %div
+    %a{:href=>"/intro/editor#video",:title=>"编辑器使用视频"}= image_tag('index/video.jpg')
+  #changelog-div
+    %p 编辑器已更新至0.3版，速度更快
+    %p
+      请加入QQ群
+      %b 104054457
+      保持关注
+
+#notification-div
+  #demo-div
+    %a{:href=>"/mapdemo",:title=>"编辑器体验",:target=>"_blank"}
+      %span#demo-img
+      %span#demo-tips
+        %b 在线演示
+        %span 点击立即体验
+        %span 导图编辑器
+  #support
+    %div
+      %span 支持
+      %mp:hr
+      %span.bold Firefox 2.x/3.x
+      %br
+      %span.bold IE 6/7/8
+      %br
+      %span.bold Chrome
+    -if logged_in?
+      %mp:hr
+      %div= link_to '查看我的导图',user_mindmaps_path(current_user)

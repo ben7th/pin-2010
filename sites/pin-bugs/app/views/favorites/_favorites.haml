@@ -1,0 +1,4 @@
+-if current_user
+  =link_to_remote text_num('顶',favorable.favor_count),:url=>[favorable,:favorites],:method=>:post,:html=>{:class=>"favorites"}
+-else
+  %span.favorites= text_num('顶',favorable.favor_count)

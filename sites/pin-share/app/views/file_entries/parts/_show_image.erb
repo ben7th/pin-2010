@@ -1,0 +1,69 @@
+<%file_entry = entry.resource%>
+<div id="image_mark" class="image_mark">
+  <div style="font-size:50px;line-height:60px;">
+    <a class="add_remark_btn" href="#">增加图片标注</a>
+    <div class="edit_mode_tips hide">当前在编辑模式，你可以点击图片增加评注</div>
+  </div>
+  <div class="image_panel">
+    <div style="margin:0px;padding:0px;float:left;">
+      <%= image_tag file_entry.content.url,:class=>'image' %>
+    </div>
+
+    <%=render :partial=>"image_marks/parts/marks_div",:locals=>{:image_marks=>entry.image_marks}%>
+
+    <div class="form hide">
+      <%form_tag entry_image_marks_path(entry),:method=>:post do%>
+        <%= hidden_field_tag "image_mark[height]" %>
+        <%= hidden_field_tag "image_mark[width]" %>
+        <%= hidden_field_tag "image_mark[top]" %>
+        <%= hidden_field_tag "image_mark[left]" %>
+        <%= text_area_tag "image_mark[content]" %>
+        <div>
+          <input id="submit_mark" type="button" value="确定">
+          <input id="cancel_mark" type="button" value="取消">
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%content_for :javascripts do%>
+  <script type="text/javascript">
+    new ImageMarkBox($("image_mark"));
+  </script>
+<% end %>
+<style type="text/css">
+  .image_mark div.image_panel{
+    position:relative;
+  }
+  .image_mark img.image{
+  }
+  .image_mark div.image_panel.edit{
+    cursor:crosshair;
+  }
+  .image_mark div.image_panel div.mark.s{
+    position:absolute;
+    border:solid 1px #808080;
+  }
+  .image_mark div.image_panel div.mark div{
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
+    border:solid 1px #D8DFEA;
+  }
+  .image_mark div.image_panel div.mark.hl{
+    position:absolute;
+    opacity:0;
+  }
+  .image_mark div.image_panel div.mark_content{
+    position:absolute;
+    background-color:#D8DFEA;
+    border:solid 1px #D8DFEA;
+    color:black;
+  }
+  .image_mark div.form{
+    position:absolute;
+  }
+</style>

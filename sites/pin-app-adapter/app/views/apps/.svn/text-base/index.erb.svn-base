@@ -1,0 +1,7 @@
+<% content_for :panel do %>
+  <%= render :partial=>"apps/cell_selector" %>
+<% end %>
+
+<% content_cell do%>
+  <%mplist @apps,:for=>App%>
+<% end %>

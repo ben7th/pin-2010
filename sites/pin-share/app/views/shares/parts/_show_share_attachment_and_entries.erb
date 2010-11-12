@@ -1,0 +1,9 @@
+<!-- 显示share的附件 -->
+<% if share.entry %>
+  <%= render :partial=>"/file_entries/meta_file_entry_for_share",:locals=>{:file_entry=>share.entry.resource}  %>
+<% end %>
+
+<!-- 显示share使用的bookmark_entries -->
+<% share.entries.each do |entry| %>
+  <%=render :partial=>"entries/meta_entry",:locals=>{:entry=>entry}%>
+<% end %>

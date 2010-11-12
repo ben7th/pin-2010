@@ -1,0 +1,25 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: taggings
+#
+#  id            :integer(4)      not null, primary key
+#  tag_id        :integer(4)      
+#  taggable_id   :integer(4)      
+#  taggable_type :string(255)     
+#  user_id       :integer(4)      not null
+#  created_at    :datetime        
+#  updated_at    :datetime        
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+tagging_1:
+  taggable: entry_1
+  taggable_type: Entry
+  tag: tag_1
+
+tagging_2:
+  taggable: entry_2
+  tag: tag_4
+  taggable_type: Entry

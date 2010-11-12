@@ -1,0 +1,11 @@
+.cell.clearfix
+  .cellhead
+    .avatared
+      =avatar(current_user,:tiny)
+      .hello
+        你好！#{welcome_string}
+    .actions
+      = render_actions
+    .tabs
+      = render_tabs
+  =yield

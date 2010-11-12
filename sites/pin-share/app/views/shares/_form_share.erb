@@ -1,0 +1,6 @@
+<% mindpin_remote_form_for [shareable,share] do |f| %>
+  <%= shareable_brief_content(shareable) %>
+  <%= f.text_area :content,:show_label=>false %>
+  <%= f.hidden_field :kind, :value=>Share::SHARE %>
+  <%= f.submit "分享" %>
+<% end %>

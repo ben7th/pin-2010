@@ -1,0 +1,128 @@
+@import "../../ui/misc";
+
+/*页面基础容器*/
+body {margin:0;}
+
+.page-container {margin:0;}
+.page-content {
+  overflow:visible;clear:both;
+  .cell{
+    border:2px solid #242438;
+    @include border-radius(10px);
+    @include box-shadow(0 0 10px #040307);
+    padding:15px;
+    margin-bottom:10px;
+    background:url(/images/themes/black/bg1.png) 0 -200px repeat-x;
+    background-color:#252737;
+    margin-top:-30px;
+    margin-bottom:60px;
+    .cellhead{
+      margin-bottom:30px;
+      position:relative;
+      .avatared{
+        .logo{float:left;margin-right:10px;}
+        .hello{line-height:36px;font-size:14px;}
+      }
+      .actions{
+        position:absolute;
+        top:7px;
+        right:0px;
+      }
+      .tabs{
+        ul{
+          margin-top:15px;
+          padding:6px 10px;
+          @include border-radius(5px);
+          border:solid 1px #464660;
+          background-color:#222433;
+          position:relative;
+          overflow:hidden;
+          li{
+            a{
+              font-size:14px;
+              float:left;
+              line-height:26px;
+              padding:0 8px;
+              margin-right:10px;
+              text-shadow:1px 1px #555555;
+              color:#ddd;
+              text-decoration:none;
+              &:hover{
+                background-color:#171826;
+                @include border-radius(4px);
+              };
+              &.selected{
+                border-style:solid;
+                border-width:1px;
+                border-color:#0E0E16 #2E2E3C #2E2E3C #0E0E16;
+                @include border-radius(4px);
+                background-color:#0E0E1A;
+                font-weight:bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*顶部*/
+.page-head{
+  height:115px;
+  .nav {
+    clear:both;overflow:hidden;
+    .site-logo{
+      width:240px;height:40px;margin:25px 0 0 5px;float:left;
+      a{width:240px;height:40px;float:left;background-image:url(/images/mindpin.png)}
+    }
+    .start{
+      float:right;margin:25px 10px 0 0;overflow:hidden;line-height:40px;
+      span{float:left;margin-left:20px;}
+      .home{padding-left:18px;background:url(/images/piece/home.png) no-repeat 0 center;}
+    }
+    .userbox{
+      float:right;height:40px;
+      border:solid 2px #242438;
+      border-top:none;
+      
+      @include border-radius-side(bottom,left,6px);
+      @include border-radius-side(bottom,right,6px);
+      @include box-shadow(0 0 5px #040307);
+      @include gradient(#2D2F44,#151624);
+      padding:0 6px;
+      margin-right:10px;
+      .inner{
+        padding-top:10px;
+        .avatarname{
+          float:left;
+          .tiny{width:20px;height:20px;}
+          a{float:left;line-height:24px;}
+          a.name{font-weight:bold;margin-left:6px;}
+        }
+        .sp{float:left;line-height:24px;margin-left:15px;}
+      }
+    }
+    .topbar{
+      clear:right;
+      float:right;
+      margin:9px 4px 0 0;
+      ul{
+        display:inline;
+        clear:right;
+        li{
+          display:inline;
+          margin:0 15px 0 0;
+        }
+      }
+    }
+  }
+  &.basic{height:90px}
+}
+
+/*底部*/
+.page-footer{
+  line-height:80px;overflow:hidden;
+  .sitename{padding-left:10px;}
+  .links{float:right;padding-right:10px;}
+}

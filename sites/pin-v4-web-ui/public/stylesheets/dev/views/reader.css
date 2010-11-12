@@ -1,0 +1,19 @@
+.readable_actions{position:absolute;right:10px;padding:5px 0 5px 10px;}
+.readable_actions{background-color:white;border:solid 2px #bebebe;
+  -moz-border-radius:5px;-webkit-border-radius:5px;
+}
+.readable_content_area{padding-left:1em;min-height:200px;}
+.readable_comments{margin-top:10px;padding-top:20px;border-top:solid 1px #ccc;}
+
+.readable_btn{height:50px;margin-right:10px;float:left;}
+.unread-bad {background:url(/images/piece/readers_button.gif) no-repeat -25px -25px;height:24px;width:24px;display:block;margin-top:14px;}
+.read-bad {background:url(/images/piece/readers_button.gif) no-repeat -25px 0px;height:24px;width:24px;display:block;margin-top:14px;}
+.read-next {background:url(/images/piece/readers_button.gif) no-repeat -50px 0px;height:48px;width:48px;display:block;}
+
+.unread-good {background:url(/images/piece/readers_button.gif) no-repeat 0px -25px;height:24px;width:24px;display:block;margin-top:14px;}
+.read-good {background:url(/images/piece/readers_button.gif) no-repeat 0px 0px;height:24px;width:24px;display:block;margin-top:14px;}
+
+.read-good-small, .read-bad-small, .no-feel-small{height:12px;line-height:12px;font-size:0;width:14px;display:block;margin-top:3px;}
+.read-good-small {background:url(/images/piece/readers_button.gif) no-repeat -99px 0px;}
+.read-bad-small {background:url(/images/piece/readers_button.gif) no-repeat -99px -13px;}
+.no-feel-small {}

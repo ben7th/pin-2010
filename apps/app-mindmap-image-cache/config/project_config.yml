@@ -1,0 +1,14 @@
+development:
+  name: pin-mindmap-image-cache
+  url: http://dev.mindmap-image-cache.2010.mindpin.com/
+  master_url: http://dev.config-manager.2010.mindpin.com/
+
+test:
+  name: pin-mindmap-image-cache
+  url: http://dev.mindmap-image-cache.2010.mindpin.com/
+  master_url: http://dev.config-manager.2010.mindpin.com/
+
+production:
+  name: pin-mindmap-image-cache
+  url: http://mindmap-image-cache.2010.mindpin.com/
+  master_url: http://config-manager.2010.mindpin.com

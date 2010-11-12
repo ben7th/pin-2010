@@ -1,0 +1,8 @@
+<div>
+  <%if logged_in?%>
+    <%= render :partial=>"comments/form_comment",:locals=>{:markable=>markable} %>
+  <%else%>
+    <%= action_to "评论","javascript:void(null)" %>
+  <%end%>
+  <% mplist markable.comments,:for=>Comment,:hide_empty_text=>true %>
+</div>

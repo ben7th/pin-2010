@@ -1,0 +1,45 @@
+div.cell{border:none; margin:0 0 0 0;overflow:hidden;}
+
+div.cell h3.cell-title{
+  width:auto !important;background-image:none !important;
+  line-height:14px;height:14px;font-size:12px;font-weight:normal !important;
+  padding:2px 8px 6px !important;margin:0 !important;
+  -moz-border-radius:4px;-webkit-border-radius:4px;}
+div.cell .cell-body{padding:0;overflow:hidden;position:relative;min-height:400px;}
+div.cell .cell-head{line-height:2.1em;padding:10px 8px;}
+
+.cell-body .scrollbar{position:absolute;background-color:black;
+  height:100px;width:10px;right:-5px;bottom:0px;z-index:10000;}
+
+div.content-cell h3.cell-title div.minimize-to-taskbar{height:12px;width:12px;float:right;cursor:pointer;background:url(/images/piece/content-cell-toggle.gif) -13px no-repeat;margin-left:5px;}
+div.content-cell h3.cell-title div.minimize-to-taskbar.mouseover{background:url(/images/piece/content-cell-toggle.gif) -39px no-repeat;}
+
+div.content-cell h3.cell-title div.close{height:12px;width:12px;float:right;cursor:pointer;background:url(/images/piece/content-cell-toggle.gif) -78px no-repeat;margin-left:5px;}
+div.content-cell h3.cell-title div.close.mouseover{background:url(/images/piece/content-cell-toggle.gif) -91px no-repeat;}
+div.taskbar-cell h3.cell-title div.close{height:12px;width:12px;float:right;cursor:pointer;background:url(/images/piece/content-cell-toggle.gif) -78px no-repeat;margin-left:5px;}
+div.taskbar-cell h3.cell-title div.close.mouseover{background:url(/images/piece/content-cell-toggle.gif) -91px no-repeat;}
+
+div.taskbar-cell h3.cell-title div.minimize-toggle{display:none;}
+div.taskbar-cell h3.cell-title div.minimize-to-taskbar{height:12px;width:12px;float:right;cursor:pointer;background:url(/images/piece/content-cell-toggle.gif)  no-repeat;margin-left:5px;}
+div.taskbar-cell h3.cell-title div.minimize-to-taskbar.mouseover{background:url(/images/piece/content-cell-toggle.gif) -26px no-repeat;}
+
+div.taskbar-cell h3.cell-title div.taskbar-float-show{height:12px;width:12px;float:right;cursor:pointer;background:url(/images/piece/content-cell-toggle.gif) -104px no-repeat;}
+div.taskbar-cell h3.cell-title div.taskbar-float-show.mouseover{background:url(/images/piece/content-cell-toggle.gif) -117px no-repeat;}
+
+div.content-cell.notitle .content-cell-rcedge-top{background-color:white !important;border-color:#fff !important;}
+div.content-cell.notitle .cell-body{border-color:#fff !important;}
+div.content-cell.notitle .content-cell-rcedge-bottom{background-color:white !important;border-color:#fff !important;}
+
+div.content-cell.notitle .cell-title{display:none;}
+div.content-cell#cell_paper_base_cell.blank .cell-content{background:url(/images/piece/sunstar.png) no-repeat center center;}
+
+div.page-loading{background:url(/images/piece/cell_loading.gif) no-repeat center center;}
+
+h3.current_title{float:left;color:black;border-top:solid 2px #999;border-bottom:solid 2px #999;
+  margin:5px 0px !important;padding:0 15px !important;
+  line-height:26px;background:white !important;font-weight:bold;font-size:18px;}
+
+.cell-body .cc{padding-right:300px;overflow:hidden;}
+.cell-body .cmain{float:left;width:100%;}
+.cell-body .cright{float:left;width:280px;margin-right:-320px;margin-left:20px;}
+.cell-body .cin{padding:10px;}

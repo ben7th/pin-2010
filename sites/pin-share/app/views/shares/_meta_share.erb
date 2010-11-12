@@ -1,0 +1,11 @@
+<% shareable = share.shareable %>
+
+<% if shareable.kind == Share::TALK %>
+  <%=link_to "@#{shareable.creator.name}",shareable.creator%>：<%= share_content(shareable) %>
+  <%= source_share_count(shareable) %>
+  <%= render :partial=>"/shares/parts/show_share_attachment_and_entries",:locals=>{:share=>shareable} %>
+  <%#= mindmap_thumb(shareable) %>
+  <%= bugs_content(shareable) %>
+<% else%>
+  <%= meta shareable %>
+<% end %>

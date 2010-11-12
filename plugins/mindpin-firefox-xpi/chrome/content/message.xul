@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
+<window
+   id="dlg-login-window"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   xmlns:html="http://www.w3.org/1999/xhtml"
+   title="消息框"
+   persist="screenX screenY" onload="Mindpin.Message.init();" >
+
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_url.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_lib.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/login_manager.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_text_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_image_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/message.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collector_clip.js"/>
+
+
+  <vbox align="center" style="margin:20px 20px;">
+    <hbox align="end" style="padding:5px 0px 0px 10px;" flex="1">
+      <label id="message" value="操作成功" />
+      <label id="link" class="text-link" value="点击查看详情"/>
+    </hbox>
+
+    <vbox>
+      <hbox>
+        <button id="close_button" label="关闭" onclick="window.close();"/>
+      </hbox>
+    </vbox>
+  </vbox>
+    
+</window>

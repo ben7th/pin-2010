@@ -1,0 +1,28 @@
+#work_board {
+  left:0;
+  position:absolute;
+  text-align:left;
+  top:0;
+  z-index:100;
+}
+#work_board{
+  border: 0px;
+  margin:0px;
+  padding:0px;
+  background-color:#fff;
+}
+#work_board .wb_wrap{
+  border: 5px solid;
+  background-color:#fff;
+  position:absolute;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+}
+#work_board .wb_title{
+  background-color:#045FB4;
+}
+#work_board .wb_title a{
+  color:#fff;
+}

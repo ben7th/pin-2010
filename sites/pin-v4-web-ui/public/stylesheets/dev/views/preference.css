@@ -1,0 +1,9 @@
+ .theme-springtime,.theme-starry,.theme-sapphire{height:60px;width:80px;display:inline-block; }
+ .theme-springtime {background:url(/images/themes/springtime.png) no-repeat 0px 0px;}
+ .theme-starry {background:url(/images/themes/starry.png) no-repeat 0px 0px;}
+ .theme-sapphire {background:url(/images/themes/sapphire.png) no-repeat 0px 0px;}
+ .show_theme {float:left;margin-right:10px;text-align: center;padding:12px;}
+ .selected_theme {float:left;background-color:#FFFFFF;border:solid 2px #BDBDBD;color: #000000;padding:10px;}
+ .selected_theme a{color:#105CB6;}
+
+ .mail{color:#E8641B;font-size:18px;font-weight:bold;margin:10px 0;}

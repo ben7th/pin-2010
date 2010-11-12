@@ -1,0 +1,4 @@
+.mpaccordion-toggler{cursor:pointer;overflow:hidden;padding:4px 6px;font-size:13px;}
+.mpaccordion-toggler.close{color:black;}
+.mpaccordion-toggler.open{color:white;}
+.mpaccordion-content{overflow:hidden;zoom:1;}

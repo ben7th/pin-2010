@@ -1,0 +1,9 @@
+- mindpin_form_for app,:url=>apps_path,:html=>{:class=>'new_app_form',:multipart=>true,:target => 'upload_frame'} do |f|
+  = f.text_field :name, :size=>20, :maxlength=>255
+  = f.text_field :title, :size=>20, :maxlength=>255
+  = f.text_field :callback_url, :size=>20, :maxlength=>255
+  = f.text_field :port, :size=>20, :maxlength=>255
+  = f.file_field :logo
+  = f.text_field :developer, :size=>20, :maxlength=>255
+  = f.text_area :subject
+  = f.submit "提交"

@@ -1,0 +1,17 @@
+%ul
+  %li
+    =tabs_link_to '空间列表',pin_url_for("pin-workspace","workspaces")
+  -if action_name != "index" || controller_name == "file_entries"
+    %li
+      =tabs_link_to '空间首页',pin_url_for("pin-workspace","workspaces/#{@workspace.id}")
+    %li
+      =tabs_link_to '讨论话题',pin_url_for("discuss","workspaces/#{@workspace.id}/documents")
+    %li
+      =tabs_link_to '文档管理',[@workspace,:file_entries]
+  -if @workspace && current_user == @workspace.user
+    %li
+      =tabs_link_to '增加成员',pin_url_for("pin-workspace","workspaces/#{@workspace.id}/memberships/add_members_form")
+    %li
+      =tabs_link_to '邀请成员',pin_url_for("pin-workspace","workspaces/#{@workspace.id}/memberships/invite_members_form")
+    %li
+      =tabs_link_to '成员管理',pin_url_for("pin-workspace","workspaces/#{@workspace.id}/memberships/members_manage")

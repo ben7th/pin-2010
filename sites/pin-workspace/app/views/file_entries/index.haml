@@ -1,0 +1,9 @@
+%a.add_file 上传文件
+.file_entry_form.hide
+  -mindpin_form_for [@workspace,FileEntry.new],:html=>{:multipart=>true} do |f|
+    =f.file_field :content,:show_label=>false
+
+-mplist @file_entries,:for=>FileEntry
+
+-content_for :javascripts do
+  =javascript_include_tag "views/file_entry.js"

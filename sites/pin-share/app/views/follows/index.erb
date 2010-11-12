@@ -1,0 +1,28 @@
+<% name = @user.name%>
+<% if current_user == @user%>
+  <% name = "我"%>
+<%end%>
+
+<<div class="push_1 grid_14">
+  <div><%="#{name}的关注(#{@user.contacting.count})"%></div>
+  <%mplist @user.contactings,:for=>Contacting,:partial=>'contactings/info_follow'%>
+</div>
+
+<div class="push_2 grid_7">
+  <!-- 个人信息 -->
+  <%=render :partial=>'users/parts/user_page_info',:locals=>{:user=>@user}%>
+</div>
+
+<style type="text/css">
+  .contacts{background:url(/images/piece/contacts.png) no-repeat 0 0;width:41px;height:12px;}
+  .contacts{display:inline-block;}
+</style>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'views/show_share_content' %>
+  <script type="text/javascript">
+    $$('.share_content').each(function(share){
+      new ShowShareContent(share);
+    });
+  </script>
+<% end %>

@@ -1,0 +1,12 @@
+-comments = Comment.url_equals(params[:url]).by_updated_at(:desc).limited(3)
+
+%div= "#{params[:url]} 的评论"
+-mplist comments,:for=>Comment do |comment|
+  =render :partial=>"sidebar/comments/parts/mpinfo_comment",:locals=>{:comment=>comment}
+=link_to "更多",comments_path(:url=>params[:url]),:target=>"_blank"
+
+%div 增加评注
+-mindpin_remote_form_for Comment.new,:url=>sidebar_comments_path,:html=>{:class=>"comment_form"} do |f|
+  =f.hidden_field :url,:value=>params[:url]
+  =f.text_area :content,:show_label=>false,:style=>"height:54px;width:230px;"
+  =f.submit "提交评论"

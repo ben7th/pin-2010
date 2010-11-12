@@ -1,0 +1,70 @@
+.hide_file_input_field{
+  background:none repeat scroll 0 0 transparent;
+  border:0 none;
+  cursor:pointer;
+  height:22px;
+  left:0px;
+  opacity:0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  cursor: pointer;
+  position:absolute;
+  top:0px;
+  width:55px;
+}
+#share_audio_form_div{
+  position:absolute;
+  background-color:#FFFFFF;
+  border:#000000 solid 1px;
+}
+#share_video_form_div{
+  position:absolute;
+  background-color:#FFFFFF;
+  border:#000000 solid 1px;
+}
+#null_content_tip{
+  position:absolute;
+  top:2px;
+  left:2px;
+  width:352px;
+  height:106px;
+  background-color:#FFE2AF;
+  -moz-border-radius:5px 5px 5px 5px;
+}
+.shared_count{background-color:#DFF1FF;color:#678AA8;width:50px;margin:0 2px 2px 2px;text-align:center;font-weight: bold;
+              line-height:16px;
+              -moz-border-radius:3px;-webkit-border-radius:3px;}
+.share_condition{background-color:#F1F1F1;width:50px;margin:0 2px 2px 2px;text-align:center;line-height:16px;
+                 -moz-border-radius:3px;-webkit-border-radius:3px;color:#666;}
+.share_condition a{color:#105CB6;}
+
+li.share .toggle_box{
+  width:450px;
+  padding:10px;
+  margin-left:10px !important;
+}
+li.share .quote_content .toggle_box{
+  background:none;
+  border:none;
+}
+
+.followed{margin-top:9px;border:solid 1px #D7D7D7;background:#eaeaea;padding:3px;float:left;}
+.add_follow{margin-top:9px;}
+.follow{background:url(/images/piece/follow.gif) no-repeat 0px 0px;width:80px;height:26px;}
+.follow{display:block;text-indent:-9999px;}
+
+/*Share相关*/
+.image-icon {background:url(/images/piece/sicon.gif) no-repeat 0px 0px;height:16px;width:16px;}
+.video-icon {background:url(/images/piece/sicon.gif) no-repeat -34px 0px;height:16px;width:16px;}
+.audio-icon {background:url(/images/piece/sicon.gif) no-repeat -17px 0px;height:16px;width:16px;}
+.feedvideoplay-icon{
+  margin-top:-16px;margin-left:-16px;position:absolute;top:50%;left:50%;opacity:0.7;
+  width:33px;height:33px;display:block;background-image:url(/images/feedvideoplay.gif);
+}
+.video_img span{margin:0;padding:0;position:relative;display:inline-block;}
+
+#share_content{
+  -moz-border-radius:3px 3px 3px 3px;
+  height:100px;
+  padding:4px 2px;
+  width:350px;
+}

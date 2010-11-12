@@ -1,0 +1,54 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: text_entries
+#
+#  id         :integer(4)      not null, primary key
+#  content    :text            default(""), not null
+#  title      :string(255)     
+#  created_at :datetime        
+#  updated_at :datetime        
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# one:
+#   column: value
+#
+# two:
+#   column: value
+text_1:
+  title: 文本一
+  content: 文本一内容
+
+text_2:
+  title: 文本二
+  content: 文本二内容
+
+text_3:
+  title: 文本三
+  content: 文本三内容
+
+text_4:
+  title: 文本四
+  content: 文本四内容
+
+text_5:
+  title: 文本五
+  content: 文本五内容
+
+text_6:
+  title: 文本六
+  content: 文本六内容
+
+text_7:
+  title: 文本七
+  content: 文本七内容
+
+text_8:
+  title: 文本八
+  content: 文本八内容
+
+text_9:
+  title: 文本九
+  content: 文本九内容

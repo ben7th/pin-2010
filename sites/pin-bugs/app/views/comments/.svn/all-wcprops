@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/e_prototype/!svn/ver/4678/trunk/bug/app/views/comments
+END
+newest.haml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/e_prototype/!svn/ver/4714/trunk/bug/app/views/comments/newest.haml
+END
+_form_comment.erb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/e_prototype/!svn/ver/4678/trunk/bug/app/views/comments/_form_comment.erb
+END
+_info_comment.haml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/e_prototype/!svn/ver/4678/trunk/bug/app/views/comments/_info_comment.haml
+END
+_form_simple_comment.haml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/e_prototype/!svn/ver/4678/trunk/bug/app/views/comments/_form_simple_comment.haml
+END

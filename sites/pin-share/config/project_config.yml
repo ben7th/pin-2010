@@ -1,0 +1,14 @@
+development:
+  name: pin-share
+  url: http://dev.share.2010.mindpin.com/
+  master_url: http://dev.config-manager.2010.mindpin.com/
+
+test:
+  name: pin-share
+  url: http://dev.share.2010.mindpin.com/
+  master_url: http://dev.config-manager.2010.mindpin.com/
+
+production:
+  name: pin-share
+  url: http://share.2010.mindpin.com/
+  master_url: http://config-manager.2010.mindpin.com

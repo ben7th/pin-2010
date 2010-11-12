@@ -1,0 +1,6 @@
+.grid_2.push_0
+  = selector_link_to "全部",apps_path
+  = selector_link_to "已安装",installed_apps_path
+.grid_8.push7
+  = link_to_remote "新应用",:url=>new_app_path,:method=>:get
+  - mplist @apps,:for=>App

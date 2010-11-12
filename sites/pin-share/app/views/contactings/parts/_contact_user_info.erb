@@ -1,0 +1,22 @@
+<%share = user.shares.first -%>
+<%if !share.blank?%>
+  <%content = share.content%>
+  <% if content.length >140 %>
+    <%content = truncate_u(content,140)%>
+  <%end%>
+<%end%>
+
+<div class="padding5 fleft">
+  <%=logo user%>
+</div>
+
+<div class="padding5 fleft marginl5 width450">
+  <div class="font14"><%=qlink user%></div>
+  <div class="quiet">有<b><%=user.contacters_count%></b>人关注</div>
+  <%if !share.blank?%>
+    <div class="margint5 font12">
+      <span><%=content%></span>
+      <span>(<%= time_str_by_today share.created_at %>)</span>
+    </div>
+  <%end%>
+</div>

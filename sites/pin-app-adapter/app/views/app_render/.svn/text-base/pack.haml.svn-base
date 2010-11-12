@@ -1,0 +1,9 @@
+- if @mpml.blank?
+  - content_cell do
+    .padding10
+      .flash-error.font14 应用 #{@app.title} 目前不能正常访问，可能正在维护...
+- else
+  - content_cell do
+    =@mpml.body
+
+  = render :partial=>'app_render/parts/page_misc'

@@ -1,0 +1,9 @@
+-comment = Comment.new
+-mindpin_remote_form_for [markable,comment],:html=>{:class=>"comment_form",:onsubmit=>"if(!RemarkManager.form_submit_failure(this)){return false}"} do |f|
+  .reply_user
+  =f.hidden_field :reply_to
+  .boxfix
+    .fleft
+      =f.text_area :content,:rel=>"aadapt[:1]",:style=>"height:18px;",:show_label=>false
+    .fleft.marginl5
+      =f.submit "评论"

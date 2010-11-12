@@ -1,0 +1,18 @@
+.nav{
+  background-image: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/themes/starry/top.png',sizingMethod='scale');
+}
+
+.page-footer{
+  background-image: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/themes/starry/foot.png',sizingMethod='scale');
+}
+
+div.page-selector.url-active{
+  background-image: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/themes/starry/selector_bg.png',sizingMethod='scale');
+}
+div#PL-paper{
+  background-image: none;
+  filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/themes/starry/selector_bg.png',sizingMethod='scale');
+}

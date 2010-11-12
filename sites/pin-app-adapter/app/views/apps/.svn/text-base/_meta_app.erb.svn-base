@@ -1,0 +1,21 @@
+<div class="boxfix">
+  <div class="fleft">
+    <div>
+      <%=logo app %>
+    </div>
+  </div>
+  <div style="margin-left:80px;">
+    <h2>
+      <%= app.title %>
+    </h2>
+    <div class="quiet">
+      由 <%= app.developer || '未知' %> 开发
+    </div>
+    <div>
+      <%= app.subject || '暂无简介' %>
+    </div>
+    <div>
+      总用户 <%= app.installings.count %> 人
+    </div>
+  </div>
+</div>
