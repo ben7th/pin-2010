@@ -153,7 +153,8 @@ Mindpin.CollectorClip = {
     var number = cliped_elements.length;
     var char_number = 0;
     $(cliped_elements).each(function(i,el){
-      char_number += ($(el).text().length-2); // 减去2（取消 二字） 
+//      char_number += ($(el).text().length-2); // 减去2（取消 二字）
+      char_number += ($(el).text().length);
     })
     var button = getSidebarWindow().$('#send_clip_button')
     button.attr("label","发送捕捉到的元素 "+number+"块 "+char_number+"字符");
@@ -259,9 +260,9 @@ Mindpin.CollectorClip = {
       Mindpin.CollectorClip.check_send_clip_button_status();
       Mindpin.CollectorClip.statis_clip_elements();
     }),this)
-    $(close_link).attr("innerHTML","取消");
+//    $(close_link).attr("innerHTML","取消");
     $(close_link).attr("class","cancel_link_for_page_clip");
-    $(close_link).attr("style","opacity:1;float:right;cursor:hand;");
+    $(close_link).attr("style","background:url(http://ui.mindpin.com/images/piece/highlight-close.png) no-repeat 0px 0px;height:16px;width:16px;display:block;opacity:1;float:right;cursor:hand;");
     choose_div.appendChild(close_link);
     var data_div = this.document.createElement("div");
     data_div.setAttribute("class","data_element");
