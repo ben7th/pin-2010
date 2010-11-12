@@ -38,7 +38,7 @@ module WorkspacesHelper
     end
   end
 
-  def document_link(document)
+  def document_link(workspace,document)
     title = document.title
 
     match_data = title.match(/<bundle>.*<\/bundle>(.*)/)
@@ -48,7 +48,7 @@ module WorkspacesHelper
       title = "bundle(#{bundle_title})"
     end
 
-    link_to title,pin_url_for('discuss',"workspaces/#{document.discussion.workspace.id}/documents/#{document.id}")
+    link_to title,pin_url_for('discuss',"workspaces/#{workspace.id}/documents/#{document.id}")
   end
 
   def workspace_link(workspace)
