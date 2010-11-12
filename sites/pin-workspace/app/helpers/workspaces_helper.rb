@@ -17,6 +17,10 @@ module WorkspacesHelper
     workspace = info.workspace
     document = Document.find_by_log_info(info)
     user = User.find_by_email(info.email)
+    
+    if user.blank? || document.blank? || workspace.blank?
+      return
+    end
 
     render :partial=>'workspaces/parts/operation_info',:locals=>{
       :info=>info,
