@@ -1,0 +1,9 @@
+{
+  "name": "mindpin",
+  "version": "1.0",
+  "description": "便捷的",
+  "browser_action": {
+    "default_icon": "skin/ico.png",
+    "popup": "content/hello.html"
+  }
+}
