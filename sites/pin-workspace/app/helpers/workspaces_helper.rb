@@ -17,6 +17,10 @@ module WorkspacesHelper
     workspace = info.workspace
     document = Document.find_by_log_info(info)
     user = User.find_by_email(info.email)
+    
+    if user.blank? || document.blank? || workspace.blank?
+      return
+    end
 
     render :partial=>'workspaces/parts/operation_info',:locals=>{
       :info=>info,
@@ -38,7 +42,7 @@ module WorkspacesHelper
     end
   end
 
-  def document_link(document)
+  def document_link(workspace,document)
     title = document.title
 
     match_data = title.match(/<bundle>.*<\/bundle>(.*)/)
@@ -48,7 +52,7 @@ module WorkspacesHelper
       title = "bundle(#{bundle_title})"
     end
 
-    link_to title,pin_url_for('discuss',"workspaces/#{document.discussion.workspace.id}/documents/#{document.id}")
+    link_to title,pin_url_for('discuss',"workspaces/#{workspace.id}/documents/#{document.id}")
   end
 
   def workspace_link(workspace)
