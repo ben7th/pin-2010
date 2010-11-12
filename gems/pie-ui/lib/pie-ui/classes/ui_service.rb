@@ -9,7 +9,7 @@ class UiService
       when 'development'
         randstr #开发环境的话 不去缓存
       when 'production'
-        last_modified_file_id('/web/2010/pin-v4-web-ui/')
+        last_modified_file_id('/web/2010/pin-2010/')
       end
     end
 
@@ -20,8 +20,8 @@ class UiService
     def last_modified_file_id(project_dir)
       t1 = Time.now
       repo = Grit::Repo.new(project_dir)
-      js  = repo.log('master', 'public/javascripts', :max_count => 1).first
-      css = repo.log('master', 'public/stylesheets', :max_count => 1).first
+      js  = repo.log('master', 'sites/pin-v4-web-ui/public/javascripts', :max_count => 1).first
+      css = repo.log('master', 'sites/pin-v4-web-ui/public/stylesheets', :max_count => 1).first
       t2 = Time.now
       RAILS_DEFAULT_LOGGER.info "获取 asset_id 耗时 #{(t2 - t1)*1000}ms"
       js.committed_date > css.committed_date ? js.id : css.id
