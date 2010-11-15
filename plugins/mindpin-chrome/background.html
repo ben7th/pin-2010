@@ -1,4 +1,5 @@
-<script>
+<script type="text/javascript" src="javascripts/user_manager.js"></script>
+<script type="text/javascript">
   var MindpinWin = null;
 
   // 监视 mindpin 插件按钮
@@ -10,7 +11,7 @@
         top = win.top + 100;
         left = win.left + win.width - 200;
         chrome.windows.create({
-          url: "mindpin.html", type: "popup",
+          url: "mindpin_window.html", type: "popup",
           left: left, top: top,
           width: 400, height: 700
         },function(win){
