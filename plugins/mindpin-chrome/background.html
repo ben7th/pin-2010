@@ -1,0 +1,18 @@
+<script>
+  var MindpinWin = null;
+  chrome.browserAction.onClicked.addListener(function(tab){
+    if(!MindpinWin){
+      chrome.windows.create({
+        url: "mindpin.html", type: "popup",
+        left: 0, top: 0,
+        width: 400, height: 700
+      },function(win){
+        MindpinWin = win
+      })
+    }else{
+      chrome.windows.remove(MindpinWin.id,function(win){
+        MindpinWin = null;
+      })
+    }
+  });
+</script>

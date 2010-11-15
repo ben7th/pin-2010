@@ -1,9 +1,10 @@
 {
   "name": "mindpin",
   "version": "1.0",
+  "background_page": "background.html",
   "description": "便捷的",
   "browser_action": {
-    "default_icon": "skin/ico.png",
-    "popup": "content/hello.html"
-  }
+    "default_icon": "skin/ico.png"
+  },
+  "permissions": ["*://*/*","tabs"]
 }
