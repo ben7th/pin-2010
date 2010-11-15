@@ -1,18 +1,33 @@
 <script>
   var MindpinWin = null;
+
+  // 监视 mindpin 插件按钮
   chrome.browserAction.onClicked.addListener(function(tab){
     if(!MindpinWin){
-      chrome.windows.create({
-        url: "mindpin.html", type: "popup",
-        left: 0, top: 0,
-        width: 400, height: 700
-      },function(win){
-        MindpinWin = win
-      })
+      var left = 0;
+      var top = 0;
+      chrome.windows.get(1,function(win){
+        top = win.top + 100;
+        left = win.left + win.width - 200;
+        chrome.windows.create({
+          url: "mindpin.html", type: "popup",
+          left: left, top: top,
+          width: 400, height: 700
+        },function(win){
+          MindpinWin = win
+        });
+      });
     }else{
       chrome.windows.remove(MindpinWin.id,function(win){
         MindpinWin = null;
       })
+    }
+  });
+
+  // 监视 mindpin 工具栏的关闭
+  chrome.windows.onRemoved.addListener(function(windowId){
+    if(MindpinWin && MindpinWin.id == windowId){
+      MindpinWin = null;
     }
   });
 </script>
