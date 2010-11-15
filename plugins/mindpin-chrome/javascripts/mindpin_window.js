@@ -1,24 +1,21 @@
 var BG = chrome.extension.getBackgroundPage();
-if(typeof(BG.Mindpin)=='undefined'){BG.Mindpin = {}}
+if(typeof(BG.Mindpin)=='undefined'){
+  BG.Mindpin = {}
+  }
 var Mindpin = BG.Mindpin;
 
 Mindpin.MindpinWindow = {
   init: function(){
     // 注册一些事件
-    this.loading_ui();
     this.add_events();
-    var user = Mindpin.UserManager.get_user();
-    if(user){
-      this.logined_ui(user);
-    }else{
-      this.unlogin_ui();
-    }
+    this.loading_ui();
+    this.show();
   },
 
   add_events: function(){
     // 退出登录按钮
     $("#logout").click(function(evt){
-      alert("退出")
+      Mindpin.UserManager.logout();
       evt.preventDefault();
     });
 
@@ -37,15 +34,26 @@ Mindpin.MindpinWindow = {
   loading_ui: function(){
     
   },
-  logined_ui: function(){
-    
+  show: function(){
+    var user = Mindpin.UserManager.get_user();
+    if(user){
+      this.logined_ui(user);
+    }else{
+      this.unlogin_ui();
+    }
+  },
+  logined_ui: function(user){
+    $("#user_name").text(user.name)
+    $("#unlogin_action",document).hide();
+    $("#logined_action",document).show();
   },
   unlogin_ui: function(){
     $("#logined_action",document).hide();
     $("#unlogin_action",document).show();
   },
   check_open_and_show: function(){
-    
+    this.loading_ui();
+    this.show();
   },
   login: function(){
 

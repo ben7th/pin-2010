@@ -2,18 +2,22 @@ if(typeof(Mindpin)=='undefined'){Mindpin = {}}
 
 Mindpin.UserManager = {
   get_user: function(){
+    var name = localStorage.getItem("user_name")
+    if(name){
+      return {name:name}
+    }
     return null;
   },
   set_user: function(user){
-    return null;
+    localStorage.setItem("user_name",user.name)
   },
   remove_user: function(){
     return null;
   },
   prompt_user_login: function(){
-    window.open("login_window.html", "LoginWindow", "location=no,height=100, width=400,centerscreen,modal,resizable=no");
+    window.open("login_window.html", "LoginWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
   },
-  asyn_try_login: function(email,password){
+  asyn_try_login: function(){
     $.ajax({
       url:Mindpin.LOGIN_URL,
       type:"POST",
@@ -28,6 +32,9 @@ Mindpin.UserManager = {
         Mindpin.MindpinWindow.check_open_and_show();
       }
     });
+  },
+  logout: function(){
+    $.ajax({url: Mindpin.LOGOUT_URL, type: "get"});
   }
 }
 
