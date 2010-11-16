@@ -1,7 +1,7 @@
 var BG = chrome.extension.getBackgroundPage();
 if(typeof(BG.Mindpin)=='undefined'){
   BG.Mindpin = {}
-  }
+}
 var Mindpin = BG.Mindpin;
 
 Mindpin.MindpinWindow = {
@@ -88,7 +88,25 @@ Mindpin.MindpinWindow = {
   // 显示历史记录
   show_browse_history : function(){
     $("#mindpin_window_content #browse_history_iframe").attr("src",Mindpin.BROWSE_HISTORIES_URL);
+  },
+  
+  // 发送历史记录
+  send_browse_history : function(url,title){
+    $.ajax({
+      url: Mindpin.SUBMIT_BROWSE_HISTORIES_URL,
+      type: "post",
+      async: true,
+      data: {
+        'url':url,
+        'title':title
+      },
+      dataType: "text",
+      success: function(){
+        Mindpin.MindpinWindow.show_browse_history();
+      }
+    });
   }
+
 }
 
 $(document).ready(function(){

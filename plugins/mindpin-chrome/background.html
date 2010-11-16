@@ -50,16 +50,19 @@
   });
   
   function is_nonsupport_url(url){
-    return url == "about:blank" || (/^chrome-extension:/.test(url))
+    return url == "about:blank" || (/^chrome-extension:/.test(url) || (/^chrome:/.test(url)))
   };
   
   // chrome 当前tab发生变化
   chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab) {
-      var url = tab.url
-      if(!is_nonsupport_url(url)){
-        CurrentCorrectUrl = url;
+    var url = tab.url
+    if(!is_nonsupport_url(url)){
+      CurrentCorrectUrl = url
+      if(changeInfo.status=="complete"){
+        Mindpin.MindpinWindow.send_browse_history(CurrentCorrectUrl,tab.title);
       }
-      Mindpin.MindpinWindow.show_url_content(CurrentCorrectUrl);
+    }
+    Mindpin.MindpinWindow.show_url_content(CurrentCorrectUrl);
   });
   
   // chrome 变换tab的事件
