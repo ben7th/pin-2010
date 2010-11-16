@@ -51,11 +51,17 @@ Mindpin.MindpinWindow = {
   unlogin_ui: function(){
     $("#logined_action",document).hide();
     $("#unlogin_action",document).show();
+    this.hide_window_content();
   },
   
   check_open_and_show: function(){
     this.loading_ui();
     this.show();
+  },
+  
+  // 隐藏窗体内容
+  hide_window_content : function(){
+    $("#mindpin_window_content").hide();
   },
   
   // 显示窗体内容
