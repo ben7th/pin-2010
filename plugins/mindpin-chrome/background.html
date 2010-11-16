@@ -1,10 +1,12 @@
 <script type="text/javascript" src="javascripts/jquery.min.js" ></script>
 <script type="text/javascript" src="javascripts/user_manager.js"></script>
 <script type="text/javascript" src="javascripts/mindpin_url.js"></script>
+<script type="text/javascript" src="javascripts/mindpin_window.js"></script>
 <script type="text/javascript">
   var MindpinWin = null;
   var logged_in_for_plugin = null;
-
+  var CurrentCorrectUrl = "";
+  
   // 监视 mindpin 插件按钮
   chrome.browserAction.onClicked.addListener(function(tab){
     if(!MindpinWin){
@@ -45,6 +47,30 @@
         setTimeout(Mindpin.UserManager.asyn_try_login,0)
       }
     }
+  });
+  
+  function is_nonsupport_url(url){
+    return url == "about:blank" || (/^chrome-extension:/.test(url))
+  };
+  
+  // chrome 当前tab发生变化
+  chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab) {
+      var url = tab.url
+      if(!is_nonsupport_url(url)){
+        CurrentCorrectUrl = url;
+      }
+      Mindpin.MindpinWindow.show_url_content(CurrentCorrectUrl);
+  });
+  
+  // chrome 变换tab的事件
+  chrome.tabs.onSelectionChanged.addListener(function(tabId,selectInfo) {
+    chrome.tabs.get(tabId,function(tab){
+      var url = tab.url;
+      if(!is_nonsupport_url(url)){
+        CurrentCorrectUrl = url;
+      }
+      Mindpin.MindpinWindow.show_url_content(CurrentCorrectUrl);
+    })
   });
 
   // 插件初始化

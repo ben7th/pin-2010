@@ -78,8 +78,16 @@ Mindpin.MindpinWindow = {
   
   // 显示网页信息 以及网页评注
   show_page_info_comments : function(){
-    $("#mindpin_window_content #web_site_info_iframe").attr("src",Mindpin.WEB_SITE_INFOS_URL);
-    $("#mindpin_window_content #web_site_comments_iframe").attr("src",Mindpin.WEB_SITE_COMMENTS_URL);
+    chrome.tabs.getCurrent(function(tab){
+      if(BG.CurrentCorrectUrl!=""){
+        Mindpin.MindpinWindow.show_url_content(BG.CurrentCorrectUrl); 
+      }
+    });
+  },
+  
+  show_url_content : function(url){
+    $("#mindpin_window_content #web_site_info_iframe").attr("src",Mindpin.WEB_SITE_INFOS_URL+"?url="+encodeURIComponent(url));
+    $("#mindpin_window_content #web_site_comments_iframe").attr("src",Mindpin.WEB_SITE_COMMENTS_URL+"?url="+encodeURIComponent(url));  
   },
   
   // 显示历史记录
