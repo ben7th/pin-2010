@@ -1,7 +1,9 @@
+<script type="text/javascript" src="javascripts/jquery.min.js" ></script>
 <script type="text/javascript" src="javascripts/user_manager.js"></script>
 <script type="text/javascript" src="javascripts/mindpin_url.js"></script>
 <script type="text/javascript">
   var MindpinWin = null;
+  var logged_in_for_plugin = null;
 
   // 监视 mindpin 插件按钮
   chrome.browserAction.onClicked.addListener(function(tab){
@@ -33,4 +35,20 @@
       MindpinWin = null;
     }
   });
+
+  // 显示 mindpin 网站 cookie 的变化
+  chrome.cookies.onChanged.addListener(function(changeInfo){
+    var cookie = changeInfo.cookie;
+    if(cookie.domain == ".2010.mindpin.com" && cookie.name == "logged_in_for_plugin"){
+      if(cookie.value != logged_in_for_plugin){
+        logged_in_for_plugin = cookie.value;
+        setTimeout(Mindpin.UserManager.asyn_try_login,0)
+      }
+    }
+  });
+
+  // 插件初始化
+  (function(){
+    Mindpin.UserManager.asyn_try_login();
+  })();
 </script>

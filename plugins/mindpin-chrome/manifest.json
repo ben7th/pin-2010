@@ -6,5 +6,5 @@
   "browser_action": {
     "default_icon": "skin/ico.png"
   },
-  "permissions": ["*://*/*","tabs"]
+  "permissions": ["*://*/*","tabs","cookies"]
 }

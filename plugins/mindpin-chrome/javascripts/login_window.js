@@ -6,7 +6,6 @@ var Mindpin = BG.Mindpin;
 
 Mindpin.LoginWindow = {
   init: function(){
-    BG.console.log($("#user_submit"))
     $("#user_submit").click(function(evt){
       evt.preventDefault();
       Mindpin.LoginWindow.login();
@@ -40,7 +39,6 @@ Mindpin.LoginWindow = {
       success:function(user){
         Mindpin.UserManager.set_user(user);
         window.close();
-        Mindpin.MindpinWindow.check_open_and_show();
       },
       error:function(){
         $("#tip").text("用户名或密码错误");
