@@ -73,11 +73,9 @@ Mindpin.MindpinWindow = {
   
   // 显示网页信息 以及网页评注
   show_page_info_comments : function(){
-    chrome.tabs.getCurrent(function(tab){
-      if(BG.CurrentCorrectUrl!=""){
-        Mindpin.MindpinWindow.show_url_content(BG.CurrentCorrectUrl); 
-      }
-    });
+    if(BG.CurrentCorrectTab.url!=""){
+      Mindpin.MindpinWindow.show_url_content(BG.CurrentCorrectTab.url);
+    }
   },
   
   show_url_content : function(url){

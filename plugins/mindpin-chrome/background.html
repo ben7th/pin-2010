@@ -5,7 +5,7 @@
 <script type="text/javascript">
   var MindpinWin = null;
   var logged_in_for_plugin = null;
-  var CurrentCorrectUrl = "";
+  var CurrentCorrectTab = {url:"",tab_id:null};
   
   // 监视 mindpin 插件按钮
   chrome.browserAction.onClicked.addListener(function(tab){
@@ -57,12 +57,12 @@
   chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab) {
     var url = tab.url
     if(!is_nonsupport_url(url)){
-      CurrentCorrectUrl = url
-      if(changeInfo.status=="complete"){
-        Mindpin.MindpinWindow.send_browse_history(CurrentCorrectUrl,tab.title);
+      CurrentCorrectTab = {url:url,tab_id:tab.id}
+      if(changeInfo.status=="loading"){
+        Mindpin.MindpinWindow.send_browse_history(CurrentCorrectTab.url,tab.title);
       }
     }
-    Mindpin.MindpinWindow.show_url_content(CurrentCorrectUrl);
+    Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
   });
   
   // chrome 变换tab的事件
@@ -70,9 +70,9 @@
     chrome.tabs.get(tabId,function(tab){
       var url = tab.url;
       if(!is_nonsupport_url(url)){
-        CurrentCorrectUrl = url;
+        CurrentCorrectTab = {url:url,tab_id:tab.id};
       }
-      Mindpin.MindpinWindow.show_url_content(CurrentCorrectUrl);
+      Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
     })
   });
 
