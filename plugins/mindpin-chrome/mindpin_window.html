@@ -8,20 +8,6 @@
     <script type="text/javascript" src="javascripts/mindpin_window.js" ></script>
     <!-- tab styling --> 
 		<link rel="stylesheet" type="text/css" href="skin/tabs.css" /> 
-		<!-- tab pane styling --> 
-		<style> 
-			/* tab pane styling */
-			.panes div {
-				display:none;		
-				padding:15px 10px;
-				border:1px solid #999;
-				border-top:0;
-				height:85%;
-				font-size:14px;
-				background-color:#fff;
-			}
-		</style> 
-    
     
   </head>
   <body>
@@ -36,19 +22,28 @@
         <button id="register">注册</button>
       </div>
     </div>
-  	<!-- the tabs --> 
-		<ul class="tabs"> 
-			<li><a href="#">网站资料</a></li> 
-			<li><a href="#">浏览历史</a></li> 
-			<li><a href="#">网页信息</a></li> 
-		</ul> 
-		 
-		<!-- tab "panes" --> 
-		<div class="panes"> 
-			<div>网站资料</div> 
-			<div>浏览历史</div> 
-			<div>网页信息</div> 
-		</div>  
+    <div id="mindpin_window_content" style="display:none">
+    	<!-- the tabs --> 
+  		<ul class="tabs"> 
+  			<li><a href="#">网站资料</a></li> 
+  			<li><a href="#">浏览历史</a></li> 
+  			<li><a href="#">网页信息</a></li> 
+  		</ul> 
+  		 
+  		<!-- tab "panes" --> 
+  		<div class="panes"> 
+  			<div id="web_site_info" >
+  			  <iframe id="web_site_info_iframe" width="100%" height="50%" ></iframe>
+  			  <iframe id="web_site_comments_iframe" width="100%" height="50%" ></iframe>
+			  </div> 
+  			<div id="browse_history">
+  			  <iframe id="browse_history_iframe" width="100%" height="100%" ></iframe>
+  			</div> 
+  			<div id="page_information">
+  			  <iframe id="page_information_iframe" width="100%" height="100%" ></iframe>
+  			</div> 
+  		</div>  
+    </div>
   </body>
   <script type="text/javascript">
   	$("ul.tabs").tabs("div.panes > div");

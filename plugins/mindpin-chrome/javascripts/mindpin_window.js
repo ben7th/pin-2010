@@ -46,6 +46,7 @@ Mindpin.MindpinWindow = {
     $("#user_name").text(user.name)
     $("#unlogin_action",document).hide();
     $("#logined_action",document).show();
+    this.show_window_content();
   },
   unlogin_ui: function(){
     $("#logined_action",document).hide();
@@ -60,6 +61,24 @@ Mindpin.MindpinWindow = {
   },
   logout: function(){
     
+  },
+  
+  // 显示窗体内容
+  show_window_content : function(){
+    $("#mindpin_window_content").show();
+    this.show_page_info_comments();
+    this.show_browse_history();
+  },
+  
+  // 显示网页信息 以及网页评注
+  show_page_info_comments : function(){
+    $("#mindpin_window_content #web_site_info_iframe").attr("src",Mindpin.WEB_SITE_INFOS_URL);
+    $("#mindpin_window_content #web_site_comments_iframe").attr("src",Mindpin.WEB_SITE_COMMENTS_URL);
+  },
+  
+  // 显示历史记录
+  show_browse_history : function(){
+    $("#mindpin_window_content #browse_history_iframe").attr("src",Mindpin.BROWSE_HISTORIES_URL);
   }
 }
 
