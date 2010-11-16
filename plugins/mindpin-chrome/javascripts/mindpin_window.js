@@ -26,7 +26,7 @@ Mindpin.MindpinWindow = {
     });
     // 注册按钮
     $("#register").click(function(evt){
-      alert("注册")
+      window.open(Mindpin.REGISTER_URL)
       evt.preventDefault();
     });
   },
@@ -53,15 +53,10 @@ Mindpin.MindpinWindow = {
     $("#unlogin_action",document).show();
     this.hide_window_content();
   },
+  
   check_open_and_show: function(){
     this.loading_ui();
     this.show();
-  },
-  login: function(){
-
-  },
-  logout: function(){
-    
   },
   
   // 隐藏窗体内容

@@ -31,11 +31,17 @@ Mindpin.LoginWindow = {
 
     $("#tip").text("正在提交..");
     $("#tip").show();
+
+    var data_hash = {email:email,password:password}
+    if($("#remember_me").attr("checked")){
+      data_hash.remember_me = "on"
+    }
+    
     $.ajax({
       url:Mindpin.LOGIN_URL,
       type:"POST",
       dataType:"json",
-      data: {email:email,password:password},
+      data: data_hash,
       success:function(user){
         Mindpin.UserManager.set_user(user);
         window.close();
