@@ -97,7 +97,7 @@ MindpinWindow = {
       },
       dataType: "text",
       success: function(){
-        this.show_browse_history();
+        MindpinWindow.show_browse_history();
       }
     });
   }
