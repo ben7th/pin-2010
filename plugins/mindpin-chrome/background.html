@@ -60,6 +60,7 @@
       if(changeInfo.status=="complete" && MindpinWin != null ){
         MindpinWin.window.MindpinWindow.send_browse_history(CurrentCorrectTab.url,tab.title);
         MindpinWin.window.MindpinWindow.show_url_content(CurrentCorrectTab.url);
+        MindpinWin.window.MindpinWindow.show_page_content();
       }
     }
   });
@@ -71,6 +72,7 @@
       if(!is_nonsupport_url(url) && MindpinWin != null){
         CurrentCorrectTab = {url:url,tab_id:tab.id};
         MindpinWin.window.MindpinWindow.show_url_content(CurrentCorrectTab.url);
+        MindpinWin.window.MindpinWindow.show_page_content();
       }
     })
   });

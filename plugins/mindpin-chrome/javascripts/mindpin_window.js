@@ -92,7 +92,10 @@ MindpinWindow = {
       give_content: "ok"
     }, function(response) {
       // 在第三个页签中插入元素
-      console.dir(response)
+      $("#rsses_content").attr("innerHTML","");
+      $("#links_content").attr("innerHTML","");
+      $("#images_content").attr("innerHTML","");
+      
       $(response.page_content.rsses).each(function(i,link){
         $("#rsses_content").append("<div class='rss_item'><a href="+link.href+">"+link.text+"</a><div>")
       });
@@ -102,6 +105,7 @@ MindpinWindow = {
       $(response.page_content.images).each(function(i,image){
         $("#images_content").append("<div class='image_item'><img src='"+image.src+"' width="+image.width+"px height="+image.height+"px /><div>")
       });
+      
     });
   },
   
