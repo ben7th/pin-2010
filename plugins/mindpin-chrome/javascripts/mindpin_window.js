@@ -1,10 +1,6 @@
 var BG = chrome.extension.getBackgroundPage();
-if(typeof(BG.Mindpin)=='undefined'){
-  BG.Mindpin = {}
-}
-var Mindpin = BG.Mindpin;
-
-Mindpin.MindpinWindow = {
+BG.MindpinWin.window = window;
+MindpinWindow = {
   init: function(){
     // 注册一些事件
     this.add_events();
@@ -15,18 +11,18 @@ Mindpin.MindpinWindow = {
   add_events: function(){
     // 退出登录按钮
     $("#logout").click(function(evt){
-      Mindpin.UserManager.logout();
+      BG.Mindpin.UserManager.logout();
       evt.preventDefault();
     });
 
     // 登录按钮
     $("#login").click(function(evt){
-      Mindpin.UserManager.prompt_user_login();
+      BG.Mindpin.UserManager.prompt_user_login();
       evt.preventDefault();
     });
     // 注册按钮
     $("#register").click(function(evt){
-      window.open(Mindpin.REGISTER_URL)
+      window.open(BG.Mindpin.REGISTER_URL)
       evt.preventDefault();
     });
   },
@@ -35,7 +31,7 @@ Mindpin.MindpinWindow = {
     
   },
   show: function(){
-    var user = Mindpin.UserManager.get_user();
+    var user = BG.Mindpin.UserManager.get_user();
     if(user){
       this.logined_ui(user);
     }else{
@@ -45,13 +41,13 @@ Mindpin.MindpinWindow = {
   logined_ui: function(user){
     $("#user_name").text(user.name);
     $("#user_avatar_img").attr("src",user.avatar);
-    $("#unlogin_action",document).hide();
-    $("#logined_action",document).show();
+    $("#unlogin_action").hide();
+    $("#logined_action").show();
     this.show_window_content();
   },
   unlogin_ui: function(){
-    $("#logined_action",document).hide();
-    $("#unlogin_action",document).show();
+    $("#logined_action").hide();
+    $("#unlogin_action").show();
     this.hide_window_content();
   },
   
@@ -75,24 +71,24 @@ Mindpin.MindpinWindow = {
   // 显示网页信息 以及网页评注
   show_page_info_comments : function(){
     if(BG.CurrentCorrectTab.url!=""){
-      Mindpin.MindpinWindow.show_url_content(BG.CurrentCorrectTab.url);
+      this.show_url_content(BG.CurrentCorrectTab.url);
     }
   },
   
   show_url_content : function(url){
-    $("#mindpin_window_content #web_site_info_iframe").attr("src",Mindpin.WEB_SITE_INFOS_URL+"?url="+encodeURIComponent(url));
-    $("#mindpin_window_content #web_site_comments_iframe").attr("src",Mindpin.WEB_SITE_COMMENTS_URL+"?url="+encodeURIComponent(url));  
+    $("#mindpin_window_content #web_site_info_iframe").attr("src",BG.Mindpin.WEB_SITE_INFOS_URL+"?url="+encodeURIComponent(url));
+    $("#mindpin_window_content #web_site_comments_iframe").attr("src",BG.Mindpin.WEB_SITE_COMMENTS_URL+"?url="+encodeURIComponent(url));
   },
   
   // 显示历史记录
   show_browse_history : function(){
-    $("#mindpin_window_content #browse_history_iframe").attr("src",Mindpin.BROWSE_HISTORIES_URL);
+    $("#mindpin_window_content #browse_history_iframe").attr("src",BG.Mindpin.BROWSE_HISTORIES_URL);
   },
   
   // 发送历史记录
   send_browse_history : function(url,title){
     $.ajax({
-      url: Mindpin.SUBMIT_BROWSE_HISTORIES_URL,
+      url: BG.Mindpin.SUBMIT_BROWSE_HISTORIES_URL,
       type: "post",
       async: true,
       data: {
@@ -101,7 +97,7 @@ Mindpin.MindpinWindow = {
       },
       dataType: "text",
       success: function(){
-        Mindpin.MindpinWindow.show_browse_history();
+        this.show_browse_history();
       }
     });
   }
@@ -109,5 +105,5 @@ Mindpin.MindpinWindow = {
 }
 
 $(document).ready(function(){
-  Mindpin.MindpinWindow.init();
+  MindpinWindow.init();
 });

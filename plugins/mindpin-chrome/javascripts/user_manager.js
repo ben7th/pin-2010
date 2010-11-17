@@ -38,7 +38,8 @@ Mindpin.UserManager = {
       },
       complete:function(){
         if(MindpinWin){
-          Mindpin.MindpinWindow.check_open_and_show();
+          console.log(MindpinWin)
+          MindpinWin.window.MindpinWindow.check_open_and_show();
         }
       }
     });

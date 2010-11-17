@@ -1,7 +1,6 @@
 <script type="text/javascript" src="javascripts/jquery.min.js" ></script>
 <script type="text/javascript" src="javascripts/user_manager.js"></script>
 <script type="text/javascript" src="javascripts/mindpin_url.js"></script>
-<script type="text/javascript" src="javascripts/mindpin_window.js"></script>
 <script type="text/javascript">
   var MindpinWin = null;
   var logged_in_for_plugin = null;
@@ -59,8 +58,8 @@
     if(!is_nonsupport_url(url)){
       CurrentCorrectTab = {url:url,tab_id:tab.id}
       if(changeInfo.status=="loading" && MindpinWin != null ){
-        Mindpin.MindpinWindow.send_browse_history(CurrentCorrectTab.url,tab.title);
-        Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
+        MindpinWin.window.MindpinWindow.send_browse_history(CurrentCorrectTab.url,tab.title);
+        MindpinWin.window.MindpinWindow.show_url_content(CurrentCorrectTab.url);
       }
     }
   });
@@ -71,7 +70,7 @@
       var url = tab.url;
       if(!is_nonsupport_url(url) && MindpinWin != null){
         CurrentCorrectTab = {url:url,tab_id:tab.id};
-        Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
+        MindpinWin.window.MindpinWindow.show_url_content(CurrentCorrectTab.url);
       }
     })
   });

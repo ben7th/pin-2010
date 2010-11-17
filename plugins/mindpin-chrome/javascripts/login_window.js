@@ -1,14 +1,10 @@
 var BG = chrome.extension.getBackgroundPage();
-if(typeof(BG.Mindpin)=='undefined'){
-  BG.Mindpin = {}
-}
-var Mindpin = BG.Mindpin;
 
-Mindpin.LoginWindow = {
+LoginWindow = {
   init: function(){
     $("#user_submit").click(function(evt){
       evt.preventDefault();
-      Mindpin.LoginWindow.login();
+      LoginWindow.login();
     });
   },
   login: function(){
@@ -38,12 +34,13 @@ Mindpin.LoginWindow = {
     }
     
     $.ajax({
-      url:Mindpin.LOGIN_URL,
+      url:BG.Mindpin.LOGIN_URL,
       type:"POST",
       dataType:"json",
       data: data_hash,
       success:function(user){
-        Mindpin.UserManager.set_user(user);
+        // session 改变了
+        // 从而触发 session 监视器事件
         window.close();
       },
       error:function(){
@@ -56,7 +53,7 @@ Mindpin.LoginWindow = {
 }
 
 $(document).ready(function(){
-  Mindpin.LoginWindow.init();
+  LoginWindow.init();
 });
 
 
