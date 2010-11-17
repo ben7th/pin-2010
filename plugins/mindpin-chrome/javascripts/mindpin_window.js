@@ -43,7 +43,8 @@ Mindpin.MindpinWindow = {
     }
   },
   logined_ui: function(user){
-    $("#user_name").text(user.name)
+    $("#user_name").text(user.name);
+    $("#user_avatar_img").attr("src",user.avatar);
     $("#unlogin_action",document).hide();
     $("#logined_action",document).show();
     this.show_window_content();
