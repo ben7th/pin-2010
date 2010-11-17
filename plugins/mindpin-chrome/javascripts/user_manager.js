@@ -5,18 +5,22 @@ if(typeof(Mindpin)=='undefined'){
 Mindpin.UserManager = {
   get_user: function(){
     var name = localStorage.getItem("user_name")
+    var avatar = localStorage.getItem("user_avatar")
     if(name){
       return {
-        name:name
+        name:name,
+        avatar:avatar
       }
     }
     return null;
   },
   set_user: function(user){
     localStorage.setItem("user_name",user.name);
+    localStorage.setItem("user_avatar",user.avatar);
   },
   remove_user: function(){
     localStorage.removeItem("user_name");
+    localStorage.removeItem("user_avatar");
   },
   prompt_user_login: function(){
     window.open("login_window.html", "LoginWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");

@@ -7,14 +7,14 @@
     <script type="text/javascript" src="javascripts/jquery.tools.min.js" ></script>
     <script type="text/javascript" src="javascripts/mindpin_window.js" ></script>
     <!-- tab styling --> 
-		<link rel="stylesheet" type="text/css" href="skin/tabs.css" /> 
-    
+    <link rel="stylesheet" type="text/css" href="skin/tabs.css" />
+
   </head>
   <body>
     <div id="action">
       <div id="logined_action" style="display:none;">
         <div id="user_name"></div>
-        <div id="user_avatar"></div>
+        <div id="user_avatar"><img id="user_avatar_img" src="" width="32px" height="32px" /></div>
         <button id="logout">退出登录</button>
       </div>
       <div id="unlogin_action" style="display:none;">
@@ -23,29 +23,29 @@
       </div>
     </div>
     <div id="mindpin_window_content" style="display:none">
-    	<!-- the tabs --> 
-  		<ul class="tabs"> 
-  			<li><a href="#">网站资料</a></li> 
-  			<li><a href="#">浏览历史</a></li> 
-  			<li><a href="#">网页信息</a></li> 
-  		</ul> 
-  		 
-  		<!-- tab "panes" --> 
-  		<div class="panes"> 
-  			<div id="web_site_info" >
-  			  <iframe id="web_site_info_iframe" width="100%" height="50%" ></iframe>
-  			  <iframe id="web_site_comments_iframe" width="100%" height="50%" ></iframe>
-			  </div> 
-  			<div id="browse_history">
-  			  <iframe id="browse_history_iframe" width="100%" height="100%" ></iframe>
-  			</div> 
-  			<div id="page_information">
-  			  <iframe id="page_information_iframe" width="100%" height="100%" ></iframe>
-  			</div> 
-  		</div>  
+      <!-- the tabs -->
+      <ul class="tabs"> 
+        <li><a href="#">网站资料</a></li>
+        <li><a href="#">浏览历史</a></li>
+        <li><a href="#">网页信息</a></li>
+      </ul>
+
+      <!-- tab "panes" -->
+      <div class="panes">
+        <div id="web_site_info" >
+          <iframe id="web_site_info_iframe" width="100%" height="50%" ></iframe>
+          <iframe id="web_site_comments_iframe" width="100%" height="50%" ></iframe>
+        </div>
+        <div id="browse_history">
+          <iframe id="browse_history_iframe" width="100%" height="100%" ></iframe>
+        </div>
+        <div id="page_information">
+          <iframe id="page_information_iframe" width="100%" height="100%" ></iframe>
+        </div>
+      </div>
     </div>
   </body>
   <script type="text/javascript">
-  	$("ul.tabs").tabs("div.panes > div");
+    $("ul.tabs").tabs("div.panes > div");
   </script>
 </html>
