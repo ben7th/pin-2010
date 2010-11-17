@@ -77,7 +77,7 @@ ul.tabs a.xl.current { background-position: 0 -62px; }
 }
 
 /* tab pane styling */
-.panes div {
+.panes div.pane_content {
 	display:none;		
 	padding:15px 10px;
 	border:1px solid #999;

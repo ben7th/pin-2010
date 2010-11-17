@@ -66,6 +66,7 @@ MindpinWindow = {
     $("#mindpin_window_content").show();
     this.show_page_info_comments();
     this.show_browse_history();
+    this.show_page_content();
   },
   
   // 显示网页信息 以及网页评注
@@ -83,6 +84,25 @@ MindpinWindow = {
   // 显示历史记录
   show_browse_history : function(){
     $("#mindpin_window_content #browse_history_iframe").attr("src",BG.Mindpin.BROWSE_HISTORIES_URL);
+  },
+
+  // 显示解析到的页面元素
+  show_page_content : function(){
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      give_content: "ok"
+    }, function(response) {
+      // 在第三个页签中插入元素
+      console.dir(response)
+      $(response.page_content.rsses).each(function(i,link){
+        $("#rsses_content").append("<div class='rss_item'><a href="+link.href+">"+link.text+"</a><div>")
+      });
+      $(response.page_content.links).each(function(i,link){
+        $("#links_content").append("<div class='link_item'><a href="+link.href+">"+link.text+"</a><div>")
+      });
+      $(response.page_content.images).each(function(i,image){
+        $("#images_content").append("<div class='image_item'><img src='"+image.src+"' width="+image.width+"px height="+image.height+"px /><div>")
+      });
+    });
   },
   
   // 发送历史记录
