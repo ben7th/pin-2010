@@ -58,9 +58,9 @@
     var url = tab.url
     if(!is_nonsupport_url(url)){
       CurrentCorrectTab = {url:url,tab_id:tab.id}
-      if(changeInfo.status=="loading"){
+      if(changeInfo.status=="loading" && MindpinWin != null ){
         Mindpin.MindpinWindow.send_browse_history(CurrentCorrectTab.url,tab.title);
-    Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
+        Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
       }
     }
   });
@@ -69,9 +69,9 @@
   chrome.tabs.onSelectionChanged.addListener(function(tabId,selectInfo) {
     chrome.tabs.get(tabId,function(tab){
       var url = tab.url;
-      if(!is_nonsupport_url(url)){
+      if(!is_nonsupport_url(url) && MindpinWin != null){
         CurrentCorrectTab = {url:url,tab_id:tab.id};
-      Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
+        Mindpin.MindpinWindow.show_url_content(CurrentCorrectTab.url);
       }
     })
   });
