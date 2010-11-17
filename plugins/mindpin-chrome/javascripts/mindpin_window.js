@@ -124,6 +124,20 @@ MindpinWindow = {
         MindpinWindow.show_browse_history();
       }
     });
+  },
+
+  // 打开 发送文本页面
+  open_send_text_window : function(data) {
+    // 新打开的 发送文本页面 会取 collection_data 这个数据
+    BG.collection_data = {type:"send",content:data}
+    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+  },
+
+  // 打开分享文本的页面
+  open_share_text_window : function(data){
+    // 新打开的 分享文本页面 会取 collection_data 这个数据
+    BG.collection_data = {type:"share",content:data}
+    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
   }
 
 }
