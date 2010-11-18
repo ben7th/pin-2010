@@ -39,15 +39,41 @@
         <div class="pane_content" id="browse_history">
           <iframe id="browse_history_iframe" width="100%" height="100%" ></iframe>
         </div>
-        <div class="pane_content" id="page_information">
-          <div id="rsses_content"></div>
-          <div id="links_content"></div>
-          <div id="images_content"></div>
+        <div class="pane_content" id="page_information" style="overflow:scroll;">
+          <div>
+            <div id="rsses_content"></div>
+            <hr>
+            <div id="links_content"></div>
+            <hr>
+            <div id="images_content"></div>
+          </div>
+          <button onclick="pack_send_elements();">打包发送</button>
         </div>
       </div>
     </div>
   </body>
   <script type="text/javascript">
+    // 页面加载完毕后 页签的处理
     $("ul.tabs").tabs("div.panes > div.pane_content");
+
+    // 选中元素的处理
+    function pack_send_elements(){
+      var rsses = []
+      $(".rss_item input.package_checkbox:checked").each(function(i,item){
+        var link = $(item).siblings('a')[0];
+        rsses[i] = {href:link.href,text:link.text}
+      });
+      var links = []
+      $(".link_item input.package_checkbox:checked").each(function(i,item){
+        var link = $(item).siblings('a')[0];
+        links[i] = {href:link.href,text:link.text}
+      });
+      var images = []
+      $(".image_item input.package_checkbox:checked").each(function(i,item){
+        var image = $(item).siblings('img')[0];
+        images[i] = {src:image.src,width:image.width,height:image.height}
+      });
+      var final_data = {rsses:rsses,links:links,images:images}
+    }
   </script>
 </html>
