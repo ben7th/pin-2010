@@ -129,13 +129,14 @@ MindpinWindow = {
     if(image!=null){
       var image_data = {
         type:operate_type,
-        data_type:"link",
+        data_type:"image",
         data:{
           href:image.src,
           width:image.width,
           height:image.height
         }
       }
+      MindpinWindow.open_collection_window(image_data)
     }else{
       var link_data = {
         type:operate_type,
@@ -145,7 +146,7 @@ MindpinWindow = {
           text:$(link).text()
         }
       }
-      alert(link_data.data.href+link_data.data.text)
+    MindpinWindow.open_collection_window(link_data)
     }
   },
 
