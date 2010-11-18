@@ -41,9 +41,16 @@
             <button id='login_button' label="登 录" oncommand="Mindpin.LoginManager.login();"/>
             <box flex='1'/>
           </hbox>
-          <box>
-            <button label="注册" oncommand="Mindpin.MindpinSidebar.register();" hidden='true'/>
-          </box>
+          <hbox>
+            <box flex='1'/>
+            <label id='login_info' value=' '/>
+            <box flex='1'/>
+          </hbox>
+          <hbox>
+            <box flex='1'/>
+            <label id='reg_link' class='text-link' value="注册新用户" onclick="Mindpin.MindpinSidebar.register();"/>
+            <box flex='1'/>
+          </hbox>
         </vbox>
         <box flex='1'/>
       </vbox>

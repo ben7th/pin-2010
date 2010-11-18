@@ -79,6 +79,11 @@
         font-size: 12px; }
       .mindpin_plugin #nonsupport_box .logo_box #login_form #login_button, .mindpin_plugin #unlogin_action .logo_box #login_form #login_button {
         margin: 30px 0 0 0; }
+      .mindpin_plugin #nonsupport_box .logo_box #login_form #login_info, .mindpin_plugin #unlogin_action .logo_box #login_form #login_info {
+        color: #FF0000;
+        margin: 30px 0 0 0; }
+      .mindpin_plugin #nonsupport_box .logo_box #login_form #reg_link, .mindpin_plugin #unlogin_action .logo_box #login_form #reg_link {
+        margin-top: 50px; }
   .mindpin_plugin #nonsupport_box #nonsupport_label, .mindpin_plugin #unlogin_action #nonsupport_label {
     font-weight: bold;
     color: #3C4247;

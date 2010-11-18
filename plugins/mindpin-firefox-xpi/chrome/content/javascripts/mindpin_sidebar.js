@@ -37,27 +37,44 @@ Mindpin.MindpinSidebar = {
   logout: function(){
     Mindpin.LoginManager.logout();
   },
+
+  
   is_open: function(){
     var bar = Mindpin.FireFoxWindow.$('#sidebar-box');
     var is_mbar = (bar.attr('sidebarcommand') == "mindpin_siderbar")
     return (bar && !bar.hidden && is_mbar)
   },
+
+  // 根据是否支持页面以及是否登录，渲染侧边栏界面
+  show: function(){
+    // 首先检测地址栏地址，是否支持，不支持的则直接给出提示
+    var current_url = getWebWindow().location;
+
+    var ms = Mindpin.MindpinSidebar;
+    
+    if(ms.is_nonsupport_url(current_url)){
+      return ms.nonsupport_ui();
+    }
+    
+    // 检测是否登录
+    var user = Mindpin.LoginManager.get_logined_user();
+    if(user){
+      ms.logined_ui(user);
+    }else{
+      ms.unlogin_ui();
+    }
+  },
+
   // 正在载入界面
   loading_ui: function(){
-    getSidebarWindow().$("#login_action").attr("hidden",true);
-    getSidebarWindow().$("#unlogin_action").attr("hidden",true);
+    var sb = getSidebarWindow();
+
+    this.show_only('#mindpin_tab_loading');
     
-    // 隐藏 tabbox
-    getSidebarWindow().$('#mindpin_tab_list').attr("hidden",true);
-    // 显示提示内容
-    getSidebarWindow().$("#nonsupport_box").xhide();
-    getSidebarWindow().$("#mindpin_tab_loading").attr("hidden",false);
-    
-    getSidebarWindow().$("#web_site_info")[0].contentWindow.document.body.innerHTML = "正在载入.."
-    getSidebarWindow().$("#web_site_comments")[0].contentWindow.document.body.innerHTML = "正在载入.."
-    getSidebarWindow().$("#side_browse_histories")[0].contentWindow.document.body.innerHTML = "正在载入.."
-    getSidebarWindow().$("#current_page_info_box").attr("value","正在载入..")
-    
+    sb.$("#web_site_info")[0].contentWindow.document.body.innerHTML = "正在载入..";
+    sb.$("#web_site_comments")[0].contentWindow.document.body.innerHTML = "正在载入..";
+    sb.$("#side_browse_histories")[0].contentWindow.document.body.innerHTML = "正在载入..";
+    sb.$("#current_page_info_box").attr("value","正在载入..");
   },
 
   // 不支持网页页面
@@ -68,6 +85,7 @@ Mindpin.MindpinSidebar = {
   // 没有登录界面
   unlogin_ui: function(){
     this.show_only('#unlogin_action');
+    Mindpin.LoginManager._set_login_info(" ");
   },
   
   // 已登录界面
@@ -168,21 +186,6 @@ Mindpin.MindpinSidebar = {
   // 读取选中的页签 index
   get_select_tab: function(){
     return Mindpin.Preferences.get_int("select_tab",0);
-  },
-  // 根据是否支持页面以及是否登录，渲染侧边栏界面
-  show: function(){
-    // 首先检测地址栏地址，是否支持，不支持的则直接给出提示
-    var current_url = getWebWindow().location;
-    if(Mindpin.MindpinSidebar.is_nonsupport_url(current_url)){
-      return Mindpin.MindpinSidebar.nonsupport_ui();
-    }
-    // 检测是否登录
-    var user = Mindpin.LoginManager.get_logined_user();
-    if(user){
-      Mindpin.MindpinSidebar.logined_ui(user);
-    }else{
-      Mindpin.MindpinSidebar.unlogin_ui();
-    }
   },
 
   check_open_and_show:function(){
