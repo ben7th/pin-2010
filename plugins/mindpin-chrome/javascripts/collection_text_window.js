@@ -24,7 +24,6 @@ $(document).ready(function(){
   // 获取工作空间
   Collection.get_workspaces_to_select();
 
-
   
   // 给发送按钮注册事件
   $("#send_btn").click(function(){
@@ -97,6 +96,6 @@ $(document).ready(function(){
       error: auth
     });
   })
-
+  
   
 });

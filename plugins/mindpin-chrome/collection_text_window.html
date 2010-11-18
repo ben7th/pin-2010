@@ -20,11 +20,15 @@
       <div class="pane_content" id="send_pane">
         <div>发送</div>
         <textarea id="send_content"></textarea>
+        <div id="create_workspace_tip" style="visibility:hidden;" >
+          <span>您还没有工作空间</span>
+          <a id="new_workspace" href="" target="_blank">点击创建</a>
+        </div>
         <div>
           <span>选择工作空间</span>
           <select id="workspaces">
           </select>
-          <button id="send_btn">发送</button>
+          <button id="send_btn" disabled="true">发送</button>
         </div>
       </div>
 
