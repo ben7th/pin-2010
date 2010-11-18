@@ -25,6 +25,11 @@ MindpinWindow = {
       window.open(BG.Mindpin.REGISTER_URL)
       evt.preventDefault();
     });
+    // 打包发送按钮
+    $("#package_send").click(function(evt){
+      evt.preventDefault();
+      MindpinWindow.pack_send_elements()
+    });
   },
   
   loading_ui: function(){
@@ -131,7 +136,7 @@ MindpinWindow = {
         type:operate_type,
         data_type:"image",
         data:{
-          href:image.src,
+          src:image.src,
           width:image.width,
           height:image.height
         }
@@ -177,25 +182,42 @@ MindpinWindow = {
       window.open("collection_image_window.html", "CollectionImageWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
     }
   },
-
-  // 打开 发送文本页面
-  open_send_text_window : function(data) {
-    // 新打开的 发送文本页面 会取 collection_data 这个数据
-    BG.collection_data = {
-      type:"send",
-      content:data
+  
+  // 选中元素的处理
+  pack_send_elements : function(){
+    var rsses = []
+    $(".rss_item input.package_checkbox:checked").each(function(i,item){
+      var link = $(item).siblings('a.data')[0];
+      rsses[i] = {
+        href:link.href,
+        text:link.text
+        }
+    });
+    var links = []
+    $(".link_item input.package_checkbox:checked").each(function(i,item){
+      var link = $(item).siblings('a.data')[0];
+      links[i] = {
+        href:link.href,
+        text:link.text
+        }
+    });
+    var images = []
+    $(".image_item input.package_checkbox:checked").each(function(i,item){
+      var image = $(item).siblings('img.data')[0];
+      images[i] = {
+        src:image.src,
+        width:image.width,
+        height:image.height
+        }
+    });
+    var final_data = {
+      rsses:rsses,
+      links:links,
+      images:images
     }
-    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
-  },
-
-  // 打开分享文本的页面
-  open_share_text_window : function(data){
-    // 新打开的 分享文本页面 会取 collection_data 这个数据
-    BG.collection_data = {
-      type:"share",
-      content:data
-    }
-    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    // 新打开 的 打包发送页面会用到这个数据
+    BG.package_send_data = final_data;
+    window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
   }
 
 }

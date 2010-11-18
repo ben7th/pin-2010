@@ -46,7 +46,7 @@
             <hr>
             <div id="images_content"></div>
           </div>
-          <button onclick="pack_send_elements();">打包发送</button>
+          <button id="package_send">打包发送</button>
         </div>
       </div>
     </div>
@@ -55,24 +55,5 @@
     // 页面加载完毕后 页签的处理
     $("ul.tabs").tabs("div.panes > div.pane_content");
 
-    // 选中元素的处理
-    function pack_send_elements(){
-      var rsses = []
-      $(".rss_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a.data')[0];
-        rsses[i] = {href:link.href,text:link.text}
-      });
-      var links = []
-      $(".link_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a.data')[0];
-        links[i] = {href:link.href,text:link.text}
-      });
-      var images = []
-      $(".image_item input.package_checkbox:checked").each(function(i,item){
-        var image = $(item).siblings('img.data')[0];
-        images[i] = {src:image.src,width:image.width,height:image.height}
-      });
-      var final_data = {rsses:rsses,links:links,images:images}
-    }
   </script>
 </html>
