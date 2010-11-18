@@ -1,6 +1,18 @@
 var BG = BG || chrome.extension.getBackgroundPage();
 
 Collection = {
+  // params type ["send","share"]
+  select_tab_by_type : function(type){
+    var index = 0
+    if(type == "send"){
+      index = 0
+    }else if(type == "share"){
+      index = 1
+    }
+    // 切换页签到 index
+    $("ul.tabs").data("tabs").click(index)
+  },
+
   // 给空间列表选择框填充值
   get_workspaces_to_select: function(){
     

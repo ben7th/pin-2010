@@ -6,25 +6,21 @@ $(document).ready(function(){
   BG.collection_data = null;
   // 切换页签
   Collection.select_tab_by_type(data.type)
-  // 设置 表单内容
-  $("#send_content").attr("value",data.content)
-  $("#share_content").attr("value",data.content)
-  // 获取工作空间
-  Collection.get_workspaces_to_select();
+  // 设置 图片
+  $("#send_image").attr("src",data.image.src)
+  $("#send_image").attr("width",data.image.width)
+  $("#send_image").attr("height",data.content.height)
 
-  
+  $("#share_image").attr("src",data.image.src)
+  $("#share_image").attr("width",data.image.width)
+  $("#share_image").attr("height",data.content.height)
+
   // 给发送按钮注册事件
   $("#send_btn").click(function(){
     $("#tip").hide();
-    var content = $("#send_content").attr("value")
+    var content = data.image.src + " -- " +$("#send_content").attr("value")
     var workspace_id = $("#workspaces").attr("value")
 
-    if(content == ""){
-      $("#tip").text("发送内容不能为空")
-      $("#tip").show();
-      $("#send_content")[0].focus();
-      return;
-    }
 
     $("#tip").text("正在发送数据 ...")
     $("#tip").show();
@@ -36,7 +32,7 @@ $(document).ready(function(){
       $("#tip").text("未知错误");
       $("#tip").show();
     }
-    
+
     $.ajax({
       url: BG.Mindpin.SUBMIT_DISCUSSION_URL,
       type: "post",
@@ -55,14 +51,8 @@ $(document).ready(function(){
   // 给分享按钮注册事件
   $("#share_btn").click(function(){
     $("#tip").hide();
-    var content = $("#share_content").attr("value");
-    
-    if(content == ""){
-      $("#tip").text("分享内容不能为空")
-      $("#tip").show();
-      $("#share_content")[0].focus();
-      return;
-    }
+    var content = data.image.src + $("#share_content").attr("value");
+
     $("#tip").text("正在发送数据 ...")
     $("#tip").show();
     var success = function(url){
@@ -84,6 +74,6 @@ $(document).ready(function(){
       error: auth
     });
   })
-  
-  
 });
+
+
