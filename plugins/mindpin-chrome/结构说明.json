@@ -1,0 +1,18 @@
+/* 
+ * 网站信息 json 结构
+ *
+ */
+{
+    "info" : "",
+    "comments" : [
+      {
+        "id":"",
+        "user":{"id" : "","name":"","avatar":""},
+        "content" : "",
+        "created_at" : ""
+      },
+      {
+        // 更多
+      }
+    ]
+}
