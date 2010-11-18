@@ -19,63 +19,70 @@
 .m_s_tps {
   padding-left: 0px; }
 
-#mindpin_tab_tip_box {
-  padding-left: 50px;
-  padding-top: 200px; }
-
 #mindpin_tab_list {
   margin-top: 10px; }
-
-#mindpin_tab_list tab[selected="true"] {
-  -moz-appearance: none;
-  margin-right: 2px;
-  height: 20px;
-  background-color: #5A95F6;
-  border-width: 0px !important;
-  border-style: solid !important;
-  border-color: #2976F8 !important;
-  -moz-border-radius: 3px 3px 0 0;
-  -moz-box-shadow: black 0px 0px 1px !important; }
-
-#mindpin_tab_list tabpanels {
-  padding: 0;
-  border: none; }
+  #mindpin_tab_list tab[selected="true"] {
+    -moz-appearance: none;
+    margin-right: 2px;
+    height: 20px;
+    background-color: #5A95F6;
+    border-width: 0px !important;
+    border-style: solid !important;
+    border-color: #2976F8 !important;
+    -moz-border-radius: 3px 3px 0 0;
+    -moz-box-shadow: black 0px 0px 1px !important; }
+  #mindpin_tab_list tabpanels {
+    padding: 0;
+    border: none; }
 
 .mindpin_plugin {
-  background-color: #EAF4F7; }
+  background: url(sidebar-bg.png) repeat-x;
+  background-color: #EAF4F7;
+  font-size: 13px;
+  color: #6F99AB; }
   .mindpin_plugin button {
+    color: #2C3D44;
     -moz-appearance: none;
-    -moz-border-top-colors: #71AFC4 #FFFFFF !important;
-    -moz-border-left-colors: #71AFC4 #FFFFFF !important;
-    -moz-border-right-colors: #71AFC4 #FFFFFF !important;
-    -moz-border-bottom-colors: #71AFC4 #FFFFFF !important;
+    -moz-border-top-colors: #4EA4C4 #EFF7FB !important;
+    -moz-border-left-colors: #4EA4C4 #EFF7FB !important;
+    -moz-border-right-colors: #4EA4C4 #EFF7FB !important;
+    -moz-border-bottom-colors: #4EA4C4 #EFF7FB !important;
     border: solid 2px;
     background-color: #E5F4F8;
     -moz-border-radius: 3px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #FFFFFF;
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    height: 24px;
-    line-height: 24px; }
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    height: 28px;
+    line-height: 24px;
+    background: -moz-linear-gradient(-90deg, #d0e9f5, #aae2f7) repeat scroll 0 0 transparent; }
     .mindpin_plugin button:hover {
-      background: -moz-linear-gradient(-90deg, #599bdc, #3072b3) repeat scroll 0 0 transparent;
-      color: #fff;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-      -moz-border-top-colors: #71AFC4 #518CC6 !important;
-      -moz-border-left-colors: #71AFC4 #518CC6 !important;
-      -moz-border-right-colors: #71AFC4 #518CC6 !important;
-      -moz-border-bottom-colors: #71AFC4 #518CC6 !important; }
+      background: -moz-linear-gradient(-90deg, #d0e9f5, #69c4e8) repeat scroll 0 0 transparent; }
     .mindpin_plugin button:active {
-      background: -moz-linear-gradient(-90deg, #3072b3, #599bdc) repeat scroll 0 0 transparent;
-      color: #fff;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-      -moz-border-top-colors: #71AFC4 #518CC6 !important;
-      -moz-border-left-colors: #71AFC4 #518CC6 !important;
-      -moz-border-right-colors: #71AFC4 #518CC6 !important;
-      -moz-border-bottom-colors: #71AFC4 #518CC6 !important;
-      -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3); }
-  .mindpin_plugin #mindpin_tab_tip_box #mindpin_tab_tip_box {
-    border: solid 1px; }
-  .mindpin_plugin #mindpin_tab_tip_box #mindpin_tab_tip_label {
+      -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2); }
+  .mindpin_plugin #nonsupport_box .logo_box, .mindpin_plugin #unlogin_action .logo_box {
+    background: url(logo.png) no-repeat center 60px; }
+    .mindpin_plugin #nonsupport_box .logo_box #login_form, .mindpin_plugin #unlogin_action .logo_box #login_form {
+      margin: 150px 0 0 0;
+      padding: 0 30px; }
+      .mindpin_plugin #nonsupport_box .logo_box #login_form #tb_email, .mindpin_plugin #nonsupport_box .logo_box #login_form #tb_password, .mindpin_plugin #unlogin_action .logo_box #login_form #tb_email, .mindpin_plugin #unlogin_action .logo_box #login_form #tb_password {
+        -moz-appearance: none;
+        font-size: 12px;
+        margin: 0 0 10px 0;
+        height: 24px;
+        line-height: 24px;
+        -moz-border-radius: 3px;
+        border: solid 1px #9FAFBB;
+        -moz-border-top-colors: #9FAFBB #9FAFBB !important;
+        -moz-border-left-colors: #9FAFBB #9FAFBB !important;
+        -moz-border-right-colors: #9FAFBB #9FAFBB !important;
+        -moz-border-bottom-colors: #9FAFBB #9FAFBB !important; }
+      .mindpin_plugin #nonsupport_box .logo_box #login_form label, .mindpin_plugin #unlogin_action .logo_box #login_form label {
+        font-size: 12px; }
+      .mindpin_plugin #nonsupport_box .logo_box #login_form #login_button, .mindpin_plugin #unlogin_action .logo_box #login_form #login_button {
+        margin: 30px 0 0 0; }
+  .mindpin_plugin #nonsupport_box #nonsupport_label, .mindpin_plugin #unlogin_action #nonsupport_label {
     font-weight: bold;
-    border: solid 1px; }
+    color: #3C4247;
+    margin: 0;
+    text-align: center; }
+  .mindpin_plugin .aligncenter {
+    text-align: center; }

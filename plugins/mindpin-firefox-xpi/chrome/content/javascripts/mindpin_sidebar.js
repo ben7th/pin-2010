@@ -1,6 +1,5 @@
-if(typeof(Mindpin)=='undefined'){
-  Mindpin = {}
-}
+if(typeof(Mindpin)=='undefined'){Mindpin={}}
+
 Mindpin.MindpinSidebar = {
   init: function(){
     // 处理 statusbar 状态
@@ -51,10 +50,8 @@ Mindpin.MindpinSidebar = {
     // 隐藏 tabbox
     getSidebarWindow().$('#mindpin_tab_list').attr("hidden",true);
     // 显示提示内容
-    getSidebarWindow().$("#mindpin_tab_tip_label").attr("value","正在载入..");
-    getSidebarWindow().$("#mindpin_tab_tip_label").attr("hidden",false);
+    getSidebarWindow().$("#nonsupport_box").xhide();
     getSidebarWindow().$("#mindpin_tab_loading").attr("hidden",false);
-    getSidebarWindow().$("#mindpin_tab_tip_box").attr("hidden",false);
     
     getSidebarWindow().$("#web_site_info")[0].contentWindow.document.body.innerHTML = "正在载入.."
     getSidebarWindow().$("#web_site_comments")[0].contentWindow.document.body.innerHTML = "正在载入.."
@@ -62,19 +59,17 @@ Mindpin.MindpinSidebar = {
     getSidebarWindow().$("#current_page_info_box").attr("value","正在载入..")
     
   },
+
+  // 不支持网页页面
+  nonsupport_ui: function(){
+    this.show_only('#nonsupport_box');
+  },
+
   // 没有登录界面
   unlogin_ui: function(){
-    getSidebarWindow().$("#login_action").attr("hidden",true);
-    getSidebarWindow().$("#unlogin_action").attr("hidden",false);
-    
-    // 隐藏 tabbox
-    getSidebarWindow().$('#mindpin_tab_list').attr("hidden",true);
-    // 显示提示内容
-    getSidebarWindow().$("#mindpin_tab_tip_label").attr("value","请先登录");
-    getSidebarWindow().$("#mindpin_tab_tip_label").attr("hidden",false);
-    getSidebarWindow().$("#mindpin_tab_loading").attr("hidden",true);
-    getSidebarWindow().$("#mindpin_tab_tip_box").attr("hidden",false);
+    this.show_only('#unlogin_action');
   },
+  
   // 已登录界面
   logined_ui: function(user){
     getSidebarWindow().$("#lbl_user_name").attr("value",user.name); 
@@ -88,22 +83,12 @@ Mindpin.MindpinSidebar = {
     setTimeout(Mindpin.MindpinSidebar.show_current_page_content,0)
 
     getSidebarWindow().$('#mindpin_tab_list').attr("hidden",false);
-    getSidebarWindow().$('#mindpin_tab_tip_box').attr("hidden",true);  
   },
-  
-  // 不支持网页页面
-  nonsupport_ui: function(){
+
+  show_only:function(dom_id){
     var window = getSidebarWindow();
-    window.$("#login_action").xhide();
-    window.$("#unlogin_action").xhide();
-    
-    // 隐藏 tabbox
-    window.$('#mindpin_tab_list').xhide();
-    // 显示提示内容
-    window.$("#mindpin_tab_tip_label").attr("value","插件不支持这个网页。");
-    window.$("#mindpin_tab_tip_label").xshow();
-    window.$("#mindpin_tab_loading").xhide();
-    window.$("#mindpin_tab_tip_box").xshow();
+    window.$("#login_action, #unlogin_action, #nonsupport_box, #mindpin_tab_list").xhide();
+    window.$(dom_id).xshow();
   },
 
   is_nonsupport_url: function(url){

@@ -1,4 +1,4 @@
-if(typeof(Mindpin)=='undefined'){Mindpin = {}}
+if(typeof(Mindpin)=='undefined'){Mindpin={}}
 
 Mindpin.LoginManager = {
   // 获得登录用户信息，如果没有登录，返回 false
@@ -44,29 +44,31 @@ Mindpin.LoginManager = {
     Mindpin.LoginManager.asyn_try_login();
   },
 
-  // 弹出登录框
-  promptUserLogin: function(syncCallback) {
-    window.openDialog("chrome://mindpin/content/login_window.xul", "LoginWindow", "chrome,dialog,centerscreen,modal,resizable=no", syncCallback);
-  },
   login: function(){
     // 防止重复提交表单
     if($('#img_spinner').attr("hidden") == "false") return;
+
     var email = $('#tb_email')[0].value;
     var password = $('#tb_password')[0].value;
     var remember_me = $('#remember_me')[0].checked;
-    var hash = {'email':email,'password':password};
-    if(remember_me){hash={'email':email,'password':password,'remember_me':remember_me}};
+
+    var hash={
+      'email':email,
+      'password':password,
+      'remember_me':remember_me
+    };
+
     // 用户名不能为空    
     if(email == "") {
-        alert("请输入登录邮箱")
-        $('#tb_email')[0].focus();
-        return
+      alert("请输入登录邮箱")
+      $('#tb_email')[0].focus();
+      return;
     }
     // 密码不能为空
     if(password == "") {
-        alert("请输入密码")
-        $('#tb_password')[0].focus();
-        return
+      alert("请输入密码")
+      $('#tb_password')[0].focus();
+      return;
     }
     // 登录成功的回调函数
     var success = function() {
@@ -91,6 +93,11 @@ Mindpin.LoginManager = {
       data: hash, dataType: "json", success: success, error: error
     });
   },
+
+  _get_login_hash:function(){
+
+  },
+
   logout: function() {
     $.ajax({url: Mindpin.LOGOUT_URL, type: "get"});
   },
