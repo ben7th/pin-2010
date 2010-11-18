@@ -58,9 +58,8 @@
 
     <hbox id="login_action" hidden="true" >
       <hbox align="center">
-        <label value="登录用户"/>
+        <image id="lbl_user_avatar"/>
         <label id="lbl_user_name" value="nil"/>
-        <image id="lbl_user_avatar" src="" width="32px" height="32px" />
       </hbox>
       <hbox align="center">
         <button label="退出登录" oncommand="Mindpin.MindpinSidebar.logout();" />

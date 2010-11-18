@@ -79,7 +79,7 @@ class SessionsController < ApplicationController
     self.current_user = (current_user ||User.authenticate(params[:email],params[:password]))
     if logged_in?
       after_logged_in()
-      return render :status=>200,:text=>{:id=>current_user.id,:name=>current_user.name,:email=>current_user.email,:avatar=>current_user.logo.url(:tiny)}.to_json
+      return render :status=>200,:text=>{:id=>current_user.id,:name=>current_user.name,:email=>current_user.email,:avatar=>current_user.logo.url()}.to_json
     end
     return render :status=>401,:text=>"用户名或者密码错误"
   end
