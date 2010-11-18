@@ -21,5 +21,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.sidebar_web_site_detail_info "sidebar/web_site_detail_infos",:controller=>"sidebar/web_site_infos",:action=>"show_detail"
 
-
+  map.browser_extension_site_info "browser_extension/site_info.:format",:controller=>"browser_extension",:action=>"site_info"
+  map.browser_extension_browse_histories "browser_extension/browse_histories.:format",:controller=>"browser_extension",:action=>"browse_histories"
 end
