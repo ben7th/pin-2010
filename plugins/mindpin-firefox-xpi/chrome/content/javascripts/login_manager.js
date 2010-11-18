@@ -40,17 +40,51 @@ Mindpin.LoginManager = {
       }
     });
   },
-  re_auth: function(){
-    Mindpin.LoginManager.asyn_try_login();
-  },
 
+  //点击登录按钮后，异步提交表单
   login: function(){
-    // 防止重复提交表单
-    if($('#img_spinner').attr("hidden") == "false") return;
-
+    var hash = this._get_login_hash();
+    if(hash){
+      $.ajax({
+        url: Mindpin.LOGIN_URL,
+        type: "POST",
+        data: hash,
+        dataType: "json",
+        beforeSend: function(){
+          Mindpin.LoginManager._set_login_info("正在验证用户信息...");
+        },
+        success: function() {
+          Mindpin.LoginManager._set_login_info("验证成功");
+        },
+        error: function(xhr,stats,response){
+          if(xhr.status == 401){
+            // 登录失败的回调函数
+            Mindpin.LoginManager._set_login_info("登录邮箱或密码错误。");
+          }else{
+            alert(stats);
+            alert(response);
+          }
+        }
+      });
+    }
+  },
+  _get_login_hash:function(){
     var email = $('#tb_email')[0].value;
     var password = $('#tb_password')[0].value;
     var remember_me = $('#remember_me')[0].checked;
+
+    // 邮箱不能为空
+    if(email == "") {
+      this._set_login_info("提示：请输入登录邮箱");
+      $('#tb_email')[0].focus();
+      return null;
+    }
+    // 密码不能为空
+    if(password == "") {
+      this._set_login_info("提示：请输入密码");
+      $('#tb_password')[0].focus();
+      return null;
+    }
 
     var hash={
       'email':email,
@@ -58,49 +92,20 @@ Mindpin.LoginManager = {
       'remember_me':remember_me
     };
 
-    // 用户名不能为空    
-    if(email == "") {
-      alert("请输入登录邮箱")
-      $('#tb_email')[0].focus();
-      return;
-    }
-    // 密码不能为空
-    if(password == "") {
-      alert("请输入密码")
-      $('#tb_password')[0].focus();
-      return;
-    }
-    // 登录成功的回调函数
-    var success = function() {
-        var callback = window.arguments[0];
-        window.close();
-        callback();
-    };
-    var error = function(xhr,stats,response){
-      if(xhr.status == 401){
-        // 登录失败的回调函数
-        $('#lbl_message').attr("value","登录邮箱或密码错误");
-        $('#img_spinner').attr("hidden", "true");
-      }else{
-        alert(stats)
-        alert(response)
-      }
-    };
-    // 准备发送请求
-    $('#img_spinner').attr("hidden", "false");
-    $.ajax({
-      url: Mindpin.LOGIN_URL, type: "post",
-      data: hash, dataType: "json", success: success, error: error
-    });
+    return hash;
+  },
+  _set_login_info:function(str){
+    getSidebarWindow().$('#login_info').attr('value',str);
   },
 
-  _get_login_hash:function(){
-
-  },
 
   logout: function() {
-    $.ajax({url: Mindpin.LOGOUT_URL, type: "get"});
+    $.ajax({
+      url: Mindpin.LOGOUT_URL,
+      type: "GET"
+    });
   },
+  
   // 取消登录框
   cancel: function() {
     window.close();

@@ -47,15 +47,17 @@ Mindpin.CookieListener.prototype = {
     this.os.removeObserver(this, "cookie-changed");
   },
   observe: function(subject, topic, data) {
+    var lm = Mindpin.LoginManager;
+
     if(data == "cleared"){
-      return setTimeout(Mindpin.LoginManager.re_auth,0)
+      return setTimeout(lm.asyn_try_login,0)
     }
+
     var cookie = subject.QueryInterface(Components.interfaces.nsICookie);
     if(cookie.host == ".2010.mindpin.com" && cookie.name == "logged_in_for_plugin"){
-      
       if((cookie.value != this.logged_in_for_plugin) || data != "changed"){
         this.logged_in_for_plugin = cookie.value;
-        setTimeout(Mindpin.LoginManager.re_auth,0)
+        setTimeout(lm.asyn_try_login,0)
       }
     }
   }
@@ -76,7 +78,7 @@ function mindpin_init(){
   
   var content = $("#content")[0];
   content.addProgressListener(Mindpin.TListener);
-  Mindpin.LoginManager.re_auth();
+  Mindpin.LoginManager.asyn_try_login();
   new Mindpin.CookieListener();
 };
 

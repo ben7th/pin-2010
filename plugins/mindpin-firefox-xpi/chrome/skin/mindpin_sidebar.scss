@@ -89,6 +89,13 @@
         #login_button{
           margin:30px 0 0 0;
         }
+        #login_info{
+          color:#FF0000;
+          margin:30px 0 0 0;
+        }
+        #reg_link{
+          margin-top:50px;
+        }
       }
     }
     #nonsupport_label{
@@ -98,6 +105,24 @@
       text-align:center;
     }
   }
+  
+  #login_action{
+    padding:10px 5px 5px 5px;
+    #lbl_user_avatar{
+      width:32px;
+      height:32px;
+      border:solid 2px #DED5C1;
+      -moz-border-top-colors: #DED5C1 #FFFFFF !important;
+      -moz-border-left-colors: #DED5C1 #FFFFFF !important;
+      -moz-border-right-colors: #DED5C1 #FFFFFF !important;
+      -moz-border-bottom-colors: #DED5C1 #FFFFFF !important;
+      -moz-border-radius:2px;
+    }
+    #lbl_user_name{
+      font-weight:bold;
+    }
+  }
+  
   .aligncenter{
     text-align:center;
   }
