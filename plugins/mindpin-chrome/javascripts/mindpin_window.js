@@ -125,7 +125,7 @@ MindpinWindow = {
 
   send_item : function(operate_type,item){
     var link = $(item).siblings('a.data')[0];
-    var image = $(item).siblings('image.data')[0];
+    var image = $(item).siblings('img.data')[0];
     if(image!=null){
       var image_data = {
         type:operate_type,
@@ -136,7 +136,6 @@ MindpinWindow = {
           height:image.height
         }
       }
-      alert(image.data.src+image_data.data.width)
     }else{
       var link_data = {
         type:operate_type,
