@@ -9,11 +9,10 @@ chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     if (request.operate_clip == "begin"){
       alert("听见了，开始选择")
-      Mindpin.CollectorClip.init(document);
-      Mindpin.CollectorClip.start_clip();
-
+      Mindpin.CollectorClip.begin_clip(document);
     }else if(request.operate_clip == "cancel"){
       alert("取消选择")
+      Mindpin.CollectorClip.cancel_clip();
     }
   }
 );
@@ -28,21 +27,10 @@ Mindpin.CollectorClip = {
     this.coverlayer_right = $(this._make_coverlayer_dom());
   },
 
-  // 初始化按钮
-  init_button : function(){
-    getSidebarWindow().$('#begin_clip_button').show();
-    getSidebarWindow().$('#cancel_clip_button').hide();
-    getSidebarWindow().$('#send_clip_button').hide();
-    getSidebarWindow().$('#send_clip_button').attr("label","发送捕捉到的元素");
-  },
-
   // 开始选择
-  begin_clip : function(){
-    this.init();
+  begin_clip : function(document){
+    this.init(document);
     this.start_clip();
-    getSidebarWindow().$('#begin_clip_button').hide();
-    getSidebarWindow().$('#cancel_clip_button').show();
-    getSidebarWindow().$('#send_clip_button').show();
   },
 
   // 销毁所有的选择框
@@ -71,7 +59,6 @@ Mindpin.CollectorClip = {
 
   // 取消选择
   cancel_clip : function(){
-    this.init_button();
     this.remove_clip_cover();
     this.remove_coverlayer();
     this.cancel_cliped_elements();
@@ -82,7 +69,7 @@ Mindpin.CollectorClip = {
 
   // 删除所有的选择框
   remove_clip_cover : function(){
-    $(getWebWindow().document.body,getWebWindow()).find('.mindpin_clip_coverlayer').each(function(index,m){
+    $(this.document.body).find('.mindpin_clip_coverlayer').each(function(index,m){
       $(m).remove();
     });
   },
@@ -101,12 +88,11 @@ Mindpin.CollectorClip = {
 
   // 把已经选的元素全部取消掉
   cancel_cliped_elements : function(){
-    $(".choosed_element",getWebWindow().document).each(function(i,m){
+    $(".choosed_element",this.document).each(function(i,m){
       try{
         $(m).remove()
       }catch(e){}
     })
-    getSidebarWindow().$('#send_clip_button').attr("disabled",true);
   },
 
   // 创建选择按钮 框 的dom
