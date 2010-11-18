@@ -126,6 +126,16 @@ MindpinWindow = {
     });
   },
 
+  open_collection_window : function(data){
+    // 新打开的 发送文本页面 会取 collection_data 这个数据
+    BG.collection_data = data
+    if(data.data_type == "link"){
+      window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    }else if(data.data_type == "image"){
+      window.open("collection_image_window.html", "CollectionImageWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    }
+  },
+
   // 打开 发送文本页面
   open_send_text_window : function(data) {
     // 新打开的 发送文本页面 会取 collection_data 这个数据

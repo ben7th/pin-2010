@@ -1,14 +1,15 @@
 var BG = chrome.extension.getBackgroundPage();
 
 $(document).ready(function(){
-  //data 格式 {type:"send",content:data}
+  //data 格式 {type:"send",data_type:"link",data:{href:"",text:""}
   var data = BG.collection_data;
   BG.collection_data = null;
   // 切换页签
   Collection.select_tab_by_type(data.type)
   // 设置 表单内容
-  $("#send_content").attr("value",data.content)
-  $("#share_content").attr("value",data.content)
+  var content = data.data.text + " -- " + data.data.href
+  $("#send_content").attr("value",content)
+  $("#share_content").attr("value",content)
   // 获取工作空间
   Collection.get_workspaces_to_select();
 

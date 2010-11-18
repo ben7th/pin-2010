@@ -1,7 +1,7 @@
 var BG = chrome.extension.getBackgroundPage();
 
 $(document).ready(function(){
-  //data 格式 {type:"send",content:data}
+  //data 格式 {type:"send",data_type:"image",data:{src:"",width:"",height:""}}
   var data = BG.collection_data;
   BG.collection_data = null;
   // 切换页签
