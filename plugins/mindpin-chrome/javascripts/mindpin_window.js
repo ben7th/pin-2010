@@ -151,7 +151,7 @@ MindpinWindow = {
           text:$(link).text()
         }
       }
-    MindpinWindow.open_collection_window(link_data)
+      MindpinWindow.open_collection_window(link_data)
     }
   },
 
@@ -191,7 +191,7 @@ MindpinWindow = {
       rsses[i] = {
         href:link.href,
         text:link.text
-        }
+      }
     });
     var links = []
     $(".link_item input.package_checkbox:checked").each(function(i,item){
@@ -199,7 +199,7 @@ MindpinWindow = {
       links[i] = {
         href:link.href,
         text:link.text
-        }
+      }
     });
     var images = []
     $(".image_item input.package_checkbox:checked").each(function(i,item){
@@ -208,7 +208,7 @@ MindpinWindow = {
         src:image.src,
         width:image.width,
         height:image.height
-        }
+      }
     });
     var final_data = {
       rsses:rsses,
@@ -218,9 +218,37 @@ MindpinWindow = {
     // 新打开 的 打包发送页面会用到这个数据
     BG.package_send_data = final_data;
     window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+  },
+
+  begin_clip : function(){
+    $("#begin_clip").hide();
+    $("#cancel_clip").show();
+    $("#package_send_clip").show();
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "begin"
+    }, function(response) {
+        
+      });
+  },
+
+  cancel_clip : function(){
+    $("#begin_clip").show();
+    $("#cancel_clip").hide();
+    $("#package_send_clip").hide();
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "cancel"
+    }, function(response) {
+
+      });
+  },
+
+  package_send_clip : function(){
+    
   }
 
 }
+
+
 
 $(document).ready(function(){
   MindpinWindow.init();

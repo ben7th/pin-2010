@@ -47,6 +47,9 @@
             <div id="images_content"></div>
           </div>
           <button id="package_send">打包发送</button>
+          <button id="begin_clip" onclick="MindpinWindow.begin_clip();" >开始捕捉</button>
+          <button id="cancel_clip" onclick="MindpinWindow.cancel_clip();" style="display:none;">取消捕捉</button>
+          <button id="package_send_clip" onclick="MindpinWindow.package_send_clip();" disabled ="disabled" style="display:none;">发送捕捉元素</button>
         </div>
       </div>
     </div>
@@ -54,6 +57,5 @@
   <script type="text/javascript">
     // 页面加载完毕后 页签的处理
     $("ul.tabs").tabs("div.panes > div.pane_content");
-
   </script>
 </html>
