@@ -19,16 +19,35 @@
   
   
   <vbox class='mindpin_plugin' flex="1">
-    <hbox id="unlogin_action" hidden="true">
-      <hbox align="center">
-        <label value="您还没有登录" align="center"/>
-        <image id="user_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
-      </hbox>
-      <hbox align="center">
-        <button label="登录" oncommand="Mindpin.MindpinSidebar.login();" align="center"/>
-        <button label="注册" oncommand="Mindpin.MindpinSidebar.register();" align="center"/>
-      </hbox>
-    </hbox>
+
+    <vbox id="nonsupport_box" hidden="true" flex='1'>
+      <box class='logo_box' flex='1'/>
+      <label id='nonsupport_label' value='插件不支持对当前网页的操作。'/>
+      <box flex='1'/>
+    </vbox>
+
+    <vbox id="unlogin_action" hidden="true" flex='1'>
+      <vbox class='logo_box' flex='1'>
+        <vbox id='login_form'>
+          <vbox>
+            <label value='邮箱:'/>
+            <textbox id="tb_email" flex="1"/>
+            <label value='密码:'/>
+            <textbox id="tb_password" flex="1" type="password"/>
+          </vbox>
+          <checkbox id="remember_me" name="remember_me" value="on" label="记住我"/>
+          <hbox>
+            <box flex='1'/>
+            <button id='login_button' label="登 录" oncommand="Mindpin.LoginManager.login();"/>
+            <box flex='1'/>
+          </hbox>
+          <box>
+            <button label="注册" oncommand="Mindpin.MindpinSidebar.register();" hidden='true'/>
+          </box>
+        </vbox>
+        <box flex='1'/>
+      </vbox>
+    </vbox>
 
     <hbox id="login_action" hidden="true" >
       <hbox align="center">
@@ -39,12 +58,7 @@
       <hbox align="center">
         <button label="退出登录" oncommand="Mindpin.MindpinSidebar.logout();" />
       </hbox>
-    </hbox>
-    
-    <hbox id="mindpin_tab_tip_box" hidden="true" flex="1">
-      <image id="mindpin_tab_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
-      <label id="mindpin_tab_tip_label" hidden="true" flex="1"/>
-    </hbox>
+    </hbox>    
 
     <tabbox id="mindpin_tab_list" selectedIndex="0" hidden="true" flex="1" >
       <tabs>
