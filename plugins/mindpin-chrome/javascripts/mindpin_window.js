@@ -97,13 +97,13 @@ MindpinWindow = {
       $("#images_content").attr("innerHTML","");
       
       $(response.page_content.rsses).each(function(i,link){
-        $("#rsses_content").append("<div class='rss_item'><a href="+link.href+">"+link.text+"</a><div>")
+        $("#rsses_content").append("<div class='rss_item'><input class='package_checkbox' type='checkbox'><a href="+link.href+">"+link.text+"</a><div>")
       });
       $(response.page_content.links).each(function(i,link){
-        $("#links_content").append("<div class='link_item'><a href="+link.href+">"+link.text+"</a><div>")
+        $("#links_content").append("<div class='link_item'><input class='package_checkbox' type='checkbox'><a href="+link.href+">"+link.text+"</a><div>")
       });
       $(response.page_content.images).each(function(i,image){
-        $("#images_content").append("<div class='image_item'><img src='"+image.src+"' width="+image.width+"px height="+image.height+"px /><div>")
+        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img src='"+image.src+"' width="+image.width+"px height="+image.height+"px /><div>")
       });
       
     });
