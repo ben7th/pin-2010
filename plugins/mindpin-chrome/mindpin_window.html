@@ -8,7 +8,6 @@
     <script type="text/javascript" src="javascripts/mindpin_window.js" ></script>
     <!-- tab styling --> 
     <link rel="stylesheet" type="text/css" href="skin/tabs.css" />
-
   </head>
   <body>
     <div id="action">
@@ -60,17 +59,17 @@
     function pack_send_elements(){
       var rsses = []
       $(".rss_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a')[0];
+        var link = $(item).siblings('a.data')[0];
         rsses[i] = {href:link.href,text:link.text}
       });
       var links = []
       $(".link_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a')[0];
+        var link = $(item).siblings('a.data')[0];
         links[i] = {href:link.href,text:link.text}
       });
       var images = []
       $(".image_item input.package_checkbox:checked").each(function(i,item){
-        var image = $(item).siblings('img')[0];
+        var image = $(item).siblings('img.data')[0];
         images[i] = {src:image.src,width:image.width,height:image.height}
       });
       var final_data = {rsses:rsses,links:links,images:images}

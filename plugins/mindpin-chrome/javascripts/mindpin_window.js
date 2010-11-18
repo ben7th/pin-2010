@@ -97,17 +97,59 @@ MindpinWindow = {
       $("#images_content").attr("innerHTML","");
       
       $(response.page_content.rsses).each(function(i,link){
-        $("#rsses_content").append("<div class='rss_item'><input class='package_checkbox' type='checkbox'><a href="+link.href+">"+link.text+"</a><div>")
+        $("#rsses_content").append("<div class='rss_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
       });
       $(response.page_content.links).each(function(i,link){
-        $("#links_content").append("<div class='link_item'><input class='package_checkbox' type='checkbox'><a href="+link.href+">"+link.text+"</a><div>")
+        $("#links_content").append("<div class='link_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
       });
       $(response.page_content.images).each(function(i,image){
-        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img src='"+image.src+"' width="+image.width+"px height="+image.height+"px /><div>")
+        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img class='data' src='"+image.src+"' width="+image.width+"px height="+image.height+"px /> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
+      });
+
+      // 注册 发送 分享 事件
+      $("a.share").each(function(i,item){
+        $(item).bind("click",function(){
+          MindpinWindow.send_item("share",item)
+        })
+      });
+
+      $("a.send").each(function(i,item){
+        $(item).bind("click",function(){
+          MindpinWindow.send_item("send",item)
+        })
       });
       
     });
   },
+
+
+  send_item : function(operate_type,item){
+    var link = $(item).siblings('a.data')[0];
+    var image = $(item).siblings('image.data')[0];
+    if(image!=null){
+      var image_data = {
+        type:operate_type,
+        data_type:"link",
+        data:{
+          href:image.src,
+          width:image.width,
+          height:image.height
+        }
+      }
+      alert(image.data.src+image_data.data.width)
+    }else{
+      var link_data = {
+        type:operate_type,
+        data_type:"link",
+        data:{
+          href:link.href,
+          text:$(link).text()
+        }
+      }
+      alert(link_data.data.href+link_data.data.text)
+    }
+  },
+
   
   // 发送历史记录
   send_browse_history : function(url,title){
@@ -139,14 +181,20 @@ MindpinWindow = {
   // 打开 发送文本页面
   open_send_text_window : function(data) {
     // 新打开的 发送文本页面 会取 collection_data 这个数据
-    BG.collection_data = {type:"send",content:data}
+    BG.collection_data = {
+      type:"send",
+      content:data
+    }
     window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
   },
 
   // 打开分享文本的页面
   open_share_text_window : function(data){
     // 新打开的 分享文本页面 会取 collection_data 这个数据
-    BG.collection_data = {type:"share",content:data}
+    BG.collection_data = {
+      type:"share",
+      content:data
+    }
     window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
   }
 
