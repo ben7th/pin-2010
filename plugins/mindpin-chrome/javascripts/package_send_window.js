@@ -24,13 +24,13 @@ function show_data(data){
   var links_dom_str = ""
   var image_dom_str = ""
   $(data.rsses).each(function(){
-    rsses_dom_str += "<a href='"+ this.href +"'>"+ this.text +"<a>"
+    rsses_dom_str += "<div><a href='"+ this.href +"'>"+ this.text +"<a></div>"
   });
   $(data.links).each(function(){
-    links_dom_str += "<a href='"+ this.href +"'>"+ this.text +"<a>"
+    links_dom_str += "<div><a href='"+ this.href +"'>"+ this.text +"<a></div>"
   });
   $(data.images).each(function(){
-    image_dom_str += "<img src='"+this.src+"' width='"+ this.width +"' height='"+this.height+"' />"
+    image_dom_str += "<div><img src='"+this.src+"' width='"+ this.width +"' height='"+this.height+"' /></div>"
   });
   
   $("#package_content").append(rsses_dom_str)
