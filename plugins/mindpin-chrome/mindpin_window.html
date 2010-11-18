@@ -12,8 +12,8 @@
   </head>
   <body>
     <div id="action">
-        <button onclick="MindpinWindow.open_send_text_window('发送测试数据')">发送页面测试</button>
-        <button onclick="MindpinWindow.open_share_text_window('分享测试数据')">分享页面测试</button>
+      <button onclick="MindpinWindow.open_send_text_window('发送测试数据')">发送页面测试</button>
+      <button onclick="MindpinWindow.open_share_text_window('分享测试数据')">分享页面测试</button>
       <div id="logined_action" style="display:none;">
         <div id="user_name"></div>
         <div id="user_avatar"><img id="user_avatar_img" src="" width="32px" height="32px" /></div>
@@ -62,17 +62,17 @@
     function pack_send_elements(){
       var rsses = []
       $(".rss_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a')[0];
+        var link = $(item).siblings('a.data')[0];
         rsses[i] = {href:link.href,text:link.text}
       });
       var links = []
       $(".link_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a')[0];
+        var link = $(item).siblings('a.data')[0];
         links[i] = {href:link.href,text:link.text}
       });
       var images = []
       $(".image_item input.package_checkbox:checked").each(function(i,item){
-        var image = $(item).siblings('img')[0];
+        var image = $(item).siblings('img.data')[0];
         images[i] = {src:image.src,width:image.width,height:image.height}
       });
       var final_data = {rsses:rsses,links:links,images:images}
