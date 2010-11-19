@@ -59,16 +59,16 @@
   </script>
 
   <script id="web_site_info_template" type="text/x-jquery-tmpl">
-    <div>${site} 的网站资料 o_o</div>
-    <div>${info}</div>
-    <a href="${detail_info_url}" target="_blank">详细资料</a>
-    <div>${url} 的评论</div>
-    {{each comments}}
+    <div>{{= $data.site}} 的网站资料 o_o</div>
+    <div>{{= $data.info}}</div>
+    <a href="{{= $data.detail_info_url}}" target="_blank">详细资料</a>
+    <div>{{= $data.url}} 的评论</div>
+    {{each $data.comments}}
     <div>
-      <span>${$value.user.name}</span>
-      <span>${$value.content}</span>
+      <span>{{= $value.user.name}}</span>
+      <span>{{= $value.content}}</span>
     </div>
     {{/each}}
-    <a href="${detail_comments_url}" target="_blank">更多讨论</a>
+    <a href="{{= $data.detail_comments_url}}" target="_blank">更多讨论</a>
   </script>
 </html>

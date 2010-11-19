@@ -20,7 +20,7 @@ module WebSiteHelper
       }
     end
     {:url=>url,:site=>ws_domain,
-      :info=>web_site_introduction_info(web_site),:detail_info_url=>web_site_introductions_path(:web_site_id=>web_site.id),
-      :comments=>comments,:detail_comments_url=>comments_path(:url=>url)}
+      :info=>web_site_introduction_info(web_site),:detail_info_url=>web_site_introductions_url(:web_site_id=>web_site.id),
+      :comments=>comments,:detail_comments_url=>comments_url(:url=>url)}
   end
 end
