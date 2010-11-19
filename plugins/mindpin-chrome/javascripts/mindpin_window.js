@@ -5,8 +5,6 @@ MindpinWindow = {
     // 注册一些事件
     this.add_events();
     this.loading_ui();
-    // 渲染 template
-    this.build_template();
     this.show();
   },
 
@@ -32,13 +30,6 @@ MindpinWindow = {
       evt.preventDefault();
       MindpinWindow.pack_send_elements()
     });
-  },
-
-  // 渲染 template
-  build_template : function(){
-    $.ajax({url:BG.Mindpin.WEB_SITE_INFOS_URL,success:function(data){
-      $("#web_site_info_template").tmpl(data),appendTo($("#web_site_info"))
-    }});
   },
 
   loading_ui: function(){
@@ -91,8 +82,15 @@ MindpinWindow = {
   },
   
   show_url_content : function(url){
-    $("#mindpin_window_content #web_site_info_iframe").attr("src",BG.Mindpin.WEB_SITE_INFOS_URL+"?url="+encodeURIComponent(url));
-    $("#mindpin_window_content #web_site_comments_iframe").attr("src",BG.Mindpin.WEB_SITE_COMMENTS_URL+"?url="+encodeURIComponent(url));
+    $.ajax({
+      url:BG.Mindpin.WEB_SITE_INFOS_URL,
+      data:{
+        url:url
+      },
+      success:function(data){
+        $("#web_site_info").html($("#web_site_info_template").tmpl(data))
+      }
+    });
   },
   
   // 显示历史记录
