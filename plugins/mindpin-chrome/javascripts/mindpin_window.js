@@ -92,7 +92,9 @@ MindpinWindow = {
         // 创建评注增加事件
         $("#create_comment_btn").click(function(evt){
           var content = $("#comment_content").attr("value");
-          if(content == ""){return}
+          if(content == ""){
+            return
+          }
           $.ajax({
             url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
             type:"POST",
@@ -105,7 +107,7 @@ MindpinWindow = {
               $("#comment_content").attr("value","")
             }
           }
-        )
+          )
         });
       }
     });
