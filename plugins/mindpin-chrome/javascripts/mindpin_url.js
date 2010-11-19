@@ -2,7 +2,9 @@ if(typeof(Mindpin)=='undefined'){Mindpin = {}}
 Mindpin.LOGIN_URL = "http://dev.2010.mindpin.com/login_by_extension"
 Mindpin.LOGOUT_URL = "http://dev.2010.mindpin.com/logout"
 
-Mindpin.WEB_SITE_INFOS_URL = "http://dev.website.2010.mindpin.com/browser_extension/site_info.json"
+Mindpin.WEB_SITE_INFOS_URL = "http://dev.website.2010.mindpin.com/sidebar/web_site_infos"
+
+Mindpin.WEB_SITE_COMMENTS_URL = "http://dev.website.2010.mindpin.com/sidebar/comments"
 
 Mindpin.BROWSE_HISTORIES_URL = "http://dev.website.2010.mindpin.com/sidebar/browse_histories_infos"
 

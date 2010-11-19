@@ -31,7 +31,7 @@ MindpinWindow = {
       MindpinWindow.pack_send_elements()
     });
   },
-
+  
   loading_ui: function(){
     
   },
@@ -248,6 +248,8 @@ MindpinWindow = {
   begin_clip : function(){
     $("#begin_clip").hide();
     $("#cancel_clip").show();
+    $("#package_send_clip").attr("disabled","disabled")
+    $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
     $("#package_send_clip").show();
     chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
       operate_clip: "begin"
@@ -268,12 +270,29 @@ MindpinWindow = {
   },
 
   package_send_clip : function(){
-    
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "send_elements"
+    }, function(response) {
+      // 新打开 的 打包发送页面会用到这个数据
+      BG.package_send_data = response.final_data;
+      window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    });
   }
 
 }
 
-
+// 页面选择 通知插件 发送捕捉元素 按钮 是否可用
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    // 按钮 上的 字符数 显示
+    if(request.div_number != 0){
+      $("#package_send_clip").attr("disabled","")
+      $("#package_send_clip").attr("innerHTML","发送捕捉到的元素 "+ request.div_number +"块元素 " +request.char_number+"个字符 ")
+    }else if(request.div_number == 0){
+      $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
+      $("#package_send_clip").attr("disabled","disabled")
+    }
+  });
 
 $(document).ready(function(){
   MindpinWindow.init();

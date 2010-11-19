@@ -25,8 +25,6 @@ function check_url(url){
   }
 }
 
-check_url("/rss")
-
 var links = [];
 $("a").each(function(i,item){
   var item_j = $(item)
