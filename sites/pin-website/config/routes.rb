@@ -25,6 +25,6 @@ ActionController::Routing::Routes.draw do |map|
   map.browser_extension_browse_histories "browser_extension/browse_histories.:format",:controller=>"browser_extension",:action=>"browse_histories"
 
   map.browser_extension_comments "browser_extension/comments.:format",
-    :contorller=>"browser_extension",:action=>"create_comment",
+    :controller=>"browser_extension",:action=>"create_comment",
     :conditions => { :method => :post }
 end
