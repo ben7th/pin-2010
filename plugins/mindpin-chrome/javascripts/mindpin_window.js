@@ -89,6 +89,24 @@ MindpinWindow = {
       },
       success:function(data){
         $("#web_site_info").html($("#web_site_info_template").tmpl(data))
+        // 创建评注增加事件
+        $("#create_comment_btn").click(function(evt){
+          var content = $("#comment_content").attr("value");
+          if(content == ""){return}
+          $.ajax({
+            url:BG.Mindpin.CREATE_SITE_COMMENT,
+            type:"POST",
+            data:{
+              url:url,
+              content:content
+            },
+            success:function(json){
+              $("#web_site_comment_template").tmpl(json).prependTo($("#comments"))
+              $("#comment_content").attr("value","")
+            }
+          }
+        )
+        });
       }
     });
   },

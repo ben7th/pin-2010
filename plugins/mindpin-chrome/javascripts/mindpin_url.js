@@ -6,10 +6,12 @@ Mindpin.WEB_SITE_INFOS_URL = "http://dev.website.2010.mindpin.com/browser_extens
 
 Mindpin.BROWSE_HISTORIES_URL = "http://dev.website.2010.mindpin.com/sidebar/browse_histories_infos"
 
+Mindpin.CREATE_SITE_COMMENT = "http://dev.website.2010.mindpin.com/browser_extension/comments.json"
 
 Mindpin.SUBMIT_BROWSE_HISTORIES_URL = "http://dev.website.2010.mindpin.com/browse_histories"
 
 Mindpin.CURRENT_PAGE_CONTENT_URL = "http://dev.website.2010.mindpin.com/sidebar/one_browse_histories_infos"
+
 
 Mindpin.SUBMIT_SHARE_URL = "http://dev.share.2010.mindpin.com/add_on_shares"
 
