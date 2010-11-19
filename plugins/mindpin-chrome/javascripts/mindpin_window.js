@@ -153,6 +153,35 @@ MindpinWindow = {
           }
         });
 
+        // 分享事件
+        $("#comments .share_btn").click(function(evt){
+          var li = $(this).closest("li")
+          var comment = li.tmplItem().data;
+          var link_data = {
+            type:"share",
+            data_type:"link",
+            data:{
+              href:url,
+              text:comment.content
+            }
+          }
+          MindpinWindow.open_collection_window(link_data)
+        });
+        // 发送事件
+        $("#comments .send_btn").click(function(evt){
+          var li = $(this).closest("li")
+          var comment = li.tmplItem().data;
+          var link_data = {
+            type:"send",
+            data_type:"link",
+            data:{
+              href:url,
+              text:comment.content
+            }
+          }
+          MindpinWindow.open_collection_window(link_data)
+        });
+
       }
     });
   },
