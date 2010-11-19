@@ -259,9 +259,12 @@ MindpinWindow = {
 // 页面选择 通知插件 发送捕捉元素 按钮 是否可用
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-    if(request.send_clip_elements=="true"){
+    // 按钮 上的 字符数 显示
+    if(request.div_number != 0){
       $("#package_send_clip").attr("disabled","")
-    }else{
+      $("#package_send_clip").attr("innerHTML","发送捕捉到的元素 "+ request.div_number +"块元素 " +request.char_number+"个字符 ")
+    }else if(request.div_number == 0){
+      $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
       $("#package_send_clip").attr("disabled","disabled")
     }
   });

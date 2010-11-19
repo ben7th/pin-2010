@@ -9,7 +9,7 @@ chrome.extension.onRequest.addListener(
     }else if(request.operate_clip == "cancel"){
       CollectorClip.cancel_clip();
     }else if(request.operate_clip == "send_elements"){
-        sendResponse({
+      sendResponse({
         final_data : CollectorClip.cliped_elements()
       })
     }
@@ -124,16 +124,6 @@ var CollectorClip = {
   //    })
   },
 
-  // 根据选中元素的有无 决定发送捕捉元素的按钮是否可以使用
-  check_send_clip_button_status : function(){
-    var disable = $(this.document).find('.choosed_element').length > 0
-    if(disable){
-      this.send_sign_to_button("true");
-    }else{
-      this.send_sign_to_button("false");
-    }
-  },
-
   send_sign_to_button : function(sign){
     chrome.extension.sendRequest({
       send_clip_elements:sign
@@ -157,15 +147,19 @@ var CollectorClip = {
     var cliped_elements = $(this.document).find('.choosed_element');
     var number = cliped_elements.length;
     var char_number = 0;
-//    $(cliped_elements).each(function(i,el){
-//      //      char_number += ($(el).text().length-2); // 减去2（取消 二字）
-//      char_number += ($(el).text().length);
-//    })
-//    var button = getSidebarWindow().$('#send_clip_button')
-//    button.attr("label","发送捕捉到的元素 "+number+"块 "+char_number+"字符");
-//    if(number==0){
-//      button.attr("label","发送捕捉到的元素")
-//    }
+    $(cliped_elements).each(function(i,el){
+      //      char_number += ($(el).text().length-2); // 减去2（取消 二字）
+      char_number += ($(el).text().length);
+    })
+    //    var button = getSidebarWindow().$('#send_clip_button')
+    //    button.attr("label","发送捕捉到的元素 "+number+"块 "+char_number+"字符");
+    //    if(number==0){
+    //      button.attr("label","发送捕捉到的元素")
+    //    }
+    chrome.extension.sendRequest({
+      div_number:number,
+      char_number:char_number
+    },function(){})
   },
 
   // 大块元素 只有 在小于一定值的时候才 视为可选状态
@@ -263,7 +257,6 @@ var CollectorClip = {
     $(close_link).bind("click",$.proxy(function(){
       var parent = $(close_link).parent(".choosed_element")
       parent.remove();
-      CollectorClip.check_send_clip_button_status();
       CollectorClip.statis_clip_elements();
     }),this)
     //    $(close_link).attr("innerHTML","取消");
@@ -276,7 +269,6 @@ var CollectorClip = {
     // 把选中元素的clone放进选择框，并隐藏掉，便于去取
     choose_div.appendChild(data_div);
     this.document.body.appendChild(choose_div);
-    CollectorClip.check_send_clip_button_status();
     CollectorClip.statis_clip_elements();
     evt.preventDefault();
   },
