@@ -19,27 +19,12 @@
 .m_s_tps {
   padding-left: 0px; }
 
-#mindpin_tab_list {
-  margin-top: 10px; }
-  #mindpin_tab_list tab[selected="true"] {
-    -moz-appearance: none;
-    margin-right: 2px;
-    height: 20px;
-    background-color: #5A95F6;
-    border-width: 0px !important;
-    border-style: solid !important;
-    border-color: #2976F8 !important;
-    -moz-border-radius: 3px 3px 0 0;
-    -moz-box-shadow: black 0px 0px 1px !important; }
-  #mindpin_tab_list tabpanels {
-    padding: 0;
-    border: none; }
-
 .mindpin_plugin {
   background: url(sidebar-bg.png) repeat-x;
   background-color: #EAF4F7;
   font-size: 13px;
-  color: #6F99AB; }
+  /*color:#6F99AB;*/
+  color: #3C4247; }
   .mindpin_plugin button {
     color: #2C3D44;
     -moz-appearance: none;
@@ -90,17 +75,70 @@
     margin: 0;
     text-align: center; }
   .mindpin_plugin #login_action {
-    padding: 10px 5px 5px 5px; }
+    padding: 6px 6px 5px 5px; }
     .mindpin_plugin #login_action #lbl_user_avatar {
-      width: 32px;
-      height: 32px;
+      margin-right: 5px;
+      width: 48px;
+      height: 48px;
       border: solid 2px #DED5C1;
       -moz-border-top-colors: #DED5C1 #FFFFFF !important;
       -moz-border-left-colors: #DED5C1 #FFFFFF !important;
       -moz-border-right-colors: #DED5C1 #FFFFFF !important;
       -moz-border-bottom-colors: #DED5C1 #FFFFFF !important;
-      -moz-border-radius: 2px; }
+      -moz-border-radius: 6px;
+      -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); }
     .mindpin_plugin #login_action #lbl_user_name {
-      font-weight: bold; }
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 32px; }
+  .mindpin_plugin #mindpin_tab_list {
+    margin-top: 5px;
+    padding: 0 0 0 5px; }
+    .mindpin_plugin #mindpin_tab_list tabs {
+      padding: 0;
+      margin: 0;
+      background: url(tabs-bg.png) repeat-x bottom;
+      overflow: hidden;
+      width: 100%; }
+      .mindpin_plugin #mindpin_tab_list tabs tab {
+        -moz-appearance: none;
+        margin: 0 2px 0 0;
+        line-height: 20px;
+        border: solid 2px;
+        padding: 0;
+        display: inline-block;
+        width: 55px;
+        height: 20px;
+        text-align: center;
+        position: relative;
+        top: 5px;
+        background-image: url(tab-unselect-bg.png);
+        background-repeat: repeat-x;
+        background-color: #D5EDF1;
+        -moz-border-radius: 3px 3px 0 0;
+        -moz-border-top-colors: #7CA3B2 #ECF6F7 !important;
+        -moz-border-left-colors: #7CA3B2 #ECF6F7 !important;
+        -moz-border-right-colors: #7CA3B2 #ECF6F7 !important;
+        -moz-border-bottom-colors: #7CA3B2 #C4E6EF !important; }
+        .mindpin_plugin #mindpin_tab_list tabs tab:hover {
+          background-image: url(tab-unselect-hover-bg.png);
+          background-repeat: repeat-x;
+          background-color: #E1FBFF; }
+      .mindpin_plugin #mindpin_tab_list tabs tab[selected="true"] {
+        background: #F3F9F9 !important;
+        -moz-border-radius: 3px 3px 0 0;
+        -moz-border-top-colors: #7CA3B2 #FFFFFF !important;
+        -moz-border-left-colors: #7CA3B2 #FFFFFF !important;
+        -moz-border-right-colors: #7CA3B2 #FFFFFF !important;
+        -moz-border-bottom-colors: #F3F9F9 #F3F9F9 !important; }
+      .mindpin_plugin #mindpin_tab_list tabs tab:last-child {
+        margin-right: 9999px; }
+    .mindpin_plugin #mindpin_tab_list tabpanels {
+      -moz-appearance: none;
+      padding: 6px 0 0 0;
+      background-color: #F3F9F9;
+      border: none;
+      border-left: solid 1px #7CA3B2;
+      -moz-border-left-colors: #7CA3B2 #ECF6F7 !important; }
   .mindpin_plugin .aligncenter {
     text-align: center; }

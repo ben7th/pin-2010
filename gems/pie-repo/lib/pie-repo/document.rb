@@ -5,6 +5,7 @@ class Document < MplistRecord
 
   attr_reader :id,:repo_user_id,:email,:repo_name,:struct,:commit_id,:text_pin
   attr_writer :id
+  
   def initialize(options)
     @repo_name = options[:repo_name]
     @repo_user_id = options[:repo_user_id]
@@ -14,6 +15,10 @@ class Document < MplistRecord
     @struct = options[:struct]
     @id = options[:id]
     @nokogiri_struct = Nokogiri::XML(@struct) if !@struct.blank?
+  end
+
+  def author
+    User.find_by_email(@email)
   end
 
   # 在数据库中对应的 discussion
@@ -109,6 +114,7 @@ class Document < MplistRecord
     DiscussionMessage.create(:discussion_id=>self.id,:text_pin_id=>text_pin_id,:mmid=>mmid)
   end
 
+  # Document所在的版本库
   def git_repo
     GitRepository.find(self.repo_user_id,self.repo_name)
   end
@@ -121,12 +127,33 @@ class Document < MplistRecord
     find_from_repository
   end
 
+  # Document对应文件的所有commit记录
+  def commits
+    self.git_repo.commits(self.sub_path)
+  end
+
+  def file_info
+    GitRepository.find(self.repo_user_id,self.repo_name).show_file(self.commit_id,self.sub_path)
+  end
+
+  def created_at
+    self.commits.last.date
+  end
+  
+  def current_committed_at
+    self.file_info.repo_commit.date
+  end
+
+  def last_committed_at
+    self.commits.first.date
+  end
+
   # 根据 id,repo_name,repo_user_id 找到一个讨论
   def self.find(options)
-    id = options[:id]
+    oid = options[:id]
     repo_user_id = options[:repo_user_id]
     repo_name = options[:repo_name]
-    file_info = GitRepository.find(repo_user_id,repo_name).show_file("master",File.join(SUB_PATH,id))
+    file_info = GitRepository.find(repo_user_id,repo_name).show_file("master",File.join(SUB_PATH,oid))
     Document.build_from_file_info(file_info)
   end
 

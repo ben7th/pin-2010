@@ -1,6 +1,4 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
-<?xml-stylesheet href="chrome://browser/skin/browser.css" type="text/css" ?>
 <?xml-stylesheet href="chrome://mindpin/skin/mindpin_sidebar.css" type="text/css" ?>
 <page id="mindpin_win" 
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
@@ -38,7 +36,7 @@
           <checkbox id="remember_me" name="remember_me" value="on" label="记住我"/>
           <hbox>
             <box flex='1'/>
-            <button id='login_button' label="登 录" oncommand="Mindpin.LoginManager.login();"/>
+            <button id='login_button' label="登 录" oncommand="Mindpin.LoginManager.login();" onfocus='this.blur();'/>
             <box flex='1'/>
           </hbox>
           <hbox>
@@ -62,15 +60,15 @@
         <label id="lbl_user_name" value="nil"/>
       </hbox>
       <hbox align="center">
-        <button label="退出登录" oncommand="Mindpin.MindpinSidebar.logout();" />
+        <button label="退出登录" oncommand="Mindpin.MindpinSidebar.logout();" onfocus='this.blur();' />
       </hbox>
     </hbox>    
 
     <tabbox id="mindpin_tab_list" selectedIndex="0" hidden="true" flex="1" >
       <tabs>
-        <tab label="网站资料" onclick="Mindpin.MindpinSidebar.select_tab(0)"/>
-        <tab label="浏览历史" onclick="Mindpin.MindpinSidebar.select_tab(1)"/>
-        <tab label="网页信息" onclick="Mindpin.MindpinSidebar.select_tab(2)"/>
+        <tab label="资料" onclick="Mindpin.MindpinSidebar.select_tab(0)" onfocus='this.blur();'/>
+        <tab label="历史" onclick="Mindpin.MindpinSidebar.select_tab(1)" onfocus='this.blur();'/>
+        <tab label="采集器" onclick="Mindpin.MindpinSidebar.select_tab(2)" onfocus='this.blur();'/>
       </tabs>
 
       <tabpanels class="m_s_tps" flex="1">

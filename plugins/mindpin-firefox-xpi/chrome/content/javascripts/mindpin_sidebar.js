@@ -91,7 +91,7 @@ Mindpin.MindpinSidebar = {
   // 已登录界面
   logined_ui: function(user){
     getSidebarWindow().$("#lbl_user_name").attr("value",user.name); 
-    getSidebarWindow().$("#lbl_user_avatar").attr("src",user.avatar);
+    getSidebarWindow().$("#lbl_user_avatar").css("background","url("+user.avatar+")");
     getSidebarWindow().$("#login_action").attr("hidden",false);
     getSidebarWindow().$("#unlogin_action").attr("hidden",true);
     
