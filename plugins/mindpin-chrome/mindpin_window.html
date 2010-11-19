@@ -62,6 +62,10 @@
     <li>
       <span>{{= user.name}}</span>
       <span>{{= content}}</span>
+      {{if user.id == BG.Mindpin.UserManager.get_user().id}}
+        <button class="edit_btn">编辑</button>
+        <button class="destroy_btn">删除</button>
+      {{/if}}
     </li>
   </script>
 
