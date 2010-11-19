@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript" src="javascripts/jquery.min.js" ></script>
     <script type="text/javascript" src="javascripts/jquery.tools.min.js" ></script>
+    <script type="text/javascript" src="javascripts/jquery.tmpl.js" ></script>
     <script type="text/javascript" src="javascripts/mindpin_window.js" ></script>
     <!-- tab styling --> 
     <link rel="stylesheet" type="text/css" href="skin/tabs.css" />
@@ -32,8 +33,6 @@
       <!-- tab "panes" -->
       <div class="panes">
         <div class="pane_content" id="web_site_info" >
-          <iframe id="web_site_info_iframe" width="100%" height="50%" ></iframe>
-          <iframe id="web_site_comments_iframe" width="100%" height="50%" ></iframe>
         </div>
         <div class="pane_content" id="browse_history">
           <iframe id="browse_history_iframe" width="100%" height="100%" ></iframe>
@@ -46,7 +45,10 @@
             <hr>
             <div id="images_content"></div>
           </div>
-          <button onclick="pack_send_elements();">打包发送</button>
+          <button id="package_send">打包发送</button>
+          <button id="begin_clip" onclick="MindpinWindow.begin_clip();" >开始捕捉</button>
+          <button id="cancel_clip" onclick="MindpinWindow.cancel_clip();" style="display:none;">取消捕捉</button>
+          <button id="package_send_clip" onclick="MindpinWindow.package_send_clip();" disabled ="disabled" style="display:none;">发送捕捉到的元素</button>
         </div>
       </div>
     </div>
@@ -54,25 +56,43 @@
   <script type="text/javascript">
     // 页面加载完毕后 页签的处理
     $("ul.tabs").tabs("div.panes > div.pane_content");
+  </script>
 
-    // 选中元素的处理
-    function pack_send_elements(){
-      var rsses = []
-      $(".rss_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a.data')[0];
-        rsses[i] = {href:link.href,text:link.text}
-      });
-      var links = []
-      $(".link_item input.package_checkbox:checked").each(function(i,item){
-        var link = $(item).siblings('a.data')[0];
-        links[i] = {href:link.href,text:link.text}
-      });
-      var images = []
-      $(".image_item input.package_checkbox:checked").each(function(i,item){
-        var image = $(item).siblings('img.data')[0];
-        images[i] = {src:image.src,width:image.width,height:image.height}
-      });
-      var final_data = {rsses:rsses,links:links,images:images}
-    }
+  <script id="edit_comment_template" type="text/x-jquery-tmpl">
+    <div id="edit_comment">
+       <textarea class="comment_content"/>
+      <button class="save_btn">保存修改</button>
+      <button class="cancel_btn">取消</button>
+    </div>
+  </script>
+
+  <script id="web_site_comment_template" type="text/x-jquery-tmpl">
+    <li id="comment_{{= id}}">
+      <span>{{= user.name}}</span>
+      <span>{{= content}}</span>
+      {{if user.id == BG.Mindpin.UserManager.get_user().id}}
+        <button class="edit_btn">编辑</button>
+        <button class="destroy_btn">删除</button>
+      {{/if}}
+      <button class="share_btn">分享</button>
+      <button class="send_btn">发送</button>
+    </li>
+  </script>
+
+  <script id="web_site_info_template" type="text/x-jquery-tmpl">
+    <div>{{= $data.site}} 的网站资料 o_o</div>
+    <div>{{= $data.info}}</div>
+    <a href="{{= $data.detail_info_url}}" target="_blank">详细资料</a>
+    <div>{{= $data.url}} 的评论</div>
+    <ul id="comments">
+    {{each $data.comments}}
+      {{tmpl($value) "#web_site_comment_template"}}
+    {{/each}}
+    </ul>
+    <a href="{{= $data.detail_comments_url}}" target="_blank">更多讨论</a>
+    <div id="create_comment">
+      <textarea class="comment_content"/>
+      <button id="create_comment_btn">创建评论</button>
+    </div>
   </script>
 </html>

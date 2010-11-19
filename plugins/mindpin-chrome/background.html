@@ -51,7 +51,7 @@
   function is_nonsupport_url(url){
     return url == "about:blank" || (/^chrome-extension:/.test(url) || (/^chrome:/.test(url)))
   };
-  
+
   // chrome 当前tab发生变化
   chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab) {
     var url = tab.url
@@ -61,6 +61,7 @@
         MindpinWin.window.MindpinWindow.send_browse_history(CurrentCorrectTab.url,tab.title);
         MindpinWin.window.MindpinWindow.show_url_content(CurrentCorrectTab.url);
         MindpinWin.window.MindpinWindow.show_page_content();
+        MindpinWin.window.MindpinWindow.cancel_clip();
       }
     }
   });
@@ -73,11 +74,10 @@
         CurrentCorrectTab = {url:url,tab_id:tab.id};
         MindpinWin.window.MindpinWindow.show_url_content(CurrentCorrectTab.url);
         MindpinWin.window.MindpinWindow.show_page_content();
+        MindpinWin.window.MindpinWindow.cancel_clip();
       }
     })
   });
-
-  // 
 
   // 插件初始化
   (function(){

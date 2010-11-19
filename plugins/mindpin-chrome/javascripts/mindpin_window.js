@@ -25,6 +25,11 @@ MindpinWindow = {
       window.open(BG.Mindpin.REGISTER_URL)
       evt.preventDefault();
     });
+    // 打包发送按钮
+    $("#package_send").click(function(evt){
+      evt.preventDefault();
+      MindpinWindow.pack_send_elements()
+    });
   },
   
   loading_ui: function(){
@@ -77,8 +82,110 @@ MindpinWindow = {
   },
   
   show_url_content : function(url){
-    $("#mindpin_window_content #web_site_info_iframe").attr("src",BG.Mindpin.WEB_SITE_INFOS_URL+"?url="+encodeURIComponent(url));
-    $("#mindpin_window_content #web_site_comments_iframe").attr("src",BG.Mindpin.WEB_SITE_COMMENTS_URL+"?url="+encodeURIComponent(url));
+    $.ajax({
+      url:BG.Mindpin.WEB_SITE_INFOS_URL,
+      data:{
+        url:url
+      },
+      success:function(data){
+        $("#web_site_info").html($("#web_site_info_template").tmpl(data))
+        // 创建评注增加事件
+        $("#create_comment_btn").click(function(evt){
+
+          var content = $("#create_comment .comment_content").attr("value");
+          if(content == ""){return}
+          
+          $.ajax({
+            url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
+            type:"POST",
+            data:{
+              url:url,
+              content:content
+            },
+            success:function(json){
+              $("#web_site_comment_template").tmpl(json).prependTo($("#comments"))
+              $("#create_comment .comment_content").attr("value","")
+            }
+          }
+          )
+        });
+
+        // 编辑评注按钮的事件
+        $("#comments .edit_btn").live("click",function(evt){
+          var comment = $(this).closest("li").tmplItem().data;
+          $("#create_comment").hide();
+          $("#edit_comment_template").tmpl().appendTo("#web_site_info");
+          $("#edit_comment .comment_content").attr("value",comment.content);
+          // 给保存修改注册事件
+          $("#edit_comment .save_btn").click(function(evt){
+            var edit_url = BG.Mindpin.EDIT_SITE_COMMENT_PREFIX_URL + comment.id + ".json"
+            var content = $("#edit_comment .comment_content").attr("value");
+            if(content == ""){
+              return
+            }
+            $.ajax({
+              url:edit_url,
+              type:"PUT",
+              data:{
+                content:content
+              },
+              success:function(json){
+                $("#comment_" + comment.id).replaceWith($("#web_site_comment_template").tmpl(json))
+                $("#edit_comment").remove();
+                $("#create_comment").show();
+              }
+            });
+          });
+          // 给取消按钮注册事件
+          $("#edit_comment .cancel_btn").click(function(evt){
+            $("#edit_comment").remove();
+            $("#create_comment").show();
+          });
+        });
+
+        // 删除评注按钮的事件
+        $("#comments .destroy_btn").live("click",function(evt){
+          var li = $(this).closest("li")
+          var comment = li.tmplItem().data;
+          var destroy_url = BG.Mindpin.DESTROY_SITE_COMMENT_PREFIX_URL + comment.id + ".json"
+          if(confirm("确认删除么？")){
+            $.ajax({url:destroy_url,type:"delete",success:function(){
+              li.remove();
+            }});
+          }
+        });
+
+        // 分享事件
+        $("#comments .share_btn").click(function(evt){
+          var li = $(this).closest("li")
+          var comment = li.tmplItem().data;
+          var link_data = {
+            type:"share",
+            data_type:"link",
+            data:{
+              href:url,
+              text:comment.content
+            }
+          }
+          MindpinWindow.open_collection_window(link_data)
+        });
+        // 发送事件
+        $("#comments .send_btn").click(function(evt){
+          var li = $(this).closest("li")
+          var comment = li.tmplItem().data;
+          var link_data = {
+            type:"send",
+            data_type:"link",
+            data:{
+              href:url,
+              text:comment.content
+            }
+          }
+          MindpinWindow.open_collection_window(link_data)
+        });
+
+      }
+    });
   },
   
   // 显示历史记录
@@ -131,7 +238,7 @@ MindpinWindow = {
         type:operate_type,
         data_type:"image",
         data:{
-          href:image.src,
+          src:image.src,
           width:image.width,
           height:image.height
         }
@@ -146,7 +253,7 @@ MindpinWindow = {
           text:$(link).text()
         }
       }
-    MindpinWindow.open_collection_window(link_data)
+      MindpinWindow.open_collection_window(link_data)
     }
   },
 
@@ -177,28 +284,92 @@ MindpinWindow = {
       window.open("collection_image_window.html", "CollectionImageWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
     }
   },
-
-  // 打开 发送文本页面
-  open_send_text_window : function(data) {
-    // 新打开的 发送文本页面 会取 collection_data 这个数据
-    BG.collection_data = {
-      type:"send",
-      content:data
+  
+  // 选中元素的处理
+  pack_send_elements : function(){
+    var rsses = []
+    $(".rss_item input.package_checkbox:checked").each(function(i,item){
+      var link = $(item).siblings('a.data')[0];
+      rsses[i] = {
+        href:link.href,
+        text:link.text
+      }
+    });
+    var links = []
+    $(".link_item input.package_checkbox:checked").each(function(i,item){
+      var link = $(item).siblings('a.data')[0];
+      links[i] = {
+        href:link.href,
+        text:link.text
+      }
+    });
+    var images = []
+    $(".image_item input.package_checkbox:checked").each(function(i,item){
+      var image = $(item).siblings('img.data')[0];
+      images[i] = {
+        src:image.src,
+        width:image.width,
+        height:image.height
+      }
+    });
+    var final_data = {
+      rsses:rsses,
+      links:links,
+      images:images
     }
-    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    // 新打开 的 打包发送页面会用到这个数据
+    BG.package_send_data = final_data;
+    window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
   },
 
-  // 打开分享文本的页面
-  open_share_text_window : function(data){
-    // 新打开的 分享文本页面 会取 collection_data 这个数据
-    BG.collection_data = {
-      type:"share",
-      content:data
-    }
-    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+  begin_clip : function(){
+    $("#begin_clip").hide();
+    $("#cancel_clip").show();
+    $("#package_send_clip").attr("disabled","disabled")
+    $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
+    $("#package_send_clip").show();
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "begin"
+    }, function(response) {
+        
+      });
+  },
+
+  cancel_clip : function(){
+    $("#begin_clip").show();
+    $("#cancel_clip").hide();
+    $("#package_send_clip").hide();
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "cancel"
+    }, function(response) {
+
+      });
+  },
+
+  package_send_clip : function(){
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "send_elements"
+    }, function(response) {
+      // 新打开 的 打包发送页面会用到这个数据
+      BG.package_send_data = response.final_data;
+      window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    });
   }
 
 }
+
+// 页面选择 通知插件 发送捕捉元素 按钮 是否可用
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    // 按钮 上的 字符数 显示
+    if(request.div_number != 0){
+      $("#package_send_clip").attr("disabled","")
+      $("#package_send_clip").attr("innerHTML","发送捕捉到的元素 "+ request.div_number +"块元素 " +request.char_number+"个字符 ")
+    }else if(request.div_number == 0){
+      $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
+      $("#package_send_clip").attr("disabled","disabled")
+    }
+  });
 
 $(document).ready(function(){
   MindpinWindow.init();

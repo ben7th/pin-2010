@@ -1,7 +1,7 @@
 var BG = chrome.extension.getBackgroundPage();
 
 $(document).ready(function(){
-  //data 格式 {type:"send",data_type:"image",data:{href:"",width:"",height:""}}
+  //data 格式 {type:"send",data_type:"image",data:{src:"",width:"",height:""}}
   var data = BG.collection_data;
   BG.collection_data = null;
   // 切换页签
@@ -10,18 +10,18 @@ $(document).ready(function(){
   Collection.get_workspaces_to_select();
   
   // 设置 图片
-  $("#send_image").attr("src",data.data.href)
+  $("#send_image").attr("src",data.data.src)
   $("#send_image").attr("width",data.data.width)
   $("#send_image").attr("height",data.data.height)
 
-  $("#share_image").attr("src",data.data.href)
+  $("#share_image").attr("src",data.data.src)
   $("#share_image").attr("width",data.data.width)
   $("#share_image").attr("height",data.data.height)
 
   // 给发送按钮注册事件
   $("#send_btn").click(function(){
     $("#tip").hide();
-    var content = data.data.href + " -- " +$("#send_content").attr("value")
+    var content = data.data.src + " -- " +$("#send_content").attr("value")
     var workspace_id = $("#workspaces").attr("value")
 
 
