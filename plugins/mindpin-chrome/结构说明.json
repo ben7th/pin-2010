@@ -3,7 +3,10 @@
  *
  */
 {
+    "url" : "",
+    "site" : "",
     "info" : "",
+    "detail_info_url" : "",
     "comments" : [
       {
         "id":"",
@@ -14,5 +17,6 @@
       {
         // 更多
       }
-    ]
+    ],
+    "detail_comments_url" : ""
 }

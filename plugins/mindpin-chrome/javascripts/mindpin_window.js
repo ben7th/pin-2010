@@ -5,6 +5,8 @@ MindpinWindow = {
     // 注册一些事件
     this.add_events();
     this.loading_ui();
+    // 渲染 template
+    this.build_template();
     this.show();
   },
 
@@ -31,7 +33,14 @@ MindpinWindow = {
       MindpinWindow.pack_send_elements()
     });
   },
-  
+
+  // 渲染 template
+  build_template : function(){
+    $.ajax({url:BG.Mindpin.WEB_SITE_INFOS_URL,success:function(data){
+      $("#web_site_info_template").tmpl(data),appendTo($("#web_site_info"))
+    }});
+  },
+
   loading_ui: function(){
     
   },
