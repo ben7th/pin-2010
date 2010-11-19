@@ -58,17 +58,23 @@
     $("ul.tabs").tabs("div.panes > div.pane_content");
   </script>
 
+  <script id="web_site_comment_template" type="text/x-jquery-tmpl">
+    <li>
+      <span>{{= user.name}}</span>
+      <span>{{= content}}</span>
+    </li>
+  </script>
+
   <script id="web_site_info_template" type="text/x-jquery-tmpl">
     <div>{{= $data.site}} 的网站资料 o_o</div>
     <div>{{= $data.info}}</div>
     <a href="{{= $data.detail_info_url}}" target="_blank">详细资料</a>
     <div>{{= $data.url}} 的评论</div>
+    <ul id="comments">
     {{each $data.comments}}
-    <div>
-      <span>{{= $value.user.name}}</span>
-      <span>{{= $value.content}}</span>
-    </div>
+      {{tmpl($value) "#web_site_comment_template"}}
     {{/each}}
+    </ul>
     <a href="{{= $data.detail_comments_url}}" target="_blank">更多讨论</a>
   </script>
 </html>
