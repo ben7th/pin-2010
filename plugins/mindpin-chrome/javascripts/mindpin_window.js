@@ -91,8 +91,10 @@ MindpinWindow = {
         $("#web_site_info").html($("#web_site_info_template").tmpl(data))
         // 创建评注增加事件
         $("#create_comment_btn").click(function(evt){
+
           var content = $("#create_comment .comment_content").attr("value");
           if(content == ""){return}
+          
           $.ajax({
             url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
             type:"POST",
@@ -105,7 +107,7 @@ MindpinWindow = {
               $("#create_comment .comment_content").attr("value","")
             }
           }
-        )
+          )
         });
 
         // 编辑评注按钮的事件
