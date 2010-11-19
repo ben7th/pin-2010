@@ -9,7 +9,7 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["javascripts/jquery.min.js", "javascripts/page_script.js","javascripts/collector_clip.js"]
+      "js": ["javascripts/jquery.min.js","javascripts/collector_clip.js", "javascripts/page_script.js"]
     }
   ],
   "permissions": ["*://*/*","tabs","cookies"]

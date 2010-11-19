@@ -1,23 +1,22 @@
 /*
  * 页面元素选择
  */
-if(typeof(Mindpin)=='undefined'){
-  Mindpin = {}
-}
 
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     if (request.operate_clip == "begin"){
-      alert("听见了，开始选择")
-      Mindpin.CollectorClip.begin_clip(document);
+      CollectorClip.begin_clip(document);
     }else if(request.operate_clip == "cancel"){
-      alert("取消选择")
-      Mindpin.CollectorClip.cancel_clip();
+      CollectorClip.cancel_clip();
+    }else if(request.operate_clip == "send_elements"){
+        sendResponse({
+        final_data : CollectorClip.cliped_elements()
+      })
     }
   }
-);
+  );
 
-Mindpin.CollectorClip = {
+var CollectorClip = {
 
   init: function(document){
     this.document = document;
@@ -75,16 +74,16 @@ Mindpin.CollectorClip = {
   },
 
   // Firefox的所有tab页 中 如果存在选择框 全部干掉
-  cancel_all_tab_browser_clip : function(){
-    $(getFireFoxWindow().gBrowser.browsers).each(function(i,browser){
-      var document = browser.contentDocument
-      $(".choosed_element",document).each(function(i,m){
-        try{
-          $(m).remove()
-        }catch(e){}
-      })
-    })
-  },
+  //  cancel_all_tab_browser_clip : function(){
+  //    $(getFireFoxWindow().gBrowser.browsers).each(function(i,browser){
+  //      var document = browser.contentDocument
+  //      $(".choosed_element",document).each(function(i,m){
+  //        try{
+  //          $(m).remove()
+  //        }catch(e){}
+  //      })
+  //    })
+  //  },
 
   // 把已经选的元素全部取消掉
   cancel_cliped_elements : function(){
@@ -110,57 +109,63 @@ Mindpin.CollectorClip = {
       body.attr('class','MINDPIN_COLLECTOR_CLIP');
     }
     body.bind('mouseover',function(evt){
-      Mindpin.CollectorClip._select_clip(evt);
+      CollectorClip._select_clip(evt);
     });
     body.bind('click',function(evt){
-      Mindpin.CollectorClip._do_clip(evt);
+      CollectorClip._do_clip(evt);
     });
     body.bind('mouseout',function(){
-      Mindpin.CollectorClip.hide_coverlayer();
+      CollectorClip.hide_coverlayer();
     });
-    // 开始选择的时候，给tabcontainer添加事件监测,如果当前页签在之前做过clip，初始化为没有任何clip
-    $(getFireFoxWindow().gBrowser.tabContainer).bind("TabSelect",function(){
-      Mindpin.CollectorClip.cancel_clip();
-      Mindpin.CollectorClip.cancel_all_tab_browser_clip();
-    })
+  // 开始选择的时候，给tabcontainer添加事件监测,如果当前页签在之前做过clip，初始化为没有任何clip
+  //    $(getFireFoxWindow().gBrowser.tabContainer).bind("TabSelect",function(){
+  //      CollectorClip.cancel_clip();
+  //      CollectorClip.cancel_all_tab_browser_clip();
+  //    })
   },
 
   // 根据选中元素的有无 决定发送捕捉元素的按钮是否可以使用
   check_send_clip_button_status : function(){
-    var disable = $(getWebWindow().document.body,getWebWindow()).find('.choosed_element').length > 0
+    var disable = $(this.document).find('.choosed_element').length > 0
     if(disable){
-      getSidebarWindow().$('#send_clip_button').attr("disabled",false);
+      this.send_sign_to_button("true");
     }else{
-      getSidebarWindow().$('#send_clip_button').attr("disabled",true);
+      this.send_sign_to_button("false");
     }
+  },
+
+  send_sign_to_button : function(sign){
+    chrome.extension.sendRequest({
+      send_clip_elements:sign
+    },function(){})
   },
 
   // 检测 元素 是否 可以被选择
   can_be_clip:function(el){
-    var body = Mindpin.CollectorClip.document.body;
+    var body = CollectorClip.document.body;
     var c1 = (!el.hasClass('mindpin_clip_coverlayer'));
     var c2 = (el != body);
     var c3 = (el[0].parentNode != body || el[0].tagName!='DIV');
-    var c4 = Mindpin.CollectorClip.clip_big_block(el);
+    var c4 = CollectorClip.clip_big_block(el);
     var c5 = (!el.hasClass('choosed_element'));
-    var c6 = Mindpin.CollectorClip.check_tag_name(el);
+    var c6 = CollectorClip.check_tag_name(el);
     return c1 && c2 && c3 && c4 && c5 && c6;
   },
 
   // 统计选择的 块数 以及 字符数， 并反映到 发送捕捉元素 这个按钮上
   statis_clip_elements : function(){
-    var cliped_elements = $(getWebWindow().document.body,getWebWindow()).find('.choosed_element');
+    var cliped_elements = $(this.document).find('.choosed_element');
     var number = cliped_elements.length;
     var char_number = 0;
-    $(cliped_elements).each(function(i,el){
-      //      char_number += ($(el).text().length-2); // 减去2（取消 二字）
-      char_number += ($(el).text().length);
-    })
-    var button = getSidebarWindow().$('#send_clip_button')
-    button.attr("label","发送捕捉到的元素 "+number+"块 "+char_number+"字符");
-    if(number==0){
-      button.attr("label","发送捕捉到的元素")
-      }
+//    $(cliped_elements).each(function(i,el){
+//      //      char_number += ($(el).text().length-2); // 减去2（取消 二字）
+//      char_number += ($(el).text().length);
+//    })
+//    var button = getSidebarWindow().$('#send_clip_button')
+//    button.attr("label","发送捕捉到的元素 "+number+"块 "+char_number+"字符");
+//    if(number==0){
+//      button.attr("label","发送捕捉到的元素")
+//    }
   },
 
   // 大块元素 只有 在小于一定值的时候才 视为可选状态
@@ -258,8 +263,8 @@ Mindpin.CollectorClip = {
     $(close_link).bind("click",$.proxy(function(){
       var parent = $(close_link).parent(".choosed_element")
       parent.remove();
-      Mindpin.CollectorClip.check_send_clip_button_status();
-      Mindpin.CollectorClip.statis_clip_elements();
+      CollectorClip.check_send_clip_button_status();
+      CollectorClip.statis_clip_elements();
     }),this)
     //    $(close_link).attr("innerHTML","取消");
     $(close_link).attr("class","cancel_link_for_page_clip");
@@ -271,17 +276,43 @@ Mindpin.CollectorClip = {
     // 把选中元素的clone放进选择框，并隐藏掉，便于去取
     choose_div.appendChild(data_div);
     this.document.body.appendChild(choose_div);
-    Mindpin.CollectorClip.check_send_clip_button_status();
-    Mindpin.CollectorClip.statis_clip_elements();
+    CollectorClip.check_send_clip_button_status();
+    CollectorClip.statis_clip_elements();
     evt.preventDefault();
   },
 
-  send_clip_elements : function(){
+  // 是否是可忽略的 地址
+  is_ignorable_url : function(url){
+    if(/^(javascript:|#)/.test(url)){
+      return true;
+    }
+    return false;
+  },
 
+  check_url : function(url){
+    if(this.is_ignorable_url(url)){
+      return url
+    }
+    var location = this.document.location;
+    var host = location.host;
+    var protocol = location.protocol;
+    var site = protocol + "//" + host;
+
+    if(/^http/.test(url)){
+      return url;
+    }else{
+      if(/^\//.test(url)){
+        return site + url
+      }
+      return site + "/" + url;
+    }
+  },
+
+  cliped_elements : function(){
     var link_result = [];
-    var link_datas = $(".choosed_element .data_element a[class!='cancel_link_for_page_clip']",getWebWindow().document)
+    var link_datas = $(".choosed_element .data_element a[class!='cancel_link_for_page_clip']",this.document)
     link_datas.each(function(i,m){
-      var href_str = Mindpin.PageParse.check_url($(m).attr("href"))
+      var href_str = CollectorClip.check_url($(m).attr("href"))
       link_result[i] = {
         href:href_str,
         text:$(m).attr("innerHTML")
@@ -289,22 +320,21 @@ Mindpin.CollectorClip = {
     })
 
     var image_result = [];
-    var image_datas = $(".choosed_element .data_element img",getWebWindow().document)
+    var image_datas = $(".choosed_element .data_element img",this.document)
     image_datas.each(function(i,m){
-      var image_src = Mindpin.PageParse.check_url($(m).attr("src"))
+      var image_src = CollectorClip.check_url($(m).attr("src"))
       image_result[i] = {
         src:image_src,
         width:$(m).attr("width"),
         height:$(m).attr("height")
       };
     })
-
-    var final_data = {
+    
+    return {
       rsses:[],
       images:image_result,
       links:link_result
     };
-    window.openDialog("chrome://mindpin/content/package_send_window.xul", "collection_text_window", "chrome,dialog,centerscreen,modal,resizable=no",final_data);
   }
 
 }

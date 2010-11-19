@@ -31,7 +31,7 @@ MindpinWindow = {
       MindpinWindow.pack_send_elements()
     });
   },
-
+  
   loading_ui: function(){
     
   },
@@ -82,15 +82,8 @@ MindpinWindow = {
   },
   
   show_url_content : function(url){
-    $.ajax({
-      url:BG.Mindpin.WEB_SITE_INFOS_URL,
-      data:{
-        url:url
-      },
-      success:function(data){
-        $("#web_site_info").html($("#web_site_info_template").tmpl(data))
-      }
-    });
+    $("#mindpin_window_content #web_site_info_iframe").attr("src",BG.Mindpin.WEB_SITE_INFOS_URL+"?url="+encodeURIComponent(url));
+    $("#mindpin_window_content #web_site_comments_iframe").attr("src",BG.Mindpin.WEB_SITE_COMMENTS_URL+"?url="+encodeURIComponent(url));
   },
   
   // 显示历史记录
@@ -230,6 +223,8 @@ MindpinWindow = {
   begin_clip : function(){
     $("#begin_clip").hide();
     $("#cancel_clip").show();
+    $("#package_send_clip").attr("disabled","disabled")
+    $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
     $("#package_send_clip").show();
     chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
       operate_clip: "begin"
@@ -250,12 +245,26 @@ MindpinWindow = {
   },
 
   package_send_clip : function(){
-    
+    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+      operate_clip: "send_elements"
+    }, function(response) {
+      // 新打开 的 打包发送页面会用到这个数据
+      BG.package_send_data = response.final_data;
+      window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+    });
   }
 
 }
 
-
+// 页面选择 通知插件 发送捕捉元素 按钮 是否可用
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    if(request.send_clip_elements=="true"){
+      $("#package_send_clip").attr("disabled","")
+    }else{
+      $("#package_send_clip").attr("disabled","disabled")
+    }
+  });
 
 $(document).ready(function(){
   MindpinWindow.init();
