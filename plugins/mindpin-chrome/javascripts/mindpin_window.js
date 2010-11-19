@@ -91,7 +91,7 @@ MindpinWindow = {
         $("#web_site_info").html($("#web_site_info_template").tmpl(data))
         // 创建评注增加事件
         $("#create_comment_btn").click(function(evt){
-          var content = $("#comment_content").attr("value");
+          var content = $("#create_comment .comment_content").attr("value");
           if(content == ""){return}
           $.ajax({
             url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
@@ -102,11 +102,57 @@ MindpinWindow = {
             },
             success:function(json){
               $("#web_site_comment_template").tmpl(json).prependTo($("#comments"))
-              $("#comment_content").attr("value","")
+              $("#create_comment .comment_content").attr("value","")
             }
           }
         )
         });
+
+        // 编辑评注按钮的事件
+        $("#comments .edit_btn").live("click",function(evt){
+          var comment = $(this).closest("li").tmplItem().data;
+          $("#create_comment").hide();
+          $("#edit_comment_template").tmpl().appendTo("#web_site_info");
+          $("#edit_comment .comment_content").attr("value",comment.content);
+          // 给保存修改注册事件
+          $("#edit_comment .save_btn").click(function(evt){
+            var edit_url = BG.Mindpin.EDIT_SITE_COMMENT_PREFIX_URL + comment.id + ".json"
+            var content = $("#edit_comment .comment_content").attr("value");
+            if(content == ""){
+              return
+            }
+            $.ajax({
+              url:edit_url,
+              type:"PUT",
+              data:{
+                content:content
+              },
+              success:function(json){
+                $("#comment_" + comment.id).replaceWith($("#web_site_comment_template").tmpl(json))
+                $("#edit_comment").remove();
+                $("#create_comment").show();
+              }
+            });
+          });
+          // 给取消按钮注册事件
+          $("#edit_comment .cancel_btn").click(function(evt){
+            $("#edit_comment").remove();
+            $("#create_comment").show();
+          });
+        });
+
+        // 删除评注按钮的事件
+        $("#comments .destroy_btn").live("click",function(evt){
+          var li = $(this).closest("li")
+          var comment = li.tmplItem().data;
+          var destroy_url = BG.Mindpin.DESTROY_SITE_COMMENT_PREFIX_URL + comment.id + ".json"
+          if(confirm("确认删除么？")){
+            $.ajax({url:destroy_url,type:"delete",success:function(){
+              li.remove();
+            }});
+          }
+        });
+
       }
     });
   },
