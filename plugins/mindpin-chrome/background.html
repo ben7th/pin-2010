@@ -52,10 +52,6 @@
     return url == "about:blank" || (/^chrome-extension:/.test(url) || (/^chrome:/.test(url)))
   };
 
-  function init_clip_and_extension_button(){
-    
-  };
-  
   // chrome 当前tab发生变化
   chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab) {
     var url = tab.url
