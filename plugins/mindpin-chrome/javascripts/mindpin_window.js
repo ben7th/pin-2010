@@ -94,7 +94,7 @@ MindpinWindow = {
           var content = $("#comment_content").attr("value");
           if(content == ""){return}
           $.ajax({
-            url:BG.Mindpin.CREATE_SITE_COMMENT,
+            url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
             type:"POST",
             data:{
               url:url,
