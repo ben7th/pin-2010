@@ -23,6 +23,26 @@ class BrowserExtensionController < ApplicationController
     end
   end
 
+  # 编辑评论
+  def edit_comment
+    comment = Comment.find(params[:id])
+    comment.update_attributes(:content=>params[:content])
+    respond_to do |format|
+      format.json { render :json=>build_comment_json(comment)}
+      format.any
+    end
+  end
+
+  # 删除评论
+  def destroy_comment
+    comment = Comment.find(params[:id])
+    comment.destroy
+    respond_to do |format|
+      format.json { render :json=>{:status=>"OK"}}
+      format.any
+    end
+  end
+
   # 个人的历史记录
   def browse_histories
     respond_to do |format|

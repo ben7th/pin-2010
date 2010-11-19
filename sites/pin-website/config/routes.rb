@@ -24,7 +24,17 @@ ActionController::Routing::Routes.draw do |map|
   map.browser_extension_site_info "browser_extension/site_info.:format",:controller=>"browser_extension",:action=>"site_info"
   map.browser_extension_browse_histories "browser_extension/browse_histories.:format",:controller=>"browser_extension",:action=>"browse_histories"
 
-  map.browser_extension_comments "browser_extension/comments.:format",
+  # 创建评论
+  map.browser_extension_create_comment "browser_extension/comments.:format",
     :controller=>"browser_extension",:action=>"create_comment",
     :conditions => { :method => :post }
+  # 编辑评论
+  map.browser_extension_edit_comment "browser_extension/comments/:id.:format",
+    :controller=>"browser_extension",:action=>"edit_comment",
+    :conditions => { :method => :put }
+  # 删除评论
+  map.browser_extension_destroy_comment "browser_extension/comments/:id.:format",
+    :controller=>"browser_extension",:action=>"destroy_comment",
+    :conditions => { :method => :delete }
+  
 end
