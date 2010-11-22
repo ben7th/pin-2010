@@ -36,5 +36,12 @@ ActionController::Routing::Routes.draw do |map|
   map.browser_extension_destroy_comment "browser_extension/comments/:id.:format",
     :controller=>"browser_extension",:action=>"destroy_comment",
     :conditions => { :method => :delete }
-  
+
+  # 个人浏览历史
+  map.browser_extension_browse_histories "browser_extension/browse_histories.:format",
+    :controller=>"browser_extension",:action=>"browse_histories"
+
+  # 个人浏览历史 chart 数据
+  map.browser_extension_browse_histories_chart "browser_extension/browse_histories_chart.:format",
+    :controller=>"browser_extension",:action=>"browse_histories_chart"
 end

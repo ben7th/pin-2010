@@ -27,4 +27,10 @@ module WebSiteHelper
       :info=>web_site_introduction_info(web_site),:detail_info_url=>web_site_introductions_url(:web_site_id=>web_site.id),
       :comments=>comments,:detail_comments_url=>comments_url(:url=>url)}
   end
+
+  def build_browse_histories_json(browse_histories)
+    browse_histories.map do |history|
+      {:title=>history.title,:url=>history.url,:updated_at=>history.updated_at}
+    end
+  end
 end

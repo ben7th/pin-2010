@@ -45,8 +45,20 @@ class BrowserExtensionController < ApplicationController
 
   # 个人的历史记录
   def browse_histories
+    from = (params["from"] || 0).to_i
+    count = (params["count"] || 10).to_i
+    browse_histories = current_user.browse_histories.from_size(from,count)
+    
     respond_to do |format|
-      format.json { render :json=>{:status=>"browse_histories"}}
+      format.json { render :json=>build_browse_histories_json(browse_histories)}
+      format.any
+    end
+  end
+
+  # 历史记录的统计图
+  def browse_histories_chart
+    respond_to do |format|
+      format.json { render :json=>{:status=>"browse_histories_chart"}}
       format.any
     end
   end
