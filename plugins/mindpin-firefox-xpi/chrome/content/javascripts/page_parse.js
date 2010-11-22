@@ -41,7 +41,7 @@ Mindpin.PageParse = {
         gbrowser.selectedTab = gbrowser.addTab(link_str);
       },false);
       rss_box.appendChild(link);
-      Mindpin.PageParse.add_share_link(rss_box,link_str)
+//      Mindpin.PageParse.add_share_link(rss_box,link_str)
 
       rss_boxs.appendChild(rss_box)
     });
@@ -83,7 +83,7 @@ Mindpin.PageParse = {
       },false);
       link_box.appendChild(link);
       // 分享按钮
-      Mindpin.PageParse.add_share_link(link_box,href);
+//      Mindpin.PageParse.add_share_link(link_box,href);
 
       link_boxs.appendChild(link_box);
     });
@@ -106,20 +106,20 @@ Mindpin.PageParse = {
     $(image_element).attr('src',new_src);
     var image = Mindpin.PageParse.add_image_element(document,image_element);
     image.setAttribute("class","image-data");
-    var share_image_link = Mindpin.PageParse.add_share_image_link_element(document,image_element);
+//    var share_image_link = Mindpin.PageParse.add_share_image_link_element(document,image_element);
     var a_image_box = document.createElement("vbox");
     a_image_box.setAttribute("align","start");
     a_image_box.setAttribute("class","image-box");
     a_image_box.appendChild(image)
     var checkbox = Mindpin.PageParse.add_checkbox();
     a_image_box.appendChild(checkbox);
-    a_image_box.appendChild(share_image_link)
-    a_image_box.addEventListener("mouseover",function(){
-      Mindpin.PageParse.show_share_button_for_image_box(a_image_box);
-    },false);
-    a_image_box.addEventListener("mouseout",function(){
-      Mindpin.PageParse.hide_share_button_for_image_box(a_image_box);
-    },false);
+//    a_image_box.appendChild(share_image_link)
+//    a_image_box.addEventListener("mouseover",function(){
+//      Mindpin.PageParse.show_share_button_for_image_box(a_image_box);
+//    },false);
+//    a_image_box.addEventListener("mouseout",function(){
+//      Mindpin.PageParse.hide_share_button_for_image_box(a_image_box);
+//    },false);
     return a_image_box;
   },
 
