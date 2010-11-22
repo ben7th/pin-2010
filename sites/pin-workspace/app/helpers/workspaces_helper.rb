@@ -34,18 +34,18 @@ module WorkspacesHelper
   def operate_str(info)
     case info.operate
       when 'create' then "创建了话题"
-      when 'reply' then "回复内容 #{_text_pin(info).to_html} 到话题"
-      when 'delete' then "删除了内容 在话题"
-      when 'edit' then "编辑了内容 #{_text_pin(info).to_html} 到话题"
+      when 'reply' then "回复内容 到话题"
+      when 'delete' then "删除内容 在话题"
+      when 'edit' then "编辑内容 在话题"
     end
   end
 
-  def _text_pin(info)
-    workspace = info.workspace
-    repo_user_id = workspace.user_id
-    repo_name = workspace.id
-    TextPin.find(:id=>info.text_pin_id,:repo_user_id=>repo_user_id,:repo_name=>repo_name)
-  end
+#  def _text_pin(info)
+#    workspace = info.workspace
+#    repo_user_id = workspace.user_id
+#    repo_name = workspace.id
+#    TextPin.find(:id=>info.text_pin_id,:repo_user_id=>repo_user_id,:repo_name=>repo_name)
+#  end
 
   def document_link(workspace,discussion)
     title = discussion.title || "无标题"
