@@ -15,17 +15,18 @@ module WorkspacesHelper
 
   def operate_info(info)
     workspace = info.workspace
-    document = Document.find_by_log_info(info)
+    discussion = Discussion.find_by_id(info.discussion_id)
+
     user = User.find_by_email(info.email)
     
-    if user.blank? || document.blank? || workspace.blank?
+    if user.blank? || discussion.blank? || workspace.blank?
       return
     end
 
     render :partial=>'workspaces/parts/operation_info',:locals=>{
       :info=>info,
       :workspace=>workspace,
-      :document=>document,
+      :discussion=>discussion,
       :user=>user
     }
   end
@@ -46,8 +47,8 @@ module WorkspacesHelper
     TextPin.find(:id=>info.text_pin_id,:repo_user_id=>repo_user_id,:repo_name=>repo_name)
   end
 
-  def document_link(workspace,document)
-    title = document.discussion.title
+  def document_link(workspace,discussion)
+    title = discussion.title || "无标题"
 
     match_data = title.match(/<bundle>.*<\/bundle>(.*)/)
     if match_data
@@ -56,7 +57,7 @@ module WorkspacesHelper
       title = "bundle(#{bundle_title})"
     end
 
-    link_to title,pin_url_for('discuss',"workspaces/#{workspace.id}/documents/#{document.id}")
+    link_to title,pin_url_for('discuss',"workspaces/#{workspace.id}/documents/#{discussion.id}")
   end
 
   def workspace_link(workspace)
