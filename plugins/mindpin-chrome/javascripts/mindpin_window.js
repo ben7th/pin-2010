@@ -6,6 +6,7 @@ MindpinWindow = {
     this.add_events();
     this.loading_ui();
     this.show();
+    $('#package_send').attr("disabled","disabled");
   },
 
   add_events: function(){
@@ -225,7 +226,19 @@ MindpinWindow = {
           MindpinWindow.send_item("send",item)
         })
       });
-      
+
+      // 根据复选框的选择情况决定“打包发送”按钮的可用性
+      $("input.package_checkbox").each(function(i,item){
+        $(item).bind("click",function(){
+          var checked_size = $("input.package_checkbox:checked").length
+          if(checked_size==0){
+            $('#package_send').attr("disabled","disabled")
+          }else{
+            $('#package_send').attr("disabled","")
+          }
+        })
+      });
+
     });
   },
 
