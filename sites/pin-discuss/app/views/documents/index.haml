@@ -1,3 +1,21 @@
-=link_to_remote "新建讨论", :url => new_document_path, :method => :get
+- require_css 'views/discuss',true
+
+.clearfix
+  .fright.marginr5
+    =minibutton_remote "新建讨论", :url => new_document_path, :method => :get
+
+.documents-list-title-bar.clearfix
+  .document-status
+  .document-title
+    主题
+  .document-author-name
+    作者
+  .document-created-at
+    创建于
+  .document-versions
+    版本
+  .document-updated-at
+    修改于
+
 -mplist @documents, :for=>Document do |document|
   =render :partial => "/documents/info_document", :locals => {:document => document}

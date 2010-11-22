@@ -1,2 +1,11 @@
-=link_to document_title(document),document_path(:id=>document.id)
-=document.email
+.document-status
+.document-title
+  =link_to document_title(document),document_path(:id=>document.id)
+.document-author-name
+  =document.author.name
+.document-created-at
+  =qdatetime document.created_at
+.document-versions
+  =document.versions.length
+.document-updated-at
+  =qdatetime document.last_committed_at

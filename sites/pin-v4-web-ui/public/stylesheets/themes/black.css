@@ -20,7 +20,7 @@ body {
   background: url(/images/themes/black/footer-background.png) repeat-x; }
 
 .loud {
-  color: #FF7F2F !important; }
+  color: #FFB019 !important; }
 
 .quiet {
   color: #B5B5B5; }
@@ -29,9 +29,9 @@ body {
   color: #B5B5B5; }
 
 a {
-  color: #1681FF; }
+  color: #6E9EFF; }
   a:hover {
-    color: #4198FF; }
+    color: #6EBFFF; }
 
 .quote_content {
   background: #F6F6F6;
