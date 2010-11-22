@@ -94,7 +94,9 @@ MindpinWindow = {
         $("#create_comment_btn").click(function(evt){
 
           var content = $("#create_comment .comment_content").attr("value");
-          if(content == ""){return}
+          if(content == ""){
+            return
+          }
           
           $.ajax({
             url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
@@ -156,224 +158,229 @@ MindpinWindow = {
           var comment = li.tmplItem().data;
           var destroy_url = BG.Mindpin.DESTROY_SITE_COMMENT_PREFIX_URL + comment.id + ".json"
           if(confirm("确认删除么？")){
-            $.ajax({url:destroy_url,type:"delete",success:function(){
-              li.remove();
-            }});
-          }
+            $.ajax({
+              url:destroy_url,
+              type:"delete",
+              success:function(){
+                li.remove();
+              }
+            });
+        }
         });
 
-        // 分享事件
-        $("#comments .share_btn").click(function(evt){
-          var li = $(this).closest("li")
-          var comment = li.tmplItem().data;
-          var link_data = {
-            type:"share",
-            data_type:"link",
-            data:{
-              href:url,
-              text:comment.content
-            }
+      // 分享事件
+      $("#comments .share_btn").click(function(evt){
+        var li = $(this).closest("li")
+        var comment = li.tmplItem().data;
+        var link_data = {
+          type:"share",
+          data_type:"link",
+          data:{
+            href:url,
+            text:comment.content
           }
-          MindpinWindow.open_collection_window(link_data)
-        });
-        // 发送事件
-        $("#comments .send_btn").click(function(evt){
-          var li = $(this).closest("li")
-          var comment = li.tmplItem().data;
-          var link_data = {
-            type:"send",
-            data_type:"link",
-            data:{
-              href:url,
-              text:comment.content
-            }
+        }
+        MindpinWindow.open_collection_window(link_data)
+      });
+      // 发送事件
+      $("#comments .send_btn").click(function(evt){
+        var li = $(this).closest("li")
+        var comment = li.tmplItem().data;
+        var link_data = {
+          type:"send",
+          data_type:"link",
+          data:{
+            href:url,
+            text:comment.content
           }
-          MindpinWindow.open_collection_window(link_data)
-        });
+        }
+        MindpinWindow.open_collection_window(link_data)
+      });
 
-      }
+    }
     });
-  },
+},
   
-  // 显示历史记录
-  show_browse_history : function(){
-    $("#mindpin_window_content #browse_history_iframe").attr("src",BG.Mindpin.BROWSE_HISTORIES_URL);
-  },
+// 显示历史记录
+show_browse_history : function(){
+  $("#mindpin_window_content #browse_history_iframe").attr("src",BG.Mindpin.BROWSE_HISTORIES_URL);
+},
 
-  // 显示解析到的页面元素
-  show_page_content : function(){
-    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
-      give_content: "ok"
-    }, function(response) {
-      // 在第三个页签中插入元素
-      $("#rsses_content").attr("innerHTML","");
-      $("#links_content").attr("innerHTML","");
-      $("#images_content").attr("innerHTML","");
+// 显示解析到的页面元素
+show_page_content : function(){
+  chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+    give_content: "ok"
+  }, function(response) {
+    // 在第三个页签中插入元素
+    $("#rsses_content").attr("innerHTML","");
+    $("#links_content").attr("innerHTML","");
+    $("#images_content").attr("innerHTML","");
       
-      $(response.page_content.rsses).each(function(i,link){
-        $("#rsses_content").append("<div class='rss_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
-      });
-      $(response.page_content.links).each(function(i,link){
-        $("#links_content").append("<div class='link_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
-      });
-      $(response.page_content.images).each(function(i,image){
-        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img class='data' src='"+image.src+"' width="+image.width+"px height="+image.height+"px /> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
-      });
-
-      // 注册 发送 分享 事件
-      $("a.share").each(function(i,item){
-        $(item).bind("click",function(){
-          MindpinWindow.send_item("share",item)
-        })
-      });
-
-      $("a.send").each(function(i,item){
-        $(item).bind("click",function(){
-          MindpinWindow.send_item("send",item)
-        })
-      });
-
-      // 根据复选框的选择情况决定“打包发送”按钮的可用性
-      $("input.package_checkbox").each(function(i,item){
-        $(item).bind("click",function(){
-          var checked_size = $("input.package_checkbox:checked").length
-          if(checked_size==0){
-            $('#package_send').attr("disabled","disabled")
-          }else{
-            $('#package_send').attr("disabled","")
-          }
-        })
-      });
-
+    $(response.page_content.rsses).each(function(i,link){
+      $("#rsses_content").append("<div class='rss_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
     });
-  },
+    $(response.page_content.links).each(function(i,link){
+      $("#links_content").append("<div class='link_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
+    });
+    $(response.page_content.images).each(function(i,image){
+      $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img class='data' src='"+image.src+"' width="+image.width+"px height="+image.height+"px /> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
+    });
 
+    // 注册 发送 分享 事件
+    $("a.share").each(function(i,item){
+      $(item).bind("click",function(){
+        MindpinWindow.send_item("share",item)
+      })
+    });
 
-  send_item : function(operate_type,item){
-    var link = $(item).siblings('a.data')[0];
-    var image = $(item).siblings('img.data')[0];
-    if(image!=null){
-      var image_data = {
-        type:operate_type,
-        data_type:"image",
-        data:{
-          src:image.src,
-          width:image.width,
-          height:image.height
+    $("a.send").each(function(i,item){
+      $(item).bind("click",function(){
+        MindpinWindow.send_item("send",item)
+      })
+    });
+
+    // 根据复选框的选择情况决定“打包发送”按钮的可用性
+    $("input.package_checkbox").each(function(i,item){
+      $(item).bind("click",function(){
+        var checked_size = $("input.package_checkbox:checked").length
+        if(checked_size==0){
+          $('#package_send').attr("disabled","disabled")
+        }else{
+          $('#package_send').attr("disabled","")
         }
-      }
-      MindpinWindow.open_collection_window(image_data)
-    }else{
-      var link_data = {
-        type:operate_type,
-        data_type:"link",
-        data:{
-          href:link.href,
-          text:$(link).text()
-        }
-      }
-      MindpinWindow.open_collection_window(link_data)
-    }
-  },
+      })
+    });
 
-  
-  // 发送历史记录
-  send_browse_history : function(url,title){
-    $.ajax({
-      url: BG.Mindpin.SUBMIT_BROWSE_HISTORIES_URL,
-      type: "post",
-      async: true,
-      data: {
-        'url':url,
-        'title':title
-      },
-      dataType: "text",
-      success: function(){
-        MindpinWindow.show_browse_history();
-      }
-    });
-  },
+  });
+},
 
-  open_collection_window : function(data){
-    // 新打开的 发送文本页面 会取 collection_data 这个数据
-    BG.collection_data = data
-    if(data.data_type == "link"){
-      window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
-    }else if(data.data_type == "image"){
-      window.open("collection_image_window.html", "CollectionImageWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
-    }
-  },
-  
-  // 选中元素的处理
-  pack_send_elements : function(){
-    var rsses = []
-    $(".rss_item input.package_checkbox:checked").each(function(i,item){
-      var link = $(item).siblings('a.data')[0];
-      rsses[i] = {
-        href:link.href,
-        text:link.text
-      }
-    });
-    var links = []
-    $(".link_item input.package_checkbox:checked").each(function(i,item){
-      var link = $(item).siblings('a.data')[0];
-      links[i] = {
-        href:link.href,
-        text:link.text
-      }
-    });
-    var images = []
-    $(".image_item input.package_checkbox:checked").each(function(i,item){
-      var image = $(item).siblings('img.data')[0];
-      images[i] = {
+
+send_item : function(operate_type,item){
+  var link = $(item).siblings('a.data')[0];
+  var image = $(item).siblings('img.data')[0];
+  if(image!=null){
+    var image_data = {
+      type:operate_type,
+      data_type:"image",
+      data:{
         src:image.src,
         width:image.width,
         height:image.height
       }
-    });
-    var final_data = {
-      rsses:rsses,
-      links:links,
-      images:images
     }
-    // 新打开 的 打包发送页面会用到这个数据
-    BG.package_send_data = final_data;
-    window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
-  },
-
-  begin_clip : function(){
-    $("#begin_clip").hide();
-    $("#cancel_clip").show();
-    $("#package_send_clip").attr("disabled","disabled")
-    $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
-    $("#package_send_clip").show();
-    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
-      operate_clip: "begin"
-    }, function(response) {
-        
-      });
-  },
-
-  cancel_clip : function(){
-    $("#begin_clip").show();
-    $("#cancel_clip").hide();
-    $("#package_send_clip").hide();
-    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
-      operate_clip: "cancel"
-    }, function(response) {
-
-      });
-  },
-
-  package_send_clip : function(){
-    chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
-      operate_clip: "send_elements"
-    }, function(response) {
-      // 新打开 的 打包发送页面会用到这个数据
-      BG.package_send_data = response.final_data;
-      window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
-    });
+    MindpinWindow.open_collection_window(image_data)
+  }else{
+    var link_data = {
+      type:operate_type,
+      data_type:"link",
+      data:{
+        href:link.href,
+        text:$(link).text()
+      }
+    }
+    MindpinWindow.open_collection_window(link_data)
   }
+},
+
+  
+// 发送历史记录
+send_browse_history : function(url,title){
+  $.ajax({
+    url: BG.Mindpin.SUBMIT_BROWSE_HISTORIES_URL,
+    type: "post",
+    async: true,
+    data: {
+      'url':url,
+      'title':title
+    },
+    dataType: "text",
+    success: function(){
+      MindpinWindow.show_browse_history();
+    }
+  });
+},
+
+open_collection_window : function(data){
+  // 新打开的 发送文本页面 会取 collection_data 这个数据
+  BG.collection_data = data
+  if(data.data_type == "link"){
+    window.open("collection_text_window.html", "CollectionTextWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+  }else if(data.data_type == "image"){
+    window.open("collection_image_window.html", "CollectionImageWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+  }
+},
+  
+// 选中元素的处理
+pack_send_elements : function(){
+  var rsses = []
+  $(".rss_item input.package_checkbox:checked").each(function(i,item){
+    var link = $(item).siblings('a.data')[0];
+    rsses[i] = {
+      href:link.href,
+      text:link.text
+    }
+  });
+  var links = []
+  $(".link_item input.package_checkbox:checked").each(function(i,item){
+    var link = $(item).siblings('a.data')[0];
+    links[i] = {
+      href:link.href,
+      text:link.text
+    }
+  });
+  var images = []
+  $(".image_item input.package_checkbox:checked").each(function(i,item){
+    var image = $(item).siblings('img.data')[0];
+    images[i] = {
+      src:image.src,
+      width:image.width,
+      height:image.height
+    }
+  });
+  var final_data = {
+    rsses:rsses,
+    links:links,
+    images:images
+  }
+  // 新打开 的 打包发送页面会用到这个数据
+  BG.package_send_data = final_data;
+  window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+},
+
+begin_clip : function(){
+  $("#begin_clip").hide();
+  $("#cancel_clip").show();
+  $("#package_send_clip").attr("disabled","disabled")
+  $("#package_send_clip").attr("innerHTML","发送捕捉到的元素")
+  $("#package_send_clip").show();
+  chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+    operate_clip: "begin"
+  }, function(response) {
+        
+    });
+},
+
+cancel_clip : function(){
+  $("#begin_clip").show();
+  $("#cancel_clip").hide();
+  $("#package_send_clip").hide();
+  alert(BG.CurrentCorrectTab.tab_id)
+  chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+    operate_clip: "cancel"
+  }, function(response) {
+
+    });
+},
+
+package_send_clip : function(){
+  chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
+    operate_clip: "send_elements"
+  }, function(response) {
+    // 新打开 的 打包发送页面会用到这个数据
+    BG.package_send_data = response.final_data;
+    window.open("package_send_window.html", "PackageSendWindow", "height=400,width=500,scrollbars=no,menubar=no,location=no");
+  });
+}
 
 }
 
