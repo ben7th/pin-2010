@@ -114,7 +114,13 @@ MindpinWindow = {
         $("#comments .edit_btn").live("click",function(evt){
           var comment = $(this).closest("li").tmplItem().data;
           $("#create_comment").hide();
-          $("#edit_comment_template").tmpl().appendTo("#web_site_info");
+          var edit_comment_html = $("#edit_comment_template").tmpl();
+          var edit_comment_div = $("#edit_comment");
+          if(edit_comment_div.length == 0){
+            edit_comment_html.appendTo("#web_site_info");
+          }else{
+            edit_comment_div.replaceWith(edit_comment_html);
+          }
           $("#edit_comment .comment_content").attr("value",comment.content);
           // 给保存修改注册事件
           $("#edit_comment .save_btn").click(function(evt){
