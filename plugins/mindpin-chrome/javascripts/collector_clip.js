@@ -73,18 +73,6 @@ var CollectorClip = {
     });
   },
 
-  // Firefox的所有tab页 中 如果存在选择框 全部干掉
-  //  cancel_all_tab_browser_clip : function(){
-  //    $(getFireFoxWindow().gBrowser.browsers).each(function(i,browser){
-  //      var document = browser.contentDocument
-  //      $(".choosed_element",document).each(function(i,m){
-  //        try{
-  //          $(m).remove()
-  //        }catch(e){}
-  //      })
-  //    })
-  //  },
-
   // 把已经选的元素全部取消掉
   cancel_cliped_elements : function(){
     $(".choosed_element",this.document).each(function(i,m){
@@ -117,11 +105,6 @@ var CollectorClip = {
     body.bind('mouseout',function(){
       CollectorClip.hide_coverlayer();
     });
-  // 开始选择的时候，给tabcontainer添加事件监测,如果当前页签在之前做过clip，初始化为没有任何clip
-  //    $(getFireFoxWindow().gBrowser.tabContainer).bind("TabSelect",function(){
-  //      CollectorClip.cancel_clip();
-  //      CollectorClip.cancel_all_tab_browser_clip();
-  //    })
   },
 
   send_sign_to_button : function(sign){
@@ -148,14 +131,8 @@ var CollectorClip = {
     var number = cliped_elements.length;
     var char_number = 0;
     $(cliped_elements).each(function(i,el){
-      //      char_number += ($(el).text().length-2); // 减去2（取消 二字）
       char_number += ($(el).text().length);
     })
-    //    var button = getSidebarWindow().$('#send_clip_button')
-    //    button.attr("label","发送捕捉到的元素 "+number+"块 "+char_number+"字符");
-    //    if(number==0){
-    //      button.attr("label","发送捕捉到的元素")
-    //    }
     chrome.extension.sendRequest({
       div_number:number,
       char_number:char_number
