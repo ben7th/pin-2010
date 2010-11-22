@@ -43,7 +43,7 @@ module WorkspacesHelper
   end
 
   def document_link(workspace,document)
-    title = document.title
+    title = document.discussion.title
 
     match_data = title.match(/<bundle>.*<\/bundle>(.*)/)
     if match_data
