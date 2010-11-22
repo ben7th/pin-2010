@@ -33,7 +33,6 @@
   // 监视 mindpin 工具栏的关闭
   chrome.windows.onRemoved.addListener(function(windowId){
     if(MindpinWin && MindpinWin.id == windowId){
-      alert(CurrentCorrectTab.tab_id)
       chrome.tabs.sendRequest(CurrentCorrectTab.tab_id, {
         operate_clip: "cancel"
       }, function(response) {
