@@ -364,7 +364,6 @@ cancel_clip : function(){
   $("#begin_clip").show();
   $("#cancel_clip").hide();
   $("#package_send_clip").hide();
-  alert(BG.CurrentCorrectTab.tab_id)
   chrome.tabs.sendRequest(BG.CurrentCorrectTab.tab_id, {
     operate_clip: "cancel"
   }, function(response) {
