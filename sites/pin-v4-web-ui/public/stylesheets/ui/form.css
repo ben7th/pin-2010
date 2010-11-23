@@ -34,6 +34,8 @@ textarea {
   padding: 4px 2px; }
 
 /*mindpin*/
+form label {
+  color: #ababab; }
 form div.field {
   margin-bottom: 15px; }
   form div.field .submit {
