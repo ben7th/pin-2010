@@ -250,7 +250,7 @@ show_browse_history : function(){
       });
       $(response.page_content.images).each(function(i,image){
         var size = MindpinWindow.new_image_size(image.width,image.height)
-        $("#images_content").append("<div class='image_item' style='display:inline-table;margin-right:5px;'><img class='data' src='"+image.src+"' width="+size.width+"px height="+size.height+"px real_width="+image.width+" real_height="+image.height+" /><div><input class='package_checkbox' type='checkbox'> <a style='display:none' class='share' href='#'>分享</a> <a style='display:none' class='send' href='#'>发送</a></div></div>")
+        $("#images_content").append("<div class='image_item' style='display:inline-table;margin-right:5px;'><img class='data' src='"+image.src+"' width="+size.width+"px height="+size.height+"px real_width="+image.width+" real_height="+image.height+" /><div><input class='package_checkbox' type='checkbox'> <a style='visibility:hidden;' class='share' href='#'>分享</a> <a style='visibility:hidden;' class='send' href='#'>发送</a></div></div>")
       });
 
       // 注册 发送 分享 事件
@@ -281,10 +281,10 @@ show_browse_history : function(){
       // 给每一个image item 注册事件 鼠标移动上去的时候显示 分享 发送
       $(".image_item").each(function(i,item){
         $(item).bind("mouseover",function(){
-          $(item).find("a").each(function(j,child){$(child).show()})
+          $(item).find("a").each(function(j,child){$(child).attr("style","")})
         })
         $(item).bind("mouseout",function(){
-          $(item).find("a").each(function(j,child){$(child).hide()})
+          $(item).find("a").each(function(j,child){$(child).attr("style","visibility:hidden;")})
         })
       });
 
