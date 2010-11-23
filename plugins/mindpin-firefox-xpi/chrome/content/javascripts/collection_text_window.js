@@ -4,8 +4,8 @@ if(typeof(Mindpin)=='undefined'){
 Mindpin.CollectionTextWindow = {
   init: function(){
     var data = window.arguments[0];
-    $("#tabbox")[0].selectedIndex = window.arguments[1];
-    $("#share_content").attr("value",data);
+//    $("#tabbox")[0].selectedIndex = window.arguments[1];
+//    $("#share_content").attr("value",data);
     $("#send_content").attr("value",data);
     Mindpin.CollectionTextWindow.get_workspaces_to_itemlist();
   },

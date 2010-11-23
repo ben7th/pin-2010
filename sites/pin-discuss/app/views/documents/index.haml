@@ -17,5 +17,6 @@
   .document-updated-at
     修改于
 
--mplist @documents, :for=>Document do |document|
-  =render :partial => "/documents/info_document", :locals => {:document => document}
+-mplist @document_and_discussions.keys, :for=>Document do |document|
+  -discussion = @document_and_discussions[document]
+  =render :partial => "/documents/info_document", :locals => {:document => document,:discussion=>discussion}

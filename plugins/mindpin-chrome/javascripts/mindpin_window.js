@@ -6,6 +6,7 @@ MindpinWindow = {
     this.add_events();
     this.loading_ui();
     this.show();
+    $('#package_send').attr("disabled","disabled");
   },
 
   add_events: function(){
@@ -93,7 +94,9 @@ MindpinWindow = {
         $("#create_comment_btn").click(function(evt){
 
           var content = $("#create_comment .comment_content").attr("value");
-          if(content == ""){return}
+          if(content == ""){
+            return
+          }
           
           $.ajax({
             url:BG.Mindpin.CREATE_SITE_COMMENT_URL,
@@ -114,7 +117,13 @@ MindpinWindow = {
         $("#comments .edit_btn").live("click",function(evt){
           var comment = $(this).closest("li").tmplItem().data;
           $("#create_comment").hide();
-          $("#edit_comment_template").tmpl().appendTo("#web_site_info");
+          var edit_comment_html = $("#edit_comment_template").tmpl();
+          var edit_comment_div = $("#edit_comment");
+          if(edit_comment_div.length == 0){
+            edit_comment_html.appendTo("#web_site_info");
+          }else{
+            edit_comment_div.replaceWith(edit_comment_html);
+          }
           $("#edit_comment .comment_content").attr("value",comment.content);
           // 给保存修改注册事件
           $("#edit_comment .save_btn").click(function(evt){
@@ -149,9 +158,13 @@ MindpinWindow = {
           var comment = li.tmplItem().data;
           var destroy_url = BG.Mindpin.DESTROY_SITE_COMMENT_PREFIX_URL + comment.id + ".json"
           if(confirm("确认删除么？")){
-            $.ajax({url:destroy_url,type:"delete",success:function(){
-              li.remove();
-            }});
+            $.ajax({
+              url:destroy_url,
+              type:"delete",
+              success:function(){
+                li.remove();
+              }
+            });
           }
         });
 
@@ -188,9 +201,35 @@ MindpinWindow = {
     });
   },
   
-  // 显示历史记录
-  show_browse_history : function(){
-    $("#mindpin_window_content #browse_history_iframe").attr("src",BG.Mindpin.BROWSE_HISTORIES_URL);
+// 显示历史记录
+show_browse_history : function(){
+  $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_URL,success:function(data){
+    data = {browse_histories:data}
+    $("#browse_history").html($("#browse_history_template").tmpl(data))
+    var swf_url = chrome.extension.getURL("fusion_charts/swf/Bar2D.swf");
+    $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_CHART_URL,dataType:"text",success:function(xml){
+      var chart = new FusionCharts( swf_url,"chart", "300", "300", "0", "1" );
+      chart.setDataXML(xml);
+      chart.render("chartContainer");
+    }})
+  }});
+},
+
+  // 处理图片大小
+  // 设置图片高度100 宽度最大130
+  new_image_size : function(width,height){
+    var new_height = height;
+    var new_width = width;
+    var skeil = width/height ;
+    if(new_height > 100){
+      new_height = 100;
+      new_width = skeil*100;
+    }
+    if(new_width > 130){
+      new_width = 130;
+      new_height = (1/skeil)*130;
+    }
+    return {height:new_height,width:new_width};
   },
 
   // 显示解析到的页面元素
@@ -210,7 +249,8 @@ MindpinWindow = {
         $("#links_content").append("<div class='link_item'><input class='package_checkbox' type='checkbox'><a class='data' href="+link.href+">"+link.text+"</a> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
       });
       $(response.page_content.images).each(function(i,image){
-        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img class='data' src='"+image.src+"' width="+image.width+"px height="+image.height+"px /> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
+        var size = MindpinWindow.new_image_size(image.width,image.height)
+        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img class='data' src='"+image.src+"' width="+size.width+"px height="+size.height+"px real_width="+image.width+" real_height="+image.height+" /> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
       });
 
       // 注册 发送 分享 事件
@@ -225,7 +265,19 @@ MindpinWindow = {
           MindpinWindow.send_item("send",item)
         })
       });
-      
+
+      // 根据复选框的选择情况决定“打包发送”按钮的可用性
+      $("input.package_checkbox").each(function(i,item){
+        $(item).bind("click",function(){
+          var checked_size = $("input.package_checkbox:checked").length
+          if(checked_size==0){
+            $('#package_send').attr("disabled","disabled")
+          }else{
+            $('#package_send').attr("disabled","")
+          }
+        })
+      });
+
     });
   },
 
@@ -239,8 +291,8 @@ MindpinWindow = {
         data_type:"image",
         data:{
           src:image.src,
-          width:image.width,
-          height:image.height
+          width:$(image).attr("real_width"),
+          height:$(image).attr("real_height")
         }
       }
       MindpinWindow.open_collection_window(image_data)
@@ -308,8 +360,8 @@ MindpinWindow = {
       var image = $(item).siblings('img.data')[0];
       images[i] = {
         src:image.src,
-        width:image.width,
-        height:image.height
+        width:$(image).attr('real_width'),
+        height:$(image).attr('real_height')
       }
     });
     var final_data = {

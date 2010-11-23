@@ -8,7 +8,6 @@ $(document).ready(function(){
   Collection.select_tab_by_type(data.type)
   // 获取工作空间
   Collection.get_workspaces_to_select();
-  
   // 设置 图片
   $("#send_image").attr("src",data.data.src)
   $("#send_image").attr("width",data.data.width)

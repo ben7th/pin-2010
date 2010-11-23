@@ -15,35 +15,40 @@ module WorkspacesHelper
 
   def operate_info(info)
     workspace = info.workspace
-    document = Document.find_by_log_info(info)
+    discussion = Discussion.find_by_id(info.discussion_id)
+
     user = User.find_by_email(info.email)
     
-    if user.blank? || document.blank? || workspace.blank?
+    if user.blank? || discussion.blank? || workspace.blank?
       return
     end
 
     render :partial=>'workspaces/parts/operation_info',:locals=>{
       :info=>info,
       :workspace=>workspace,
-      :document=>document,
+      :discussion=>discussion,
       :user=>user
     }
   end
 
   def operate_str(info)
-    document = Document.find_by_log_info(info)
-    text_pin = document.find_text_pin(info.text_pin_id) if !info.text_pin_id.blank?
-
     case info.operate
       when 'create' then "创建了话题"
-      when 'reply' then "回复内容 #{text_pin.to_html} 到话题"
-      when 'delete' then "删除了内容 在话题"
-      when 'edit' then "编辑了内容 #{text_pin.to_html} 到话题"
+      when 'reply' then "回复内容 到话题"
+      when 'delete' then "删除内容 在话题"
+      when 'edit' then "编辑内容 在话题"
     end
   end
 
-  def document_link(workspace,document)
-    title = document.title
+#  def _text_pin(info)
+#    workspace = info.workspace
+#    repo_user_id = workspace.user_id
+#    repo_name = workspace.id
+#    TextPin.find(:id=>info.text_pin_id,:repo_user_id=>repo_user_id,:repo_name=>repo_name)
+#  end
+
+  def document_link(workspace,discussion)
+    title = discussion.title || "无标题"
 
     match_data = title.match(/<bundle>.*<\/bundle>(.*)/)
     if match_data
@@ -52,7 +57,7 @@ module WorkspacesHelper
       title = "bundle(#{bundle_title})"
     end
 
-    link_to title,pin_url_for('discuss',"workspaces/#{workspace.id}/documents/#{document.id}")
+    link_to title,pin_url_for('discuss',"workspaces/#{workspace.id}/documents/#{discussion.id}")
   end
 
   def workspace_link(workspace)

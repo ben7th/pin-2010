@@ -21,5 +21,4 @@
           %div 确定删除么？
           =link_to_remote "确定",:url=>sidebar_comment_path(comment),:method=>:delete,:html=>{:class=>'submit_confirm'}
           =link_to "取消",'#',:class=>'cancel_confirm'
-        =link_to '<span>分享</span>','javascript:void(0)',:class=>'minibutton share_comment'
         =link_to '<span>发送</span>','javascript:void(0)',:class=>'minibutton send_comment'

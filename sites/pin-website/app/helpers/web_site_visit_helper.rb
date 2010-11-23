@@ -10,6 +10,10 @@ module WebSiteVisitHelper
     end
     return hash
   end
+
+  def chart_xml(order)
+    pie_xml(pie_hash(order))
+  end
   
   def pie_xml(hash)
     str = ''

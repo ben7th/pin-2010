@@ -50,11 +50,12 @@ class Document < MplistRecord
   def self.create(options)
     if self.create_valid?(options)
       document = Document.new(options)
-      discussion = Discussion.create(:workspace_id=>document.repo_name)
+      text_xml = TextPin.init_xml(document.text_pin)
+      title = Nokogiri::XML(text_xml).at_css("content").text
+      discussion = Discussion.create(:workspace_id=>document.repo_name,:title=>title)
       document_id = discussion.id.to_s
       document.id = document_id
       text_pin_id = UUIDTools::UUID.random_create.to_s
-      text_xml = TextPin.init_xml(document.text_pin)
       document_xml = Document.init_xml(document.email,text_pin_id)
       visible_xml = VisibleConfig.init_xml
       data_and_tos = [
@@ -82,7 +83,7 @@ class Document < MplistRecord
     add_text_pin_to_struct(new_pin_id,text_pin_id).to_s
 
     # 暂时添加，根据宏文件中的规则，进行操作的方法
-#    operate_by_macro_rule
+    #    operate_by_macro_rule
 
     document_xml = @nokogiri_struct.to_s
     params = [
@@ -129,7 +130,7 @@ class Document < MplistRecord
 
   # Document对应文件的所有commit记录
   def commits
-    self.git_repo.commits(self.sub_path)
+    @commits ||= self.git_repo.commits(self.sub_path)
   end
 
   def file_info

@@ -5,7 +5,7 @@
    id="dlg-login-window"
    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
    xmlns:html="http://www.w3.org/1999/xhtml"
-   title="收集资源"
+   title="发送"
    persist="screenX screenY" onload="Mindpin.CollectionTextWindow.init();" >
 
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
@@ -16,63 +16,32 @@
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/message.js"/>
 
- <tabbox id="tabbox" selectedIndex="0">
-    <tabs>
-      <tab label="分享" />
-      <tab label="发送" />
-    </tabs>
+  <vbox>
+    <vbox>
+      <hbox style="padding:5px 0px 0px 10px" flex="1">
+        <label id="send_tip" value="发送内容" />
+        <image id="send_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
+      </hbox>
 
-    <tabpanels>
-      <tabpanel>
+      <textbox id="send_content" multiline="true" rows="5" cols="70" flex="5"/>
+    </vbox>
 
-        <vbox>
-          <vbox>
-            <hbox style="padding:5px 0px 0px 10px" flex="1">
-              <label id="share_tip" value="分享内容" />
-              <image id="share_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
-            </hbox>
+    <hbox id="create_workspace_tip" style="-moz-box-align:center;margin:10px 0;visibility:hidden;" >
+      <label value="您还没有工作空间"/>
+      <label class="text-link" value="点击创建" onclick="Mindpin.CollectionTextWindow.open_new_workspace_page();" />
+    </hbox>
 
-            <textbox id="share_content" multiline="true" rows="5" cols="70" flex="5"/>
-          </vbox>
+    <hbox style="-moz-box-align:center;">
 
-          <hbox>
-            <button id="share_button" label="分享" onclick="Mindpin.CollectionTextWindow.share();" />
-          </hbox>
-        </vbox>
+      <label value="选择工作空间"/>
 
-      </tabpanel>
-      <tabpanel>
-
-        <vbox>
-          <vbox>
-            <hbox style="padding:5px 0px 0px 10px" flex="1">
-              <label id="send_tip" value="发送内容" />
-              <image id="send_loading" src="chrome://mindpin/skin/spinner.gif" width="16" height="16" hidden="true"/>
-            </hbox>
-
-            <textbox id="send_content" multiline="true" rows="5" cols="70" flex="5"/>
-          </vbox>
-
-          <hbox id="create_workspace_tip" style="-moz-box-align:center;margin:10px 0;visibility:hidden;" >
-            <label value="您还没有工作空间"/>
-            <label class="text-link" value="点击创建" onclick="Mindpin.CollectionTextWindow.open_new_workspace_page();" />
-          </hbox>
-
-          <hbox style="-moz-box-align:center;">
-
-            <label value="选择工作空间"/>
-
-            <menulist id="send_workspace" oncommand="Mindpin.CollectionTextWindow.select_workspace();">
-              <menupopup>
-              </menupopup>
-            </menulist>
+      <menulist id="send_workspace" oncommand="Mindpin.CollectionTextWindow.select_workspace();">
+        <menupopup>
+        </menupopup>
+      </menulist>
             
-            <button id="send_button" label="发送" onclick="Mindpin.CollectionTextWindow.send();" disabled="true"/>
-          </hbox>
-        </vbox>
-        
-      </tabpanel>
-    </tabpanels>
-  </tabbox>
+      <button id="send_button" label="发送" onclick="Mindpin.CollectionTextWindow.send();" disabled="true"/>
+    </hbox>
+  </vbox>
     
 </window>
