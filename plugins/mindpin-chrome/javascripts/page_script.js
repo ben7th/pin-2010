@@ -49,7 +49,7 @@ $("img").each(function(i,item){
   images[i] = {
     src:check_url(item_j.attr("src")),
     width:item_j.attr("width"),
-    heigth:item_j.attr("height")
+    height:item_j.attr("height")
   };
 });
 var rsses = [];
