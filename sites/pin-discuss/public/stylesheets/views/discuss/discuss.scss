@@ -134,7 +134,7 @@ ul.discuss li .content .ceye {
     .document-status,.document-author-name,.document-versions{
       background-color:#181A27;
     }
-    &.even{
+    &:nth-child(even){
       .document-status,.document-author-name,.document-versions{
         background-color:#222433;
       }

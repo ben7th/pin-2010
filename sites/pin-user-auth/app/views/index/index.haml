@@ -12,7 +12,7 @@
           %dd=qdate current_user.created_at
     .grid_6
       .count
-        %dl
+        %dl.hide
           %dt=@workspaces.count
           %dd 工作空间
         %dl
@@ -23,7 +23,7 @@
       .viewother
         %span.bold 访问应用
 
-.grid_11.alpha
+.grid_11.alpha.hide
   .your_workspaces
     .top-bar.clearfix
       .fleft.font14.bold.marginl5
@@ -31,9 +31,9 @@
         %span.quiet (#{@workspaces.count})
     .workspace-list.margint5
       -mplist @workspaces,:for=>Workspace do |w|
-        =w.name
+        .font14.bold=link_to w.name,pin_url_for('pin-workspace',"workspaces/#{w.id}")
 
-.grid_11.push_1.omega
+.grid_11.alpha
   .your_apps
     .top-bar.clearfix
       .fleft.font14.bold.marginl5
@@ -49,7 +49,7 @@
             .clearfix
               .fleft.marginl10.bold.font14
                 = link_to app.title,pin_url_for('pin-app-adapter',"/app/#{app.name}")
-              .fleft.marginl10
+              .fleft.marginl10.loud
                 由 #{app.developer} 开发
             .clearfix.marginl10.margint10.grid_8
               = app.subject

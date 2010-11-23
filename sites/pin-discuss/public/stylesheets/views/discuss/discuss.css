@@ -120,7 +120,7 @@ ul.discuss li .content .ceye {
     color: #FFCF72; }
   .mplist.documents li .document-status, .mplist.documents li .document-author-name, .mplist.documents li .document-versions {
     background-color: #181A27; }
-  .mplist.documents li.even .document-status, .mplist.documents li.even .document-author-name, .mplist.documents li.even .document-versions {
+  .mplist.documents li:nth-child(even) .document-status, .mplist.documents li:nth-child(even) .document-author-name, .mplist.documents li:nth-child(even) .document-versions {
     background-color: #222433; }
   .mplist.documents li:first-child {
     border-radius: 0 !important;

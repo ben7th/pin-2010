@@ -1,9 +1,9 @@
 .userbox
   .inner
-    .avatarname{:'original-title'=>'您正以该用户登录'}
-      -link_to 'javascript:;' do
+    .avatarname{:'original-title'=>'去个人主页'}
+      -link_to pin_url_for('pin-user-auth') do
         =logo current_user,:tiny
-      =link_to "#{current_user.name}",'javascript:;',:class=>'name'
+      =link_to "#{current_user.name}",pin_url_for('pin-user-auth'),:class=>'name'
     .hide=link_to "公共区",'/',:'original-title'=>'看看大家都在做什么'
     .sp.hide=link_to "随手夹",'javascript:;',:'original-title'=>'帮助您快速引用资源，<span class="loud">正在开发中..</span>'
     .sp.hide=link_to "收件箱",'javascript:;',:'original-title'=>'处理站内消息，<span class="loud">正在开发中..</span>'
@@ -12,7 +12,7 @@
 
 .topbar
   %ul
-    %li=link_to '工作空间',pin_url_for("pin-workspace","workspaces")
+    .hide=link_to '工作空间',pin_url_for("pin-workspace","workspaces")
     .hide=link_to '分享',pin_url_for("pin-share")
-    %li=link_to '应用',pin_url_for("pin-app-adapter","apps")
+    .hide=link_to '应用',pin_url_for("pin-app-adapter","apps")
     .hide=link_to '宏管理',pin_url_for("pin-macro")

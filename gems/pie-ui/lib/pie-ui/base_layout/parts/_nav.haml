@@ -1,7 +1,7 @@
 .page-head{:class=>head_classname}
   .nav{:class=>container_classname}
     .site-logo
-      <a href="/" title="回 MindPin 首页"></a>
+      <a href="#{pin_url_for('pin-user-auth','/')}" title="回 MindPin 首页"></a>
     
     - if logged_in?
       =render :partial=>base_layout_path('parts/user_nav_box.haml')
