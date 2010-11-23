@@ -61,6 +61,8 @@
   <!-- 个人浏览历史的模板 -->
   <script id="browse_history_template" type="text/x-jquery-tmpl">
     <div id="chartContainer">loading...</div>
+    <a id="count_order" href="#">次数排行</a>
+    <a id="time_order" href="#">时间排行</a>
     <ul id="browse_histories">
       {{tmpl($data) "#browse_history_li_template"}}
     </ul>

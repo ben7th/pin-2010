@@ -207,12 +207,16 @@ show_browse_history : function(){
     data = {browse_histories:data}
     $("#browse_history").html($("#browse_history_template").tmpl(data))
     // 渲染 chart 图标
-    var swf_url = chrome.extension.getURL("fusion_charts/swf/Bar2D.swf");
-    $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_CHART_URL,dataType:"text",success:function(xml){
-      var chart = new FusionCharts( swf_url,"chart", "300", "300", "0", "1" );
-      chart.setDataXML(xml);
-      chart.render("chartContainer");
-    }})
+    MindpinWindow.render_browse_history_chart("count")
+    // 按类型 渲染 chart 按钮 事件
+    $("#count_order").click(function(evt){
+      evt.preventDefault();
+      MindpinWindow.render_browse_history_chart("count");
+    });
+    $("#time_order").click(function(evt){
+      evt.preventDefault();
+      MindpinWindow.render_browse_history_chart("time");
+    });
     // 给获取更多历史按钮注册事件
     $("#more_histories").click(function(evt){
       evt.preventDefault();
@@ -228,6 +232,16 @@ show_browse_history : function(){
 
   }});
 },
+
+  // 根据 order 类型 渲染 历史记录 chart 图标
+  render_browse_history_chart : function(order){
+    var swf_url = chrome.extension.getURL("fusion_charts/swf/Bar2D.swf");
+    $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_CHART_URL,data:{order:order},dataType:"text",success:function(xml){
+      var chart = new FusionCharts( swf_url,"chart", "300", "300", "0", "1" );
+      chart.setDataXML(xml);
+      chart.render("chartContainer");
+    }})
+  },
 
   // 处理图片大小
   // 设置图片高度100 宽度最大130
