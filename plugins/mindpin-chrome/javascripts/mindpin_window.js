@@ -206,6 +206,12 @@ show_browse_history : function(){
   $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_URL,success:function(data){
     data = {browse_histories:data}
     $("#browse_history").html($("#browse_history_template").tmpl(data))
+    var swf_url = chrome.extension.getURL("fusion_charts/swf/Bar2D.swf");
+    $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_CHART_URL,dataType:"text",success:function(xml){
+      var chart = new FusionCharts( swf_url,"chart", "300", "300", "0", "1" );
+      chart.setDataXML(xml);
+      chart.render("chartContainer");
+    }})
   }});
 },
 

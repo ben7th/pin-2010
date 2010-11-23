@@ -7,6 +7,8 @@
     <script type="text/javascript" src="javascripts/jquery.tools.min.js" ></script>
     <script type="text/javascript" src="javascripts/jquery.tmpl.js" ></script>
     <script type="text/javascript" src="javascripts/mindpin_window.js" ></script>
+    <script type="text/javascript" src="fusion_charts/js/FusionCharts.js" ></script>
+
     <!-- tab styling --> 
     <link rel="stylesheet" type="text/css" href="skin/tabs.css" />
   </head>
@@ -58,6 +60,7 @@
   </script>
   <!-- 个人浏览历史的模板 -->
   <script id="browse_history_template" type="text/x-jquery-tmpl">
+    <div id="chartContainer">loading...</div>
     <ul id="browse_histories">
     {{each $data.browse_histories}}
       <li>

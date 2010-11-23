@@ -3,6 +3,7 @@ class BrowserExtensionController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
   include WebSiteHelper
+  include WebSiteVisitHelper
   
   # 网站资料  和 评论
   def site_info
@@ -58,7 +59,7 @@ class BrowserExtensionController < ApplicationController
   # 历史记录的统计图
   def browse_histories_chart
     respond_to do |format|
-      format.json { render :json=>{:status=>"browse_histories_chart"}}
+      format.xml { render :xml=>chart_xml(params[:order])}
       format.any
     end
   end

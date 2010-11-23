@@ -6,6 +6,8 @@ Mindpin.WEB_SITE_INFOS_URL = "http://dev.website.2010.mindpin.com/browser_extens
 
 Mindpin.BROWSE_HISTORIES_URL = "http://dev.website.2010.mindpin.com/browser_extension/browse_histories.json"
 
+Mindpin.BROWSE_HISTORIES_CHART_URL = "http://dev.website.2010.mindpin.com/browser_extension/browse_histories_chart.xml"
+
 Mindpin.CREATE_SITE_COMMENT_URL = "http://dev.website.2010.mindpin.com/browser_extension/comments.json"
 
 Mindpin.EDIT_SITE_COMMENT_PREFIX_URL = "http://dev.website.2010.mindpin.com/browser_extension/comments/"
