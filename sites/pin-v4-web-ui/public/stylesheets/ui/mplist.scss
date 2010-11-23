@@ -155,16 +155,18 @@ ul.mplist{
       color:#BBBBBB;
       padding:6px;
       
-      &.even{
+      &:nth-child(even){
         background-color:#323546;
       }
       
       &:first-child{
-        @include border-radius(5px 5px 0 0);
+        @include border-radius-side(top, left, 5px);
+        @include border-radius-side(top, right, 5px);
       };
       
       &:last-child{
-        @include border-radius(0 0 5px 5px);
+        @include border-radius-side(bottom, left, 5px);
+        @include border-radius-side(bottom, right, 5px);
         border-bottom:solid 1px #111;
       };
       

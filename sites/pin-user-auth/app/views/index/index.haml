@@ -1,0 +1,55 @@
+- require_css 'views/users',true
+
+.usertop.clearfix
+  .clearfix
+    .grid_12
+      .vcard
+        %dl
+          %dt 用户名
+          %dd=current_user.name
+        %dl
+          %dt 注册时间
+          %dd=qdate current_user.created_at
+    .grid_6
+      .count
+        %dl
+          %dt=@workspaces.count
+          %dd 工作空间
+        %dl
+          %dt=@apps.count
+          %dd 应用组件
+  .clearfix.hide
+    .push_12
+      .viewother
+        %span.bold 访问应用
+
+.grid_11.alpha
+  .your_workspaces
+    .top-bar.clearfix
+      .fleft.font14.bold.marginl5
+        工作空间
+        %span.quiet (#{@workspaces.count})
+    .workspace-list.margint5
+      -mplist @workspaces,:for=>Workspace do |w|
+        =w.name
+
+.grid_11.push_1.omega
+  .your_apps
+    .top-bar.clearfix
+      .fleft.font14.bold.marginl5
+        应用组件
+        %span.quiet (#{@apps.count})
+    .app-list.margint5
+      -mplist @apps,:for=>App do |app|
+        .padding5
+          .fleft
+            - link_to pin_url_for('pin-app-adapter',"/app/#{app.name}") do
+              =logo app
+          .fleft
+            .clearfix
+              .fleft.marginl10.bold.font14
+                = link_to app.title,pin_url_for('pin-app-adapter',"/app/#{app.name}")
+              .fleft.marginl10
+                由 #{app.developer} 开发
+            .clearfix.marginl10.margint10.grid_8
+              = app.subject

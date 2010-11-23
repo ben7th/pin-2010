@@ -27,10 +27,17 @@ body {
       position: relative; }
       .page-content .cell .cellhead .avatared .logo {
         float: left;
-        margin-right: 10px; }
+        margin-right: 10px;
+        margin-top: 5px;
+        height: 20px;
+        width: 20px; }
       .page-content .cell .cellhead .avatared .hello {
         line-height: 36px;
         font-size: 14px; }
+        .page-content .cell .cellhead .avatared .hello .tips {
+          font-size: 12px;
+          margin-left: 20px;
+          color: #ababab; }
       .page-content .cell .cellhead .actions {
         position: absolute;
         top: 7px;

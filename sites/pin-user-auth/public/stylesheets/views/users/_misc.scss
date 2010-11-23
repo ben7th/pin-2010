@@ -1,0 +1,29 @@
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin border-radius-side($side1,$side2,$radius) {
+  border-#{$side1}-#{$side2}-radius: $radius;
+  -moz-border-radius-#{$side1}#{$side2}: $radius;
+  -webkit-border-#{$side1}-#{$side2}-radius: $radius;
+}
+
+@mixin box-shadow($params){
+  box-shadow:$params;
+  -moz-box-shadow:$params;
+  -webkit-box-shadow:$params;
+}
+
+@mixin gradient($from,$to){
+  background:-moz-linear-gradient(-90deg,$from,$to);
+  background:-webkit-gradient(linear,0% 0,0% 100%,from($from),to($to));
+  filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$from}',endColorstr='#{$to}');
+}
+
+@mixin pie-pad($from,$to,$radius=4px){
+  @include gradient($from,$to);
+  @include border-radius($radius);
+  @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
+}

@@ -70,11 +70,20 @@ module PieUi
       end
     end
 
+    def render_cellhead
+      cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
+      begin
+        render :partial=>cellhead_path
+      rescue ActionView::MissingTemplate => ex
+        render :partial=>base_layout_path('parts/cellhead.haml')
+      end
+    end
+
     def render_actions
       actions_path = controller.class.name.downcase.sub('::','/').sub('controller','/actions')
       begin
         render :partial=>actions_path
-      rescue
+      rescue ActionView::MissingTemplate => ex
         ''
       end
     end
@@ -97,6 +106,17 @@ module PieUi
       if logged_in?
         @mindpin_layout.welcome_string || @welcome_string || current_user.name
       end
+    end
+
+    def rand_tips
+      tips=[
+        '您可以使用邮件参与工作空间中的话题讨论',
+        '思维导图编辑器支持快捷键，您可以使用回车，空格，Ins，上下左右对导图进行操作',
+        '思维导图编辑器的不少功能藏在节点的右键菜单里面',
+        '思维导图可以很容易地导出成多种格式，在编辑器的右边就可以找到'
+      ]
+      num = rand tips.length
+      tips[num]
     end
 
   #  # 获取当前页面显示主题字符串，如果没有默认是 'sapphire'

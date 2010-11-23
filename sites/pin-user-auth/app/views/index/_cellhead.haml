@@ -1,0 +1,8 @@
+.userpage.clearfix
+  .upavatar
+    =avatar(current_user)
+  .name
+    =current_user.name
+  .config
+    %span.marginr10 欢迎！
+    =minibutton '编辑个人信息',pin_url_for('pin-user-auth','/account')

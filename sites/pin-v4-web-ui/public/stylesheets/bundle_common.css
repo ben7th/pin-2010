@@ -111,8 +111,9 @@ body{margin:0;}
 .page-content{overflow:visible;clear:both;}
 .page-content .cell{border:2px solid #242438;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;box-shadow:0 0 10px #040307;-moz-box-shadow:0 0 10px #040307;-webkit-box-shadow:0 0 10px #040307;padding:15px;margin-bottom:10px;background:url(/images/themes/black/bg1.png) 0 -200px repeat-x;background-color:#252737;margin-top:-30px;margin-bottom:60px;}
 .page-content .cell .cellhead{margin-bottom:30px;position:relative;}
-.page-content .cell .cellhead .avatared .logo{float:left;margin-right:10px;}
+.page-content .cell .cellhead .avatared .logo{float:left;margin-right:10px;margin-top:5px;height:20px;width:20px;}
 .page-content .cell .cellhead .avatared .hello{line-height:36px;font-size:14px;}
+.page-content .cell .cellhead .avatared .hello .tips{font-size:12px;margin-left:20px;color:#ababab;}
 .page-content .cell .cellhead .actions{position:absolute;top:7px;right:0;}
 .page-content .cell .cellhead .tabs ul{margin-top:15px;padding:6px 10px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;border:solid 1px #464660;background-color:#222433;position:relative;overflow:hidden;}
 .page-content .cell .cellhead .tabs ul li a{font-size:14px;float:left;line-height:26px;padding:0 8px;margin-right:10px;text-shadow:1px 1px #555;color:#ddd;text-decoration:none;}

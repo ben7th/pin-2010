@@ -1,0 +1,52 @@
+@import "misc";
+
+.userpage{
+  .upavatar{
+    float:left;
+    height:52px;
+  }
+  .name{
+    float:left;
+    font-size:24px;
+    font-weight:bold;
+    line-height:52px;
+    margin-left:10px;
+  }
+  .config{
+    float:right;
+    line-height:52px;
+  }
+}
+
+.usertop{
+  margin-top:15px;
+  padding-top:15px;
+  border-top:solid 1px #464660;
+  margin-bottom:15px;
+  padding-bottom:15px;
+  border-bottom:solid 1px #464660;
+  .vcard{
+    dl{
+      margin:0 0 5px 0;
+      dt{display:inline-block;width:100px;font-weight:normal;color:#B5B5B5;}
+      dd{display:inline-block;}
+    }
+  }
+  .count{
+    dl{
+      display:inline-block;
+      margin:0 30px 5px 0;
+      dt{font-size:32px;line-height:36px;}
+      dd{margin:0;padding:0;color:#B5B5B5;}
+    }
+  }
+  .viewother{
+    margin-top:20px;
+    padding-left:5px;
+  }
+}
+
+.app-list .logo{
+  @include border-radius(4px);
+  border:none;
+}

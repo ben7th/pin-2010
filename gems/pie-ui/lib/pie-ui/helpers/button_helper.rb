@@ -6,4 +6,8 @@ module ButtonHelper
   def minibutton(name, url, options = {}, &block)
     link_to("<span>#{name}</span>",url,options.merge({:class=>'minibutton'}),&block)
   end
+
+  def minibutton_link_to(name, url, options = {}, &block)
+    minibutton(name, url, options = {}, &block)
+  end
 end

@@ -2,7 +2,9 @@ module ProjectLinkModule
   URLS = {
     "production"=>{
       "user_auth"=>"http://2010.mindpin.com/",
+      "pin-user-auth"=>"http://2010.mindpin.com/",
       "discuss"=>"http://discuss.2010.mindpin.com/",
+      "pin-discuss"=>"http://discuss.2010.mindpin.com/",
       "pin-workspace"=>"http://workspace.2010.mindpin.com/",
       "ui"=>"http://ui.mindpin.com/",
       "pin-bugs"=>"http://bugs.2010.mindpin.com/",
@@ -15,7 +17,9 @@ module ProjectLinkModule
     },
     "development"=>{
       "user_auth"=>"http://dev.2010.mindpin.com/",
+      "pin-user-auth"=>"http://dev.2010.mindpin.com/",
       "discuss"=>"http://dev.discuss.2010.mindpin.com/",
+      "pin-discuss"=>"http://dev.discuss.2010.mindpin.com/",
       "pin-workspace"=>"http://dev.workspace.2010.mindpin.com/",
       "ui"=>"http://dev.ui.mindpin.com/",
       "pin-bugs"=>"http://dev.bugs.2010.mindpin.com/",
@@ -28,7 +32,9 @@ module ProjectLinkModule
     },
     "test"=>{
       "user_auth"=>"http://dev.2010.mindpin.com/",
+      "pin-user-auth"=>"http://dev.2010.mindpin.com/",
       "discuss"=>"http://dev.discuss.2010.mindpin.com/",
+      "pin-discuss"=>"http://dev.discuss.2010.mindpin.com/",
       "pin-workspace"=>"http://dev.workspace.2010.mindpin.com/",
       "ui"=>"http://dev.ui.mindpin.com/",
       "pin-bugs"=>"http://dev.bugs.2010.mindpin.com/",

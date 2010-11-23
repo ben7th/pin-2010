@@ -1,0 +1,48 @@
+.userpage .upavatar {
+  float: left;
+  height: 52px; }
+.userpage .name {
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 52px;
+  margin-left: 10px; }
+.userpage .config {
+  float: right;
+  line-height: 52px; }
+
+.usertop {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: solid 1px #464660;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: solid 1px #464660; }
+  .usertop .vcard dl {
+    margin: 0 0 5px 0; }
+    .usertop .vcard dl dt {
+      display: inline-block;
+      width: 100px;
+      font-weight: normal;
+      color: #B5B5B5; }
+    .usertop .vcard dl dd {
+      display: inline-block; }
+  .usertop .count dl {
+    display: inline-block;
+    margin: 0 30px 5px 0; }
+    .usertop .count dl dt {
+      font-size: 32px;
+      line-height: 36px; }
+    .usertop .count dl dd {
+      margin: 0;
+      padding: 0;
+      color: #B5B5B5; }
+  .usertop .viewother {
+    margin-top: 20px;
+    padding-left: 5px; }
+
+.app-list .logo {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: none; }

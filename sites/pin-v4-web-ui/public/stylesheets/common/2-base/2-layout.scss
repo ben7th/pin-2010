@@ -20,8 +20,13 @@ body {margin:0;}
       margin-bottom:30px;
       position:relative;
       .avatared{
-        .logo{float:left;margin-right:10px;}
-        .hello{line-height:36px;font-size:14px;}
+        .logo{float:left;margin-right:10px;margin-top:5px;height:20px;width:20px;}
+        .hello{
+          line-height:36px;font-size:14px;
+          .tips{
+            font-size:12px;margin-left:20px;color:#ababab;
+          }
+        }
       }
       .actions{
         position:absolute;

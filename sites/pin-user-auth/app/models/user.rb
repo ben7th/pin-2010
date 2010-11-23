@@ -153,4 +153,6 @@ class User < UserBase
     img_type = img.resize(width,height)
     img_type.write File.expand_path(LOGO_PATH_ROOT)+"/users/logos/#{self.id}/#{type}/#{self.logo_file_name}"
   end
+
+  has_many :workspaces
 end
