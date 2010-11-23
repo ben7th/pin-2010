@@ -1,5 +1,5 @@
 var BG = chrome.extension.getBackgroundPage();
-BG.MindpinWin.window = window;
+
 MindpinWindow = {
   init: function(){
     // 注册一些事件
@@ -169,7 +169,7 @@ MindpinWindow = {
         });
 
         // 分享事件
-        $("#comments .share_btn").click(function(evt){
+        $("#comments .share_btn").live("click",function(evt){
           var li = $(this).closest("li")
           var comment = li.tmplItem().data;
           var link_data = {
@@ -183,7 +183,7 @@ MindpinWindow = {
           MindpinWindow.open_collection_window(link_data)
         });
         // 发送事件
-        $("#comments .send_btn").click(function(evt){
+        $("#comments .send_btn").live("click",function(evt){
           var li = $(this).closest("li")
           var comment = li.tmplItem().data;
           var link_data = {
@@ -206,14 +206,69 @@ show_browse_history : function(){
   $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_URL,success:function(data){
     data = {browse_histories:data}
     $("#browse_history").html($("#browse_history_template").tmpl(data))
+    // 渲染 chart 图标
+    MindpinWindow.render_browse_history_chart("count")
+    // 按类型 渲染 chart 按钮 事件
+    $("#count_order").click(function(evt){
+      evt.preventDefault();
+      MindpinWindow.render_browse_history_chart("count");
+    });
+    $("#time_order").click(function(evt){
+      evt.preventDefault();
+      MindpinWindow.render_browse_history_chart("time");
+    });
+   // 分享事件
+    $("#browse_histories .share_btn").live("click",function(evt){
+      var li = $(this).closest("li")
+      var history = li.tmplItem().data;
+      var link_data = {
+        type:"share",
+        data_type:"link",
+        data:{
+          href:history.url,
+          text:history.title
+        }
+      }
+      MindpinWindow.open_collection_window(link_data)
+    });
+    // 发送事件
+    $("#browse_histories .send_btn").live("click",function(evt){
+      var li = $(this).closest("li")
+      var history = li.tmplItem().data;
+      var link_data = {
+        type:"send",
+        data_type:"link",
+        data:{
+          href:history.url,
+          text:history.title
+        }
+      }
+      MindpinWindow.open_collection_window(link_data)
+    });
+    // 给获取更多历史按钮注册事件
+    $("#more_histories").click(function(evt){
+      evt.preventDefault();
+      $("#loading_more_histories").show();
+      var from = $("#browse_histories li").length;
+      $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_URL,data:{from:from},success:function(data){
+        $("#loading_more_histories").hide();
+
+        $("#browse_history_li_template").tmpl(data).appendTo("#browse_histories");
+      }})
+    });
+
+  }});
+},
+
+  // 根据 order 类型 渲染 历史记录 chart 图标
+  render_browse_history_chart : function(order){
     var swf_url = chrome.extension.getURL("fusion_charts/swf/Bar2D.swf");
-    $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_CHART_URL,dataType:"text",success:function(xml){
+    $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_CHART_URL,data:{order:order},dataType:"text",success:function(xml){
       var chart = new FusionCharts( swf_url,"chart", "300", "300", "0", "1" );
       chart.setDataXML(xml);
       chart.render("chartContainer");
     }})
-  }});
-},
+  },
 
   // 处理图片大小
   // 设置图片高度100 宽度最大130
@@ -250,19 +305,21 @@ show_browse_history : function(){
       });
       $(response.page_content.images).each(function(i,image){
         var size = MindpinWindow.new_image_size(image.width,image.height)
-        $("#images_content").append("<div class='image_item'><input class='package_checkbox' type='checkbox'><img class='data' src='"+image.src+"' width="+size.width+"px height="+size.height+"px real_width="+image.width+" real_height="+image.height+" /> <a class='share' href='#'>分享</a> <a class='send' href='#'>发送</a><div>")
+        $("#images_content").append("<div class='image_item' style='display:inline-table;margin-right:5px;'><img class='data' src='"+image.src+"' width="+size.width+"px height="+size.height+"px real_width="+image.width+" real_height="+image.height+" /><div><input class='package_checkbox' type='checkbox'> <a style='visibility:hidden;' class='share' href='#'>分享</a> <a style='visibility:hidden;' class='send' href='#'>发送</a></div></div>")
       });
 
       // 注册 发送 分享 事件
       $("a.share").each(function(i,item){
-        $(item).bind("click",function(){
-          MindpinWindow.send_item("share",item)
+        $(item).bind("click",function(evt){
+          MindpinWindow.send_item("share",item);
+          evt.preventDefault();
         })
       });
 
       $("a.send").each(function(i,item){
-        $(item).bind("click",function(){
-          MindpinWindow.send_item("send",item)
+        $(item).bind("click",function(evt){
+          MindpinWindow.send_item("send",item);
+          evt.preventDefault();
         })
       });
 
@@ -278,13 +335,23 @@ show_browse_history : function(){
         })
       });
 
+      // 给每一个image item 注册事件 鼠标移动上去的时候显示 分享 发送
+      $(".image_item").each(function(i,item){
+        $(item).bind("mouseover",function(){
+          $(item).find("a").each(function(j,child){$(child).attr("style","")})
+        })
+        $(item).bind("mouseout",function(){
+          $(item).find("a").each(function(j,child){$(child).attr("style","visibility:hidden;")})
+        })
+      });
+
     });
   },
 
 
   send_item : function(operate_type,item){
     var link = $(item).siblings('a.data')[0];
-    var image = $(item).siblings('img.data')[0];
+    var image = $(item).parent().siblings('img.data')[0];
     if(image!=null){
       var image_data = {
         type:operate_type,
@@ -357,7 +424,7 @@ show_browse_history : function(){
     });
     var images = []
     $(".image_item input.package_checkbox:checked").each(function(i,item){
-      var image = $(item).siblings('img.data')[0];
+      var image = $(item).parent().siblings('img.data')[0];
       images[i] = {
         src:image.src,
         width:$(image).attr('real_width'),
@@ -423,6 +490,12 @@ chrome.extension.onRequest.addListener(
     }
   });
 
+function set_window(){
+  if(!BG.MindpinWin){return setTimeout(set_window,16)}
+  BG.MindpinWin.window = window;
+}
+
 $(document).ready(function(){
   MindpinWindow.init();
+  set_window();
 });

@@ -8,6 +8,8 @@
   
   // 监视 mindpin 插件按钮
   chrome.browserAction.onClicked.addListener(function(tab){
+    CurrentCorrectTab = {url:tab.url,tab_id:tab.id};
+    
     if(!MindpinWin){
       var left = 0;
       var top = 0;
