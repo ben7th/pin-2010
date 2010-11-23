@@ -25,12 +25,22 @@ function check_url(url){
   }
 }
 
+function is_blank(str){
+  var str_tmp = $.trim(str)
+  if(str_tmp.length==0){
+    return true;
+  }
+  return false;
+}
+
 var links = [];
 $("a").each(function(i,item){
   var item_j = $(item)
+  var url = check_url(item_j.attr("href"))
+  var text = is_blank(item_j.text()) ?  url : item_j.text()
   links[i] = {
-    href:check_url(item_j.attr("href")),
-    text:item_j.text()
+    href: url,
+    text: text
   };
 });
 var images = [];
@@ -39,15 +49,17 @@ $("img").each(function(i,item){
   images[i] = {
     src:check_url(item_j.attr("src")),
     width:item_j.attr("width"),
-    heigth:item_j.attr("height")
+    height:item_j.attr("height")
   };
 });
 var rsses = [];
 $("link[type='application/rss+xml']").each(function(i,item){
   var item_j = $(item)
+  var url = check_url(item_j.attr("href"))
+  var text = is_blank(item_j.attr("title")) ?  url : item_j.attr("title")
   rsses[i] = {
-    href:check_url(item_j.attr("href")) ,
-    text:item_j.attr("title")
+    href: url,
+    text: text
   };
 });
 var final_data = {
