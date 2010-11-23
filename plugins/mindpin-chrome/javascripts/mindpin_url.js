@@ -4,7 +4,7 @@ Mindpin.LOGOUT_URL = "http://dev.2010.mindpin.com/logout"
 
 Mindpin.WEB_SITE_INFOS_URL = "http://dev.website.2010.mindpin.com/browser_extension/site_info.json"
 
-Mindpin.BROWSE_HISTORIES_URL = "http://dev.website.2010.mindpin.com/sidebar/browse_histories_infos"
+Mindpin.BROWSE_HISTORIES_URL = "http://dev.website.2010.mindpin.com/browser_extension/browse_histories.json"
 
 Mindpin.CREATE_SITE_COMMENT_URL = "http://dev.website.2010.mindpin.com/browser_extension/comments.json"
 

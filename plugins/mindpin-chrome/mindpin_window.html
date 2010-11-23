@@ -35,7 +35,6 @@
         <div class="pane_content" id="web_site_info" >
         </div>
         <div class="pane_content" id="browse_history">
-          <iframe id="browse_history_iframe" width="100%" height="100%" ></iframe>
         </div>
         <div class="pane_content" id="page_information" style="overflow:scroll;">
           <div>
@@ -57,7 +56,18 @@
     // 页面加载完毕后 页签的处理
     $("ul.tabs").tabs("div.panes > div.pane_content");
   </script>
+  <!-- 个人浏览历史的模板 -->
+  <script id="browse_history_template" type="text/x-jquery-tmpl">
+    <ul id="browse_histories">
+    {{each $data.browse_histories}}
+      <li>
+        <a target="_blank" href="{{= $value.url}}">{{= $value.title}}</a>
+      </li>
+    {{/each}}
+    <ul>
+  </script>
 
+  <!-- 讨论的编辑框模板 -->
   <script id="edit_comment_template" type="text/x-jquery-tmpl">
     <div id="edit_comment">
        <textarea class="comment_content"/>
@@ -66,6 +76,7 @@
     </div>
   </script>
 
+  <!-- 讨论信息 的 模板 -->
   <script id="web_site_comment_template" type="text/x-jquery-tmpl">
     <li id="comment_{{= id}}">
       <span>{{= user.name}}</span>
@@ -79,6 +90,7 @@
     </li>
   </script>
 
+  <!-- 网站资料 的 模板 -->
   <script id="web_site_info_template" type="text/x-jquery-tmpl">
     <div>{{= $data.site}} 的网站资料 o_o</div>
     <div>{{= $data.info}}</div>

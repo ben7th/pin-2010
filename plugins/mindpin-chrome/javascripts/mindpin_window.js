@@ -203,7 +203,10 @@ MindpinWindow = {
   
 // 显示历史记录
 show_browse_history : function(){
-  $("#mindpin_window_content #browse_history_iframe").attr("src",BG.Mindpin.BROWSE_HISTORIES_URL);
+  $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_URL,success:function(data){
+    data = {browse_histories:data}
+    $("#browse_history").html($("#browse_history_template").tmpl(data))
+  }});
 },
 
 // 显示解析到的页面元素
