@@ -11,8 +11,9 @@ class DocumentsController < ApplicationController
   end
 
   def index
-    @documents = @workspace.discussions.map do |discussion|
-      discussion.document
+    @document_and_discussions = {}
+    @workspace.discussions.each do |discussion|
+      @document_and_discussions[discussion.document] = discussion
     end
   end
 
@@ -23,8 +24,9 @@ class DocumentsController < ApplicationController
   def create
     document = @workspace.create_document(:email=>current_user.email,:text_pin=>params[:text_pin])
     if document
+      discussion = Discussion.find(document.id)
       render_ui do |ui|
-        ui.mplist :insert,{:ul=>"#mplist_documents",:model=>document},:partial=>"/documents/info_document",:locals=>{:document=>document}
+        ui.mplist :insert,{:ul=>"#mplist_documents",:model=>document},:partial=>"/documents/info_document",:locals=>{:document=>document,:discussion=>discussion}
         ui.fbox :close
       end
       return

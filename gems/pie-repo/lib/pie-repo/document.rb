@@ -130,7 +130,7 @@ class Document < MplistRecord
 
   # Document对应文件的所有commit记录
   def commits
-    self.git_repo.commits(self.sub_path)
+    @commits ||= self.git_repo.commits(self.sub_path)
   end
 
   def file_info

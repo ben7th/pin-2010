@@ -87,8 +87,8 @@ module DocumentsHelper
     `
   end
 
-  def document_title(document)
-    title = document.title
+  def discussion_title(discussion)
+    title = discussion.title || "无标题"
 
     match_data = title.match(/<bundle>.*<\/bundle>(.*)/)
     if match_data
