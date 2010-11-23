@@ -121,7 +121,7 @@ body{margin:0;}
 .page-head{height:115px;}
 .page-head .nav{clear:both;overflow:hidden;}
 .page-head .nav .site-logo{width:240px;height:40px;margin:25px 0 0 5px;float:left;}
-.page-head .nav .site-logo a{width:240px;height:40px;float:left;background-image:url(/images/mindpin.png);}
+.page-head .nav .site-logo a{width:240px;height:40px;float:left;background:url(/images/mindpin.png) no-repeat;}
 .page-head .nav .start{float:right;margin:25px 10px 0 0;overflow:hidden;line-height:40px;}
 .page-head .nav .start span{float:left;margin-left:20px;}
 .page-head .nav .start .home{padding-left:18px;background:url(/images/piece/home.png) no-repeat 0 center;}
@@ -136,9 +136,19 @@ body{margin:0;}
 .page-head .nav .topbar ul{display:inline;clear:right;}
 .page-head .nav .topbar ul li{display:inline;margin:0 15px 0 0;}
 .page-head.basic{height:90px;}
-.page-footer{line-height:80px;overflow:hidden;}
-.page-footer .sitename{padding-left:10px;}
-.page-footer .links{float:right;padding-right:10px;}
+.page-footer{overflow:hidden;}
+.page-footer .links{margin-top:20px;}
+.page-footer .rights{margin-top:5px;}
+.page-footer .links,.page-footer .rights{margin-left:10px;}
+.page-footer .links span,.page-footer .rights span{padding-left:10px;}
+.prosd{padding:4px 10px 10px 15px;font-family:Verdana,arial;text-shadow:-1px -1px 0 rgba(0,0,0,0.2);font-size:12px;color:#ABABAB;}
+.pros .pad{cursor:default;padding:10px;}
+.pros .pad .mark{line-height:30px;font-family:Verdana,arial;text-shadow:-1px -1px 0 rgba(0,0,0,0.2);font-size:16px;font-weight:bold;color:#FBE881;}
+.pros .pad .mark .i{color:#FBB300;}
+.pros .pad .mark .r{color:#FB9200;}
+.pros .pad .mark.m1{font-size:16px;color:#8DCFF4;}
+.pros .pad .chm{color:#FB9200;}
+.pros .pad .txt{margin-top:16px;}
 .quote-left{background-image:url("/images/quote.gif");vertical-align:middle;width:14px;height:18px;}
 .quote-right{background-image:url("/images/quote.gif");background-position:right;vertical-align:middle;width:14px;height:18px;}
 .font18{font-size:18px;}

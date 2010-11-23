@@ -5,7 +5,6 @@
 = stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_canvas'
-= stylesheet_link_tag '/javascripts/starbox/css/starbox'
 
 = javascript_include_tag 'pie/mindmap/pie_dragdrop'
 = javascript_include_tag 'pie/mindmap/pie_mindmap_node_dragdrop'
@@ -14,10 +13,12 @@
 = javascript_include_tag 'pie/mindmap/pie_mindmap_node_editor'
 = javascript_include_tag 'pie/mindmap/pie_opfactory'
 
-= javascript_include_tag 'starbox/js/starbox'
 = javascript_include_tag 'nicedit/nicEdit'
 = javascript_include_tag 'excanvas/excanvas'
 = javascript_include_tag 'views/time_keeper'
+
+= javascript_include_tag '/javascripts/lightview/js/lightview.js'
+= stylesheet_link_tag '/javascripts/lightview/css/lightview.css'
 
 :javascript
   var mindmap;

@@ -9,3 +9,19 @@
 
 /*侧边栏*/
 #mindmap-sidebar{*display:inline;}
+
+#facebox{
+  z-index:100000;
+}
+
+#colorzone ul{
+  line-height:10px;
+  height:10px;
+}
+
+#colorzone li{
+  display:inline-block;
+  line-height:10px;
+  height:10px;
+}
+#colorzone a{height:10px;width:10px;display:inline-block;}
