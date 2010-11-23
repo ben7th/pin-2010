@@ -56,6 +56,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       this._nodeTitleEditor = new pie.mindmap.NodeTitleEditor();
       this._nodeImageEditor = new pie.mindmap.NodeImageEditor();
       this._nodeNoteEditor = new pie.mindmap.NoteHandler();
+      this._nodeFontEditor = new pie.mindmap.NodeFontEditor();
       this._noteEditor=new nicEditor({fullPanel : true}).panelInstance('mindmap-note-edit');
       if(pie.isIE() || pie.isChrome()){
         this._noteEditor.el=this._noteEditor.nicInstances[0].elm;
@@ -647,6 +648,10 @@ pie.mindmap.BasicMapPaper = Class.create({
       }.bind(this)});
       this.nodeMenu.addItem("编辑备注",{handler:function(){
         this._noteEditor.el.focus()
+      }.bind(this)});
+      //2010.10.20
+      this.nodeMenu.addItem("节点字体",{handler:function(){
+        this._nodeFontEditor.doEditFont(this.focus);
       }.bind(this)});
     }catch(e){alert(e)}
   },

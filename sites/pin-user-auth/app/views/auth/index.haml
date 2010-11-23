@@ -3,26 +3,42 @@
 .grid_9.alpha
   .dialog.index
     =render :partial=>'auth/parts/login_dialog'
-  .pad
+  .pad.hide
     这里放bug信息
 
 .grid_15.omega
   .pad.clearfix.font13
     .fleft=link_to "注册",signup_path,:class=>'reg-button hidetext'
     .fleft.margint10.marginl10
-      %div
+      %div.margint10
         还没有账号..？
         %span.loud 注册新的 MindPin 账号，只需30秒~
-  .clearfix
-    .grid_3.alpha
-      .pad.aligncenter
-        思维导图2.0
-    - 3.times do
-      .grid_3
-        .pad.aligncenter
-          ……
+  .prosd
+    向您提供以下线上服务——
+  .pros.clearfix
+    .grid_6.alpha
+      .pad
+        .mark
+          Mindmap<span class='i'>Editor</span>
+        .chm
+          思维导图编辑器
+        .txt
+          　方便快捷的思维导图编辑器，帮助整理思路，无需安装，即刻可用。
+    .grid_6
+      .pad
+        .mark
+          Group<span class='i'>Discuss</span>
+        .chm
+          小组讨论
+        .txt
+          　轻松灵活的成员管理，话题参与，多版本回顾，提升线上沟通效率。
     .grid_3.omega
-      .pad.aligncenter
-        ……
-  .pad
+      .pad
+        .mark.m1
+          plugin
+        .chm
+          插件
+        .txt
+          Firefox插件下载
+  .pad.hide
     这里放最新公告
