@@ -1,5 +1,5 @@
 var BG = chrome.extension.getBackgroundPage();
-BG.MindpinWin.window = window;
+
 MindpinWindow = {
   init: function(){
     // 注册一些事件
@@ -488,6 +488,12 @@ chrome.extension.onRequest.addListener(
     }
   });
 
+function set_window(){
+  if(!BG.MindpinWin){return setTimeout(set_window,16)}
+  BG.MindpinWin.window = window;
+}
+
 $(document).ready(function(){
   MindpinWindow.init();
+  set_window();
 });
