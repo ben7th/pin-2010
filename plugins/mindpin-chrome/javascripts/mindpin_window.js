@@ -169,7 +169,7 @@ MindpinWindow = {
         });
 
         // 分享事件
-        $("#comments .share_btn").click(function(evt){
+        $("#comments .share_btn").live("click",function(evt){
           var li = $(this).closest("li")
           var comment = li.tmplItem().data;
           var link_data = {
@@ -183,7 +183,7 @@ MindpinWindow = {
           MindpinWindow.open_collection_window(link_data)
         });
         // 发送事件
-        $("#comments .send_btn").click(function(evt){
+        $("#comments .send_btn").live("click",function(evt){
           var li = $(this).closest("li")
           var comment = li.tmplItem().data;
           var link_data = {
@@ -217,6 +217,34 @@ show_browse_history : function(){
       evt.preventDefault();
       MindpinWindow.render_browse_history_chart("time");
     });
+   // 分享事件
+    $("#browse_histories .share_btn").live("click",function(evt){
+      var li = $(this).closest("li")
+      var history = li.tmplItem().data;
+      var link_data = {
+        type:"share",
+        data_type:"link",
+        data:{
+          href:history.url,
+          text:history.title
+        }
+      }
+      MindpinWindow.open_collection_window(link_data)
+    });
+    // 发送事件
+    $("#browse_histories .send_btn").live("click",function(evt){
+      var li = $(this).closest("li")
+      var history = li.tmplItem().data;
+      var link_data = {
+        type:"send",
+        data_type:"link",
+        data:{
+          href:history.url,
+          text:history.title
+        }
+      }
+      MindpinWindow.open_collection_window(link_data)
+    });
     // 给获取更多历史按钮注册事件
     $("#more_histories").click(function(evt){
       evt.preventDefault();
@@ -224,7 +252,6 @@ show_browse_history : function(){
       var from = $("#browse_histories li").length;
       $.ajax({url:BG.Mindpin.BROWSE_HISTORIES_URL,data:{from:from},success:function(data){
         $("#loading_more_histories").hide();
-        data = {browse_histories:data}
 
         $("#browse_history_li_template").tmpl(data).appendTo("#browse_histories");
       }})

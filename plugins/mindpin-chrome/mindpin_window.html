@@ -64,18 +64,20 @@
     <a id="count_order" href="#">次数排行</a>
     <a id="time_order" href="#">时间排行</a>
     <ul id="browse_histories">
-      {{tmpl($data) "#browse_history_li_template"}}
+    {{each $data.browse_histories}}
+      {{tmpl($value) "#browse_history_li_template"}}
+    {{/each}}
     </ul>
     <div id="loading_more_histories" style="display:none;">正在载入</div>
     <a id="more_histories" href="#">更多历史</a>
   </script>
-
+  <!-- 跟多历史按钮 会调用这个模板 -->
   <script id="browse_history_li_template" type="text/x-jquery-tmpl">
-    {{each $data.browse_histories}}
-      <li>
-        <a target="_blank" href="{{= $value.url}}">{{= $value.title}}</a>
-      </li>
-    {{/each}}
+    <li>
+      <a target="_blank" href="{{= url}}">{{= title}}</a>
+      <button class="share_btn">分享</button>
+      <button class="send_btn">发送</button>
+    </li>
   </script>
 
   <!-- 讨论的编辑框模板 -->
