@@ -11,7 +11,7 @@ class DocumentsController < ApplicationController
   end
 
   def index
-    @document_and_discussions = {}
+    @document_and_discussions = ActiveSupport::OrderedHash.new
     @workspace.discussions.each do |discussion|
       @document_and_discussions[discussion.document] = discussion
     end
