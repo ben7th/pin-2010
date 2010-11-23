@@ -310,14 +310,16 @@ show_browse_history : function(){
 
       // 注册 发送 分享 事件
       $("a.share").each(function(i,item){
-        $(item).bind("click",function(){
-          MindpinWindow.send_item("share",item)
+        $(item).bind("click",function(evt){
+          MindpinWindow.send_item("share",item);
+          evt.preventDefault();
         })
       });
 
       $("a.send").each(function(i,item){
-        $(item).bind("click",function(){
-          MindpinWindow.send_item("send",item)
+        $(item).bind("click",function(evt){
+          MindpinWindow.send_item("send",item);
+          evt.preventDefault();
         })
       });
 
