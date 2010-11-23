@@ -62,12 +62,18 @@
   <script id="browse_history_template" type="text/x-jquery-tmpl">
     <div id="chartContainer">loading...</div>
     <ul id="browse_histories">
+      {{tmpl($data) "#browse_history_li_template"}}
+    </ul>
+    <div id="loading_more_histories" style="display:none;">正在载入</div>
+    <a id="more_histories" href="#">更多历史</a>
+  </script>
+
+  <script id="browse_history_li_template" type="text/x-jquery-tmpl">
     {{each $data.browse_histories}}
       <li>
         <a target="_blank" href="{{= $value.url}}">{{= $value.title}}</a>
       </li>
     {{/each}}
-    <ul>
   </script>
 
   <!-- 讨论的编辑框模板 -->
