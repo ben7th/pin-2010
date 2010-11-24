@@ -30,16 +30,15 @@ test:
 
 production:
   SECRET_KEY: PmmLqybSgprs3LlI
-  USER_API_SITE: http://2010.mindpin.com
-  SHARE_API_SITE: http://share.2010.mindpin.com
-  IMAGE_CACHE_SITE: http://mindmap-image-cache.2010.mindpin.com
-  ATTACHED_FILE_PATH_ROOT: /web/2010/images/
-  ATTACHED_FILE_URL_ROOT: http://img.2010.mindpin.com/
+  USER_API_SITE: http://www.mindpin.com
+  SHARE_API_SITE: http://share.mindpin.com
+  IMAGE_CACHE_SITE: http://mindmap-image-cache.mindpin.com
+  ATTACHED_FILE_PATH_ROOT: /web/apps/mindpin_mm_images/
+  ATTACHED_FILE_URL_ROOT: http://img1.mindpin.com/
 
   APP_PREFIX: app/mindmap_editor
-  API_SITE: http://app-adapter.2010.mindpin.com
-  WORKSPACE_SITE: http://workspace.2010.mindpin.com
-  THIS_SITE: http://mindmap-editor.2010.mindpin.com
-  DISCUSSION_SITE: http://discuss.2010.mindpin.com
+  API_SITE: http://app-adapter.mindpin.com
+  WORKSPACE_SITE: http://workspace.mindpin.com
+  THIS_SITE: http://mindmap-editor.mindpin.com
+  DISCUSSION_SITE: http://discuss.mindpin.com
   SERVICE_KEY: ZIWaGOgshBJgiuuGab
-
