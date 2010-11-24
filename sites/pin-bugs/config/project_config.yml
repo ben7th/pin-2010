@@ -1,14 +1,14 @@
 development:
   name: pin-bugs
-  url: http://dev.bugs.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/ 
+  url: http://dev.bugs.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/ 
 
 test:
   name: pin-bugs
-  url: http://dev.bugs.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.bugs.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
 
 production:
   name: pin-bugs
-  url: http://bugs.2010.mindpin.com/
-  master_url: http://config-manager.2010.mindpin.com/
+  url: http://bugs.mindpin.com/
+  master_url: http://config-manager.mindpin.com/

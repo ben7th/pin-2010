@@ -1,14 +1,14 @@
 development:
   name: pin-app-adapter
-  url: http://dev.app-adapter.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.app-adapter.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
 
 test:
   name: pin-app-adapter
-  url: http://dev.app-adapter.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.app-adapter.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
 
 production:
   name: pin-app-adapter
-  url: http://app-adapter.2010.mindpin.com/
-  master_url: http://config-manager.2010.mindpin.com/
+  url: http://app-adapter.mindpin.com/
+  master_url: http://config-manager.mindpin.com/

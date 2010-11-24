@@ -1,14 +1,14 @@
 development:
   name: pin-website
-  url: http://dev.website.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.website.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
 
 test:
   name: pin-website
-  url: http://dev.website.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.website.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
 
 production:
   name: pin-website
-  url: http://website.2010.mindpin.com/
-  master_url: http://config-manager.2010.mindpin.com/
+  url: http://website.mindpin.com/
+  master_url: http://config-manager.mindpin.com/

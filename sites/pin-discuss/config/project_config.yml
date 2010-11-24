@@ -1,17 +1,17 @@
 development:
   name: discuss
-  url: http://dev.discuss.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.discuss.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
   service_key: ZIWaGOgshBJgiuuGab
 
 test:
   name: discuss
-  url: http://dev.discuss.2010.mindpin.com/
-  master_url: http://dev.config-manager.2010.mindpin.com/
+  url: http://dev.discuss.mindpin.com/
+  master_url: http://dev.config-manager.mindpin.com/
   service_key: ZIWaGOgshBJgiuuGab
 
 production:
   name: discuss
-  url: http://discuss.2010.mindpin.com/
-  master_url: http://config-manager.2010.mindpin.com/
+  url: http://discuss.mindpin.com/
+  master_url: http://config-manager.mindpin.com/
   service_key: ZIWaGOgshBJgiuuGab
