@@ -1,26 +1,12 @@
-.info_div
-  .meta
-    %div
-      = app.name
-    %div
-      = app.title
-    %div
-      = app.developer
-    %div
+.padding5
+  .fleft
+    - link_to pin_url_for('pin-app-adapter',"/app/#{app.name}") do
+      .rclogo=logo app
+  .fleft
+    .clearfix
+      .fleft.marginl10.bold.font14
+        = link_to app.title,pin_url_for('pin-app-adapter',"/app/#{app.name}")
+      .fleft.marginl10.loud.lh22
+        由 #{app.developer} 开发
+    .clearfix.marginl10.margint10.grid_8
       = app.subject
-    %div
-      = app.callback_url
-    %div
-      = app.secret_key
-    %div
-      = app.installings.count
-    %div
-      = logo app
-  .action
-    = link_to_remote "删除",:url=>app_path(app),:method=>:delete,:confirm=>"确定删除？"
-    - if current_user.apps.include?(app)
-      - install = Installing.find_by_user_id_and_app_id(current_user.id,app.id)
-      = link_to '进入应用',"/app/#{app.name}"
-      = link_to_remote "卸载",:url=>installing_path(install),:method=>:delete,:confirm=>"确定卸载？"
-    - else
-      = link_to "进入应用",installings_path(:app_id=>app.id),:method=>:post

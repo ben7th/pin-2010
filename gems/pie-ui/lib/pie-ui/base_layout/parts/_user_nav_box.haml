@@ -12,7 +12,7 @@
 
 .topbar
   %ul
-    .hide=link_to '工作空间',pin_url_for("pin-workspace","workspaces")
+    .hide=link_to '工作空间',pin_url_for("pin-workspace")
     .hide=link_to '分享',pin_url_for("pin-share")
-    .hide=link_to '应用',pin_url_for("pin-app-adapter","apps")
+    %li=link_to '应用',pin_url_for("pin-app-adapter")
     .hide=link_to '宏管理',pin_url_for("pin-macro")

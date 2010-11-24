@@ -44,12 +44,12 @@
         .padding5
           .fleft
             - link_to pin_url_for('pin-app-adapter',"/app/#{app.name}") do
-              =logo app
+              .rclogo=logo app
           .fleft
             .clearfix
               .fleft.marginl10.bold.font14
                 = link_to app.title,pin_url_for('pin-app-adapter',"/app/#{app.name}")
-              .fleft.marginl10.loud
+              .fleft.marginl10.loud.lh22
                 由 #{app.developer} 开发
             .clearfix.marginl10.margint10.grid_8
               = app.subject

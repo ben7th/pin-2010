@@ -89,6 +89,8 @@ module PieUi
     end
 
     def render_tabs
+      return '' if action_name == "index"
+
       tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs')
       begin
         render :partial=>tabs_path

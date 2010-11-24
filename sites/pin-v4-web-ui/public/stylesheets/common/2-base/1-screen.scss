@@ -1,3 +1,5 @@
+@import "../../ui/misc";
+
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 .clearfix:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0}
 * html .clearfix,*:first-child+html .clearfix{zoom:1}
@@ -30,9 +32,11 @@ input.search-btn {border:solid 1px #878D59;border-left:solid 1px #A9AD88;border-
 .tab-loading-tip{float:left;line-height:32px;display:inline-block;margin:0 8px;}
 
 /*图像*/
-img.logo{border:solid 1px #666;background-color:white;padding:1px;float:none;margin:0;display:inline-block;}
+img.logo{border:solid 1px #666;background-color:white;padding:1px;float:none;margin:0;display:inline-block;overflow:hidden;}
 img.logo.b2{padding:2px !important;}
 img.cur_big{cursor:url("/images/cursor/big.cur"),auto}
+
+.rclogo .logo{@include border-radius(4px);border:none !important;}
 
 a.username{color:#E8641B !important;}
 a.username:hover{background-color:#DF6B31;color:white !important;text-decoration:none;}
