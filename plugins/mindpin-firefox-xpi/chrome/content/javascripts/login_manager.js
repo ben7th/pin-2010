@@ -114,10 +114,10 @@ Mindpin.LoginManager = {
   remove_cookies: function(){
     var cs = Components.classes["@mozilla.org/cookiemanager;1"]
           .getService(Components.interfaces.nsICookieManager)
-    cs.remove(".2010.mindpin.com","_mindpin_2010_session_dev","/",false);
-    cs.remove(".2010.mindpin.com","_mindpin_2010_session","/",false);
-    cs.remove(".2010.mindpin.com","token","/",false);
-    cs.remove(".2010.mindpin.com","logged_in_for_plugin","/",false);
+    cs.remove(".mindpin.com","_mindpin_session_dev","/",false);
+    cs.remove(".mindpin.com","_mindpin_session","/",false);
+    cs.remove(".mindpin.com","token","/",false);
+    cs.remove(".mindpin.com","logged_in_for_plugin","/",false);
   },
   // 获得 网站的 cookies
   get_cookies: function(){
@@ -126,7 +126,7 @@ Mindpin.LoginManager = {
                .getService(Components.interfaces.nsICookieManager);
     for (var e = cookieMgr.enumerator; e.hasMoreElements();) {
       var cookie = e.getNext().QueryInterface(Components.interfaces.nsICookie); 
-      if(cookie.host == '.2010.mindpin.com'){
+      if(cookie.host == '.mindpin.com'){
         cookie_str += (cookie.name + "=" + cookie.value + ";")
       }
     }

@@ -54,7 +54,7 @@ Mindpin.CookieListener.prototype = {
     }
 
     var cookie = subject.QueryInterface(Components.interfaces.nsICookie);
-    if(cookie.host == ".2010.mindpin.com" && cookie.name == "logged_in_for_plugin"){
+    if(cookie.host == ".mindpin.com" && cookie.name == "logged_in_for_plugin"){
       if((cookie.value != this.logged_in_for_plugin) || data != "changed"){
         this.logged_in_for_plugin = cookie.value;
         setTimeout(lm.asyn_try_login,0)

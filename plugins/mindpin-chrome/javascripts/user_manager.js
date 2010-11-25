@@ -1,6 +1,6 @@
 if(typeof(Mindpin)=='undefined'){
   Mindpin = {}
-  }
+}
 
 Mindpin.UserManager = {
   get_user: function(){

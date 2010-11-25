@@ -152,6 +152,6 @@ module AuthenticatedSystem
 
   # 创建插件cookie
   def create_logged_in_for_plugin_token
-    cookies[:logged_in_for_plugin] = {:value=>true,:expires => 30.days.from_now,:domain=>'2010.mindpin.com'}
+    cookies[:logged_in_for_plugin] = {:value=>true,:expires => 30.days.from_now,:domain=>'mindpin.com'}
   end
 end
