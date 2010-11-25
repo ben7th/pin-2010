@@ -19,6 +19,7 @@ module PageHelper
     else
       re = "MindPin公开导图"
     end
+    re = "思维导图编辑器 - #{re}"
     content_for :title, re
   end
 

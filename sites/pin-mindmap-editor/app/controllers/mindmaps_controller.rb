@@ -155,7 +155,7 @@ class MindmapsController < ApplicationController
         if(@mindmap.user_id == current_user.id)
           @mindmap = Mindmap.find(params[:id])
           @mindmap.destroy
-          return render :status=>200,:text=>""
+          return render_ui.mplist :remove,@mindmap
         else
           render :text=>'没有删除权限',:status=>500
         end

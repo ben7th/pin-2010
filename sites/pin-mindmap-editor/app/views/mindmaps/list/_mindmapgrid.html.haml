@@ -1,6 +1,6 @@
 .margint5
-  %mp:list#mplist_mindmaps{:for=>"mindmap"}
+  %ul#mplist_mindmaps{:for=>"mindmap"}
     -@mindmaps.each do |mindmap|
-      %mp:li{:id=>"mindmap_#{mindmap.id}",:class=>"grid"}
+      %li{:id=>"mindmap_#{mindmap.id}",:class=>"grid"}
         = render :partial=>"/mindmaps/list/info_mindmap_grid",:locals=>{:mindmap=>mindmap}
 

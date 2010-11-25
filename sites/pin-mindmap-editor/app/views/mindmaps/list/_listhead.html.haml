@@ -1,4 +1,5 @@
 #list-control
-  %mp:finder{:title=>"排序按：", :key=>"sortby"}
-    %mp:fi{:value=>"CREATED_TIME", :default=>"true"} 创建时间
-    %mp:fi{:value=>"UPDATED_TIME"} 编辑时间
+  #finder-sortby
+    %span 排序按：
+    =link_to "创建时间",finder_url('sortby','CREATED_TIME')
+    =link_to "编辑时间",finder_url('sortby','UPDATED_TIME')
