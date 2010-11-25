@@ -1,0 +1,45 @@
+- law_rank_class = (mindmap.rank == "0.0" ? "low-value" : "")
+
+%div{:class=>"margint10 marginb10 marginl10 clearfix #{law_rank_class}"}
+
+  .maprankbg.fleft.marginr5
+    .rank= mindmap.rank
+
+  .mindmap-logo.relative.fleft.marginr10
+    =logo(mindmap)
+    -link_to(mindmap,:class=>'fleft',:target=>'_blank') do
+      %div{:class=>['private-mark',mindmap.private ? 'p':'']}
+    
+
+  .private-icon.fleft.marginr10
+    -if show_operation_links?(mindmap)
+      = link_to_remote "",:url=>"/#{APP_PREFIX}/mindmaps/#{mindmap.id}/toggle_private",:method=>:put,:success=>"change_lock(#{mindmap.id})",:html=>{:title=>'切换公开/私有',:class=>"#{classname_hide_private(mindmap)} fleft",:id=>"link_lock_#{mindmap.id}"}
+
+  .mindmap-meta.fleft
+    %h4.normal
+      <b>#{link_to escape_title(mindmap,23),mindmap,:target=>'_blank',:title=>mindmap.title}</b>
+    .mindmap-datetime.fleft
+      = show_time_by_order_type @order,mindmap
+     
+  %div.fright
+    .mindmap-operations.fright.clearfix
+      -if show_operation_links?(mindmap)
+        .detail-operation.fleft.marginr5
+          %mp:li-remove{:remote_url=>"/mindmaps/#{mindmap.id}",:li_id=>"mindmap_#{mindmap.id}",:confirm=>"确认删除？"}
+            .delete-link
+            %div 删除
+
+        .detail-operation.fleft.marginr5
+          = render :partial=>'mindmaps/edit/box_params_edit',:locals=>{:mindmap=>mindmap}
+
+        .detail-operation.fleft.marginr5
+          = render :partial=>'mindmaps/edit/box_export',:locals=>{:mindmap=>mindmap}
+
+        .detail-operation.fleft.marginr5
+          = render :partial=>'mindmaps/edit/box_clone',:locals=>{:mindmap=>mindmap}
+
+        .detail-operation.fleft.marginr5
+          = render :partial=>'mindmaps/edit/box_convert_bundle',:locals=>{:mindmap=>mindmap}
+
+        .fleft.marginr5
+          = link_to "<div class='edit-link'/><div>编辑</div>",edit_mindmap_path(mindmap),:target=>'_blank'

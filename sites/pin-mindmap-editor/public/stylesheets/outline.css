@@ -1,0 +1,7 @@
+.outline_plus{width:11px;height:11px;padding:0;font-size:0;line-height:0px;background-image:url("/javascripts/pie/mindmap/img/icon_plus.gif");display:inline-block;}
+.outline_minus{width:11px;height:11px;padding:0;font-size:0;line-height:0px;background-image:url("/javascripts/pie/mindmap/img/icon_minus.gif");display:inline-block;}
+.outline_over{background-position:0 -30px;}
+.outline_down{background-position:0 -60px;}
+
+.selected{background:#00FFFF}
+.edit_text{padding:0px 0px 0px 0px;border:0px 0px 0px 0px;}
