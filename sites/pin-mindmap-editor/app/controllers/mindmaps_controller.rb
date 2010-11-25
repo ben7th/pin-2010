@@ -110,7 +110,7 @@ class MindmapsController < ApplicationController
     if @mindmap.user_id != current_user.id
       return redirect_to :action=>'show',:format=>'html'
     end
-    render 'editor_v03'
+    render :layout=>"mindmap",:template=>'mindmaps/editor_v03'
   end
 
   def create
