@@ -26,11 +26,11 @@
       -if show_operation_links?(mindmap)
         .detail-operation.fleft.marginr5
           .delete-link
-          =link_to_remote "删除",:url=>"/mindmaps/#{mindmap.id}",:method=>:delete,:confirm=>"确认删除？"
+          =link_to_remote "删除",:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确认删除？"
 
         .detail-operation.fleft.marginr5
           .infoedit-link
-          =link_to_remote "属性",:url=>""
+          =link_to_remote "属性",:url=>paramsedit_mindmap_path(mindmap),:method=>:get
           - render :partial=>'mindmaps/edit/box_params_edit',:locals=>{:mindmap=>mindmap}
 
         .detail-operation.fleft.marginr5

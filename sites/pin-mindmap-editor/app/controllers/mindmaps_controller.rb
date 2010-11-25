@@ -131,11 +131,11 @@ class MindmapsController < ApplicationController
         end
       else
         @mindmap.update_attributes!(params[:mindmap])
-        render :json=>{:id=>"mindmap_#{@mindmap.id}",
-          :html=>@template.render(:partial=>"/mindmaps/list/info_mindmap",:locals=>{:mindmap=>@mindmap}),
-          :title=>@mindmap.title,
-          :logo_url=>@mindmap.logo.url
-        }
+        responds_to_parent do
+          render_ui do |ui|
+            ui.mplist(:update,@mindmap,:partial=>"mindmaps/list/info_mindmap").fbox(:close)
+          end
+        end
         return
       end
     else
@@ -145,6 +145,7 @@ class MindmapsController < ApplicationController
   
   def paramsedit
     @mindmap = current_user.mindmaps.find(params[:id])
+    render_ui.fbox :show,:title=>"编辑信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
   end
 
   # DELETE /mindmaps/1
