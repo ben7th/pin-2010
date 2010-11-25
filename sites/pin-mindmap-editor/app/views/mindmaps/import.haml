@@ -1,4 +1,4 @@
-- form_for(mindmap,:html => {:id=>"new_import_mindmap", :multipart => true,:class=>"common_form"}) do |f|
+- form_for(@mindmap,:html => {:id=>"new_import_mindmap", :multipart => true,:class=>"common_form"}) do |f|
   %p
     =f.label :title,"为导图命名"
     =f.text_field :title,:size=>32,:class=>"text"
@@ -14,3 +14,7 @@
       %div FreeMind (.MM)
       %div XMind (.XMIND)
       %div Buzan's iMindMap (.IMM)
+
+  %p
+    =f.submit "确认并导入"
+

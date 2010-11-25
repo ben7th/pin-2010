@@ -23,4 +23,18 @@ module PageHelper
     content_for :title, re
   end
 
+  def user_info(user)
+    site = "#"
+    %`
+      <div class='clearfix mp-user-card'>
+        <div class="fleft">
+        <div><a href='#{site}'>#{logo user}</a></div>
+        </div>
+        <div class='fleft marginl5' style='width:120px;'>
+        <div><a class='username' href='#{site}'>#{user.name}</a></div>
+        <div class='quiet'>#{created_at user} 加入</div>
+        </div>
+      </div>
+    `
+  end
 end

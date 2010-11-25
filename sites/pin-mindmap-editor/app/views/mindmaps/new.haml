@@ -1,0 +1,15 @@
+- form_for(@mindmap,:html =>{:multipart => true,:class=>"common_form"}) do |f|
+  %p
+    =f.label :title,'为导图命名'
+    =f.text_field :title,:size=>32,:class=>'text'
+
+  %p
+    %label 图示上传
+    =f.file_field(:logo)
+
+  %p
+    = f.check_box( :private,:onclick=>"setting_private(this);" )
+    %span 设置为私有
+
+  %p
+    =f.submit "确认并创建"

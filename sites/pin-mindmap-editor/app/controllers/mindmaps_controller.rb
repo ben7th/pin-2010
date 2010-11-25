@@ -9,6 +9,14 @@ class MindmapsController < ApplicationController
     @mindmaps = get_mindmaps(params[:user_id])
   end
 
+  def new
+    @mindmap = current_user.mindmaps.new
+  end
+
+  def import
+    @mindmap = current_user.mindmaps.new
+  end
+
   def show
     @mindmap = Mindmap.find(params[:id])
     respond_to do |format|
@@ -108,11 +116,8 @@ class MindmapsController < ApplicationController
   def create
     @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
     if @mindmap
-      @mindmap.to_share if params[:share]
-      
-      render :json=>{:id=>"mindmap_#{@mindmap.id}",
-        :html=>@template.render(:partial=>"mindmaps/list/info_mindmap",
-          :locals=>{:mindmap=>@mindmap})}
+#      @mindmap.to_share if params[:share]
+       redirect_to user_mindmaps_path(current_user)
     end
   end
 
