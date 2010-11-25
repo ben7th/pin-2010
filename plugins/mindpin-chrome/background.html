@@ -47,7 +47,7 @@
   // 显示 mindpin 网站 cookie 的变化
   chrome.cookies.onChanged.addListener(function(changeInfo){
     var cookie = changeInfo.cookie;
-    if(cookie.domain == ".2010.mindpin.com" && cookie.name == "logged_in_for_plugin"){
+    if(cookie.domain == ".mindpin.com" && cookie.name == "logged_in_for_plugin"){
       if(cookie.value != logged_in_for_plugin){
         logged_in_for_plugin = cookie.value;
         setTimeout(Mindpin.UserManager.asyn_try_login,0)
