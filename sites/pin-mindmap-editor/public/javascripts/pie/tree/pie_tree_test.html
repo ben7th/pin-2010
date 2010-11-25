@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="mindpin">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<title>pie.tree.TreePanel</title>
+
+	<link rel="StyleSheet" href="css/pie_tree.css" type="text/css" />
+	<script type="text/javascript" src="../prototype.js"></script>
+	<script type="text/javascript" src="../effects.js"></script>
+	<script type="text/javascript" src="../builder.js"></script>
+	<script type="text/javascript" src="pie_core.js"></script>
+	<script type="text/javascript" src="pie_tree.js"></script>
+	
+	<script type="text/javascript">
+		function init(){
+			var start=new Date().getTime();
+			
+			tree=new pie.tree.TreePanel("panel",{inOrder:false,animate:true});
+			
+			tree.setRootNode(new pie.tree.Node("",{name:"Categories"}))
+			
+			tree.addNode(3,{
+				parent_id: 1,
+				name: 'Node 1.1'
+			});
+			tree.addNode(4,{
+				parent_id: 0,
+				name: 'Node 3'
+			});
+			tree.addNode(5,{
+				parent_id: 3,
+				name: 'Node 1.1.1',
+				url: 'example01.html'
+			});
+			tree.addNode(6,{
+				parent_id: 5,
+				name: 'Node 1.1.1.1',
+				url: 'example01.html'
+			});
+			
+			tree.addNode(2,{
+				parent_id:1,
+				name:'data',
+				url:'example01.html'
+			});
+			tree.addNode(1,{
+				parent_id:0,
+				name:'core',
+				url:'example01.html'
+			});
+			tree.addNode(0,{	//<-subroot is here
+				name: 'My example tree',
+				expanded:true
+			});
+			
+			tree.addNode(7,{
+				parent_id: 0,
+				name: 'Node 4',
+				url: 'example01.html'
+			});
+			tree.addNode(10,{
+				parent_id:9,
+				name:'The trip to Iceland',
+				//url:'example01.html',
+				title:'Pictures of Gullfoss and Geysir'
+			});
+			tree.addNode(11,{
+				parent_id: 9,
+				name: 'Mom\'s birthday',
+				url: 'example01.html'
+			});
+			tree.addNode(12,{
+				parent_id:0,
+				name:'回收站',
+				url:'example01.html',
+				icon:'img/trash.gif'
+			});
+			tree.addNode(8,{
+				parent_id: 1,
+				name: 'Node 1.2',
+				url: 'example01.html'
+			});
+			tree.addNode(9,{
+				parent_id: 0,
+				name: 'My Pictures',
+				url: 'example01.html',
+				title: 'Pictures I\'ve taken over the years',
+				iconOpen: 'img/imgfolder.gif'
+			});
+			
+//			var n=100
+//			var p=101;
+//			for(var i=0;i<20;i++){
+//				tree.addNode(n,{
+//					parent_id:0,
+//					name:"测试"+n
+//				});
+//				for(var j=0;j<50;j++){
+//					tree.addNode(p,{
+//						parent_id:n,
+//						name:"测试"+p
+//					});
+//					p++;
+//					n++;
+//				}
+//				n+=20;
+//				p=n+1;
+//			}
+			
+			var end=new Date().getTime();
+			
+			tree.log("add Nodes .. "+(end-start));
+			
+			tree.load();
+		}
+		
+		function append1(){
+			tree.append(17,{
+				parent_id: "root",
+				name: '新来的'
+			});
+		}
+		
+		function append2(){
+			tree.append(18,{
+				parent_id: 1,
+				name: '新来的'
+			});
+		}
+		
+		function loadJSON(){
+			var lo=new pie.tree.JSONLoader({key:'category'});
+			lo.load('[{"category": {"name": "fgdfgadfgsdfg", "id": 1, "parent_id": null}}, {"category": {"name": "dfgdfgf", "id": 2, "parent_id": null}}]');			
+		}
+		
+		document.observe("dom:loaded",init);
+		
+	</script>
+
+</head>
+
+<body>
+	<div id="debugger" style="font-size:12px;border:solid 1px;float:right; width:400px; height:400px; overflow:auto;"></div>
+	<div id="panel" style="float:left; width:250px; height:300px; border:solid 1px #999;"></div>
+	<button id="btn1" onclick="append1();">加载节点1</button>
+	<button id="btn2" onclick="append2();">加载节点2</button>
+	<button id="btn3" onclick="loadJSON();">读取JSON</button>
+</body>
+
+</html>

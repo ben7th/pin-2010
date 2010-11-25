@@ -1,0 +1,13 @@
+<%cssstr="#{root_url}stylesheets/widget.css"-%>
+document.write('<link rel="stylesheet" type="text/css" media="all" href="<%=cssstr%>" />');
+document.write('<div class="mindpin-mindmap-widget">');
+document.write('    <div class="mindmap-title" style="width:<%=@width-10%>px !important;">');
+document.write('        <span><a href="<%=polymorphic_url(@mindmap)+'?sure=1'%>" target="_blank">MindPin 思维导图 - <%=@mindmap.title%></a></span>');
+document.write('    </div>');
+document.write('    <div class="mindmap-viewport" style="height:<%=@height%>px !important;width:<%=@width%>px !important;">');
+document.write('        <iframe style="height:<%=@height%>px !important;width:<%=@width%>px !important;" src="<%='http://www.mindpin.com/mindmap_editor'+(widget_mindmap_path @mindmap)%>"></iframe>');
+document.write('    </div>');
+document.write('    <div class="widget-footer" style="width:<%=@width-10%>px !important;">');
+document.write('        <a href="<%=mindmaps_url%>" target="_blank">Go to MindPin</a>');
+document.write('    </div>');
+document.write('</div>');

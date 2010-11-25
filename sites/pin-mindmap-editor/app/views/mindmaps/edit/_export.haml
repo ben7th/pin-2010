@@ -1,0 +1,26 @@
+%div
+  %b.highlight 图片
+  %span -
+  %span=link_to 'PNG',"/mindmaps/#{@mindmap.id}.png",:target=>'_blank'
+  %span=link_to 'JPG',"/mindmaps/#{@mindmap.id}.jpg",:target=>'_blank'
+  %span=link_to 'GIF',"/mindmaps/#{@mindmap.id}.gif",:target=>'_blank'
+
+%div
+  %b.highlight MindManager
+  %span -
+  %span=link_to 'MMAP',"/mindmaps/#{@mindmap.id}.mmap"
+
+%div
+  %b.highlight FreeMind8
+  %span -
+  %span=link_to 'MM',"/mindmaps/#{@mindmap.id}.mm?v=8"
+
+%div
+  %b.highlight FreeMind9
+  %span -
+  %span=link_to 'MM',"/mindmaps/#{@mindmap.id}.mm?v=9"
+
+%div
+  %b.highlight Word
+  %span -
+  %span=link_to 'DOC',"/mindmaps/#{@mindmap.id}.doc"

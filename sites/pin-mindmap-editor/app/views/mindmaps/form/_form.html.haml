@@ -1,0 +1,32 @@
+- form_for(mindmap,:html =>{:id=>form_id,:multipart => true,:class=>"common_form"}) do |f|
+  %p
+    =f.label :title,'为导图命名'
+    =f.text_field :title,:size=>32,:class=>'text'
+
+  %input{:name=>"is_import", :type=>"hidden", :value=>"#{!!@isImport}"}
+  -if @isImport || !new
+    -if !new
+      -import_div_class='hide'
+  -if !mindmap.new_record?
+    .p
+      %label 自定义图示
+      .left
+        =logo mindmap
+      .left
+        %span{:class=>"desc"} (32 x 32 像素)
+
+  %p
+    %label 图示上传
+    =f.file_field(:logo)
+
+  %p
+    = f.check_box( :private,:onclick=>"setting_private(this);" )
+    %span 设置为私有
+ 
+  -if mindmap.new_record?
+    
+    %p{:id=>"input_share"}
+      = check_box_tag :share,1,true
+      %span 放入我的分享
+  %mp:hr
+    

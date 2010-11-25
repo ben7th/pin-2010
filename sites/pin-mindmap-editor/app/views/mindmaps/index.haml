@@ -1,0 +1,22 @@
+=map_list_page_title
+=nav_bar
+
+:ruby
+  map_data = get_list_base_data
+
+.grid_16.margint10
+  .grid_7.alpha
+    %h3.marginl10
+      = map_data[:sub_title]
+      %sup="(#{map_data[:map_count]}个)"
+  .grid_9.omega.lineheight29
+    =render :partial=>'mindmaps/list/listhead'
+  .grid_16.alpha
+    =render :partial=>map_data[:partial]
+  .grid_16.alpha
+    .paginate-bottom.haslayout
+      = will_paginate @mindmaps
+
+.grid_7.fright
+  .padding10
+    =render :partial=>"mindmaps/parts/sidebar"

@@ -1,0 +1,36 @@
+=render :partial=>"/mindmaps/parts/search_bar"
+
+- if params[:user_id]
+  .marginb5
+    %mp:user-card{:userid=>@user.id}
+
+- if current_user && (@user == current_user)
+  .font14
+    .marginb3.bold
+      %mp:show-box{:box_id=>"new_mindmap_iframe"}
+        %em >
+        新建导图
+      %mp:box{:id=>'new_mindmap_iframe'}
+        %mp:box-title 新建导图
+        %mp:box-content
+          =render :partial=>"/mindmaps/form/form",:locals=>{:mindmap=>Mindmap.new,:new=>true,:button_name=>"确认并创建",:form_id=>'new_mindmap_form_iframe',:iframe=>true}
+        %mp:box-button{:value=>"确认并创建",:close_box=>'true',:form_id=>"new_mindmap_form_iframe",:ajax=>"iframe",:ajax_list_id=>"mplist_user_#{current_user.id}_mindmaps",:onsuccess=>"open_mindmap_edit"}
+
+    .marginb3
+      %mp:show-box{:box_id=>"import_mindmap"}
+        %em >
+        导入导图文件
+    %mp:box{:id=>'import_mindmap'}
+      %mp:box-title 导入导图文件
+      %mp:box-content
+        =render :partial=>"/mindmaps/import",:locals=>{:mindmap=>Mindmap.new,:reimport=>false}
+      %mp:box-button{:value=>"提交",:close_box=>'true',:form_id=>"new_import_mindmap",:ajax=>"iframe",:ajax_list_id=>"mplist_user_#{current_user.id}_mindmaps",:onsuccess=>"open_mindmap_edit"}
+    -if Mindmap.has_too_many_zero_mindmap?(current_user)
+      %div 你的0分导图较多，建议经常清理。
+
+:javascript
+  function open_mindmap_edit(json){
+    var id = json.id.replace("mindmap_","")
+    window.open("#{URL_PREFIX}/mindmaps/"+ id +"/edit","_blank")
+  }
+

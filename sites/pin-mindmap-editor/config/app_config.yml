@@ -1,0 +1,44 @@
+development:
+  SECRET_KEY: ACUcfZ6C1XpBJCRP
+  USER_API_SITE: http://dev.www.mindpin.com
+  IMAGE_CACHE_SITE: http://dev.mindmap-image-cache.mindpin.com
+  ATTACHED_FILE_PATH_ROOT: /root/mindpin_base/mindpin_education_files/
+  ATTACHED_FILE_URL_ROOT: http://img.edu.mindpin.com/
+  SHARE_API_SITE: http://dev.share.mindpin.com
+  APP_PREFIX: app/mindmap_editor
+  API_SITE: http://dev.app-adapter.mindpin.com
+  WORKSPACE_SITE: http://dev.workspace.mindpin.com
+  THIS_SITE: http://dev.mindmap-editor.mindpin.com
+  DISCUSSION_SITE: http://dev.discuss.mindpin.com
+  SERVICE_KEY: ZIWaGOgshBJgiuuGab
+
+
+test:
+  SECRET_KEY: ACUcfZ6C1XpBJCRP
+  USER_API_SITE: http://192.168.1.8:5115
+  SHARE_API_SITE: http://dev.share.2010.mindpin.com
+  IMAGE_CACHE_SITE: http://192.168.1.8:9530
+  ATTACHED_FILE_PATH_ROOT: /root/mindpin_base/mindpin_education_files/
+  ATTACHED_FILE_URL_ROOT: http://img.edu.mindpin.com/
+
+  APP_PREFIX: app/mindmap_editor
+  API_SITE: http://192.168.1.8:3007
+  WORKSPACE_SITE: http://dev.workspace.2010.mindpin.com
+  THIS_SITE: http://192.168.1.8:1661
+  DISCUSSION_SITE: http://dev.discuss.2010.mindpin.com
+  SERVICE_KEY: ZIWaGOgshBJgiuuGab
+
+production:
+  SECRET_KEY: PmmLqybSgprs3LlI
+  USER_API_SITE: http://www.mindpin.com
+  SHARE_API_SITE: http://share.mindpin.com
+  IMAGE_CACHE_SITE: http://mindmap-image-cache.mindpin.com
+  ATTACHED_FILE_PATH_ROOT: /web/apps/mindpin_mm_images/
+  ATTACHED_FILE_URL_ROOT: http://img1.mindpin.com/
+
+  APP_PREFIX: app/mindmap_editor
+  API_SITE: http://app-adapter.mindpin.com
+  WORKSPACE_SITE: http://workspace.mindpin.com
+  THIS_SITE: http://mindmap-editor.mindpin.com
+  DISCUSSION_SITE: http://discuss.mindpin.com
+  SERVICE_KEY: ZIWaGOgshBJgiuuGab

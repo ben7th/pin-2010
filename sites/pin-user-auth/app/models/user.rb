@@ -79,7 +79,7 @@ class User < UserBase
   # 创建cookies登录令牌
   def create_cookies_token(expire)
     value=self.name+':'+expire.to_s+':'+User.hashed_token_string(self.name,self.hashed_password)
-    {:value=>value,:expires=>expire.days.from_now,:domain=>'2010.mindpin.com'}
+    {:value=>value,:expires=>expire.days.from_now,:domain=>'.mindpin.com'}
   end
 
   def password

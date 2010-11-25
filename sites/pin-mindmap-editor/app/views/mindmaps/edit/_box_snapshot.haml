@@ -1,0 +1,16 @@
+- mapid = mindmap.id
+
+%mp:show-box{:box_id=>"mindmap_#{mapid}_new_snapshot"}
+  创建快照
+
+%mp:box{:id=>"mindmap_#{mapid}_new_snapshot"}
+
+  %mp:box-title
+    = "创建快照 #{mindmap.title}"
+
+  %mp:box-content
+    -form_for [mindmap,mindmap.snapshots.new],:html=>{:id=>"new_mindmap_#{mapid}_snapshot"} do |t|
+      %span 快照名称
+      =t.text_field :title
+
+  %mp:box-button{:value=>"创建快照",:form_id=>"new_mindmap_#{mapid}_snapshot",:close_box=>"true",:ajax_list_id=>"mplist_mindmap_#{mapid}_snapshots",:ajax=>"true"}

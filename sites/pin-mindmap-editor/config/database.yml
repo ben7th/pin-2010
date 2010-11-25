@@ -1,0 +1,26 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: pin-mindmap-editor-development
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: pin-mindmap-editor-test
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: pin-mindmap-editor
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
