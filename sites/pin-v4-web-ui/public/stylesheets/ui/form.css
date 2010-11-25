@@ -109,3 +109,17 @@ textarea#virtual_textarea {
   left: -10000px;
   top: -10000px;
   height: 0px; }
+
+/*search*/
+input.search-inner, input.search {
+  background-image: url("/images/piece/search-inner.png");
+  background-repeat: no-repeat;
+  padding: 0 0 0 21px !important;
+  width: 150px !important;
+  height: 21px !important;
+  background-color: white;
+  border-color: #333; }
+
+input.search-button {
+  height: 21px;
+  top: -1px; }
