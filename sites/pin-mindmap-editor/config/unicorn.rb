@@ -2,15 +2,15 @@
 worker_processes 3
 
 # 日志位置
-stderr_path("/web/2010/logs/unicorn-mindmap-editor-error.log")
-stdout_path("/web/2010/logs/unicorn-mindmap-editor.log")
+stderr_path("/web/2010/logs/unicorn-mindmap-editor-1-error.log")
+stdout_path("/web/2010/logs/unicorn-mindmap-editor-1.log")
 
 # 加载 超时设置 监听
 preload_app true
 timeout 30
-listen '/web/2010/sockets/unicorn-mindmap-editor.sock', :backlog => 2048
+listen '/web/2010/sockets/unicorn-mindmap-editor-1.sock', :backlog => 2048
 
-pid_file_name = "/web/2010/pids/unicorn-mindmap-editor.pid"
+pid_file_name = "/web/2010/pids/unicorn-mindmap-editor-1.pid"
 pid pid_file_name
 
 # REE GC
