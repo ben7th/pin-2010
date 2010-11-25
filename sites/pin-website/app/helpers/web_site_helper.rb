@@ -10,6 +10,7 @@ module WebSiteHelper
 
   def build_comment_json(comment)
     user = comment.creator
+    return nil if user.blank?
     {
       :id=>comment.id,:user=>{:id=>user.id,:name=>user.name,:avatar=>user.logo.url},
       :content=>comment.content,:updated_at=>comment.updated_at
@@ -22,7 +23,8 @@ module WebSiteHelper
     comments = Comment.url_equals(params[:url]).by_updated_at(:desc).limited(3)
     comments.map! do |comment|
       build_comment_json(comment)
-    end
+    end.compact!
+    
     {:url=>url,:site=>ws_domain,
       :info=>web_site_introduction_info(web_site),:detail_info_url=>web_site_introductions_url(:web_site_id=>web_site.id),
       :comments=>comments,:detail_comments_url=>comments_url(:url=>url)}
