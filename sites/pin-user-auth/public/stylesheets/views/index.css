@@ -53,6 +53,9 @@ form.login-form .form_actions {
 .dialog.index span.to_reg {
   display: none; }
 
+.pad.quiet .mark, .pad.quiet .chm, .pad.quiet .txt, .pad.quiet .i {
+  color: #666 !important; }
+
 .signup-button {
   border-radius: 4px;
   -moz-border-radius: 4px;

@@ -3,11 +3,10 @@
     .page-footer-content{:class=>grid_classname}
       %div{:class=>grid_classname}
         .links
-          %span.aboutus 关于我们
-          %span.concat 联系方式
-          %span.plugin 插件下载
-          %span.plugin 开发计划
-          %span.hide.bugs=link_to '<em>&gt;</em> 给MindPin提意见',pin_url_for('pin-bugs','/'),:target=>'_blank',:class=>'loud'
+          %span.concat
+            =link_to '联系方式',pin_url_for('pin-user-auth','/concat')
+          %span.plugin
+            =link_to '插件下载',pin_url_for('pin-user-auth','/plugins')
         .rights
           %span.sitename.bold &copy; 2006-2010 MindPin all rights reserved.
           %span.beian.marginl5 (京ICP备06063955号)

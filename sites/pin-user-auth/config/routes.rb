@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller=>'index'
-  #  map.root :controller=>'index',:action=>'updating'
+
   map.welcome '/welcome',:controller=>'index',:action=>'welcome'
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
@@ -38,4 +38,8 @@ ActionController::Routing::Routes.draw do |map|
   map.send_activation_mail "/email/send_activation_mail",:controller=>"account",:action=>"send_activation_mail"
   # 激活用户
   map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'
+
+  # --杂项
+  map.concat '/concat',:controller=>'misc',:action=>'concat'
+  map.plugins '/plugins',:controller=>'misc',:action=>'plugins'
 end

@@ -1,0 +1,42 @@
+.cellhead {
+  margin-bottom: 0 !important; }
+
+.concat_head {
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #464660; }
+  .concat_head h1 {
+    font-size: 24px;
+    line-height: 24px;
+    color: white; }
+
+.concatus {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: solid 1px #111;
+  background: #222433;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: Verdana,arial; }
+  .concatus .p {
+    margin-bottom: 1em; }
+
+.plugins_head {
+  margin: -15px;
+  border: solid 1px;
+  border-color: #DEEA53 #EFF2C7 #EFF2C7 #DEEA53;
+  background: #FBFFCE;
+  color: #333333;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: bold; }
+  .plugins_head .large {
+    font-size: 48px;
+    line-height: 64px;
+    margin: 10px 0 0 0;
+    color: #C83914;
+    text-shadow: 1px 1px #830300; }

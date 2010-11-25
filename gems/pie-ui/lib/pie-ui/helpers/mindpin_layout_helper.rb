@@ -73,9 +73,13 @@ module PieUi
     def render_cellhead
       cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
       begin
-        render :partial=>cellhead_path
+        render :partial=>"#{cellhead_path}_#{action_name}"
       rescue ActionView::MissingTemplate => ex
-        render :partial=>base_layout_path('parts/cellhead.haml')
+        begin
+          render :partial=>cellhead_path
+        rescue
+          render :partial=>base_layout_path('parts/cellhead.haml')
+        end
       end
     end
 
