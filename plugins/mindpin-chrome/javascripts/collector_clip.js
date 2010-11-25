@@ -1,7 +1,6 @@
 /*
  * 页面元素选择
  */
-
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     if (request.operate_clip == "begin"){
@@ -16,10 +15,13 @@ chrome.extension.onRequest.addListener(
   }
   );
 
+    
+
 var CollectorClip = {
 
   init: function(document){
     this.document = document;
+    this.location = this.document.location;
     this.coverlayer_top = $(this._make_coverlayer_dom());
     this.coverlayer_bottom = $(this._make_coverlayer_dom());
     this.coverlayer_left = $(this._make_coverlayer_dom());
@@ -58,10 +60,10 @@ var CollectorClip = {
 
   // 取消选择
   cancel_clip : function(){
-    this.remove_clip_cover();
-    this.remove_coverlayer();
-    this.cancel_cliped_elements();
-    if(this.document){
+    if(typeof(this.document)!="undefined"&&this.document){
+      this.remove_clip_cover();
+      this.remove_coverlayer();
+      this.cancel_cliped_elements();
       $(this.document.body).unbind();
     }
   },
@@ -204,7 +206,6 @@ var CollectorClip = {
       'top': o.top + 'px',
       'left': o.left + d.width - b + 'px'
     }).show();
-
     $(this.document.body).append(this.coverlayer_top);
     $(this.document.body).append(this.coverlayer_bottom);
     $(this.document.body).append(this.coverlayer_left);
@@ -250,38 +251,11 @@ var CollectorClip = {
     evt.preventDefault();
   },
 
-  // 是否是可忽略的 地址
-  is_ignorable_url : function(url){
-    if(/^(javascript:|#)/.test(url)){
-      return true;
-    }
-    return false;
-  },
-
-  check_url : function(url){
-    if(this.is_ignorable_url(url)){
-      return url
-    }
-    var location = this.document.location;
-    var host = location.host;
-    var protocol = location.protocol;
-    var site = protocol + "//" + host;
-
-    if(/^http/.test(url)){
-      return url;
-    }else{
-      if(/^\//.test(url)){
-        return site + url
-      }
-      return site + "/" + url;
-    }
-  },
-
   cliped_elements : function(){
     var link_result = [];
     var link_datas = $(".choosed_element .data_element a[class!='cancel_link_for_page_clip']",this.document)
     link_datas.each(function(i,m){
-      var href_str = CollectorClip.check_url($(m).attr("href"))
+      var href_str = ToolLib.check_url($(m).attr("href"),CollectorClip.location)
       link_result[i] = {
         href:href_str,
         text:$(m).attr("innerHTML")
@@ -291,7 +265,7 @@ var CollectorClip = {
     var image_result = [];
     var image_datas = $(".choosed_element .data_element img",this.document)
     image_datas.each(function(i,m){
-      var image_src = CollectorClip.check_url($(m).attr("src"))
+      var image_src = ToolLib.check_url($(m).attr("src"),CollectorClip.location)
       image_result[i] = {
         src:image_src,
         width:$(m).attr("width"),

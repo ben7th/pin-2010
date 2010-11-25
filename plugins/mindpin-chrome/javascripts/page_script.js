@@ -1,29 +1,4 @@
-// 是否是可忽略的 地址
-function is_ignorable_url(url){
-  if(/^(javascript:|#)/.test(url)){
-    return true;
-  }
-  return false;
-}
-
-function check_url(url){
-  if(is_ignorable_url(url)){
-    return url
-  }
-  var location = document.location;
-  var host = location.host;
-  var protocol = location.protocol;
-  var site = protocol + "//" + host;
-
-  if(/^http/.test(url)){
-    return url;
-  }else{
-    if(/^\//.test(url)){
-      return site + url
-    }
-    return site + "/" + url;
-  }
-}
+var location_obj = document.location;
 
 function is_blank(str){
   var str_tmp = $.trim(str)
@@ -36,7 +11,7 @@ function is_blank(str){
 var links = [];
 $("a").each(function(i,item){
   var item_j = $(item)
-  var url = check_url(item_j.attr("href"))
+  var url = ToolLib.check_url(item_j.attr("href"),location_obj)
   var text = is_blank(item_j.text()) ?  url : item_j.text()
   links[i] = {
     href: url,
@@ -47,7 +22,7 @@ var images = [];
 $("img").each(function(i,item){
   var item_j = $(item)
   images[i] = {
-    src:check_url(item_j.attr("src")),
+    src:ToolLib.check_url(item_j.attr("src"),location_obj),
     width:item_j.attr("width"),
     height:item_j.attr("height")
   };
@@ -55,7 +30,7 @@ $("img").each(function(i,item){
 var rsses = [];
 $("link[type='application/rss+xml']").each(function(i,item){
   var item_j = $(item)
-  var url = check_url(item_j.attr("href"))
+  var url = ToolLib.check_url(item_j.attr("href"),location_obj)
   var text = is_blank(item_j.attr("title")) ?  url : item_j.attr("title")
   rsses[i] = {
     href: url,
