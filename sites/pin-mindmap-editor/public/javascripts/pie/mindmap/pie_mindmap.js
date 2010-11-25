@@ -887,7 +887,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     if(!this.ready_to_request) return;
 
     var pars = 'operations=' + encodeURIComponent(this.opQueue.toJSON());
-    new Ajax.Request("/"+app_prefix+"/mindmaps/do",{
+    new Ajax.Request("/mindmaps/do",{
       parameters:pars,
       method:"PUT",
       onCreate:function(){
