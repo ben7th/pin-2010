@@ -50,19 +50,22 @@ class MindmapRank
 
   # 获取 map_max_weight
   def self.map_max_weight
-    mmw = $cache.get('map_max_weight')
-    if mmw.blank?
-      mmw = Mindmap.maximum("weight") || 0
-      self.map_max_weight=(mmw)
-    end
-    mmw
+    0
+    # 需要 缓存存放
+#    mmw = $cache.get('map_max_weight')
+#    if mmw.blank?
+#      mmw = Mindmap.maximum("weight") || 0
+#      self.map_max_weight=(mmw)
+#    end
+#    mmw
   end
 
   # 设置 map_max_weight
   def self.map_max_weight=(mmw)
-    $cache.transaction do
-      $cache.set('map_max_weight', mmw)
-    end
+    # 需要缓存存放
+#    $cache.transaction do
+#      $cache.set('map_max_weight', mmw)
+#    end
   end
 
 end

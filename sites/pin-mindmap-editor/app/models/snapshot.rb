@@ -1,6 +1,4 @@
 class Snapshot < ActiveRecord::Base
-#  缓存暂时注释掉
-  index :mindmap_id
   
   belongs_to :mindmap
   

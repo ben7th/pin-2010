@@ -19,7 +19,7 @@ module PageHelper
     else
       re = "MindPin公开导图"
     end
-    "<mp:title>#{re}</mp:title>"
+    content_for :title, re
   end
 
 end
