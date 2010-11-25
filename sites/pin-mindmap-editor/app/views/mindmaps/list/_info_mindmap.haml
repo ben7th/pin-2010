@@ -38,8 +38,7 @@
 
         .detail-operation.fleft.marginr5
           .clone-link
-          =link_to_remote "克隆",:url=>""
-          - render :partial=>'mindmaps/edit/box_clone',:locals=>{:mindmap=>mindmap}
+          =link_to_remote "克隆",:url=>clone_form_mindmap_path(mindmap),:method=>:get
 
         .detail-operation.fleft.marginr5
           =link_to_remote "转发讨论",:url=>""
