@@ -8,11 +8,14 @@
 
 .grid_15.omega
   .pad.clearfix.font13
-    .fleft=link_to "注册",signup_path,:class=>'reg-button hidetext'
-    .fleft.margint10.marginl10
-      %div.margint10
-        还没有账号..？
-        %span.loud 注册新的 MindPin 账号，只需30秒~
+    .fleft
+      -link_to signup_path,:class=>'signup-button' do
+        .strong
+          立即注册账号
+        Signup to manage <b>your mind</b> for free!
+    .fleft.signup-tips
+      还没有账号..？<br/>
+      %span.loud 注册新的 MindPin 账号，只需30秒~
   .prosd
     向您提供以下线上服务——
   .pros.clearfix

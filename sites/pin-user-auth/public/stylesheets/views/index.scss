@@ -1,4 +1,4 @@
-@import "../ui/misc";
+@import "users/misc";
 
 form.login-form{
   input.text{width:304px;}
@@ -44,10 +44,32 @@ form.login-form{
 .dialog span.to_reg{font-size:12px;font-weight:normal;}
 .dialog.index span.to_reg{display:none;}
 
-.reg-button{
-  background-image:url(/images/reg.png);
-  width:130px;height:44px;display:inline-block;text-indent:-200em;
-  margin-top:0.6em;
+
+.signup-button {
+  @include border-radius(4px);
+  @include box-shadow(0 1px 4px rgba(0, 0, 0, 0.3));
+  @include gradient(#50B7D1, #286DA3);
+  border:1px solid #51A0B3;
+  color:#BED7E1 !important;
+  display:inline-block;
+  padding:10px 30px;
+  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
+  text-align:center !important;
+  &:hover{
+    @include gradient(#66c7e5, #328fc9);
+    text-decoration:none !important;
+  }
+  .strong{
+    color:#fff !important;
+    font-weight:bold;
+    font-size:16px;
+  }
+}
+
+.signup-tips{
+  line-height:24px;
+  margin-left:15px;
+  font-size:14px;
 }
 
 ul.index-bugs {

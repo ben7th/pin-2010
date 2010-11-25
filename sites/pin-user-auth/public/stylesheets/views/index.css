@@ -53,13 +53,36 @@ form.login-form .form_actions {
 .dialog.index span.to_reg {
   display: none; }
 
-.reg-button {
-  background-image: url(/images/reg.png);
-  width: 130px;
-  height: 44px;
+.signup-button {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  background: -moz-linear-gradient(-90deg, #50b7d1, #286da3);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#50b7d1), to(#286da3));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#50b7d1',endColorstr='#286da3');
+  border: 1px solid #51A0B3;
+  color: #BED7E1 !important;
   display: inline-block;
-  text-indent: -200em;
-  margin-top: 0.6em; }
+  padding: 10px 30px;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+  text-align: center !important; }
+  .signup-button:hover {
+    background: -moz-linear-gradient(-90deg, #66c7e5, #328fc9);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#66c7e5), to(#328fc9));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66c7e5',endColorstr='#328fc9');
+    text-decoration: none !important; }
+  .signup-button .strong {
+    color: #fff !important;
+    font-weight: bold;
+    font-size: 16px; }
+
+.signup-tips {
+  line-height: 24px;
+  margin-left: 15px;
+  font-size: 14px; }
 
 ul.index-bugs a {
   color: #666; }
