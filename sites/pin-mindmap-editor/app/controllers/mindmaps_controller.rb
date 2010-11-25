@@ -222,6 +222,12 @@ class MindmapsController < ApplicationController
     @mindmap = Mindmap.find(params[:id])
   end
 
+  # 导出想到页面
+  def export
+    @mindmap = Mindmap.find(params[:id])
+    render_ui.fbox :show,:title=>"导出导图",:partial=>'mindmaps/edit/box_export',:locals=>{:mindmap=>@mindmap}
+  end
+
   # 克隆
   def clone
     @mindmap = Mindmap.find(params[:id])

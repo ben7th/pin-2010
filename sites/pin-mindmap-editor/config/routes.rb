@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.mindmap_user_tag '/users/:user_id/mindmaps/tag/:tag_name',:controller=>'mindmaps',:action=>'get_mindmap_by_tag'
 
   map.resources :mindmaps,:collection=>{:import=>:get,:mine=>:get,:tags=>:get},
-    :member=>{:convert_bundle=>:put,:toggle_private=>:put,:clone=>:put,:outline=>:get,:rate=>:put,:setnote=>:post,:paramsedit=>:get,:widget=>:get,:quote=>:get,:reimport=>:get,:neweditor=>:get} do |mindmap|
+    :member=>{:convert_bundle=>:put,:toggle_private=>:put,:export=>:get,:clone=>:put,:outline=>:get,:rate=>:put,:setnote=>:post,:paramsedit=>:get,:widget=>:get,:quote=>:get,:reimport=>:get,:neweditor=>:get} do |mindmap|
       mindmap.resources :comments
       mindmap.resources :snapshots,:member=>{:recover=>:put}
     end

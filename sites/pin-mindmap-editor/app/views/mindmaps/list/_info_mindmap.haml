@@ -31,12 +31,10 @@
         .detail-operation.fleft.marginr5
           .infoedit-link
           =link_to_remote "属性",:url=>paramsedit_mindmap_path(mindmap),:method=>:get
-          - render :partial=>'mindmaps/edit/box_params_edit',:locals=>{:mindmap=>mindmap}
 
         .detail-operation.fleft.marginr5
           .export-link
-          =link_to_remote "导出",:url=>""
-          - render :partial=>'mindmaps/edit/box_export',:locals=>{:mindmap=>mindmap}
+          =link_to_remote "导出",:url=>export_mindmap_path(mindmap),:method=>:get
 
         .detail-operation.fleft.marginr5
           .clone-link
