@@ -1,16 +1,8 @@
 - mapid = mindmap.id
 
-%mp:show-box{:box_id=>"export_link_mindmap_#{mapid}"}
-  .export-link
-  %div 导出
+= "导出导图 #{escape_title(mindmap)}"
 
-%mp:box{:id=>"export_link_mindmap_#{mapid}"}
-
-  %mp:box-title
-    = "导出导图 #{escape_title(mindmap)}"
-
-  %mp:box-content
-    %div= link_to "<b>MMAP</b> (MindManager 格式)","/mindmaps/#{mapid}.mmap"
-    %div= link_to "<b>MM</b> (FreeMind_0.8 格式)","/mindmaps/#{mapid}.mm?v=8"
-    %div= link_to "<b>MM</b> (FreeMind_0.9 格式)","/mindmaps/#{mapid}.mm?v=9"
-    %div= link_to "<b>DOC</b> (Office Word 大纲)","/mindmaps/#{mapid}.doc"
+%div= link_to "<b>MMAP</b> (MindManager 格式)","/mindmaps/#{mapid}.mmap"
+%div= link_to "<b>MM</b> (FreeMind_0.8 格式)","/mindmaps/#{mapid}.mm?v=8"
+%div= link_to "<b>MM</b> (FreeMind_0.9 格式)","/mindmaps/#{mapid}.mm?v=9"
+%div= link_to "<b>DOC</b> (Office Word 大纲)","/mindmaps/#{mapid}.doc"

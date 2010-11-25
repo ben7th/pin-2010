@@ -42,6 +42,8 @@ Rails::Initializer.run do |config|
   config.gem "paperclip"
   config.gem "uuidtools"
   config.gem "pie-service-lib"
+  config.gem "pie-auth"
+  config.gem "pie-ui"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

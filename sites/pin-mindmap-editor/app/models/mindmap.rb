@@ -20,13 +20,7 @@ require 'uuidtools'
 
 class Mindmap < ActiveRecord::Base
 
-# 缓存方面的
-  index :user_id
-
   belongs_to :user
-  def user=(user)
-    self.user_id = user.id
-  end
   
   has_many :nodes
   has_one :visit_counter, :as=>:resource
@@ -192,6 +186,12 @@ class Mindmap < ActiveRecord::Base
       return self.update_attributes(:private=>false)
     end
     self.update_attributes(:private=>true)
+  end
+
+  module UserMethods
+    def self.included(base)
+      base.has_many :mindmaps
+    end
   end
 
   include Snapshot::MindmapMethods

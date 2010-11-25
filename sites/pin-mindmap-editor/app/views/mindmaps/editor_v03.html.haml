@@ -1,5 +1,4 @@
-%mp:layout tools
-%mp:title 编辑器 v0.35 - #{escape_title(@mindmap)}
+-content_for :title, " 编辑器 v0.35 - #{escape_title(@mindmap)}"
 
 
 = stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
@@ -29,7 +28,7 @@
     mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
       id:mindmap_id,
       loader: new pie.mindmap.JSONLoader({
-        url:'/#{APP_PREFIX}/mindmaps/' + mindmap_id
+        url:'/mindmaps/' + mindmap_id
       }),
       editmode: true,
       after_load:function(){
@@ -57,7 +56,7 @@
   }
 
   function show_comments(){
-    new Ajax.Updater("comments-list","/#{APP_PREFIX}/mindmaps/#{@mindmap.id}/comments",{
+    new Ajax.Updater("comments-list","/mindmaps/#{@mindmap.id}/comments",{
       method:'GET',
       onCreate:function(){
         $("comments-list").update('<div class="loading"></div>');
@@ -65,7 +64,7 @@
     });
   }
 
-  new TimeKeeper("#{API_SITE}/#{APP_PREFIX}/mindmaps/ajax_test");
+  new TimeKeeper("/mindmaps/ajax_test");
 
 #mindmap-sidebar.grid_6.fright.clearfix.marginr10
   %mp:accordion{:active_bgc=>"#E0542F",:bgc=>"#0B6138"}

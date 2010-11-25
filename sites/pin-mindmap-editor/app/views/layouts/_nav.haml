@@ -1,18 +1,18 @@
-%mp:nav
+%ul
   -if logged_in?
-    %mp:ni{:href=>"#{user_mindmaps_path(current_user)}",:active=>"#{ active=="自己的导图" ? "true" : ""}" }
+    %li{:href=>"#{user_mindmaps_path(current_user)}",:active=>"#{ active=="自己的导图" ? "true" : ""}" }
       我的导图
 
-  %mp:ni{:href=>"#{mindmaps_path}",:active=>"#{active=='公开导图' ? 'true' : ''}"}公开导图
+  %li{:href=>"#{mindmaps_path}",:active=>"#{active=='公开导图' ? 'true' : ''}"}公开导图
 
-  %mp:ni{:href=>"#{intro_path}",:active=>"#{active=='工具简介' ? 'true': ''}"} 工具简介
+  %li{:href=>"#{intro_path}",:active=>"#{active=='工具简介' ? 'true': ''}"} 工具简介
   -if logged_in?
-    %mp:ni{:href=>"#{user_tendency_path(current_user)}",:active=>"#{active=='趋势与统计' ? 'true': ''}"} 趋势与统计
+    %li{:href=>"#{user_tendency_path(current_user)}",:active=>"#{active=='趋势与统计' ? 'true': ''}"} 趋势与统计
 
   -if active=='用户公开导图'
-    %mp:ni{:href=>"#{user_mindmaps_path(@user)}", :active=>"true"}
+    %li{:href=>"#{user_mindmaps_path(@user)}", :active=>"true"}
       #{@user.name}的公开导图
 
   -if active=='全文搜索'
-    %mp:ni{:href=>"#",:active=>"true"}
+    %li{:href=>"#",:active=>"true"}
       搜索结果

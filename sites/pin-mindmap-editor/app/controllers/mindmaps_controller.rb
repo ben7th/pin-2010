@@ -9,6 +9,14 @@ class MindmapsController < ApplicationController
     @mindmaps = get_mindmaps(params[:user_id])
   end
 
+  def new
+    @mindmap = current_user.mindmaps.new
+  end
+
+  def import
+    @mindmap = current_user.mindmaps.new
+  end
+
   def show
     @mindmap = Mindmap.find(params[:id])
     respond_to do |format|
@@ -102,17 +110,14 @@ class MindmapsController < ApplicationController
     if @mindmap.user_id != current_user.id
       return redirect_to :action=>'show',:format=>'html'
     end
-    render 'editor_v03'
+    render :layout=>"mindmap",:template=>'mindmaps/editor_v03'
   end
 
   def create
     @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
     if @mindmap
-      @mindmap.to_share if params[:share]
-      
-      render :json=>{:id=>"mindmap_#{@mindmap.id}",
-        :html=>@template.render(:partial=>"mindmaps/list/info_mindmap",
-          :locals=>{:mindmap=>@mindmap})}
+#      @mindmap.to_share if params[:share]
+       redirect_to user_mindmaps_path(current_user)
     end
   end
 
@@ -131,11 +136,11 @@ class MindmapsController < ApplicationController
         end
       else
         @mindmap.update_attributes!(params[:mindmap])
-        render :json=>{:id=>"mindmap_#{@mindmap.id}",
-          :html=>@template.render(:partial=>"/mindmaps/list/info_mindmap",:locals=>{:mindmap=>@mindmap}),
-          :title=>@mindmap.title,
-          :logo_url=>@mindmap.logo.url
-        }
+        responds_to_parent do
+          render_ui do |ui|
+            ui.mplist(:update,@mindmap,:partial=>"mindmaps/list/info_mindmap").fbox(:close)
+          end
+        end
         return
       end
     else
@@ -145,6 +150,7 @@ class MindmapsController < ApplicationController
   
   def paramsedit
     @mindmap = current_user.mindmaps.find(params[:id])
+    render_ui.fbox :show,:title=>"编辑信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
   end
 
   # DELETE /mindmaps/1
@@ -155,7 +161,7 @@ class MindmapsController < ApplicationController
         if(@mindmap.user_id == current_user.id)
           @mindmap = Mindmap.find(params[:id])
           @mindmap.destroy
-          return render :status=>200,:text=>""
+          return render_ui.mplist :remove,@mindmap
         else
           render :text=>'没有删除权限',:status=>500
         end
@@ -221,14 +227,22 @@ class MindmapsController < ApplicationController
     @mindmap = Mindmap.find(params[:id])
   end
 
+  # 导出向导页面
+  def export
+    @mindmap = Mindmap.find(params[:id])
+    render_ui.fbox :show,:title=>"导出导图",:partial=>'mindmaps/edit/box_export',:locals=>{:mindmap=>@mindmap}
+  end
+
+  def clone_form
+    @mindmap = Mindmap.find(params[:id])
+    render_ui.fbox :show,:title=>"克隆导图",:partial=>'mindmaps/edit/box_clone',:locals=>{:mindmap=>@mindmap}
+  end
+
   # 克隆
   def clone
     @mindmap = Mindmap.find(params[:id])
     clone_m = @mindmap.mindmap_clone(current_user,params[:mindmap])
-    render :json=>{:id=>"mindmap_#{clone_m.id}",
-      :html=>@template.render(:partial=>"mindmaps/list/info_mindmap",
-        :locals=>{:mindmap=>clone_m})
-    }
+    render_ui.mplist(:insert,[current_user,clone_m],:partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>clone_m},:prev=>"TOP").fbox(:close)
   end
 
   def convert_bundle

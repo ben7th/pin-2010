@@ -1,15 +1,24 @@
 - mapid = mindmap.id
 
-%mp:show-box{:box_id=>"paramsedit_mindmap_#{mapid}"}
-  .infoedit-link
-  %div 属性
+- form_for(mindmap,:html =>{:id=>"edit_mindmap_form_#{mapid}",:target=>"upload_frame",:multipart => true,:class=>"common_form"}) do |f|
+  %p
+    =f.label :title,'为导图命名'
+    =f.text_field :title,:size=>32,:class=>'text'
 
-%mp:box{:id=>"paramsedit_mindmap_#{mapid}"}
+  %p
+    %label 自定义图示
+    .left
+      =logo mindmap
+    .left
+      %span{:class=>"desc"} (32 x 32 像素)
 
-  %mp:box-title
-    = "修改 #{escape_title(mindmap)}"
+  %p
+    %label 图示上传
+    =f.file_field(:logo)
 
-  %mp:box-content
-    =render :partial=>"/mindmaps/form/form",:locals=>{:form_id=>"edit_mindmap_form_#{mapid}",:mindmap=>mindmap,:new=>false,:button_name=>"确认以上修改"}
+  %p
+    = f.check_box( :private,:onclick=>"setting_private(this);" )
+    %span 设置为私有
 
-  %mp:box-button{:value=>"保存修改",:close_box=>"true",:form_id=>"edit_mindmap_form_#{mapid}",:ajax_list_id=>"mplist_user_#{current_user.id}_mindmaps",:ajax=>"iframe"}
+  %p
+    =f.submit "确认以上修改"

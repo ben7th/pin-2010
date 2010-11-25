@@ -14,5 +14,5 @@
   %span{:style=>"font-size:18px;"}
     Rank值：#{mindmap.rank}
   -if current_user
-    %span
-      = render :partial=>'mindmaps/edit/box_clone',:locals=>{:mindmap=>mindmap}
+    .clone-link
+    =link_to_remote "克隆",:url=>""
