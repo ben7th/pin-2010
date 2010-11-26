@@ -134,12 +134,15 @@ class MindmapsController < ApplicationController
     @mindmap = Mindmap.find(params[:id])
     if has_edit_rights?(@mindmap,current_user)
         @mindmap.update_attributes!(params[:mindmap])
-        responds_to_parent do
-          render_ui do |ui|
-            ui.mplist(:update,@mindmap,:partial=>"mindmaps/list/info_mindmap").fbox(:close)
+        if params[:fbox] == "true"
+          responds_to_parent do
+            render_ui do |ui|
+              ui.mplist(:update,@mindmap,:partial=>"mindmaps/list/info_mindmap").fbox(:close)
+            end
           end
+          return
         end
-        return
+        return redirect_to user_mindmaps_path(current_user)
     else
       render :text=>'没有权限',:status=>401
     end
@@ -148,7 +151,10 @@ class MindmapsController < ApplicationController
   def paramsedit
     @mindmap = Mindmap.find(params[:id])
     if has_edit_rights?(@mindmap,current_user)
+      if request.xhr?
       return render_ui.fbox :show,:title=>"编辑信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
+      end
+      return render :template=>"mindmaps/paramsedit"
     end
   end
 
