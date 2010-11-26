@@ -39,7 +39,7 @@ form label {
 form div.field {
   margin-bottom: 15px; }
   form div.field .submit {
-    top: 0px; }
+    top: -1px; }
 form .text, form textarea {
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -53,7 +53,7 @@ form .active .text, form .active textarea {
 form .fieldWithErrors .text, form .fieldWithErrors textarea {
   background-color: #F39D77; }
 form .submit {
-  height: 32px;
+  height: 31px;
   padding: 0 11px;
   position: relative;
   top: 1px;

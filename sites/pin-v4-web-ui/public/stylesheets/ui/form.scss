@@ -17,7 +17,7 @@ form{
   }
   div.field{
     margin-bottom:15px;
-    .submit{top:0px;}
+    .submit{top:-1px;}
   }
   .text, textarea{
     @include border-radius(3px);
@@ -34,7 +34,7 @@ form{
     }
   }
   .submit{
-    height:32px;padding:0 11px;position:relative;top:1px;margin:0;
+    height:31px;padding:0 11px;position:relative;top:1px;margin:0;
     font-weight:bold;font-size:1em;color:#333;
     text-shadow:1px 1px 0 #fff;
     white-space:nowrap;border:none;overflow:visible;background:#ddd;
