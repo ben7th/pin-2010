@@ -67,13 +67,11 @@
   new TimeKeeper("/mindmaps/ajax_test");
 
 #mindmap-sidebar.grid_6.fright.clearfix.marginr10
-  %mp:accordion{:active_bgc=>"#E0542F",:bgc=>"#0B6138"}
-
-    %mp:accordion-item{:title=>"基本信息",:bgc=>"#98BC48",:open=>"true"}
+  -accordion_bar :bgc=>"#0B6138",:active_bgc=>"#E0542F" do
+    -accordion_item '基本信息',:bgc=>"#98BC48",:open=>"true" do
       #base_info
         =render :partial=>'mindmaps/edit/base_info'
-
-    %mp:accordion-item{:title=>"网络状况显示",:bgc=>'#ADC96D',:open=>"true"}
+    -accordion_item '网络状况显示',:bgc=>"#ADC96D",:open=>"true" do
       #net_condition
         .last_respond
           %span.time_label 上次响应时间（毫秒）:
@@ -81,16 +79,14 @@
         .average_respond
           %span.time_label 平均响应时间（毫秒）:
           %span.time 0
-
-    %mp:accordion-item{:title=>"数据导出",:bgc=>'#ADC96D'}
+    -accordion_item '数据导出',:bgc=>"#ADC96D" do
       #mindmap-export
         =render :partial=>'mindmaps/edit/export'
-
-    %mp:accordion-item{:title=>"备注编辑",:bgc=>'#C1D791',:open=>"true"}
+    -accordion_item '备注编辑',:bgc=>"#C1D791",:open=>"true" do
       #note_editor.margint5.marginb5.clearfix
         %div{:style=>'background-color:#FBF2C1;color:#222;'}
           %textarea#mindmap-note-edit{:style=>'width:228px !important;display:none;'}
-    %mp:accordion-item{:title=>"互动",:bgc=>"#98BC48",:open=>"true"}
+    -accordion_item '互动',:bgc=>"#98BC48",:open=>"true" do
       .clearfix
 
         #comments
@@ -99,7 +95,7 @@
 
         =render :partial=>"/comments/form_comment"
     -if @mindmap.rank.to_i != 0
-      %mp:accordion-item{:title=>"相关导图",:bgc=>"#98BC48",:open=>"true"}
+      -accordion_item '相关导图',:bgc=>"#98BC48",:open=>"true" do
         =render :partial=>"mindmaps/parts/relative_mindmaps",:locals=>{:mindmap=>@mindmap}
 
 #mindmap-shadow

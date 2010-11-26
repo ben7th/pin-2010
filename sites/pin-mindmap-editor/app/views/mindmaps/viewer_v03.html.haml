@@ -1,5 +1,4 @@
-%mp:layout tools
-%mp:title 编辑器 v0.35 - #{escape_title(@mindmap)}
+-content_for :title, " 编辑器 v0.35 - #{escape_title(@mindmap)}"
 
 
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
@@ -28,7 +27,7 @@
     mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
       id:mindmap_id,
       loader: new pie.mindmap.JSONLoader({
-        url:'/#{APP_PREFIX}/mindmaps/' + mindmap_id
+        url:'/mindmaps/' + mindmap_id
       }),
       editmode: false,
       after_load:function(){
@@ -56,7 +55,7 @@
   }
 
   function show_comments(){
-    new Ajax.Updater("comments-list","/#{APP_PREFIX}/mindmaps/#{@mindmap.id}/comments",{
+    new Ajax.Updater("comments-list","/mindmaps/#{@mindmap.id}/comments",{
       method:'GET',
       onCreate:function(){
         $("comments-list").update('<div class="loading"></div>');
@@ -65,17 +64,14 @@
   }
 
 #mindmap-sidebar.grid_6.fright.clearfix.marginr10
-  %mp:accordion{:active_bgc=>"#E0542F",:bgc=>"#0B6138"}
-
-    %mp:accordion-item{:title=>"基本信息",:bgc=>"#98BC48",:open=>"true"}
+  -accordion_bar :bgc=>"#0B6138",:active_bgc=>"#E0542F" do
+    -accordion_item '基本信息',:bgc=>"#98BC48",:open=>"true" do
       #base_info
         =render :partial=>'mindmaps/edit/base_info'
-
-    %mp:accordion-item{:title=>"数据导出",:bgc=>'#ADC96D',:open=>"true"}
+    -accordion_item '数据导出',:bgc=>"#ADC96D",:open=>"true" do
       #mindmap-export
         =render :partial=>'mindmaps/edit/export'
-
-    %mp:accordion-item{:title=>"互动",:bgc=>"#98BC48",:open=>"true"}
+    -accordion_item '互动',:bgc=>"#98BC48",:open=>"true" do
       .clearfix
 
         #comments
@@ -84,7 +80,7 @@
 
         =render :partial=>"/comments/form_comment"
     -if @mindmap.rank.to_i != 0
-      %mp:accordion-item{:title=>"相关导图",:bgc=>"#98BC48",:open=>"true"}
+      -accordion_item '相关导图',:bgc=>"#98BC48",:open=>"true" do
         =render :partial=>"mindmaps/parts/relative_mindmaps",:locals=>{:mindmap=>@mindmap}
 #mindmap-shadow
   #mindmap-scroller

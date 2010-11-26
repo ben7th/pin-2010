@@ -10,7 +10,7 @@ class SaveOperationRecordMetal < BaseMetal
 
     opers = ActiveSupport::JSON.decode(params["operations"])
     opers.each do |op|
-      mindmap = User.find(params["req_user_id"]).mindmaps.find(op['map'])
+      mindmap = Mindmap.find(op['map'])
       mindmap.do_operation(op)
     end
     return [200, {"Content-Type" => "text/xml"}, ['ok']]
