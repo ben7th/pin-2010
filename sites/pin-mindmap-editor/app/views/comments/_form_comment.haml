@@ -1,4 +1,4 @@
-- remote_form_for([@mindmap,Comment.new],:html=>{:class=>'clearfix comment_form'},:url=>"#{URL_PREFIX}/mindmaps/#{@mindmap.id}/comments",:update=>'comments-list',:success=>'form_handle()') do |f|
+- remote_form_for([@mindmap,Comment.new],:html=>{:class=>'clearfix comment_form'},:url=>"/mindmaps/#{@mindmap.id}/comments",:update=>'comments-list',:success=>'form_handle()') do |f|
   %h3 在这里添加评论：
   =f.text_area :comment,:rows=>8,:style=>'width:224px !important;height:50px;'
   %span.ui-button-span.margint5

@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     # 计算页码，翻到最后一页
     page_num=(@mindmap.comments.count-1) / per_page + 1
     @comments=@mindmap.comments.paginate :page=>page_num,:per_page=>per_page
-    render :action=>'index'
+    render :layout=>false,:action=>'index'
   end
   
   def index

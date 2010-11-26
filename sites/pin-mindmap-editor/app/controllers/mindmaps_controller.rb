@@ -21,7 +21,7 @@ class MindmapsController < ApplicationController
     @mindmap = Mindmap.find(params[:id])
     respond_to do |format|
       format.html do
-        if @mindmap.user_id == current_user.id && params[:sure]!='1'
+        if current_user && @mindmap.user_id == current_user.id && params[:sure]!='1'
           redirect_to :action=>'edit'
         else
           if @mindmap.private
@@ -30,7 +30,7 @@ class MindmapsController < ApplicationController
           end
           @comments=@mindmap.comments.paginate :page=>params[:page],:per_page=>10
           (@mindmap.visit_counter ||= VisitCounter.new).rise
-          return (render 'viewer_v03')
+          return (render :layout=>"mindmap",:template=>'mindmaps/viewer_v03')
         end
       end
       
