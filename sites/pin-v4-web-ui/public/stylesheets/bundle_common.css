@@ -106,7 +106,7 @@ div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
 .flash-error{background:-moz-linear-gradient(-90deg,#df0024,#960014);background:-webkit-gradient(linear,0% 0,0% 100%,from(#df0024),to(#960014));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df0024',endColorstr='#960014');text-shadow:1px 1px 0 #333;color:white;}
 .flash-error span{background-image:url(/images/flashinfo/error.png);background-position:0 4px;background-repeat:no-repeat;}
 .flash-notice{background:#FFF8CC;color:#935A00;}
-.flash-success{background:-moz-linear-gradient(-90deg,#b2d24c,#97bc3d);background:-webkit-gradient(linear,0% 0,0% 100%,from(#b2d24c),to(#97bc3d));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b2d24c',endColorstr='#97bc3d');text-shadow:0 0 0 rgba(0,0,0,0.3);color:#264409;}
+.flash-success{background:-moz-linear-gradient(-90deg,#d3f95a,#97bc3d);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d3f95a),to(#97bc3d));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d3f95a',endColorstr='#97bc3d');text-shadow:1px 1px 2px #FFF;color:#264409;}
 .flash-success span{background-image:url(/images/flashinfo/success.png);background-position:0 4px;background-repeat:no-repeat;}
 .quote_content{-moz-border-radius:5px;-webkit-border-radius:5px;}
 body{margin:0;}

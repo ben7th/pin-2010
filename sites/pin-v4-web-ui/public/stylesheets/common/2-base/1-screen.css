@@ -203,10 +203,10 @@ div.uv {
   color: #935A00; }
 
 .flash-success {
-  background: -moz-linear-gradient(-90deg, #b2d24c, #97bc3d);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b2d24c), to(#97bc3d));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b2d24c',endColorstr='#97bc3d');
-  text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
+  background: -moz-linear-gradient(-90deg, #d3f95a, #97bc3d);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d3f95a), to(#97bc3d));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d3f95a',endColorstr='#97bc3d');
+  text-shadow: 1px 1px 2px #FFFFFF;
   color: #264409; }
   .flash-success span {
     background-image: url(/images/flashinfo/success.png);
