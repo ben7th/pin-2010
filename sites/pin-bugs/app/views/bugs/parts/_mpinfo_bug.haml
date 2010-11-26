@@ -5,10 +5,9 @@
     -if !!bug.attachment_file_name
       %img{:src=>"#{bug.attachment.url(:medium)}"}
 
-    .baction.fright
-      = link_to "查看详情",bug
-      = action_to "评论(#{bug.comments.count})","#",:class=>"comments_link"
-      = render :partial=>"favorites/favorites",:locals=>{:favorable=>bug}
+    .baction.fright.marginb5
+      %span.marginr5= link_to "详情",bug
+      %span.marginr5= action_to "评论(#{bug.comments.count})","#",:class=>"comments_link"
 
     - if false
       if logged_in? && current_user.is_admin?

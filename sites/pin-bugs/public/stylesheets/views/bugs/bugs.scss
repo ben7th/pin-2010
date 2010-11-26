@@ -1,0 +1,86 @@
+@import "../misc";
+
+.bugs_head{
+  @include border-radius(5px);
+  background:#006fbb;
+  padding:20px;
+  color:white;
+  text-shadow:0px 0px 5px #BED7E1;
+  font-size:16px;
+  font-weight:bold;
+  border:solid 4px #005188;
+}
+
+.intro{
+  border-right:solid 1px #242438;
+  padding-right:30px;
+}
+
+.staffs{
+  padding-left:10px;
+  dl{
+    @include border-radius(3px);
+    background:#323546;
+    margin:0 0 10px 0;
+    overflow:hidden;
+    border:solid 1px #111111;
+    padding:5px;
+    dt,dd{
+      float:left;
+      height:36px;
+      padding:0;
+      margin:0 10px 0 0;
+    }
+    dd {
+      .name{
+        font-weight:bold;
+        font-size:13px;
+      }
+      .desc{
+        color:#888;
+      }
+    }
+  }
+}
+
+.handled {
+  height:48px;
+  width:48px;
+  background:url(/images/piece/bugs.png) no-repeat 0px 0px;
+}
+.closed {
+  height:48px;
+  width:48px;
+  background:url(/images/piece/bugs.png) no-repeat -49px 0px;
+}
+
+.ua_chrome_icon_48{height:48px;width:48px;background:url(/) no-repeat;}
+.ua_ie_icon_48{height:48px;width:48px;background:url(/) no-repeat;}
+.ua_firefox_icon_48{height:48px;width:48px;background:url(/) no-repeat;}
+.ua_safari_icon_48{height:48px;width:48px;background:url(/) no-repeat;}
+.ua_unknown_48{height:48px;width:48px;background:url(/) no-repeat;}
+
+.bug-info{
+  border:1px solid #111111;
+  background:#161621;
+  @include border-radius(5px);
+  margin:5px -6px;
+  .meta {
+    background-image:url(/images/piece/metabar.gif);
+    height:33px;
+    line-height:33px;
+    overflow:hidden;
+    padding:0 6px;
+    border-bottom:solid 1px #111;
+    background:#0D0D1A;
+    @include border-radius(5px 5px 0 0);
+    .username{color:#fff !important;float:left;margin:0 5px 0 0;}
+  }
+  
+  .date{color:#777 !important;}
+  .tiny{height:20px;width:20px;border:1px solid #C8C8C8;margin-top:5px;}
+  .bbody{
+    padding:0 6px;overflow:hidden;color:white;
+    p{margin:12px 0 !important;}
+  }
+}

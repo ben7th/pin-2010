@@ -147,43 +147,46 @@ ul.mplist.attachments.list li{border-top:solid 1px #eee;padding:3px;margin:0 5px
 
 /*标准列表元件*/
 ul.mplist{
-  li{
-    &.mpli{
-      border:solid 1px #111;
-      border-bottom:none;
-      background-color:#222433;
-      color:#BBBBBB;
-      padding:6px;
-      
-      &:nth-child(even){
-        background-color:#323546;
+  li.mpli{
+    color:#BBBBBB;
+    padding:6px;
+
+    div.info_div{
+      overflow:visible;position:relative;
+      div.checkbox{position:absolute;height:100%;left:-20px;top:0px;}
+      div.checkbox input{margin-top:8px;}
+      div.decorate{position:absolute;left:-70px;}
+      &.nb{border-left:none !important;margin-left:70px !important;}
+      &.unread{
+        .mt{font-weight:bold;}
+        .members{font-weight:bold;}
       }
-      
-      &:first-child{
-        @include border-radius-side(top, left, 5px);
-        @include border-radius-side(top, right, 5px);
-      };
-      
-      &:last-child{
-        @include border-radius-side(bottom, left, 5px);
-        @include border-radius-side(bottom, right, 5px);
-        border-bottom:solid 1px #111;
-      };
-      
-      div.info_div{
-        overflow:visible;position:relative;
-        div.checkbox{position:absolute;height:100%;left:-20px;top:0px;}
-        div.checkbox input{margin-top:8px;}
-        div.decorate{position:absolute;left:-70px;}
-        &.nb{border-left:none !important;margin-left:70px !important;}
-        &.unread{
-          .mt{font-weight:bold;}
-          .members{font-weight:bold;}
-        }
-        .has_draft{color:#CC0000;}
-      }
-      &.checkbox_selected div.info_div{background-color: #5485BD !important;color:white !important;}
+      .has_draft{color:#CC0000;}
     }
+    &.checkbox_selected div.info_div{background-color: #5485BD !important;color:white !important;}
+  }
+}
+
+ul.mplist.zebra{
+  li.mpli{
+    border:solid 1px #111;
+    border-bottom:none;
+    background-color:#222433;
+
+    &:nth-child(even){
+      background-color:#323546;
+    }
+
+    &:first-child{
+      @include border-radius-side(top, left, 5px);
+      @include border-radius-side(top, right, 5px);
+    };
+
+    &:last-child{
+      @include border-radius-side(bottom, left, 5px);
+      @include border-radius-side(bottom, right, 5px);
+      border-bottom:solid 1px #111;
+    };
   }
 }
 

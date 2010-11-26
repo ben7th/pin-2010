@@ -1,7 +1,6 @@
 <% mindpin_form_for bug,:html=>{:class=>'common_form',:multipart=>true,:target=>"upload_frame"} do |f|%>
   <span class="font14">请将您的意见写在这里</span>
   <%=f.text_area :content,:show_label=>false,:rel=>"adapt[3]"%>
-  <%=f.file_field :attachment%>
   <% if !logged_in? %>
     <%= show_simple_captcha(:label=>"请输入验证码",:object=>"bug") %>
   <% end %>

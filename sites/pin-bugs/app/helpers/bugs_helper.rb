@@ -19,7 +19,7 @@ module BugsHelper
   end
 
   def bug_commiter_logo(bug)
-    logo(bug.user,:tiny)
+    logo(bug.user,:tiny) if !bug.user.blank?
   end
 
   def bug_attachment(bug)
