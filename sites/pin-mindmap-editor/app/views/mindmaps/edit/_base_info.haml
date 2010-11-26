@@ -8,16 +8,9 @@
       %span.quiet 创建于
       =created_at @mindmap
 
-- if logged_in? && @mindmap.user_id == current_user.id
+- if has_edit_rights?(@mindmap,current_user)
   .font12.normal
-    %mp:show-box{:box_id=>"paramsedit_mindmap_#{@mindmap.id}"}
-      [修改]
-    %mp:box{:id=>"paramsedit_mindmap_#{@mindmap.id}"}
-      %mp:box-title 修改#{escape_title(@mindmap)}
-      %mp:box-content
-        = render :partial=>"/mindmaps/form/form",:locals=>{:mindmap=>@mindmap,:new=>false,:button_name=>"确认以上修改",:form_id=>"edit_mindmap_form_#{@mindmap.id}"}
-      %mp:box-button{:onsuccess=>"update_mindmap_property", :value=>"保存修改", :close_box=>'true', :form_id=>"edit_mindmap_form_#{@mindmap.id}",:ajax_list_id=>"mplist_mindmaps",:ajax=>'iframe'}
-
+    =link_to_remote "[修改]",:url=>paramsedit_mindmap_path(@mindmap),:method=>:get
 :javascript
   function update_mindmap_property(json){
     $$("#mindmap-info h4.title").each(function(title){title.update(json.title)});

@@ -39,8 +39,8 @@ module SessionsMethods
   def destroy_cookie_token
     #cookies.delete :logged_in_for_plugin # 清除插件cookie
     #cookies.delete :token
-    cookies[:logged_in_for_plugin] = {:value=>nil,:domain=>'.mindpin.com'}
-    cookies[:token] = {:value=>nil,:domain=>'.mindpin.com'}
+    cookies[:logged_in_for_plugin] = {:value=>nil,:domain=>'mindpin.com'}
+    cookies[:token] = {:value=>nil,:domain=>'mindpin.com'}
   end
 
   def destroy_online_record(user)

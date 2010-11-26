@@ -170,7 +170,8 @@ class Mindmap < ActiveRecord::Base
     attrs_mindmap.delete(:import_file)
 
     mindmap = Mindmap.new(attrs_mindmap)
-    mindmap.user_id = user.id
+    id = user ? user.id : 0
+    mindmap.user_id = id
 
     if mindmap.valid? && import_file
       mindmap.import_from_file_and_save(import_file)

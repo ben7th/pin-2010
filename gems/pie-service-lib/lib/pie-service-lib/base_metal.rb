@@ -45,11 +45,18 @@ class BaseMetal
       action = self._get_action(route)
 
       match = env["REQUEST_URI"].match(regexp)
-      method_match = env['REQUEST_METHOD'] == method
+      method_match = (self.request_method(env).upcase == method.upcase)
 
       return {:url_match=>match,:action=>action,:env=>env} if (match && method_match)
     end
     return false
+  end
+
+  # 模拟rails针对浏览器ajax提交进行的hack，以支持put等请求类型
+  def self.request_method(env)
+  	params = Rack::Request.new(env).params
+  	return params['_method'] if !params['_method'].nil?
+  	return env['REQUEST_METHOD']
   end
 
   # self.routes可能有两种情况

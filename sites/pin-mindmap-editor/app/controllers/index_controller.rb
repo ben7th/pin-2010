@@ -24,6 +24,9 @@ class IndexController < ApplicationController
       # 导图
       @mindmaps = Mindmap.search(@query,:page => params[:page]||1, :per_page => 10,:match_mode => :boolean)
 
+      # 如果全文索引服务有问题，这个会抛异常
+      @mindmaps.each
+      
     rescue Exception => ex
       @sphinx_error = '全文搜索服务工作异常，已经切换至普通搜索'
       @mindmaps=Mindmap.paginate(:conditions=>['title like ?',"%#{@query}%"],:page => params[:page]||1, :per_page => 10)

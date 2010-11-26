@@ -10,18 +10,18 @@ class MindmapsController < ApplicationController
   end
 
   def new
-    @mindmap = current_user.mindmaps.new
+    @mindmap = Mindmap.new
   end
 
   def import
-    @mindmap = current_user.mindmaps.new
+    @mindmap = Mindmap.new
   end
 
   def show
     @mindmap = Mindmap.find(params[:id])
     respond_to do |format|
       format.html do
-        if @mindmap.user_id == current_user.id && params[:sure]!='1'
+        if has_edit_rights?(@mindmap,current_user) && params[:sure]!='1'
           redirect_to :action=>'edit'
         else
           if @mindmap.private
@@ -30,7 +30,7 @@ class MindmapsController < ApplicationController
           end
           @comments=@mindmap.comments.paginate :page=>params[:page],:per_page=>10
           (@mindmap.visit_counter ||= VisitCounter.new).rise
-          return (render 'viewer_v03')
+          return (render :layout=>"mindmap",:template=>'mindmaps/viewer_v03')
         end
       end
       
@@ -107,34 +107,32 @@ class MindmapsController < ApplicationController
 
   def edit
     @mindmap = Mindmap.find(params[:id])
-    if @mindmap.user_id != current_user.id
-      return redirect_to :action=>'show',:format=>'html'
+    if has_edit_rights?(@mindmap,current_user)
+      return render :layout=>"mindmap",:template=>'mindmaps/editor_v03'
     end
-    render :layout=>"mindmap",:template=>'mindmaps/editor_v03'
+    redirect_to :action=>'show',:format=>'html'
   end
 
   def create
     @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
     if @mindmap
+      if !current_user
+        add_nobody_mindmap_to_cookies(@mindmap)
+      end
 #      @mindmap.to_share if params[:share]
-       redirect_to user_mindmaps_path(current_user)
+       return redirect_to edit_mindmap_path(@mindmap)
+    end
+    @mindmap = Mindmap.new
+    if params[:import] == "true"
+      render :action=> :import
+    else
+      render :action=> :new
     end
   end
 
   def update
     @mindmap = Mindmap.find(params[:id])
-    if @mindmap.user_id == current_user.id
-      if params[:is_import]=='true'
-        # 重新导入
-        @mindmap.updated_at = Time.now
-        if !params[:import][:file].blank? && @mindmap.import_from_file_and_save(params[:import][:type],params[:import][:file])
-          flash[:notice] = '思维导图已覆盖导入'
-          redirect_to [current_user,:mindmaps]
-        else
-          flash[:error]="思维导图重新导入失败，请检查文件格式是否正确"
-          render :action => "reimport" ,:id=>@mindmap.id
-        end
-      else
+    if has_edit_rights?(@mindmap,current_user)
         @mindmap.update_attributes!(params[:mindmap])
         responds_to_parent do
           render_ui do |ui|
@@ -142,15 +140,16 @@ class MindmapsController < ApplicationController
           end
         end
         return
-      end
     else
       render :text=>'没有权限',:status=>401
     end
   end
   
   def paramsedit
-    @mindmap = current_user.mindmaps.find(params[:id])
-    render_ui.fbox :show,:title=>"编辑信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
+    @mindmap = Mindmap.find(params[:id])
+    if has_edit_rights?(@mindmap,current_user)
+      return render_ui.fbox :show,:title=>"编辑信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
+    end
   end
 
   # DELETE /mindmaps/1

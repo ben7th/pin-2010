@@ -42,19 +42,24 @@ img.logo-ss{padding:1px;float:none;margin:0;width:32px;height:32px;display:inlin
 img.logo-mid{border:solid 1px #eee;padding:1px;float:none;margin:0;width:80px;height:80px;display:inline-block;}
 
 /*用户头像*/
-div.uv{width:60px;overflow:hidden;text-align:center;display:inline-block;margin-bottom:5px;}
-div.uv div.l{padding:0 5px;height:52px;}
-div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
+div.uv{
+  width:60px;overflow:hidden;text-align:center;display:inline-block;margin-bottom:5px;
+  div.l{padding:0 5px;height:52px;}
+  div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
+}
 
 /*图片居中的容器*/
 .image_center_div{
-  text-align:center;overflow:hidden;position:relative;display:table-cell;vertical-align:middle;}
-.image_center_div p{
-  position:static;*position:absolute;
-  top:50%;vertical-align:middle;margin:0 !important;}
-.image_center_div p img{
-  position:static;*position:relative;
-  top:-50%;left:-50%;}
+  text-align:center;overflow:hidden;position:relative;display:table-cell;vertical-align:middle;
+  p{
+    position:static;*position:absolute;
+    top:50%;vertical-align:middle;margin:0 !important;
+    img{
+      position:static;*position:relative;
+      top:-50%;left:-50%;
+    }
+  }
+}
   
 /*other widget*/
 
@@ -65,14 +70,46 @@ div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
 .op{color:#3274D0;font-size:14px;}
 .op:hover{color:white;font-size:14px;background-color:#3274D0;}
 
-.flash-error{color:white;background-color:red;padding:3px 8px;
-  -moz-border-radius:5px;-webkit-border-radius:5px;
+
+.flash-error,.flash-notice,.flash-success{
+  @include border-radius(5px);
+  padding:3px 8px;
+  margin-bottom:15px;
+  overflow:hidden;
+  span{
+    line-height:32px;
+    height:32px;
+    padding-left:27px;
+    display:block;
+    font-size:14px;
+    overflow:hidden;
+  }
 }
-.flash-notice{background:#FFF8CC;color:#935A00;padding:3px 8px;
-  -moz-border-radius:5px;-webkit-border-radius:5px;
+
+.flash-error{
+  @include gradient(#DF0024,#960014);
+  text-shadow:1px 1px 2px #333333;
+  color:white;
+  span{
+    background-image:url(/images/flashinfo/error.png);
+    background-position:0 4px;
+    background-repeat:no-repeat;
+  }
 }
-.flash-success{background:#D5FE62;color:#264409;padding:3px 8px;
-  -moz-border-radius:5px;-webkit-border-radius:5px;
+
+.flash-notice{
+  background:#FFF8CC;
+  color:#935A00;
+}
+.flash-success{
+  @include gradient(#D3F95A,#97BC3D);
+  text-shadow:1px 1px 2px #FFFFFF;
+  color:#264409;
+  span{
+    background-image:url(/images/flashinfo/success.png);
+    background-position:0 4px;
+    background-repeat:no-repeat;
+  }
 }
 
 .quote_content{-moz-border-radius:5px;-webkit-border-radius:5px;}
