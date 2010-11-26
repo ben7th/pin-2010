@@ -125,16 +125,14 @@ div.uv {
   text-align: center;
   display: inline-block;
   margin-bottom: 5px; }
-
-div.uv div.l {
-  padding: 0 5px;
-  height: 52px; }
-
-div.uv div.n {
-  margin-top: 3px;
-  width: 52px;
-  overflow: hidden;
-  padding: 0 5px; }
+  div.uv div.l {
+    padding: 0 5px;
+    height: 52px; }
+  div.uv div.n {
+    margin-top: 3px;
+    width: 52px;
+    overflow: hidden;
+    padding: 0 5px; }
 
 /*图片居中的容器*/
 .image_center_div {
@@ -143,19 +141,17 @@ div.uv div.n {
   position: relative;
   display: table-cell;
   vertical-align: middle; }
-
-.image_center_div p {
-  position: static;
-  *position: absolute;
-  top: 50%;
-  vertical-align: middle;
-  margin: 0 !important; }
-
-.image_center_div p img {
-  position: static;
-  *position: relative;
-  top: -50%;
-  left: -50%; }
+  .image_center_div p {
+    position: static;
+    *position: absolute;
+    top: 50%;
+    vertical-align: middle;
+    margin: 0 !important; }
+    .image_center_div p img {
+      position: static;
+      *position: relative;
+      top: -50%;
+      left: -50%; }
 
 /*other widget*/
 .mp-user-card {
@@ -176,26 +172,46 @@ div.uv div.n {
   font-size: 14px;
   background-color: #3274D0; }
 
-.flash-error {
-  color: white;
-  background-color: red;
-  padding: 3px 8px;
+.flash-error, .flash-notice, .flash-success {
+  border-radius: 5px;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
+  -webkit-border-radius: 5px;
+  padding: 3px 8px;
+  margin-bottom: 15px;
+  overflow: hidden; }
+  .flash-error span, .flash-notice span, .flash-success span {
+    line-height: 32px;
+    height: 32px;
+    padding-left: 27px;
+    display: block;
+    font-size: 14px;
+    overflow: hidden; }
+
+.flash-error {
+  background: -moz-linear-gradient(-90deg, #df0024, #960014);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#df0024), to(#960014));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df0024',endColorstr='#960014');
+  text-shadow: 1px 1px 0 #333;
+  color: white; }
+  .flash-error span {
+    background-image: url(/images/flashinfo/error.png);
+    background-position: 0 4px;
+    background-repeat: no-repeat; }
 
 .flash-notice {
   background: #FFF8CC;
-  color: #935A00;
-  padding: 3px 8px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
+  color: #935A00; }
 
 .flash-success {
-  background: #D5FE62;
-  color: #264409;
-  padding: 3px 8px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
+  background: -moz-linear-gradient(-90deg, #b2d24c, #97bc3d);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b2d24c), to(#97bc3d));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b2d24c',endColorstr='#97bc3d');
+  text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
+  color: #264409; }
+  .flash-success span {
+    background-image: url(/images/flashinfo/success.png);
+    background-position: 0 4px;
+    background-repeat: no-repeat; }
 
 .quote_content {
   -moz-border-radius: 5px;

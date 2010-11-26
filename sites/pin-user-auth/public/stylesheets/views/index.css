@@ -24,21 +24,6 @@ form.login-form .form_actions {
     display: none; }
   .dialog form .fieldWithErrors .text, .dialog form .fieldWithErrors textarea, .pad form .fieldWithErrors .text, .pad form .fieldWithErrors textarea {
     background-color: #F39D77; }
-  .dialog .flash-error, .pad .flash-error {
-    background: -moz-linear-gradient(-90deg, #df0024, #960014);
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#df0024), to(#960014));
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df0024',endColorstr='#960014');
-    text-shadow: 1px 1px 0 #333;
-    margin-bottom: 15px; }
-    .dialog .flash-error span, .pad .flash-error span {
-      background-image: url(/images/piece/notice-error-icon.png);
-      background-position: 0 4px;
-      background-repeat: no-repeat;
-      font-size: 14px;
-      line-height: 32px;
-      height: 32px;
-      padding-left: 27px;
-      display: block; }
 
 .dialog {
   background: url(/images/index/dialog-login-background.png) repeat-x; }
