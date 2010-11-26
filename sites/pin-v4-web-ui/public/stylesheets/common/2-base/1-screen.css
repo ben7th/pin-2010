@@ -191,7 +191,7 @@ div.uv {
   background: -moz-linear-gradient(-90deg, #df0024, #960014);
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#df0024), to(#960014));
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df0024',endColorstr='#960014');
-  text-shadow: 1px 1px 0 #333;
+  text-shadow: 1px 1px 2px #333;
   color: white; }
   .flash-error span {
     background-image: url(/images/flashinfo/error.png);
