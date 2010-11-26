@@ -21,4 +21,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  include MindmapRightsHelper
+  before_filter :claim_nobody_mindmap_from_current_cookies
+  def claim_nobody_mindmap_from_current_cookies
+    if current_user
+      mindmap_ids = get_nobody_mindmap_ids_from_cookies
+      mindmap_ids.each do |id|
+        mindmap = Mindmap.find_by_id(id)
+        if mindmap && mindmap.user_id == 0
+          mindmap.user = current_user
+          mindmap.save
+        end
+      end
+      clear_nobody_mindmap_ids_from_cookies
+    end
+  end
+
 end

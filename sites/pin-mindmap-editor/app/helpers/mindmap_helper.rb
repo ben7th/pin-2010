@@ -5,7 +5,15 @@ module MindmapHelper
   end
 
   def userlink(mindmap)
-    link_to "<mp:user-name userid='#{mindmap.user_id}'/>","/users/#{mindmap.user_id}",:class=>'username'
+    user_id = mindmap.user_id
+    user = mindmap.user
+    title = ""
+    title = case true
+    when user_id == 0 then "匿名"
+    when !!user then user.name
+    when !!user_id && !user then "[用户已删除]"
+    end
+    link_to title,"#",:class=>'username'
   end
 
   def thumb_image(mindmap)
