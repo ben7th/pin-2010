@@ -4,7 +4,7 @@
   .marginb5
     =user_info(current_user)
 
-- if current_user && (@user == current_user)
+- if (current_user && (@user == current_user)) || !current_user
   .font14
     .marginb3.bold
       %em >
@@ -14,7 +14,7 @@
       %em >
       =link_to "导入导图文件",import_mindmaps_path
 
-    -if Mindmap.has_too_many_zero_mindmap?(current_user)
+    -if current_user && Mindmap.has_too_many_zero_mindmap?(current_user)
       %div 你的0分导图较多，建议经常清理。
 
 :javascript

@@ -8,7 +8,7 @@
       %span.quiet 创建于
       =created_at @mindmap
 
-- if logged_in? && @mindmap.user_id == current_user.id
+- if has_edit_rights?(@mindmap,current_user)
   .font12.normal
     =link_to_remote "[修改]",:url=>paramsedit_mindmap_path(@mindmap),:method=>:get
 :javascript

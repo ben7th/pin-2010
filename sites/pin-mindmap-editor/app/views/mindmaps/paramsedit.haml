@@ -1,16 +1,14 @@
-- mapid = mindmap.id
+- mapid = @mindmap.id
 
-- form_for(mindmap,:html =>{:id=>"edit_mindmap_form_#{mapid}",:target=>"upload_frame",:multipart => true,:class=>"common_form"}) do |f|
+- form_for(@mindmap,:html =>{:id=>"edit_mindmap_form_#{mapid}",:multipart => true,:class=>"common_form"}) do |f|
   %p
     =f.label :title,'为导图命名'
     =f.text_field :title,:size=>32,:class=>'text'
 
-    =hidden_field_tag :fbox,"true"
-
   %p
     %label 自定义图示
     .left
-      =logo mindmap
+      =logo @mindmap
     .left
       %span{:class=>"desc"} (32 x 32 像素)
 

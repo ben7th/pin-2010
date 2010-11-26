@@ -30,7 +30,7 @@
 
         .detail-operation.fleft.marginr5
           .infoedit-link
-          =link_to_remote "属性",:url=>paramsedit_mindmap_path(mindmap),:method=>:get
+          =link_to "属性",paramsedit_mindmap_path(mindmap)
 
         .detail-operation.fleft.marginr5
           .export-link
@@ -39,10 +39,6 @@
         .detail-operation.fleft.marginr5
           .clone-link
           =link_to_remote "克隆",:url=>clone_form_mindmap_path(mindmap),:method=>:get
-
-        .detail-operation.fleft.marginr5
-          - link_to_remote "转发讨论",:url=>""
-          - render :partial=>'mindmaps/edit/box_convert_bundle',:locals=>{:mindmap=>mindmap}
 
         .fleft.marginr5
           = link_to "<div class='edit-link'></div><div>编辑</div>",edit_mindmap_path(mindmap),:target=>'_blank'

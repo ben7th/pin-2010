@@ -1,5 +1,9 @@
 .grid_13.push_1
   -form_tag create_note_path,:method =>:post,:id=>"note_form" do
+    %div
+      备注
+      %br
+      =text_area_tag "note[description]"
     .notefiles
       =render :partial=>"notes/parts/notefile_form",:locals=>{:name=>"#{NoteRepository::NOTE_FILE_PREFIX}1",:text=>""}
     =link_to "增加文本片段",'#',:class=>"new_notefile"
@@ -9,8 +13,9 @@
   .top-bar.clearfix
     .fleft.font14.bold note 列表
   %div
-    -current_user.notes.each do |note|
-      %div=link_to note.title,show_note_path(:note_id=>note.id)
+    -if current_user
+      -current_user.notes.each do |note|
+        %div=link_to note.title,show_note_path(:note_id=>note.id)
 
 -content_for :javascripts do
   = javascript_include_tag 'views/notefile'
