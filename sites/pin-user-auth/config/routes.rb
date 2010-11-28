@@ -42,4 +42,7 @@ ActionController::Routing::Routes.draw do |map|
   # --杂项
   map.concat '/concat',:controller=>'misc',:action=>'concat'
   map.plugins '/plugins',:controller=>'misc',:action=>'plugins'
+
+  # --旧版重定向
+  map.old_map_redirect '/app/mindmap_editor/mindmaps/:id',:controller=>'misc',:action=>'old_map_redirect'
 end
