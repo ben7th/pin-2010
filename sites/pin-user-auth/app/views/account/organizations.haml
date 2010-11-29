@@ -1,0 +1,29 @@
+-require_css 'views/organizations'
+
+.grid_15.alpha
+  =flash_info
+  .organization-list
+    -mplist Organization.of_user(current_user),:for=>Organization do |org|
+      .fleft
+        .name
+          =link_to org.name,"/organizations/#{org.id}"
+        .members
+          =org.members.count
+          个成员
+      .fright.actions
+        .leave
+          =minibutton '<span class="icon"></span>退出',"/organizations/#{org.id}/leave",:method=>'DELETE',:confirm=>'你确定要退出这个团队吗？'
+
+
+  .create-organization
+    =minibutton '创建新团队',pin_url_for('pin-user-auth','organizations/new')
+
+.grid_8.fright.omega
+  .organization-features
+    .intro
+      团队功能帮助您管理更多联系人，使您更加方便地开展群体工作。
+    .rule
+    %ul.desc
+      %li 提供团队主页，供您跟踪团队活动
+      %li 易用的成员管理，快速联系
+      %li 帮助您进行话题，资源汇总

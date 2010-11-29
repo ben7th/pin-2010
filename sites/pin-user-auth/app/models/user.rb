@@ -156,5 +156,5 @@ class User < UserBase
 
   has_many :workspaces
 
-  include Organization::UserMethods
+  include Member::UserMethods
 end

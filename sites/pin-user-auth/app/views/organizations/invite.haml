@@ -1,28 +1,25 @@
 -require_css 'views/organizations'
 
-.grid_11.alpha
-  %h3 向团队 #{@organization.name} 添加成员
-  .member-block
-    .member-list
-      -mplist [@organization.creator] + @organization.members,:for=>Member do |member|
-        .clearfix
-          .member-logo
-            =avatar member.email,:tiny
-          .member-email
-            =member.email
-          .delete
-            -if member.email != @organization.creator.email
-              =link_to '删除',"/organizations/#{@organization.id}/members/#{member.id}",:method=>'DELETE'
-
-    .add-member-form
-      - form_tag "/organizations/#{@organization.id}/members" do
-        .field
-          %span.marginr5 邮箱
-          = text_field_tag 'member[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5'
-          = submit_tag "添加"
+.topl
+  .grid_11.alpha
+    %h3 向团队 #{@organization.name} 添加成员
+    =render :partial=>'members/parts/member_manage'
 
     .goto-organization-page
       =minibutton '好了，我要去访问团队主页',"/organizations/#{@organization.id}"
 
-.grid_11.push_1
-  说明 blah blah
+  .grid_11.omega.fright
+    %h3 团队成员说明
+    %p.margint10
+      团队成员分为
+      %span.loud>管理员
+      和
+      %span.loud>普通成员
+    %p
+      管理员具有特定的权限，能够向团队添加新的成员，或者从团队里移除其他成员。
+      团队至少有一名管理员，换言之，当你是团队里唯一的管理员时，你不能退出团队。
+    %p
+      团队的创建者会自动成为团队的第一个管理员。
+    %p
+      目前我们并不区分团队的创建者和后来设置的管理员，任何管理员都可以进行相同的操作。
+      甚至移除其他的管理员，甚至删除这个团队。

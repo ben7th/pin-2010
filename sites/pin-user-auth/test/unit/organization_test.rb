@@ -13,6 +13,8 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal member.organization,ori
     assert_equal member.email,lifei.email
     assert ori.owners.include?(lifei)
+
+    assert Organization.owner_of_user(lifei).include?(ori)
   end
 
 end

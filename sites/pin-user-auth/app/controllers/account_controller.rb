@@ -70,5 +70,10 @@ class AccountController < ActionController::Base
       @failure = true
     end
   end
+
+  # 团队首页
+  def organizations
+    
+  end
   
 end

@@ -1,0 +1,9 @@
+-require_css 'views/organizations'
+
+.topl
+  .grid_11.alpha
+    %h3 向团队 #{@organization.name} 添加成员
+    =render :partial=>'members/parts/member_manage'
+
+  .grid_11.omega.fright
+    %h3 团队成员说明

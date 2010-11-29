@@ -1,0 +1,14 @@
+-require_css 'views/organizations'
+
+.grid_15.alpha
+  =flash_info
+  -mindpin_form_for @organization do |f|
+    = f.text_field :name
+    = f.text_field :email,:desc=>'团队的联系信箱'
+    = f.submit "修改团队信息"
+
+  .delete_organization
+    .fleft
+      %h3 删除团队
+      .quiet 团队删除后，所有相关的信息都不能恢复，请谨慎操作
+      =minibutton '我要删除这个团队',"/organizations/#{@organization.id}",:method=>'DELETE',:confirm=>'团队删除后，所有相关的信息都不能恢复，确定要删除吗？'

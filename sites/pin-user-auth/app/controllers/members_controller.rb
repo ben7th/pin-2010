@@ -12,16 +12,22 @@ class MembersController < ApplicationController
 
   def create
     @member = @organization.members.new(params[:member])
-    return redirect_to_invite if @organization.has_email?(params[:member][:email])
     if @member.save
-      return redirect_to_invite
+      render_ui do |ui|
+        ui.mplist :insert,@member
+        ui.page << %~
+          jQuery('.add-member-failure-info').html('');
+          jQuery('#member_email').attr('value','');
+        ~
+      end
+      return 
     end
-    redirect_to_invite
+    render_ui.page << "jQuery('.add-member-failure-info').html('#{@member.errors.first[1]}')"
   end
 
   def destroy
     if @member.destroy
-      redirect_to_invite
+      render_ui.mplist :remove,@member
     end
   end
 
