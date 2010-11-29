@@ -1,0 +1,28 @@
+-require_css 'views/organizations'
+
+.grid_11.alpha
+  %h3 向团队 #{@organization.name} 添加成员
+  .member-block
+    .member-list
+      -mplist [@organization.creator] + @organization.members,:for=>Member do |member|
+        .clearfix
+          .member-logo
+            =avatar member.email,:tiny
+          .member-email
+            =member.email
+          .delete
+            -if member.email != @organization.creator.email
+              =link_to '删除',"/organizations/#{@organization.id}/members/#{member.id}",:method=>'DELETE'
+
+    .add-member-form
+      - form_tag "/organizations/#{@organization.id}/members" do
+        .field
+          %span.marginr5 邮箱
+          = text_field_tag 'member[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5'
+          = submit_tag "添加"
+
+    .goto-organization-page
+      =minibutton '好了，我要去访问团队主页',"/organizations/#{@organization.id}"
+
+.grid_11.push_1
+  说明 blah blah

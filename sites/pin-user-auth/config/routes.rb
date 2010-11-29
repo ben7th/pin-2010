@@ -38,7 +38,9 @@ ActionController::Routing::Routes.draw do |map|
   map.send_activation_mail "/email/send_activation_mail",:controller=>"account",:action=>"send_activation_mail"
 
   # 团队
-  map.resources :organizations
+  map.resources :organizations,:member=>{:invite=>:get,:settings=>:get} do |organization|
+    organization.resources :members
+  end
 
   # 激活用户
   map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'

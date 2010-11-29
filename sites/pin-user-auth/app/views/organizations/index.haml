@@ -1,0 +1,22 @@
+-require_css 'views/organizations'
+
+.grid_15.alpha
+  .organization-list
+    -mplist Organization.all,:for=>Organization do |org|
+      .fleft
+        .name
+          =link_to org.name,"/organizations/#{org.id}"
+        .members
+          =org.members.count
+          个成员
+      .fright.actions
+        =minibutton '退出',"/organizations/#{org.id}/leave",:method=>'DELETE',:confirm=>'你确定要退出这个团队吗？'
+
+
+  .create-organization
+    =minibutton '创建新团队',pin_url_for('pin-user-auth','organizations/new')
+
+.grid_8.fright
+  .organization-features
+    .intro
+      团队功能将帮助您更加方便地开展群体协同工作
