@@ -9,7 +9,6 @@ class IndexController < ApplicationController
 
   def _user_page
     @workspaces = current_user.workspaces
-    @apps = App.all
   end
 
   def updating
