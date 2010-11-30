@@ -44,6 +44,12 @@ class OrganizationsController < ApplicationController
     redirect_to account_organizations_path
   end
 
+  def destroy
+    if @organization.destroy
+      redirect_to account_organizations_path
+    end
+  end
+
   def invite;end
 
   def show;end

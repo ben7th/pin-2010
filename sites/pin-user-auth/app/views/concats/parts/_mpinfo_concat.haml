@@ -1,0 +1,7 @@
+.clearfix
+  .member-logo
+    =avatar concat.email,:tiny
+  .member-email
+    =concat.email
+  .delete
+    =link_to_remote '删除',:url=>"/concats/#{concat.id}",:method=>'DELETE'

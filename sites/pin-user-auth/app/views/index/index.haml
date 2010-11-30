@@ -16,7 +16,7 @@
           %dt=@workspaces.count
           %dd 工作空间
         %dl
-          %dt=@apps.count
+          %dt=1
           %dd 应用组件
   .clearfix.hide
     .push_12
@@ -38,18 +38,18 @@
     .top-bar.clearfix
       .fleft.font14.bold.marginl5
         应用组件
-        %span.quiet (#{@apps.count})
+        %span.quiet (1)
     .app-list.margint5
-      -mplist @apps,:for=>App do |app|
-        .padding5
-          .fleft
-            - link_to pin_url_for('pin-app-adapter',"/app/#{app.name}") do
-              .rclogo=logo app
-          .fleft
-            .clearfix
-              .fleft.marginl10.bold.font14
-                = link_to app.title,pin_url_for('pin-app-adapter',"/app/#{app.name}")
-              .fleft.marginl10.loud.lh22
-                由 #{app.developer} 开发
-            .clearfix.marginl10.margint10.grid_8
-              = app.subject
+      .padding5
+        .fleft
+          - link_to pin_url_for('pin-mindmap-editor') do
+            .rclogo
+              %img{:src=>pin_url_for('pin-mindmap-editor','/images/mindmap_logo.png'),:class=>'logo'}
+        .fleft
+          .clearfix
+            .fleft.marginl10.bold.font14
+              = link_to '思维导图编辑器',pin_url_for('pin-mindmap-editor')
+            .fleft.marginl10.loud.lh22
+              由 MindPin Team 开发
+          .clearfix.marginl10.margint10.grid_8
+            在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等任务。 

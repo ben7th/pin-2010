@@ -5,7 +5,6 @@
 
   %li{:href=>"#{mindmaps_path}",:active=>"#{active=='公开导图' ? 'true' : ''}"}公开导图
 
-  %li{:href=>"#{intro_path}",:active=>"#{active=='工具简介' ? 'true': ''}"} 工具简介
   -if logged_in?
     %li{:href=>"#{user_tendency_path(current_user)}",:active=>"#{active=='趋势与统计' ? 'true': ''}"} 趋势与统计
 

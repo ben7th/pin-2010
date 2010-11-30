@@ -13,6 +13,7 @@ class MembersController < ApplicationController
   def create
     @member = @organization.members.new(params[:member])
     if @member.save
+      Activity.create(:operator=>current_user.email,:location=>@organization,:target_type=>"User", :target_id=>@member.user.id,:event=>Activity::ADD_ORG_MEMBER)
       render_ui do |ui|
         ui.mplist :insert,@member
         ui.page << %~
@@ -27,6 +28,7 @@ class MembersController < ApplicationController
 
   def destroy
     if @member.destroy
+      Activity.create(:operator=>current_user.email,:location=>@organization,:target_type=>"User", :target_id=>@member.user.id,:event=>Activity::DELETE_ORG_MEMBER)
       render_ui.mplist :remove,@member
     end
   end

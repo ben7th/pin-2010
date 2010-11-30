@@ -11,4 +11,5 @@
     .fleft
       %h3 删除团队
       .quiet 团队删除后，所有相关的信息都不能恢复，请谨慎操作
-      =minibutton '我要删除这个团队',"/organizations/#{@organization.id}",:method=>'DELETE',:confirm=>'团队删除后，所有相关的信息都不能恢复，确定要删除吗？'
+      .margint10
+        =minibutton '我要删除这个团队',"/organizations/#{@organization.id}",:method=>'DELETE',:confirm=>'团队删除后，所有相关的信息都不能恢复，确定要删除吗？'
