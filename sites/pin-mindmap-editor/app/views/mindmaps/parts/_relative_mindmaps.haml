@@ -1,5 +1,6 @@
 -mindmap.major_words.each do |w|
   %span= w
 -mindmap.relative_mindmaps.each do |m|
-  %div
-    =link_to m.title,m,:target=>"_blank"
+  -if m
+    %div
+      =link_to m.title,m,:target=>"_blank"
