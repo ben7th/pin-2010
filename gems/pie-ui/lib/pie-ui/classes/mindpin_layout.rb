@@ -6,6 +6,7 @@ class MindpinLayout
   attr_accessor :head_class
   attr_accessor :put_js_in_head
   attr_accessor :welcome_string
+  attr_accessor :tabs_path
 
   module ControllerFilter
     def self.included(base)   
@@ -21,6 +22,11 @@ class MindpinLayout
         @mindpin_layout = MindpinLayout.new
         return true
       end
+
+      def set_tabs_path(path)
+        @mindpin_layout.tabs_path = path
+      end
+
     end
   end
 

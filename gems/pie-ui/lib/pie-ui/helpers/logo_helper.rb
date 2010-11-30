@@ -6,10 +6,16 @@ module PieUi
 
     def logo(model, style=nil, id=nil)
       style_str = style.nil? ? '':"_#{style}"
+      alt = get_visable_name(model)
+
       unless model.blank?
-        "<img alt='#{get_visable_name(model)}' class='logo #{style}' id='logo_#{dom_id(model)}#{style_str}' src='#{model.logo.url(style)}'/>"
+        id = "#{dom_id(model)}#{style_str}"
+        logo_url = model.logo.url(style)
+        src = model.logo_file_name.blank? ? pin_url_for('pin-user-auth',logo_url) : logo_url
+        "<img alt='#{alt}' class='logo #{style}' id='logo_#{id}' src='#{src}'/>"
       else
-        "<img alt='#{get_visable_name(model)}' class='logo #{style}' src='/images/logo/default_unknown_#{style}.png'/>"
+        src = pin_url_for('pin-user-auth',"/images/logo/default_unknown_#{style}.png")
+        "<img alt='#{alt}' class='logo #{style}' src='#{src}'/>"
       end
     end
 

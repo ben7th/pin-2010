@@ -93,9 +93,8 @@ module PieUi
     end
 
     def render_tabs
-      # return '' if action_name == "index"
-
-      tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs')
+      tabs_path = @mindpin_layout.tabs_path
+      tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs') if tabs_path.blank?
       begin
         render :partial=>tabs_path
       rescue ActionView::MissingTemplate => ex
@@ -124,27 +123,6 @@ module PieUi
       num = rand tips.length
       tips[num]
     end
-
-  #  # 获取当前页面显示主题字符串，如果没有默认是 'sapphire'
-  #  def get_user_theme_str
-  #    if @mindpin_layout.theme.blank?
-  #      user = current_user
-  #
-  #      # 个人主页特殊处理
-  #      if [controller_name,action_name] == ["users","show"]
-  #        user = User.find(params[:id])
-  #      end
-  #
-  #      return "sapphire" if user.blank?
-  #
-  #      user.create_preference if user.preference.blank?
-  #      theme = user.preference.theme
-  #      theme = "sapphire" if theme.blank?
-  #      return theme
-  #    else
-  #      @mindpin_layout.theme
-  #    end
-  #  end
 
   end
 end
