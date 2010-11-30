@@ -15,6 +15,10 @@ class OrganizationTest < ActiveSupport::TestCase
     assert ori.owners.include?(lifei)
 
     assert Organization.owner_of_user(lifei).include?(ori)
+
+    assert_difference(["Organization.count","Member.count"],-1) do
+      ori.destroy
+    end
   end
 
 end

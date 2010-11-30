@@ -11,6 +11,9 @@
           =org.members.count
           个成员
       .fright.actions
+        -if current_user.is_owner_of?(org)
+          .settings
+            =minibutton '<span class="icon"></span>设置',"/organizations/#{org.id}/settings"
         .leave
           =minibutton '<span class="icon"></span>退出',"/organizations/#{org.id}/leave",:method=>'DELETE',:confirm=>'你确定要退出这个团队吗？'
 

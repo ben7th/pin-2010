@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-  has_many :members
+  has_many :members,:dependent=>:destroy
 
   validates_presence_of :name
   validates_presence_of :email
@@ -50,6 +50,12 @@ class Organization < ActiveRecord::Base
 
   def has_email?(email)
     all_members_email.include?(email)
+  end
+
+  module UserMethods
+    def is_owner_of?(organization)
+      organization.owners.include?(self)
+    end
   end
   
 end

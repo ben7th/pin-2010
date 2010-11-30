@@ -72,8 +72,10 @@ class AccountController < ActionController::Base
   end
 
   # 团队首页
-  def organizations
-    
+  def organizations; end
+
+  def concats
+    @concats = current_user.concats
   end
   
 end

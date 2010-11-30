@@ -1,0 +1,19 @@
+-require_css 'views/organizations'
+
+.grid_11.alpha
+  %h3 管理联系人
+  .member-block
+    .no-member{:class=>@concats.blank? ? '':'hide'}
+      目前您在MindPin上还没有任何联系人
+    .member-list
+      -mplist @concats,:for=>Concat
+
+    .add-member-form
+      - form_remote_tag :url=>"/concats",:before=>"jQuery('.add-member-failure-info').html('正在处理...');" do
+        .field
+          %span.marginr5 邮箱
+          = text_field_tag 'concat[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5'
+          = submit_tag "添加"
+      .add-member-failure-info
+
+.grid_11.omega.fright
