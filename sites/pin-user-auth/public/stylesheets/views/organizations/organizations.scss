@@ -1,3 +1,129 @@
+@import "../misc";
+
+.topl{
+  overflow:hidden;
+  border-top:solid 1px #242438;
+  .grid_11{
+    padding-top:15px;
+    &.omega{
+      border-left:solid 1px #242438;
+      padding-left:25px;
+    }
+  }
+}
+
 .organization-features{
-  margin:0 0 0 20px;
+  border:solid 1px #09101A;
+  @include border-radius(4px);
+  background:#2A344D;
+  .intro{
+    margin:10px;
+    font-size:13px;
+    font-weight:bold;
+    background:url(/images/piece/orgs_icon.png) no-repeat;
+    padding-left:65px;
+  }
+  .rule{
+    border-bottom:1px solid #444;
+    border-top:1px solid #222;
+  }
+  .desc{
+    padding:10px;
+    li{
+      background:url(/images/piece/big_check.png) no-repeat;
+      line-height:17px;
+      padding:2px 0 0 20px;
+      margin:5px 0;
+    }
+  }
+}
+
+.organization-list{
+  li.organization{
+    padding-right:0px !important;
+    border-top:solid 1px #242438;
+    .name{font-weight:bold;font-size:14px;}
+    .actions{
+      line-height:39px;
+
+      .settings,.leave{
+        margin-left:10px;
+        float:left;
+        .minibutton .icon{
+          float:left;
+          margin-left:-4px;
+          width:15px;
+          height:22px;
+        }
+      }
+
+      .settings{
+        .minibutton .icon{background:url(/images/piece/minibutton_icons.png) 0 0;}
+        .minibutton:hover .icon{background:url(/images/piece/minibutton_icons.png) 0 -25px;}
+      }
+
+      .leave{
+        .minibutton .icon{background:url(/images/piece/minibutton_icons.png) -120px 0;}
+        .minibutton:hover .icon{background:url(/images/piece/minibutton_icons.png) -120px -25px;}
+      }
+    }
+  }
+}
+
+.create-organization{
+  border-top:solid 1px #242438;
+  padding-top:20px;
+  text-align:right;
+}
+
+.member-block{
+  margin-top:10px;
+  .no-member{
+    @include border-radius(3px);
+    padding:10px;
+    border:solid 1px #111;
+    background:#FFF8CC;
+    color:#935a00;
+  }
+  .member-list{
+    li.user,li.member,li.concat{
+      background:#323546;
+      border:1px solid #111111;
+      margin-top:3px;
+      @include border-radius(3px);
+      .member-logo{
+        float:left;height:24px;
+        .logo.tiny{
+          width:20px;height:20px;
+        }
+      }
+      .member-email,.delete{
+        float:left;line-height:24px;margin-left:8px;
+      }
+      .member-email{color:white;font-weight:bold;}
+    }
+  }
+  .add-member-form{
+    margin-top:10px;
+    padding:6px;
+  }
+}
+
+.goto-organization-page{
+  border-top:solid 1px #242438;
+  padding:20px 0 0 0;
+  margin:10px 0 0 0;
+  text-align:right;
+}
+
+.delete_organization{
+  overflow:hidden;
+  margin-top:20px;
+  @include border-radius(4px);
+  border:solid 1px #3A0100;
+  padding:10px;
+  background:#2A1F2E;
+  h3{
+    color:#ff0000;
+  }
 }
