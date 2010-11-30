@@ -1,0 +1,8 @@
+.clearfix
+  .member-logo
+    =avatar member.email,:tiny
+  .member-email
+    =member.email
+  .delete
+    -if member.email != current_user.email
+      =link_to_remote '删除',:url=>"/organizations/#{@organization.id}/members/#{member.id}",:method=>'DELETE'

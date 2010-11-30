@@ -7,6 +7,6 @@
   = logo current_user,:normal
   = logo current_user,:tiny
   = logo current_user,:mini
-- mindpin_form_for current_user,:url=>"/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
+- mindpin_form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
   = f.file_field(:logo)
   = f.submit "上传图片"

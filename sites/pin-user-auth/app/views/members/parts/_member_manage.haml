@@ -1,0 +1,11 @@
+.member-block
+  .member-list
+    -mplist @organization.members,:for=>Member
+
+  .add-member-form
+    - form_remote_tag :url=>"/organizations/#{@organization.id}/members",:before=>"jQuery('.add-member-failure-info').html('正在处理...');" do
+      .field
+        %span.marginr5 邮箱
+        = text_field_tag 'member[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5'
+        = submit_tag "添加"
+    .add-member-failure-info

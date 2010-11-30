@@ -5,7 +5,7 @@
   %div
     %div 裁切后的效果
     #preview_wrap
-  - form_tag "/avatared",:method=>:put,:id=>"copper_form" do
+  - form_tag "/account/avatared",:method=>:put,:id=>"copper_form" do
     = hidden_field_tag :copper,"copper"
     = hidden_field_tag :x1,100
     = hidden_field_tag :y1,100

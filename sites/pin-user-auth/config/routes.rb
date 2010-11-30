@@ -30,15 +30,18 @@ ActionController::Routing::Routes.draw do |map|
   map.user_base_info_submit "/account",:controller=>"account",:action=>"base_submit",:conditions=>{:method=>:put}
 
   # 头像设置
-  map.user_avatared_info "/avatared",:controller=>"account",:action=>"avatared",:conditions=>{:method=>:get}
-  map.user_avatared_info_submit "/avatared",:controller=>"account",:action=>"avatared_submit",:conditions=>{:method=>:put}
+  map.user_avatared_info "/account/avatared",:controller=>"account",:action=>"avatared",:conditions=>{:method=>:get}
+  map.user_avatared_info_submit "/account/avatared",:controller=>"account",:action=>"avatared_submit",:conditions=>{:method=>:put}
 
   # 邮件
-  map.user_email_info "/email",:controller=>"account",:action=>"email"
-  map.send_activation_mail "/email/send_activation_mail",:controller=>"account",:action=>"send_activation_mail"
+  map.user_email_info "/account/email",:controller=>"account",:action=>"email"
+  map.send_activation_mail "/account/email/send_activation_mail",:controller=>"account",:action=>"send_activation_mail"
 
   # 团队
-  map.resources :organizations
+  map.account_organizations "account/organizations",:controller=>"account",:action=>"organizations"
+  map.resources :organizations,:member=>{:invite=>:get,:settings=>:get,:leave=>:delete} do |organization|
+    organization.resources :members
+  end
 
   # 激活用户
   map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'
