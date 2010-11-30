@@ -3,8 +3,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.search '/search',:controller=>'index',:action=>'search'
 
-  map.intro "/intro",:controller=>"index",:action=>"intro"
-
   map.resources :users do |user|
     user.resources :mindmaps,:collection=>{:recently=>:get,:pie_links=>:get}
     user.resource :tendency

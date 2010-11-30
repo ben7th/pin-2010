@@ -6,10 +6,6 @@ class IndexController < ApplicationController
     return redirect_to mindmaps_url
   end
 
-  def intro
-
-  end
-  
   def search
     begin
       @pagetitle='思维导图搜索结果'
@@ -23,7 +19,6 @@ class IndexController < ApplicationController
 
       # 导图
       @mindmaps = Mindmap.search(@query,:page => params[:page]||1, :per_page => 10,:match_mode => :boolean)
-
       # 如果全文索引服务有问题，这个会抛异常
       @mindmaps.each
       

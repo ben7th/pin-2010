@@ -4,13 +4,9 @@
       =tabs_link_to "我的导图",user_mindmaps_path(current_user)
   %li
     =tabs_link_to "公开导图",mindmaps_path
-  %li
-    =tabs_link_to "工具简介",intro_path
   -if logged_in?
     %li
       =tabs_link_to "趋势与统计",user_tendency_path(current_user)
   -if @user && @user != current_user
     %li
       =tabs_link_to "#{@user.name}的公开导图",user_mindmaps_path(@user)
-  %li
-    =tabs_link_to "搜索结果","#"

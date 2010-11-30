@@ -1,7 +1,4 @@
-
-%mp:title 搜索结果
-
-=render :partial=>'layouts/nav',:locals=>{:active=>'全文搜索'}
+- require_css 'mindmaps.css'
 
 .grid_7.fright
   =render :partial=>"/mindmaps/parts/search_bar"
@@ -11,8 +8,9 @@
     .flash-notice= @sphinx_error
   %h3 搜索 [<span class="querykw">#{@query}</span>]
   %div
-    %mp:list{:id=>"search_mindmaps",:for=>"mindmap"}
+    %ul{:id=>"search_mindmaps",:class=>"mindmap"}
       -@mindmaps.each do |mindmap|
-        %mp:li{:id=>"mindmap_#{mindmap.id}",:class=>"mli"}
-          =render :partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}
+        -if mindmap
+          %li{:id=>"mindmap_#{mindmap.id}",:class=>"mli"}
+            =render :partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}
   %div{:style=>"clear:both;"}= will_paginate @mindmaps
