@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       # flash[:success]="注册成功，请使用新帐号登陆"
       login_after_create(@user)
     else
-      flash.now[:error]=@user.errors.first[1]
+      flash.now[:error]=get_flash_error(@user)
       render :layout=>'auth',:template=>'auth/signup'
     end
 
