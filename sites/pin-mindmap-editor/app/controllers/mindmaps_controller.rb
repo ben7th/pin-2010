@@ -2,9 +2,11 @@ class MindmapsController < ApplicationController
   before_filter :login_required,:only => [:mine]
   skip_before_filter :verify_authenticity_token
 
-  # GET /mindmaps
   include MindmapFindingMethods
   include MindmapRestMethods
+  include MindmapParamsEditingMethods
+
+  # GET /mindmaps
   def index
     respond_to do |format|
       format.html do
@@ -16,10 +18,6 @@ class MindmapsController < ApplicationController
         render :json=>mindmaps_json(@mindmaps)
       end
     end
-  end
-
-  def new
-    @mindmap = Mindmap.new
   end
 
   def import
@@ -121,35 +119,6 @@ class MindmapsController < ApplicationController
       return render :layout=>"mindmap",:template=>'mindmaps/editor_v03'
     end
     redirect_to :action=>'show',:format=>'html'
-  end
-
-  def create
-    @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
-    if @mindmap && !current_user
-      add_nobody_mindmap_to_cookies(@mindmap)
-    end
-
-    #@mindmap.to_share if params[:share]
-    respond_to do |format|
-      format.html do
-        if @mindmap
-          return redirect_to edit_mindmap_path(@mindmap)
-        end
-        @mindmap = Mindmap.new
-        if params[:import] == "true"
-          render :action=> :import
-        else
-          render :action=> :new
-        end
-      end
-      format.json do
-        if @mindmap
-          render :json=>"ok"
-        else
-          render :json=>"fail",:status=>:unprocessable_entity
-        end
-      end
-    end
   end
 
   def update
