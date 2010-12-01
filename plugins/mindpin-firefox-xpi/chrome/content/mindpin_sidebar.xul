@@ -69,6 +69,7 @@
         <tab label="资料" onclick="Mindpin.MindpinSidebar.select_tab(0)" onfocus='this.blur();'/>
         <tab label="历史" onclick="Mindpin.MindpinSidebar.select_tab(1)" onfocus='this.blur();'/>
         <tab label="采集器" onclick="Mindpin.MindpinSidebar.select_tab(2)" onfocus='this.blur();'/>
+        <tab label="联系人" onclick="Mindpin.MindpinSidebar.select_tab(3)" onfocus='this.blur();'/>
       </tabs>
 
       <tabpanels class="m_s_tps" flex="1">
@@ -98,6 +99,9 @@
             <button id="send_clip_button" label="发送捕捉到的元素" style="display:none;" disabled="true" oncommand="Mindpin.CollectorClip.send_clip_elements();" align="center"/>
             <button id="produce_mindmap" label="生成导图" oncommand="Mindpin.PageParse.produce_mindmap_ui();" align="center"/>
           </vbox>
+        </tabpanel>
+        <tabpanel>
+          
         </tabpanel>
       </tabpanels>
     </tabbox>
