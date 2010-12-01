@@ -1,24 +1,17 @@
-- mapid = @mindmap.id
+- require_css 'mindmaps.css'
 
-- form_for(@mindmap,:html =>{:id=>"edit_mindmap_form_#{mapid}",:multipart => true,:class=>"common_form"}) do |f|
-  %p
-    =f.label :title,'为导图命名'
-    =f.text_field :title,:size=>32,:class=>'text'
-
-  %p
-    %label 自定义图示
-    .left
-      =logo @mindmap
-    .left
-      %span{:class=>"desc"} (32 x 32 像素)
-
-  %p
-    %label 图示上传
-    =f.file_field(:logo)
-
-  %p
-    = f.check_box( :private,:onclick=>"setting_private(this);" )
-    %span 设置为私有
-
-  %p
-    =f.submit "确认以上修改"
+.topl
+  .grid_11.alpha
+    - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+      = f.text_field :title
+      .clearfix
+        .fleft.marginr10
+          =logo @mindmap
+        .fleft
+          %span{:class=>"desc"} (32 x 32 像素)
+      = f.file_field :logo,:size=>20
+      .field
+        = f.check_box( :private,:onclick=>"setting_private(this);" )
+        %span 设置这个导图为私有
+      .form_actions
+        =f.submit "保存"

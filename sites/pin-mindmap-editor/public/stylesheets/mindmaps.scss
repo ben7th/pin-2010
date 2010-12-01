@@ -19,6 +19,15 @@
   }
 }
 
+.import_formats{
+  dl{
+    font-size:14px;
+    overflow:hidden;margin:0 0 0 0;
+    dt{float:left;width:80px;text-align:right;color:#FFB019;}
+    dd{float:left;width:200px;}
+  }
+}
+
 .finder-sortby{
   line-height:29px;
   a:hover{

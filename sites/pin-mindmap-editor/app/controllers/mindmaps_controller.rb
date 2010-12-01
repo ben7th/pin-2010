@@ -4,18 +4,27 @@ class MindmapsController < ApplicationController
 
   # GET /mindmaps
   include MindmapFindingMethods
+  include MindmapRestMethods
   def index
-    @user = User.find(params[:user_id]) if params[:user_id]
-    @mindmaps = get_mindmaps(params[:user_id])
+    respond_to do |format|
+      format.html do
+        @user = User.find(params[:user_id]) if params[:user_id]
+        @mindmaps = get_mindmaps(params[:user_id])
+      end
+      format.json do
+        @mindmaps = get_all_mindmaps(params[:user_id])
+        render :json=>mindmaps_json(@mindmaps)
+      end
+    end
   end
 
   def new
     @mindmap = Mindmap.new
-    set_tabs_path('')
   end
 
   def import
     @mindmap = Mindmap.new
+    set_tabs_path false
   end
 
   def show
@@ -116,18 +125,30 @@ class MindmapsController < ApplicationController
 
   def create
     @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
-    if @mindmap
-      if !current_user
-        add_nobody_mindmap_to_cookies(@mindmap)
-      end
-#      @mindmap.to_share if params[:share]
-       return redirect_to edit_mindmap_path(@mindmap)
+    if @mindmap && !current_user
+      add_nobody_mindmap_to_cookies(@mindmap)
     end
-    @mindmap = Mindmap.new
-    if params[:import] == "true"
-      render :action=> :import
-    else
-      render :action=> :new
+
+    #@mindmap.to_share if params[:share]
+    respond_to do |format|
+      format.html do
+        if @mindmap
+          return redirect_to edit_mindmap_path(@mindmap)
+        end
+        @mindmap = Mindmap.new
+        if params[:import] == "true"
+          render :action=> :import
+        else
+          render :action=> :new
+        end
+      end
+      format.json do
+        if @mindmap
+          render :json=>"ok"
+        else
+          render :json=>"fail",:status=>:unprocessable_entity
+        end
+      end
     end
   end
 
@@ -150,6 +171,7 @@ class MindmapsController < ApplicationController
   end
   
   def paramsedit
+    set_tabs_path(false)
     @mindmap = Mindmap.find(params[:id])
     if has_edit_rights?(@mindmap,current_user)
       if request.xhr?

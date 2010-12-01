@@ -94,7 +94,16 @@ module PieUi
 
     def render_tabs
       tabs_path = @mindpin_layout.tabs_path
-      tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs') if tabs_path.blank?
+      return '' if tabs_path == false
+
+      if tabs_path.nil?
+        if ['new','edit'].include? action_name
+          return ''
+        else
+          tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs')
+        end
+      end
+      
       begin
         render :partial=>tabs_path
       rescue ActionView::MissingTemplate => ex

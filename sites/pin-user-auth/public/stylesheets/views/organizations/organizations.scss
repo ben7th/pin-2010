@@ -1,17 +1,5 @@
 @import "../misc";
 
-.topl{
-  overflow:hidden;
-  border-top:solid 1px #242438;
-  .grid_11{
-    padding-top:15px;
-    &.omega{
-      border-left:solid 1px #242438;
-      padding-left:25px;
-    }
-  }
-}
-
 .organization-features{
   border:solid 1px #09101A;
   @include border-radius(4px);

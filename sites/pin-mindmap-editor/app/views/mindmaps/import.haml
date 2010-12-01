@@ -1,22 +1,32 @@
-- form_for(@mindmap,:html => {:id=>"new_import_mindmap", :multipart => true,:class=>"common_form"}) do |f|
-  %p
-    =f.label :title,"为导图命名"
-    =f.text_field :title,:size=>32,:class=>"text"
+- require_css 'mindmaps.css'
 
-    =hidden_field_tag :import,"true"
+.topl
+  .grid_11.alpha
+    - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+      =f.text_field :title,:size=>32,:class=>"text"
+      =hidden_field_tag :import,"true"
+      .field
+        =label_tag '原始导图文件'
+        =file_field_tag "mindmap[import_file]",:size=>20
+      =f.submit "确定，上传导入"
 
-  #import-div.margint5.marginb5
-  %div
-    %label 文件选择
-    =file_field_tag "mindmap[import_file]",:size=>25
-
-    %h4 支持以下导图软件格式：
-    .marginl10
-      %div MindManager (.MMAP)
-      %div FreeMind (.MM)
-      %div XMind (.XMIND)
-      %div Buzan's iMindMap (.IMM)
-
-  %p
-    =f.submit "确认并导入"
-
+  .grid_11.omega.fright
+    %h3 支持以下导图软件格式：
+    .import_formats.margint10
+      %dl
+        %dt MMAP
+        %dd MindManager
+      %dl
+        %dt MM
+        %dd FreeMind
+      %dl
+        %dt XMIND
+        %dd XMind
+      %dl
+        %dt IMM
+        %dd Buzan's iMindMap
+    %p.margint10
+      选择文件并确定上传后，系统需要少许时间进行处理和转换，请耐心等待。
+    %p
+      我们能够确保基本导图结构的完好。<br/>
+      但是由于MindPin导图编辑器仍需进一步完善，一些导图软件中的特定格式，如文字颜色，内嵌图片，导入后会有不同程度的丢失。

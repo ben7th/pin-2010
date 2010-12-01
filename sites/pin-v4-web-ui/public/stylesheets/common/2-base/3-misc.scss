@@ -67,3 +67,15 @@
 .overvisible{overflow:visible;}
 .dev{background-color:#FBEB96;opacity:0.2;}
 .lh22{line-height:22px;}
+
+.topl{
+  overflow:hidden;
+  border-top:solid 1px #242438;
+  .grid_11{
+    padding-top:15px;
+    &.omega{
+      border-left:solid 1px #242438;
+      padding-left:25px;
+    }
+  }
+}

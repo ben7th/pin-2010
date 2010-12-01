@@ -5,6 +5,11 @@ module MindmapFindingMethods
     return all_public_mindmaps
   end
 
+  def get_all_mindmaps(user_id)
+    return Mindmap.of_user_id(user_id) if is_current_user?(user_id)
+    return Mindmap.publics.valueable.of_user_id(user_id)
+  end
+
   def get_order_str_from_params
     case params[:sortby]
     when 'CREATED_TIME' then 'created_at desc'
@@ -28,6 +33,6 @@ module MindmapFindingMethods
   end
 
   def is_current_user?(user_id)
-    user_id.to_s == current_user.id.to_s
+    current_user && user_id.to_s == current_user.id.to_s
   end
 end
