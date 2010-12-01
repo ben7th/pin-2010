@@ -40,3 +40,9 @@ Mindpin.edit_mindmap_url = function(mindmap_id){
 };
 
 Mindpin.CREATE_MINDMAP_URL = "http://dev.mindmap-editor.mindpin.com/mindmaps.json"
+
+Mindpin.CONCATS_URL = "http://dev.www.mindpin.com/concats.json"
+
+Mindpin.ADD_CONCAT_URL = "http://dev.www.mindpin.com/concats/create_for_plugin"
+
+Mindpin.DESTROY_CONCAT_URL = "http://dev.www.mindpin.com/concats/destroy_for_plugin"

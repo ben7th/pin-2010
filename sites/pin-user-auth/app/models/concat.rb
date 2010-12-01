@@ -10,6 +10,11 @@ class Concat < ActiveRecord::Base
     errors.add("email","联系人不能添加自己") if email == user.email
   end
 
+  def concat_user
+    user = User.find_by_email(email)
+    return user.blank? ? nil : user
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :concats
