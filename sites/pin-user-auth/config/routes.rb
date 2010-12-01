@@ -45,10 +45,10 @@ ActionController::Routing::Routes.draw do |map|
 
   # 联系人
   map.account_concats "account/concats",:controller=>"account",:action=>"concats"
+  map.resources :concats,:collection=>{:create_for_plugin=>:post,:destroy_for_plugin=>:delete}
 
   # 激活用户
   map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'
-  map.resources :concats
 
   # --杂项
   map.concat '/concat',:controller=>'misc',:action=>'concat'
