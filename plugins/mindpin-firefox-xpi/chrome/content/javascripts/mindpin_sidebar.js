@@ -98,7 +98,9 @@ Mindpin.MindpinSidebar = {
     Mindpin.MindpinSidebar.show_web_site_info();
     Mindpin.MindpinSidebar.show_web_site_comments();
     Mindpin.MindpinSidebar.show_browse_histories();
+    Mindpin.MindpinSidebar.show_concats();
     setTimeout(Mindpin.MindpinSidebar.show_current_page_content,0)
+    Mindpin.MindpinSidebar.show_mindmaps();
 
     getSidebarWindow().$('#mindpin_tab_list').attr("hidden",false);
   },
@@ -126,12 +128,17 @@ Mindpin.MindpinSidebar = {
     wsibro.src = src
     wsibro.loadURI(src)
   },
+  // 显示历史记录
   show_browse_histories: function(){
     var current_url = getWebWindow().location;
     var src = Mindpin.BROWSE_HISTORIES_URL;
     var wsibro = getSidebarWindow().$("#side_browse_histories")[0];
     wsibro.src = src;
     wsibro.loadURI(src);
+  },
+  // 显示联系人
+  show_concats: function(){
+    Mindpin.Concats.init();
   },
   asyn_post_browse_history: function(){
     // 如果是本地地址，提前返回
@@ -179,6 +186,12 @@ Mindpin.MindpinSidebar = {
     }
 
   },
+
+  // 思维导图页签
+  show_mindmaps : function(){
+    Mindpin.Mindmap.init();
+  },
+
   // 设置选中的页签 index
   select_tab: function(index){
     Mindpin.Preferences.set_int("select_tab",index);
