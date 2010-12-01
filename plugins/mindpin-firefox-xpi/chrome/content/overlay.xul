@@ -8,6 +8,7 @@
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/overlay.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_lib.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/login_manager.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindmap.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_text_window.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>

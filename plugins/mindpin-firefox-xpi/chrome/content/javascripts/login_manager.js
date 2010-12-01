@@ -3,22 +3,26 @@ if(typeof(Mindpin)=='undefined'){Mindpin={}}
 Mindpin.LoginManager = {
   // 获得登录用户信息，如果没有登录，返回 false
   get_logined_user: function() {
+    var id = Mindpin.Preferences.get_unicode("user.id");
     var name = Mindpin.Preferences.get_unicode("user.name");
     var avatar = Mindpin.Preferences.get_unicode("user.avatar");
     
-    if(!name || !avatar){return false}
+    if(!name || !avatar || !id){return false}
     
     return {
+      'id':id,
       'name':name,
       "avatar":avatar
     };
   },
 
   set_login_user: function(user){
+    Mindpin.Preferences.set_unicode("user.id",user.id);
     Mindpin.Preferences.set_unicode("user.name",user.name);
     Mindpin.Preferences.set_unicode("user.avatar",user.avatar);
   },
   remove_login_user: function(){
+    Mindpin.Preferences.remove("user.id");
     Mindpin.Preferences.remove("user.name");
     Mindpin.Preferences.remove("user.avatar");
   },

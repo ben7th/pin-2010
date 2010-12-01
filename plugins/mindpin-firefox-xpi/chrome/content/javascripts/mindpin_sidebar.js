@@ -99,6 +99,7 @@ Mindpin.MindpinSidebar = {
     Mindpin.MindpinSidebar.show_web_site_comments();
     Mindpin.MindpinSidebar.show_browse_histories();
     setTimeout(Mindpin.MindpinSidebar.show_current_page_content,0)
+    Mindpin.MindpinSidebar.show_mindmaps();
 
     getSidebarWindow().$('#mindpin_tab_list').attr("hidden",false);
   },
@@ -179,6 +180,12 @@ Mindpin.MindpinSidebar = {
     }
 
   },
+
+  // 思维导图页签
+  show_mindmaps : function(){
+    Mindpin.Mindmap.init();
+  },
+
   // 设置选中的页签 index
   select_tab: function(index){
     Mindpin.Preferences.set_int("select_tab",index);

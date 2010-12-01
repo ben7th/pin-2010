@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://mindpin/skin/mindpin_sidebar.css" type="text/css" ?>
 <page id="mindpin_win" 
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
   onload="Mindpin.MindpinSidebar.init();"
   >
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/jquery.min.js"/>
@@ -9,6 +10,7 @@
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_lib.js"/>
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/login_manager.js"/>
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_text_window.js"/>
+  <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindmap.js"/>
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/mindpin_sidebar.js"/>
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/page_parse.js"/>
   <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_image_window.js"/>
@@ -70,6 +72,7 @@
         <tab label="历史" onclick="Mindpin.MindpinSidebar.select_tab(1)" onfocus='this.blur();'/>
         <tab label="采集器" onclick="Mindpin.MindpinSidebar.select_tab(2)" onfocus='this.blur();'/>
         <tab label="联系人" onclick="Mindpin.MindpinSidebar.select_tab(3)" onfocus='this.blur();'/>
+        <tab label="思维导图" onclick="Mindpin.MindpinSidebar.select_tab(4)" onfocus='this.blur();'/>
       </tabs>
 
       <tabpanels class="m_s_tps" flex="1">
@@ -102,6 +105,27 @@
         </tabpanel>
         <tabpanel>
           
+        </tabpanel>
+        <tabpanel>
+          <popup id="mindmap_context_menu">
+            <menuitem label="编辑" default="true" oncommand="Mindpin.Mindmap.open_item();"/>
+          </popup>
+
+          <vbox flex="1">
+            <hbox>
+              <button id="create_mindmap" label="新建导图"></button>
+            </hbox>
+            <deck id="mindmap_deck" selectedIndex="0" flex="1">
+              <tree id="mindmap_list" rows="3" seltype="single" contextmenu="mindmap_context_menu">
+                <treecols>
+                  <treecol id="mindmap_title" label="标题" flex="1"/>
+                  <treecol id="mindmap_created_at" label="创建时间" flex="1"/>
+                  <treecol id="mindmap_updated_at" label="修改时间" flex="1"/>
+                </treecols>
+                <treechildren />
+              </tree>
+            </deck>
+          </vbox>
         </tabpanel>
       </tabpanels>
     </tabbox>

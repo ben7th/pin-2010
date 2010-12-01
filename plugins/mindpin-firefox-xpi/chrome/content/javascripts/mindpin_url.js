@@ -30,3 +30,13 @@ Mindpin.SUBMIT_DISCUSSION_URL = "http://dev.discuss.mindpin.com/add_on_create_di
 Mindpin.SHARE_LIST_URL = "http://dev.share.mindpin.com/"
 
 Mindpin.NEW_WORKSPACE_URL = "http://dev.workspace.mindpin.com/workspaces/new"
+
+Mindpin.user_mindmaps_url = function(user_id){
+  return "http://dev.mindmap-editor.mindpin.com/users/" + user_id + "/mindmaps.json";
+};
+
+Mindpin.edit_mindmap_url = function(mindmap_id){
+  return "http://dev.mindmap-editor.mindpin.com/mindmaps/" + mindmap_id + "/edit";
+};
+
+Mindpin.CREATE_MINDMAP_URL = "http://dev.mindmap-editor.mindpin.com/mindmaps.json"
