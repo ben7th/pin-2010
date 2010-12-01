@@ -30,3 +30,5 @@ Mindpin.SUBMIT_DISCUSSION_URL = "http://dev.discuss.mindpin.com/add_on_create_di
 Mindpin.SHARE_LIST_URL = "http://dev.share.mindpin.com/"
 
 Mindpin.NEW_WORKSPACE_URL = "http://dev.workspace.mindpin.com/workspaces/new"
+
+Mindpin.CONCATS_URL = "http://dev.www.mindpin.com/concats.json"

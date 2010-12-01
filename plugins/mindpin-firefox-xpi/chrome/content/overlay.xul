@@ -14,6 +14,7 @@
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collection_image_window.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/message.js"/>
 <script type="application/x-javascript" src="chrome://mindpin/content/javascripts/collector_clip.js"/>
+<script type="application/x-javascript" src="chrome://mindpin/content/javascripts/concats.js"/>
 
 
 //toolbar
