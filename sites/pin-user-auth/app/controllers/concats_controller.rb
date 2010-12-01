@@ -34,4 +34,21 @@ class ConcatsController < ActionController::Base
     end
   end
 
+  def index
+    respond_to do |format|
+      format.html{}
+      format.json do
+        concats_arr = current_user.concats.map do |c|
+          user = c.concat_user
+          if user
+            [{:id=>user.id,:name=>user.name,:email=>user.email,:avatar=>user.logo.url()},{:email=>c.email}]
+          else
+            [{},{:email=>c.email}]
+          end
+        end
+        render :json=> concats_arr.to_json
+      end
+    end
+  end
+
 end
