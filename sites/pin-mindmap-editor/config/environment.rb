@@ -41,9 +41,9 @@ Rails::Initializer.run do |config|
   config.gem "nokogiri"
   config.gem "paperclip"
   config.gem "uuidtools"
-  config.gem "pie-service-lib"
   config.gem "pie-auth"
   config.gem "pie-ui"
+  config.gem "pie-service-lib"
   config.gem "responds_to_parent"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

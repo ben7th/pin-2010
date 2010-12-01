@@ -34,8 +34,8 @@ body {margin:0;}
         right:0px;
       }
       .tabs{
+        margin-top:15px;
         ul{
-          margin-top:15px;
           padding:6px 10px;
           @include border-radius(5px);
           border:solid 1px #464660;

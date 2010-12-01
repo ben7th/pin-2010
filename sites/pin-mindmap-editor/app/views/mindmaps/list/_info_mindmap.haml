@@ -1,44 +1,44 @@
 - law_rank_class = (mindmap.rank == "0.0" ? "low-value" : "")
+.clearfix{:class=>"#{law_rank_class}"}
 
-%div{:class=>"margint10 marginb10 marginl10 clearfix #{law_rank_class}"}
-
-  .maprankbg.fleft.marginr5
+  .maprankbg
     .rank= mindmap.rank
 
-  .mindmap-logo.relative.fleft.marginr10
+  .mindmap-logo
     =logo(mindmap)
     -link_to(mindmap,:class=>'fleft',:target=>'_blank') do
-      %div{:class=>['private-mark',mindmap.private ? 'p':'']}
+      .private-mark{:class=>mindmap.private ? 'p':''}
     
 
-  .private-icon.fleft.marginr10
+  .private-icon
     -if show_operation_links?(mindmap)
       = link_to_remote "",:url=>"/#{APP_PREFIX}/mindmaps/#{mindmap.id}/toggle_private",:method=>:put,:success=>"change_lock(#{mindmap.id})",:html=>{:title=>'切换公开/私有',:class=>"#{classname_hide_private(mindmap)} fleft",:id=>"link_lock_#{mindmap.id}"}
 
-  .mindmap-meta.fleft
-    %h4.normal
-      <b>#{link_to escape_title(mindmap,23),mindmap,:target=>'_blank',:title=>mindmap.title}</b>
-    .mindmap-datetime.fleft
+  .mindmap-meta
+    %h4
+      =link_to escape_title(mindmap,23),mindmap,:target=>'_blank',:title=>mindmap.title
+    .mindmap-datetime
       = show_time_by_order_type @order,mindmap
      
-  %div.fright
+  .fright
     .mindmap-operations.fright.clearfix
       -if show_operation_links?(mindmap)
-        .detail-operation.fleft.marginr5
+        .detail-operation
           .delete-link
-          =link_to_remote "删除",:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确认删除？"
+          =link_to_remote '删除',:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确认删除？"
 
-        .detail-operation.fleft.marginr5
+        .detail-operation
           .infoedit-link
           =link_to "属性",paramsedit_mindmap_path(mindmap)
 
-        .detail-operation.fleft.marginr5
+        .detail-operation
           .export-link
           =link_to_remote "导出",:url=>export_mindmap_path(mindmap),:method=>:get
 
-        .detail-operation.fleft.marginr5
+        .detail-operation
           .clone-link
           =link_to_remote "克隆",:url=>clone_form_mindmap_path(mindmap),:method=>:get
 
         .fleft.marginr5
-          = link_to "<div class='edit-link'></div><div>编辑</div>",edit_mindmap_path(mindmap),:target=>'_blank'
+          .edit-link
+          = link_to "编辑",edit_mindmap_path(mindmap),:target=>'_blank'

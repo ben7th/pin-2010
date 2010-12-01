@@ -1,21 +1,25 @@
 - require_css 'mindmaps.css'
 
-:ruby
-  map_data = get_list_base_data
+- map_data = get_list_base_data
 
-.grid_16.margint10
-  .grid_7.alpha
+.marginb3em.clearfix
+  .fleft.marginr20
     %h3.marginl10
       = map_data[:sub_title]
-      %sup="(#{map_data[:map_count]}个)"
-  .grid_9.omega.lineheight29
-    =render :partial=>'mindmaps/list/listhead'
-  .grid_16.alpha
+      (#{map_data[:map_count]})
+  .fleft
+    .finder-sortby
+      按
+      =link_to "创建时间",finder_url('sortby','CREATED_TIME')
+      =link_to "编辑时间",finder_url('sortby','UPDATED_TIME')
+      排序
+  .fright
+    - if (current_user && (@user == current_user)) || !current_user
+      =minibutton "新建导图",new_mindmap_path
+      =minibutton "从文件导入",import_mindmaps_path
+  .clearfix
+  .clearfix
     =render :partial=>map_data[:partial]
-  .grid_16.alpha
-    .paginate-bottom.haslayout
-      = will_paginate @mindmaps
 
-.grid_7.fright
-  .padding10
-    =render :partial=>"mindmaps/parts/sidebar"
+  .paginate-bottom.haslayout
+    = will_paginate @mindmaps

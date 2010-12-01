@@ -11,6 +11,7 @@ class MindmapsController < ApplicationController
 
   def new
     @mindmap = Mindmap.new
+    set_tabs_path('')
   end
 
   def import

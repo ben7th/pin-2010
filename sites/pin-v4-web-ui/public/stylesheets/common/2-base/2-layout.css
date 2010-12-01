@@ -42,39 +42,40 @@ body {
         position: absolute;
         top: 7px;
         right: 0px; }
-      .page-content .cell .cellhead .tabs ul {
-        margin-top: 15px;
-        padding: 6px 10px;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border: solid 1px #464660;
-        background-color: #222433;
-        position: relative;
-        overflow: hidden; }
-        .page-content .cell .cellhead .tabs ul li a {
-          font-size: 14px;
-          float: left;
-          line-height: 26px;
-          padding: 0 8px;
-          margin-right: 10px;
-          text-shadow: 1px 1px #555555;
-          color: #ddd;
-          text-decoration: none; }
-          .page-content .cell .cellhead .tabs ul li a:hover {
-            background-color: #171826;
-            border-radius: 4px;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px; }
-          .page-content .cell .cellhead .tabs ul li a.selected {
-            border-style: solid;
-            border-width: 1px;
-            border-color: #0E0E16 #2E2E3C #2E2E3C #0E0E16;
-            border-radius: 4px;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px;
-            background-color: #0E0E1A;
-            font-weight: bold; }
+      .page-content .cell .cellhead .tabs {
+        margin-top: 15px; }
+        .page-content .cell .cellhead .tabs ul {
+          padding: 6px 10px;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border: solid 1px #464660;
+          background-color: #222433;
+          position: relative;
+          overflow: hidden; }
+          .page-content .cell .cellhead .tabs ul li a {
+            font-size: 14px;
+            float: left;
+            line-height: 26px;
+            padding: 0 8px;
+            margin-right: 10px;
+            text-shadow: 1px 1px #555555;
+            color: #ddd;
+            text-decoration: none; }
+            .page-content .cell .cellhead .tabs ul li a:hover {
+              background-color: #171826;
+              border-radius: 4px;
+              -moz-border-radius: 4px;
+              -webkit-border-radius: 4px; }
+            .page-content .cell .cellhead .tabs ul li a.selected {
+              border-style: solid;
+              border-width: 1px;
+              border-color: #0E0E16 #2E2E3C #2E2E3C #0E0E16;
+              border-radius: 4px;
+              -moz-border-radius: 4px;
+              -webkit-border-radius: 4px;
+              background-color: #0E0E1A;
+              font-weight: bold; }
 
 /*顶部*/
 .page-head {
