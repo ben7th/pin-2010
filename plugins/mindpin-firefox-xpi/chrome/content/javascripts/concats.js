@@ -50,6 +50,31 @@ Mindpin.Concats = {
       concat_box.appendChild(email_label)
     }
     return concat_box
+  },
+
+  // 添加联系人
+  add_concat : function(){
+    var email = getSidebarWindow().document.getElementById("concat_email_text")
+    var error_message = getSidebarWindow().document.getElementById("email_error_message")
+    $.ajax({
+      url: Mindpin.ADD_CONCAT_URL,
+      type: "post",
+      data:{
+        email:email.value
+        },
+      success: function(data){
+        Mindpin.Log.m(data)
+        error_message.setAttribute("style","display:none")
+        email.value = "";
+        var concats = getSidebarWindow().document.getElementById("concats")
+        var concat_box = Mindpin.Concats.create_concat_vbox(data)
+        concats.appendChild(concat_box);
+      },
+      error: function(xhr,text,error){
+        error_message.setAttribute("style","")
+        error_message.setAttribute("value",xhr.responseText)
+      }
+    });
   }
 
 }

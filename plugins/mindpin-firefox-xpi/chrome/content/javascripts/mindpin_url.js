@@ -32,3 +32,6 @@ Mindpin.SHARE_LIST_URL = "http://dev.share.mindpin.com/"
 Mindpin.NEW_WORKSPACE_URL = "http://dev.workspace.mindpin.com/workspaces/new"
 
 Mindpin.CONCATS_URL = "http://dev.www.mindpin.com/concats.json"
+
+Mindpin.ADD_CONCAT_URL = "http://dev.www.mindpin.com/concats/create_for_plugin"
+Mindpin.DESTROY_CONCAT_URL = "http://dev.www.mindpin.com/concats/destroy_for_plugin"

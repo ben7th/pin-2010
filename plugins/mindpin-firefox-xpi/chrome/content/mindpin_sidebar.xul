@@ -104,6 +104,10 @@
         <tabpanel>
           <vbox flex="1">
             <vbox align="start" flex="1" id="concats" ></vbox>
+
+            <label id="email_error_message" style="display:none;" />
+            <label id="concat_email_label" value="输入邮箱:"/>
+            <textbox id="concat_email_text"/>
             <button id="add_concat_button" label="添加联系人" oncommand="Mindpin.Concats.add_concat()" align="center"/>
           </vbox>
         </tabpanel>
