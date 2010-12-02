@@ -133,6 +133,7 @@
                 </treecols>
                 <treechildren />
               </tree>
+
               <vbox id="import_mindmap_form" style="margin-top:40px;">
                 <hbox align="center">
                   <label value='标题'/>
@@ -143,8 +144,8 @@
                   <textbox id="import_mindmap_file" flex="1" readonly="true" />
                   <button id="select_mindmap_file" label="选择导图文件"></button>
                 </hbox>
-                <button id="start_import_mindmap" label="确定，上传导入"></button>
-                <button id="cancel_import_btn" label="取消"></button>
+                <button id="start_import_mindmap_btn" label="确定，上传导入"></button>
+                <button id="cancel_import_mindmap_btn" label="取消"></button>
               </vbox>
             </deck>
           </vbox>

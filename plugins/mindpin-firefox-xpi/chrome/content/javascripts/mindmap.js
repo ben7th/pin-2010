@@ -40,7 +40,7 @@ Mindpin.Mindmap = {
       }
     })
     // 开始导入导图文件
-    sidebar.$("#start_import_mindmap").click(function(){
+    sidebar.$("#start_import_mindmap_btn").click(function(){
       var title = sidebar.$("#import_mindmap_title")[0].value;
       if(!title){
         alert(title)
@@ -63,7 +63,7 @@ Mindpin.Mindmap = {
       })
     });
     // 取消导入导图
-    sidebar.$("#cancel_import_btn").click(function(){
+    sidebar.$("#cancel_import_mindmap_btn").click(function(){
       sidebar.Mindpin.Mindmap.import_mindmap_form_reset();
       sidebar.$("#mindmap_deck")[0].selectedIndex = 0;
     });
