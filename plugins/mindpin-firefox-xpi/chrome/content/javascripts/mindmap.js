@@ -9,6 +9,64 @@ Mindpin.Mindmap = {
     })
     // 导入导图表单相关事件
     this.import_mindmap_form_event();
+    // 创建导图表单相关事件
+    this.create_mindmap_form_event();
+  },
+
+  // 创建导图表单相关事件
+  create_mindmap_form_event : function(){
+    if(this.create_mindmap_form_event_load) return;
+
+    this.create_mindmap_form_event_load = true;
+
+    var sidebar = getSidebarWindow();
+    // 创建导图
+    sidebar.$("#create_mindmap_btn").click(function(){
+      sidebar.$("#mindmap_deck")[0].selectedIndex = 2;
+    });
+    // 取消创建
+    sidebar.$("#cancel_create_mindmap_btn").click(function(){
+      sidebar.Mindpin.Mindmap.create_mindmap_form_reset();
+      sidebar.$("#mindmap_deck")[0].selectedIndex = 0;
+    });
+    // 选择导图图示文件
+    sidebar.$("#select_mindmap_icon_btn").click(function(){
+      var nsIFilePicker = Components.interfaces.nsIFilePicker;
+       //创建组件
+      var fp = Components.classes["@mozilla.org/filepicker;1"]
+          .createInstance(nsIFilePicker);
+      //初始化组件, 选择打开单个文件
+      fp.init(window, "选择图片文件", nsIFilePicker.modeOpen);
+      //添加文件过滤器
+      fp.appendFilter("图片文件(*.jpeg;*.jpg;*.png,*.bmp)","*.jpeg;*.jpg;*.png;*.bmp;");
+      //显示对话框
+      var rv = fp.show();
+      // 选择了文件
+      if(rv==nsIFilePicker.returnOK || rv==nsIFilePicker.returnReplace){
+        sidebar.$("#create_mindmap_icon")[0].value = fp.file.path;
+      }
+    });
+    // 开始创建导图
+    sidebar.$("#start_create_mindmap_btn").click(function(){
+      var title = sidebar.$("#create_mindmap_title")[0].value;
+      var privat_e = sidebar.$("#create_mindmap_private")[0].checked;
+      if(!title){
+        return alert("标题不能为空")
+      }
+      var file_path = sidebar.$("#create_mindmap_icon")[0].value;
+      var data = {title:title,is_private:privat_e}
+      if(file_path){
+        data.logo_base64 = sidebar.Mindpin.Mindmap.get_base64_from_file_path(file_path);
+      }
+      sidebar.$.ajax({url:Mindpin.CREATE_MINDMAP_URL,data:data,type:"POST",success:function(mindmap){
+         sidebar.Mindpin.Mindmap.create_mindmap_form_reset();
+         sidebar.Mindpin.Mindmap.TreeView.items.unshift(mindmap);
+         sidebar.Mindpin.Mindmap.show_treeview_items_to_tree();
+
+         sidebar.$("#mindmap_deck")[0].selectedIndex = 0;
+         sidebar.new_tab(Mindpin.edit_mindmap_url(mindmap.id))
+      }});
+    });
   },
 
   // 导入导图表单相关事件
@@ -31,7 +89,7 @@ Mindpin.Mindmap = {
       //初始化组件, 选择打开单个文件
       fp.init(window, "选择导图文件", nsIFilePicker.modeOpen);
       //添加文件过滤器
-      fp.appendFilter("导图文件(*.mmap)","*.mmap");
+      fp.appendFilter("导图文件(*.mmap;*.mm;*.xmind;*.imm)","*.mmap;*.mm;*.xmind;*.imm");
       //显示对话框
       var rv = fp.show();
       // 选择了文件
@@ -42,11 +100,13 @@ Mindpin.Mindmap = {
     // 开始导入导图文件
     sidebar.$("#start_import_mindmap_btn").click(function(){
       var title = sidebar.$("#import_mindmap_title")[0].value;
+      var file_path = sidebar.$("#import_mindmap_file")[0].value;
       if(!title){
-        alert(title)
         return alert("标题不能为空")
       }
-      var file_path = sidebar.$("#import_mindmap_file")[0].value;
+      if(!file_path){
+        return alert("请选择导图文件")
+      }
       var extension_name = /\.([^\.]*)$/.exec(file_path)[1]
       var import_file_base64 = sidebar.Mindpin.Mindmap.get_base64_from_file_path(file_path);
 
@@ -67,6 +127,14 @@ Mindpin.Mindmap = {
       sidebar.Mindpin.Mindmap.import_mindmap_form_reset();
       sidebar.$("#mindmap_deck")[0].selectedIndex = 0;
     });
+  },
+
+  // 重置创建导图表单
+  create_mindmap_form_reset : function(){
+    var sidebar = getSidebarWindow();
+    sidebar.$("#create_mindmap_icon")[0].value = ""
+    sidebar.$("#create_mindmap_title")[0].value = ""
+    sidebar.$("#create_mindmap_private")[0].checked = false
   },
 
   // 重置导入导图表单

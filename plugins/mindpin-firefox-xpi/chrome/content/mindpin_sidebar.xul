@@ -147,6 +147,25 @@
                 <button id="start_import_mindmap_btn" label="确定，上传导入"></button>
                 <button id="cancel_import_mindmap_btn" label="取消"></button>
               </vbox>
+
+              <vbox id="create_mindmap_form" style="margin-top:40px;">
+                <hbox align="center">
+                  <label value='标题'/>
+                  <textbox id="create_mindmap_title" flex="1"/>
+                </hbox>
+                <hbox align="center">
+                  <label value='导图图示（可选）'/>
+                  <textbox id="create_mindmap_icon" flex="1" readonly="true" />
+                  <button id="select_mindmap_icon_btn" label="选择图片文件"></button>
+                </hbox>
+                <hbox align="center">
+                  <checkbox id="create_mindmap_private"/>
+                  <label value='设置这个导图为私有'/>
+                </hbox>
+                <button id="start_create_mindmap_btn" label="好了，确定创建"></button>
+                <button id="cancel_create_mindmap_btn" label="取消"></button>
+              </vbox>
+
             </deck>
           </vbox>
         </tabpanel>
