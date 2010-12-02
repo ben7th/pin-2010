@@ -95,7 +95,7 @@ a.button.classy:hover{text-decoration:none;}
 textarea.adapt-packed,textarea#virtual_textarea{overflow:hidden;font-family:Tahoma,宋体;border:solid 1px;word-wrap:break-word;font-style:12px;line-height:18px;resize:none;}
 textarea#virtual_textarea{position:absolute;left:-10000px;top:-10000px;height:0;}
 input.search-inner,input.search{background-image:url("/images/piece/search-inner.png");background-repeat:no-repeat;padding:0 0 0 21px!important;width:150px!important;height:21px!important;background-color:white;border-color:#333;}
-input.search-button{height:21px;top:-1px;}
+input.search-button,input.search-button.submit{height:21px!important;top:-1px!important;}
 .minibutton{display:inline-block;height:23px;padding:0 0 0 3px;font-size:12px;font-weight:bold;color:#333;text-shadow:1px 1px 0 #fff;background:url(/images/modules/buttons/minibutton_matrix.png) 0 0 no-repeat;white-space:nowrap;border:none;overflow:visible;cursor:pointer;}
 input[type=text]+.minibutton{margin-left:5px;}
 button.minibutton::-moz-focus-inner{margin:-1px -3px;}

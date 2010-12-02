@@ -74,6 +74,7 @@ module PieUi
       cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
       begin
         tail = @mindpin_layout.cellhead_tail || action_name
+        return '' if @mindpin_layout.cellhead_tail == false
         render :partial=>"#{cellhead_path}_#{tail}"
       rescue ActionView::MissingTemplate => ex
         begin

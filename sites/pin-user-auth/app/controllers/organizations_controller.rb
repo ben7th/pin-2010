@@ -33,7 +33,7 @@ class OrganizationsController < ApplicationController
 
   def settings
     if !(logged_in? && current_user.is_owner_of?(@organization))
-      render :text=>'没有权限',:status=>403
+      render_status_page(403)
     end
   end
 

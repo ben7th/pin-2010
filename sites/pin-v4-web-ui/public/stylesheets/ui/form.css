@@ -147,6 +147,6 @@ input.search-inner, input.search {
   background-color: white;
   border-color: #333; }
 
-input.search-button {
-  height: 21px;
-  top: -1px; }
+input.search-button, input.search-button.submit {
+  height: 21px !important;
+  top: -1px !important; }

@@ -19,6 +19,11 @@ class Member < ActiveRecord::Base
     User.find_by_email(email)
   end
 
+  def username
+    '' if self.user.blank?
+    self.user.name
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :members,:foreign_key=>"email",:primary_key=>"email"

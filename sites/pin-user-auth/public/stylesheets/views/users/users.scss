@@ -50,3 +50,35 @@
   @include border-radius(4px);
   border:none;
 }
+
+.set_avatar_head{
+  background:#EBF6E5;
+  color:#000000;
+  @include border-radius(4px);
+  padding:10px;
+  border:solid 2px #D3DDCE;
+  ul.steps{
+    li{
+      display:inline;
+      margin-right:8px;
+      background:url(/images/piece/arrow.png) no-repeat 0 3px;
+      padding-left:48px;
+      &.event{
+        background:none;padding-left:0;
+      }
+      &.current{
+        span{
+          background:#fff;font-weight:bold;@include border-radius(3px);
+          border-color:rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1) transparent rgba(0, 0, 0, 0.2);
+          border-width:1px;border-style:solid;padding:4px 7px 3px;
+        }
+      }
+      &.complete{
+        span{
+          background:url(/images/piece/check.png) no-repeat 0 3px;
+          padding-left:18px;
+        }
+      }
+    }
+  }
+}
