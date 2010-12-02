@@ -19,6 +19,10 @@ Mindpin.MindpinSidebar = {
 
   load_side_bar: function(){
     Mindpin.FireFoxWindow.$("#status-bar-img").attr("class","open_status");
+    var user = Mindpin.LoginManager.get_logined_user();
+    if(user){
+      this.init_logined_event();
+    }
   },
   unload_side_bar:function(){
     Mindpin.FireFoxWindow.$("#status-bar-img").attr("class","close_status");
@@ -31,7 +35,9 @@ Mindpin.MindpinSidebar = {
     gbrowser.selectedTab = tab;
   },
   login: function(){
-    var login_success = function(){}
+    var login_success = function(){
+      Mindpin.MindpinSidebar.init_logined_event();
+    }
     Mindpin.LoginManager.promptUserLogin(login_success)
   },
   logout: function(){
@@ -100,7 +106,6 @@ Mindpin.MindpinSidebar = {
     Mindpin.MindpinSidebar.show_browse_histories();
     Mindpin.MindpinSidebar.show_concats();
     setTimeout(Mindpin.MindpinSidebar.show_current_page_content,0)
-    Mindpin.MindpinSidebar.show_mindmaps();
 
     getSidebarWindow().$('#mindpin_tab_list').attr("hidden",false);
   },
@@ -187,9 +192,10 @@ Mindpin.MindpinSidebar = {
 
   },
 
-  // 思维导图页签
-  show_mindmaps : function(){
-    Mindpin.Mindmap.init();
+  // 初始化侧边栏 并且 用户已登录,或者 用户登录成功后 时调用
+  init_logined_event : function(){
+    var sidebar = getSidebarWindow();
+    sidebar.Mindpin.Mindmap.init();
   },
 
   // 设置选中的页签 index
