@@ -69,20 +69,17 @@ Mindpin.Concats = {
     temp_label.attr("value",data[1].email);
     temp_box.hide();
     temp_box[0].appendChild(temp_label[0])
-    //    $(temp_box).hide();
-    //    concat_box.appendChild(temp_box)
+    concat_box.appendChild(temp_box[0])
     $(avatar).bind("mouseover",function(evt){
-      concat_box.appendChild(temp_box[0])
 //            alert(evt.clientX)
 //            alert(evt.clientY)
       setTimeout(function(){
         temp_box.attr("style","position:absolute;background-color:#FFF000;left:"+evt.clientX+"px;top:"+evt.clientY+"px");
-//        alert(temp_box.attr("style"))
         temp_box.show()
       },500);
     });
     $(avatar).bind("mouseout",function(){
-      $(temp_box).hide();
+      temp_box.hide();
     });
   },
 
