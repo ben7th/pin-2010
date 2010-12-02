@@ -39,10 +39,16 @@ Mindpin.edit_mindmap_url = function(mindmap_id){
   return "http://mindmap-editor.mindpin.com/mindmaps/" + mindmap_id + "/edit";
 };
 
-Mindpin.CREATE_MINDMAP_URL = "http://mindmap-editor.mindpin.com/mindmaps.json"
+Mindpin.CREATE_MINDMAP_URL = "http://mindmap-editor.mindpin.com/mindmaps/create_base64.json"
+
+Mindpin.IMPORT_MINDMAP_URL = "http://mindmap-editor.mindpin.com/mindmaps/import_base64.json"
 
 Mindpin.CONCATS_URL = "http://www.mindpin.com/concats.json"
 
 Mindpin.ADD_CONCAT_URL = "http://www.mindpin.com/concats/create_for_plugin"
 
 Mindpin.DESTROY_CONCAT_URL = "http://www.mindpin.com/concats/destroy_for_plugin"
+	
+Mindpin.SHOW_USER = function(user_id){
+  return "http://www.mindpin.com/users/"+user_id
+}
