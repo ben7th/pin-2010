@@ -1,10 +1,20 @@
 -require_css 'views/organizations'
 
-.grid_12
-  -mindpin_form_for @organization do |f|
-    = f.text_field :name
-    = f.text_field :email,:desc=>'团队的联系信箱'
-    = f.submit "创建团队"
+.topl
+  .grid_11.alpha
+    %h3.marginb10 创建一个团队
+    -mindpin_form_for @organization do |f|
+      = f.text_field :name
+      = f.text_field :email,:desc=>'团队的联系信箱'
+      = f.submit "好了，确定"
 
-.grid_11
-  说明 blah blah
+  .grid_11.omega.fright
+    %p 团队的名称和联系邮箱，都可以在创建后再次更改。
+    %p
+      请使用
+      %span.loud>容易识别记忆的团队名称
+      ，而且尽量和团队中的成员名区分开，以避免在某些特定情况下发生混淆。
+    %p
+      不能使用具有宗教，政治，色情，暴力等具有非法内容的团队名称。
+      MindPin有权随时关闭不符合法律规定的团队，或者关闭相关账号的登录权限。
+

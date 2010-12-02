@@ -4,22 +4,23 @@
   =flash_info
   .organization-list
     -mplist Organization.of_user(current_user),:for=>Organization do |org|
-      .fleft
-        .name
-          =link_to org.name,"/organizations/#{org.id}"
-        .members
-          =org.members.count
-          个成员
-      .fright.actions
-        -if current_user.is_owner_of?(org)
-          .settings
-            =minibutton '<span class="icon"></span>设置',"/organizations/#{org.id}/settings"
-        .leave
-          =minibutton '<span class="icon"></span>退出',"/organizations/#{org.id}/leave",:method=>'DELETE',:confirm=>'你确定要退出这个团队吗？'
+      .iconed{:class=>current_user.is_owner_of?(org)?'admin':''}
+        .fleft
+          .name
+            =link_to org.name,"/organizations/#{org.id}"
+          .members
+            =org.members.count
+            个成员
+        .fright.actions
+          -if current_user.is_owner_of?(org)
+            .settings
+              =minibutton '<span class="icon"></span>设置',"/organizations/#{org.id}/settings"
+          .leave
+            =minibutton '<span class="icon"></span>退出',"/organizations/#{org.id}/leave",:method=>'DELETE',:confirm=>'你确定要退出这个团队吗？'
 
 
   .create-organization
-    =minibutton '创建新团队',pin_url_for('pin-user-auth','organizations/new')
+    =classybutton '创建新团队',pin_url_for('pin-user-auth','organizations/new')
 
 .grid_8.fright.omega
   .organization-features

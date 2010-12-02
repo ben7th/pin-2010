@@ -2,8 +2,8 @@
   - id = @organization.id
   %ul
     %li
-      =tabs_link_to '主页',pin_url_for("pin-user-auth","organizations/#{id}")
+      =tabs_link_to '团队主页',pin_url_for("pin-user-auth","organizations/#{id}")
     %li
-      =tabs_link_to '成员',pin_url_for("pin-user-auth","organizations/#{id}/members")
+      =tabs_link_to '成员列表',pin_url_for("pin-user-auth","organizations/#{id}/members")
     %li
-      =tabs_link_to '设置',pin_url_for("pin-user-auth","organizations/#{id}/settings")
+      =tabs_link_to '信息设置',pin_url_for("pin-user-auth","organizations/#{id}/settings")

@@ -3,6 +3,7 @@
 .organization-features{
   border:solid 1px #09101A;
   @include border-radius(4px);
+  @include box-shadow(0 0 10px #09070E);
   background:#2A344D;
   .intro{
     margin:10px;
@@ -28,31 +29,40 @@
 
 .organization-list{
   li.organization{
-    padding-right:0px !important;
-    border-top:solid 1px #242438;
-    .name{font-weight:bold;font-size:14px;}
-    .actions{
-      line-height:39px;
+    padding: 0 !important;
+    .iconed{
+      overflow:hidden;
+      background:url(/images/piece/org_icon.png) 0 0 no-repeat;
+      &.admin{
+        background:url(/images/piece/org_icon.png) 0 -100px no-repeat;
+      }
+      padding:6px 6px 6px 38px !important;
+      padding-right:0px !important;
+      border-top:solid 1px #242438;
+      .name{font-weight:bold;font-size:14px;}
+      .actions{
+        line-height:39px;
 
-      .settings,.leave{
-        margin-left:10px;
-        float:left;
-        .minibutton .icon{
+        .settings,.leave{
+          margin-left:10px;
           float:left;
-          margin-left:-4px;
-          width:15px;
-          height:22px;
+          .minibutton .icon{
+            float:left;
+            margin-left:-4px;
+            width:15px;
+            height:22px;
+          }
         }
-      }
 
-      .settings{
-        .minibutton .icon{background:url(/images/piece/minibutton_icons.png) 0 0;}
-        .minibutton:hover .icon{background:url(/images/piece/minibutton_icons.png) 0 -25px;}
-      }
+        .settings{
+          .minibutton .icon{background:url(/images/piece/minibutton_icons.png) 0 0;}
+          .minibutton:hover .icon{background:url(/images/piece/minibutton_icons.png) 0 -25px;}
+        }
 
-      .leave{
-        .minibutton .icon{background:url(/images/piece/minibutton_icons.png) -120px 0;}
-        .minibutton:hover .icon{background:url(/images/piece/minibutton_icons.png) -120px -25px;}
+        .leave{
+          .minibutton .icon{background:url(/images/piece/minibutton_icons.png) -120px 0;}
+          .minibutton:hover .icon{background:url(/images/piece/minibutton_icons.png) -120px -25px;}
+        }
       }
     }
   }
@@ -106,12 +116,11 @@
 
 .delete_organization{
   overflow:hidden;
-  margin-top:20px;
   @include border-radius(4px);
-  border:solid 1px #3A0100;
+  @include box-shadow(0 0 10px #09070E);
   padding:10px;
   background:#2A1F2E;
-  h3{
-    color:#ff0000;
+  h3,.danger{
+    color:#FF3E00;
   }
 }

@@ -30,9 +30,14 @@ module GlobalUtil
         end
       end
 
-      str0 = "#{arr[0][1]} <div class='others tip' tip='##{original_title_id}'>#{used_fields.length - 1} 其他..</div>"
-      str1 = "<div id='#{original_title_id}' class='hide'><ul>#{lis}</ul></div>"
-      return "#{str0}#{str1}"
+      others_count = used_fields.length - 1
+
+      str0 = "#{arr[0][1]} "
+      str1 = "<div class='others tip' tip='##{original_title_id}'>#{others_count} 其他..</div>"
+      str2 = "<div id='#{original_title_id}' class='hide'><ul>#{lis}</ul></div>"
+
+      return "#{str0}#{str1}#{str2}" if others_count > 0
+      return "#{str0}"
 
     rescue Exception => ex
       "数据验证错误"

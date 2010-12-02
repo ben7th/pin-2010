@@ -71,10 +71,10 @@ class UserBase < ActiveRecord::Base
 
   # 验证cookies令牌
   def self.authenticate_cookies_token(token)
-    t=token.split(':')
-    user=User.find_by_name(t[0])
+    t = token.split(':')
+    user = User.find_by_email(t[0])
     if user
-      if t[2]!=hashed_token_string(user.name,user.hashed_password)
+      if t[2]!=User.hashed_token_string(user.email,user.hashed_password)
         user=nil
       end
     end

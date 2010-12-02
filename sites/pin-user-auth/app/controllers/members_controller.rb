@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   end
 
   def index
-    
+    set_tabs_path('organizations/tabs')
   end
 
   def create

@@ -13,6 +13,33 @@ module MindmapParamsEditingMethods
     end
   end
 
+  def create_base64
+    attr = {:title=>params[:title],:private=>params[:is_private]}
+    if params[:logo_base64]
+      # jpg 等类型的图片文件
+      file = File.open("/tmp/mindmaps_logo_base64_#{randstr}","w") do |f|
+        f << decode64(params[:logo_base64])
+      end
+      attr[:logo] = File.open(file.path,"r")
+    end
+    @mindmap = Mindmap.create_by_params(current_user,attr)
+    if @mindmap
+      render :json=>mindmap_json(@mindmap)
+    end
+  end
+
+  def import_base64
+    # mmap,等导图文件类型
+    file = File.open("/tmp/mindmaps_base64_#{randstr}.#{params[:type]}","w") do |f|
+      f << decode64(params[:import_file_base64])
+    end
+    attr = {:import_file=>File.open(file.path,"r"),:title=>params[:title]}
+    @mindmap = Mindmap.create_by_params(current_user,attr)
+    if @mindmap
+      render :json=>mindmap_json(@mindmap)
+    end
+  end
+
   def _create_mindmap
     @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
     if @mindmap && !current_user

@@ -27,11 +27,14 @@ class OrganizationsController < ApplicationController
       flash[:success] = "修改成功"
       return redirect_to :action=>:settings
     end
-    flash[:error] = "修改失败"
+    flash[:error] = get_flash_error(@organization)
     redirect_to :action=>:settings
   end
 
   def settings
+    if !(logged_in? && current_user.is_owner_of?(@organization))
+      render :text=>'没有权限',:status=>403
+    end
   end
 
   def leave

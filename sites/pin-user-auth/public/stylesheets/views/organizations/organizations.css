@@ -3,6 +3,9 @@
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
+  box-shadow: 0 0 10px #09070e;
+  -moz-box-shadow: 0 0 10px #09070e;
+  -webkit-box-shadow: 0 0 10px #09070e;
   background: #2A344D; }
   .organization-features .intro {
     margin: 10px;
@@ -22,29 +25,36 @@
       margin: 5px 0; }
 
 .organization-list li.organization {
-  padding-right: 0px !important;
-  border-top: solid 1px #242438; }
-  .organization-list li.organization .name {
-    font-weight: bold;
-    font-size: 14px; }
-  .organization-list li.organization .actions {
-    line-height: 39px; }
-    .organization-list li.organization .actions .settings, .organization-list li.organization .actions .leave {
-      margin-left: 10px;
-      float: left; }
-      .organization-list li.organization .actions .settings .minibutton .icon, .organization-list li.organization .actions .leave .minibutton .icon {
-        float: left;
-        margin-left: -4px;
-        width: 15px;
-        height: 22px; }
-    .organization-list li.organization .actions .settings .minibutton .icon {
-      background: url(/images/piece/minibutton_icons.png) 0 0; }
-    .organization-list li.organization .actions .settings .minibutton:hover .icon {
-      background: url(/images/piece/minibutton_icons.png) 0 -25px; }
-    .organization-list li.organization .actions .leave .minibutton .icon {
-      background: url(/images/piece/minibutton_icons.png) -120px 0; }
-    .organization-list li.organization .actions .leave .minibutton:hover .icon {
-      background: url(/images/piece/minibutton_icons.png) -120px -25px; }
+  padding: 0 !important; }
+  .organization-list li.organization .iconed {
+    overflow: hidden;
+    background: url(/images/piece/org_icon.png) 0 0 no-repeat;
+    padding: 6px 6px 6px 38px !important;
+    padding-right: 0px !important;
+    border-top: solid 1px #242438; }
+    .organization-list li.organization .iconed.admin {
+      background: url(/images/piece/org_icon.png) 0 -100px no-repeat; }
+    .organization-list li.organization .iconed .name {
+      font-weight: bold;
+      font-size: 14px; }
+    .organization-list li.organization .iconed .actions {
+      line-height: 39px; }
+      .organization-list li.organization .iconed .actions .settings, .organization-list li.organization .iconed .actions .leave {
+        margin-left: 10px;
+        float: left; }
+        .organization-list li.organization .iconed .actions .settings .minibutton .icon, .organization-list li.organization .iconed .actions .leave .minibutton .icon {
+          float: left;
+          margin-left: -4px;
+          width: 15px;
+          height: 22px; }
+      .organization-list li.organization .iconed .actions .settings .minibutton .icon {
+        background: url(/images/piece/minibutton_icons.png) 0 0; }
+      .organization-list li.organization .iconed .actions .settings .minibutton:hover .icon {
+        background: url(/images/piece/minibutton_icons.png) 0 -25px; }
+      .organization-list li.organization .iconed .actions .leave .minibutton .icon {
+        background: url(/images/piece/minibutton_icons.png) -120px 0; }
+      .organization-list li.organization .iconed .actions .leave .minibutton:hover .icon {
+        background: url(/images/piece/minibutton_icons.png) -120px -25px; }
 
 .create-organization {
   border-top: solid 1px #242438;
@@ -93,12 +103,13 @@
 
 .delete_organization {
   overflow: hidden;
-  margin-top: 20px;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  border: solid 1px #3A0100;
+  box-shadow: 0 0 10px #09070e;
+  -moz-box-shadow: 0 0 10px #09070e;
+  -webkit-box-shadow: 0 0 10px #09070e;
   padding: 10px;
   background: #2A1F2E; }
-  .delete_organization h3 {
-    color: #ff0000; }
+  .delete_organization h3, .delete_organization .danger {
+    color: #FF3E00; }
