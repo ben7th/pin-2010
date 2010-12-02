@@ -48,3 +48,7 @@ Mindpin.CONCATS_URL = "http://www.mindpin.com/concats.json"
 Mindpin.ADD_CONCAT_URL = "http://www.mindpin.com/concats/create_for_plugin"
 
 Mindpin.DESTROY_CONCAT_URL = "http://www.mindpin.com/concats/destroy_for_plugin"
+	
+Mindpin.SHOW_USER = function(user_id){
+  return "http://www.mindpin.com/users/"+user_id
+}

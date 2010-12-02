@@ -1,4 +1,6 @@
-if(typeof(Mindpin)=='undefined'){Mindpin = {}}
+if(typeof(Mindpin)=='undefined'){
+  Mindpin = {}
+  }
 Mindpin.LOGIN_URL = "http://dev.www.mindpin.com/login_by_extension"
 Mindpin.LOGOUT_URL = "http://dev.www.mindpin.com/logout"
 
@@ -48,3 +50,7 @@ Mindpin.CONCATS_URL = "http://dev.www.mindpin.com/concats.json"
 Mindpin.ADD_CONCAT_URL = "http://dev.www.mindpin.com/concats/create_for_plugin"
 
 Mindpin.DESTROY_CONCAT_URL = "http://dev.www.mindpin.com/concats/destroy_for_plugin"
+
+Mindpin.SHOW_USER = function(user_id){
+  return "http://dev.www.mindpin.com/users/"+user_id
+}
