@@ -1,16 +1,22 @@
 - require_css 'mindmaps.css'
 
-.grid_7.fright
-  =render :partial=>"/mindmaps/parts/search_bar"
+.topl
+  .grid_16.margint10.alpha
+    -if @sphinx_error
+      .flash-notice= @sphinx_error
+    %h3
+      对
+      %span.loud=@query
+      的搜索结果
+    .margint10
+      %ul{:id=>"search_mindmaps",:class=>"mplist mindmaps"}
+        -@mindmaps.each do |mindmap|
+          -if mindmap
+            %li{:id=>"mindmap_#{mindmap.id}",:class=>"mpli mindmap"}
+              =render :partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}
+      .clearfix
+        =will_paginate @mindmaps
 
-.grid_16.margint10
-  -if @sphinx_error
-    .flash-notice= @sphinx_error
-  %h3 搜索 [<span class="querykw">#{@query}</span>]
-  %div
-    %ul{:id=>"search_mindmaps",:class=>"mindmap"}
-      -@mindmaps.each do |mindmap|
-        -if mindmap
-          %li{:id=>"mindmap_#{mindmap.id}",:class=>"mli"}
-            =render :partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}
-  %div{:style=>"clear:both;"}= will_paginate @mindmaps
+  .grid_6.fright.omega
+    %div{:style=>'margin-top:50px;'}
+    =minibutton '好了，返回导图列表',pin_url_for('pin-mindmap-editor')
