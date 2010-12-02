@@ -69,7 +69,7 @@ Mindpin.Concats = {
     concat_box.appendChild(temp_box[0])
     $(avatar).bind("mouseover",function(evt){
       setTimeout(function(){
-        temp_box.attr("style","width:200px;height:200px;-moz-appearance:none;position:fixed;background-color:#FFF000;left:"+evt.clientX+"px;top:"+evt.clientY+"px");
+        temp_box.attr("style","width:200px;height:100px;-moz-appearance:none;position:fixed;background-color:#000000;left:"+evt.clientX+"px;top:"+evt.clientY+"px");
         temp_box.show()
       },500);
     });
