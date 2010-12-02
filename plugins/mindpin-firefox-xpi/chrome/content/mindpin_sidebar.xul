@@ -121,7 +121,8 @@
 
           <vbox flex="1">
             <hbox>
-              <button id="create_mindmap" label="新建导图"></button>
+              <button id="create_mindmap_btn" label="新建导图"></button>
+              <button id="import_mindmap_btn" label="从文件导入导图"></button>
             </hbox>
             <deck id="mindmap_deck" selectedIndex="0" flex="1">
               <tree id="mindmap_list" rows="3" seltype="single" contextmenu="mindmap_context_menu">
@@ -132,6 +133,19 @@
                 </treecols>
                 <treechildren />
               </tree>
+              <vbox id="import_mindmap_form" style="margin-top:40px;">
+                <hbox align="center">
+                  <label value='标题'/>
+                  <textbox id="import_mindmap_title" flex="1"/>
+                </hbox>
+                <hbox align="center">
+                  <label value='文件'/>
+                  <textbox id="import_mindmap_file" flex="1" readonly="true" />
+                  <button id="select_mindmap_file" label="选择导图文件"></button>
+                </hbox>
+                <button id="start_import_mindmap" label="确定，上传导入"></button>
+                <button id="cancel_import_btn" label="取消"></button>
+              </vbox>
             </deck>
           </vbox>
         </tabpanel>

@@ -41,6 +41,8 @@ Mindpin.edit_mindmap_url = function(mindmap_id){
 
 Mindpin.CREATE_MINDMAP_URL = "http://mindmap-editor.mindpin.com/mindmaps.json"
 
+Mindpin.IMPORT_MINDMAP_URL = "http://mindmap-editor.mindpin.com/mindmaps/import_base64.json"
+
 Mindpin.CONCATS_URL = "http://www.mindpin.com/concats.json"
 
 Mindpin.ADD_CONCAT_URL = "http://www.mindpin.com/concats/create_for_plugin"
