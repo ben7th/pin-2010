@@ -1,9 +1,8 @@
 %h3 邮箱地址
 .mail.loud.margint10{:style=>'font-size:19px;font-weight:bold;'}= current_user.email
 .margint10
-  %span 邮箱目前不需要激活
-  -#if current_user.activated?
-  -#  %span 已激活
-  -#else
-  -#%span.marginr10 邮箱未激活
-  -#=minibutton '发送激活邮件',send_activation_mail_path
+  -if current_user.activated?
+    %span 已激活
+  -else
+    %span.marginr10 邮箱未激活
+    =minibutton '发送激活邮件',send_activation_mail_path
