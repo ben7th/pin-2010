@@ -48,7 +48,7 @@ class AccountController < ActionController::Base
       flash[:notice]="激活邮件已发送，请注意查收"
       return redirect_to :action=>:email
     end
-    render_status_page(422,'已经激活')
+    render_status_page(422,'当前邮箱已经激活，不能重复激活')
   end
 
   # 用户激活
