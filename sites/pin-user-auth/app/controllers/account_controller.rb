@@ -4,6 +4,7 @@ class AccountController < ActionController::Base
   def base;end
   # 头像
   def avatared;end
+
   # 邮箱
   def email;end
 
@@ -45,8 +46,9 @@ class AccountController < ActionController::Base
     if !current_user.activated?
       current_user.send_activation_mail
       flash[:notice]="激活邮件已发送，请注意查收"
-      redirect_to :action=>:email
+      return redirect_to :action=>:email
     end
+    render_status_page(422,'已经激活')
   end
 
   # 用户激活

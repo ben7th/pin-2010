@@ -3,6 +3,7 @@
 .topl
   .grid_11.alpha
     %h3.marginb10 创建一个团队
+    =flash_info
     -mindpin_form_for @organization do |f|
       = f.text_field :name
       = f.text_field :email,:desc=>'团队的联系信箱'
