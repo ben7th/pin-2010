@@ -49,7 +49,7 @@ class TextPinsController < ApplicationController
 
     case res
     when Net::HTTPSuccess, Net::HTTPRedirection
-      url = pin_url_for('pin-app-adapter','app/mindmap_editor')
+      url = pin_url_for('pin-mindmap-editor','')
       render_ui.fbox :show,:content=>"操作成功，<a target='_blank' href='#{url}'>查看详情<a>"
     else
       render_ui.fbox :show,:content=>"操作失败"
