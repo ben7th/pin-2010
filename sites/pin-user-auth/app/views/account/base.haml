@@ -1,21 +1,15 @@
-/=render :partial=>"preferences/cell_selector"
-
-.cin
+.grid_15.alpha
   = flash_info
   - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
-    %h2 基本信息设置
     = f.text_field(:name)
-    .p
-      = t('page.account.base.join_time')
-      = created_at current_user
-    = hr
-    .p.indent
-      = t('page.account.base.password_caption')
-    .p
-      %label= t('page.account.base.password')
+    .field
+      加入时间 #{created_at current_user}
+    .field
+      如果需要修改密码，请在下面填写，不修改，则不用填写
+    .field
+      %label 新密码
       = password_field :user,:password,:value=>'',:maxlength=>32,:class=>'text'
-    .p
-      %label= t('page.account.base.password_confirmation')
+    .field
+      %label 确认新密码
       = password_field :user,:password_confirmation,:value=>'',:maxlength=>32,:class=>'text'
-    = hr
     = f.submit t('page.account.base.from_submit')

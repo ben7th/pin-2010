@@ -33,7 +33,7 @@
         $(this).closest("fieldset").removeClass("active");
       });
 
-    $("input[type='submit']")
+    $("input[type='submit'],a.button")
       .live('mousedown',function(){$(this).addClass("mousedown")})
       .live("mouseup mouseleave",function(){$(this).removeClass("mousedown")});
   });

@@ -73,7 +73,9 @@ module PieUi
     def render_cellhead
       cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
       begin
-        render :partial=>"#{cellhead_path}_#{action_name}"
+        tail = @mindpin_layout.cellhead_tail || action_name
+        return '' if @mindpin_layout.cellhead_tail == false
+        render :partial=>"#{cellhead_path}_#{tail}"
       rescue ActionView::MissingTemplate => ex
         begin
           render :partial=>cellhead_path
@@ -97,7 +99,7 @@ module PieUi
       return '' if tabs_path == false
 
       if tabs_path.nil?
-        if ['new','edit'].include? action_name
+        if ['new','edit','create','update'].include? action_name
           return ''
         else
           tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs')

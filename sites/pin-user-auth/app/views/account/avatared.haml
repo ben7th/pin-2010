@@ -1,12 +1,18 @@
-- require_css 'views',true
+-require_css 'views/users'
 
-.padding5
-  = flash_info
-.p
-  = logo current_user,:medium
-  = logo current_user,:normal
-  = logo current_user,:tiny
-  = logo current_user,:mini
-- mindpin_form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
-  = f.file_field(:logo)
-  = f.submit "上传图片"
+.topl
+  .grid_11.alpha
+    = flash_info
+    .clearfix
+      = logo current_user,:medium
+      = logo current_user,:normal
+      = logo current_user,:tiny
+      = logo current_user,:mini
+
+    - mindpin_form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
+      = f.file_field(:logo)
+      = f.submit "上传图片"
+
+  .grid_11.fright.omega.font13
+    上传一张图片，然后选择要裁切的部分。<br/>
+    MindPin系统会自动替您裁好几种大小的头像！<br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -3,6 +3,14 @@ class Organization < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :email
+  validates_uniqueness_of :email
+
+  def validate
+    user = User.find_by_email(email)
+    if !email.blank? && user
+      errors.add(email,"该邮箱地址已被使用")
+    end
+  end
 
   named_scope :of_user, lambda{ |user|
     {:joins=>" inner join members on organizations.id=members.organization_id",
@@ -22,6 +30,11 @@ class Organization < ActiveRecord::Base
   #SELECT `organizations`.* FROM `organizations` INNER JOIN `members` ON `organizations`.id = `members`.organization_id WHERE ((`members`.email = 271)
 
   validates_format_of :email,:with=>/^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/
+
+  # 判断 名字是否重复
+  def name_repeat?
+    Organization.find_all_by_name(name).size > 1
+  end
 
   def all_members_email
     members.map{|member| member.email }
@@ -52,10 +65,14 @@ class Organization < ActiveRecord::Base
     all_members_email.include?(email)
   end
 
+  def activities
+    Activity.find(:all,:conditions=>{:location_type=>self.class.to_s,:location_id=>id},:order=>"updated_at desc")
+  end
+
   module UserMethods
     def is_owner_of?(organization)
       organization.owners.include?(self)
     end
   end
-  
+
 end

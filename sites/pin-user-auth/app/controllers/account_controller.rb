@@ -4,6 +4,7 @@ class AccountController < ActionController::Base
   def base;end
   # 头像
   def avatared;end
+
   # 邮箱
   def email;end
 
@@ -15,41 +16,38 @@ class AccountController < ActionController::Base
     @user.password_confirmation=s1[:password_confirmation]
     @user.update_attributes(s1)
     if @user.save
-      flash[:notice]="用户#{@user.name}的信息已经成功修改"
+      flash[:success]="用户 #{@user.email}（#{@user.name}）的信息已经成功修改"
     else
       (@user.errors).each do |*error|
         flash[:error]=error*' '
       end
     end
     redirect_to :action=>:base
-    #    responds_to_parent do
-    #      render_ui do |ui|
-    #        ui.cell @user,:partial=>"users/cell_edit",:position=>:paper
-    #        ui.page << %`
-    #              $$("#logo_user_#{@user.id}").each(function(logo){
-    #                logo.src = "#{@user.logo.url}";
-    #              })
-    #              $$("#logo_user_#{@user.id}_tiny").each(function(logo){
-    #                logo.src = "#{@user.logo.url(:tiny)}";
-    #              })
-    #`
-    #      end
-    #    end
   end
 
   # 修改头像
   def avatared_submit
     if !params[:copper]
       if params[:user].blank?
-        flash.now[:error] = "没有选择图片，请选择"
+        set_cellhead_tail(:avatared)
+        flash.now[:error] = "头像保存失败，请选择头像图片并上传"
         return render :action=>:avatared
       end
-      current_user.update_attributes({:logo=>params[:user][:logo]})
-      return render :template=>"account/copper_avatared"
+      return _save_avatar
     else
-      current_user.copper_logo(params)
-      redirect_to :action=>:avatared
+      return _copper
     end
+  end
+
+  def _save_avatar
+    current_user.update_attributes({:logo=>params[:user][:logo]})
+    set_cellhead_tail('copper_avatared')
+    return render :template=>"account/copper_avatared"
+  end
+
+  def _copper
+    current_user.copper_logo(params)
+    redirect_to :action=>:avatared
   end
 
   # 发送激活邮件
@@ -57,8 +55,9 @@ class AccountController < ActionController::Base
     if !current_user.activated?
       current_user.send_activation_mail
       flash[:notice]="激活邮件已发送，请注意查收"
-      redirect_to :action=>:email
+      return redirect_to :action=>:email
     end
+    render_status_page(422,'当前邮箱已经激活，不能重复激活')
   end
 
   # 用户激活
