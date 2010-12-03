@@ -5,10 +5,6 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id]) if params[:id]
   end
 
-  def index
-    #    @organizations = Organization.of_user(current_user)
-  end
-
   def new
     @organization = Organization.new
   end
@@ -56,7 +52,10 @@ class OrganizationsController < ApplicationController
 
   def invite;end
 
-  def show;end
+  def show
+    @activities = @organization.activities
+  end
+  
 end
 
 

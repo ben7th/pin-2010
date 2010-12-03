@@ -65,10 +65,14 @@ class Organization < ActiveRecord::Base
     all_members_email.include?(email)
   end
 
+  def activities
+    Activity.find(:all,:conditions=>{:location_type=>self.class.to_s,:location_id=>id},:order=>"updated_at desc")
+  end
+
   module UserMethods
     def is_owner_of?(organization)
       organization.owners.include?(self)
     end
   end
-  
+
 end

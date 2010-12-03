@@ -29,16 +29,25 @@ class AccountController < ActionController::Base
   def avatared_submit
     if !params[:copper]
       if params[:user].blank?
+        set_cellhead_tail(:avatared)
         flash.now[:error] = "头像保存失败，请选择头像图片并上传"
         return render :action=>:avatared
       end
-      current_user.update_attributes({:logo=>params[:user][:logo]})
-      set_cellhead_tail('copper_avatared')
-      return render :template=>"account/copper_avatared"
+      return _save_avatar
     else
-      current_user.copper_logo(params)
-      redirect_to :action=>:avatared
+      return _copper
     end
+  end
+
+  def _save_avatar
+    current_user.update_attributes({:logo=>params[:user][:logo]})
+    set_cellhead_tail('copper_avatared')
+    return render :template=>"account/copper_avatared"
+  end
+
+  def _copper
+    current_user.copper_logo(params)
+    redirect_to :action=>:avatared
   end
 
   # 发送激活邮件

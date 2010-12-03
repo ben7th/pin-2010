@@ -12,5 +12,5 @@ class Activity < ActiveRecord::Base
       base.has_many :activities,:foreign_key=>"email",:primary_key=>"email"
     end
   end
-  
+
 end
