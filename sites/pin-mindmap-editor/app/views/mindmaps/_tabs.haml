@@ -1,12 +1,9 @@
 %ul
-  -if logged_in?
-    %li
-      =tabs_link_to "我的导图",user_mindmaps_path(current_user)
   %li
+    -if logged_in?
+      =tabs_link_to "我的导图",user_mindmaps_path(current_user)
     =tabs_link_to "公开导图",mindmaps_path
-  -if logged_in?
-    %li
+    -if logged_in?
       =tabs_link_to "趋势与统计",user_tendency_path(current_user)
-  -if @user && @user != current_user
-    %li
+    -if @user && @user != current_user
       =tabs_link_to "#{@user.name}的公开导图",user_mindmaps_path(@user)

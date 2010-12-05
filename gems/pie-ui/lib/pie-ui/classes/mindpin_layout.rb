@@ -32,9 +32,10 @@ class MindpinLayout
         @mindpin_layout.cellhead_tail = tail
       end
 
-      def render_status_page(code)
+      def render_status_page(code,text='')
         set_cellhead_tail false
         set_tabs_path false
+        @status_text = text
         render :template=>base_layout_path("status_page/#{code}.haml"),:status=>code
       end
 

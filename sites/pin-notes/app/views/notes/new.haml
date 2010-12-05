@@ -1,15 +1,9 @@
-.grid_13.push_1
-  -form_tag create_note_path,:method =>:post,:id=>"note_form" do
-    %div
-      备注
-      %br
-      =text_area_tag "note[description]"
-    .notefiles
-      =render :partial=>"notes/parts/notefile_form",:locals=>{:name=>"#{NoteRepository::NOTE_FILE_PREFIX}1",:text=>""}
-    =link_to "增加文本片段",'#',:class=>"new_notefile"
-    =submit_tag "创建 Note"
+-require_css 'notes'
 
-.grid_8.push_1
+-content_for :javascripts do
+  = javascript_include_tag 'views/notefile'
+
+.secondary
   .top-bar.clearfix
     .fleft.font14.bold note 列表
   %div
@@ -17,5 +11,20 @@
       -current_user.notes.each do |note|
         %div=link_to note.title,show_note_path(:note_id=>note.id)
 
--content_for :javascripts do
-  = javascript_include_tag 'views/notefile'
+.main
+  -form_tag create_note_path,:method =>:post,:id=>"note_form" do
+    .file
+      .meta
+        =text_field_tag "note[description]"
+      .notefiles
+        =render :partial=>"notes/parts/notefile_input",:locals=>{:order=>1}
+
+    .field
+      =link_to "增加文本片段",'#',:class=>"add_another"
+
+    .field
+      %button.submit.glowing.marginr10{:name=>"commit",:type=>"submit",:value=>"private"}
+        保存私有资料
+      %button.submit{:name=>"commit",:type=>"submit",:value=>"public"}
+        保存公开资料
+

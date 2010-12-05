@@ -12,7 +12,6 @@
 
 .topbar
   %ul
-    .hide=link_to '工作空间',pin_url_for("pin-workspace")
-    .hide=link_to '分享',pin_url_for("pin-share")
     %li=link_to '思维导图',pin_url_for("pin-mindmap-editor")
-    .hide=link_to '宏管理',pin_url_for("pin-macro")
+    -if RAILS_ENV == 'development'
+      %li=link_to '摘要',pin_url_for('pin-notes')

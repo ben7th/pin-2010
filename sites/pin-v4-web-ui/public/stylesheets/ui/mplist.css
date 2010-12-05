@@ -409,3 +409,58 @@ ul.mplist.zebra li.mpli {
 .rss_item_div .description .dcontent {
   margin-top: 16px;
   font-size: 13px; }
+
+.comment-info {
+  border: 1px solid #111111;
+  background: #161621;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin: -1px -6px; }
+  .comment-info .meta {
+    height: 33px;
+    line-height: 33px;
+    overflow: hidden;
+    padding: 0 6px;
+    border-bottom: solid 1px #111;
+    background: #0D0D1A;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0; }
+    .comment-info .meta .username {
+      color: #fff !important;
+      float: left;
+      margin: 0 5px 0 0; }
+  .comment-info .date {
+    color: #777 !important; }
+  .comment-info .tiny {
+    height: 20px;
+    width: 20px;
+    border: 1px solid #C8C8C8;
+    margin-top: 5px; }
+  .comment-info .cbody {
+    padding: 0 6px;
+    overflow: hidden;
+    color: white;
+    position: relative; }
+    .comment-info .cbody .text-content {
+      padding: 10px 0; }
+      .comment-info .cbody .text-content p {
+        margin: 12px 0 !important; }
+    .comment-info .cbody .form-content {
+      padding: 10px 0; }
+      .comment-info .cbody .form-content textarea {
+        width: 100%; }
+  .comment-info .actions {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 5px; }
+  .comment-info:hover {
+    box-shadow: 0 0 5px #6e9eff;
+    -moz-box-shadow: 0 0 5px #6e9eff;
+    -webkit-box-shadow: 0 0 5px #6e9eff; }
+    .comment-info:hover .actions {
+      display: block; }
+  .comment-info .minibutton {
+    margin-left: 3px; }

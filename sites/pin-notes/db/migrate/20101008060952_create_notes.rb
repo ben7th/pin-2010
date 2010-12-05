@@ -3,6 +3,7 @@ class CreateNotes < ActiveRecord::Migration
     create_table :notes do |t|
       t.string :description
       t.integer :user_id
+      t.boolean :private
       t.timestamps
     end
   end

@@ -9,6 +9,7 @@ class NotesController < ApplicationController
   end
   
   def new
+    set_tabs_path("notes/tabs")
     claim_notes_str = cookies[:notes]
     if !claim_notes_str.blank? && current_user
       claim_notes_str.split(",").each do |id|
@@ -20,13 +21,26 @@ class NotesController < ApplicationController
   end
 
   def show
+    set_tabs_path(false)
     # 用户存在 可以编辑自己的
     # 没有登录的 cookie中存在的临时note可以编辑 
     @can_show = current_user || current_user.blank? && cookies[:notes] && cookies[:notes].split(",").include?(params["note_id"])
+    @comments = @note.comments
+  end
+
+  def download
+    path = @note.zip_pack
+    send_file path,:type=>"application/zip",:disposition=>'attachment',:filename=>"note_#{@note.id}.zip"
   end
 
   def create
-    note = !!current_user ? current_user.notes.create(params[:note]) : Note.create(params[:note].merge!(:user_id=>0))
+    attrs = params[:note]
+    user_id = logged_in? ? current_user.id : 0
+    attrs.merge!(:user_id=>user_id)
+    _private = (params[:commit] == "private")
+    attrs.merge!(:private=>_private)
+    
+    note = Note.create(attrs)
     set_cookie_if_nobody(note)
     note.repo.replace_notefiles(params[:notefile])
     redirect_to show_note_path(:note_id=>note.id)
@@ -55,7 +69,7 @@ class NotesController < ApplicationController
   end
 
   def new_file
-    str = @template.render :partial=>"notes/parts/notefile_form",
+    str = @template.render :partial=>"notes/parts/notefile_input",
       :locals=>{:name=>"#{NoteRepository::NOTE_FILE_PREFIX}#{params[:next_id]}",:text=>""}
     render :text=>str
   end

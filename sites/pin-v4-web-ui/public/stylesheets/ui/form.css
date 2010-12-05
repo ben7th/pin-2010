@@ -99,9 +99,33 @@ form .submit, form input[type="submit"], a.button.classy {
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0770a0), to(#0ca6dd));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0770a0',endColorstr='#0ca6dd'); }
 
-a.button.classy.danger {
+form .submit.glowing, a.button.classy.glowing {
+  background: -moz-linear-gradient(-90deg, #fffad5, #e6e1c0);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fffad5), to(#e6e1c0));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fffad5',endColorstr='#e6e1c0');
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 0 2px 4px black;
+  -moz-box-shadow: 0 2px 4px black;
+  -webkit-box-shadow: 0 2px 4px black;
+  text-shadow: 1px 1px 0 #fff; }
+  form .submit.glowing:hover, a.button.classy.glowing:hover {
+    color: #fff;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    border-bottom-color: #0770a0;
+    background: #0770a0;
+    background: -moz-linear-gradient(-90deg, #0ca6dd, #0770a0);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0ca6dd), to(#0770a0));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0ca6dd',endColorstr='#0770a0'); }
+  form .submit.glowing.mousedown, a.button.classy.glowing.mousedown {
+    background: -moz-linear-gradient(-90deg, #0770a0, #0ca6dd);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0770a0), to(#0ca6dd));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0770a0',endColorstr='#0ca6dd'); }
+
+form .submit.danger, a.button.classy.danger {
   color: #990000; }
-  a.button.classy.danger:hover {
+  form .submit.danger:hover, a.button.classy.danger:hover {
     color: #fff;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
     border-bottom-color: #cd504a;
@@ -109,7 +133,7 @@ a.button.classy.danger {
     background: -moz-linear-gradient(-90deg, #dc5f59, #b33630);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dc5f59), to(#b33630));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dc5f59',endColorstr='#b33630'); }
-  a.button.classy.danger.mousedown {
+  form .submit.danger.mousedown, a.button.classy.danger.mousedown {
     border-bottom-color: #dc5f59;
     background: -moz-linear-gradient(-90deg, #b33630, #dc5f59);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b33630), to(#dc5f59));

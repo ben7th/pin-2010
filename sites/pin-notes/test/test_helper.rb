@@ -35,4 +35,30 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  # 创建版本库测试环境
+  def repo_test
+    lifei = users(:repo_lifei)
+    clear_user_repositories(lifei)
+    yield lifei
+    #    clear_user_repositories(lifei)
+  end
+
+  # 清空 测试创建的版本库文件
+  def clear_user_repositories(user)
+    FileUtils.rm_rf(NoteRepository.repositories_path)
+    FileUtils.rm_rf(NoteRepository.user_recycle_path(user.id))
+  end
+
+  # 创建 note 测试环境
+  def note_test
+     repo_test do |lifei|
+      assert_difference("Note.count",1) do
+        note = lifei.notes.create
+        assert File.exist?(note.repo.path)
+      end
+      note = Note.last
+      yield note
+    end
+  end
 end

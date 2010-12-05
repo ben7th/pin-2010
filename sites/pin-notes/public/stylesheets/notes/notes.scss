@@ -1,0 +1,62 @@
+@import "../misc";
+
+.page-head{height:80px;}
+.container_auto{padding-left:40px;padding-right:40px;min-width:920px;}
+
+.tabs{
+  margin-top:0 !important;
+}
+
+.main{
+  width:68%;
+}
+
+.secondary{
+  width:30%;float:right;
+}
+
+
+
+$bgc:#323546;
+
+.add_another{
+  border:solid 1px #111111;
+  background:url(/images/new_file.png) no-repeat 10px center;
+  background-color:$bgc;
+  @include border-radius(3px);
+  line-height:32px;
+  padding:0 10px 0 32px;
+  font-weight:bold;
+  display:block;
+  &:hover{
+    background-color:#4183c4;
+    color:white;
+    text-decoration:none;
+  }
+}
+
+.file{
+  margin:0 0 10px;
+  .meta{
+    border:1px solid #111;
+    background-color:#282A3A;
+    @include border-radius(3px 3px 0 0);
+    padding:7px 10px;
+    input.text{
+      padding:2px 7px;
+      @include border-radius(2px);
+      width:98.5%;
+    }
+  }
+  .notefiles{
+    background-color:$bgc;
+    border:solid 1px #111;
+    border-top:none;
+    @include border-radius(0 0 3px 3px);
+    padding:7px 10px;
+    textarea{
+      width:99.5%;
+    }
+  }
+}
+

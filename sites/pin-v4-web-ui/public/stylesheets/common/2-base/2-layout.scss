@@ -72,6 +72,14 @@ body {margin:0;}
   }
 }
 
+.page-content.container_auto .cell{
+  margin-top:0px;
+  background:none;
+  padding:15px 0 0 0;
+  border:none;
+  @include box-shadow(none);
+}
+
 /*顶部*/
 .page-head{
   height:115px;

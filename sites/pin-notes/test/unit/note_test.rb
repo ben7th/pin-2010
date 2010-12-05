@@ -12,7 +12,7 @@ class NoteTest < ActiveSupport::TestCase
       note = Note.last
       assert_difference("Note.count",-1) do
         note.destroy
-        assert !File.exist?(NoteRepository.repository_path(lifei.id,note.id))
+        assert !File.exist?(NoteRepository.repository_path(note.id))
       end
     end
   end
@@ -70,16 +70,4 @@ class NoteTest < ActiveSupport::TestCase
     end
   end
 
-  def repo_test
-    lifei = users(:repo_lifei)
-    clear_user_repositories(lifei)
-    yield lifei
-#    clear_user_repositories(lifei)
-  end
-
-  def clear_user_repositories(user)
-    FileUtils.rm_rf(NoteRepository.user_repository_path(user.id))
-    FileUtils.rm_rf(NoteRepository.user_recycle_path(user.id))
-  end
-  
 end

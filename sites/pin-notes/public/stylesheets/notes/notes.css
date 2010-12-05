@@ -1,0 +1,59 @@
+.page-head {
+  height: 80px; }
+
+.container_auto {
+  padding-left: 40px;
+  padding-right: 40px;
+  min-width: 920px; }
+
+.tabs {
+  margin-top: 0 !important; }
+
+.main {
+  width: 68%; }
+
+.secondary {
+  width: 30%;
+  float: right; }
+
+.add_another {
+  border: solid 1px #111111;
+  background: url(/images/new_file.png) no-repeat 10px center;
+  background-color: #323546;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  line-height: 32px;
+  padding: 0 10px 0 32px;
+  font-weight: bold;
+  display: block; }
+  .add_another:hover {
+    background-color: #4183c4;
+    color: white;
+    text-decoration: none; }
+
+.file {
+  margin: 0 0 10px; }
+  .file .meta {
+    border: 1px solid #111;
+    background-color: #282A3A;
+    border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    padding: 7px 10px; }
+    .file .meta input.text {
+      padding: 2px 7px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      width: 98.5%; }
+  .file .notefiles {
+    background-color: #323546;
+    border: solid 1px #111;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px;
+    padding: 7px 10px; }
+    .file .notefiles textarea {
+      width: 99.5%; }

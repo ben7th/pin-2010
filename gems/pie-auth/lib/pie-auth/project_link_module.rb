@@ -13,7 +13,8 @@ module ProjectLinkModule
       "pin-mindmap-editor"      =>  "http://mindmap-editor.mindpin.com/",
       "pin-mindmap-image-cache" =>  "http://mindmap-image-cache.mindpin.com/",
       "pin-macro"               =>  "http://macro.mindpin.com/",
-      "pin-website"             =>  "http://website.mindpin.com/"
+      "pin-website"             =>  "http://website.mindpin.com/",
+      "pin-notes"               =>  "http://notes.mindpin.com/"
     },
     "development"=>{
       "user_auth"               =>  "http://dev.www.mindpin.com/",
@@ -28,7 +29,8 @@ module ProjectLinkModule
       "pin-mindmap-editor"      =>  "http://dev.mindmap-editor.mindpin.com/",
       "pin-mindmap-image-cache" =>  "http://dev.mindmap-image-cache.mindpin.com/",
       "pin-macro"               =>  "http://dev.macro.mindpin.com/",
-      "pin-website"             =>  "http://dev.website.mindpin.com/"
+      "pin-website"             =>  "http://dev.website.mindpin.com/",
+      "pin-notes"               =>  "http://dev.notes.mindpin.com/"
     },
     "test"=>{
       "user_auth"=>"http://dev.2010.mindpin.com/",
@@ -43,8 +45,9 @@ module ProjectLinkModule
       "pin-mindmap-editor"=>"http://dev.mindmap-editor.2010.mindpin.com/",
       "pin-mindmap-image-cache"=>"http://dev.mindmap-image-cache.2010.mindpin.com/",
       "pin-macro"=>"http://dev.macro.2010.mindpin.com/",
-      "pin-website"=>"http://dev.website.2010.mindpin.com/"
-      }
+      "pin-website"=>"http://dev.website.2010.mindpin.com/",
+      "pin-notes"=>"http://dev.notes.2010.mindpin.com/"
+    }
   }
   
   def pin_url_for(project_name,path=nil)

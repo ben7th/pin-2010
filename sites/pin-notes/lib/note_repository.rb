@@ -146,6 +146,11 @@ class NoteRepository
       "#{REPO_BASE_PATH}/deleted/users/#{user_id}"
     end
 
+    # note 版本库的根地址
+    def repositories_path
+      "#{REPO_BASE_PATH}/notes"
+    end
+
     #  某个note的版本库 地址
     def repository_path(note_id)
      "#{REPO_BASE_PATH}/notes/#{note_id}"

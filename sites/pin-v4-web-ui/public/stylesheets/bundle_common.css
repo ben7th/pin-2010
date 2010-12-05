@@ -124,6 +124,7 @@ body{margin:0;}
 .page-content .cell .cellhead .tabs ul li a{font-size:14px;float:left;line-height:26px;padding:0 8px;margin-right:10px;text-shadow:1px 1px #555;color:#ddd;text-decoration:none;}
 .page-content .cell .cellhead .tabs ul li a:hover{background-color:#171826;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;}
 .page-content .cell .cellhead .tabs ul li a.selected{border-style:solid;border-width:1px;border-color:#0E0E16 #2E2E3C #2E2E3C #0E0E16;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;background-color:#0E0E1A;font-weight:bold;}
+.page-content.container_auto .cell{margin-top:0;background:none;padding:15px 0 0 0;border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;}
 .page-head{height:115px;}
 .page-head .nav{clear:both;overflow:hidden;}
 .page-head .nav .site-logo{width:240px;height:40px;margin:25px 0 0 5px;float:left;}

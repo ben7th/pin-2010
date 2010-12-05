@@ -63,7 +63,27 @@ form .submit,form input[type="submit"],a.button.classy{
   }
 }
 
-a.button.classy.danger{
+form .submit.glowing,a.button.classy.glowing{
+  @include gradient(#FFFAD5,#E6E1C0);
+  @include border-radius(4px);
+  @include box-shadow(0 2px 4px rgba(0,0,0,1));
+  text-shadow:1px 1px 0 #fff;
+  $color1:#0770a0;
+  $color2:#0ca6dd;
+  &:hover{
+    color:#fff;
+    text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+    border-bottom-color:$color1;background:$color1;
+    @include gradient($color2,$color1);
+  };
+  &.mousedown{
+    @include gradient($color1,$color2);
+  }
+}
+
+
+
+form .submit.danger,a.button.classy.danger{
   color:#990000;
   $color1:#b33630;
   $color2:#dc5f59;

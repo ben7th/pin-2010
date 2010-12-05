@@ -201,3 +201,47 @@ ul.mplist.zebra{
 .rss_item_div .description .dcontent{margin-top: 16px;font-size: 13px;}
 
 
+.comment-info{
+  border:1px solid #111111;
+  background:#161621;
+  @include border-radius(5px);
+  margin:-1px -6px;
+  .meta {
+    height:33px;
+    line-height:33px;
+    overflow:hidden;
+    padding:0 6px;
+    border-bottom:solid 1px #111;
+    background:#0D0D1A;
+    @include border-radius(5px 5px 0 0);
+    .username{color:#fff !important;float:left;margin:0 5px 0 0;}
+  }
+
+  .date{color:#777 !important;}
+  .tiny{height:20px;width:20px;border:1px solid #C8C8C8;margin-top:5px;}
+  .cbody{
+    padding:0 6px;
+    overflow:hidden;color:white;
+    position:relative;
+    .text-content{
+      padding:10px 0;
+      p{margin:12px 0 !important;}
+    }
+    .form-content{
+      padding:10px 0;
+      textarea{width:100%;}
+    }
+  }
+  .actions{
+    display:none;
+    position:absolute;
+    right:5px;top:5px;
+  }
+  &:hover{
+    @include box-shadow(0 0 5px #6E9EFF);
+    .actions{display:block;}
+  }
+  .minibutton{margin-left:3px;}
+}
+
+
