@@ -12,7 +12,7 @@
         =minibutton_remote '删除',:url=>"/#{@note.id}/comments/#{c.id}",:method=>:delete,:confirm=>'你确定要删除这条评论吗？'
 
     .form-content.hide
-      -form_remote_tag :url=>"/#{@note.id}/comments/#{c.id}",:method=>:put,:html=>{:id=>form_id} do
+      -form_remote_tag :url=>[@note,c],:method=>:put,:html=>{:id=>form_id} do
         =text_area_tag "comment[content]",c.content
         .clearfix.margint10
           .fleft

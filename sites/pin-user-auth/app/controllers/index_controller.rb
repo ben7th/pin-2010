@@ -9,6 +9,8 @@ class IndexController < ApplicationController
 
   def _user_page
     @workspaces = current_user.workspaces
+    @organizations = Organization.of_user(current_user)
+    @mindmaps = current_user.mindmaps
   end
 
   def updating

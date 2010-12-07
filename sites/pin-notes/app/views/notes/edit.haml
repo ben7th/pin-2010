@@ -1,22 +1,20 @@
--repo = @note.repo
--text_hash = repo.text_hash
--has_delete_button = text_hash.keys.count != 1
-.grid_13.push_1
-  -form_tag update_note_path,:method =>:put,:id=>"note_form" do
-    %div 备注
-    =text_area_tag "note[description]",@note.description
-    .notefiles
-      -text_hash.each do |name,text|
-        =render :partial=>"notes/parts/notefile_form",:locals=>{:name=>name,:text=>text,:has_delete_button=>has_delete_button}
-    =link_to "增加文本片段",'#',:class=>"new_notefile"
-    =submit_tag "保存"
-
-.grid_8.push_1
-  .top-bar.clearfix
-    .fleft.font14.bold 版本列表
-  %div
-    -repo.commit_ids.each do |id|
-      =link_to id,show_note_path(:note_id=>@note.id,:commit_id=>id)
+-require_css 'notes'
 
 -content_for :javascripts do
   = javascript_include_tag 'views/notefile'
+
+.secondary
+
+.main
+  -form_tag note_path,:method =>:put,:id=>"note_form" do
+    .file
+      .meta
+        =text_field_tag "note[description]",@note.description
+      .notefiles
+        -@text_hash.each do |name,content|
+          =render :partial=>"notes/parts/notefile_input",:locals=>{:file_name=>name,:file_content=>content}
+    .field
+      =link_to "增加文本片段",'javascript:;',:class=>"add_another"
+    .field
+      %button.submit{:type=>"submit"}
+        保存摘要

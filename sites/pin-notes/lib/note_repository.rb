@@ -6,6 +6,8 @@ class NoteRepository
   end
 
   NOTE_FILE_PREFIX = "notefile_"
+
+  BLOB_CACHE_PATH = "#{REPO_BASE_PATH}/blob_cache"
   
   attr_reader :repo,:user_id,:note_id
 
@@ -56,6 +58,20 @@ class NoteRepository
     # 删除 文本片段
     delete_notefiles(delete_names)
     # 提交到版本库
+    @repo.commit_index("##")
+  end
+
+  # 增加一个文件到版本库
+  def add_file(file)
+    # 设置提交者
+    set_creator_as_commiter
+    # 把文件写入版本库
+    file_name = file.original_filename
+    absolute_file_path = File.join(path,file_name)
+
+    FileUtils.copy_file(file.path,absolute_file_path)
+    @repo.add(file_name)
+    # 提交版本库
     @repo.commit_index("##")
   end
 
@@ -116,6 +132,27 @@ class NoteRepository
     hash
   end
 
+  def blobs(commit_id = "master",options={:order=>"created_at"})
+    blobs = _notefile_blob(commit_id).map do |blob|
+      commits = @repo.log(commit_id,blob.name)
+      updated_at = commits.first.date
+      created_at = commits.last.date
+      NoteBlob.new({:id=>blob.id,:basename=>blob.name,:data=>blob.data,:mime_type=>blob.mime_type,
+        :updated_at=>updated_at,:created_at=>created_at})
+    end
+    blobs = case options[:order]
+    when "created_at" then blobs.sort{|blob_1,blob_2|blob_1.created_at <=> blob_2.created_at}
+    when "updated_at" then blobs.sort{|blob_1,blob_2|blob_1.updated_at <=> blob_2.updated_at}
+    end
+    blobs
+  end
+
+  # 得到某个版本下的修改统计
+  def commit_stats(commit_id = "master")
+    stats = @repo.commit(commit_id).stats.to_hash
+    {:additions=>stats.additions,:deletions=>stats.deletions}
+  end
+
   # 获取文件片段的个数
   def notefile_count(commit_id = "master")
     _notefile_blob(commit_id).count
@@ -125,7 +162,7 @@ class NoteRepository
   def _notefile_blob(commit_id)
     contents = @repo.commit(commit_id) ? @repo.commit(commit_id).tree.contents : []
     contents.select do |item|
-      item.instance_of?(Grit::Blob) && !!item.name.match(NOTE_FILE_PREFIX)
+      item.instance_of?(Grit::Blob) && item.name != ".git"
     end
   end
 

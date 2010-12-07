@@ -11,10 +11,58 @@
 
 .main {
   width: 68%; }
+  .main .repo {
+    border: 1px solid #111111;
+    background-color: #323546;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 3px 10px 10px;
+    margin-bottom: 5px; }
+    .main .repo .title {
+      overflow: hidden; }
+      .main .repo .title h3 {
+        color: white;
+        font-size: 16px;
+        float: left;
+        margin-right: 32px; }
+      .main .repo .title .actions {
+        float: left;
+        padding-top: 4px; }
+        .main .repo .title .actions .minibutton {
+          margin-right: 8px; }
+      .main .repo .title .icon {
+        float: right;
+        font-size: 16px;
+        color: #FFB019 !important;
+        line-height: 2em; }
+    .main .repo .meta {
+      padding-top: 3px; }
+      .main .repo .meta dl {
+        margin: 0; }
+        .main .repo .meta dl dt, .main .repo .meta dl dd {
+          display: inline-block; }
+        .main .repo .meta dl dt {
+          width: 80px; }
 
 .secondary {
   width: 30%;
   float: right; }
+
+.files-list .notefile {
+  border: 1px solid #111111;
+  background-color: #20212E;
+  margin-bottom: 5px; }
+  .files-list .notefile .meta {
+    border-bottom: solid 1px #111;
+    padding: 3px 10px;
+    background-color: #171922; }
+    .files-list .notefile .meta .embed-box input {
+      position: relative;
+      top: -2px;
+      border: solid 1px #111; }
+  .files-list .notefile .data {
+    padding: 10px 10px; }
 
 .add_another {
   border: solid 1px #111111;
@@ -36,7 +84,7 @@
   margin: 0 0 10px; }
   .file .meta {
     border: 1px solid #111;
-    background-color: #282A3A;
+    background-color: #171922;
     border-radius: 3px 3px 0 0;
     -moz-border-radius: 3px 3px 0 0;
     -webkit-border-radius: 3px 3px 0 0;
@@ -53,7 +101,18 @@
     border-top: none;
     border-radius: 0 0 3px 3px;
     -moz-border-radius: 0 0 3px 3px;
-    -webkit-border-radius: 0 0 3px 3px;
-    padding: 7px 10px; }
+    -webkit-border-radius: 0 0 3px 3px; }
     .file .notefiles textarea {
-      width: 99.5%; }
+      width: 99.5%;
+      height: 200px; }
+    .file .notefiles input.text {
+      padding: 2px 7px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px; }
+    .file .notefiles .note-name {
+      padding: 7px 10px;
+      background: #20212E;
+      border-bottom: solid 1px #111; }
+    .file .notefiles .note-content {
+      padding: 7px 10px; }

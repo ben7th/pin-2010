@@ -21,23 +21,19 @@ class Note < ActiveRecord::Base
     NoteRepository.find(:user_id=>user_id,:note_id=>id)
   end
 
-  # note 版本库中的 文件的地址列表
-  def repo_file_name_list
-    file_path_list = Dir.entries(self.repo.path)
-    file_path_list.delete(".")
-    file_path_list.delete("..")
-    file_path_list.delete(".git")
-    file_path_list
-  end
-
   # 把 note 中的内容打成 zip 包,返回地址
-  def zip_pack
+  def zip_pack(commit_id = "master")
     zip_path = File.join(Dir::tmpdir,UUIDTools::UUID.random_create.to_s)
     zip = Zip::ZipFile.open(zip_path, Zip::ZipFile::CREATE)
-    base_path = self.repo.path
+    text_hash = self.repo.text_hash(commit_id)
     
-    repo_file_name_list.each do |file_name|
-      zip.add("notes_#{self.id}/#{file_name}.txt",File.join(base_path,file_name))
+    text_hash.each do |file_name,file_content|
+      zip.get_output_stream("notes_#{self.id}/#{file_name}"){|f|f.puts file_content}
+    end
+
+    zip.get_output_stream("manifest") do |f|
+      f.puts "#{self.id}";f.puts "#{commit_id}";f.puts ""
+      text_hash.each{|file_name,file_content|f.puts file_name}
     end
 
     zip.close

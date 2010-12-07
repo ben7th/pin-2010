@@ -9,12 +9,60 @@
 
 .main{
   width:68%;
+  .repo{
+    border:1px solid #111111;
+    background-color:#323546;
+    @include border-radius(3px);
+    padding:3px 10px 10px;
+    margin-bottom:5px;
+    .title{
+      overflow:hidden;
+      h3{
+        color:white;font-size:16px;float:left;margin-right:32px;
+      }
+      .actions{
+        float:left;
+        padding-top:4px;
+        .minibutton{margin-right:8px;}
+      }
+      .icon{
+        float:right;font-size:16px;color:#FFB019 !important;line-height:2em;
+      }
+    }
+    .meta{
+      padding-top:3px;
+      dl{
+        margin:0;
+        dt,dd{display:inline-block;}
+        dt{width:80px;}
+      }
+    }
+  }
 }
 
 .secondary{
   width:30%;float:right;
 }
 
+.files-list{
+  .notefile{
+    border:1px solid #111111;
+    background-color:#20212E;
+    
+    margin-bottom:5px;
+    .meta{
+      border-bottom:solid 1px #111;
+      padding:3px 10px;
+      background-color:#171922;
+      .embed-box{
+        input{position:relative;top:-2px;border:solid 1px #111;}
+      }
+    }
+    .data{
+      padding:10px 10px;
+    }
+  }
+}
 
 
 $bgc:#323546;
@@ -39,7 +87,7 @@ $bgc:#323546;
   margin:0 0 10px;
   .meta{
     border:1px solid #111;
-    background-color:#282A3A;
+    background-color:#171922;
     @include border-radius(3px 3px 0 0);
     padding:7px 10px;
     input.text{
@@ -53,9 +101,21 @@ $bgc:#323546;
     border:solid 1px #111;
     border-top:none;
     @include border-radius(0 0 3px 3px);
-    padding:7px 10px;
     textarea{
       width:99.5%;
+      height:200px;
+    }
+    input.text{
+      padding:2px 7px;
+      @include border-radius(2px);
+    }
+    .note-name{
+      padding:7px 10px;
+      background:#20212E;
+      border-bottom:solid 1px #111;
+    }
+    .note-content{
+      padding:7px 10px;
     }
   }
 }

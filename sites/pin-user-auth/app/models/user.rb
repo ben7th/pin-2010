@@ -155,6 +155,7 @@ class User < UserBase
   end
 
   has_many :workspaces
+  has_many :mindmaps
 
   include Member::UserMethods
   include Organization::UserMethods

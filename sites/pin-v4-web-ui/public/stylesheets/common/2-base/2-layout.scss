@@ -34,8 +34,8 @@ body {margin:0;}
         right:0px;
       }
       .tabs{
-        margin-top:15px;
         ul{
+          margin-top:15px;
           padding:6px 10px;
           @include border-radius(5px);
           border:solid 1px #464660;
@@ -179,5 +179,22 @@ body {margin:0;}
     .txt{
       margin-top:16px;
     }
+  }
+}
+
+.yours{
+  @include border-radius(5px);
+  @include box-shadow(0 0 10px #09070E);
+  .top-bar{
+    background-color:#222433;
+    @include border-radius-side(top,left,5px);
+    @include border-radius-side(top,right,5px);
+    padding:10px;
+  }
+  .yours-list{
+    background-color:#323546;
+    padding:10px;
+    @include border-radius-side(bottom,left,5px);
+    @include border-radius-side(bottom,right,5px);
   }
 }

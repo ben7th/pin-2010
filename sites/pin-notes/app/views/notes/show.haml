@@ -1,17 +1,53 @@
 -require_css 'notes'
 
--repo = @note.repo
--commit_ids = repo.commit_ids
-.grid_13.push_1
-  -if params[:commit_id] == "master" || params[:commit_id] == commit_ids.first
-    -if @can_show
-      =link_to "编辑",edit_note_path(:note_id=>@note.id)
-      =link_to "删除",destroy_note_path(:note_id=>@note.id),:method=>:delete,:confirm=>"确定删除吗？"
-  %div
-    =@note.private? ? "private" : "public"
-    -repo.text_hash(params[:commit_id]).each do |name,text|
-      =name
-      =text
+.secondary
+  .top-bar.clearfix
+    %h3 版本列表
+  .revisions
+    -@commit_ids.each do |id|
+      =link_to id,note_commit_path(:note_id=>@note.id,:commit_id=>id)
+
+.main
+  .repo
+    .title
+      %h3="#{@note.id}号资料"
+      .actions
+        -if @can_edit
+          =minibutton "编辑",edit_note_path(@note)
+        =minibutton "下载",note_commit_download_path(:note_id=>@note,:commit_id=>@commit_id)
+        -if logged_in?
+          -if current_user.star_note?(@note)
+            =minibutton "去星标","/unstar/#{@note.id}",:method=>:delete
+          -else
+            =minibutton "加星标","/star/#{@note.id}",:method=>:post
+        =minibutton "上传文件","/upload_page/#{@note.id}"
+      .icon
+        =@note.private? ? "私有" : "公开"
+    .meta
+      %dl
+        %dt 资料描述
+        %dd=@note.description
+      %dl
+        %dt URL
+        %dd=pin_url_for('pin-notes',url_for(@note))
+  .files-list
+    -@blobs.each do |blob|
+      -name = blob.basename
+      -text = blob.data
+      -mime_type = blob.mime_type
+      .notefile{:id=>name}
+        .meta
+          %span.loud=name
+          %span.quiet="(#{mime_type})"
+          =link_to '#',"##{name}"
+          .fright
+            .embed
+              -link_id = randstr
+              =link_to '小组件','javascript:;',:onclick=>"jQuery('##{link_id}').hide().next().show();",:class=>'embed-link',:id=>link_id
+              .embed-box{:style=>'display:none;'}
+                %input{:value=>"<script src='#{pin_url_for('pin-notes',"/notes/#{@note.id}.js?file=#{name}")}'></script>"}
+        .data
+          =show_blob(@note,blob)
 
   .comments
     -if !@comments.blank?
@@ -20,13 +56,7 @@
     -mplist @comments,:for=>Comment
 
   .comment-form
-    -mindpin_form_for Comment.new do |f|
+    -mindpin_form_for [@note,Comment.new] do |f|
       =f.text_area :content
       =f.submit '增加评论'
 
-.grid_8.push_1
-  .top-bar.clearfix
-    .fleft.font14.bold 版本列表
-  %div
-    -commit_ids.each do |id|
-      =link_to id,show_note_path(:note_id=>@note.id,:commit_id=>id)

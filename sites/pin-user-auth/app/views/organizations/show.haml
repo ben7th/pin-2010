@@ -1,11 +1,21 @@
+-require_css 'views/organizations'
+
 .grid_15.alpha
-  .dashboard-notice
-    .font14
-      你是
-      %span.bold=@organization.name
-      团队的创建者！
-    .quiet
-      这里有一些关于团队的操作提示
-    -if @organization.name_repeat?
-      名称重复，建议修改以区分
+  -if current_user.is_owner_of?(@organization)
+    .dashboard-notice
+      .title
+        .font14
+          你是
+          %span.bold=@organization.name
+          的团队管理员
+        .quiet
+          这里有一些关于团队的操作提示
+
+  -if @organization.name_repeat?
+    .flash-notice
+      %span
+        团队的名称和其他团队有所重复，建议您修改以区分
+  .activities-list
+    -mplist @activities,:for=>Activity do |activity|
+      =activity_to_html activity
 .grid_7

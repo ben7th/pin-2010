@@ -9,9 +9,9 @@ class CommentsController < ApplicationController
     comment = @note.comments.new(params[:comment])
     comment.user = current_user
     if comment.save
-      return redirect_to show_note_path(@note)
+      return redirect_to note_path(@note)
     end
-    redirect_to show_note_path(@note)
+    redirect_to note_path(@note)
   end
 
   def update
