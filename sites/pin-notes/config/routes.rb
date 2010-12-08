@@ -1,10 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => "notes",:action=>"new"
-  map.resources :notes,:collection=>{:add_another=>:get},:member=>{:download=>:get} do |note|
+  map.resources :notes,:collection=>{:add_another=>:get},:member=>{:download=>:get,:fork=>:post} do |note|
     note.resources :comments
     note.commit '/commits/:commit_id',:controller=>'notes',:action=>'show'
     note.commit_download '/download/:commit_id',:controller=>'notes',:action=>'download'
     note.raw "/raw/:blob_id/*file_name",:controller=>'notes',:action=>'raw'
+    note.zoom "/zoom/:zoom/:blob_id/*file_name",:controller=>'notes',:action=>'zoom'
+    note.rollback "/rollback/:commit_id",:controller=>'notes',:action=>'rollback',:conditions => { :method => :put }
   end
   map.resources :comments
 

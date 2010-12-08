@@ -1,4 +1,4 @@
--first_file_name = "#{NoteRepository::NOTE_FILE_PREFIX}1"
+-first_file_name = "#{Note::NOTE_FILE_PREFIX}1"
 -require_css 'notes'
 
 -content_for :javascripts do
@@ -10,7 +10,7 @@
   %div
     -if current_user
       -current_user.notes.each do |note|
-        %div=link_to note.title,note
+        %div=link_to "#{note.id}号资料",note
 
 .main
   -form_tag notes_path,:method =>:post,:id=>"note_form" do

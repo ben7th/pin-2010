@@ -4,8 +4,20 @@
   .top-bar.clearfix
     %h3 版本列表
   .revisions
-    -@commit_ids.each do |id|
-      =link_to id,note_commit_path(:note_id=>@note.id,:commit_id=>id)
+    %ul
+      -@note.commits.each do |commit|
+        %li
+          =show_commit @note,commit
+
+  =hr
+
+  .top-bar.clearfix
+    %h3 完整版本列表
+  .revisions
+    %ul
+      -@note.ref_commits.each do |commit|
+        %li
+          =show_commit @note,commit
 
 .main
   .repo
@@ -20,9 +32,20 @@
             =minibutton "去星标","/unstar/#{@note.id}",:method=>:delete
           -else
             =minibutton "加星标","/star/#{@note.id}",:method=>:post
-        =minibutton "上传文件","/upload_page/#{@note.id}"
+        -if @can_edit
+          =minibutton "上传文件","/upload_page/#{@note.id}"
+        -if @can_rollback
+          =minibutton "回滚到此版本","/notes/#{@note.id}/rollback/#{@commit_id}",:method=>:put,:confirm=>'确实要回滚到这个版本吗？'
+        -if @can_fork
+          =minibutton "FORK","/notes/#{@note.id}/fork",:method=>:post
+
       .icon
         =@note.private? ? "私有" : "公开"
+    .revision_id.loud
+      -if @can_edit
+        最新版本
+      -else
+        版本号 #{@commit_id}
     .meta
       %dl
         %dt 资料描述

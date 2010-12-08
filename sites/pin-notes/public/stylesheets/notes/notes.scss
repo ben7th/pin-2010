@@ -120,3 +120,33 @@ $bgc:#323546;
   }
 }
 
+.revisions{
+  li{
+    padding:2px;
+    line-height:22px;
+    .commit_stat{
+      overflow:hidden;
+      float:left;
+      padding:7px 6px 2px 2px;
+      img{
+        margin-right:-1px;
+        border:solid 1px #e2e2e2;
+        float:left;
+        @include border-radius(2px);
+      }
+    }
+    .commit_id{
+      float:left;
+      font-family:Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+      margin-right:5px;
+    }
+    .committer{
+      float:left;
+      margin-right:5px;
+    }
+    .commit_date{
+      float:left;
+    }
+  }
+}
+

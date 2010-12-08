@@ -13,19 +13,11 @@ class Note < ActiveRecord::Base
       :conditions=>"stars.email = '#{user.email}'"}
   }
 
-  def title
-    "note:#{self.id}"
-  end
-
-  def repo
-    NoteRepository.find(:user_id=>user_id,:note_id=>id)
-  end
-
-  # 把 note 中的内容打成 zip 包,返回地址
+  # 把 note 中的内容打成 zip 包，返回磁盘文件路径
   def zip_pack(commit_id = "master")
     zip_path = File.join(Dir::tmpdir,UUIDTools::UUID.random_create.to_s)
     zip = Zip::ZipFile.open(zip_path, Zip::ZipFile::CREATE)
-    text_hash = self.repo.text_hash(commit_id)
+    text_hash = self.text_hash(commit_id)
     
     text_hash.each do |file_name,file_content|
       zip.get_output_stream("notes_#{self.id}/#{file_name}"){|f|f.puts file_content}
@@ -40,19 +32,13 @@ class Note < ActiveRecord::Base
     return zip_path
   end
   
-  after_create :create_repo
-  def create_repo
-    NoteRepository.create(:user_id=>user_id,:note_id=>id)
-  end
-
-  after_destroy :destroy_repo
-  def destroy_repo
-    repo.destroy
-  end
+  after_create :init_repo
+  after_destroy :delete_repo
 
   module UserMethods
     def self.included(base)
       base.has_many :notes
     end
   end
+  include NoteRepositoryMethods
 end

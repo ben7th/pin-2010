@@ -1,3 +1,22 @@
--form_tag upload_page_path(@note),:multipart=>true do
-  =file_field_tag :file
-  =submit_tag '上传文件'
+-require_css 'notes'
+.main
+  -form_tag upload_page_path(@note),:multipart=>true do
+    =file_field_tag :file
+    =submit_tag '上传文件'
+  =hr
+  #file_upload
+
+
+- content_for :javascripts do
+  = javascript_include_tag 'uploadify/swfobject.js'
+  = javascript_include_tag 'uploadify/jquery.uploadify.v2.1.4.min.js'
+  :javascript
+    jQuery(document).ready(function() {
+      jQuery('#file_upload').uploadify({
+        'uploader'  : '/uploadify/uploadify.swf',
+        'script'    : '/uploadify/uploadify.php',
+        'cancelImg' : '/uploadify/cancel.png',
+        'folder'    : '/uploads',
+        'auto'      : true
+      });
+    });

@@ -11,8 +11,13 @@
       .meta
         =text_field_tag "note[description]",@note.description
       .notefiles
-        -@text_hash.each do |name,content|
-          =render :partial=>"notes/parts/notefile_input",:locals=>{:file_name=>name,:file_content=>content}
+        -@blobs.each do |blob|
+          -name = blob.basename
+          -content = blob.data
+          -if blob_is_text?(blob)
+            =render :partial=>"notes/parts/notefile_input",:locals=>{:file_name=>name,:file_content=>content}
+          -else
+            =render :partial=>"notes/parts/notefile_upload",:locals=>{:file_name=>name,:blob=>blob}
     .field
       =link_to "增加文本片段",'javascript:;',:class=>"add_another"
     .field

@@ -1,0 +1,17 @@
+.clearfix
+  .commit_stat
+    - 1.upto add do
+      %img{:src=>"/images/dot_green.png"}
+    - 1.upto del do
+      %img{:src=>"/images/dot_red.png"}
+    - 1.upto (7-add-del) do
+      %img{:src=>"/images/dot_gray.png"}
+
+  .commit_id
+    =link_to truncate(commit.id,6,''),note_commit_path(note,commit)
+
+  .committer
+    %span.bold=commit.committer.email
+
+  .commit_date.quiet
+    =get_period_str(Time.now-commit.date)
