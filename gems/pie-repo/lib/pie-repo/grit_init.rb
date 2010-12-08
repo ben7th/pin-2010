@@ -31,6 +31,20 @@ module RepoInit
       end
       alias_method_chain :remove,:change_dir
 
+      # repo.move
+      def move(old_path,new_path)
+        Dir.chdir(working_dir) do
+          self.git.mv({},old_path,new_path)
+        end
+      end
+
+      # repo.rollback
+      def rollback(commit_id)
+        Dir.chdir(working_dir) do
+          self.git.reset({:hard=>true},commit_id)
+        end
+      end
+
       # 实现 初始化 普通 版本库
       def self.init(path)
         # create directory
