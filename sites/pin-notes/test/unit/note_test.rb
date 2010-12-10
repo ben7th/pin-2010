@@ -7,6 +7,25 @@ class NoteTest < ActiveSupport::TestCase
       assert_difference("Note.count",1) do
         note = lifei.notes.create
         assert File.exist?(note.repository_path)
+        assert_equal note.repository_path,"#{Note::REPOSITORIES_PATH}/#{note.id}"
+        assert_equal note.grit_repo.working_dir,note.repository_path
+      end
+
+      note = Note.last
+      assert_difference("Note.count",-1) do
+        note.destroy
+        assert !File.exist?(note.repository_path)
+      end
+    end
+  end
+
+  test "创建 私有 note" do
+    repo_test do |lifei|
+      assert_difference("Note.count",1) do
+        note = lifei.notes.create(:private=>true)
+        assert File.exist?(note.repository_path)
+        assert_equal note.repository_path,"#{Note::REPOSITORIES_PATH}/#{note.private_id}"
+        assert_equal note.grit_repo.working_dir,note.repository_path
       end
 
       note = Note.last
@@ -94,6 +113,7 @@ class NoteTest < ActiveSupport::TestCase
 
       # fork
       lucy = users(:lucy)
+      assert_equal note.fork_from,nil
       new_note = Note.fork(note,lucy)
       assert_equal new_note.user.id,lucy.id
       assert_equal new_note.id,note.id + 1
@@ -101,6 +121,8 @@ class NoteTest < ActiveSupport::TestCase
       assert_equal new_note.text_hash.keys.count,1
       assert_equal new_note.blobs.count,1
       assert_equal new_note.text_hash,text_hash_1
+      assert new_note.fork_from[:note_id],note.id
+      assert new_note.fork_from[:email],note.user.email
     end
   end
 

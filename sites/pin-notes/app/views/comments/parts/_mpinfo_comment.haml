@@ -6,14 +6,14 @@
     =c.user.name
   .cbody
     .text-content
-      =c.content
+      =simple_format c.content
       .actions
         =minibutton '编辑',"javascript:;",:onclick=>"jQuery('##{form_id}').parent().removeClass('hide').prev().addClass('hide');"
-        =minibutton_remote '删除',:url=>"/#{@note.id}/comments/#{c.id}",:method=>:delete,:confirm=>'你确定要删除这条评论吗？'
+        =minibutton_remote '删除',:url=>"/comments/#{c.id}",:method=>:delete,:confirm=>'你确定要删除这条评论吗？'
 
     .form-content.hide
-      -form_remote_tag :url=>[@note,c],:method=>:put,:html=>{:id=>form_id} do
-        =text_area_tag "comment[content]",c.content
+      -form_remote_tag :url=>c,:method=>:put,:html=>{:id=>form_id} do
+        =text_area_tag "comment[content]",c.content,:id=>"comment_#{c.id}_content"
         .clearfix.margint10
           .fleft
             =minibutton '取消',"javascript:;",:onclick=>"jQuery('##{form_id}').parent().addClass('hide').prev().removeClass('hide');"

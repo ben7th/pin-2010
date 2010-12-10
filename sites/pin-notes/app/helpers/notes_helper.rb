@@ -2,7 +2,7 @@ module NotesHelper
   def show_blob(note,blob)
     case blob.mime_type
     when 'image/jpeg','image/png','image/gif'
-      "<img class='logo' src='/notes/#{note.id}/zoom/400/#{blob.id}/#{blob.basename}'/>"
+      "<img class='logo' src='/notes/#{note.nid}/zoom/400/#{blob.id}/#{blob.basename}'/>"
     else
       simple_format blob.data
     end

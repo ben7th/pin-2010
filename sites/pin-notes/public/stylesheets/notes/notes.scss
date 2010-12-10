@@ -37,11 +37,27 @@
         dt{width:80px;}
       }
     }
+    &.private{
+      background-color:#4E3429;
+    }
   }
 }
 
 .secondary{
   width:30%;float:right;
+  .owner{
+    padding:5px;
+    background-color:#1D2A63;overflow:hidden;
+    border:solid 1px #111;
+    .avatar{
+      float:left;margin-right:10px;
+      height:36px;
+    }
+    .name{
+      line-height:36px;
+    }
+    margin-bottom:20px;
+  }
 }
 
 .files-list{
@@ -120,6 +136,14 @@ $bgc:#323546;
   }
 }
 
+.delete-note{
+  overflow:hidden;
+  a{
+    float:right;color:#ff0000;
+    &:hover{color:#ff0000;}
+  }
+}
+
 .revisions{
   li{
     padding:2px;
@@ -150,3 +174,18 @@ $bgc:#323546;
   }
 }
 
+.comment-form{
+  label{color:white;display:none;}
+  textarea{
+    width:99.5%;
+    height:100px;
+  }
+  .field{
+    background-color:#323546;
+    @include border-radius(4px);
+    padding:5px;
+  }
+  .submit{
+    float:right;
+  }
+}

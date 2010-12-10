@@ -1,6 +1,6 @@
 -require_css 'notes'
 .main
-  -form_tag upload_page_path(@note),:multipart=>true do
+  -form_tag "/upload/#{@note.nid}",:multipart=>true do
     =file_field_tag :file
     =submit_tag '上传文件'
   =hr

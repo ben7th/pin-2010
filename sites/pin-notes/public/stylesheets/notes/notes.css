@@ -44,10 +44,24 @@
           display: inline-block; }
         .main .repo .meta dl dt {
           width: 80px; }
+    .main .repo.private {
+      background-color: #4E3429; }
 
 .secondary {
   width: 30%;
   float: right; }
+  .secondary .owner {
+    padding: 5px;
+    background-color: #1D2A63;
+    overflow: hidden;
+    border: solid 1px #111;
+    margin-bottom: 20px; }
+    .secondary .owner .avatar {
+      float: left;
+      margin-right: 10px;
+      height: 36px; }
+    .secondary .owner .name {
+      line-height: 36px; }
 
 .files-list .notefile {
   border: 1px solid #111111;
@@ -117,6 +131,14 @@
     .file .notefiles .note-content {
       padding: 7px 10px; }
 
+.delete-note {
+  overflow: hidden; }
+  .delete-note a {
+    float: right;
+    color: #ff0000; }
+    .delete-note a:hover {
+      color: #ff0000; }
+
 .revisions li {
   padding: 2px;
   line-height: 22px; }
@@ -140,3 +162,18 @@
     margin-right: 5px; }
   .revisions li .commit_date {
     float: left; }
+
+.comment-form label {
+  color: white;
+  display: none; }
+.comment-form textarea {
+  width: 99.5%;
+  height: 100px; }
+.comment-form .field {
+  background-color: #323546;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 5px; }
+.comment-form .submit {
+  float: right; }

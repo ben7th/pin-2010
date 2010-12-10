@@ -1,6 +1,31 @@
 -require_css 'notes'
 
 .secondary
+  .marginb10
+    =minibutton '生成索引','/search/index',:method=>:post
+  .marginb3em
+    %form{:action=>"/search",:method=>"get",:id=>"search_form"}
+      %input.search-inner.text{:name=>"q",:type=>"text"}
+      %input.search-button{:value=>"搜索",:type=>"submit"}
+
+  .owner
+    .avatar
+      =avatar @note.user,:tiny
+    .name
+      %span.bold=@note.user.name
+      (所有者)
+
+  -if @note.fork_from
+    - fid = @note.fork_from[:note_id]
+    - femail = @note.fork_from[:email]
+    .top-bar.clearfix
+      %h3 复制自
+    .clearfix
+      =link_to "#{fid}号资料","/notes/#{fid}"
+      by
+      =femail
+    %br
+
   .top-bar.clearfix
     %h3 版本列表
   .revisions
@@ -9,7 +34,7 @@
         %li
           =show_commit @note,commit
 
-  =hr
+  %br
 
   .top-bar.clearfix
     %h3 完整版本列表
@@ -20,24 +45,28 @@
           =show_commit @note,commit
 
 .main
-  .repo
+  .repo{:class=>@note.private?? "private":"public"}
     .title
-      %h3="#{@note.id}号资料"
+      %h3
+        -if @note.private?
+          ="私有资料:#{@note.nid}"
+        -else
+          ="#{@note.nid}号资料"
       .actions
         -if @can_edit
-          =minibutton "编辑",edit_note_path(@note)
-        =minibutton "下载",note_commit_download_path(:note_id=>@note,:commit_id=>@commit_id)
+          =minibutton "编辑","/notes/#{@note.nid}/edit"
+        =minibutton "下载",note_commit_download_path(:note_id=>@note.nid,:commit_id=>@commit_id)
         -if logged_in?
           -if current_user.star_note?(@note)
-            =minibutton "去星标","/unstar/#{@note.id}",:method=>:delete
+            =minibutton "去星标","/unstar/#{@note.nid}",:method=>:delete
           -else
-            =minibutton "加星标","/star/#{@note.id}",:method=>:post
+            =minibutton "加星标","/star/#{@note.nid}",:method=>:post
         -if @can_edit
-          =minibutton "上传文件","/upload_page/#{@note.id}"
+          =minibutton "上传文件","/upload_page/#{@note.nid}"
         -if @can_rollback
-          =minibutton "回滚到此版本","/notes/#{@note.id}/rollback/#{@commit_id}",:method=>:put,:confirm=>'确实要回滚到这个版本吗？'
+          =minibutton "回滚到此版本","/notes/#{@note.nid}/rollback/#{@commit_id}",:method=>:put,:confirm=>'确实要回滚到这个版本吗？'
         -if @can_fork
-          =minibutton "FORK","/notes/#{@note.id}/fork",:method=>:post
+          =minibutton "FORK","/notes/#{@note.nid}/fork",:method=>:post
 
       .icon
         =@note.private? ? "私有" : "公开"
@@ -50,9 +79,10 @@
       %dl
         %dt 资料描述
         %dd=@note.description
-      %dl
-        %dt URL
-        %dd=pin_url_for('pin-notes',url_for(@note))
+      -if !@note.private?
+        %dl
+          %dt URL
+          %dd=pin_url_for('pin-notes',url_for(@note))
   .files-list
     -@blobs.each do |blob|
       -name = blob.basename
@@ -64,13 +94,17 @@
           %span.quiet="(#{mime_type})"
           =link_to '#',"##{name}"
           .fright
-            .embed
-              -link_id = randstr
-              =link_to '小组件','javascript:;',:onclick=>"jQuery('##{link_id}').hide().next().show();",:class=>'embed-link',:id=>link_id
-              .embed-box{:style=>'display:none;'}
-                %input{:value=>"<script src='#{pin_url_for('pin-notes',"/notes/#{@note.id}.js?file=#{name}")}'></script>"}
+            -if !@note.private?
+              .embed
+                -link_id = randstr
+                =link_to '小组件','javascript:;',:onclick=>"jQuery('##{link_id}').hide().next().show();",:class=>'embed-link',:id=>link_id
+                .embed-box{:style=>'display:none;'}
+                  %input{:value=>"<script src='#{pin_url_for('pin-notes',"/notes/#{@note.id}.js?file=#{name}")}'></script>"}
         .data
           =show_blob(@note,blob)
+  -if @can_delete
+    .delete-note
+      =link_to '删除当前资料',"/notes/#{@note.nid}",:method=>:delete,:confirm=>"将删除当前资料的所有版本，你确定吗？"
 
   .comments
     -if !@comments.blank?
@@ -79,7 +113,8 @@
     -mplist @comments,:for=>Comment
 
   .comment-form
-    -mindpin_form_for [@note,Comment.new] do |f|
-      =f.text_area :content
-      =f.submit '增加评论'
+    -mindpin_form_for [@note,Comment.new],:url=>"/notes/#{@note.nid}/comments" do |f|
+      =f.text_area :content,:id=>'new_comment_input'
+      .fright
+        =f.submit '增加评论'
 

@@ -4,6 +4,7 @@ module NoteRepositoryMethods
       attrs = {}
       attrs[:user_id] = user.id
       attrs[:private] = false
+      attrs[:fork_from_data] = {:note_id=>old_note.id,:email=>old_note.user.email}.to_json
       note = Note.create(attrs)
       FileUtils.rm_rf(note.repository_path)
       old_note.grit_repo.fork_bare(note.repository_path,{:bare => false,:shared=>false})
@@ -35,7 +36,8 @@ module NoteRepositoryMethods
 
   # 版本库在硬盘中的路径
   def repository_path
-    "#{REPOSITORIES_PATH}/#{self.id}"
+    id_path = self.private ? self.private_id : self.id
+    "#{REPOSITORIES_PATH}/#{id_path}"
   end
 
   # 用户的 回收站 地址
@@ -126,7 +128,13 @@ module NoteRepositoryMethods
   end
 
   def fork_from
-    config["remote.origin.url"]
+    return nil if self.fork_from_data.blank?
+    json = ActiveSupport::JSON.decode(self.fork_from_data)
+    json.each_key do |key|
+      value = json.delete(key)
+      json[key.to_sym] = value
+    end
+    json
   end
 
   private

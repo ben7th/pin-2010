@@ -20,19 +20,31 @@ class Note < ActiveRecord::Base
     text_hash = self.text_hash(commit_id)
     
     text_hash.each do |file_name,file_content|
-      zip.get_output_stream("notes_#{self.id}/#{file_name}"){|f|f.puts file_content}
+      zip.get_output_stream("notes_#{self.nid}/#{file_name}"){|f|f.puts file_content}
     end
 
     zip.get_output_stream("manifest") do |f|
-      f.puts "#{self.id}";f.puts "#{commit_id}";f.puts ""
+      f.puts "#{self.nid}";f.puts "#{commit_id}";f.puts ""
       text_hash.each{|file_name,file_content|f.puts file_name}
     end
 
     zip.close
     return zip_path
   end
-  
+
+  # 公有和私有的 web 访问路径不同
+  # 这个方法可以根据 公私 生成 合适的 nid
+  def nid
+    self.private ? self.private_id : self.id
+  end
+
+  before_create :set_private_id
+  def set_private_id
+    self.private_id = randstr(20) if self.private
+  end
+
   after_create :init_repo
+
   after_destroy :delete_repo
 
   module UserMethods

@@ -3,8 +3,12 @@ class NotesController < ApplicationController
   include NotesControllerMethods
   before_filter :per_load
   def per_load
-    @note = Note.find(params[:id]) if params[:id]
-    @note = Note.find(params[:note_id]) if params[:note_id]
+    id = params[:id] || params[:note_id]
+    @note = Note.find_by_id(id) if id
+    if @note && @note.private
+      return render_status_page(404,'该资料不存在')
+    end
+    @note = Note.find_by_private_id(id) if @note.blank? && id
   end
 
   before_filter :owner_check,:only=>[:edit,:update,:destroy,:upload_page,:upload,:rollback]
@@ -38,6 +42,7 @@ class NotesController < ApplicationController
         @can_rollback = _can_rollback?(@note,@commit_ids,@commit_id)
         @can_fork = _can_fork?(@note)
         @can_edit = _can_edit?(@note,@commit_ids,@commit_id)
+        @can_delete = _can_delete?(@note)
         @comments = @note.comments
         @blobs = @note.blobs(@commit_id)
       end
@@ -53,7 +58,7 @@ class NotesController < ApplicationController
 
   def download
     path = @note.zip_pack(params[:commit_id])
-    send_file path,:type=>"application/zip",:disposition=>'attachment',:filename=>"note-#{@note.id}-#{params[:commit_id]}.zip"
+    send_file path,:type=>"application/zip",:disposition=>'attachment',:filename=>"note-#{@note.nid}-#{params[:commit_id]}.zip"
   end
 
   def create
@@ -66,7 +71,7 @@ class NotesController < ApplicationController
     note = Note.create(attrs)
     set_cookie_if_nobody(note)
     note.save_text_hash!(_notefile_hash)
-    redirect_to note_path(note)
+    redirect_to note_path(:id=>note.nid)
   end
 
   def edit
@@ -77,7 +82,7 @@ class NotesController < ApplicationController
     @note.update_attributes(params[:note])
     @note.save
     @note.save_text_hash!(_notefile_hash,_rename_hash)
-    redirect_to note_path(@note)
+    redirect_to note_path(:id=>@note.nid)
   end
 
   def destroy
@@ -98,7 +103,7 @@ class NotesController < ApplicationController
 
   def upload
     @note.add_file!(params[:file])
-    redirect_to note_path(@note)
+    redirect_to note_path(:id=>@note.nid)
   end
 
   def raw
@@ -113,12 +118,12 @@ class NotesController < ApplicationController
 
   def rollback
     @note.grit_repo.rollback(params[:commit_id])
-    redirect_to note_path(@note)
+    redirect_to note_path(:id=>@note.nid)
   end
 
   def fork
     note = Note.fork(@note,current_user)
-    redirect_to note_path(note)
+    redirect_to note_path(:id=>note.nid)
   end
 
 end

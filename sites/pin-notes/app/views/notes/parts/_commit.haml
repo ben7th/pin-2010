@@ -8,7 +8,7 @@
       %img{:src=>"/images/dot_gray.png"}
 
   .commit_id
-    =link_to truncate(commit.id,6,''),note_commit_path(note,commit)
+    =link_to truncate(commit.id,6,''),"/notes/#{note.nid}/commits/#{commit.id}"
 
   .committer
     %span.bold=commit.committer.email

@@ -6,7 +6,7 @@
 .secondary
 
 .main
-  -form_tag note_path,:method =>:put,:id=>"note_form" do
+  -form_tag "/notes/#{@note.nid}",:method =>:put,:id=>"note_form" do
     .file
       .meta
         =text_field_tag "note[description]",@note.description

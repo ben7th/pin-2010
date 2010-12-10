@@ -4,6 +4,10 @@ module NotesControllerMethods
     _can_edit_by_commit_id(commit_ids,commit_id) && _can_edit_by_owner?(note)
   end
 
+  def _can_delete?(note)
+    _can_edit_by_owner?(note)
+  end
+
   def _can_rollback?(note,commit_ids,commit_id)
     _can_rollback_by_commit_id(commit_ids,commit_id) && _can_edit_by_owner?(note)
   end

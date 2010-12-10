@@ -18,4 +18,6 @@ ActionController::Routing::Routes.draw do |map|
   map.upload_page "/upload_page/:note_id",:controller=>"notes",:action=>"upload_page",:conditions => { :method => :get }
   map.upload_page "/upload/:note_id",:controller=>"notes",:action=>"upload",:conditions => { :method => :post }
 
+  map.search_index "/search/index",:controller=>"search",:action=>"create_index",:conditions => { :method => :post }
+  map.search "/search",:controller=>"search",:action=>"show"
 end
