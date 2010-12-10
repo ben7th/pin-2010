@@ -15,13 +15,16 @@ import org.apache.thrift.TException;
  */
 public class LuceneServiceHandler implements LuceneService.Iface {
 
-  private static String INDEX_PATH = "/web/2010/lucene/notes/index";
+  public static String INDEX_PATH = "/web/2010/lucene/notes/index";
+  public static String DATA_PATH = "/root/mindpin_base/note_repo/notes";
+  
   public static void initIndexPath(){
     File file = new File(INDEX_PATH);
     if(!file.exists()){
       file.mkdirs();
-    };
-  } 
+    }
+  }
+  
   // 实现索引操作的方法
   public boolean index(String index_path) throws TException {
     try {
