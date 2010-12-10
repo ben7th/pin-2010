@@ -57,7 +57,11 @@ class NotesController < ApplicationController
   end
 
   def download
-    path = @note.zip_pack(params[:commit_id])
+    if request_os_is_windows?
+      path = @note.windows_zip_pack(params[:commit_id])
+    else
+      path = @note.zip_pack(params[:commit_id])
+    end
     send_file path,:type=>"application/zip",:disposition=>'attachment',:filename=>"note-#{@note.nid}-#{params[:commit_id]}.zip"
   end
 

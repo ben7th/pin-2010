@@ -446,11 +446,12 @@ ul.mplist.zebra li.mpli {
     .comment-info .cbody .text-content {
       padding: 10px 0; }
       .comment-info .cbody .text-content p {
-        margin: 12px 0 !important; }
+        margin: 0 0 !important; }
     .comment-info .cbody .form-content {
       padding: 10px 0; }
       .comment-info .cbody .form-content textarea {
-        width: 100%; }
+        width: 100%;
+        height: 100px; }
   .comment-info .actions {
     display: none;
     position: absolute;

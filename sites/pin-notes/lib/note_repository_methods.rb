@@ -137,6 +137,16 @@ module NoteRepositoryMethods
     json
   end
 
+  # 把 note 中的内容打成 zip 包，返回磁盘文件路径 文件名是 utf8编码
+  def zip_pack(commit_id = "master")
+    _zip_pack(commit_id ,"utf8")
+  end
+
+  # 把 note 中的内容打成 zip 包，返回磁盘文件路径 文件名是 gbk编码
+  def windows_zip_pack(commit_id = "master")
+    _zip_pack(commit_id ,"gbk")
+  end
+
   private
 
   # 代表 文件片段的 blob 对象数组
@@ -222,6 +232,28 @@ module NoteRepositoryMethods
     FileUtils.mkdir_p(recycle_path) if !File.exist?(recycle_path)
     `mv #{self.repository_path} #{recycle_path}/#{self.id}_#{randstr}`
     return true
+  end
+
+  def _zip_pack(commit_id ,file_name_coding)
+    zip_path = File.join(Dir::tmpdir,UUIDTools::UUID.random_create.to_s)
+    zip = Zip::ZipFile.open(zip_path, Zip::ZipFile::CREATE)
+    text_hash = self.text_hash(commit_id)
+
+    # 在压缩包中创建文件
+    text_hash.each do |file_name,file_content|
+      path = "notes_#{self.nid}/#{file_name}"
+      path = path.utf8_to_gbk if file_name_coding == "gbk"
+      zip.get_output_stream(path){|f|f.puts file_content}
+    end
+
+    # 在压缩包中创建 manifest 文件
+    zip.get_output_stream("manifest") do |f|
+      f.puts "#{self.nid}";f.puts "#{commit_id}";f.puts ""
+      text_hash.each{|file_name,file_content|f.puts file_name}
+    end
+
+    zip.close
+    return zip_path
   end
 
   # private end

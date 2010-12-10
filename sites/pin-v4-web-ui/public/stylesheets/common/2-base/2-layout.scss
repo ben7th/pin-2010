@@ -193,8 +193,11 @@ body {margin:0;}
   }
   .yours-list{
     background-color:#323546;
-    padding:10px;
     @include border-radius-side(bottom,left,5px);
     @include border-radius-side(bottom,right,5px);
+    padding:0 0 10px 0;
+    li{
+      border-bottom:solid 1px #464660;
+    }
   }
 }

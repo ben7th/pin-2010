@@ -219,10 +219,12 @@ body {
     padding: 10px; }
   .yours .yours-list {
     background-color: #323546;
-    padding: 10px;
     border-bottom-left-radius: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     -moz-border-radius-bottomright: 5px;
-    -webkit-border-bottom-right-radius: 5px; }
+    -webkit-border-bottom-right-radius: 5px;
+    padding: 0 0 10px 0; }
+    .yours .yours-list li {
+      border-bottom: solid 1px #464660; }

@@ -157,7 +157,8 @@ body{margin:0;}
 .pros .pad .txt{margin-top:16px;}
 .yours{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:0 0 10px #09070e;-moz-box-shadow:0 0 10px #09070e;-webkit-box-shadow:0 0 10px #09070e;}
 .yours .top-bar{background-color:#222433;border-top-left-radius:5px;-moz-border-radius-topleft:5px;-webkit-border-top-left-radius:5px;border-top-right-radius:5px;-moz-border-radius-topright:5px;-webkit-border-top-right-radius:5px;padding:10px;}
-.yours .yours-list{background-color:#323546;padding:10px;border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px;border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;-webkit-border-bottom-right-radius:5px;}
+.yours .yours-list{background-color:#323546;border-bottom-left-radius:5px;-moz-border-radius-bottomleft:5px;-webkit-border-bottom-left-radius:5px;border-bottom-right-radius:5px;-moz-border-radius-bottomright:5px;-webkit-border-bottom-right-radius:5px;padding:0 0 10px 0;}
+.yours .yours-list li{border-bottom:solid 1px #464660;}
 .quote-left{background-image:url("/images/quote.gif");vertical-align:middle;width:14px;height:18px;}
 .quote-right{background-image:url("/images/quote.gif");background-position:right;vertical-align:middle;width:14px;height:18px;}
 .font18{font-size:18px;}

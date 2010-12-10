@@ -87,4 +87,9 @@ module NotesControllerMethods
     return zoom_blob_cache_path
   end
 
+  def request_os_is_windows?
+    user_agent = request.env['HTTP_USER_AGENT']
+    !!/Windows/.match(user_agent)
+  end
+
 end

@@ -82,9 +82,9 @@ form .submit, form input[type="submit"], a.button.classy {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  box-shadow: 0 2px 4px black;
-  -moz-box-shadow: 0 2px 4px black;
-  -webkit-box-shadow: 0 2px 4px black;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   text-shadow: 1px 1px 0 #fff; }
   form .submit:hover, form input[type="submit"]:hover, a.button.classy:hover {
     color: #fff;
@@ -106,9 +106,9 @@ form .submit.glowing, a.button.classy.glowing {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  box-shadow: 0 2px 4px black;
-  -moz-box-shadow: 0 2px 4px black;
-  -webkit-box-shadow: 0 2px 4px black;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   text-shadow: 1px 1px 0 #fff; }
   form .submit.glowing:hover, a.button.classy.glowing:hover {
     color: #fff;

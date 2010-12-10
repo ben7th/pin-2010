@@ -2,7 +2,7 @@
   .cellhead{display:none;}
 
 .grid_11.alpha
-  .loud{:style=>'font-size:18px;'} HTTP 422
-  %div 对当前资源的请求无效
+  .loud{:style=>'font-size:18px;'} HTTP 404
+  %div 资源不存在
   - if !@status_text.blank?
     .quiet.margint10=@status_text
