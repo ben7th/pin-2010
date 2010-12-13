@@ -30,7 +30,8 @@ module NoteRepositoryMethods
   BLOB_CACHE_PATH = "#{REPO_BASE_PATH}/blob_cache"
 
   # 找到版本库
-  def grit_repo
+  def grit_repo(reload = false)
+    @grit_repo = _grit_repo if reload
     @grit_repo ||= _grit_repo
   end
 
@@ -67,6 +68,8 @@ module NoteRepositoryMethods
     delete_notefiles(delete_names)
     # 提交到版本库
     grit_repo.commit_index("##")
+    # 创建搜索索引
+    NoteLucene.add_index(self) if !self.private
   end
 
   # 得到 所有提交数组

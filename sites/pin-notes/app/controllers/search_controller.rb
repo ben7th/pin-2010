@@ -1,25 +1,20 @@
 class SearchController < ApplicationController
   def show
-    require "thrift"
-    transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9090))
-    protocol = Thrift::BinaryProtocol.new(transport)
-    client = LuceneService::Client.new(protocol)
-
-    transport.open()
-
-    @results = client.search(params[:q])
-    render :xml=>@results
+     respond_to do |format|
+      format.html do
+        @query = params[:q]
+        @result = NoteLucene.all_search(params[:q])
+#        @result = NoteLucene.master_search(params[:q])
+      end
+      format.xml do
+        render :xml => NoteLucene.all_search_xml(params[:q])
+#        render :xml => NoteLucene.master_search_xml(params[:q])
+      end
+     end
   end
 
   def create_index
-    require "thrift"
-    transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9090))
-    protocol = Thrift::BinaryProtocol.new(transport)
-    client = LuceneService::Client.new(protocol)
-
-    transport.open()
-
-    @result = client.index("/root/mindpin_base/note_repo/notes")
+    @result = NoteLucene.create_index
     render :text=>@result
   end
 

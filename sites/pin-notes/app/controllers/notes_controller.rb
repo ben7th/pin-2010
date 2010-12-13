@@ -84,7 +84,6 @@ class NotesController < ApplicationController
 
   def update
     @note.update_attributes(params[:note])
-    @note.save
     @note.save_text_hash!(_notefile_hash,_rename_hash)
     redirect_to note_path(:id=>@note.nid)
   end

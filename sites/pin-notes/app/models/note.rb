@@ -27,6 +27,10 @@ class Note < ActiveRecord::Base
   after_create :init_repo
 
   after_destroy :delete_repo
+  after_destroy :delete_lucene_index
+  def delete_lucene_index
+    NoteLucene.delete_index(self)
+  end
 
   module UserMethods
     def self.included(base)

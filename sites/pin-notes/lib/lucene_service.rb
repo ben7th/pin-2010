@@ -26,19 +26,79 @@ module LuceneService
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'index failed: unknown result')
     end
 
-    def search(query)
-      send_search(query)
-      return recv_search()
+    def index_with_commit_id(index_path, commit_id)
+      send_index_with_commit_id(index_path, commit_id)
+      return recv_index_with_commit_id()
     end
 
-    def send_search(query)
-      send_message('search', Search_args, :query => query)
+    def send_index_with_commit_id(index_path, commit_id)
+      send_message('index_with_commit_id', Index_with_commit_id_args, :index_path => index_path, :commit_id => commit_id)
     end
 
-    def recv_search()
-      result = receive_message(Search_result)
+    def recv_index_with_commit_id()
+      result = receive_message(Index_with_commit_id_result)
       return result.success unless result.success.nil?
-      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'index_with_commit_id failed: unknown result')
+    end
+
+    def search_with_commit_id(query, commit_id)
+      send_search_with_commit_id(query, commit_id)
+      return recv_search_with_commit_id()
+    end
+
+    def send_search_with_commit_id(query, commit_id)
+      send_message('search_with_commit_id', Search_with_commit_id_args, :query => query, :commit_id => commit_id)
+    end
+
+    def recv_search_with_commit_id()
+      result = receive_message(Search_with_commit_id_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search_with_commit_id failed: unknown result')
+    end
+
+    def full_search(query)
+      send_full_search(query)
+      return recv_full_search()
+    end
+
+    def send_full_search(query)
+      send_message('full_search', Full_search_args, :query => query)
+    end
+
+    def recv_full_search()
+      result = receive_message(Full_search_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'full_search failed: unknown result')
+    end
+
+    def new_search(query)
+      send_new_search(query)
+      return recv_new_search()
+    end
+
+    def send_new_search(query)
+      send_message('new_search', New_search_args, :query => query)
+    end
+
+    def recv_new_search()
+      result = receive_message(New_search_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'new_search failed: unknown result')
+    end
+
+    def delete_index(delete_path)
+      send_delete_index(delete_path)
+      return recv_delete_index()
+    end
+
+    def send_delete_index(delete_path)
+      send_message('delete_index', Delete_index_args, :delete_path => delete_path)
+    end
+
+    def recv_delete_index()
+      result = receive_message(Delete_index_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'delete_index failed: unknown result')
     end
 
   end
@@ -53,11 +113,39 @@ module LuceneService
       write_result(result, oprot, 'index', seqid)
     end
 
-    def process_search(seqid, iprot, oprot)
-      args = read_args(iprot, Search_args)
-      result = Search_result.new()
-      result.success = @handler.search(args.query)
-      write_result(result, oprot, 'search', seqid)
+    def process_index_with_commit_id(seqid, iprot, oprot)
+      args = read_args(iprot, Index_with_commit_id_args)
+      result = Index_with_commit_id_result.new()
+      result.success = @handler.index_with_commit_id(args.index_path, args.commit_id)
+      write_result(result, oprot, 'index_with_commit_id', seqid)
+    end
+
+    def process_search_with_commit_id(seqid, iprot, oprot)
+      args = read_args(iprot, Search_with_commit_id_args)
+      result = Search_with_commit_id_result.new()
+      result.success = @handler.search_with_commit_id(args.query, args.commit_id)
+      write_result(result, oprot, 'search_with_commit_id', seqid)
+    end
+
+    def process_full_search(seqid, iprot, oprot)
+      args = read_args(iprot, Full_search_args)
+      result = Full_search_result.new()
+      result.success = @handler.full_search(args.query)
+      write_result(result, oprot, 'full_search', seqid)
+    end
+
+    def process_new_search(seqid, iprot, oprot)
+      args = read_args(iprot, New_search_args)
+      result = New_search_result.new()
+      result.success = @handler.new_search(args.query)
+      write_result(result, oprot, 'new_search', seqid)
+    end
+
+    def process_delete_index(seqid, iprot, oprot)
+      args = read_args(iprot, Delete_index_args)
+      result = Delete_index_result.new()
+      result.success = @handler.delete_index(args.delete_path)
+      write_result(result, oprot, 'delete_index', seqid)
     end
 
   end
@@ -96,7 +184,75 @@ module LuceneService
     ::Thrift::Struct.generate_accessors self
   end
 
-  class Search_args
+  class Index_with_commit_id_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    INDEX_PATH = 1
+    COMMIT_ID = 2
+
+    FIELDS = {
+      INDEX_PATH => {:type => ::Thrift::Types::STRING, :name => 'index_path'},
+      COMMIT_ID => {:type => ::Thrift::Types::STRING, :name => 'commit_id'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Index_with_commit_id_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Search_with_commit_id_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    QUERY = 1
+    COMMIT_ID = 2
+
+    FIELDS = {
+      QUERY => {:type => ::Thrift::Types::STRING, :name => 'query'},
+      COMMIT_ID => {:type => ::Thrift::Types::STRING, :name => 'commit_id'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Search_with_commit_id_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Full_search_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
     QUERY = 1
 
@@ -112,12 +268,76 @@ module LuceneService
     ::Thrift::Struct.generate_accessors self
   end
 
-  class Search_result
+  class Full_search_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 
     FIELDS = {
       SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class New_search_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    QUERY = 1
+
+    FIELDS = {
+      QUERY => {:type => ::Thrift::Types::STRING, :name => 'query'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class New_search_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Delete_index_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    DELETE_PATH = 1
+
+    FIELDS = {
+      DELETE_PATH => {:type => ::Thrift::Types::STRING, :name => 'delete_path'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Delete_index_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
     }
 
     def struct_fields; FIELDS; end
