@@ -32,7 +32,13 @@ public class LuceneService {
 
     public boolean index(String index_path) throws TException;
 
+    public boolean index_with_commit_id(String index_path, String commit_id) throws TException;
+
+    public String search_with_commit_id(String query, String commit_id) throws TException;
+
     public String search(String query) throws TException;
+
+    public boolean delete_index(String delete_path) throws TException;
 
   }
 
@@ -40,7 +46,13 @@ public class LuceneService {
 
     public void index(String index_path, AsyncMethodCallback<AsyncClient.index_call> resultHandler) throws TException;
 
+    public void index_with_commit_id(String index_path, String commit_id, AsyncMethodCallback<AsyncClient.index_with_commit_id_call> resultHandler) throws TException;
+
+    public void search_with_commit_id(String query, String commit_id, AsyncMethodCallback<AsyncClient.search_with_commit_id_call> resultHandler) throws TException;
+
     public void search(String query, AsyncMethodCallback<AsyncClient.search_call> resultHandler) throws TException;
+
+    public void delete_index(String delete_path, AsyncMethodCallback<AsyncClient.delete_index_call> resultHandler) throws TException;
 
   }
 
@@ -117,6 +129,80 @@ public class LuceneService {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "index failed: unknown result");
     }
 
+    public boolean index_with_commit_id(String index_path, String commit_id) throws TException
+    {
+      send_index_with_commit_id(index_path, commit_id);
+      return recv_index_with_commit_id();
+    }
+
+    public void send_index_with_commit_id(String index_path, String commit_id) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("index_with_commit_id", TMessageType.CALL, ++seqid_));
+      index_with_commit_id_args args = new index_with_commit_id_args();
+      args.setIndex_path(index_path);
+      args.setCommit_id(commit_id);
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public boolean recv_index_with_commit_id() throws TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      if (msg.seqid != seqid_) {
+        throw new TApplicationException(TApplicationException.BAD_SEQUENCE_ID, "index_with_commit_id failed: out of sequence response");
+      }
+      index_with_commit_id_result result = new index_with_commit_id_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "index_with_commit_id failed: unknown result");
+    }
+
+    public String search_with_commit_id(String query, String commit_id) throws TException
+    {
+      send_search_with_commit_id(query, commit_id);
+      return recv_search_with_commit_id();
+    }
+
+    public void send_search_with_commit_id(String query, String commit_id) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("search_with_commit_id", TMessageType.CALL, ++seqid_));
+      search_with_commit_id_args args = new search_with_commit_id_args();
+      args.setQuery(query);
+      args.setCommit_id(commit_id);
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public String recv_search_with_commit_id() throws TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      if (msg.seqid != seqid_) {
+        throw new TApplicationException(TApplicationException.BAD_SEQUENCE_ID, "search_with_commit_id failed: out of sequence response");
+      }
+      search_with_commit_id_result result = new search_with_commit_id_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "search_with_commit_id failed: unknown result");
+    }
+
     public String search(String query) throws TException
     {
       send_search(query);
@@ -151,6 +237,42 @@ public class LuceneService {
         return result.success;
       }
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "search failed: unknown result");
+    }
+
+    public boolean delete_index(String delete_path) throws TException
+    {
+      send_delete_index(delete_path);
+      return recv_delete_index();
+    }
+
+    public void send_delete_index(String delete_path) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("delete_index", TMessageType.CALL, ++seqid_));
+      delete_index_args args = new delete_index_args();
+      args.setDelete_path(delete_path);
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public boolean recv_delete_index() throws TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      if (msg.seqid != seqid_) {
+        throw new TApplicationException(TApplicationException.BAD_SEQUENCE_ID, "delete_index failed: out of sequence response");
+      }
+      delete_index_result result = new delete_index_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "delete_index failed: unknown result");
     }
 
   }
@@ -202,6 +324,74 @@ public class LuceneService {
       }
     }
 
+    public void index_with_commit_id(String index_path, String commit_id, AsyncMethodCallback<index_with_commit_id_call> resultHandler) throws TException {
+      checkReady();
+      index_with_commit_id_call method_call = new index_with_commit_id_call(index_path, commit_id, resultHandler, this, protocolFactory, transport);
+      manager.call(method_call);
+    }
+
+    public static class index_with_commit_id_call extends TAsyncMethodCall {
+      private String index_path;
+      private String commit_id;
+      public index_with_commit_id_call(String index_path, String commit_id, AsyncMethodCallback<index_with_commit_id_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.index_path = index_path;
+        this.commit_id = commit_id;
+      }
+
+      public void write_args(TProtocol prot) throws TException {
+        prot.writeMessageBegin(new TMessage("index_with_commit_id", TMessageType.CALL, 0));
+        index_with_commit_id_args args = new index_with_commit_id_args();
+        args.setIndex_path(index_path);
+        args.setCommit_id(commit_id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public boolean getResult() throws TException {
+        if (getState() != State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        TMemoryInputTransport memoryTransport = new TMemoryInputTransport(getFrameBuffer().array());
+        TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_index_with_commit_id();
+      }
+    }
+
+    public void search_with_commit_id(String query, String commit_id, AsyncMethodCallback<search_with_commit_id_call> resultHandler) throws TException {
+      checkReady();
+      search_with_commit_id_call method_call = new search_with_commit_id_call(query, commit_id, resultHandler, this, protocolFactory, transport);
+      manager.call(method_call);
+    }
+
+    public static class search_with_commit_id_call extends TAsyncMethodCall {
+      private String query;
+      private String commit_id;
+      public search_with_commit_id_call(String query, String commit_id, AsyncMethodCallback<search_with_commit_id_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.query = query;
+        this.commit_id = commit_id;
+      }
+
+      public void write_args(TProtocol prot) throws TException {
+        prot.writeMessageBegin(new TMessage("search_with_commit_id", TMessageType.CALL, 0));
+        search_with_commit_id_args args = new search_with_commit_id_args();
+        args.setQuery(query);
+        args.setCommit_id(commit_id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws TException {
+        if (getState() != State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        TMemoryInputTransport memoryTransport = new TMemoryInputTransport(getFrameBuffer().array());
+        TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_search_with_commit_id();
+      }
+    }
+
     public void search(String query, AsyncMethodCallback<search_call> resultHandler) throws TException {
       checkReady();
       search_call method_call = new search_call(query, resultHandler, this, protocolFactory, transport);
@@ -233,6 +423,37 @@ public class LuceneService {
       }
     }
 
+    public void delete_index(String delete_path, AsyncMethodCallback<delete_index_call> resultHandler) throws TException {
+      checkReady();
+      delete_index_call method_call = new delete_index_call(delete_path, resultHandler, this, protocolFactory, transport);
+      manager.call(method_call);
+    }
+
+    public static class delete_index_call extends TAsyncMethodCall {
+      private String delete_path;
+      public delete_index_call(String delete_path, AsyncMethodCallback<delete_index_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.delete_path = delete_path;
+      }
+
+      public void write_args(TProtocol prot) throws TException {
+        prot.writeMessageBegin(new TMessage("delete_index", TMessageType.CALL, 0));
+        delete_index_args args = new delete_index_args();
+        args.setDelete_path(delete_path);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public boolean getResult() throws TException {
+        if (getState() != State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        TMemoryInputTransport memoryTransport = new TMemoryInputTransport(getFrameBuffer().array());
+        TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_delete_index();
+      }
+    }
+
   }
 
   public static class Processor implements TProcessor {
@@ -241,7 +462,10 @@ public class LuceneService {
     {
       iface_ = iface;
       processMap_.put("index", new index());
+      processMap_.put("index_with_commit_id", new index_with_commit_id());
+      processMap_.put("search_with_commit_id", new search_with_commit_id());
       processMap_.put("search", new search());
+      processMap_.put("delete_index", new delete_index());
     }
 
     protected static interface ProcessFunction {
@@ -296,6 +520,59 @@ public class LuceneService {
 
     }
 
+    private class index_with_commit_id implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        index_with_commit_id_args args = new index_with_commit_id_args();
+        try {
+          args.read(iprot);
+        } catch (TProtocolException e) {
+          iprot.readMessageEnd();
+          TApplicationException x = new TApplicationException(TApplicationException.PROTOCOL_ERROR, e.getMessage());
+          oprot.writeMessageBegin(new TMessage("index_with_commit_id", TMessageType.EXCEPTION, seqid));
+          x.write(oprot);
+          oprot.writeMessageEnd();
+          oprot.getTransport().flush();
+          return;
+        }
+        iprot.readMessageEnd();
+        index_with_commit_id_result result = new index_with_commit_id_result();
+        result.success = iface_.index_with_commit_id(args.index_path, args.commit_id);
+        result.setSuccessIsSet(true);
+        oprot.writeMessageBegin(new TMessage("index_with_commit_id", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class search_with_commit_id implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        search_with_commit_id_args args = new search_with_commit_id_args();
+        try {
+          args.read(iprot);
+        } catch (TProtocolException e) {
+          iprot.readMessageEnd();
+          TApplicationException x = new TApplicationException(TApplicationException.PROTOCOL_ERROR, e.getMessage());
+          oprot.writeMessageBegin(new TMessage("search_with_commit_id", TMessageType.EXCEPTION, seqid));
+          x.write(oprot);
+          oprot.writeMessageEnd();
+          oprot.getTransport().flush();
+          return;
+        }
+        iprot.readMessageEnd();
+        search_with_commit_id_result result = new search_with_commit_id_result();
+        result.success = iface_.search_with_commit_id(args.query, args.commit_id);
+        oprot.writeMessageBegin(new TMessage("search_with_commit_id", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
     private class search implements ProcessFunction {
       public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
       {
@@ -315,6 +592,33 @@ public class LuceneService {
         search_result result = new search_result();
         result.success = iface_.search(args.query);
         oprot.writeMessageBegin(new TMessage("search", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class delete_index implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        delete_index_args args = new delete_index_args();
+        try {
+          args.read(iprot);
+        } catch (TProtocolException e) {
+          iprot.readMessageEnd();
+          TApplicationException x = new TApplicationException(TApplicationException.PROTOCOL_ERROR, e.getMessage());
+          oprot.writeMessageBegin(new TMessage("delete_index", TMessageType.EXCEPTION, seqid));
+          x.write(oprot);
+          oprot.writeMessageEnd();
+          oprot.getTransport().flush();
+          return;
+        }
+        iprot.readMessageEnd();
+        delete_index_result result = new delete_index_result();
+        result.success = iface_.delete_index(args.delete_path);
+        result.setSuccessIsSet(true);
+        oprot.writeMessageBegin(new TMessage("delete_index", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
         oprot.getTransport().flush();
@@ -885,6 +1189,1306 @@ public class LuceneService {
 
   }
 
+  public static class index_with_commit_id_args implements TBase<index_with_commit_id_args, index_with_commit_id_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("index_with_commit_id_args");
+
+    private static final TField INDEX_PATH_FIELD_DESC = new TField("index_path", TType.STRING, (short)1);
+    private static final TField COMMIT_ID_FIELD_DESC = new TField("commit_id", TType.STRING, (short)2);
+
+    public String index_path;
+    public String commit_id;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      INDEX_PATH((short)1, "index_path"),
+      COMMIT_ID((short)2, "commit_id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // INDEX_PATH
+            return INDEX_PATH;
+          case 2: // COMMIT_ID
+            return COMMIT_ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.INDEX_PATH, new FieldMetaData("index_path", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      tmpMap.put(_Fields.COMMIT_ID, new FieldMetaData("commit_id", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(index_with_commit_id_args.class, metaDataMap);
+    }
+
+    public index_with_commit_id_args() {
+    }
+
+    public index_with_commit_id_args(
+      String index_path,
+      String commit_id)
+    {
+      this();
+      this.index_path = index_path;
+      this.commit_id = commit_id;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public index_with_commit_id_args(index_with_commit_id_args other) {
+      if (other.isSetIndex_path()) {
+        this.index_path = other.index_path;
+      }
+      if (other.isSetCommit_id()) {
+        this.commit_id = other.commit_id;
+      }
+    }
+
+    public index_with_commit_id_args deepCopy() {
+      return new index_with_commit_id_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.index_path = null;
+      this.commit_id = null;
+    }
+
+    public String getIndex_path() {
+      return this.index_path;
+    }
+
+    public index_with_commit_id_args setIndex_path(String index_path) {
+      this.index_path = index_path;
+      return this;
+    }
+
+    public void unsetIndex_path() {
+      this.index_path = null;
+    }
+
+    /** Returns true if field index_path is set (has been asigned a value) and false otherwise */
+    public boolean isSetIndex_path() {
+      return this.index_path != null;
+    }
+
+    public void setIndex_pathIsSet(boolean value) {
+      if (!value) {
+        this.index_path = null;
+      }
+    }
+
+    public String getCommit_id() {
+      return this.commit_id;
+    }
+
+    public index_with_commit_id_args setCommit_id(String commit_id) {
+      this.commit_id = commit_id;
+      return this;
+    }
+
+    public void unsetCommit_id() {
+      this.commit_id = null;
+    }
+
+    /** Returns true if field commit_id is set (has been asigned a value) and false otherwise */
+    public boolean isSetCommit_id() {
+      return this.commit_id != null;
+    }
+
+    public void setCommit_idIsSet(boolean value) {
+      if (!value) {
+        this.commit_id = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case INDEX_PATH:
+        if (value == null) {
+          unsetIndex_path();
+        } else {
+          setIndex_path((String)value);
+        }
+        break;
+
+      case COMMIT_ID:
+        if (value == null) {
+          unsetCommit_id();
+        } else {
+          setCommit_id((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case INDEX_PATH:
+        return getIndex_path();
+
+      case COMMIT_ID:
+        return getCommit_id();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case INDEX_PATH:
+        return isSetIndex_path();
+      case COMMIT_ID:
+        return isSetCommit_id();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof index_with_commit_id_args)
+        return this.equals((index_with_commit_id_args)that);
+      return false;
+    }
+
+    public boolean equals(index_with_commit_id_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_index_path = true && this.isSetIndex_path();
+      boolean that_present_index_path = true && that.isSetIndex_path();
+      if (this_present_index_path || that_present_index_path) {
+        if (!(this_present_index_path && that_present_index_path))
+          return false;
+        if (!this.index_path.equals(that.index_path))
+          return false;
+      }
+
+      boolean this_present_commit_id = true && this.isSetCommit_id();
+      boolean that_present_commit_id = true && that.isSetCommit_id();
+      if (this_present_commit_id || that_present_commit_id) {
+        if (!(this_present_commit_id && that_present_commit_id))
+          return false;
+        if (!this.commit_id.equals(that.commit_id))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(index_with_commit_id_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      index_with_commit_id_args typedOther = (index_with_commit_id_args)other;
+
+      lastComparison = Boolean.valueOf(isSetIndex_path()).compareTo(typedOther.isSetIndex_path());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetIndex_path()) {
+        lastComparison = TBaseHelper.compareTo(this.index_path, typedOther.index_path);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetCommit_id()).compareTo(typedOther.isSetCommit_id());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetCommit_id()) {
+        lastComparison = TBaseHelper.compareTo(this.commit_id, typedOther.commit_id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 1: // INDEX_PATH
+            if (field.type == TType.STRING) {
+              this.index_path = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case 2: // COMMIT_ID
+            if (field.type == TType.STRING) {
+              this.commit_id = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.index_path != null) {
+        oprot.writeFieldBegin(INDEX_PATH_FIELD_DESC);
+        oprot.writeString(this.index_path);
+        oprot.writeFieldEnd();
+      }
+      if (this.commit_id != null) {
+        oprot.writeFieldBegin(COMMIT_ID_FIELD_DESC);
+        oprot.writeString(this.commit_id);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("index_with_commit_id_args(");
+      boolean first = true;
+
+      sb.append("index_path:");
+      if (this.index_path == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.index_path);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("commit_id:");
+      if (this.commit_id == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.commit_id);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class index_with_commit_id_result implements TBase<index_with_commit_id_result, index_with_commit_id_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("index_with_commit_id_result");
+
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.BOOL, (short)0);
+
+    public boolean success;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __SUCCESS_ISSET_ID = 0;
+    private BitSet __isset_bit_vector = new BitSet(1);
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.BOOL)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(index_with_commit_id_result.class, metaDataMap);
+    }
+
+    public index_with_commit_id_result() {
+    }
+
+    public index_with_commit_id_result(
+      boolean success)
+    {
+      this();
+      this.success = success;
+      setSuccessIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public index_with_commit_id_result(index_with_commit_id_result other) {
+      __isset_bit_vector.clear();
+      __isset_bit_vector.or(other.__isset_bit_vector);
+      this.success = other.success;
+    }
+
+    public index_with_commit_id_result deepCopy() {
+      return new index_with_commit_id_result(this);
+    }
+
+    @Override
+    public void clear() {
+      setSuccessIsSet(false);
+      this.success = false;
+    }
+
+    public boolean isSuccess() {
+      return this.success;
+    }
+
+    public index_with_commit_id_result setSuccess(boolean success) {
+      this.success = success;
+      setSuccessIsSet(true);
+      return this;
+    }
+
+    public void unsetSuccess() {
+      __isset_bit_vector.clear(__SUCCESS_ISSET_ID);
+    }
+
+    /** Returns true if field success is set (has been asigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return __isset_bit_vector.get(__SUCCESS_ISSET_ID);
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      __isset_bit_vector.set(__SUCCESS_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((Boolean)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return new Boolean(isSuccess());
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof index_with_commit_id_result)
+        return this.equals((index_with_commit_id_result)that);
+      return false;
+    }
+
+    public boolean equals(index_with_commit_id_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true;
+      boolean that_present_success = true;
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (this.success != that.success)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(index_with_commit_id_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      index_with_commit_id_result typedOther = (index_with_commit_id_result)other;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = TBaseHelper.compareTo(this.success, typedOther.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 0: // SUCCESS
+            if (field.type == TType.BOOL) {
+              this.success = iprot.readBool();
+              setSuccessIsSet(true);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        oprot.writeBool(this.success);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("index_with_commit_id_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      sb.append(this.success);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class search_with_commit_id_args implements TBase<search_with_commit_id_args, search_with_commit_id_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("search_with_commit_id_args");
+
+    private static final TField QUERY_FIELD_DESC = new TField("query", TType.STRING, (short)1);
+    private static final TField COMMIT_ID_FIELD_DESC = new TField("commit_id", TType.STRING, (short)2);
+
+    public String query;
+    public String commit_id;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      QUERY((short)1, "query"),
+      COMMIT_ID((short)2, "commit_id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // QUERY
+            return QUERY;
+          case 2: // COMMIT_ID
+            return COMMIT_ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.QUERY, new FieldMetaData("query", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      tmpMap.put(_Fields.COMMIT_ID, new FieldMetaData("commit_id", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(search_with_commit_id_args.class, metaDataMap);
+    }
+
+    public search_with_commit_id_args() {
+    }
+
+    public search_with_commit_id_args(
+      String query,
+      String commit_id)
+    {
+      this();
+      this.query = query;
+      this.commit_id = commit_id;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public search_with_commit_id_args(search_with_commit_id_args other) {
+      if (other.isSetQuery()) {
+        this.query = other.query;
+      }
+      if (other.isSetCommit_id()) {
+        this.commit_id = other.commit_id;
+      }
+    }
+
+    public search_with_commit_id_args deepCopy() {
+      return new search_with_commit_id_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.query = null;
+      this.commit_id = null;
+    }
+
+    public String getQuery() {
+      return this.query;
+    }
+
+    public search_with_commit_id_args setQuery(String query) {
+      this.query = query;
+      return this;
+    }
+
+    public void unsetQuery() {
+      this.query = null;
+    }
+
+    /** Returns true if field query is set (has been asigned a value) and false otherwise */
+    public boolean isSetQuery() {
+      return this.query != null;
+    }
+
+    public void setQueryIsSet(boolean value) {
+      if (!value) {
+        this.query = null;
+      }
+    }
+
+    public String getCommit_id() {
+      return this.commit_id;
+    }
+
+    public search_with_commit_id_args setCommit_id(String commit_id) {
+      this.commit_id = commit_id;
+      return this;
+    }
+
+    public void unsetCommit_id() {
+      this.commit_id = null;
+    }
+
+    /** Returns true if field commit_id is set (has been asigned a value) and false otherwise */
+    public boolean isSetCommit_id() {
+      return this.commit_id != null;
+    }
+
+    public void setCommit_idIsSet(boolean value) {
+      if (!value) {
+        this.commit_id = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case QUERY:
+        if (value == null) {
+          unsetQuery();
+        } else {
+          setQuery((String)value);
+        }
+        break;
+
+      case COMMIT_ID:
+        if (value == null) {
+          unsetCommit_id();
+        } else {
+          setCommit_id((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case QUERY:
+        return getQuery();
+
+      case COMMIT_ID:
+        return getCommit_id();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case QUERY:
+        return isSetQuery();
+      case COMMIT_ID:
+        return isSetCommit_id();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof search_with_commit_id_args)
+        return this.equals((search_with_commit_id_args)that);
+      return false;
+    }
+
+    public boolean equals(search_with_commit_id_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_query = true && this.isSetQuery();
+      boolean that_present_query = true && that.isSetQuery();
+      if (this_present_query || that_present_query) {
+        if (!(this_present_query && that_present_query))
+          return false;
+        if (!this.query.equals(that.query))
+          return false;
+      }
+
+      boolean this_present_commit_id = true && this.isSetCommit_id();
+      boolean that_present_commit_id = true && that.isSetCommit_id();
+      if (this_present_commit_id || that_present_commit_id) {
+        if (!(this_present_commit_id && that_present_commit_id))
+          return false;
+        if (!this.commit_id.equals(that.commit_id))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(search_with_commit_id_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      search_with_commit_id_args typedOther = (search_with_commit_id_args)other;
+
+      lastComparison = Boolean.valueOf(isSetQuery()).compareTo(typedOther.isSetQuery());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetQuery()) {
+        lastComparison = TBaseHelper.compareTo(this.query, typedOther.query);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetCommit_id()).compareTo(typedOther.isSetCommit_id());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetCommit_id()) {
+        lastComparison = TBaseHelper.compareTo(this.commit_id, typedOther.commit_id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 1: // QUERY
+            if (field.type == TType.STRING) {
+              this.query = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case 2: // COMMIT_ID
+            if (field.type == TType.STRING) {
+              this.commit_id = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.query != null) {
+        oprot.writeFieldBegin(QUERY_FIELD_DESC);
+        oprot.writeString(this.query);
+        oprot.writeFieldEnd();
+      }
+      if (this.commit_id != null) {
+        oprot.writeFieldBegin(COMMIT_ID_FIELD_DESC);
+        oprot.writeString(this.commit_id);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("search_with_commit_id_args(");
+      boolean first = true;
+
+      sb.append("query:");
+      if (this.query == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.query);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("commit_id:");
+      if (this.commit_id == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.commit_id);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class search_with_commit_id_result implements TBase<search_with_commit_id_result, search_with_commit_id_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("search_with_commit_id_result");
+
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.STRING, (short)0);
+
+    public String success;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(search_with_commit_id_result.class, metaDataMap);
+    }
+
+    public search_with_commit_id_result() {
+    }
+
+    public search_with_commit_id_result(
+      String success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public search_with_commit_id_result(search_with_commit_id_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+    }
+
+    public search_with_commit_id_result deepCopy() {
+      return new search_with_commit_id_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public search_with_commit_id_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been asigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof search_with_commit_id_result)
+        return this.equals((search_with_commit_id_result)that);
+      return false;
+    }
+
+    public boolean equals(search_with_commit_id_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(search_with_commit_id_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      search_with_commit_id_result typedOther = (search_with_commit_id_result)other;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = TBaseHelper.compareTo(this.success, typedOther.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 0: // SUCCESS
+            if (field.type == TType.STRING) {
+              this.success = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        oprot.writeString(this.success);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("search_with_commit_id_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
   public static class search_args implements TBase<search_args, search_args._Fields>, java.io.Serializable, Cloneable   {
     private static final TStruct STRUCT_DESC = new TStruct("search_args");
 
@@ -1435,6 +3039,567 @@ public class LuceneService {
       } else {
         sb.append(this.success);
       }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class delete_index_args implements TBase<delete_index_args, delete_index_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("delete_index_args");
+
+    private static final TField DELETE_PATH_FIELD_DESC = new TField("delete_path", TType.STRING, (short)1);
+
+    public String delete_path;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      DELETE_PATH((short)1, "delete_path");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // DELETE_PATH
+            return DELETE_PATH;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.DELETE_PATH, new FieldMetaData("delete_path", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(delete_index_args.class, metaDataMap);
+    }
+
+    public delete_index_args() {
+    }
+
+    public delete_index_args(
+      String delete_path)
+    {
+      this();
+      this.delete_path = delete_path;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public delete_index_args(delete_index_args other) {
+      if (other.isSetDelete_path()) {
+        this.delete_path = other.delete_path;
+      }
+    }
+
+    public delete_index_args deepCopy() {
+      return new delete_index_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.delete_path = null;
+    }
+
+    public String getDelete_path() {
+      return this.delete_path;
+    }
+
+    public delete_index_args setDelete_path(String delete_path) {
+      this.delete_path = delete_path;
+      return this;
+    }
+
+    public void unsetDelete_path() {
+      this.delete_path = null;
+    }
+
+    /** Returns true if field delete_path is set (has been asigned a value) and false otherwise */
+    public boolean isSetDelete_path() {
+      return this.delete_path != null;
+    }
+
+    public void setDelete_pathIsSet(boolean value) {
+      if (!value) {
+        this.delete_path = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case DELETE_PATH:
+        if (value == null) {
+          unsetDelete_path();
+        } else {
+          setDelete_path((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case DELETE_PATH:
+        return getDelete_path();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case DELETE_PATH:
+        return isSetDelete_path();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof delete_index_args)
+        return this.equals((delete_index_args)that);
+      return false;
+    }
+
+    public boolean equals(delete_index_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_delete_path = true && this.isSetDelete_path();
+      boolean that_present_delete_path = true && that.isSetDelete_path();
+      if (this_present_delete_path || that_present_delete_path) {
+        if (!(this_present_delete_path && that_present_delete_path))
+          return false;
+        if (!this.delete_path.equals(that.delete_path))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(delete_index_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      delete_index_args typedOther = (delete_index_args)other;
+
+      lastComparison = Boolean.valueOf(isSetDelete_path()).compareTo(typedOther.isSetDelete_path());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetDelete_path()) {
+        lastComparison = TBaseHelper.compareTo(this.delete_path, typedOther.delete_path);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 1: // DELETE_PATH
+            if (field.type == TType.STRING) {
+              this.delete_path = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.delete_path != null) {
+        oprot.writeFieldBegin(DELETE_PATH_FIELD_DESC);
+        oprot.writeString(this.delete_path);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("delete_index_args(");
+      boolean first = true;
+
+      sb.append("delete_path:");
+      if (this.delete_path == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.delete_path);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class delete_index_result implements TBase<delete_index_result, delete_index_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("delete_index_result");
+
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.BOOL, (short)0);
+
+    public boolean success;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __SUCCESS_ISSET_ID = 0;
+    private BitSet __isset_bit_vector = new BitSet(1);
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.BOOL)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(delete_index_result.class, metaDataMap);
+    }
+
+    public delete_index_result() {
+    }
+
+    public delete_index_result(
+      boolean success)
+    {
+      this();
+      this.success = success;
+      setSuccessIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public delete_index_result(delete_index_result other) {
+      __isset_bit_vector.clear();
+      __isset_bit_vector.or(other.__isset_bit_vector);
+      this.success = other.success;
+    }
+
+    public delete_index_result deepCopy() {
+      return new delete_index_result(this);
+    }
+
+    @Override
+    public void clear() {
+      setSuccessIsSet(false);
+      this.success = false;
+    }
+
+    public boolean isSuccess() {
+      return this.success;
+    }
+
+    public delete_index_result setSuccess(boolean success) {
+      this.success = success;
+      setSuccessIsSet(true);
+      return this;
+    }
+
+    public void unsetSuccess() {
+      __isset_bit_vector.clear(__SUCCESS_ISSET_ID);
+    }
+
+    /** Returns true if field success is set (has been asigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return __isset_bit_vector.get(__SUCCESS_ISSET_ID);
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      __isset_bit_vector.set(__SUCCESS_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((Boolean)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return new Boolean(isSuccess());
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof delete_index_result)
+        return this.equals((delete_index_result)that);
+      return false;
+    }
+
+    public boolean equals(delete_index_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true;
+      boolean that_present_success = true;
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (this.success != that.success)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(delete_index_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      delete_index_result typedOther = (delete_index_result)other;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = TBaseHelper.compareTo(this.success, typedOther.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 0: // SUCCESS
+            if (field.type == TType.BOOL) {
+              this.success = iprot.readBool();
+              setSuccessIsSet(true);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        oprot.writeBool(this.success);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("delete_index_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      sb.append(this.success);
       first = false;
       sb.append(")");
       return sb.toString();

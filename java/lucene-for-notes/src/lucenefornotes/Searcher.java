@@ -28,7 +28,6 @@ import org.wltea.analyzer.lucene.IKQueryParser;
 import org.wltea.analyzer.lucene.IKSimilarity;
 import org.apache.lucene.search.highlight.SimpleFragmenter;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.apache.lucene.search.highlight.TokenSources;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
@@ -47,7 +46,7 @@ public class Searcher {
 
   public static void main(String[] args) throws Exception {
     String indexDir = "\\\\192.168.1.8\\root\\web\\2010\\lucene\\notes\\index";
-    String[] qs = {"中国", "小说", "note_repo"}; // 要查询的单词
+    String[] qs = {"中国", "小说", "寻黄"}; // 要查询的单词
 
     for (String q : qs) {
       Searcher s = new Searcher(indexDir, q);
@@ -78,7 +77,6 @@ public class Searcher {
     String[][] arrays = new String[hits.length][2];
     for (int i = 0; i < hits.length; i++) {
       Document doc = is.doc(hits[i].doc);
-      System.out.println(doc);
       //对要高亮显示的字段格式化，这里只是加红色显示和加粗
       SimpleHTMLFormatter sHtmlF = new SimpleHTMLFormatter("<span color='loud'>", "</span>");
       Highlighter highlighter = new Highlighter(sHtmlF, new QueryScorer(query));
