@@ -16,12 +16,17 @@ import org.apache.thrift.TException;
 public class LuceneServiceHandler implements LuceneService.Iface {
 
   public static String INDEX_PATH = "/web/2010/lucene/notes/index";
+  public static String NEW_INDEX_PATH = "/web/2010/lucene/notes/new_index";
   public static String DATA_PATH = "/root/mindpin_base/note_repo/notes";
 
   public static void initIndexPath() {
     File file = new File(INDEX_PATH);
     if (!file.exists()) {
       file.mkdirs();
+    }
+    File newfile = new File(NEW_INDEX_PATH);
+    if (!newfile.exists()) {
+      newfile.mkdirs();
     }
   }
 
@@ -40,7 +45,7 @@ public class LuceneServiceHandler implements LuceneService.Iface {
       long start = new Date().getTime();
       for (String dir : strs) {
         System.out.println(dir);
-        Indexer indexer = (commit_id == null) ? (new Indexer(dir, INDEX_PATH)) : (new Indexer(dir, INDEX_PATH, commit_id));
+        Indexer indexer = new Indexer(dir, INDEX_PATH, NEW_INDEX_PATH, commit_id);
         indexer.index();
         System.out.println(dir + " 索引结束");
       }
@@ -53,28 +58,36 @@ public class LuceneServiceHandler implements LuceneService.Iface {
     }
   }
 
-  // 实现搜索操作的方法
-  public String search(String query) throws TException {
-    try {
-      Searcher s = new Searcher(INDEX_PATH, query);
-      return s.search();
-    } catch (Exception e) {
-      e.printStackTrace();
-      return "";
-    }
-  }
-
   public String search_with_commit_id(String query, String commit_id) throws TException {
     throw new UnsupportedOperationException("Not supported yet.");
   }
 
   public boolean delete_index(String delete_path) throws TException {
     try {
-      Indexer indexer = new Indexer(delete_path, INDEX_PATH);
+      Indexer indexer = new Indexer(delete_path, INDEX_PATH, NEW_INDEX_PATH,null);
       return indexer.deleteIndex(delete_path);
     } catch (IOException ex) {
       ex.printStackTrace();
       return false;
+    }
+  }
+
+  public String full_search(String query) throws TException {
+    return search(INDEX_PATH, query);
+  }
+
+  public String new_search(String query) throws TException {
+    return search(NEW_INDEX_PATH, query);
+  }
+
+  // 实现搜索操作的方法
+  private String search(String indexPathTmp, String query) throws TException {
+    try {
+      Searcher s = new Searcher(indexPathTmp, query);
+      return s.search();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "";
     }
   }
 }
