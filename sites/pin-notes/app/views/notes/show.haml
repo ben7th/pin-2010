@@ -1,9 +1,7 @@
 -require_css 'notes'
 
 .secondary
-  .marginb10
-    =minibutton '生成索引','/search/index',:method=>:post
-  .marginb3em
+  .marginb30
     %form{:action=>"/search",:method=>"get",:id=>"search_form"}
       %input.search-inner.text{:name=>"q",:type=>"text"}
       %input.search-button{:value=>"搜索",:type=>"submit"}

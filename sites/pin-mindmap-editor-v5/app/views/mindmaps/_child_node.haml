@@ -1,0 +1,15 @@
+-ul_hide_class ||= ""
+- padding_size = layer_count * 14
+-if children.size != 0 
+  %ul{:for=>"node",:class=>"mplist_nodes #{ul_hide_class}"}
+    -children.each do |child|
+      %li{:id=>"node_#{ child[:id] }" ,:class=>"outline_li"}
+        .outline_title_and_sign{:style=>"padding-left:#{padding_size}px;overflow:hidden"}
+          -if child[:fold]=='1'
+            -ul_hide_class = "hide"
+            .outline_plus.foldhandler
+          -elsif child[:children].size!=0
+            -ul_hide_class = ""
+            .outline_minus.foldhandler
+          %span.outline_title=node_title_to_br(child[:title])
+        =render :partial=>"/mindmaps/child_node",:locals=>{:children=>child[:children],:list_id=>"",:ul_hide_class=>ul_hide_class,:layer_count=>layer_count + 1}

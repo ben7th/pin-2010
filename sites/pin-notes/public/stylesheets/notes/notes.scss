@@ -111,6 +111,19 @@ $bgc:#323546;
       @include border-radius(2px);
       width:98.5%;
     }
+    .quiet{
+      color:#858585 !important;
+    }
+    .misc{
+      span{
+        line-height:20px;
+        float:left;
+        margin-right:10px;
+      }
+      .logo.tiny{
+        height:16px;width:16px;
+      }
+    }
   }
   .notefiles{
     background-color:$bgc;
@@ -132,6 +145,17 @@ $bgc:#323546;
     }
     .note-content{
       padding:7px 10px;
+    }
+  }
+  .data{
+    background-color:$bgc;
+    border:solid 1px #111;
+    border-top:none;
+    padding:10px;
+    @include border-radius(0 0 3px 3px);
+    .loud{
+      color:black !important;
+      background-color:#FFB019;
     }
   }
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="mindpin_pineditor">
+<head>
+  <mp:layout>false</mp:layout>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>思维导图 - <%=@mindmap.title%></title>
+	
+  <%= stylesheet_link_tag 'blueprint/screen',:media=>'screen, projection' %>
+  <%= stylesheet_link_tag 'blueprint/print',:media=>'print' %>
+  <!--[if IE]><%= stylesheet_link_tag 'http://mindmap-editor.mindpin.com/stylesheets/blueprint/ie',:media=>'screen, projection' %><![endif]-->
+  <%= stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_canvas' %>
+  <%= stylesheet_link_tag 'pineditor/mindmap_editor_page' %>
+  <%= stylesheet_link_tag '/javascripts/lightview/css/lightview.css' %>
+  <%= stylesheet_link_tag '/javascripts/starbox/css/starbox' %>
+  <%= stylesheet_link_tag '/javascripts/prototip/css/prototip' %>
+	
+  <!--[if IE]><%= javascript_include_tag "http://mindmap-editor.mindpin.com/javascripts/excanvas/excanvas" %><![endif]-->
+  <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'scriptaculous.js?load=builder,effects' %>
+  <%= javascript_include_tag 'pie/mindmap/pie_core.src' %>
+  <%= javascript_include_tag 'pie/mindmap/pie_dragdrop.src' %>
+  <%= javascript_include_tag 'pie/mindmap/pie_menu.src' %>
+  <%= javascript_include_tag 'pie/mindmap/pie_mindmap.src' %>
+  <%= javascript_include_tag 'pie/mindmap/pie_mindmap_editors.src' %>
+  <%= javascript_include_tag 'pie/mindmap/pie_opfactory.src'%>
+  <%= javascript_include_tag 'lightview/js/lightview' %>
+  <%= javascript_include_tag 'starbox/js/starbox' %>
+  <%= javascript_include_tag 'nicedit/nicEdit' %>
+  <%= javascript_include_tag 'prototip/js/prototip' %>
+
+  <%@DEBUGMODE=false%>
+
+	<script language="javascript">
+    var mindmap;
+		var init=function(){
+      $("mapcanvas").innerHTML="";
+      resize();
+      var debug_flag=<%=@DEBUGMODE%>;
+      mindmap = new pie.mindmap.BasicMapPaper("mapcanvas",{
+        id:'<%= @mindmap.id %>',
+        loader: new pie.mindmap.JSONLoader({
+          url:'/<%=APP_PREFIX%>/mindmaps/<%= @mindmap.id %>'
+        }),
+        editmode: false,
+        after_load:function(){
+          mindmap.root.select();
+        },
+        save_status:$("save_status"),
+        debug:debug_flag
+      }).load();
+		}
+		function resize(){
+			var obj=$("mindmap-shadow");
+			var d=document.viewport.getDimensions() 
+			obj.setStyle({zoom:1});
+			$("mindmap").style.height=(d.height)+"px";
+		}
+		document.observe("dom:loaded",init);
+		Event.observe(window,"resize",resize);
+	</script>
+</head>
+<body style="margin:0;">
+	<div style="text-align:left; width:100%;">
+		<div id="mindmap-shadow" style="margin:0 0 0 0; background:#ddd;">
+			<div id="mindmap" style="height:100px;">
+				<div id="mapcanvas" style=""></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

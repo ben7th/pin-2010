@@ -109,6 +109,15 @@
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       width: 98.5%; }
+    .file .meta .quiet {
+      color: #858585 !important; }
+    .file .meta .misc span {
+      line-height: 20px;
+      float: left;
+      margin-right: 10px; }
+    .file .meta .misc .logo.tiny {
+      height: 16px;
+      width: 16px; }
   .file .notefiles {
     background-color: #323546;
     border: solid 1px #111;
@@ -130,6 +139,17 @@
       border-bottom: solid 1px #111; }
     .file .notefiles .note-content {
       padding: 7px 10px; }
+  .file .data {
+    background-color: #323546;
+    border: solid 1px #111;
+    border-top: none;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px; }
+    .file .data .loud {
+      color: black !important;
+      background-color: #FFB019; }
 
 .delete-note {
   overflow: hidden; }

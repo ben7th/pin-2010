@@ -1,0 +1,17 @@
+development:
+  searchd_file_path: "/web/db/sphinx/"
+  charset_type: zh_cn.utf-8
+  charset_dictpath: /usr/local/mmseg3/etc
+
+test:
+  searchd_file_path: "/web/db/sphinx/"
+  charset_type: zh_cn.utf-8
+  charset_dictpath: /usr/local/mmseg3/etc
+    
+production:
+  bin_path: /usr/local/coreseek/bin/
+  searchd_binary_name: searchd
+  indexer_binary_name: indexer
+  searchd_file_path: "/web/db/sphinx/"
+  charset_type: zh_cn.utf-8
+  charset_dictpath: /usr/local/mmseg3/etc

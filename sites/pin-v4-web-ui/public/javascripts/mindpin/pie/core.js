@@ -40,6 +40,22 @@ pie.isChrome=function(){
 	return window.navigator.userAgent.indexOf("Chrome")>=1;
 }
 
+pie.randstr=function(length){
+  length = length || 8;
+  var base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var size = base.length
+  re = ''+base[pie.rand(size-10)]
+  for(var i=1;i<length;i++){
+    re = re + base[pie.rand(size)]
+  }
+  return re;
+}
+
+pie.rand=function(num){
+  var i = Math.random()
+  return Math.round(i*(num-1))
+}
+
 Element.addMethods({
   makeUnselectable: function(element, cursor){
     cursor = cursor || 'default';

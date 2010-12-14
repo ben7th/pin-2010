@@ -1,0 +1,27 @@
+/*绘图区*/
+#mindmap-shadow{position:absolute;border:solid 4px #C3D9FF;overflow:hidden;}
+#mindmap-shadow #mindmap-scroller{
+  position:absolute;border:1px solid #A2BBDD;overflow:scroll;}
+#mindmap-shadow #mindmap-canvas{
+  border:solid 1px white;position:relative;width:6000px;height:3000px;background-color:#FFFFFF;
+  background-image:url("../img/paper_bg.png");}
+#mindmap-shadow #mindmap-canvas div{white-space:nowrap;}
+
+/*侧边栏*/
+#mindmap-sidebar{*display:inline;}
+
+#facebox{
+  z-index:100000;
+}
+
+#colorzone ul{
+  line-height:10px;
+  height:10px;
+}
+
+#colorzone li{
+  display:inline-block;
+  line-height:10px;
+  height:10px;
+}
+#colorzone a{height:10px;width:10px;display:inline-block;}

@@ -1,0 +1,18 @@
+%div.padding5.paddingl10
+  %h4
+    =link_to truncate_u(mindmap.title,9),mindmap,:target=>'_blank',:title=>mindmap.title
+
+  .map-params-div
+    %span.marginr5= userlink(mindmap)
+    %span= show_time_by_order_type @order,mindmap
+
+  .margint5.marginb5.textleft
+    .mapthumb-box
+      .image_center_div.mapthumb
+        %p
+          %img{:src=>"#{IMAGE_CACHE_SITE}/images/#{mindmap.id}.png?size_param=120x90"}
+  %span{:style=>"font-size:18px;"}
+    Rank值：#{mindmap.rank}
+  -if current_user
+    .clone-link
+    =link_to_remote "克隆",:url=>""
