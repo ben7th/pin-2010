@@ -15,16 +15,16 @@ import org.apache.thrift.TException;
  */
 public class LuceneServiceHandler implements LuceneService.Iface {
 
-  public static String INDEX_PATH = "/web/2010/lucene/notes/index";
-  public static String NEW_INDEX_PATH = "/web/2010/lucene/notes/new_index";
+  public static String FULL_INDEX_PATH = "/web/2010/lucene/notes/index";
+  public static String NEWEST_INDEX_PATH = "/web/2010/lucene/notes/new_index";
   public static String DATA_PATH = "/root/mindpin_base/note_repo/notes";
 
   public static void initIndexPath() {
-    File file = new File(INDEX_PATH);
+    File file = new File(FULL_INDEX_PATH);
     if (!file.exists()) {
       file.mkdirs();
     }
-    File newfile = new File(NEW_INDEX_PATH);
+    File newfile = new File(NEWEST_INDEX_PATH);
     if (!newfile.exists()) {
       newfile.mkdirs();
     }
@@ -45,7 +45,7 @@ public class LuceneServiceHandler implements LuceneService.Iface {
       long start = new Date().getTime();
       for (String dir : strs) {
         System.out.println(dir);
-        Indexer indexer = new Indexer(dir, INDEX_PATH, NEW_INDEX_PATH, commit_id);
+        Indexer indexer = new Indexer(dir, FULL_INDEX_PATH, NEWEST_INDEX_PATH, commit_id);
         indexer.index();
         System.out.println(dir + " 索引结束");
       }
@@ -64,7 +64,7 @@ public class LuceneServiceHandler implements LuceneService.Iface {
 
   public boolean delete_index(String delete_path) throws TException {
     try {
-      Indexer indexer = new Indexer(delete_path, INDEX_PATH, NEW_INDEX_PATH,null);
+      Indexer indexer = new Indexer(delete_path, FULL_INDEX_PATH, NEWEST_INDEX_PATH,null);
       return indexer.deleteIndex(delete_path);
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -72,15 +72,7 @@ public class LuceneServiceHandler implements LuceneService.Iface {
     }
   }
 
-  public String full_search(String query) throws TException {
-    return search(INDEX_PATH, query);
-  }
-
-  public String new_search(String query) throws TException {
-    return search(NEW_INDEX_PATH, query);
-  }
-
-  // 实现搜索操作的方法
+  // 实现整体搜索操作的方法
   private String search(String indexPathTmp, String query) throws TException {
     try {
       Searcher s = new Searcher(indexPathTmp, query);
@@ -89,5 +81,34 @@ public class LuceneServiceHandler implements LuceneService.Iface {
       e.printStackTrace();
       return "";
     }
+  }
+
+  // 搜索所有notes的索引
+  public String search_full(String query) throws TException {
+    return search(FULL_INDEX_PATH, query);
+  }
+
+  // 搜索最新的notes的索引
+  public String search_newest(String query) throws TException {
+    return search(NEWEST_INDEX_PATH, query);
+  }
+
+  //分页搜索的实现
+  private String search_page(String indexPathTmp,String query, int start, int count){
+    try {
+      Searcher s = new Searcher(indexPathTmp, query,start,count);
+      return s.search();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "";
+    }
+  }
+
+  public String search_page_full(String query, int start, int count) throws TException {
+    return search_page(FULL_INDEX_PATH,query,start,count);
+  }
+
+  public String search_page_newest(String query, int start, int count) throws TException {
+    return search_page(NEWEST_INDEX_PATH,query,start,count);
   }
 }
