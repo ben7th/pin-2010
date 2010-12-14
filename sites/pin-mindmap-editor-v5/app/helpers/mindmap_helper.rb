@@ -13,7 +13,7 @@ module MindmapHelper
     when !!user then user.name
     when !!user_id && !user then "[用户已删除]"
     end
-    link_to title,"#",:class=>'username'
+    link_to title,pin_url_for('pin-mindmap-editor',"/users/#{user_id}/mindmaps"),:class=>'username'
   end
 
   def thumb_image(mindmap)

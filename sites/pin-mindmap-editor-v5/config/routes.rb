@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.search '/search',:controller=>'index',:action=>'search'
 
-  map.resources :users do |user|
+  map.resources :users,:member=>{:cooperate=>:get} do |user|
     user.resources :mindmaps,:collection=>{:recently=>:get,:pie_links=>:get}
     user.resource :tendency
   end
@@ -23,6 +23,10 @@ ActionController::Routing::Routes.draw do |map|
       mindmap.resources :comments
       mindmap.resources :snapshots,:member=>{:recover=>:put}
     end
+
+  map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}
+
+  map.save_cooperations "/save_cooperations/:mindmap_id",:controller=>"cooperations",:action=>"save_cooperations",:conditions=>{:method=>:post}
 
   # MindPin功能说明和帮助
   map.intro_mindmap '/intro/mindmap',:controller=>'help',:action=>'intro_mindmap'

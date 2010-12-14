@@ -5,6 +5,7 @@ class MindmapsController < ApplicationController
   include MindmapFindingMethods
   include MindmapRestMethods
   include MindmapParamsEditingMethods
+  include MindmapCloneMethods
 
   # GET /mindmaps
   def index
@@ -93,15 +94,9 @@ class MindmapsController < ApplicationController
       end
 
       # 以下为导出图片
-      format.png do
-        show_image('png')
-      end
-      format.jpg do
-        show_image('jpeg')
-      end
-      format.gif do
-        show_image('gif')
-      end
+      format.png {show_image 'png'}
+      format.jpg {show_image 'jpeg'}
+      format.gif {show_image 'gif'}
     end
   end
 
@@ -228,18 +223,6 @@ class MindmapsController < ApplicationController
   def export
     @mindmap = Mindmap.find(params[:id])
     render_ui.fbox :show,:title=>"导出导图",:partial=>'mindmaps/edit/box_export',:locals=>{:mindmap=>@mindmap}
-  end
-
-  def clone_form
-    @mindmap = Mindmap.find(params[:id])
-    render_ui.fbox :show,:title=>"克隆导图",:partial=>'mindmaps/edit/box_clone',:locals=>{:mindmap=>@mindmap}
-  end
-
-  # 克隆
-  def clone
-    @mindmap = Mindmap.find(params[:id])
-    clone_m = @mindmap.mindmap_clone(current_user,params[:mindmap])
-    render_ui.mplist(:insert,[current_user,clone_m],:partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>clone_m},:prev=>"TOP").fbox(:close)
   end
 
   def convert_bundle

@@ -132,6 +132,7 @@ class Mindmap < ActiveRecord::Base
 
   include Snapshot::MindmapMethods
   include Comment::CommentableMethods
+  include Cooperation::MindmapMethods
   
   include MindmapCloneMethods
   include MindmapApiMethods

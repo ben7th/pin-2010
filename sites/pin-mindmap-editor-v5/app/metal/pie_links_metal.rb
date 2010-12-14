@@ -9,7 +9,7 @@ class PieLinksMetal < BaseMetal
     user_id = url_match[1]
     
     user_name = User.find(user_id).name
-
+    
     bar = Bar.new(65, '#0101DF')
     bar.key("#{user_name}的导图", 14)
     mindmaps = Mindmap.find_all_by_user_id(user_id)

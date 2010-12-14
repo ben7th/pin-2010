@@ -50,7 +50,7 @@ class MindmapRank
 
   # 获取 map_max_weight
   def self.map_max_weight
-    10
+    10000
     # 需要 缓存存放
 #    mmw = $cache.get('map_max_weight')
 #    if mmw.blank?

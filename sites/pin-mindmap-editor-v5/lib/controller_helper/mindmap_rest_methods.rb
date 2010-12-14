@@ -7,6 +7,6 @@ module MindmapRestMethods
   end
 
   def mindmap_json(mindmap)
-     {:id=>mindmap.id,:title=>mindmap.title,:updated_at=>mindmap.updated_at,:created_at=>mindmap.created_at}
+    {:id=>mindmap.id,:title=>mindmap.title,:updated_at=>mindmap.updated_at,:created_at=>mindmap.created_at}
   end
 end

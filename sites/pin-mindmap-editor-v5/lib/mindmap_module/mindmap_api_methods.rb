@@ -136,12 +136,13 @@ module MindmapApiMethods
     parent_id = params.parent_id
 
     _change_struct do |doc|
+      root_note = doc.at_css("Nodes > N")
       target = doc.at_css("N[id='#{parent_id}']")
       node = doc.at_css("N[id='#{node_id}']")
       node.remove
 
       node['pr'] = putright
-      node.remove_attribute('pr') if parent_id != '0'
+      node.remove_attribute('pr') if root_note["id"] != target["id"]
 
       children = target.xpath("N")
 

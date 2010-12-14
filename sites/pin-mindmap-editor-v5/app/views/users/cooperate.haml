@@ -1,0 +1,9 @@
+-require_css 'mindmaps.css'
+
+%h3 共同编辑
+-mplist @cooperate_edit_mindmaps,:for=>Mindmap do |mindmap|
+  = render :partial=>"/mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}
+
+%h3 共同查看
+-mplist @cooperate_view_mindmaps,:for=>Mindmap do |mindmap|
+  = render :partial=>"/mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}

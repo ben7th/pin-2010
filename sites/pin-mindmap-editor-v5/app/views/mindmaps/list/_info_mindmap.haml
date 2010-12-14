@@ -41,8 +41,18 @@
 
         .fleft.marginr5
           .edit-link
-          = link_to "编辑",edit_mindmap_path(mindmap),:target=>'_blank'
+          =link_to "编辑","/mindmaps/#{mindmap.id}/edit",:target=>'_blank'
 
         .fleft.marginr5
-          .workgroup-link
-          =link_to "协同",'javascript:;',:method=>:get
+          .cooperate-link
+          =link_to_remote "协同",:url=>"/cooperate/#{mindmap.id}",:method=>:get
+
+      -if logged_in? && mindmap.cooperate_edit?(current_user) && mindmap.user!=current_user
+        .fleft.marginr5
+          .edit-link
+          =link_to "编辑","/mindmaps/#{mindmap.id}/edit",:target=>'_blank'
+
+      -if logged_in? && mindmap.cooperate_view?(current_user) && mindmap.user!=current_user
+        .fleft.marginr5
+          .edit-link
+          =link_to "查看","/mindmaps/#{mindmap.id}",:target=>'_blank'

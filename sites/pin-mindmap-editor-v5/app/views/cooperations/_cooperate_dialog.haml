@@ -1,0 +1,10 @@
+-form_remote_tag :url=>"/save_cooperations/#{mindmap.id}",:method=>:post do
+  .field
+    %label 共同编辑者
+    =text_area_tag 'cooperate_editors'
+  .field
+    %label 共同查看者
+    =text_area_tag 'cooperate_viewers'
+  .actions.clearfix
+    .fright
+      =submit_tag '确定'
