@@ -11,10 +11,72 @@
 
 .main {
   width: 68%; }
+  .main .repo {
+    border: 1px solid #111111;
+    background-color: #323546;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 3px 10px 10px;
+    margin-bottom: 5px; }
+    .main .repo .title {
+      overflow: hidden; }
+      .main .repo .title h3 {
+        color: white;
+        font-size: 16px;
+        float: left;
+        margin-right: 32px; }
+      .main .repo .title .actions {
+        float: left;
+        padding-top: 4px; }
+        .main .repo .title .actions .minibutton {
+          margin-right: 8px; }
+      .main .repo .title .icon {
+        float: right;
+        font-size: 16px;
+        color: #FFB019 !important;
+        line-height: 2em; }
+    .main .repo .meta {
+      padding-top: 3px; }
+      .main .repo .meta dl {
+        margin: 0; }
+        .main .repo .meta dl dt, .main .repo .meta dl dd {
+          display: inline-block; }
+        .main .repo .meta dl dt {
+          width: 80px; }
+    .main .repo.private {
+      background-color: #4E3429; }
 
 .secondary {
   width: 30%;
   float: right; }
+  .secondary .owner {
+    padding: 5px;
+    background-color: #1D2A63;
+    overflow: hidden;
+    border: solid 1px #111;
+    margin-bottom: 20px; }
+    .secondary .owner .avatar {
+      float: left;
+      margin-right: 10px;
+      height: 36px; }
+    .secondary .owner .name {
+      line-height: 36px; }
+
+.files-list .notefile {
+  border: 1px solid #111111;
+  background-color: #20212E;
+  margin-bottom: 5px; }
+  .files-list .notefile .meta {
+    border-bottom: solid 1px #111;
+    padding: 3px 10px;
+    background-color: #171922; }
+    .files-list .notefile .meta .embed-box input {
+      position: relative;
+      top: -2px;
+      border: solid 1px #111; }
+  .files-list .notefile .data {
+    padding: 10px 10px; }
 
 .add_another {
   border: solid 1px #111111;
@@ -36,7 +98,7 @@
   margin: 0 0 10px; }
   .file .meta {
     border: 1px solid #111;
-    background-color: #282A3A;
+    background-color: #171922;
     border-radius: 3px 3px 0 0;
     -moz-border-radius: 3px 3px 0 0;
     -webkit-border-radius: 3px 3px 0 0;
@@ -47,13 +109,91 @@
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       width: 98.5%; }
+    .file .meta .quiet {
+      color: #858585 !important; }
+    .file .meta .misc span {
+      line-height: 20px;
+      float: left;
+      margin-right: 10px; }
+    .file .meta .misc .logo.tiny {
+      height: 16px;
+      width: 16px; }
   .file .notefiles {
     background-color: #323546;
     border: solid 1px #111;
     border-top: none;
     border-radius: 0 0 3px 3px;
     -moz-border-radius: 0 0 3px 3px;
-    -webkit-border-radius: 0 0 3px 3px;
-    padding: 7px 10px; }
+    -webkit-border-radius: 0 0 3px 3px; }
     .file .notefiles textarea {
-      width: 99.5%; }
+      width: 99.5%;
+      height: 200px; }
+    .file .notefiles input.text {
+      padding: 2px 7px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px; }
+    .file .notefiles .note-name {
+      padding: 7px 10px;
+      background: #20212E;
+      border-bottom: solid 1px #111; }
+    .file .notefiles .note-content {
+      padding: 7px 10px; }
+  .file .data {
+    background-color: #323546;
+    border: solid 1px #111;
+    border-top: none;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px; }
+    .file .data .loud {
+      color: black !important;
+      background-color: #FFB019; }
+
+.delete-note {
+  overflow: hidden; }
+  .delete-note a {
+    float: right;
+    color: #ff0000; }
+    .delete-note a:hover {
+      color: #ff0000; }
+
+.revisions li {
+  padding: 2px;
+  line-height: 22px; }
+  .revisions li .commit_stat {
+    overflow: hidden;
+    float: left;
+    padding: 7px 6px 2px 2px; }
+    .revisions li .commit_stat img {
+      margin-right: -1px;
+      border: solid 1px #e2e2e2;
+      float: left;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px; }
+  .revisions li .commit_id {
+    float: left;
+    font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+    margin-right: 5px; }
+  .revisions li .committer {
+    float: left;
+    margin-right: 5px; }
+  .revisions li .commit_date {
+    float: left; }
+
+.comment-form label {
+  color: white;
+  display: none; }
+.comment-form textarea {
+  width: 99.5%;
+  height: 100px; }
+.comment-form .field {
+  background-color: #323546;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 5px; }
+.comment-form .submit {
+  float: right; }

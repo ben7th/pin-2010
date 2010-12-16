@@ -46,8 +46,8 @@ class ActiveSupport::TestCase
 
   # 清空 测试创建的版本库文件
   def clear_user_repositories(user)
-    FileUtils.rm_rf(NoteRepository.repositories_path)
-    FileUtils.rm_rf(NoteRepository.user_recycle_path(user.id))
+    FileUtils.rm_rf(Note::REPOSITORIES_PATH)
+    FileUtils.rm_rf("#{Note::REPO_BASE_PATH}/deleted/users/#{user.id}")
   end
 
   # 创建 note 测试环境
@@ -55,7 +55,7 @@ class ActiveSupport::TestCase
      repo_test do |lifei|
       assert_difference("Note.count",1) do
         note = lifei.notes.create
-        assert File.exist?(note.repo.path)
+        assert File.exist?(note.repository_path)
       end
       note = Note.last
       yield note

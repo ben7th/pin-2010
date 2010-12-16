@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="#{pin_url_for('pin-notes','/stylesheets/notes/embed.css')}"/>
+
+.mindpin-note{:id=>"note-#{note.id}"}
+  .mindpin-note-file
+    .mindpin-note-data
+      =file_content
+    .mindpin-note-meta
+      =link_to "#{note.id}号资料",pin_url_for('pin-notes',url_for(note))
+      来自
+      =link_to "MindPin",pin_url_for('pin-user-auth')
+      .fright
+        =link_to file_name,pin_url_for('pin-notes',"#{url_for(note)}##{file_name}")

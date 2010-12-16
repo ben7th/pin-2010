@@ -1,0 +1,25 @@
+-require_css 'notes'
+
+.secondary
+  .marginb30
+    %form{:action=>"/search",:method=>"get",:id=>"search_form"}
+      %input.search-inner.text{:name=>"q",:type=>"text"}
+      %input.search-button{:value=>"搜索",:type=>"submit"}
+
+.main
+  %h2 搜索结果
+
+  %h3 关于 #{@query} ，#{@result.count} 条结果
+  .marginb10
+    搜索耗时 #{@result.time} 毫秒
+  -@result.items.each do |item|
+    .file.public
+      .meta
+        =link_to "#{item.nid}号资料","/notes/#{item.nid}"
+        %span.quiet=item.note.description
+        .hide=item.commit_id
+        .misc.fright
+          %span.quiet 相关度 #{item.score}
+          =avatar item.note.user,:tiny
+      .data
+        =item.content

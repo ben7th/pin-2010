@@ -8,7 +8,7 @@ class Organization < ActiveRecord::Base
   def validate
     user = User.find_by_email(email)
     if !email.blank? && user
-      errors.add(email,"该邮箱地址已被使用")
+      errors.add(email,"团队邮箱地址不能和已注册用户邮箱地址重复")
     end
   end
 

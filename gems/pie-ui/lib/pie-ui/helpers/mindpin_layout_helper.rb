@@ -71,7 +71,14 @@ module PieUi
     end
 
     def render_cellhead
-      cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
+
+      cellhead_path = @mindpin_layout.cellhead_path
+      return '' if cellhead_path == false
+
+      if cellhead_path.nil?
+        cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
+      end
+      
       begin
         tail = @mindpin_layout.cellhead_tail || action_name
         return '' if @mindpin_layout.cellhead_tail == false

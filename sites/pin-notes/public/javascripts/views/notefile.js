@@ -4,14 +4,21 @@
  */
 (function(){
 
-  jQuery(".new_notefile").click(function(evt){
-    var ids = jQuery(".notefiles .notefile").map(function(){
-      return jQuery(this).attr("data-notefile_id")
+  jQuery(".add_another").click(function(evt){
+    var file_names = jQuery(".notefiles .notefile").map(function(){
+      return jQuery(this).attr("data-notefile_name")
     }).get();
+    file_names = jQuery.grep(file_names, function(file_name,index){
+      return /^notefile_[0-9]+$/.test(file_name);
+    });
+    var ids = jQuery.map(file_names,function(file_name){
+      return /notefile_([0-9]+)/.exec(file_name)[1];
+    });
+    ids.push(0)
     var next_id = Math.max.apply( Math, ids ) + 1
     jQuery.ajax({
-      type: "POST",
-      url: "/notes/new_file",
+      type: "GET",
+      url: "/notes/add_another",
       data: {
         "next_id" : next_id
       },

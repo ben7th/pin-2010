@@ -37,6 +37,11 @@
       margin: 0;
       padding: 0;
       color: #B5B5B5; }
+    .usertop .count dl a {
+      color: #FBEB96; }
+      .usertop .count dl a:hover {
+        text-decoration: none !important;
+        color: #FBD300; }
   .usertop .viewother {
     margin-top: 20px;
     padding-left: 5px; }
@@ -76,3 +81,7 @@
     .set_avatar_head ul.steps li.complete span {
       background: url(/images/piece/check.png) no-repeat 0 3px;
       padding-left: 18px; }
+
+.yours-list li {
+  background: url(/images/piece/org_icon_16.png) no-repeat 10px 8px;
+  padding-left: 32px !important; }

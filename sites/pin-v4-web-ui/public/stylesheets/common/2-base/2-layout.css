@@ -42,40 +42,39 @@ body {
         position: absolute;
         top: 7px;
         right: 0px; }
-      .page-content .cell .cellhead .tabs {
-        margin-top: 15px; }
-        .page-content .cell .cellhead .tabs ul {
-          padding: 6px 10px;
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          -webkit-border-radius: 5px;
-          border: solid 1px #464660;
-          background-color: #222433;
-          position: relative;
-          overflow: hidden; }
-          .page-content .cell .cellhead .tabs ul li a {
-            font-size: 14px;
-            float: left;
-            line-height: 26px;
-            padding: 0 8px;
-            margin-right: 10px;
-            text-shadow: 1px 1px #555555;
-            color: #ddd;
-            text-decoration: none; }
-            .page-content .cell .cellhead .tabs ul li a:hover {
-              background-color: #171826;
-              border-radius: 4px;
-              -moz-border-radius: 4px;
-              -webkit-border-radius: 4px; }
-            .page-content .cell .cellhead .tabs ul li a.selected {
-              border-style: solid;
-              border-width: 1px;
-              border-color: #0E0E16 #2E2E3C #2E2E3C #0E0E16;
-              border-radius: 4px;
-              -moz-border-radius: 4px;
-              -webkit-border-radius: 4px;
-              background-color: #0E0E1A;
-              font-weight: bold; }
+      .page-content .cell .cellhead .tabs ul {
+        margin-top: 15px;
+        padding: 6px 10px;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border: solid 1px #464660;
+        background-color: #222433;
+        position: relative;
+        overflow: hidden; }
+        .page-content .cell .cellhead .tabs ul li a {
+          font-size: 14px;
+          float: left;
+          line-height: 26px;
+          padding: 0 8px;
+          margin-right: 10px;
+          text-shadow: 1px 1px #555555;
+          color: #ddd;
+          text-decoration: none; }
+          .page-content .cell .cellhead .tabs ul li a:hover {
+            background-color: #171826;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px; }
+          .page-content .cell .cellhead .tabs ul li a.selected {
+            border-style: solid;
+            border-width: 1px;
+            border-color: #0E0E16 #2E2E3C #2E2E3C #0E0E16;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            background-color: #0E0E1A;
+            font-weight: bold; }
 
 .page-content.container_auto .cell {
   margin-top: 0px;
@@ -201,3 +200,31 @@ body {
     color: #FB9200; }
   .pros .pad .txt {
     margin-top: 16px; }
+
+.yours {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0 0 10px #09070e;
+  -moz-box-shadow: 0 0 10px #09070e;
+  -webkit-box-shadow: 0 0 10px #09070e; }
+  .yours .top-bar {
+    background-color: #222433;
+    border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    padding: 10px; }
+  .yours .yours-list {
+    background-color: #323546;
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    padding: 0 0 10px 0; }
+    .yours .yours-list li {
+      border-bottom: solid 1px #464660; }

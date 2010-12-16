@@ -12,12 +12,12 @@
           %dd=qdate current_user.created_at
     .grid_6
       .count
-        %dl.hide
-          %dt=@workspaces.count
-          %dd 工作空间
         %dl
-          %dt=1
-          %dd 应用组件
+          %dt=link_to @mindmaps.count,pin_url_for('pin-mindmap-editor')
+          %dd 思维导图
+        %dl
+          %dt=link_to @organizations.count,pin_url_for('pin-user-auth','/account/organizations')
+          %dd 团队
   .clearfix.hide
     .push_12
       .viewother
@@ -52,4 +52,13 @@
             .fleft.marginl10.loud.lh22
               由 MindPin Team 开发
           .clearfix.marginl10.margint10.grid_8
-            在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等任务。 
+            在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等任务。
+
+.grid_7.omega.fright
+  .organizations.yours
+    .top-bar.clearfix
+      .fleft.font14.bold
+        团队(#{@organizations.count})
+    .yours-list
+      -mplist @organizations,:for=>Organization do |org|
+        =link_to org.name,pin_url_for('pin-user-auth',"/organizations/#{org.id}")

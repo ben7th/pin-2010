@@ -38,6 +38,10 @@
       margin:0 30px 5px 0;
       dt{font-size:32px;line-height:36px;}
       dd{margin:0;padding:0;color:#B5B5B5;}
+      a{
+        color:#FBEB96;
+        &:hover{text-decoration:none !important;color:#FBD300;}
+      }
     }
   }
   .viewother{
@@ -80,5 +84,12 @@
         }
       }
     }
+  }
+}
+
+.yours-list{
+  li{
+    background:url(/images/piece/org_icon_16.png) no-repeat 10px 8px;
+    padding-left:32px !important;
   }
 }

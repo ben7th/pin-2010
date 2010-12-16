@@ -124,3 +124,42 @@
     color:#FF3E00;
   }
 }
+
+.dashboard-notice{
+  background-color:#E7F1FF;
+  color:#000;
+  border:solid 1px #111;
+  @include border-radius(4px);
+  padding:13px;
+  margin-bottom:15px;
+  .quiet{color:#666;}
+  .title{
+    margin:-13px -13px 0 -13px;
+    padding:13px;
+    border-bottom:solid 1px #A1CAFF;
+    background:url(/images/piece/orgs_title.png) no-repeat 10px;
+    padding-left:70px;
+  }
+}
+
+.activities-list{
+  .activity{
+    margin:-6px;
+    .title{
+      overflow:hidden;
+      padding:0 0 0.25em;
+      margin:0 0 10px;
+      border-bottom:solid 1px #333350;
+      line-height:24px;
+      .loud{
+        font-weight:bold;
+      }
+      .avatar{
+        float:left;margin-right:10px;
+        .tiny{
+          weight:20px;height:20px;
+        }
+      }
+    }
+  }
+}

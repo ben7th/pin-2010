@@ -1,8 +1,21 @@
 class NotesController < ApplicationController
   #  before_filter :login_required,:except=>[:show]
+  include NotesControllerMethods
   before_filter :per_load
   def per_load
-    @note = Note.find(params[:note_id]) if params[:note_id]
+    id = params[:id] || params[:note_id]
+    @note = Note.find_by_id(id) if id
+    if @note && @note.private
+      return render_status_page(404,'该资料不存在')
+    end
+    @note = Note.find_by_private_id(id) if @note.blank? && id
+  end
+
+  before_filter :owner_check,:only=>[:edit,:update,:destroy,:upload_page,:upload,:rollback]
+  def owner_check
+    if !_can_edit_by_owner?(@note)
+      return render_status_page(403,'该资料不属于你，你没有权限修改')
+    end
   end
 
   def index
@@ -21,16 +34,35 @@ class NotesController < ApplicationController
   end
 
   def show
-    set_tabs_path(false)
-    # 用户存在 可以编辑自己的
-    # 没有登录的 cookie中存在的临时note可以编辑 
-    @can_show = current_user || current_user.blank? && cookies[:notes] && cookies[:notes].split(",").include?(params["note_id"])
-    @comments = @note.comments
+    respond_to do |format|
+      format.html do
+        set_tabs_path(false)
+        @commit_ids = @note.commit_ids
+        @commit_id = (params[:commit_id] || @commit_ids.first)
+        @can_rollback = _can_rollback?(@note,@commit_ids,@commit_id)
+        @can_fork = _can_fork?(@note)
+        @can_edit = _can_edit?(@note,@commit_ids,@commit_id)
+        @can_delete = _can_delete?(@note)
+        @comments = @note.comments
+        @blobs = @note.blobs(@commit_id)
+      end
+      format.js do
+        @file_name = params[:file]
+        @file_content = @note.text_hash[@file_name]
+        str = @template.render(:partial=>'notes/parts/embed.haml',
+          :locals=>{:file_name=>@file_name,:file_content=>@file_content,:note=>@note})
+        render :text=>"document.write(#{str.to_json})",:layout=>false
+      end
+    end
   end
 
   def download
-    path = @note.zip_pack
-    send_file path,:type=>"application/zip",:disposition=>'attachment',:filename=>"note_#{@note.id}.zip"
+    if request_os_is_windows?
+      path = @note.windows_zip_pack(params[:commit_id])
+    else
+      path = @note.zip_pack(params[:commit_id])
+    end
+    send_file path,:type=>"application/zip",:disposition=>'attachment',:filename=>"note-#{@note.nid}-#{params[:commit_id]}.zip"
   end
 
   def create
@@ -42,25 +74,18 @@ class NotesController < ApplicationController
     
     note = Note.create(attrs)
     set_cookie_if_nobody(note)
-    note.repo.replace_notefiles(params[:notefile])
-    redirect_to show_note_path(:note_id=>note.id)
-  end
-
-  def set_cookie_if_nobody(note)
-    if current_user.blank?
-      value = cookies[:notes].blank? ? note.id : cookies[:notes]+",#{note.id}"
-      cookies[:notes] = {:value=>value,:expires=>3.days.from_now,:domain=>'mindpin.com'}
-    end
+    note.save_text_hash!(_notefile_hash)
+    redirect_to note_path(:id=>note.nid)
   end
 
   def edit
+    @blobs = @note.blobs
   end
 
   def update
     @note.update_attributes(params[:note])
-    @note.save
-    @note.repo.replace_notefiles(params[:notefile])
-    redirect_to show_note_path(:note_id=>@note.id)
+    @note.save_text_hash!(_notefile_hash,_rename_hash)
+    redirect_to note_path(:id=>@note.nid)
   end
 
   def destroy
@@ -68,10 +93,40 @@ class NotesController < ApplicationController
     redirect_to "/"
   end
 
-  def new_file
+  def add_another
+    file_name = "#{Note::NOTE_FILE_PREFIX}#{params[:next_id]}"
     str = @template.render :partial=>"notes/parts/notefile_input",
-      :locals=>{:name=>"#{NoteRepository::NOTE_FILE_PREFIX}#{params[:next_id]}",:text=>""}
+      :locals=>{:file_name=>file_name}
     render :text=>str
+  end
+
+  def upload_page
+    set_tabs_path(false)
+  end
+
+  def upload
+    @note.add_file!(params[:file])
+    redirect_to note_path(:id=>@note.nid)
+  end
+
+  def raw
+    cache_path = build_blob_cache_file(@note,params[:blob_id],params[:file_name])
+    send_file cache_path, :filename =>params[:file_name], :disposition => 'inline',:type =>mime_type(File.join(params[:file_name]))
+  end
+
+  def zoom
+    zoom_cache_path = build_zoom_blob_cache_file(@note,params[:blob_id],params[:file_name],params[:zoom])
+    send_file zoom_cache_path, :filename =>params[:file_name], :disposition => 'inline',:type =>mime_type(File.join(params[:file_name]))
+  end
+
+  def rollback
+    @note.grit_repo.rollback(params[:commit_id])
+    redirect_to note_path(:id=>@note.nid)
+  end
+
+  def fork
+    note = Note.fork(@note,current_user)
+    redirect_to note_path(:id=>note.nid)
   end
 
 end

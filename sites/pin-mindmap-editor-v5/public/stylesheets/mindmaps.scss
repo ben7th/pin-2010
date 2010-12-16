@@ -1,0 +1,126 @@
+@import "misc";
+
+.userpage{
+  overflow:hidden;
+  .upavatar{
+    float:left;
+    height:52px;
+  }
+  .name{
+    float:left;
+    font-size:24px;
+    font-weight:bold;
+    line-height:52px;
+    margin-left:10px;
+  }
+  .config{
+    float:right;
+    line-height:52px;
+  }
+}
+
+.import_formats{
+  dl{
+    font-size:14px;
+    overflow:hidden;margin:0 0 0 0;
+    dt{float:left;width:80px;text-align:right;color:#FFB019;}
+    dd{float:left;width:200px;}
+  }
+}
+
+.finder-sortby{
+  line-height:29px;
+  a:hover{
+    color:#FBEA8D;
+  }
+}
+
+.marginr20{
+  margin-right:20px;
+}
+
+.map_data{
+  clear:both;
+  margin-top:20px;
+}
+
+.paginate-bottom{margin:10px;}
+
+.edit-link{width:24px;height:24px;background:url(/images/actions/edit.png) no-repeat;display:block;}
+.clone-link{width:24px;height:24px;background:url(/images/actions/clone.png) no-repeat;display:block;}
+.export-link{width:24px;height:24px;background:url(/images/actions/export.png) no-repeat;display:block;}
+.infoedit-link{width:24px;height:24px;background:url(/images/actions/infoedit.png) no-repeat;display:block;}
+.delete-link{width:24px;height:24px;background:url(/images/actions/delete.png) no-repeat;display:block;}
+.import-link{width:24px;height:24px;background:url(/images/actions/import.png) no-repeat;display:block;}
+.cooperate-link{width:24px;height:24px;background:url(/images/actions/workgroup.png) no-repeat;display:block;}
+
+.mplist.mindmaps{
+  li{
+    @include border-radius(4px);
+    background-color:#323546;
+    border:solid 1px #111;
+    margin:0 0 5px 0;
+    a:hover{
+      color:#FBEA8D;
+    }
+    .detail-operation{
+      display:none;
+      margin-right:8px;float:left;
+    }
+    &.mouseover{
+      .detail-operation{display:block;}
+    }
+
+    .maprankbg{
+      float:left;margin:3px 5px 0 0;
+      width:36px;height:36px;background-image:url(/images/map-rank-bg.png);
+      .rank{
+        padding-top:13px;color:#724C21;text-align:center;font-size:16px;font-weight:bold;line-height:20px;height:20px;
+        text-shadow:1px 1px 0 rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .mindmap-logo {
+      float:left;margin:3px 5px 0 0;position:relative;
+      .logo{
+        height:32px;width:32px;overflow:hidden;
+        @include border-radius(3px);border:solid 1px #fff;
+      }
+      .private-mark{
+        width:36px;height:36px;background-color:red;
+        position:absolute;top:0px;left:0px;
+        filter:alpha(opacity=0);
+        opacity:0;
+        &.p{
+          filter:alpha(opacity=30);
+          opacity:0.3;
+        }
+      }
+    }
+    .private-icon{
+      width:24px;margin:8px 10px 0 0;float:left;
+      .private-mark-link{
+        width:24px;height:24px;
+        background:url(/images/status/private.png) no-repeat;display:block;
+      }
+      .not-private-mark-link{
+        width:24px;height:24px;
+        background:url(/images/status/not-private.png) no-repeat;display:block;
+      }
+    }
+    .mindmap-meta{
+      float:left;
+    }
+  }
+}
+
+
+
+#mplist_mindmaps{overflow:hidden;}
+#mplist_mindmaps li.grid{float:left;width:198px;height:190px;margin:0 10px 10px 0;overflow:hidden;border:dotted 1px #888;}
+.mapthumb-box{width:120px;height:90px;padding:10px;}
+.mapthumb-box .mapthumb{height:90px;width:120px;}
+
+
+.low-value .maprankbg{background-image:url(/images/map-rank-bg-low.png);}
+.low-value .rank{color:#676767;}

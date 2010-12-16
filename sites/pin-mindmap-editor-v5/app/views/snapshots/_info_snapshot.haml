@@ -1,0 +1,4 @@
+-mindmap = snapshot.mindmap
+%span
+  =snapshot.title
+%a{:href=>"#",:onclick=>"new Ajax.Updater('app_mindmap_editor_mindmap_#{snapshot.mindmap.id}','/app/mindmap_editor#{recover_mindmap_snapshot_path(mindmap,snapshot)}',{method:'put',parameters:{'mpml':true}});"}恢复

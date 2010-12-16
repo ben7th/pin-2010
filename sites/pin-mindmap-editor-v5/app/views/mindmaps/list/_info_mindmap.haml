@@ -1,0 +1,58 @@
+- law_rank_class = (mindmap.rank == "0.0" ? "low-value" : "")
+.clearfix{:class=>"#{law_rank_class}"}
+
+  .maprankbg
+    .rank= mindmap.rank
+
+  .mindmap-logo
+    =logo(mindmap)
+    -link_to(mindmap,:class=>'fleft',:target=>'_blank') do
+      .private-mark{:class=>mindmap.private ? 'p':''}
+    
+
+  .private-icon
+    -if show_operation_links?(mindmap)
+      = link_to_remote "",:url=>"/#{APP_PREFIX}/mindmaps/#{mindmap.id}/toggle_private",:method=>:put,:success=>"change_lock(#{mindmap.id})",:html=>{:title=>'切换公开/私有',:class=>"#{classname_hide_private(mindmap)} fleft",:id=>"link_lock_#{mindmap.id}"}
+
+  .mindmap-meta
+    %h4
+      =link_to escape_title(mindmap,23),mindmap,:target=>'_blank',:title=>mindmap.title
+    .mindmap-datetime
+      = show_time_by_order_type @order,mindmap
+     
+  .fright
+    .mindmap-operations.fright.clearfix
+      -if show_operation_links?(mindmap)
+        .detail-operation
+          .delete-link
+          =link_to_remote '删除',:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确认删除？"
+
+        .detail-operation
+          .infoedit-link
+          =link_to "属性",paramsedit_mindmap_path(mindmap)
+
+        .detail-operation
+          .export-link
+          =link_to_remote "导出",:url=>export_mindmap_path(mindmap),:method=>:get
+
+        .detail-operation
+          .clone-link
+          =link_to_remote "克隆",:url=>clone_form_mindmap_path(mindmap),:method=>:get
+
+        .fleft.marginr5
+          .edit-link
+          =link_to "编辑","/mindmaps/#{mindmap.id}/edit",:target=>'_blank'
+
+        .fleft.marginr5
+          .cooperate-link
+          =link_to_remote "协同",:url=>"/cooperate/#{mindmap.id}",:method=>:get
+
+      -if logged_in? && mindmap.cooperate_edit?(current_user) && mindmap.user!=current_user
+        .fleft.marginr5
+          .edit-link
+          =link_to "编辑","/mindmaps/#{mindmap.id}/edit",:target=>'_blank'
+
+      -if logged_in? && mindmap.cooperate_view?(current_user) && mindmap.user!=current_user
+        .fleft.marginr5
+          .edit-link
+          =link_to "查看","/mindmaps/#{mindmap.id}",:target=>'_blank'

@@ -1,3 +1,4 @@
+-first_file_name = "#{Note::NOTE_FILE_PREFIX}1"
 -require_css 'notes'
 
 -content_for :javascripts do
@@ -5,22 +6,22 @@
 
 .secondary
   .top-bar.clearfix
-    .fleft.font14.bold note 列表
+    .fleft.font14.bold 摘要列表
   %div
     -if current_user
       -current_user.notes.each do |note|
-        %div=link_to note.title,show_note_path(:note_id=>note.id)
+        %div=link_to "#{note.id}号资料",note
 
 .main
-  -form_tag create_note_path,:method =>:post,:id=>"note_form" do
+  -form_tag notes_path,:method =>:post,:id=>"note_form" do
     .file
       .meta
         =text_field_tag "note[description]"
       .notefiles
-        =render :partial=>"notes/parts/notefile_input",:locals=>{:order=>1}
+        =render :partial=>"notes/parts/notefile_input",:locals=>{:file_name=>first_file_name}
 
     .field
-      =link_to "增加文本片段",'#',:class=>"add_another"
+      =link_to "增加文本片段",'javascript:;',:class=>"add_another"
 
     .field
       %button.submit.glowing.marginr10{:name=>"commit",:type=>"submit",:value=>"private"}

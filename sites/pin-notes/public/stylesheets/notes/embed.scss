@@ -1,0 +1,16 @@
+.mindpin-note{
+  font-size:14px;
+  border:1px solid #DEDEDE;
+  .mindpin-note-file{
+    .mindpin-note-data{
+      background-color:#F8F8FF;
+      padding:6px;
+      border-bottom:1px solid #DDDDDD;
+    }
+    .mindpin-note-meta{
+      padding:6px;
+      background-color:#EAEAEA;
+      .fright{float:right;}
+    }
+  }
+}

@@ -13,45 +13,23 @@ class Note < ActiveRecord::Base
       :conditions=>"stars.email = '#{user.email}'"}
   }
 
-  def title
-    "note:#{self.id}"
+  # 公有和私有的 web 访问路径不同
+  # 这个方法可以根据 公私 生成 合适的 nid
+  def nid
+    self.private ? self.private_id : self.id
   end
 
-  def repo
-    NoteRepository.find(:user_id=>user_id,:note_id=>id)
+  before_create :set_private_id
+  def set_private_id
+    self.private_id = randstr(20) if self.private
   end
 
-  # note 版本库中的 文件的地址列表
-  def repo_file_name_list
-    file_path_list = Dir.entries(self.repo.path)
-    file_path_list.delete(".")
-    file_path_list.delete("..")
-    file_path_list.delete(".git")
-    file_path_list
-  end
+  after_create :init_repo
 
-  # 把 note 中的内容打成 zip 包,返回地址
-  def zip_pack
-    zip_path = File.join(Dir::tmpdir,UUIDTools::UUID.random_create.to_s)
-    zip = Zip::ZipFile.open(zip_path, Zip::ZipFile::CREATE)
-    base_path = self.repo.path
-    
-    repo_file_name_list.each do |file_name|
-      zip.add("notes_#{self.id}/#{file_name}.txt",File.join(base_path,file_name))
-    end
-
-    zip.close
-    return zip_path
-  end
-  
-  after_create :create_repo
-  def create_repo
-    NoteRepository.create(:user_id=>user_id,:note_id=>id)
-  end
-
-  after_destroy :destroy_repo
-  def destroy_repo
-    repo.destroy
+  after_destroy :delete_repo
+  after_destroy :delete_lucene_index
+  def delete_lucene_index
+    NoteLucene.delete_index(self)
   end
 
   module UserMethods
@@ -59,4 +37,5 @@ class Note < ActiveRecord::Base
       base.has_many :notes
     end
   end
+  include NoteRepositoryMethods
 end
