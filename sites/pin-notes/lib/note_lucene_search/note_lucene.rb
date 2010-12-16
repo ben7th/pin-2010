@@ -73,7 +73,7 @@ class NoteLucene
   def self.client
     transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9090))
     protocol = Thrift::BinaryProtocol.new(transport)
-    client = LuceneService::Client.new(protocol)
+    client = LuceneNotesService::Client.new(protocol)
 
     transport.open()
 

@@ -10,7 +10,7 @@ log_file=/web/2010/logs/notes_lucene_service.log
 case "$1" in
         start)
                 echo "notes_lucene_service start"
-                java -jar $root_dir/sites/pin-notes/lib/note_lucene_search/lucene-for-notes.jar 1> $log_file 2> $log_file & 
+                java -jar $root_dir/java/lucene-for-notes/dist/lucene-for-notes.jar 1> $log_file 2> $log_file & 
                 echo $! > $processor_pid
                 rc_status -v
         ;;

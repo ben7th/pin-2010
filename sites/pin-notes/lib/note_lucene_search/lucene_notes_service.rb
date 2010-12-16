@@ -7,7 +7,7 @@
 require 'thrift'
 require 'lucene_service_types'
 
-module LuceneService
+module LuceneNotesService
   class Client
     include ::Thrift::Client
 
