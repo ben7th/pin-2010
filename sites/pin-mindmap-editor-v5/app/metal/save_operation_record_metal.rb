@@ -9,10 +9,15 @@ class SaveOperationRecordMetal < BaseMetal
     params = Rack::Request.new(env).params
 
     opers = ActiveSupport::JSON.decode(params["operations"])
+    mindmap = Mindmap.find(params["map"])
+
+    if !mindmap.check_md5(params["md5"])
+      return [422,{"Content-Type" => "text/xml"}, ["md5值不匹配，需要#{mindmap.md5}，提交为#{params["md5"]}"]]
+    end
+    
     opers.each do |op|
-      mindmap = Mindmap.find(op['map'])
       mindmap.do_operation(op)
     end
-    return [200, {"Content-Type" => "text/xml"}, ['ok']]
+    return [200, {"Content-Type" => "text/x-json"}, [{:md5=>mindmap.md5}.to_json]]
   end
 end

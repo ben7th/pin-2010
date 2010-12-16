@@ -1,8 +1,7 @@
 module MindmapSearchMethods
   def relative_mindmaps
     return [] if self.rank.to_i == 0
-      mindmaps = Mindmap.search(self.major_words*"|",:match_mode => :boolean)
-    return (mindmaps-[self])[0...5]
+    return MindmapLucene.relative_mindmaps(self.major_words*" & ",5)
     rescue Exception => ex
       return []
   end
@@ -13,6 +12,16 @@ module MindmapSearchMethods
 
   def self.included(base)
     base.before_save :set_content
+    base.after_save :create_lucene_index
+    base.after_destroy :delete_lucene_index
+  end
+
+  def create_lucene_index
+    MindmapLucene.index_one_mindmap(self.id)
+  end
+
+  def delete_lucene_index
+    MindmapLucene.delete_index(self.id)
   end
 
   def set_content

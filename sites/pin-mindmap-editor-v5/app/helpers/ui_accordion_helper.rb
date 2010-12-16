@@ -27,10 +27,10 @@ module UiAccordionHelper
       data_bgc_str = bgc.blank? ? "" : "data-bgc='#{bgc}'"
 
       bgc_style = open ? active_bgc_str : bgc_str
-      open_class = open ? "mpaccordion-opened" : "mpaccordion-unopen"
+      open_class = open ? "open" : "close"
       bar_str << %`
         <div class="mpaccordion-toggler #{open_class}" style="#{bgc_style}" #{data_active_bgc_str} #{data_bgc_str}>
-              #{title}
+          #{title}
         </div>
       `
       height_style = open ? "" : "height:0px;"

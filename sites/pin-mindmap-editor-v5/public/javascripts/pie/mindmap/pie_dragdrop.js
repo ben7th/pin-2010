@@ -84,8 +84,8 @@ pie.drag.Base=Class.create({
 		document.observe("mouseup",this.muh);
 		
 		//初始坐标
-	    this.cX = evt.pointerX();
-	    this.cY = evt.pointerY();
+    this.cX = evt.pointerX();
+    this.cY = evt.pointerY();
 		
 		this.newX = this.cX;
 		this.newY = this.cY;

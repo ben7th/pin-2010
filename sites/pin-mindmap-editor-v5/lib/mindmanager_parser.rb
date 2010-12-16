@@ -19,8 +19,9 @@ class MindmanagerParser < MapFileParser
         }
       }
     end
-
-    mindmap.struct = xslt_transform("#{unzip_dir}/Document.xml","#{RAILS_ROOT}/public/xslt/mindmanager_to_mindpin.xslt")
+    struct = xslt_transform("#{unzip_dir}/Document.xml","#{RAILS_ROOT}/public/xslt/mindmanager_to_mindpin.xslt")
+    struct = process_note_id_to_randstr(struct)
+    mindmap.struct = struct
 
     File.delete(path)
     FileUtils.rmtree(unzip_dir)

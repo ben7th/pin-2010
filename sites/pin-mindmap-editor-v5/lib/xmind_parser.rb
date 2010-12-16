@@ -6,7 +6,10 @@ class XmindParser < MapFileParser
     # 将这个声明清空，否则无法转换
     xmind_xml.gsub!("urn:xmind:xmap:xmlns:content:2.0","")
     # 将content.xml 用xslt 转成 mindmap 的struct
-    mindmap.struct = self.xslt_transform_form_xml(xmind_xml,"#{RAILS_ROOT}/public/xslt/xmind_import.xslt")
+    struct = xslt_transform_form_xml(xmind_xml,"#{RAILS_ROOT}/public/xslt/xmind_import.xslt")
+    struct = process_note_id_to_randstr(struct)
+    
+    mindmap.struct = struct
     mindmap.save
   end
 

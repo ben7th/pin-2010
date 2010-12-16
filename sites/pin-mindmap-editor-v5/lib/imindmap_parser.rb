@@ -1,8 +1,10 @@
 class ImindmapParser < MapFileParser
   def self.import(mindmap,file_form_param)
     imm_xml = self._find_xml_from_imm(file_form_param)
-
-    mindmap.struct = self.xslt_transform_form_xml(imm_xml,"#{RAILS_ROOT}/public/xslt/imindmap_import.xslt")
+    struct = xslt_transform_form_xml(imm_xml,"#{RAILS_ROOT}/public/xslt/imindmap_import.xslt")
+    struct = process_note_id_to_randstr(struct)
+    
+    mindmap.struct = struct
     mindmap.save
   end
 

@@ -124,3 +124,42 @@
 
 .low-value .maprankbg{background-image:url(/images/map-rank-bg-low.png);}
 .low-value .rank{color:#676767;}
+
+.search-result{
+  margin:0 0 10px;
+  .meta{
+    border:1px solid #111;
+    background-color:#171922;
+    @include border-radius(3px 3px 0 0);
+    padding:7px 10px;
+    input.text{
+      padding:2px 7px;
+      @include border-radius(2px);
+      width:98.5%;
+    }
+    .quiet{
+      color:#858585 !important;
+    }
+    .misc{
+      span{
+        line-height:20px;
+        float:left;
+        margin-right:10px;
+      }
+      .logo.tiny{
+        height:16px;width:16px;
+      }
+    }
+  }
+  .data{
+    background-color:#323546;
+    border:solid 1px #111;
+    border-top:none;
+    padding:10px;
+    @include border-radius(0 0 3px 3px);
+    .loud{
+      color:black !important;
+      background-color:#FFB019;
+    }
+  }
+}

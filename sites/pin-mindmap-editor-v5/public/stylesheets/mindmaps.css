@@ -179,3 +179,39 @@
 
 .low-value .rank {
   color: #676767; }
+
+.search-result {
+  margin: 0 0 10px; }
+  .search-result .meta {
+    border: 1px solid #111;
+    background-color: #171922;
+    border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    padding: 7px 10px; }
+    .search-result .meta input.text {
+      padding: 2px 7px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      width: 98.5%; }
+    .search-result .meta .quiet {
+      color: #858585 !important; }
+    .search-result .meta .misc span {
+      line-height: 20px;
+      float: left;
+      margin-right: 10px; }
+    .search-result .meta .misc .logo.tiny {
+      height: 16px;
+      width: 16px; }
+  .search-result .data {
+    background-color: #323546;
+    border: solid 1px #111;
+    border-top: none;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px; }
+    .search-result .data .loud {
+      color: black !important;
+      background-color: #FFB019; }

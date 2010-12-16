@@ -1,0 +1,188 @@
+@import "misc";
+
+$bgc:#0F2B3E;
+
+body{
+  overflow:hidden;
+  background:$bgc !important;
+  .page-container{padding:0;}
+}
+
+#mindmap-toolbar{
+  border-bottom: 1px solid #1259A4;
+  float:left;
+  width:100%;
+  overflow:hidden;
+  height:37px;
+  @include gradient(#66C7F5,#2793E8);
+  color:white;
+  text-shadow:1px 1px 0 #666;
+  .map-logo{
+    float:left;
+    padding:6px 0 0 5px;
+    margin-right:10px;
+    .logo{
+      height:20px;
+      width:20px;
+    }
+  }
+  .map-title{
+    float:left;
+    margin-right:10px;
+    font-size:14px;
+    font-weight:bold;
+    line-height:35px;
+  }
+  .map-creator{
+    float:left;
+    margin-right:10px;
+    line-height:35px;
+    a{
+      color:#E4F1FF;
+    }
+  }
+  .map-timestamp{
+    float:left;
+    margin-right:10px;
+    line-height:35px;
+    .date{
+      color:#FFF799 !important;
+    }
+  }
+  .map-edit{
+    float:left;
+    margin-right:10px;
+    line-height:35px;
+  }
+}
+
+#mindmap-main{
+  clear:both;
+  overflow:hidden;
+  position:relative;
+  #mindmap-sidebar{
+    *display:inline;
+    width:210px;
+    float:right;
+    overflow:hidden;
+    height:100%;
+    background-color:$bgc !important;
+    .mpaccordion-bar{
+      .mpaccordion-toggler{
+        color:#ccc !important;
+        text-shadow:1px 1px 0 #333333;
+        background-color:#17384A !important;
+        border-top:solid 1px #274C5D;
+        border-bottom:solid 1px #0C2332;
+        &.open{
+        }
+        &.close{
+        }
+      }
+      .mpaccordion-content{
+        background-color:$bgc !important;
+      }
+    }
+    .note_editor{
+      .editor_box{
+        background-color:#FEFCD7;color:#222;
+        width:200px;
+        #mindmap-note-edit{
+          width:198px !important;display:none;
+        }
+        .nicEdit-main{font-size:12px;}
+      }
+    }
+    .chat-box{
+      .chat-list{
+        height:150px;
+        background-color:white;
+        margin-bottom:5px;
+        @include border-radius(2px);
+        color:#111;
+        overflow-y:scroll;
+        .chat-start{
+          color:#999;
+          padding:0 5px;
+        }
+        .chat-line{
+          padding:0 5px;
+          .username{
+            font-weight:bold;
+          }
+        }
+      }
+      .chat-form{
+        #chat-inputer{
+          height:21px !important;
+          padding:0 5px !important;
+          width:190px;
+          font-size:12px;
+        }
+      }
+    }
+  }
+  #mindmap-resizer{
+    position:absolute;
+    border:none;
+    overflow:hidden;
+    #mindmap-scroller{
+      position:absolute;
+      border:none;
+      overflow:scroll;
+      height:100%;
+      width:100%;
+    }
+    #mindmap-canvas{
+      border:solid 1px white;
+      position:relative;
+      width:6000px;
+      height:3000px;
+      background-color:#FFFFFF;
+      background-image:url("../img/paper_bg.png");
+      div{white-space:nowrap;}
+    }
+  }
+}
+
+#mindmap-status-bar{
+  overflow:hidden;
+  position:absolute;
+  bottom:0;
+  height:39px;
+  width:100%;
+  @include gradient(#416479,#052131);
+  color:white;
+  border-top:solid 1px #111;
+  .cooperate{
+    float:left;
+    padding:9px;
+    span{
+      margin-right:5px;
+      &.op_count{font-weight:bold;}
+    }
+  }
+  #editor_chat{
+    height:14px;padding:2px;
+  }
+  .net_condition{
+    float:right;
+    padding:9px;
+  }
+}
+
+#facebox{
+  z-index:100000;
+}
+
+#colorzone ul{
+  line-height:10px;
+  height:10px;
+}
+
+#colorzone li{
+  display:inline-block;
+  line-height:10px;
+  height:10px;
+}
+#colorzone a{height:10px;width:10px;display:inline-block;}

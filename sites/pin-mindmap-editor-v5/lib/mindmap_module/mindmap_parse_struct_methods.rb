@@ -21,6 +21,7 @@ module MindmapParseStructMethods
       :children=>struct_hash_recursion(root),
       :title=>trans_xml_title(root['t']),
       :maxid=>nodes['maxid'],
+      :md5=>self.md5,
       :image=>{
         :url=>nodes['i'],
         :height=>nodes['ih'],

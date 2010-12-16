@@ -14,13 +14,17 @@ class Cooperation < ActiveRecord::Base
     # 协同编辑成员
     def cooperate_editors
       coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{EDITOR}'")
-      coos.map{|coo|User.find_by_email(coo.email)}
+      users = coos.map{|coo|User.find_by_email(coo.email)}
+      users << self.user
+      users
     end
 
     # 协同查看成员
     def cooperate_viewers
       coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{VIEWER}'")
-      coos.map{|coo|User.find_by_email(coo.email)}
+      users = coos.map{|coo|User.find_by_email(coo.email)}
+      users << self.user
+      users
     end
 
     # 增加协同编辑成员
@@ -56,6 +60,11 @@ class Cooperation < ActiveRecord::Base
       return false if !user
       return true if self.user == user
       Cooperation.find_all_by_email_and_mindmap_id_and_kind(user.email,self.id,EDITOR).count != 0
+    end
+
+    def cooperate_editors_email_list
+      coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{EDITOR}'")
+      coos.map{|coo|coo.email}
     end
 
     # user 对 这个导图 有协同查看的权限
