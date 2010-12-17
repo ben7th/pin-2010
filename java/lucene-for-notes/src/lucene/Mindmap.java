@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 导图的封装类
@@ -57,24 +55,6 @@ public class Mindmap {
     return mp;
   }
 
-  /**
-   * 查找返回所有的mindmap
-   * @return
-   * @throws ClassNotFoundException
-   * @throws SQLException
-   */
-  public static List<Mindmap> findAll() throws ClassNotFoundException, SQLException {
-    connection = DBConnection.getConnection();
-    PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
-    ResultSet set = stat.executeQuery();
-    List mpList = new ArrayList<Mindmap>();
-    while (set.next()) {
-      mpList.add(new Mindmap(set.getString("id"), set.getString("title"), set.getString("content")));
-    }
-    connection.close();
-    return mpList;
-  }
-  
   /**
   public static void main(String[] args) throws ClassNotFoundException, SQLException {
     Mindmap m = Mindmap.find("8");
