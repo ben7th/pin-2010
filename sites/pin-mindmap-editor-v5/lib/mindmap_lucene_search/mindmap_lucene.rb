@@ -21,11 +21,14 @@ class MindmapLucene
 
     xml = self.search_page_xml(query,start_index,count)
     LuceneSearchResult.new(xml,:page=>page,:per_page=>per_page) do |item,json|
-      item.id = json["id"]
-      item.mindmap = Mindmap.find_by_id(json["id"])
-      item.title = json["title"]
-      item.content = json["content"]
-      item.score = json["score"]
+      self.build_item_from_json(item,json)
+    end
+  end
+
+  def self.search_page(query,start_index=0,count=9)
+    xml = self.search_page_xml(query,start_index,count)
+    LuceneSearchResult.new(xml) do |item,json|
+      self.build_item_from_json(item,json)
     end
   end
 
@@ -38,11 +41,7 @@ class MindmapLucene
   def self.search(query)
     xml = self.search_xml(query)
     LuceneSearchResult.new(xml) do |item,json|
-      item.id = json["id"]
-      item.mindmap = Mindmap.find_by_id(json["id"])
-      item.title = json["title"]
-      item.content = json["content"]
-      item.score = json["score"]
+      self.build_item_from_json(item,json)
     end
   end
 
@@ -94,6 +93,14 @@ class MindmapLucene
     transport.open()
 
     client
+  end
+
+  def self.build_item_from_json(item,json)
+    item.id = json["id"]
+    item.mindmap = Mindmap.find_by_id(json["id"])
+    item.title = json["title"]
+    item.content = json["content"]
+    item.score = json["score"]
   end
 
 end

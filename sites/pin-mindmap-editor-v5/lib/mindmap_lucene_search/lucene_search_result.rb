@@ -2,7 +2,7 @@
 class LuceneSearchResult
   attr_reader :count,:time,:items,:total_count
   attr_reader :total_pages,:previous_page,:next_page,:current_page
-  def initialize(xml,option,&block)
+  def initialize(xml,option = {},&block)
     json = Hash.from_xml(xml)
     @time = json["search_results"]["time"]
     @count = json["search_results"]["count"]

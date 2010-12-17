@@ -3,6 +3,7 @@ module MindmapSearchMethods
     return [] if self.rank.to_i == 0
     return MindmapLucene.relative_mindmaps(self.major_words*" & ",5)
     rescue Exception => ex
+      p ex
       return []
   end
 
