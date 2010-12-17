@@ -71,7 +71,7 @@ class MindmapLucene
   end
 
   # 删除一个导图的索引
-  def delete_index(mindmap_id)
+  def self.delete_index(mindmap_id)
     Thread.start do
       begin
         client = self.client

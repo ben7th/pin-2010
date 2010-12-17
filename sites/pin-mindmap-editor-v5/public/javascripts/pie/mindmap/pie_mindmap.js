@@ -76,7 +76,6 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.ready_to_request = true;
 
     this.after_load=options.after_load;
-    this.save_status_label=options.save_status_label;
   },
   load:function(){
     this.loader.load();
@@ -492,40 +491,6 @@ pie.mindmap.BasicMapPaper = Class.create({
 		});
 		this.root.map.paper.el.appendChild(this.posbox);
 	},
-
-  _createMenu:function(){
-    try{
-      this.nodeMenu=new pie.mindmap.Menu({observer:this.paper.el,afterload:function(){
-        this.__scrollto(this.nodeMenu);
-      }.bind(this)});
-      this.nodeMenu.addItem("新增　　 [Ins]",{handler:function(){
-        this.focus.createNewChild();
-      }.bind(this)});
-      this.nodeMenu.addItem("删除　　 [Del]",{handler:function(){
-        this.focus.remove();
-      }.bind(this),flag:function(){
-        return this.focus!=this.root;
-          }.bind(this)});
-      this.nodeMenu.addItem("编辑标题 [空格]",{handler:function(){
-        this._nodeTitleEditor.doEditTitle(this.focus);
-      }.bind(this)})
-      this.nodeMenu.addItem("节点图片 [I]",{handler:function(){
-        this._nodeImageEditor.doEditImage(this.focus);
-      }.bind(this)});
-      this.nodeMenu.addItem("移除图片",{handler:function(){
-        this._nodeImageEditor.doRemoveImage(this.focus);
-      }.bind(this),flag:function(){
-        return this.focus.image.url;
-      }.bind(this)});
-      this.nodeMenu.addItem("编辑备注",{handler:function(){
-        this._noteEditor.el.focus()
-      }.bind(this)});
-      //2010.10.20
-      this.nodeMenu.addItem("节点字体",{handler:function(){
-        this._nodeFontEditor.doEditFont(this.focus);
-      }.bind(this)});
-    }catch(e){alert(e)}
-  },
   _bindGlobalCommonEvents:function(){
     //全局公用事件
   },
@@ -736,100 +701,10 @@ pie.mindmap.BasicMapPaper = Class.create({
       setTimeout(function(){this.pause=false}.bind(this),pausePeriod);
       return false;
     }
-  },
-  /**
-   * 2009-1-8 jerry
-   * 改为细粒度保存之后，可能（但不确定）会出现客户端请求提交顺序和服务端请求处理顺序不同的问题
-   * 从而导致导图编辑中可能会出现难以预期的问题，导致数据的损坏
-   * 为了避免这一问题，修改为当导图不处于等待提交的状态时，所有record并不提交，而是放入队列
-   * 当等待提交状态改变时，提交整个队列。同时服务器端按照顺序处理操作指令请求
-   *
-   * 操作顺序
-   * 如果当前不是编辑模式，方法直接退出
-   * 如果当前是DEMO，直接退出
-   * 如果当前编辑器不在READY状态，先把操作记录放入队列，然后退出
-   * 
-   */
-  _save:function(record){
-    if(!this.editmode) return;
-    if(this.id == 'demo') return;
-
-    if(record!=null) this.opQueue.push(record);
-    if(!this.ready_to_request) return;
-
-    var pars =
-      'map=' + this.id + '&' +
-      'md5=' + this.md5 + '&' +
-      'operations=' + encodeURIComponent(this.opQueue.toJSON());
-    new Ajax.Request("/mindmaps/do",{
-      parameters:pars,
-      method:"PUT",
-      onCreate:function(){
-        this.ready_to_request=false;
-        this.__change_save_status_label('status_notice','保存中...','show')
-
-        this.opQueue = [];
-      }.bind(this),
-      onSuccess:function(trans){
-        if(trans.status != 200){
-          this.__on_save_error()
-        }else{
-          var new_md5 = trans.responseText.evalJSON().md5;
-          this.md5 = new_md5;
-          this.ready_to_request=true;
-          this.__change_save_status_label('status_success','保存完毕','hide');
-          if(this.opQueue.length > 0) this._save();
-        }
-      }.bind(this),
-      onFailure:function(trans){
-        this.__on_save_error()
-      }.bind(this)
-    });
-  },
-  __on_save_error:function(){
-    //第一步 闪烁提示
-    this.__change_save_status_label('status_error','保存失败','Pulsate');
-    //第二步 白板遮盖
-    this.lock_whiteboard = $(Builder.node('div',{style:'position:absolute;background-color:#93A9D5;z-index:900;'}));
-    this.lock_whiteboard.setStyle({opacity:0.5});
-    this.lock_whiteboard.clonePosition(this.paper.el,{setLeft:false,setTop:false});
-    $(this.paper.el).insert({before:this.lock_whiteboard});
-    //第三步 提示刷新
-    this.lock_tips_window = $(Builder.node('div',{id:'lock_tips_window',style:'position:absolute;background-color:white;border:solid 1px;z-index:901;font-size:14px;'},[
-      Builder.node('div',{style:'background-color:red;color:white;text-align:center;font-size:12px;'},'导图保存失败'),
-      Builder.node('p',{style:'padding:0 0 0 30px;'},"由于网络原因，导致导图自动保存失败，不能继续编辑"),
-      Builder.node('p',{style:'padding:0 0 0 30px;'},["> ",Builder.node('a',{href:'javascript:window.location.reload()'},'点击这里刷新编辑器')])
-    ]));
-    var left =$('mindmap').getWidth()/2 - 200;
-    var top =$('mindmap').getHeight()/2 - 50;
-    this.lock_tips_window.setStyle({
-      'width':'400px',
-      'height':'100px',
-      'padding':'2px',
-      'left':left+'px',
-      'top':top+'px'
-    });
-    $('mindmap').insert({before:this.lock_tips_window});
-  },
-  __change_save_status_label:function(classname,text,mode){
-    if(this.save_status_label){
-      this.save_status_label.className=classname;
-      this.save_status_label.update(text);
-      switch(mode){
-        case 'show':{
-          this.save_status_label.show();
-        }break;
-        case 'hide':{
-          setTimeout(function(){
-            this.save_status_label.hide();
-          }.bind(this),1000);
-        }break;
-        case 'Pulsate':{
-          new Effect.Pulsate(this.save_status_label,{pulses:100,duration:60});
-        }
-      }
-    };
   }
 });
 
-pie.mindmap.BasicMapPaper.addMethods(pie.mindmap_canvas_draw_module);
+pie.mindmap.BasicMapPaper
+  .addMethods(pie.mindmap_canvas_draw_module)
+  .addMethods(pie.mindmap_menu_module)
+  .addMethods(pie.mindmap_save_module);

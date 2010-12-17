@@ -1,2 +1,30 @@
 = javascript_include_tag 'swfobject'
 = open_flash_chart_object('100%',250, "#{THIS_SITE}/users/#{params[:user_id]}/mindmaps/pie_links",true,"#{THIS_SITE}/")
+
+%div
+  %dl
+    %dt 最常用关键词
+    %dd=@major_words*"，"
+    
+    %dt 导图平均节点数
+    %dd=@average_node_count
+
+    %dt 导图平均RANK值
+    %dd=@average_rank
+
+    %dt 0分导图数目
+    %dd=@zero_weight_mindmaps_count
+
+    %dt 与他人共同编辑的导图数目
+    %dd=@cooperate_edit_mindmaps_count
+
+    %dt 与他人共同查看的导图数目
+    %dd=@cooperate_view_mindmaps_count
+
+    %dt 私有导图数目
+    %dd=@private_mindmaps_count
+
+
+%div 可能最相关的导图
+-@relative_mindmaps.each do |mindmap|
+  =link_to mindmap.title,mindmap_path(mindmap)

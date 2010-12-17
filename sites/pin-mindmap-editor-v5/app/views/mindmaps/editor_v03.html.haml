@@ -3,28 +3,31 @@
 = stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_canvas'
+= stylesheet_link_tag '/javascripts/lightview/css/lightview'
 
-= javascript_include_tag 'pie/mindmap/pie_dragdrop'
-= javascript_include_tag 'pie/mindmap/pie_mindmap_node_dragdrop'
-= javascript_include_tag 'pie/mindmap/pie_map_menu'
-= javascript_include_tag 'pie/mindmap/pie_mindmap_node_editor'
-= javascript_include_tag 'pie/mindmap/pie_opfactory'
-= javascript_include_tag 'pie/mindmap/pie_mindmap_node'
-= javascript_include_tag 'pie/mindmap/pie_mindmap_json_loader'
-= javascript_include_tag 'pie/mindmap/pie_mindmap_canvas_draw_module'
-= javascript_include_tag 'pie/mindmap/pie_mindmap'
+-content_for :javascripts do
+  = javascript_include_tag 'pie/mindmap/pie_dragdrop'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_node_dragdrop'
+  = javascript_include_tag 'pie/mindmap/pie_map_menu'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_node_editor'
+  = javascript_include_tag 'pie/mindmap/pie_opfactory'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_node'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_json_loader'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_canvas_draw_module'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_menu_module'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap_save_module'
+  = javascript_include_tag 'pie/mindmap/pie_mindmap'
 
-= javascript_include_tag 'nicedit/nicEdit'
-= javascript_include_tag 'excanvas/excanvas.compiled'
-= javascript_include_tag 'views/mindmap_page_load'
+  = javascript_include_tag 'nicedit/nicEdit'
+  = javascript_include_tag 'excanvas/excanvas.compiled'
+  = javascript_include_tag 'views/mindmap_page_load'
 
-= javascript_include_tag '/javascripts/lightview/js/lightview.js'
-= stylesheet_link_tag '/javascripts/lightview/css/lightview.css'
+  = javascript_include_tag '/javascripts/lightview/js/lightview.js'
 
-:javascript
-  pie.load(function(){
-    pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
-  });
+  :javascript
+    pie.load(function(){
+      pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
+    });
 
 #mindmap-toolbar
   .map-logo
@@ -39,6 +42,10 @@
   .map-edit
     - if has_edit_rights?(@mindmap,current_user)
       =minibutton_remote "修改属性",:url=>paramsedit_mindmap_path(@mindmap),:method=>:get
+  .map-export
+    =minibutton_remote "导出为..",:url=>export_mindmap_path(@mindmap),:method=>:get
+    %span.ex=link_to 'Jpg图片',"/mindmaps/#{@mindmap.id}.jpg",:target=>'_blank'
+    %span.ex=link_to 'Word文档',"/mindmaps/#{@mindmap.id}.doc"
   
 #mindmap-main
   #mindmap-sidebar

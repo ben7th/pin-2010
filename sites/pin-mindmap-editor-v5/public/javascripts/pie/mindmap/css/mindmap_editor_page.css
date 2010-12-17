@@ -44,6 +44,15 @@ body {
     float: left;
     margin-right: 10px;
     line-height: 35px; }
+  #mindmap-toolbar .map-export {
+    float: left;
+    margin-right: 10px;
+    line-height: 35px; }
+    #mindmap-toolbar .map-export span.ex {
+      margin-left: 5px; }
+      #mindmap-toolbar .map-export span.ex a {
+        color: #FBEB96;
+        font-weight: bold; }
 
 #mindmap-main {
   clear: both;
@@ -98,21 +107,6 @@ body {
     position: absolute;
     border: none;
     overflow: hidden; }
-    #mindmap-main #mindmap-resizer #mindmap-scroller {
-      position: absolute;
-      border: none;
-      overflow: scroll;
-      height: 100%;
-      width: 100%; }
-    #mindmap-main #mindmap-resizer #mindmap-canvas {
-      border: solid 1px white;
-      position: relative;
-      width: 6000px;
-      height: 3000px;
-      background-color: #FFFFFF;
-      background-image: url("../img/paper_bg.png"); }
-      #mindmap-main #mindmap-resizer #mindmap-canvas div {
-        white-space: nowrap; }
 
 #mindmap-status-bar {
   overflow: hidden;
@@ -142,6 +136,9 @@ body {
 #facebox {
   z-index: 100000; }
 
+#facebox_overlay {
+  z-index: 9999; }
+
 #colorzone ul {
   line-height: 10px;
   height: 10px; }
@@ -158,6 +155,3 @@ body {
 
 .root_selected {
   opacity: 1.0; }
-
-#facebox_overlay {
-  z-index: 9999; }

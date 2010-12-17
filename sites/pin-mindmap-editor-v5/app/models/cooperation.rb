@@ -11,6 +11,27 @@ class Cooperation < ActiveRecord::Base
   validates_presence_of :mindmap
 
   module MindmapMethods
+    def self.included(base)
+      # 与他人共同协同的导图(包括自己创建的和别人协同给自己的)
+      base.named_scope :cooperate_of_user, lambda {|user,kind|
+        {:joins=>" inner join cooperations on mindmaps.id = cooperations.mindmap_id",
+          :conditions=>"(mindmaps.user_id = #{user.id} or cooperations.email = '#{user.email}') and cooperations.kind = '#{kind}'"}
+      }
+      base.extend(ClassMethods)
+    end
+
+    module ClassMethods
+      # 与他人共同编辑的导图(包括自己创建的和别人协同给自己的)
+      def cooperate_edit_of_user(user)
+        self.cooperate_of_user(user,Cooperation::EDITOR).uniq
+      end
+
+      # 与他人共同查看的导图(包括自己创建的和别人协同给自己的)
+      def cooperate_view_of_user(user)
+        self.cooperate_of_user(user,Cooperation::VIEWER).uniq
+      end
+    end
+
     # 协同编辑成员
     def cooperate_editors
       coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{EDITOR}'")
@@ -82,6 +103,7 @@ class Cooperation < ActiveRecord::Base
       coos.map{|coo|coo.mindmap}
     end
 
+    # 被别人协同查看的导图
     def cooperate_view_mindmaps
       coos = Cooperation.find_all_by_email_and_kind(self.email,VIEWER)
       coos.map{|coo|coo.mindmap}
