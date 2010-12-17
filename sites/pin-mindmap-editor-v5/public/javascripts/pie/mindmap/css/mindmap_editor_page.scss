@@ -9,12 +9,12 @@ body{
 }
 
 #mindmap-toolbar{
-  border-bottom: 1px solid #1259A4;
   float:left;
   width:100%;
   overflow:hidden;
   height:37px;
   @include gradient(#66C7F5,#2793E8);
+  border-bottom: 1px solid #1259A4;
   color:white;
   text-shadow:1px 1px 0 #666;
   .map-logo{
@@ -60,7 +60,24 @@ body{
     line-height:35px;
     span.ex{
       margin-left:5px;
-      a{color:#FBEB96;font-weight:bold;}
+      a{
+        color:#FBEB96;
+        color:#FFF799;
+        font-weight:bold;
+      }
+    }
+  }
+  .map-close{
+    float:right;
+    margin-right:10px;
+    line-height:35px;
+    a{
+      float:left;
+      color:#fff;
+      font-weight:bold;
+      background:url(/images/close.png) no-repeat left 10px;
+      padding-left:20px;
+      line-height:35px;
     }
   }
 }

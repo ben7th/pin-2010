@@ -13,6 +13,8 @@ class MindmapsController < ApplicationController
       format.html do
         @user = User.find(params[:user_id]) if params[:user_id]
         @mindmaps = get_mindmaps(params[:user_id])
+        @can_create_map = (logged_in? && (@user == current_user))
+        @newbie = (@can_create_map && @mindmaps.blank?)
       end
       format.json do
         @mindmaps = get_all_mindmaps(params[:user_id])
@@ -39,7 +41,7 @@ class MindmapsController < ApplicationController
           end
           @comments=@mindmap.comments.paginate :page=>params[:page],:per_page=>10
           (@mindmap.visit_counter ||= VisitCounter.new).rise
-          return (render :layout=>"mindmap",:template=>'mindmaps/viewer_v03')
+          return (render :layout=>"mindmap",:template=>'mindmaps/editor_page/viewer')
         end
       end
       
@@ -111,7 +113,7 @@ class MindmapsController < ApplicationController
   def edit
     @mindmap = Mindmap.find(params[:id])
     if has_edit_rights?(@mindmap,current_user)
-      return render :layout=>"mindmap",:template=>'mindmaps/editor_v03'
+      return render :layout=>"mindmap",:template=>'mindmaps/editor_page/editor'
     end
     redirect_to :action=>'show',:format=>'html'
   end
@@ -139,7 +141,7 @@ class MindmapsController < ApplicationController
     @mindmap = Mindmap.find(params[:id])
     if has_edit_rights?(@mindmap,current_user)
       if request.xhr?
-      return render_ui.fbox :show,:title=>"编辑信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
+      return render_ui.fbox :show,:title=>"修改导图信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
       end
       return render :template=>"mindmaps/paramsedit"
     end

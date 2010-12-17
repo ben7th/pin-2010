@@ -10,7 +10,8 @@ log_file=/web/2010/logs/mindmaps_lucene_service.log
 case "$1" in
         start)
                 echo "mindmaps_lucene_service start"
-                java -jar $root_dir/java/lucene-for-notes/dist/lucene-for-notes.jar mindmaps 1> $log_file 2> $log_file & 
+                cd $root_dir/java/lucene-service/dist
+                java -jar $root_dir/java/lucene-service/dist/lucene-service.jar mindmaps 1> $log_file 2> $log_file & 
                 echo $! > $processor_pid
                 rc_status -v
         ;;

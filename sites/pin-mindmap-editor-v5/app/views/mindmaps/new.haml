@@ -3,14 +3,19 @@
 .topl
   .grid_11.alpha
     =flash_info
-    - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
-      = f.text_field :title
-      = f.file_field :logo,:size=>20
-      .field
-        = f.check_box :private
-        %span 设置这个导图为私有
-      .form_actions
-        =f.submit "好了，确定创建"
+    .grid_7.alpha
+      - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+        = f.text_field :title
+        = f.file_field :logo,:size=>20
+        .field
+          = f.check_box :private
+          %span 设置这个导图为私有
+        .form_actions
+          =f.submit "好了，确定创建"
+          %span.marginl10=link_to '算了，取消','/'
+    .grid_4.omega
+      .p.margint10 我已经有导图文件了！
+      .p=link_to '点击这里导入','/mindmaps/import'
   .grid_11.omega.fright
     %h3 关于创建思维导图的说明
     %p.margint10

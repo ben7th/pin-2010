@@ -25,7 +25,7 @@
       -if show_operation_links?(mindmap)
         .detail-operation
           .delete-link
-          =link_to_remote '删除',:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确认删除？"
+          =link_to_remote '删除',:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确定要删除这个导图吗？"
 
         .detail-operation
           .infoedit-link
@@ -37,7 +37,7 @@
 
         .detail-operation
           .clone-link
-          =link_to_remote "克隆",:url=>clone_form_mindmap_path(mindmap),:method=>:get
+          =link_to_remote "复制",:url=>clone_form_mindmap_path(mindmap),:method=>:get
 
         .fleft.marginr5
           .edit-link

@@ -1,0 +1,28 @@
+-accordion_bar :bgc=>"#0B6138",:active_bgc=>"#E0542F" do
+  -accordion_item '数据导出和下载',:bgc=>"#ADC96D",:open=>true do
+    .mindmap-export.padding5
+      =render :partial=>'mindmaps/edit/export'
+  -accordion_item '节点备注编辑',:bgc=>"#C1D791",:open=>true do
+    .note_editor.padding5
+      .editor_box
+        %textarea#mindmap-note-edit{:style=>''}
+  -accordion_item '相关导图..',:bgc=>"#98BC48",:open=>true do
+    .padding5
+      -if @mindmap.rank.to_i != 0
+        .hide
+          -@mindmap.major_words.each do |word|
+            %span=word
+        -r_maps = @mindmap.relative_mindmaps
+        -r_maps.each do |m|
+          %div=link_to m.title,m,:target=>"_blank"
+        -if r_maps.blank?
+          %div 没有找到相关的导图
+      -else
+        %div 节点太少，没有找到相关的导图
+
+:javascript
+  function send_chat(){
+    var text = $('chat-inputer').value;
+    $('chat-inputer').value = '';
+    new pie.MindmapUser('#{current_user.name}','#{@mindmap.id}').say(text);
+  }

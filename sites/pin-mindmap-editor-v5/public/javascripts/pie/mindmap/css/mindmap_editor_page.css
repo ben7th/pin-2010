@@ -5,7 +5,6 @@ body {
     padding: 0; }
 
 #mindmap-toolbar {
-  border-bottom: 1px solid #1259A4;
   float: left;
   width: 100%;
   overflow: hidden;
@@ -13,6 +12,7 @@ body {
   background: -moz-linear-gradient(-90deg, #66c7f5, #2793e8);
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#66c7f5), to(#2793e8));
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66c7f5',endColorstr='#2793e8');
+  border-bottom: 1px solid #1259A4;
   color: white;
   text-shadow: 1px 1px 0 #666; }
   #mindmap-toolbar .map-logo {
@@ -52,7 +52,19 @@ body {
       margin-left: 5px; }
       #mindmap-toolbar .map-export span.ex a {
         color: #FBEB96;
+        color: #FFF799;
         font-weight: bold; }
+  #mindmap-toolbar .map-close {
+    float: right;
+    margin-right: 10px;
+    line-height: 35px; }
+    #mindmap-toolbar .map-close a {
+      float: left;
+      color: #fff;
+      font-weight: bold;
+      background: url(/images/close.png) no-repeat left 10px;
+      padding-left: 20px;
+      line-height: 35px; }
 
 #mindmap-main {
   clear: both;

@@ -3,23 +3,30 @@
 - map_data = get_list_base_data
 
 .marginb3em.clearfix
-  .clearfix
+  .map_list_head
     .fleft.marginr20
-      %h3.marginl10
+      %h3
         = map_data[:sub_title]
         (#{map_data[:map_count]})
     .fleft
       .finder-sortby
-        按
+        排序按
         =link_to "创建时间",finder_url('sortby','CREATED_TIME')
         =link_to "编辑时间",finder_url('sortby','UPDATED_TIME')
-        排序
+        
     .fright
-      - if (current_user && (@user == current_user)) || !current_user
+      - if @can_create_map
         =minibutton "新建导图",new_mindmap_path
         =minibutton "从文件导入",import_mindmaps_path
   .map_data
     =render :partial=>map_data[:partial]
+
+  -if @newbie
+    .map_blank
+      .title 您目前还没有任何思维导图，您可以用下列两种方式之一创建导图：
+      %ul
+        %li=link_to '创建一个新的空白导图','/mindmaps/new'
+        %li=link_to '从已有的思维导图文件导入导图','/mindmaps/import'
 
   .paginate-bottom.haslayout
     = will_paginate @mindmaps

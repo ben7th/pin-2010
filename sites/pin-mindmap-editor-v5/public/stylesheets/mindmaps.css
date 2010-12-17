@@ -2,10 +2,10 @@
   overflow: hidden; }
   .userpage .upavatar {
     float: left;
-    height: 52px; }
+    margin-top: 8px; }
   .userpage .name {
     float: left;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 52px;
     margin-left: 10px; }
@@ -34,9 +34,21 @@
 .marginr20 {
   margin-right: 20px; }
 
+.map_list_head {
+  overflow: hidden;
+  border-bottom: solid 1px #464660; }
+
 .map_data {
   clear: both;
   margin-top: 20px; }
+
+.map_blank .title {
+  margin-bottom: 10px;
+  background: url(/images/mindmap_logo_16.png) no-repeat;
+  padding-left: 22px;
+  line-height: 16px; }
+.map_blank ul li {
+  padding-left: 22px; }
 
 .paginate-bottom {
   margin: 10px; }
