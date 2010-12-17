@@ -42,8 +42,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.pausePeriod=500; //毫秒
 
     this.fw = 11;  //folder图片的宽度
-    this.cr = 5;  //canvas层的偏移增量
-    this.rr = 2;  //一级子节点的连接点半径
+    this.cr = 6;  //canvas层的偏移增量
     this.mr = 3;  //子节点的margin值
     this.mr2 = this.mr * 2;
 

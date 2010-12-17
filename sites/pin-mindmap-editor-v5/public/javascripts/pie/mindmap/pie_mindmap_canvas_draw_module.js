@@ -82,122 +82,135 @@ pie.mindmap_canvas_draw_module = {
     this._connect_root_with_canvas(sub,ctx);
   },
   _connect_root_with_canvas:function(node,ctx){
-    if(node.sub.putright){
-      if (node.branch.type == 0) {
-        new pie.mindmap.RootBranchCanvasR0(node,ctx).draw();
+    try{
+      var pm = pie.mindmap;
+      var pr = node.sub.putright;
+      var is_up = node.branch.type == 0;
+
+      var rbc;
+
+      if(pr){
+        rbc = is_up ? pm.RootBranchCanvasRUP : pm.RootBranchCanvasRDOWN;
       }else{
-        new pie.mindmap.RootBranchCanvasR1(node,ctx).draw();
+        rbc = is_up ? pm.RootBranchCanvasLUP : pm.RootBranchCanvasLDOWN;
       }
-    }else{
-      if (node.branch.type == 0) {
-        new pie.mindmap.RootBranchCanvasL0(node,ctx).draw();
-      }else{
-        new pie.mindmap.RootBranchCanvasL1(node,ctx).draw();
-      }
-    }
+      
+      new rbc(node,ctx).draw();
+      
+    }catch(e){alert(e)}
   }
 }
 
 pie.mindmap.RootBranchCanvasBase = Class.create({
   initialize:function(node,ctx){
-    this.node = node;
     this.map = node.root.map;
     this.branch = node.branch;
     this.ctx = ctx;
-    this.line_weight = 2;
+    this.lw = 5;  //线最粗的地方的横向宽度
+    this.p2 = Math.PI*2;
+    this.rr = 2;  //一级子节点的连接点半径
+    this.cr = this.map.cr;
+    
+    if(node.sub.putright){
+      this.qcoff = this.branch.width/3;
+    }else{
+      this.qcoff = -this.branch.width/3;
+    }
   },
   draw:function(){
+    this._count_point();
+    
     var ctx = this.ctx;
     ctx.beginPath();
-    this._draw_connect_line();
+    this._draw_connect_line(ctx);
     ctx.stroke();
     ctx.fill();
+    
     ctx.beginPath();
-    this._draw_arc();
-
+    this._draw_arc(ctx);
     ctx.fill();
+  },
+  _draw_connect_line:function(ctx){
+    ctx.moveTo(this.x1, this.y1);
+    ctx.quadraticCurveTo(this.xn - this.qcoff, this.yn, this.xn, this.yn);
+    ctx.quadraticCurveTo(this.xn - this.qcoff, this.yn, this.x2, this.y1);
+  },
+  _draw_arc:function(ctx){
+    ctx.arc(this.xn, this.yn, this.rr, 0, this.p2, true);
   }
-  //_draw_connect_line:function(){},
-  //_draw_arc:function(){}
 })
 
-pie.mindmap.RootBranchCanvasR0=Class.create(pie.mindmap.RootBranchCanvasBase,{
-  _draw_connect_line:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
-    var lw = this.line_weight;
+/**
+ *                xnyn
+ *             //
+ *          /  /
+ *       /    /
+ *    /      /
+ * x1y1-lw-x2y1
+ */
+pie.mindmap.RootBranchCanvasRUP=Class.create(pie.mindmap.RootBranchCanvasBase,{
+  _count_point:function(){
+    this.x1 = 0;
+    this.x2 = this.lw;
 
-    ctx.moveTo(0, branch.height + map.cr - lw);
-    ctx.lineTo(branch.width - map.rr, map.cr);
-    ctx.lineTo(lw, branch.height + map.cr);
-  },
-  _draw_arc:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
-    
-    ctx.arc(branch.width - map.rr, 0 + map.cr, map.rr, 0, Math.PI * 2, true);
+    this.y1 = this.branch.height + this.cr;
+
+    this.xn = this.branch.width - this.rr;
+    this.yn = this.cr;
   }
 });
 
-pie.mindmap.RootBranchCanvasR1=Class.create(pie.mindmap.RootBranchCanvasBase,{
-  _draw_connect_line:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
-    var lw = this.line_weight;
+/**
+ * x1y1   x2y1
+ *
+ *
+ *
+ *
+ *
+ *                xnyn
+ */
+pie.mindmap.RootBranchCanvasRDOWN=Class.create(pie.mindmap.RootBranchCanvasBase,{
+  _count_point:function(){
+    this.x1 = 0;
+    this.x2 = this.lw;
 
-    ctx.moveTo(0, map.cr + lw);
-    ctx.lineTo(branch.width - map.rr, branch.height + map.cr);
-    ctx.lineTo(lw, map.cr);
-  },
-  _draw_arc:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
-    
-    ctx.arc(branch.width - map.rr, branch.height + map.cr, map.rr, 0, Math.PI * 2, true);
+    this.y1 = this.cr;
+
+    this.xn = this.branch.width - this.rr;
+    this.yn = this.branch.height + this.cr;
   }
 });
 
-pie.mindmap.RootBranchCanvasL0=Class.create(pie.mindmap.RootBranchCanvasBase,{
-  _draw_connect_line:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
-    var lw = this.line_weight;
+/**
+ * xnyn
+ *
+ *
+ *
+ *
+ *
+ *         x2y1   x1y1
+ */
+pie.mindmap.RootBranchCanvasLUP=Class.create(pie.mindmap.RootBranchCanvasBase,{
+  _count_point:function(){
+    this.x1 = this.branch.width;
+    this.x2 = this.branch.width - this.lw;
 
-    ctx.moveTo(branch.width, branch.height + map.cr - lw);
-    ctx.lineTo(0 + map.rr, map.cr);
-    ctx.lineTo(branch.width - lw, branch.height + map.cr);
-  },
-  _draw_arc:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
+    this.y1 = this.branch.height + this.cr;
 
-    ctx.arc(0 + map.rr, 0 + map.cr, map.rr, 0, Math.PI * 2, true);
+    this.xn = this.rr;
+    this.yn = this.cr;
   }
 });
 
-pie.mindmap.RootBranchCanvasL1=Class.create(pie.mindmap.RootBranchCanvasBase,{
-  _draw_connect_line:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
-    var lw = this.line_weight;
+pie.mindmap.RootBranchCanvasLDOWN=Class.create(pie.mindmap.RootBranchCanvasBase,{
+  _count_point:function(){
+    this.x1 = this.branch.width;
+    this.x2 = this.branch.width - this.lw;
 
-    ctx.moveTo(branch.width, map.cr + lw);
-    ctx.lineTo(0 + map.rr, branch.height + map.cr);
-    ctx.lineTo(branch.width - lw, map.cr);
-  },
-  _draw_arc:function(){
-    var ctx = this.ctx;
-    var branch = this.branch;
-    var map = this.map;
+    this.y1 = this.cr;
 
-    ctx.arc(0 + map.rr, branch.height + map.cr, map.rr, 0, Math.PI * 2, true);
+    this.xn = this.rr;
+    this.yn = this.branch.height + this.cr;
   }
 });
 
