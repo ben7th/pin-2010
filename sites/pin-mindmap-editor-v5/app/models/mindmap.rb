@@ -52,16 +52,6 @@ class Mindmap < ActiveRecord::Base
     :default_url => "/images/logo/default_:class_:style.png",
     :default_style => :mini
 
-# 搜索方面的
-  define_index do
-    indexes :content
-    indexes :title
-
-    has :user_id, :created_at,:updated_at
-
-    where "private <> TRUE"
-  end
-
   # 给平台发送分享
   def to_share
     return if self.private
