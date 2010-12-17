@@ -2,6 +2,9 @@ package lucene;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import org.apache.lucene.document.Document;
@@ -34,16 +37,20 @@ public class MindmapIndexer extends Indexer {
   public int indexAllMindmap() throws ClassNotFoundException, SQLException, IOException {
     writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
     writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
-    List<Mindmap> list = Mindmap.findAll();
-    System.out.println(list.size());
-    for (int i = 0; i < list.size(); i++) {
-      Mindmap mindmap = list.get(i);
+    Connection connection = DBConnection.getConnection();
+    PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
+    ResultSet set = stat.executeQuery();
+    int i = 0;
+    while (set.next()) {
+      Mindmap mindmap = new Mindmap(set.getString("id"), set.getString("title"), set.getString("content"));
       checkMindmapIndex(mindmap);
       indexMindmapContent(mindmap);
+      i++;
     }
+    connection.close();
     writer.optimize();
     writer.close();
-    return list.size();
+    return i;
   }
 
   /**
@@ -101,15 +108,14 @@ public class MindmapIndexer extends Indexer {
     writer.close();
     return numIndexed;
   }
-  
   /**
   public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-    Mindmap mindmap = Mindmap.find("8");
-    MindmapIndexer mi = new MindmapIndexer("\\\\192.168.1.8\\root\\web\\2010\\lucene\\mindmaps\\index");
-    //给单个导图建立索引
-    System.out.println(mi.indexMindmap(mindmap));
-    //给所有的导图建立索引
-    System.out.println(mi.indexAllMindmap());
+  Mindmap mindmap = Mindmap.find("8");
+  MindmapIndexer mi = new MindmapIndexer("\\\\192.168.1.8\\root\\web\\2010\\lucene\\mindmaps\\index");
+  //给单个导图建立索引
+  System.out.println(mi.indexMindmap(mindmap));
+  //给所有的导图建立索引
+  System.out.println(mi.indexAllMindmap());
   }
    */
 }
