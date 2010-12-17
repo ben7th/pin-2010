@@ -1,4 +1,4 @@
-package lucene;
+package luceneservice;
 
 import java.io.IOException;
 import org.apache.lucene.document.Document;

@@ -1,4 +1,4 @@
-package lucene;
+package luceneservice;
 
 import org.apache.lucene.index.IndexWriter;
 

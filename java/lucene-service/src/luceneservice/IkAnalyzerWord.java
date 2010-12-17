@@ -1,4 +1,4 @@
-package lucene;
+package luceneservice;
 
 import java.io.IOException;
 import java.io.StringReader;

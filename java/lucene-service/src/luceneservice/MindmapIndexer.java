@@ -1,12 +1,12 @@
-package lucene;
+package luceneservice;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
@@ -24,9 +24,14 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 public class MindmapIndexer extends Indexer {
 
   private Directory indexDir;         // 索引目录
+  private ConfigFile cf;
 
-  MindmapIndexer(String indexDir) throws IOException {
-    this.indexDir = FSDirectory.open(new File(indexDir));
+  MindmapIndexer() {
+  }
+
+  MindmapIndexer(ConfigFile cf) throws IOException {
+    this.cf = cf;
+    this.indexDir = FSDirectory.open(new File(cf.getMindmapIndexPath()));
   }
 
   /**
@@ -37,7 +42,7 @@ public class MindmapIndexer extends Indexer {
   public int indexAllMindmap() throws ClassNotFoundException, SQLException, IOException {
     writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
     writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
-    Connection connection = DBConnection.getConnection();
+    Connection connection = getConnection();
     PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
     ResultSet set = stat.executeQuery();
     int i = 0;
@@ -54,13 +59,34 @@ public class MindmapIndexer extends Indexer {
   }
 
   /**
+   * 根据id找到mindmap
+   * @param id
+   * @return
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   */
+  public Mindmap find(int id) throws ClassNotFoundException, SQLException {
+    Connection connection = getConnection();
+    PreparedStatement stat = connection.prepareStatement("select * from mindmaps where id = ? ;");
+    stat.setInt(1, id);
+    ResultSet set = stat.executeQuery();
+    Mindmap mp = null;
+    if (set.next()) {
+      mp = new Mindmap(set.getString("id"), set.getString("title"), set.getString("content"));
+    }
+    connection.close();
+    return mp;
+  }
+
+  /**
    * 索引单个的导图
    * @return
    * @throws IOException
    */
-  public int indexMindmap(Mindmap mindmap) throws IOException {
+  public int indexMindmap(int mindmapId) throws IOException, ClassNotFoundException, SQLException {
     writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
     writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
+    Mindmap mindmap = find(mindmapId);
     checkMindmapIndex(mindmap);
     indexMindmapContent(mindmap);
     int numIndexed = writer.numDocs();
@@ -99,6 +125,14 @@ public class MindmapIndexer extends Indexer {
     return indexDir.listAll().length == 0;
   }
 
+  /**
+   * 删除单个导图的索引
+   * @param mindmapId
+   * @return
+   * @throws CorruptIndexException
+   * @throws LockObtainFailedException
+   * @throws IOException
+   */
   public int deleteIndex(int mindmapId) throws CorruptIndexException, LockObtainFailedException, IOException {
     writer = new IndexWriter(indexDir, new IKAnalyzer(), false, IndexWriter.MaxFieldLength.UNLIMITED);
     writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
@@ -107,6 +141,17 @@ public class MindmapIndexer extends Indexer {
     writer.optimize();
     writer.close();
     return numIndexed;
+  }
+
+  /**
+   * 返回mysql数据库 链接 的类
+   * @return
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   */
+  public Connection getConnection() throws ClassNotFoundException, SQLException {
+    Class.forName("com.mysql.jdbc.Driver");
+    return DriverManager.getConnection(cf.getDatabaseUrl(), cf.getDatabaseUserName(), cf.getDatabasePassword());
   }
   /**
   public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {

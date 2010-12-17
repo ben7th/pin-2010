@@ -1,4 +1,4 @@
-package lucene;
+package luceneservice;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -78,14 +78,12 @@ public class NoteIndexer extends Indexer {
 
   /**
    * 判断是否是进行增量索引,
-   * 如果没有索引文件，或者 要索引的文件就是notes的根目录 就是重新建索引
+   * 如果没有索引文件 就是重新建索引
    * @param list
    * @return 需要增量索引返回true
    */
   private boolean is_incremental(String[] list) {
-    boolean sameDir = new File(LuceneNotesServiceHandler.DATA_PATH).equals(dataDir);
-    boolean noIndexFile = (list.length == 0);
-    if (sameDir || noIndexFile) {
+    if (list.length == 0) {
       return true;
     }
     return false;

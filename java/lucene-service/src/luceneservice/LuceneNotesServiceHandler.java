@@ -1,6 +1,5 @@
-package lucene;
+package luceneservice;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import org.apache.thrift.TException;
@@ -11,29 +10,19 @@ import org.apache.thrift.TException;
  */
 public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
 
-  public static final String NOTE_FULL_INDEX_PATH = "/web/2010/lucene/notes/full_index";
-  public static final String NOTE_NEWEST_INDEX_PATH = "/web/2010/lucene/notes/newest_index";
-  public static final String DATA_PATH = "/root/mindpin_base/note_repo/notes";
+  // Note的索引类型
   public static final String NOTE_NEWEST_TYPE = "NOTE_NEWEST";
   public static final String NOTE_FULL_TYPE = "NOTE_FULL";
 
-  /**
-   * 初始化索引目录
-   */
-  public static void initIndexPath() {
-    checkOrMkdir(NOTE_FULL_INDEX_PATH);
-    checkOrMkdir(NOTE_NEWEST_INDEX_PATH);
+  private String fullIndexPath;
+  private String newestIndexPath;
+
+  public LuceneNotesServiceHandler() {
   }
 
-  /**
-   * 检查并文件是否存在，若不存在则创建之
-   * @param filePath
-   */
-  public static void checkOrMkdir(String filePath) {
-    File file = new File(filePath);
-    if (!file.exists()) {
-      file.mkdirs();
-    }
+  public LuceneNotesServiceHandler(ConfigFile cf) {
+    this.fullIndexPath = cf.getNoteFullIndexPath();
+    this.newestIndexPath = cf.getNoteNewestIndexPath();
   }
 
   /**
@@ -63,9 +52,9 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
       long start = new Date().getTime();
       for (String dir : strs) {
         System.out.println(dir);
-        NoteIndexer full_indexer = new NoteIndexer(NOTE_FULL_INDEX_PATH, dir, commit_id, NOTE_FULL_TYPE);
+        NoteIndexer full_indexer = new NoteIndexer(fullIndexPath, dir, commit_id, NOTE_FULL_TYPE);
         full_indexer.index();
-        NoteIndexer newest_indexer = new NoteIndexer(NOTE_NEWEST_INDEX_PATH, dir, commit_id, NOTE_NEWEST_TYPE);
+        NoteIndexer newest_indexer = new NoteIndexer(newestIndexPath, dir, commit_id, NOTE_NEWEST_TYPE);
         newest_indexer.index();
         System.out.println(dir + " 索引结束");
       }
@@ -91,8 +80,8 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
 
   public boolean delete_index(String delete_path) throws TException {
     try {
-      NoteIndexer full_indexer = new NoteIndexer(NOTE_FULL_INDEX_PATH, delete_path);
-      NoteIndexer new_indexer = new NoteIndexer(NOTE_NEWEST_INDEX_PATH, delete_path);
+      NoteIndexer full_indexer = new NoteIndexer(fullIndexPath, delete_path);
+      NoteIndexer new_indexer = new NoteIndexer(newestIndexPath, delete_path);
       boolean full = full_indexer.deleteIndex();
       boolean newst = new_indexer.deleteIndex();
       return full && newst;
@@ -115,7 +104,7 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
       return s.search(NoteSearcher.SEARCH_FIELDS);
     } catch (Exception e) {
       e.printStackTrace();
-      return "";
+      return "error";
     }
   }
 
@@ -126,7 +115,7 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @throws TException
    */
   public String search_full(String query) throws TException {
-    return search(NOTE_FULL_INDEX_PATH, query);
+    return search(fullIndexPath, query);
   }
 
   /**
@@ -136,7 +125,7 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @throws TException
    */
   public String search_newest(String query) throws TException {
-    return search(NOTE_NEWEST_INDEX_PATH, query);
+    return search(newestIndexPath, query);
   }
 
   /**
@@ -153,7 +142,7 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
       return s.search(NoteSearcher.SEARCH_FIELDS);
     } catch (Exception e) {
       e.printStackTrace();
-      return "";
+      return "error";
     }
   }
 
@@ -166,7 +155,7 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @throws TException
    */
   public String search_page_full(String query, int start, int count) throws TException {
-    return search_page(NOTE_FULL_INDEX_PATH, query, start, count);
+    return search_page(fullIndexPath, query, start, count);
   }
 
   /**
@@ -178,6 +167,6 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @throws TException
    */
   public String search_page_newest(String query, int start, int count) throws TException {
-    return search_page(NOTE_NEWEST_INDEX_PATH, query, start, count);
+    return search_page(newestIndexPath, query, start, count);
   }
 }

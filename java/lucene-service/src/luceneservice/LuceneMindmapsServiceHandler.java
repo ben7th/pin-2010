@@ -1,6 +1,5 @@
-package lucene;
+package luceneservice;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,24 +13,15 @@ import org.apache.thrift.TException;
  */
 public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface {
 
-  public static final String MINDMAP_INDEX_PATH = "/web/2010/lucene/mindmaps/index";
+  private String indexPath;
+  private ConfigFile cf;
 
-  /**
-   * 初始化索引目录
-   */
-  public static void initIndexPath() {
-    checkOrMkdir(MINDMAP_INDEX_PATH);
+  public LuceneMindmapsServiceHandler() {
   }
 
-  /**
-   * 检查并文件是否存在，若不存在则创建之
-   * @param filePath
-   */
-  public static void checkOrMkdir(String filePath) {
-    File file = new File(filePath);
-    if (!file.exists()) {
-      file.mkdirs();
-    }
+  public LuceneMindmapsServiceHandler(ConfigFile cf) {
+    this.indexPath = cf.getMindmapIndexPath();
+    this.cf = cf;
   }
 
   /**
@@ -41,7 +31,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
    */
   public boolean index() throws TException {
     try {
-      MindmapIndexer mi = new MindmapIndexer(MINDMAP_INDEX_PATH);
+      MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.indexAllMindmap();
       return size != 0;
     } catch (ClassNotFoundException ex) {
@@ -61,9 +51,8 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
    */
   public boolean index_one_mindmap(int mindmap_id) throws TException {
     try {
-      MindmapIndexer mi = new MindmapIndexer(MINDMAP_INDEX_PATH);
-      Mindmap mindmap = Mindmap.find(mindmap_id);
-      int size = mi.indexMindmap(mindmap);
+      MindmapIndexer mi = new MindmapIndexer(cf);
+      int size = mi.indexMindmap(mindmap_id);
       return size != 0;
     } catch (ClassNotFoundException ex) {
       return false;
@@ -82,7 +71,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
    */
   public boolean delete_index(int mindmap_id) throws TException {
     try {
-      MindmapIndexer mi = new MindmapIndexer(MINDMAP_INDEX_PATH);
+      MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.deleteIndex(mindmap_id);
       return size != 0;
     } catch (IOException ex) {
@@ -98,7 +87,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
    */
   public String search(String query) throws TException {
     try {
-      Searcher s = new MindmapSearcher(MINDMAP_INDEX_PATH, query);
+      Searcher s = new MindmapSearcher(indexPath, query);
       String result = s.search(MindmapSearcher.SEARCH_FIELDS);
       return result;
     } catch (IOException ex) {
@@ -123,7 +112,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
    */
   public String search_page(String query, int start, int count) throws TException {
     try {
-      Searcher s = new MindmapSearcher(MINDMAP_INDEX_PATH, query, start, count);
+      Searcher s = new MindmapSearcher(indexPath, query, start, count);
       String result = s.search(MindmapSearcher.SEARCH_FIELDS);
       return result;
     } catch (IOException ex) {
@@ -149,4 +138,6 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       return new ArrayList<String>();
     }
   }
+
+  
 }
