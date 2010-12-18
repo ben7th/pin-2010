@@ -18,6 +18,7 @@ class Cooperation < ActiveRecord::Base
           :conditions=>"(mindmaps.user_id = #{user.id} or cooperations.email = '#{user.email}') and cooperations.kind = '#{kind}'"}
       }
       base.extend(ClassMethods)
+      base.has_many :cooperations
     end
 
     module ClassMethods
@@ -34,18 +35,16 @@ class Cooperation < ActiveRecord::Base
 
     # 协同编辑成员
     def cooperate_editors
-      coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{EDITOR}'")
-      users = coos.map{|coo|User.find_by_email(coo.email)}
-      users << self.user
-      users
+      coos = self.cooperations.find(:all,:conditions=>"cooperations.kind = '#{EDITOR}'")
+      coo_users = coos.map{|coo|User.find_by_email(coo.email)}
+      [self.user,coo_users].flatten.compact.uniq
     end
 
     # 协同查看成员
     def cooperate_viewers
-      coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{VIEWER}'")
-      users = coos.map{|coo|User.find_by_email(coo.email)}
-      users << self.user
-      users
+      coos = self.cooperations.find(:all,:conditions=>"cooperations.kind = '#{VIEWER}'")
+      coo_users = coos.map{|coo|User.find_by_email(coo.email)}
+      [self.user,coo_users].flatten.compact.uniq
     end
 
     # 增加协同编辑成员

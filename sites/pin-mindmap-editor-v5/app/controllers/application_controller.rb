@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
 
-  before_filter :fix_ie6_accept
+  before_filter :fix_ie_accept
 
   helper :all # include all helpers, all the time
   # See ActionController::RequestForgeryProtection for details
@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # 修正IE6浏览器请求头问题
-  def fix_ie6_accept
-    if /MSIE 6/.match(request.user_agent) && request.env["HTTP_ACCEPT"]!='*/*'
+  # 修正IE浏览器请求头问题
+  def fix_ie_accept
+    if /MSIE/.match(request.user_agent) && request.env["HTTP_ACCEPT"]!='*/*'
       if !/.*\.gif/.match(request.url)
         request.env["HTTP_ACCEPT"] = '*/*'
       end

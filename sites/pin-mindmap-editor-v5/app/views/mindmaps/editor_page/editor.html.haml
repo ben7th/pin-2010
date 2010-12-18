@@ -1,12 +1,12 @@
--content_for :title, " 编辑器 v0.35 - #{escape_title(@mindmap)}"
+-content_for :title, " 导图编辑器 v0.45 - #{escape_title(@mindmap)}"
 
-= stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_canvas'
+= stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
 = stylesheet_link_tag '/javascripts/lightview/css/lightview'
 
 -content_for :javascripts do
-  = javascript_include_tag 'mindmap_packed'
+  = javascript_include_tag 'mindmap_editor_packed'
 
   = javascript_include_tag 'nicedit/nicEdit'
   = javascript_include_tag 'excanvas/excanvas.compiled'

@@ -6,7 +6,7 @@
     .note_editor.padding5
       .editor_box
         %textarea#mindmap-note-edit{:style=>''}
-  -accordion_item '相关导图..',:bgc=>"#98BC48",:open=>true do
+  -accordion_item '相似导图..',:bgc=>"#98BC48",:open=>true do
     .padding5
       -if @mindmap.rank.to_i != 0
         .hide
@@ -19,10 +19,3 @@
           %div 没有找到相关的导图
       -else
         %div 节点太少，没有找到相关的导图
-
-:javascript
-  function send_chat(){
-    var text = $('chat-inputer').value;
-    $('chat-inputer').value = '';
-    new pie.MindmapUser('#{current_user.name}','#{@mindmap.id}').say(text);
-  }

@@ -1,6 +1,5 @@
 - law_rank_class = (mindmap.rank == "0.0" ? "low-value" : "")
-.clearfix{:class=>"#{law_rank_class}"}
-
+.map-data.clearfix{:class=>"#{law_rank_class}"}
   .maprankbg
     .rank= mindmap.rank
 
@@ -45,7 +44,7 @@
 
         .fleft.marginr5
           .cooperate-link
-          =link_to_remote "协同",:url=>"/cooperate/#{mindmap.id}",:method=>:get
+          =link_to "协同","/cooperate/#{mindmap.id}"
 
       -if logged_in? && mindmap.cooperate_edit?(current_user) && mindmap.user!=current_user
         .fleft.marginr5
@@ -56,3 +55,15 @@
         .fleft.marginr5
           .edit-link
           =link_to "查看","/mindmaps/#{mindmap.id}",:target=>'_blank'
+
+-if !mindmap.cooperations.blank?
+  .cooprate.clearfix
+    %span 允许编辑：
+    %ul
+      -mindmap.cooperate_editors.each do |user|
+        %li=link_to user.name,"/users/#{user.id}/mindmaps"
+    -if mindmap.private
+      %span 允许查看：
+      %ul
+        -mindmap.cooperate_viewers.each do |user|
+          %li=link_to user.name,"/users/#{user.id}/mindmaps"

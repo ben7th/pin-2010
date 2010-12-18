@@ -153,6 +153,32 @@ body{
     border:none;
     overflow:hidden;
   }
+  &.viewer{
+    background:#fff !important;
+    #mindmap-sidebar{
+      background:#fff !important;
+      color:black;
+      .mindmap-export,.share{
+        border-bottom:solid 1px #CDD7DB;
+      }
+      h3{
+        padding:5px;
+      }
+      a{
+        &:hover{
+        }
+      }
+      a.share_to{
+        padding-left:20px;
+        color:#082F42;
+        display:block;
+        margin:3px 0;
+        &.tsina{background:url(/images/share/tsina.png) no-repeat;}
+        &.renren{background:url(/images/share/renren.png) no-repeat;}
+        &.douban{background:url(/images/share/douban.png) no-repeat;}
+      }
+    }
+  }
 }
 
 #mindmap-status-bar{

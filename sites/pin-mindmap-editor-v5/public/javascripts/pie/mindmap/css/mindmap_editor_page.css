@@ -119,6 +119,26 @@ body {
     position: absolute;
     border: none;
     overflow: hidden; }
+  #mindmap-main.viewer {
+    background: #fff !important; }
+    #mindmap-main.viewer #mindmap-sidebar {
+      background: #fff !important;
+      color: black; }
+      #mindmap-main.viewer #mindmap-sidebar .mindmap-export, #mindmap-main.viewer #mindmap-sidebar .share {
+        border-bottom: solid 1px #CDD7DB; }
+      #mindmap-main.viewer #mindmap-sidebar h3 {
+        padding: 5px; }
+      #mindmap-main.viewer #mindmap-sidebar a.share_to {
+        padding-left: 20px;
+        color: #082F42;
+        display: block;
+        margin: 3px 0; }
+        #mindmap-main.viewer #mindmap-sidebar a.share_to.tsina {
+          background: url(/images/share/tsina.png) no-repeat; }
+        #mindmap-main.viewer #mindmap-sidebar a.share_to.renren {
+          background: url(/images/share/renren.png) no-repeat; }
+        #mindmap-main.viewer #mindmap-sidebar a.share_to.douban {
+          background: url(/images/share/douban.png) no-repeat; }
 
 #mindmap-status-bar {
   overflow: hidden;

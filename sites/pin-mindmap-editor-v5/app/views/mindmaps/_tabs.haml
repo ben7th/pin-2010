@@ -2,7 +2,7 @@
   %li
     -if logged_in?
       =tabs_link_to "我的导图",user_mindmaps_path(current_user)
-      =tabs_link_to "导图协同","/users/#{current_user.id}/cooperate"
+      =tabs_link_to "协同导图","/users/#{current_user.id}/cooperate"
     =tabs_link_to "公开导图",mindmaps_path
     -if logged_in?
       =tabs_link_to "趋势与统计",user_tendency_path(current_user)

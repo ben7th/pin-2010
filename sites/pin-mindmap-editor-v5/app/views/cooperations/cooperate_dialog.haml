@@ -1,0 +1,47 @@
+-content_for :javascripts do
+  = javascript_include_tag 'pie/mindmap/pie_dragdrop'
+  = javascript_include_tag 'views/cooprate_dragdrop'
+
+- require_css 'mindmaps.css'
+
+-mindmap = @mindmap
+.topl
+  .cooperate-form
+    -form_tag "/save_cooperations/#{mindmap.id}",:method=>:post do
+      .field
+        使用逗号分隔邮件地址，或从右边拖拽
+      .field
+        %label 共同编辑者
+        =text_area_tag 'cooperate_editors',''
+      .field{:class=>mindmap.private ? '':'hide'}
+        %label 共同查看者
+        =text_area_tag 'cooperate_viewers',''
+      -if !mindmap.private?
+        .no-viewer
+          导图是<span class='loud'>公开导图</span>，无需设置共同查看
+      .actions.clearfix
+        =submit_tag '确定'
+        =link_to '算了，取消',"/",:class=>'marginl10'
+
+  .friends-list
+    %h3 从联系人添加协作者
+    -concats = current_user.concats
+
+    -if concats.blank?
+      .no-concat
+        .p 您目前在MindPin还没有任何联系人
+        .p
+          请通过
+          %span>=link_to '联系人设置',pin_url_for('pin-user-auth','/account/concats'),:confirm=>'将跳转到其他页面，确定吗？'
+          添加
+    -else
+      .p=link_to '联系人设置',pin_url_for('pin-user-auth','/account/concats'),:confirm=>'将跳转到其他页面，确定吗？'
+      %ul.concats
+        -concats.each do |concat|
+          %li.concat
+            .padding4
+              .avatar=avatar concat.email,:tiny
+              .data
+                .name=concat.concat_user_name
+                .email=concat.email
+  

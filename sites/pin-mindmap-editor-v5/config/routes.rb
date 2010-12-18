@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :mindmaps,:collection=>{:import=>:get,:mine=>:get,:tags=>:get,:import_base64=>:post,:create_base64=>:post},
     :member=>{:convert_bundle=>:put,:toggle_private=>:put,
-      :export=>:get,:clone_form=>:get,:clone=>:put,
+      :export=>:get,:clone_form=>:get,:do_clone=>:put,
       :outline=>:get,:rate=>:put,:setnote=>:post,:paramsedit=>:get,
       :widget=>:get,:quote=>:get,:reimport=>:get,:neweditor=>:get
     } do |mindmap|

@@ -51,7 +51,8 @@
   padding-left: 22px; }
 
 .paginate-bottom {
-  margin: 10px; }
+  clear: both;
+  overflow: hidden; }
 
 .edit-link {
   width: 24px;
@@ -95,96 +96,125 @@
   background: url(/images/actions/workgroup.png) no-repeat;
   display: block; }
 
-.mplist.mindmaps li {
+.mplist.mindmaps li.mindmap {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   background-color: #323546;
   border: solid 1px #111;
-  margin: 0 0 5px 0; }
-  .mplist.mindmaps li a:hover {
+  margin: 0 0 5px 0;
+  padding: 0px !important; }
+  .mplist.mindmaps li.mindmap a:hover {
     color: #FBEA8D; }
-  .mplist.mindmaps li .detail-operation {
+  .mplist.mindmaps li.mindmap .detail-operation {
     display: none;
     margin-right: 8px;
     float: left; }
-  .mplist.mindmaps li.mouseover .detail-operation {
+  .mplist.mindmaps li.mindmap.mouseover .detail-operation {
     display: block; }
-  .mplist.mindmaps li .maprankbg {
-    float: left;
-    margin: 3px 5px 0 0;
-    width: 36px;
-    height: 36px;
-    background-image: url(/images/map-rank-bg.png); }
-    .mplist.mindmaps li .maprankbg .rank {
-      padding-top: 13px;
-      color: #724C21;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 20px;
-      height: 20px;
-      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6); }
-  .mplist.mindmaps li .mindmap-logo {
-    float: left;
-    margin: 3px 5px 0 0;
-    position: relative; }
-    .mplist.mindmaps li .mindmap-logo .logo {
-      height: 32px;
-      width: 32px;
-      overflow: hidden;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border: solid 1px #fff; }
-    .mplist.mindmaps li .mindmap-logo .private-mark {
+  .mplist.mindmaps li.mindmap .map-data {
+    padding: 6px; }
+    .mplist.mindmaps li.mindmap .map-data .maprankbg {
+      float: left;
+      margin: 3px 5px 0 0;
       width: 36px;
       height: 36px;
-      background-color: red;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      filter: alpha(opacity=0);
-      opacity: 0; }
-      .mplist.mindmaps li .mindmap-logo .private-mark.p {
-        filter: alpha(opacity=30);
-        opacity: 0.3; }
-  .mplist.mindmaps li .private-icon {
-    width: 24px;
-    margin: 8px 10px 0 0;
-    float: left; }
-    .mplist.mindmaps li .private-icon .private-mark-link {
+      background-image: url(/images/map-rank-bg.png); }
+      .mplist.mindmaps li.mindmap .map-data .maprankbg .rank {
+        padding-top: 13px;
+        color: #724C21;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 20px;
+        height: 20px;
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6); }
+    .mplist.mindmaps li.mindmap .map-data .mindmap-logo {
+      float: left;
+      margin: 3px 5px 0 0;
+      position: relative; }
+      .mplist.mindmaps li.mindmap .map-data .mindmap-logo .logo {
+        height: 32px;
+        width: 32px;
+        overflow: hidden;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: solid 1px #fff; }
+      .mplist.mindmaps li.mindmap .map-data .mindmap-logo .private-mark {
+        width: 36px;
+        height: 36px;
+        background-color: red;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        filter: alpha(opacity=0);
+        opacity: 0; }
+        .mplist.mindmaps li.mindmap .map-data .mindmap-logo .private-mark.p {
+          filter: alpha(opacity=30);
+          opacity: 0.3; }
+    .mplist.mindmaps li.mindmap .map-data .private-icon {
       width: 24px;
-      height: 24px;
-      background: url(/images/status/private.png) no-repeat;
-      display: block; }
-    .mplist.mindmaps li .private-icon .not-private-mark-link {
-      width: 24px;
-      height: 24px;
-      background: url(/images/status/not-private.png) no-repeat;
-      display: block; }
-  .mplist.mindmaps li .mindmap-meta {
-    float: left; }
-
-#mplist_mindmaps {
-  overflow: hidden; }
-
-#mplist_mindmaps li.grid {
-  float: left;
-  width: 198px;
-  height: 190px;
-  margin: 0 10px 10px 0;
-  overflow: hidden;
-  border: dotted 1px #888; }
-
-.mapthumb-box {
-  width: 120px;
-  height: 90px;
-  padding: 10px; }
-
-.mapthumb-box .mapthumb {
-  height: 90px;
-  width: 120px; }
+      margin: 8px 10px 0 0;
+      float: left; }
+      .mplist.mindmaps li.mindmap .map-data .private-icon .private-mark-link {
+        width: 24px;
+        height: 24px;
+        background: url(/images/status/private.png) no-repeat;
+        display: block; }
+      .mplist.mindmaps li.mindmap .map-data .private-icon .not-private-mark-link {
+        width: 24px;
+        height: 24px;
+        background: url(/images/status/not-private.png) no-repeat;
+        display: block; }
+    .mplist.mindmaps li.mindmap .map-data .mindmap-meta {
+      float: left; }
+  .mplist.mindmaps li.mindmap .cooprate {
+    padding: 4px 5px 4px 123px;
+    background: #1F222E;
+    border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px; }
+    .mplist.mindmaps li.mindmap .cooprate span {
+      color: white; }
+    .mplist.mindmaps li.mindmap .cooprate ul {
+      margin-left: 3px;
+      margin-right: 20px;
+      display: inline;
+      overflow: hidden; }
+      .mplist.mindmaps li.mindmap .cooprate ul li {
+        display: inline;
+        margin-left: 3px; }
+  .mplist.mindmaps li.mindmap.grid {
+    float: left;
+    width: 200px;
+    height: 160px;
+    margin: 0 10px 10px 0;
+    overflow: hidden;
+    border: solid 1px #111; }
+    .mplist.mindmaps li.mindmap.grid .map-meta {
+      background: #1F222E;
+      border-radius: 4px 4px 0 0;
+      -moz-border-radius: 4px 4px 0 0;
+      -webkit-border-radius: 4px 4px 0 0;
+      padding: 5px; }
+    .mplist.mindmaps li.mindmap.grid .map-data {
+      position: relative; }
+      .mplist.mindmaps li.mindmap.grid .map-data .mapthumb-box {
+        width: 120px;
+        height: 90px;
+        padding: 5px; }
+        .mplist.mindmaps li.mindmap.grid .map-data .mapthumb-box .mapthumb {
+          height: 90px;
+          width: 120px; }
+      .mplist.mindmaps li.mindmap.grid .map-data .maprankbg {
+        position: absolute;
+        top: 5px;
+        right: 5px; }
+      .mplist.mindmaps li.mindmap.grid .map-data .clone-btn {
+        position: absolute;
+        top: 54px;
+        right: 15px; }
 
 .low-value .maprankbg {
   background-image: url(/images/map-rank-bg-low.png); }
@@ -227,3 +257,50 @@
     .search-result .data .loud {
       color: black !important;
       background-color: #FFB019; }
+
+.cooperate-form {
+  float: left;
+  margin-right: 40px;
+  margin-top: 15px; }
+  .cooperate-form textarea {
+    width: 300px;
+    height: 100px; }
+    .cooperate-form textarea.hover {
+      background: #FFFEC1 !important; }
+  .cooperate-form .no-viewer {
+    margin-bottom: 20px; }
+
+.friends-list {
+  margin-top: 15px;
+  float: left;
+  width: 250px; }
+  .friends-list .no-concat {
+    margin-top: 10px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #111;
+    padding: 10px; }
+  .friends-list ul.concats {
+    position: relative;
+    margin-top: 5px; }
+    .friends-list ul.concats li {
+      margin-bottom: 1px;
+      cursor: move;
+      overflow: hidden;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      background: #323546;
+      border: solid 1px #111; }
+      .friends-list ul.concats li .padding4 {
+        padding: 4px; }
+      .friends-list ul.concats li .avatar {
+        float: left;
+        margin-right: 10px;
+        height: 34px; }
+      .friends-list ul.concats li .data .name {
+        font-weight: bold;
+        color: white; }
+      .friends-list ul.concats li .data .email {
+        color: #888888; }
