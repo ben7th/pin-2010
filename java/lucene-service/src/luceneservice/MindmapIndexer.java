@@ -42,12 +42,11 @@ public class MindmapIndexer extends Indexer {
    * @throws SQLException
    */
   public int indexAllMindmap() throws ClassNotFoundException, SQLException, IOException {
-
     Connection connection = getConnection();
     PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
     stat.setFetchSize(Integer.MIN_VALUE);
     ResultSet set = stat.executeQuery();
-    writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
+    writer = new IndexWriter(indexDir, new IKAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
     writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
 //    writer.setMaxBufferedDocs(500);      //默认值(10)，内存中缓存的索引文件
 //    writer.setMergeFactor(1000);         //每向索引添加n个Document是，就会有一个新的segment在磁盘建立
@@ -163,6 +162,7 @@ public class MindmapIndexer extends Indexer {
     Class.forName("com.mysql.jdbc.Driver");
     return DriverManager.getConnection(cf.getDatabaseUrl(), cf.getDatabaseUserName(), cf.getDatabasePassword());
   }
+
   /**
   public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
   Mindmap mindmap = Mindmap.find("8");
