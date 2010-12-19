@@ -41,6 +41,7 @@ module MindmapRankMethods
       ranks = Mindmap.of_user_id(user.id).map do |mindmap|
         mindmap.rank.to_f
       end
+      return 0 if ranks.count == 0
       format("%.1f",(ranks.sum / ranks.count)).to_f
     end
 
@@ -49,6 +50,7 @@ module MindmapRankMethods
       ranks = Mindmap.of_user_id(user.id).map do |mindmap|
         mindmap.node_count.to_f
       end
+      return 0 if ranks.count == 0
       format("%.1f",(ranks.sum / ranks.count)).to_f.ceil
     end
   end
