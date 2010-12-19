@@ -161,4 +161,5 @@ class User < UserBase
   include Organization::UserMethods
   include Concat::UserMethods
   include Activity::UserMethods
+  include UserAutoCompeleteCache
 end
