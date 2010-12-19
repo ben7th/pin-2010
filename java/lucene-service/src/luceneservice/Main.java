@@ -24,7 +24,8 @@ public class Main {
    */
   public static void main(String[] args) {
     try {
-      String env = args.length == 2 ? args[1] : "dev"; //不穿参数就dev开发模式
+      String env = args[1].equals(ConfigFile.PRODUCTION_ENV) ? ConfigFile.PRODUCTION_ENV : ConfigFile.DEVELOPMENT_ENV; //不穿参数就dev开发模式
+      System.out.println("This is " + env + " envrionment ...");
       setConfigFile(env);
       initIndexPath();
       beginServer(args[0]);
