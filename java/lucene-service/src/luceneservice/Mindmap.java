@@ -12,6 +12,10 @@ public class Mindmap {
   private String title;                   //导图标题
 
   public String getContent() {
+    // 个别导图有内容是null的情况
+    if(content==null){
+      return "";
+    }
     return content;
   }
 

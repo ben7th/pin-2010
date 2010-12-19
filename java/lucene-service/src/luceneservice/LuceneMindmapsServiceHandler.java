@@ -35,10 +35,13 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       int size = mi.indexAllMindmap();
       return size != 0;
     } catch (ClassNotFoundException ex) {
+      ex.printStackTrace();
       return false;
     } catch (SQLException ex) {
+      ex.printStackTrace();
       return false;
     } catch (IOException ex) {
+      ex.printStackTrace();
       return false;
     }
   }
@@ -55,10 +58,13 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       int size = mi.indexMindmap(mindmap_id);
       return size != 0;
     } catch (ClassNotFoundException ex) {
+      ex.printStackTrace();
       return false;
     } catch (SQLException ex) {
+      ex.printStackTrace();
       return false;
     } catch (IOException ex) {
+      ex.printStackTrace();
       return false;
     }
   }
@@ -75,6 +81,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       int size = mi.deleteIndex(mindmap_id);
       return size != 0;
     } catch (IOException ex) {
+      ex.printStackTrace();
       return false;
     }
   }
@@ -116,10 +123,13 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       String result = s.search(MindmapSearcher.SEARCH_FIELDS);
       return result;
     } catch (IOException ex) {
+      ex.printStackTrace();
       return "error";
     } catch (ParseException ex) {
+      ex.printStackTrace();
       return "error";
     } catch (Exception ex) {
+      ex.printStackTrace();
       return "error";
     }
   }
@@ -135,6 +145,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       IkAnalyzerWord ika = new IkAnalyzerWord(content);
       return ika.getResult();
     } catch (IOException ex) {
+      ex.printStackTrace();
       return new ArrayList<String>();
     }
   }

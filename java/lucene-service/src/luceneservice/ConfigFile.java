@@ -21,10 +21,10 @@ public class ConfigFile {
   public ConfigFile(String environment) throws FileNotFoundException, IOException {
     this.environment = environment;
     if (this.environment.equals(PRODUCTION_ENV)) {
-      System.out.println("This is production evrionment ...");
+      System.out.println("This is production envrionment ...");
       isProduction = true;
     }else{
-      System.out.println("This is production development ...");
+      System.out.println("This is development envrionment ...");
     }
     getProperties();
   }

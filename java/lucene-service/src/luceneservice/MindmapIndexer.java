@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
@@ -25,6 +26,7 @@ public class MindmapIndexer extends Indexer {
 
   private Directory indexDir;         // 索引目录
   private ConfigFile cf;
+  private Document doc;
 
   MindmapIndexer() {
   }
@@ -40,21 +42,29 @@ public class MindmapIndexer extends Indexer {
    * @throws SQLException
    */
   public int indexAllMindmap() throws ClassNotFoundException, SQLException, IOException {
-    writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
-    writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
+
     Connection connection = getConnection();
     PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
+    stat.setFetchSize(Integer.MIN_VALUE);
     ResultSet set = stat.executeQuery();
+    writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
+    writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
+//    writer.setMaxBufferedDocs(500);      //默认值(10)，内存中缓存的索引文件
+//    writer.setMergeFactor(1000);         //每向索引添加n个Document是，就会有一个新的segment在磁盘建立
+//    writer.setMaxMergeDocs(1000);        //一个segment能包含的最大的Document数量
     int i = 0;
+    long begin = new Date().getTime();
     while (set.next()) {
       Mindmap mindmap = new Mindmap(set.getString("id"), set.getString("title"), set.getString("content"));
-      checkMindmapIndex(mindmap);
+      //checkMindmapIndex(mindmap);
       indexMindmapContent(mindmap);
       i++;
     }
-    connection.close();
     writer.optimize();
     writer.close();
+    connection.close();
+    long end = new Date().getTime();
+    System.out.println(new StringBuffer("Good job and good luck OK ! indexed ").append(i).append(" mindmaps total cost ").append(end - begin).append(" millisecs."));
     return i;
   }
 
@@ -85,7 +95,7 @@ public class MindmapIndexer extends Indexer {
    */
   public int indexMindmap(int mindmapId) throws IOException, ClassNotFoundException, SQLException {
     writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
-    writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
+    writer.setUseCompoundFile(false);    // Setting to turn on usage of a compound file when on.
     Mindmap mindmap = find(mindmapId);
     checkMindmapIndex(mindmap);
     indexMindmapContent(mindmap);
@@ -99,8 +109,8 @@ public class MindmapIndexer extends Indexer {
    * 把一个导图的内容索引文档 添加到writer对象中
    */
   private void indexMindmapContent(Mindmap mindmap) throws CorruptIndexException, IOException {
-    System.out.println("indexing " + mindmap.getTitle());
-    Document doc = new Document();
+    System.out.println(new StringBuffer().append("indexing ").append(mindmap.getId()).append(" ").append(mindmap.getTitle()));
+    doc = new Document();
     doc.add(new Field("id", mindmap.getId(), Field.Store.YES, Field.Index.NOT_ANALYZED));
     doc.add(new Field("title", mindmap.getTitle(), Field.Store.YES, Field.Index.ANALYZED));
     doc.add(new Field("content", mindmap.getContent(), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS));
