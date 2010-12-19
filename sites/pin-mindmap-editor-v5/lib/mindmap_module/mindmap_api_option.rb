@@ -13,25 +13,13 @@ class MindmapApiOption
   def initialize(oper_hash)
     @oper = oper_hash
     @operation = @oper["op"]
-    @map_id = @oper["map"]
     @params = OptionParams.new(@oper["params"])
     raise 'operation 未指定' if @operation.blank?
-    raise 'map_id 未指定' if  @map_id.blank?
   end
 
   # 操作类型
   def operation
     @operation
-  end
-
-  # 被操作的导图ID
-  def map_id
-    @map_id
-  end
-
-  # 被操作的导图对象
-  def map
-    Mindmap.find(@map_id)
   end
 
   # 操作的附加参数 参考/doc 下文档

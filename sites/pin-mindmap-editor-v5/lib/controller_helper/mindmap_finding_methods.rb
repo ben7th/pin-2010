@@ -29,7 +29,7 @@ module MindmapFindingMethods
 
   def paginate_pars
     order_str = get_order_str_from_params
-    {:order=>order_str,:page=>params[:page],:per_page=>9}
+    {:order=>order_str,:page=>params[:page],:per_page=>12}
   end
 
   def is_current_user?(user_id)

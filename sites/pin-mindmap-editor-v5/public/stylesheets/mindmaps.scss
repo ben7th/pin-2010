@@ -4,11 +4,11 @@
   overflow:hidden;
   .upavatar{
     float:left;
-    height:52px;
+    margin-top:8px;
   }
   .name{
     float:left;
-    font-size:24px;
+    font-size:16px;
     font-weight:bold;
     line-height:52px;
     margin-left:10px;
@@ -39,12 +39,33 @@
   margin-right:20px;
 }
 
+.map_list_head{
+  overflow:hidden;
+  border-bottom:solid 1px #464660;
+}
+
 .map_data{
   clear:both;
   margin-top:20px;
 }
 
-.paginate-bottom{margin:10px;}
+.map_blank{
+  .title{
+    margin-bottom:10px;
+    background:url(/images/mindmap_logo_16.png) no-repeat;
+    padding-left:22px;
+    line-height:16px;
+  }
+  ul{
+    li{
+      padding-left:22px;
+    }
+  }
+}
+
+.paginate-bottom{
+  clear:both;overflow:hidden;
+}
 
 .edit-link{width:24px;height:24px;background:url(/images/actions/edit.png) no-repeat;display:block;}
 .clone-link{width:24px;height:24px;background:url(/images/actions/clone.png) no-repeat;display:block;}
@@ -55,11 +76,13 @@
 .cooperate-link{width:24px;height:24px;background:url(/images/actions/workgroup.png) no-repeat;display:block;}
 
 .mplist.mindmaps{
-  li{
+  li.mindmap{
     @include border-radius(4px);
     background-color:#323546;
     border:solid 1px #111;
     margin:0 0 5px 0;
+    padding:0px !important;
+
     a:hover{
       color:#FBEA8D;
     }
@@ -71,56 +94,181 @@
       .detail-operation{display:block;}
     }
 
-    .maprankbg{
-      float:left;margin:3px 5px 0 0;
-      width:36px;height:36px;background-image:url(/images/map-rank-bg.png);
-      .rank{
-        padding-top:13px;color:#724C21;text-align:center;font-size:16px;font-weight:bold;line-height:20px;height:20px;
-        text-shadow:1px 1px 0 rgba(255, 255, 255, 0.6);
+    .map-data{
+      padding:6px;
+      .maprankbg{
+        float:left;margin:3px 5px 0 0;
+        width:36px;height:36px;background-image:url(/images/map-rank-bg.png);
+        .rank{
+          padding-top:13px;color:#724C21;text-align:center;font-size:16px;font-weight:bold;line-height:20px;height:20px;
+          text-shadow:1px 1px 0 rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      .mindmap-logo {
+        float:left;margin:3px 5px 0 0;position:relative;
+        .logo{
+          height:32px;width:32px;overflow:hidden;
+          @include border-radius(3px);border:solid 1px #fff;
+        }
+        .private-mark{
+          width:36px;height:36px;background-color:red;
+          position:absolute;top:0px;left:0px;
+          filter:alpha(opacity=0);
+          opacity:0;
+          &.p{
+            filter:alpha(opacity=30);
+            opacity:0.3;
+          }
+        }
+      }
+      .private-icon{
+        width:24px;margin:8px 10px 0 0;float:left;
+        .private-mark-link{
+          width:24px;height:24px;
+          background:url(/images/status/private.png) no-repeat;display:block;
+        }
+        .not-private-mark-link{
+          width:24px;height:24px;
+          background:url(/images/status/not-private.png) no-repeat;display:block;
+        }
+      }
+      .mindmap-meta{
+        float:left;
+      }
+    }
+    .cooprate{
+      padding:4px 5px 4px 123px;
+      background:#1F222E;
+      @include border-radius(0 0 4px 4px);
+      span{color:white;}
+      ul{
+        margin-left:3px;
+        margin-right:20px;
+        display:inline;
+        overflow:hidden;
+        li{display:inline;margin-left:3px;}
       }
     }
 
-    .mindmap-logo {
-      float:left;margin:3px 5px 0 0;position:relative;
-      .logo{
-        height:32px;width:32px;overflow:hidden;
-        @include border-radius(3px);border:solid 1px #fff;
-      }
-      .private-mark{
-        width:36px;height:36px;background-color:red;
-        position:absolute;top:0px;left:0px;
-        filter:alpha(opacity=0);
-        opacity:0;
-        &.p{
-          filter:alpha(opacity=30);
-          opacity:0.3;
-        }
-      }
-    }
-    .private-icon{
-      width:24px;margin:8px 10px 0 0;float:left;
-      .private-mark-link{
-        width:24px;height:24px;
-        background:url(/images/status/private.png) no-repeat;display:block;
-      }
-      .not-private-mark-link{
-        width:24px;height:24px;
-        background:url(/images/status/not-private.png) no-repeat;display:block;
-      }
-    }
-    .mindmap-meta{
+    &.grid{
       float:left;
+      width:200px;
+      height:160px;
+      margin:0 10px 10px 0;
+      overflow:hidden;
+      border:solid 1px #111;
+      .map-meta{
+        background:#1F222E;
+        @include border-radius(4px 4px 0 0);
+        padding:5px;
+      }
+      .map-data{
+        position:relative;
+        .mapthumb-box{
+          width:120px;height:90px;padding:5px;
+          .mapthumb{height:90px;width:120px;}
+        }
+        .maprankbg{position:absolute;top:5px;right:5px;}
+        .clone-btn{position:absolute;top:54px;right:15px;}
+      }
     }
   }
 }
 
 
-
-#mplist_mindmaps{overflow:hidden;}
-#mplist_mindmaps li.grid{float:left;width:198px;height:190px;margin:0 10px 10px 0;overflow:hidden;border:dotted 1px #888;}
-.mapthumb-box{width:120px;height:90px;padding:10px;}
-.mapthumb-box .mapthumb{height:90px;width:120px;}
-
-
 .low-value .maprankbg{background-image:url(/images/map-rank-bg-low.png);}
 .low-value .rank{color:#676767;}
+
+.search-result{
+  margin:0 0 10px;
+  .meta{
+    border:1px solid #111;
+    background-color:#171922;
+    @include border-radius(3px 3px 0 0);
+    padding:7px 10px;
+    input.text{
+      padding:2px 7px;
+      @include border-radius(2px);
+      width:98.5%;
+    }
+    .quiet{
+      color:#858585 !important;
+    }
+    .misc{
+      span{
+        line-height:20px;
+        float:left;
+        margin-right:10px;
+      }
+      .logo.tiny{
+        height:16px;width:16px;
+      }
+    }
+  }
+  .data{
+    background-color:#323546;
+    border:solid 1px #111;
+    border-top:none;
+    padding:10px;
+    @include border-radius(0 0 3px 3px);
+    .loud{
+      color:black !important;
+      background-color:#FFB019;
+    }
+  }
+}
+
+.cooperate-form{
+  float:left;
+  margin-right:40px;
+  margin-top:15px;
+  textarea{
+    width:300px;
+    height:100px;
+    &.hover{
+      background:#FFFEC1 !important;
+    }
+  }
+  .no-viewer{
+    margin-bottom:20px;
+  }
+}
+
+.friends-list{
+  margin-top:15px;
+  float:left;
+  width:250px;
+  .no-concat{
+    margin-top:10px;
+    @include border-radius(3px);
+    background:#111;
+    padding:10px;
+  }
+  ul.concats{
+    position:relative;
+    margin-top:5px;
+    li{
+      margin-bottom:1px;
+      cursor:move;
+      overflow:hidden;
+      @include border-radius(3px);
+      background:#323546;
+      border:solid 1px #111;
+      .padding4{padding:4px;}
+      .avatar{
+        float:left;
+        margin-right:10px;
+        height:34px;
+      }
+      .data{
+        .name{
+          font-weight:bold;color:white;
+        }
+        .email{
+          color:#888888;
+        }
+      }
+    }
+  }
+}

@@ -84,8 +84,8 @@ pie.drag.Base=Class.create({
 		document.observe("mouseup",this.muh);
 		
 		//初始坐标
-	    this.cX = evt.pointerX();
-	    this.cY = evt.pointerY();
+    this.cX = evt.pointerX();
+    this.cY = evt.pointerY();
 		
 		this.newX = this.cX;
 		this.newY = this.cY;
@@ -97,16 +97,16 @@ pie.drag.Base=Class.create({
 		}.bind(this), 10);
 	},
 	mouseMoveHandle:function(evt){
-	    evt.stop();
+    evt.stop();
 		if (this.el == null) return false;
 		this.ondrag = true;
 		this.newX = evt.pointerX();
-	    this.newY = evt.pointerY();
+    this.newY = evt.pointerY();
 	},
 	moveListener:function(){
-    	if(!this.ondrag) return false;
+    if(!this.ondrag) return false;
 		this.distanceX = this.newX - this.cX;
-	    this.distanceY = this.newY - this.cY;
+    this.distanceY = this.newY - this.cY;
 
 		this.onDragging();
 	},
@@ -143,7 +143,7 @@ pie.drag.Simple=Class.create(pie.drag.Base,{
 	},
 	onDragging:function($super){
 		var newLeft = this.ileft + this.distanceX;
-        var newTop = this.itop + this.distanceY;
+    var newTop = this.itop + this.distanceY;
 		this.el.setStyle({
 			"top":newTop+"px",
 			"left":newLeft+"px"

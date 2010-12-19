@@ -1,3 +1,4 @@
 log
 nbproject
 db/schema.rb
+config/map_max_weight

@@ -41,10 +41,11 @@ Rails::Initializer.run do |config|
   config.gem "nokogiri"
   config.gem "paperclip"
   config.gem "uuidtools"
+  config.gem "responds_to_parent"
+
   config.gem "pie-auth"
   config.gem "pie-ui"
   config.gem "pie-service-lib"
-  config.gem "responds_to_parent"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -55,6 +56,7 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
   config.load_paths += %W( #{RAILS_ROOT}/lib/controller_helper )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_module )
+  config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_lucene_search )
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer

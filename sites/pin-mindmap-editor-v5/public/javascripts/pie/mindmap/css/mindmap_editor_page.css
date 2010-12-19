@@ -1,27 +1,189 @@
-/*绘图区*/
-#mindmap-shadow{position:absolute;border:solid 4px #C3D9FF;overflow:hidden;}
-#mindmap-shadow #mindmap-scroller{
-  position:absolute;border:1px solid #A2BBDD;overflow:scroll;}
-#mindmap-shadow #mindmap-canvas{
-  border:solid 1px white;position:relative;width:6000px;height:3000px;background-color:#FFFFFF;
-  background-image:url("../img/paper_bg.png");}
-#mindmap-shadow #mindmap-canvas div{white-space:nowrap;}
+body {
+  overflow: hidden;
+  background: #0f2b3e !important; }
+  body .page-container {
+    padding: 0; }
 
-/*侧边栏*/
-#mindmap-sidebar{*display:inline;}
+#mindmap-toolbar {
+  float: left;
+  width: 100%;
+  overflow: hidden;
+  height: 37px;
+  background: -moz-linear-gradient(-90deg, #66c7f5, #2793e8);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#66c7f5), to(#2793e8));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66c7f5',endColorstr='#2793e8');
+  border-bottom: 1px solid #1259A4;
+  color: white;
+  text-shadow: 1px 1px 0 #666; }
+  #mindmap-toolbar .map-logo {
+    float: left;
+    padding: 6px 0 0 5px;
+    margin-right: 10px; }
+    #mindmap-toolbar .map-logo .logo {
+      height: 20px;
+      width: 20px; }
+  #mindmap-toolbar .map-title {
+    float: left;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 35px; }
+  #mindmap-toolbar .map-creator {
+    float: left;
+    margin-right: 10px;
+    line-height: 35px; }
+    #mindmap-toolbar .map-creator a {
+      color: #E4F1FF; }
+  #mindmap-toolbar .map-timestamp {
+    float: left;
+    margin-right: 10px;
+    line-height: 35px; }
+    #mindmap-toolbar .map-timestamp .date {
+      color: #FFF799 !important; }
+  #mindmap-toolbar .map-edit {
+    float: left;
+    margin-right: 10px;
+    line-height: 35px; }
+  #mindmap-toolbar .map-export {
+    float: left;
+    margin-right: 10px;
+    line-height: 35px; }
+    #mindmap-toolbar .map-export span.ex {
+      margin-left: 5px; }
+      #mindmap-toolbar .map-export span.ex a {
+        color: #FBEB96;
+        color: #FFF799;
+        font-weight: bold; }
+  #mindmap-toolbar .map-close {
+    float: right;
+    margin-right: 10px;
+    line-height: 35px; }
+    #mindmap-toolbar .map-close a {
+      float: left;
+      color: #fff;
+      font-weight: bold;
+      background: url(/images/close.png) no-repeat left 10px;
+      padding-left: 20px;
+      line-height: 35px; }
 
-#facebox{
-  z-index:100000;
-}
+#mindmap-main {
+  clear: both;
+  overflow: hidden;
+  position: relative; }
+  #mindmap-main #mindmap-sidebar {
+    *display: inline;
+    width: 210px;
+    float: right;
+    overflow: hidden;
+    height: 100%;
+    background-color: #0f2b3e !important; }
+    #mindmap-main #mindmap-sidebar .mpaccordion-bar .mpaccordion-toggler {
+      color: #ccc !important;
+      text-shadow: 1px 1px 0 #333333;
+      background-color: #17384A !important;
+      border-top: solid 1px #274C5D;
+      border-bottom: solid 1px #0C2332; }
+    #mindmap-main #mindmap-sidebar .mpaccordion-bar .mpaccordion-content {
+      background-color: #0f2b3e !important; }
+    #mindmap-main #mindmap-sidebar .note_editor .editor_box {
+      background-color: #FEFCD7;
+      color: #222;
+      width: 200px; }
+      #mindmap-main #mindmap-sidebar .note_editor .editor_box #mindmap-note-edit {
+        width: 198px !important;
+        display: none; }
+      #mindmap-main #mindmap-sidebar .note_editor .editor_box .nicEdit-main {
+        font-size: 12px; }
+    #mindmap-main #mindmap-sidebar .chat-box .chat-list {
+      height: 150px;
+      background-color: white;
+      margin-bottom: 5px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      color: #111;
+      overflow-y: scroll; }
+      #mindmap-main #mindmap-sidebar .chat-box .chat-list .chat-start {
+        color: #999;
+        padding: 0 5px; }
+      #mindmap-main #mindmap-sidebar .chat-box .chat-list .chat-line {
+        padding: 0 5px; }
+        #mindmap-main #mindmap-sidebar .chat-box .chat-list .chat-line .username {
+          font-weight: bold; }
+    #mindmap-main #mindmap-sidebar .chat-box .chat-form #chat-inputer {
+      height: 21px !important;
+      padding: 0 5px !important;
+      width: 190px;
+      font-size: 12px; }
+  #mindmap-main #mindmap-resizer {
+    position: absolute;
+    border: none;
+    overflow: hidden; }
+  #mindmap-main.viewer {
+    background: #fff !important; }
+    #mindmap-main.viewer #mindmap-sidebar {
+      background: #fff !important;
+      color: black; }
+      #mindmap-main.viewer #mindmap-sidebar .mindmap-export, #mindmap-main.viewer #mindmap-sidebar .share {
+        border-bottom: solid 1px #CDD7DB; }
+      #mindmap-main.viewer #mindmap-sidebar h3 {
+        padding: 5px; }
+      #mindmap-main.viewer #mindmap-sidebar a.share_to {
+        padding-left: 20px;
+        color: #082F42;
+        display: block;
+        margin: 3px 0; }
+        #mindmap-main.viewer #mindmap-sidebar a.share_to.tsina {
+          background: url(/images/share/tsina.png) no-repeat; }
+        #mindmap-main.viewer #mindmap-sidebar a.share_to.renren {
+          background: url(/images/share/renren.png) no-repeat; }
+        #mindmap-main.viewer #mindmap-sidebar a.share_to.douban {
+          background: url(/images/share/douban.png) no-repeat; }
 
-#colorzone ul{
-  line-height:10px;
-  height:10px;
-}
+#mindmap-status-bar {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  height: 39px;
+  width: 100%;
+  background: -moz-linear-gradient(-90deg, #416479, #052131);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#416479), to(#052131));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#416479',endColorstr='#052131');
+  color: white;
+  border-top: solid 1px #111; }
+  #mindmap-status-bar .cooperate {
+    float: left;
+    padding: 9px; }
+    #mindmap-status-bar .cooperate span {
+      margin-right: 5px; }
+      #mindmap-status-bar .cooperate span.op_count {
+        font-weight: bold; }
+  #mindmap-status-bar #editor_chat {
+    height: 14px;
+    padding: 2px; }
+  #mindmap-status-bar .net_condition {
+    float: right;
+    padding: 9px; }
 
-#colorzone li{
-  display:inline-block;
-  line-height:10px;
-  height:10px;
-}
-#colorzone a{height:10px;width:10px;display:inline-block;}
+#facebox {
+  z-index: 100000; }
+
+#facebox_overlay {
+  z-index: 9999; }
+
+#colorzone ul {
+  line-height: 10px;
+  height: 10px; }
+
+#colorzone li {
+  display: inline-block;
+  line-height: 10px;
+  height: 10px; }
+
+#colorzone a {
+  height: 10px;
+  width: 10px;
+  display: inline-block; }
+
+.root_selected {
+  opacity: 1.0; }

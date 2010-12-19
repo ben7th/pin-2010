@@ -11,16 +11,40 @@ class Cooperation < ActiveRecord::Base
   validates_presence_of :mindmap
 
   module MindmapMethods
+    def self.included(base)
+      # 与他人共同协同的导图(包括自己创建的和别人协同给自己的)
+      base.named_scope :cooperate_of_user, lambda {|user,kind|
+        {:joins=>" inner join cooperations on mindmaps.id = cooperations.mindmap_id",
+          :conditions=>"(mindmaps.user_id = #{user.id} or cooperations.email = '#{user.email}') and cooperations.kind = '#{kind}'"}
+      }
+      base.extend(ClassMethods)
+      base.has_many :cooperations
+    end
+
+    module ClassMethods
+      # 与他人共同编辑的导图(包括自己创建的和别人协同给自己的)
+      def cooperate_edit_of_user(user)
+        self.cooperate_of_user(user,Cooperation::EDITOR).uniq
+      end
+
+      # 与他人共同查看的导图(包括自己创建的和别人协同给自己的)
+      def cooperate_view_of_user(user)
+        self.cooperate_of_user(user,Cooperation::VIEWER).uniq
+      end
+    end
+
     # 协同编辑成员
     def cooperate_editors
-      coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{EDITOR}'")
-      coos.map{|coo|User.find_by_email(coo.email)}
+      coos = self.cooperations.find(:all,:conditions=>"cooperations.kind = '#{EDITOR}'")
+      coo_users = coos.map{|coo|User.find_by_email(coo.email)}
+      [self.user,coo_users].flatten.compact.uniq
     end
 
     # 协同查看成员
     def cooperate_viewers
-      coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{VIEWER}'")
-      coos.map{|coo|User.find_by_email(coo.email)}
+      coos = self.cooperations.find(:all,:conditions=>"cooperations.kind = '#{VIEWER}'")
+      coo_users = coos.map{|coo|User.find_by_email(coo.email)}
+      [self.user,coo_users].flatten.compact.uniq
     end
 
     # 增加协同编辑成员
@@ -58,6 +82,11 @@ class Cooperation < ActiveRecord::Base
       Cooperation.find_all_by_email_and_mindmap_id_and_kind(user.email,self.id,EDITOR).count != 0
     end
 
+    def cooperate_editors_email_list
+      coos = Cooperation.find(:all,:conditions=>"cooperations.mindmap_id = #{self.id} and cooperations.kind = '#{EDITOR}'")
+      coos.map{|coo|coo.email}
+    end
+
     # user 对 这个导图 有协同查看的权限
     def cooperate_view?(user)
       return false if !user
@@ -73,6 +102,7 @@ class Cooperation < ActiveRecord::Base
       coos.map{|coo|coo.mindmap}
     end
 
+    # 被别人协同查看的导图
     def cooperate_view_mindmaps
       coos = Cooperation.find_all_by_email_and_kind(self.email,VIEWER)
       coos.map{|coo|coo.mindmap}

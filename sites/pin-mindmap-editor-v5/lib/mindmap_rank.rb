@@ -50,22 +50,22 @@ class MindmapRank
 
   # 获取 map_max_weight
   def self.map_max_weight
-    10000
-    # 需要 缓存存放
-#    mmw = $cache.get('map_max_weight')
-#    if mmw.blank?
-#      mmw = Mindmap.maximum("weight") || 0
-#      self.map_max_weight=(mmw)
-#    end
-#    mmw
+    # 存放在硬盘文件上
+    file_path = File.join(RAILS_ROOT, "config", "map_max_weight")
+
+    if !File.exist?(file_path)
+      mmw = Mindmap.maximum("weight") || 0
+      self.map_max_weight=(mmw)
+      return mmw
+    else
+      return File.new(file_path,"r").read.to_i
+    end
   end
 
   # 设置 map_max_weight
   def self.map_max_weight=(mmw)
-    # 需要缓存存放
-#    $cache.transaction do
-#      $cache.set('map_max_weight', mmw)
-#    end
+    file_path = File.join(RAILS_ROOT, "config", "map_max_weight")
+    File.open(file_path,"w"){|f| f << mmw}
   end
 
 end

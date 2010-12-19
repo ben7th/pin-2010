@@ -7,6 +7,8 @@ class SearchController < ApplicationController
           @result = NoteLucene.search_full(params[:q])
         rescue Thrift::TransportException => ex
           return render_status_page(500,'搜索服务出现错误，或者正在维护')
+        rescue Exception => ex
+          return render_status_page(500,'搜索服务出现未知错误')
         end
 #        @result = NoteLucene.search_newest(params[:q])
       end

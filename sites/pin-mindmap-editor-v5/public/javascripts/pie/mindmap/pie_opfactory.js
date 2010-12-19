@@ -8,7 +8,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
   
 	getInsertInstance: function(node){	
 		return {
-      "map":this.map.id,
       "op":"do_insert",
       "params":{
         "parent_id":node.parent.id,
@@ -19,7 +18,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
 	},
 	getDeleteInstance: function(node){
 		return {
-      "map":this.map.id,
       "op":"do_delete",
       "params":{
         "node_id":node.id
@@ -28,7 +26,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
 	},
 	getTitleInstance: function(node){
 		return {
-      "map":this.map.id,
       "op":"do_title",
       "params":{
         "node_id":node.id,
@@ -38,7 +35,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
 	},
 	getToggleInstance: function(node){
 		return {
-      "map":this.map.id,
       "op":"do_toggle",
       "params":{
         "node_id":node.id,
@@ -48,7 +44,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
 	},
 	getImageInstance: function(node){
 		return {
-      "map":this.map.id,
       "op":"do_image",
       "params":{
         "node_id":node.id,
@@ -58,7 +53,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
 	},
 	getNoteInstance: function(node){
 		return {
-      "map":this.map.id,
       "op":"do_note",
 			"params":{
         "node_id":node.id,
@@ -68,7 +62,6 @@ pie.mindmap.OperationRecordFactory = Class.create({
 	},
 	getMoveInstance: function(node){
 		return {
-      "map":this.map.id,
       "op":"do_move",
       "params":{
         "parent_id":node.parent.id,

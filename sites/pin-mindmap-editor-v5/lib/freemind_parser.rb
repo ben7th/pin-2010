@@ -1,7 +1,9 @@
 class FreemindParser < MapFileParser
   # 导入Freemind格式的导图文件
   def self.import(mindmap,file_form_param)
-    mindmap.struct = self.xslt_transform_form_xml(file_form_param,"#{RAILS_ROOT}/public/xslt/freemind_to_mindpin.xslt")
+    struct = xslt_transform_form_xml(file_form_param,"#{RAILS_ROOT}/public/xslt/freemind_to_mindpin.xslt")
+    struct = process_note_id_to_randstr(struct)
+    mindmap.struct = struct
     mindmap.save
   end
 

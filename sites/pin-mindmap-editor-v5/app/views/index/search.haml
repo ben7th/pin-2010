@@ -2,21 +2,20 @@
 
 .topl
   .grid_16.margint10.alpha
-    -if @sphinx_error
-      .flash-notice= @sphinx_error
-    %h3
-      对
-      %span.loud=@query
-      的搜索结果
+    %h3 关于 #{@query} ，#{@result.count} 条结果
     .margint10
       %ul{:id=>"search_mindmaps",:class=>"mplist mindmaps"}
-        -@mindmaps.each do |mindmap|
-          -if mindmap
-            %li{:id=>"mindmap_#{mindmap.id}",:class=>"mpli mindmap"}
-              =render :partial=>"mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}
-      .clearfix
-        =will_paginate @mindmaps
-
+        -@result.items.each do |item|
+          -mindmap = item.mindmap
+          .search-result
+            .meta
+              =link_to item.title,"/mindmaps/#{mindmap.id}"
+              .misc.fright
+                %span.quiet 相关度 #{item.score}
+                =avatar mindmap.user,:tiny
+            .data
+              =item.content
+      =will_paginate @result
   .grid_6.fright.omega
     %div{:style=>'margin-top:50px;'}
     =minibutton '好了，返回导图列表',pin_url_for('pin-mindmap-editor')
