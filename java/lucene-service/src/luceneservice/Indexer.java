@@ -16,11 +16,20 @@ public class Indexer {
   protected Directory indexDir;         // 索引目录
 
   /**
+   * 检查索引目录是否被锁,如果被锁，解除锁定
+   */
+  protected void unlockIfIndexLocked() throws IOException {
+    if(IndexWriter.isLocked(indexDir)){
+      IndexWriter.unlock(indexDir);
+    }
+  }
+
+  /**
    * 设置indexwriter
    * @param create 表示是否是增量索引（false=>是）
    * @return
    */
-  public void setIndexWriter(boolean create) throws CorruptIndexException, IOException, InterruptedException {
+  protected void setIndexWriter(boolean create) throws CorruptIndexException, IOException, InterruptedException {
     synchronized (Main.serverTransport) {
       while (true) {
         if (!IndexWriter.isLocked(indexDir)) {

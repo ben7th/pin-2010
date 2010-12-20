@@ -24,12 +24,14 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 public class MindmapIndexer extends Indexer {
 
   private ConfigFile cf; // 配置文件
-  private Document doc;  
+  private Document doc;
 
   MindmapIndexer() {
+    Main.checkOrMkdir(cf.getMindmapIndexPath());
   }
 
   MindmapIndexer(ConfigFile cf) throws IOException {
+    Main.checkOrMkdir(cf.getMindmapIndexPath());
     this.cf = cf;
     this.indexDir = FSDirectory.open(new File(cf.getMindmapIndexPath()));
   }
@@ -44,6 +46,7 @@ public class MindmapIndexer extends Indexer {
     PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
     stat.setFetchSize(Integer.MIN_VALUE);
     ResultSet set = stat.executeQuery();
+    unlockIfIndexLocked();
     setIndexWriter(true);
     int i = 0;
     long begin = new Date().getTime();

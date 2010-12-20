@@ -24,6 +24,7 @@ public class NoteIndexer extends Indexer {
   private String type;                // 索引类型 Newest 和 Full
 
   NoteIndexer(String indexDir, String dataDir, String commitId, String type) throws IOException {
+    Main.checkOrMkdir(indexDir);
     this.indexDir = FSDirectory.open(new File(indexDir));
     this.dataDir = new File(dataDir);
     this.commitId = commitId;
@@ -31,6 +32,7 @@ public class NoteIndexer extends Indexer {
   }
 
   NoteIndexer(String indexDir, String dataDir) throws IOException {
+    Main.checkOrMkdir(indexDir);
     this.indexDir = FSDirectory.open(new File(indexDir));
     this.dataDir = new File(dataDir);
   }
@@ -56,7 +58,7 @@ public class NoteIndexer extends Indexer {
   }
 
   /**
-   * 索引 
+   * 索引全部文件
    * @return 返回索引文件数量
    * @throws IOException
    */
@@ -64,9 +66,9 @@ public class NoteIndexer extends Indexer {
     checkFile(dataDir);
     String[] list = indexDir.listAll();
     boolean isEmpty = is_incremental(list);
-    // 创建lucene索引 第三个参数是false，说明是增量索引，不会重写,仅是简单的将create参数设为false，会造成索引重复。
+    unlockIfIndexLocked();             // 创建所有索引之前 检查是否有锁，有则解除之
     setIndexWriter(isEmpty);
-    writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
+    writer.setUseCompoundFile(false); // Setting to turn on usage of a compound file when on.
     indexFileOrDirectory(isEmpty);
     int numIndexed = writer.numDocs();
     writer.optimize();
