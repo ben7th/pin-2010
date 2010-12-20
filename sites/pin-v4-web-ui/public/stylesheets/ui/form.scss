@@ -135,3 +135,17 @@ input.search-button,input.search-button.submit {
   height:21px !important;
   top:-1px !important;
 }
+
+/*inline*/
+input.inline{
+  background-repeat:no-repeat;
+  padding:0 0 0 2px !important;
+  width:150px !important;
+  height:21px !important;
+  background-color:white;
+  border-color:#333;
+}
+input.inline-button,input.inline-button.submit {
+  height:21px !important;
+  top:-1px !important;
+}

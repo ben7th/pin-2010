@@ -148,3 +148,23 @@
       .activities-list .activity .title .avatar .tiny {
         weight: 20px;
         height: 20px; }
+
+.ac_results ul li {
+  line-height: 24px;
+  height: 24px;
+  overflow: hidden;
+  padding: 1px 2px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+  .ac_results ul li .logo.tiny {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    float: left; }
+  .ac_results ul li.ac_over {
+    background-color: #96B5DA;
+    color: black; }
+
+.add-member-form input#concat_email {
+  width: 300px !important; }

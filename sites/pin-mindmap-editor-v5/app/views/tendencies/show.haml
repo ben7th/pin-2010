@@ -1,5 +1,8 @@
 = javascript_include_tag 'swfobject'
-= open_flash_chart_object('100%',250, "#{THIS_SITE}/users/#{params[:user_id]}/mindmaps/pie_links",true,"#{THIS_SITE}/")
+
+.clearfix
+  .grid_12.alpha
+    = open_flash_chart_object('100%',130, "#{THIS_SITE}/users/#{params[:user_id]}/mindmaps/pie_links",true,"#{THIS_SITE}/")
 
 %div
   %dl
