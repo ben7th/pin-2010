@@ -10,7 +10,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
@@ -20,7 +19,6 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  */
 public class NoteIndexer extends Indexer {
 
-  private Directory indexDir;         // 索引目录
   private File dataDir;               // 要建(删)索引文件
   private String commitId;            // Note的提交commit_id
   private String type;                // 索引类型 Newest 和 Full
@@ -62,12 +60,12 @@ public class NoteIndexer extends Indexer {
    * @return 返回索引文件数量
    * @throws IOException
    */
-  public int index() throws IOException {
+  public int index() throws IOException, CorruptIndexException, InterruptedException {
     checkFile(dataDir);
     String[] list = indexDir.listAll();
     boolean isEmpty = is_incremental(list);
     // 创建lucene索引 第三个参数是false，说明是增量索引，不会重写,仅是简单的将create参数设为false，会造成索引重复。
-    writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty, IndexWriter.MaxFieldLength.UNLIMITED);
+    setIndexWriter(isEmpty);
     writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
     indexFileOrDirectory(isEmpty);
     int numIndexed = writer.numDocs();

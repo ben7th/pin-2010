@@ -2,6 +2,7 @@ package luceneservice;
 
 import java.io.IOException;
 import java.util.Date;
+import org.apache.lucene.index.CorruptIndexException;
 import org.apache.thrift.TException;
 
 /**
@@ -13,7 +14,6 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
   // Note的索引类型
   public static final String NOTE_NEWEST_TYPE = "NOTE_NEWEST";
   public static final String NOTE_FULL_TYPE = "NOTE_FULL";
-
   private String fullIndexPath;
   private String newestIndexPath;
 
@@ -32,7 +32,15 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @throws TException
    */
   public boolean index(String index_path) throws TException {
-    return index_method(index_path, null);
+    try {
+      return index_method(index_path, null);
+    } catch (CorruptIndexException ex) {
+      ex.printStackTrace();
+      return false;
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+      return false;
+    }
   }
 
   /**
@@ -43,10 +51,18 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @throws TException
    */
   public boolean index_with_commit_id(String index_path, String commit_id) throws TException {
-    return index_method(index_path, commit_id);
+    try {
+      return index_method(index_path, commit_id);
+    } catch (CorruptIndexException ex) {
+      ex.printStackTrace();
+      return false;
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+      return false;
+    }
   }
 
-  private boolean index_method(String index_path, String commit_id) {
+  private boolean index_method(String index_path, String commit_id) throws CorruptIndexException, InterruptedException {
     try {
       String[] strs = index_path.split(";");
       long start = new Date().getTime();
@@ -114,8 +130,13 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @return
    * @throws TException
    */
-  public String search_full(String query) throws TException {
-    return search(fullIndexPath, query);
+  public String search_full(String query) {
+    try {
+      return search(fullIndexPath, query);
+    } catch (TException ex) {
+      ex.printStackTrace();
+      return "error";
+    }
   }
 
   /**
@@ -124,8 +145,13 @@ public class LuceneNotesServiceHandler implements LuceneNotesService.Iface {
    * @return
    * @throws TException
    */
-  public String search_newest(String query) throws TException {
-    return search(newestIndexPath, query);
+  public String search_newest(String query) {
+    try {
+      return search(newestIndexPath, query);
+    } catch (TException ex) {
+      ex.printStackTrace();
+      return "error";
+    }
   }
 
   /**

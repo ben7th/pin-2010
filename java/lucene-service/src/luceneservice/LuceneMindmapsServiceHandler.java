@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.thrift.TException;
 
@@ -34,6 +36,9 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.indexAllMindmap();
       return size != 0;
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+      return false;
     } catch (ClassNotFoundException ex) {
       ex.printStackTrace();
       return false;
@@ -57,6 +62,9 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.indexMindmap(mindmap_id);
       return size != 0;
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+      return false;
     } catch (ClassNotFoundException ex) {
       ex.printStackTrace();
       return false;
