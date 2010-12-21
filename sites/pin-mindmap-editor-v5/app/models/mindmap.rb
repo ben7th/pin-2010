@@ -131,4 +131,5 @@ class Mindmap < ActiveRecord::Base
   include MindmapSearchMethods
   include MindmapParseStructMethods
   include MindmapMd5Methods
+  include ImageCache::MindmapMethods
 end

@@ -41,7 +41,8 @@ class MindpinLayout
         set_cellhead_tail false
         set_tabs_path false
         @status_text = text
-        render :template=>base_layout_path("status_page/#{code}.haml"),:status=>code
+        @status_code = code
+        render :template=>base_layout_path("status_page/status_page.haml"),:status=>code
       end
 
     end

@@ -299,6 +299,9 @@
         float: left;
         margin-right: 10px;
         height: 34px; }
+        .friends-list ul.concats li .avatar img {
+          width: 32px;
+          height: 32px; }
       .friends-list ul.concats li .data .name {
         font-weight: bold;
         color: white; }

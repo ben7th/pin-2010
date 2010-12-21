@@ -88,12 +88,30 @@
       float: left;
       line-height: 24px;
       margin-left: 8px; }
+    .member-block .member-list li.user .delete, .member-block .member-list li.member .delete, .member-block .member-list li.concat .delete {
+      float: right; }
+      .member-block .member-list li.user .delete a, .member-block .member-list li.member .delete a, .member-block .member-list li.concat .delete a {
+        float: left;
+        background: url(/images/piece/close_pill.png) no-repeat;
+        height: 18px;
+        width: 18px;
+        text-decoration: none;
+        text-indent: -9999px;
+        margin-top: 3px; }
+        .member-block .member-list li.user .delete a:hover, .member-block .member-list li.member .delete a:hover, .member-block .member-list li.concat .delete a:hover {
+          background: url(/images/piece/close_pill.png) no-repeat 0 -50px; }
     .member-block .member-list li.user .member-email, .member-block .member-list li.member .member-email, .member-block .member-list li.concat .member-email {
       color: white;
       font-weight: bold; }
+    .member-block .member-list li.user:hover, .member-block .member-list li.member:hover, .member-block .member-list li.concat:hover {
+      background: #45495B; }
   .member-block .add-member-form {
     margin-top: 10px;
     padding: 6px; }
+    .member-block .add-member-form input#concat_email {
+      width: 300px !important; }
+    .member-block .add-member-form input#member_email {
+      width: 300px !important; }
 
 .goto-organization-page {
   border-top: solid 1px #242438;
@@ -165,6 +183,3 @@
   .ac_results ul li.ac_over {
     background-color: #96B5DA;
     color: black; }
-
-.add-member-form input#concat_email {
-  width: 300px !important; }

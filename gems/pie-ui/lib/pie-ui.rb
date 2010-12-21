@@ -43,6 +43,9 @@ module PieUi
       require 'pie-ui/helpers/button_helper'
       ActionView::Base.send :include, ButtonHelper
 
+      require 'pie-ui/helpers/status_page_helper'
+      ActionView::Base.send :include, StatusPageHelper
+
       ActionController::Base.send :include, MindpinLayout::ControllerFilter
     end
 

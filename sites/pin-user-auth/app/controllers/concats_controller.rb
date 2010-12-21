@@ -11,14 +11,16 @@ class ConcatsController < ActionController::Base
       render_ui do |ui|
         ui.mplist :insert,@concat
         ui.page << %~  
-          jQuery(".add-member-failure-info").html("");
-          jQuery("#concat_email").attr("value","");
+          jQuery(".add-member-info").html("");
+          jQuery("#concat_email").val("");
           jQuery('.no-member').hide();
         ~
       end
       return
     end
-    render_ui.page << %~  jQuery(".add-member-failure-info").html("#{@concat.errors.first[1]}") ~
+    render_ui.page << %~  
+      jQuery(".add-member-info").html("#{@concat.errors.first[1]}");
+    ~
   end
 
   def create_for_plugin

@@ -6,6 +6,7 @@ class MindmapsController < ApplicationController
   include MindmapRestMethods
   include MindmapParamsEditingMethods
   include MindmapCloneControllerMethods
+  include MindmapShowImageMethods
 
   # GET /mindmaps
   def index
@@ -35,9 +36,9 @@ class MindmapsController < ApplicationController
         if has_edit_rights?(@mindmap,current_user) && params[:sure]!='1'
           redirect_to :action=>'edit'
         else
-          if @mindmap.private
+          if !has_view_rights?(@mindmap,current_user)
             # 私有导图检查权限
-            return (render :text=>'这个思维导图是私有的，您没有权限查看')
+            return render_status_page(403,'这个思维导图是私有的，您没有权限查看')
           end
           @comments=@mindmap.comments.paginate :page=>params[:page],:per_page=>10
           (@mindmap.visit_counter ||= VisitCounter.new).rise
@@ -46,7 +47,7 @@ class MindmapsController < ApplicationController
       end
       
       format.xml do
-        if @mindmap.private && @mindmap.user_id!=current_user.id
+        if !has_view_rights?(@mindmap,current_user)
           # 私有导图检查权限
           return (render :text=>'<code>private</code>')
         end
@@ -54,9 +55,9 @@ class MindmapsController < ApplicationController
       end
 
       format.mm do
-        if @mindmap.private && @mindmap.user_id!=current_user.id
+        if !has_view_rights?(@mindmap,current_user)
           # 私有导图检查权限
-          return (render :text=>'<code>private</code>')
+          return render_status_page(403,'他人的私有导图，无法下载')
         end
         v = params[:v] || "9"
         onto = FreemindParser.export(@mindmap,v)
@@ -66,7 +67,7 @@ class MindmapsController < ApplicationController
       end
       
       format.js do
-        if @mindmap.private && @mindmap.user_id!=current_user.id
+        if !has_view_rights?(@mindmap,current_user)
           # 私有导图检查权限
           return (render :text=>'private')
         end
@@ -74,22 +75,26 @@ class MindmapsController < ApplicationController
       end
       
       format.json do
-        render :json=>{'mindmap'=>{'title'=>@mindmap.title,'logo'=>@mindmap.logo_url_for_core,'created_at'=>@mindmap.created_at}}
+        if !has_view_rights?(@mindmap,current_user)
+          # 私有导图检查权限
+          return (render :text=>'private')
+        end
+        render :json=>{'mindmap'=>{'title'=>@mindmap.title,'logo'=>@mindmap.logo.url,'created_at'=>@mindmap.created_at}}
       end
 
       format.mmap do
-        if @mindmap.private && @mindmap.user_id!=current_user.id
+        if !has_view_rights?(@mindmap,current_user)
           # 私有导图
-          return (render :text=>'他人的私有导图，无法下载')
+          return render_status_page(403,'他人的私有导图，无法下载')
         end
         path = @mindmap.export_to_mindmanager
         send_file path,:type=>"*/*",:disposition=>'attachment',:filename=>"#{@mindmap.title.utf8_to_gbk}.mmap"
       end
 
       format.doc do
-        if @mindmap.private && @mindmap.user_id!=current_user.id
+        if !has_view_rights?(@mindmap,current_user)
           # 私有导图
-          return (render :text=>'他人的私有导图，无法下载')
+          return render_status_page(403,'他人的私有导图，无法下载')
         end
         path = WordXmlParser.export(@mindmap)
         send_file path,:type=>"*/*",:disposition=>'attachment',:filename=>"#{@mindmap.title.utf8_to_gbk}.doc"
@@ -100,14 +105,6 @@ class MindmapsController < ApplicationController
       format.jpg {show_image 'jpeg'}
       format.gif {show_image 'gif'}
     end
-  end
-
-  def show_image(format)
-    if @mindmap.private && @mindmap.user_id!=current_user.id
-      return(redirect_to '/images/private_quote_notice.png')
-    end
-    zoom = params[:zoom].blank? ? 1 : params[:zoom].to_f
-    redirect_to "#{IMAGE_CACHE_SITE}/images/#{params[:id]}.#{format}?size_param=#{zoom}"
   end
 
   def edit

@@ -58,12 +58,12 @@
 
 -if !mindmap.cooperations.blank?
   .cooprate.clearfix
-    %span 允许编辑：
+    %span 允许编辑:
     %ul
-      -mindmap.cooperate_editors.each do |user|
-        %li=link_to user.name,"/users/#{user.id}/mindmaps"
+      -mindmap.cooperate_edit_email_actors.each do |ea|
+        %li=email_actor_link(ea)
     -if mindmap.private
-      %span 允许查看：
+      %span 允许查看:
       %ul
-        -mindmap.cooperate_viewers.each do |user|
-          %li=link_to user.name,"/users/#{user.id}/mindmaps"
+        -mindmap.cooperate_view_email_actors.each do |ea|
+          %li=email_actor_link(ea)

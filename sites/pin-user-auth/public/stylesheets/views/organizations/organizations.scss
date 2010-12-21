@@ -98,12 +98,31 @@
       .member-email,.delete{
         float:left;line-height:24px;margin-left:8px;
       }
+      .delete{
+        float:right;
+        a{
+          float:left;
+          background:url(/images/piece/close_pill.png) no-repeat;
+          height:18px;width:18px;
+          text-decoration: none;
+          text-indent: -9999px;
+          margin-top:3px;
+          &:hover{
+            background:url(/images/piece/close_pill.png) no-repeat 0 -50px;
+          }
+        }
+      }
       .member-email{color:white;font-weight:bold;}
+      &:hover{
+        background:#45495B;
+      }
     }
   }
   .add-member-form{
     margin-top:10px;
     padding:6px;
+    input#concat_email{width:300px !important;}
+    input#member_email{width:300px !important;}
   }
 }
 
@@ -180,8 +199,4 @@
     background-color: #96B5DA;
     color: black;
   }
-}
-
-.add-member-form{
-  input#concat_email{width:300px !important;}
 }

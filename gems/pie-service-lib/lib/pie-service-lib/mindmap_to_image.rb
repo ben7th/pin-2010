@@ -122,7 +122,7 @@ class MindmapToImage
   def new_gc
     ps = pointsize
     Magick::Draw.new do |opts|
-      opts.font = "#{RAILS_ROOT}/lib/yahei.ttf"
+      opts.font = RAILS_ENV == "production" ? "/web/2010/pin-2010/yahei.ttf" : "/web1/pin-2010/yahei.ttf"
       opts.pointsize = ps
     end
   end
@@ -430,8 +430,9 @@ class MindmapToImage
 
     sign_height = 30 * zoom
     gc0.rectangle(0,0,w-1,sign_height)
-    
-    logo = Magick::ImageList.new("#{RAILS_ROOT}/public/images/logo_tail.png")
+
+    logo_tail_path = "#{File.dirname(__FILE__)}/images/logo_tail.png"
+    logo = Magick::ImageList.new(logo_tail_path)
 
     gc0.composite(w-120,h-30,0,0,logo)
     

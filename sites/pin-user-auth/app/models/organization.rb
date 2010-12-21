@@ -2,8 +2,10 @@ class Organization < ActiveRecord::Base
   has_many :members,:dependent=>:destroy
 
   validates_presence_of :name
-  validates_presence_of :email
   validates_uniqueness_of :email
+  validates_format_of :email,
+    :with=>/^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/,
+    :if=>Proc.new{|u|!u.email.blank?}
 
   def validate
     user = User.find_by_email(email)
@@ -29,7 +31,11 @@ class Organization < ActiveRecord::Base
 
   #SELECT `organizations`.* FROM `organizations` INNER JOIN `members` ON `organizations`.id = `members`.organization_id WHERE ((`members`.email = 271)
 
-  validates_format_of :email,:with=>/^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/
+  # 邮箱存在的时候返回这个邮箱地址
+  # 没有邮箱地址的时候返回organization123@mindpin.com(123是id)
+  def logic_email
+    return email.nil? ? "organization#{id}@mindpin.com" : email
+  end
 
   # 判断 名字是否重复
   def name_repeat?
@@ -72,6 +78,13 @@ class Organization < ActiveRecord::Base
   module UserMethods
     def is_owner_of?(organization)
       organization.owners.include?(self)
+    end
+
+    def validate
+      org = Organization.find_by_email(email)
+      if !email.blank? && org
+        errors.add(email,"邮箱地址已经被使用过了")
+      end
     end
   end
 

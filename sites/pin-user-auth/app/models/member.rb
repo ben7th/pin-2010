@@ -20,7 +20,7 @@ class Member < ActiveRecord::Base
   end
 
   def username
-    '' if self.user.blank?
+    return '' if self.user.blank?
     self.user.name
   end
 

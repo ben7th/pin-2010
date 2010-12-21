@@ -1,45 +1,14 @@
 -require_css 'views/organizations'
 
 -content_for :javascripts do
+  =javascript_include_tag 'views/member_auto_complete_load'
   :javascript
     pie.load(function(){
-      jQuery('#concat_email').autocomplete('/users/autocomplete',{
-        formatItem: function(data, index, total) {
-          var json = jQuery.parseJSON(data[0]);
-          var avatar = json.avatar;
-          var name = json.name;
-          var id = json.id;
-          var email = json.email;
-          return "<img class='logo tiny' src='"+avatar+"' />"+name+"("+email+")";
-        },
-        formatMatch: function(data, i, total) {
-          var json = jQuery.parseJSON(data[0]);
-          var name = json.name;
-          var email = json.email;
-          return name + "," + email;
-        },
-        formatResult: function(data) {
-          var json = jQuery.parseJSON(data[0]);
-          return json.email;
-        }
-      }).result(function(event, data) {
-        var json = jQuery.parseJSON(data[0]);
-        add_member_submit();
-      })
-    });
-
-    function show_add_member_info(){
-      jQuery('.add-member-failure-info').html('正在处理...');
-    }
-
-    function add_member_submit(){
-      show_add_member_info();
-      new Ajax.Request('/concats', {
-        asynchronous:true,
-        evalScripts:true,
-        parameters:Form.serialize($$('.add-member-form form')[0])
+      var cac = new pie.ConcatAutoComplete('#concat_email');
+      jQuery('.add-member-form .inline-button').bind('click',function(){
+        cac.add_member_submit();
       });
-    }
+    });
 
 .grid_11.alpha
   %h3 管理联系人
@@ -49,12 +18,11 @@
     .member-list
       -mplist @concats,:for=>Concat
 
-    .add-member-form
-      - form_remote_tag :url=>"/concats",:before=>"show_add_member_info()" do
-        .field
-          %span.marginr5 邮箱
-          = text_field_tag 'concat[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5 inline text'
-          = submit_tag "添加",:class=>'inline-button'
-      .add-member-failure-info
+    .add-member-form.form
+      .field
+        %span.marginr5 邮箱
+        = text_field_tag 'concat[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5 inline text'
+        = submit_tag "添加",:class=>'inline-button'
+      .add-member-info
 
 .grid_11.omega.fright
