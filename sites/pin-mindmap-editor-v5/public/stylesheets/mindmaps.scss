@@ -149,6 +149,9 @@
         overflow:hidden;
         li{display:inline;margin-left:3px;}
       }
+      &.nl{
+        padding:4px 5px 4px 5px;
+      }
     }
 
     &.grid{
@@ -274,4 +277,14 @@
       }
     }
   }
+}
+
+h3.b{
+  border:1px solid #333346;
+  background:#0E0E1A;
+  @include border-radius(5px);
+  padding:3px 8px;
+  margin-bottom:10px;
+  line-height:22px;
+  &.margint40{margin-top:40px;}
 }

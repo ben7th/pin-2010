@@ -16,12 +16,15 @@ class MembersController < ApplicationController
 
   def index
     set_tabs_path('organizations/tabs')
+    if @organization.is_owner?(current_user)
+      return render :template=>"members/index_owner"
+    end
   end
 
   def create
     @member = @organization.members.new(params[:member])
     if @member.save
-      Activity.create(:operator=>current_user.email,:location=>@organization,:target_type=>"Member", :target_id=>@member.id,:event=>Activity::ADD_ORG_MEMBER)
+      Activity.create_add_org_member(current_user,@organization,@member)
       render_ui do |ui|
         ui.mplist :insert,@member
         ui.page << %~
@@ -36,7 +39,6 @@ class MembersController < ApplicationController
 
   def destroy
     if @member.destroy
-      Activity.create(:operator=>current_user.email,:location=>@organization,:target_type=>"Member", :target_id=>@member.id,:event=>Activity::DELETE_ORG_MEMBER)
       render_ui.mplist :remove,@member
     end
   end

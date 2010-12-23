@@ -134,38 +134,44 @@
 
 .dashboard-notice {
   background-color: #E7F1FF;
-  color: #000;
   border: solid 1px #111;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  padding: 13px;
-  margin-bottom: 15px; }
+  margin-bottom: 20px;
+  color: #000; }
   .dashboard-notice .quiet {
     color: #666; }
   .dashboard-notice .title {
-    margin: -13px -13px 0 -13px;
-    padding: 13px;
-    border-bottom: solid 1px #A1CAFF;
+    padding: 7px 13px;
     background: url(/images/piece/orgs_title.png) no-repeat 10px;
     padding-left: 70px; }
+  .dashboard-notice .body {
+    border-top: solid 1px #999;
+    padding: 7px 13px; }
+    .dashboard-notice .body a {
+      color: #0669B2; }
+    .dashboard-notice .body .p {
+      margin-bottom: 7px; }
 
 .activities-list .activity {
-  margin: -6px; }
+  margin: -6px;
+  border-bottom: solid 1px #333350; }
   .activities-list .activity .title {
+    font-weight: bold;
     overflow: hidden;
-    padding: 0 0 0.25em;
-    margin: 0 0 10px;
-    border-bottom: solid 1px #333350;
     line-height: 24px; }
     .activities-list .activity .title .loud {
       font-weight: bold; }
-    .activities-list .activity .title .avatar {
-      float: left;
-      margin-right: 10px; }
-      .activities-list .activity .title .avatar .tiny {
-        weight: 20px;
-        height: 20px; }
+  .activities-list .activity .detail .avatar {
+    float: left;
+    margin-right: 10px; }
+    .activities-list .activity .detail .avatar img.logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px; }
 
 .ac_results ul li {
   line-height: 24px;
@@ -183,3 +189,12 @@
   .ac_results ul li.ac_over {
     background-color: #96B5DA;
     color: black; }
+
+.mindmaps.yours img.logo {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  float: left;
+  margin-right: 8px; }

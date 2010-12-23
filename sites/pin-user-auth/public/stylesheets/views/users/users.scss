@@ -87,9 +87,45 @@
   }
 }
 
-.yours-list{
+.organizations{
   li{
     background:url(/images/piece/org_icon_16.png) no-repeat 10px 8px;
     padding-left:32px !important;
+  }
+}
+
+.concats{
+  li{
+    .avatar{
+      float:left;width:20px;height:20px;
+      .logo.tiny{width:16px;height:16px;}
+      margin-right:8px;
+    }
+    .name{
+      float:left;
+    }
+  }
+}
+
+.your_apps{
+  .top-bar{
+    background:#0E0E1A;
+    @include border-radius(5px);
+    padding:3px;
+    border:solid 1px #333346;
+    margin-bottom:10px;
+  }
+  .app-list{
+    .app{
+      overflow:hidden;
+      padding:6px;
+      background:#323546;
+      border:solid 1px #111;
+      @include border-radius(5px);
+      .rclogo{
+        height:66px;
+        margin-right:6px;
+      }
+    }
   }
 }

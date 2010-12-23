@@ -27,9 +27,12 @@ if defined? Rails
 end
 
 require 'pie-auth/core_service'
+require 'pie-auth/email_actor'
 
 # user 信息 需要的类
 if defined? ActiveRecord::Base
+  require 'pie-auth/member_base'
+  require 'pie-auth/organization_base'
   require 'pie-auth/user_base'
   require 'pie-auth/preference'
 end

@@ -207,7 +207,8 @@ body {
   -webkit-border-radius: 5px;
   box-shadow: 0 0 10px #09070e;
   -moz-box-shadow: 0 0 10px #09070e;
-  -webkit-box-shadow: 0 0 10px #09070e; }
+  -webkit-box-shadow: 0 0 10px #09070e;
+  margin-bottom: 20px; }
   .yours .top-bar {
     background-color: #222433;
     border-top-left-radius: 5px;
@@ -227,4 +228,7 @@ body {
     -webkit-border-bottom-right-radius: 5px;
     padding: 0 0 10px 0; }
     .yours .yours-list li {
-      border-bottom: solid 1px #464660; }
+      border-bottom: solid 1px #464660;
+      padding: 10px 6px 6px 6px; }
+    .yours .yours-list .no-item {
+      padding: 6px 10px 0; }

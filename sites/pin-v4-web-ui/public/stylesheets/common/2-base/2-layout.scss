@@ -185,6 +185,7 @@ body {margin:0;}
 .yours{
   @include border-radius(5px);
   @include box-shadow(0 0 10px #09070E);
+  margin-bottom:20px;
   .top-bar{
     background-color:#222433;
     @include border-radius-side(top,left,5px);
@@ -198,6 +199,10 @@ body {margin:0;}
     padding:0 0 10px 0;
     li{
       border-bottom:solid 1px #464660;
+      padding:10px 6px 6px 6px;
+    }
+    .no-item{
+      padding:6px 10px 0;
     }
   }
 }

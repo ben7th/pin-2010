@@ -49,10 +49,10 @@
 
 #mindmap-status-bar
   .cooperate
-    %span 共同编辑者
-    -@mindmap.cooperate_editors.each do |editor|
-      %span{:id=>"editor_#{editor.id}"}
-        =link_to editor.name,"/users/#{editor.id}/mindmaps",:target=>'_blank'
+    %span 共同编辑者:
+    -@mindmap.cooperate_edit_email_actors.each do |ea|
+      %span
+        =email_actor_link(ea,:target=>'_blank')
   .net_condition.hide
     %span 响应时间
     %span.last_respond

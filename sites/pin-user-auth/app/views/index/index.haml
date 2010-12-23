@@ -33,14 +33,14 @@
       -mplist @workspaces,:for=>Workspace do |w|
         .font14.bold=link_to w.name,pin_url_for('pin-workspace',"workspaces/#{w.id}")
 
-.grid_11.alpha
+.grid_15.alpha
   .your_apps
     .top-bar.clearfix
       .fleft.font14.bold.marginl5
         应用组件
         %span.quiet (1)
     .app-list.margint5
-      .padding5
+      .app
         .fleft
           - link_to pin_url_for('pin-mindmap-editor') do
             .rclogo
@@ -48,17 +48,42 @@
         .fleft
           .clearfix
             .fleft.marginl10.bold.font14
-              = link_to '思维导图编辑器',pin_url_for('pin-mindmap-editor')
-            .fleft.marginl10.loud.lh22
-              由 MindPin Team 开发
-          .clearfix.marginl10.margint10.grid_8
-            在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等任务。
+              - link_to pin_url_for('pin-mindmap-editor') do
+                %span 思维导图编辑器
+                %span.loud.font12.normal [打开]
+          .clearfix.marginl10.margint10
+            在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等任务。<br/>
+            支持多种格式的导入导出。你还可以进行多人协同编辑！
 
 .grid_7.omega.fright
+
   .organizations.yours
     .top-bar.clearfix
       .fleft.font14.bold
         团队(#{@organizations.count})
+      .fright
+        =minibutton '设置','/account/organizations'
     .yours-list
-      -mplist @organizations,:for=>Organization do |org|
-        =link_to org.name,pin_url_for('pin-user-auth',"/organizations/#{org.id}")
+      -if @organizations.blank?
+        .no-item
+          目前还没有组织团队
+      -else
+        -mplist @organizations,:for=>Organization do |org|
+          =link_to org.name,pin_url_for('pin-user-auth',"/organizations/#{org.id}")
+
+  .concats.yours
+    .top-bar.clearfix
+      .fleft.font14.bold
+        联系人(#{@concats.count})
+      .fright
+        =minibutton '设置','/account/concats'
+    .yours-list
+      -if @concats.blank?
+        .no-item
+          目前还没有联系人
+      -else
+        -mplist @concats,:for=>Concat do |c|
+          .avatar
+            =avatar c.email,:tiny
+          .name
+            =email_actor_link(c.email)

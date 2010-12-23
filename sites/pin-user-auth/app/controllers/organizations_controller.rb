@@ -37,7 +37,7 @@ class OrganizationsController < ApplicationController
   def leave
     if @organization.leave(current_user)
       # 离开成功
-      flash[:success] = "从 #{@organization.name} 退出成功"
+      flash[:success] = "你已经退出了 #{@organization.name}"
     else
       flash[:notice] = "因为你是本团队唯一的管理者，所以不能退出"
     end
