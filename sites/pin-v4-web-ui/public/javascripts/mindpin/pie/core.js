@@ -42,11 +42,13 @@ pie.isChrome=function(){
 
 pie.randstr=function(length){
   length = length || 8;
-  var base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  var size = base.length
-  re = ''+base[pie.rand(size-10)]
+  var base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toArray();
+  var size = base.length;
+  var j = pie.rand(size-10);
+  re = base[j]
   for(var i=1;i<length;i++){
-    re = re + base[pie.rand(size)]
+    j = pie.rand(size)
+    re = re + base[j]
   }
   return re;
 }

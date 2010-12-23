@@ -53,6 +53,7 @@ class MindmapApiOption
 
     def new_node_id
       _new_node_id = @params["new_node_id"]
+      raise '节点ID 不合法; new_node_id invalid' if !_new_node_id.match /^[a-zA-z0-9]{8}$/
       _new_node_id = randstr(8) if _new_node_id.blank?
       return _new_node_id
     end
