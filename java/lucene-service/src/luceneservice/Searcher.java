@@ -28,6 +28,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  * @author Administrator
  */
 public class Searcher {
+
   private File indexDir;     // 索引路径
   private String q;          // 搜索字符串
   private Integer start;     // 要查询的开始角标
@@ -71,19 +72,23 @@ public class Searcher {
    * @throws Exception
    */
   public String search(String[] searchFields) throws IOException, ParseException, Exception {
-    checkIndexDir();
-    Directory fsDir = FSDirectory.open(indexDir);
-    indexSearch = new IndexSearcher(fsDir);
-    indexSearch.setSimilarity(new IKSimilarity());
-    query = IKQueryParser.parseMultiField(searchFields, q);
-    long startTime = new Date().getTime();
-    allSearchResult = indexSearch.search(query, null, 100000).scoreDocs;
-    returnSearchResult = getScoreDocs();
-    long endTime = new Date().getTime();
-    searchTime = endTime - startTime;
-    // 输出统计数据
-    System.out.println("Found " + returnSearchResult.length + " document(s) (in " + searchTime + " millisenconds) that matched query '" + q + "'");
-    return getResult();
+    try {
+      checkIndexDir();
+      Directory fsDir = FSDirectory.open(indexDir);
+      indexSearch = new IndexSearcher(fsDir);
+      indexSearch.setSimilarity(new IKSimilarity());
+      query = IKQueryParser.parseMultiField(searchFields, q);
+      long startTime = new Date().getTime();
+      allSearchResult = indexSearch.search(query, null, 100000).scoreDocs;
+      returnSearchResult = getScoreDocs();
+      long endTime = new Date().getTime();
+      searchTime = endTime - startTime;
+      // 输出统计数据
+      System.out.println("Found " + returnSearchResult.length + " document(s) (in " + searchTime + " millisenconds) that matched query '" + q + "'");
+      return getResult();
+    } finally {
+      indexSearch.close();
+    }
   }
 
   /**
@@ -98,7 +103,7 @@ public class Searcher {
       return new ScoreDoc[0];
     }
     List<ScoreDoc> list = new ArrayList<ScoreDoc>();
-    for (int i = 0, j = start; i<count&&j < allSearchResult.length; i++, j++) {
+    for (int i = 0, j = start; i < count && j < allSearchResult.length; i++, j++) {
       list.add(allSearchResult[j]);
     }
     return list.toArray(new ScoreDoc[list.size()]);

@@ -10,7 +10,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
@@ -20,12 +19,12 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  */
 public class NoteIndexer extends Indexer {
 
-  private Directory indexDir;         // 索引目录
   private File dataDir;               // 要建(删)索引文件
   private String commitId;            // Note的提交commit_id
   private String type;                // 索引类型 Newest 和 Full
 
   NoteIndexer(String indexDir, String dataDir, String commitId, String type) throws IOException {
+    Main.checkOrMkdir(indexDir);
     this.indexDir = FSDirectory.open(new File(indexDir));
     this.dataDir = new File(dataDir);
     this.commitId = commitId;
@@ -33,6 +32,7 @@ public class NoteIndexer extends Indexer {
   }
 
   NoteIndexer(String indexDir, String dataDir) throws IOException {
+    Main.checkOrMkdir(indexDir);
     this.indexDir = FSDirectory.open(new File(indexDir));
     this.dataDir = new File(dataDir);
   }
@@ -58,17 +58,17 @@ public class NoteIndexer extends Indexer {
   }
 
   /**
-   * 索引 
+   * 索引全部文件
    * @return 返回索引文件数量
    * @throws IOException
    */
-  public int index() throws IOException {
+  public int index() throws IOException, CorruptIndexException, InterruptedException {
     checkFile(dataDir);
     String[] list = indexDir.listAll();
     boolean isEmpty = is_incremental(list);
-    // 创建lucene索引 第三个参数是false，说明是增量索引，不会重写,仅是简单的将create参数设为false，会造成索引重复。
-    writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty, IndexWriter.MaxFieldLength.UNLIMITED);
-    writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
+    unlockIfIndexLocked();             // 创建所有索引之前 检查是否有锁，有则解除之
+    setIndexWriter(isEmpty);
+    writer.setUseCompoundFile(false); // Setting to turn on usage of a compound file when on.
     indexFileOrDirectory(isEmpty);
     int numIndexed = writer.numDocs();
     writer.optimize();

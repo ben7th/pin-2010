@@ -3,8 +3,6 @@ package luceneservice;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TServerSocket;
@@ -18,6 +16,7 @@ import org.apache.thrift.transport.TTransportException;
 public class Main {
 
   private static ConfigFile cf;
+  public static TServerTransport serverTransport;
 
   /**
    * @param args the command line arguments
@@ -73,7 +72,7 @@ public class Main {
   private static void beginNotesServer() throws TTransportException {
     LuceneNotesServiceHandler handler = new LuceneNotesServiceHandler(Main.cf);
     LuceneNotesService.Processor processor = new LuceneNotesService.Processor(handler);
-    TServerTransport serverTransport = new TServerSocket(9090);
+    serverTransport = new TServerSocket(9090);
     // Use this for a multithreaded server
     // 还有一个是 TSimpleServer
     TServer server = new TThreadPoolServer(processor, serverTransport);
@@ -84,10 +83,10 @@ public class Main {
   private static void beginMindmapsServer() throws TTransportException {
     LuceneMindmapsServiceHandler mindmapHandler = new LuceneMindmapsServiceHandler(Main.cf);
     LuceneMindmapsService.Processor mindmapProcessor = new LuceneMindmapsService.Processor(mindmapHandler);
-    TServerTransport newServerTransport = new TServerSocket(9091);
+    serverTransport = new TServerSocket(9091);
     // Use this for a multithreaded server
     // 还有一个是 TSimpleServer
-    TServer mindmapServer = new TThreadPoolServer(mindmapProcessor, newServerTransport);
+    TServer mindmapServer = new TThreadPoolServer(mindmapProcessor, serverTransport);
     System.out.println("Mindmaps index and search server Starting  ...");
     mindmapServer.serve();
   }

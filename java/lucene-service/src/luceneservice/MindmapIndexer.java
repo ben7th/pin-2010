@@ -13,7 +13,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.wltea.analyzer.lucene.IKAnalyzer;
@@ -24,14 +23,15 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  */
 public class MindmapIndexer extends Indexer {
 
-  private Directory indexDir;         // 索引目录
-  private ConfigFile cf;
+  private ConfigFile cf; // 配置文件
   private Document doc;
 
   MindmapIndexer() {
+    Main.checkOrMkdir(cf.getMindmapIndexPath());
   }
 
   MindmapIndexer(ConfigFile cf) throws IOException {
+    Main.checkOrMkdir(cf.getMindmapIndexPath());
     this.cf = cf;
     this.indexDir = FSDirectory.open(new File(cf.getMindmapIndexPath()));
   }
@@ -41,16 +41,13 @@ public class MindmapIndexer extends Indexer {
    * @throws ClassNotFoundException
    * @throws SQLException
    */
-  public int indexAllMindmap() throws ClassNotFoundException, SQLException, IOException {
+  public int indexAllMindmap() throws ClassNotFoundException, SQLException, IOException, InterruptedException {
     Connection connection = getConnection();
     PreparedStatement stat = connection.prepareStatement("select * from mindmaps ;");
     stat.setFetchSize(Integer.MIN_VALUE);
     ResultSet set = stat.executeQuery();
-    writer = new IndexWriter(indexDir, new IKAnalyzer(), true, IndexWriter.MaxFieldLength.UNLIMITED);
-    writer.setUseCompoundFile(false);// Setting to turn on usage of a compound file when on.
-//    writer.setMaxBufferedDocs(500);      //默认值(10)，内存中缓存的索引文件
-//    writer.setMergeFactor(1000);         //每向索引添加n个Document是，就会有一个新的segment在磁盘建立
-//    writer.setMaxMergeDocs(1000);        //一个segment能包含的最大的Document数量
+    unlockIfIndexLocked();
+    setIndexWriter(true);
     int i = 0;
     long begin = new Date().getTime();
     while (set.next()) {
@@ -92,9 +89,8 @@ public class MindmapIndexer extends Indexer {
    * @return
    * @throws IOException
    */
-  public int indexMindmap(int mindmapId) throws IOException, ClassNotFoundException, SQLException {
-    writer = new IndexWriter(indexDir, new IKAnalyzer(), isEmpty(), IndexWriter.MaxFieldLength.UNLIMITED);
-    writer.setUseCompoundFile(false);    // Setting to turn on usage of a compound file when on.
+  public int indexMindmap(int mindmapId) throws IOException, ClassNotFoundException, SQLException, InterruptedException {
+    setIndexWriter(isEmpty());
     Mindmap mindmap = find(mindmapId);
     checkMindmapIndex(mindmap);
     indexMindmapContent(mindmap);
@@ -162,7 +158,6 @@ public class MindmapIndexer extends Indexer {
     Class.forName("com.mysql.jdbc.Driver");
     return DriverManager.getConnection(cf.getDatabaseUrl(), cf.getDatabaseUserName(), cf.getDatabasePassword());
   }
-
   /**
   public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
   Mindmap mindmap = Mindmap.find("8");
