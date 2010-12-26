@@ -1,8 +1,0 @@
--is_current_user_page = (current_user && (current_user == @user))
-
-= javascript_include_tag '/javascripts/views/info_mindmap'
-.margint5
-  %mp:list{:id=>"mplist_user_#{@user.id}_mindmaps",:for=>"mindmap",:mouseoverable=>"#{is_current_user_page}"}
-    -@mindmaps.each do |mindmap|
-      %mp:li{:id=>"mindmap_#{mindmap.id}",:class=>"mli"}
-        = render :partial=>"/mindmaps/list/info_mindmap",:locals=>{:mindmap=>mindmap}

@@ -1,8 +1,0 @@
-- mapid = mindmap.id
-
-= "克隆 #{escape_title(mindmap)}"
-
--remote_form_for [:clone,mindmap],:method=>:put do |t|
-  %span 克隆后的名称
-  =t.text_field :title,:value=>mindmap.title
-  =t.submit "创建克隆"

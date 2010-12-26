@@ -1,7 +1,0 @@
-= will_paginate @comments,{:renderer => 'AjaxLinkRenderer',:update => 'comments-list'}
--unless @comments.blank?
-  %ul
-    -@comments.each do |comment|
-      %li
-        =comment.user.nil?? '访客' : qlink(comment.user) 
-        ：#{h comment.comment}
