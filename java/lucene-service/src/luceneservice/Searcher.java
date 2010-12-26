@@ -72,9 +72,9 @@ public class Searcher {
    * @throws Exception
    */
   public String search(String[] searchFields) throws IOException, ParseException, Exception {
+    checkIndexDir();
+    Directory fsDir = FSDirectory.open(indexDir);
     try {
-      checkIndexDir();
-      Directory fsDir = FSDirectory.open(indexDir);
       indexSearch = new IndexSearcher(fsDir);
       indexSearch.setSimilarity(new IKSimilarity());
       query = IKQueryParser.parseMultiField(searchFields, q);
@@ -88,6 +88,7 @@ public class Searcher {
       return getResult();
     } finally {
       indexSearch.close();
+      fsDir.close();
     }
   }
 
