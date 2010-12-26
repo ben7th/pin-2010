@@ -7,7 +7,7 @@ module MindmapMd5Methods
   # 2 每个节点的备注
   def md5
     # 所有备注的内容
-    notes_content = self.nodes.order_by(:local_id).map{|node|node.note}*" "
+    notes_content = self.node_notes.map{|local_id,note|"#{local_id} #{note}"}*" "
     # 备注和 struct 的内容
     all_content = "#{notes_content} #{self.struct}"
     Digest::MD5.hexdigest(all_content)

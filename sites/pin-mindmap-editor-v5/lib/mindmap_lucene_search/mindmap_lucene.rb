@@ -7,7 +7,7 @@ class MindmapLucene
   end
 
   def self.relative_mindmaps(query,count)
-    self.search_page(query,0,count).items.map{|item|item.mindmap}
+    self.search_page(query,0,count).items.map{|item|item.mindmap}.compact
   end
 
   # page 第几页

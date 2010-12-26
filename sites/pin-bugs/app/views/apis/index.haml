@@ -1,0 +1,11 @@
+.topl
+  .grid_11.alpha
+    .apis-list
+      .meta
+        %h3 API(#{@api_helps.count})
+      .data
+        -@api_helps.each do |ah|
+          .p
+            =link_to ah.title,"/apis/#{ah.id}"
+  .grid_11.omega
+    =minibutton '创建API说明','/apis/new'

@@ -197,3 +197,6 @@
   padding: 5px; }
 .comment-form .submit {
   float: right; }
+
+.notes-list .note.private a {
+  color: #FBE881; }

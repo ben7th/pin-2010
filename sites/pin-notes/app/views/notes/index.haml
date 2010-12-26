@@ -1,5 +1,6 @@
 -require_css 'notes'
 
--current_user.notes.each do |note|
-  %div
-    =link_to "#{note.id}号资料",note
+.notes-list
+  -current_user.notes.each do |note|
+    .note{:class=>note.private? ? 'private':''}
+      =link_to "#{note.nid}号资料","/notes/#{note.nid}"

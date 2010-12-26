@@ -1,0 +1,63 @@
+-require_css 'views/api'
+-api = @api_help
+
+.grid_17.alpha
+  .api_help
+    %h3=api.title
+    .p
+      =api.description
+
+    %h3 URL
+    .p.url
+      =api.url
+
+    %h3 支持格式
+    .p
+      =api.format
+
+    %h3 HTTP请求方式
+    .p
+      =api.http_method
+
+    %h3 是否需要登录
+    .p
+      =api.need_signup ? '是':'否'
+
+    %h3 请求参数
+    .p
+      %table.params-table{:border=>1}
+        %tr
+          %th
+          %th 必选
+          %th 类型及范围
+          %th 说明
+        -api.api_params.each do |p|
+          %tr
+            %td.key=p.key
+            %td=p.required
+            %td=p.kind
+            %td=p.description
+      =minibutton '增加',"/apis/#{api.id}/params/new"
+    %h3 注意事项
+    .p
+      =api.memo
+
+    %h3 调用示例
+    .p
+      =api.example
+
+    %h3 返回结果
+    .p
+      =api.result
+
+.grid_6.omega
+  .clearfix.marginb10
+    .fright
+      =minibutton '返回列表',"/apis/"
+      =minibutton '修改',"/apis/#{api.id}/edit"
+  :coderay
+    #!ruby
+
+    if true
+      puts "hello"
+    end

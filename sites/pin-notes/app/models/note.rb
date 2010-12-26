@@ -24,6 +24,8 @@ class Note < ActiveRecord::Base
     self.private_id = randstr(20) if self.private
   end
 
+  # 必须 是 after
+  # 公有的 note 要用到 note.id，才能初始化版本库
   after_create :init_repo
 
   after_destroy :delete_repo

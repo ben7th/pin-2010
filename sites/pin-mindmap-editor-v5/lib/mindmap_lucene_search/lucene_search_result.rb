@@ -44,7 +44,6 @@ class LuceneSearchResult
         @attrs[ma[1]] = args.first
       else
         value = @attrs[mns]
-        raise "没有 #{mns} 方法" if value.blank?
         return value
       end
     end

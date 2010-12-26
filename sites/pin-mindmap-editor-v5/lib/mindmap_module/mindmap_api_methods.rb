@@ -22,12 +22,11 @@ module MindmapApiMethods
 
   def update_or_create_note(local_id,note)
     if note!=''&&note!='<br>'
-      node=nodes.find_or_create_by_local_id(local_id)
-      node.note=note
-      node.save
+      # 创建或者更新
+      update_node_note(local_id,note)
     else
-      node=nodes.find_by_local_id(local_id)
-      node.destroy unless node.blank?
+      # 删除
+      destroy_node_note(local_id)
     end
   end
 

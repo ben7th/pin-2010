@@ -213,3 +213,11 @@ $bgc:#323546;
     float:right;
   }
 }
+
+.notes-list{
+  .note{
+    &.private{
+      a{color:#FBE881;}
+    }
+  }
+}

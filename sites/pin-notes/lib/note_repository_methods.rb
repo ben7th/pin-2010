@@ -10,6 +10,16 @@ module NoteRepositoryMethods
       old_note.grit_repo.fork_bare(note.repository_path,{:bare => false,:shared=>false})
       note
     end
+
+    def mindmap_fork(email,mindmap_id)
+      attrs = {}
+      user = User.find_by_email(email)
+      attrs[:user_id] = user ? user.id : 0
+      attrs[:private] = true
+      attrs[:fork_from_data] = {:email=>email,:mindmap_id=>mindmap_id}.to_json
+      note = Note.create(attrs)
+      note
+    end
   end
 
   def self.included(base)
@@ -128,6 +138,27 @@ module NoteRepositoryMethods
     grit_repo.add(file_name)
     # 提交版本库
     grit_repo.commit_index("##")
+  end
+
+  def delete_file!(file_name)
+    # 设置提交者
+    set_creator_as_commiter
+    # 删除文件
+    delete_notefiles([file_name])
+    # 提交版本库
+    grit_repo.commit_index("##")
+  end
+
+  # 增加一段文本片段
+  def add_text_content!(name,content)
+    # 设置提交者
+    set_creator_as_commiter
+    # 把内容写入版本库
+    create_or_update_notefiles({name=>content})
+    # 提交版本库
+    grit_repo.commit_index("##")
+    # 创建搜索索引
+    NoteLucene.add_index(self) if !self.private
   end
 
   def fork_from

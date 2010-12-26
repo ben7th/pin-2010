@@ -53,7 +53,8 @@
       .actions
         -if @can_edit
           =minibutton "编辑","/notes/#{@note.nid}/edit"
-        =minibutton "下载",note_commit_download_path(:note_id=>@note.nid,:commit_id=>@commit_id)
+        -if !@commit_id.blank?
+          =minibutton "下载",note_commit_download_path(:note_id=>@note.nid,:commit_id=>@commit_id)
         -if logged_in?
           -if current_user.star_note?(@note)
             =minibutton "去星标","/unstar/#{@note.nid}",:method=>:delete

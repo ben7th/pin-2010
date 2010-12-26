@@ -4,7 +4,7 @@ module NotesHelper
     when 'image/jpeg','image/png','image/gif'
       "<img class='logo' src='/notes/#{note.nid}/zoom/400/#{blob.id}/#{blob.basename}'/>"
     else
-      simple_format blob.data
+      simple_format(h(blob.data))
     end
   end
 

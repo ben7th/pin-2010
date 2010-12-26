@@ -9,10 +9,8 @@ module MindmapParseStructMethods
   # 6月7日，Nodes的 x y 属性均作废
   # 8月24日 修改递归过程，防止产生过多的SQL
   def struct_hash
-    @node_note_hash=Hash.new('')
-    self.nodes.each do |n|
-      @node_note_hash[n.local_id]=n.note unless n.note.blank?
-    end
+    @node_note_hash= self.node_notes
+    
     doc = Nokogiri::XML self.struct
     nodes=doc.at_xpath("/Nodes")
     root=doc.at_xpath("/Nodes/N")
@@ -56,7 +54,7 @@ module MindmapParseStructMethods
   end
 
   def get_note_from(id)
-    @node_note_hash[id]
+    @node_note_hash[id] || ""
   end
 
   # 解析XML并转换为JSON字符串
