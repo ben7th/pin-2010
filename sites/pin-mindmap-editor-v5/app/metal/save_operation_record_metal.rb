@@ -15,9 +15,14 @@ class SaveOperationRecordMetal < BaseMetal
       return [422,{"Content-Type" => "text/xml"}, ["md5值不匹配，需要#{mindmap.md5}，提交为#{params["md5"]}"]]
     end
     
-    opers.each do |op|
-      mindmap.do_operation(op)
+    begin
+      opers.each do |op|
+        mindmap.do_operation(op)
+      end
+      return [200, {"Content-Type" => "text/x-json"}, [{:md5=>mindmap.md5}.to_json]]
+    rescue Exception => ex
+      return [500, {"Content-Type" => "text/x-json"}, [{:error=>ex.message}.to_json]]
     end
-    return [200, {"Content-Type" => "text/x-json"}, [{:md5=>mindmap.md5}.to_json]]
+
   end
 end

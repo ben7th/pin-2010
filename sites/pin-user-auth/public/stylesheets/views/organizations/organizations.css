@@ -88,12 +88,30 @@
       float: left;
       line-height: 24px;
       margin-left: 8px; }
+    .member-block .member-list li.user .delete, .member-block .member-list li.member .delete, .member-block .member-list li.concat .delete {
+      float: right; }
+      .member-block .member-list li.user .delete a, .member-block .member-list li.member .delete a, .member-block .member-list li.concat .delete a {
+        float: left;
+        background: url(/images/piece/close_pill.png) no-repeat;
+        height: 18px;
+        width: 18px;
+        text-decoration: none;
+        text-indent: -9999px;
+        margin-top: 3px; }
+        .member-block .member-list li.user .delete a:hover, .member-block .member-list li.member .delete a:hover, .member-block .member-list li.concat .delete a:hover {
+          background: url(/images/piece/close_pill.png) no-repeat 0 -50px; }
     .member-block .member-list li.user .member-email, .member-block .member-list li.member .member-email, .member-block .member-list li.concat .member-email {
       color: white;
       font-weight: bold; }
+    .member-block .member-list li.user:hover, .member-block .member-list li.member:hover, .member-block .member-list li.concat:hover {
+      background: #45495B; }
   .member-block .add-member-form {
     margin-top: 10px;
     padding: 6px; }
+    .member-block .add-member-form input#concat_email {
+      width: 300px !important; }
+    .member-block .add-member-form input#member_email {
+      width: 300px !important; }
 
 .goto-organization-page {
   border-top: solid 1px #242438;
@@ -116,38 +134,44 @@
 
 .dashboard-notice {
   background-color: #E7F1FF;
-  color: #000;
   border: solid 1px #111;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  padding: 13px;
-  margin-bottom: 15px; }
+  margin-bottom: 20px;
+  color: #000; }
   .dashboard-notice .quiet {
     color: #666; }
   .dashboard-notice .title {
-    margin: -13px -13px 0 -13px;
-    padding: 13px;
-    border-bottom: solid 1px #A1CAFF;
+    padding: 7px 13px;
     background: url(/images/piece/orgs_title.png) no-repeat 10px;
     padding-left: 70px; }
+  .dashboard-notice .body {
+    border-top: solid 1px #999;
+    padding: 7px 13px; }
+    .dashboard-notice .body a {
+      color: #0669B2; }
+    .dashboard-notice .body .p {
+      margin-bottom: 7px; }
 
 .activities-list .activity {
-  margin: -6px; }
+  margin: -6px;
+  border-bottom: solid 1px #333350; }
   .activities-list .activity .title {
+    font-weight: bold;
     overflow: hidden;
-    padding: 0 0 0.25em;
-    margin: 0 0 10px;
-    border-bottom: solid 1px #333350;
     line-height: 24px; }
     .activities-list .activity .title .loud {
       font-weight: bold; }
-    .activities-list .activity .title .avatar {
-      float: left;
-      margin-right: 10px; }
-      .activities-list .activity .title .avatar .tiny {
-        weight: 20px;
-        height: 20px; }
+  .activities-list .activity .detail .avatar {
+    float: left;
+    margin-right: 10px; }
+    .activities-list .activity .detail .avatar img.logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px; }
 
 .ac_results ul li {
   line-height: 24px;
@@ -166,5 +190,11 @@
     background-color: #96B5DA;
     color: black; }
 
-.add-member-form input#concat_email {
-  width: 300px !important; }
+.mindmaps.yours img.logo {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  float: left;
+  margin-right: 8px; }

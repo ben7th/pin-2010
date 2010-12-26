@@ -1,6 +1,7 @@
-class Member < ActiveRecord::Base
+class Member < MemberBase
+  set_readonly(false)
   belongs_to :organization
-  belongs_to :user,:foreign_key=>"email"
+  belongs_to :user,:foreign_key=>"email",:primary_key=>"email"
 
   validates_presence_of :organization
   validates_presence_of :email
@@ -10,18 +11,6 @@ class Member < ActiveRecord::Base
     if organization.has_email?(email)
       errors.add("email","该成员已经加入团队")
     end
-  end
-
-  KIND_COMMON = 'common'
-  KIND_OWNER = 'owner'
-
-  def user
-    User.find_by_email(email)
-  end
-
-  def username
-    '' if self.user.blank?
-    self.user.name
   end
 
   module UserMethods

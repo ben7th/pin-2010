@@ -5,16 +5,17 @@ class CooperationsController < ApplicationController
   end
 
   def cooperate_dialog
+    @cooperate_edit_email_list_str = @mindmap.cooperate_edit_email_list*","
+    @cooperate_view_email_list_str = @mindmap.cooperate_view_email_list*","
   end
 
   def save_cooperations
     cooperate_viewers = params[:cooperate_viewers].split(/\n|,/)
     cooperate_editors = params[:cooperate_editors].split(/\n|,/)
-
     # 清空 协同编辑
-    @mindmap.cooperate_editors.each { |user| @mindmap.remove_cooperate_editor(user) }
+    @mindmap.remove_all_cooperate_editor
     # 清空 协同查看
-    @mindmap.cooperate_viewers.each { |user| @mindmap.remove_cooperate_viewer(user) }
+    @mindmap.remove_all_cooperate_viewer
     # 设置 协同编辑
     cooperate_editors.each{|email| @mindmap.add_cooperate_editor(email)}
     # 设置 协同查看

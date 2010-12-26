@@ -114,6 +114,14 @@ class Mindmap < ActiveRecord::Base
     self.update_attributes(:private=>true)
   end
 
+  def refresh_local_id
+    ms = MindmapStruct.new(self)
+    ms.child_nodes.each do |cn|
+      cn['id'] = randstr(8)
+    end
+    self.update_attribute(:struct,ms.struct)
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :mindmaps
@@ -131,4 +139,5 @@ class Mindmap < ActiveRecord::Base
   include MindmapSearchMethods
   include MindmapParseStructMethods
   include MindmapMd5Methods
+  include ImageCache::MindmapMethods
 end

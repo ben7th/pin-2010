@@ -94,6 +94,8 @@ class UserBase < ActiveRecord::Base
     Digest::SHA1.hexdigest(name+hashed_password+@@token_key)
   end
 
+  include OrganizationBase::UserMethods
+
   if RAILS_ENV == "test" && !self.table_exists?
     self.connection.create_table :users, :force => true do |t|
       t.string   "name",                      :default => "", :null => false

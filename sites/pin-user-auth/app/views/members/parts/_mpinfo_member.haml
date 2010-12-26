@@ -5,6 +5,7 @@
     %span{:class=>member.kind == 'owner'?'loud':''}
       =member.email
       =member.username.blank? ? '':"(#{member.username})"
-  .delete
-    -if member.email != current_user.email
-      =link_to_remote '删除',:url=>"/organizations/#{@organization.id}/members/#{member.id}",:method=>'DELETE'
+  -if current_user.is_owner_of?(@organization)
+    .delete
+      -if member.kind != 'owner'
+        =link_to_remote '',:url=>"/organizations/#{@organization.id}/members/#{member.id}",:method=>'DELETE'

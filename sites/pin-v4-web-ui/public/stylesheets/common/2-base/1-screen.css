@@ -182,7 +182,7 @@ div.uv {
   .flash-error span, .flash-notice span, .flash-success span {
     line-height: 32px;
     height: 32px;
-    padding-left: 27px;
+    padding-left: 30px;
     display: block;
     font-size: 14px;
     overflow: hidden; }
@@ -210,8 +210,15 @@ div.uv {
       cursor: pointer; }
 
 .flash-notice {
-  background: #FFF8CC;
-  color: #935A00; }
+  background: -moz-linear-gradient(-90deg, #fff8cc, #dad4ae);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fff8cc), to(#dad4ae));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fff8cc',endColorstr='#dad4ae');
+  text-shadow: 1px 1px 2px #FFFFFF;
+  color: #684000; }
+  .flash-notice span {
+    background-image: url(/images/flashinfo/notice.png);
+    background-position: 0 4px;
+    background-repeat: no-repeat; }
 
 .flash-success {
   background: -moz-linear-gradient(-90deg, #d3f95a, #97bc3d);

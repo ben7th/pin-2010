@@ -82,6 +82,37 @@
       background: url(/images/piece/check.png) no-repeat 0 3px;
       padding-left: 18px; }
 
-.yours-list li {
+.organizations li {
   background: url(/images/piece/org_icon_16.png) no-repeat 10px 8px;
   padding-left: 32px !important; }
+
+.concats li .avatar {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px; }
+  .concats li .avatar .logo.tiny {
+    width: 16px;
+    height: 16px; }
+.concats li .name {
+  float: left; }
+
+.your_apps .top-bar {
+  background: #0E0E1A;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 3px;
+  border: solid 1px #333346;
+  margin-bottom: 10px; }
+.your_apps .app-list .app {
+  overflow: hidden;
+  padding: 6px;
+  background: #323546;
+  border: solid 1px #111;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }
+  .your_apps .app-list .app .rclogo {
+    height: 66px;
+    margin-right: 6px; }

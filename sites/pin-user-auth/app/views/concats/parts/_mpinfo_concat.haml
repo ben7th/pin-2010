@@ -2,6 +2,7 @@
   .member-logo
     =avatar concat.email,:tiny
   .member-email
-    =concat.email
+    -actor = EmailActor.new(concat.email)
+    =actor.email_name
   .delete
     =link_to_remote '删除',:url=>"/concats/#{concat.id}",:method=>'DELETE'

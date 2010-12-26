@@ -18,8 +18,6 @@ module MindmapApiMethods
     when 'do_move' then
       _do_move(option.params)
     end
-    rescue Exception => ex
-      p ex
   end
 
   def update_or_create_note(local_id,note)

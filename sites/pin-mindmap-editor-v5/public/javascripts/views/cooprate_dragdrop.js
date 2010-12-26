@@ -1,11 +1,3 @@
-pie.load(function(){
-  $$('ul.concats li').each(function(li){
-    new pie.drag.Cooprate(li,{});
-  });
-  $('cooperate_editors').value = '';
-  $('cooperate_viewers').value = '';
-})
-
 pie.drag.Cooprate = Class.create(pie.drag.Base,{
   onInit:function(){
     this.concat_li = this.el;

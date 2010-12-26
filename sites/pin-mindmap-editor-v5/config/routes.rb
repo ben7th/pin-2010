@@ -28,6 +28,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.save_cooperations "/save_cooperations/:mindmap_id",:controller=>"cooperations",:action=>"save_cooperations",:conditions=>{:method=>:post}
 
+
+  map.resources :organizations do |org|
+    org.resources :mindmaps,:collection=>{:import=>:get},:controller=>"organization_mindmaps"
+  end
+
   # MindPin功能说明和帮助
   map.intro_mindmap '/intro/mindmap',:controller=>'help',:action=>'intro_mindmap'
   map.intro_editor '/intro/editor',:controller=>'help',:action=>'intro_editor'

@@ -11,7 +11,7 @@ select{padding:1px;}
 textarea {width:390px;height:54px;padding:4px 2px;}
 
 /*mindpin*/
-form{
+form, .form{
   margin-bottom:1px;
   label{color:#ababab;}
   div.field{
@@ -36,7 +36,9 @@ form{
   .form_actions{line-height:30px;}
 }
 
-form .submit,form input[type="submit"],a.button.classy{
+form .submit,form input[type="submit"],
+.form .submit,.form input[type="submit"],
+a.button.classy{
   height:31px;padding:0 11px;position:relative;top:1px;margin:0;
   font-weight:bold;font-size:1em;color:#333;
   white-space:nowrap;border:none;overflow:visible;background:#ddd;
@@ -45,7 +47,17 @@ form .submit,form input[type="submit"],a.button.classy{
   &::-moz-focus-inner { border: 0; }
 }
 
-form .submit,form input[type="submit"],a.button.classy{
+a.button.classy{
+  display:inline-block;
+  line-height:31px;
+  &:hover{
+    text-decoration:none;
+  }
+}
+
+form .submit,form input[type="submit"],
+.form .submit,.form input[type="submit"],
+a.button.classy{
   @include gradient(#ffffff,#e1e1e1);
   @include border-radius(4px);
   @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
@@ -61,49 +73,37 @@ form .submit,form input[type="submit"],a.button.classy{
   &.mousedown{
     @include gradient($color1,$color2);
   }
-}
-
-form .submit.glowing,a.button.classy.glowing{
-  @include gradient(#FFFAD5,#E6E1C0);
-  @include border-radius(4px);
-  @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
-  text-shadow:1px 1px 0 #fff;
-  $color1:#0770a0;
-  $color2:#0ca6dd;
-  &:hover{
-    color:#fff;
-    text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-    border-bottom-color:$color1;background:$color1;
-    @include gradient($color2,$color1);
-  };
-  &.mousedown{
-    @include gradient($color1,$color2);
+  &.glowing{
+    @include gradient(#FFFAD5,#E6E1C0);
+    @include border-radius(4px);
+    @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
+    text-shadow:1px 1px 0 #fff;
+    $color1:#0770a0;
+    $color2:#0ca6dd;
+    &:hover{
+      color:#fff;
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      border-bottom-color:$color1;background:$color1;
+      @include gradient($color2,$color1);
+    };
+    &.mousedown{
+      @include gradient($color1,$color2);
+    }
   }
-}
-
-
-
-form .submit.danger,a.button.classy.danger{
-  color:#990000;
-  $color1:#b33630;
-  $color2:#dc5f59;
-  &:hover{
-    color:#fff;
-    text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-    border-bottom-color:#cd504a;background:$color1;
-    @include gradient($color2,$color1);
-  };
-  &.mousedown{
-    border-bottom-color:$color2;
-    @include gradient($color1,$color2);
-  }
-}
-
-a.button.classy{
-  display:inline-block;
-  line-height:31px;
-  &:hover{
-    text-decoration:none;
+  &.danger{
+    color:#990000;
+    $color1:#b33630;
+    $color2:#dc5f59;
+    &:hover{
+      color:#fff;
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      border-bottom-color:#cd504a;background:$color1;
+      @include gradient($color2,$color1);
+    };
+    &.mousedown{
+      border-bottom-color:$color2;
+      @include gradient($color1,$color2);
+    }
   }
 }
 

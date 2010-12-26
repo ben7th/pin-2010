@@ -11,16 +11,18 @@ class CooperationTest < ActiveSupport::TestCase
     assert_difference("Cooperation.count",1) do
       mindmap.add_cooperate_viewer(lucy)
     end
-    assert_equal mindmap.cooperate_viewers.count,1
+    assert_equal mindmap.cooperate_viewers.count,2
+    assert mindmap.cooperate_viewers.include?(users(:lifei))
     assert mindmap.cooperate_viewers.include?(lucy)
-    assert mindmap.cooperate_editors.count,0
+    assert_equal mindmap.cooperate_editors.count,1
+    assert mindmap.cooperate_editors.include?(users(:lifei))
     assert lucy.cooperate_view_mindmaps.include?(mindmap)
 
     assert_difference("Cooperation.count",-1) do
       mindmap.remove_cooperate_viewer(lucy.email)
     end
-    assert_equal mindmap.cooperate_viewers.count,0
-    assert_equal mindmap.cooperate_editors.count,0
+    assert_equal mindmap.cooperate_viewers.count,1
+    assert_equal mindmap.cooperate_editors.count,1
   end
 
   test "给公有导图 增加 协同编辑者" do
@@ -32,16 +34,17 @@ class CooperationTest < ActiveSupport::TestCase
     assert_difference("Cooperation.count",1) do
       mindmap.add_cooperate_editor(lucy)
     end
-    assert_equal mindmap.cooperate_editors.count,1
+    assert_equal mindmap.cooperate_editors.count,2
+    assert mindmap.cooperate_editors.include?(users(:lifei))
     assert mindmap.cooperate_editors.include?(lucy)
-    assert_equal mindmap.cooperate_viewers.count,0
+    assert_equal mindmap.cooperate_viewers.count,1
     assert lucy.cooperate_edit_mindmaps.include?(mindmap)
     
     assert_difference("Cooperation.count",-1) do
       mindmap.remove_cooperate_editor(lucy)
     end
-    assert_equal mindmap.cooperate_editors.count,0
-    assert_equal mindmap.cooperate_viewers.count,0
+    assert_equal mindmap.cooperate_editors.count,1
+    assert_equal mindmap.cooperate_viewers.count,1
   end
 
   test "一个用户不能同时是 协同编辑者 协同查看者" do
@@ -53,13 +56,13 @@ class CooperationTest < ActiveSupport::TestCase
     assert_difference("Cooperation.count",1) do
       mindmap.add_cooperate_editor(lucy.email)
     end
-    assert_equal mindmap.cooperate_editors.count,1
+    assert_equal mindmap.cooperate_editors.count,2
     assert mindmap.cooperate_editors.include?(lucy)
-    assert mindmap.cooperate_viewers.count,0
+    assert_equal mindmap.cooperate_viewers.count,1
     assert_difference("Cooperation.count",0) do
       mindmap.add_cooperate_viewer(lucy)
     end
-    assert_equal mindmap.cooperate_editors.count,1
-    assert mindmap.cooperate_viewers.count,0
+    assert_equal mindmap.cooperate_editors.count,2
+    assert_equal mindmap.cooperate_viewers.count,1
   end
 end

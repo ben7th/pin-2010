@@ -98,12 +98,31 @@
       .member-email,.delete{
         float:left;line-height:24px;margin-left:8px;
       }
+      .delete{
+        float:right;
+        a{
+          float:left;
+          background:url(/images/piece/close_pill.png) no-repeat;
+          height:18px;width:18px;
+          text-decoration: none;
+          text-indent: -9999px;
+          margin-top:3px;
+          &:hover{
+            background:url(/images/piece/close_pill.png) no-repeat 0 -50px;
+          }
+        }
+      }
       .member-email{color:white;font-weight:bold;}
+      &:hover{
+        background:#45495B;
+      }
     }
   }
   .add-member-form{
     margin-top:10px;
     padding:6px;
+    input#concat_email{width:300px !important;}
+    input#member_email{width:300px !important;}
   }
 }
 
@@ -127,37 +146,42 @@
 
 .dashboard-notice{
   background-color:#E7F1FF;
-  color:#000;
   border:solid 1px #111;
   @include border-radius(4px);
-  padding:13px;
-  margin-bottom:15px;
+  margin-bottom:20px;
+  color:#000;
   .quiet{color:#666;}
   .title{
-    margin:-13px -13px 0 -13px;
-    padding:13px;
-    border-bottom:solid 1px #A1CAFF;
+    padding:7px 13px;
     background:url(/images/piece/orgs_title.png) no-repeat 10px;
     padding-left:70px;
+  }
+  .body{
+    border-top:solid 1px #999;
+    padding:7px 13px;
+    a{color:#0669B2;}
+    .p{margin-bottom:7px;}
   }
 }
 
 .activities-list{
   .activity{
     margin:-6px;
+    border-bottom:solid 1px #333350;
     .title{
+      font-weight:bold;
       overflow:hidden;
-      padding:0 0 0.25em;
-      margin:0 0 10px;
-      border-bottom:solid 1px #333350;
       line-height:24px;
       .loud{
         font-weight:bold;
       }
+    }
+    .detail{
       .avatar{
         float:left;margin-right:10px;
-        .tiny{
-          weight:20px;height:20px;
+        img.logo{
+          width:24px;height:24px;
+          @include border-radius(3px);
         }
       }
     }
@@ -182,6 +206,11 @@
   }
 }
 
-.add-member-form{
-  input#concat_email{width:300px !important;}
+.mindmaps.yours{
+  img.logo{
+    width:16px;height:16px;
+    @include border-radius(3px);
+    float:left;
+    margin-right:8px;
+  }
 }

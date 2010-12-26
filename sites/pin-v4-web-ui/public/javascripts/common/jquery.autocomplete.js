@@ -197,7 +197,11 @@ $.Autocompleter = function(input, options) {
 		select.unbind();
 		$input.unbind();
 		$(input.form).unbind(".autocomplete");
-	});
+	}).bind("input", function() {
+    // @hack:support for inputing chinese characters in firefox
+    // http://hi.baidu.com/cnkarl/blog/item/bba346be2b68f90218d81f8a.html/cmtid/f5c672dd979c29afcc1166c3
+    onChange(0, true);
+  });
 	
 	
 	function selectCurrent() {

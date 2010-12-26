@@ -185,6 +185,8 @@
       .mplist.mindmaps li.mindmap .cooprate ul li {
         display: inline;
         margin-left: 3px; }
+    .mplist.mindmaps li.mindmap .cooprate.nl {
+      padding: 4px 5px 4px 5px; }
   .mplist.mindmaps li.mindmap.grid {
     float: left;
     width: 200px;
@@ -299,8 +301,23 @@
         float: left;
         margin-right: 10px;
         height: 34px; }
+        .friends-list ul.concats li .avatar img {
+          width: 32px;
+          height: 32px; }
       .friends-list ul.concats li .data .name {
         font-weight: bold;
         color: white; }
       .friends-list ul.concats li .data .email {
         color: #888888; }
+
+h3.b {
+  border: 1px solid #333346;
+  background: #0E0E1A;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 3px 8px;
+  margin-bottom: 10px;
+  line-height: 22px; }
+  h3.b.margint40 {
+    margin-top: 40px; }
