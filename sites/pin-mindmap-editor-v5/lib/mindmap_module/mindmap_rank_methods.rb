@@ -1,11 +1,15 @@
 module MindmapRankMethods
   def rank
-    MindmapRank.new(self).rank_value
+    MindmapRank.new(self).rank_value.to_f
   end
 
   # 导图的节点数
   def node_count
     Nokogiri::XML(self.struct).css("N").count
+  end
+
+  def low_value?
+    self.rank == 0
   end
 
   def self.included(base)

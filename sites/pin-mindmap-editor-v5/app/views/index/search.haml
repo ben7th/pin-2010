@@ -2,7 +2,7 @@
 
 .topl
   .grid_16.margint10.alpha
-    %h3 关于 #{@query} ，#{@result.count} 条结果
+    %h3 关于 #{@query} ，找到 #{@result.total_count} 条结果
     .margint10
       %ul{:id=>"search_mindmaps",:class=>"mplist mindmaps"}
         -@result.items.each do |item|

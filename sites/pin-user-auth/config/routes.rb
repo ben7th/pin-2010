@@ -47,6 +47,17 @@ ActionController::Routing::Routes.draw do |map|
   map.account_concats "account/concats",:controller=>"account",:action=>"concats"
   map.resources :concats,:collection=>{:create_for_plugin=>:post,:destroy_for_plugin=>:delete}
 
+  # 发送邀请函
+  map.account_invite "account/invite",:controller=>"account",:action=>"invite"
+  map.resources :invitations,:member=>{:regeist=>:post}
+
+  # 导入联系人
+  map.import_concats "account/concats/import",:controller=>"concats",:action=>"import"
+  # 导入联系人 显示列表
+  map.import_concats_list "account/concats/import_list",:controller=>"concats",:action=>"import_list"
+  # 导入联系人
+  map.do_import_concats "account/concats/do_import",:controller=>"concats",:action=>"do_import"
+
   # 激活用户
   map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'
 

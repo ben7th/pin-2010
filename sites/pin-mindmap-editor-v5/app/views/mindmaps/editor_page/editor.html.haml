@@ -4,6 +4,7 @@
 = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_canvas'
 = stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
 = stylesheet_link_tag '/javascripts/lightview/css/lightview'
+= stylesheet_link_tag '/javascripts/pie/resizer/pie_resizable'
 
 -content_for :javascripts do
   = javascript_include_tag 'mindmap_editor_packed'
@@ -11,12 +12,13 @@
   = javascript_include_tag 'nicedit/nicEdit'
   = javascript_include_tag 'excanvas/excanvas.compiled'
   = javascript_include_tag 'views/mindmap_page_load'
+  = javascript_include_tag 'pie/resizer/pie_resizable'
 
   = javascript_include_tag '/javascripts/lightview/js/lightview'
 
   :javascript
     pie.load(function(){
-      pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
+      window.page_loader = pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
     });
 
 #mindmap-toolbar
@@ -61,5 +63,9 @@
     %span.average_respond
       %span.time_label 平均:
       %span.time 0
+  .buttons
+    %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;',:onclick=>'page_loader.toggle_sidebar();'}
+      %span 隐藏/显示侧边栏
 
-=render :partial=>'mindmaps/edit/imgselector'
+=render :partial=>'mindmaps/editor_page/module/font_selector'
+=render :partial=>'mindmaps/editor_page/module/img_selector'

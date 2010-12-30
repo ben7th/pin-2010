@@ -21,6 +21,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "haml"
   config.gem "pacecar"
+  config.gem "contacts_cn"
   
   config.gem "pie-auth"
   config.gem "pie-ui"

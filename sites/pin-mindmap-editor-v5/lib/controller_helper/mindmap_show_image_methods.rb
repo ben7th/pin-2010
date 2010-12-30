@@ -9,4 +9,9 @@ module MindmapShowImageMethods
       send_file file_path,:type=>"image/#{format}",:disposition=>'inline'
     end
   end
+  
+  def mime_type(file_name)
+    guesses = MIME::Types.type_for(file_name) rescue []
+    guesses.first ? guesses.first.simplified : "text/plain"
+  end
 end

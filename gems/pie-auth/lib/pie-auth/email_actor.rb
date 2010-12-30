@@ -87,4 +87,12 @@ class EmailActor
 
     return ret
   end
+
+  # 该邮箱是否已在 mindpin 系统中使用
+  # 例如 用户邮箱，团队邮箱
+  def signed_in?
+    actor = User.find_by_email(self.email) || EmailActor.get_organization_by_email(self.email)
+    !!actor
+  end
+
 end

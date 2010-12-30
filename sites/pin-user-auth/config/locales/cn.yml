@@ -65,5 +65,10 @@ cn:
               confirmation: 两次输入的密码不同
             password_confirmation:
               blank: 确认密码不能为空
+        invitation:
+          attributes:
+            contact_email:
+              blank: 请填写邮箱地址
+              invalid: 邮箱地址不符规范
       messages:
         record_invalid: record_invalid

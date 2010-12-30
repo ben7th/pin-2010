@@ -7,6 +7,7 @@ class MindmapsController < ApplicationController
   include MindmapParamsEditingMethods
   include MindmapCloneControllerMethods
   include MindmapShowImageMethods
+  include MindmapFileUploadControllerMethods
 
   # GET /mindmaps
   def index

@@ -256,9 +256,9 @@
     border-radius: 0 0 3px 3px;
     -moz-border-radius: 0 0 3px 3px;
     -webkit-border-radius: 0 0 3px 3px; }
-    .search-result .data .loud {
-      color: black !important;
-      background-color: #FFB019; }
+  .search-result .meta .loud, .search-result .data .loud {
+    color: black !important;
+    background-color: #FFFF00; }
 
 .cooperate-form {
   float: left;

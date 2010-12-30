@@ -76,5 +76,9 @@ class AccountController < ActionController::Base
   def concats
     @concats = current_user.concats
   end
+
+  def invite
+    @invitations = Invitation.find_all_by_host_email(current_user.email)
+  end
   
 end

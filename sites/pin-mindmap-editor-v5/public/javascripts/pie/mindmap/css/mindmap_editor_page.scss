@@ -119,6 +119,9 @@ body{
         .nicEdit-main{font-size:12px;}
       }
     }
+    .snapshots-list{
+      margin-bottom:5px;
+    }
     .chat-box{
       .chat-list{
         height:150px;
@@ -204,6 +207,30 @@ body{
   .net_condition{
     float:right;
     padding:9px;
+  }
+  .buttons{
+    float:right;
+    a.toggle-sidebar{
+      background:url("/images/bg_footer_toolbarbutton.gif") no-repeat center 0;
+      height:24px;width:28px;
+      float:left;
+      margin-right:10px;
+      margin-top:6px;
+      border-left:solid 1px #09192B;
+      border-right:solid 1px #09192B;
+      span{
+        display:block;
+        height:20px;width:20px;
+        margin-top:2px;margin-left:4px;
+        text-indent:999px;
+        overflow:hidden;
+        font-size:0px;
+        background:url("/images/icons_sidebaritem.gif") 0 -280px;
+      }
+      &.open{
+        background:url("/images/bg_footer_toolbarbutton.gif") no-repeat center -48px;
+      }
+    }
   }
 }
 

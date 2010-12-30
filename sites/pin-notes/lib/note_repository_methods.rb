@@ -43,6 +43,12 @@ module NoteRepositoryMethods
   def grit_repo(reload = false)
     @grit_repo = _grit_repo if reload
     @grit_repo ||= _grit_repo
+
+    raise GitRepoNotFoundError,'摘要(note)关联的版本库不存在或已经损坏' if @grit_repo.blank?
+    @grit_repo
+  end
+
+  class GitRepoNotFoundError < StandardError
   end
 
   # 版本库在硬盘中的路径
@@ -98,7 +104,7 @@ module NoteRepositoryMethods
 
   # 得到所有的版本号,新版本号在数组的前面
   def commit_ids
-    grit_repo.commits.map{|commit|commit.id}
+    self.commits.map{|commit|commit.id}
   end
 
   # 得到某一个版本下的 所有 文本片段

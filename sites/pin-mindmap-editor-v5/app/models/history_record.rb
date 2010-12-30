@@ -5,6 +5,7 @@ class HistoryRecord < ActiveRecord::Base
   DO_TITLE = "do_title"
   DO_TOGGLE = "do_toggle"
   DO_IMAGE = "do_image"
+  DO_RM_IMAGE = "do_rm_image"
   DO_MOVE = "do_move"
   DO_NOTE = "do_note"
   DO_ADD_LINK = "do_add_link"
@@ -14,7 +15,7 @@ class HistoryRecord < ActiveRecord::Base
   DO_SET_FONT_ITALIC = "do_set_font_italic"
 
   OPERATIONS = [DO_INSERT,DO_DELETE,DO_TITLE,DO_TOGGLE,
-    DO_IMAGE,DO_MOVE,DO_NOTE,DO_ADD_LINK,DO_CHANGE_COLOR,
+    DO_IMAGE,DO_RM_IMAGE,DO_MOVE,DO_NOTE,DO_ADD_LINK,DO_CHANGE_COLOR,
     DO_CHANGE_FONT_SIZE,DO_SET_FONT_BOLD,DO_SET_FONT_ITALIC
     ]
   

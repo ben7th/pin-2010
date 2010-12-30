@@ -85,3 +85,13 @@ module DiffInit
     @diff             = diff
   end
 end
+
+module Grit
+
+  class Git
+    def run_with_args_flatten(prefix, cmd, postfix, options, args, &block)
+      run_without_args_flatten(prefix, cmd, postfix, options, args.flatten, &block)
+    end
+    alias_method_chain :run,:args_flatten
+  end
+end

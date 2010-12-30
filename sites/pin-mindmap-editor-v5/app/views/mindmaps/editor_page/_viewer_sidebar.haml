@@ -12,14 +12,4 @@
 
 %h3 相似导图..
 .padding5
-  -if @mindmap.rank.to_i != 0
-    .hide
-      -@mindmap.major_words.each do |word|
-        %span=word
-    -r_maps = @mindmap.relative_mindmaps
-    -r_maps.each do |m|
-      %div=link_to m.title,m,:target=>"_blank"
-    -if r_maps.blank?
-      %div 没有找到相关的导图
-  -else
-    %div 节点太少，没有找到相关的导图
+  =render :partial=>'mindmaps/editor_page/module/similar_mindmaps'

@@ -13,6 +13,8 @@ module MindmapApiMethods
       _do_toggle(option.params)
     when 'do_image' then
       _do_image(option.params)
+    when 'do_rm_image' then
+      _do_rm_image(option.params)
     when 'do_note' then
       _do_note(option.params)
     when 'do_move' then
@@ -124,6 +126,18 @@ module MindmapApiMethods
     end
   end
 
+  # 删除一个节点上的图片
+  def _do_rm_image(params)
+    node_id = params.node_id
+    
+     _change_struct do |doc|
+      node = doc.at_css("N[id='#{node_id}']")
+      node.remove_attribute("i")
+      node.remove_attribute("iw")
+      node.remove_attribute("ih")
+      {:params_hash=>params.hash,:operation_kind=>"do_rm_image"}
+    end
+  end
 
   # 移动某个节点
   def _do_move(params)
@@ -157,12 +171,10 @@ module MindmapApiMethods
   def _do_note(params)
     node_id = params.node_id
     note = params.note
-
-    self.update_or_create_note(node_id,note)
-    HistoryRecord.record_operation(self,
-      :struct=>self.struct,
-      :kind=>"do_note",
-      :params_hash=>params.hash)
+    _change_struct do |doc|
+      self.update_or_create_note(node_id,note)
+      {:params_hash=>params.hash,:operation_kind=>"do_note"}
+    end
   end
 
   # 修改一个节点的颜色
@@ -254,10 +266,13 @@ module MindmapApiMethods
 
     params = yield doc
 
+    current_revision = doc.at_css("Nodes")["revision"].to_i || 0
+    doc.at_css("Nodes")["revision"] = (current_revision + 1).to_s
+    self.struct = doc.to_s
+
     params_hash = params[:params_hash]
     operation_kind = params[:operation_kind]
 
-    self.struct = doc.to_s
     if self.struct!=old_struct
       self.save!
       HistoryRecord.record_operation(self,

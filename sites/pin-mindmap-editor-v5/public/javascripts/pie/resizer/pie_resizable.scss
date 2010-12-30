@@ -1,0 +1,39 @@
+.pie-resizable{
+  .s-handle{
+    height:6px;
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    cursor:s-resize;
+    overflow:hidden;
+    background:url(s.gif);
+    zoom:1;
+  }
+  .s-handle-hover{
+    background:url(s-handle.gif) no-repeat center top;
+  }
+  .e-handle{
+    width:6px;
+    position:absolute;
+    right:0;
+    top:0;
+    height:100%;
+    cursor:e-resize;
+    overflow:hidden;
+    background:url(s.gif);
+  }
+  .e-handle-hover{
+    background:url(e-handle.gif) no-repeat center left;
+  }
+  .se-handle{
+    width:6px;height:6px;
+    position:absolute;
+    right:0;bottom:0;
+    cursor:se-resize;
+    overflow:hidden;
+  }
+  .se-handle-hover{
+    background:url(se-handle.gif) no-repeat top left;
+  }
+}

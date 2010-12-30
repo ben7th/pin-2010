@@ -35,7 +35,7 @@ pie.mindmap_menu_module = {
 
       this.nodeMenu.addItem("移除图片",{
         handler:function(){
-          this._nodeImageEditor.doRemoveImage(this.focus);
+          this._nodeImageEditor.do_remove_image(this.focus);
         }.bind(this),
         flag:function(){
           return this.focus.image.url;

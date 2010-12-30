@@ -36,15 +36,20 @@ class NotesController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        set_tabs_path(false)
-        @commit_ids = @note.commit_ids
-        @commit_id = (params[:commit_id] || @commit_ids.first)
-        @can_rollback = _can_rollback?(@note,@commit_ids,@commit_id)
-        @can_fork = _can_fork?(@note)
-        @can_edit = _can_edit?(@note,@commit_ids,@commit_id)
-        @can_delete = _can_delete?(@note)
-        @comments = @note.comments
-        @blobs = @note.blobs(@commit_id)
+        begin
+          set_tabs_path(false)
+          @commit_ids = @note.commit_ids
+          @commit_id = (params[:commit_id] || @commit_ids.first)
+          @can_rollback = _can_rollback?(@note,@commit_ids,@commit_id)
+          @can_fork = _can_fork?(@note)
+          @can_edit = _can_edit?(@note,@commit_ids,@commit_id)
+          @can_delete = _can_delete?(@note)
+          @comments = @note.comments
+          @blobs = @note.blobs(@commit_id)
+        rescue NoteRepositoryMethods::GitRepoNotFoundError => ex
+          render_status_page(500,ex)
+        end
+
       end
       format.js do
         @file_name = params[:file]

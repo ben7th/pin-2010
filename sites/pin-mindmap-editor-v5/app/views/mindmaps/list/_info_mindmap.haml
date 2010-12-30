@@ -1,4 +1,4 @@
-- law_rank_class = (mindmap.rank == "0.0" ? "low-value" : "")
+- law_rank_class = (mindmap.low_value? ? "low-value" : "")
 .map-data.clearfix{:class=>"#{law_rank_class}"}
   .maprankbg
     .rank= mindmap.rank

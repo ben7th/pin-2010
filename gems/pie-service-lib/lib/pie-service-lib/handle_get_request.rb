@@ -7,7 +7,7 @@ class HandleGetRequest
       response = self.get_response(url)
       return handle_with_response(response,url)
     rescue Exception => ex
-#      p ex
+      raise ex
       return ""
     end
   end
@@ -21,7 +21,7 @@ class HandleGetRequest
       path = url_str.query.blank? ? url_str.path : url_str.path+"?"+url_str.query
       return site.get2(path,{'accept'=>'text/html','user-agent'=>'Mozilla/5.0'})
     rescue Exception => ex
-#      raise ex
+      raise ex
       return ""
     end
   end
@@ -36,8 +36,8 @@ class HandleGetRequest
       raise '循环重定向' if response['location'] == url
       get_response_from_url(response['location'])
     else
-      return ''
       raise "链接问题"
+      return ''
     end
   end
   

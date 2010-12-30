@@ -28,6 +28,10 @@ class MindmapStruct
     end
   end
 
+  def content
+    nodes_title * ' '
+  end
+
   # 根节点
   def root
     @m_doc.at_xpath("/Nodes/N")

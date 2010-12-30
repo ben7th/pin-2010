@@ -1,3 +1,5 @@
+@import "../../ui/misc";
+
 /*杂项*/
 .quote-left{background-image:url('/images/quote.gif');vertical-align:middle;width:14px;height:18px;}
 .quote-right{background-image:url('/images/quote.gif');background-position:right;vertical-align:middle;width:14px; height:18px;}
@@ -77,5 +79,17 @@
       border-left:solid 1px #242438;
       padding-left:25px;
     }
+  }
+}
+
+.commit_stat{
+  overflow:hidden;
+  float:left;
+  padding:7px 6px 2px 2px;
+  img{
+    margin-right:-1px;
+    border:solid 1px #e2e2e2;
+    float:left;
+    @include border-radius(2px);
   }
 }

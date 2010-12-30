@@ -8,14 +8,16 @@
         %textarea#mindmap-note-edit{:style=>''}
   -accordion_item '相似导图..',:bgc=>"#98BC48",:open=>true do
     .padding5
-      -if @mindmap.rank.to_i != 0
-        .hide
-          -@mindmap.major_words.each do |word|
-            %span=word
-        -r_maps = @mindmap.relative_mindmaps
-        -r_maps.each do |m|
-          %div=link_to m.title,m,:target=>"_blank"
-        -if r_maps.blank?
-          %div 没有找到相关的导图
-      -else
-        %div 节点太少，没有找到相关的导图
+      =render :partial=>'mindmaps/editor_page/module/similar_mindmaps'
+
+-#  暂时还用不上喔
+-#  -accordion_item '快照',:bgc=>"#98BC48",:open=>true do
+-#    .padding5
+-#      %ul.snapshots-list
+-#        -@mindmap.snapshot_commits.each do |c|
+-#          %li
+-#            =show_commit_stat(c)
+-#            =c.message
+-#            =link_to '恢复',"/mindmaps/#{@mindmap.id}/snapshots/#{c.id}/recover",:method=>'PUT',:confirm=>'恢复这个快照，当前正在编辑的信息将丢失，确定吗？'
+-#      .buttons
+-#        =minibutton_remote '创建快照',:url=>"/mindmaps/#{@mindmap.id}/snapshots/new",:method=>'GET'

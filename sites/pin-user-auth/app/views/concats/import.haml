@@ -1,0 +1,11 @@
+=flash_info
+-form_tag "/account/concats/import_list" do
+  .field
+    %label 邮箱类型
+    =select_tag(:type,options_for_select(["163","gmail","126","sina"]))
+    %label 邮箱（支持 gmail, 163, 126, sina）
+    =text_field_tag :email
+  .field
+    %label 密码
+    =password_field_tag :password
+  =submit_tag "查找"

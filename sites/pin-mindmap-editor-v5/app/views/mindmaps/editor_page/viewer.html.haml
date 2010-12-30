@@ -52,5 +52,8 @@
     %span.average_respond
       %span.time_label 平均:
       %span.time 0
+  .buttons
+    %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;',:onclick=>'page_loader.toggle_sidebar();'}
+      %span 隐藏/显示侧边栏
 
 =render :partial=>'mindmaps/edit/imgselector'

@@ -173,15 +173,6 @@ $bgc:#323546;
     padding:2px;
     line-height:22px;
     .commit_stat{
-      overflow:hidden;
-      float:left;
-      padding:7px 6px 2px 2px;
-      img{
-        margin-right:-1px;
-        border:solid 1px #e2e2e2;
-        float:left;
-        @include border-radius(2px);
-      }
     }
     .commit_id{
       float:left;

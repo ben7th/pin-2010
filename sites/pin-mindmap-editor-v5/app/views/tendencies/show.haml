@@ -28,6 +28,6 @@
     %dd=@private_mindmaps_count
 
 
-%div 可能最相关的导图
--@relative_mindmaps.each do |mindmap|
-  =link_to mindmap.title,mindmap_path(mindmap)
+%div 可能与你最相关的导图
+-@similar_mindmaps.each do |mindmap|
+  %div=link_to mindmap.title,mindmap_path(mindmap),:target=>'_blank'

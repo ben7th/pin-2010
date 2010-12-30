@@ -1,4 +1,10 @@
 module DatetimeHelper
+  def qdatetime_s(time)
+    return "未知" if time.nil?
+    time=time.localtime
+    "#{time.month}月#{time.day}日 #{time.hour}:#{time.min<10 ? "0#{time.min}" : time.min}"
+  end
+
   # 获取当前时区的时间日期的友好形式
   def qdatetime(time)
     return "<span class='date'>未知</span>" if time.nil?

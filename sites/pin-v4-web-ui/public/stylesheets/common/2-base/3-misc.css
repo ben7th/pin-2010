@@ -227,3 +227,15 @@
     .topl .grid_11.omega {
       border-left: solid 1px #242438;
       padding-left: 25px; }
+
+.commit_stat {
+  overflow: hidden;
+  float: left;
+  padding: 7px 6px 2px 2px; }
+  .commit_stat img {
+    margin-right: -1px;
+    border: solid 1px #e2e2e2;
+    float: left;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px; }

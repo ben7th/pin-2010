@@ -1,0 +1,54 @@
+#imgselector{:style=>'display:none;'}
+  %h3.f_box 导图编辑器 - 图片
+  .clearfix
+    .image-sel
+      .form
+        .field
+          %label 图片URL
+          %input.url.inline{:type=>"text",:onmouseup=>"this.select();"}
+          =link_to '<span>载入</span>','javascript:;',:class=>'minibutton load'
+
+        .field.clearfix
+          .fleft
+            %label 宽度
+            %input.width.inline{:type=>"text"}
+          .fleft
+            %label 高度
+            %input.height.inline{:type=>"text"}
+
+        .field.clearfix
+          .fleft
+            %label 图片预览
+            .p=link_to '确定','javascript:;',:class=>'accept button classy'
+            .p.margint10=link_to '复制',"javascript:;",:onclick=>"dup_url_file()",:class=>'dup button classy'
+          .preview.fleft
+
+    .image-upload
+      %ul.image-list
+        -@mindmap.images.each do |i|
+          %li
+            .img{:style=>"background:url(/mindmaps/#{@mindmap.id}/thumb/#{i}) no-repeat center center;"}
+      -form_tag "/mindmaps/#{@mindmap.id}/upload_file",:method=>:post,:multipart=>true,:target=>'upload_frame' do
+        .field
+          =file_field_tag 'file'
+        .actions
+          =submit_tag '确定，上传'
+
+:javascript
+  function dup_url_file(){
+    new Ajax.Request('/mindmaps/#{@mindmap.id}/upload_web_file',{
+      parameters:'url='+encodeURIComponent(mindmap._nodeImageEditor.i_url.value),
+      method:'POST',
+      onSuccess:function(trans){
+        update_node_image(trans.responseText);
+      }
+    });
+  }
+
+  function update_node_image(url){
+    mindmap._nodeImageEditor.i_url.value = url;
+    mindmap._nodeImageEditor.i_width.value = '';
+    mindmap._nodeImageEditor.i_height.value = '';
+    mindmap._nodeImageEditor._do_load();
+  }
+

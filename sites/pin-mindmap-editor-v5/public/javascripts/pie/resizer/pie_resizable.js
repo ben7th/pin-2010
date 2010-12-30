@@ -10,7 +10,7 @@
  *--------------------------------------------------------------------------*/
 
 pie.Resizable=Class.create({
-	log:new pie.Logger().get("debugger"),
+	log:function(){},
 	scale:"free",	//free|fixed
 	proxy:"none",	//none|dashed|shadow
 	initialize: function(el,config){
@@ -32,46 +32,28 @@ pie.Resizable=Class.create({
 	},
 	createHandle:function(){
 		this.s_handle={
-			el:$(Builder.node("div",{
-				"class":"s-handle"
-			}))
+			el:$(Builder.node("div",{"class":"s-handle"}))
 			.makeUnselectable()
-			.observe("mouseover",function(){
-				this.showHandle();
-			}.bind(this))
-			.observe("mouseout",function(){
-				this.hideHandle();
-			}.bind(this))
+			.observe("mouseover",this.showHandle.bind(this))
+			.observe("mouseout",this.hideHandle.bind(this))
 		}
 		
 		this.e_handle={
-			el:$(Builder.node("div",{
-				"class":"e-handle"
-			}))
+			el:$(Builder.node("div",{"class":"e-handle"}))
 			.makeUnselectable()
-			.observe("mouseover",function(){
-				this.showHandle();
-			}.bind(this))
-			.observe("mouseout",function(){
-				this.hideHandle();
-			}.bind(this))
+			.observe("mouseover",this.showHandle.bind(this))
+			.observe("mouseout",this.hideHandle.bind(this))
 		}
 		
 		this.se_handle={
-			el:$(Builder.node("div",{
-				"class":"se-handle"
-			}))
+			el:$(Builder.node("div",{"class":"se-handle"}))
 			.makeUnselectable()
-			.observe("mouseover",function(){
-				this.showHandle();
-			}.bind(this))
-			.observe("mouseout",function(){
-				this.hideHandle();
-			}.bind(this))
+			.observe("mouseover",this.showHandle.bind(this))
+			.observe("mouseout",this.hideHandle.bind(this))
 		}
-		this.el.insert(this.s_handle.el);
-		this.el.insert(this.e_handle.el);
-		this.el.insert(this.se_handle.el);
+		this.el.appendChild(this.s_handle.el);
+		this.el.appendChild(this.e_handle.el);
+		this.el.appendChild(this.se_handle.el);
 		new this.DragHandle(this.s_handle.el,{resizer:this,direction:"s"});
 		new this.DragHandle(this.e_handle.el,{resizer:this,direction:"e"});
 		new this.DragHandle(this.se_handle.el,{resizer:this,direction:"se"});
@@ -113,10 +95,10 @@ pie.Resizable=Class.create({
 			this.cWidth = this.resizer.el.getWidth();
 			
 			if(this.proxy.type=="dashed"){
-				this.proxy.el=$(Builder.node("div",{"style":"border:black dashed 1px;position:absolute;"}));
+				this.proxy.el=$(Builder.node("div",{"style":"border:white dashed 1px;position:absolute;z-index:999999;"}));
 				//此处将proxy.el 的长宽各减去2px以对齐，2px等于2倍的1px的边框宽度
-				this.proxy.el.style.top=this.resizer.el.positionedOffset().top+"px";
-				this.proxy.el.style.left=this.resizer.el.positionedOffset().left+"px";
+				this.proxy.el.style.top=this.resizer.el.cumulativeOffset().top+"px";
+				this.proxy.el.style.left=this.resizer.el.cumulativeOffset().left+"px";
 				this.proxy.el.style.width=this.cWidth-2+"px"//parseFloat(this.proxy.el.style.width)-2 + "px";
 				this.proxy.el.style.height=this.cHeight-2+"px"//parseFloat(this.proxy.el.style.height)-2 + "px";
 				$(document.body).insert(this.proxy.el);

@@ -3,7 +3,7 @@ class TendenciesController < ApplicationController
     @user = User.find(params[:user_id])
 
     @major_words = Mindmap.major_words_of_user(@user,10)
-    @relative_mindmaps = Mindmap.relative_mindmaps_of_user(@user,10)
+    @similar_mindmaps = Mindmap.similar_mindmaps_of_user(@user,10)
 
     @average_node_count = Mindmap.average_node_count_of_user(@user)
     @average_rank = Mindmap.average_rank_of_user(@user)

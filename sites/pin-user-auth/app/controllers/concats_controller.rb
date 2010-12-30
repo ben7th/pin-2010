@@ -1,5 +1,5 @@
 class ConcatsController < ActionController::Base
-  
+  include ConcatsControllerMethods
   before_filter :per_load
   def per_load
     @concat = Concat.find(params[:id]) if params[:id]
@@ -69,6 +69,38 @@ class ConcatsController < ActionController::Base
         render :json=> concats_arr.to_json
       end
     end
+  end
+
+  def import;end
+  
+  def import_list
+    begin
+      @emails = Invitation.fetch_email_contacts(params[:email],params[:password],params[:type])
+
+      @already_contact_email_actors = already_contact_email_actors(@emails)
+
+      @not_contacts_already_regeist_email_actors = not_contacts_already_regeist_email_actors(@emails)
+
+      @not_contact_not_regeist_email_actors = not_contact_not_regeist_email_actors(@emails)
+    rescue Contacts::AuthenticationError => ex
+      flash[:error] = "邮箱或密码错误"
+      redirect_to "/account/concats/import"
+    end
+
+  end
+
+  def do_import
+    params[:ar_emails].each do |ar_email|
+      # 加联系人
+      current_user.concats.create(:email=>ar_email)
+    end
+
+    params[:nr_emails].each do |nr_email|
+      Invitation.new(:host_email=>current_user.email,:contact_email=>nr_email)
+      current_user.concats.create(:email=>nr_email)
+    end
+
+    redirect_to "/account/concats"
   end
 
 end

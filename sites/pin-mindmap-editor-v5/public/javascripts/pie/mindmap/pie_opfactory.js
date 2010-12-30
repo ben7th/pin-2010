@@ -51,6 +51,14 @@ pie.mindmap.OperationRecordFactory = Class.create({
       }
     }
 	},
+  getRemoveImageInstance: function(node){
+    return {
+      "op":"do_rm_image",
+      "params":{
+        "node_id":node.id
+      }
+    }
+  },
 	getNoteInstance: function(node){
 		return {
       "op":"do_note",

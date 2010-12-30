@@ -13,3 +13,5 @@ require 'pie-repo/discussion_log_info'
 require 'pie-repo/grit_init'
 Grit::Repo.send(:include,RepoInit)
 Grit::Diff.send(:include,DiffInit)
+
+require 'pie-repo/mp_git_tool'

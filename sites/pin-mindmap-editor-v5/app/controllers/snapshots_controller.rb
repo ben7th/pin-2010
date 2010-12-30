@@ -1,25 +1,33 @@
 class SnapshotsController < ApplicationController
   before_filter :per_load
-  skip_before_filter :verify_authenticity_token
+  def per_load
+    @mindmap = Mindmap.find(params[:mindmap_id]) if params[:mindmap_id]
+  end
+
+  def new
+    render_ui.fbox :show,:title=>"创建导图快照",:partial=>"snapshots/snapshot_form",:locals=>{:mindmap=>@mindmap}
+  end
 
   def create
-    @snapshot = @mindmap.snapshots.new(params[:snapshot])
-    if @snapshot.save
-      render :json=>{:id=>"snapshot_#{@snapshot.id}",
-        :html=>@template.render(:partial=>"snapshots/info_snapshot",
-          :locals=>{:snapshot=>@snapshot})
-      }
-      return
+    begin
+      @mindmap.create_snapshot(params[:snapshot][:message])
+      render_ui do |ui|
+        ui.page << "alert('导图的快照创建成功')"
+      end
+    rescue MindmapSnapshotMethods::CreateSnapshotError => ex
+      render :text=>"创建快照失败",:status=>500
+    rescue MindmapSnapshotMethods::CreateSnapshotNoContentChangeError => ex
+      render :text=>"导图内容没有变化，不能保存快照",:status=>500
     end
   end
 
   def recover
-    @snapshot.to_recover
-    render :partial=>"/mindmaps/list/info_mindmap",:locals=>{:mindmap=>@mindmap,:ul_id=>"mplist_mindmaps"}
+    begin
+      @mindmap.recover_snapshot(params[:id])
+      redirect_to edit_mindmap_url(@mindmap)
+    rescue MindmapSnapshotMethods::RecoverSnapshotError => ex
+      render :text=>"恢复快照失败，出现错误",:status=>500
+    end
   end
 
-  def per_load
-    @mindmap = Mindmap.find(params[:mindmap_id]) if params[:mindmap_id]
-    @snapshot = Snapshot.find(params[:id]) if params[:id]
-  end
 end

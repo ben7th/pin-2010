@@ -215,9 +215,11 @@
     border-top:none;
     padding:10px;
     @include border-radius(0 0 3px 3px);
+  }
+  .meta,.data{
     .loud{
       color:black !important;
-      background-color:#FFB019;
+      background-color:#FFFF00;
     }
   }
 }

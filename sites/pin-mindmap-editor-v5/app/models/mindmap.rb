@@ -128,7 +128,6 @@ class Mindmap < ActiveRecord::Base
     end
   end
 
-  include Snapshot::MindmapMethods
   include Comment::CommentableMethods
   include Cooperation::MindmapMethods
   
@@ -141,4 +140,6 @@ class Mindmap < ActiveRecord::Base
   include MindmapMd5Methods
   include ImageCache::MindmapMethods
   include MindmapNoteMethods
+  include MindmapSnapshotMethods
+  include MindmapImageMethods
 end

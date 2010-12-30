@@ -495,5 +495,12 @@ pie.mindmap.Node = Class.create({
   //节点高亮
   hilight:function(colorstr){
     this.nodebody.el.setStyle({backgroundColor:colorstr})
+  },
+  do_dirty:function(){
+    if(this.is_root()) return;
+    this.sub.dirty = true;
+  },
+  is_root:function(){
+    return this == this.root;
   }
 });

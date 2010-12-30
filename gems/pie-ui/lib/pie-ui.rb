@@ -49,6 +49,9 @@ module PieUi
       require 'pie-ui/helpers/email_actor_helper'
       ActionView::Base.send :include, EmailActorHelper
 
+      require 'pie-ui/helpers/git_commit_helper'
+      ActionView::Base.send :include, GitCommitHelper
+
       ActionController::Base.send :include, MindpinLayout::ControllerFilter
     end
 
@@ -76,6 +79,10 @@ require 'grit'
 if defined? Rails
   def base_layout_path(filename)
     "#{File.dirname(__FILE__)}/pie-ui/base_layout/#{filename}"
+  end
+
+  def base_haml_path(filename)
+    "#{File.dirname(__FILE__)}/pie-ui/haml/#{filename}"
   end
   
   PieUi.enable_classes

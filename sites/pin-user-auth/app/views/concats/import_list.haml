@@ -1,0 +1,27 @@
+=flash_info
+-form_tag "/account/concats/do_import" do
+  %div 已经增加的联系人
+  %ul
+    -@already_contact_email_actors.each do |actor|
+      %li
+        =avatar actor.email,:tiny
+        =actor.email_name
+
+  %div 已经在 Mindpin 注册的联系人
+  %ul
+    -@not_contacts_already_regeist_email_actors.each do |actor|
+      %li
+        =check_box_tag 'ar_emails[]',"#{actor.email}", true
+        =avatar actor.email,:tiny
+        =actor.email_name
+
+  %div 没有在 Mindpin 注册的联系人
+  %ul
+    -@not_contact_not_regeist_email_actors.each do |actor|
+      %li
+        =check_box_tag 'nr_emails[]',"#{actor.email}", true
+        =avatar actor.email,:tiny
+        =actor.email_name
+
+  =submit_tag "导入联系人，并给没有注册的联系人发送邀请函"
+

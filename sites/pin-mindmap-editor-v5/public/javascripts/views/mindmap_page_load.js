@@ -1,60 +1,41 @@
-pie.MindmapUser = Class.create({
-  initialize:function(user_name,mindmap_id){
-    this.user_name = user_name;
-    this.mindmap_id = mindmap_id;
-  },
-  say:function(text){
-    try{
-      var json = Object.toJSON({
-        'username':this.user_name,
-        'text':text
-      });
-      var pars = 'channel='+'mindmap_'+this.mindmap_id;
-      new Ajax.Request("/mindmaps/push?"+pars,{
-        method:'POST',
-        postBody:json,
-        onSuccess:function(trans){
-          //
-        }
-      });
-    }catch(ex){
-      console.log(ex);
-    }
-  }
-});
-
 pie.MindmapPageLoader = {
-  load_editor_page:function(mindmap_id){
+  _init:function(){
     $("mindmap-canvas").update('');
+    this.sidebar = $('mindmap-sidebar');
+    this.toggle_sidebar_button = $$('a.toggle-sidebar')[0];
+  },
 
+  _load_map:function(mindmap_id,editmode){
     window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
       id:mindmap_id,
       loader: new pie.mindmap.JSONLoader({url:'/mindmaps/' + mindmap_id}),
-      editmode: true,
+      editmode: editmode,
       after_load:function(){mindmap.root.select();}
     }).load();
+  },
 
+  _after_init:function(){
     this.mindmap_resize();
-    Event.observe(window,"resize",this.mindmap_resize);
+    Event.observe(window,"resize",this.mindmap_resize.bind(this));
+    return this;
+  },
+
+  load_editor_page:function(mindmap_id){
+    this._init();
+    this._load_map(mindmap_id,true);
+    return this._after_init();
   },
 
   load_viewer_page:function(mindmap_id){
-    $("mindmap-canvas").update('');
-
-    window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
-      id:mindmap_id,
-      loader: new pie.mindmap.JSONLoader({url:'/mindmaps/' + mindmap_id}),
-      editmode: false,
-      after_load:function(){mindmap.root.select();}
-    }).load();
-
-    this.mindmap_resize();
-    Event.observe(window,"resize",this.mindmap_resize);
+    this._init();
+    this._load_map(mindmap_id,false);
+    return this._after_init();
   },
 
   mindmap_resize:function(){
     var height = document.viewport.getHeight() - 40 - 38;
-    var width = $('mindmap-status-bar').getWidth() - 210;
+    var sidebar_width = this.sidebar.visible() ? this.sidebar.getWidth():0;
+    var width = $('mindmap-status-bar').getWidth() - sidebar_width;
     $('mindmap-main').setStyle({
       'height':height + 'px'
     });
@@ -92,6 +73,12 @@ pie.MindmapPageLoader = {
       Builder.node('span',{},text)
     ]);
     cl.appendChild(node);
+  },
+  toggle_sidebar:function(){
+    Element.toggle(this.sidebar);
+    Element.toggleClassName(this.toggle_sidebar_button,'open')
+    this.mindmap_resize();
+    return this;
   }
 }
 
@@ -121,4 +108,27 @@ TimeKeeper = Class.create({
   }
 });
 
-
+pie.MindmapUser = Class.create({
+  initialize:function(user_name,mindmap_id){
+    this.user_name = user_name;
+    this.mindmap_id = mindmap_id;
+  },
+  say:function(text){
+    try{
+      var json = Object.toJSON({
+        'username':this.user_name,
+        'text':text
+      });
+      var pars = 'channel='+'mindmap_'+this.mindmap_id;
+      new Ajax.Request("/mindmaps/push?"+pars,{
+        method:'POST',
+        postBody:json,
+        onSuccess:function(trans){
+          //
+        }
+      });
+    }catch(ex){
+      console.log(ex);
+    }
+  }
+});

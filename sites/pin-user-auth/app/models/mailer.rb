@@ -19,4 +19,14 @@ class Mailer < ActionMailer::Base
     @sent_on = Time.now
     @content_type = "text/html"
   end
+
+  # 发送邀请函
+  def invitation(invitation)
+    @recipients = invitation.contact_email
+    @from = 'MindPin<noreply@mindpin.com>'
+    @body = {'invitation'=>invitation}
+    @subject = "MindPin用户邀请邮件。"
+    @sent_on = Time.now
+    @content_type = "text/html"
+  end
 end

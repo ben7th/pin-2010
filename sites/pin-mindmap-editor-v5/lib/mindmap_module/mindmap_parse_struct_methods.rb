@@ -21,10 +21,10 @@ module MindmapParseStructMethods
       :maxid=>nodes['maxid'],
       :md5=>self.md5,
       :image=>{
-        :url=>nodes['i'],
-        :height=>nodes['ih'],
-        :width=>nodes['iw'],
-        :border=>nodes['ib']
+        :url=>root['i'],
+        :height=>root['ih'],
+        :width=>root['iw'],
+        :border=>root['ib']
       },
       :note=>self.get_note_from(root['id'])
     }
