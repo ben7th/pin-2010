@@ -10,6 +10,7 @@ development:
   WORKSPACE_SITE: http://dev.workspace.mindpin.com
   THIS_SITE: http://dev.mindmap-editor.mindpin.com
   DISCUSSION_SITE: http://dev.discuss.mindpin.com
+  MINDMAP_IMAGE_BASE_PATH: /root/mindpin_base/mindmap_images
   SERVICE_KEY: ZIWaGOgshBJgiuuGab
 
 
@@ -41,4 +42,5 @@ production:
   WORKSPACE_SITE: http://workspace.mindpin.com
   THIS_SITE: http://mindmap-editor.mindpin.com
   DISCUSSION_SITE: http://discuss.mindpin.com
+  MINDMAP_IMAGE_BASE_PATH: /web/2010/mindmap_images
   SERVICE_KEY: ZIWaGOgshBJgiuuGab

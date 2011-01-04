@@ -1,39 +1,54 @@
 pie.mindmap.NodeImageEditor = Class.create({
-	initialize: function(){
-    this.image_event_loaded = false;
+	initialize: function(mindmap){
+    this.map = mindmap;
 	},
-	doEditImage:function(mindmap_node){
-    var node = mindmap_node;
-    this.editing_image_node = node;
-		node.select();
+	do_edit_image:function(mindmap_node){
+    this.node = mindmap_node;
+		this.node.select();
 
     this._show_selector_box();
-    this._init_form(node);
-    this._bind_button_event();
 	},
   _show_selector_box:function(){
-    jQuery.facebox({div:'#imgselector'});
-    this.i_url     = $$('#facebox #imgselector input.url')[0];
-    this.i_width   = $$('#facebox #imgselector input.width')[0];
-    this.i_height  = $$('#facebox #imgselector input.height')[0];
-    this.i_preview = $$('#facebox #imgselector div.preview')[0];
-    this.b_load    = $$('#facebox #imgselector a.load')[0];
-    this.b_accept  = $$('#facebox #imgselector a.accept')[0];
-//    setTimeout(function(){
-//      if(!this.resizer){
-//        this.resizer = new pie.Resizable(this.i_preview, {scale:"fixed",proxy:"dashed"});
-//      }
-//    }.bind(this),1)
+    new Ajax.Request('/mindmaps/'+this.map.id+'/files/i_editor',{
+      method:'GET'
+      //回调在controller里
+    })
   },
 
-  _init_form:function(node){
-		if(node.image.url){
-      var nimg = node.image;
+  _rails_controller_callback:function(){
+    //这样不太dry，CV层逻辑有些混，暂时先如此
+    this.i_url        = $$('#facebox .mindmap-image-editor input.url')[0];
+    this.i_width      = $$('#facebox .mindmap-image-editor input.width')[0];
+    this.i_height     = $$('#facebox .mindmap-image-editor input.height')[0];
+    this.i_preview    = $$('#facebox .mindmap-image-editor div.preview')[0];
+    this.b_load       = $$('#facebox .mindmap-image-editor a.load')[0];
+    this.b_accept     = $$('#facebox .mindmap-image-editor a.accept')[0];
 
-			this.i_url.value    = nimg.url;
-			this.i_width.value  = nimg.width;
-			this.i_height.value = nimg.height;
-			this.i_preview.update(this._build_image(nimg));
+    this.image_upload = $$('#facebox .mindmap-image-editor div.image-upload')[0];
+
+    this.page = 1;
+
+    //2011.01.04
+    //uploadify初始化某元素时，页面上不能有相同ID的元素，否则无法上传的。
+    //这里动态创建
+    var uploader = Builder.node('input',{
+      'id'   : 'upload_mindmap_image',
+      'type' : 'file',
+      'name' : 'flle'
+    });
+    this.image_upload.down('.uploader').insert(uploader);
+    jQuery('#facebox #upload_mindmap_image').uploadify(uploadify_options);
+
+    this.preview_image(this.node.image);
+    this._bind_button_event();
+  },
+
+  preview_image:function(img){
+		if(img.url){
+			this.i_url.value    = img.url;
+			this.i_width.value  = img.width;
+			this.i_height.value = img.height;
+			this.i_preview.update(this._build_image(img));
 		}else{
 			this.i_url.value    = '';
 			this.i_width.value  = '';
@@ -57,13 +72,9 @@ pie.mindmap.NodeImageEditor = Class.create({
 
   _do_load:function(){
     var url = this.i_url.value;
-    if(url.blank()){
-      return;
-    }
+    if(url.blank()){return;}
     //载入外部图片url
-    var img = Builder.node("img",{
-      'src':url
-    });
+    var img = Builder.node("img",{'src':url});
     Event.observe(img,'load',function(){
       this.i_width.value  = img.width;
       this.i_height.value = img.height;
@@ -72,11 +83,9 @@ pie.mindmap.NodeImageEditor = Class.create({
   },
 
   _do_accept:function(){
-    var node = this.editing_image_node;
+    var node = this.node;
 
-    if (node.image.el) {
-      node.image.el.remove();
-    }
+    if (node.image.el) {node.image.el.remove();}
     
     node.image = {
       "url"   : this.i_url.value,
@@ -93,31 +102,85 @@ pie.mindmap.NodeImageEditor = Class.create({
     Event.observe(node.image.el,'load',function(){
       Object.extend(node,node.el.getDimensions());
       node.do_dirty();
-      node.root.map.reRank();
+      this.map.reRank();
     }.bind(this));
 
     node.nodebody.el.insert({before: node.nodeimg.el});
-    var record = node.root.map.opFactory.getImageInstance(node);
-    node.root.map._save(record);
+    var record = this.map.opFactory.getImageInstance(node);
+    this.map._save(record);
 
     jQuery.facebox.close();
   },
 
 	do_remove_image:function(node){
-		if (node.image.el) {
-			node.image.el.remove();
-		}
-		node.image={
-			"url":null,
-			"width":null,
-			"height":null
-		}
-		Object.extend(node,node.el.getDimensions());
-		var record = node.root.map.opFactory.getRemoveImageInstance(node);
-		node.root.map._save(record);
-		node.do_dirty();
-		node.root.map.reRank();
-	}
+    try{
+      //这个方法其实最好应该放在node上作为对象方法
+      if (node.image.el) {node.image.el.remove();}
+      node.image={
+        "url":null,
+        "width":null,
+        "height":null
+      }
+      Object.extend(node,node.el.getDimensions());
+      var record = this.map.opFactory.getRemoveImageInstance(node);
+      this.map._save(record);
+      node.do_dirty();
+      this.map.reRank();
+    }catch(e){alert(e)}
+	},
+
+  next_page:function(){
+    var _p = this.page + 1;
+    new Ajax.Request('/mindmaps/'+this.map.id+'/files',{
+      parameters:'page='+_p,
+      method:'GET',
+      onSuccess:function(trans){
+        var html = trans.responseText;
+        this.image_upload.down('.image-page').update(html);
+        this.page = _p;
+      }.bind(this)
+    })
+  },
+  prev_page:function(){
+    if(this.page == 1) return;
+    var _p = this.page - 1;
+    new Ajax.Request('/mindmaps/'+this.map.id+'/files',{
+      parameters:'page='+_p,
+      method:'GET',
+      onSuccess:function(trans){
+        var html = trans.responseText;
+        this.image_upload.down('.image-page').update(html);
+        this.page = _p;
+      }.bind(this)
+    })
+  }
+
+//  _get_google_search_images:function(){
+//    this.image_search = new google.search.ImageSearch();
+//    this.image_search.setSearchCompleteCallback(this,this._build_google_search_images_dom);
+//    this.image_search.execute(this.node.title);
+//  },
+//  _build_google_search_images_dom:function(){
+//    this.image_search.results.each(function(hash){
+//      //var url = hash.tbUrl.gsub('images.google.com','images.google.com.hk');
+//      var li = $(Builder.node('li',{},
+//        Builder.node('img',{
+//          'src':hash.url
+//        })
+//      ));
+//      this.glist.appendChild(li);
+//    }.bind(this));
+//  },
+//  _init_google_search:function(){
+//    this.glist     = $$('#facebox #imgselector ul.google-image-list')[0];
+//    this.glist.update();
+//    this._get_google_search_images();
+//    setTimeout(function(){
+//      if(!this.resizer){
+//        this.resizer = new pie.Resizable(this.i_preview, {scale:"fixed",proxy:"dashed"});
+//      }
+//    }.bind(this),1)
+//  }
 })
 
 

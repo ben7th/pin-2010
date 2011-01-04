@@ -5,6 +5,7 @@
 = stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
 = stylesheet_link_tag '/javascripts/lightview/css/lightview'
 = stylesheet_link_tag '/javascripts/pie/resizer/pie_resizable'
+= stylesheet_link_tag '/uploadify/uploadify.css'
 
 -content_for :javascripts do
   = javascript_include_tag 'mindmap_editor_packed'
@@ -14,12 +15,52 @@
   = javascript_include_tag 'views/mindmap_page_load'
   = javascript_include_tag 'pie/resizer/pie_resizable'
 
-  = javascript_include_tag '/javascripts/lightview/js/lightview'
+  = javascript_include_tag '/uploadify/swfobject.js'
+  = javascript_include_tag '/uploadify/jquery.uploadify.v2.1.4.min.js'
+
 
   :javascript
     pie.load(function(){
       window.page_loader = pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
+      window.uploadify_options = {
+        uploader     : '/uploadify/uploadify.swf',
+        script       : '/mindmaps/#{@mindmap.id}/upload_file',
+        fileDataName : 'file',
+        cancelImg    : '/uploadify/cancel.png',
+        fileDesc     : '图片文件 png, jpg, gif',
+        fileExt      : '*.png;*.jpg;*.jpeg;*.gif',
+        auto         : true,
+        multi        : true,
+        sizeLimit    : #{4.megabytes},
+        width        : 78,
+        height       : 27,
+        wmode        : 'transparent',
+        buttonImg    : '/images/actions/upload_button.png',
+
+        scriptData   : {
+          '#{session_key = ActionController::Base.session_options[:key]}':encodeURIComponent('#{u cookies[session_key]}'),
+          'authenticity_token':encodeURIComponent('#{u form_authenticity_token if protect_against_forgery?}')
+        },
+
+        onComplete   : function(event, ID, fileObj, response, data){
+          var li_html = response;
+          var ul = $$('#facebox .image-upload .image-list')[0];
+          if(ul.select('li').length == 12){
+            ul.select('li').last().remove();
+          }
+          $(ul).insert({top:li_html});
+          var ic = $(ul).select('li')[0]
+          ic.hide();
+          ic.appear();
+        }
+      }
     });
+
+    function remove_img_li(id){
+      try{
+        $$('#facebox #'+id)[0].dropOut();
+      }catch(e){alert(e)}
+    }
 
 #mindmap-toolbar
   .map-logo
@@ -35,13 +76,13 @@
     - if has_edit_rights?(@mindmap,current_user)
       =minibutton_remote "修改信息",:url=>paramsedit_mindmap_path(@mindmap),:method=>:get
   .map-export
-    =minibutton_remote "导出为..",:url=>export_mindmap_path(@mindmap),:method=>:get
+    =minibutton_remote "导出为..",:url=>"/mindmaps/#{@mindmap.id}/export",:method=>:get
     %span.ex=link_to 'Jpg图片',"/mindmaps/#{@mindmap.id}.jpg",:target=>'_blank'
     %span.ex=link_to 'Word文档',"/mindmaps/#{@mindmap.id}.doc"
   .map-close
     =link_to '关闭，返回','/'
   
-#mindmap-main
+#mindmap-main.editor
   #mindmap-sidebar
     =render :partial=>'mindmaps/editor_page/editor_sidebar'
 
@@ -53,19 +94,9 @@
   .cooperate
     %span 共同编辑者:
     -@mindmap.cooperate_edit_email_actors.each do |ea|
-      %span
-        =email_actor_link(ea,:target=>'_blank')
-  .net_condition.hide
-    %span 响应时间
-    %span.last_respond
-      %span.time_label 上次:
-      %span.time 0
-    %span.average_respond
-      %span.time_label 平均:
-      %span.time 0
+      %span=email_actor_link(ea,:target=>'_blank')
   .buttons
+    %a.mindmap-recenter{:title=>'导图重新居中',:href=>'javascript:;',:onclick=>'mindmap.recenter();'}
+      %span 导图重新居中
     %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;',:onclick=>'page_loader.toggle_sidebar();'}
       %span 隐藏/显示侧边栏
-
-=render :partial=>'mindmaps/editor_page/module/font_selector'
-=render :partial=>'mindmaps/editor_page/module/img_selector'

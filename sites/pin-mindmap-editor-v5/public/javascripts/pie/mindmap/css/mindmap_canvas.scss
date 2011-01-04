@@ -87,15 +87,12 @@
 .title_textarea_root{font-size:14px;line-height:21px;padding:2px 3px;*padding:1px 3px;}
 
 /*图像选择器*/
-#imgselector{
+.mindmap-image-editor{
   clear:both;
   text-align:left;
   .image-sel{
     float:left;
     width:380px;
-    a.accept{
-      margin-top:30px;
-    }
     label{
       width:50px;
       display:inline-block;
@@ -108,35 +105,65 @@
       &.width,&.height{width:60px !important;}
     }
     .preview{
-      margin-left:2px;
+      margin-bottom:20px;
       overflow:auto;
-      @include border-radius(4px);
-      width:290px;
+      width:342px;
       height:200px;
       padding:4px;
-      border:solid 1px #555;
-      img{border:solid 1px;}
+      border:solid 2px #74747A;
+      background:url(/images/actions/preview_bg.png);
+      img{border:solid 1px !important;}
+    }
+    a.accept{
     }
   }
   .image-upload{
     float:left;
-    width:510px;
-    border-left:solid 1px #74747A;
-    padding-left:20px;
     ul.image-list{
       overflow:hidden;
+      width:400px;height:265px;
+      background:#161625;
+      @include border-radius(3px);
+      padding:2px;
+      margin-bottom:5px;
       li{
         float:left;
-        width:90px;height:50px;
-        margin-right:4px;
-        margin-bottom:4px;
-        padding:3px;
-        @include border-radius(4px);
-        background-color:#323546;
-        border:solid 1px #111;
-        cursor:pointer;
-        &:hover{background-color:#45495b;}
-        .img{width:90px;height:50px;}
+        margin-right:2px;
+        margin-bottom:2px;
+        .ic{
+          @include border-radius(3px);
+          background-color:#323546;
+          border:solid 1px #333;
+          padding:3px;
+          cursor:pointer;
+          &:hover{background-color:#45495b;}
+          .img{
+            width:90px;
+            height:60px;
+          }
+        }
+        .actions{
+          text-align:center;
+        }
+      }
+    }
+    .pagination{
+      margin-bottom:20px;
+    }
+    .used{
+      margin-bottom:3px;
+    }
+    .uploader{
+      height:34px;
+      .uploadifyQueue{
+        float:right;
+        .uploadifyQueueItem{
+          padding:0;
+          margin:0;
+          width:290px;
+          padding:3px;
+          color:#222;
+        }
       }
     }
   }

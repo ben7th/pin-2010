@@ -10,8 +10,6 @@
   = javascript_include_tag 'excanvas/excanvas.compiled'
   = javascript_include_tag 'views/mindmap_page_load'
 
-  = javascript_include_tag '/javascripts/prototip/js/prototip/prototip.js'
-
   :javascript
     pie.load(function(){
       pie.MindmapPageLoader.load_viewer_page('#{@mindmap.id}');
@@ -42,18 +40,4 @@
   .cooperate
     %span 共同编辑者:
     -@mindmap.cooperate_edit_email_actors.each do |ea|
-      %span
-        =email_actor_link(ea,:target=>'_blank')
-  .net_condition.hide
-    %span 响应时间
-    %span.last_respond
-      %span.time_label 上次:
-      %span.time 0
-    %span.average_respond
-      %span.time_label 平均:
-      %span.time 0
-  .buttons
-    %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;',:onclick=>'page_loader.toggle_sidebar();'}
-      %span 隐藏/显示侧边栏
-
-=render :partial=>'mindmaps/edit/imgselector'
+      %span=email_actor_link(ea,:target=>'_blank')

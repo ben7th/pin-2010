@@ -51,4 +51,9 @@ module MindmapSearchMethods
       return []
     end
   end
+
+  def relative_content
+    query = self.major_words*" "
+    GoogleSearch.new(query).relative_content
+  end
 end

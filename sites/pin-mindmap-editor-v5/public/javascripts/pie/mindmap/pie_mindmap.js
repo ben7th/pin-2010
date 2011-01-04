@@ -33,7 +33,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       el:$(this.paper.el.parentNode)
     };
 
-    this.loader.mindmap=this;
+    this.loader.mindmap = this;
 
     //logger
     this.log=function(str){};
@@ -41,20 +41,21 @@ pie.mindmap.BasicMapPaper = Class.create({
     //params
     this.pausePeriod=500; //毫秒
 
-    this.fw = 11;  //folder图片的宽度
-    this.cr = 6;  //canvas层的偏移增量
-    this.mr = 3;  //子节点的margin值
+    this.fw  = 11;  //folder图片的宽度
+    this.cr  = 6;  //canvas层的偏移增量
+    this.mr  = 3;  //子节点的margin值
     this.mr2 = this.mr * 2;
 
-    this.lineColor=options.lineColor||"#5c5c5c";
+    this.lineColor = options.lineColor||"#5c5c5c";
 
-    this.editmode=options.editmode||false;
+    this.editmode = options.editmode||false;
     if(this.editmode){
-      this._nodeTitleEditor = new pie.mindmap.NodeTitleEditor();
-      this._nodeImageEditor = new pie.mindmap.NodeImageEditor();
-      this._nodeNoteEditor = new pie.mindmap.NoteHandler();
-      this._nodeFontEditor = new pie.mindmap.NodeFontEditor();
-      this._noteEditor=new nicEditor({fullPanel : true}).panelInstance('mindmap-note-edit');
+      this._nodeTitleEditor   = new pie.mindmap.NodeTitleEditor();
+      this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
+      this._nodeNoteEditor    = new pie.mindmap.NoteHandler();
+      this._nodeFontEditor    = new pie.mindmap.NodeFontEditor();
+
+      this._noteEditor        = new nicEditor({fullPanel : true}).panelInstance('mindmap-note-edit');
       if(pie.isIE() || pie.isChrome()){
         this._noteEditor.el=this._noteEditor.nicInstances[0].elm;
       }else{
@@ -66,64 +67,71 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.connect = this._connectWithCanvas;
 
     //runtime
-    this.root=null;
-    this.el=null;
-    this.focus=null;
+    this.root  = null;
+    this.el    = null;
+    this.focus = null;
 
     //operation record factory
-    this.opFactory = new pie.mindmap.OperationRecordFactory({map:this});
-    this.opQueue = [];
+    this.opFactory        = new pie.mindmap.OperationRecordFactory({map:this});
+    this.opQueue          = [];
     this.ready_to_request = true;
 
-    this.after_load=options.after_load;
+    this.after_load       = options.after_load;
   },
   load:function(){
     this.loader.load();
     return this;
   },
   _load:function(){
-    //获取右键菜单
+    //初始化右键菜单
     this._createMenu();
+    var paper    = this.paper;
+    var root     = this.root;
 
     //生成HTML并缓存节点宽高
-    var start = new Date();
-    this.paper.el.update(this._getEl());
-    this.root._cacheDimensions();
-    var end = new Date();
-    this.log("生成HTML.."+(end-start)+"ms");
+    paper.el.update(this._getEl());
+    root._cacheDimensions();
 
     //初始化，计算坐标
-    start = new Date();
     //获取paper的宽高，并折半
-    var dim=this.paper.el.getDimensions();
-    this.paper.xoff=dim.width/2;
-    this.paper.yoff=dim.height/2;
-    //获取observer的宽高
-    Object.extend(this.observer,this.observer.el.getDimensions());
+    var dim    = paper.el.getDimensions();
+    paper.xoff = dim.width/2;
+    paper.yoff = dim.height/2;
+    
     //定位编辑区
-    this.observer.el.scrollLeft=this.paper.xoff;
-    this.observer.el.scrollTop=this.paper.yoff;
+    this.recenter();
+
     //定位根结点
-    this.root.posX=(this.observer.width-this.root.width)/2+this.paper.xoff;
-    this.root.posY=(this.observer.height-this.root.height)/2+this.paper.yoff;
-    this.root.container.el.style.left=this.root.posX+"px";
-    this.root.container.el.style.top=this.root.posY+"px";
-    //this.log("observer width:"+this.observer.width+" height:"+this.observer.height);
-    //this.log("root width:"+this.root.width+" height:"+this.root.height);
-    //this.log("root position:"+this.root.posX+","+this.root.posY);
-    end = new Date();
-    this.log("初始化.."+(end-start)+"ms");
+    root.posX = (0 - root.width)/2 + paper.xoff;
+    root.posY = (0 - root.height)/2 + paper.yoff;
+    root.container.el.style.left = root.posX+"px";
+    root.container.el.style.top = root.posY+"px";
 
     this.reRank();
-    //this.reBind();
-    new pie.drag.Page(this.paper.el,{beforeDrag:function(){
+
+    new pie.drag.Page(paper.el,{beforeDrag:function(){
       this.nodeMenu.unload();
       if(this.focus && this.focus.isOnTitleEditStatus){
         this.title_textarea.blur();
       }
     }.bind(this)});
+  
     this.after_load();
   },
+  
+  recenter:function(){
+    try{
+      var observer = this.observer;
+      //获取observer的宽高
+      Object.extend(observer,observer.el.getDimensions());
+
+      observer.el.scrollLeft = this.paper.xoff - observer.width/2;
+      observer.el.scrollTop  = this.paper.yoff - observer.height/2;
+    }catch(e){
+      alert(e)
+    }
+  },
+
   _getEl:function(){
     if(this.el==null){
       this.el=this.root._getContainerEl();
@@ -418,6 +426,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       top:node.branch.top-this.cr*2+"px"
     });
   },
+  
   __countBranch:function(node){
     if(node.sub.putright){
       node.branch.left = node.root.left + node.root.width / 2;
@@ -497,7 +506,7 @@ pie.mindmap.BasicMapPaper = Class.create({
   _bindGlobalShowEvents:function(){
     //浏览状态特定事件
     this.paper.el.observe("mousedown",function(){
-      Tips.hideAll();
+      //nothing
     })
   },
   _bindGlobalEditEvents:function(){
@@ -560,7 +569,7 @@ pie.mindmap.BasicMapPaper = Class.create({
             this._nodeTitleEditor.doEditTitle(this.focus);
           }break;
           case 73:{
-            this._nodeImageEditor.doEditImage(this.focus);
+            this.edit_focus_image();
           }break;
         }
       }
@@ -704,7 +713,14 @@ pie.mindmap.BasicMapPaper = Class.create({
   }
 });
 
+pie.mindmap_refector_temp = {
+  edit_focus_image:function(){
+    this._node_image_editor.do_edit_image(this.focus);
+  }
+}
+
 pie.mindmap.BasicMapPaper
   .addMethods(pie.mindmap_canvas_draw_module)
   .addMethods(pie.mindmap_menu_module)
-  .addMethods(pie.mindmap_save_module);
+  .addMethods(pie.mindmap_save_module)
+  .addMethods(pie.mindmap_refector_temp);

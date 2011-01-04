@@ -3,6 +3,10 @@ pie.MindmapPageLoader = {
     $("mindmap-canvas").update('');
     this.sidebar = $('mindmap-sidebar');
     this.toggle_sidebar_button = $$('a.toggle-sidebar')[0];
+
+    jQuery('a.mindmap-recenter')
+      .live("mousedown",function(){jQuery(this).addClass("mousedown")})
+      .live("mouseup mouseleave",function(){jQuery(this).removeClass("mousedown")});
   },
 
   _load_map:function(mindmap_id,editmode){

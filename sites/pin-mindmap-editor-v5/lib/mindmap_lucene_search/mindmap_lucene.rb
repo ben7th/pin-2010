@@ -17,11 +17,13 @@ class MindmapLucene
 
   class Client
     def self.instance
-      _transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9091))
-      _protocol = Thrift::BinaryProtocol.new(_transport)
-      _client = LuceneMindmapsService::Client.new(_protocol)
-      _transport.open()
-      _client
+      @@instance ||= begin
+        _transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9091))
+        _protocol = Thrift::BinaryProtocol.new(_transport)
+        _client = LuceneMindmapsService::Client.new(_protocol)
+        _transport.open()
+        _client
+      end
     end
   end
 

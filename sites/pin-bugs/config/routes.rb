@@ -11,4 +11,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :apis do |api|
     api.resources :api_params,:as=>:params
   end
+
+  map.status "/status",:controller=>"status",:action=>"index"
 end

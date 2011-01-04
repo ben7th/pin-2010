@@ -29,13 +29,11 @@ pie.mindmap_menu_module = {
         }.bind(this)
       })
 
-      this.nodeMenu.addItem("节点图片 [I]",{handler:function(){
-        this._nodeImageEditor.doEditImage(this.focus);
-      }.bind(this)});
+      this.nodeMenu.addItem("节点图片 [I]",{handler:this.edit_focus_image.bind(this)});
 
       this.nodeMenu.addItem("移除图片",{
         handler:function(){
-          this._nodeImageEditor.do_remove_image(this.focus);
+          this._node_image_editor.do_remove_image(this.focus);
         }.bind(this),
         flag:function(){
           return this.focus.image.url;

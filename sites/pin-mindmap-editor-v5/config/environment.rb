@@ -19,6 +19,7 @@ IMAGE_CACHE_SITE = APP_CONFIG['IMAGE_CACHE_SITE']
 WORKSPACE_SITE = APP_CONFIG['WORKSPACE_SITE']
 DISCUSSION_SITE = APP_CONFIG['DISCUSSION_SITE']
 SERVICE_KEY = APP_CONFIG['SERVICE_KEY']
+MINDMAP_IMAGE_BASE_PATH = APP_CONFIG['MINDMAP_IMAGE_BASE_PATH']
 
 URL_PREFIX = "#{API_SITE}/#{APP_PREFIX}"
 
@@ -42,6 +43,7 @@ Rails::Initializer.run do |config|
   config.gem "paperclip"
   config.gem "uuidtools"
   config.gem "responds_to_parent"
+  config.gem "google-search"
 
   config.gem "pie-auth"
   config.gem "pie-ui"
@@ -58,6 +60,7 @@ Rails::Initializer.run do |config|
   config.load_paths += %W( #{RAILS_ROOT}/lib/controller_helper )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_module )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_lucene_search )
+  config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer

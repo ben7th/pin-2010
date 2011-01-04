@@ -17,4 +17,4 @@
   -if logged_in?
     .clone-btn
       .clone-link
-      =link_to_remote "复制",:url=>clone_form_mindmap_path(mindmap),:method=>:get
+      =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get

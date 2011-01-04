@@ -76,7 +76,7 @@ module PieUi
       return '' if cellhead_path == false
 
       if cellhead_path.nil?
-        cellhead_path = controller.class.name.downcase.sub('::','/').sub('controller','/cellhead')
+        cellhead_path = _get_special_partial_name('cellhead')
       end
       
       begin
@@ -93,7 +93,7 @@ module PieUi
     end
 
     def render_actions
-      actions_path = controller.class.name.downcase.sub('::','/').sub('controller','/actions')
+      actions_path = _get_special_partial_name('actions')
       begin
         render :partial=>actions_path
       rescue ActionView::MissingTemplate => ex
@@ -109,7 +109,7 @@ module PieUi
         if ['new','edit','create','update'].include? action_name
           return ''
         else
-          tabs_path = controller.class.name.downcase.sub('::','/').sub('controller','/tabs')
+          tabs_path = _get_special_partial_name('tabs')
         end
       end
       
@@ -118,6 +118,10 @@ module PieUi
       rescue ActionView::MissingTemplate => ex
         ''
       end
+    end
+
+    def _get_special_partial_name(name)
+      controller.class.name.underscore.sub('::','/').sub('_controller',"/#{name}")
     end
 
     def tabs_link_to(name, options = {}, html_options = {}, &block)

@@ -1,0 +1,36 @@
+.mindmap-image-editor
+  .clearfix
+    .image-sel
+      .form
+        .field
+          %label 图片URL
+          %input.url.inline{:type=>"text",:onmouseup=>"this.select();"}
+          =link_to '<span>载入</span>','javascript:;',:class=>'load minibutton'
+
+        .field.clearfix
+          .fleft
+            %label 宽度
+            %input.width.inline{:type=>"text"}
+          .fleft
+            %label 高度
+            %input.height.inline{:type=>"text"}
+
+        .field.clearfix
+          .preview
+          .p
+            =link_to '<span>确定</span>','javascript:;',:class=>'accept minibutton'
+
+    .image-upload
+      .image-page
+        =render :partial=>'files/mindmap_image_page',:locals=>{:mindmap=>mindmap,:page=>1}
+      .uploader
+      .upload_progress
+
+:javascript
+  function update_node_image(url){
+    mindmap._nodeImageEditor.i_url.value = url;
+    mindmap._nodeImageEditor.i_width.value = '';
+    mindmap._nodeImageEditor.i_height.value = '';
+    mindmap._nodeImageEditor._do_load();
+  }
+

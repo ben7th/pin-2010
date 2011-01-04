@@ -1,5 +1,8 @@
 class TendenciesController < ApplicationController
   def show
+    set_cellhead_path("user_mindmaps/cellhead")
+    set_tabs_path("mindmaps/tabs")
+    
     @user = User.find(params[:user_id])
 
     @major_words = Mindmap.major_words_of_user(@user,10)
@@ -12,6 +15,5 @@ class TendenciesController < ApplicationController
     @cooperate_edit_mindmaps_count = Mindmap.cooperate_edit_of_user(@user).count
     @cooperate_view_mindmaps_count = Mindmap.cooperate_view_of_user(@user).count
     @private_mindmaps_count = Mindmap.of_user_id(@user.id).privacy.count
-    set_tabs_path "mindmaps/tabs"
   end
 end

@@ -212,18 +212,12 @@ pie.mindmap.Node = Class.create({
   },
   _bindShowEvents:function(){
     if(this.note!=""){
-      new Tip(this.el, this.note,{
-        title:this.title,
-        width:400,
-        border:2,
-        borderColor:"#C7C7C7",
-        radius:2,
-        delay:0,
-        stem:'topLeft',
-        closeButton: true,
-        hideOn: { element: 'closeButton', event: 'click'},
-        hideOthers: true
-      });
+      jQuery(this.el).tipsy({
+        gravity:jQuery.fn.tipsy.autoWE,
+        title:function(){
+          return this.note
+        }.bind(this)
+      })
     }
   },
   _bindEditEvents:function(){
@@ -232,7 +226,7 @@ pie.mindmap.Node = Class.create({
   },
   toggle:function(evt){
     var map=this.root.map;
-    if(map._pause()){return false;}
+    if(map._pause()){return;}
     this._toggle();
     var record = map.opFactory.getToggleInstance(this);
     map._save(record);

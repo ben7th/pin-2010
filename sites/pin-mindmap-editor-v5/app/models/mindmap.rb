@@ -126,6 +126,27 @@ class Mindmap < ActiveRecord::Base
     def self.included(base)
       base.has_many :mindmaps
     end
+
+    # 已用空间大小
+    def space_capacity
+      path = File.join(MINDMAP_IMAGE_BASE_PATH,"users",self.id.to_s)
+      `du -b #{path} | awk '{print $1}'`.to_i
+    end
+
+    # 用户空间是否满
+    def space_is_full?
+      space_capacity > 50 * 1024 * 1024
+    end
+
+    # 剩余空间
+    def left_space
+      50 * 1024 * 1024 - space_capacity
+    end
+
+    #　再加一个文件，用户空间的大小是否 满
+    def space_is_full_after_add_file?(file)
+      space_capacity + file.size >  50 * 1024 * 1024
+    end
   end
 
   include Comment::CommentableMethods

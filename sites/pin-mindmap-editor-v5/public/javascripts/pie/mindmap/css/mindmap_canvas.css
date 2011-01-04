@@ -117,62 +117,78 @@
   *padding: 1px 3px; }
 
 /*图像选择器*/
-#imgselector {
+.mindmap-image-editor {
   clear: both;
   text-align: left; }
-  #imgselector .image-sel {
+  .mindmap-image-editor .image-sel {
     float: left;
     width: 380px; }
-    #imgselector .image-sel a.accept {
-      margin-top: 30px; }
-    #imgselector .image-sel label {
+    .mindmap-image-editor .image-sel label {
       width: 50px;
       display: inline-block;
       text-align: right;
       margin-right: 4px; }
-    #imgselector .image-sel input {
+    .mindmap-image-editor .image-sel input {
       height: 23px !important; }
-      #imgselector .image-sel input.url {
+      .mindmap-image-editor .image-sel input.url {
         width: 240px !important; }
-      #imgselector .image-sel input.width, #imgselector .image-sel input.height {
+      .mindmap-image-editor .image-sel input.width, .mindmap-image-editor .image-sel input.height {
         width: 60px !important; }
-    #imgselector .image-sel .preview {
-      margin-left: 2px;
+    .mindmap-image-editor .image-sel .preview {
+      margin-bottom: 20px;
       overflow: auto;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      width: 290px;
+      width: 342px;
       height: 200px;
       padding: 4px;
-      border: solid 1px #555; }
-      #imgselector .image-sel .preview img {
-        border: solid 1px; }
-  #imgselector .image-upload {
-    float: left;
-    width: 510px;
-    border-left: solid 1px #74747A;
-    padding-left: 20px; }
-    #imgselector .image-upload ul.image-list {
-      overflow: hidden; }
-      #imgselector .image-upload ul.image-list li {
+      border: solid 2px #74747A;
+      background: url(/images/actions/preview_bg.png); }
+      .mindmap-image-editor .image-sel .preview img {
+        border: solid 1px !important; }
+  .mindmap-image-editor .image-upload {
+    float: left; }
+    .mindmap-image-editor .image-upload ul.image-list {
+      overflow: hidden;
+      width: 400px;
+      height: 265px;
+      background: #161625;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      padding: 2px;
+      margin-bottom: 5px; }
+      .mindmap-image-editor .image-upload ul.image-list li {
         float: left;
-        width: 90px;
-        height: 50px;
-        margin-right: 4px;
-        margin-bottom: 4px;
-        padding: 3px;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        background-color: #323546;
-        border: solid 1px #111;
-        cursor: pointer; }
-        #imgselector .image-upload ul.image-list li:hover {
-          background-color: #45495b; }
-        #imgselector .image-upload ul.image-list li .img {
-          width: 90px;
-          height: 50px; }
+        margin-right: 2px;
+        margin-bottom: 2px; }
+        .mindmap-image-editor .image-upload ul.image-list li .ic {
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          background-color: #323546;
+          border: solid 1px #333;
+          padding: 3px;
+          cursor: pointer; }
+          .mindmap-image-editor .image-upload ul.image-list li .ic:hover {
+            background-color: #45495b; }
+          .mindmap-image-editor .image-upload ul.image-list li .ic .img {
+            width: 90px;
+            height: 60px; }
+        .mindmap-image-editor .image-upload ul.image-list li .actions {
+          text-align: center; }
+    .mindmap-image-editor .image-upload .pagination {
+      margin-bottom: 20px; }
+    .mindmap-image-editor .image-upload .used {
+      margin-bottom: 3px; }
+    .mindmap-image-editor .image-upload .uploader {
+      height: 34px; }
+      .mindmap-image-editor .image-upload .uploader .uploadifyQueue {
+        float: right; }
+        .mindmap-image-editor .image-upload .uploader .uploadifyQueue .uploadifyQueueItem {
+          padding: 0;
+          margin: 0;
+          width: 290px;
+          padding: 3px;
+          color: #222; }
 
 #mindmap-scroller {
   position: absolute;

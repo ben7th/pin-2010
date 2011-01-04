@@ -24,19 +24,19 @@
       -if show_operation_links?(mindmap)
         .detail-operation
           .delete-link
-          =link_to_remote '删除',:url=>mindmap_path(mindmap),:method=>:delete,:confirm=>"确定要删除这个导图吗？"
+          =link_to_remote '删除',:url=>"/mindmaps/#{mindmap.id}",:method=>:delete,:confirm=>"确定要删除这个导图吗？"
 
         .detail-operation
           .infoedit-link
-          =link_to "属性",paramsedit_mindmap_path(mindmap)
+          =link_to "属性","/mindmaps/#{mindmap.id}/paramsedit"
 
         .detail-operation
           .export-link
-          =link_to_remote "导出",:url=>export_mindmap_path(mindmap),:method=>:get
+          =link_to_remote "导出",:url=>"/mindmaps/#{mindmap.id}/export",:method=>:get
 
         .detail-operation
           .clone-link
-          =link_to_remote "复制",:url=>clone_form_mindmap_path(mindmap),:method=>:get
+          =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
 
         .fleft.marginr5
           .edit-link
