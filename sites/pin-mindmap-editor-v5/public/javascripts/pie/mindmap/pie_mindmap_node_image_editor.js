@@ -1,6 +1,10 @@
 pie.mindmap.NodeImageEditor = Class.create({
 	initialize: function(mindmap){
     this.map = mindmap;
+    jQuery('#facebox .image-upload .image-list li').live('click',function(){
+      var url = jQuery(this).attr('data-url');
+      jQuery('#facebox .mindmap-image-editor input.url').val(url);
+    })
 	},
 	do_edit_image:function(mindmap_node){
     this.node = mindmap_node;
@@ -44,7 +48,7 @@ pie.mindmap.NodeImageEditor = Class.create({
   },
 
   preview_image:function(img){
-		if(img.url){
+		if(img && img.url){
 			this.i_url.value    = img.url;
 			this.i_width.value  = img.width;
 			this.i_height.value = img.height;
@@ -57,6 +61,12 @@ pie.mindmap.NodeImageEditor = Class.create({
 		}
   },
 
+  clear_preview:function(){
+    this.i_width.value  = '';
+    this.i_height.value = '';
+    this.i_preview.update('');
+  },
+
   _build_image:function(img){
     return $(Builder.node("img",{
       'src':img.url,
@@ -66,13 +76,16 @@ pie.mindmap.NodeImageEditor = Class.create({
   },
 
   _bind_button_event:function(){
-    this.b_load.observe("click",this._do_load.bind(this));
     this.b_accept.observe("click",this._do_accept.bind(this));
+    new Form.Element.Observer(this.i_url,0.2,this._do_load.bind(this));
   },
 
   _do_load:function(){
     var url = this.i_url.value;
-    if(url.blank()){return;}
+    if(url.blank()){
+      this.clear_preview();
+      return;
+    }
     //载入外部图片url
     var img = Builder.node("img",{'src':url});
     Event.observe(img,'load',function(){

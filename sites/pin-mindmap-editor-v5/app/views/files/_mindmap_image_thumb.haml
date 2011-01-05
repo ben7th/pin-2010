@@ -2,7 +2,7 @@
 - file_path = "/mindmaps/#{mindmap.id}/files/#{filename}"
 - thumb_path = "/mindmaps/#{mindmap.id}/thumb/#{filename}"
 
-%li{:id=>li_id}
+%li{:id=>li_id,:'data-url'=>pin_url_for('pin-mindmap-editor',thumb_path)}
   .ic
     .img{:style=>"background:url(#{thumb_path}) no-repeat center center;"}
   .actions
