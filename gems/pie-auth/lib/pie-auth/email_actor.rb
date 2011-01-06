@@ -1,6 +1,12 @@
 class EmailActor
+  EMAIL_REG = /^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/
+
+  class EmailFormatError < StandardError;end
   def initialize(email)
     @email = email
+    if(!@email.match(EMAIL_REG))
+      raise EmailFormatError,"邮箱地址格式不正确"
+    end
   end
 
   def email

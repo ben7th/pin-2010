@@ -1,0 +1,14 @@
+-preview ||=false
+
+%div
+  你好！我是#{sender.name}<br/><br/>
+
+  我正在使用MindPin网站，现在你可以注册并和我成为联系人~<br/>
+  MindPin网站提供可视化知识工具，我们可以在此协同工作，分享信息。<br/><br/>
+
+  点击下面的链接，加入MindPin：<br/>
+  =pin_url_for("user_auth","/i/#{sender.id}")
+  <br/><br/>
+
+  %span{:style=>'color:#CDB37C'}
+    这是专门发送给你的邀请信，不要转发给其他人噢~

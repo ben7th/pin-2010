@@ -1,4 +1,4 @@
-class InvitationsController < ActionController::Base
+class InvitationsController < ApplicationController
   before_filter :login_required,:only=>[:create]
   include SessionsMethods
 
@@ -9,40 +9,32 @@ class InvitationsController < ActionController::Base
   end
 
   def create
-    inv = Invitation.new(:host_email=>current_user.email,:contact_email=>params[:invitation][:contact_email])
-    if inv.save
-      flash[:success] = "邀请函发送成功"
-    else
-      flash[:error] = get_flash_error(inv)
-    end
+    InvitationEmail.new(current_user.email,params[:invitation][:contact_email]).send
+    flash[:success] = "邀请函发送成功"
+  rescue Exception=>ex
+    flash[:error] = ex.message
+  ensure
     redirect_to "/account/invite"
   end
 
-  def show
+  def reg
+    @invitation_sender = User.find(params["user_id"])
+    render :layout=>'auth'
   end
 
-  def regeist
-    params[:user][:email] = @invitation.contact_email
-    # 出于安全性考虑，新用户注册时销毁cookies令牌
-    destroy_cookie_token
-    @user=User.new(params[:user])
-    if @user.save
-      # 发送激活邮件
-      @user.send_activation_mail
-      # 邀请 注册成功的逻辑
-      @invitation.add_contacts
-      login_after_create(@user)
-    else
-      flash.now[:error]=get_flash_error(@user)
-      render :action=>:show
+  def import_invite
+    Invitation.transaction do
+      unless params[:nr_emails].blank?
+        params[:nr_emails].each do |nr_email|
+          Invitation.send_invitation(current_user.email,nr_email)
+          current_user.concats.create(:email=>nr_email)
+        end
+      end
     end
-  end
-
-  def login_after_create(user)
-    self.current_user=user
-    after_logged_in()
-    flash[:success] = '注册成功，激活邮件已经发送，您现在已经是 MindPin ei 的用户'
-    redirect_back_or_default welcome_url
+  rescue Invitation::InvitationError=>ex
+    flash[:error] = ex.message
+  ensure
+    redirect_to "/account/concats"
   end
 
 end

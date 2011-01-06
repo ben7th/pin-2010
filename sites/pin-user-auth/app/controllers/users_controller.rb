@@ -15,9 +15,6 @@ class UsersController < ApplicationController
   def create
     # 出于安全性考虑，新用户注册时销毁cookies令牌
     destroy_cookie_token
-
-    # 出于安全性考虑，新用户注册时销毁cookies令牌
-    destroy_cookie_token
     @user=User.new(params[:user])
     if @user.save
       # 发送激活邮件
@@ -28,7 +25,22 @@ class UsersController < ApplicationController
       flash.now[:error]=get_flash_error(@user)
       render :layout=>'auth',:template=>'auth/signup'
     end
+  end
 
+  def do_reg
+    # 出于安全性考虑，新用户注册时销毁cookies令牌
+    destroy_cookie_token
+    @user=User.new(params[:user])
+    if @user.save
+      # 发送激活邮件
+      @user.send_activation_mail
+      # 邀请注册成功后，互相加为联系人
+      InvitationEmail.new(params[:invition_sender_email],@user.email).done
+      login_after_create(@user)
+    else
+      flash.now[:error]=get_flash_error(@user)
+      render :action=>:show
+    end
   end
 
   def login_after_create(user)

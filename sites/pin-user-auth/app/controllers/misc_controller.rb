@@ -1,4 +1,4 @@
-class MiscController < ActionController::Base
+class MiscController < ApplicationController
   def concat
   end
 

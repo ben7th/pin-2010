@@ -1,4 +1,4 @@
-class ConcatsController < ActionController::Base
+class ConcatsController < ApplicationController
   include ConcatsControllerMethods
   before_filter :per_load
   def per_load
@@ -21,6 +21,21 @@ class ConcatsController < ActionController::Base
     render_ui.page << %~  
       jQuery(".add-member-info").html("#{@concat.errors.first[1]}");
     ~
+  end
+
+  class ConcatSaveError < StandardError;end
+  def create_all
+    Concat.transaction do
+      params[:emails].each do |email|
+        concat = current_user.concats.new(:email=>email.strip())
+        #        if !concat.save
+        #          raise ConcatSaveError,"保存失败"
+        #        end
+      end
+    end
+    return render :text=>"保存成功",:status=>200
+  rescue ConcatSaveError => ex
+    render :status=>500,:text=>ex.message
   end
 
   def create_for_plugin
@@ -71,36 +86,23 @@ class ConcatsController < ActionController::Base
     end
   end
 
-  def import;end
+  def import
+    set_tabs_path('account/tabs')
+  end
   
   def import_list
     begin
-      @emails = Invitation.fetch_email_contacts(params[:email],params[:password],params[:type])
-
+      @emails = EmailContact.fetch_email_contacts(params[:email],params[:password],params[:type])
       @already_contact_email_actors = already_contact_email_actors(@emails)
-
       @not_contacts_already_regeist_email_actors = not_contacts_already_regeist_email_actors(@emails)
-
       @not_contact_not_regeist_email_actors = not_contact_not_regeist_email_actors(@emails)
     rescue Contacts::AuthenticationError => ex
       flash[:error] = "邮箱或密码错误"
+    rescue EmailContact::ContactEmailUsedError => ex
+      flash[:error] = ex.message
+    ensure
       redirect_to "/account/concats/import"
     end
-
-  end
-
-  def do_import
-    params[:ar_emails].each do |ar_email|
-      # 加联系人
-      current_user.concats.create(:email=>ar_email)
-    end
-
-    params[:nr_emails].each do |nr_email|
-      Invitation.new(:host_email=>current_user.email,:contact_email=>nr_email)
-      current_user.concats.create(:email=>nr_email)
-    end
-
-    redirect_to "/account/concats"
   end
 
 end

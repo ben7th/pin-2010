@@ -1,4 +1,4 @@
-class AccountController < ActionController::Base
+class AccountController <  ApplicationController
   before_filter :login_required,:except=>[:activate]
   # 基本信息
   def base;end
@@ -78,7 +78,6 @@ class AccountController < ActionController::Base
   end
 
   def invite
-    @invitations = Invitation.find_all_by_host_email(current_user.email)
   end
   
 end

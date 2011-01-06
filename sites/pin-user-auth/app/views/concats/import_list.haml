@@ -1,27 +1,84 @@
-=flash_info
--form_tag "/account/concats/do_import" do
-  %div 已经增加的联系人
-  %ul
-    -@already_contact_email_actors.each do |actor|
-      %li
-        =avatar actor.email,:tiny
-        =actor.email_name
+-require_css 'views/users'
 
-  %div 已经在 Mindpin 注册的联系人
-  %ul
-    -@not_contacts_already_regeist_email_actors.each do |actor|
-      %li
-        =check_box_tag 'ar_emails[]',"#{actor.email}", true
-        =avatar actor.email,:tiny
-        =actor.email_name
+-content_for :javascripts do
+  :javascript
+    function already_reg_onsave(){
+      jQuery('.already-reg-info').html('正在保存..');
+    }
 
-  %div 没有在 Mindpin 注册的联系人
-  %ul
-    -@not_contact_not_regeist_email_actors.each do |actor|
-      %li
-        =check_box_tag 'nr_emails[]',"#{actor.email}", true
-        =avatar actor.email,:tiny
-        =actor.email_name
+    function already_reg_ok(){
+      jQuery('.already-reg-info').html('保存成功');
+      Element.addClassName($$('.already-reg')[0],'hide');
+      Element.removeClassName($$('.not-reg')[0],'hide');
+    }
 
-  =submit_tag "导入联系人，并给没有注册的联系人发送邀请函"
+    function already_reg_fail(){
+      jQuery('.already-reg-info').html('发生了错误，保存失败')
+    }
+
+.grid_15.alpha
+  =flash_info
+
+  .already-concat
+    %h3
+      有
+      %span.loud>#{@already_contact_email_actors.length}
+      人已经是你的联系人
+      %span.show
+        =link_to '显示','javascript:;',:onclick=>"Element.toggleClassName($$('ul.concat-list')[0],'hide')"
+
+    %ul.concat-list.hide
+      -@already_contact_email_actors.each do |actor|
+        %li
+          .clearfix
+            .member-logo
+              =avatar actor.email,:tiny
+            .member-email
+              =actor.email_name
+
+
+  =hr
+
+  .already-reg
+    %h3
+      有
+      %span.loud>#{@not_contacts_already_regeist_email_actors.length}
+      人已经在Mindpin注册了，你可以添加TA们到你的联系人。
+
+    -form_remote_tag :url=>"/concats/create_all",:create=>'already_reg_onsave();',:success=>"already_reg_ok();",:failure=>'already_reg_fail()' do
+      %ul.concat-list
+        -@not_contacts_already_regeist_email_actors.each do |actor|
+          %li
+            .clearfix
+              .member-checkbox
+                =check_box_tag 'emails[]',"#{actor.email}", true
+              .member-logo
+                =avatar actor.email,:tiny
+              .member-email
+                =actor.email_name
+
+      =submit_tag "增加联系人"
+      %span.already-reg-info.loud.marginl10
+    
+
+  .not-reg.hide
+    %h3
+      还有
+      %span.loud>#{@not_contact_not_regeist_email_actors.length}
+      个联系人没有注册，邀请他们注册吧。
+
+    -form_remote_tag :url=>"/invitations/import_invite",:create=>'already_reg_onsave();',:success=>"already_reg_ok();",:failure=>'already_reg_fail()' do
+      %ul.concat-list
+        -@not_contact_not_regeist_email_actors.each do |actor|
+          %li
+            .clearfix
+              .member-checkbox
+                =check_box_tag 'emails[]',"#{actor.email}", true
+              .member-email
+                =actor.email_name
+
+      =submit_tag "增加联系人"
+      %span.already-reg-info.loud.marginl10
+
+    
 

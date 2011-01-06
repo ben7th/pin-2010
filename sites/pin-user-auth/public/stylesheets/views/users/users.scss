@@ -55,7 +55,7 @@
   border:none;
 }
 
-.set_avatar_head{
+.cellhead .steps-head{
   background:#EBF6E5;
   color:#000000;
   @include border-radius(4px);
@@ -126,6 +126,43 @@
         height:66px;
         margin-right:6px;
       }
+    }
+  }
+}
+
+/*导入联系人页面*/
+.already-concat{
+  margin-bottom:20px;
+  .show{
+    font-size:12px;
+    margin-left:15px;
+    font-weight:normal;
+  }
+}
+
+.concat-list{
+  margin-bottom:10px;
+  li{
+    background:#323546;
+    border:1px solid #111111;
+    margin-top:3px;
+    @include border-radius(3px);
+    padding:6px;
+    .member-checkbox{
+      float:left;line-height:24px;margin-right:8px;
+    }
+    .member-logo{
+      float:left;height:24px;
+      .logo.tiny{
+        width:20px;height:20px;
+      }
+    }
+    .member-email{
+      float:left;line-height:24px;margin-left:8px;
+      color:white;font-weight:bold;
+    }
+    &:hover{
+      background:#45495B;
     }
   }
 }
