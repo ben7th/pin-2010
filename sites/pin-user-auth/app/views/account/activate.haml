@@ -1,14 +1,16 @@
-.font13
-  - if @failure
-    %div 没有找到对应用户，或者 此邮箱用户已经激活，
-    %div 请返回。
-  - else
-    %div 您的账号：
-    .font18.bold{:style => "color:#E8641B; margin:5px 0;"}= @user.email
-    %div 已经激活成功 :)
-    .grid_9.push_7
-      -if current_user != @user
-        =render :partial=>'auth/parts/login_form'
-  = hr
-  %div
-    = link_to "&gt; 返回首页","/"
+- require_css 'views',true
+
+.grid_12.push_6
+  .dialog
+    .font13
+      - if @failure
+        %div 没有找到对应用户，或者此链接对应的用户已经被激活，
+        %div 请返回。
+      - else
+        %div 用户账号：
+        .font18.bold.loud{:style=>"margin:5px 0;"}= @user.email
+        %div 已经激活成功 :)
+
+      = hr
+      %div
+        = link_to "&gt; 返回首页","/"

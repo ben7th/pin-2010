@@ -5,7 +5,7 @@ class Mailer < ActionMailer::Base
     @recipients = user.email
     @from = 'MindPin<noreply@mindpin.com>'
     @body = {'user' => user}
-    @subject = "MindPin密码重设邮件。"
+    @subject = "来自MindPin的密码重设邮件。"
     @sent_on = Time.now
     @content_type = "text/html"
   end
@@ -15,7 +15,7 @@ class Mailer < ActionMailer::Base
     @recipients = user.email
     @from = 'MindPin<noreply@mindpin.com>'
     @body = {'user' => user}
-    @subject = "MindPin用户激活邮件。"
+    @subject = "来自MindPin的用户激活邮件。"
     @sent_on = Time.now
     @content_type = "text/html"
   end
@@ -26,7 +26,7 @@ class Mailer < ActionMailer::Base
     @recipients = invitation_email.receiver.email
     @from = 'mindpin<noreply@mindpin.com>'
     @body = {'invitation_email'=>invitation_email}
-    @subject = "来自朋友#{sender.name}的MindPin邀请邮件"
+    @subject = "来自朋友#{sender.name}的MindPin邀请邮件。"
     @sent_on = Time.now
     @content_type = "text/html"
   end

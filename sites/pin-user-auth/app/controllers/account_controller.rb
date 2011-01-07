@@ -68,6 +68,7 @@ class AccountController <  ApplicationController
     else
       @failure = true
     end
+    render :layout=>'auth'
   end
 
   # 团队首页

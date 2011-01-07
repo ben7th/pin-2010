@@ -7,6 +7,9 @@ module ResetPasswordMethods
   # 根据邮件地址发送邮件
   def forgot_password
     _deal_forgot_password(params[:email])
+  rescue Exception=>ex
+    flash[:error] = ex.message
+  ensure
     redirect_to("/forgot_password_form")
   end
 

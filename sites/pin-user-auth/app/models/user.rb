@@ -101,7 +101,7 @@ class User < UserBase
 
   # 发送激活邮件
   def send_activation_mail
-    self.create_activation_code if self.activation_code.blank?
+    self.create_activation_code if self.reload.activation_code.blank?
     self.save(false)
     UserObserver.instance.send_activation_mail(self)
   end
@@ -118,7 +118,7 @@ class User < UserBase
     @forgotten_password = true
     self.make_password_reset_code
     self.save(false)
-    UserObserver.instance.send_forgotpassword_mail(self)
+    Mailer.deliver_forgotpassword(self)
   end
 
   protected

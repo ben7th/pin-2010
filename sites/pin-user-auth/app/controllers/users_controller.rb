@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_filter :login_required,:only => [:edit,:update]
 
   include SessionsMethods
+
+  # forgot_password_form forgot_password reset_password change_password
   include ResetPasswordMethods
 
   def new
