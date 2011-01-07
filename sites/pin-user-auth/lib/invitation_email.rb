@@ -22,8 +22,11 @@ class InvitationEmail
 
   # 被邀请人 注册成功后 互相加为联系人
   def done
-    @sender.actor.concats.create(:email=>@receiver.email)
-    @receiver.actor.concats.create(:email=>@sender.email)
+    begin
+      @sender.actor.concats.create(:email=>@receiver.email)
+      @receiver.actor.concats.create(:email=>@sender.email)
+    rescue Exception=>ex
+    end
   end
 
 end

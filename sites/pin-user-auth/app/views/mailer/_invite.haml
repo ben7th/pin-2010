@@ -7,7 +7,11 @@
   MindPin网站提供可视化知识工具，我们可以在此协同工作，分享信息。<br/><br/>
 
   点击下面的链接，加入MindPin：<br/>
-  =pin_url_for("user_auth","/i/#{sender.id}")
+  -if preview
+    =pin_url_for("user_auth","/i/#{sender.id}")
+  -else
+    -url = pin_url_for("user_auth","/i/#{sender.id}?email=#{receiver_email}")
+    =link_to url,url
   <br/><br/>
 
   %span{:style=>'color:#CDB37C'}

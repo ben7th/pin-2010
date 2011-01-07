@@ -2,12 +2,6 @@ class InvitationsController < ApplicationController
   before_filter :login_required,:only=>[:create]
   include SessionsMethods
 
-  before_filter :invitation_check,:only=>[:show,:regeist]
-  def invitation_check
-    @invitation = Invitation.find_by_code(params[:id])
-    return render_status_page(404,'页面不存在') if @invitation.blank? || @invitation.activated?
-  end
-
   def create
     InvitationEmail.new(current_user.email,params[:invitation][:contact_email]).send
     flash[:success] = "邀请函发送成功"
@@ -19,22 +13,38 @@ class InvitationsController < ApplicationController
 
   def reg
     @invitation_sender = User.find(params["user_id"])
+    @email = params[:email]
     render :layout=>'auth'
   end
 
   def import_invite
-    Invitation.transaction do
-      unless params[:nr_emails].blank?
-        params[:nr_emails].each do |nr_email|
-          Invitation.send_invitation(current_user.email,nr_email)
-          current_user.concats.create(:email=>nr_email)
+    emails = params[:emails]
+    if !emails.blank?
+      emails.each do |email|
+        InvitationEmail.new(current_user.email,email).send
+      end
+    end
+    return render :text=>"保存成功" , :status=>200
+  rescue Exception=>ex
+    return render :text=>ex.message , :status=>500
+  end
+
+  class ConcatSaveError < StandardError;end
+  def import_concat
+    emails = params[:emails]
+    if !emails.blank?
+      Concat.transaction do
+        !emails.each do |email|
+          concat = current_user.concats.new(:email=>email.strip())
+          if !concat.save
+            raise ConcatSaveError,concat.errors.first[1]
+          end
         end
       end
     end
-  rescue Invitation::InvitationError=>ex
-    flash[:error] = ex.message
-  ensure
-    redirect_to "/account/concats"
+    return render :text=>"保存成功" , :status=>200
+  rescue ConcatSaveError => ex
+    return render :text=>ex.message , :status=>500
   end
 
 end

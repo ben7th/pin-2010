@@ -2,19 +2,25 @@
 
 .grid_10.push_4
   .dialog
-    .inviiation-sender.marginb3em
-      .avatar
-        =avatar(@invitation_sender)
-      .data
-        你好，我是#{@invitation_sender.name}，注册MindPin，与我一起共享信息。
+    - if logged_in?
+      你目前正使用用户
+      %span.loud>#{current_user.name}
+      登录，请先退出后再来注册。
+      =link_to '回首页','/'
+    - else
+      .inviiation-sender.marginb3em
+        .avatar
+          =avatar(@invitation_sender)
+        .data
+          你好，我是#{@invitation_sender.name}，注册MindPin，与我一起共享信息。
 
-    = flash_info
+      = flash_info
 
-    - mindpin_form_for User.new,:url=>"/i/do_reg" do |f|
-      = hidden_field_tag :invition_sender_email,@invitation_sender.email
-      = f.text_field :email,:maxlength=>50,:desc=>'必填，用于登录'
-      = f.text_field :name,:maxlength=>50,:desc=>'显示的名称，必填，以后可以修改'
-      = f.password_field :password,:value=>'',:maxlength=>32
-      = f.password_field :password_confirmation,:value=>'',:maxlength=>32
-      .form_actions
-        = f.submit "确认注册"
+      - mindpin_form_for User.new,:url=>"/i/do_reg" do |f|
+        = hidden_field_tag :invition_sender_email,@invitation_sender.email
+        = f.text_field :email,:maxlength=>50,:value=>@email,:desc=>'必填，用于登录'
+        = f.text_field :name,:maxlength=>50,:desc=>'显示的名称，必填，以后可以修改'
+        = f.password_field :password,:value=>'',:maxlength=>32
+        = f.password_field :password_confirmation,:value=>'',:maxlength=>32
+        .form_actions
+          = f.submit "确认注册"

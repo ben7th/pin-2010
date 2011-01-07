@@ -52,14 +52,13 @@ ActionController::Routing::Routes.draw do |map|
   # 导入联系人
   map.resources :concats,
     :collection=>{
-      :create_all=>:post,
       :create_for_plugin=>:post,
       :destroy_for_plugin=>:delete
   }
 
   # 发送邀请函
   map.account_invite "account/invite",:controller=>"account",:action=>"invite"
-  map.resources :invitations,:member=>{:regeist=>:post},:collection=>{:import_invite=>:post}
+  map.resources :invitations,:collection=>{:import_invite=>:post,:import_concat=>:post}
 
   map.invitation_do_register "/i/do_reg",:controller=>"users",:action=>"do_reg"
   map.invitation_register "/i/:user_id",:controller=>"invitations",:action=>"reg"

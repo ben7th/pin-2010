@@ -22,10 +22,11 @@ class Mailer < ActionMailer::Base
 
   # 发送邀请函
   def invite(invitation_email)
+    sender = invitation_email.sender.actor
     @recipients = invitation_email.receiver.email
     @from = 'mindpin<noreply@mindpin.com>'
     @body = {'invitation_email'=>invitation_email}
-    @subject = "MindPin用户邀请邮件。"
+    @subject = "来自朋友#{sender.name}的MindPin邀请邮件"
     @sent_on = Time.now
     @content_type = "text/html"
   end
