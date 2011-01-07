@@ -1,5 +1,12 @@
 module MindmapNoteMethods
-  NOTE_REPO_BASE_PATH = YAML.load(CoreService.project("pin-notes").settings)["note_repo_path"]
+  NOTE_REPO_BASE_PATH = case RAILS_ENV
+  when 'development'
+    YAML.load(CoreService.project("pin-notes").settings)["note_repo_path"]
+  when 'production'
+    '/web/2010/note_repo' # 部署环境下note没有启动，加载不了，直接写了
+  end
+  
+
 
   def self.included(base)
     base.after_create :create_note_repo_if_unexist
