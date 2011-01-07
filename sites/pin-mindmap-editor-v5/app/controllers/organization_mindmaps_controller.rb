@@ -1,6 +1,6 @@
 class OrganizationMindmapsController < ApplicationController
 
-  include MindmapParamsEditingMethods
+  include MindmapManagingControllerMethods
 
   before_filter :login_required
   before_filter :per_load
