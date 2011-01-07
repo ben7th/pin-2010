@@ -172,6 +172,8 @@ body {
     margin-left: 10px; }
     .page-footer .links span, .page-footer .rights span {
       padding-left: 10px; }
+  .page-footer .container_24 {
+    overflow: hidden; }
 
 .prosd {
   padding: 4px 10px 10px 15px;

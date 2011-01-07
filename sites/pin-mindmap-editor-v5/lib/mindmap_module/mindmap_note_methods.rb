@@ -7,15 +7,11 @@ module MindmapNoteMethods
 
   # 如果备注版本库不存在，就创建一个
   def create_note_repo_if_unexist
-    return self.note_nid if self.note_repo_exist?
-
-    nid = self.note_nid
-    nid = randstr(20) if nid.blank?
-    
-    MpGitTool.init_repo(File.join(NOTE_REPO_BASE_PATH,"notes",nid))
-
-    self.update_attribute(:note_nid,nid)
-    return nid
+    if !self.note_repo_exist?
+      nid = randstr(20)
+      MpGitTool.init_repo(File.join(NOTE_REPO_BASE_PATH,"notes",nid))
+      self.update_attribute(:note_nid,nid)
+    end
   end
 
   # 删除节点备注
@@ -57,20 +53,53 @@ module MindmapNoteMethods
 
   # 备注对应的版本库是否存在
   def note_repo
-    return nil if self.note_nid.blank?
-    repo_path = note_repo_path
-    return nil if !File.exist?(repo_path)
-    Grit::Repo.new(repo_path)
+    create_note_repo_if_unexist
+    Grit::Repo.new(note_repo_path)
   end
 
+  # 备注的版本库路径
   def note_repo_path
-    return "" if self.note_nid.blank?
+    raise "note_nid is null" if self.note_nid.blank?
     File.join(NOTE_REPO_BASE_PATH,"notes",self.note_nid)
   end
 
-  # 备注版本库是否存在
   def note_repo_exist?
-    !self.note_repo.blank?
+    !self.note_nid.blank? && File.exist?(File.join(NOTE_REPO_BASE_PATH,"notes",self.note_nid))
   end
 
+
+  def Mindmap.import_all_node_to_note_repo
+    t_1 = Time.now
+    ################
+
+    i = 0
+    Mindmap.find_by_sql("select distinct mindmaps.* from mindmaps join nodes on nodes.note is not null or nodes.note != '' where mindmaps.id = nodes.mindmap_id").each do |m|
+      i+=1
+      p i
+      m.import_note_to_git
+    end
+
+    ################
+    t_2 = Time.now
+    p t_2 - t_1
+  end
+
+  def import_note_to_git
+    all_nodes = self.nodes
+    create_note_repo_if_unexist
+    write_hash = {}
+    all_nodes.each do |node|
+      local_id = node.local_id
+      note     = node.note
+      next if note.blank?
+      
+      file_name = "notefile_#{local_id}"
+      file_content = note
+
+      write_hash[file_name] = file_content
+    end
+    repo = self.note_repo
+
+    MpGitTool.add_text_content!(repo,self.user,write_hash)
+  end
 end

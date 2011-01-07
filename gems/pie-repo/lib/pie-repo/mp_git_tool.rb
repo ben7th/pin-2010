@@ -16,6 +16,7 @@ class MpGitTool
   end
 
   # 增加一段文本片段
+  # write_hash 举例 {file_name=>file_content,file_name=>file_content}
   def self.add_text_content!(git,user,write_hash,message="")
     Dir.chdir(git.working_dir) do
       # 设置提交者

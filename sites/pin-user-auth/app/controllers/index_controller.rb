@@ -3,7 +3,6 @@ class IndexController < ApplicationController
     if !logged_in?
       return render :template=>'auth/index',:layout=>'auth'
     end
-    #redirect_to pin_url_for('pin-workspace','/workspaces')
     _user_page
   end
 

@@ -41,23 +41,4 @@ module MindmapSnapshotMethods
   class CreateSnapshotError < StandardError;end
   class RecoverSnapshotError < StandardError;end
 
-  def Mindmap.import_all_node_to_note_repo
-    t_1 = Time.now
-    ################
-    nodes = Node.all
-    all_count = nodes.size
-    nodes.each_with_index do |node,index|
-      p "#{index+1}/#{all_count} "
-      mindmap = node.mindmap
-      local_id = node.local_id
-      note = node.note
-      next if mindmap.blank? || local_id.blank? || note.blank?
-
-      mindmap.create_note_repo_if_unexist
-      mindmap.update_node_note(local_id,note)
-    end
-    ################
-    t_2 = Time.now
-    p t_2 - t_1
-  end
 end

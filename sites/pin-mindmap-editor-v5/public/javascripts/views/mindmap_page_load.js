@@ -132,7 +132,7 @@ pie.MindmapUser = Class.create({
         }
       });
     }catch(ex){
-      console.log(ex);
+      alert(ex)
     }
   }
 });

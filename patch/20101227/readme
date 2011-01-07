@@ -1,3 +1,8 @@
-1 bugs工程增加了一个数据表，需要运行migrate
-2 由于导图进行了程序修改，目前和Git版本库关联，需要运行Mindmap.import_all_node_to_note_repo
-来导出现在的NOTE
+1 bugs工程增加了两个数据表，api_helps 和 api_params 需要运行该工程的 migrate （2个migration）
+
+2 导图工程，mindmaps表增加了 note_nid 字段 ，需要运行该工程的migrate（1个migration）
+
+3 服务器需手动创建 /web/2010/note_repo/notes 目录，以保证脚本正常运行
+
+4 由于导图进行了程序修改，目前和Git版本库关联，需要运行Mindmap.import_all_node_to_note_repo
+  来导出现在的NOTE
