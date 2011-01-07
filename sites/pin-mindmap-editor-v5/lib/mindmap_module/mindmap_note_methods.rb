@@ -25,7 +25,11 @@ module MindmapNoteMethods
   def destroy_node_note(local_id)
     file_name = "notefile_#{local_id}"
     repo = self.note_repo
-    MpGitTool.delete_file!(repo,self.user,file_name)
+    begin
+      MpGitTool.delete_file!(repo,self.user,file_name)
+    rescue Exception => ex
+      p ex # 1月7日部署后，note提交会触发一个bug，先暂时这样fix
+    end
   end
 
   # 增加节点备注
