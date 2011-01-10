@@ -1,4 +1,4 @@
-class MindmapStruct
+class MindmapStructV05
   def initialize(mindmap)
     @mindmap = mindmap
     @m_doc = Nokogiri::XML(@mindmap.struct)
@@ -14,13 +14,13 @@ class MindmapStruct
 
   # 所有节点
   def nodes
-    @m_doc.xpath("//N").to_a
+    @m_doc.xpath("//node").to_a
   end
 
   # 所有节点的标题
   def nodes_title
     nodes.map do |node|
-      _trans_xml_title(node["t"])
+      _trans_xml_title(node["title"])
     end
   end
 
@@ -30,13 +30,13 @@ class MindmapStruct
 
   # 根节点
   def root
-    @m_doc.at_xpath("/Nodes/N")
+    @m_doc.at_xpath("/mindmap/node")
   end
 
   # 根节点的标题
   def root_title
     return "" if root.blank?
-    _trans_xml_title(root["t"])
+    _trans_xml_title(root["title"])
   end
 
   # 除根节点外的节点
@@ -47,7 +47,7 @@ class MindmapStruct
   # 除根节点外的节点
   def child_nodes_title
     child_nodes.map do |node|
-      _trans_xml_title(node["t"])
+      _trans_xml_title(node["title"])
     end
   end
 

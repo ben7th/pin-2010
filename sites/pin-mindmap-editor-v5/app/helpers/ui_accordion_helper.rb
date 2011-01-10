@@ -1,48 +1,29 @@
 module UiAccordionHelper
   def accordion_bar(*args,&block)
     options = args.extract_options!
-    id = options[:id] || ""
-    global_active_bgc = options[:active_bgc] || ""
-    global_bgc = options[:bgc] || ""
-
+    @mpaccordion_bar_context_arr = []
+    @accordion_bar_options = AccordionbarOptions.new(options)
 
     block.call()
 
-    id_str = id.blank? ? "" : "id='#{id}'"
+    id_str = @accordion_bar_options.id.blank? ? "" : "id='#{@accordion_bar_options.id}'"
 
     bar_str = %`  <div #{id_str} class="mpaccordion-bar">  `
-    @mpaccordion_bar_context_arr.each do |hash|
-      title = hash[:title]
-      content = hash[:content]
-      open = hash[:open]
-      active_bgc = hash[:active_bgc]
-      active_bgc = active_bgc.blank? ? global_active_bgc : active_bgc
-      bgc = hash[:bgc]
-      bgc = bgc.blank? ? global_bgc : bgc
-      bgc_str = bgc.blank? ? "" : "background-color:#{bgc};"
-      active_bgc_str = active_bgc.blank? ? "" : "background-color:#{active_bgc};"
-
-
-      data_active_bgc_str = active_bgc.blank? ? "" : "data-active-bgc='#{active_bgc}'"
-      data_bgc_str = bgc.blank? ? "" : "data-bgc='#{bgc}'"
-
-      bgc_style = open ? active_bgc_str : bgc_str
-      open_class = open ? "open" : "close"
+    @mpaccordion_bar_context_arr.each do |accordion_item_options|
       bar_str << %`
-        <div class="mpaccordion-toggler #{open_class}" style="#{bgc_style}" #{data_active_bgc_str} #{data_bgc_str}>
-          #{title}
+        <div class="mpaccordion-toggler #{accordion_item_options.open_class}" #{accordion_item_options.bgc_style_attribute} #{accordion_item_options.data_active_bgc_attribute} #{accordion_item_options.data_bgc_attribute}>
+          #{accordion_item_options.title}
         </div>
       `
-      height_style = open ? "" : "height:0px;"
+
       bar_str << %`
-        <div class="mpaccordion-content" style="#{height_style}">
-          #{content}
+        <div class="mpaccordion-content" #{accordion_item_options.height_style_attribute}>
+          #{accordion_item_options.content}
         </div>
       `
     end
     bar_str << "</div>"
 
-    @mpaccordion_bar_context_arr = []
     concat(bar_str)
   end
 
@@ -50,11 +31,80 @@ module UiAccordionHelper
     title = args.first
     options = args.extract_options!
     content = capture(&block) if block
-    active_bgc = options[:active_bgc] || ""
-    bgc = options[:bgc] || ""
-    open = options[:open] || false
+
+    accordion_item_options = AccordionItemOptions.new(title,content,@accordion_bar_options,options)
     
-    @mpaccordion_bar_context_arr ||= []
-    @mpaccordion_bar_context_arr << {:title=>title,:content=>content,:bgc=>bgc,:active_bgc=>active_bgc,:open=>open}
+    @mpaccordion_bar_context_arr << accordion_item_options
   end
+end
+
+class AccordionbarOptions
+  def initialize(options)
+    @options = options
+  end
+
+  def id
+    @options[:id] || ""
+  end
+
+  def active_bgc
+    @options[:active_bgc] || ""
+  end
+
+  def bgc
+    @options[:bgc] || ""
+  end
+end
+
+class AccordionItemOptions
+  def initialize(title,content,accordion_bar_options,options)
+    @title = title
+    @content = content
+    @accordion_bar_options = accordion_bar_options
+    @options = options
+  end
+
+  def title
+    @title
+  end
+
+  def content
+    @content
+  end
+
+  def active_bgc
+   @options[:active_bgc] || @accordion_bar_options.active_bgc || ""
+  end
+
+  def bgc
+    @options[:bgc] || @accordion_bar_options.bgc || ""
+  end
+
+  def open
+    @options[:open].nil? ? true : options[:open]
+  end
+
+  def open_class
+    open ? "open" : "close"
+  end
+
+  def data_active_bgc_attribute
+    active_bgc.blank? ? "" : "data-active-bgc='#{active_bgc}'"
+  end
+
+  def data_bgc_attribute
+    bgc.blank? ? "" : "data-bgc='#{bgc}'"
+  end
+
+  def bgc_style_attribute
+    bgc_str = bgc.blank? ? "" : "style='background-color:#{bgc};'"
+    active_bgc_str = active_bgc.blank? ? "" : "style='background-color:#{active_bgc};'"
+
+    open ? active_bgc_str : bgc_str
+  end
+
+  def height_style_attribute
+    open ? "" : "style='height:0px;'"
+  end
+
 end

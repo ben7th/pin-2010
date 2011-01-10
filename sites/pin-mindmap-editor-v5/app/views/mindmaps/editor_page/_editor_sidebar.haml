@@ -1,12 +1,12 @@
--accordion_bar :bgc=>"#0B6138",:active_bgc=>"#E0542F" do
-  -accordion_item '数据导出和下载',:bgc=>"#ADC96D",:open=>true do
+-accordion_bar do
+  -accordion_item '数据导出和下载' do
     .mindmap-export.padding5
       =render :partial=>'mindmaps/edit/export'
-  -accordion_item '节点备注编辑',:bgc=>"#C1D791",:open=>true do
+  -accordion_item '节点备注编辑' do
     .note_editor.padding5
       .editor_box
         %textarea#mindmap-note-edit{:style=>''}
-  -accordion_item '相似导图..',:bgc=>"#98BC48",:open=>true do
+  -accordion_item '相似导图..' do
     .padding5
       =render :partial=>'mindmaps/editor_page/module/similar_mindmaps'
 

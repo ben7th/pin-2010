@@ -1,6 +1,10 @@
 module MindmapRankMethods
   def rank
-    MindmapRank.new(self).rank_value.to_f
+    begin
+      MindmapRank.new(self).rank_value.to_f
+    rescue Exception => ex
+      -1
+    end
   end
 
   # 导图的节点数

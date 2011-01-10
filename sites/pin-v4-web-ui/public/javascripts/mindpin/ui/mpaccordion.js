@@ -48,10 +48,12 @@ var MpAccordion = Class.create({
     title.removeClassName("open").addClassName("close");
   },
   change_title_color:function(title,color){
-    new Effect.Morph(title,{
-      style: {backgroundColor:color},
-      duration: 0.1
-    });
+    if(color != null){
+      new Effect.Morph(title,{
+        style: {backgroundColor:color},
+        duration: 0.1
+      });
+    }
   },
   change_el_height:function(el,height){
     new Effect.Morph(el, {

@@ -83,10 +83,10 @@ class ContactsController < ApplicationController
       @not_contact_not_regeist_email_actors = @email_hash[:not_contact_not_regeist_email_actors]
     rescue Contacts::AuthenticationError => ex
       flash[:error] = "邮箱或密码错误"
-      redirect_to "/account/concats/import"
+      redirect_to "/account/contacts/import"
     rescue Exception => ex
       flash[:error] = ex.message
-      redirect_to "/account/concats/import"
+      redirect_to "/account/contacts/import"
     end
   end
 
