@@ -41,7 +41,7 @@ class EmailContact
 
   def get_result
     results = get_name_and_emails
-    _check_results(results)
+    raise ContactEmailNoneError,"邮箱中没有联系人" if results.blank?
 
     email_actors = []
     # 只取返回结果中的email，并构建 email_actor
@@ -94,11 +94,5 @@ class EmailContact
 
   def _check_login_address
     EmailActor.new(@login)
-  end
-
-  def _check_results(results)
-    if results.blank?
-      return raise ContactEmailNoneError,"邮箱中没有联系人"
-    end
   end
 end

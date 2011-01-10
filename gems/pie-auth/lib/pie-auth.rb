@@ -31,6 +31,28 @@ require 'pie-auth/email_actor'
 
 # user 信息 需要的类
 if defined? ActiveRecord::Base
+
+  begin
+    require 'cache_money'
+    require 'memcache'
+    config = YAML.load(IO.read(File.join(RAILS_ROOT, "config", "memcached.yml")))[RAILS_ENV]
+    $memcache = MemCache.new(config)
+    $memcache.servers = config['servers']
+
+    $local = Cash::Local.new($memcache)
+    $lock = Cash::Lock.new($memcache)
+    $cache = Cash::Transactional.new($local, $lock)
+
+    p '加载工程 cache money 配置'
+
+    class ActiveRecord::Base
+      is_cached :repository => $cache
+    end
+  rescue Exception => ex
+    p ex.message
+  end
+
+
   require 'pie-auth/member_base'
   require 'pie-auth/organization_base'
   require 'pie-auth/user_base'

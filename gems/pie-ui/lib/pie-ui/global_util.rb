@@ -44,4 +44,11 @@ module GlobalUtil
     end
 
   end
+
+  def branchmark(&block)
+    bm = Benchmark.realtime do
+      yield block
+    end
+    p bm
+  end
 end

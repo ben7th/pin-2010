@@ -7,7 +7,7 @@ stdout_path("/web/2010/logs/unicorn-user-auth.log")
 
 # 加载 超时设置 监听
 preload_app true
-timeout 30
+timeout 60
 listen '/web/2010/sockets/unicorn-user-auth.sock', :backlog => 2048
 
 pid_file_name = "/web/2010/pids/unicorn-user-auth.pid"

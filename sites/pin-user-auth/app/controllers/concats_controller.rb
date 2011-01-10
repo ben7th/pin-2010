@@ -76,7 +76,7 @@ class ConcatsController < ApplicationController
   
   def import_list
     begin
-      @email_hash = EmailContact.fetch_email_contacts(params[:email],params[:password],params[:type],current_user)
+      @email_hash = EmailContact.fetch_email_contacts(params[:email_login],params[:password],params[:type],current_user)
 
       @already_contact_email_actors = @email_hash[:already_contact_email_actors]
       @not_contacts_already_regeist_email_actors = @email_hash[:not_contacts_already_regeist_email_actors]

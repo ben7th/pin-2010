@@ -1,0 +1,1 @@
+1 user-auth 工程的数据库中 users 和 organizations 表 的email字段增加 normal 索引

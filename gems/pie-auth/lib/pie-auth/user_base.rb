@@ -1,5 +1,7 @@
 require 'digest/sha1'
 class UserBase < ActiveRecord::Base
+  p 'UserBase加载'
+
   set_readonly true
   build_database_connection(CoreService::USER_AUTH,{:table_name=>"users"})
 

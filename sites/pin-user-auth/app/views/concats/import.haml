@@ -11,7 +11,7 @@
     %label
       邮箱
       %span.loud (支持 GMail, 163, 126, 新浪)
-    =text_field_tag :email
+    =text_field_tag :email_login
     %span @
     =select_tag(:type,options_for_select([["请选择邮箱类型",'0'],"gmail.com","126.com","163.com","sina.com"]))
   .field

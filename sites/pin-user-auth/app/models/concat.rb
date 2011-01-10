@@ -1,6 +1,6 @@
 class Concat < ActiveRecord::Base
   belongs_to :user
-
+  
   validates_presence_of :user_id
   validates_presence_of :email
   validates_format_of :email,:with=>/^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/
