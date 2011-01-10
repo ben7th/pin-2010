@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: FilesController</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">FilesController</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/controllers/files_controller_rb.html">
+                app/controllers/files_controller.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="ApplicationController.html">
+                ApplicationController
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000088">destroy</a>&nbsp;&nbsp;
+      <a href="#M000082">index</a>&nbsp;&nbsp;
+      <a href="#M000081">per_load</a>&nbsp;&nbsp;
+      <a href="#M000087">search_image</a>&nbsp;&nbsp;
+      <a href="#M000089">show_image_editor</a>&nbsp;&nbsp;
+      <a href="#M000085">show_upload_file</a>&nbsp;&nbsp;
+      <a href="#M000086">show_upload_file_thumb</a>&nbsp;&nbsp;
+      <a href="#M000083">upload_file</a>&nbsp;&nbsp;
+      <a href="#M000084">upload_web_file</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000088" class="method-detail">
+        <a name="M000088"></a>
+
+        <div class="method-heading">
+          <a href="#M000088" class="method-signature">
+          <span class="method-name">destroy</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+删除图片
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000088-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000088-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 59</span>
+59:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
+60:     <span class="ruby-identifier">file_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:path</span>]
+61:     <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@mindmap</span>.<span class="ruby-identifier">delete_file</span>(<span class="ruby-identifier">file_name</span>)
+62:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">render</span> <span class="ruby-operator">:</span><span class="ruby-identifier">status</span>=<span class="ruby-operator">&gt;</span><span class="ruby-value">200</span>,<span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;删除成功&quot;</span>
+63:     <span class="ruby-keyword kw">end</span>
+64:   <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">MindmapImageMethods</span><span class="ruby-operator">::</span><span class="ruby-constant">DeleteUploadedImageError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ex</span>
+65:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;文件删除失败&quot;</span>,<span class="ruby-identifier">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">500</span>
+66:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000082" class="method-detail">
+        <a name="M000082"></a>
+
+        <div class="method-heading">
+          <a href="#M000082" class="method-signature">
+          <span class="method-name">index</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000082-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000082-source">
+<pre>
+   <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 7</span>
+7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
+8:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;/files/mindmap_image_page&quot;</span>,<span class="ruby-identifier">:locals=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:mindmap=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@mindmap</span>,<span class="ruby-identifier">:page=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:page</span>]}
+9:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000081" class="method-detail">
+        <a name="M000081"></a>
+
+        <div class="method-heading">
+          <a href="#M000081" class="method-signature">
+          <span class="method-name">per_load</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000081-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000081-source">
+<pre>
+   <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 3</span>
+3:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">per_load</span>
+4:     <span class="ruby-ivar">@mindmap</span> = <span class="ruby-constant">Mindmap</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:mindmap_id</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:mindmap_id</span>]
+5:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000087" class="method-detail">
+        <a name="M000087"></a>
+
+        <div class="method-heading">
+          <a href="#M000087" class="method-signature">
+          <span class="method-name">search_image</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+搜索google图片
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000087-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000087-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 51</span>
+51:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">search_image</span>
+52:     <span class="ruby-identifier">json</span> = <span class="ruby-constant">GoogleSearch</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:query</span>]).<span class="ruby-identifier">images</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">image</span><span class="ruby-operator">|</span>
+53:       {<span class="ruby-identifier">:uri=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">uri</span>,<span class="ruby-identifier">:height=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">height</span>,<span class="ruby-identifier">:width=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">width</span>,<span class="ruby-identifier">:thumbnail_uri=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">thumbnail_uri</span>,<span class="ruby-identifier">:thumbnail_height=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">thumbnail_height</span>,<span class="ruby-identifier">:thumbnail_width=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">thumbnail_width</span>,<span class="ruby-identifier">:content=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">image</span>.<span class="ruby-identifier">content</span>}
+54:     <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">to_json</span>
+55:     <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">json</span>
+56:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000089" class="method-detail">
+        <a name="M000089"></a>
+
+        <div class="method-heading">
+          <a href="#M000089" class="method-signature">
+          <span class="method-name">show_image_editor</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000089-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000089-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 68</span>
+68:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_image_editor</span>
+69:     <span class="ruby-identifier">render_ui</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ui</span><span class="ruby-operator">|</span>
+70:       <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">fbox</span>(<span class="ruby-identifier">:show</span>,
+71:         <span class="ruby-identifier">:title</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;导图编辑 - 图片引用&quot;</span>,
+72:         <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;mindmaps/editor_page/module/image_editor&quot;</span>,
+73:         <span class="ruby-identifier">:locals</span>  =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:mindmap=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@mindmap</span>})
+74:       <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">page</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'mindmap._node_image_editor._rails_controller_callback()'</span>
+75:     <span class="ruby-keyword kw">end</span>
+76:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000085" class="method-detail">
+        <a name="M000085"></a>
+
+        <div class="method-heading">
+          <a href="#M000085" class="method-signature">
+          <span class="method-name">show_upload_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+显示图片
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000085-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000085-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 36</span>
+36:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_upload_file</span>
+37:     <span class="ruby-identifier">file_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:path</span>].<span class="ruby-identifier">first</span>
+38:     <span class="ruby-identifier">file_path</span> = <span class="ruby-ivar">@mindmap</span>.<span class="ruby-identifier">upload_file_absolute_path</span>(<span class="ruby-identifier">file_name</span>)
+39:     <span class="ruby-identifier">_send_image</span> <span class="ruby-identifier">file_path</span>
+40:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000086" class="method-detail">
+        <a name="M000086"></a>
+
+        <div class="method-heading">
+          <a href="#M000086" class="method-signature">
+          <span class="method-name">show_upload_file_thumb</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+显示图片缩略
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000086-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000086-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 43</span>
+43:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show_upload_file_thumb</span>
+44:     <span class="ruby-identifier">file_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:path</span>].<span class="ruby-identifier">first</span>
+45:     <span class="ruby-identifier">file_path</span> = <span class="ruby-ivar">@mindmap</span>.<span class="ruby-identifier">upload_file_absolute_path</span>(<span class="ruby-identifier">file_name</span>)
+46:     <span class="ruby-identifier">thumb_path</span> = <span class="ruby-constant">ImgResize</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file_path</span>).<span class="ruby-identifier">dump_max_of</span>(<span class="ruby-value">90</span>,<span class="ruby-value">60</span>)
+47:     <span class="ruby-identifier">_send_image</span> <span class="ruby-identifier">thumb_path</span>
+48:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000083" class="method-detail">
+        <a name="M000083"></a>
+
+        <div class="method-heading">
+          <a href="#M000083" class="method-signature">
+          <span class="method-name">upload_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+上传文件
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000083-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000083-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 12</span>
+12:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload_file</span>
+13:     <span class="ruby-keyword kw">begin</span>
+14:       <span class="ruby-identifier">filename</span> = <span class="ruby-ivar">@mindmap</span>.<span class="ruby-identifier">upload_file_to_repo</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:file</span>])
+15:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;/files/mindmap_image_thumb&quot;</span>,<span class="ruby-identifier">:locals=</span><span class="ruby-operator">&gt;</span>{<span class="ruby-identifier">:mindmap=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@mindmap</span>,<span class="ruby-identifier">:filename=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">filename</span>}
+16:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">MindmapImageMethods</span><span class="ruby-operator">::</span><span class="ruby-constant">UploadError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ex</span>
+17:       <span class="ruby-identifier">render_ui</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ui</span><span class="ruby-operator">|</span>
+18:         <span class="ruby-identifier">ui</span>.<span class="ruby-identifier">page</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;alert('上传文件失败')&quot;</span>
+19:       <span class="ruby-keyword kw">end</span>
+20:     <span class="ruby-keyword kw">end</span>
+21:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000084" class="method-detail">
+        <a name="M000084"></a>
+
+        <div class="method-heading">
+          <a href="#M000084" class="method-signature">
+          <span class="method-name">upload_web_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+复制网络文件
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000084-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000084-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/controllers/files_controller.rb, line 24</span>
+24:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload_web_file</span>
+25:     <span class="ruby-keyword kw">begin</span>
+26:       <span class="ruby-identifier">file_name</span> = <span class="ruby-ivar">@mindmap</span>.<span class="ruby-identifier">upload_web_file_to_repo</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:url</span>])
+27:       <span class="ruby-identifier">url</span> = <span class="ruby-identifier">mindmap_show_upload_file_url</span>(<span class="ruby-identifier">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@mindmap</span>.<span class="ruby-identifier">id</span>,<span class="ruby-identifier">:path=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">file_name</span>)
+28:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">url</span>
+29:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">MindmapImageMethods</span><span class="ruby-operator">::</span><span class="ruby-constant">UploadError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ex</span>
+30:       <span class="ruby-identifier">render</span> <span class="ruby-identifier">:text=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">&quot;复制网络资源失败&quot;</span>,<span class="ruby-identifier">:status=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">500</span>
+31:     <span class="ruby-keyword kw">end</span>
+32: 
+33:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

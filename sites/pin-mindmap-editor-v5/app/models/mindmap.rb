@@ -51,43 +51,7 @@ class Mindmap < ActiveRecord::Base
     :default_url => "/images/logo/default_:class_:style.png",
     :default_style => :mini
 
-  # 给平台发送分享
-  def to_share
-    return if self.private
-    user = User.find(self.user_id)
-    m_url = "#{URL_PREFIX}/mindmaps/#{self.id}"
-    m_title = self.title
-    content = "思维导图：#{m_title} #{m_url}"
-    Share.create({"kind"=>"TALK", "content"=>content, "creator_id"=>user.id},:remote_user=>user)
-  end
-
-  def logo_url
-    self&&self.logo ? "/mindmap/logo/#{self.send("logo_relative_path")}":"/images/logo/default_mindmap.png"
-  end
-
-  def logo_url_for_core
-    logo_url
-  end
-  
-  def root_default_title
-    trans_xml_title(self.title)
-  end
-  
-  # 将XML的Attribute t中的字符串转义符全部转义，这个方法的写法比较有技巧性
-  # ruby里gsub的强大用法之一
-  def trans_xml_title(title)
-    title.gsub(/\\./){|m| eval '"'+m+'"'}
-  end
-
-  def save_on_default
-    self.struct='<Nodes maxid="1"><N id="0" t="'+root_default_title+'" f="0"></N></Nodes>'
-    self.save
-  end
-  
-  def rebuild!
-    MindmapStruct.rebuild(self)
-  end
-
+  # 根据传入的导图参数创建思维导图，在controller中被调用
   def self.create_by_params(user,params_mindmap)
     attrs_mindmap = params_mindmap
     import_file = attrs_mindmap[:import_file]
@@ -100,12 +64,13 @@ class Mindmap < ActiveRecord::Base
     if mindmap.valid? && import_file
       mindmap.import_from_file_and_save(import_file)
     else
-      mindmap.save_on_default
+      MindmapStruct.new(mindmap).save_on_default
     end
 
     mindmap.new_record? ? false : mindmap
   end
 
+  # 切换导图的 私有/公开 属性
   def toggle_private
     if self.private?
       return self.update_attributes(:private=>false)
@@ -113,14 +78,26 @@ class Mindmap < ActiveRecord::Base
     self.update_attributes(:private=>true)
   end
 
-  def refresh_local_id
-    ms = MindmapStruct.new(self)
-    ms.child_nodes.each do |cn|
-      cn['id'] = randstr(8)
-    end
-    self.update_attribute(:struct,ms.struct)
+  # 解析XML并转换为Hash对象
+  # 关于title
+  # 数据库中XML上Attribute t中存储的字符串并非原本的显示字符串
+  # 而是JSON字符串
+  # 取出时需要利用trans_xml_title函数才能得到需要的真实字符串
+  # 这么做的目的是为了在支持换行的同时避免歧义，同时又不违反XML的格式规则
+
+  # 6月7日，Nodes的 x y 属性均作废
+  # 8月24日 修改递归过程，防止产生过多的SQL
+
+  # 解析XML并转换为JSON字符串
+  def struct_json
+     MindmapStruct.new(self).struct_json
   end
 
+  # 返回导图的struct解析对象
+  def struct_obj
+    MindmapStruct.new(self)
+  end
+  
   module UserMethods
     def self.included(base)
       base.has_many :mindmaps
@@ -148,6 +125,7 @@ class Mindmap < ActiveRecord::Base
     end
   end
 
+
   include Comment::CommentableMethods
   include Cooperation::MindmapMethods
   
@@ -156,7 +134,6 @@ class Mindmap < ActiveRecord::Base
   include MindmapExportAndImportMethods
   include MindmapRankMethods
   include MindmapSearchMethods
-  include MindmapParseStructMethods
   include MindmapRevisionMethods
   include ImageCache::MindmapMethods
   include MindmapNoteMethods

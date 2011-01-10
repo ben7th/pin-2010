@@ -5,12 +5,6 @@ module MindmapNoteMethods
   when 'production'
     '/web/2010/note_repo' # 部署环境下note没有启动，加载不了，直接写了
   end
-  
-
-
-  def self.included(base)
-    base.after_create :create_note_repo_if_unexist
-  end
 
   # 如果备注版本库不存在，就创建一个
   def create_note_repo_if_unexist

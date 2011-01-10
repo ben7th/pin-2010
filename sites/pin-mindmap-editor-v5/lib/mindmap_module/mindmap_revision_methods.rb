@@ -20,7 +20,7 @@ module MindmapRevisionMethods
 
   # 获取导图的revision值
   def revision
-    Nokogiri::XML(self.struct).at_css("Nodes")["revision"].to_i || 0
+    self.struct_obj.revision
   end
 
   # 2011-01-10决定改为检查version

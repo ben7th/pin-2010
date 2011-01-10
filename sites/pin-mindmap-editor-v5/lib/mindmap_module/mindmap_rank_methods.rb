@@ -9,7 +9,7 @@ module MindmapRankMethods
 
   # 导图的节点数
   def node_count
-    Nokogiri::XML(self.struct).css("N").count
+    self.struct_obj.nodes.length
   end
 
   def low_value?

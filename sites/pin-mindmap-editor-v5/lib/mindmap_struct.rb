@@ -57,41 +57,90 @@ class MindmapStruct
     title.gsub(/\\./){|m| eval '"'+m+'"'}
   end
 
-  # 重新编排 mindmap 的 struct 的结构
-  def self.rebuild(mindmap)
-    ms = self.new(mindmap)
-    record = self._change_n_id(ms)
-    mindmap.update_attribute(:struct,ms.struct)
-    self._change_note_id(record)
+  # 根节点的默认标题
+  def root_default_title
+    _trans_xml_title(@mindmap.title)
   end
 
-  def self._change_note_id(record)
-    record.each do |r|
-      if r[:note]
-        r[:note].update_attribute(:local_id, r[:new_local_id])
-      end
+  # 新建导图后的默认结构
+  def save_on_default
+    @mindmap.struct='<Nodes maxid="1"><N id="0" t="'+root_default_title+'" f="0"></N></Nodes>'
+    @mindmap.save
+  end
+
+  # 解析XML并转换为Hash对象
+  # 关于title
+  # 数据库中XML上Attribute t中存储的字符串并非原本的显示字符串
+  # 而是JSON字符串
+  # 取出时需要利用trans_xml_title函数才能得到需要的真实字符串
+  # 这么做的目的是为了在支持换行的同时避免歧义，同时又不违反XML的格式规则
+
+  # 6月7日，Nodes的 x y 属性均作废
+  # 8月24日 修改递归过程，防止产生过多的SQL
+  def struct_hash
+    @node_note_hash= @mindmap.node_notes
+
+    doc = Nokogiri::XML @mindmap.struct
+    nodes=doc.at_xpath("/Nodes")
+    root=doc.at_xpath("/Nodes/N")
+    shash={
+      :id=>root['id'],
+      :children=>struct_hash_recursion(root),
+      :title=>_trans_xml_title(root['t']),
+      :maxid=>nodes['maxid'],
+      :revision=>nodes['revision'].to_i || 0,
+      :image=>{
+        :url=>root['i'],
+        :height=>root['ih'],
+        :width=>root['iw'],
+        :border=>root['ib']
+      },
+      :note=>get_note_from(root['id'])
+    }
+    shash
+  end
+
+  def struct_hash_recursion(node)
+    re=[]
+    node.xpath('./N').each do |n|
+      hn={
+        :id=>n['id'],
+        :title=>_trans_xml_title(n['t']),
+        :fold=>n['f'],
+        :putright=>n['pr'],
+        :children=>struct_hash_recursion(n),
+        :image=>{
+          :url=>n['i'],
+          :width=>n['iw'],
+          :height=>n['ih'],
+          :border=>n['ib']
+        },
+        :note=>get_note_from(n['id'])
+      }
+      re<<hn
     end
+    re
   end
 
-  def self._change_n_id(mindmap_struct)
-    
-    root = mindmap_struct.root
-    child_nodes = mindmap_struct.child_nodes
-    mindmap = mindmap_struct.mindmap
+  def get_note_from(id)
+    @node_note_hash[id] || ""
+  end
 
-    record = []
-    record << self._build_node_new_local_id(mindmap,root,0)
-    child_nodes.each_with_index do |node,i|
-      record << self._build_node_new_local_id(mindmap,node,i+1)
+  # 解析XML并转换为JSON字符串
+  def struct_json
+    struct_hash.to_json
+  end
+
+  # 重新生成 所有节点的id
+  def refresh_local_id
+    nodes.each do |cn|
+      cn['id'] = randstr(8)
     end
-    record
+    @mindmap.update_attribute(:struct,struct)
   end
 
-  # 返回 {:note=>note,:new_local_id=>new_id}
-  def self._build_node_new_local_id(mindmap,node,new_id)
-    local_id = node["id"]
-    note = mindmap.nodes.find_by_local_id(local_id)
-    node["id"] = new_id.to_s
-    {:note=>note,:new_local_id=>new_id}
+  def revision
+    @m_doc.at_css("Nodes")["revision"].to_i || 0
   end
+
 end
