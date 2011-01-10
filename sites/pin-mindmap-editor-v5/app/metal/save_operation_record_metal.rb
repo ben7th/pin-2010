@@ -11,15 +11,15 @@ class SaveOperationRecordMetal < BaseMetal
     opers = ActiveSupport::JSON.decode(params["operations"])
     mindmap = Mindmap.find(params["map"])
 
-    if !mindmap.check_md5(params["md5"])
-      return [422,{"Content-Type" => "text/xml"}, ["md5值不匹配，需要#{mindmap.md5}，提交为#{params["md5"]}"]]
+    if !mindmap.check_revision(params["revision"].to_i)
+      return [422,{"Content-Type" => "text/xml"}, ["revision值不匹配，需要#{mindmap.revision}，提交为#{params["revision"]}"]]
     end
     
     begin
       opers.each do |op|
         mindmap.do_operation(op)
       end
-      return [200, {"Content-Type" => "text/x-json"}, [{:md5=>mindmap.md5}.to_json]]
+      return [200, {"Content-Type" => "text/x-json"}, [{:revision=>mindmap.revision}.to_json]]
     rescue Exception => ex
       return [500, {"Content-Type" => "text/x-json"}, [{:error=>ex.message}.to_json]]
     end

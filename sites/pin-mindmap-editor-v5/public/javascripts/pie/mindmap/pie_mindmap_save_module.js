@@ -21,7 +21,7 @@ pie.mindmap_save_module = {
 
     var pars =
       'map=' + this.id + '&' +
-      'md5=' + this.md5 + '&' +
+      'revision=' + this.revision + '&' +
       'operations=' + encodeURIComponent(this.opQueue.toJSON());
     
     new Ajax.Request("/mindmaps/do",{
@@ -33,8 +33,7 @@ pie.mindmap_save_module = {
         this.opQueue = [];
       }.bind(this),
       onSuccess:function(trans){
-        var new_md5 = trans.responseText.evalJSON().md5;
-        this.md5 = new_md5;
+        this.revision = trans.responseText.evalJSON().revision;
         this.ready_to_request=true;
         this.close_info();
         if(this.opQueue.length > 0) this._save();

@@ -9,7 +9,7 @@ pie.mindmap.Node = Class.create({
     if(this.maxid!=null){
       this.root = this;
       this.map = parent;
-      this.map.md5 = this.md5;
+      this.map.revision = this.revision || 0;
     }else{
       this.parent=parent;
       this.root=parent.root;

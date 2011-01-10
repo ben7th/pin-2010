@@ -19,7 +19,7 @@ module MindmapParseStructMethods
       :children=>struct_hash_recursion(root),
       :title=>trans_xml_title(root['t']),
       :maxid=>nodes['maxid'],
-      :md5=>self.md5,
+      :revision=>nodes['revision'].to_i || 0,
       :image=>{
         :url=>root['i'],
         :height=>root['ih'],

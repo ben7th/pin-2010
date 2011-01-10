@@ -1,6 +1,6 @@
 require 'digest/md5'
 
-module MindmapMd5Methods
+module MindmapRevisionMethods
   # 取得一个导图内容的md5
   # 导图的内容由两部分组成
   # 1 节点的 struct
@@ -16,6 +16,16 @@ module MindmapMd5Methods
   # 判断 md5_str 是否和 该导图的 md5串 相同
   def check_md5(md5_str)
     self.md5 == md5_str
+  end
+
+  # 获取导图的revision值
+  def revision
+    Nokogiri::XML(self.struct).at_css("Nodes")["revision"].to_i || 0
+  end
+
+  # 2011-01-10决定改为检查version
+  def check_revision(revision)
+    revision == self.revision
   end
 
 end
