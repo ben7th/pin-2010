@@ -28,9 +28,9 @@
 .plugins_head{
   margin:-15px;
   border:solid 1px;
-  border-color:#DEEA53 #EFF2C7 #EFF2C7 #DEEA53;
-  background:#FBFFCE;
-  color:#333333;
+  border-color:#111;
+  @include gradient(#829AA8,#405A6A);
+  color:#fff;
   @include border-radius(10px);
   padding:10px 20px;
   font-size:13px;
@@ -39,7 +39,7 @@
     font-size:48px;
     line-height:64px;
     margin:10px 0 0 0;
-    color:#C83914;
+    color:#fff;
     text-shadow:1px 1px #830300;
   }
 }
