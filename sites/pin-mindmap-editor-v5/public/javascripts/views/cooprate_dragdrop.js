@@ -1,6 +1,6 @@
 pie.drag.Cooprate = Class.create(pie.drag.Base,{
   onInit:function(){
-    this.concat_li = this.el;
+    this.contact_li = this.el;
     this.ul = this.el.parentNode;
 
     this.ce_input = $('cooperate_editors');
@@ -42,12 +42,12 @@ pie.drag.Cooprate = Class.create(pie.drag.Base,{
   __init_dragproxy:function(){
 		if (!this.dragproxy) {
 			this.dragproxy = $(Builder.node('li', {
-				'class': 'concat',
+				'class': 'contact',
 				'style': "position:absolute;padding:4px;"
 			}));
 		}
     this.__set_drag_proxy_style();
-    this.dragproxy.update($(this.concat_li).select('.data')[0].outerHTML);
+    this.dragproxy.update($(this.contact_li).select('.data')[0].outerHTML);
     return this.dragproxy;
   },
   __set_drag_proxy_style:function(){
@@ -96,7 +96,7 @@ pie.drag.Cooprate = Class.create(pie.drag.Base,{
   },
   _drop:function(){
     if(this.dropon){
-      var email = this.concat_li.select('.email')[0].innerHTML;
+      var email = this.contact_li.select('.email')[0].innerHTML;
       var ces = this.ce_input.value;
       var cvs = this.cv_input.value;
       if(ces.include(email) || cvs.include(email)) return;

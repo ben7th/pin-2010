@@ -276,17 +276,17 @@
   margin-top: 15px;
   float: left;
   width: 250px; }
-  .friends-list .no-concat {
+  .friends-list .no-contact {
     margin-top: 10px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     background: #111;
     padding: 10px; }
-  .friends-list ul.concats {
+  .friends-list ul.contacts {
     position: relative;
     margin-top: 5px; }
-    .friends-list ul.concats li {
+    .friends-list ul.contacts li {
       margin-bottom: 1px;
       cursor: move;
       overflow: hidden;
@@ -295,19 +295,19 @@
       -webkit-border-radius: 3px;
       background: #323546;
       border: solid 1px #111; }
-      .friends-list ul.concats li .padding4 {
+      .friends-list ul.contacts li .padding4 {
         padding: 4px; }
-      .friends-list ul.concats li .avatar {
+      .friends-list ul.contacts li .avatar {
         float: left;
         margin-right: 10px;
         height: 34px; }
-        .friends-list ul.concats li .avatar img {
+        .friends-list ul.contacts li .avatar img {
           width: 32px;
           height: 32px; }
-      .friends-list ul.concats li .data .name {
+      .friends-list ul.contacts li .data .name {
         font-weight: bold;
         color: white; }
-      .friends-list ul.concats li .data .email {
+      .friends-list ul.contacts li .data .email {
         color: #888888; }
 
 h3.b {

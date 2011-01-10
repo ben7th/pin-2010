@@ -3,5 +3,5 @@ class User < UserBase
   include Cooperation::UserMethods
   include Member::UserMethods
 
-  has_many :concats
+  has_many :contacts
 end

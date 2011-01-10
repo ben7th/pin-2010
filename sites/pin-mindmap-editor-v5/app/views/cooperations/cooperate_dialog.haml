@@ -3,7 +3,7 @@
   = javascript_include_tag 'views/cooprate_dragdrop'
   :javascript
     pie.load(function(){
-      $$('ul.concats li').each(function(li){
+      $$('ul.contacts li').each(function(li){
         new pie.drag.Cooprate(li,{});
       });
       $('cooperate_editors').value = '#{@cooperate_edit_email_list_str}';
@@ -33,31 +33,31 @@
 
   .friends-list
     %h3 从联系人添加协作者
-    -concats = current_user.concats
+    -contacts = current_user.contacts
 
-    -if concats.blank?
-      .no-concat
+    -if contacts.blank?
+      .no-contact
         .p 您目前在MindPin还没有任何联系人
         .p
           请通过
-          %span>=link_to '联系人设置',pin_url_for('pin-user-auth','/account/concats'),:confirm=>'将跳转到其他页面，确定吗？'
+          %span>=link_to '联系人设置',pin_url_for('pin-user-auth','/account/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
           添加
     -else
-      .p=link_to '联系人设置',pin_url_for('pin-user-auth','/account/concats'),:confirm=>'将跳转到其他页面，确定吗？'
-      %ul.concats
-        -concats.each do |concat|
-          %li.concat
+      .p=link_to '联系人设置',pin_url_for('pin-user-auth','/account/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
+      %ul.contacts
+        -contacts.each do |contact|
+          %li.contact
             .padding4
-              .avatar=avatar concat.email,:tiny
+              .avatar=avatar contact.email,:tiny
               .data
-                .name=concat.concat_user_name
-                .email=concat.email
+                .name=contact.contact_user_name
+                .email=contact.email
 
   .friends-list{:style=>'margin-left:20px;'}
     %h3 添加协作团队
     -organizations = current_user.joined_organizations
     -if organizations.blank?
-      .no-concat
+      .no-contact
         .p 您目前在MindPin还没有任何团队
         .p
           请通过
@@ -65,9 +65,9 @@
           添加
     -else
       .p=link_to '团队设置',pin_url_for('pin-user-auth','/account/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
-      %ul.concats
+      %ul.contacts
         -organizations.each do |org|
-          %li.concat
+          %li.contact
             .padding4
               .data
                 .name=org.name
