@@ -20,7 +20,6 @@ class Mindmap < ActiveRecord::Base
 
   belongs_to :user
   
-  has_many :nodes
   has_one :visit_counter, :as=>:resource
 
   # name_scopes
@@ -158,7 +157,7 @@ class Mindmap < ActiveRecord::Base
   include MindmapRankMethods
   include MindmapSearchMethods
   include MindmapParseStructMethods
-  include MindmapMd5Methods
+  include MindmapRevisionMethods
   include ImageCache::MindmapMethods
   include MindmapNoteMethods
   include MindmapSnapshotMethods
