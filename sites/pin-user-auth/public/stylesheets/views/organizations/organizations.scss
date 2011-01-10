@@ -84,7 +84,7 @@
     color:#935a00;
   }
   .member-list{
-    li.user,li.member,li.concat{
+    li.user,li.member,li.contact{
       background:#323546;
       border:1px solid #111111;
       margin-top:3px;
@@ -121,7 +121,7 @@
   .add-member-form{
     margin-top:10px;
     padding:6px;
-    input#concat_email{width:300px !important;}
+    input#contact_email{width:300px !important;}
     input#member_email{width:300px !important;}
   }
 }

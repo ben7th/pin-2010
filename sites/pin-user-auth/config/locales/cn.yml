@@ -29,7 +29,7 @@ cn:
     errors:
       errors:
       models:
-        concat:
+        contact:
           attributes:
             email:
               invalid: 邮箱地址不符合规范

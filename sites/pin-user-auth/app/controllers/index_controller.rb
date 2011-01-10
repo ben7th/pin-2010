@@ -10,7 +10,7 @@ class IndexController < ApplicationController
     @workspaces = current_user.workspaces
     @organizations = Organization.of_user(current_user)
     @mindmaps = current_user.mindmaps
-    @concats = current_user.concats
+    @contacts = current_user.contacts
   end
 
   def updating

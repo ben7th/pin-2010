@@ -71,18 +71,18 @@
         -mplist @organizations,:for=>Organization do |org|
           =link_to org.name,pin_url_for('pin-user-auth',"/organizations/#{org.id}")
 
-  .concats.yours
+  .contacts.yours
     .top-bar.clearfix
       .fleft.font14.bold
-        联系人(#{@concats.count})
+        联系人(#{@contacts.count})
       .fright
-        =minibutton '设置','/account/concats'
+        =minibutton '设置','/account/contacts'
     .yours-list
-      -if @concats.blank?
+      -if @contacts.blank?
         .no-item
           目前还没有联系人
       -else
-        -mplist @concats,:for=>Concat do |c|
+        -mplist @contacts,:for=>Contact do |c|
           .avatar
             =avatar c.email,:tiny
           .name

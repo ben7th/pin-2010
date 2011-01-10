@@ -1,16 +1,16 @@
 .cellhead {
   margin-bottom: 0 !important; }
 
-.concat_head {
+.contact_head {
   padding-bottom: 20px;
   margin-bottom: 30px;
   border-bottom: 1px solid #464660; }
-  .concat_head h1 {
+  .contact_head h1 {
     font-size: 24px;
     line-height: 24px;
     color: white; }
 
-.concatus {
+.contactus {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -19,7 +19,7 @@
   padding: 10px 20px;
   font-size: 14px;
   font-family: Verdana,arial; }
-  .concatus .p {
+  .contactus .p {
     margin-bottom: 1em; }
 
 .plugins_head {

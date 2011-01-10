@@ -71,26 +71,26 @@
     border: solid 1px #111;
     background: #FFF8CC;
     color: #935a00; }
-  .member-block .member-list li.user, .member-block .member-list li.member, .member-block .member-list li.concat {
+  .member-block .member-list li.user, .member-block .member-list li.member, .member-block .member-list li.contact {
     background: #323546;
     border: 1px solid #111111;
     margin-top: 3px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px; }
-    .member-block .member-list li.user .member-logo, .member-block .member-list li.member .member-logo, .member-block .member-list li.concat .member-logo {
+    .member-block .member-list li.user .member-logo, .member-block .member-list li.member .member-logo, .member-block .member-list li.contact .member-logo {
       float: left;
       height: 24px; }
-      .member-block .member-list li.user .member-logo .logo.tiny, .member-block .member-list li.member .member-logo .logo.tiny, .member-block .member-list li.concat .member-logo .logo.tiny {
+      .member-block .member-list li.user .member-logo .logo.tiny, .member-block .member-list li.member .member-logo .logo.tiny, .member-block .member-list li.contact .member-logo .logo.tiny {
         width: 20px;
         height: 20px; }
-    .member-block .member-list li.user .member-email, .member-block .member-list li.user .delete, .member-block .member-list li.member .member-email, .member-block .member-list li.member .delete, .member-block .member-list li.concat .member-email, .member-block .member-list li.concat .delete {
+    .member-block .member-list li.user .member-email, .member-block .member-list li.user .delete, .member-block .member-list li.member .member-email, .member-block .member-list li.member .delete, .member-block .member-list li.contact .member-email, .member-block .member-list li.contact .delete {
       float: left;
       line-height: 24px;
       margin-left: 8px; }
-    .member-block .member-list li.user .delete, .member-block .member-list li.member .delete, .member-block .member-list li.concat .delete {
+    .member-block .member-list li.user .delete, .member-block .member-list li.member .delete, .member-block .member-list li.contact .delete {
       float: right; }
-      .member-block .member-list li.user .delete a, .member-block .member-list li.member .delete a, .member-block .member-list li.concat .delete a {
+      .member-block .member-list li.user .delete a, .member-block .member-list li.member .delete a, .member-block .member-list li.contact .delete a {
         float: left;
         background: url(/images/piece/close_pill.png) no-repeat;
         height: 18px;
@@ -98,17 +98,17 @@
         text-decoration: none;
         text-indent: -9999px;
         margin-top: 3px; }
-        .member-block .member-list li.user .delete a:hover, .member-block .member-list li.member .delete a:hover, .member-block .member-list li.concat .delete a:hover {
+        .member-block .member-list li.user .delete a:hover, .member-block .member-list li.member .delete a:hover, .member-block .member-list li.contact .delete a:hover {
           background: url(/images/piece/close_pill.png) no-repeat 0 -50px; }
-    .member-block .member-list li.user .member-email, .member-block .member-list li.member .member-email, .member-block .member-list li.concat .member-email {
+    .member-block .member-list li.user .member-email, .member-block .member-list li.member .member-email, .member-block .member-list li.contact .member-email {
       color: white;
       font-weight: bold; }
-    .member-block .member-list li.user:hover, .member-block .member-list li.member:hover, .member-block .member-list li.concat:hover {
+    .member-block .member-list li.user:hover, .member-block .member-list li.member:hover, .member-block .member-list li.contact:hover {
       background: #45495B; }
   .member-block .add-member-form {
     margin-top: 10px;
     padding: 6px; }
-    .member-block .add-member-form input#concat_email {
+    .member-block .add-member-form input#contact_email {
       width: 300px !important; }
     .member-block .add-member-form input#member_email {
       width: 300px !important; }

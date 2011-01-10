@@ -26,14 +26,14 @@ pie.UserAutoCompleteModule = {
   }
 }
 
-pie.ConcatAutoComplete = Class.create(pie.UserAutoCompleteModule,{
+pie.ContactAutoComplete = Class.create(pie.UserAutoCompleteModule,{
   result:function(){
     this.add_member_submit();
   },
   add_member_submit:function(){
     jQuery('.add-member-info').html('正在处理...');
     var pars = this.inputer.serialize();
-    new Ajax.Request('/concats', {
+    new Ajax.Request('/contacts', {
       parameters:pars,
       onComplete:function(){
         this.inputer.val('');

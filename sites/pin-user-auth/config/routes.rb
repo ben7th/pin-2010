@@ -44,13 +44,13 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # 联系人
-  map.account_concats     "account/concats",:controller=>"account",:action=>"concats"
+  map.account_contacts     "account/contacts",:controller=>"account",:action=>"contacts"
   # 导入联系人
-  map.import_concats      "account/concats/import",:controller=>"concats",:action=>"import"
+  map.import_contacts      "account/contacts/import",:controller=>"contacts",:action=>"import"
   # 导入联系人 显示列表
-  map.import_concats_list "account/concats/import_list",:controller=>"concats",:action=>"import_list"
+  map.import_contacts_list "account/contacts/import_list",:controller=>"contacts",:action=>"import_list"
   # 导入联系人
-  map.resources :concats,
+  map.resources :contacts,
     :collection=>{
       :create_for_plugin=>:post,
       :destroy_for_plugin=>:delete
@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # 发送邀请函
   map.account_invite "account/invite",:controller=>"account",:action=>"invite"
-  map.resources :invitations,:collection=>{:import_invite=>:post,:import_concat=>:post}
+  map.resources :invitations,:collection=>{:import_invite=>:post,:import_contact=>:post}
 
   map.invitation_do_register "/i/do_reg",:controller=>"users",:action=>"do_reg"
   map.invitation_register "/i/:user_id",:controller=>"invitations",:action=>"reg"
@@ -66,7 +66,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'
 
   # --杂项
-  map.concat '/concat',:controller=>'misc',:action=>'concat'
+  map.contact '/contact',:controller=>'misc',:action=>'contact'
   map.plugins '/plugins',:controller=>'misc',:action=>'plugins'
 
   # --旧版重定向

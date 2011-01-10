@@ -159,7 +159,7 @@ class User < UserBase
 
   include Member::UserMethods
   include Organization::UserMethods
-  include Concat::UserMethods
+  include Contact::UserMethods
   include Activity::UserMethods
   include UserAutoCompeleteCache
 end

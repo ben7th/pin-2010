@@ -74,8 +74,8 @@ class AccountController <  ApplicationController
   # 团队首页
   def organizations; end
 
-  def concats
-    @concats = current_user.concats
+  def contacts
+    @contacts = current_user.contacts
   end
 
   def invite

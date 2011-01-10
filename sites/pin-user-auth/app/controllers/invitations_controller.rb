@@ -29,21 +29,21 @@ class InvitationsController < ApplicationController
     return render :text=>ex.message , :status=>500
   end
 
-  class ConcatSaveError < StandardError;end
-  def import_concat
+  class ContactSaveError < StandardError;end
+  def import_contact
     emails = params[:emails]
     if !emails.blank?
-      Concat.transaction do
+      Contact.transaction do
         !emails.each do |email|
-          concat = current_user.concats.new(:email=>email.strip())
-          if !concat.save
-            raise ConcatSaveError,concat.errors.first[1]
+          contact = current_user.contacts.new(:email=>email.strip())
+          if !contact.save
+            raise ContactSaveError,contact.errors.first[1]
           end
         end
       end
     end
     return render :text=>"保存成功" , :status=>200
-  rescue ConcatSaveError => ex
+  rescue ContactSaveError => ex
     return render :text=>ex.message , :status=>500
   end
 

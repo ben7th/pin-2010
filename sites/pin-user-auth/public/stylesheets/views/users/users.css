@@ -86,15 +86,15 @@
   background: url(/images/piece/org_icon_16.png) no-repeat 10px 8px;
   padding-left: 32px !important; }
 
-.concats li .avatar {
+.contacts li .avatar {
   float: left;
   width: 20px;
   height: 20px;
   margin-right: 8px; }
-  .concats li .avatar .logo.tiny {
+  .contacts li .avatar .logo.tiny {
     width: 16px;
     height: 16px; }
-.concats li .name {
+.contacts li .name {
   float: left; }
 
 .your_apps .top-bar {
@@ -118,16 +118,16 @@
     margin-right: 6px; }
 
 /*导入联系人页面*/
-.already-concat {
+.already-contact {
   margin-bottom: 20px; }
-  .already-concat .show {
+  .already-contact .show {
     font-size: 12px;
     margin-left: 15px;
     font-weight: normal; }
 
-.concat-list {
+.contact-list {
   margin-bottom: 10px; }
-  .concat-list li {
+  .contact-list li {
     background: #323546;
     border: 1px solid #111111;
     margin-top: 3px;
@@ -135,21 +135,21 @@
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     padding: 6px; }
-    .concat-list li .member-checkbox {
+    .contact-list li .member-checkbox {
       float: left;
       line-height: 24px;
       margin-right: 8px; }
-    .concat-list li .member-logo {
+    .contact-list li .member-logo {
       float: left;
       height: 24px; }
-      .concat-list li .member-logo .logo.tiny {
+      .contact-list li .member-logo .logo.tiny {
         width: 20px;
         height: 20px; }
-    .concat-list li .member-email {
+    .contact-list li .member-email {
       float: left;
       line-height: 24px;
       margin-left: 8px;
       color: white;
       font-weight: bold; }
-    .concat-list li:hover {
+    .contact-list li:hover {
       background: #45495B; }

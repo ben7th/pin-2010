@@ -1,5 +1,5 @@
 class MiscController < ApplicationController
-  def concat
+  def contact
   end
 
   def plugins
