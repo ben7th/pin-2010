@@ -97,17 +97,23 @@ module MindmapApiMethods
     node_id = params.node_id
     fold = params.fold
 
-    _change_struct do |doc|
-      node_element = doc.at_css("N[id='#{node_id}']")
-      if fold.blank?
-        fold_attr = node_element['f']
-        fold_value = fold_attr.blank? ? "0" : fold_attr
-        node_element['f'] = fold_value=='1' ? '0' : '1'
-      else
-        node_element['f'] = fold
-      end
-      {:params_hash=>params.hash,:operation_kind=>"do_toggle"}
+    old_struct = self.struct.clone
+    doc = Nokogiri::XML(self.struct)
+
+    node_element = doc.at_css("N[id='#{node_id}']")
+    if fold.blank?
+      fold_attr = node_element['f']
+      fold_value = fold_attr.blank? ? "0" : fold_attr
+      node_element['f'] = fold_value=='1' ? '0' : '1'
+    else
+      node_element['f'] = fold
     end
+    self.struct = doc.to_s
+
+    if self.struct!=old_struct
+      self.save!
+    end
+    return true
   end
 
   # 插入一个图片

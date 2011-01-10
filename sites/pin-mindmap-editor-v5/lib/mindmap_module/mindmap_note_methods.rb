@@ -78,39 +78,4 @@ module MindmapNoteMethods
     !self.note_nid.blank? && File.exist?(File.join(NOTE_REPO_BASE_PATH,"notes",self.note_nid))
   end
 
-
-  def Mindmap.import_all_node_to_note_repo
-    t_1 = Time.now
-    ################
-
-    i = 0
-    Mindmap.find_by_sql("select distinct mindmaps.* from mindmaps join nodes on nodes.note is not null or nodes.note != '' where mindmaps.id = nodes.mindmap_id").each do |m|
-      i+=1
-      p i
-      m.import_note_to_git
-    end
-
-    ################
-    t_2 = Time.now
-    p t_2 - t_1
-  end
-
-  def import_note_to_git
-    all_nodes = self.nodes
-    create_note_repo_if_unexist
-    write_hash = {}
-    all_nodes.each do |node|
-      local_id = node.local_id
-      note     = node.note
-      next if note.blank?
-      
-      file_name = "notefile_#{local_id}"
-      file_content = note
-
-      write_hash[file_name] = file_content
-    end
-    repo = self.note_repo
-
-    MpGitTool.add_text_content!(repo,self.user,write_hash)
-  end
 end
