@@ -97,15 +97,21 @@ class MindmanagerParser < MapFileParser
 
   # 查找element的所对应的备注，并添加到document.xml中去
   def self.add_remarks_to_element(mindmap,xml_content)
-    mindmap.nodes.each do |node|
-      xml_content.css("[OId='#{node.local_id}']").each do |n|
+
+    node_note_hash = mindmap.node_notes
+
+    mindmap.struct_obj.nodes.each do |node|
+      node_id = node['id']
+      note = node_note_hash[node_id]
+
+      xml_content.css("[OId='#{node_id}']").each do |n|
         notes_group = Nokogiri::XML::Node.new('NotesGroup',xml_content)
         notes_xhtml_data = Nokogiri::XML::Node.new('NotesXhtmlData',xml_content)
         notes_xhtml_data['Dirty'] = "0000000000000001"
-        notes_xhtml_data['PreviewPlainText'] = node.note
+        notes_xhtml_data['PreviewPlainText'] = note
         html_node = Nokogiri::XML::Node.new('html',xml_content)
         html_node['xmlns'] = "http://www.w3.org/1999/xhtml"
-        html_node.inner_html = node.note
+        html_node.inner_html = note
         html_node.default_namespace=("http://www.w3.org/1999/xhtml")
         notes_xhtml_data.add_child(html_node)
         notes_group.add_child(notes_xhtml_data)

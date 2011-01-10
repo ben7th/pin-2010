@@ -24,10 +24,17 @@ class WordXmlParser < MapFileParser
   # 找到out_xml中有note的节点，添加为这个节点增加内容，
   # 然后删除所有的临时生成的note（为了便于找到有note的节点）标签
   def self.add_note_to_outline(mindmap,out_xml)
-    mindmap.nodes.each do |node|
-      out_xml.css("note[id='#{node.local_id}']").each do |n|
+
+    node_note_hash = mindmap.node_notes
+
+    mindmap.struct_obj.nodes.each do |node|
+
+      node_id = node['id']
+      note = node_note_hash[node_id]
+
+      out_xml.css("note[id='#{node_id}']").each do |n|
         str = ''
-        node.note.replace_html_enter_tags_to_text.split("\n").each do |text|
+        note.replace_html_enter_tags_to_text.split("\n").each do |text|
           str << %`<w:r><w:rPr><w:rFonts w:cs="Arial"/><wx:font wx:val="宋体"/><w:sz w:val="20"/>
               <w:sz-cs w:val="20"/></w:rPr><w:t>#{text}</w:t><w:br/></w:r>`
         end

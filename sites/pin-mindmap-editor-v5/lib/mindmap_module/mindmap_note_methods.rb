@@ -37,7 +37,7 @@ module MindmapNoteMethods
 
   # 所有备注
   def node_notes
-    node_notes_hash = {}
+    node_notes_hash = Hash.new('')
     self.node_file_notes.each{|name,data|node_notes_hash[name.gsub("notefile_","")] = data}
     node_notes_hash
   end

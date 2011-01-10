@@ -32,12 +32,19 @@ class FreemindParser < MapFileParser
 
   # 处理 备注
   def self._v8_handle_note(mindmap,nokogiri_doc)
-    mindmap.nodes.each do |node|
-      nokogiri_doc.css("##{node.local_id}").each do |n|
+
+    node_note_hash = mindmap.node_notes
+
+    mindmap.struct_obj.nodes.each do |node|
+
+      node_id = node['id']
+      note = node_note_hash[node_id]
+
+      nokogiri_doc.css("##{node_id}").each do |n|
         new_node = Nokogiri::XML::Node.new('hook',nokogiri_doc)
         new_node["name"] = "accessories/plugins/NodeNote.properties"
         text = Nokogiri::XML::Node.new('text',nokogiri_doc)
-        text.content = "#{node.note.replace_html_enter_tags_to_text}"
+        text.content = "#{note.replace_html_enter_tags_to_text}"
         new_node.add_child(text)
         n.add_child(new_node)
       end
@@ -66,8 +73,15 @@ class FreemindParser < MapFileParser
 
   # 处理 备注
   def self._v9_handle_note(mindmap,nokogiri_doc)
-    mindmap.nodes.each do |node|
-      nokogiri_doc.css("##{node.local_id}").each do |n|
+
+    node_note_hash = mindmap.node_notes
+
+    mindmap.struct_obj.nodes.each do |node|
+
+      node_id = node['id']
+      note = node_note_hash[node_id]
+
+      nokogiri_doc.css("##{node_id}").each do |n|
 
         richcontent = Nokogiri::XML::Node.new('richcontent',nokogiri_doc)
         richcontent["TYPE"] = "NOTE"
@@ -77,7 +91,7 @@ class FreemindParser < MapFileParser
                 <head>
                 </head>
                 <body>
-                  #{node.note}
+                  #{note}
                 </body>
               </html>
         `
