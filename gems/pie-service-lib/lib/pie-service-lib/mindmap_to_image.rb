@@ -139,21 +139,20 @@ class MindmapToImage
   # 根据传入的xml字符串计算包括尺寸数据的 map_hash
   def get_nodes_hash(xmlstr)
     doc = Nokogiri::XML xmlstr
-#    node = doc.at('mindmap>node')
-    node = MindmapDocument.new(@mindmap).root_node;
+    node = doc.at('mindmap>node')
     get_nodes_locations(_build_node_hash(node))
   end
   
     def _build_node_hash(node)
       _build_hash_include_id_title_width_height(node).
         merge!(_get_extra_hash(node)).
-        merge! :children=>node.children.map {|child| _build_node_hash(child)}
+        merge! :children=>node.xpath("./node").map {|child| _build_node_hash(child)}
     end
 
     def _build_hash_include_id_title_width_height(node)
-      title = trans_xml_title(node.title)
+      title = trans_xml_title(node["title"])
       metrics = get_text_size(title)
-      {:id=>node.id,:title=>title,:width=>metrics.width,:height=>metrics.height}
+      {:id=>node["id"],:title=>title,:width=>metrics.width,:height=>metrics.height}
     end
 
     def _get_extra_hash(node)
@@ -163,12 +162,12 @@ class MindmapToImage
 
     def _node_is_put_on_right?(node)
       parent = node.parent
-      return (node.pos != 'left') if _node_is_root?(parent)
+      return (node["pos"] != 'left') if _node_is_root?(parent)
       _node_is_put_on_right?(parent)
     end
 
     def _node_is_root?(node)
-      node.is_root_node?
+      node.parent.name == "mindmap"
     end
 
     # 转换标题
