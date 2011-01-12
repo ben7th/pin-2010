@@ -59,7 +59,10 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
   config.load_paths += %W( #{RAILS_ROOT}/lib/controller_helper )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_module )
+  config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_module/rank )
+  config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_struct_class )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_lucene_search )
+  config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_parser )
   config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
 
   # Activate observers that should always be running

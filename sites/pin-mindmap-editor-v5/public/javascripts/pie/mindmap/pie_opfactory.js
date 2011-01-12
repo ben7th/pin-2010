@@ -38,7 +38,7 @@ pie.mindmap.OperationRecordFactory = Class.create({
       "op":"do_toggle",
       "params":{
         "node_id":node.id,
-        "fold":node.fold
+        "closed":node.closed
       }
     }
 	},
@@ -75,7 +75,7 @@ pie.mindmap.OperationRecordFactory = Class.create({
         "parent_id":node.parent.id,
         "node_id":node.id,
         "index":node.index,
-        "putright":node.putright?"1":"0"
+        "pos":node.pos
       }
     }
 	}

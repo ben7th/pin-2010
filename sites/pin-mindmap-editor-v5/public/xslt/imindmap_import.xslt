@@ -4,12 +4,10 @@
   <xsl:param name="root_id" select="/map/mindmap/@mindmap_root_node" />
 
   <xsl:template match="map">
-    <Nodes>
-      <xsl:attribute name="maxid">
-        <xsl:value-of select="count(//branch)+1"/>
-      </xsl:attribute>
+    <mindmap>
+      <xsl:attribute name="ver">0.5</xsl:attribute>
       <xsl:call-template name="root" />
-    </Nodes>
+    </mindmap>
   </xsl:template>
 
   
@@ -19,17 +17,17 @@
         <xsl:number level="any" />
       </xsl:variable>
       <xsl:if test="@id=$root_id">
-        <N>
+        <node>
           <xsl:attribute name="id">
             <xsl:value-of select="$x" />
           </xsl:attribute>
-          <xsl:attribute name="t">
+          <xsl:attribute name="title">
             <xsl:value-of select="@name" />
           </xsl:attribute>
           <xsl:call-template name="subtopic">
             <xsl:with-param name="parent_id" select="@id" />
           </xsl:call-template>
-        </N>
+        </node>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
@@ -40,17 +38,17 @@
         <xsl:number level="any" />
       </xsl:variable>
       <xsl:if test="@parent_id=$parent_id">
-        <N>
+        <node>
           <xsl:attribute name="id">
             <xsl:value-of select="$x" />
           </xsl:attribute>
-          <xsl:attribute name="t">
+          <xsl:attribute name="title">
             <xsl:value-of select="@name" />
           </xsl:attribute>
           <xsl:call-template name="subtopic">
             <xsl:with-param name="parent_id" select="@id" />
           </xsl:call-template>
-        </N>
+        </node>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>

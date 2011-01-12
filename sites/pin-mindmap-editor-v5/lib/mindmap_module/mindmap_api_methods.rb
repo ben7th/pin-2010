@@ -46,37 +46,20 @@ module MindmapApiMethods
     title = params.title
 
     _change_struct do |doc|
-
-      parent = doc.at_css("N##{parent_id}")
-
-      node = Nokogiri::XML::Node.new('N',doc)
-      node["id"] = new_node_id
-      node["t"] = title
-      node["f"] = "0"
-
-      children = parent.xpath("N")
-
-      if _index_valid?(index,children.count)
-        next_node = children[index]
-        next_node.add_previous_sibling node
-      else
-        parent.add_child node
-      end
+      parent = doc.node(parent_id)
+      node = doc.create_node(new_node_id,title)
+      parent.insert_node(node,index)
       
       {:params_hash=>params.hash,:operation_kind=>"do_insert"}
     end
-  end
-
-  def _index_valid?(index,children_count)
-    (children_count > 0) && (children_count > index) && (index != -1)
   end
 
   # 删除节点
   def _do_delete(params)
     node_id = params.node_id
     _change_struct do |doc|
-      node_element = doc.at_css("N[id='#{node_id}']")
-      node_element.remove
+      node = doc.node(node_id)
+      node.remove
       {:params_hash=>params.hash,:operation_kind=>"do_delete"}
     end
   end
@@ -86,8 +69,8 @@ module MindmapApiMethods
     node_id = params.node_id
     title = params.title
     _change_struct do |doc|
-      node_element = doc.at_css("N[id='#{node_id}']")
-      node_element.attribute('t').value = title
+      node = doc.node(node_id)
+      node.title = title
       {:params_hash=>params.hash,:operation_kind=>"do_title"}
     end
   end
@@ -95,20 +78,20 @@ module MindmapApiMethods
   # 展开/折叠 一个节点
   def _do_toggle(params)
     node_id = params.node_id
-    fold = params.fold
+    closed = params.closed
 
     old_struct = self.struct.clone
-    doc = Nokogiri::XML(self.struct)
 
-    node_element = doc.at_css("N[id='#{node_id}']")
-    if fold.blank?
-      fold_attr = node_element['f']
-      fold_value = fold_attr.blank? ? "0" : fold_attr
-      node_element['f'] = fold_value=='1' ? '0' : '1'
+    doc = MindmapDocument.new(self)
+    node = doc.node(node_id)
+    
+    if closed.nil?
+      node.closed = !node.closed
     else
-      node_element['f'] = fold
+      node.closed = closed
     end
-    self.struct = doc.to_s
+    
+    self.struct = doc.struct
 
     if self.struct!=old_struct
       self.save!
@@ -124,10 +107,10 @@ module MindmapApiMethods
     height = params.image.height
 
     _change_struct do |doc|
-      node = doc.at_css("N[id='#{node_id}']")
-      node['i'] = url
-      node['iw'] = width
-      node['ih'] = height
+      node = doc.node(node_id)
+      node.image.url = url
+      node.image.width = width
+      node.image.height = height
       {:params_hash=>params.hash,:operation_kind=>"do_image"}
     end
   end
@@ -137,10 +120,8 @@ module MindmapApiMethods
     node_id = params.node_id
     
      _change_struct do |doc|
-      node = doc.at_css("N[id='#{node_id}']")
-      node.remove_attribute("i")
-      node.remove_attribute("iw")
-      node.remove_attribute("ih")
+      node = doc.node(node_id)
+      node.image.remove
       {:params_hash=>params.hash,:operation_kind=>"do_rm_image"}
     end
   end
@@ -148,27 +129,18 @@ module MindmapApiMethods
   # 移动某个节点
   def _do_move(params)
     node_id = params.node_id
-    putright = params.putright
+    pos = params.pos
     index = params.index
     parent_id = params.parent_id
 
     _change_struct do |doc|
-      root_note = doc.at_css("Nodes > N")
-      target = doc.at_css("N[id='#{parent_id}']")
-      node = doc.at_css("N[id='#{node_id}']")
+      target = doc.node(parent_id)
+      node = doc.node(node_id)
       node.remove
 
-      node['pr'] = putright
-      node.remove_attribute('pr') if root_note["id"] != target["id"]
-
-      children = target.xpath("N")
-
-      if children.count>0 && index<children.count && index != -1
-        next_node = children[index]
-        next_node.add_previous_sibling node
-      else
-        target.add_child node
-      end
+      target.insert_node(node,index)
+      node.pos = pos
+      
       {:params_hash=>params.hash,:operation_kind=>"do_move"}
     end
   end
@@ -178,7 +150,7 @@ module MindmapApiMethods
     node_id = params.node_id
     note = params.note
     _change_struct do |doc|
-      self.update_or_create_note(node_id,note)
+      doc.node(node_id).note = note
       {:params_hash=>params.hash,:operation_kind=>"do_note"}
     end
   end
@@ -268,13 +240,13 @@ module MindmapApiMethods
   # 保存导图结构，并保存操作历史记录
   def _change_struct(&block)
     old_struct = self.struct.clone
-    doc = Nokogiri::XML(self.struct)
+    doc = MindmapDocument.new(self)
 
     params = yield doc
 
-    current_revision = doc.at_css("Nodes")["revision"].to_i || 0
-    doc.at_css("Nodes")["revision"] = (current_revision + 1).to_s
-    self.struct = doc.to_s
+    current_revision = doc.revision
+    doc.revision = current_revision + 1
+    self.struct = doc.struct
 
     params_hash = params[:params_hash]
     operation_kind = params[:operation_kind]

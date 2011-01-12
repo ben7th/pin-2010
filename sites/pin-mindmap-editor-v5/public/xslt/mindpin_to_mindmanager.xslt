@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ap="http://schemas.mindjet.com/MindManager/Application/2003" xmlns:cor="http://schemas.mindjet.com/MindManager/Core/2003" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <xsl:output encoding="UTF-8" indent="no"/>
-  <xsl:template match="Nodes">
+  <xsl:template match="mindmap">
     <ap:Map Dirty="0000000000000001" OId="e/71hCG/00mos3JswXjYjw==" Gen="0000000000000000" xmlns="http://www.w3.org/1999/xhtml" xmlns:ap="http://schemas.mindjet.com/MindManager/Application/2003" xmlns:cor="http://schemas.mindjet.com/MindManager/Core/2003" xmlns:pri="http://schemas.mindjet.com/MindManager/Primitive/2003" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.mindjet.com/MindManager/Application/2003 http://schemas.mindjet.com/MindManager/Application/2003 http://schemas.mindjet.com/MindManager/Core/2003 http://schemas.mindjet.com/MindManager/Core/2003 http://schemas.mindjet.com/MindManager/Delta/2003 http://schemas.mindjet.com/MindManager/Delta/2003 http://schemas.mindjet.com/MindManager/Primitive/2003 http://schemas.mindjet.com/MindManager/Primitive/2003">
       <cor:Custom Index="0" Uri="http://schemas.mindjet.com/MindManager/UpdateCompatibility/2004" Dirty="0000000000000000" cst0:UpdatedCategories="true" cst0:UpdatedVisibilityStyle="true" xmlns:cst0="http://schemas.mindjet.com/MindManager/UpdateCompatibility/2004"/>
       <ap:OneTopic>
@@ -310,7 +310,7 @@
   </xsl:template>
 
   <xsl:template name="topic1">
-    <xsl:for-each select="N">
+    <xsl:for-each select="node">
       <ap:Topic Dirty="0000000000000001" Gen="0000000000000000" >
         <xsl:attribute name="OId">
           <xsl:value-of select="@id"></xsl:value-of>
@@ -318,20 +318,20 @@
         <ap:SubTopics>
           <xsl:call-template name="topic1"></xsl:call-template>
         </ap:SubTopics>
-        <xsl:if test="@i">
+        <xsl:if test="@img">
           <ap:OneImage>
             <ap:Image Dirty="0000000000000001" OId="S+UnYwBZ+0SuTNFRN3Ey5A==" Gen="0000000000000000">
               <ap:ImageData ImageType="urn:mindjet:PngImage" Dirty="0000000000000001" CustomImageType="">
                 <cor:Uri xsi:nil="false">
-                  <xsl:value-of select="@i"></xsl:value-of>
+                  <xsl:value-of select="@img"></xsl:value-of>
                 </cor:Uri>
               </ap:ImageData>
               <ap:ImageSize Dirty="0000000000000001" >
                 <xsl:attribute name="Width">
-                  <xsl:value-of select="@iw"></xsl:value-of>
+                  <xsl:value-of select="@imgw"></xsl:value-of>
                 </xsl:attribute>
                 <xsl:attribute name="Height">
-                  <xsl:value-of select="@ih"></xsl:value-of>
+                  <xsl:value-of select="@imgh"></xsl:value-of>
                 </xsl:attribute>
               </ap:ImageSize>
             </ap:Image>
@@ -341,7 +341,7 @@
         <ap:Text Dirty="0000000000000001" >
           <xsl:attribute name="ReadOnly">false</xsl:attribute>
           <xsl:attribute name="PlainText">
-            <xsl:value-of select="@t"></xsl:value-of>
+            <xsl:value-of select="@title"></xsl:value-of>
           </xsl:attribute>
           <ap:Font/>
         </ap:Text>

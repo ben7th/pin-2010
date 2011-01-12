@@ -3,13 +3,11 @@
   <xsl:output encoding="UTF-8" indent="no"/>
   <xsl:template match="ap:Map|ap:MapTemplate">
     <xsl:for-each select="ap:OneTopic">
-        <Nodes>
-          <xsl:attribute name="maxid">
-            <xsl:value-of select="count(//ap:SubTopics/ap:Topic|ap:Topic)+1"/>
-          </xsl:attribute>
+        <mindmap>
+        <xsl:attribute name="ver">0.5</xsl:attribute>
           <xsl:call-template name="topic1">
           </xsl:call-template>
-        </Nodes>
+        </mindmap>
     </xsl:for-each>
   </xsl:template>
 
@@ -21,11 +19,11 @@
       <xsl:variable name="x">
         <xsl:number level="any"/>
       </xsl:variable>
-      <N>
+      <node>
         <xsl:attribute name="id">
           <xsl:value-of select="$x"/>
         </xsl:attribute>
-        <xsl:attribute name="t">
+        <xsl:attribute name="title">
           <xsl:choose>
             <xsl:when test="ap:Text/@PlainText">
               <xsl:choose>
@@ -49,12 +47,9 @@
             </xsl:otherwise>
           </xsl:choose>
         </xsl:attribute>
-        <xsl:attribute name="sc">
-          <xsl:value-of select="count(ap:SubTopics//ap:Topic)"/>
-        </xsl:attribute>
         <xsl:call-template name="subtopic1">
         </xsl:call-template>
-      </N>
+      </node>
     </xsl:for-each>
   </xsl:template>
 

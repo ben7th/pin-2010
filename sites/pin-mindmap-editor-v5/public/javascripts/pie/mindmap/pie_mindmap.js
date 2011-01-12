@@ -52,15 +52,8 @@ pie.mindmap.BasicMapPaper = Class.create({
     if(this.editmode){
       this._nodeTitleEditor   = new pie.mindmap.NodeTitleEditor();
       this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
-      this._nodeNoteEditor    = new pie.mindmap.NoteHandler();
+      this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
       this._nodeFontEditor    = new pie.mindmap.NodeFontEditor();
-
-      this._noteEditor        = new nicEditor({fullPanel : true}).panelInstance('mindmap-note-edit');
-      if(pie.isIE() || pie.isChrome()){
-        this._noteEditor.el=this._noteEditor.nicInstances[0].elm;
-      }else{
-        this._noteEditor.el=this._noteEditor.nicInstances[0].elm.firstChild.contentWindow;
-      }
     }
 
     //Designated Canvas function
@@ -196,7 +189,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     var children_h = 0;
     var children_w = 0;
-    if (node.fold != 1) {
+    if (!node.closed) {
       node.children.each(function(child){
         var cld = child.el;
         children_h += this.setCoord(child);
@@ -251,7 +244,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     content.width = children_w;
 
     //左右排列
-    if(node.sub.putright){
+    if(node.sub.put_on_right()){
       content.left = label_w + fw;
       folder.left = label_w;
 
@@ -323,7 +316,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     root.children.each(function(sub){
       if(sub.free) return;
       var c=sub.container;
-      if(sub.putright){
+      if(sub.put_on_right()){
         c.left = leftOff;
         rightFall += c.height + padding;
       }else{
@@ -341,7 +334,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       var c=sub.container;
       if(sub.free){
       }else{
-        if(sub.putright){
+        if(sub.put_on_right()){
           c.top = rightTop;
           rightTop += c.height+padding;
         }else{
@@ -428,7 +421,7 @@ pie.mindmap.BasicMapPaper = Class.create({
   },
   
   __countBranch:function(node){
-    if(node.sub.putright){
+    if(node.sub.put_on_right()){
       node.branch.left = node.root.left + node.root.width / 2;
       node.branch.width = node.container.left-node.branch.left;
     }else{
@@ -472,12 +465,12 @@ pie.mindmap.BasicMapPaper = Class.create({
     height = node.container.height;
     left = node.canvas.left + node.sub.container.left + this.root.posX;
     
-    if(!node.sub.putright) left = left - node.width;
+    if(!node.sub.put_on_right()) left = left - node.width;
     
     //this.__setTempBox(left,top,width,height);
     posreg.set(node.id, [node, left, top, left+width, top+height]);
     
-    if(1!=node.fold){
+    if(!node.closed){
       node.children.each(function(child){
         this._updatePosRegister_recursion(child,posreg);
       }.bind(this))
@@ -535,7 +528,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       }
     }
     var code=evt.keyCode;
-    if(!this.isOnNoteEditStatus){
+    if(!this.is_on_note_edit_status){
       Event.stop(evt);
       //当编辑器处于NOTE编辑状态时，所有节点操作的快捷键都被禁止
       switch(code){
@@ -582,7 +575,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       this.log("up:"+focus.id);
     }else{
       focus.children.each(function(sub){
-        if(sub.putright){
+        if(sub.put_on_right()){
           sub.select();
           throw $break;
         }
@@ -596,7 +589,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       this.log("down:"+focus.id);
     }else{
       focus.children.reverse(false).each(function(sub){
-        if(sub.putright){
+        if(sub.put_on_right()){
           sub.select();
           throw $break;
         }
@@ -606,13 +599,13 @@ pie.mindmap.BasicMapPaper = Class.create({
   _left:function(){
     var focus=this.focus;
     if(focus!=focus.root){
-      if(focus.sub.putright){
+      if(focus.sub.put_on_right()){
         //节点右排布
         focus.parent.select();
         this.log("left:"+focus.id);
       }else{
         //节点左排布
-        if (1 != focus.fold) {
+        if (!focus.closed) {
           if (focus.children.first()) {
             focus.children[((0+focus.children.length-1)/2).floor()].select();
             this.log("left:" + focus.id);
@@ -622,7 +615,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     }else{
       //根节点
       focus.children.each(function(sub){
-        if(!sub.putright){
+        if(!sub.put_on_right()){
           sub.select();
           throw $break;
         }
@@ -632,9 +625,9 @@ pie.mindmap.BasicMapPaper = Class.create({
   _right:function(){
     var focus=this.focus;
     if(focus!=focus.root){
-      if(focus.sub.putright){
+      if(focus.sub.put_on_right()){
         //节点右排布
-        if (1 != focus.fold) {
+        if (!focus.closed) {
           if (focus.children.first()) {
             focus.children[((0+focus.children.length-1)/2).floor()].select();
             this.log("left:" + focus.id);
@@ -648,7 +641,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     }else{
       //根节点
       focus.children.each(function(sub){
-        if(sub.putright){
+        if(sub.put_on_right()){
           sub.select();
           throw $break;
         }

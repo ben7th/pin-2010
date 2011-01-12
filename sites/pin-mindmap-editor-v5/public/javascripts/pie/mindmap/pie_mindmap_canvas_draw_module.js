@@ -16,7 +16,7 @@ pie.mindmap_canvas_draw_module = {
     ctx.moveTo(pos.left, pos.bottom);
     ctx.lineTo(pos.right, pos.bottom);
     ctx.stroke();
-    if (node.fold != 1) {
+    if (!node.closed) {
       node.children.each(function(child){
         this._connectWithCanvas_recursion(child, ctx);
         ctx.beginPath();
@@ -30,7 +30,7 @@ pie.mindmap_canvas_draw_module = {
     var top = node.top.round();
     var bottom = top + node.height;
     var left,right;
-    if(node.sub.putright){
+    if(node.sub.put_on_right()){
       left = node.left;
       right = left + node.width + this.fw/2;
     }else{
@@ -43,7 +43,7 @@ pie.mindmap_canvas_draw_module = {
       top+=voff;
       bottom+=voff;
       var hoff;
-      if(node.sub.putright){
+      if(node.sub.put_on_right()){
         hoff=pct.left+node.parent.canvas.left;
         left+=hoff;
         right+=hoff;
@@ -54,7 +54,7 @@ pie.mindmap_canvas_draw_module = {
       }
     }
 
-    if(!node.sub.putright){
+    if(!node.sub.put_on_right()){
       left=node.container.width-left;
       right=node.container.width-right;
     }
@@ -84,7 +84,7 @@ pie.mindmap_canvas_draw_module = {
   _connect_root_with_canvas:function(node,ctx){
     try{
       var pm = pie.mindmap;
-      var pr = node.sub.putright;
+      var pr = node.sub.put_on_right();
       var is_up = node.branch.type == 0;
 
       var rbc;
@@ -111,7 +111,7 @@ pie.mindmap.RootBranchCanvasBase = Class.create({
     this.rr = 2;  //一级子节点的连接点半径
     this.cr = this.map.cr;
     
-    if(node.sub.putright){
+    if(node.sub.put_on_right()){
       this.qcoff = this.branch.width/3;
     }else{
       this.qcoff = -this.branch.width/3;

@@ -23,7 +23,9 @@ module MindmapSearchMethods
   end
 
   def save_lucene_index
-    MindmapLucene.index_one_mindmap(self.id)
+    if self.instance_variable_get(:@skip_index_lucene) != "skip"
+      MindmapLucene.index_one_mindmap(self.id)
+    end
   end
 
   def delete_lucene_index
@@ -31,7 +33,9 @@ module MindmapSearchMethods
   end
 
   def set_content
-    self.content = MindmapStruct.new(self).content
+    if self.instance_variable_get(:@skip_index_lucene) != "skip"
+      self.content = MindmapDocument.new(self).content
+    end
     return true
   end
 

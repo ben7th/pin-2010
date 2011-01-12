@@ -6,24 +6,22 @@ pie.mindmap.Node = Class.create({
 
     Object.extend(this,options);
 
-    if(this.maxid!=null){
-      this.root = this;
-      this.map = parent;
+    if(this.revision != null){
+      this.root         = this;
+      this.map          = parent;
       this.map.revision = this.revision || 0;
     }else{
-      this.parent=parent;
-      this.root=parent.root;
-      if(this.parent==this.root){
-        this.sub=this;
+      this.parent       = parent;
+      this.root         = parent.root;
+      if(this.parent == this.root){
+        this.sub = this;
       }else{
-        this.sub=this.parent.sub;
+        this.sub = this.parent.sub;
       }
     }
 
     this.canvas = {};
     this.branch = {};
-
-    this.putright=(this.putright!="0"?true:false);
 
     //递归地生成子节点对象
     var _children=[];
@@ -87,11 +85,10 @@ pie.mindmap.Node = Class.create({
           "style":"position:absolute"
         },[this.nodeimg.el||[],this.nodebody.el]));
 
-        if(!this.fold) this.fold=0
         this.folder={
           id:"f_"+this.id,
           el:$(Builder.node("div", {
-            "class": this.fold==0 ? "foldhandler_minus" : "foldhandler_plus",
+            "class": this.closed ? "foldhandler_plus" : "foldhandler_minus",
             "style":"position:absolute;"+(this.children.length==0?"display:none;":"")
           }))
         };
@@ -201,8 +198,8 @@ pie.mindmap.Node = Class.create({
       //note编辑器
       //safari在这里的事件绑定有问题，待修改
       try{
-        Element.observe($(this.root.map._noteEditor.el),"focus",function(){
-          this.root.map._nodeNoteEditor.onNoteEditBegin(this)
+        Element.observe($(this.root.map._node_note_editor.dom),"focus",function(){
+          this.root.map._node_note_editor.onNoteEditBegin(this)
         }.bind(this));
       }catch(e){}
       if (this != this.root) {
@@ -235,7 +232,7 @@ pie.mindmap.Node = Class.create({
     //map.__scrollto(this);
   },
   _toggle:function(){
-    if(1==this.fold){
+    if(this.closed){
       this._expand();
     }else{
       this._collapse();
@@ -244,7 +241,7 @@ pie.mindmap.Node = Class.create({
   },
   _expand:function(){
     this.folder.el.className="foldhandler_minus";
-    this.fold=0;
+    this.closed = false;
   },
   _collapse:function(){
     //当focus在子孙节点中时，选中当前节点
@@ -258,7 +255,7 @@ pie.mindmap.Node = Class.create({
       p=p.parent;
     }
     this.folder.el.className="foldhandler_plus";
-    this.fold=1;
+    this.closed = true;
   },
   select:function(keep){
     var map=this.root.map;
@@ -270,8 +267,8 @@ pie.mindmap.Node = Class.create({
       map.focus.el.removeClassName('node_selected');
       map.focus.el.removeClassName('root_selected');
       //如果切换节点时正处于note编辑状态，则终止note编辑，并提交
-      if(map.focus!=this && map.isOnNoteEditStatus){
-        map._nodeNoteEditor.onNoteEditEnd();
+      if(map.focus!=this && map.is_on_note_edit_status){
+        map._node_note_editor.onNoteEditEnd();
       }
     }
     map.focus=this;
@@ -285,14 +282,9 @@ pie.mindmap.Node = Class.create({
 
     if(map.editmode) {
       if(this.note==''||this.note=='<br>'){
-        if(pie.isIE()){
-          map._noteEditor.nicInstances[0].setContent('');
-        }else{
-          //Firefox
-          map._noteEditor.nicInstances[0].setContent('<br>');
-        }
+        map._node_note_editor.set_value('');
       }else{
-        map._noteEditor.nicInstances[0].setContent(this.note);
+        map._node_note_editor.set_value(this.note);
       }
     }
 
@@ -303,15 +295,15 @@ pie.mindmap.Node = Class.create({
     var i=0;
     do{
       var pp=p;
-        while(pp=pp.prev){
-        if(pp.sub.putright==p.sub.putright){
+        while(pp = pp.prev){
+        if(pp.sub.pos == p.sub.pos){
           break;
         }
       }
       if (pp) {
         while(i>0){
           i--;
-          if((pp.children.length>0)&&pp.fold!=1){
+          if((pp.children.length>0) && !pp.closed){
             pp=pp.children.last();
           }
         }
@@ -327,14 +319,14 @@ pie.mindmap.Node = Class.create({
     do{
       var pp=p;
       while(pp=pp.next){
-        if(pp.sub.putright==p.sub.putright){
+        if(pp.sub.pos == p.sub.pos){
           break;
         }
       }
       if(pp){
         while(i>0){
           i--;
-          if((pp.children.length>0)&&pp.fold!=1){
+          if((pp.children.length>0) && !pp.closed){
             pp=pp.children.first();
           }
         }
@@ -377,18 +369,18 @@ pie.mindmap.Node = Class.create({
   _newChild:function(index){
     var isRoot=(this==this.root);
     var child={
-      "image":{"width": null, "border": null, "url": null, "height": null},
-      "fold": "0",
-      "note": "",
-      "children":[],
-      "title": "NewSubNode",
-      "putright": "1",
-      "id":pie.randstr()
+      "image"     : {"width": null, "border": null, "url": null, "height": null},
+      "fold"      : "0",
+      "note"      : "",
+      "children"  : [],
+      "title"     : "NewSubNode",
+      "pos"       : "right",
+      "id"        : pie.randstr()
     };
 
     if(isRoot){
       if(this.map.focus.parent == this){
-        child.putright = this.map.focus.putright;
+        child.pos = this.map.focus.pos;
       }
     }
 
@@ -496,5 +488,8 @@ pie.mindmap.Node = Class.create({
   },
   is_root:function(){
     return this == this.root;
+  },
+  put_on_right:function(){
+    return this.pos == 'right' || this.pos == null
   }
 });

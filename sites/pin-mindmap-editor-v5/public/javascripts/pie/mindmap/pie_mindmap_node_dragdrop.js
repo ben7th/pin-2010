@@ -108,7 +108,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
         return;
       }
       
-      if(1 == this.looping_node.fold){
+      if(this.looping_node.closed){
         //如果节点是折叠状态
         if(in_effective_area){
           this.__ready_to_drop_on_as_one_of_children();
@@ -182,7 +182,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
     }else{
       // 如果目标节点是普通节点，则判断一下目标节点的方位即可
       // 因为目标节点在右方的话，节点只可能插入其右方（这句话绕吧）
-      return node.sub.putright;
+      return node.sub.put_on_right();
     }
   },
 
@@ -192,9 +192,9 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
     var children = node.children;
     if(node == this.map_root){
       return this.is_drop_on_right ?
-        children.select(function(c){return c.putright;})
+        children.select(function(c){return c.put_on_right();})
         :
-        children.select(function(c){return !c.putright})
+        children.select(function(c){return !c.put_on_right();})
     }else{
       return children;
     }
@@ -268,7 +268,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
     this.__remove_node_from_node_s_parent_s_children();
     this.__add_node_to_target_as_a_child();
     
-    this.node.putright = this.is_drop_on_right;
+    this.node.pos = this.is_drop_on_right ? 'right' : 'left';
 
     this.node.__changesub(droptarget == this.map_root ? this.node : droptarget.sub);
     
@@ -276,7 +276,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
     this.__do_save_map();
 
 		//如果父节点不在折叠状态，则选中被拖拽节点，否则选中父节点
-		if(this.node.parent.fold==1) this.node.parent._expand();
+		if(this.node.parent.closed) this.node.parent._expand();
 		
 		this.map.reRank();
 		this.node.select();
@@ -370,9 +370,9 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 					top = map.posRegister.get(droptarget.children[index].id)[2] - 10;
 				}else{
 					top = this.is_drop_on_right ?
-					map.posRegister.get(droptarget.children.select(function(c){return c.putright}).last().id)[4] - 5
+					map.posRegister.get(droptarget.children.select(function(c){return c.put_on_right()}).last().id)[4] - 5
 					:
-					map.posRegister.get(droptarget.children.select(function(c){return !c.putright}).last().id)[4] - 5;
+					map.posRegister.get(droptarget.children.select(function(c){return !c.put_on_right()}).last().id)[4] - 5;
 				}
 			}
 			this.__put_dropbox(left,top);
@@ -386,7 +386,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 			if(droptarget.children.length == 0){
 				top = node_pos[4] - 20 + 2;
 			}else{
-				if(droptarget.fold==1){
+				if(droptarget.closed){
 					//如果该节点被折叠
 					top = node_pos[4] - 20;
 				}else{
@@ -461,7 +461,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
     var index = this.dropindex;
 		if(droptarget == this.node.parent){
       if(droptarget == root){
-        if(this.node.putright == this.is_drop_on_right){
+        if(this.node.pos == this.is_drop_on_right ? 'right' : 'left'){
           return index == this.node.index || index == this.node.index + 1;
         }
       }else{

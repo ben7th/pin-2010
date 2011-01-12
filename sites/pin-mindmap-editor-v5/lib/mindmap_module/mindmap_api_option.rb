@@ -70,14 +70,14 @@ class MindmapApiOption
       return _node_id
     end
 
-    def fold
-      _fold = @params["fold"].to_s
-      if _fold.blank?
-        _fold = nil
+    def closed
+      _closed = @params["closed"]
+      if _closed.blank?
+        _closed = nil
       else
-        raise "节点展开/关闭状态 #{_fold} 值指定错误，不是1或者0" if !["1","0"].include?(_fold)
+        raise "节点展开/关闭状态 #{_closed} 值指定错误，不是 true 或者 false" if ![true,false].include?(_closed)
       end
-      return _fold
+      return _closed
     end
 
     def image
@@ -90,14 +90,14 @@ class MindmapApiOption
       return _note
     end
 
-    def putright
-      _putright = @params['putright']
-      if _putright.blank?
-        _putright = "1"
+    def pos
+      _pos = @params['pos']
+      if _pos.blank?
+        _pos = "right"
       else
-        raise "节点放置侧状态 #{_putright} 值指定错误，不是1或者0" if !["1","0"].include?(_putright)
+        raise "节点放置侧状态 #{_pos} 值指定错误，不是 right 或者 left" if !["right","left"].include?(_pos)
       end
-      return _putright
+      return _pos
     end
 
     class MapParamsImage

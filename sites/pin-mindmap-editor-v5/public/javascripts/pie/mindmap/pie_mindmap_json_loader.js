@@ -10,7 +10,10 @@ pie.mindmap.JSONLoader = Class.create({
   request:function(callback){
     new Ajax.Request(this.url+".js",{
       method:"get",
-      onSuccess:callback.bind(this)
+      onSuccess:callback.bind(this),
+      onFailure:function(){
+        jQuery.facebox('思维导图数据异常，载入失败。');
+      }
     })
   },
   load:function(){

@@ -42,7 +42,7 @@ pie.mindmap_menu_module = {
 
       this.nodeMenu.addItem("编辑备注",{
         handler:function(){
-          this._noteEditor.el.focus()
+          this._node_note_editor.dom.focus()
         }.bind(this)
       });
     

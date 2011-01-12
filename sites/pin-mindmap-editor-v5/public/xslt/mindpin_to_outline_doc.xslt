@@ -4,7 +4,7 @@
   <xsl:variable name="x">
     <xsl:number value="0"/>
   </xsl:variable>
-  <xsl:template match="Nodes">
+  <xsl:template match="mindmap">
     <xsl:processing-instruction name="mso-application">progid="Word.Document"</xsl:processing-instruction>
     <w:wordDocument xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:sl="http://schemas.microsoft.com/schemaLibrary/2003/core" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:wx="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:wsp="http://schemas.microsoft.com/office/word/2003/wordml/sp2" w:macrosPresent="no" w:embeddedObjPresent="no" w:ocxPresent="no" xml:space="preserve">
       <w:ignoreElements w:val="http://schemas.microsoft.com/office/word/2003/wordml/sp2"/>
@@ -636,12 +636,12 @@
   </xsl:template>
 
   <xsl:template name="sub_section">
-    <xsl:for-each select="N">
+    <xsl:for-each select="node">
       <xsl:param name="i">
         <xsl:number level="single"/>
       </xsl:param>
       <wx:sub-section>
-        <xsl:if test="@t">
+        <xsl:if test="@title">
           <w:p>
             <w:pPr>
               <w:pStyle>
@@ -669,7 +669,7 @@
                 <wx:font wx:val="宋体"/>
               </w:rPr>
               <w:t>
-                <xsl:value-of select="@t" />
+                <xsl:value-of select="@title" />
               </w:t>
             </w:r>
           </w:p>

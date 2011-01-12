@@ -2,12 +2,10 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output encoding="UTF-8" indent="no"/>
   <xsl:template match="xmap-content/sheet">
-    <Nodes>
-      <xsl:attribute name="maxid">
-        <xsl:value-of select="count(//topic)+1"/>
-      </xsl:attribute>
+    <mindmap>
+      <xsl:attribute name="ver">0.5</xsl:attribute>
       <xsl:call-template name="node" />
-    </Nodes>
+    </mindmap>
   </xsl:template>
 
   <xsl:template name="node">
@@ -15,16 +13,16 @@
       <xsl:variable name="x">
         <xsl:number level="any"/>
       </xsl:variable>
-      <N>
+      <node>
         <xsl:attribute name="id">
           <xsl:value-of select="$x"/>
         </xsl:attribute>
-        <xsl:attribute name="t">
+        <xsl:attribute name="title">
           <xsl:value-of select="title"/>
         </xsl:attribute>
         <xsl:call-template name="subnode">
         </xsl:call-template>
-      </N>
+      </node>
     </xsl:for-each>
   </xsl:template>
 

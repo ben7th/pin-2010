@@ -64,7 +64,8 @@ class Mindmap < ActiveRecord::Base
     if mindmap.valid? && import_file
       mindmap.import_from_file_and_save(import_file)
     else
-      MindmapStruct.new(mindmap).save_on_default
+      MindmapDocument.new(mindmap).init_default_struct
+      mindmap.save
     end
 
     mindmap.new_record? ? false : mindmap
@@ -88,14 +89,14 @@ class Mindmap < ActiveRecord::Base
   # 6月7日，Nodes的 x y 属性均作废
   # 8月24日 修改递归过程，防止产生过多的SQL
 
-  # 解析XML并转换为JSON字符串
-  def struct_json
-     MindmapStruct.new(self).struct_json
+  # 取得思维导图文档解析对象实例
+  def document
+    MindmapDocument.new(self)
   end
 
-  # 返回导图的struct解析对象
-  def struct_obj
-    MindmapStruct.new(self)
+  # 取得思维导图json
+  def struct_json
+    document.struct_hash.to_json
   end
   
   module UserMethods

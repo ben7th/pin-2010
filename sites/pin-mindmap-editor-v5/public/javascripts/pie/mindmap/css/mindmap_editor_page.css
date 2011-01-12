@@ -90,8 +90,9 @@ body {
       color: #222;
       width: 200px; }
       #mindmap-main #mindmap-sidebar .note_editor .editor_box #mindmap-note-edit {
-        width: 198px !important;
-        display: none; }
+        width: 196px !important;
+        height: 121px !important;
+        background-color: #FBEA9E; }
       #mindmap-main #mindmap-sidebar .note_editor .editor_box .nicEdit-main {
         font-size: 12px; }
     #mindmap-main #mindmap-sidebar .snapshots-list {

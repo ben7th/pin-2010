@@ -104,7 +104,9 @@ module MindmapManagingControllerMethods
     @mindmap = Mindmap.new
     action = params[:import] ? :import : :new
     set_cellhead_tail action
-    flash.now[:error] = '思维导图参数错误，创建失败'
+    error_message = '思维导图参数错误，创建失败'
+    error_message = '思维导图标题不能为空' if params[:mindmap][:title].blank?
+    flash.now[:error] = error_message
     render :action=> action
   end
 

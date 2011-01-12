@@ -20,7 +20,7 @@ module MindmapRevisionMethods
 
   # 获取导图的revision值
   def revision
-    self.struct_obj.revision
+    self.document.revision
   end
 
   # 2011-01-10决定改为检查version
