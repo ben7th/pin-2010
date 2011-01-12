@@ -16,7 +16,7 @@ class MindmapNode
   end
 
   def title
-    _trans_xml_title(@nokogiri_node['title'])
+    MindmapNode.trans_xml_title(@nokogiri_node['title'])
   end
 
   def title=(title)
@@ -121,9 +121,8 @@ class MindmapNode
     MindmapNode.new(@mindmap_document,@nokogiri_node.parent)
   end
 
-  # 将XML的Attribute t中的字符串转义符全部转义，这个方法的写法比较有技巧性
-  # ruby里gsub的强大用法之一
-  def _trans_xml_title(title)
+  # 将XML的Attribute t中的字符串转义符全部转义
+  def self.trans_xml_title(title)
     title.gsub(/\\./){|m| eval '"'+m+'"'}
   end
 

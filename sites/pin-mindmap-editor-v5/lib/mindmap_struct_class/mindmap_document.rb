@@ -72,16 +72,10 @@ class MindmapDocument
   end
 
   def init_default_struct
-    root_title = _trans_xml_title(@mindmap.title)
+    root_title = MindmapNode.trans_xml_title(@mindmap.title)
     root_id = randstr(8)
     struct = "<mindmap ver='0.5' revision='0'><node id='#{root_id}' title='#{root_title}'></mindmap>"
     @mindmap.struct = struct
     @nokogiri_document = Nokogiri::XML(@mindmap.struct)
-  end
-
-  # 将XML的Attribute t中的字符串转义符全部转义，这个方法的写法比较有技巧性
-  # ruby里gsub的强大用法之一
-  def _trans_xml_title(title)
-    title.gsub(/\\./){|m| eval '"'+m+'"'}
   end
 end
