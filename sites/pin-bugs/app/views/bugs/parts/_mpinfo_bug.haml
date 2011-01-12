@@ -5,6 +5,11 @@
     -if !!bug.attachment_file_name
       %img{:src=>"#{bug.attachment.url(:medium)}"}
 
+    .admin-reply.loud.bold
+      -bug.comments.find_all_by_creator_email('ben7th@sina.com').each do |comment|
+        %div
+          管理员回复：#{comment.content}
+
     .baction.fright.marginb5
       %span.marginr5= link_to "详情",bug
       %span.marginr5= action_to "评论(#{bug.comments.count})","#",:class=>"comments_link"

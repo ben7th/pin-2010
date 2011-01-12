@@ -1,6 +1,5 @@
 module CommentCreateMethods
   def _rjs_form_reset(ui)
-    ui.page << "RemarkManager.cancel_reply();"
     ui.page << "RemarkManager.form_reset();"
   end
 

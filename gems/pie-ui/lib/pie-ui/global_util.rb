@@ -45,7 +45,7 @@ module GlobalUtil
 
   end
 
-  def branchmark(&block)
+  def benchmark(&block)
     bm = Benchmark.realtime do
       yield block
     end

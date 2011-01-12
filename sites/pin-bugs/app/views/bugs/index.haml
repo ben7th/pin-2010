@@ -34,11 +34,11 @@
         .desc 我是网站的主程/主设计师
 
 .margint20
+  = render :partial=>"/bugs/form_bug",:locals=>{:bug=>Bug.new}
+
+.margint20
   - mplist @bugs,:for=>Bug,:class=>'no-line'
 
 = will_paginate @bugs,{:position=>:paper}
-
-.margint20
-  = render :partial=>"/bugs/form_bug",:locals=>{:bug=>Bug.new}
 
   

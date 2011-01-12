@@ -49,7 +49,7 @@ if defined? ActiveRecord::Base
       is_cached :repository => $cache
     end
   rescue Exception => ex
-    p ex.message
+    p "#{ex.message}，不加载 cache money"
   end
 
 
