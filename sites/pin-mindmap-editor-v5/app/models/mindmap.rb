@@ -23,7 +23,7 @@ class Mindmap < ActiveRecord::Base
   has_one :visit_counter, :as=>:resource
 
   # name_scopes
-  named_scope :publics,:conditions => ["private <> TRUE"]
+  named_scope :publics,:conditions => ["private <> TRUE or private is null"]
   named_scope :privacy,:conditions => ["private = TRUE"]
   named_scope :valueable,:conditions => ["weight > 0"]
   named_scope :of_user_id, lambda {|user_id|
@@ -80,15 +80,6 @@ class Mindmap < ActiveRecord::Base
   end
 
   # 解析XML并转换为Hash对象
-  # 关于title
-  # 数据库中XML上Attribute t中存储的字符串并非原本的显示字符串
-  # 而是JSON字符串
-  # 取出时需要利用trans_xml_title函数才能得到需要的真实字符串
-  # 这么做的目的是为了在支持换行的同时避免歧义，同时又不违反XML的格式规则
-
-  # 6月7日，Nodes的 x y 属性均作废
-  # 8月24日 修改递归过程，防止产生过多的SQL
-
   # 取得思维导图文档解析对象实例
   def document
     MindmapDocument.new(self)
@@ -140,4 +131,5 @@ class Mindmap < ActiveRecord::Base
   include MindmapNoteMethods
   include MindmapSnapshotMethods
   include MindmapImageMethods
+  include MindmapRightsMethods
 end

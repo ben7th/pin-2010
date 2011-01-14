@@ -3,18 +3,18 @@
  **/
 pie.drag.PinNode=Class.create(pie.drag.Base,{
 	onInit:function(){
-		this.node = this.el;
-		this.el = this.node.el;
-		this.node.dragflag = false;
-    this.map_root = this.node.root;
-		this.map = this.map_root.map;
+		this.node               = this.el;
+		this.el                 = this.node.el;
+		this.node.dragflag      = false;
+    this.map_root           = this.node.root;
+		this.map                = this.node.map;
 		this.effective_distance = 200;
 	},
 	isReady:function(){
 		return !(this.evtel.tagName=="INPUT"||this.evtel.tagName=="TEXTAREA");
 	},
 	beforeStart: function(){
-    this.__stop_edit_title_while_drap_start();
+    this.map.stop_edit_focus_title();
     var dragproxy = this.__init_dragproxy();
 
 		//拖拽代理作为paper的直接子节点
@@ -24,12 +24,6 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 		this.ileft = parseInt(dragproxy.style.left||0);
 		this.itop = parseInt(dragproxy.style.top||0);
 	},
-
-  __stop_edit_title_while_drap_start:function(){
-		if(this.map.focus && this.map.focus.onedit){
-			this.map.title_textarea.blur();
-		}
-  },
 
   __init_dragproxy:function(){
     this.__build_dragproxy();

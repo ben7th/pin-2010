@@ -58,7 +58,7 @@ pie.mindmap.NodeNoteEditor = Class.create({
 					node.nodetitle.el.insert({After:node.noteicon.el});
 					node.width += 10;
 					node.sub.dirty = true;
-					node.root.map.reRank();
+					node.map.reRank();
 				}
 			}else{
 				if(node.note==""||node.note=="<br>"){
@@ -69,7 +69,7 @@ pie.mindmap.NodeNoteEditor = Class.create({
 				}
 				node.width -= 10;
 				node.sub.dirty=true;
-				node.root.map.reRank();
+				node.map.reRank();
 			}
 		}
 	},

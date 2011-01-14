@@ -50,7 +50,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     this.editmode = options.editmode||false;
     if(this.editmode){
-      this._nodeTitleEditor   = new pie.mindmap.NodeTitleEditor();
+      this.node_title_editor = new pie.mindmap.NodeTitleEditor(this);
       this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
       this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
       this._nodeFontEditor    = new pie.mindmap.NodeFontEditor();
@@ -66,8 +66,11 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     //operation record factory
     this.opFactory        = new pie.mindmap.OperationRecordFactory({map:this});
+    this.mr_factory       = new pie.mindmap.ModifyingResponseFactory({map:this});
     this.opQueue          = [];
     this.ready_to_request = true;
+
+    this.nodes = new Hash();
 
     this.after_load       = options.after_load;
   },
@@ -104,9 +107,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     new pie.drag.Page(paper.el,{beforeDrag:function(){
       this.nodeMenu.unload();
-      if(this.focus && this.focus.isOnTitleEditStatus){
-        this.title_textarea.blur();
-      }
+      this.stop_edit_focus_title();
     }.bind(this)});
   
     this.after_load();
@@ -127,7 +128,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
   _getEl:function(){
     if(this.el==null){
-      this.el=this.root._getContainerEl();
+      this.el = this.root._build_container_dom();
       this._bindGlobalCommonEvents();
       if (this.editmode) {
         this._bindGlobalEditEvents();
@@ -491,7 +492,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 			opacity:0.3,
 			zIndex:103
 		});
-		this.root.map.paper.el.appendChild(this.posbox);
+		this.paper.el.appendChild(this.posbox);
 	},
   _bindGlobalCommonEvents:function(){
     //全局公用事件
@@ -512,19 +513,19 @@ pie.mindmap.BasicMapPaper = Class.create({
     document.observe("keydown",window._hotkeyDispatcher);
   },
   hotkeyDispatcher:function(evt){
-    if(!this.focus || this.focus.isOnTitleEditStatus){
-      return false;
+    if(!this.focus || this.focus.is_being_edit){
+      return;
     }
     var evtel=Event.element(evt);
     var tagName=evtel.tagName;
     if(pie.isIE()){
       this.log(tagName);
       if(tagName != "DIV" || false){//evtel==this.noteEditor.el) {
-        return false;
+        return;
       }
     }else{
       if (tagName != "HTML" && tagName != "BODY") {
-        return false;
+        return;
       }
     }
     var code=evt.keyCode;
@@ -559,7 +560,7 @@ pie.mindmap.BasicMapPaper = Class.create({
             this.focus.remove();
           }break;
           case 32:{
-            this._nodeTitleEditor.doEditTitle(this.focus);
+            this.edit_focus_title();
           }break;
           case 73:{
             this.edit_focus_image();
@@ -706,9 +707,24 @@ pie.mindmap.BasicMapPaper = Class.create({
   }
 });
 
-pie.mindmap_refector_temp = {
+pie.mindmap_focus_methods = {
   edit_focus_image:function(){
-    this._node_image_editor.do_edit_image(this.focus);
+    if(this._can_edit_focus()){
+      this._node_image_editor.do_edit_image(this.focus);
+    }
+  },
+  edit_focus_title:function(){
+    if(this._can_edit_focus()){
+      this.node_title_editor.do_edit(this.focus);
+    }
+  },
+  stop_edit_focus_title:function(){
+    if(this.focus && this.focus.is_being_edit){
+      this.node_title_editor.stop_edit();
+    }
+  },
+  _can_edit_focus:function(){
+    return this.editmode && this.focus;
   }
 }
 
@@ -716,4 +732,5 @@ pie.mindmap.BasicMapPaper
   .addMethods(pie.mindmap_canvas_draw_module)
   .addMethods(pie.mindmap_menu_module)
   .addMethods(pie.mindmap_save_module)
-  .addMethods(pie.mindmap_refector_temp);
+  .addMethods(pie.mindmap_cooprate_response_module)
+  .addMethods(pie.mindmap_focus_methods);

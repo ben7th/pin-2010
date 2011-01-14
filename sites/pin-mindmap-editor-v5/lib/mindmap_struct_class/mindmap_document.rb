@@ -72,10 +72,12 @@ class MindmapDocument
   end
 
   def init_default_struct
-    root_title = MindmapNode.trans_xml_title(@mindmap.title)
-    root_id = randstr(8)
-    struct = "<mindmap ver='0.5' revision='0'><node id='#{root_id}' title='#{root_title}'></mindmap>"
+    default_str = "<mindmap ver='0.5' revision='0'><node/></mindmap>"
+    @nokogiri_document = Nokogiri::XML(default_str)
+
+    root_node.id    = randstr(8)
+    root_node.title = @mindmap.title    
+
     @mindmap.struct = struct
-    @nokogiri_document = Nokogiri::XML(@mindmap.struct)
   end
 end

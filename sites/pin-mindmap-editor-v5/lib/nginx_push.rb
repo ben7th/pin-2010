@@ -1,19 +1,17 @@
-require 'em-http'
 
 class NginxPush
-  def self.push(channel_id,data)
-    EventMachine.run {
-      url = "http://dev.mindmap-editor.mindpin.com/mindmaps/push"
-      http = EventMachine::HttpRequest.new(url).post :query => {'channel' => channel_id},:body => data
-
-      http.callback {
-        p http.response_header.status
-        p http.response_header
-        p http.response
-
-        EventMachine.stop
-      }
-    }
+  if RAILS_ENV == "production"
+    MINDMAP_PUSH_URL = "http://mindmap-editor.mindpin.com/mindmaps/push"
+  else
+    MINDMAP_PUSH_URL = "http://dev.mindmap-editor.mindpin.com/mindmaps/push"
   end
-
+  def self.mindmap_operation_push(mindmap_id,data_hash)
+    url_str = URI.parse(MINDMAP_PUSH_URL)
+    site = Net::HTTP.new(url_str.host, url_str.port)
+    site.open_timeout = 20
+    site.read_timeout = 20
+    path = "#{url_str.path}?channel=mindmap_#{mindmap_id}"
+    site.request_post(path,data_hash.to_json)
+  end
+  
 end

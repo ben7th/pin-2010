@@ -27,7 +27,11 @@ pie.MindmapPageLoader = {
   load_editor_page:function(mindmap_id){
     this._init();
     this._load_map(mindmap_id,true);
-    return this._after_init();
+    this._after_init();
+
+    this.pull(mindmap_id);
+
+    return this;
   },
 
   load_viewer_page:function(mindmap_id){
@@ -56,28 +60,43 @@ pie.MindmapPageLoader = {
       }
     });
   },
+  
   pull:function(mindmap_id){
     var pars = 'channel='+'mindmap_'+mindmap_id;
-    new Ajax.Request("/mindmaps/pull?"+pars,{
+    new Ajax.Request("/mindmaps/pull",{
       parameters:pars,
       method:'GET',
       onSuccess:function(trans){
-        var json = trans.responseText.evalJSON();
-        this.add_chat(json);
-        this.pull(mindmap_id);
+        try{
+          var json = trans.responseText.evalJSON();
+          var user_id = json.user_id;
+          var revision = json.revision;
+          if(revision == mindmap.revision){
+            if(current_user_id != user_id){
+              mindmap.show_op_instance(json)
+            }else{
+              pie.log('我的操作',json)
+            }
+          }else{
+            pie.log('操作信息已过时');
+          }
+          this.pull(mindmap_id);
+        }catch(e){}
       }.bind(this)
     });
   },
-  add_chat:function(chat_json){
-    var username = chat_json.username;
-    var text = chat_json.text;
-    var cl = $$('.chat-list')[0];
-    var node = Builder.node('div',{'class':'chat-line'},[
-      Builder.node('span',{'class':'username'},username+': '),
-      Builder.node('span',{},text)
-    ]);
-    cl.appendChild(node);
-  },
+
+//  add_chat:function(chat_json){
+//    var username = chat_json.username;
+//    var text = chat_json.text;
+//    var cl = $$('.chat-list')[0];
+//    var node = Builder.node('div',{'class':'chat-line'},[
+//      Builder.node('span',{'class':'username'},username+': '),
+//      Builder.node('span',{},text)
+//    ]);
+//    cl.appendChild(node);
+//  },
+
   toggle_sidebar:function(){
     Element.toggle(this.sidebar);
     Element.toggleClassName(this.toggle_sidebar_button,'open')

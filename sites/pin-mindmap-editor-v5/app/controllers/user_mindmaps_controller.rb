@@ -13,5 +13,10 @@ class UserMindmapsController < ApplicationController
     @mapdata = get_mapdata_of_user(@user)
     @can_create_map = is_current_user?(@user)
     @newbie = (@can_create_map && @mindmaps.blank?)
+    @public_mindmaps = @user.mindmaps.publics.newest
+    respond_to do |format|
+      format.html
+      format.atom { render :layout => false,:action=>"index"} #index.rss.builder
+    end
   end
 end

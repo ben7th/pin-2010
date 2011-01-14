@@ -79,12 +79,33 @@
 .foldhandler_down{background-position:0 -60px;}
 
 /*节点标题编辑*/
-.editorbox{border:solid 3px #7f7ff7;background-color:white;position:absolute;z-index:103;overflow:hidden;
-  -moz-border-radius:4px;-webkit-border-radius:4px;}
+.title_input_div{
+  border:solid 3px #7f7ff7;
+  background-color:white;
+  position:absolute;
+  z-index:103;
+  overflow:hidden;
+  @include border-radius(4px);
 
-.title_textarea,.title_textarea_root{font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;border:none !important;color:#333;}
-.title_textarea{font-size:12px;line-height:16px;padding:2px 2px;*padding:1px 2px;}
-.title_textarea_root{font-size:14px;line-height:21px;padding:2px 3px;*padding:1px 3px;}
+  .title_inputer,.title_inputer_root{
+    font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+    border:none !important;
+    color:#333;
+  }
+  .title_inputer{
+    font-size:12px;
+    line-height:16px;
+    padding:2px 2px;
+    *padding:1px 2px;
+  }
+  .title_inputer_root{
+    font-size:14px;
+    line-height:21px;
+    padding:2px 6px;
+    *padding:1px 3px;
+  }
+
+}
 
 /*图像选择器*/
 .mindmap-image-editor{

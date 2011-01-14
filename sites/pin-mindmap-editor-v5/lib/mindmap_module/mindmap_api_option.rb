@@ -60,7 +60,7 @@ class MindmapApiOption
 
     def title
       _title = @params["title"]
-      _title = "NewSubNode" if _title.blank?
+      _title = "NewSubNode" if _title.nil?
       return _title
     end
 

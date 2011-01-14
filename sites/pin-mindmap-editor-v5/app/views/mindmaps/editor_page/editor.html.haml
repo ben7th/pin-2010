@@ -21,6 +21,7 @@
 
   :javascript
     pie.load(function(){
+      current_user_id = #{current_user.id};
       window.page_loader = pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
       window.uploadify_options = {
         uploader     : '/uploadify/uploadify.swf',

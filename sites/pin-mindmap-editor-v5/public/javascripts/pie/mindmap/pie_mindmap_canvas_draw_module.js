@@ -103,7 +103,7 @@ pie.mindmap_canvas_draw_module = {
 
 pie.mindmap.RootBranchCanvasBase = Class.create({
   initialize:function(node,ctx){
-    this.map = node.root.map;
+    this.map = node.map;
     this.branch = node.branch;
     this.ctx = ctx;
     this.lw = 5;  //线最粗的地方的横向宽度

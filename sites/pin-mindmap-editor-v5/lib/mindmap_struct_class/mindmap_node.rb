@@ -16,7 +16,7 @@ class MindmapNode
   end
 
   def title
-    MindmapNode.trans_xml_title(@nokogiri_node['title'])
+    @nokogiri_node['title']
   end
 
   def title=(title)
@@ -119,11 +119,6 @@ class MindmapNode
 
   def parent
     MindmapNode.new(@mindmap_document,@nokogiri_node.parent)
-  end
-
-  # 将XML的Attribute t中的字符串转义符全部转义
-  def self.trans_xml_title(title)
-    title.gsub(/\\./){|m| eval '"'+m+'"'}
   end
 
   private

@@ -25,7 +25,7 @@ pie.mindmap_menu_module = {
 
       this.nodeMenu.addItem("编辑标题 [空格]",{
         handler:function(){
-          this._nodeTitleEditor.doEditTitle(this.focus);
+          this.edit_focus_title();
         }.bind(this)
       })
 

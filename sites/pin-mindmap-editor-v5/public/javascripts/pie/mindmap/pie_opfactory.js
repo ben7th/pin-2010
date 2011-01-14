@@ -29,7 +29,7 @@ pie.mindmap.OperationRecordFactory = Class.create({
       "op":"do_title",
       "params":{
         "node_id":node.id,
-        "title":node.title.replace(/\\/g,"\\\\").replace(/\n/g,"\\n")
+        "title":node.title
       }
     }
 	},

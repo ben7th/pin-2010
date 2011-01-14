@@ -20,17 +20,11 @@ module MindmapRightsHelper
   end
 
   def has_edit_rights?(mindmap,user)
-    has_edit_rights_by_owner(mindmap,user) || mindmap.cooperate_edit?(user)
+    mindmap.has_edit_rights?(user) || is_nobody_mindmap_of_current_cookies(mindmap)
   end
 
   def has_view_rights?(mindmap,user)
-    !mindmap.private ||
-      has_edit_rights_by_owner(mindmap,user) ||
-      mindmap.cooperate_view?(user) ||
-      mindmap.cooperate_edit?(user)
+    mindmap.has_view_rights?(user) || is_nobody_mindmap_of_current_cookies(mindmap)
   end
 
-  def has_edit_rights_by_owner(mindmap,user)
-    is_nobody_mindmap_of_current_cookies(mindmap) || (user && mindmap.user_id == user.id)
-  end
 end

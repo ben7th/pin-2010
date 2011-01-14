@@ -10,15 +10,17 @@ namespace :bundle do
       'pie_dragdrop.js',
       'pie_mindmap_node_dragdrop.js',
       'pie_map_menu.js',
-      'pie_mindmap_node_editor.js',
+      'pie_mindmap_node_title_editor.js',
       'pie_mindmap_node_note_editor.js',
       'pie_mindmap_node_image_editor.js',
+      'pie_mindmap_node_font_editor.js',
       'pie_opfactory.js',
       'pie_mindmap_node.js',
       'pie_mindmap_json_loader.js',
       'pie_mindmap_canvas_draw_module.js',
       'pie_mindmap_menu_module.js',
       'pie_mindmap_save_module.js',
+      'pie_mindmap_cooprate_response_module.js',
       'pie_mindmap.js'
     ].map{|x| RAILS_ROOT + '/public/javascripts/pie/mindmap/' + x}
     # 顺序是固定的！！
@@ -38,15 +40,17 @@ namespace :bundle do
       'pie_dragdrop.js',
       'pie_mindmap_node_dragdrop.js',
       'pie_map_menu.js',
-      'pie_mindmap_node_editor.js',
+      'pie_mindmap_node_title_editor.js',
       'pie_mindmap_node_note_editor.js',
       'pie_mindmap_node_image_editor.js',
+      'pie_mindmap_node_font_editor.js',
       'pie_opfactory.js',
       'pie_mindmap_node.js',
       'pie_mindmap_json_loader.js',
       'pie_mindmap_canvas_draw_module.js',
       'pie_mindmap_menu_module.js',
       'pie_mindmap_save_module.js',
+      'pie_mindmap_cooprate_response_module.js',
       'pie_mindmap.js'
     ].map{|x| RAILS_ROOT + '/public/javascripts/pie/mindmap/' + x}
     # 顺序是固定的！！
