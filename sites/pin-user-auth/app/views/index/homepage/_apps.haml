@@ -1,0 +1,18 @@
+.apps.yours
+  .top-bar.clearfix
+    .fleft.font14.bold.marginl5
+      应用组件
+      %span.quiet (1)
+  .yours-list
+    .app.clearfix
+      .applogo
+        -link_to pin_url_for('pin-mindmap-editor') do
+          .rclogo
+            %img{:src=>pin_url_for('pin-mindmap-editor','/images/mindmap_logo.png'),:class=>'logo'}
+      .meta
+        .title
+          -link_to pin_url_for('pin-mindmap-editor') do
+            %span 思维导图编辑器
+            %span.loud.font12.normal [打开]
+        .data
+          　　在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等工作。支持多种格式的导入导出。你还可以进行多人协同编辑！

@@ -11,6 +11,9 @@ class IndexController < ApplicationController
     @organizations = Organization.of_user(current_user)
     @mindmaps = current_user.mindmaps
     @contacts = current_user.contacts
+    news_feed_proxy = current_user.news_feed_proxy
+    @feeds = news_feed_proxy.feeds.paginate(:per_page=>10,:page=>1)
+    news_feed_proxy.refresh_newest_feed_id
   end
 
   def updating

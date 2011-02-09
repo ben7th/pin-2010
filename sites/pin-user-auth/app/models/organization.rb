@@ -1,6 +1,7 @@
 class Organization < OrganizationBase
   set_readonly false
 
+  index :email
   has_many :members,:foreign_key => "organization_id",:dependent=>:destroy
 
   validates_presence_of :name
@@ -10,9 +11,8 @@ class Organization < OrganizationBase
     :if=>Proc.new{|u|!u.email.blank?}
 
   def validate
-    user = User.find_by_email(email)
-    if !email.blank? && user
-      errors.add(email,"团队邮箱地址不能和已注册用户邮箱地址重复")
+    if !email.blank? && EmailActor.new(email).not_allow_used? && EmailActor.new(email).actor != self
+      errors.add(:email,"团队邮箱地址已经被使用")
     end
   end
 
@@ -29,8 +29,12 @@ class Organization < OrganizationBase
 
   def leave(user)
     if can_leave?(user)
-      member = Member.find_by_organization_id_and_email(id,user.email)
-      return member.destroy if member
+      member_1 = Member.find_by_organization_id_and_email(id,user.email)
+      mindpin_email = EmailActor.get_mindpin_email(user)
+      member_2 = Member.find_by_organization_id_and_email(id,mindpin_email)
+      member_1.destroy if member_1
+      member_2.destroy if member_2
+      return true
     end
     return false
   end
@@ -57,8 +61,7 @@ class Organization < OrganizationBase
 
   module UserMethods
     def validate
-      org = Organization.find_by_email(email)
-      if !email.blank? && org
+      if !email.blank? && EmailActor.new(email).not_allow_used? && EmailActor.new(email).actor != self
         errors.add(email,"邮箱地址已经被使用过了")
       end
     end

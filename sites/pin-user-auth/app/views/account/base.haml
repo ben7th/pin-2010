@@ -4,12 +4,4 @@
     = f.text_field(:name)
     .field
       加入时间 #{created_at current_user}
-    .field
-      如果需要修改密码，请在下面填写，不修改，则不用填写
-    .field
-      %label 新密码
-      = password_field :user,:password,:value=>'',:maxlength=>32,:class=>'text'
-    .field
-      %label 确认新密码
-      = password_field :user,:password_confirmation,:value=>'',:maxlength=>32,:class=>'text'
     = f.submit t('page.account.base.from_submit')

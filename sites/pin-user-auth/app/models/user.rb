@@ -48,7 +48,10 @@ require 'RMagick'
 
 class User < UserBase
   set_readonly false
-  
+
+  # 缓存策略
+  index :email
+
   # 在线状态记录
   has_one :online_record,:dependent => :destroy
 
@@ -154,6 +157,18 @@ class User < UserBase
     img_type.write File.expand_path(LOGO_PATH_ROOT)+"/users/logos/#{self.id}/#{type}/#{self.logo_file_name}"
   end
 
+  def change_password(old_pass,new_pass,new_pass_confirmation)
+    raise "请输入旧密码" if old_pass.blank?
+    raise "请输入新密码" if new_pass.blank?
+    raise "请输入确认新密码" if new_pass_confirmation.blank?
+    raise "新密码和确认新密码输入不相同" if new_pass_confirmation != new_pass
+    user = User.authenticate(self.email,old_pass)
+    raise "旧密码输入错误" if self.id != user.id
+    user.password=new_pass
+    user.password_confirmation=new_pass_confirmation
+    user.save!
+  end
+
   has_many :workspaces
   has_many :mindmaps
 
@@ -162,4 +177,7 @@ class User < UserBase
   include Contact::UserMethods
   include Activity::UserMethods
   include UserAutoCompeleteCache
+
+  include Mindmap::UserMethods
+
 end

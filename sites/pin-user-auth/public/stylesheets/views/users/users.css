@@ -24,9 +24,13 @@
       display: inline-block;
       width: 100px;
       font-weight: normal;
-      color: #B5B5B5; }
+      color: #a5a5a5; }
     .usertop .vcard dl dd {
-      display: inline-block; }
+      display: inline-block;
+      margin-left: 0px;
+      color: white; }
+      .usertop .vcard dl dd .date {
+        color: white !important; }
   .usertop .count dl {
     display: inline-block;
     margin: 0 30px 5px 0; }
@@ -45,6 +49,15 @@
   .usertop .viewother {
     margin-top: 20px;
     padding-left: 5px; }
+  .usertop .follows {
+    margin-top: 5px; }
+    .usertop .follows .avatars {
+      margin-top: 7px; }
+      .usertop .follows .avatars a {
+        margin-right: 3px; }
+        .usertop .follows .avatars a img {
+          width: 32px;
+          height: 32px; }
 
 .app-list .logo {
   border-radius: 4px;
@@ -97,26 +110,6 @@
 .contacts li .name {
   float: left; }
 
-.your_apps .top-bar {
-  background: #0E0E1A;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  padding: 3px;
-  border: solid 1px #333346;
-  margin-bottom: 10px; }
-.your_apps .app-list .app {
-  overflow: hidden;
-  padding: 6px;
-  background: #323546;
-  border: solid 1px #111;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-  .your_apps .app-list .app .rclogo {
-    height: 66px;
-    margin-right: 6px; }
-
 /*导入联系人页面*/
 .already-contact {
   margin-bottom: 20px; }
@@ -153,3 +146,130 @@
       font-weight: bold; }
     .contact-list li:hover {
       background: #45495B; }
+
+.apps.yours .app {
+  padding: 6px; }
+  .apps.yours .app .applogo {
+    padding-top: 5px;
+    width: 80px;
+    float: left;
+    height: 66px;
+    overflow: hidden; }
+    .apps.yours .app .applogo a {
+      float: left; }
+  .apps.yours .app .title {
+    font-size: 14px; }
+
+.show_new_feed {
+  background-color: #FFFDDD;
+  color: #BB861C;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 7px 10px;
+  margin-bottom: 13px;
+  text-align: right; }
+  .show_new_feed a {
+    color: #BB861C; }
+
+.loading_new_feed {
+  overflow: hidden;
+  margin-bottom: 13px; }
+  .loading_new_feed .p {
+    line-height: 32px;
+    float: left; }
+
+.newsfeed {
+  margin-top: 15px; }
+  .newsfeed ul.feeds li.feed {
+    padding: 0 0 12px 0;
+    margin: 0 0 12px 0;
+    border-bottom: solid 1px #464660; }
+    .newsfeed ul.feeds li.feed .avatar {
+      float: left;
+      width: 48px;
+      height: 36px; }
+    .newsfeed ul.feeds li.feed .data {
+      font-size: 12px;
+      float: right;
+      width: 422px;
+      color: white; }
+
+.grid_11 .newsfeed ul.feeds li.feed .data {
+  width: 382px; }
+
+form.new_message .w300 {
+  width: 300px !important; }
+
+.ac_results ul li {
+  line-height: 24px;
+  height: 24px;
+  overflow: hidden;
+  padding: 1px 2px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
+  .ac_results ul li .logo.tiny {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    float: left; }
+  .ac_results ul li.ac_over {
+    background-color: #96B5DA;
+    color: black; }
+
+.grid_11.col h2 {
+  margin: 0 0 5px; }
+
+.user_mindmaps {
+  overflow: hidden; }
+  .user_mindmaps .image_center_div p {
+    font-size: 0px; }
+  .user_mindmaps .map {
+    float: left;
+    margin: 0 15px 15px 0;
+    box-shadow: 0 0 5px #09070e;
+    -moz-box-shadow: 0 0 5px #09070e;
+    -webkit-box-shadow: 0 0 5px #09070e;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: solid 1px #111; }
+    .user_mindmaps .map .meta {
+      padding: 3px 5px;
+      background: #0E0E1A;
+      border-radius: 3px 3px 0 0;
+      -moz-border-radius: 3px 3px 0 0;
+      -webkit-border-radius: 3px 3px 0 0;
+      overflow: hidden; }
+      .user_mindmaps .map .meta span.title {
+        font-size: 14px;
+        color: white;
+        font-weight: bold; }
+      .user_mindmaps .map .meta span.rank {
+        color: #FBEB96;
+        font-size: 14px;
+        font-weight: bold;
+        float: right; }
+    .user_mindmaps .map .data {
+      background: #323546; }
+      .user_mindmaps .map .data .first_map {
+        width: 450px;
+        height: 338px;
+        padding: 4px; }
+        .user_mindmaps .map .data .first_map .image_center_div {
+          width: 450px;
+          height: 338px; }
+      .user_mindmaps .map .data .map_thumb {
+        width: 450px;
+        height: 120px;
+        padding: 4px; }
+        .user_mindmaps .map .data .map_thumb .image_center_div {
+          width: 120px;
+          height: 120px; }
+    .user_mindmaps .map .foot {
+      padding: 3px 5px;
+      background: #0E0E1A;
+      border-radius: 0 0 3px 3px;
+      -moz-border-radius: 0 0 3px 3px;
+      -webkit-border-radius: 0 0 3px 3px; }

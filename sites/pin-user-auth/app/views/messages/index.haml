@@ -1,0 +1,6 @@
+=link_to "发消息","/messages/new"
+
+-@message_hash.each do |user,unread_count|
+  %div
+    =link_to "#{user.email} 未读消息(#{unread_count})","/messages/user/#{user.id}"
+    

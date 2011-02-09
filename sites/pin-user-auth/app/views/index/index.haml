@@ -1,89 +1,12 @@
 - require_css 'views/users',true
 
-.usertop.clearfix
-  .clearfix
-    .grid_12
-      .vcard
-        %dl
-          %dt 用户名
-          %dd=current_user.name
-        %dl
-          %dt 注册时间
-          %dd=qdate current_user.created_at
-    .grid_6
-      .count
-        %dl
-          %dt=link_to @mindmaps.count,pin_url_for('pin-mindmap-editor')
-          %dd 思维导图
-        %dl
-          %dt=link_to @organizations.count,pin_url_for('pin-user-auth','/account/organizations')
-          %dd 团队
-  .clearfix.hide
-    .push_12
-      .viewother
-        %span.bold 访问应用
+-content_for :javascripts do
+  =javascript_include_tag 'views/homepage_newsfeed'
 
-.grid_11.alpha.hide
-  .your_workspaces
-    .top-bar.clearfix
-      .fleft.font14.bold.marginl5
-        工作空间
-        %span.quiet (#{@workspaces.count})
-    .workspace-list.margint5
-      -mplist @workspaces,:for=>Workspace do |w|
-        .font14.bold=link_to w.name,pin_url_for('pin-workspace',"workspaces/#{w.id}")
+.grid_12.alpha
+  =render :partial=>'index/homepage/feeds'
 
-.grid_15.alpha
-  .your_apps
-    .top-bar.clearfix
-      .fleft.font14.bold.marginl5
-        应用组件
-        %span.quiet (1)
-    .app-list.margint5
-      .app
-        .fleft
-          - link_to pin_url_for('pin-mindmap-editor') do
-            .rclogo
-              %img{:src=>pin_url_for('pin-mindmap-editor','/images/mindmap_logo.png'),:class=>'logo'}
-        .fleft
-          .clearfix
-            .fleft.marginl10.bold.font14
-              - link_to pin_url_for('pin-mindmap-editor') do
-                %span 思维导图编辑器
-                %span.loud.font12.normal [打开]
-          .clearfix.marginl10.margint10
-            在线思维导图编辑器，帮助你整理思维脉络。辅助你进行讨论，读书笔记，教学等任务。<br/>
-            支持多种格式的导入导出。你还可以进行多人协同编辑！
-
-.grid_7.omega.fright
-
-  .organizations.yours
-    .top-bar.clearfix
-      .fleft.font14.bold
-        团队(#{@organizations.count})
-      .fright
-        =minibutton '设置','/account/organizations'
-    .yours-list
-      -if @organizations.blank?
-        .no-item
-          目前还没有组织团队
-      -else
-        -mplist @organizations,:for=>Organization do |org|
-          =link_to org.name,pin_url_for('pin-user-auth',"/organizations/#{org.id}")
-
-  .contacts.yours
-    .top-bar.clearfix
-      .fleft.font14.bold
-        联系人(#{@contacts.count})
-      .fright
-        =minibutton '设置','/account/contacts'
-    .yours-list
-      -if @contacts.blank?
-        .no-item
-          目前还没有联系人
-      -else
-        -mplist @contacts,:for=>Contact do |c|
-          .avatar
-            =avatar c.email,:tiny
-          .name
-            =email_actor_link(c.email)
+.grid_11.omega.fright
+  =render :partial=>'index/homepage/apps'
+  =render :partial=>'index/homepage/organizations'
+  =render :partial=>'index/homepage/contacts'

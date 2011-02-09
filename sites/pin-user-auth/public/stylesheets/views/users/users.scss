@@ -28,8 +28,11 @@
   .vcard{
     dl{
       margin:0 0 5px 0;
-      dt{display:inline-block;width:100px;font-weight:normal;color:#B5B5B5;}
-      dd{display:inline-block;}
+      dt{display:inline-block;width:100px;font-weight:normal;color:#a5a5a5;}
+      dd{
+        display:inline-block;margin-left:0px;color:white;
+        .date{color:white !important;}
+      }
     }
   }
   .count{
@@ -47,6 +50,16 @@
   .viewother{
     margin-top:20px;
     padding-left:5px;
+  }
+  .follows{
+    margin-top:5px;
+    .avatars{
+      margin-top:7px;
+      a{
+        margin-right:3px;
+        img{width:32px;height:32px;}
+      }
+    }
   }
 }
 
@@ -107,29 +120,6 @@
   }
 }
 
-.your_apps{
-  .top-bar{
-    background:#0E0E1A;
-    @include border-radius(5px);
-    padding:3px;
-    border:solid 1px #333346;
-    margin-bottom:10px;
-  }
-  .app-list{
-    .app{
-      overflow:hidden;
-      padding:6px;
-      background:#323546;
-      border:solid 1px #111;
-      @include border-radius(5px);
-      .rclogo{
-        height:66px;
-        margin-right:6px;
-      }
-    }
-  }
-}
-
 /*导入联系人页面*/
 .already-contact{
   margin-bottom:20px;
@@ -163,6 +153,157 @@
     }
     &:hover{
       background:#45495B;
+    }
+  }
+}
+
+.apps.yours{
+  .app{
+    padding:6px;
+    .applogo{
+      padding-top:5px;
+      width:80px;float:left;
+      height:66px;
+      overflow:hidden;
+      a{float:left;}
+    }
+    .title{
+      font-size:14px;
+    }
+  }
+}
+
+.show_new_feed{
+  background-color:#FFFDDD;
+  color:#BB861C;
+  @include border-radius(3px);
+  padding:7px 10px;
+  margin-bottom:13px;
+  text-align:right;
+  a{
+    color:#BB861C;
+  }
+}
+
+.loading_new_feed{
+  overflow:hidden;
+  margin-bottom:13px;
+  .p{line-height:32px;float:left;}
+}
+
+.newsfeed{
+  margin-top:15px;
+  ul.feeds{
+    li.feed{
+      padding:0 0 12px 0;
+      margin:0 0 12px 0;
+      border-bottom:solid 1px #464660;
+      .avatar{
+        float:left;
+        width:48px;
+        height:36px;
+      }
+      .data{
+        font-size:12px;
+        float:right;
+        width:422px;
+        color:white;
+      }
+      .time{
+        .date{}
+      }
+    }
+  }
+}
+
+.grid_11{
+  .newsfeed ul.feeds li.feed .data{width:382px;}
+}
+
+
+form.new_message{
+  .w300{
+    width:300px !important;
+  }
+}
+
+.ac_results ul li {
+  line-height:24px;
+  height:24px;
+  overflow:hidden;
+  padding:1px 2px;
+  @include border-radius(3px);
+  .logo.tiny{
+    width:20px;
+    height:20px;
+    margin-right:10px;
+    float:left;
+  }
+  &.ac_over {
+    background-color: #96B5DA;
+    color: black;
+  }
+}
+
+.grid_11.col{
+  h2{
+    margin:0 0 5px;
+  }
+}
+
+.user_mindmaps{
+  overflow:hidden;
+  .image_center_div{
+    p{font-size:0px;}
+  }
+  .map{
+    float:left;
+    margin:0 15px 15px 0;
+    @include box-shadow(0 0 5px #09070E);
+    @include border-radius(3px);
+    border:solid 1px #111;
+    .meta{
+      padding:3px 5px;
+      background:#0E0E1A;
+      @include border-radius(3px 3px 0 0);
+      overflow:hidden;
+      span.title{
+        font-size:14px;
+        color:white;
+        font-weight:bold;
+      }
+      span.rank{
+        color:#FBEB96;
+        font-size:14px;
+        font-weight:bold;
+        float:right;
+      }
+    }
+    .data{
+      background:#323546;
+      .first_map{
+        width:450px;
+        height:338px;
+        padding:4px;
+        .image_center_div{
+          width:450px;
+          height:338px;
+        }
+      }
+      .map_thumb{
+        width:450px;
+        height:120px;
+        padding:4px;
+        .image_center_div{
+          width:120px;
+          height:120px;
+        }
+      }
+    }
+    .foot{
+      padding:3px 5px;
+      background:#0E0E1A;
+      @include border-radius(0 0 3px 3px);
     }
   }
 }

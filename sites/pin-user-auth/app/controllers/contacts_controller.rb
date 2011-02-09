@@ -90,4 +90,36 @@ class ContactsController < ApplicationController
     end
   end
 
+  def fans
+    @user = User.find(params[:user_id])
+    set_cellhead_path("users/cellhead")
+    @fans = @user.fans
+    render :template=>"users/homepage/fans"
+  end
+
+  def followings
+    @user = User.find(params[:user_id])
+    set_cellhead_path("users/cellhead")
+    @followings = @user.contacts_user
+    render :template=>"users/homepage/followings"
+  end
+
+  def follow
+    user = User.find(params[:user_id])
+    contact = current_user.contacts.new(:email=>user.email)
+    if (!current_user.following?(user) && contact.save) || current_user.following?(user)
+      return render :status=>200,:text=>"关注成功"
+    end
+    render :status=>500,:text=>"关注失败"
+  end
+
+  def unfollow
+    user = User.find(params[:user_id])
+    contact = current_user.contacts.find_by_email(user.email)
+    if (!contact.blank? && current_user.following?(user) && contact.destroy  ) || !current_user.following?(user)
+      return render :status=>200,:text=>"取消关注成功"
+    end
+    render :status=>500,:text=>"取消关注失败"
+  end
+
 end

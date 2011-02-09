@@ -1,0 +1,9 @@
+=flash_info
+-form_tag '/account/do_message', :method => :put do
+  %div
+    =radio_button_tag 'set', Preference::ALL_USERS,@is_all_users
+    %span 接收所有人发来的站内信
+  %div
+    =radio_button_tag 'set', Preference::ONLY_CONTACTS,@is_only_contacts
+    %span 只接收联系人发来的站内信
+  =submit_tag "修改设置"

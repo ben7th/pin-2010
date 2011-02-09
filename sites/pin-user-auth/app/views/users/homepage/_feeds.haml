@@ -1,0 +1,3 @@
+.newsfeed
+  -mplist @own_feeds,:for=>Feed do |feed|
+    =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}

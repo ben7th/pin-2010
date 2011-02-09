@@ -1,7 +1,6 @@
 class Member < MemberBase
   set_readonly(false)
   belongs_to :organization
-  belongs_to :user,:foreign_key=>"email",:primary_key=>"email"
 
   validates_presence_of :organization
   validates_presence_of :email
@@ -11,6 +10,10 @@ class Member < MemberBase
     if organization.has_email?(email)
       errors.add("email","该成员已经加入团队")
     end
+  end
+
+  def user
+    EmailActor.get_user_by_email(email)
   end
 
   module UserMethods

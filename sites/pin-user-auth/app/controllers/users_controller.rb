@@ -53,15 +53,26 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user=User.find(params[:id])
-    if logged_in? && @user == current_user
-      @user_shares = @user.my_and_contacting_shares.paginate(:page => params[:page] ,:per_page=>30 )
-    else
-      @user_shares = @user.shares.paginate(:page => params[:page] ,:per_page=>30 )
-    end
+    @user = User.find(params[:id])
+
+    @mindmaps_count = @user.mindmaps_count
+    @mindmaps = @user.mindmaps.all(:order=>'id desc')
+
+    @fans_count = @user.fans_contacts.count
+
+    contacts_user = @user.contacts_user
+    @followings_count = contacts_user.count
+    @followings = contacts_user[0..9]
+
+    @own_feeds = @user.news_feed_proxy.own_feeds.paginate(:page=>params[:page],:per_page=>20)
+    
     respond_to do |format|
-      format.html {} # 这一行必须有而且必须在下面这行之前，否则IE里会出问题
-      format.xml {render :xml=>@user.to_xml(:only=>[:id,:name,:created_at],:methods=>:logo)}
+      format.html {
+        render :template=>'users/homepage'
+      } # 这一行必须有而且必须在下面这行之前，否则IE里会出问题
+      format.xml {
+        render :xml=>@user.to_xml(:only=>[:id,:name,:created_at],:methods=>:logo)
+      }
     end
   end
 

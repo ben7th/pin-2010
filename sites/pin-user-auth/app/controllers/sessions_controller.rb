@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
       after_logged_in()
       return redirect_back_or_default(root_url)
     else
-      flash[:error]="用户名/密码不正确"
+      flash[:error]="邮箱/密码不正确"
       redirect_to login_url
     end
   end

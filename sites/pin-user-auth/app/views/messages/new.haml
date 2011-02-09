@@ -1,0 +1,16 @@
+- require_css 'views/users',true
+
+-content_for :javascripts do
+  =javascript_include_tag 'views/member_auto_complete_load'
+  :javascript
+    pie.load(function(){
+      var cac = new pie.ReceiverAutoComplete('#message_receiver_email',{
+        keep_value : true
+      });
+    });
+
+=flash_info
+-mindpin_form_for @message do |m|
+  =m.text_field :receiver_email,:value=>@receiver_email,:class=>'inline w300'
+  =m.text_area :content
+  =m.submit "发送"

@@ -1,0 +1,9 @@
+- require_css 'views/users',true
+
+%h2
+  #{@user.name} 的关注者
+
+-@fans.each do |user|
+  .p
+    =user.id
+    =user.name

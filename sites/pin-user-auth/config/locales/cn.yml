@@ -26,6 +26,9 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         logo: 头像
+      message:
+        receiver_email: 收信人
+        content: 发送内容
     errors:
       errors:
       models:

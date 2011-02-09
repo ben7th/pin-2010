@@ -1,0 +1,9 @@
+.show_new_feed{:style=>'display:none;'}
+  =link_to '有新动态，点击查看','javascript:;'
+.loading_new_feed{:style=>'display:none;'}
+  .loading-img
+  .p
+    正在读取...
+.newsfeed
+  -mplist @feeds,:for=>Feed do |feed|
+    =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}

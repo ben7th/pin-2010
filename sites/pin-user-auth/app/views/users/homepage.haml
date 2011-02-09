@@ -1,0 +1,72 @@
+- content_for :title do
+  #{@user.name}的主页
+
+- require_css 'views/users',true
+
+.usertop.clearfix
+  .clearfix
+    .grid_12.alpha
+      .vcard
+        %dl
+          %dt 用户名
+          %dd=@user.name
+        %dl
+          %dt 注册时间
+          %dd=qdate @user.created_at
+    .grid_11.omega.fright
+      .count
+        %dl
+          %dt=link_to @mindmaps_count,pin_url_for('pin-mindmap-editor',"users/#{@user.id}")
+          %dd 思维导图
+        %dl
+          %dt=link_to @fans_count,pin_url_for('pin-user-auth',"#{@user.id}/fans")
+          %dd 关注者
+      .follows
+        .count
+          %span> 关注 #{@followings_count} 人，
+          =link_to '查看全部',pin_url_for('pin-user-auth',"#{@user.id}/followings")
+        .avatars
+          -@followings.each do |user|
+            -link_to "/users/#{user.id}",:title=>user.name do
+              =avatar(user,:tiny)
+
+.grid_12.alpha
+  .user_mindmaps
+    -if @mindmaps.blank?
+      
+    -else
+      -first_map = @mindmaps.first
+      .map
+        .meta
+          %span.title
+            =link_to first_map.title,pin_url_for('pin-mindmap-editor',"/mindmaps/#{first_map.id}"),:target=>'_blank'
+          %span.rank
+            内容得分
+            =first_map.rank_value
+        .data
+          .first_map
+            .image_center_div
+              %p
+                =mindmap_image(first_map,'450x338')
+        .foot
+          -if @user==current_user
+            =link_to '编辑',pin_url_for('pin-mindmap-editor',"mindmaps/#{first_map.id}/edit")
+
+      -@mindmaps[1..-1].each do |mindmap|
+        .map
+          .meta
+            %span.title
+              =link_to mindmap.title,pin_url_for('pin-mindmap-editor',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
+            %span.rank=mindmap.rank_value
+          .data
+            .map_thumb
+              .image_center_div
+                %p
+                  =mindmap_thumb(mindmap)
+          .foot
+            -if @user==current_user
+              =link_to '编辑',pin_url_for('pin-mindmap-editor',"mindmaps/#{mindmap.id}/edit")
+
+.grid_11.omega.fright.col
+  %h2 近期动态
+  =render :partial=>'users/homepage/feeds'

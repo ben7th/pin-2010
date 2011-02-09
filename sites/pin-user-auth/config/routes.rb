@@ -29,6 +29,8 @@ ActionController::Routing::Routes.draw do |map|
   map.user_base_info "/account",:controller=>"account",:action=>"base",:conditions=>{:method=>:get}
   map.user_base_info_submit "/account",:controller=>"account",:action=>"base_submit",:conditions=>{:method=>:put}
 
+  map.account_password "/account/password",:controller=>"account",:action=>"password"
+  map.account_do_password "/account/do_password",:controller=>"account",:action=>"do_password",:conditions=>{:method=>:put}
   # 头像设置
   map.user_avatared_info "/account/avatared",:controller=>"account",:action=>"avatared",:conditions=>{:method=>:get}
   map.user_avatared_info_submit "/account/avatared",:controller=>"account",:action=>"avatared_submit",:conditions=>{:method=>:put}
@@ -53,8 +55,18 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts,
     :collection=>{
       :create_for_plugin=>:post,
-      :destroy_for_plugin=>:delete
+      :destroy_for_plugin=>:delete,
+      :follow=>:post,
+      :unfollow=>:delete
   }
+  map.fans "/:user_id/fans",:controller=>"contacts",:action=>"fans"
+  map.fans "/:user_id/followings",:controller=>"contacts",:action=>"followings"
+
+  # 新浪连接用户 设置邮箱
+  map.setting_email "account/setting_email",:controller=>"account",:action=>"setting_email"
+  map.do_setting_email "account/do_setting_email",:controller=>"account",:action=>"do_setting_email",:conditions=>{:method=>:post}
+  map.account_rebind "account/rebind",:controller=>"account",:action=>"rebind"
+  map.do_account_rebind "account/do_rebind",:controller=>"account",:action=>"do_rebind",:conditions=>{:method=>:post}
 
   # 发送邀请函
   map.account_invite "account/invite",:controller=>"account",:action=>"invite"
@@ -71,4 +83,22 @@ ActionController::Routing::Routes.draw do |map|
 
   # --旧版重定向
   map.old_map_redirect '/app/mindmap_editor/mindmaps/:id',:controller=>'misc',:action=>'old_map_redirect'
+
+
+  map.connect_login "/connect_login",:controller=>"connect_users",:action=>"index"
+  map.connect_sina "/connect_sina",:controller=>"connect_users",:action=>"connect_sina"
+  map.connect_sina_callback "/connect_sina_callback",:controller=>"connect_users",:action=>"connect_sina_callback"
+
+  map.connect_renren "/connect_renren",:controller=>"connect_users",:action=>"connect_renren"
+  map.connect_sina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
+
+  map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
+  map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say"
+  map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
+  map.newsfeed_get_new "/newsfeed/get_new_feeds",:controller=>"feeds",:action=>"get_new_feeds"
+  
+  map.resources :messages
+  map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
+  map.account_message "/account/message",:controller=>"account",:action=>"message"
+  map.account_do_message "/account/do_message",:controller=>"account",:action=>"do_message",:conditions=>{:method=>:put}
 end

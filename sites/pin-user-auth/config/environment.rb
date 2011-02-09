@@ -19,9 +19,11 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem "mislav-will_paginate", :version => '2.3.11', :source => "http://gems.github.com/", :lib => "will_paginate"
   config.gem "haml"
   config.gem "pacecar"
   config.gem "contacts_cn"
+  config.gem "oauth"
   
   config.gem "pie-auth"
   config.gem "pie-ui"

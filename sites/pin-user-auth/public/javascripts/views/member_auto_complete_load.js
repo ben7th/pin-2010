@@ -1,13 +1,19 @@
 pie.UserAutoCompleteModule = {
   initialize:function(inputer,options){
     this.options = options || {};
-    this.inputer = jQuery(inputer).val('');
+    if(this.options.keep_value){
+      this.inputer = jQuery(inputer);
+    }else{
+      this.inputer = jQuery(inputer).val('');
+    }
+    this.url = '/users/autocomplete'
     this.init();
+
     this._enable_ac();
   },
   init:function(){},
   _enable_ac:function(){
-    this.inputer.autocomplete('/users/autocomplete',{
+    this.inputer.autocomplete(this.url,{
       formatItem: function(data, index, total) {
         var json = jQuery.parseJSON(data[0]);
         return "<img class='logo tiny' src='"+json.avatar+"' />"+json.name+"("+json.email+")";
@@ -58,5 +64,14 @@ pie.MemberAutoComplete = Class.create(pie.UserAutoCompleteModule,{
         this.inputer.val('');
       }.bind(this)
     });
+  }
+})
+
+pie.ReceiverAutoComplete = Class.create(pie.UserAutoCompleteModule,{
+  init:function(){
+    this.url = '/users/receiver_autocomplete'
+  },
+  result:function(){
+    pie.log(1);
   }
 })
