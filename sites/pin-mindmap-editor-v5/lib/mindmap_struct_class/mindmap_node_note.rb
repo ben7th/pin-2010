@@ -9,6 +9,12 @@ class MindmapNodeNote
   end
 
   def text=(text)
-    @mindmap.update_node_note(@node.id,text)
+    if text!=''&&text!='<br>'
+      # 创建或者更新
+      @mindmap.update_node_note(@node.id,text)
+    else
+      # 删除
+      @mindmap.destroy_node_note(@node.id)
+    end
   end
 end

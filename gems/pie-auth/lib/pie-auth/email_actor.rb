@@ -40,7 +40,7 @@ class EmailActor
     return true if other_ea.actor == self.actor
     # 该email_actor 代表团队，并且 other_email 属于这个团队
     if self.actor.is_a?(OrganizationBase)
-      return self.actor.all_member_emails.include?(other_ea.email)
+      return self.actor.has_email?(other_ea.email)
     end
     # 其它情况都不属于从属关系
     return false
@@ -67,14 +67,27 @@ class EmailActor
     nil
   end
 
+  # 当 email 为 user97@mindpin.com 时
+  # 对应 id 是 97 的 user
+  def self.get_user_by_email(email)
+    ma = /user(\d+)@mindpin.com/.match(email)
+    User.find_by_email(email) || User.find_by_id(ma[1])
+  rescue
+    nil
+  end
+
   # 根据 email 找到 它对应的实体
   # 用户，团队，普通邮箱
   def self.get_actor_by_email(email)
-    (User.find_by_email(email) || EmailActor.get_organization_by_email(email) || email)
+    (EmailActor.get_user_by_email(email) || EmailActor.get_organization_by_email(email) || email)
   end
 
   def self.get_logic_email(obj)
-    return obj.email.nil? ? "#{obj.class.to_s.downcase}#{obj.id}@mindpin.com" : obj.email
+    return obj.email.blank? ? self.get_mindpin_email(obj) : obj.email
+  end
+
+  def self.get_mindpin_email(obj)
+    "#{obj.class.to_s.downcase}#{obj.id}@mindpin.com"
   end
 
   def self.unique(ea_array)
@@ -97,8 +110,18 @@ class EmailActor
   # 该邮箱是否已在 mindpin 系统中使用
   # 例如 用户邮箱，团队邮箱
   def signed_in?
-    actor = User.find_by_email(self.email) || EmailActor.get_organization_by_email(self.email)
+    actor = EmailActor.get_user_by_email(self.email) || EmailActor.get_organization_by_email(self.email)
     !!actor
+  end
+
+  # 系统预留邮箱地址
+  def is_reserved?
+    ma = /.+@mindpin.com/.match(email)
+    !!ma
+  end
+
+  def not_allow_used?
+    signed_in? || is_reserved?
   end
 
 end

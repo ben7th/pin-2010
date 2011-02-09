@@ -6,8 +6,20 @@ module MindmapFindingControllerMethods
 #  end
 
   def get_mindmaps_of_user(user)
-    return user.mindmaps.paginate(paginate_pars) if is_current_user?(user)
+    return get_current_user_mindmaps(user) if is_current_user?(user)
     return user.mindmaps.publics.valueable.paginate(paginate_pars)
+  end
+
+  def get_current_user_mindmaps(user)
+    mindmaps = user.mindmaps
+    mindmaps = mindmaps.sort do |a,b|
+      case params[:sortby]
+      when 'CREATED_TIME' then b.created_at <=> a.created_at
+      when 'UPDATED_TIME' then b.updated_at <=> a.updated_at
+      else b.created_at <=> a.created_at
+      end
+    end
+    mindmaps.paginate(:page=>params[:page],:per_page=>12)
   end
 
   def get_all_public_mindmaps
@@ -39,7 +51,7 @@ module MindmapFindingControllerMethods
     case params[:sortby]
       when 'CREATED_TIME' then 'created_at desc'
       when 'UPDATED_TIME' then 'updated_at desc'
-      else 'created_at desc'
+      else 'id desc'
     end
   end
 

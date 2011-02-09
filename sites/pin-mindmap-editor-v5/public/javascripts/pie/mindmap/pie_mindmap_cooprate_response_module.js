@@ -5,6 +5,7 @@ pie.mindmap_cooprate_response_module = {
     var revision     = json.revision;
     var user_id      = json.user_id;
     var new_revision = json.new_revision;
+    
     operations.each(function(oper){
       var op = oper.op;
       var params = oper.params;
@@ -21,12 +22,17 @@ pie.mindmap_cooprate_response_module = {
           this._show_title_instance(params);
           this.revision = new_revision;
         }break;
+        case 'do_image':{
+          this._show_image_instance(params);
+          this.revision = new_revision;
+        }break;
         default:{
           pie.log(op);
         }
       }
     }.bind(this));
   },
+  //1.12
   _show_insert_instance:function(op_params){
     try{
       var parent_id   = op_params.parent_id;
@@ -44,34 +50,24 @@ pie.mindmap_cooprate_response_module = {
       alert(e);
     }
   },
-
+  //1.12
   _show_delete_instance:function(op_params){
     var node_id = op_params.node_id;
     var node = this.nodes.get(node_id);
-    new Effect.Fade(node.container.el,{afterFinish:function(){
-      node._remove();
-      this.reRank();
-    }.bind(this)});
-    node.sub.dirty = true;
+    this.mr_factory.data_remove(true, node);
+  },
+  
+  _show_title_instance:function(op_params){
+    var node_id = op_params.node_id;
+    var title = op_params.title;
+
+    var node = this.nodes.get(node_id);
+    this.mr_factory.data_title(true, node, title);
   },
 
-  _show_title_instance:function(op_params){
-    try{
-      var node_id = op_params.node_id;
-      var title = op_params.title;
-
-      var node = this.nodes.get(node_id);
-      _t = title.gsub('\\n','\n').gsub('\\\\','\\');
-      node.set_title(_t);
-      Object.extend(node,node.el.getDimensions());
-			if(node.sub){
-				node.sub.dirty = true;
-			}
-      this.reRank();
-      new Effect.Highlight(node.el,{startcolor: '#FF6666'});
-    }catch(e){
-      alert(e);
-    }
+  _show_image_instance:function(op_params){
+    var node_id = op_params.node_id;
+    var image = op_params.image;
   }
 }
 
@@ -88,12 +84,42 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
 
     // show animation effect
     this.map.reRank();
+    
     if(other_coop){
       new Effect.Highlight(child.el,{startcolor:'#FF6666', duration:3});
       return null;
     }else{
       new Effect.Pulsate(child.el,{duration:0.4});
       return child;
+    }
+  },
+  data_remove:function(other_coop, node){
+    if(other_coop){
+      new Effect.Highlight(node.container.el,{startcolor:'#FF6666'});
+      new Effect.Fade(node.container.el,{afterFinish:function(){
+        node._remove();
+        this.map.reRank();
+      }.bind(this)});
+    }else{
+      node._remove();
+      this.map.reRank();
+    }
+  },
+  data_title:function(other_coop, node, title){
+    node.set_title(title)
+		node.el.show();
+
+		//先去掉节点上的“被选择”样式，然后再计算宽高，才不会有错误
+		node.el.removeClassName('node_selected').removeClassName('root_selected');
+		Object.extend(node,node.el.getDimensions());
+
+		if(node.title == node._oldtitle) return;
+    
+    node.do_dirty();
+    this.map.reRank();
+    
+    if(other_coop){
+      new Effect.Highlight(node.el,{startcolor: '#FF6666'});
     }
   }
 })

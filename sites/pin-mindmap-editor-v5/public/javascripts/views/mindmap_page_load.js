@@ -9,12 +9,39 @@ pie.MindmapPageLoader = {
       .live("mouseup mouseleave",function(){jQuery(this).removeClass("mousedown")});
   },
 
+  //重新载入当前导图，先这么写，观察一下看看会不会有其他问题
+  //可能还要考虑内存问题
+  reload_map:function(){
+    var old_map = window.mindmap;
+    var mindmap_id = old_map.id;
+    var editmode = old_map.editmode;
+    $('mindmap-canvas').update('');
+
+    window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
+      id:mindmap_id,
+      loader: new pie.mindmap.JSONLoader({url:'/mindmaps/' + mindmap_id}),
+      editmode: editmode,
+      after_load:function(){
+        mindmap.root.select();
+      }.bind(this)
+    }).load();
+
+    delete old_map;
+
+    return window.mindmap;
+  },
+
   _load_map:function(mindmap_id,editmode){
     window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
       id:mindmap_id,
       loader: new pie.mindmap.JSONLoader({url:'/mindmaps/' + mindmap_id}),
       editmode: editmode,
-      after_load:function(){mindmap.root.select();}
+      after_load:function(){
+        mindmap.root.select();
+        if(editmode){
+          this.pull(mindmap_id);
+        }
+      }.bind(this)
     }).load();
   },
 
@@ -28,8 +55,6 @@ pie.MindmapPageLoader = {
     this._init();
     this._load_map(mindmap_id,true);
     this._after_init();
-
-    this.pull(mindmap_id);
 
     return this;
   },
@@ -62,25 +87,41 @@ pie.MindmapPageLoader = {
   },
   
   pull:function(mindmap_id){
-    var pars = 'channel='+'mindmap_'+mindmap_id;
+    var pars =
+      'map=' + mindmap_id + '&' +
+      'revision=' + mindmap.revision;
+
     new Ajax.Request("/mindmaps/pull",{
       parameters:pars,
       method:'GET',
+      onFailure:function(trans){
+        pie.log('获取失败');
+        setTimeout(function(){
+          this.pull(mindmap_id);
+        }.bind(this),6000);
+      }.bind(this),
       onSuccess:function(trans){
         try{
-          var json = trans.responseText.evalJSON();
-          var user_id = json.user_id;
-          var revision = json.revision;
-          if(revision == mindmap.revision){
-            if(current_user_id != user_id){
-              mindmap.show_op_instance(json)
+          var array = trans.responseText.evalJSON();
+          array.reverse().each(function(json){
+            var user_id = json.user_id;
+            var revision = json.revision;
+            var new_revision = json.new_revision;
+            if(new_revision > mindmap.revision){
+              if(current_user_id != user_id){
+                pie.log('执行操作',json)
+                mindmap.show_op_instance(json)
+              }else{
+                pie.log('我的操作，忽略',json)
+              }
             }else{
-              pie.log('我的操作',json)
+              pie.log('操作信息已过时');
             }
-          }else{
-            pie.log('操作信息已过时');
-          }
-          this.pull(mindmap_id);
+          }.bind(this))
+
+          setTimeout(function(){
+            this.pull(mindmap_id);
+          }.bind(this),6000);
         }catch(e){}
       }.bind(this)
     });

@@ -15,7 +15,7 @@ class OrganizationBase < ActiveRecord::Base
   end
 
   def all_member_users
-    members.map{|member| User.find_by_email(member.email)}.compact
+    members.map{|member| EmailActor.get_user_by_email(member.email)}.compact
   end
 
   def owners
@@ -25,7 +25,9 @@ class OrganizationBase < ActiveRecord::Base
 
   # 判断成员中是否有这个email的
   def has_email?(email)
-    all_member_emails.include?(email)
+    user = EmailActor.get_user_by_email(email)
+    return all_member_emails.include?(email) if user.blank?
+    all_member_users.include?(user)
   end
 
   def is_owner?(user)
@@ -50,14 +52,14 @@ class OrganizationBase < ActiveRecord::Base
 
     def joined_organizations
       Organization.find(:all,
-        :conditions=>"members.email = '#{self.email}'",
+        :conditions=>"members.email = '#{self.email}' or members.email = '#{EmailActor.get_mindpin_email(self)}'",
         :joins=>" inner join members on organizations.id=members.organization_id"
       )
     end
 
     def own_organizations
       Organization.find(:all,
-        :conditions=>"members.email = '#{self.email}' and kind = '#{Member::KIND_OWNER}'",
+        :conditions=>"(members.email = '#{self.email}' or members.email = '#{EmailActor.get_mindpin_email(self)}') and kind = '#{Member::KIND_OWNER}'",
         :joins=>" inner join members on organizations.id=members.organization_id"
       )
     end

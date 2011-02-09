@@ -204,15 +204,15 @@ body {
     margin-top: 16px; }
 
 .yours {
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  box-shadow: 0 0 10px #09070e;
-  -moz-box-shadow: 0 0 10px #09070e;
-  -webkit-box-shadow: 0 0 10px #09070e;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 0 0 5px #09070e;
+  -moz-box-shadow: 0 0 5px #09070e;
+  -webkit-box-shadow: 0 0 5px #09070e;
   margin-bottom: 20px; }
   .yours .top-bar {
-    background-color: #222433;
+    background-color: #0E0E1A;
     border-top-left-radius: 5px;
     -moz-border-radius-topleft: 5px;
     -webkit-border-top-left-radius: 5px;

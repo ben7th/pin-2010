@@ -21,6 +21,7 @@ namespace :bundle do
       'pie_mindmap_menu_module.js',
       'pie_mindmap_save_module.js',
       'pie_mindmap_cooprate_response_module.js',
+      'pie_mindmap_modifying_methods.js',
       'pie_mindmap.js'
     ].map{|x| RAILS_ROOT + '/public/javascripts/pie/mindmap/' + x}
     # 顺序是固定的！！
@@ -51,6 +52,7 @@ namespace :bundle do
       'pie_mindmap_menu_module.js',
       'pie_mindmap_save_module.js',
       'pie_mindmap_cooprate_response_module.js',
+      'pie_mindmap_modifying_methods.js',
       'pie_mindmap.js'
     ].map{|x| RAILS_ROOT + '/public/javascripts/pie/mindmap/' + x}
     # 顺序是固定的！！

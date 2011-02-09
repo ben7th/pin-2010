@@ -1,14 +1,15 @@
 module MindmapApiMethods
+=begin
   # 进行修改操作
-  def do_operation(oper)
+  def do_operation(oper,user)
     option = MindmapApiOption.new(oper)
     case option.operation
     when 'do_insert' then
-      _do_insert(option.params)
+      _do_insert(option.params,user)
     when 'do_delete' then
-      _do_delete(option.params)
+      _do_delete(option.params,user)
     when 'do_title' then
-      _do_title(option.params)
+      _do_title(option.params,user)
     when 'do_toggle' then
       _do_toggle(option.params)
     when 'do_image' then
@@ -39,7 +40,7 @@ module MindmapApiMethods
   # 默认为0，如果传入的index大于实际的parent节点下的子节点个数，取最大值
   # option[:title] 可选参数 指定新节点的标题
   # option[:id] 可选参数 指定新节点的 id 八位随机字符串
-  def _do_insert(params)
+  def _do_insert(params,operator)
     parent_id = params.parent_id
     index = params.index
     new_node_id = params.new_node_id
@@ -50,17 +51,17 @@ module MindmapApiMethods
       node = doc.create_node(new_node_id,title)
       parent.insert_node(node,index)
       
-      {:params_hash=>params.hash,:operation_kind=>"do_insert"}
+      {:params_hash=>params.hash,:operation_kind=>"do_insert",:operator=>operator}
     end
   end
 
   # 删除节点
-  def _do_delete(params)
+  def _do_delete(params,operator)
     node_id = params.node_id
     _change_struct do |doc|
       node = doc.node(node_id)
       node.remove
-      {:params_hash=>params.hash,:operation_kind=>"do_delete"}
+      {:params_hash=>params.hash,:operation_kind=>"do_delete",:operator=>operator}
     end
   end
 
@@ -250,14 +251,17 @@ module MindmapApiMethods
 
     params_hash = params[:params_hash]
     operation_kind = params[:operation_kind]
+    operator = params[:operator]
 
     if self.struct!=old_struct
       self.save!
       HistoryRecord.record_operation(self,
         :struct=>old_struct,
         :kind=>operation_kind,
-        :params_hash=>params_hash)
+        :params_hash=>params_hash,
+        :operator=>operator)
     end
     return true
   end
+=end
 end

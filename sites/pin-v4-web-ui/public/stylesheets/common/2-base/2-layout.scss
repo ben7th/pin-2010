@@ -184,11 +184,11 @@ body {margin:0;}
 }
 
 .yours{
-  @include border-radius(5px);
-  @include box-shadow(0 0 10px #09070E);
+  @include border-radius(4px);
+  @include box-shadow(0 0 5px #09070E);
   margin-bottom:20px;
   .top-bar{
-    background-color:#222433;
+    background-color:#0E0E1A;
     @include border-radius-side(top,left,5px);
     @include border-radius-side(top,right,5px);
     padding:10px;

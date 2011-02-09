@@ -51,6 +51,26 @@ class MindmapNode
     MindmapNodeNote.new(@mindmap_document,self).text = note_text
   end
 
+  # 返回最后的修改者和修改时间
+  def modified
+    @nokogiri_node["modified"]
+  end
+
+  def modified_email
+    return @mindmap_document.mindmap.user.email if modified.nil?
+    modified.split(" ")[0]
+  end
+
+  def modified_time
+    return @mindmap_document.mindmap.updated_at if modified.nil?
+    Time.at(modified.split(" ")[1].to_i)
+  end
+
+  # 设置最后的修改者和修改时间
+  def modified=(user)
+    @nokogiri_node["modified"] = "#{user.email} #{Time.now.to_i}"
+  end
+
   # 返回直接下级子节点数组
   def children
     @nokogiri_node.xpath('./node').map{|node|MindmapNode.new(@mindmap_document,node)}
@@ -96,7 +116,9 @@ class MindmapNode
           :width=>n.image.width,
           :height=>n.image.height
         },
-        :note=>@mindmap_document.get_note_from(n.id)
+        :note=>@mindmap_document.get_note_from(n.id),
+        :modified_email=>n.modified_email,
+        :modified_time=>n.modified_time
       }
       re<<hn
     end

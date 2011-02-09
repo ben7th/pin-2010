@@ -5,7 +5,7 @@ class Contact < ActiveRecord::Base
   belongs_to :user
 
   def contact_user
-    user = User.find_by_email(email)
+    user = EmailActor.get_user_by_email(email)
     return user.blank? ? nil : user
   end
 

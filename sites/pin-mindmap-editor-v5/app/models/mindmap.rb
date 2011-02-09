@@ -20,6 +20,10 @@ class Mindmap < ActiveRecord::Base
 
   belongs_to :user
   
+  index :user_id
+  index [:private,:user_id]
+  index [:weight,:user_id]
+  
   has_one :visit_counter, :as=>:resource
 
   # name_scopes
@@ -120,6 +124,7 @@ class Mindmap < ActiveRecord::Base
 
   include Comment::CommentableMethods
   include Cooperation::MindmapMethods
+  include Feed::MindmapMethods
   
   include MindmapCloneMethods
   include MindmapApiMethods
@@ -127,7 +132,6 @@ class Mindmap < ActiveRecord::Base
   include MindmapRankMethods
   include MindmapSearchMethods
   include MindmapRevisionMethods
-  include ImageCache::MindmapMethods
   include MindmapNoteMethods
   include MindmapSnapshotMethods
   include MindmapImageMethods

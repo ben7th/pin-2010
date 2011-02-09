@@ -1,0 +1,26 @@
+思维导图缩略图读取策略
+
+1 url
+  http://dev.mindmap-image-cache.mindpin.com/mindmaps/25794.png
+  http://dev.mindmap-image-cache.mindpin.com/mindmaps/25794.thumb.png
+  http://dev.mindmap-image-cache.mindpin.com/mindmaps/25794.100x100.png
+  http://dev.mindmap-image-cache.mindpin.com/mindmaps/25794.z2.png
+
+  dev.mindmap-image-cache-0.mindpin.com
+  dev.mindmap-image-cache-1.mindpin.com
+  dev.mindmap-image-cache-2.mindpin.com
+  dev.mindmap-image-cache-3.mindpin.com
+
+  用多个域名来避免浏览器HTTP请求上限问题。
+  nginx配置作相应修改
+
+2 收到请求后，解析参数
+  获得 mindmap_id size
+
+3 检查磁盘上是否已经exist对应的图片文件，如果没有的话
+  HTTP STATUS 406 send_file img_loading.png
+  406代码表示无法立即正确响应请求，请求方根据此代码适时进行重试即可
+  同时 异步去调用图片创建方法，来创建图片文件
+
+4 如果图片存在
+  HTTP STATUS 200 send_file 对应文件

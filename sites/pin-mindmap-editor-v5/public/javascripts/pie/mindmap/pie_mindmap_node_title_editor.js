@@ -164,35 +164,25 @@ pie.mindmap.NodeTitleEditor = Class.create({
 	},
   
 	__change_title:function(node){
-		var map = this.map;
-		this.title_input_div.hide();
+    if(node.is_being_edit){
+      node.is_being_edit = false;
+      
+      //隐藏输入框
+      this.title_input_div.hide();
 
-		if(this.resizer_timer) {
-			clearInterval(this.resizer_timer);
-			this.resizer_timer = null;
-		}
+      //清除计时器
+      if(this.resizer_timer) {
+        clearInterval(this.resizer_timer);
+        this.resizer_timer = null;
+      }
 
-    node.set_title(this.title_inputer.value)
-		node.el.show();
+      //保存数据，重排布
+      node.set_title_and_save(this.value());
 
-		//先去掉节点上的“被选择”样式，然后再计算宽高，才不会有错误
-		node.el.removeClassName('node_selected');
-		node.el.removeClassName('root_selected');
-		Object.extend(node,node.el.getDimensions());
-
-		if(node.title!=node._oldtitle) {
-			var record = map.opFactory.getTitleInstance(node);
-			map._save(record);
-			if(node.sub){
-				node.sub.dirty=true;
-			}
-			map.reRank();
-		}
-
-		this.title_inputer.blur();
-		node.el.focus();
-		node.is_being_edit = false;
-		node.select();
+      //重新设置焦点
+      this.title_inputer.blur();
+      node.el.focus();
+    }
 	},
 
 

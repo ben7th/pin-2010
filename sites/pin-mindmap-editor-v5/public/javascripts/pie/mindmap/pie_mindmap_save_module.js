@@ -24,37 +24,62 @@ pie.mindmap_save_module = {
       'revision=' + this.revision + '&' +
       'operations=' + encodeURIComponent(this.opQueue.toJSON());
     
+    var info_label;
+
     new Ajax.Request("/mindmaps/do",{
       parameters:pars,
       method:"PUT",
       onCreate:function(){
-        this.ready_to_request=false;
-        this.show_notice_info('正在自动保存...')
+        this.ready_to_request = false;
+        info_label = new pie.mindmap.InfoLabel(this).notice('正在自动保存...');
         this.opQueue = [];
       }.bind(this),
       onSuccess:function(trans){
         this.revision = trans.responseText.evalJSON().revision;
-        this.ready_to_request=true;
-        this.close_info();
+        this.ready_to_request = true;
+        info_label.close();
         if(this.opQueue.length > 0) this._save();
       }.bind(this),
       onFailure:function(trans){
-        this.__on_save_error()
+        var code = trans.responseText.evalJSON().code;
+        switch(code){
+          case '1':{
+            this.__on_node_not_exist();
+            this.ready_to_request = true;
+            if(this.opQueue.length > 0) this._save();
+          }break;
+          case '2':{
+            this.__on_mindmap_not_save();
+          }break;
+          default:{
+            this.__on_other_error();
+          }
+        }
       }.bind(this)
     });
   },
 
-  __on_save_error:function(){
+  __on_node_not_exist:function(){
+    new pie.mindmap.InfoLabel(this).error('节点不存在或已删除。').hold(5);
+  },
+
+  __on_mindmap_not_save:function(){
+    var map = pie.MindmapPageLoader.reload_map();
+    new pie.mindmap.InfoLabel(map).error('导图数据保存失败，自动重新载入。').hold(5);
+  },
+
+  __on_other_error:function(){
     //第一步 闪烁提示
-    this.show_error_info('数据保存失败').pulsate();
+    new pie.mindmap.InfoLabel(this).error('网络或服务发生异常。').pulsate();
+
     //第二步 白板遮盖锁定
     this.lock_mindmap();
 
     var info_dialog = Builder.node('div',{},[
-      Builder.node('h3',{'class':'f_box'},'数据保存失败'),
+      Builder.node('h3',{'class':'f_box'},'网络或服务发生异常'),
       Builder.node('div',{'class':'mindmap_save_error'},[
-        Builder.node('div',{},'由于网络原因，导图保存失败。'),
-        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入。'),
+        Builder.node('div',{},'由于网络或其他原因，导图上一步操作失败。'),
+        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入导图。'),
         Builder.node('div',{},'或手动刷新页面')
       ])
     ]);
@@ -69,68 +94,53 @@ pie.mindmap_save_module = {
     }
     //第二步 白板遮盖
     this.lock_whiteboard.show();
-  },
-
-  show_notice_info:function(text){
-    this._build_info_label();
-    this.save_status_label.notice(text);
-    return this.save_status_label;
-  },
-  show_error_info:function(text){
-    this._build_info_label();
-    this.save_status_label.error(text);
-    return this.save_status_label;
-  },
-  close_info:function(){
-    setTimeout(function(){
-      this.save_status_label.fade();
-    }.bind(this),1000);
-  },
-  _build_info_label:function(){
-    if(!this.save_status_label){
-      this.save_status_label = new pie.mindmap.InfoLabel(this);
-    }
   }
 }
 
 pie.mindmap.InfoLabel = Class.create({
   initialize:function(mindmap){
-    try{
-      this.map = mindmap;
-      this._build_dom();
-    }catch(e){alert(e)}
+    this.map = mindmap;
+    this._remove_all_label_dom();
+    this.el = this._build_dom();
   },
+  _remove_all_label_dom:function(){
+    var parent_dom_id = this.map.observer.el.parentNode.id;
+    jQuery('#'+parent_dom_id+' .info-label').remove();
+  },
+
   _build_dom:function(){
     var parent_dom = this.map.observer.el.parentNode;
-    this.el = Builder.node('div',{'class':'info-label','style':'display:none;'},'');
-    Element.insert(parent_dom,this.el);
+    var el = Builder.node('div',{'class':'info-label','style':'display:none;'},'');
+    Element.insert(parent_dom, el);
+    return el;
   },
+
+  hold:function(second){
+    setTimeout(function(){
+      $(this.el).fade({duration:0.2});
+    }.bind(this),second*1000)
+  },
+  
   pulsate:function(){
-    new Effect.Pulsate(this.el,{pulses:50,duration:60,from:1.0,to:0.2});
+    new Effect.Pulsate(this.el, {pulses:50, duration:60, from:1.0, to:0.2});
+    return this;
   },
-  fade:function(){
+
+  close:function(){
     $(this.el).fade({duration:0.2});
     return this;
   },
-  show:function(text){
-    this.el.innerHTML = text;
-    $(this.el).appear({duration:0.2});
-    return this;
-  },
+
   notice:function(text){
-    $(this.el).addClassName('notice');
-    this.show(text)
+    $(this.el).addClassName('notice').update(text).appear({duration:0.2});
     return this;
   },
+
   error:function(text){
-    $(this.el).addClassName('error');
-    this.show(text)
-    return this;
-  },
-  clear:function(){
-    $(this.el).removeClassName('notice').removeClassName('success').removeClassName('error');
+    $(this.el).addClassName('error').update(text).appear({duration:0.2});
     return this;
   }
+  
 });
 
 pie.mindmap.LockWhiteBoard=Class.create({

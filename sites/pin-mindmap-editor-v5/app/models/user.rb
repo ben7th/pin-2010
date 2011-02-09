@@ -3,5 +3,6 @@ class User < UserBase
   include Cooperation::UserMethods
   include Member::UserMethods
 
+  index :email
   has_many :contacts
 end

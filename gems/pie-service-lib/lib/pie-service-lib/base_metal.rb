@@ -59,6 +59,12 @@ class BaseMetal
   	return env['REQUEST_METHOD']
   end
 
+  def self.current_user(env)
+    session = env["rack.session"]
+    current_user = session[:user_id] ? User.find(session[:user_id]) : false
+    current_user
+  end
+
   # self.routes可能有两种情况
   # {:method=>'GET',...} Hash
   # [{...},{...}] Array

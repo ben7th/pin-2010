@@ -5,6 +5,10 @@ class Cooperation < ActiveRecord::Base
 
   belongs_to :mindmap
 
+  index [:kind,:mindmap_id]
+  index [:kind,:email]
+  index :mindmap_id
+
   validates_presence_of :email
   validates_inclusion_of :kind, :in => [EDITOR,VIEWER]
   validates_presence_of :mindmap
@@ -18,25 +22,56 @@ class Cooperation < ActiveRecord::Base
 
   module MindmapMethods
     def self.included(base)
-      # 与他人共同协同的导图(包括自己创建的和别人协同给自己的，不包括团队协同)
+      # 包括以下三类导图
+      # 我协同给别人
+      # 我协同给团队
+      # 别人协同给我
       base.named_scope :cooperate_of_user, lambda {|user,kind|
         {:joins=>" inner join cooperations on mindmaps.id = cooperations.mindmap_id",
-          :conditions=>"(mindmaps.user_id = #{user.id} or cooperations.email = '#{user.email}') and cooperations.kind = '#{kind}'"}
+          :conditions=>"(mindmaps.user_id = #{user.id} or cooperations.email = '#{user.email}' or cooperations.email = '#{EmailActor.get_mindpin_email(user)}') and cooperations.kind = '#{kind}'"}
       }
+      
       base.extend(ClassMethods)
       base.has_many :cooperations
     end
 
     # mindmap 类方法
     module ClassMethods
-      # 与他人共同编辑的导图(包括自己创建的和别人协同给自己的)
-      def cooperate_edit_of_user(user)
-        self.cooperate_of_user(user,Cooperation::EDITOR).uniq
+      # 我协同给个人
+      # 我协同给团队
+      def cooperate_by(user,kind)
+        coos = user.mindmaps.map do |mindmap|
+          Cooperation.find_all_by_mindmap_id_and_kind(mindmap.id,kind)
+        end.flatten
+        coos.map{|coo|Mindmap.find_by_id(coo.mindmap_id)}.compact.uniq
       end
 
-      # 与他人共同查看的导图(包括自己创建的和别人协同给自己的)
+      # 协同给我
+      def cooperate_with(user,kind)
+        email = user.email
+        mindpin_email = EmailActor.get_mindpin_email(user)
+        email_coos = Cooperation.find_all_by_email_and_kind(email,kind)
+        mindpin_email_coos = Cooperation.find_all_by_email_and_kind(mindpin_email,kind)
+        coos = email_coos | mindpin_email_coos
+        coos.map{|coo|Mindmap.find_by_id(coo.mindmap_id)}.compact.uniq
+      end
+
+      # 包括以下三类导图
+      # 我协同编辑给别人
+      # 我协同编辑给团队
+      # 别人协同编辑给我
+      def cooperate_edit_of_user(user)
+#        self.cooperate_of_user(user,Cooperation::EDITOR).uniq.compact
+        cooperate_by(user,Cooperation::EDITOR) | cooperate_with(user,Cooperation::EDITOR)
+      end
+
+      # 包括以下三类导图
+      # 我协同查看给别人
+      # 我协同查看给团队
+      # 别人协同查看给我
       def cooperate_view_of_user(user)
-        self.cooperate_of_user(user,Cooperation::VIEWER).uniq
+#        self.cooperate_of_user(user,Cooperation::VIEWER).uniq.compact
+        cooperate_by(user,Cooperation::VIEWER) | cooperate_with(user,Cooperation::VIEWER)
       end
     end
 
@@ -131,16 +166,20 @@ class Cooperation < ActiveRecord::Base
   module UserMethods
     # 被别人协同编辑的导图（不包括团队协同）
     def cooperate_edit_mindmaps
-      coos = Cooperation.find_all_by_email_and_kind(self.email,EDITOR).flatten
-      mindmaps = coos.map{|coo|coo.mindmap}
-      mindmaps = mindmaps.select{|mindmap|mindmap.user_id != self.id}
+      email_coos = Cooperation.find_all_by_email_and_kind(self.email,EDITOR).flatten
+      mindpin_email_coos = Cooperation.find_all_by_email_and_kind(EmailActor.get_mindpin_email(self),EDITOR).flatten
+      coos = email_coos | mindpin_email_coos
+      mindmaps = coos.map{|coo|coo.mindmap}.compact
+      mindmaps = mindmaps.select{|mindmap|mindmap.user_id != self.id && !!mindmap.user}
     end
 
     # 被别人协同查看的导图（不包括团队协同）
     def cooperate_view_mindmaps
-      coos = Cooperation.find_all_by_email_and_kind(self.email,VIEWER).flatten
-      mindmaps = coos.map{|coo|coo.mindmap}
-      mindmaps = mindmaps.select{|mindmap|mindmap.user_id != self.id}
+      email_coos = Cooperation.find_all_by_email_and_kind(self.email,VIEWER).flatten
+      mindpin_email_coos = Cooperation.find_all_by_email_and_kind(EmailActor.get_mindpin_email(self),VIEWER).flatten
+      coos = email_coos | mindpin_email_coos
+      mindmaps = coos.map{|coo|coo.mindmap}.compact
+      mindmaps = mindmaps.select{|mindmap|mindmap.user_id != self.id  && !!mindmap.user}
       mindmaps.select{|mindmap|mindmap.private}
     end
   end

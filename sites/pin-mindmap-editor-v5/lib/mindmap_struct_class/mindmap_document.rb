@@ -29,6 +29,7 @@ class MindmapDocument
   # 根据nodeid返回Node对象
   def node(node_id)
     node = @nokogiri_document.at_css("node[id='#{node_id}']")
+    raise MindmapOperate::NodeNotExistError,"node #{node_id} 不存在" if node.blank?
     MindmapNode.new(self,node)
   end
 
@@ -38,6 +39,26 @@ class MindmapDocument
 
   def revision=(revision)
     @nokogiri_document.at_xpath("/mindmap")["revision"] = revision.to_s
+  end
+
+  # 返回最后的修改者和修改时间
+  def modified
+    @nokogiri_document.at_xpath("/mindmap")["modified"]
+  end
+
+  def modified_email
+    return @mindmap.email if modified.nil?
+    modified.split(" ")[0]
+  end
+
+  def modified_time
+    return @mindmap.updated_at if modified.nil?
+    Time.at(modified.split(" ")[1].to_i)
+  end
+  
+  # 设置最后的修改者和修改时间
+  def modified=(user)
+    @nokogiri_document.at_xpath("/mindmap")["modified"] = "#{user.email} #{Time.now.to_i}"
   end
 
   def create_node(id,title)
@@ -61,7 +82,9 @@ class MindmapDocument
         :height=>root.image.height,
         :width=>root.image.width
       },
-      :note=>get_note_from(root.id)
+      :note=>get_note_from(root.id),
+      :modified_email=>root.modified_email,
+      :modified_time=>root.modified_time
     }
     shash
   end
@@ -80,4 +103,5 @@ class MindmapDocument
 
     @mindmap.struct = struct
   end
+
 end

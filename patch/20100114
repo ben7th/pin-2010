@@ -1,0 +1,2 @@
+1 user工程新建了一个数据表，需要运行migrate
+2 需要安装gem oauth 0.4.4
