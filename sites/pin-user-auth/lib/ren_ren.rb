@@ -1,13 +1,10 @@
 require 'md5'
 class RenRen
-  API_KEY = "e7533b7ee8b541878000455b20b3589b"
-  API_SECRET = "7317a969ef764953a5b22e5862a27c0b"
-  
-  if RAILS_ENV == "development"
-    CALLBACK_URL = "http://dev.www.mindpin.com/connect_renren_callback"
-  else
-    CALLBACK_URL = "http://www.mindpin.com/connect_renren_callback"
-  end
+
+  SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
+  CALLBACK_URL = SETTINGS["renren_callback_url"]
+  API_KEY = SETTINGS["renren_api_key"]
+  API_SECRET = SETTINGS["renren_api_secret"]
   
   def authorize_url
     "http://graph.renren.com/oauth/authorize?response_type=code&client_id=#{API_KEY}&redirect_uri=#{CALLBACK_URL}"

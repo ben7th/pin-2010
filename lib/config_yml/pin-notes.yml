@@ -1,0 +1,8 @@
+development:
+  note_repo_path: /root/mindpin_base/note_repo
+
+test:
+  note_repo_path: /root/mindpin_base/note_repo_test
+
+production:
+  note_repo_path: /web/2010/note_repo

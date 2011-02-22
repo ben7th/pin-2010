@@ -28,7 +28,7 @@ module NoteRepositoryMethods
 
 
   if RAILS_ENV != "test"
-    REPO_BASE_PATH = YAML.load(CoreService.project("pin-notes").settings)[:note_repo_path]
+    REPO_BASE_PATH = CoreService.find_setting_by_project_name(CoreService::NOTES)["note_repo_path"]
   else
     REPO_BASE_PATH = "/root/mindpin_base/note_repo_test"
   end

@@ -101,4 +101,15 @@ ActionController::Routing::Routes.draw do |map|
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
   map.account_message "/account/message",:controller=>"account",:action=>"message"
   map.account_do_message "/account/do_message",:controller=>"account",:action=>"do_message",:conditions=>{:method=>:put}
+
+  map.resources :mindmaps,:collection=>{:import=>:get,:import_file=>:post},:member=>{
+      :paramsedit=>:get,
+      :clone_form=>:get,
+      :do_clone=>:put,
+    }
+
+  #cooperations_controller
+  map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}
+  map.save_cooperations "/save_cooperations/:mindmap_id",:controller=>"cooperations",:action=>"save_cooperations",:conditions=>{:method=>:post}
+
 end

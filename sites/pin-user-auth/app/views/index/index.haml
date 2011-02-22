@@ -1,12 +1,23 @@
 - require_css 'views/users',true
 
+-image_cache_url = RAILS_ENV=="production" ? "http://mindmap-image-cache.mindpin.com/" : "http://dev.mindmap-image-cache.mindpin.com/"
 -content_for :javascripts do
-  =javascript_include_tag 'views/homepage_newsfeed'
+  = javascript_include_tag 'views/homepage_newsfeed'
+  = javascript_include_tag "views/mindmap_image"
+  :javascript
+    pie.load(function(){
+      $$(".cache_mindmap_image").each(function(dom){
+        var gmt = new GetMindmapImage(dom.id,"#{image_cache_url}");
+        gmt.get_mindmap_image();
+      });
+    })
 
-.grid_12.alpha
+.grid_14
+  =render :partial=>'index/homepage/feeds/feed_form_mev6'
   =render :partial=>'index/homepage/feeds'
 
-.grid_11.omega.fright
-  =render :partial=>'index/homepage/apps'
-  =render :partial=>'index/homepage/organizations'
-  =render :partial=>'index/homepage/contacts'
+.grid_9.omega.fright
+  =render :partial=>'index/homepage/index_user_info'
+  =render :partial=>'index/homepage/site_notice'
+  =render :partial=>'index/homepage/simple_help'
+      

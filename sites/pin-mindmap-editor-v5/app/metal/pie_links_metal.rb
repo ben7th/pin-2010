@@ -1,4 +1,3 @@
-require "pie-service-lib"
 class PieLinksMetal < BaseMetal
   def self.routes
     {:method=>'GET',:regexp=>/users\/(.+)\/mindmaps\/pie_links/}

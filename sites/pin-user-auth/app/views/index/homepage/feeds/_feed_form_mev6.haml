@@ -1,0 +1,8 @@
+-form_tag "/mindmaps",:method=>:post,:class=>"feed-form-mev6" do
+  .btns
+    .import-mindmap
+      .icon
+    .import-loading
+    =text_field_tag "content",'',:class=>"text feed-content"
+    .create-mindmap
+      开始编辑

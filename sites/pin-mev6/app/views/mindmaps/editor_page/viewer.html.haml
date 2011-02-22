@@ -1,0 +1,43 @@
+-content_for :title, " 导图浏览器 v0.45 - #{escape_title(@mindmap)}"
+
+= stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
+= stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_canvas'
+= stylesheet_link_tag '/javascripts/prototip/css/prototip'
+
+-content_for :javascripts do
+  = javascript_include_tag 'mindmap_viewer_packed'
+
+  = javascript_include_tag 'excanvas/excanvas.compiled'
+  = javascript_include_tag 'views/mindmap_page_load'
+
+  :javascript
+    pie.load(function(){
+      pie.MindmapPageLoader.load_viewer_page('#{@mindmap.id}');
+    });
+
+#mindmap-toolbar
+  .map-logo
+    =logo @mindmap
+  .map-title
+    =escape_title(@mindmap,10)
+  .map-creator
+    =link_to @mindmap.user.name,pin_url_for('pin-mindmap-editor',"/users/#{@mindmap.user.id}/mindmaps"),:target=>'_blank'
+  .map-timestamp
+    %span 创建于
+    %span.loud=created_at @mindmap
+  .map-close
+    =link_to '关闭，返回','/'
+
+#mindmap-main.viewer
+  #mindmap-sidebar
+    =render :partial=>'mindmaps/editor_page/viewer_sidebar'
+
+  #mindmap-resizer
+    #mindmap-scroller
+      #mindmap-canvas
+
+#mindmap-status-bar
+  .cooperate
+    %span 共同编辑者:
+    -@mindmap.cooperate_edit_email_actors.each do |ea|
+      %span=email_actor_link(ea,:target=>'_blank')

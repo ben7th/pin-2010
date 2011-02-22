@@ -14,6 +14,15 @@ class IndexController < ApplicationController
     news_feed_proxy = current_user.news_feed_proxy
     @feeds = news_feed_proxy.feeds.paginate(:per_page=>10,:page=>1)
     news_feed_proxy.refresh_newest_feed_id
+
+    @mindmaps_count = current_user.mindmaps_count
+
+    @fans_count = current_user.fans_contacts.count
+
+    contacts_user = current_user.contacts_user
+    @followings_count = contacts_user.count
+    @followings = contacts_user[0..7]
+
   end
 
   def updating

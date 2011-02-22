@@ -1,0 +1,10 @@
+- mapid = mindmap.id
+
+%h3 复制<span class='loud'>#{escape_title(mindmap)}</span>
+
+.margint10
+  -form_for [:do_clone,mindmap],:html=>{:method=>:put} do |t|
+    .field
+      %label 复制后的名称
+      =t.text_field :title,:value=>"复件-#{mindmap.title}"
+    =t.submit "确定，复制",:confirm=>'复制导图并开始编辑，确定吗？'

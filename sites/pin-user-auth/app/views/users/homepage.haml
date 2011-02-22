@@ -3,6 +3,20 @@
 
 - require_css 'views/users',true
 
+-image_cache_url = RAILS_ENV=="production" ? "http://mindmap-image-cache.mindpin.com/" : "http://dev.mindmap-image-cache.mindpin.com/"
+-content_for :javascripts do
+  = javascript_include_tag "views/mindmap_image"
+  = javascript_include_tag "views/create_mindmap"
+  = javascript_include_tag 'uploadify/swfobject.js'
+  = javascript_include_tag 'uploadify/jquery.uploadify.v2.1.4.min.js'
+  :javascript
+    pie.load(function(){
+      $$(".cache_mindmap_image").each(function(dom){
+        var gmt = new GetMindmapImage(dom.id,"#{image_cache_url}");
+        gmt.get_mindmap_image();
+      });
+    })
+
 .usertop.clearfix
   .clearfix
     .grid_12.alpha
@@ -32,6 +46,12 @@
 
 .grid_12.alpha
   .user_mindmaps
+    -if current_user == @user
+      -form_tag "/mindmaps",:method=>:post,:class=>"create_mindmap" do
+        =link_to_remote "<span>导入</span>",:url=>"/mindmaps/import",:method=>:get,:html=>{:class=>"minibutton import_mindmap"}
+        =text_field_tag "mindmap[title]",'',:class=>"text inline"
+        =link_to "<span>新建</span>",'#',:class=>"minibutton new_mindmap"
+
     -if @mindmaps.blank?
       
     -else
@@ -39,18 +59,16 @@
       .map
         .meta
           %span.title
-            =link_to first_map.title,pin_url_for('pin-mindmap-editor',"/mindmaps/#{first_map.id}"),:target=>'_blank'
+            =link_to first_map.title,pin_url_for('pin-mev6',"/mindmaps/#{first_map.id}"),:target=>'_blank'
           %span.rank
             内容得分
             =first_map.rank_value
         .data
           .first_map
-            .image_center_div
-              %p
-                =mindmap_image(first_map,'450x338')
+            =mindmap_image(first_map,'450x338')
         .foot
           -if @user==current_user
-            =link_to '编辑',pin_url_for('pin-mindmap-editor',"mindmaps/#{first_map.id}/edit")
+            =render :partial=>"mindmaps/parts/mindmap_action",:locals=>{:mindmap=>first_map}
 
       -@mindmaps[1..-1].each do |mindmap|
         .map
@@ -60,12 +78,10 @@
             %span.rank=mindmap.rank_value
           .data
             .map_thumb
-              .image_center_div
-                %p
-                  =mindmap_thumb(mindmap)
+              =mindmap_thumb(mindmap)
           .foot
             -if @user==current_user
-              =link_to '编辑',pin_url_for('pin-mindmap-editor',"mindmaps/#{mindmap.id}/edit")
+              =render :partial=>"mindmaps/parts/mindmap_action",:locals=>{:mindmap=>mindmap}
 
 .grid_11.omega.fright.col
   %h2 近期动态

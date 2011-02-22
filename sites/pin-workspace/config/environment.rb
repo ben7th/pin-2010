@@ -21,15 +21,15 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
-  config.gem "pie-auth"
-  config.gem "pie-ui"
   config.gem "nokogiri"
   config.gem "haml"
   config.gem "grit"
-  config.gem "pie-repo"
   config.gem "uuidtools"
 
-  
+  config.gem "pie-ui"
+
+  require "#{RAILS_ROOT}/../../lib/get_all_dir"
+  config.load_paths += GetAllDir.get_all_dir("#{RAILS_ROOT}/../../lib")
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

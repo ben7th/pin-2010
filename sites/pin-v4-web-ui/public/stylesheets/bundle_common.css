@@ -128,9 +128,10 @@ body{margin:0;}
 .page-head{height:115px;}
 .page-head .nav{clear:both;overflow:hidden;}
 .page-head .nav .site-logo{width:240px;height:40px;margin:25px 0 0 5px;float:left;}
-.page-head .nav .site-logo a{width:240px;height:40px;float:left;background:url(/images/mindpin.png) no-repeat;}
-.page-head .nav .start{float:right;margin:25px 10px 0 0;overflow:hidden;line-height:40px;}
-.page-head .nav .start span{float:left;margin-left:20px;}
+.page-head .nav .site-logo a{width:240px;height:40px;float:left;background:url(/images/mindpin_logo.png) no-repeat;}
+.page-head .nav .start{float:right;margin:25px 10px 0 0;overflow:hidden;}
+.page-head .nav .start span{float:left;margin-left:20px;height:40px;line-height:40px;}
+.page-head .nav .start span .font14{height:40px;line-height:40px;}
 .page-head .nav .start .home{padding-left:18px;background:url(/images/piece/home.png) no-repeat 0 center;}
 .page-head .nav .userbox{float:right;height:40px;border:solid 2px #242438;border-top:none;border-bottom-left-radius:6px;-moz-border-radius-bottomleft:6px;-webkit-border-bottom-left-radius:6px;border-bottom-right-radius:6px;-moz-border-radius-bottomright:6px;-webkit-border-bottom-right-radius:6px;box-shadow:0 0 5px #040307;-moz-box-shadow:0 0 5px #040307;-webkit-box-shadow:0 0 5px #040307;background:-moz-linear-gradient(-90deg,#2d2f44,#151624);background:-webkit-gradient(linear,0% 0,0% 100%,from(#2d2f44),to(#151624));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#2d2f44',endColorstr='#151624');padding:0 6px;margin-right:10px;}
 .page-head .nav .userbox .inner{padding-top:10px;}

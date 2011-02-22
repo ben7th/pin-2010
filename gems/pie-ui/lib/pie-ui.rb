@@ -70,21 +70,42 @@ module PieUi
 
       ActionView::Base.send :include, FormHelper
     end
+
+    def auth_include_modules
+      if defined? ActiveRecord::Base
+        require 'pie-ui/set_readonly'
+        ActiveRecord::Base.send :include, SetReadonly
+        require 'pie-ui/build_database_connection'
+        ActiveRecord::Base.send :include, BuildDatabaseConnection
+        require "paperclip"
+        ActiveRecord::Base.send :include, Paperclip
+      end
+      if defined? ActionView::Base
+        require "pie-ui/project_link_module"
+        ActionView::Base.send :include, ProjectLinkModule
+      end
+      if defined? ActionController::Base
+        require 'pie-ui/authenticated_system'
+        ActionController::Base.send :include,AuthenticatedSystem
+        require 'pie-ui/controller_filter'
+        ActionController::Base.send :include,ControllerFilter
+      end
+    end
+
   end
 end
 
-require 'rubygems'
-require 'grit'
-
 if defined? Rails
+
   def base_layout_path(filename)
-    "#{File.dirname(__FILE__)}/pie-ui/base_layout/#{filename}"
+    "#{RAILS_ROOT}/../../lib/ui/base_layout/#{filename}"
   end
 
   def base_haml_path(filename)
-    "#{File.dirname(__FILE__)}/pie-ui/haml/#{filename}"
+    "#{RAILS_ROOT}/../../lib/ui/haml/#{filename}"
   end
   
+  PieUi.auth_include_modules
   PieUi.enable_classes
   PieUi.enable_actionpack if defined? ActionController
   PieUi.enable_ui_render if defined? ActionController
@@ -107,11 +128,79 @@ if defined? Rails
   
 end
 
+if defined? ActiveRecord::Base
+  begin
+    require 'cache_money'
+    require 'memcache'
+
+    memcached_config = {
+      :test=>{
+        :ttl=>604800,
+        :namespace=>"global_test",
+        :sessions=>false,
+        :debug=>false,
+        :servers=>"localhost:11211"
+      },
+      :development=>{
+        :ttl=>604800,
+        :namespace=>"global_development",
+        :sessions=>false,
+        :debug=>false,
+        :servers=>"localhost:11211"
+      },
+      :production=>{
+        :ttl=>604800,
+        :namespace=>"production",
+        :sessions=>false,
+        :debug=>false,
+        :servers=>"localhost:11211"
+      }
+    }
+    config = memcached_config[RAILS_ENV.to_sym]
+    $memcache = MemCache.new(config)
+    $memcache.servers = config[:servers]
+
+    $local = Cash::Local.new($memcache)
+    $lock = Cash::Lock.new($memcache)
+    $cache = Cash::Transactional.new($local, $lock)
+
+    p '加载工程 cache money 配置'
+
+    class ActiveRecord::Base
+      is_cached :repository => $cache
+    end
+  rescue Exception => ex
+    p "#{ex.message}，不加载 cache money"
+  end
+end
+
 require 'pie-ui/global_util'
 include GlobalUtil
+# 一些 helper 方法
+include ProjectLinkModule
 
 require 'pie-ui/string_util'
 
 require 'pie-ui/classes/mplist_record'
 
+# asset_id
 ENV['RAILS_ASSET_ID'] = UiService.asset_id
+
+require 'repo/grit_init'
+Grit::Repo.send(:include,RepoInit)
+Grit::Diff.send(:include,DiffInit)
+
+if defined? ActionMailer::Base
+  ActionMailer::Base.smtp_settings = {
+    :address => "mail.mindpin.com",
+    :domain => "mindpin.com",
+    :authentication => :plain,
+    :user_name => "mindpin",
+    :password => "m1ndp1ngood!!!"
+  }
+end
+
+
+
+
+

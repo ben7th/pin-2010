@@ -3,10 +3,12 @@ class ConnectUsersController < ApplicationController
   end
 
   def connect_sina
-    consumer = OAuth::Consumer.new(2802132691,"94d47028669189b276eb66573c7d2bcb",{:site=>"http://api.t.sina.com.cn"})
+#    consumer = OAuth::Consumer.new(2802132691,"94d47028669189b276eb66573c7d2bcb",{:site=>"http://api.t.sina.com.cn"})
+    consumer = OAuth::Consumer.new(SinaWeibo::API_KEY,SinaWeibo::API_SECRET,{:site=>"http://api.t.sina.com.cn"})
     request_token = consumer.get_request_token
     session[:request_token] = request_token
-    redirect_to request_token.authorize_url({:oauth_callback=>"http://dev.www.mindpin.com/connect_sina_callback"})
+#    redirect_to request_token.authorize_url({:oauth_callback=>"http://dev.www.mindpin.com/connect_sina_callback"})
+    redirect_to request_token.authorize_url({:oauth_callback=>SinaWeibo::CALLBACK_URL})
   end
 
   def connect_sina_callback

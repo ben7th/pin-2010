@@ -1,8 +1,11 @@
 -ea = EmailActor.new(feed.email)
 .avatar
-  =avatar ea.email,:tiny
-.data
-  =link_to ea.name,ea.actor
-  =feed_content(feed)
-.time
-  =created_from(feed)
+  =avatar ea.email
+.c
+  .data
+    =link_to ea.name,ea.actor
+    =feed_content(feed)
+  .preview
+    =feed_preview(feed)
+  .time
+    =created_from(feed)

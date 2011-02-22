@@ -29,6 +29,9 @@ cn:
       message:
         receiver_email: 收信人
         content: 发送内容
+      mindmap:
+        title: 导图标题
+        logo: 导图图示（可选）
     errors:
       errors:
       models:

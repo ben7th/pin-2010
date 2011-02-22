@@ -1,7 +1,6 @@
 class UiService
 
   class << self
-
     def asset_id
       # 获取用于区分静态文件缓存的asset_id
       # 暂时先硬编码实现，如果将来需要分布在不同的服务器上，再对这个方法进行修改
@@ -23,14 +22,16 @@ class UiService
       js  = repo.log('master', 'sites/pin-v4-web-ui/public/javascripts', :max_count => 1).first
       css = repo.log('master', 'sites/pin-v4-web-ui/public/stylesheets', :max_count => 1).first
       t2 = Time.now
-      RAILS_DEFAULT_LOGGER.info "获取 asset_id 耗时 #{(t2 - t1)*1000}ms"
+      RAILS_DEFAULT_LOGGER.info "获取 asset_id 耗时 #{(t2 - t1)*1000} s"
       js.committed_date > css.committed_date ? js.id : css.id
     end
 
     def site
       pin_url_for('ui')
     end
-
+  end
+  
+  class << self
     def css_files
       ['common','ui'].map{|x| css_path(x)}
     end
@@ -39,8 +40,8 @@ class UiService
       File.join site,"stylesheets/bundle_#{bundle_name}.css?#{env_asset_id}"
     end
 
-    def theme_css_file
-      File.join site,"stylesheets/themes/black.css?#{env_asset_id}"
+    def theme_css_file(theme_name)
+      File.join site,"stylesheets/themes/#{theme_name}/theme.css?#{env_asset_id}"
     end
   end
 

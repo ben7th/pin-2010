@@ -51,4 +51,14 @@ module GlobalUtil
     end
     p bm
   end
+
+  def get_all_dir(basedir)
+    dirs = []
+    Find.find(basedir) do |path|
+      if FileTest.directory?(path)
+        dirs << path
+      end
+    end
+    dirs
+  end
 end

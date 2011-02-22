@@ -2,8 +2,4 @@
 
 %h2
   #{@user.name} 正在关注的。。
-
--@followings.each do |user|
-  .p
-    =user.id
-    =user.name
+=render :partial=>"users/parts/mplist_users",:locals=>{:users=>@followings}

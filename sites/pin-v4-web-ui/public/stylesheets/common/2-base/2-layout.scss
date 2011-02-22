@@ -87,12 +87,27 @@ body {margin:0;}
     clear:both;overflow:hidden;
     .site-logo{
       width:240px;height:40px;margin:25px 0 0 5px;float:left;
-      a{width:240px;height:40px;float:left;background:url(/images/mindpin.png) no-repeat;}
+      a{
+        width:240px;
+        height:40px;
+        float:left;
+        background:url(/images/mindpin_logo.png) no-repeat;
+      }
     }
     .start{
-      float:right;margin:25px 10px 0 0;overflow:hidden;line-height:40px;
-      span{float:left;margin-left:20px;}
-      .home{padding-left:18px;background:url(/images/piece/home.png) no-repeat 0 center;}
+      float:right;
+      margin:25px 10px 0 0;
+      overflow:hidden;
+      span{
+        float:left;
+        margin-left:20px;
+        height:40px;line-height:40px;
+        .font14{height:40px;line-height:40px;}
+      }
+      .home{
+        padding-left:18px;
+        background:url(/images/piece/home.png) no-repeat 0 center;
+      }
     }
     .userbox{
       float:right;height:40px;

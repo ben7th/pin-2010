@@ -19,14 +19,14 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "pie-auth"
   config.gem "pie-ui"
-  config.gem "pie-repo"
-  config.gem "pie-service-lib"
 
   config.gem "uuidtools"
   config.gem "haml"
   config.gem "mislav-will_paginate", :version => '2.3.11', :source => "http://gems.github.com/", :lib => "will_paginate"
+
+  require "#{RAILS_ROOT}/../../lib/get_all_dir"
+  config.load_paths += GetAllDir.get_all_dir("#{RAILS_ROOT}/../../lib")
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

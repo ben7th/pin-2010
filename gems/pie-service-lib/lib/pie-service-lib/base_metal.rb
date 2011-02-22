@@ -60,9 +60,13 @@ class BaseMetal
   end
 
   def self.current_user(env)
-    session = env["rack.session"]
+    session = self.session(env)
     current_user = session[:user_id] ? User.find(session[:user_id]) : false
     current_user
+  end
+
+  def self.session(env)
+    env["rack.session"]
   end
 
   # self.routes可能有两种情况

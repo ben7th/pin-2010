@@ -161,5 +161,13 @@ class String
   def markdown_to_html
     BlueCloth.new(self).to_html
   end
+
+  def replace_html_enter_tags_to_text
+    str = self.gsub(/<\/?[^>]*>/,  "<br>")
+    str.gsub!(/(<\/?br>)+/,"\n")
+    str.gsub!(/^(\n)+/,"")
+    str.gsub!("&nbsp;","")
+    str
+  end
   
 end

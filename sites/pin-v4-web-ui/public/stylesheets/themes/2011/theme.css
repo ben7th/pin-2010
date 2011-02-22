@@ -1,0 +1,38 @@
+/*2011年第一套配色*/
+body {
+  background-color: #36384A;
+  background-image: url(/images/themes/black/bg2.png);
+  background-repeat: repeat-x;
+  color: #dddddd; }
+
+.page-head {
+  background: url(/images/themes/black/head-background.png) 0 100% repeat-x;
+  color: white; }
+  .page-head a {
+    color: #dddddd;
+    text-shadow: 1px 1px #555; }
+    .page-head a:hover {
+      color: #dddddd; }
+  .page-head .line {
+    background-color: #999; }
+
+.page-footer {
+  background: url(/images/themes/black/footer-background.png) repeat-x; }
+
+.loud {
+  color: #FFB019 !important; }
+
+.quiet {
+  color: #B5B5B5; }
+
+.date {
+  color: #B5B5B5; }
+
+a {
+  color: #6E9EFF; }
+  a:hover {
+    color: #6EBFFF; }
+
+.quote_content {
+  background: #F6F6F6;
+  border: solid 1px #E5E5E5; }

@@ -5,7 +5,6 @@
 #
 
 require 'thrift'
-require 'lucene_service_types'
 
 module LuceneNotesService
   class Client

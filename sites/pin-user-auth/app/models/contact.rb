@@ -18,6 +18,11 @@ class Contact < ActiveRecord::Base
     return user.blank? ? nil : user
   end
 
+  def contact_user_name
+    return '' if contact_user.blank?
+    contact_user.name
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :contacts

@@ -1,4 +1,3 @@
-require "pie-service-lib"
 class RecentlyMindmapsMetal < BaseMetal 
   def self.routes
     {:method=>'GET',:regexp=>/users\/(.+)\/mindmaps\/recently/}

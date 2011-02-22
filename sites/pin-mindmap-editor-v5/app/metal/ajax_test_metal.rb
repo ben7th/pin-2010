@@ -1,4 +1,3 @@
-require "pie-service-lib"
 class AjaxTestMetal < BaseMetal
   def self.routes
     {:method=>'GET',:regexp=>/ajax_test/}

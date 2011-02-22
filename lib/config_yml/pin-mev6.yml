@@ -1,0 +1,8 @@
+development:
+  mindmap_image_base_path: /root/mindpin_base/mindmap_images
+
+test:
+  mindmap_image_base_path: /root/mindpin_base/mindmap_images
+
+production:
+  mindmap_image_base_path: /web/2010/mindmap_images

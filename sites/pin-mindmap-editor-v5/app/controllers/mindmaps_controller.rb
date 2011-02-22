@@ -11,8 +11,6 @@ class MindmapsController < ApplicationController
   # new import create paramsedit update delete import_base64 create_base64
   include MindmapManagingControllerMethods
 
-  # show edit export
-  include MindmapEditorControllerMethods
 
   # clone_form do_clone
   include MindmapCloneControllerMethods

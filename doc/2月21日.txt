@@ -1,0 +1,12 @@
+menagement工程调整：
+
+1 每个rails工程在启动后，除了一般的“重启”外，还提供 USR2安全重启 这一选项。
+2 给每个rails工程和其他服务 增加 日志 链接 可以查看每个工程的日志信息，显示日志的大小和获取信息时的修改时间
+  显示内容为日志文件的最后1000行，并有“刷新”按钮
+3 memcached服务，增加一个链接 “查看详细” 用来查看memcached中缓存的内容情况（之前写的脚本）
+
+worker调整：
+1 所有处理redis消息队列的worker，其脚本名称都应为 xxx_queue_worker.rb
+2 所有worker脚本都放在工程的 /script 目录下
+3 目前worker脚本由于不断循环，占CPU会比较高，解决方法是，如果这次循环时，队列中没有任何待处理的任务
+  则 sleep(1)，否则不sleep。参考handle_message_queue，做出的修改

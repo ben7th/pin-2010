@@ -1,0 +1,240 @@
+@import "misc";
+
+.root,.node{
+  font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+  cursor:pointer;
+}
+
+.root{
+  font-size:14px;
+  line-height:21px;
+  border:2px solid #77AAFF;
+  padding:3px 5px;
+  color:#333;
+  background-color:#E9F0FF;
+  @include border-radius(5px);
+  &.dropon{
+    border:solid 2px #F56F00 !important;
+    padding:3px 5px;margin:0;
+  }
+}
+
+.root_over{
+  background-color:#d2e0ff;
+}
+
+.root_selected{
+  border-color:#113B8F;
+}
+
+.node{
+  font-size:12px;
+  color:#333;line-height:
+  16px;padding:2px 3px 3px 3px;
+  margin:3px 0;
+  @include border-radius(4px);
+  &.dropon{
+    border:solid 3px #F56F00 !important;
+    padding:2px 0;margin:0;
+  }
+}
+
+.node_over{
+  border:solid 3px #ffed80;
+  padding:2px 0;margin:0;
+}
+.node_selected{
+  border:solid 3px #113B8F;
+  padding:2px 0;margin:0;
+}
+
+.nodeimg{
+  img{margin:0 3px;}
+}
+
+.nodebody{
+  .nodetitle{
+    margin:0 3px;
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+  }
+  .noteicon{
+    width:10px;
+    height:9px;
+    background-image:url("../img/status_icons.gif");
+    background-repeat:no-repeat;
+    background-position:30% 0px;
+    vertical-align:top;
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+  }
+}
+
+/*折叠展开控制图标*/
+.foldhandler_plus{width:11px;height:11px;padding:0;font-size:0;line-height:0px;background-image:url("../img/icon_plus.gif");}
+.foldhandler_minus{width:11px;height:11px;padding:0;font-size:0;line-height:0px;background-image:url("../img/icon_minus.gif");}
+.foldhandler_over{background-position:0 -30px;}
+.foldhandler_down{background-position:0 -60px;}
+
+/*节点标题编辑*/
+.title_input_div{
+  border:solid 3px #7f7ff7;
+  background-color:white;
+  position:absolute;
+  z-index:103;
+  overflow:hidden;
+  @include border-radius(4px);
+
+  .title_inputer,.title_inputer_root{
+    font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+    border:none !important;
+    color:#333;
+  }
+  .title_inputer{
+    font-size:12px;
+    line-height:16px;
+    padding:2px 2px;
+    *padding:1px 2px;
+  }
+  .title_inputer_root{
+    font-size:14px;
+    line-height:21px;
+    padding:2px 6px;
+    *padding:1px 3px;
+  }
+
+}
+
+/*图像选择器*/
+.mindmap-image-editor{
+  clear:both;
+  text-align:left;
+  .image-sel{
+    float:left;
+    width:380px;
+    label{
+      width:50px;
+      display:inline-block;
+      text-align:right;
+      margin-right:4px;
+    }
+    input{
+      height:23px !important;
+      &.url{width:240px !important;}
+      &.width,&.height{width:60px !important;}
+    }
+    .preview{
+      margin-bottom:20px;
+      overflow:auto;
+      width:342px;
+      height:200px;
+      padding:4px;
+      border:solid 2px #74747A;
+      background:url(/images/actions/preview_bg.png);
+      img{border:solid 1px !important;}
+    }
+    a.accept{
+    }
+  }
+  .image-upload{
+    float:left;
+    ul.image-list{
+      overflow:hidden;
+      width:400px;height:265px;
+      background:#161625;
+      @include border-radius(3px);
+      padding:2px;
+      margin-bottom:5px;
+      li{
+        float:left;
+        margin-right:2px;
+        margin-bottom:2px;
+        .ic{
+          @include border-radius(3px);
+          background-color:#323546;
+          border:solid 1px #333;
+          padding:3px;
+          cursor:pointer;
+          &:hover{background-color:#45495b;}
+          .img{
+            width:90px;
+            height:60px;
+          }
+        }
+        .actions{
+          text-align:center;
+        }
+      }
+    }
+    .pagination{
+      margin-bottom:20px;
+    }
+    .used{
+      margin-bottom:3px;
+    }
+    .uploader{
+      height:34px;
+      .uploadifyQueue{
+        float:right;
+        .uploadifyQueueItem{
+          padding:0;
+          margin:0;
+          width:290px;
+          padding:3px;
+          color:#222;
+        }
+      }
+    }
+  }
+}
+
+#mindmap-scroller{
+  position:absolute;
+  border:none;
+  overflow:scroll;
+  height:100%;
+  width:100%;
+  #mindmap-canvas{
+    border:solid 1px white;
+    position:relative;
+    width:6000px;
+    height:3000px;
+    background-color:#FFFFFF;
+    background-image:url("../img/paper_bg.png");
+    div{white-space:nowrap;}
+  }
+}
+
+.info-label{
+  position:absolute;
+  top:10px;
+  left:10px;
+  height:24px;
+  background:black;
+  @include border-radius(4px);
+  padding:10px 30px 10px 10px;
+  z-index:99999;
+  &.notice{
+    background:#F9E675;
+    color:#472509;
+    font-weight:bold;
+  }
+  &.success{
+    background:#D8F1C4;
+    color:#111;
+    font-weight:bold;
+  }
+  &.error{
+    background:#C6001A;
+    color:white;
+    font-weight:bold;
+  }
+}
+
+.lock-white-board{
+  position:absolute;
+  background-color:#999;
+  z-index:999;
+}

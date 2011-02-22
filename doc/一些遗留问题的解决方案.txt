@@ -1,0 +1,31 @@
+1 memcached 重启后 用户会瞬间退出登录状态
+  原因分析
+  1 User.find(id) 会在 memcached 重启后的第一次运行出错
+  解决方案
+  1 在认证的 current_user 方法内抛出这种异常
+  2 给 ActionController::Base 加一个环绕过滤器，对这种异常进行处理
+    返回友好的错误界面
+
+2 导图编辑器页面右上角的返回，返回哪里？
+
+3 用 gem 共享代码还是不方便
+  目前一些 module 放在 gem 内
+  想到一个把 module 放在 公共lib 的简化方案
+    1 首先在 environment.rb 把 公共lib目录加入 config.load_paths
+    2 在 公共lib 下写好 module 的 init.rb 
+    3 在 environment.rb 中 require  init.rb
+  这样 module 可以成功 fix 到需要插入的类
+  好处
+    1 开发的时候 修改module 的代码后
+      只需要重启工程就能加载新的代码
+      省略了安装gem的这部操作
+    2 不在维护那么多的gem
+  补充：公共lib 根据分类建立子目录，各个工程根据需要加载各个子目录
+  
+
+  
+  
+  
+
+  
+  

@@ -1,0 +1,9 @@
+- li_id = filename.split('.')[0]
+- file_path = "/mindmaps/#{mindmap.id}/files/#{filename}"
+- thumb_path = "/mindmaps/#{mindmap.id}/thumb/#{filename}"
+
+%li{:id=>li_id,:'data-url'=>pin_url_for('pin-mindmap-editor',thumb_path)}
+  .ic
+    .img{:style=>"background:url(#{thumb_path}) no-repeat center center;"}
+  .actions
+    =link_to_remote '删除',:url=>file_path,:method=>:delete,:confirm=>'确定要删除图片吗？删除后不可恢复。',:success=>"remove_img_li('#{li_id}')"

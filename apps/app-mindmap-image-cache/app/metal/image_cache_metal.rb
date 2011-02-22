@@ -1,5 +1,3 @@
-require "pie-service-lib"
-require "delayed_job"
 class ImageCacheMetal < BaseMetal
   ETAG = "8c079a70cad7abf91332a3e087a677c"
   def self.routes
@@ -48,7 +46,7 @@ class ImageCacheMetal < BaseMetal
       # 图片尚未生成，读取loading图片，响应请求，同时异步调用相应方法创建图片，不作304缓存
       img_path = "#{RAILS_ROOT}/public/images/img_loading.png"
       image_file = File.open(img_path)
-      MindmapImageCacheJobManager.new(mindmap.id,size).start
+      MindmapImageCacheRedisQueue.new.push(mindmap.id,size)
       return [406, {"Content-Type" => "image/png"}, [image_file.read]]
     end
 

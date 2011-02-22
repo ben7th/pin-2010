@@ -1,0 +1,13 @@
+.page-footer
+  %div{:class=>container_classname}
+    .page-footer-content{:class=>grid_classname}
+      .links
+        %span.contact
+          =link_to '联系方式',pin_url_for('pin-user-auth','/contact')
+        %span.plugin
+          =link_to '插件下载',pin_url_for('pin-user-auth','/plugins')
+        %span.plugin
+          =link_to '向MindPin提意见',pin_url_for('pin-bugs')
+      .rights
+        %span.sitename.bold &copy; 2006-2011 MindPin all rights reserved.
+        %span.beian.marginl5 (京ICP备06063955号)

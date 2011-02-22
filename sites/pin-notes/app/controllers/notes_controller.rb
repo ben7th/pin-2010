@@ -47,6 +47,8 @@ class NotesController < ApplicationController
           @comments = @note.comments
           @blobs = @note.blobs(@commit_id)
         rescue NoteRepositoryMethods::GitRepoNotFoundError => ex
+          p "===================="
+          p ex
           render_status_page(500,ex)
         end
 

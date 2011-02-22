@@ -1,0 +1,96 @@
+.container_10
+  %h3 支持以下导图软件格式：
+  %dl
+    %dt MMAP
+    %dd MindManager
+  %dl
+    %dt MM
+    %dd FreeMind
+  %dl
+    %dt XMIND
+    %dd XMind
+  %p.margint10
+    选择文件并确定上传后，系统需要少许时间进行处理和转换，请耐心等待。
+  %p
+    我们能够确保基本导图结构的完好。<br/>
+    但是由于MindPin导图编辑器仍需进一步完善，一些导图软件中的特定格式，如文字颜色，内嵌图片，导入后会有不同程度的丢失。
+
+%input#file_upload{:name=>"file_upload",:type=>"file"}
+
+-url = RAILS_ENV=="production" ? "http://www.mindpin.com/" : "http://dev.www.mindpin.com/"
+-image_cache_url = RAILS_ENV=="production" ? "http://mindmap-image-cache.mindpin.com/" : "http://dev.mindmap-image-cache.mindpin.com/"
+-mev6_url = RAILS_ENV=="production" ? "http://mev6.mindpin.com/" : "http://dev.mev6.mindpin.com/"
+
+:javascript
+  jQuery('#file_upload').uploadify({
+    'uploader'  : '/javascripts/uploadify/uploadify.swf',
+    'script'    : '/mindmaps/import_file',
+    'cancelImg' : '/javascripts/uploadify/cancel.png',
+    'buttonImg' : '/images/actions/upload_button.png',
+    'width'     : 78,
+    'height'    : 27,
+    'wmode'     : 'transparent',
+    'auto'      : true,
+    'multi'     : true,
+    'fileDataName' : 'file',
+    'fileDesc'     : '导图文件 mm, mmap, xmind',
+    'fileExt'      : '*.mm;*.mmap;*.xmind;',
+    'sizeLimit'    : #{4.megabytes},
+    'scriptData'   : {
+      '#{session_key = ActionController::Base.session_options[:key]}':encodeURIComponent('#{u cookies[session_key]}'),
+      'authenticity_token':encodeURIComponent('#{u form_authenticity_token if protect_against_forgery?}')
+    },
+    'onComplete'  : function(event, ID, fileObj, response, data) {
+      var data = jQuery.parseJSON(response)
+      //关闭fbox
+      jQuery(document).trigger('close.facebox');
+      // 初始化，防止反复导入造成dom节点的重复
+      jQuery("img.import_image").remove();
+      jQuery("a.after_imoprt_link").remove();
+      jQuery("div.show_import_image").remove();
+      jQuery("a.new_mindmap").show();
+      // 添加正在读取的图标
+      jQuery("a.import_mindmap").after("<img class='import_image' src='#{image_cache_url}images/loading.gif' />")
+      get_import_mindmap_image(data.qid)
+    }
+  });
+  
+  function get_import_mindmap_image(qid){
+    jQuery.ajax({
+      url:"#{url}"+"import_mindmap_queue?qid="+qid,
+      dataType:"jsonp",
+      jsonp:"import_mindmap_callback",
+      success:function(data){
+        var loaded = data["loaded"];
+        var success = data["success"];
+        var mindmap_title = data["map_title"];
+        var mindmap_id = data["map_id"];
+        var mindmap_image_src = data["image_src"];
+        if(!loaded){
+          setTimeout(function(){
+            get_import_mindmap_image(qid);
+          },5000);
+        }else if(success){
+          // 读取图标 的时候 弹出显示导图缩略图，添加标题，后面按钮链接改成，进入并编辑
+          jQuery("#mindmap_title").attr("value",mindmap_title);
+          jQuery(".import_image").remove();
+          var import_button = jQuery("a.import_mindmap")
+          var left = import_button.offset().left + import_button.width();
+          var top = import_button.offset().top + import_button.height();
+          import_button.after("<div class='show_import_image' style='position:absolute;z-index:3;left:"+left+"px;top:"+top+"px;'><div><a id='close_import_mindmap_button'>关闭<a/></div><img src='"+mindmap_image_src+"'/></div>");
+          jQuery("#close_import_mindmap_button").bind("click",function(){
+            jQuery("div.show_import_image").remove();
+          })
+          jQuery("a.new_mindmap").hide();
+          jQuery("input#mindmap_title").after("<a class='minibutton after_imoprt_link' href='#{mev6_url}mindmaps/"+mindmap_id+"/edit'><span>编辑导图</span><a/>")
+        }else{
+          jQuery(".import_image").remove();
+          jQuery("a.import_mindmap").after("<div class='show_import_image'>解析错误</div>");
+        }
+      },
+      error:function(data){
+      }
+    });
+  }
+  
+

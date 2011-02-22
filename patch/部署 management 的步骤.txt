@@ -1,0 +1,39 @@
+一些说明
+  实现以下服务的启动，关闭，重启
+    1 四个工程
+      pin-user-auth
+      pin-mindmap-editor-v5
+      app-mindmap-image-cache
+      pin-bug
+    2 memcached 服务
+    3 redis 服务
+    4 mindmap_lucene 服务
+    5 delayed_job 服务
+=======================================================
+    pin_2010_dir 在开发环境指 /web1/pin-2010
+                 在生产环境指 /web/2010/pin-2010/
+               
+  1 四个工程用到了 pin_2010_dir/../unicorn.sh 脚本
+
+  2 memcached 用到了 pin_2010_dir/memcache.sh 脚本
+
+  3 redis 需要安装在 pin_2010_dir/redis-2.0.4 目录
+    用到了 pin_2010_dir/redis_service.sh 脚本
+  
+  4 mindmap_lucene 用到了 pin_2010_dir/mindmaps_lucene_service.sh 脚本
+
+  5 delayed_job 用的
+    app_mindmap_image_cahce 工程下 script/delayed_job 脚本
+
+部署 management 的步骤
+
+1 编写一个 unicorn_management.sh 来管理 management 工程
+  可以从 开发环境拷贝 /web1/unicorn_management.sh 修改 $dir 的路径
+  
+2 注意：
+    必须用上边提到的脚本启动这四个工程和服务，来确保记录的pid 是正确的
+  
+  
+
+
+ 

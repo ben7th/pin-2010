@@ -45,10 +45,9 @@ Rails::Initializer.run do |config|
   config.gem "responds_to_parent"
   config.gem "google-search"
 
-  config.gem "pie-auth"
+  #  config.gem "pie-auth"
   config.gem "pie-ui"
-  config.gem "pie-service-lib"
-  config.gem "pie-repo"
+  #  config.gem "pie-repo"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -60,10 +59,9 @@ Rails::Initializer.run do |config|
   config.load_paths += %W( #{RAILS_ROOT}/lib/controller_helper )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_module )
   config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_module/rank )
-  config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_struct_class )
-  config.load_paths += %W( #{RAILS_ROOT}/lib/mindmap_parser )
-  config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
 
+  require "#{RAILS_ROOT}/../../lib/get_all_dir"
+  config.load_paths += GetAllDir.get_all_dir("#{RAILS_ROOT}/../../lib")
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 

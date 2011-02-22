@@ -100,15 +100,19 @@ body {
         width: 240px;
         height: 40px;
         float: left;
-        background: url(/images/mindpin.png) no-repeat; }
+        background: url(/images/mindpin_logo.png) no-repeat; }
     .page-head .nav .start {
       float: right;
       margin: 25px 10px 0 0;
-      overflow: hidden;
-      line-height: 40px; }
+      overflow: hidden; }
       .page-head .nav .start span {
         float: left;
-        margin-left: 20px; }
+        margin-left: 20px;
+        height: 40px;
+        line-height: 40px; }
+        .page-head .nav .start span .font14 {
+          height: 40px;
+          line-height: 40px; }
       .page-head .nav .start .home {
         padding-left: 18px;
         background: url(/images/piece/home.png) no-repeat 0 center; }

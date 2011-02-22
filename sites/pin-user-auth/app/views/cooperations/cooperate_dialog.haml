@@ -1,0 +1,74 @@
+-content_for :javascripts do
+  = javascript_include_tag 'pie/mindmap/pie_dragdrop'
+  = javascript_include_tag 'views/cooprate_dragdrop'
+  :javascript
+    pie.load(function(){
+      $$('ul.contacts li').each(function(li){
+        new pie.drag.Cooprate(li,{});
+      });
+      $('cooperate_editors').value = '#{@cooperate_edit_email_list_str}';
+      $('cooperate_viewers').value = '#{@cooperate_view_email_list_str}';
+    })
+
+- require_css 'mindmaps.css'
+
+-mindmap = @mindmap
+.topl
+  .cooperate-form
+    -form_tag "/save_cooperations/#{mindmap.id}",:method=>:post do
+      .field
+        使用逗号分隔邮件地址，或从右边拖拽
+      .field
+        %label 共同编辑者
+        =text_area_tag 'cooperate_editors',@cooperate_edit_email_list_str
+      .field{:class=>mindmap.private ? '':'hide'}
+        %label 共同查看者
+        =text_area_tag 'cooperate_viewers',@cooperate_view_email_list_str
+      -if !mindmap.private?
+        .no-viewer
+          导图是<span class='loud'>公开导图</span>，无需设置共同查看
+      .actions.clearfix
+        =submit_tag '确定'
+        =link_to '算了，取消',"/",:class=>'marginl10'
+
+  .friends-list
+    %h3 从联系人添加协作者
+    -contacts = current_user.contacts
+
+    -if contacts.blank?
+      .no-contact
+        .p 您目前在MindPin还没有任何联系人
+        .p
+          请通过
+          %span>=link_to '联系人设置',pin_url_for('pin-user-auth','/account/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
+          添加
+    -else
+      .p=link_to '联系人设置',pin_url_for('pin-user-auth','/account/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
+      %ul.contacts
+        -contacts.each do |contact|
+          %li.contact
+            .padding4
+              .avatar=avatar contact.email,:tiny
+              .data
+                .name=contact.contact_user_name
+                .email=contact.email
+
+  .friends-list{:style=>'margin-left:20px;'}
+    %h3 添加协作团队
+    -organizations = current_user.joined_organizations
+    -if organizations.blank?
+      .no-contact
+        .p 您目前在MindPin还没有任何团队
+        .p
+          请通过
+          %span>=link_to '团队设置',pin_url_for('pin-user-auth','/account/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
+          添加
+    -else
+      .p=link_to '团队设置',pin_url_for('pin-user-auth','/account/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
+      %ul.contacts
+        -organizations.each do |org|
+          %li.contact
+            .padding4
+              .data
+                .name=org.name
+                .email=org.logic_email
