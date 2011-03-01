@@ -1,0 +1,105 @@
+- require_css 'views/mindmaps',true
+
+-image_cache_url = pin_url_for('pin-mindmap-image-cache')
+
+-content_for :javascripts do
+  = javascript_include_tag "views/mindmap_image"
+  = javascript_include_tag "views/mindmap_info"
+
+.grid_14.alpha
+  .map-explore
+    -prev_mindmap = @mindmap.prev
+    -next_mindmap = @mindmap.next
+    .btns
+      -if !!prev_mindmap
+        .prev{:tip=>'查看上一个导图'}
+          =link_to "上一个",info_mindmap_path(prev_mindmap)
+      -else
+        .prev.disabled
+          =link_to "上一个",'javascript:;'
+      .show{:tip=>'在编辑器中详细查看'}
+        =link_to '<span>详细查看</span>',pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}")
+      -if !!next_mindmap
+        .next{:tip=>'查看下一个导图'}
+          =link_to "下一个",info_mindmap_path(next_mindmap)
+      -else
+        .next.disabled
+          =link_to "下一个",'javascript:;'
+
+  .map-info
+    .preview.darkbg
+      =mindmap_image(@mindmap,"500x500")
+    -title_mode = @mindmap.has_edit_rights?(current_user) ? "edit" : "view"
+    .title{"data-map-id"=>@mindmap.id,"data-mode"=>title_mode}=@mindmap.title
+
+.grid_9.omega.fright
+  .map-meta
+    .creator.lightbg
+      .cavatar
+        =avatar @mindmap.user,:tiny
+      .meta
+        .p 作者
+        .p=@mindmap.user.name
+        
+    .time
+      .create_time
+        ="创建时间: #{qdatetimefull(@mindmap.created_at)}"
+      .updated_time
+        ="修改时间: #{qdatetimefull(@mindmap.updated_at)}"
+      .modified_times
+        ="修改次数: #{@mindmap.lock_version}"
+
+    .coop.darkbg
+      -cooperate_edit_actors = @mindmap.cooperate_edit_email_actors
+      -if cooperate_edit_actors.count > 1
+        由以下用户共同编辑：
+        .users
+          -cooperate_edit_actors.each do |actor|
+            .avatar
+              .p=avatar(actor.email,:tiny)
+              .p=actor.name
+
+      -if @mindmap.private?
+        -cooperate_view_actors = @mindmap.cooperate_view_email_actors
+        -if cooperate_view_actors.count > 1
+          .cooperate_view_actors
+            共同查看者
+            .clearfix
+              -cooperate_view_actors.each do |actor|
+                .fleft
+                  %div=avatar(actor.email)
+                  %div=actor.name
+    -if @mindmap.has_edit_rights?(current_user)
+      .action
+        .pri
+          -if @mindmap.private?
+            -private_class = "hide"
+            -public_class = ""
+          -else
+            -private_class = ""
+            -public_class = "hide"
+
+          =link_to_remote "设为公开",:url=>do_private_mindmap_path(@mindmap),:html=>{:id=>"public_button",:class=>public_class},:method=>:put
+          =link_to_remote "设为私有",:url=>do_private_mindmap_path(@mindmap),:html=>{:id=>"private_button",:class=>private_class},:method=>:put
+        .ac
+          =render :partial=>"mindmaps/parts/mindmap_action",:locals=>{:mindmap=>@mindmap}
+
+
+.clear
+%h3 数据共享
+=render :partial=>"mindmaps/parts/export",:locals=>{:mindmap=>@mindmap}
+
+-page_url = pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}")
+-page_title = "MindPin思维导图：#{@mindmap.title}"
+
+.share
+  =link_to '分享到新浪微博',"http://www.jiathis.com/send/?webid=tsina&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to tsina'
+  =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren'
+  =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban'
+
+%h3 相似导图..
+.padding5
+  =render :partial=>'mindmaps/parts/similar_mindmaps'
+
+
+

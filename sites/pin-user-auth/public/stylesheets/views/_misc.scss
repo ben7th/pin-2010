@@ -27,3 +27,38 @@
   @include border-radius($radius);
   @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
 }
+
+@mixin editable-form{
+  form{
+    position:absolute;
+    width:170px;
+    @include border-radius(4px);
+    background:#131520;
+    border:solid 2px #323546;
+    input{
+      background:#F7FCFF;
+      border:none;
+      padding:0 2px;
+      @include border-radius(3px);
+    }
+    button{
+      @include border-radius(3px);
+      border:none 0px;
+      margin:1px 5px 1px 0;
+      &.editable-submit{
+        color:white;
+        background:#0063DC;
+        &:hover{
+          background:#0054BD;
+        }
+      }
+      &.editable-cancel{
+        color:#666666;
+        background:#ddd;
+        &:hover{
+          background:#CFCFCF;
+        }
+      }
+    }
+  }
+}

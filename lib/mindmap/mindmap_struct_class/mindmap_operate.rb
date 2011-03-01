@@ -202,6 +202,10 @@ class MindmapOperate
       begin
         @mindmap.save!
       rescue Exception => ex
+        p "~~~mindmap.save error~~~~~"
+        p ex.class
+        p ex.message
+        p "~~~mindmap.save error~~~~~"
         puts ex.backtrace.join("\n")
         raise MindmapOperate::MindmapNotSaveError,"mindmap 数据库记录保存出错"
       end

@@ -77,6 +77,8 @@ module PieUi
         ActiveRecord::Base.send :include, SetReadonly
         require 'pie-ui/build_database_connection'
         ActiveRecord::Base.send :include, BuildDatabaseConnection
+        require 'pie-ui/save_without_timestamping'
+        ActiveRecord::Base.send :include, SaveWithoutTimestamping
         require "paperclip"
         ActiveRecord::Base.send :include, Paperclip
       end
@@ -183,6 +185,7 @@ require 'pie-ui/string_util'
 
 require 'pie-ui/classes/mplist_record'
 
+require "pie-ui/will_paginate_localize_and_add_ajax_link"
 # asset_id
 ENV['RAILS_ASSET_ID'] = UiService.asset_id
 
@@ -199,6 +202,7 @@ if defined? ActionMailer::Base
     :password => "m1ndp1ngood!!!"
   }
 end
+
 
 
 

@@ -29,7 +29,7 @@
           导图是<span class='loud'>公开导图</span>，无需设置共同查看
       .actions.clearfix
         =submit_tag '确定'
-        =link_to '算了，取消',"/",:class=>'marginl10'
+        =link_to '算了，取消',"/mindmaps/#{mindmap.id}/info",:class=>'marginl10'
 
   .friends-list
     %h3 从联系人添加协作者

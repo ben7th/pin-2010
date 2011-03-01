@@ -9,7 +9,8 @@ class IndexController < ApplicationController
   def _user_page
     @workspaces = current_user.workspaces
     @organizations = Organization.of_user(current_user)
-    @mindmaps = current_user.mindmaps
+    @mindmaps = current_user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.paginate(:page=>params[:page]||1,:per_page=>21)
+     
     @contacts = current_user.contacts
     news_feed_proxy = current_user.news_feed_proxy
     @feeds = news_feed_proxy.feeds.paginate(:per_page=>10,:page=>1)
@@ -22,7 +23,6 @@ class IndexController < ApplicationController
     contacts_user = current_user.contacts_user
     @followings_count = contacts_user.count
     @followings = contacts_user[0..7]
-
   end
 
   def updating

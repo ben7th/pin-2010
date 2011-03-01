@@ -23,28 +23,11 @@ module MindmapManagingControllerMethods
     end
   end
 
-  def paramsedit
-    set_tabs_path(false)
+  def change_title
     if has_edit_rights?(@mindmap,current_user)
-      if request.xhr?
-      return render_ui.fbox :show,:title=>"修改导图信息",:partial=>"mindmaps/edit/box_params_edit",:locals=>{:mindmap=>@mindmap}
-      end
-      return render :template=>"mindmaps/paramsedit"
-    end
-  end
-
-  def update
-    if has_edit_rights?(@mindmap,current_user)
-        @mindmap.update_attributes!(params[:mindmap])
-        if params[:fbox] == "true"
-          responds_to_parent do
-            render_ui do |ui|
-              ui.mplist(:update,@mindmap,:partial=>"mindmaps/list/info_mindmap").fbox(:close)
-            end
-          end
-          return
-        end
-        return redirect_to pin_url_for("pin-user-auth","users/#{current_user.id}")
+      @mindmap.title = params[:title]
+      @mindmap.save_without_timestamping
+      render :status=>200,:text=>params[:title]
     else
       return render_status_page(403,'当前用户对这个思维导图没有编辑权限')
     end
@@ -52,13 +35,16 @@ module MindmapManagingControllerMethods
 
   # DELETE /mindmaps/1
   def destroy
+    @redirect_mindmap = @mindmap.next
+    @redirect_mindmap = @mindmap.prev if @redirect_mindmap.nil?
     respond_to do |format|
       format.html do
         if(@mindmap.user_id == current_user.id)
           @mindmap = Mindmap.find(params[:id])
           @mindmap.destroy
-          redirect_to "/users/#{current_user.id}"
-#          return render_ui.mplist :remove,@mindmap
+          return redirect_to info_mindmap_path(@redirect_mindmap) if !!@redirect_mindmap
+          return redirect_to "users/#{current_user.id}"
+          #          return render_ui.mplist :remove,@mindmap
         else
           return render_status_page(403,'当前用户并非导图作者，不能删除导图')
         end
@@ -98,19 +84,13 @@ module MindmapManagingControllerMethods
   end
 
   def _create_mindmap
-    @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
+    @mindmap = Mindmap.create_by_title(current_user,params[:content])
     return @mindmap
   end
 
   def _create_mindmap_response_html
     return redirect_to pin_url_for("pin-mev6","/mindmaps/#{@mindmap.id}/edit") if @mindmap
-    @mindmap = Mindmap.new
-    action = params[:import] ? :import : :new
-    set_cellhead_tail action
-    error_message = '思维导图参数错误，创建失败'
-    error_message = '思维导图标题不能为空' if params[:mindmap][:title].blank?
-    flash.now[:error] = error_message
-    render :action=> action
+    render :status=>:unprocessable_entity
   end
 
   def _create_mindmap_response_json
@@ -118,6 +98,22 @@ module MindmapManagingControllerMethods
       return render(:json=>"ok")
     end
     render(:json=>"fail",:status=>:unprocessable_entity)
+  end
+
+  def info
+    if !has_view_rights?(@mindmap,current_user)
+      return render_status_page(403,'当前用户对这个思维导图没有编辑权限')
+    end
+  end
+
+  def do_private
+    if has_edit_rights?(@mindmap,current_user)
+      @mindmap.private = @mindmap.private? ? false : true
+      if @mindmap.save_without_timestamping
+        return render :status=>200,:text=>"修改成功"
+      end
+    end
+    return render :status=>500,:text=>"修改失败"
   end
 
 end

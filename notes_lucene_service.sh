@@ -11,7 +11,7 @@ case "$1" in
         start)
                 echo "notes_lucene_service start"
                 cd $root_dir/java/lucene-service/dist
-                java -jar $root_dir/java/lucene-service/dist/lucene-service.jar notes -Xms32M -Xmx256M 1> $log_file 2> $log_file & 
+                java -jar $root_dir/java/lucene-service/dist/lucene-service.jar notes -Xms32M -Xmx256M 1>> $log_file 2>> $log_file & 
                 echo $! > $processor_pid
                 rc_status -v
         ;;

@@ -1,6 +1,6 @@
-class FeedBase < ActiveRecord::Base
+class FeedBase < UserAuthAbstract
   set_readonly true
-  build_database_connection(CoreService::USER_AUTH,{:table_name=>"feeds"})
+  set_table_name("feeds")
 
   named_scope :news_feeds_of_user,lambda {|user|
     {:conditions=>"feeds.email = '#{user.email}' or feeds.email = '#{EmailActor.get_mindpin_email(user)}'"}

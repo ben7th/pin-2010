@@ -35,11 +35,6 @@ module MindmapEditorControllerMethods
   end
 
   def _show_html_page
-    if has_edit_rights?(@mindmap,current_user) && params[:sure]!='1'
-      # 有编辑权限的人查看时，自动转到编辑页面
-      return redirect_to :action=>'edit'
-    end
-    
     if !has_view_rights?(@mindmap,current_user)
       # 私有导图检查权限
       return render_status_page(403,'当前用户对该导图没有查看权限')

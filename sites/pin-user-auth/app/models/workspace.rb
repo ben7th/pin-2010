@@ -1,8 +1,5 @@
-class Workspace < ActiveRecord::Base
+class Workspace < WorkspaceAbstract
   set_readonly(true)
-  build_database_connection("pin-workspace")
 
   belongs_to :user
-
-  
 end

@@ -1,6 +1,5 @@
 =link_to '编辑',pin_url_for('pin-mev6',"mindmaps/#{mindmap.id}/edit"),:target=>'_blank'
 =link_to '删除',"/mindmaps/#{mindmap.id}",:method=>:delete,:confirm=>"你确定删除这个导图么？"
-=link_to "属性","/mindmaps/#{mindmap.id}/paramsedit"
 =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
-=link_to "协同","/cooperate/#{mindmap.id})"
+=link_to "协同","/cooperate/#{mindmap.id}"
 

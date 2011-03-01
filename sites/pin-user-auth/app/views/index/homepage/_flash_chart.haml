@@ -1,0 +1,9 @@
+.stat
+  .chart
+    =open_flash_chart_object('100%',130, pin_url_for("pin-user-auth","users/#{user.id}/mindmaps/pie_links"))
+
+  .keywords.darkbg
+    .title 最常用关键词
+    .data
+      -Mindmap.major_words_of_user(user,10).each do |word|
+        =link_to word,search_path(:q=>word),:class=>'word'

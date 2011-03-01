@@ -3,86 +3,12 @@
 
 - require_css 'views/users',true
 
--image_cache_url = RAILS_ENV=="production" ? "http://mindmap-image-cache.mindpin.com/" : "http://dev.mindmap-image-cache.mindpin.com/"
 -content_for :javascripts do
   = javascript_include_tag "views/mindmap_image"
-  = javascript_include_tag "views/create_mindmap"
-  = javascript_include_tag 'uploadify/swfobject.js'
-  = javascript_include_tag 'uploadify/jquery.uploadify.v2.1.4.min.js'
-  :javascript
-    pie.load(function(){
-      $$(".cache_mindmap_image").each(function(dom){
-        var gmt = new GetMindmapImage(dom.id,"#{image_cache_url}");
-        gmt.get_mindmap_image();
-      });
-    })
+  = javascript_include_tag "views/user_homepage"
 
-.usertop.clearfix
-  .clearfix
-    .grid_12.alpha
-      .vcard
-        %dl
-          %dt 用户名
-          %dd=@user.name
-        %dl
-          %dt 注册时间
-          %dd=qdate @user.created_at
-    .grid_11.omega.fright
-      .count
-        %dl
-          %dt=link_to @mindmaps_count,pin_url_for('pin-mindmap-editor',"users/#{@user.id}")
-          %dd 思维导图
-        %dl
-          %dt=link_to @fans_count,pin_url_for('pin-user-auth',"#{@user.id}/fans")
-          %dd 关注者
-      .follows
-        .count
-          %span> 关注 #{@followings_count} 人，
-          =link_to '查看全部',pin_url_for('pin-user-auth',"#{@user.id}/followings")
-        .avatars
-          -@followings.each do |user|
-            -link_to "/users/#{user.id}",:title=>user.name do
-              =avatar(user,:tiny)
+.grid_14
+  =render :partial=>'index/homepage/mindmaps'
 
-.grid_12.alpha
-  .user_mindmaps
-    -if current_user == @user
-      -form_tag "/mindmaps",:method=>:post,:class=>"create_mindmap" do
-        =link_to_remote "<span>导入</span>",:url=>"/mindmaps/import",:method=>:get,:html=>{:class=>"minibutton import_mindmap"}
-        =text_field_tag "mindmap[title]",'',:class=>"text inline"
-        =link_to "<span>新建</span>",'#',:class=>"minibutton new_mindmap"
-
-    -if @mindmaps.blank?
-      
-    -else
-      -first_map = @mindmaps.first
-      .map
-        .meta
-          %span.title
-            =link_to first_map.title,pin_url_for('pin-mev6',"/mindmaps/#{first_map.id}"),:target=>'_blank'
-          %span.rank
-            内容得分
-            =first_map.rank_value
-        .data
-          .first_map
-            =mindmap_image(first_map,'450x338')
-        .foot
-          -if @user==current_user
-            =render :partial=>"mindmaps/parts/mindmap_action",:locals=>{:mindmap=>first_map}
-
-      -@mindmaps[1..-1].each do |mindmap|
-        .map
-          .meta
-            %span.title
-              =link_to mindmap.title,pin_url_for('pin-mindmap-editor',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
-            %span.rank=mindmap.rank_value
-          .data
-            .map_thumb
-              =mindmap_thumb(mindmap)
-          .foot
-            -if @user==current_user
-              =render :partial=>"mindmaps/parts/mindmap_action",:locals=>{:mindmap=>mindmap}
-
-.grid_11.omega.fright.col
-  %h2 近期动态
-  =render :partial=>'users/homepage/feeds'
+.grid_9.omega.fright
+  =render :partial=>'index/homepage/index_user_info',:locals=>{:user=>@user}

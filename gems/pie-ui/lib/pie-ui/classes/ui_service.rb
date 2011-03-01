@@ -33,7 +33,7 @@ class UiService
   
   class << self
     def css_files
-      ['common','ui'].map{|x| css_path(x)}
+      ['base'].map{|x| css_path(x)}
     end
 
     def css_path(bundle_name)
@@ -54,7 +54,7 @@ class UiService
     end
 
     def js_files
-      ['common','mindpin'].map{|x| js_path(x)}
+      ['base'].map{|x| js_path(x)}
     end
 
     def js_path(bundle_name)

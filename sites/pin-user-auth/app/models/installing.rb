@@ -1,6 +1,5 @@
-class Installing < ActiveRecord::Base
+class Installing < WorkspaceAbstract
   set_readonly(true)
-  build_database_connection("pin-workspace")
 
   belongs_to :user
   belongs_to :app

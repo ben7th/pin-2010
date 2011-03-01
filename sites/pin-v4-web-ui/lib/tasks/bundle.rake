@@ -5,53 +5,46 @@ namespace :bundle do
 
   task :js do
     closure_path = RAILS_ROOT + '/lib/closure_compiler.jar'
-    
     paths = get_top_level_directories('/public/javascripts')
+    all_files = []
 
-    targets = []
     paths.each do |bundle_directory|
       bundle_name = bundle_directory.gsub(RAILS_ROOT + '/public/javascripts/', "")
       files = recursive_file_list(bundle_directory, ".js")
-      next if files.empty? || bundle_name == 'dev' || bundle_name == 'lib'
-      target = RAILS_ROOT + "/public/javascripts/bundle_#{bundle_name}.js"
+      next if files.empty? || ['dev','lib'].include?(bundle_name)
 
-      `java -jar #{closure_path} --js #{files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
-
-      targets << target
+      all_files += files
     end
 
-    targets.each do |target|
-      puts "=> bundled js at #{target}"
-    end
+    target = RAILS_ROOT + "/public/javascripts/bundle_base.js"
+    `java -jar #{closure_path} --js #{all_files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
+    puts "=> bundled js at #{target}"
   end
 
   task :css do
     yuipath = RAILS_ROOT + '/lib/yuicompressor-2.4.2.jar'
-
     paths = get_top_level_directories('/public/stylesheets')
+    all_files = []
 
-    targets = []
     paths.each do |bundle_directory|
       bundle_name = bundle_directory.gsub(RAILS_ROOT + '/public/stylesheets/', "")
       files = recursive_file_list(bundle_directory, ".css")
-      next if files.empty? || bundle_name == 'dev' || bundle_name == 'themes'
+      next if files.empty? || ['dev','themes','help'].include?(bundle_name)
 
-      bundle = ''
-      files.each do |file_path|
-        bundle << File.read(file_path) << "\n"
-      end
-
-      target = RAILS_ROOT + "/public/stylesheets/bundle_#{bundle_name}.css"
-      rawpath = "/tmp/bundle_raw.css"
-      File.open(rawpath, 'w') { |f| f.write(bundle) }
-      `java -jar #{yuipath} --line-break 0 #{rawpath} -o #{target}`
-
-      targets << target
+      all_files += files
     end
 
-    targets.each do |target|
-      puts "=> bundled css at #{target}"
+    bundle = ''
+    all_files.each do |file_path|
+      bundle << File.read(file_path) << "\n"
     end
+
+    target = RAILS_ROOT + "/public/stylesheets/bundle_base.css"
+    rawpath = "/tmp/bundle_raw.css"
+    File.open(rawpath, 'w') { |f| f.write(bundle) }
+    `java -jar #{yuipath} --line-break 0 #{rawpath} -o #{target}`
+
+    puts "=> bundled css at #{target}"
   end
 
   require 'find'

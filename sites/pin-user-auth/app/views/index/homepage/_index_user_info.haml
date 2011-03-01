@@ -1,23 +1,36 @@
+- user ||= current_user
+
 .index-user-info
   .base
     .avatar
-      =avatar(current_user,'medium')
+      =avatar(user,'medium')
     .meta
-      .name=current_user.name
+      .name=user.name
       .regtime
         注册时间
-        =qdate current_user.created_at
-  .scount.keng
+        =qdate user.created_at
+    .fri
+      -if logged_in?
+        -if current_user.can_send_message_to?(user)
+          =minibutton '发私信',pin_url_for('pin-user-auth',"messages/new?receiver_id=#{user.id}")
+
+        -if current_user!=user
+          - followed = current_user.following?(user)
+          %span.follow_btn{:style=>(followed ? 'display:none;':'')}
+            =minibutton '关注TA',"javascript:;","data-user-id"=>user.id
+          %span.unfollow_btn{:style=>(followed ? '':'display:none;')}
+            =minibutton '取消关注',"javascript:;","data-user-id"=>user.id
+  .scount.darkbg
     %dl
-      %dt=link_to @mindmaps_count,pin_url_for('pin-mindmap-editor',"users/#{current_user.id}")
+      %dt=link_to @mindmaps_count,pin_url_for('pin-mindmap-editor',"users/#{user.id}")
       %dd 思维导图
     %dl
-      %dt=link_to @fans_count,pin_url_for('pin-user-auth',"#{current_user.id}/fans")
+      %dt=link_to @fans_count,pin_url_for('pin-user-auth',"#{user.id}/fans")
       %dd 关注者
   .follows
     .count
       %span> 关注 #{@followings_count} 人，
-      =link_to '查看全部',pin_url_for('pin-user-auth',"#{current_user.id}/followings")
+      =link_to '查看全部',pin_url_for('pin-user-auth',"#{user.id}/followings")
     .avatars
       -@followings.each do |user|
         -link_to "/users/#{user.id}",:title=>user.name do

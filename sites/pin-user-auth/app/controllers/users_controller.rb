@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     @mindmaps_count = @user.mindmaps_count
-    @mindmaps = @user.mindmaps.all(:order=>'id desc')
+    @mindmaps = @user.mindmaps.all(:order=>'id desc').paginate(:page=>params[:page]||1,:per_page=>12)
 
     @fans_count = @user.fans_contacts.count
 

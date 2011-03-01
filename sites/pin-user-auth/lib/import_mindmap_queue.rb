@@ -97,6 +97,8 @@ class ImportMindmapQueue
     FileUtils.rm(hash_info_model.path)
     HashInfo.build_success_complete_hash_info(mindmap.id)
   rescue Exception => ex
+    puts ex.backtrace*"\n"
+    puts ex.message
     HashInfo.build_error_complete_hash_info
   end
 

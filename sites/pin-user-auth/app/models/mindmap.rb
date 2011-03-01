@@ -1,9 +1,27 @@
-class Mindmap < ActiveRecord::Base
+class Mindmap < Mev6Abstract
   belongs_to :user
-  # set_readonly(true)
-  build_database_connection(CoreService::MINDMAP_EDITOR)
 
   index :user_id
+  index [:private,:user_id]
+  index [:weight,:user_id]
+
+  # name_scopes
+  named_scope :publics,:conditions => ["private <> TRUE or private is null"]
+  named_scope :privacy,:conditions => ["private = TRUE"]
+  named_scope :valueable,:conditions => ["weight > 0"]
+  named_scope :of_user_id, lambda {|user_id|
+    {:conditions=>['user_id = ?',user_id]}
+  }
+  named_scope :is_zero_weight?, lambda {|bool|
+    if bool
+      {:conditions=>'weight = 0'}
+    else
+      {:conditions=>'weight != 0'}
+    end
+  }
+
+  named_scope :newest,:order=>'updated_at desc'
+
 
   # 校验部分
   validates_presence_of :title
@@ -16,27 +34,18 @@ class Mindmap < ActiveRecord::Base
     :default_url => "/images/logo/default_:class_:style.png",
     :default_style => :mini
 
-  # 根据传入的导图参数创建思维导图，在controller中被调用
-  def self.create_by_params(user,params_mindmap)
-    attrs_mindmap = params_mindmap
-    import_file = attrs_mindmap[:import_file]
-    attrs_mindmap.delete(:import_file)
-
-    mindmap = Mindmap.new(attrs_mindmap)
-    id = user ? user.id : 0
-    mindmap.user_id = id
-
-    if mindmap.valid? && import_file
-      mindmap.import_from_file_and_save(import_file)
-    else
+  def self.create_by_title(user,title)
+    mindmap = Mindmap.new(:title=>title,:user=>user)
+    if mindmap.valid?
       MindmapDocument.new(mindmap).init_default_struct
       mindmap.save
+      return mindmap
     end
-
-    mindmap.new_record? ? false : mindmap
+    false
   end
 
   def self.import(user,file_name,file)
+    self.verify_active_connections!
     name_splits = file_name.split(".")
     type = name_splits.pop
     title = name_splits*""
@@ -56,9 +65,28 @@ class Mindmap < ActiveRecord::Base
     mindmap
   end
 
-
   def rank_value
     rank
+  end
+
+  # 解析XML并转换为Hash对象
+  # 取得思维导图文档解析对象实例
+  def document
+    MindmapDocument.new(self)
+  end
+
+  def prev
+    mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    index = mindmap_ids.index(self.id)
+    return if index == 0
+    Mindmap.find(mindmap_ids[index-1])
+  end
+  
+  def next
+    mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    index = mindmap_ids.index(self.id)
+    return if index == (mindmap_ids.count-1)
+    Mindmap.find(mindmap_ids[index+1])
   end
   
   module UserMethods

@@ -2,19 +2,19 @@ class ConnectUsersController < ApplicationController
   def index
   end
 
-  def connect_sina
-#    consumer = OAuth::Consumer.new(2802132691,"94d47028669189b276eb66573c7d2bcb",{:site=>"http://api.t.sina.com.cn"})
-    consumer = OAuth::Consumer.new(SinaWeibo::API_KEY,SinaWeibo::API_SECRET,{:site=>"http://api.t.sina.com.cn"})
+  def connect_tsina
+#    consumer = OAuth::Consumer.new(2802132691,"94d47028669189b276eb66573c7d2bcb",{:site=>"http://api.t.tsina.com.cn"})
+    consumer = OAuth::Consumer.new(Tsina::API_KEY,Tsina::API_SECRET,{:site=>"http://api.t.sina.com.cn"})
     request_token = consumer.get_request_token
     session[:request_token] = request_token
 #    redirect_to request_token.authorize_url({:oauth_callback=>"http://dev.www.mindpin.com/connect_sina_callback"})
-    redirect_to request_token.authorize_url({:oauth_callback=>SinaWeibo::CALLBACK_URL})
+    redirect_to request_token.authorize_url({:oauth_callback=>Tsina::CALLBACK_URL})
   end
 
-  def connect_sina_callback
+  def connect_tsina_callback
     request_token = session[:request_token]
     access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
-    get_and_set_sinat_user_info(access_token)
+    get_and_set_tsina_user_info(access_token)
     session[:request_token] = nil
     render :text=>%`
       <script>
@@ -24,8 +24,8 @@ class ConnectUsersController < ApplicationController
     `
   end
 
-  def get_and_set_sinat_user_info(access_token)
-    self.current_user = ConnectUser.set_sina_connect_user(access_token)
+  def get_and_set_tsina_user_info(access_token)
+    self.current_user = ConnectUser.set_tsina_connect_user(access_token)
   end
 
   def connect_renren

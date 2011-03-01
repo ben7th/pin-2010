@@ -5,9 +5,9 @@ development:
   renren_callback_url: http://dev.www.mindpin.com/connect_renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
-  sina_callback_url: http://dev.www.mindpin.com/connect_sina_callback
-  sina_api_key: 1526151944
-  sina_api_secret: a00a7048df478244376d69b14bb7ae07
+  tsina_callback_url: http://dev.www.mindpin.com/connect_tsina_callback
+  tsina_api_key: 1526151944
+  tsina_api_secret: a00a7048df478244376d69b14bb7ae07
   client_cache_key: client_cache_key_devel
 
 test:
@@ -17,9 +17,9 @@ test:
   renren_callback_url: http://dev.www.mindpin.com/connect_renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
-  sina_callback_url: http://dev.www.mindpin.com/connect_sina_callback
-  sina_api_key: 1526151944
-  sina_api_secret: a00a7048df478244376d69b14bb7ae07
+  tsina_callback_url: http://dev.www.mindpin.com/connect_tsina_callback
+  tsina_api_key: 1526151944
+  tsina_api_secret: a00a7048df478244376d69b14bb7ae07
 
 production:
   user_logo_file_path_root: /web/2010/images/
@@ -28,7 +28,7 @@ production:
   renren_callback_url: http://www.mindpin.com/connect_renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
-  sina_callback_url: http://www.mindpin.com/connect_sina_callback
-  sina_api_key: 1526151944
-  sina_api_secret: a00a7048df478244376d69b14bb7ae07
+  tsina_callback_url: http://www.mindpin.com/connect_tsina_callback
+  tsina_api_key: 1526151944
+  tsina_api_secret: a00a7048df478244376d69b14bb7ae07
   client_cache_key: client_cache_key

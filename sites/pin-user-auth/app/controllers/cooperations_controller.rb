@@ -20,7 +20,7 @@ class CooperationsController < ApplicationController
     cooperate_editors.each{|email| @mindmap.add_cooperate_editor(email)}
     # 设置 协同查看
     cooperate_viewers.each{|email| @mindmap.add_cooperate_viewer(email)}
-    redirect_to "/users/#{current_user.id}"
+    redirect_to "/mindmaps/#{@mindmap.id}/info"
   end
 
 end

@@ -1,6 +1,4 @@
-class Cooperation < ActiveRecord::Base
-
-  build_database_connection(CoreService::MINDMAP_EDITOR)
+class Cooperation < Mev6Abstract
 
   EDITOR = "editor"
   VIEWER = "viewer"

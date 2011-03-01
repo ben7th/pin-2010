@@ -30,5 +30,7 @@ class GetAllDir
     config.i18n.default_locale = :cn
     # ap 是 p 的增强版
     require "ap"
+    path = File.dirname(File.expand_path(__FILE__))
+    require "#{path}/flash_chart/open_flash_chart"
   end
 end

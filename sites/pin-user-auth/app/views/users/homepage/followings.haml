@@ -3,3 +3,6 @@
 %h2
   #{@user.name} 正在关注的。。
 =render :partial=>"users/parts/mplist_users",:locals=>{:users=>@followings}
+
+-content_for :javascripts do
+  = javascript_include_tag "views/follows"

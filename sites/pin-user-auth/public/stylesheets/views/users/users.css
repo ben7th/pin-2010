@@ -65,36 +65,6 @@
   -webkit-border-radius: 4px;
   border: none; }
 
-.cellhead .steps-head {
-  background: #EBF6E5;
-  color: #000000;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 10px;
-  border: solid 2px #D3DDCE; }
-  .cellhead .steps-head ul.steps li {
-    display: inline;
-    margin-right: 8px;
-    background: url(/images/piece/arrow.png) no-repeat 0 3px;
-    padding-left: 48px; }
-    .cellhead .steps-head ul.steps li.event {
-      background: none;
-      padding-left: 0; }
-    .cellhead .steps-head ul.steps li.current span {
-      background: #fff;
-      font-weight: bold;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1) transparent rgba(0, 0, 0, 0.2);
-      border-width: 1px;
-      border-style: solid;
-      padding: 4px 7px 3px; }
-    .cellhead .steps-head ul.steps li.complete span {
-      background: url(/images/piece/check.png) no-repeat 0 3px;
-      padding-left: 18px; }
-
 .organizations li {
   background: url(/images/piece/org_icon_16.png) no-repeat 10px 8px;
   padding-left: 32px !important; }
@@ -217,7 +187,7 @@
   .feed-form-mev6 .btns {
     width: 500px;
     overflow: hidden; }
-    .feed-form-mev6 .btns .import-mindmap, .feed-form-mev6 .btns .create-mindmap, .feed-form-mev6 .btns .send {
+    .feed-form-mev6 .btns .import-mindmap, .feed-form-mev6 .btns .create-mindmap, .feed-form-mev6 .btns .edit-mindmap, .feed-form-mev6 .btns .send {
       width: 32px;
       height: 32px;
       border-radius: 4px;
@@ -234,7 +204,7 @@
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#84a2d4), to(#2a4072));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#84a2d4',endColorstr='#2a4072');
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-      .feed-form-mev6 .btns .import-mindmap:hover, .feed-form-mev6 .btns .create-mindmap:hover, .feed-form-mev6 .btns .send:hover {
+      .feed-form-mev6 .btns .import-mindmap:hover, .feed-form-mev6 .btns .create-mindmap:hover, .feed-form-mev6 .btns .edit-mindmap:hover, .feed-form-mev6 .btns .send:hover {
         background: -moz-linear-gradient(-90deg, #89c3eb, #4c6db4);
         background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#89c3eb), to(#4c6db4));
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#89c3eb',endColorstr='#4c6db4');
@@ -248,7 +218,7 @@
         background: url(/images/icons/import_24_1.png) no-repeat 3px 3px;
         width: 30px;
         height: 30px; }
-    .feed-form-mev6 .btns .create-mindmap {
+    .feed-form-mev6 .btns .create-mindmap, .feed-form-mev6 .btns .edit-mindmap {
       width: 70px;
       margin: 5px 0 5px;
       font-size: 14px;
@@ -301,56 +271,183 @@ form.new_message .w300 {
 
 .user_mindmaps {
   overflow: hidden; }
-  .user_mindmaps .image_center_div p {
-    font-size: 0px; }
-  .user_mindmaps .map {
+  .user_mindmaps .mpli {
+    margin: 0 0 10px 0;
     float: left;
-    margin: 0 15px 15px 0;
-    box-shadow: 0 0 5px #09070e;
-    -moz-box-shadow: 0 0 5px #09070e;
-    -webkit-box-shadow: 0 0 5px #09070e;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border: solid 1px #111; }
-    .user_mindmaps .map .meta {
-      padding: 3px 5px;
-      background: #0E0E1A;
-      border-radius: 3px 3px 0 0;
-      -moz-border-radius: 3px 3px 0 0;
-      -webkit-border-radius: 3px 3px 0 0;
-      overflow: hidden; }
-      .user_mindmaps .map .meta span.title {
-        font-size: 14px;
-        color: white;
-        font-weight: bold; }
-      .user_mindmaps .map .meta span.rank {
-        color: #FBEB96;
-        font-size: 14px;
+    width: 170px; }
+    .user_mindmaps .mpli .title {
+      width: 166px;
+      line-height: 20px;
+      height: 20px;
+      overflow: visible;
+      padding: 0 0 0 5px;
+      margin: 0 0 2px 0;
+      overflow: hidden;
+      color: white;
+      font-weight: bold;
+      font-size: 13px; }
+      .user_mindmaps .mpli .title:hover {
+        background: #37394B; }
+      .user_mindmaps .mpli .title form {
+        position: absolute;
+        width: 170px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        background: #131520;
+        border: solid 2px #323546; }
+        .user_mindmaps .mpli .title form input {
+          background: #F7FCFF;
+          border: none;
+          padding: 0 2px;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px; }
+        .user_mindmaps .mpli .title form button {
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border: none 0px;
+          margin: 1px 5px 1px 0; }
+          .user_mindmaps .mpli .title form button.editable-submit {
+            color: white;
+            background: #0063DC; }
+            .user_mindmaps .mpli .title form button.editable-submit:hover {
+              background: #0054BD; }
+          .user_mindmaps .mpli .title form button.editable-cancel {
+            color: #666666;
+            background: #ddd; }
+            .user_mindmaps .mpli .title form button.editable-cancel:hover {
+              background: #CFCFCF; }
+    .user_mindmaps .mpli .preview {
+      float: left;
+      width: 124px;
+      height: 124px;
+      padding: 5px;
+      border-radius: 5px 0 5px 5px;
+      -moz-border-radius: 5px 0 5px 5px;
+      -webkit-border-radius: 5px 0 5px 5px; }
+      .user_mindmaps .mpli .preview img {
+        border: solid 2px #A3A3A3;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+        .user_mindmaps .mpli .preview img:hover {
+          cursor: url("/images/big.cur"), auto; }
+    .user_mindmaps .mpli .rank {
+      float: left;
+      width: 32px;
+      height: 32px;
+      border-radius: 0 5px 5px 0;
+      -moz-border-radius: 0 5px 5px 0;
+      -webkit-border-radius: 0 5px 5px 0;
+      margin: 0 0 2px 0; }
+      .user_mindmaps .mpli .rank span {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        display: block;
         font-weight: bold;
-        float: right; }
-    .user_mindmaps .map .data {
-      background: #323546; }
-      .user_mindmaps .map .data .first_map {
-        width: 450px;
-        height: 338px;
-        padding: 4px; }
-        .user_mindmaps .map .data .first_map .image_center_div {
-          width: 450px;
-          height: 338px; }
-      .user_mindmaps .map .data .map_thumb {
-        width: 450px;
-        height: 120px;
-        padding: 4px; }
-        .user_mindmaps .map .data .map_thumb .image_center_div {
-          width: 120px;
-          height: 120px; }
-    .user_mindmaps .map .foot {
-      padding: 3px 5px;
-      background: #0E0E1A;
-      border-radius: 0 0 3px 3px;
-      -moz-border-radius: 0 0 3px 3px;
-      -webkit-border-radius: 0 0 3px 3px; }
+        font-size: 14px;
+        margin: 3px 0 0 3px;
+        /*
+        border:solid 1px #FBE880;
+        @include gradient(#F9E571,#F7F1B0);
+        color:#724C21;
+        */
+        color: #F8B861; }
+    .user_mindmaps .mpli .action {
+      float: left;
+      width: 32px;
+      margin: 0;
+      padding: 0;
+      font-size: 0; }
+      .user_mindmaps .mpli .action .edit, .user_mindmaps .mpli .action .coop, .user_mindmaps .mpli .action .info, .user_mindmaps .mpli .action .dup, .user_mindmaps .mpli .action .pt {
+        background: #131520;
+        width: 32px;
+        height: 32px;
+        border-radius: 0 5px 5px 0;
+        -moz-border-radius: 0 5px 5px 0;
+        -webkit-border-radius: 0 5px 5px 0;
+        margin: 0 0 2px 0;
+        width: 4px; }
+        .user_mindmaps .mpli .action .edit a, .user_mindmaps .mpli .action .coop a, .user_mindmaps .mpli .action .info a, .user_mindmaps .mpli .action .dup a, .user_mindmaps .mpli .action .pt a {
+          display: none; }
+      .user_mindmaps .mpli .action .info {
+        background: #131520;
+        width: 32px;
+        height: 32px;
+        border-radius: 0 5px 5px 0;
+        -moz-border-radius: 0 5px 5px 0;
+        -webkit-border-radius: 0 5px 5px 0;
+        margin: 0 0 2px 0; }
+        .user_mindmaps .mpli .action .info a {
+          display: block;
+          position: relative;
+          top: 3px;
+          left: 3px;
+          width: 24px;
+          height: 24px;
+          text-indent: -999px;
+          font-size: 0px;
+          background: url(/images/icons/info-24-2.png) no-repeat; }
+      .user_mindmaps .mpli .action .pt {
+        width: 24px;
+        height: 24px; }
+        .user_mindmaps .mpli .action .pt a {
+          display: block; }
+        .user_mindmaps .mpli .action .pt .toggle {
+          cursor: pointer;
+          width: 13px;
+          height: 13px;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border: solid 1px #000;
+          position: relative;
+          top: 4px;
+          left: 4px;
+          display: block; }
+          .user_mindmaps .mpli .action .pt .toggle.public {
+            background: #C8DC69; }
+          .user_mindmaps .mpli .action .pt .toggle.private {
+            background: #ED6D52; }
+          .user_mindmaps .mpli .action .pt .toggle.loading {
+            background: url(/images/icons/toggle-loading-12.gif) 1px 1px no-repeat !important; }
+    .user_mindmaps .mpli:hover .action .edit, .user_mindmaps .mpli:hover .action .coop, .user_mindmaps .mpli:hover .action .info, .user_mindmaps .mpli:hover .action .dup, .user_mindmaps .mpli:hover .action .pt {
+      background: #131520;
+      width: 32px;
+      height: 32px;
+      border-radius: 0 5px 5px 0;
+      -moz-border-radius: 0 5px 5px 0;
+      -webkit-border-radius: 0 5px 5px 0;
+      margin: 0 0 2px 0; }
+    .user_mindmaps .mpli:hover .action .edit a, .user_mindmaps .mpli:hover .action .coop a, .user_mindmaps .mpli:hover .action .info a, .user_mindmaps .mpli:hover .action .dup a {
+      display: block;
+      position: relative;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      text-indent: -999px;
+      font-size: 0px; }
+    .user_mindmaps .mpli:hover .action .edit a {
+      background: url(/images/icons/edit-notes-24.png) no-repeat; }
+    .user_mindmaps .mpli:hover .action .coop a {
+      background: url(/images/icons/edit-group-24-3.png) no-repeat; }
+    .user_mindmaps .mpli:hover .action .info a {
+      background: url(/images/icons/info-24-2.png) no-repeat; }
+    .user_mindmaps .mpli:hover .action .dup a {
+      background: url(/images/icons/dup-24-1.png) no-repeat; }
+    .user_mindmaps .mpli:hover .action .pt {
+      width: 24px;
+      height: 24px; }
+    .user_mindmaps .mpli .time {
+      padding: 5px; }
 
 /*首页的feeds*/
 .newsfeed {
@@ -358,11 +455,6 @@ form.new_message .w300 {
   .newsfeed ul.feeds li.feed {
     padding: 10px;
     margin: 0 0 12px 0;
-    background: #131320;
-    border-bottom: solid 1px #464660;
-    border-right: solid 1px #464660;
-    border-top: solid 1px #000;
-    border-left: solid 1px #000;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px; }
@@ -384,26 +476,17 @@ form.new_message .w300 {
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px; }
 
-.keng {
-  background: #131320;
-  /*
-  border-bottom:solid 1px #464660;
-  border-right:solid 1px #464660;
-  border-top:solid 1px #000;
-  border-left:solid 1px #000;
-  */
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  padding: 5px; }
-
 /*首页的用户信息*/
 .index-user-info {
   margin: 0 0 25px 0; }
   .index-user-info .base {
     background: #323546;
     border: solid 1px #111;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
     padding: 5px;
+    border: solid 1px #111;
     overflow: hidden;
     margin: 0 0 10px 0; }
     .index-user-info .base .avatar {
@@ -412,8 +495,15 @@ form.new_message .w300 {
     .index-user-info .base .meta .name {
       font-size: 16px;
       padding: 0 0 5px 0; }
+    .index-user-info .base .fri {
+      margin-top: 30px; }
   .index-user-info .scount {
-    margin: 0 0 10px 0; }
+    margin: 0 0 10px 0;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 5px;
+    border: solid 1px #111; }
     .index-user-info .scount dl {
       display: inline-block;
       margin: 0 30px 0 0; }
@@ -441,14 +531,25 @@ form.new_message .w300 {
 
 .site-notice {
   margin: 0 0 10px 0;
-  background: #1D50A3;
+  background: #2A4072;
+  border: solid 1px #111;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 5px;
   border: solid 1px #111; }
   .site-notice .title {
     font-size: 14px;
     margin: 0 0 10px 0; }
 
 .simple-help {
-  overflow: hidden; }
+  overflow: hidden;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 5px;
+  border: solid 1px #111;
+  margin: 0 0 10px 0; }
   .simple-help .title {
     font-size: 14px;
     margin: 0 0 10px 0; }
@@ -467,3 +568,41 @@ form.new_message .w300 {
       .simple-help .blo dl dd {
         margin: 0 0 0 5px;
         float: left; }
+
+.stat .chart {
+  margin: 0 0 15px 0; }
+.stat .keywords {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 5px;
+  border: solid 1px #111;
+  overflow: hidden; }
+  .stat .keywords .title {
+    font-size: 14px;
+    margin: 0 0 10px 0; }
+  .stat .keywords a.word {
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 3px 4px 0;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 4px 7px;
+    /*
+    background:#111;
+    border:solid 1px #111;
+    color:white !important;
+    */
+    background: -moz-linear-gradient(-90deg, #4192ac, #00739f);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4192ac), to(#00739f));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4192ac',endColorstr='#00739f');
+    color: white !important;
+    text-shadow: 1px 1px 0 #369EC0;
+    border: solid 1px #111; }
+    .stat .keywords a.word:hover {
+      text-decoration: none !important;
+      background: -moz-linear-gradient(-90deg, #69bad4, #179bc7);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#69bad4), to(#179bc7));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#69bad4',endColorstr='#179bc7'); }

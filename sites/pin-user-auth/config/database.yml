@@ -6,6 +6,7 @@ development:
   password: root
   pool: 5
   timeout: 5000
+  reconnect: true
 
 test:
   adapter: mysql
@@ -15,6 +16,7 @@ test:
   password: root
   pool: 5
   timeout: 5000
+  reconnect: true
 
 
 production:
@@ -25,3 +27,4 @@ production:
   password: root
   pool: 5
   timeout: 5000
+  reconnect: true

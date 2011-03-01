@@ -15,7 +15,7 @@ log_path=/web/2010/logs/mindmap_import_queue_worker.log
 case "$1" in
   start)
     echo "start"
-    ruby $runner_rb $worker_rb 1>$log_path 2>$log_path &
+    ruby $runner_rb $worker_rb 1>>$log_path 2>>$log_path &
     echo $! > $processor_pid
     rc_status -v
   ;;

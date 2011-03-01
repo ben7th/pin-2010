@@ -1,0 +1,29 @@
+.user_mindmaps
+  -if @mindmaps.blank?
+    您目前还没有思维导图
+  -else
+    -mplist @mindmaps,:for=>Mindmap,:li_class=>'' do |mindmap|
+      .title>=mindmap.title
+      .clearfix
+        .preview.darkbg
+          -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+            =mindmap_thumb(mindmap)
+        .rank.darkbg
+          %span=mindmap.rank_value
+        .action
+          -if mindmap.user==current_user
+            .edit{:'tipr'=>'编辑导图'}
+              =link_to '编辑',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}/edit"),:target=>'_blank'
+            .coop{:'tipr'=>'协同编辑'}
+              =link_to '协同',pin_url_for('pin-user-auth',"/cooperate/#{mindmap.id}"),:target=>'_blank'
+            .pt{:'tipr'=>'切换公开/私有'}
+              %a.toggle{:href=>'javascript:;',:'data-map-id'=>mindmap.id,:class=>(mindmap.private ? 'private':'public')}
+          -else
+            .info{:'tipr'=>'详细查看'}
+              =link_to '查看',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
+            .dup{:'tipr'=>'复制导图'}
+              =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
+      .time
+        =jtime(mindmap.updated_at)
+
+= will_paginate @mindmaps

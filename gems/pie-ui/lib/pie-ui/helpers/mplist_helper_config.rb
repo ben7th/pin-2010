@@ -50,7 +50,7 @@ module PieUi
     end
 
     def li_classname
-      'mpli'
+      ['mpli',options[:li_class]].compact*' '
     end
 
     def li_tag_html(model, &block)

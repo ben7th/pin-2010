@@ -1,9 +1,11 @@
-%h3 邮箱地址
+-require_css 'views/account'
+
 =flash_info
-.mail.loud.margint10{:style=>'font-size:19px;font-weight:bold;'}= current_user.email
-.margint10
-  -if current_user.activated?
-    %span 已激活
-  -else
-    %span.marginr10 邮箱未激活
-    =minibutton '发送激活邮件',send_activation_mail_path
+.email_setting
+  .mail= current_user.email
+  .margint10
+    -if current_user.activated?
+      .email_activated.darkbg 您的注册邮箱已激活
+    -else
+      %span.marginr10 邮箱未激活
+      =minibutton '发送激活邮件',send_activation_mail_path

@@ -1,6 +1,5 @@
-class Contact < ActiveRecord::Base
+class Contact < UserAuthAbstract
   set_readonly(true)
-  build_database_connection(CoreService::USER_AUTH)
 
   belongs_to :user
 

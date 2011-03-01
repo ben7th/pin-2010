@@ -1,5 +1,7 @@
 = require_lib_js
-
 = require_mindpin_js
-
+:javascript
+  //将auth_token保存在变量中，将来作某些全页面缓存时，应考虑如何兼顾这里
+  pie.auth_token = encodeURIComponent('#{u form_authenticity_token if protect_against_forgery?}')
+  pie.env = '#{RAILS_ENV}'
 = yield :javascripts

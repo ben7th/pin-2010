@@ -1,8 +1,8 @@
 require 'digest/sha1'
-class UserBase < ActiveRecord::Base
+class UserBase < UserAuthAbstract
 
   set_readonly true
-  build_database_connection(CoreService::USER_AUTH,{:table_name=>"users"})
+  set_table_name("users")
 
   if RAILS_ENV == "test"
     LOGO_PATH_ROOT = "/tmp/"

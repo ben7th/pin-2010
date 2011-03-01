@@ -1,8 +1,11 @@
--form_tag "/mindmaps",:method=>:post,:class=>"feed-form-mev6" do
+-form_tag "/mindmaps",:method=>:post,:class=>"feed-form-mev6",:"data-mode"=>"create_mindmap" do
   .btns
     .import-mindmap
       .icon
     .import-loading
+    .import-mindmap-image{:style=>"position:absolute;z-index:3;display:none;"}
+      .close-import-mindmap-image 关闭
+      .image
     =text_field_tag "content",'',:class=>"text feed-content"
     .create-mindmap
       开始编辑

@@ -1,5 +1,4 @@
-class Preference < ActiveRecord::Base
-  build_database_connection(CoreService::USER_AUTH)
+class Preference < UserAuthAbstract
   
   ALL_USERS = "all_users"
   ONLY_CONTACTS = "only_contacts"

@@ -1,6 +1,6 @@
-class MemberBase < ActiveRecord::Base
+class MemberBase < UserAuthAbstract
   set_readonly(true)
-  build_database_connection(CoreService::USER_AUTH,{:table_name=>"members"})
+  set_table_name("members")
 
   KIND_COMMON = 'common'
   KIND_OWNER = 'owner'

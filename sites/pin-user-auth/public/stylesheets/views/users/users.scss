@@ -1,5 +1,11 @@
 @import "../misc";
 
+@mixin keng{
+  @include border-radius(5px);
+  padding:5px;
+  border:solid 1px #111;
+}
+
 .userpage{
   .upavatar{
     float:left;
@@ -66,38 +72,6 @@
 .app-list .logo{
   @include border-radius(4px);
   border:none;
-}
-
-.cellhead .steps-head{
-  background:#EBF6E5;
-  color:#000000;
-  @include border-radius(4px);
-  padding:10px;
-  border:solid 2px #D3DDCE;
-  ul.steps{
-    li{
-      display:inline;
-      margin-right:8px;
-      background:url(/images/piece/arrow.png) no-repeat 0 3px;
-      padding-left:48px;
-      &.event{
-        background:none;padding-left:0;
-      }
-      &.current{
-        span{
-          background:#fff;font-weight:bold;@include border-radius(3px);
-          border-color:rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1) transparent rgba(0, 0, 0, 0.2);
-          border-width:1px;border-style:solid;padding:4px 7px 3px;
-        }
-      }
-      &.complete{
-        span{
-          background:url(/images/piece/check.png) no-repeat 0 3px;
-          padding-left:18px;
-        }
-      }
-    }
-  }
 }
 
 .organizations{
@@ -227,7 +201,7 @@
   .btns{
     width:500px;
     overflow:hidden;
-    .import-mindmap,.create-mindmap,.send{
+    .import-mindmap,.create-mindmap,.edit-mindmap,.send{
       width:32px;
       height:32px;
       @include border-radius(4px);
@@ -252,7 +226,7 @@
         height:30px;
       }
     }
-    .create-mindmap{
+    .create-mindmap,.edit-mindmap{
       width:70px;
       margin:5px 0 5px;
       font-size:14px;
@@ -315,59 +289,140 @@ form.new_message{
   }
 }
 
+@mixin map-action{
+  width:32px;
+  height:32px;
+  @include border-radius(0 5px 5px 0);
+  margin: 0 0 2px 0;
+}
+
 .user_mindmaps{
   overflow:hidden;
-  .image_center_div{
-    p{font-size:0px;}
-  }
-  .map{
+  .mpli{
+    margin: 0 0 10px 0;
     float:left;
-    margin:0 15px 15px 0;
-    @include box-shadow(0 0 5px #09070E);
-    @include border-radius(3px);
-    border:solid 1px #111;
-    .meta{
-      padding:3px 5px;
-      background:#0E0E1A;
-      @include border-radius(3px 3px 0 0);
+    width:170px;
+    .title{
+      width:166px;
+      line-height:20px;
+      height:20px;
+      overflow:visible;
+      padding:0 0 0 5px;
+      margin:0 0 2px 0;
       overflow:hidden;
-      span.title{
-        font-size:14px;
-        color:white;
-        font-weight:bold;
+      color:white;
+      font-weight:bold;
+      font-size:13px;
+      &:hover{
+        background:#37394B;
       }
-      span.rank{
-        color:#FBEB96;
-        font-size:14px;
-        font-weight:bold;
-        float:right;
-      }
+      @include editable-form;
     }
-    .data{
-      background:#323546;
-      .first_map{
-        width:450px;
-        height:338px;
-        padding:4px;
-        .image_center_div{
-          width:450px;
-          height:338px;
-        }
-      }
-      .map_thumb{
-        width:450px;
-        height:120px;
-        padding:4px;
-        .image_center_div{
-          width:120px;
-          height:120px;
+    .preview{
+      float:left;
+      width:124px;
+      height:124px;
+      padding:5px;
+      @include border-radius(5px 0 5px 5px);
+      img{
+        border:solid 2px #A3A3A3;
+        @include border-radius(3px);
+        &:hover{
+          cursor:url("/images/big.cur"), auto;
         }
       }
     }
-    .foot{
-      padding:3px 5px;
-      background:#0E0E1A;
-      @include border-radius(0 0 3px 3px);
+    .rank{
+      float:left;
+      @include map-action;
+      span{
+        @include border-radius(3px);
+        width:24px;height:24px;
+        line-height:24px;text-align:center;
+        display:block;
+        font-weight:bold;
+        font-size:14px;
+        margin:3px 0 0 3px;
+        /*
+        border:solid 1px #FBE880;
+        @include gradient(#F9E571,#F7F1B0);
+        color:#724C21;
+        */
+        color:#F8B861;
+      }
+    }
+    .action{
+      float:left;
+      width:32px;margin:0;padding:0;font-size:0;
+      .edit, .coop, .info, .dup, .pt{
+        background:#131520;
+        @include map-action;
+        width:4px;
+        a{display:none;}
+      }
+      .info{
+        background:#131520;
+        @include map-action;
+        a{
+          display:block;
+          position:relative;
+          top:3px;left:3px;
+          width:24px;height:24px;
+          text-indent:-999px;
+          font-size:0px;
+          background:url(/images/icons/info-24-2.png) no-repeat;
+        }
+      }
+      .pt{
+        width:24px;height:24px;
+        a{display:block;}
+        .toggle{
+          cursor:pointer;
+          width:13px;height:13px;
+          @include border-radius(3px);
+          border:solid 1px #000;
+          position:relative;
+          top:4px;left:4px;
+          display:block;
+          &.public{background:#C8DC69;}
+          &.private{background:#ED6D52;}
+          &.loading{background:url(/images/icons/toggle-loading-12.gif) 1px 1px no-repeat !important;}
+        }
+      }
+    }
+    &:hover{
+      .action{
+        .edit, .coop, .info, .dup, .pt{
+          background:#131520;
+          @include map-action;
+        }
+        .edit a, .coop a, .info a, .dup a{
+          display:block;
+          position:relative;
+          top:3px;left:3px;
+          width:24px;height:24px;
+          text-indent:-999px;
+          font-size:0px;
+        }
+        .edit a{
+          background:url(/images/icons/edit-notes-24.png) no-repeat;
+        }
+        .coop a{
+          background:url(/images/icons/edit-group-24-3.png) no-repeat;
+        }
+        .info a{
+          background:url(/images/icons/info-24-2.png) no-repeat;
+        }
+        .dup a{
+          background:url(/images/icons/dup-24-1.png) no-repeat;
+        }
+        .pt{
+          width:24px;height:24px;
+        }
+      }
+    }
+    .time{
+      padding:5px;
     }
   }
 }
@@ -379,11 +434,6 @@ form.new_message{
     li.feed{
       padding:10px;
       margin:0 0 12px 0;
-      background:#131320;
-      border-bottom:solid 1px #464660;
-      border-right:solid 1px #464660;
-      border-top:solid 1px #000;
-      border-left:solid 1px #000;
       @include border-radius(5px);
       .avatar{
         float:left;
@@ -412,25 +462,13 @@ form.new_message{
   }
 }
 
-.keng{
-  background:#131320;
-  /*
-  border-bottom:solid 1px #464660;
-  border-right:solid 1px #464660;
-  border-top:solid 1px #000;
-  border-left:solid 1px #000;
-  */
-  @include border-radius(5px);
-  padding:5px;
-}
-
 /*首页的用户信息*/
 .index-user-info{
   margin:0 0 25px 0;
   .base{
     background:#323546;
     border:solid 1px #111;
-    padding:5px;
+    @include keng;
     overflow:hidden;
     margin:0 0 10px 0;
     .avatar{
@@ -443,9 +481,13 @@ form.new_message{
         padding:0 0 5px 0;
       }
     }
+    .fri{
+      margin-top:30px;
+    }
   }
   .scount{
     margin:0 0 10px 0;
+    @include keng;
     dl{
       display:inline-block;
       margin:0 30px 0 0;
@@ -474,8 +516,9 @@ form.new_message{
 
 .site-notice{
   margin:0 0 10px 0;
-  background:#1D50A3;
+  background:#2A4072;
   border:solid 1px #111;
+  @include keng;
   .title{
     font-size:14px;
     margin:0 0 10px 0;
@@ -484,6 +527,8 @@ form.new_message{
 
 .simple-help{
   overflow:hidden;
+  @include keng;
+  margin:0 0 10px 0;
   .title{
     font-size:14px;
     margin:0 0 10px 0;
@@ -504,7 +549,41 @@ form.new_message{
         margin:0 0 0 5px;
         float:left;
       }
+    }
+  }
+}
 
+.stat{
+  .chart{
+    margin:0 0 15px 0;
+  }
+  .keywords{
+    @include keng;
+    overflow:hidden;
+    .title{
+      font-size:14px;
+      margin:0 0 10px 0;
+    }
+    a.word{
+      float:left;
+      height:20px;
+      line-height:20px;
+      margin:0 3px 4px 0;
+      @include border-radius(4px);
+      padding:4px 7px;
+      /*
+      background:#111;
+      border:solid 1px #111;
+      color:white !important;
+      */
+      @include gradient(#4192AC,#00739F);
+      color:white !important;
+      text-shadow:1px 1px 0 #369EC0;
+      border:solid 1px #111;
+      &:hover{
+        text-decoration:none !important;
+        @include gradient(#69BAD4,#179BC7);
+      }
     }
   }
 }

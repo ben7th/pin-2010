@@ -84,7 +84,7 @@
       =minibutton '显示rev','javascript:pie.log(mindmap.revision);'
       =minibutton '远程同步','javascript:pie.MindmapPageLoader.pull(mindmap.id);'
   .map-close
-    =link_to '关闭，返回',pin_url_for("pin-user-auth","/users/#{@mindmap.user.id}")
+    =link_to '关闭，返回',pin_url_for("pin-user-auth","/mindmaps/#{@mindmap.id}/info")
   
 #mindmap-main.editor
   #mindmap-sidebar

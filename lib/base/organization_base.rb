@@ -1,6 +1,6 @@
-class OrganizationBase < ActiveRecord::Base
+class OrganizationBase < UserAuthAbstract
   set_readonly(true)
-  build_database_connection(CoreService::USER_AUTH,{:table_name=>"organizations"})
+  set_table_name("organizations")
 
   def self.of_user(user)
     user.joined_organizations

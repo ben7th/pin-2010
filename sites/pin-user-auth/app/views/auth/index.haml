@@ -1,10 +1,16 @@
-- require_css 'views',true
+- require_css 'views/auth',true
 
 .grid_9.alpha
   .dialog.index
     =render :partial=>'auth/parts/login_dialog'
-  .pad.hide
-    这里放bug信息
+  .pad.connect
+    .text
+      .title 使用其他账号登录
+      .quiet 只要有对应网站账号，无需注册就可以直接登录了~
+    .connects
+      =link_to "连接新浪微博","javascript:pie.open_win('#{connect_tsina_path}');",:class=>'tsina',:tipr=>'使用新浪微博账号登录'
+      =link_to "人人网登陆","javascript:pie.open_win('#{connect_renren_path}');",:class=>'renren',:tipr=>'使用人人网账号登录'
+
 
 .grid_15.omega
   .pad.clearfix.font13
@@ -16,32 +22,31 @@
     .fleft.signup-tips
       还没有账号..？<br/>
       %span.loud 注册新的 MindPin 账号，只需30秒~
-  .prosd
-    向您提供以下线上服务——
-  .pros.clearfix
-    .grid_6.alpha
-      .pad
-        .mark
-          Mindmap<span class='i'>Editor</span>
-        .chm
-          思维导图编辑器
-        .txt
-          　方便快捷的思维导图编辑器，帮助整理思路，无需安装，即刻可用。
-    .grid_6
-      .pad.quiet
-        .mark
-          Group<span class='i'>Discuss</span>
-        .chm
-          小组讨论
-        .txt
-          　轻松灵活的成员管理，话题参与，多版本回顾，提升线上沟通效率。
-    .grid_3.omega
-      .pad.quiet
-        .mark.m1
-          plugin
-        .chm
-          插件
-        .txt
-          Firefox插件下载
-  .pad.hide
-    这里放最新公告
+  .grid_15.alpha
+
+    .pad.pros
+      .mark
+        Mindmap<span class='i'>Editor</span>
+      .font13
+        <span class='loud'>思维导图编辑器</span>。一种图像式思维的工具，一种高效的表达方式，方便快捷的线上应用，帮助您整理思路。随时随地，只要可以上网，就可以使用:)
+      %form{:action=>"/search",:method=>"get",:class=>"search-form"}
+        %span.font13.marginr5 搜索思维导图
+        %input.search-inner.text{:name=>"q",:type=>"text"}
+        %input.search-button{:value=>"搜索",:type=>"submit"}
+
+    .pad
+      .font13
+        MindPin思维导图编辑器使用了浏览器端动态绘图等技术。<br/>
+        为了达到理想的使用效果，我们建议大家使用以下浏览器访问本站
+      .browsers
+        %a.bro.ff{:href=>'http://firefox.com.cn/',:target=>'_blank',:tip=>'Firefox 火狐浏览器'}
+        %a.bro.chrome{:href=>'http://www.google.com/chrome/',:target=>'_blank',:tip=>'Chrome Google浏览器'}
+        %a.bro.ie{:href=>'http://www.microsoft.com/china/windows/internet-explorer/',:target=>'_blank',:tip=>'IE7和更高版本的IE浏览器'}
+        .text.font14
+          Firefox（火狐浏览器）<br/>
+          Chrome（Google浏览器）<br/>
+          IE7以上浏览器<br/>
+      .font13
+        如果您还在使用IE6，可能不能保证流畅的访问效果以及显示的正确性。<br/>
+        因此我们<span class='loud'>不建议您使用IE6浏览器</span>访问本站。
+

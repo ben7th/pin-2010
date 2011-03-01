@@ -1,0 +1,59 @@
+@import "../misc";
+
+.steps-head{
+  background:#EBF6E5;
+  color:#000000;
+  @include border-radius(4px);
+  padding:10px;
+  border:solid 2px #D3DDCE;
+  margin:0 0 30px 0;
+  ul.steps{
+    li{
+      display:inline;
+      margin-right:8px;
+      background:url(/images/piece/arrow.png) no-repeat 0 3px;
+      padding-left:48px;
+      &.event{
+        background:none;padding-left:0;
+      }
+      &.current{
+        span{
+          background:#fff;font-weight:bold;@include border-radius(3px);
+          border-color:rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1) transparent rgba(0, 0, 0, 0.2);
+          border-width:1px;border-style:solid;padding:4px 7px 3px;
+        }
+      }
+      &.complete{
+        span{
+          background:url(/images/piece/check.png) no-repeat 0 3px;
+          padding-left:18px;
+        }
+      }
+    }
+  }
+}
+
+.email_setting{
+  .mail{
+    margin-top:10px;
+    font-size:32px;
+    font-weight:bold;
+    color:#FBEB96;
+    background:#323546;
+    border:solid 1px #111;
+    @include border-radius(4px);
+    width:400px;
+    padding:10px;
+  }
+  .email_activated{
+    padding:5px 10px;
+    border:solid 1px #111;
+    @include border-radius(4px);
+    width:150px;
+    font-size:14px;
+  }
+}
+
+.message-setting{
+  span.dc{font-size:14px;}
+}

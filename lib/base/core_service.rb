@@ -1,7 +1,6 @@
 class CoreService
 
   USER_AUTH = "pin-user-auth"
-  MINDMAP_EDITOR = "pin-mindmap-editor-v5"
   NOTES = "pin-notes"
   MEV6 = "pin-mev6"
 

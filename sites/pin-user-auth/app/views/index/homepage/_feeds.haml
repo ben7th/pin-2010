@@ -5,5 +5,5 @@
   .p
     正在读取...
 .newsfeed
-  -mplist @feeds,:for=>Feed do |feed|
+  -mplist @feeds,:for=>Feed,:li_class=>'darkbg convex' do |feed|
     =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}

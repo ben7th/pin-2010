@@ -86,11 +86,11 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.connect_login "/connect_login",:controller=>"connect_users",:action=>"index"
-  map.connect_sina "/connect_sina",:controller=>"connect_users",:action=>"connect_sina"
-  map.connect_sina_callback "/connect_sina_callback",:controller=>"connect_users",:action=>"connect_sina_callback"
+  map.connect_tsina "/connect_tsina",:controller=>"connect_users",:action=>"connect_tsina"
+  map.connect_tsina_callback "/connect_tsina_callback",:controller=>"connect_users",:action=>"connect_tsina_callback"
 
   map.connect_renren "/connect_renren",:controller=>"connect_users",:action=>"connect_renren"
-  map.connect_sina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
+  map.connect_tsina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
 
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say"
@@ -103,10 +103,14 @@ ActionController::Routing::Routes.draw do |map|
   map.account_do_message "/account/do_message",:controller=>"account",:action=>"do_message",:conditions=>{:method=>:put}
 
   map.resources :mindmaps,:collection=>{:import=>:get,:import_file=>:post},:member=>{
-      :paramsedit=>:get,
+      :change_title=>:put,
       :clone_form=>:get,
       :do_clone=>:put,
+      :do_private=>:put,
+      :info=>:get
     }
+
+  map.search '/search.:format',:controller=>'mindmaps_search',:action=>'search'
 
   #cooperations_controller
   map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}

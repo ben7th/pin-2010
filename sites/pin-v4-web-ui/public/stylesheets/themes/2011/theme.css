@@ -1,23 +1,35 @@
 /*2011年第一套配色*/
-body {
-  background-color: #36384A;
-  background-image: url(/images/themes/black/bg2.png);
-  background-repeat: repeat-x;
-  color: #dddddd; }
-
+/*薄花樱*/
+/*杜若*/
+/*勿忘草*/
+/*青蓝*/
 .page-head {
-  background: url(/images/themes/black/head-background.png) 0 100% repeat-x;
+  background-color: #5a79ba;
   color: white; }
   .page-head a {
-    color: #dddddd;
+    color: white;
     text-shadow: 1px 1px #555; }
     .page-head a:hover {
-      color: #dddddd; }
+      color: white; }
+  .page-head .userbox {
+    box-shadow: 0 0 5px #040307;
+    -moz-box-shadow: 0 0 5px #040307;
+    -webkit-box-shadow: 0 0 5px #040307;
+    background-color: #4c6db4;
+    border: solid 2px #3e62ae; }
   .page-head .line {
     background-color: #999; }
 
+body {
+  background-color: #89c3eb;
+  color: #dddddd; }
+
+.page-content .cell {
+  border: 2px solid #242438;
+  background-color: #252737; }
+
 .page-footer {
-  background: url(/images/themes/black/footer-background.png) repeat-x; }
+  background-color: #284a78; }
 
 .loud {
   color: #FFB019 !important; }
@@ -36,3 +48,22 @@ a {
 .quote_content {
   background: #F6F6F6;
   border: solid 1px #E5E5E5; }
+
+.darkbg {
+  background-color: #1c1e2c; }
+
+.lightbg {
+  background-color: #323546;
+  border: solid 1px #111; }
+
+.concave {
+  border-bottom: solid 1px #464660;
+  border-right: solid 1px #464660;
+  border-top: solid 1px #000;
+  border-left: solid 1px #000; }
+
+.convex {
+  border-left: solid 1px #464660;
+  border-top: solid 1px #464660;
+  border-bottom: solid 1px #000;
+  border-right: solid 1px #000; }

@@ -51,26 +51,24 @@ module DatetimeHelper
   
   # 记录创建至今
   def created_from(record)
-    str=record.created_at.nil? ? '未知' : get_period_str(Time.now-record.created_at)
-    "<span class='date'>#{str}</span>"
+    _jtime_span(record.created_at)
   end
   
   # 记录更新至今
   def updated_from(record)
-    str=record.updated_at.nil? ? '未知' : get_period_str(Time.now-record.updated_at)
-    "<span class='date'>#{str}</span>"
+    _jtime_span(record.updated_at)
   end
-  
-  # 记录创建至今
-  def created_from_str(record)
-    str=record.created_at.nil? ? '未知' : get_period_str(Time.now-record.created_at)
-    "<span class='date'>#{str}</span><span class='quiet'>创建</span>"
+
+  def jtime(time)
+    _jtime_span(time)
   end
-  
-  # 记录更新至今
-  def updated_from_str(record)
-    str=record.updated_at.nil? ? '未知' : get_period_str(Time.now-record.updated_at)
-    "<span class='date'>#{str}</span><span class='quiet'>更新</span>"
+
+  def _jtime_span(time)
+    local_time = time.localtime
+    if local_time.nil?
+      return "<span class='date'>未知</span>"
+    end
+    "<span class='date' data-date='#{local_time.to_i}'>#{friendly_relative_time(local_time)}</span>"
   end
   
   def show_time_by_order_type(order,record)
@@ -86,18 +84,6 @@ module DatetimeHelper
     "<span class='date'>#{str}</span>"
   end
   
-  # 获取一个时间段的描述字符串
-  def get_period_str(period)
-    case period
-    when 0..1.minutes then '片刻前'
-    when 1.minutes..2.hours then "#{Integer period/1.minutes}分钟前"
-    when 2.hours..2.days then "#{Integer period/1.hours}小时前"
-    when 2.days..1.months then "#{Integer period/1.days}天前"
-    when 1.months..1.years then "#{Integer period/1.months}月前"
-    when 1.years..100.years then "#{Integer period/1.years - 1}年多前"
-    end
-  end
-  
   # 获取时间段
   def get_period(hour)
     hour=hour + 8
@@ -111,6 +97,26 @@ module DatetimeHelper
 
   def format_in_activity(datetime)
     datetime.strftime("%Y-%m-%d %H:%M")
+  end
+
+  # 根据当前时间与time的间隔距离，返回时间的显示格式
+  # 李飞编写，仿新浪微博
+  def friendly_relative_time(time)
+    current_time = Time.now
+    relative_second = current_time.to_i - time.to_i
+    if relative_second < 60
+      return "#{relative_second}秒前"
+    end
+    if relative_second < 3600
+      return "#{relative_second/60}分钟前"
+    end
+    if relative_second < 86400 && current_time.day==time.day
+      return "今天 #{time.hour}点#{time.min}分"
+    end
+    if time.year == time.year
+      return "#{time.month}月#{time.day}日 #{time.hour}点#{time.min}分"
+    end
+    "#{time.year}年 #{time.month}月#{time.day}日 #{time.hour}点#{time.min}分"
   end
 
   # 根据当前时间与time的间隔距离，返回时间的显示格式

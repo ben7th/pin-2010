@@ -64,6 +64,8 @@ class MindmapsRankTendencyChart
     when 7.1..8 then return "7~8"
     when 8.1..9 then return "8~9"
     when 9.1..10 then return "9~10"
+    else
+      return "0"
     end
   end
 

@@ -14,37 +14,6 @@
       -if current_user!=user
         - followed = current_user.following?(user)
         %span.follow_btn{:class=>"btn_#{user.id}",:style=>(followed ? 'display:none;':'')}
-          =minibutton '关注TA',"javascript:list_follow(#{user.id});"
+          =minibutton '关注TA',"javascript:;","data-user-id"=>user.id
         %span.unfollow_btn{:class=>"btn_#{user.id}",:style=>(followed ? '':'display:none;')}
-          =minibutton '取消关注',"javascript:list_unfollow(#{user.id});"
-
-:javascript
-  function list_follow(user_id){
-    jQuery.ajax({
-      type    : 'POST',
-      url     : '/contacts/follow',
-      data    : 'user_id='+user_id,
-      success : function(res){
-        jQuery('.follow_btn'+'.btn_'+user_id).hide();
-        jQuery('.unfollow_btn'+'.btn_'+user_id).show();
-      }.bind(this),
-      complete : function(res){
-        pie.log(res)
-      }.bind(this)
-    })
-  }
-
-  function list_unfollow(user_id){
-    jQuery.ajax({
-      type    : 'DELETE',
-      url     : '/contacts/unfollow',
-      data    : 'user_id='+user_id,
-      success : function(res){
-        jQuery('.follow_btn'+'.btn_'+user_id).show();
-        jQuery('.unfollow_btn'+'.btn_'+user_id).hide();
-      }.bind(this),
-      complete : function(res){
-        pie.log(res)
-      }.bind(this)
-    })
-  }
+          =minibutton '取消关注',"javascript:;","data-user-id"=>user.id

@@ -180,4 +180,5 @@ class User < UserBase
 
   include Mindmap::UserMethods
 
+  include ConnectUser::UserMethods
 end

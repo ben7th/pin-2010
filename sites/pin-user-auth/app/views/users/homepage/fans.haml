@@ -4,3 +4,6 @@
   #{@user.name} 的关注者
 
 =render :partial=>"users/parts/mplist_users",:locals=>{:users=>@fans}
+
+-content_for :javascripts do
+  = javascript_include_tag "views/follows"
