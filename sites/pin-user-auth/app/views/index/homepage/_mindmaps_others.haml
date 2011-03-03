@@ -1,0 +1,21 @@
+.user_mindmaps
+  -if @mindmaps.blank?
+    该用户还没有思维导图
+  -else
+    -mplist @mindmaps,:for=>Mindmap,:li_class=>'' do |mindmap|
+      .title>=mindmap.title
+      .clearfix
+        .preview.darkbg
+          -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+            =mindmap_thumb(mindmap)
+        .rank.darkbg
+          %span=mindmap.rank_value
+        .action
+          .info{:'tipr'=>'详细查看'}
+            =link_to '查看',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
+          .dup{:'tipr'=>'复制导图'}
+            =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
+      .time
+        =jtime(mindmap.updated_at)
+
+= will_paginate @mindmaps

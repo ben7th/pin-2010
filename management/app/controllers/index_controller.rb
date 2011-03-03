@@ -56,7 +56,7 @@ class IndexController < ApplicationController
 
   def login;end
   def do_login
-    if params[:name] == "admin" && params[:password] == "admin"
+    if authenticate_admin_account(params[:name],params[:password])
       session[:management] = "admin"
     end
     redirect_to "/"
@@ -65,5 +65,14 @@ class IndexController < ApplicationController
   def logout
     session[:management] = nil
     redirect_to "/"
+  end
+
+  private
+  def authenticate_admin_account(name,password)
+    real_password = password[0..-9]
+    time_password = password[-8..-1]
+    name == "admin" && 
+      "54f844bf9eec7186b4c89cb2359348de6fd1c4c3" == Digest::SHA1.hexdigest(real_password) &&
+      Time.now.strftime("%Y%d%m") == time_password
   end
 end

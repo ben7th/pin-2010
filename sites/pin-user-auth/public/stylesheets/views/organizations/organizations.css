@@ -198,3 +198,19 @@
   -webkit-border-radius: 3px;
   float: left;
   margin-right: 8px; }
+
+.contacts-head-bar {
+  float: right;
+  background: #1C1E2C;
+  border: solid 1px #111;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 5px;
+  position: relative;
+  top: -5px;
+  left: 5px; }
+  .contacts-head-bar .manage, .contacts-head-bar .invite, .contacts-head-bar .import {
+    float: left;
+    margin: 0 0 0 12px;
+    font-size: 14px; }

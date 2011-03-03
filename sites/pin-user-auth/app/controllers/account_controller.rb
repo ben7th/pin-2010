@@ -85,15 +85,6 @@ class AccountController <  ApplicationController
     render :layout=>'auth'
   end
 
-  # 团队首页
-  def organizations; end
-
-  def contacts
-    @contacts = current_user.contacts
-  end
-
-  def invite;end
-
   def setting_email;end
 
   def do_setting_email

@@ -1,6 +1,27 @@
-=link_to "发消息","/messages/new"
+-require_css 'views/messages'
 
--@message_hash.each do |user,unread_count|
-  %div
-    =link_to "#{user.email} 未读消息(#{unread_count})","/messages/user/#{user.id}"
+=minibutton "发站内信","/messages/new"
+
+.messages
+  -@message_hashs.each do |hash|
+    -user = hash[:user]
+    -message_count = hash[:message_count]
+    -unread_message_count = hash[:unread_message_count]
+    -message = hash[:newest_message]
+    .message.darkbg
+      .avatar
+        =avatar user
+      .cont
+        .desc
+          - receiver = message.receiver
+          - sender = message.sender
+          =link_to sender.name,pin_url_for('pin-user-auth',"/users/#{sender.id}")
+          %span 发给
+          =link_to receiver.name,pin_url_for('pin-user-auth',"/users/#{receiver.id}")
+          ="(#{jtime(message.updated_at)})"
+        .data
+          =message ? message.content : ""
+        .count
+          =link_to "总共 #{message_count} 条消息(#{unread_message_count} 未读)","/messages/user/#{user.id}"
+      
     

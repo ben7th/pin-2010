@@ -15,14 +15,11 @@
             .edit{:'tipr'=>'编辑导图'}
               =link_to '编辑',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}/edit"),:target=>'_blank'
             .coop{:'tipr'=>'协同编辑'}
-              =link_to '协同',pin_url_for('pin-user-auth',"/cooperate/#{mindmap.id}"),:target=>'_blank'
+              =link_to '协同',pin_url_for('pin-user-auth',"/cooperate/#{mindmap.id}")
             .pt{:'tipr'=>'切换公开/私有'}
               %a.toggle{:href=>'javascript:;',:'data-map-id'=>mindmap.id,:class=>(mindmap.private ? 'private':'public')}
-          -else
-            .info{:'tipr'=>'详细查看'}
-              =link_to '查看',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
-            .dup{:'tipr'=>'复制导图'}
-              =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
+            .delete{:'tipr'=>'删除导图'}
+              =link_to_remote '删除',:url=>pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}"),:method=>:delete,:confirm=>'确定要删除这个导图吗？删除后不可恢复。'
       .time
         =jtime(mindmap.updated_at)
 

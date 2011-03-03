@@ -8,9 +8,26 @@ class MessagesController < ApplicationController
 
   def index
     @message_proxy = MessageProxy.new(current_user)
-    @message_hash = {}
+    @message_hashs = []
     @message_proxy.users.each do |user|
-      @message_hash[user] = @message_proxy.unread_message_count_from(user)
+      hash = {:user=>user,:newest_message=>@message_proxy.newest_message_from(user),
+        :unread_message_count=>@message_proxy.unread_message_count_from(user),
+        :message_count=>@message_proxy.message_count_from(user)
+        }
+     @message_hashs.push(hash)
+    end
+    @message_hashs.sort! do |h1,h2|
+      h2m = h2[:newest_message]
+      h1m = h1[:newest_message]
+      if h2m.blank? && h1m.blank?
+        0
+      elsif h2m.blank?
+        -1
+      elsif h1m.blank?
+        1
+      else
+        h2m.id <=> h1m.id
+      end
     end
   end
 

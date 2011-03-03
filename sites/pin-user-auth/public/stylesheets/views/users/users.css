@@ -183,7 +183,16 @@
       margin: 5px 0 5px; }
 
 .feed-form-mev6 {
-  padding: 5px 0 30px 10px; }
+  padding: 0 0 57px 10px;
+  margin-top: 32px;
+  position: relative; }
+  .feed-form-mev6 .f-desc {
+    width: 230px;
+    height: 32px;
+    position: absolute;
+    top: -35px;
+    left: 4px;
+    background: url(/images/icons/all.png) no-repeat -25px 0; }
   .feed-form-mev6 .btns {
     width: 500px;
     overflow: hidden; }
@@ -211,13 +220,19 @@
         color: white;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
     .feed-form-mev6 .btns .import-mindmap {
-      background: -moz-linear-gradient(-90deg, #bbc9e6, #bcbcde);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#bbc9e6), to(#bcbcde));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bbc9e6',endColorstr='#bcbcde'); }
+      /*@include gradient(#BBC9E6,#BCBCDE);*/
+      background: -moz-linear-gradient(-90deg, #94e4fd, #3fc3ef);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#94e4fd), to(#3fc3ef));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#94e4fd',endColorstr='#3fc3ef'); }
       .feed-form-mev6 .btns .import-mindmap .icon {
-        background: url(/images/icons/import_24_1.png) no-repeat 3px 3px;
-        width: 30px;
-        height: 30px; }
+        background: url(/images/icons/all.png) no-repeat 0 -117px;
+        width: 24px;
+        height: 24px;
+        margin: 3px 0 0 3px; }
+      .feed-form-mev6 .btns .import-mindmap:hover {
+        background: -moz-linear-gradient(-90deg, #b3ecfc, #6ad6f4);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b3ecfc), to(#6ad6f4));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b3ecfc',endColorstr='#6ad6f4'); }
     .feed-form-mev6 .btns .create-mindmap, .feed-form-mev6 .btns .edit-mindmap {
       width: 70px;
       margin: 5px 0 5px;
@@ -231,7 +246,7 @@
       float: left;
       margin: 5px 5px 5px 0;
       background: #F7FCFF; }
-    .feed-form-mev6 .btns .import-loading {
+    .feed-form-mev6 .btns .import-loading, .feed-form-mev6 .btns .import-loading-tips {
       display: none; }
     .feed-form-mev6 .btns.loading .import-mindmap {
       display: none; }
@@ -242,6 +257,100 @@
       height: 32px;
       background: url(/images/icons/feed-form-loading.gif) 1px 1px no-repeat;
       margin: 5px 5px 5px 0; }
+    .feed-form-mev6 .btns.loading input.feed-content {
+      display: none; }
+    .feed-form-mev6 .btns.loading .create-mindmap {
+      display: none; }
+    .feed-form-mev6 .btns.loading .import-loading-tips {
+      display: block;
+      float: left;
+      font-size: 14px;
+      margin-top: 4px;
+      border: solid 1px #111;
+      background: #323546;
+      padding: 0 5px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px; }
+  .feed-form-mev6 .import-mindmap-image {
+    background: #323546;
+    border: solid 1px #111;
+    padding: 5px;
+    top: 41px;
+    z-index: 999;
+    position: absolute;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px; }
+    .feed-form-mev6 .import-mindmap-image .close-import-mindmap-image {
+      position: absolute;
+      right: 3px;
+      top: 3px;
+      width: 16px;
+      height: 16px;
+      background: url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor: pointer;
+      font-size: 0;
+      line-height: 0;
+      text-indent: -999px; }
+    .feed-form-mev6 .import-mindmap-image .image {
+      width: 125px;
+      height: 125px;
+      margin-top: 16px; }
+      .feed-form-mev6 .import-mindmap-image .image img {
+        border: solid 2px #A3A3A3;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+  .feed-form-mev6 .import-mindmap-form {
+    background: #323546;
+    padding: 5px;
+    top: 41px;
+    z-index: 999;
+    position: absolute;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    width: 360px;
+    border: solid 3px #D9D9D7;
+    text-align: center; }
+    .feed-form-mev6 .import-mindmap-form #file-upload-btn {
+      height: 32px; }
+    .feed-form-mev6 .import-mindmap-form .close {
+      position: absolute;
+      right: 3px;
+      top: 3px;
+      width: 16px;
+      height: 16px;
+      background: url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor: pointer;
+      font-size: 0;
+      line-height: 0;
+      text-indent: -999px; }
+  .feed-form-mev6 .import-error {
+    background: #323546;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border: solid 1px #111;
+    width: 300px;
+    padding: 5px;
+    position: absolute;
+    top: 41px;
+    color: #FFB49C; }
+    .feed-form-mev6 .import-error .close {
+      position: absolute;
+      right: 3px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background: url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor: pointer;
+      font-size: 0;
+      line-height: 0;
+      text-indent: -999px; }
 
 .grid_11 .newsfeed ul.feeds li.feed .data {
   width: 382px; }
@@ -272,7 +381,9 @@ form.new_message .w300 {
 .user_mindmaps {
   overflow: hidden; }
   .user_mindmaps .mpli {
-    margin: 0 0 10px 0;
+    padding-bottom: 15px !important;
+    margin: 0 0 15px 0;
+    border-bottom: dotted 1px #666;
     float: left;
     width: 170px; }
     .user_mindmaps .mpli .title {
@@ -287,28 +398,34 @@ form.new_message .w300 {
       font-weight: bold;
       font-size: 13px; }
       .user_mindmaps .mpli .title:hover {
-        background: #37394B; }
+        background: #37394B;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
       .user_mindmaps .mpli .title form {
         position: absolute;
-        width: 170px;
+        width: 172px;
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
-        background: #131520;
-        border: solid 2px #323546; }
+        background: #E0EBAF;
+        border: solid 2px #323546;
+        padding: 2px; }
         .user_mindmaps .mpli .title form input {
           background: #F7FCFF;
           border: none;
           padding: 0 2px;
           border-radius: 3px;
           -moz-border-radius: 3px;
-          -webkit-border-radius: 3px; }
+          -webkit-border-radius: 3px;
+          border: solid 1px #111; }
         .user_mindmaps .mpli .title form button {
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
           border: none 0px;
-          margin: 1px 5px 1px 0; }
+          margin: 2px 5px 0 0;
+          border: solid 1px #666; }
           .user_mindmaps .mpli .title form button.editable-submit {
             color: white;
             background: #0063DC; }
@@ -319,6 +436,9 @@ form.new_message .w300 {
             background: #ddd; }
             .user_mindmaps .mpli .title form button.editable-cancel:hover {
               background: #CFCFCF; }
+      .user_mindmaps .mpli .title form {
+        margin-left: -5px;
+        margin-top: -2px; }
     .user_mindmaps .mpli .preview {
       float: left;
       width: 124px;
@@ -365,7 +485,8 @@ form.new_message .w300 {
       width: 32px;
       margin: 0;
       padding: 0;
-      font-size: 0; }
+      font-size: 0;
+      position: relative; }
       .user_mindmaps .mpli .action .edit, .user_mindmaps .mpli .action .coop, .user_mindmaps .mpli .action .info, .user_mindmaps .mpli .action .dup, .user_mindmaps .mpli .action .pt {
         background: #131520;
         width: 32px;
@@ -377,24 +498,6 @@ form.new_message .w300 {
         width: 4px; }
         .user_mindmaps .mpli .action .edit a, .user_mindmaps .mpli .action .coop a, .user_mindmaps .mpli .action .info a, .user_mindmaps .mpli .action .dup a, .user_mindmaps .mpli .action .pt a {
           display: none; }
-      .user_mindmaps .mpli .action .info {
-        background: #131520;
-        width: 32px;
-        height: 32px;
-        border-radius: 0 5px 5px 0;
-        -moz-border-radius: 0 5px 5px 0;
-        -webkit-border-radius: 0 5px 5px 0;
-        margin: 0 0 2px 0; }
-        .user_mindmaps .mpli .action .info a {
-          display: block;
-          position: relative;
-          top: 3px;
-          left: 3px;
-          width: 24px;
-          height: 24px;
-          text-indent: -999px;
-          font-size: 0px;
-          background: url(/images/icons/info-24-2.png) no-repeat; }
       .user_mindmaps .mpli .action .pt {
         width: 24px;
         height: 24px; }
@@ -418,6 +521,38 @@ form.new_message .w300 {
             background: #ED6D52; }
           .user_mindmaps .mpli .action .pt .toggle.loading {
             background: url(/images/icons/toggle-loading-12.gif) 1px 1px no-repeat !important; }
+      .user_mindmaps .mpli .action .info {
+        background: #131520;
+        width: 32px;
+        height: 32px;
+        border-radius: 0 5px 5px 0;
+        -moz-border-radius: 0 5px 5px 0;
+        -webkit-border-radius: 0 5px 5px 0;
+        margin: 0 0 2px 0; }
+        .user_mindmaps .mpli .action .info a {
+          display: block;
+          position: relative;
+          top: 3px;
+          left: 3px;
+          width: 24px;
+          height: 24px;
+          text-indent: -999px;
+          font-size: 0px;
+          background: url(/images/icons/all.png) no-repeat 0 -50px; }
+      .user_mindmaps .mpli .action .delete {
+        background: #131520;
+        width: 16px;
+        height: 16px;
+        border-radius: 0 0 5px 5px;
+        -moz-border-radius: 0 0 5px 5px;
+        -webkit-border-radius: 0 0 5px 5px;
+        margin: 0 0 0 0;
+        position: absolute;
+        left: -20px;
+        bottom: -10px;
+        height: 4px; }
+        .user_mindmaps .mpli .action .delete a {
+          display: none; }
     .user_mindmaps .mpli:hover .action .edit, .user_mindmaps .mpli:hover .action .coop, .user_mindmaps .mpli:hover .action .info, .user_mindmaps .mpli:hover .action .dup, .user_mindmaps .mpli:hover .action .pt {
       background: #131520;
       width: 32px;
@@ -434,18 +569,30 @@ form.new_message .w300 {
       width: 24px;
       height: 24px;
       text-indent: -999px;
-      font-size: 0px; }
+      font-size: 0px;
+      line-height: 0px; }
     .user_mindmaps .mpli:hover .action .edit a {
-      background: url(/images/icons/edit-notes-24.png) no-repeat; }
+      background: url(/images/icons/all.png) 0 0 no-repeat; }
     .user_mindmaps .mpli:hover .action .coop a {
-      background: url(/images/icons/edit-group-24-3.png) no-repeat; }
+      background: url(/images/icons/all.png) 0 -25px no-repeat; }
     .user_mindmaps .mpli:hover .action .info a {
-      background: url(/images/icons/info-24-2.png) no-repeat; }
+      background: url(/images/icons/all.png) 0 -50px no-repeat; }
     .user_mindmaps .mpli:hover .action .dup a {
-      background: url(/images/icons/dup-24-1.png) no-repeat; }
+      background: url(/images/icons/all.png) 0 -75px no-repeat; }
     .user_mindmaps .mpli:hover .action .pt {
       width: 24px;
       height: 24px; }
+    .user_mindmaps .mpli:hover .action .delete {
+      bottom: -22px;
+      height: 16px; }
+      .user_mindmaps .mpli:hover .action .delete a {
+        width: 16px;
+        height: 16px;
+        display: block;
+        background: url(/images/icons/all.png) 0 -100px no-repeat;
+        text-indent: -999px;
+        font-size: 0px;
+        line-height: 0px; }
     .user_mindmaps .mpli .time {
       padding: 5px; }
 
@@ -570,14 +717,16 @@ form.new_message .w300 {
         float: left; }
 
 .stat .chart {
-  margin: 0 0 15px 0; }
+  margin: 0 0 30px 0;
+  height: 130px; }
 .stat .keywords {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   padding: 5px;
   border: solid 1px #111;
-  overflow: hidden; }
+  overflow: hidden;
+  margin: 0 0 30px 0; }
   .stat .keywords .title {
     font-size: 14px;
     margin: 0 0 10px 0; }
@@ -606,3 +755,46 @@ form.new_message .w300 {
       background: -moz-linear-gradient(-90deg, #69bad4, #179bc7);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#69bad4), to(#179bc7));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#69bad4',endColorstr='#179bc7'); }
+
+.me-logo {
+  width: 170px;
+  height: 32px;
+  background: url(/images/icons/all.png) no-repeat -25px -33px;
+  float: left;
+  position: relative;
+  top: -4px;
+  left: -4px; }
+
+.map-head-bar {
+  float: right;
+  background: #1C1E2C;
+  border: solid 1px #111;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 5px;
+  position: relative;
+  top: -5px;
+  left: 5px; }
+  .map-head-bar .my-maps, .map-head-bar .coop-maps, .map-head-bar .all-public-maps, .map-head-bar .search {
+    float: left;
+    margin: 0 0 0 12px; }
+  .map-head-bar .my-maps, .map-head-bar .coop-maps, .map-head-bar .all-public-maps {
+    font-size: 14px; }
+
+.mplist.users li.user {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: solid 1px #111;
+  margin: 0 0 10px 0; }
+  .mplist.users li.user .avatar {
+    float: left;
+    margin: 0 20px 0 0;
+    width: 52px;
+    height: 52px; }
+  .mplist.users li.user .meta {
+    float: left;
+    width: 400px; }
+  .mplist.users li.user .last_feed {
+    margin: 5px 0; }

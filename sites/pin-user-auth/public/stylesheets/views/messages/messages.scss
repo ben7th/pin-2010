@@ -1,0 +1,21 @@
+@import "../misc";
+
+.messages{
+  margin:30px 0 0 0;
+  .message{
+    border:solid 1px #111;
+    @include border-radius(4px);
+    padding:5px;
+    margin:0 0 10px 0;
+    overflow:hidden;
+    .avatar{float:left;margin:0 20px 0 0;}
+    .cont{
+      float:left;
+      width:400px;
+      .data{
+        font-size:14px;
+        margin:10px 0;
+      }
+    }
+  }
+}

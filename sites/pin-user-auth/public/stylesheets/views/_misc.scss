@@ -31,20 +31,23 @@
 @mixin editable-form{
   form{
     position:absolute;
-    width:170px;
+    width:172px;
     @include border-radius(4px);
-    background:#131520;
+    background:#E0EBAF;
     border:solid 2px #323546;
+    padding:2px;
     input{
       background:#F7FCFF;
       border:none;
       padding:0 2px;
       @include border-radius(3px);
+      border:solid 1px #111;
     }
     button{
       @include border-radius(3px);
       border:none 0px;
-      margin:1px 5px 1px 0;
+      margin:2px 5px 0 0;
+      border:solid 1px #666;
       &.editable-submit{
         color:white;
         background:#0063DC;

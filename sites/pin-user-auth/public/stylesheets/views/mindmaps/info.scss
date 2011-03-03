@@ -99,6 +99,46 @@
   }
 }
 
+.map-action{
+  margin-top:20px;
+  @include border-radius(4px);
+  border:solid 1px #111;
+  padding:5px;
+  padding:5px;
+  font-size:14px;
+  background:#323546;
+  .title{
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  .ac{
+    overflow:hidden;
+    .pt{
+      overflow:hidden;
+      margin-bottom:10px;
+      a{
+        float:left;
+        font-size:0px;
+        line-height:0px;
+        text-indent:-999px;
+        width:24px;
+        height:24px;
+        border:solid 1px #111;
+        margin-right:10px;
+        @include border-radius(4px);
+        &.public{background:#C8DC69;}
+        &.private{background:#ED6D52;}
+        &.loading{background:url(/images/icons/toggle-loading-12.gif) no-repeat 6px 6px;}
+      }
+      .desc{
+        font-size:12px;
+        line-height:24px;
+      }
+    }
+  }
+}
+
 .map-meta{
   .creator{
     margin:40px 0 0 0;
@@ -116,6 +156,8 @@
   .coop{
     padding:5px;
     margin:0 0 10px 0;
+    @include border-radius(4px);
+    border:solid 1px #111;
     .users{
       margin:10px 0 0 0;
       overflow:hidden;
@@ -128,7 +170,35 @@
       }
     }
   }
-  .action{
+  .export,.share,.similar-maps{
     padding:5px;
+    margin:0 0 10px 0;
+    @include border-radius(4px);
+    border:solid 1px #111;
+  }
+  .share{
+    overflow:hidden;
+    a.share_to {
+      margin:3px;
+      @include border-radius(2px);
+      font-size:0;
+      line-htight:0;
+      text-indent:-999px;
+      width:18px;
+      height:18px;
+      float:left;
+      background-color:white;
+      background-repeat:no-repeat;
+      background-position:1px 1px;
+      &.tsina {
+        background-image:url(/images/share/tsina.png);
+      }
+      &.renren {
+        background-image: url(/images/share/renren.png);
+      }
+      &.douban {
+        background-image: url(/images/share/douban.png);
+      }
+    }
   }
 }

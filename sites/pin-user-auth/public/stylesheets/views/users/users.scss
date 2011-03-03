@@ -197,7 +197,17 @@
 }
 
 .feed-form-mev6{
-  padding:5px 0 30px 10px;
+  padding:0 0 57px 10px;
+  margin-top:32px;
+  position:relative;
+  .f-desc{
+    width:230px;
+    height:32px;
+    position:absolute;
+    top:-35px;
+    left:4px;
+    background:url(/images/icons/all.png) no-repeat -25px 0;
+  }
   .btns{
     width:500px;
     overflow:hidden;
@@ -219,11 +229,16 @@
       }
     }
     .import-mindmap{
-      @include gradient(#BBC9E6,#BCBCDE);
+      /*@include gradient(#BBC9E6,#BCBCDE);*/
+      @include gradient(#94E4FD,#3FC3EF);
       .icon{
-        background:url(/images/icons/import_24_1.png) no-repeat 3px 3px;
-        width:30px;
-        height:30px;
+        background:url(/images/icons/all.png) no-repeat 0 -117px;
+        width:24px;
+        height:24px;
+        margin:3px 0 0 3px;
+      }
+      &:hover{
+        @include gradient(#B3ECFC,#6AD6F4);
       }
     }
     .create-mindmap,.edit-mindmap{
@@ -241,7 +256,7 @@
       margin:5px 5px 5px 0;
       background:#F7FCFF;
     }
-    .import-loading{display:none;}
+    .import-loading,.import-loading-tips{display:none;}
     &.loading{
       .import-mindmap{display:none;}
       .import-loading{
@@ -250,6 +265,97 @@
         background:url(/images/icons/feed-form-loading.gif) 1px 1px no-repeat;
         margin:5px 5px 5px 0;
       }
+      input.feed-content{display:none;}
+      .create-mindmap{display:none;}
+      .import-loading-tips{
+        display:block;
+        float:left;
+        font-size:14px;
+        margin-top:4px;
+        border:solid 1px #111;
+        background:#323546;
+        padding:0 5px;
+        height:32px;line-height:32px;
+        @include border-radius(4px);
+      }
+    }
+  }
+  .import-mindmap-image{
+    background:#323546;
+    border:solid 1px #111;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    .close-import-mindmap-image {
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+    .image{
+      width:125px;
+      height:125px;
+      margin-top:16px;
+      img{
+        border:solid 2px #A3A3A3;
+        @include border-radius(3px);
+      }
+    }
+  }
+  .import-mindmap-form{
+    background:#323546;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    width:360px;
+    border:solid 3px #D9D9D7;
+    text-align:center;
+    #file-upload-btn{
+      height:32px;
+    }
+    .close{
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+  }
+  .import-error{
+    background:#323546;
+    @include border-radius(4px);
+    border:solid 1px #111;
+    width:300px;
+    padding:5px;
+    position:absolute;
+    top:41px;
+    color:#FFB49C;
+    .close{
+      position:absolute;
+      right:3px;
+      top:6px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
     }
   }
 }
@@ -299,7 +405,9 @@ form.new_message{
 .user_mindmaps{
   overflow:hidden;
   .mpli{
-    margin: 0 0 10px 0;
+    padding-bottom:15px !important;
+    margin: 0 0 15px 0;
+    border-bottom:dotted 1px #666;
     float:left;
     width:170px;
     .title{
@@ -315,8 +423,10 @@ form.new_message{
       font-size:13px;
       &:hover{
         background:#37394B;
+        @include border-radius(4px);
       }
       @include editable-form;
+      form{margin-left:-5px;margin-top:-2px;}
     }
     .preview{
       float:left;
@@ -354,24 +464,12 @@ form.new_message{
     .action{
       float:left;
       width:32px;margin:0;padding:0;font-size:0;
+      position:relative;
       .edit, .coop, .info, .dup, .pt{
         background:#131520;
         @include map-action;
         width:4px;
         a{display:none;}
-      }
-      .info{
-        background:#131520;
-        @include map-action;
-        a{
-          display:block;
-          position:relative;
-          top:3px;left:3px;
-          width:24px;height:24px;
-          text-indent:-999px;
-          font-size:0px;
-          background:url(/images/icons/info-24-2.png) no-repeat;
-        }
       }
       .pt{
         width:24px;height:24px;
@@ -389,6 +487,31 @@ form.new_message{
           &.loading{background:url(/images/icons/toggle-loading-12.gif) 1px 1px no-repeat !important;}
         }
       }
+      .info{
+        background:#131520;
+        @include map-action;
+        a{
+          display:block;
+          position:relative;
+          top:3px;left:3px;
+          width:24px;height:24px;
+          text-indent:-999px;
+          font-size:0px;
+          background:url(/images/icons/all.png) no-repeat 0 -50px;
+        }
+      }
+      .delete{
+        background:#131520;
+        width:16px;
+        height:16px;
+        @include border-radius(0 0 5px 5px);
+        margin: 0 0 0 0;
+        position:absolute;
+        left:-20px;
+        bottom:-10px;
+        height:4px;
+        a{display:none;}
+      }
     }
     &:hover{
       .action{
@@ -403,21 +526,34 @@ form.new_message{
           width:24px;height:24px;
           text-indent:-999px;
           font-size:0px;
+          line-height:0px;
         }
         .edit a{
-          background:url(/images/icons/edit-notes-24.png) no-repeat;
+          background:url(/images/icons/all.png) 0 0 no-repeat;
         }
         .coop a{
-          background:url(/images/icons/edit-group-24-3.png) no-repeat;
+          background:url(/images/icons/all.png) 0 -25px no-repeat;
         }
         .info a{
-          background:url(/images/icons/info-24-2.png) no-repeat;
+          background:url(/images/icons/all.png) 0 -50px no-repeat;
         }
         .dup a{
-          background:url(/images/icons/dup-24-1.png) no-repeat;
+          background:url(/images/icons/all.png) 0 -75px no-repeat;
         }
         .pt{
           width:24px;height:24px;
+        }
+        .delete{
+          bottom:-22px;
+          height:16px;
+          a{
+            width:16px;height:16px;
+            display:block;
+            background:url(/images/icons/all.png) 0 -100px no-repeat;
+            text-indent:-999px;
+            font-size:0px;
+            line-height:0px;
+          }
         }
       }
     }
@@ -555,11 +691,13 @@ form.new_message{
 
 .stat{
   .chart{
-    margin:0 0 15px 0;
+    margin:0 0 30px 0;
+    height:130px;
   }
   .keywords{
     @include keng;
     overflow:hidden;
+    margin:0 0 30px 0;
     .title{
       font-size:14px;
       margin:0 0 10px 0;
@@ -585,5 +723,47 @@ form.new_message{
         @include gradient(#69BAD4,#179BC7);
       }
     }
+  }
+}
+
+.me-logo{
+  width:170px;
+  height:32px;
+  background:url(/images/icons/all.png) no-repeat -25px -33px;
+  float:left;
+  position:relative;
+  top:-4px;
+  left:-4px;
+}
+.map-head-bar{
+  float:right;
+  background:#1C1E2C;
+  border:solid 1px #111;
+  @include border-radius(4px);
+  .my-maps,.coop-maps,.all-public-maps,.search{
+    float:left;
+    margin:0 0 0 12px;
+  }
+  .my-maps,.coop-maps,.all-public-maps{
+    font-size:14px;
+  }
+  padding:5px;
+  position:relative;
+  top:-5px;
+  left:5px;
+}
+
+.mplist.users{
+  li.user{
+    @include border-radius(4px);
+    border:solid 1px #111;
+    margin:0 0 10px 0;
+    .avatar{
+      float:left;margin:0 20px 0 0;
+      width:52px;height:52px;
+    }
+    .meta{float:left;width:400px;}
+    .last_feed{margin: 5px 0;}
+    .action{}
   }
 }

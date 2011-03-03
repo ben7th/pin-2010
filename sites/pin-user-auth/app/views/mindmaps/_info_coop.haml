@@ -1,0 +1,21 @@
+-cooperate_edit_actors = @mindmap.cooperate_edit_email_actors
+-cooperate_view_actors = @mindmap.cooperate_view_email_actors
+
+-if(!cooperate_edit_actors.blank?)
+  .coop.darkbg
+    由以下用户共同编辑：
+    .users
+      -cooperate_edit_actors.each do |actor|
+        .avatar
+          .p=avatar(actor.email,:tiny)
+          .p=actor.name
+
+-if(!cooperate_view_actors.blank?)
+  .coop.darkbg
+    -if @mindmap.private?
+      共同查看者：
+      .users
+        -cooperate_view_actors.each do |actor|
+          .avatar
+            .p=avatar(actor.email,:tiny)
+            .p=actor.name

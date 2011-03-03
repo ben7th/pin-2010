@@ -10,6 +10,6 @@
 
 .topbar
   %ul
-    %li=link_to '我的首页',pin_url_for("pin-mindmap-editor")
-    %li=link_to '联系人',pin_url_for("pin-mindmap-editor","/account/contacts")
-    %li=link_to '团队',pin_url_for("pin-mindmap-editor","/account/organizations")
+    %li=link_to '我的首页',pin_url_for("pin-user-auth")
+    %li=link_to '联系人',pin_url_for("pin-user-auth","/contacts_setting/contacts")
+    %li=link_to '团队',pin_url_for("pin-user-auth","/contacts_setting/organizations")

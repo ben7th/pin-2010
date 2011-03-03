@@ -71,7 +71,7 @@ class ContactsController < ApplicationController
   end
 
   def import
-    set_tabs_path('account/tabs')
+    set_cellhead_path("contacts_setting/cellhead")
   end
   
   def import_list
@@ -83,10 +83,11 @@ class ContactsController < ApplicationController
       @not_contact_not_regeist_email_actors = @email_hash[:not_contact_not_regeist_email_actors]
     rescue Contacts::AuthenticationError => ex
       flash[:error] = "邮箱或密码错误"
-      redirect_to "/account/contacts/import"
+      redirect_to "/contacts_setting/import"
     rescue Exception => ex
       flash[:error] = ex.message
-      redirect_to "/account/contacts/import"
+      puts ex.backtrace*"\n"
+      redirect_to "/contacts_setting/import"
     end
   end
 

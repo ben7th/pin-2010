@@ -1,19 +1,20 @@
--mplist users,:for=>User do |user|
+-mplist users,:for=>User,:li_class=>'darkbg' do |user|
   .avatar
     =avatar user.email
-  .name
-    =user.name
-  .fans_count
-    被#{user.fans.count}人关注
-  .last_feed
-    =user_last_feed(user)
-  .action
-    -if logged_in?
-      -if current_user.can_send_message_to?(user)
-        =minibutton '发私信',pin_url_for('pin-user-auth',"messages/new?receiver_id=#{user.id}")
-      -if current_user!=user
-        - followed = current_user.following?(user)
-        %span.follow_btn{:class=>"btn_#{user.id}",:style=>(followed ? 'display:none;':'')}
-          =minibutton '关注TA',"javascript:;","data-user-id"=>user.id
-        %span.unfollow_btn{:class=>"btn_#{user.id}",:style=>(followed ? '':'display:none;')}
-          =minibutton '取消关注',"javascript:;","data-user-id"=>user.id
+  .meta
+    .name
+      =link_to user.name,user
+    .fans_count
+      被#{user.fans.count}人关注
+    .last_feed
+      =user_last_feed(user)
+    .action
+      -if logged_in?
+        -if current_user.can_send_message_to?(user)
+          =minibutton '发私信',pin_url_for('pin-user-auth',"messages/new?receiver_id=#{user.id}")
+        -if current_user!=user
+          - followed = current_user.following?(user)
+          %span.follow_btn{:class=>"btn_#{user.id}",:style=>(followed ? 'display:none;':'')}
+            =minibutton '关注TA',"javascript:;","data-user-id"=>user.id
+          %span.unfollow_btn{:class=>"btn_#{user.id}",:style=>(followed ? '':'display:none;')}
+            =minibutton '取消关注',"javascript:;","data-user-id"=>user.id

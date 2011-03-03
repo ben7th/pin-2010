@@ -4,10 +4,6 @@ module MindmapManagingControllerMethods
     @mindmap = Mindmap.new
   end
 
-  def import
-    render_ui.fbox :show,:title=>"导入导图",:partial=>'mindmaps/fbox/import'
-  end
-
   def import_file
     qid = ImportMindmapQueue.new.add_task(params[:Filename],params[:file],current_user)
     # ImportMindmapQueue.import_success?(qid)
@@ -35,22 +31,21 @@ module MindmapManagingControllerMethods
 
   # DELETE /mindmaps/1
   def destroy
-    @redirect_mindmap = @mindmap.next
-    @redirect_mindmap = @mindmap.prev if @redirect_mindmap.nil?
+    @redirect_mindmap = @mindmap.next(current_user)
+    @redirect_mindmap = @mindmap.prev(current_user) if @redirect_mindmap.nil?
+    if(@mindmap.user_id != current_user.id)
+      return render_status_page(403,'当前用户并非导图作者，不能删除导图')
+    end
+    @mindmap.destroy
+    if request.xhr?
+      return render_ui.mplist :remove,@mindmap
+    end
     respond_to do |format|
       format.html do
-        if(@mindmap.user_id == current_user.id)
-          @mindmap = Mindmap.find(params[:id])
-          @mindmap.destroy
-          return redirect_to info_mindmap_path(@redirect_mindmap) if !!@redirect_mindmap
-          return redirect_to "users/#{current_user.id}"
-          #          return render_ui.mplist :remove,@mindmap
-        else
-          return render_status_page(403,'当前用户并非导图作者，不能删除导图')
-        end
+        return redirect_to info_mindmap_path(@redirect_mindmap) if !!@redirect_mindmap
+        return redirect_to "users/#{current_user.id}"
       end
       format.xml do
-        @mindmap.destroy
         head :ok
       end
     end
@@ -101,6 +96,7 @@ module MindmapManagingControllerMethods
   end
 
   def info
+    set_cellhead_path('/index/cellhead')
     if !has_view_rights?(@mindmap,current_user)
       return render_status_page(403,'当前用户对这个思维导图没有编辑权限')
     end
@@ -114,6 +110,11 @@ module MindmapManagingControllerMethods
       end
     end
     return render :status=>500,:text=>"修改失败"
+  end
+
+  def public_maps
+    set_cellhead_path('/index/cellhead')
+    @mindmaps = Mindmap.publics.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>25})
   end
 
 end

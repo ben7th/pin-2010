@@ -19,4 +19,20 @@ pie.load(function(){
     });
   }
 
+  //导图切换公开私有
+  jQuery('.map-action .ac .pt .toggle').live('click',function(evt){
+    var dom = jQuery(evt.target);
+    var map_id = dom.attr('data-map-id');
+    jQuery.ajax({
+      url     : '/mindmaps/'+map_id+'/do_private',
+      type    : 'PUT',
+      beforeSend : function(){
+        dom.addClass('loading');
+      },
+      success : function(){
+        dom.removeClass('loading').toggleClass('private').toggleClass('public');
+      }
+    })
+  });
+
 });

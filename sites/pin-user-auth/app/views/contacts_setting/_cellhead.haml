@@ -1,0 +1,8 @@
+.clearfix
+  .contacts-head-bar
+    .manage
+      =link_to '联系人管理',pin_url_for('pin-user-auth','/contacts_setting/contacts')
+    .invite
+      =link_to '发邀请信',pin_url_for('pin-user-auth',"/contacts_setting/invite")
+    .import
+      =link_to '从邮箱导入联系人',pin_url_for('pin-user-auth',"/contacts_setting/import")

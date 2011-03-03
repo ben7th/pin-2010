@@ -78,6 +78,7 @@ form .text,form textarea,.form .text,.form textarea{border-radius:3px;-moz-borde
 form .active .text,form .active textarea,.form .active .text,.form .active textarea{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#cef;}
 form .fieldWithErrors .text,form .fieldWithErrors textarea,.form .fieldWithErrors .text,.form .fieldWithErrors textarea{background-color:#F39D77;}
 form .form_actions,.form .form_actions{line-height:30px;}
+form .input-field-tip,.form .input-field-tip{color:#ccc;}
 form .submit,form input[type="submit"],.form .submit,.form input[type="submit"],a.button.classy{height:31px;padding:0 11px;position:relative;top:1px;margin:0;font-weight:bold;font-size:1em;color:#333;white-space:nowrap;border:none;overflow:visible;background:#ddd;cursor:pointer;-webkit-font-smoothing:subpixel-antialiased!important;}
 form .submit::-moz-focus-inner,form input[type="submit"]::-moz-focus-inner,.form .submit::-moz-focus-inner,.form input[type="submit"]::-moz-focus-inner,a.button.classy::-moz-focus-inner{border:0;}
 a.button.classy{display:inline-block;line-height:31px;}
@@ -231,6 +232,12 @@ div.pagination .next_page{margin-right:0!important;}
 .tab-control .tab-control-li a{color:white;text-decoration:none;line-height:20px;display:block;padding:2px 8px;border-width:2px 2px 0 2px;border-color:#494949;border-style:solid;border-radius:4px 4px 0 0;-moz-border-radius:4px 4px 0 0;-webkit-border-radius:4px 4px 0 0;}
 .tab-control .tab-control-li.tab-selected{background-color:#FFF;color:black;}
 .tab-control .tab-control-li.tab-selected a{background-color:#FFF;color:black;}
+.uploadifyQueueItem{background-color:#F5F5F5;border:2px solid #E5E5E5;font:12px Verdana,Geneva,sans-serif;margin-top:5px;padding:10px;width:300px;color:#111;}
+.uploadifyQueueItem .cancel{float:right;}
+.uploadifyError{background-color:#FDE5DD!important;border:2px solid #FBCBBC!important;}
+.uploadifyQueue .completed{background-color:#E5E5E5;}
+.uploadifyProgress{background-color:#E5E5E5;margin-top:10px;width:100%;}
+.uploadifyProgressBar{background-color:#09F;height:3px;width:1px;}
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,dialog,figure,footer,header,hgroup,nav,section{margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 article,aside,dialog,figure,footer,header,hgroup,nav,section{display:block;}
 body{line-height:1.5;}

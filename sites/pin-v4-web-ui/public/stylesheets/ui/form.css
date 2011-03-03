@@ -56,6 +56,8 @@ form, .form {
     background-color: #F39D77; }
   form .form_actions, .form .form_actions {
     line-height: 30px; }
+  form .input-field-tip, .form .input-field-tip {
+    color: #ccc; }
 
 form .submit, form input[type="submit"],
 .form .submit, .form input[type="submit"],

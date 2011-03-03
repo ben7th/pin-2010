@@ -13,10 +13,16 @@ class Message < ActiveRecord::Base
     self.update_attributes(:has_read=>true)
   end
 
+  def sender
+    EmailActor.get_user_by_email(self.sender_email)
+  end
+
+  def receiver
+    EmailActor.get_user_by_email(self.receiver_email)
+  end
+
   def the_other_user
-    sender = EmailActor.get_user_by_email(self.sender_email)
-    receiver = EmailActor.get_user_by_email(self.receiver_email)
-    (self.reader.id == sender.id) ? receiver : sender
+    (self.reader.id == self.sender.id) ? self.receiver : self.sender
   end
 
   after_create :set_to_message_redis_cache

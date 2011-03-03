@@ -175,7 +175,6 @@ if defined? ActiveRecord::Base
     p "#{ex.message}，不加载 cache money"
   end
 end
-
 require 'pie-ui/global_util'
 include GlobalUtil
 # 一些 helper 方法
@@ -184,12 +183,14 @@ include ProjectLinkModule
 require 'pie-ui/string_util'
 
 require 'pie-ui/classes/mplist_record'
+require "pie-ui/patch/will_paginate_localize_and_add_ajax_link"
 
-require "pie-ui/will_paginate_localize_and_add_ajax_link"
+require "pie-ui/patch/contacts_cn_fix"
+
+require 'repo/grit_init'
 # asset_id
 ENV['RAILS_ASSET_ID'] = UiService.asset_id
 
-require 'repo/grit_init'
 Grit::Repo.send(:include,RepoInit)
 Grit::Diff.send(:include,DiffInit)
 

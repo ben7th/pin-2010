@@ -75,15 +75,23 @@ class Mindmap < Mev6Abstract
     MindmapDocument.new(self)
   end
 
-  def prev
-    mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+  def prev(current_user)
+    if current_user == self.user
+      mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    else
+      mindmap_ids = self.user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    end
     index = mindmap_ids.index(self.id)
     return if index == 0
     Mindmap.find(mindmap_ids[index-1])
   end
   
-  def next
-    mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+  def next(current_user)
+    if current_user == self.user
+      mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    else
+      mindmap_ids = self.user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    end
     index = mindmap_ids.index(self.id)
     return if index == (mindmap_ids.count-1)
     Mindmap.find(mindmap_ids[index+1])

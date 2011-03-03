@@ -1,4 +1,5 @@
 -require_css 'views/users'
+-require_css 'views/organizations'
 
 =flash_info
 
@@ -6,7 +7,7 @@
   你可以通过查找邮箱联系人，来添加MindPin联系人。<br/>
   MindPin不会记录你的邮箱账号和密码；并且会对你的信息绝对保密！
 
--form_tag "/account/contacts/import_list" do
+-form_tag "/contacts_setting/import_list" do
   .field
     %label
       邮箱

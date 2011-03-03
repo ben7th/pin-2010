@@ -1,0 +1,31 @@
+/*
+Uploadify v2.1.4
+Release Date: November 8, 2010
+*/
+.uploadifyQueueItem {
+  background-color: #F5F5F5;
+  border: 2px solid #E5E5E5;
+  font: 12px Verdana, Geneva, sans-serif;
+  margin-top: 5px;
+  padding: 10px;
+  width: 300px;
+  color: #111; }
+  .uploadifyQueueItem .cancel {
+    float: right; }
+
+.uploadifyError {
+  background-color: #FDE5DD !important;
+  border: 2px solid #FBCBBC !important; }
+
+.uploadifyQueue .completed {
+  background-color: #E5E5E5; }
+
+.uploadifyProgress {
+  background-color: #E5E5E5;
+  margin-top: 10px;
+  width: 100%; }
+
+.uploadifyProgressBar {
+  background-color: #0099FF;
+  height: 3px;
+  width: 1px; }

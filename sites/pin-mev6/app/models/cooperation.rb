@@ -147,8 +147,6 @@ class Cooperation < ActiveRecord::Base
       email_list = coos.map{|coo|coo.email}
       email_list = [self.user.email,email_list].flatten if !!self.user
       EmailActor.new(user.email).belonging?(email_list)
-    rescue
-      false
     end
 
     # user 对 这个导图 有协同查看的权限

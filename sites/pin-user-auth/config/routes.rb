@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup',:controller=>'users',:action=>'new'
 
   map.resource :session
-  map.resources :users
+  map.resources :users,:member=>{:cooperate=>:get}
 
   # 忘记密码
   map.forgot_password_form '/forgot_password_form',:controller=>'users',:action=>'forgot_password_form'
@@ -40,17 +40,17 @@ ActionController::Routing::Routes.draw do |map|
   map.send_activation_mail "/account/email/send_activation_mail",:controller=>"account",:action=>"send_activation_mail"
 
   # 团队
-  map.account_organizations "account/organizations",:controller=>"account",:action=>"organizations"
+  map.contacts_setting_organizations "contacts_setting/organizations",:controller=>"contacts_setting",:action=>"organizations"
   map.resources :organizations,:member=>{:invite=>:get,:settings=>:get,:leave=>:delete} do |organization|
     organization.resources :members
   end
 
   # 联系人
-  map.account_contacts     "account/contacts",:controller=>"account",:action=>"contacts"
+  map.account_contacts     "contacts_setting/contacts",:controller=>"contacts_setting",:action=>"contacts"
   # 导入联系人
-  map.import_contacts      "account/contacts/import",:controller=>"contacts",:action=>"import"
+  map.import_contacts      "contacts_setting/import",:controller=>"contacts",:action=>"import"
   # 导入联系人 显示列表
-  map.import_contacts_list "account/contacts/import_list",:controller=>"contacts",:action=>"import_list"
+  map.import_contacts_list "contacts_setting/import_list",:controller=>"contacts",:action=>"import_list"
   # 导入联系人
   map.resources :contacts,
     :collection=>{
@@ -69,7 +69,7 @@ ActionController::Routing::Routes.draw do |map|
   map.do_account_rebind "account/do_rebind",:controller=>"account",:action=>"do_rebind",:conditions=>{:method=>:post}
 
   # 发送邀请函
-  map.account_invite "account/invite",:controller=>"account",:action=>"invite"
+  map.contacts_setting_invite "contacts_setting/invite",:controller=>"contacts_setting",:action=>"invite"
   map.resources :invitations,:collection=>{:import_invite=>:post,:import_contact=>:post}
 
   map.invitation_do_register "/i/do_reg",:controller=>"users",:action=>"do_reg"
@@ -102,7 +102,8 @@ ActionController::Routing::Routes.draw do |map|
   map.account_message "/account/message",:controller=>"account",:action=>"message"
   map.account_do_message "/account/do_message",:controller=>"account",:action=>"do_message",:conditions=>{:method=>:put}
 
-  map.resources :mindmaps,:collection=>{:import=>:get,:import_file=>:post},:member=>{
+  map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
+  map.resources :mindmaps,:collection=>{:import_file=>:post},:member=>{
       :change_title=>:put,
       :clone_form=>:get,
       :do_clone=>:put,

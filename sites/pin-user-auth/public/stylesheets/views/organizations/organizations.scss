@@ -214,3 +214,19 @@
     margin-right:8px;
   }
 }
+
+.contacts-head-bar{
+  float:right;
+  background:#1C1E2C;
+  border:solid 1px #111;
+  @include border-radius(4px);
+  .manage,.invite,.import{
+    float:left;
+    margin:0 0 0 12px;
+    font-size:14px;
+  }
+  padding:5px;
+  position:relative;
+  top:-5px;
+  left:5px;
+}

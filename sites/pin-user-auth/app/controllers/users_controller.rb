@@ -56,7 +56,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     @mindmaps_count = @user.mindmaps_count
-    @mindmaps = @user.mindmaps.all(:order=>'id desc').paginate(:page=>params[:page]||1,:per_page=>12)
+    if current_user == @user
+      @mindmaps = @user.mindmaps.all(:order=>'id desc').paginate(:page=>params[:page]||1,:per_page=>21)
+    else
+      @mindmaps = @user.mindmaps.publics.paginate(:order=>'id desc',:page=>params[:page]||1,:per_page=>21)
+    end
 
     @fans_count = @user.fans_contacts.count
 
@@ -66,6 +70,8 @@ class UsersController < ApplicationController
 
     @own_feeds = @user.news_feed_proxy.own_feeds.paginate(:page=>params[:page],:per_page=>20)
     
+    set_cellhead_path('/index/cellhead')
+
     respond_to do |format|
       format.html {
         render :template=>'users/homepage'
@@ -74,6 +80,13 @@ class UsersController < ApplicationController
         render :xml=>@user.to_xml(:only=>[:id,:name,:created_at],:methods=>:logo)
       }
     end
+  end
+
+  def cooperate
+    set_cellhead_path('/index/cellhead')
+    @user = User.find(params[:id])
+    @cooperate_edit_mindmaps = @user.cooperate_edit_mindmaps
+    @cooperate_view_mindmaps = @user.cooperate_view_mindmaps
   end
 
   private

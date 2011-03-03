@@ -44,6 +44,16 @@ class MessageProxy
     unread_message_ids_from(the_other_user).count
   end
 
+  def message_count_from(the_other_user)
+    message_ids_from(the_other_user).count
+  end
+
+  def newest_message_from(the_other_user)
+    ids = message_ids_from(the_other_user)
+    newest_id = ids.first
+    Message.find_by_id(newest_id)
+  end
+
   def unread_message_count
     users.map do |user|
       unread_message_count_from(user)

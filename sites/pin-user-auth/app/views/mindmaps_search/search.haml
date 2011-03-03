@@ -9,13 +9,18 @@
           -mindmap = item.mindmap
           -unless mindmap.blank?
             .search-result
-              .meta
-                =link_to item.title,"#{pin_url_for('pin-mev6')}mindmaps/#{mindmap.id}"
-                .misc.fright
-                  %span.quiet 相关度 #{item.score}
-                  =avatar mindmap.user,:tiny
-              .data
-                =item.content
+              -if mindmap.has_view_rights?(current_user)
+                .meta
+                  =link_to item.title,"#{pin_url_for('pin-mev6')}mindmaps/#{mindmap.id}"
+                  .misc.fright
+                    %span.quiet 相关度 #{item.score}
+                    =avatar mindmap.user,:tiny
+                .data
+                  =item.content
+              -else
+                .meta
+                  导图内容不公开，无法显示
+
       =will_paginate @result
   .grid_6.fright.omega
     %div{:style=>'margin-top:50px;'}

@@ -1,0 +1,38 @@
+- law_rank_class = (mindmap.low_value? ? "low-value" : "")
+-view_mindmap_url = "#{pin_url_for('pin-mev6')}mindmaps/#{mindmap.id}"
+.map-data.clearfix{:class=>"#{law_rank_class}"}
+  .mindmap-logo
+    =logo(mindmap)
+    -link_to(view_mindmap_url,:class=>'fleft',:target=>'_blank') do
+      .private-mark{:class=>mindmap.private ? 'p':''}
+
+  .mindmap-meta
+    %h4
+      =link_to escape_title(mindmap,23),view_mindmap_url,:target=>'_blank',:title=>mindmap.title
+    .mindmap-datetime
+      =jtime(mindmap.updated_at)
+     
+  .fright
+    .mindmap-operations.fright.clearfix
+
+      -if logged_in? && mindmap.cooperate_edit?(current_user) && mindmap.user!=current_user
+        .fleft.marginr5
+          .edit-link
+          =link_to "编辑","#{pin_url_for('pin-mev6')}mindmaps/#{mindmap.id}/edit",:target=>'_blank'
+
+      -if logged_in? && mindmap.cooperate_view?(current_user) && mindmap.user!=current_user
+        .fleft.marginr5
+          .edit-link
+          =link_to "查看",view_mindmap_url,:target=>'_blank'
+
+-if !mindmap.cooperations.blank?
+  .cooprate.nl.clearfix
+    %span 允许编辑:
+    %ul
+      -mindmap.cooperate_edit_email_actors.each do |ea|
+        %li=email_actor_link(ea)
+    -if mindmap.private
+      %span 允许查看:
+      %ul
+        -mindmap.cooperate_view_email_actors.each do |ea|
+          %li=email_actor_link(ea)
