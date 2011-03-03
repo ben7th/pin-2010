@@ -104,7 +104,9 @@ pie.MindmapPageLoader = {
         try{
           var array = trans.responseText.evalJSON();
           array.each(function(json){
-            mindmap.show_op_instance(json);
+            pie.log('同步协同暂未实现，不对其他编辑请求作处理')
+            mindmap.coop_break();
+//            mindmap.show_op_instance(json);
           }.bind(this))
 
           setTimeout(function(){

@@ -29,7 +29,7 @@ redis 安装
 ===============================================================
 gem 安装
   1 gem oauth 0.4.4
-    gem install --version='0.4.4'
+    gem install oauth --version='0.4.4'
   2 redis-rb 2.1.1 gem 安装
     rubygems 上没有这个 gem
     从 https://github.com/ezmobius/redis-rb 下载 2.1.1 的源码生成gem 安装

@@ -81,6 +81,28 @@ pie.mindmap_save_module = {
     jQuery.facebox(info_dialog);
     jQuery('#facebox_overlay').unbind('click');
   },
+
+  coop_break:function(){
+   //第一步 闪烁提示
+    new pie.mindmap.InfoLabel(this).error('网络或服务发生异常。').pulsate();
+
+    //第二步 白板遮盖锁定
+    this.lock_mindmap();
+
+    var info_dialog = Builder.node('div',{},[
+      Builder.node('h3',{'class':'f_box'},'协同编辑导致的编辑中断'),
+      Builder.node('div',{'class':'mindmap_save_error'},[
+        Builder.node('div',{},'其他人正在编辑导图，导图内容已被修改，你的编辑被中断'),
+        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入导图。'),
+        Builder.node('div',{},'或手动刷新页面')
+      ])
+    ]);
+
+    //第三步 提示刷新
+    jQuery.facebox(info_dialog);
+    jQuery('#facebox_overlay').unbind('click');
+  },
+
   lock_mindmap:function(){
     if(!this.lock_whiteboard){
       this.lock_whiteboard = new pie.mindmap.LockWhiteBoard(this);

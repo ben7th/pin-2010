@@ -35,8 +35,8 @@ pie.mindmap.NodeTitleEditor = Class.create({
   _build_title_resizer:function(){
     if(!this.title_resizer){
       this.title_resizer = Builder.node("div",{
-        style:"position:absolute; top:1700px; left:3400px; background-color:#ccc;"
-        //style:"position:absolute; top:-777px; left:-777px; background-color:#ccc;"
+        //style:"position:absolute; top:1700px; left:3400px; background-color:#ccc;"
+        style:"position:absolute; top:-777px; left:-777px; background-color:#ccc;"
       });
     }
   },
