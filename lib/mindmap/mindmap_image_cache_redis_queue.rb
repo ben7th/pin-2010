@@ -40,8 +40,9 @@ class MindmapImageCacheRedisQueue
     MindmapImageCache.new(mindmap).refresh_cache_file(size)
     image_src = self.get_image_src(mindmap_id,size)
     MindmapImageUrlRedisCache.new.set_cache(mindmap,size,image_src)
-    micrq.delete(a_cache_image)
     return true
+  ensure
+    micrq.delete(a_cache_image) if !a_cache_image.blank?
   end
 
   def self.get_image_src(mindmap_id,size)
