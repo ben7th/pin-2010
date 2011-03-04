@@ -16,14 +16,15 @@ class MindmapLucene
   end
 
   class Client
-    def self.instance
-      @@instance ||= begin
-        _transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9091))
-        _protocol = Thrift::BinaryProtocol.new(_transport)
-        _client = LuceneMindmapsService::Client.new(_protocol)
-        _transport.open()
-        _client
-      end
+    def self.connection
+      _transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9091))
+      _protocol = Thrift::BinaryProtocol.new(_transport)
+      _client = LuceneMindmapsService::Client.new(_protocol)
+      _transport.open()
+      _client
+      yield(_client)
+    ensure
+      _transport.close()
     end
   end
 
@@ -37,13 +38,17 @@ class MindmapLucene
 
     def search_paged_result
       # TODO 参数传递重复，java搜索结果中应包含分页信息以避免此问题
-      xml = Client.instance.search_page(@query, @pager.start_index, @pager.per_page)
+      xml = Client.connection do |client|
+        client.search_page(@query, @pager.start_index, @pager.per_page)
+      end
       LuceneSearchResult.new(xml,:pager=>@pager)
     end
 
     # 搜索指定条数的结果
     def search_result(results_count=10)
-      xml = Client.instance.search_page(@query, 0, results_count)
+      xml = Client.connection do |client|
+        client.search_page(@query, 0, results_count)
+      end
       LuceneSearchResult.new(xml)
     end
 
@@ -152,7 +157,9 @@ class MindmapLucene
 
   def self.split_words(text)
     begin
-      Client.instance.parse_content(text||'')
+      Client.connection do |client|
+        client.parse_content(text||'')
+      end
     rescue Exception => ex
       raise MindmapSearchFailureError,"搜索服务不可用。#{ex}"
     end
@@ -162,7 +169,9 @@ class MindmapLucene
   # 这个动作会清空原先的旧的索引
   def self.index_all
     begin
-      Client.instance.index()
+      Client.connection do |client|
+        client.index()
+      end
     rescue Exception => ex
       raise MindmapSearchFailureError,"搜索服务不可用。#{ex}"
     end
@@ -172,7 +181,9 @@ class MindmapLucene
   def self.index_one_mindmap(mindmap_id)
     Thread.start do
       begin
-        Client.instance.index_one_mindmap(mindmap_id)
+        Client.connection do |client|
+          client.index_one_mindmap(mindmap_id)
+        end
       rescue Thrift::TransportException => ex
         p ex
       rescue RuntimeError => ex
@@ -185,7 +196,9 @@ class MindmapLucene
   def self.delete_index(mindmap_id)
     Thread.start do
       begin
-        Client.instance.delete_index(mindmap_id)
+        Client.connection do |client|
+          client.delete_index(mindmap_id)
+        end
       rescue Thrift::TransportException => ex
         p ex
       rescue RuntimeError => ex

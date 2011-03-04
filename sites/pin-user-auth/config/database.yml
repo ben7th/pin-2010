@@ -22,7 +22,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: user_auth_0531
+  database: pin-user-auth
   username: root
   password: root
   pool: 5
