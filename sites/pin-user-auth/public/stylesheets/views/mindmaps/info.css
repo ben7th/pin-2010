@@ -145,17 +145,16 @@
         text-indent: -999px;
         width: 24px;
         height: 24px;
-        border: solid 1px #111;
         margin-right: 10px;
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px; }
         .map-action .ac .pt a.public {
-          background: #C8DC69; }
+          background: url(/images/icons/all.png) -50px -117px no-repeat !important; }
         .map-action .ac .pt a.private {
-          background: #ED6D52; }
+          background: url(/images/icons/all.png) -25px -117px no-repeat !important; }
         .map-action .ac .pt a.loading {
-          background: url(/images/icons/toggle-loading-12.gif) no-repeat 6px 6px; }
+          background: url(/images/icons/toggle-loading-12.gif) no-repeat 6px 6px !important; }
       .map-action .ac .pt .desc {
         font-size: 12px;
         line-height: 24px; }

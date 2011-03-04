@@ -505,22 +505,21 @@ form.new_message .w300 {
           display: block; }
         .user_mindmaps .mpli .action .pt .toggle {
           cursor: pointer;
-          width: 13px;
-          height: 13px;
+          width: 16px;
+          height: 16px;
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
-          border: solid 1px #000;
           position: relative;
           top: 4px;
           left: 4px;
           display: block; }
           .user_mindmaps .mpli .action .pt .toggle.public {
-            background: #C8DC69; }
+            background: url(/images/icons/all.png) -34px -100px no-repeat !important; }
           .user_mindmaps .mpli .action .pt .toggle.private {
-            background: #ED6D52; }
+            background: url(/images/icons/all.png) -17px -100px no-repeat !important; }
           .user_mindmaps .mpli .action .pt .toggle.loading {
-            background: url(/images/icons/toggle-loading-12.gif) 1px 1px no-repeat !important; }
+            background: url(/images/icons/toggle-loading-12.gif) 2px 2px no-repeat !important; }
       .user_mindmaps .mpli .action .info {
         background: #131520;
         width: 32px;
