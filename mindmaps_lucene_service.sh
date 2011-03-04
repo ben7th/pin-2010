@@ -1,6 +1,6 @@
 #! /bin/sh
 
-root_dir=`pwd`
+root_dir=`dirname $0`
 
 processor_pid=/web/2010/pids/mindmaps_lucene_service.pid
 
