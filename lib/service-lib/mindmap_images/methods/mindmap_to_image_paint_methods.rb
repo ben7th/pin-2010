@@ -171,16 +171,9 @@ module MindmapToImagePaintMethods
 
   def paint_sign(image,w,h)
     gc0 = new_gc
-
-    gc0.stroke('#3274D0')
-    gc0.fill('#3274D0')
-
-    gc0.rectangle(0,h-30,w,h)
-
     sign_height = 30 * zoom
-    gc0.rectangle(0,0,w-1,sign_height)
 
-    logo_tail_path = "#{File.dirname(__FILE__)}/../images/logo_tail.png"
+    logo_tail_path = "#{File.dirname(__FILE__)}/../images/logo_tail_1.png"
     logo = Magick::ImageList.new(logo_tail_path)
 
     gc0.composite(w-120,h-30,0,0,logo)
@@ -189,14 +182,9 @@ module MindmapToImagePaintMethods
     gc0.fill('transparent')
     gc0.rectangle(0,0,w-1,h-1)
 
-    gc0.stroke('transparent')
-    gc0.fill('white')
-    gc0.pointsize=16
-    gc0.text(10,h-10,"http://www.mindpin.com")
-
     gc1 = new_gc
     gc1.stroke('transparent')
-    gc1.fill('white')
+    gc1.fill('#C8171F')
     gc1.text(10*zoom,20*zoom,mindmap.title)
     gc1.text(get_text_size(mindmap.title).width+sign_height,20*zoom,_author_name)
 
