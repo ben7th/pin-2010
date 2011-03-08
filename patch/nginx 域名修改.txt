@@ -1,9 +1,0 @@
-把
-server {
-  server_name mindmap-image-cache.mindpin.com;
-}
-
-改为
-server {
-  server_name ~^mindmap-image-cache(-\d+)?\.mindpin\.com$
-}

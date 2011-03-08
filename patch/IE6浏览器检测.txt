@@ -1,9 +1,0 @@
-去掉 
-  #  if ($http_user_agent ~ MSIE){
-  #    rewrite ^(.*)  http://dev.2009.mindpin.com$1 break;
-  #  }
-
-去掉 三个旧工程的配置
-ei-server
-api-service-server
-mindmap-editor-2010-server

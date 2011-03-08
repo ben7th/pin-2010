@@ -1,8 +1,0 @@
-1 去掉mindmap-editor工程相关 nginx 配置
-
-2 使以前的导图编辑和查看地址重定向到新的地址
-  server {
-    listen 80;
-    server_name dev.mindmap-editor.mindpin.com;
-    rewrite ^(.*) http://dev.mev6.mindpin.com$1 redirect;
-  }
