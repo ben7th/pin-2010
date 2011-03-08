@@ -50,10 +50,10 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     this.editmode = options.editmode||false;
     if(this.editmode){
-      this.node_title_editor = new pie.mindmap.NodeTitleEditor(this);
+      this.node_title_editor  = new pie.mindmap.NodeTitleEditor(this);
       this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
       this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
-      this._nodeFontEditor    = new pie.mindmap.NodeFontEditor();
+      this._node_font_editor  = new pie.mindmap.NodeFontEditor(this);
     }
 
     //Designated Canvas function
@@ -711,6 +711,11 @@ pie.mindmap_focus_methods = {
   edit_focus_image:function(){
     if(this._can_edit_focus()){
       this._node_image_editor.do_edit_image(this.focus);
+    }
+  },
+  edit_focus_font:function(){
+    if(this._can_edit_focus()){
+      this._node_font_editor.do_edit_font(this.focus);
     }
   },
   edit_focus_title:function(){

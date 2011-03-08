@@ -781,19 +781,173 @@ form.new_message .w300 {
   .map-head-bar .my-maps, .map-head-bar .coop-maps, .map-head-bar .all-public-maps {
     font-size: 14px; }
 
-.mplist.users li.user {
+.mplist.users.contacts-list li.user {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border: solid 1px #111;
   margin: 0 0 10px 0; }
-  .mplist.users li.user .avatar {
+  .mplist.users.contacts-list li.user .avatar {
     float: left;
     margin: 0 20px 0 0;
     width: 52px;
     height: 52px; }
-  .mplist.users li.user .meta {
+  .mplist.users.contacts-list li.user .meta {
     float: left;
-    width: 400px; }
-  .mplist.users li.user .last_feed {
-    margin: 5px 0; }
+    width: 400px;
+    position: relative;
+    margin: 0 20px 0 0; }
+    .mplist.users.contacts-list li.user .meta .c-channel {
+      position: absolute;
+      right: 5px;
+      top: -3px;
+      overflow: hidden; }
+      .mplist.users.contacts-list li.user .meta .c-channel .c {
+        height: 18px;
+        cursor: pointer;
+        padding: 3px;
+        float: right;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
+        .mplist.users.contacts-list li.user .meta .c-channel .c:hover {
+          background: black;
+          color: white; }
+        .mplist.users.contacts-list li.user .meta .c-channel .c .cn {
+          float: right;
+          position: relative;
+          padding-right: 18px; }
+        .mplist.users.contacts-list li.user .meta .c-channel .c .cim {
+          position: absolute;
+          right: 3px;
+          top: 4px;
+          width: 16px;
+          height: 16px;
+          background: url(/images/icons/all.png) no-repeat -51px -100px; }
+    .mplist.users.contacts-list li.user .meta .last_feed {
+      margin: 5px 0; }
+  .mplist.users.contacts-list li.user .action {
+    float: left; }
+    .mplist.users.contacts-list li.user .action .s-msg, .mplist.users.contacts-list li.user .action .follow_btn, .mplist.users.contacts-list li.user .action .unfollow_btn {
+      margin: 0 0 10px 0; }
+
+.channel-form {
+  position: absolute;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 5px;
+  border: 2px solid #323546;
+  background: black;
+  width: 128px; }
+  .channel-form .channels {
+    border-bottom: dashed 1px #666; }
+    .channel-form .channels .c {
+      overflow: hidden;
+      margin: 0 0 1px 0;
+      height: 20px;
+      line-height: 20px;
+      padding: 0 0 1px 3px;
+      cursor: default; }
+      .channel-form .channels .c .icon {
+        width: 13px;
+        height: 13px;
+        background: url(/images/icons/all.png) no-repeat -82px -100px;
+        float: left;
+        margin-right: 5px;
+        position: relative;
+        top: 4px; }
+      .channel-form .channels .c .name {
+        float: left; }
+      .channel-form .channels .c:hover {
+        background: #393F4D; }
+      .channel-form .channels .c.checked .icon {
+        background: url(/images/icons/all.png) no-repeat -68px -100px; }
+  .channel-form .cr {
+    padding-left: 3px; }
+  .channel-form .cf {
+    padding: 3px; }
+    .channel-form .cf input {
+      width: 120px !important; }
+    .channel-form .cf button {
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border: none 0px;
+      margin: 4px 5px 0 0; }
+      .channel-form .cf button.editable-submit {
+        color: white;
+        background: #0063DC; }
+        .channel-form .cf button.editable-submit:hover {
+          background: #0054BD; }
+      .channel-form .cf button.editable-cancel {
+        color: #666666;
+        background: #ddd; }
+        .channel-form .cf button.editable-cancel:hover {
+          background: #CFCFCF; }
+
+.channel-panel {
+  margin: 10px 0 20px; }
+  .channel-panel ul.channels {
+    overflow: hidden;
+    margin: 10px 0 0px; }
+    .channel-panel ul.channels li {
+      float: left; }
+      .channel-panel ul.channels li a {
+        border-radius: 4px 4px 0 0;
+        -moz-border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px 4px 0 0;
+        margin: 0 5px 0 0;
+        background: #222;
+        display: block;
+        padding: 4px 7px;
+        color: #e0e0e0; }
+        .channel-panel ul.channels li a:hover {
+          background: #374971;
+          text-decoration: none; }
+      .channel-panel ul.channels li.current a {
+        font-weight: bold;
+        background: black;
+        color: white; }
+  .channel-panel .channel-op {
+    border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+    padding: 10px 10px;
+    background: black;
+    margin: 0px 0 20px;
+    position: relative; }
+    .channel-panel .channel-op .u-count {
+      margin: 0 40px 0 0; }
+    .channel-panel .channel-op .rename-channel {
+      margin: 0 10px 0 0; }
+    .channel-panel .channel-op .rename-channel-form {
+      position: absolute;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 5px;
+      border: 2px solid #323546;
+      background: black;
+      width: 128px;
+      z-index: 99;
+      top: 40px;
+      left: 40px; }
+      .channel-panel .channel-op .rename-channel-form input {
+        width: 120px !important; }
+      .channel-panel .channel-op .rename-channel-form button {
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border: none 0px;
+        margin: 4px 5px 0 0; }
+        .channel-panel .channel-op .rename-channel-form button.editable-submit {
+          color: white;
+          background: #0063DC; }
+          .channel-panel .channel-op .rename-channel-form button.editable-submit:hover {
+            background: #0054BD; }
+        .channel-panel .channel-op .rename-channel-form button.editable-cancel {
+          color: #666666;
+          background: #ddd; }
+          .channel-panel .channel-op .rename-channel-form button.editable-cancel:hover {
+            background: #CFCFCF; }

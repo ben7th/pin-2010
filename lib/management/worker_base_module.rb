@@ -1,7 +1,8 @@
 module MindpinServiceManagementModule
   module WorkerBase
     # 包含的 worker
-    Workers = ["mindmap_input_queue_worker","mindmap_image_cache_queue_worker","mindmap_import_queue_worker"]
+    Workers = ["mindmap_input_queue_worker","mindmap_image_cache_queue_worker",
+      "mindmap_import_queue_worker","channel_contact_operation_queue_worker"]
     # 支持的操作
     Operations = ["start",'stop']
 

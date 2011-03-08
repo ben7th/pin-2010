@@ -103,7 +103,7 @@ class Mindmap < Mev6Abstract
     end
   end
 
-  include Cooperation::MindmapMethods
+  include CooperationMindmapMethods
   include Feed::MindmapMethods
   
   include MindmapCloneMethods

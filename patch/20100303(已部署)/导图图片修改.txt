@@ -1,0 +1,11 @@
+导图图片的相关修改，部署时需要注意事项
+
+image_cache改成redis消息队列服务
+服务脚本位于  /web1/pin-2010/mindmap_image_cache_queue.sh
+部署的时候需要对脚本中的文件做相应的修改
+
+
+前端js的位置在pin-user-auth/public/javascripts/views/mindmap_image.js
+部署时js中的 jquery jsonp请求链接地址 需要做相应的修改 
+user工程=>帮助方法=>mindmap_helper.rb中的4，11两行的 图像 src初始化的这个路径要做相应的修改
+

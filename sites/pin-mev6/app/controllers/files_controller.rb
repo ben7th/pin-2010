@@ -76,6 +76,16 @@ class FilesController < ApplicationController
     end
   end
 
+  def show_font_editor
+    render_ui do |ui|
+      ui.fbox(:show,
+        :title   => "导图编辑 - 节点字号和颜色",
+        :partial => "mindmaps/editor_page/module/font_editor",
+        :locals  => {:mindmap=>@mindmap})
+      ui.page << 'mindmap._node_font_editor._rails_controller_callback()'
+    end
+  end
+
   private
   def _send_image(image_file_path)
     file_name = File.basename(image_file_path)

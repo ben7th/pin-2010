@@ -1,70 +1,63 @@
 pie.mindmap.NodeFontEditor = Class.create({
-	initialize: function(options){
-    this.h = [];
-    this.h[0] = "FF";
-    this.h[1] = "CC";
-    this.h[2] = "99";
-    this.h[3] = "66";
-    this.h[4] = "33";
-    this.h[5] = "00";
+	initialize: function(mindmap){
+    this.map = mindmap;
 	},
-  doEditFont:function(node){
+  do_edit_font:function(mindmap_node){
+    this.node = mindmap_node;
+		this.node.select();
 
-    this.get_cube();
-
-    var fontsize = node.fontsize || 12;
-    var fontcolor = node.fontcolor || '#000000';
-
-    $('fontsize').value = fontsize;
-    $('fontcolor').value = fontcolor;
-
-    $("accept_font").observe("click",function(){
-      var new_size = $('fontsize').value;
-      var new_color = $('fontcolor').value;
-
-      node.nodetitle.el.setStyle({
-        'fontSize':new_size+'px',
-        'color':new_color
-      })
-      node.fontsize = new_size;
-      node.fontcolor = new_color;
-
-      Lightview.hide();
-    }.bind(this));
-
-		Lightview.show({
-		  href: '#fontselector',
-		  title: '修改字体',
-		  caption: '输入字体大小/颜色',
-      width: '500px'
-		});
+    this._show_selector_box();
   },
-  get_cube: function(){// 创建颜色小方块
-    if($('colorzone').innerHTML.blank()){
 
-      for(var r=0; r<6; r++){
-        var _ul = document.createElement("ul");
-        for(var g=0; g<6; g++){
-          for(var b=0; b<6; b++){
-            var R = this.h[r];
-            var G = this.h[g];
-            var B = this.h[b];
+  _show_selector_box:function(){
+    new Ajax.Request('/mindmaps/'+this.map.id+'/files/f_editor',{
+      method:'GET'
+      //回调在controller里
+    })
+  },
 
-            var _li = document.createElement("li");
-            var _a = document.createElement("a");
-            _a.style.background = "#"+ R + G + B;
-            _li.title = "#"+ R + G + B;
-            _li.appendChild(_a);
-            _ul.appendChild(_li);
-          };
-        };
-        $(_ul).observe("click", function(evt){
-           var el = evt.element();
-           var color = el.parentNode.title
-           $('fontcolor').value = color;
-        });
-        $('colorzone').appendChild(_ul);
-      };
-    }
+  _rails_controller_callback:function(){
+    //这样不太dry，CV层逻辑有些混，暂时先如此
+    this.colors       = $$('#facebox .mindmap-font-editor .colors')[0];
+    this.current      = $$('#facebox .mindmap-font-editor .current')[0];
+    this.sizes_select = $$('#facebox .mindmap-font-editor .sizes select')[0];
+
+    this.fontsize  = this.node.get_fontsize();
+    this.fontcolor = this.node.get_fontcolor();
+
+    jQuery(this.current).css('font-size',this.fontsize).css('color',this.fontcolor);
+    jQuery(this.sizes_select).val(this.fontsize);
+    
+    jQuery(this.current).find('span.cc').html(this.fontcolor);
+    jQuery(this.current).find('span.cs').html(this.fontsize);
+
+    var current = this.current;
+    var e = this;
+    jQuery(this.colors).find('.color').bind('click',function(evt){
+      var color = jQuery(this).attr('data-color');
+      pie.log(color)
+      jQuery(current).css('color',color);
+      jQuery(current).find('span.cc').html(color);
+      e.fontcolor = color;
+    });
+
+    jQuery(this.sizes_select).bind('change',function(){
+      var elm = jQuery(this);
+      var size = elm.val();
+      jQuery(current).css('font-size',size + 'px');
+      e.fontsize = size;
+    })
+
+    jQuery('#facebox .mindmap-font-editor .accept').bind('click',function(evt){
+      var node = e.node;
+      node.set_fontsize(e.fontsize);
+      node.set_fontcolor(e.fontcolor);
+      jQuery.facebox.close();
+
+      Object.extend(node,node.el.getDimensions());
+      node.do_dirty();
+      node.map.reRank();
+    });
   }
+
 });

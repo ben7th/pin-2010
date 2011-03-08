@@ -12,6 +12,9 @@
     var timestamp_date_millisecond = timestamp_date.valueOf();
     var relative_millisecond = current_date_millisecond - timestamp_date_millisecond;
 
+    if(relative_millisecond < 0){
+      return "1秒前"
+    }
     if(relative_millisecond < 60000){
       return parseInt(relative_millisecond/1000) + "秒前"
     }

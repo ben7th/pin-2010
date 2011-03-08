@@ -190,6 +190,47 @@
   }
 }
 
+/*字号颜色选择器*/
+.mindmap-font-editor{
+  label{
+    color:white;
+  }
+  .colors{
+    width:540px;
+    height:90px;
+    padding:5px;
+    @include border-radius(4px);
+    margin:10px 0;
+    background:white;
+    .line{
+      overflow:hidden;
+      .color{
+        width:12px;
+        height:12px;
+        border:solid 1px #111;
+        margin:0 1px 1px 0;
+        float:left;
+        @include border-radius(2px);
+        cursor:pointer;
+      }
+    }
+  }
+  .p{
+    overflow:hidden;
+    .current{
+      @include border-radius(4px);
+      background:white;
+      padding:4px 10px;
+      width:300px;
+      float:left;
+      overflow:hidden;
+    }
+    .sizes{
+      float:right;
+    }
+  }
+}
+
 #mindmap-scroller{
   position:absolute;
   border:none;

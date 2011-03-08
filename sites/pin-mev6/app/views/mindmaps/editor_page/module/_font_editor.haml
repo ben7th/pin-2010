@@ -1,0 +1,35 @@
+.mindmap-font-editor
+  .clearfix
+    .form
+      .field
+        %label 请从以下颜色中选择你需要的 :)
+        %span.fontcolor
+          #666666
+        .colors
+          -#h = ['ff','e5','cc','b2','99','7f','66','4c','33','19','00'];
+          -h = ['FF','CC','99','66','33','00'];
+          -0.upto 5 do |r|
+            .line
+              -0.upto 5 do |g|
+                -0.upto 5 do |b|
+                  -color = "##{h[r]}#{h[g]}#{h[b]}"
+                  .color{:style=>"background-color:#{color};",:'data-color'=>color}
+        .p
+          .current
+            目前的颜色和字号：
+            %span.cc>
+            ，
+            %span.cs>
+          .sizes
+            选择字号：
+            %select
+              %option 12
+              %option 14
+              %option 16
+              %option 18
+              %option 24
+              %option 36
+              %option 48
+
+      .field.clearfix
+        =link_to '<span>确定</span>','javascript:;',:class=>'accept minibutton'

@@ -22,7 +22,7 @@
             =minibutton '取消关注',"javascript:;","data-user-id"=>user.id
   .scount.darkbg
     %dl
-      %dt=link_to @mindmaps_count,pin_url_for('pin-mindmap-editor',"users/#{user.id}")
+      %dt=link_to @mindmaps_count,'javascript:;'
       %dd 思维导图
     %dl
       %dt=link_to @fans_count,pin_url_for('pin-user-auth',"#{user.id}/fans")

@@ -353,5 +353,23 @@ pie.mindmap.Node = Class.create({
   },
   is_selected:function(){
     return this.el.hasClassName('node_selected') || this.el.hasClassName('root_selected');
+  },
+  get_fontsize:function(){
+    var fs = this.fontsize;
+    if(fs) return fs;
+    return this.is_root() ? 14:12;
+  },
+  set_fontsize:function(fontsize){
+    this.fontsize = fontsize;
+    jQuery(this.nodetitle.el).css('font-size',fontsize + 'px')
+  },
+  get_fontcolor:function(){
+    var fc = this.fontcolor;
+    if(fc) return fc;
+    return this.is_root() ? '#000000':'#000000';
+  },
+  set_fontcolor:function(fontcolor){
+    this.fontcolor = fontcolor;
+    jQuery(this.nodetitle.el).css('color',fontcolor);
   }
 });

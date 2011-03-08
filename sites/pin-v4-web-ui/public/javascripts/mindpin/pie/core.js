@@ -120,6 +120,32 @@ pie.do_click = function(id,evt){
   if(evt) evt.stop();
 }
 
+pie.charslength = function (str){
+  var i,sum;
+  sum = 0;
+  for(i=0;i<str.length;i++){
+    var c = str.charCodeAt(i);
+    sum += ((c>=0) && (c<=255)) ? 1:2;
+  }
+  return sum;
+}
+
+pie.truncate_u = function(str,length){
+  var i,sum;
+  sum = 0;
+  res = ''
+  for(i=0;i<str.length;i++){
+    var c = str.charCodeAt(i);
+    var ch = str[i];
+    var is_hanzi = (c>=0) && (c<=255);
+    if(sum < length) res += ch+'';
+    sum += is_hanzi ? 1:2;
+  }
+  if(res.length < str.length) res+='...'
+  return res;
+}
+
+
 //---XML code begin
 pie.dom.xml={
   //获取空的XML解析对象

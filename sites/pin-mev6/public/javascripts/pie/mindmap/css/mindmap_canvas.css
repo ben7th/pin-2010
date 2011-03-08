@@ -188,6 +188,44 @@
           padding: 3px;
           color: #222; }
 
+/*字号颜色选择器*/
+.mindmap-font-editor label {
+  color: white; }
+.mindmap-font-editor .colors {
+  width: 540px;
+  height: 90px;
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin: 10px 0;
+  background: white; }
+  .mindmap-font-editor .colors .line {
+    overflow: hidden; }
+    .mindmap-font-editor .colors .line .color {
+      width: 12px;
+      height: 12px;
+      border: solid 1px #111;
+      margin: 0 1px 1px 0;
+      float: left;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      cursor: pointer; }
+.mindmap-font-editor .p {
+  overflow: hidden; }
+  .mindmap-font-editor .p .current {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: white;
+    padding: 4px 10px;
+    width: 300px;
+    float: left;
+    overflow: hidden; }
+  .mindmap-font-editor .p .sizes {
+    float: right; }
+
 #mindmap-scroller {
   position: absolute;
   border: none;

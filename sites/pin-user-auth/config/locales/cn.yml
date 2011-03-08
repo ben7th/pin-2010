@@ -35,6 +35,10 @@ cn:
     errors:
       errors:
       models:
+        channel:
+          attributes:
+            name:
+              taken: 这个名字的频道已经存在
         contact:
           attributes:
             email:

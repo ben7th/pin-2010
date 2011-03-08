@@ -49,4 +49,5 @@ class Contact < ActiveRecord::Base
   end
 
   include ContactAttentionProxy::ContactMethods
+  include ChannelContact::ContactMethods
 end

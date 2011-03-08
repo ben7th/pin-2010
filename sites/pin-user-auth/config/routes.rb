@@ -117,4 +117,6 @@ ActionController::Routing::Routes.draw do |map|
   map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}
   map.save_cooperations "/save_cooperations/:mindmap_id",:controller=>"cooperations",:action=>"save_cooperations",:conditions=>{:method=>:post}
 
+  map.resources :channels,:member=>{:add=>:put,:remove=>:put}
+
 end

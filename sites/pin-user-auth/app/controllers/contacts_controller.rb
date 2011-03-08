@@ -101,7 +101,15 @@ class ContactsController < ApplicationController
   def followings
     @user = User.find(params[:user_id])
     set_cellhead_path("users/cellhead")
-    @followings = @user.contacts_user
+    if !params[:channel]
+      @followings = @user.contacts_user
+    elsif params[:channel] == "none"
+      @current_channel = "none"
+      @followings = @user.no_channel_contact_users
+    else
+      @current_channel = @user.channels.find(params[:channel])
+      @followings = @current_channel.contact_users
+    end
     render :template=>"users/homepage/followings"
   end
 

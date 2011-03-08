@@ -181,5 +181,6 @@ class User < UserBase
   include Mindmap::UserMethods
 
   include ConnectUser::UserMethods
-  include Cooperation::UserMethods
+  include CooperationUserMethods
+  include Channel::UserMethods
 end
