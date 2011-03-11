@@ -105,6 +105,7 @@ class Mindmap < Mev6Abstract
 
   include CooperationMindmapMethods
   include Feed::MindmapMethods
+  include Channel::MindmapMethods
   
   include MindmapCloneMethods
   include MindmapExportAndImportMethods

@@ -1,0 +1,14 @@
+-require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/mindmap_image"
+  = javascript_include_tag "views/index"
+  = javascript_include_tag "views/mindmap_title_inplace_edit"
+
+.grid_14
+  =render :partial=>'index/homepage/feeds/feed_form_mev6'
+  =render :partial=>'index/homepage/mindmaps'
+
+.grid_8.omega.fright
+  =render :partial=>'index/homepage/site_notice'
+  =render :partial=>'index/homepage/flash_chart',:locals=>{:user=>current_user}

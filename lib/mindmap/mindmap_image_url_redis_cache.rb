@@ -21,7 +21,7 @@ class MindmapImageUrlRedisCache
   def get_cached_url(mindmap,size)
     key = "#{mindmap.id}_#{size}"
     value = @mindmap_image_redis_cache.get(key)
-    return if value.blank? || mindmap.updated_at.to_i > value["timestamp"]
+    return if value.blank? || mindmap.updated_at.to_i > value["timestamp"].to_i
     value["url"]
   end
   

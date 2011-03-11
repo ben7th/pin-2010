@@ -1,0 +1,35 @@
+-channels = current_user.channels
+
+.ch-list
+  .preview
+    .text 排列预览
+    .chtabs
+      %ul.channels
+        %li.all.current
+          =link_to '全部','javascript:;'
+        -current_user.channels.each do |c|
+          %li.tab{:'data-id'=>"#{c.id}"}
+            =link_to c.name,'javascript:;'
+        %li.more
+          %span 其他
+
+  -ids = channels.map{|c| c.id}*','
+  .chs{:'data-ids'=>"#{ids}"}
+    .title 频道列表
+    -channels.each do |ch|
+      .ch{:'data-id'=>"#{ch.id}"}
+        =ch.name
+  .ops
+    .up
+      .icon
+      %span 上移
+    .down
+      .icon
+      %span 下移
+
+  .btns
+    %button.editable-submit 保存
+    %button.editable-cancel 取消
+
+  .aj-loading{:style=>'display:none;'}
+    正在保存...

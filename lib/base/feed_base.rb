@@ -15,18 +15,6 @@ class FeedBase < UserAuthAbstract
       NewsFeedProxy.new(self)
     end
 
-    # 当前用户的联系人包括自己
-    def following_users
-      cap = ContactAttentionProxy.new(self)
-      cts = cap.followings_contacts
-      cts.map{|c|EmailActor.get_user_by_email(c.email)}.compact + [self]
-    end
-
-    def fans_contacts
-      cap = ContactAttentionProxy.new(self)
-      cap.fans_contacts
-    end
-
     # 把当前用户作为联系人的在线用户
     # 暂时 忽略 在不在线
     def hotfans

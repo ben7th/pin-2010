@@ -103,7 +103,10 @@ ActionController::Routing::Routes.draw do |map|
   map.account_do_message "/account/do_message",:controller=>"account",:action=>"do_message",:conditions=>{:method=>:put}
 
   map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
-  map.resources :mindmaps,:collection=>{:import_file=>:post},:member=>{
+  map.resources :mindmaps,:collection=>{
+      :import_file=>:post,
+      :aj_words=>:get
+    },:member=>{
       :change_title=>:put,
       :clone_form=>:get,
       :do_clone=>:put,
@@ -117,6 +120,11 @@ ActionController::Routing::Routes.draw do |map|
   map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}
   map.save_cooperations "/save_cooperations/:mindmap_id",:controller=>"cooperations",:action=>"save_cooperations",:conditions=>{:method=>:post}
 
-  map.resources :channels,:member=>{:add=>:put,:remove=>:put}
-
+  map.resources :channels,:collection=>{
+      :fb_orderlist=>:get,
+      :sort=>:put
+    },:member=>{
+      :add=>:put,
+      :remove=>:put
+    }
 end

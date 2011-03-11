@@ -166,38 +166,45 @@
 }
 
 .feed-form{
-  padding:5px 0 30px 10px;
-  .feed-content{
-    width:450px;
-    height:70px;
+  padding:64px 0 30px 50px;
+  margin:-64px 0 0 0px;
+  overflow:hidden;
+  width:500px;
+  position:relative;
+  background:url(/images/icons/echo_inputer_1.png) no-repeat;
+  .ipts{
+    float:left;
+    padding:0 10px 0 0;
+    .feed-content{
+      width:200px;
+      height:98px;
+      overflow:hidden;
+      position:relative;
+      *top:-1px;
+    }
   }
   .btns{
-    width:454px;
     overflow:hidden;
-    .import-mindmap,.create-mindmap,.send{
+    float:left;
+    .btn{
       width:32px;
       height:32px;
       @include border-radius(4px);
       @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
       @include gradient(#FEFEFE,#E2E2E2);
       text-shadow:1px 1px 0 #FFFFFF;
-      float:left;
-      margin:5px 5px 5px 0;
+      margin:0 5px 5px 0;
       cursor:pointer;
       &:hover{
         @include gradient(#0ca6dd,#0770a0);
       }
     }
-    .send{
-      width:80px;
-      float:right;
-      margin:5px 0 5px;
-    }
   }
 }
 
+
 .feed-form-mev6{
-  padding:0 0 57px 10px;
+  padding:0 0 45px 10px;
   margin-top:32px;
   position:relative;
   .f-desc{
@@ -570,6 +577,7 @@ form.new_message{
       padding:10px;
       margin:0 0 12px 0;
       @include border-radius(5px);
+      border:solid 1px #111;
       .avatar{
         float:left;
         width:68px;
@@ -609,6 +617,9 @@ form.new_message{
     .avatar{
       float:left;
       margin-right:12px;
+      font-size:0;
+      line-height:0;
+      img{@include border-radius(2px);}
     }
     .meta{
       .name{
@@ -616,13 +627,11 @@ form.new_message{
         padding:0 0 5px 0;
       }
     }
-    .fri{
-      margin-top:30px;
-    }
   }
   .scount{
     margin:0 0 10px 0;
     @include keng;
+    overflow:hidden;
     dl{
       display:inline-block;
       margin:0 30px 0 0;
@@ -631,6 +640,32 @@ form.new_message{
       a{
         color:#FBEB96;
         &:hover{text-decoration:none !important;color:#FBD300;}
+      }
+    }
+    .num{
+      font-size:48px;
+      line-height:48px;
+      float:left;
+      margin:0 10px 0 0;
+      a{
+        color:#FBEB96;
+        &:hover{text-decoration:none !important;color:#FBD300;}
+      }
+    }
+    .meta{
+      float:left;
+      .text{
+        margin:0 0 3px 0;
+      }
+      .icons{
+        a{
+          text-decoration:none;
+          img.mini{
+            height:24px;
+            width:24px;
+            @include border-radius(2px);
+          }
+        }
       }
     }
   }
@@ -642,9 +677,9 @@ form.new_message{
   }
   .avatars a{
     text-decoration:none;
-    img{
-      height:32px;
-      width:32px;
+    img.mini{
+      height:24px;
+      width:24px;
     }
   }
 }
@@ -734,7 +769,7 @@ form.new_message{
   top:-4px;
   left:-4px;
 }
-.map-head-bar{
+.map-head-bar,.head-bar{
   float:right;
   background:#1C1E2C;
   border:solid 1px #111;
@@ -885,7 +920,9 @@ form.new_message{
         background:#222;
         display:block;
         padding:4px 7px;
+        *padding:5px 7px 3px;
         color:#e0e0e0;
+        font-size:14px;
         &:hover{
           background:#374971;
           text-decoration:none;
@@ -898,15 +935,38 @@ form.new_message{
           color:white;
         }
       }
+      &.more{
+        @include border-radius(4px 4px 0 0);
+        margin:7px 5px 0 10px;
+        background:#222;
+        display:block;
+        padding:2px 7px;
+        *padding:3px 7px 1px;
+        color:#e0e0e0;
+        cursor:pointer;
+        &:hover{
+          background:#444;
+          text-decoration:none;
+        }
+        .icon{
+          width:16px;
+          height:16px;
+          background:url(/images/icons/all.png) no-repeat -96px -100px;
+          float:right;
+          position:relative;
+          top:1px;
+        }
+      }
     }
   }
 
   .channel-op{
-    @include border-radius(0 0 4px 4px);
+    @include border-radius(0 4px 4px 4px);
     padding:10px 10px;
     background:black;
     margin:0px 0 20px;
     position:relative;
+    *top:-1px;
     .u-count{
       margin:0 40px 0 0;
     }
@@ -947,5 +1007,157 @@ form.new_message{
         }
       }
     }
+  }
+  .setting{
+    position:absolute;
+    @include border-radius(0 4px 4px 4px);
+    border:solid 2px #222;
+    background:#333;
+    a{
+      display:block;
+      padding:2px 5px;
+      color:#ddd;
+      &:hover{
+        background:#444;
+        text-decoration:none;
+      }
+    }
+  }
+}
+
+#facebox .ch-list{
+  overflow:hidden;
+  .preview{
+    border:dashed 2px #323546;
+    @include border-radius(3px);
+    margin-bottom:20px;
+    width:500px;
+    background:#434657;
+    .text{
+      padding:4px 7px;
+      text-align:right;
+      color:white;
+    }
+    ul.channels{
+      overflow:hidden;
+      li{
+        float:left;
+        a{
+          @include border-radius(4px 4px 0 0);
+          margin:0 5px 0 0;
+          background:#222;
+          display:block;
+          padding:4px 7px;
+          *padding:5px 7px 3px;
+          color:#e0e0e0;
+          font-size:14px;
+          &:hover{text-decoration:none;}
+        }
+        &.current{
+          a{
+            font-weight:bold;
+            background:black;
+            color:white;
+          }
+        }
+        &.more{
+          @include border-radius(4px 4px 0 0);
+          margin:7px 5px 0 10px;
+          background:#222;
+          display:block;
+          padding:2px 7px;
+          *padding:3px 7px 1px;
+          color:#e0e0e0;
+          cursor:pointer;
+          .icon{
+            width:16px;
+            height:16px;
+            background:url(/images/icons/all.png) no-repeat -96px -100px;
+            float:right;
+            position:relative;
+            top:1px;
+          }
+        }
+      }
+    }
+  }
+  .chs{
+    float:left;
+    width:350px;
+    margin-right:20px;
+    background:black;
+    @include border-radius(3px);
+    padding:2px;
+    .title{
+      padding:4px 7px;
+    }
+    .ch{
+      padding:4px 7px;
+      font-size:14px;
+      background:#323546;
+      &:hover{
+        background:#434657;
+      }
+      &.selected{
+        background:#5A79BA;
+        color:white;
+      }
+    }
+  }
+  .ops{
+    float:left;
+    padding-top:27px;
+    .up,.down{
+      cursor:pointer;
+      width:65px;
+      height:24px;
+      margin:0 0 10px 0;
+      border:solid 1px #111;
+      @include border-radius(3px);
+      background:#1C1E2C;
+      color:#999;
+      padding:4px;
+      line-height:24px;
+      font-size:13px;
+      .icon{width:24px;height:24px;float:left;margin:0 6px 0 0;}
+      &.clickable{
+        background:#434657;
+        color:white;
+        &:hover{
+          background:#545768;
+        }
+      }
+    }
+    .down .icon{background:url(/images/icons/all.png) no-repeat -75px -117px;}
+    .up .icon{background:url(/images/icons/all.png) no-repeat -100px -117px;}
+  }
+  .btns{
+    clear:both;
+    padding-top:20px;
+    button{
+      @include border-radius(2px);
+      border:none 0px;
+      margin:4px 5px 0 0;
+      font-size:14px;
+      padding:4px 7px;
+      &.editable-submit{
+        color:white;
+        background:#0063DC;
+        &:hover{
+          background:#0054BD;
+        }
+      }
+      &.editable-cancel{
+        color:#666666;
+        background:#ddd;
+        &:hover{
+          background:#CFCFCF;
+        }
+      }
+    }
+  }
+  .aj-loading{
+    margin-top:10px;
+    padding-left:20px;
   }
 }

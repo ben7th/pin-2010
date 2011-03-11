@@ -25,4 +25,5 @@ class Feed < FeedBase
       return true
     end
   end
+
 end

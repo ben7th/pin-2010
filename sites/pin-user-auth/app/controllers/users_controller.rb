@@ -62,6 +62,7 @@ class UsersController < ApplicationController
       @mindmaps = @user.mindmaps.publics.paginate(:order=>'id desc',:page=>params[:page]||1,:per_page=>21)
     end
 
+    @fans = @user.fans
     @fans_count = @user.fans_contacts.count
 
     contacts_user = @user.contacts_user

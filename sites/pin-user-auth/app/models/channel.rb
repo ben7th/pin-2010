@@ -1,5 +1,5 @@
 class Channel < ActiveRecord::Base
-  has_many :channel_contacts
+  has_many :channel_contacts,:dependent=>:destroy
   #has_many :contacts,:through=>:channel_contacts
 
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_email,:primary_key=>:email
@@ -12,6 +12,11 @@ class Channel < ActiveRecord::Base
 
   index :creator_email
   index [:creator_email,:id]
+
+  before_create :set_position
+  def set_position
+    self.position = Time.now.to_i
+  end
 
   def contacts
     self.channel_contacts.map{|cc|cc.contact}
@@ -51,21 +56,33 @@ class Channel < ActiveRecord::Base
     cc.destroy
   end
 
+  def include_users
+    ChannelUsersCacheProxy.new(self).channel_users
+  end
+
   module UserMethods
     def self.included(base)
-      base.has_many :channels,:foreign_key=>:creator_email,:primary_key=>:email
+      base.has_many :channels,:foreign_key=>:creator_email,:primary_key=>:email, :order => "position"
     end
 
     def no_channel_contacts
-      self.contacts.select do |contact|
-        contact.channel_contacts.count == 0
-      end.reverse
+      all_contacts = self.contacts
+      ccs = all_contacts.map do |contact|
+        ChannelContact.find_all_by_contact_id(contact.id)
+      end.flatten.select{|cc|!cc.channel.blank?}
+      has_channel_contacts = ccs.map{|cc|cc.contact}.uniq
+      all_contacts-has_channel_contacts
     end
 
     def no_channel_contact_users
       no_channel_contacts.map{|c|EmailActor.get_user_by_email(c.email)}.compact
     end
 
+    def no_channel_contact_users_by_redis
+      NoChannelUsersProxy.new(self).no_channel_contact_users
+    end
+
+    # self 是channel的拥有者 user是被查的人
     def channels_of(user)
       channel_contacts = self.channels.map do |channel|
         channel.channel_contacts
@@ -74,5 +91,56 @@ class Channel < ActiveRecord::Base
       channel_contacts = channel_contacts.sort{|cc1,cc2|cc1.updated_at<=>cc2.updated_at}
       channel_contacts.map{|cc|cc.channel}.uniq
     end
+
+    def channels_of_user_by_redis(user)
+      BlongsChannelsOfUserProxy.new(user,self).belongs_channels_of_user
+    end
+
+    def belongs_channels
+      contacts = Contact.find_all_by_email(self.email)
+      contacts.map do |contact|
+        ChannelContact.find_all_by_contact_id(contact.id).map do |cc|
+          cc.channel
+        end  
+      end.flatten.compact.uniq
+    end
+
+    def belongs_channels_by_redis
+      UserChannelsCacheProxy.new(self).belongs_channels
+    end
+
+    def to_sort_channels_by_ids(ids)
+      raise "ids 的 channel_id 数量有错误" if self.channels.count != ids.count
+      begin
+        cs = Channel.find(ids)
+        cs.each_with_index do |c,index|
+          raise "ids 中 有不属于 user 的 channel" if c.creator != self
+          c.position = index+1
+          c.save if c.changed?
+        end
+      rescue ActiveRecord::RecordNotFound => ex
+        raise "ids 中 有不存在的channel_id"
+      end
+    end
   end
+
+  module MindmapMethods
+    def self.included(base)
+      base.extend ClassMethods
+    end
+    module ClassMethods
+      def channel_mindmaps(channel)
+        channel.contact_users.map do |user|
+          user.mindmaps.publics
+        end.compact.flatten.sort{|a,b|b.updated_at<=>a.updated_at}
+      end
+
+      def no_channel_mindmaps_of(user)
+        user.no_channel_contact_users.map do |user_tmp|
+          user_tmp.mindmaps.publics
+        end.compact.flatten.sort{|a,b|b.updated_at<=>a.updated_at}
+      end
+    end
+  end
+  include ChannelNewsFeedProxy::ChannelMethods
 end

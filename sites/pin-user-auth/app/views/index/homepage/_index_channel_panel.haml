@@ -1,0 +1,19 @@
+.channel-panel
+  %ul.channels
+    %li.all{:class => @current_channel.blank? ? 'current':''}
+      =link_to '全部',pin_url_for('pin-user-auth')
+    -current_user.channels.each do |c|
+      %li{:class => @current_channel == c ? 'current':''}
+        =link_to c.name,pin_url_for('pin-user-auth',"/channels/#{c.id}")
+    %li.more
+      %span 其他
+      .icon
+
+  .channel-op
+    %span.loud.u-count
+      -count = @current_channel.blank? ? @followings.count : @current_channel.contacts.count
+      共 #{count} 人
+
+  .setting{:style=>'display:none;'}
+    =link_to_remote '调整频道顺序',:url=>'/channels/fb_orderlist',:method=>:get
+    =link_to '管理联系人',pin_url_for('pin-user-auth',"#{current_user.id}/followings")

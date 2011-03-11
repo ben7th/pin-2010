@@ -5,6 +5,12 @@ class ChannelsController < ApplicationController
     @channel = Channel.find_by_id(params[:id]) if params[:id]
   end
 
+  def show
+    set_cellhead_path('/index/cellhead')
+    _channel_page
+    render :template=>"index/index"
+  end
+
   def create
     channel = Channel.new(:name=>params[:name],:creator_email=>current_user.email)
     if channel.save
@@ -14,6 +20,8 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
+    # 调用Contact类，memcache缓存，在做此操作的时候，会因找不到contact这个类 出错
+    Contact
     if @channel.destroy
       return redirect_to "/#{current_user.id}/followings"
     end
@@ -34,4 +42,35 @@ class ChannelsController < ApplicationController
     ChannelContactOperationQueue.new.add_task(ChannelContactOperationQueue::REMOVE_OPERATION,@channel.id,params[:user_id])
     return render :status=>200,:text=>"操作完成"
   end
+
+  def fb_orderlist
+    render_ui do |ui|
+      ui.fbox :show,:title=>'调整频道顺序',:partial=>'channels/fb_orderlist'
+    end
+  end
+
+  def sort
+    ids = params[:ids].split(/,|，/)
+    current_user.to_sort_channels_by_ids(ids)
+    render :status=>200,:text=>"操作成功"
+  end
+
+  private
+  def _channel_page
+    @mindmaps_count = current_user.mindmaps_count
+
+    fans = current_user.fans
+    @fans_count = fans.count
+    @fans = fans[0..7]
+    
+    followings = current_user.followings
+    @followings_count = followings.count
+    @followings = followings[0..7]
+
+    @current_channel = @channel
+    news_feed_proxy = current_user.news_feed_proxy
+    @feeds = @channel.feeds(:per_page=>10,:page=>1)
+    news_feed_proxy.refresh_newest_feed_id
+  end
+
 end

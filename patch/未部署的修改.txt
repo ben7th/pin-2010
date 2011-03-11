@@ -1,4 +1,5 @@
-pin-user-auth 增加两个模型
-  Channel（频道）模型和Contact是多对多关联
-    Channel  name:string  email:string  
-    ChannelContact  channel_id:integer  contact_id:integer
+migration
+  pin-user-auth 三个 migration
+    create_channels
+    create_channel_contacts
+    add_position_to_channels

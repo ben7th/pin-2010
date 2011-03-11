@@ -1,6 +1,6 @@
 pie.load(function(){
 
-  var none_str = '无频道';
+  var none_str = '默认频道';
 
   var contacts_list_c_elm = jQuery('.contacts-list .c-channel .c');
   var channel_form_elm = jQuery('.contacts-list').next('.channel-form');
@@ -38,7 +38,7 @@ pie.load(function(){
 
   var append_channel_form_line = function(channel_id, channel_name){
     var html =
-      '<div data-channel-id="'+channel_id+'" class="c">'+
+      '<div data-channel-id="'+channel_id+'" class="c checked">'+
         '<div class="icon"></div>'+
         '<div class="name">'+channel_name+'</div>'+
       '</div>'
@@ -118,6 +118,18 @@ pie.load(function(){
         append_channel_form_line(channel_id, channel_name);
         append_channel_tab(channel_id, channel_name);
         hide_form_inputer();
+
+        //把新创建的频道打上勾
+        var user_id     = channel_form_elm.attr('data-user-id');
+        var user_c_elm  = jQuery('li#user_'+user_id).find('.c-channel .c');
+        add_channel_to_user_c_elm(user_c_elm,channel_id,channel_name);
+
+        //请求加入
+        jQuery.ajax({
+          type    : 'PUT',
+          url     : '/channels/'+channel_id+'/add',
+          data    : 'user_id='+user_id
+        })
       }
     })
   });

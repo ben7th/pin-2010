@@ -1,7 +1,7 @@
 - user ||= current_user
 
 .index-user-info
-  .base
+  .base.darkbg
     .avatar
       =avatar(user,'medium')
     .meta
@@ -9,6 +9,10 @@
       .regtime
         注册时间
         =qdate user.created_at
+      %div
+        所属频道
+        -channels = user.belongs_channels_by_redis
+        =channels.map{|c|c.name}*"，"
     .fri
       -if logged_in?
         -if current_user.can_send_message_to?(user)
@@ -20,18 +24,28 @@
             =minibutton '关注TA',"javascript:;","data-user-id"=>user.id
           %span.unfollow_btn{:style=>(followed ? '':'display:none;')}
             =minibutton '取消关注',"javascript:;","data-user-id"=>user.id
+
   .scount.darkbg
-    %dl
-      %dt=link_to @mindmaps_count,'javascript:;'
-      %dd 思维导图
-    %dl
-      %dt=link_to @fans_count,pin_url_for('pin-user-auth',"#{user.id}/fans")
-      %dd 关注者
-  .follows
-    .count
-      %span> 关注 #{@followings_count} 人，
-      =link_to '查看全部',pin_url_for('pin-user-auth',"#{user.id}/followings")
-    .avatars
-      -@followings.each do |user|
-        -link_to "/users/#{user.id}",:title=>user.name do
-          =avatar(user,:tiny)
+    -url = pin_url_for('pin-user-auth',"#{user.id}/followings")
+    .num=link_to @followings_count,url
+    .meta
+      .text
+        %span 联系人 ...
+        =link_to '查看全部',url
+      .icons
+        -@followings.each do |u|
+          -link_to "/users/#{u.id}",:tip=>"#{u.name}" do
+            =avatar(u,:mini)
+      
+
+  .scount.darkbg
+    -url = pin_url_for('pin-user-auth',"#{user.id}/fans")
+    .num=link_to @fans_count,url
+    .meta
+      .text
+        %span 读者 ...
+        =link_to '查看全部',url
+      .icons
+        -@fans.each do |u|
+          -link_to "/users/#{u.id}",:tip=>"#{u.name}" do
+            =avatar(u,:mini)

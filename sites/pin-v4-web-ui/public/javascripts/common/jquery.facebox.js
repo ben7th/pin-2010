@@ -118,6 +118,7 @@
       $('#facebox .loading').remove()
       $('#facebox .body').children().fadeIn('normal')
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox').width() / 2))
+      $('#facebox').css('top', $(window).height() / 2 - ($('#facebox').height() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
 

@@ -219,6 +219,10 @@
 .lh22 {
   line-height: 22px; }
 
+.aj-loading {
+  height: 16px;
+  background: url(/images/loading-s.gif) no-repeat; }
+
 .topl {
   overflow: hidden;
   border-top: solid 1px #242438; }

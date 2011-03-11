@@ -12,7 +12,7 @@
     %li.all{:class => @current_channel.blank? ? 'current':''}
       =link_to '全部',pin_url_for('pin-user-auth',"/#{current_user.id}/followings")
     %li.none{:class => @current_channel == 'none' ? 'current':''}
-      =link_to '无频道',pin_url_for('pin-user-auth',"/#{current_user.id}/followings?channel=none")
+      =link_to '默认频道',pin_url_for('pin-user-auth',"/#{current_user.id}/followings?channel=none")
     %li
       -current_user.channels.each do |c|
         %li{:class => @current_channel == c ? 'current':''}

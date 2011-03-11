@@ -191,7 +191,10 @@ input.search-inner, input.search {
   width: 150px !important;
   height: 21px !important;
   background-color: white;
-  border-color: #333; }
+  border-color: #333;
+  position: relative;
+  *top: -1px;
+  *line-height: 21px !important; }
 
 input.search-button, input.search-button.submit {
   height: 21px !important;

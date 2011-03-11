@@ -1,4 +1,5 @@
 class ContactsController < ApplicationController
+  before_filter :login_required
   before_filter :per_load
   def per_load
     @contact = Contact.find(params[:id]) if params[:id]
@@ -105,10 +106,10 @@ class ContactsController < ApplicationController
       @followings = @user.contacts_user
     elsif params[:channel] == "none"
       @current_channel = "none"
-      @followings = @user.no_channel_contact_users
+      @followings = @user.no_channel_contact_users_by_redis
     else
       @current_channel = @user.channels.find(params[:channel])
-      @followings = @current_channel.contact_users
+      @followings = @current_channel.include_users
     end
     render :template=>"users/homepage/followings"
   end
