@@ -183,4 +183,11 @@ class User < UserBase
   include ConnectUser::UserMethods
   include CooperationUserMethods
   include Channel::UserMethods
+  include NoChannelNewsFeedProxy::UserMethods
+  include Listening::UserMethods
+
+  include Fav::UserMethods
+  include FavProxy::UserMethods
+  include ChannelCacheProxy::UserMethods
+  include FeedChannel::UserMethods
 end

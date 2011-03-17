@@ -9,17 +9,8 @@ module FeedHelper
   end
 
   def feed_content(feed)
-    event = feed.event
-    re = case event
-    when 'edit_mindmap'
-      json = ActiveSupport::JSON.decode(feed.detail)
-      url = pin_url_for('pin-mev6',"mindmaps/#{json["mindmap_id"]}")
-      %~
-        <span class=''>编辑思维导图</span> #{link_to(json["mindmap_title"],url,:target=>'_blank')}
-      ~
-    else
-      "<span class='loud'>#{event.upcase}</span> #{feed.detail}"
-    end
+#    "<span class='loud'>#{feed.event.upcase}</span> #{feed.content}"
+    "<span class='loud'>说</span> #{feed.content}"
   end
 
   def user_last_feed(user)
@@ -29,18 +20,6 @@ module FeedHelper
   end
 
   def feed_preview(feed)
-    event = feed.event
-    re = case event
-    when 'edit_mindmap'
-      begin
-        json = ActiveSupport::JSON.decode(feed.detail)
-        mindmap = Mindmap.find(json["mindmap_id"])
-        mindmap_image(mindmap,'120x120')
-      rescue Exception => ex
-        ''
-      end
-    else
-      ''
-    end
+    ''
   end
 end

@@ -1,7 +1,10 @@
--form_tag "/mindmaps",:method=>:post,:class=>"feed-form" do
-  .ipts
-    =text_area_tag "content",'',:class=>"text feed-content"
-  .btns
-    .btn
-    .btn
-    .btn
+-form_tag "/newsfeed/do_say",:method=>:post,:class=>"feed-form" do
+  .ipter
+    .ipts
+      =text_area_tag "content",'',:class=>"text feed-content"
+    .btns
+      .btn
+      .btn
+      .btn
+  .subm
+    =minibutton '确定','javascript:;',:class=>'subbtn'

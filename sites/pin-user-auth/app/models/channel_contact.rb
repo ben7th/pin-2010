@@ -9,15 +9,6 @@ class ChannelContact < ActiveRecord::Base
   index :contact_id
   index [:contact_id,:channel_id]
 
-  after_save :add_channel_users_cache
-  def add_channel_users_cache
-    ChannelCacheProxy.new(User.find_by_email(contact.email),channel).add
-  end
-
-  after_destroy :remove_channel_users_cache
-  def remove_channel_users_cache
-    ChannelCacheProxy.new(User.find_by_email(contact.email),channel).remove
-  end
 
   def validate_on_create
     ccs = ChannelContact.find_all_by_channel_id_and_contact_id(self.channel_id,self.contact_id)
@@ -29,4 +20,6 @@ class ChannelContact < ActiveRecord::Base
       base.has_many :channel_contacts,:dependent=>:destroy
     end
   end
+
+  include ChannelCacheProxy::ChannelContactMethods
 end

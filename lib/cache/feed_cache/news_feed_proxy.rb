@@ -21,6 +21,10 @@ class NewsFeedProxy
     add_to_channels_vector_cache(feed)
   end
 
+  def delete_inbox_cache
+    @redis.del(@inbox_cache_key)
+  end
+
   # 更新outbox向量缓存
   # 向量缓存指，只包含要缓存的对象ID的数组，twitter里面大量用了这类缓存设计
   # 把新的 feed_id 加到 list 的最前
@@ -50,6 +54,14 @@ class NewsFeedProxy
   # 完全替换outbox向量缓存内容
   def set_outbox_vector_cache(id_list)
     @redis.set(@outbox_cache_key,id_list.to_json)
+  end
+
+  def remove_feed_id_from_outbox_vector_cache(feed_id)
+    id_list = outbox_vector_cache
+    if !id_list.blank?
+      id_list.delete(feed_id)
+      set_outbox_vector_cache(id_list)
+    end
   end
 
   # user上需要实现hotfans方法，来获取活跃粉丝
@@ -94,13 +106,73 @@ class NewsFeedProxy
     @redis.set(@inbox_cache_key,id_list.to_json)
   end
 
+  def remove_feed_id_from_inbox_vector_cache(feed_id)
+    id_list = inbox_vector_cache
+    if !id_list.blank?
+      id_list.delete(feed_id)
+      set_inbox_vector_cache(id_list)
+    end
+  end
+
   def add_to_channels_vector_cache(feed)
-    @user.belongs_channels_by_redis.each do |channel|
-      ChannelNewsFeedProxy.new(channel).update_feed(feed)
+    #用户的所有 fans
+    #用户属于的所有频道的所有者
+    channels = feed.channels_db
+    if channels.blank?
+      users = @user.hotfans + [@user]
+      users.each do |user|
+        NoChannelNewsFeedProxy.new(user).update_feed(feed)
+      end
+    else
+      channels.each do |channel|
+        ChannelNewsFeedProxy.new(channel).update_feed(feed)
+      end
     end
   end
 
   # 关于feed读取的一组方法
   include FeedProxyReadMethods
+  # 当好友关系发生改变时，同步 feed 的改变
+  include FeedProxyModifyMethods
 
+  module UserMethods
+    def news_feeds
+      Feed.news_feeds_of_user(self)
+    end
+
+    def news_feed_proxy
+      NewsFeedProxy.new(self)
+    end
+
+    # 把当前用户作为联系人的在线用户
+    # 暂时 忽略 在不在线
+    def hotfans
+      fans
+    end
+
+    def feeds_by_db(paginate_option={})
+      _id_list = self.followings_and_self_by_db.map{|user|
+        user.news_feeds.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+      }.flatten
+      # 排序，大的就是新的，排在前面
+      _id_list = _id_list.compact.sort{|x,y| y<=>x}[0..99]
+
+      if paginate_option.blank?
+        first = 0
+        count = _id_list.count
+      else
+        first = paginate_option[:per_page]*(paginate_option[:page]-1)
+        count = paginate_option[:per_page]
+      end
+      _feeds = []
+      _id_list[first..-1].each do |id|
+        feed = Feed.find_by_id(id)
+        if !feed.nil?
+          _feeds.push(feed)
+        end
+        break if _feeds.count >= count
+      end
+      _feeds
+    end
+  end
 end

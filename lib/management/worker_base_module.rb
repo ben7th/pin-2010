@@ -2,7 +2,8 @@ module MindpinServiceManagementModule
   module WorkerBase
     # 包含的 worker
     Workers = ["mindmap_input_queue_worker","mindmap_image_cache_queue_worker",
-      "mindmap_import_queue_worker","channel_contact_operation_queue_worker"]
+      "mindmap_import_queue_worker","channel_contact_operation_queue_worker",
+      "follow_operation_queue_worker","feed_operation_queue_worker"]
     # 支持的操作
     Operations = ["start",'stop']
 
@@ -34,6 +35,7 @@ module MindpinServiceManagementModule
 
     def worker_log_size(worker_name)
       file_path = find_log_file_path_by_worker_name(worker_name)
+      `touch #{file_path}` if !File.exist?(file_path)
       File.size(file_path)
     end
 

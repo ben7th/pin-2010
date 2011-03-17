@@ -1,0 +1,17 @@
+-require_css 'views/channels',true
+
+.channels.darkbg
+  .title
+    #{@user.name}创建的频道
+  -mplist @user.channels,:for=>Channel do |c|
+    .name
+      =link_to c.name,pin_url_for('pin-user-auth',"channels/#{c.id}")
+
+.belongs_to_channels.darkbg
+  .title
+    #{@user.name}所属的频道
+  -mplist @user.belongs_to_channels,:for=>Channel do |bc|
+    .name
+      =link_to bc.name,pin_url_for('pin-user-auth',"channels/#{bc.id}")
+    .creator
+      =bc.creator.name

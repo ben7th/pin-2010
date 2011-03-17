@@ -2,23 +2,48 @@ module FeedProxyReadMethods
   # 获取对象需要看到的feeds
   # 该读缓存读缓存，该读数据库读数据库哈
   def feeds(paginate_option={})
+    id_list = inbox_id_list
     if paginate_option.blank?
-      id_list = inbox_id_list
+      first = 0
+      count = id_list.count
     else
-      id_list = inbox_id_list.paginate(paginate_option)
+      first = paginate_option[:per_page]*(paginate_option[:page]-1)
+      count = paginate_option[:per_page]
     end
-    _feeds = id_list.map {|id|
-      Feed.find_by_id(id) # 这里已经被 cache-money 缓存了
-    }.compact
+    _feeds = []
+    id_list[first..-1].each do |id|
+      feed = Feed.find_by_id(id) # 这里已经被 cache-money 缓存了
+      if feed.nil?
+        remove_feed_id_from_inbox_vector_cache(id)
+      else
+        _feeds.push(feed)
+      end
+      break if _feeds.count >= count
+    end
     _feeds
   end
 
   # 获取对象发布的 feeds
   # 该读缓存读缓存，该读数据库读数据库哈
-  def own_feeds
-    _feeds = outbox_id_list.map {|id|
-      Feed.find_by_id(id) # 这里已经被 cache-money 缓存了
-    }.compact
+  def own_feeds(paginate_option={})
+    id_list = outbox_id_list
+    if paginate_option.blank?
+      first = 0
+      count = id_list.count
+    else
+      first = paginate_option[:per_page]*(paginate_option[:page]-1)
+      count = paginate_option[:per_page]
+    end
+    _feeds = []
+    id_list[first..-1].each do |id|
+      feed = Feed.find_by_id(id) # 这里已经被 cache-money 缓存了
+      if feed.nil?
+        remove_feed_id_from_outbox_vector_cache(id)
+      else
+        _feeds.push(feed)
+      end
+      break if _feeds.count >= count
+    end
     _feeds
   end
 
@@ -39,6 +64,10 @@ module FeedProxyReadMethods
       refresh_newest_feed_id
     end
     @redis.get(@refresh_newest_feed_id_cache_key).to_i
+  end
+
+  def newsfeeds(current_id = nil)
+    newsfeed_ids(current_id).map{|id|Feed.find_by_id(id)}.compact
   end
 
   def newsfeed_ids(current_id = nil)
@@ -89,12 +118,12 @@ module FeedProxyReadMethods
   # 如果 newest_id 有效，则只返回比它更新的
   def _inbox_id_list_from_followings_newer_than(newest_id)
     # 写入inbox缓存
-    _id_list = @user.following_users.map{|user|
+    _id_list = @user.followings_and_self.map{|user|
       user.news_feed_proxy.outbox_id_list_newer_than(newest_id)
     }.flatten
 
     # 排序，大的就是新的，排在前面
-    return _id_list.sort{|x,y| y<=>x}
+    return _id_list.compact.sort{|x,y| y<=>x}
   end
 
   # 获取对象的 outbox 的 id 数组
@@ -116,8 +145,9 @@ module FeedProxyReadMethods
       re = _id_list
     end
 
+    # 3月14日 宋亮 x可能是nil，这里预先compact一下
     if !newest_id.nil?
-      re = re.select{|x| x>newest_id}
+      re = re.compact.select{|x| x > newest_id}
     end
 
     re

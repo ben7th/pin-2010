@@ -41,5 +41,7 @@
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_image_cache_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_import_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"channel_contact_operation_queue_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"follow_operation_queue_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"feed_operation_queue_worker"}
 
 =link_to "退出登录","/logout"

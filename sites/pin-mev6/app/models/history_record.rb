@@ -37,10 +37,4 @@ class HistoryRecord < ActiveRecord::Base
     HistoryRecord.create!(:params_json=>params_json,:mindmap_id=>mindmap.id,:struct=>struct,:kind=>kind,:email=>operator.email)
   end
 
-  after_create :mindmap_edit_feed
-  def mindmap_edit_feed
-    Feed.create_edit_mindmap_feed_when_edit(EmailActor.get_user_by_email(self.email),self.mindmap)
-    return true
-  end
-  
 end

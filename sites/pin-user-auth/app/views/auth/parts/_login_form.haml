@@ -8,9 +8,9 @@
 -form_tag(action,html_param) do
   .form_error.hide
   .field
-    %label=t('activerecord.attributes.user.email')
     -if current_user
-      ="您此时登录的用户邮箱是#{current_user.email},将切换一下邮箱登录："
+      ="您当前登录的用户邮箱是#{current_user.email}，您可以用您的其它账号登陆。"
+    %label=t('activerecord.attributes.user.email')
     -if @user
       =@user.email
       =hidden_field_tag :email,@user.email

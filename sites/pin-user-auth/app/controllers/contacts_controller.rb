@@ -103,10 +103,10 @@ class ContactsController < ApplicationController
     @user = User.find(params[:user_id])
     set_cellhead_path("users/cellhead")
     if !params[:channel]
-      @followings = @user.contacts_user
+      @followings = @user.followings
     elsif params[:channel] == "none"
       @current_channel = "none"
-      @followings = @user.no_channel_contact_users_by_redis
+      @followings = @user.no_channel_contact_users
     else
       @current_channel = @user.channels.find(params[:channel])
       @followings = @current_channel.include_users
@@ -115,18 +115,16 @@ class ContactsController < ApplicationController
   end
 
   def follow
-    user = User.find(params[:user_id])
-    contact = current_user.contacts.new(:email=>user.email)
-    if (!current_user.following?(user) && contact.save) || current_user.following?(user)
+    contact_user = User.find(params[:user_id])
+    if FollowOperationQueue.new.add_follow_task(current_user,contact_user)
       return render :status=>200,:text=>"关注成功"
     end
     render :status=>500,:text=>"关注失败"
   end
 
   def unfollow
-    user = User.find(params[:user_id])
-    contact = current_user.contacts.find_by_email(user.email)
-    if (!contact.blank? && current_user.following?(user) && contact.destroy  ) || !current_user.following?(user)
+    contact_user = User.find(params[:user_id])
+    if FollowOperationQueue.new.add_unfollow_task(current_user,contact_user)
       return render :status=>200,:text=>"取消关注成功"
     end
     render :status=>500,:text=>"取消关注失败"

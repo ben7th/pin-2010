@@ -9,7 +9,7 @@
     .last_feed
       =user_last_feed(user)
     .c-channel
-      - chs = current_user.channels_of(user)
+      - chs = current_user.channels_of_user(user)
       - names = chs.map{|c| c.name}*', '
       - ids = chs.map{|c| c.id}*','
       .c{:'data-user-id'=>user.id,:'data-channel-ids'=>ids,:'data-names'=>names}

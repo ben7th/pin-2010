@@ -96,9 +96,9 @@ class UserBase < UserAuthAbstract
   end
 
   include OrganizationBase::UserMethods
-  include FeedBase::UserMethods
+  include NewsFeedProxy::UserMethods
   include Preference::UserMethods
-  include ContactBase::UserMethods
+  include ContactProxy::UserMethods
 
   if RAILS_ENV == "test" && !self.table_exists?
     self.connection.create_table :users, :force => true do |t|

@@ -75,6 +75,10 @@
   background:url(/images/loading-s.gif) no-repeat;
 }
 
+.avatar img{
+  @include border-radius(2px);
+}
+
 .topl{
   overflow:hidden;
   border-top:solid 1px #242438;

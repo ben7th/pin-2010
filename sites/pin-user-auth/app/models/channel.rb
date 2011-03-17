@@ -2,6 +2,12 @@ class Channel < ActiveRecord::Base
   has_many :channel_contacts,:dependent=>:destroy
   #has_many :contacts,:through=>:channel_contacts
 
+  KIND_CHAT = "chat"                               # 闲聊
+  KIND_INFORMATION_RELEASE = "information_release" # 信息发布
+  KIND_INTERVIEW = "interview"                     # 问答访谈
+  KIND_MINDMAP_MANAGER = "mindmap_manager"         # 导图管理
+
+
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_email,:primary_key=>:email
 
   validates_presence_of :name
@@ -56,13 +62,13 @@ class Channel < ActiveRecord::Base
     cc.destroy
   end
 
-  def include_users
-    ChannelUsersCacheProxy.new(self).channel_users
-  end
-
   module UserMethods
     def self.included(base)
       base.has_many :channels,:foreign_key=>:creator_email,:primary_key=>:email, :order => "position"
+    end
+
+    def channels_count
+      channels.count
     end
 
     def no_channel_contacts
@@ -74,16 +80,12 @@ class Channel < ActiveRecord::Base
       all_contacts-has_channel_contacts
     end
 
-    def no_channel_contact_users
+    def no_channel_contact_users_db
       no_channel_contacts.map{|c|EmailActor.get_user_by_email(c.email)}.compact
     end
 
-    def no_channel_contact_users_by_redis
-      NoChannelUsersProxy.new(self).no_channel_contact_users
-    end
-
     # self 是channel的拥有者 user是被查的人
-    def channels_of(user)
+    def channels_of_user_db(user)
       channel_contacts = self.channels.map do |channel|
         channel.channel_contacts
       end.flatten
@@ -92,21 +94,13 @@ class Channel < ActiveRecord::Base
       channel_contacts.map{|cc|cc.channel}.uniq
     end
 
-    def channels_of_user_by_redis(user)
-      BlongsChannelsOfUserProxy.new(user,self).belongs_channels_of_user
-    end
-
-    def belongs_channels
+    def belongs_to_channels_db
       contacts = Contact.find_all_by_email(self.email)
       contacts.map do |contact|
         ChannelContact.find_all_by_contact_id(contact.id).map do |cc|
           cc.channel
-        end  
+        end
       end.flatten.compact.uniq
-    end
-
-    def belongs_channels_by_redis
-      UserChannelsCacheProxy.new(self).belongs_channels
     end
 
     def to_sort_channels_by_ids(ids)
@@ -143,4 +137,6 @@ class Channel < ActiveRecord::Base
     end
   end
   include ChannelNewsFeedProxy::ChannelMethods
+
+  include ChannelCacheProxy::ChannelMethods
 end

@@ -60,7 +60,7 @@ ActionController::Routing::Routes.draw do |map|
       :unfollow=>:delete
   }
   map.fans "/:user_id/fans",:controller=>"contacts",:action=>"fans"
-  map.fans "/:user_id/followings",:controller=>"contacts",:action=>"followings"
+  map.followings "/:user_id/followings",:controller=>"contacts",:action=>"followings"
 
   # 新浪连接用户 设置邮箱
   map.setting_email "account/setting_email",:controller=>"account",:action=>"setting_email"
@@ -92,8 +92,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect_renren "/connect_renren",:controller=>"connect_users",:action=>"connect_renren"
   map.connect_tsina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
 
+  map.resources :feeds,:member=>{:fav=>:post,:unfav=>:delete,:mine_newer_than=>:get}
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
-  map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say"
+  map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
+  map.user_feeds_do_say_tmp "/newsfeed/do_say_temp",:controller=>"feeds",:action=>"do_say_temp",:conditions=>{:method=>:post}
   map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
   map.newsfeed_get_new "/newsfeed/get_new_feeds",:controller=>"feeds",:action=>"get_new_feeds"
   
@@ -127,4 +129,7 @@ ActionController::Routing::Routes.draw do |map|
       :add=>:put,
       :remove=>:put
     }
+
+  map.fans "/:user_id/channels",:controller=>"channels",:action=>"index"
+
 end

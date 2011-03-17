@@ -223,6 +223,11 @@
   height: 16px;
   background: url(/images/loading-s.gif) no-repeat; }
 
+.avatar img {
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px; }
+
 .topl {
   overflow: hidden;
   border-top: solid 1px #242438; }

@@ -2,13 +2,23 @@ class ChannelsController < ApplicationController
 
   before_filter :per_load
   def per_load
-    @channel = Channel.find_by_id(params[:id]) if params[:id]
+    @channel = Channel.find_by_id(params[:id]) if params[:id] && params[:id] != "none"
+  end
+
+  def index
+    @user = User.find_by_id(params[:user_id])
   end
 
   def show
     set_cellhead_path('/index/cellhead')
     _channel_page
-    render :template=>"index/index"
+    if params[:id] == "none"
+      @current_channel = "none"
+      @feeds = current_user.no_channel_feeds
+    else
+      @current_channel = @channel
+      @feeds = @channel.feeds
+    end
   end
 
   def create
@@ -67,9 +77,16 @@ class ChannelsController < ApplicationController
     @followings_count = followings.count
     @followings = followings[0..7]
 
-    @current_channel = @channel
     news_feed_proxy = current_user.news_feed_proxy
-    @feeds = @channel.feeds(:per_page=>10,:page=>1)
+    if @channel.blank?
+      @current_channel = "none"
+      @channel_member_count = current_user.no_channel_contact_users.count
+      @feeds = current_user.no_channel_feeds(:per_page=>10,:page=>1)
+    else
+      @current_channel = @channel
+      @channel_member_count = @channel.include_users.count
+      @feeds = @channel.feeds(:per_page=>10,:page=>1)
+    end
     news_feed_proxy.refresh_newest_feed_id
   end
 

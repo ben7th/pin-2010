@@ -6,6 +6,9 @@
   border:solid 1px #111;
 }
 
+$panel-dark-bg  : #060816;
+$panel-dark-bg1 : #363848;
+
 .userpage{
   .upavatar{
     float:left;
@@ -172,33 +175,40 @@
   width:500px;
   position:relative;
   background:url(/images/icons/echo_inputer_1.png) no-repeat;
-  .ipts{
-    float:left;
-    padding:0 10px 0 0;
-    .feed-content{
-      width:200px;
-      height:98px;
-      overflow:hidden;
-      position:relative;
-      *top:-1px;
-    }
-  }
-  .btns{
+  .ipter{
     overflow:hidden;
-    float:left;
-    .btn{
-      width:32px;
-      height:32px;
-      @include border-radius(4px);
-      @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
-      @include gradient(#FEFEFE,#E2E2E2);
-      text-shadow:1px 1px 0 #FFFFFF;
-      margin:0 5px 5px 0;
-      cursor:pointer;
-      &:hover{
-        @include gradient(#0ca6dd,#0770a0);
+    .ipts{
+      float:left;
+      padding:0 10px 0 0;
+      .feed-content{
+        width:200px;
+        height:98px;
+        overflow:hidden;
+        position:relative;
+        *top:-1px;
       }
     }
+    .btns{
+      overflow:hidden;
+      float:left;
+      .btn{
+        width:32px;
+        height:32px;
+        @include border-radius(4px);
+        @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
+        @include gradient(#FEFEFE,#E2E2E2);
+        text-shadow:1px 1px 0 #FFFFFF;
+        margin:0 5px 5px 0;
+        cursor:pointer;
+        &:hover{
+          @include gradient(#0ca6dd,#0770a0);
+        }
+      }
+    }
+  }
+  .subm{
+    clear:both;
+    overflow:hidden;
   }
 }
 
@@ -574,31 +584,101 @@ form.new_message{
   margin-top:15px;
   ul.feeds{
     li.feed{
-      padding:10px;
-      margin:0 0 12px 0;
-      @include border-radius(5px);
-      border:solid 1px #111;
-      .avatar{
-        float:left;
-        width:68px;
-        height:52px;
-      }
-      .c{
-        float:right;
-        width:460px;
-        .data{
-          font-size:14px;
-          color:white;
+      margin:0 0 20px 0;
+      padding:0;
+      .f{
+        @include border-radius(0 6px 0 6px);
+        border:solid 1px #111;
+        padding:6px;
+        overflow:hidden;
+        .avatar{
+          float:left;
+          width:40px;
+          height:28px;
+          img{@include border-radius(2px);}
         }
-        .preview{
-          padding:10px 0 10px 0;
-          img{
-            border:solid 2px #A3A3A3;
-            @include border-radius(3px);
+        .c{
+          float:left;
+          width:490px;
+          .data{
+            font-size:14px;
+            color:white;
+          }
+          .preview{
+            padding:10px 0 10px 0;
+            img{
+              border:solid 2px #A3A3A3;
+              @include border-radius(3px);
+            }
           }
         }
-        .time{
-          .date{}
+      }
+      .time{
+        float:left;
+        @include border-radius(3px);
+        background:#323546;
+        height:14px;
+        line-height:14px;
+        padding:0 4px;
+        margin:2px 0 0 0;
+        .date{}
+      }
+      .ops{
+        overflow:hidden;
+        float:right;
+        .mindmap,.del,.fav,.transmit,.echo{
+          float:left;
+          @include border-radius(0 0 3px 3px);
+          background:#111;
+          margin:0 0 0 5px;
+          padding:0 3px 0 0;
+          overflow:hidden;
+          cursor:pointer;
+          &:hover{
+            background:#363848;
+          }
+        }
+        .mindmap{
+          height:24px;
+          .icon{
+            float:left;
+            width:24px;height:24px;background:url(/images/icons/all.png) no-repeat -125px -117px;
+            margin:0 2px 0 0;
+          }
+          .t{float:left;height:23px;line-height:23px;}
+        }
+        .del,.fav,.transmit,.echo{
+          height:16px;
+          .icon{
+            float:left;
+            width:16px;height:16px;background:url(/images/icons/all.png) no-repeat 0px -100px;
+            margin:0 2px 0 0;
+          }
+          .t{float:left;height:15px;line-height:15px;}
+        }
+        .fav{
+          &.off{
+            .icon{
+              background:url(/images/icons/all.png) no-repeat -130px -100px;
+            }
+            .t2{display:none;}
+          }
+          &.on{
+            .icon{
+              background:url(/images/icons/all.png) no-repeat -113px -100px;
+            }
+            .t1{display:none;}
+          }
+        }
+        .transmit{
+          .icon{
+            background:url(/images/icons/all.png) no-repeat -147px -100px;
+          }
+        }
+        .echo{
+          .icon{
+            background:url(/images/icons/all.png) no-repeat -164px -100px;
+          }
         }
       }
     }
@@ -917,7 +997,7 @@ form.new_message{
       a{
         @include border-radius(4px 4px 0 0);
         margin:0 5px 0 0;
-        background:#222;
+        background:$panel-dark-bg1;
         display:block;
         padding:4px 7px;
         *padding:5px 7px 3px;
@@ -931,14 +1011,14 @@ form.new_message{
       &.current{
         a{
           font-weight:bold;
-          background:black;
+          background:$panel-dark-bg;
           color:white;
         }
       }
       &.more{
         @include border-radius(4px 4px 0 0);
         margin:7px 5px 0 10px;
-        background:#222;
+        background:$panel-dark-bg1;
         display:block;
         padding:2px 7px;
         *padding:3px 7px 1px;
@@ -956,6 +1036,7 @@ form.new_message{
           position:relative;
           top:1px;
         }
+        span{float:left;}
       }
     }
   }
@@ -963,7 +1044,7 @@ form.new_message{
   .channel-op{
     @include border-radius(0 4px 4px 4px);
     padding:10px 10px;
-    background:black;
+    background:$panel-dark-bg;
     margin:0px 0 20px;
     position:relative;
     *top:-1px;
@@ -1045,7 +1126,7 @@ form.new_message{
         a{
           @include border-radius(4px 4px 0 0);
           margin:0 5px 0 0;
-          background:#222;
+          background:$panel-dark-bg1;
           display:block;
           padding:4px 7px;
           *padding:5px 7px 3px;
@@ -1056,14 +1137,14 @@ form.new_message{
         &.current{
           a{
             font-weight:bold;
-            background:black;
+            background:$panel-dark-bg;
             color:white;
           }
         }
         &.more{
           @include border-radius(4px 4px 0 0);
           margin:7px 5px 0 10px;
-          background:#222;
+          background:$panel-dark-bg1;
           display:block;
           padding:2px 7px;
           *padding:3px 7px 1px;

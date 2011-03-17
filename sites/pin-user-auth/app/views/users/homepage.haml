@@ -12,3 +12,8 @@
 
 .grid_9.omega.fright
   =render :partial=>'index/homepage/index_user_info',:locals=>{:user=>@user}
+
+  %div
+    所属频道
+    -channels = @user.belongs_to_channels
+    =channels.map{|c|c.name}*"，"

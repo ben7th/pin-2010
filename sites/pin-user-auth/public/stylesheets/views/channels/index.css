@@ -1,0 +1,10 @@
+div.channels, div.belongs_to_channels {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: solid 1px #111;
+  margin: 0 0 30px 0; }
+  div.channels .title, div.belongs_to_channels .title {
+    font-size: 14px;
+    margin: 0 0 20px 0;
+    padding: 5px; }

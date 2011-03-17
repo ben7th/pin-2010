@@ -4,6 +4,7 @@
 
 self_dir=`dirname $0`
 
+. $self_dir/function.sh
 processor_pid=/web/2010/pids/channel_contact_operation_queue_worker.pid
 
 runner_rb=$self_dir/sites/pin-user-auth/script/runner
@@ -19,6 +20,7 @@ fi
 case "$1" in
   start)
     echo "start"
+    assert_process_from_pid_file_not_exist $processor_pid
     ruby $runner_rb $worker_rb 1>>$log_path 2>>$log_path &
     echo $! > $processor_pid
     rc_status -v
@@ -26,7 +28,6 @@ case "$1" in
   stop)
     echo "stop"
     kill -9 `cat $processor_pid`
-    rm -rf $processor_pid
     rc_status -v
   ;;
   restart)

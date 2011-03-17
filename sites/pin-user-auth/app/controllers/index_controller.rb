@@ -6,7 +6,7 @@ class IndexController < ApplicationController
     _user_page
   end
 
-  def _user_page
+  def _user_page    
     @mindmaps = current_user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.paginate(:page=>params[:page]||1,:per_page=>21)
     @mindmaps_count = current_user.mindmaps_count
 
@@ -16,6 +16,7 @@ class IndexController < ApplicationController
 
     followings = current_user.followings
     @followings_count = followings.count
+    @channel_member_count = @followings_count
     @followings = followings[0..7]
 
     news_feed_proxy = current_user.news_feed_proxy

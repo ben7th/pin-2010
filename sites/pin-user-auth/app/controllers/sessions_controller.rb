@@ -5,6 +5,9 @@ class SessionsController < ApplicationController
   include SessionsMethods
 
   def new
+    if logged_in?
+      return redirect_to "/"
+    end
     render :layout=>'auth',:template=>'auth/login'
   end
 

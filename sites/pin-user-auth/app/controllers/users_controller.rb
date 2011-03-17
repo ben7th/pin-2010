@@ -65,7 +65,7 @@ class UsersController < ApplicationController
     @fans = @user.fans
     @fans_count = @user.fans_contacts.count
 
-    contacts_user = @user.contacts_user
+    contacts_user = @user.followings
     @followings_count = contacts_user.count
     @followings = contacts_user[0..9]
 
