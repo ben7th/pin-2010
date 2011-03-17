@@ -38,4 +38,8 @@ class RedisVectorArrayCache
     set(array_tmp)
   end
 
+  def delete
+    @redis.del(@key)
+  end
+
 end
