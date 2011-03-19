@@ -25,36 +25,44 @@ body {
   color: #dddddd; }
 
 .page-content .cell {
-  border: 2px solid #242438;
-  background-color: #252737; }
+  border: 2px solid #343448;
+  background-color: #353747; }
 
 .page-footer {
   background-color: #284a78; }
 
 .loud {
-  color: #FFB019 !important; }
+  color: #FBEB96 !important; }
 
 .quiet {
   color: #B5B5B5; }
 
 .date {
-  color: #B5B5B5; }
+  color: #c5c5c5; }
 
 a {
-  color: #6E9EFF; }
+  color: #8EaEFF; }
   a:hover {
-    color: #6EBFFF; }
+    color: #9EbEFF; }
 
 .quote_content {
   background: #F6F6F6;
   border: solid 1px #E5E5E5; }
 
 .darkbg {
-  background-color: #1c1e2c; }
+  background-color: #282a38; }
+
+.current .darkbg, .darkbg1 {
+  background-color: #181a28; }
+
+.darkbg1.csshov:hover {
+  background-color: #424556; }
 
 .lightbg {
-  background-color: #323546;
-  border: solid 1px #111; }
+  background-color: #424556; }
+
+.lightbg1 {
+  background-color: #525566; }
 
 .concave {
   border-bottom: solid 1px #464660;

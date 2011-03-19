@@ -167,33 +167,6 @@
 
   })
 
-  //首页feed绑定事件
-  jQuery('.mplist.feeds .ops .del').live('click',function(){
-    var elm = jQuery(this);
-    var f_elm = elm.closest('.feed.mpli').children('.f');
-    var id = f_elm.attr('data-id');
-
-    var li_elm = f_elm.closest('li');
-
-    if(confirm('确定要删除吗？')){
-      li_elm.slideUp({
-        complete : function(){
-          li_elm.remove();
-        }
-      })
-
-      jQuery.ajax({
-        url  :pie.pin_url_for('pin-user-auth','/feeds/'+id),
-        type :'delete',
-        success : function(res){
-
-        },
-        error : function(data){
-        }
-      });
-    }
-  });
-
   jQuery('.mplist.feeds .ops .fav').live('click',function(){
     var elm = jQuery(this);
     var f_elm = elm.closest('.feed.mpli').children('.f');

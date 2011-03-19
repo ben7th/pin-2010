@@ -3,11 +3,7 @@
 @mixin keng{
   @include border-radius(5px);
   padding:5px;
-  border:solid 1px #111;
 }
-
-$panel-dark-bg  : #060816;
-$panel-dark-bg1 : #363848;
 
 .userpage{
   .upavatar{
@@ -588,7 +584,6 @@ form.new_message{
       padding:0;
       .f{
         @include border-radius(0 6px 0 6px);
-        border:solid 1px #111;
         padding:6px;
         overflow:hidden;
         .avatar{
@@ -602,7 +597,6 @@ form.new_message{
           width:490px;
           .data{
             font-size:14px;
-            color:white;
           }
           .preview{
             padding:10px 0 10px 0;
@@ -613,10 +607,16 @@ form.new_message{
           }
         }
       }
+      .html{
+        padding:10px;
+        @include border-radius(3px 0 0 3px);
+        background:#0C0E1C;
+        margin:1px 0 0 0;
+        font-size:13px;
+      }
       .time{
         float:left;
-        @include border-radius(3px);
-        background:#323546;
+        @include border-radius(4px);
         height:14px;
         line-height:14px;
         padding:0 4px;
@@ -629,14 +629,10 @@ form.new_message{
         .mindmap,.del,.fav,.transmit,.echo{
           float:left;
           @include border-radius(0 0 3px 3px);
-          background:#111;
           margin:0 0 0 5px;
           padding:0 3px 0 0;
           overflow:hidden;
           cursor:pointer;
-          &:hover{
-            background:#363848;
-          }
         }
         .mindmap{
           height:24px;
@@ -681,6 +677,112 @@ form.new_message{
           }
         }
       }
+      .comments{
+        @include border-radius(3px);
+        margin:20px 0 20px 40px;
+        clear:both;
+        padding:5px;
+        &.loading{
+          background-image:url(/images/icons/loading-s.gif);
+          background-repeat:no-repeat;
+          background-position:265px 2px;
+          height:10px;
+        }
+        .feed-echo-form{
+          .ipt{
+            textarea{
+              width:496px;
+              height:28px;
+              @include border-radius(3px);
+            }
+          }
+          .send-to{
+            margin:5px 0 5px 0;
+            height:19px;
+            line-height:19px;
+            padding:0 0 1px 3px;
+            cursor:default;
+            .icon{
+              width:13px;
+              height:13px;
+              background:url(/images/icons/all.png) no-repeat -82px -100px;
+              float:left;
+              margin-right:5px;
+              position:relative;
+              top:3px;
+            }
+            .name{
+              float:left;
+            }
+            &.checked{
+              .icon{
+                background:url(/images/icons/all.png) no-repeat -68px -100px;
+              }
+            }
+            &:hover{
+              background:#393F4D;
+            }
+          }
+          button{
+            @include border-radius(2px);
+            border:none 0px;
+            margin:4px 5px 0 0;
+            &.editable-submit{
+              color:white;
+              background:#0063DC;
+              &:hover{
+                background:#0054BD;
+              }
+            }
+            &.editable-cancel{
+              color:#666666;
+              background:#ddd;
+              &:hover{
+                background:#CFCFCF;
+              }
+            }
+          }
+        }
+        ul.comments-list{
+          margin-top:20px;
+          li.comment{
+            overflow:hidden;
+            padding:5px;
+            .avatar{
+              float:left;
+              margin-right:10px;
+              width:28px;height:28px;
+            }
+            .content{
+            }
+          }
+        }
+      }
+      .answers{
+        @include border-radius(3px 0 0 3px);
+        background-color:#2C2E3C;
+        margin:1px 0 0;
+        clear:both;
+        padding:5px;
+        .answer{
+          overflow:hidden;
+          padding:5px;
+          .icon{
+            float:left;
+            width:30px;
+            font-size:18px;
+            color:#ffcccc;
+            font-weight:bold;
+          }
+          .avatar{
+            float:left;
+            margin-right:10px;
+            width:28px;height:28px;
+          }
+          .content{
+          }
+        }
+      }
     }
   }
 }
@@ -689,8 +791,6 @@ form.new_message{
 .index-user-info{
   margin:0 0 25px 0;
   .base{
-    background:#323546;
-    border:solid 1px #111;
     @include keng;
     overflow:hidden;
     margin:0 0 10px 0;
@@ -997,7 +1097,6 @@ form.new_message{
       a{
         @include border-radius(4px 4px 0 0);
         margin:0 5px 0 0;
-        background:$panel-dark-bg1;
         display:block;
         padding:4px 7px;
         *padding:5px 7px 3px;
@@ -1011,14 +1110,12 @@ form.new_message{
       &.current{
         a{
           font-weight:bold;
-          background:$panel-dark-bg;
           color:white;
         }
       }
       &.more{
         @include border-radius(4px 4px 0 0);
         margin:7px 5px 0 10px;
-        background:$panel-dark-bg1;
         display:block;
         padding:2px 7px;
         *padding:3px 7px 1px;
@@ -1044,7 +1141,6 @@ form.new_message{
   .channel-op{
     @include border-radius(0 4px 4px 4px);
     padding:10px 10px;
-    background:$panel-dark-bg;
     margin:0px 0 20px;
     position:relative;
     *top:-1px;
@@ -1126,7 +1222,6 @@ form.new_message{
         a{
           @include border-radius(4px 4px 0 0);
           margin:0 5px 0 0;
-          background:$panel-dark-bg1;
           display:block;
           padding:4px 7px;
           *padding:5px 7px 3px;
@@ -1137,14 +1232,12 @@ form.new_message{
         &.current{
           a{
             font-weight:bold;
-            background:$panel-dark-bg;
             color:white;
           }
         }
         &.more{
           @include border-radius(4px 4px 0 0);
           margin:7px 5px 0 10px;
-          background:$panel-dark-bg1;
           display:block;
           padding:2px 7px;
           *padding:3px 7px 1px;
@@ -1240,5 +1333,26 @@ form.new_message{
   .aj-loading{
     margin-top:10px;
     padding-left:20px;
+  }
+}
+
+.current-channel{
+  @include border-radius(4px);
+  background:#060816;
+  padding:10px;
+  margin:0 0 20px 0;
+  .title{
+    font-size:14px;
+  }
+}
+
+.feed-blog-form{
+  label{display:block;}
+  .blog-title input{
+    width:500px;
+  }
+  .blog-html textarea{
+    width:510px;
+    height:150px;
   }
 }

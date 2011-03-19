@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect_renren "/connect_renren",:controller=>"connect_users",:action=>"connect_renren"
   map.connect_tsina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
 
-  map.resources :feeds,:member=>{:fav=>:post,:unfav=>:delete,:mine_newer_than=>:get}
+  map.resources :feeds,:member=>{:fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,:aj_comments=>:get},:collection=>{:reply_to=>:post}
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
   map.user_feeds_do_say_tmp "/newsfeed/do_say_temp",:controller=>"feeds",:action=>"do_say_temp",:conditions=>{:method=>:post}
@@ -132,4 +132,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.fans "/:user_id/channels",:controller=>"channels",:action=>"index"
 
+  map.create_html_document_feeds "/html_document_feeds",:controller=>"create_feeds",:action=>"html_document_feed",:conditions=>{:method=>:post}
+  map.create_mindmap_feeds "/mindmap_feeds",:controller=>"create_feeds",:action=>"mindmap_feed",:conditions=>{:method=>:post}
 end

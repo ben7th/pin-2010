@@ -44,6 +44,13 @@ class Mindmap < Mev6Abstract
     false
   end
 
+  def self.create_by_title!(user,title)
+    mindmap = Mindmap.new(:title=>title,:user=>user)
+    MindmapDocument.new(mindmap).init_default_struct
+    mindmap.save!
+    mindmap
+  end
+
   def self.import(user,file_name,file)
     self.verify_active_connections!
     name_splits = file_name.split(".")

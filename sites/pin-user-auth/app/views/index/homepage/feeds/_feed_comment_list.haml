@@ -1,0 +1,13 @@
+.feed-echo-form{:'data-feed-id'=>feed.id}
+  .ipt
+    %textarea.echo-inputer
+  .send-to
+    .icon
+    .name 同时发送一条话题到个人频道
+  .btns
+    %button.editable-submit 发送
+    %button.editable-cancel 取消
+
+  %ul.comments-list
+    -comments.each do |c|
+      =render :partial=>'index/homepage/feeds/feed_comment_info',:locals=>{:comment=>c}

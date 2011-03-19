@@ -3,7 +3,7 @@ class Channel < ActiveRecord::Base
   #has_many :contacts,:through=>:channel_contacts
 
   KIND_CHAT = "chat"                               # 闲聊
-  KIND_INFORMATION_RELEASE = "information_release" # 信息发布
+  KIND_BLOG = "blog"                               # 信息发布
   KIND_INTERVIEW = "interview"                     # 问答访谈
   KIND_MINDMAP_MANAGER = "mindmap_manager"         # 导图管理
 
@@ -139,4 +139,5 @@ class Channel < ActiveRecord::Base
   include ChannelNewsFeedProxy::ChannelMethods
 
   include ChannelCacheProxy::ChannelMethods
+  include FeedChannel::ChannelMethods
 end

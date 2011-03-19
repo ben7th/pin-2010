@@ -92,6 +92,14 @@ class ChannelCacheProxy
     def include_users
       ChannelUsersCacheProxy.new(self).xxxs_ids.map{|id|User.find_by_id(id)}.compact
     end
+
+    def include_users_and_creator
+      include_users + [self.creator]
+    end
+
+    def is_include_users_or_creator?(user)
+      include_users_and_creator.include?(user)
+    end
   end
 
   module ChannelContactMethods

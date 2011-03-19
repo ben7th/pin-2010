@@ -10,7 +10,6 @@ class ChannelsController < ApplicationController
   end
 
   def show
-    set_cellhead_path('/index/cellhead')
     _channel_page
     if params[:id] == "none"
       @current_channel = "none"

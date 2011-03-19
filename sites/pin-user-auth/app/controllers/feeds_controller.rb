@@ -20,8 +20,11 @@ class FeedsController < ApplicationController
 
   def do_say_temp
     channel_id = params[:channel_id]
-    channel_id == "none" ? Feed.do_say(current_user,params[:content]) : Feed.do_say(current_user,params[:content],[channel_id])
-    redirect_to "/channels/#{channel_id}"
+    res = current_user.send_say_feed(params[:content],:channel_ids=>[channel_id])
+    if res
+      return redirect_to "/channels/#{channel_id}"
+    end
+    render :text=>"发送失败",:status=>503
   end
 
   def destroy
@@ -53,6 +56,24 @@ class FeedsController < ApplicationController
   def unfav
     current_user.remove_fav_feed(@feed)
     render :stats=>200,:text=>"取消收藏成功"
+  end
+
+  def reply_to
+    @host_feed = Feed.find_by_id(params[:reply_to])
+    channel_param = params[:channel_id].blank? ? [] : [params[:channel_id]]
+    result = Feed.reply_to_feed(current_user,params[:content],params[:send_new_feed],@host_feed,channel_param)
+    if result
+      str = @template.render(:partial=>"index/homepage/feeds/feed_comment_info",:locals=>{:comment=>result})
+      return render :text=>str
+    end
+    return render :status=>405,:text=>"error"
+  end
+
+  def aj_comments
+    str = @template.render(
+    :partial=>"index/homepage/feeds/feed_comment_list",
+      :locals=>{:comments=>@feed.feed_comments,:feed=>@feed})
+    render :text=>str
   end
 
 end

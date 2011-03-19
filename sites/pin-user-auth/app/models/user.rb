@@ -190,4 +190,5 @@ class User < UserBase
   include FavProxy::UserMethods
   include ChannelCacheProxy::UserMethods
   include FeedChannel::UserMethods
+  include Feed::UserMethods
 end

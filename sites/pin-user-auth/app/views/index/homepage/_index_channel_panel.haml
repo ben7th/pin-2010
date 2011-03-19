@@ -1,17 +1,17 @@
 .channel-panel
   %ul.channels
     %li.all{:class => @current_channel.blank? ? 'current':''}
-      =link_to '全部',pin_url_for('pin-user-auth')
+      =link_to '全部',pin_url_for('pin-user-auth'),:class=>'darkbg'
     %li.none{:class => @current_channel == 'none' ? 'current':''}
-      =link_to '默认频道',pin_url_for('pin-user-auth',"/channels/none")
+      =link_to '默认频道',pin_url_for('pin-user-auth',"/channels/none"),:class=>'darkbg'
     -current_user.channels.each do |c|
       %li{:class => @current_channel == c ? 'current':''}
-        =link_to c.name,pin_url_for('pin-user-auth',"/channels/#{c.id}")
+        =link_to c.name,pin_url_for('pin-user-auth',"/channels/#{c.id}"),:class=>'darkbg'
     %li.more
       %span 其他
       .icon
 
-  .channel-op
+  .channel-op.darkbg1
     %span.loud.u-count
       共 #{@channel_member_count} 人
 

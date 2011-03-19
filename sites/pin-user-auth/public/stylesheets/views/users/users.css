@@ -616,7 +616,6 @@ form.new_message .w300 {
       border-radius: 0 6px 0 6px;
       -moz-border-radius: 0 6px 0 6px;
       -webkit-border-radius: 0 6px 0 6px;
-      border: solid 1px #111;
       padding: 6px;
       overflow: hidden; }
       .newsfeed ul.feeds li.feed .f .avatar {
@@ -631,8 +630,7 @@ form.new_message .w300 {
         float: left;
         width: 490px; }
         .newsfeed ul.feeds li.feed .f .c .data {
-          font-size: 14px;
-          color: white; }
+          font-size: 14px; }
         .newsfeed ul.feeds li.feed .f .c .preview {
           padding: 10px 0 10px 0; }
           .newsfeed ul.feeds li.feed .f .c .preview img {
@@ -640,12 +638,19 @@ form.new_message .w300 {
             border-radius: 3px;
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px; }
+    .newsfeed ul.feeds li.feed .html {
+      padding: 10px;
+      border-radius: 3px 0 0 3px;
+      -moz-border-radius: 3px 0 0 3px;
+      -webkit-border-radius: 3px 0 0 3px;
+      background: #0C0E1C;
+      margin: 1px 0 0 0;
+      font-size: 13px; }
     .newsfeed ul.feeds li.feed .time {
       float: left;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      background: #323546;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
       height: 14px;
       line-height: 14px;
       padding: 0 4px;
@@ -658,13 +663,10 @@ form.new_message .w300 {
         border-radius: 0 0 3px 3px;
         -moz-border-radius: 0 0 3px 3px;
         -webkit-border-radius: 0 0 3px 3px;
-        background: #111;
         margin: 0 0 0 5px;
         padding: 0 3px 0 0;
         overflow: hidden;
         cursor: pointer; }
-        .newsfeed ul.feeds li.feed .ops .mindmap:hover, .newsfeed ul.feeds li.feed .ops .del:hover, .newsfeed ul.feeds li.feed .ops .fav:hover, .newsfeed ul.feeds li.feed .ops .transmit:hover, .newsfeed ul.feeds li.feed .ops .echo:hover {
-          background: #363848; }
       .newsfeed ul.feeds li.feed .ops .mindmap {
         height: 24px; }
         .newsfeed ul.feeds li.feed .ops .mindmap .icon {
@@ -701,18 +703,101 @@ form.new_message .w300 {
         background: url(/images/icons/all.png) no-repeat -147px -100px; }
       .newsfeed ul.feeds li.feed .ops .echo .icon {
         background: url(/images/icons/all.png) no-repeat -164px -100px; }
+    .newsfeed ul.feeds li.feed .comments {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      margin: 20px 0 20px 40px;
+      clear: both;
+      padding: 5px; }
+      .newsfeed ul.feeds li.feed .comments.loading {
+        background-image: url(/images/icons/loading-s.gif);
+        background-repeat: no-repeat;
+        background-position: 265px 2px;
+        height: 10px; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form .ipt textarea {
+        width: 496px;
+        height: 28px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to {
+        margin: 5px 0 5px 0;
+        height: 19px;
+        line-height: 19px;
+        padding: 0 0 1px 3px;
+        cursor: default; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to .icon {
+          width: 13px;
+          height: 13px;
+          background: url(/images/icons/all.png) no-repeat -82px -100px;
+          float: left;
+          margin-right: 5px;
+          position: relative;
+          top: 3px; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to .name {
+          float: left; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to.checked .icon {
+          background: url(/images/icons/all.png) no-repeat -68px -100px; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to:hover {
+          background: #393F4D; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form button {
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border: none 0px;
+        margin: 4px 5px 0 0; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit {
+          color: white;
+          background: #0063DC; }
+          .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit:hover {
+            background: #0054BD; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-cancel {
+          color: #666666;
+          background: #ddd; }
+          .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-cancel:hover {
+            background: #CFCFCF; }
+      .newsfeed ul.feeds li.feed .comments ul.comments-list {
+        margin-top: 20px; }
+        .newsfeed ul.feeds li.feed .comments ul.comments-list li.comment {
+          overflow: hidden;
+          padding: 5px; }
+          .newsfeed ul.feeds li.feed .comments ul.comments-list li.comment .avatar {
+            float: left;
+            margin-right: 10px;
+            width: 28px;
+            height: 28px; }
+    .newsfeed ul.feeds li.feed .answers {
+      border-radius: 3px 0 0 3px;
+      -moz-border-radius: 3px 0 0 3px;
+      -webkit-border-radius: 3px 0 0 3px;
+      background-color: #2C2E3C;
+      margin: 1px 0 0;
+      clear: both;
+      padding: 5px; }
+      .newsfeed ul.feeds li.feed .answers .answer {
+        overflow: hidden;
+        padding: 5px; }
+        .newsfeed ul.feeds li.feed .answers .answer .icon {
+          float: left;
+          width: 30px;
+          font-size: 18px;
+          color: #ffcccc;
+          font-weight: bold; }
+        .newsfeed ul.feeds li.feed .answers .answer .avatar {
+          float: left;
+          margin-right: 10px;
+          width: 28px;
+          height: 28px; }
 
 /*首页的用户信息*/
 .index-user-info {
   margin: 0 0 25px 0; }
   .index-user-info .base {
-    background: #323546;
-    border: solid 1px #111;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 5px;
-    border: solid 1px #111;
     overflow: hidden;
     margin: 0 0 10px 0; }
     .index-user-info .base .avatar {
@@ -733,7 +818,6 @@ form.new_message .w300 {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 5px;
-    border: solid 1px #111;
     overflow: hidden; }
     .index-user-info .scount dl {
       display: inline-block;
@@ -789,8 +873,7 @@ form.new_message .w300 {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  padding: 5px;
-  border: solid 1px #111; }
+  padding: 5px; }
   .site-notice .title {
     font-size: 14px;
     margin: 0 0 10px 0; }
@@ -801,7 +884,6 @@ form.new_message .w300 {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   padding: 5px;
-  border: solid 1px #111;
   margin: 0 0 10px 0; }
   .simple-help .title {
     font-size: 14px;
@@ -830,7 +912,6 @@ form.new_message .w300 {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   padding: 5px;
-  border: solid 1px #111;
   overflow: hidden;
   margin: 0 0 30px 0; }
   .stat .keywords .title {
@@ -1005,7 +1086,6 @@ form.new_message .w300 {
         -moz-border-radius: 4px 4px 0 0;
         -webkit-border-radius: 4px 4px 0 0;
         margin: 0 5px 0 0;
-        background: #363848;
         display: block;
         padding: 4px 7px;
         *padding: 5px 7px 3px;
@@ -1016,14 +1096,12 @@ form.new_message .w300 {
           text-decoration: none; }
       .channel-panel ul.channels li.current a {
         font-weight: bold;
-        background: #060816;
         color: white; }
       .channel-panel ul.channels li.more {
         border-radius: 4px 4px 0 0;
         -moz-border-radius: 4px 4px 0 0;
         -webkit-border-radius: 4px 4px 0 0;
         margin: 7px 5px 0 10px;
-        background: #363848;
         display: block;
         padding: 2px 7px;
         *padding: 3px 7px 1px;
@@ -1046,7 +1124,6 @@ form.new_message .w300 {
     -moz-border-radius: 0 4px 4px 4px;
     -webkit-border-radius: 0 4px 4px 4px;
     padding: 10px 10px;
-    background: #060816;
     margin: 0px 0 20px;
     position: relative;
     *top: -1px; }
@@ -1122,7 +1199,6 @@ form.new_message .w300 {
           -moz-border-radius: 4px 4px 0 0;
           -webkit-border-radius: 4px 4px 0 0;
           margin: 0 5px 0 0;
-          background: #363848;
           display: block;
           padding: 4px 7px;
           *padding: 5px 7px 3px;
@@ -1132,14 +1208,12 @@ form.new_message .w300 {
             text-decoration: none; }
         #facebox .ch-list .preview ul.channels li.current a {
           font-weight: bold;
-          background: #060816;
           color: white; }
         #facebox .ch-list .preview ul.channels li.more {
           border-radius: 4px 4px 0 0;
           -moz-border-radius: 4px 4px 0 0;
           -webkit-border-radius: 4px 4px 0 0;
           margin: 7px 5px 0 10px;
-          background: #363848;
           display: block;
           padding: 2px 7px;
           *padding: 3px 7px 1px;
@@ -1227,3 +1301,21 @@ form.new_message .w300 {
   #facebox .ch-list .aj-loading {
     margin-top: 10px;
     padding-left: 20px; }
+
+.current-channel {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: #060816;
+  padding: 10px;
+  margin: 0 0 20px 0; }
+  .current-channel .title {
+    font-size: 14px; }
+
+.feed-blog-form label {
+  display: block; }
+.feed-blog-form .blog-title input {
+  width: 500px; }
+.feed-blog-form .blog-html textarea {
+  width: 510px;
+  height: 150px; }

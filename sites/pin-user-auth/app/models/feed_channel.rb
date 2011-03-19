@@ -31,4 +31,11 @@ class FeedChannel < ActiveRecord::Base
     end
   end
 
+  module ChannelMethods
+    def self.included(base)
+      base.has_many :feed_channels,:dependent=>:destroy,:order=>"id desc"
+      base.has_many :feeds_db,:through=>:feed_channels,:source=>:feed,:order=>"feed_channels.id desc"
+    end
+  end
+
 end

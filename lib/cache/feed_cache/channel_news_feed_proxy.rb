@@ -69,11 +69,7 @@ class ChannelNewsFeedProxy
   end
 
   def feed_id_list_from_owner_and_include_users
-    users = @channel.include_users + [@channel.creator]
-    feed_id_list = users.map do |user|
-      # 一个人发送的 指定了这个频道的 feed
-      user.send_feeds_of_channel_db(@channel)
-    end.flatten.map{|feed|feed.id}.uniq
+    feed_id_list = @channel.feeds_db.map{|feed|feed.id}
     return feed_id_list.sort{|x,y| y<=>x}
   end
 

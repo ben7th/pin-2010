@@ -1,0 +1,6 @@
+%li.comment
+  .avatar
+    =avatar(comment.user,:mini)
+  .content
+    =comment.content
+    %span.quiet (#{jtime(comment.created_at)})

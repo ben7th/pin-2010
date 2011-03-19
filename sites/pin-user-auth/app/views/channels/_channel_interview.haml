@@ -1,0 +1,15 @@
+-content_for :javascripts do
+  = javascript_include_tag ''
+
+-if logged_in?
+  -form_tag "/newsfeed/do_say_temp",:method=>:post,:class=>"feed-interview-form" do
+    =hidden_field_tag :channel_id,@channel.id
+    .interview-content.field
+      %label 请输入问题或建议
+      =text_area_tag :content,''
+    .field
+      =submit_tag '发送'
+
+.newsfeed
+  -mplist @feeds,:for=>Feed do |feed|
+    =render :partial=>'index/homepage/feeds/feed_info_in_interview',:locals=>{:feed=>feed}
