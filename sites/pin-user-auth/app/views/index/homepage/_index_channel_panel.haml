@@ -1,4 +1,4 @@
-.channel-panel
+.channel-panel{:'dev-note'=>'只显示全部和默认，以及频道设置切换菜单；'}
   %ul.channels
     %li.all{:class => @current_channel.blank? ? 'current':''}
       =link_to '全部',pin_url_for('pin-user-auth'),:class=>'darkbg'

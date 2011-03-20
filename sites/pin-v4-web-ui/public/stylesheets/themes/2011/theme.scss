@@ -54,12 +54,17 @@ body{
 }
 
 .loud{color:#FBEB96 !important;}
+.loud1{color:white;}
 .quiet{color:#B5B5B5;}
 .date{color:#c5c5c5;}
 
 a{
   color:#8EaEFF;
   &:hover{color:#9EbEFF;}
+  &.loud{
+    color:#FBEB96;
+    &:hover{text-decoration:none !important;color:#FBD300 !important;}
+  }
 }
 
 .quote_content{
@@ -68,6 +73,7 @@ a{
 }
 
 .darkbg{background-color:$dark-bg-color;}
+.darkbg .btb{border-bottom:dashed 1px $light-bg-color;}
 .current .darkbg, .darkbg1{background-color:$dark-bg-color-1;}
 .darkbg1.csshov:hover{background-color:$light-bg-color;}
 

@@ -2,9 +2,5 @@
   .ipter
     .ipts
       =text_area_tag "content",'',:class=>"text feed-content"
-    .btns
-      .btn
-      .btn
-      .btn
   .subm
-    =minibutton '确定','javascript:;',:class=>'subbtn'
+    =link_to '发 送','javascript:;',:class=>'subbtn',:'dev-note'=>'发送中…的提示；防止重复发送；发送成功提示；'

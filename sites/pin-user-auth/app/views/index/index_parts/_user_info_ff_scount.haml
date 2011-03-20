@@ -1,0 +1,12 @@
+.scount
+  .num.darkbg
+    =link_to count,url,:class=>'loud'
+  .text.lightbg.loud1
+    =text
+  .meta.lightbg
+    .icons
+      -arr.each do |u|
+        -link_to "/users/#{u.id}",:tip=>"#{u.name}" do
+          =avatar(u,:mini)
+    .more
+      =link_to '查看全部',url

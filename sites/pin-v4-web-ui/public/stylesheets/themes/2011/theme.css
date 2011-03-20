@@ -34,6 +34,9 @@ body {
 .loud {
   color: #FBEB96 !important; }
 
+.loud1 {
+  color: white; }
+
 .quiet {
   color: #B5B5B5; }
 
@@ -44,6 +47,11 @@ a {
   color: #8EaEFF; }
   a:hover {
     color: #9EbEFF; }
+  a.loud {
+    color: #FBEB96; }
+    a.loud:hover {
+      text-decoration: none !important;
+      color: #FBD300 !important; }
 
 .quote_content {
   background: #F6F6F6;
@@ -51,6 +59,9 @@ a {
 
 .darkbg {
   background-color: #282a38; }
+
+.darkbg .btb {
+  border-bottom: dashed 1px #424556; }
 
 .current .darkbg, .darkbg1 {
   background-color: #181a28; }

@@ -166,7 +166,7 @@
 
 .feed-form{
   padding:64px 0 30px 50px;
-  margin:-64px 0 0 0px;
+  margin:-34px 0 0 0px;
   overflow:hidden;
   width:500px;
   position:relative;
@@ -176,11 +176,14 @@
     .ipts{
       float:left;
       padding:0 10px 0 0;
+      font-size:0px;
+      line-height:0px;
       .feed-content{
-        width:200px;
+        width:400px;
         height:98px;
         overflow:hidden;
         position:relative;
+        border:solid 3px #525566;
         *top:-1px;
       }
     }
@@ -203,8 +206,32 @@
     }
   }
   .subm{
+    width:404px;
     clear:both;
     overflow:hidden;
+    a{
+      @include border-radius(0 0 4px 4px);
+      float:left;
+      margin-left:10px;
+      border-width:0 1px 1px 1px;
+      border-style:none solid solid solid;
+      font-size:14px;
+      padding:2px 20px;
+      font-weight:bold;
+      color:#fff;
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      @include gradient(#397BBC,#105293);
+      border-color:#216CA6;
+      &:hover{
+        text-decoration:none;
+        @include gradient(#599BDC,#3072B3);
+        border-color:#518CC6;
+      }
+      &.mousedown{
+        @include gradient(#3072B3,#599BDC);
+        border-color:#518CC6;
+      }
+    }
   }
 }
 
@@ -791,60 +818,68 @@ form.new_message{
 .index-user-info{
   margin:0 0 25px 0;
   .base{
-    @include keng;
     overflow:hidden;
     margin:0 0 10px 0;
     .avatar{
-      float:left;
-      margin-right:12px;
+      @include border-radius(5px 5px 0 0);
+      padding:5px;
       font-size:0;
       line-height:0;
-      img{@include border-radius(2px);}
     }
-    .meta{
-      .name{
-        font-size:16px;
-        padding:0 0 5px 0;
-      }
+    .name{
+      @include border-radius(0 0 5px 5px);
+      font-size:14px;
+      padding:5px;
+      text-align:center;
     }
   }
   .scount{
     margin:0 0 10px 0;
-    @include keng;
     overflow:hidden;
-    dl{
-      display:inline-block;
-      margin:0 30px 0 0;
-      dt{font-size:32px;line-height:36px;}
-      dd{margin:0;padding:0;color:#B5B5B5;}
-      a{
-        color:#FBEB96;
-        &:hover{text-decoration:none !important;color:#FBD300;}
-      }
+    .text{
+      @include border-radius(5px 5px 0 0);
+      margin:0 0 0 2px;
+      float:left;
+      padding:2px 5px 3px;
     }
     .num{
-      font-size:48px;
-      line-height:48px;
+      @include border-radius(5px);
+      padding:2px 5px;
+      line-height:16px;
+      height:16px;
       float:left;
-      margin:0 10px 0 0;
+      margin-bottom:2px;
       a{
-        color:#FBEB96;
-        &:hover{text-decoration:none !important;color:#FBD300;}
+        font-size:16px;
+        font-weight:bold;
       }
     }
     .meta{
-      float:left;
-      .text{
-        margin:0 0 3px 0;
-      }
-      .icons{
-        a{
-          text-decoration:none;
-          img.mini{
-            height:24px;
-            width:24px;
-            @include border-radius(2px);
-          }
+      clear:both;
+      @include border-radius(5px 5px 5px 5px);
+      padding:5px;
+      overflow:hidden;
+      .chs .ch{
+        margin:0 0 4px 0;
+        padding:0 0 4px 0;
+        .icon{
+          width:24px;height:12px;float:left;
+          position:relative;top:3px;
+          margin:0 3px 0 0;
+          background:url(/images/icons/all.png) no-repeat -196px -33px;
+          &.blog{background-position:-196px -48px}
+          &.interview{background-position:-196px -63px}
+        }
+        .kind{
+          float:left;
+          margin:0 3px 0 0;
+          color:#C8E19D;
+          &.blog{color:#FF7D0A;}
+          &.interview{color:#8DCFF4;}
+          /*&.mindmap{color:#FACD8A;}*/
+          &.mindmap{color:#F78CBA;}
+        }
+        .name{
         }
       }
     }

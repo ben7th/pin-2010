@@ -7,12 +7,13 @@
   = javascript_include_tag "views/index_channel_panel"
   = javascript_include_tag "views/feed_operation"
 
-.grid_14.alpha
+.grid_3.alpha
+  =render :partial=>'index/index_parts/user_info'
+
+.grid_14.paddingl20
   =render :partial=>'index/homepage/feeds/feed_form'
   =render :partial=>'index/homepage/index_channel_panel'
 
-  .newsfeed
+  .newsfeed{:'dev-note'=>'传阅功能需要实现；收藏页需要编写'}
     =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
-
-.grid_9.omega.fright
-  =render :partial=>'index/homepage/index_user_info'
+.grid_4{:'dev-note'=>'考虑考虑这里放什么'}

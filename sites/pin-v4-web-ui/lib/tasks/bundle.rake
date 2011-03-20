@@ -11,7 +11,7 @@ namespace :bundle do
     paths.each do |bundle_directory|
       bundle_name = bundle_directory.gsub(RAILS_ROOT + '/public/javascripts/', "")
       files = recursive_file_list(bundle_directory, ".js")
-      next if files.empty? || ['dev','lib'].include?(bundle_name)
+      next if files.empty? || !['common','mindpin'].include?(bundle_name)
 
       all_files += files
     end

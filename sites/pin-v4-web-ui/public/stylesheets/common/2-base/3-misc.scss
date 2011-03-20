@@ -75,7 +75,16 @@
   background:url(/images/loading-s.gif) no-repeat;
 }
 
-.avatar img{
+.dev-note-float{
+  width:32px;
+  height:32px;
+  background-image:url(/images/icons/development.png);
+  background-color:#3681D5;
+  @include border-radius(3px);
+  position:absolute;
+}
+
+.avatar img,.avatars img,.icons img{
   @include border-radius(2px);
 }
 

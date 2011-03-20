@@ -334,34 +334,31 @@ ul.mplist.attachments.list li {
   position: relative; }
 
 /*标准列表元件*/
-ul.mplist li.mpli {
-  color: #BBBBBB;
-  padding: 6px; }
-  ul.mplist li.mpli div.info_div {
-    overflow: visible;
-    position: relative; }
-    ul.mplist li.mpli div.info_div div.checkbox {
-      position: absolute;
-      height: 100%;
-      left: -20px;
-      top: 0px; }
-    ul.mplist li.mpli div.info_div div.checkbox input {
-      margin-top: 8px; }
-    ul.mplist li.mpli div.info_div div.decorate {
-      position: absolute;
-      left: -70px; }
-    ul.mplist li.mpli div.info_div.nb {
-      border-left: none !important;
-      margin-left: 70px !important; }
-    ul.mplist li.mpli div.info_div.unread .mt {
-      font-weight: bold; }
-    ul.mplist li.mpli div.info_div.unread .members {
-      font-weight: bold; }
-    ul.mplist li.mpli div.info_div .has_draft {
-      color: #CC0000; }
-  ul.mplist li.mpli.checkbox_selected div.info_div {
-    background-color: #5485BD !important;
-    color: white !important; }
+ul.mplist li.mpli div.info_div {
+  overflow: visible;
+  position: relative; }
+  ul.mplist li.mpli div.info_div div.checkbox {
+    position: absolute;
+    height: 100%;
+    left: -20px;
+    top: 0px; }
+  ul.mplist li.mpli div.info_div div.checkbox input {
+    margin-top: 8px; }
+  ul.mplist li.mpli div.info_div div.decorate {
+    position: absolute;
+    left: -70px; }
+  ul.mplist li.mpli div.info_div.nb {
+    border-left: none !important;
+    margin-left: 70px !important; }
+  ul.mplist li.mpli div.info_div.unread .mt {
+    font-weight: bold; }
+  ul.mplist li.mpli div.info_div.unread .members {
+    font-weight: bold; }
+  ul.mplist li.mpli div.info_div .has_draft {
+    color: #CC0000; }
+ul.mplist li.mpli.checkbox_selected div.info_div {
+  background-color: #5485BD !important;
+  color: white !important; }
 
 ul.mplist.zebra li.mpli {
   border: solid 1px #111;

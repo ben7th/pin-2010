@@ -13,7 +13,8 @@ form label {
 input.text, textarea, select {
   margin: 0;
   border: 0 none;
-  font-size: 14px; }
+  font-size: 14px;
+  resize: none; }
 
 input.text {
   width: 200px;

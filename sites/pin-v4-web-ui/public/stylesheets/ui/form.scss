@@ -4,7 +4,7 @@ fieldset {padding:1.4em;margin:0 0 1.5em 0;border:1px solid #ccc;}
 legend {font-weight:bold;font-size:1.2em;}
 form label {display: block;}
 
-input.text, textarea, select {margin:0;border:0 none;font-size:14px;}
+input.text, textarea, select {margin:0;border:0 none;font-size:14px;resize:none;}
 input.text {width:200px;height:1.5em;padding:5px 7px;overflow:hidden;}
 input.checkbox {position:relative;top:2px;}
 select{padding:1px;}

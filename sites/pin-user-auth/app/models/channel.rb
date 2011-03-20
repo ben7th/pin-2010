@@ -1,12 +1,21 @@
 class Channel < ActiveRecord::Base
   has_many :channel_contacts,:dependent=>:destroy
-  #has_many :contacts,:through=>:channel_contacts
 
   KIND_CHAT = "chat"                               # 闲聊
   KIND_BLOG = "blog"                               # 信息发布
   KIND_INTERVIEW = "interview"                     # 问答访谈
-  KIND_MINDMAP_MANAGER = "mindmap_manager"         # 导图管理
+  KIND_MINDMAP_MANAGER = "mindmap"                 # 导图管理
 
+  KIND_SHOW_NAME = Hash.new('聊天').merge({
+    KIND_CHAT => '聊天',
+    KIND_BLOG => '博客',
+    KIND_INTERVIEW => '问答',
+    KIND_MINDMAP_MANAGER => '导图'
+  })
+
+  def kind_name
+    KIND_SHOW_NAME[self.kind]
+  end
 
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_email,:primary_key=>:email
 

@@ -223,7 +223,17 @@
   height: 16px;
   background: url(/images/loading-s.gif) no-repeat; }
 
-.avatar img {
+.dev-note-float {
+  width: 32px;
+  height: 32px;
+  background-image: url(/images/icons/development.png);
+  background-color: #3681D5;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  position: absolute; }
+
+.avatar img, .avatars img, .icons img {
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px; }

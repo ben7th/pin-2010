@@ -1,0 +1,11 @@
+.fri
+  -if logged_in?
+    -if current_user.can_send_message_to?(user)
+      =minibutton '发私信',pin_url_for('pin-user-auth',"messages/new?receiver_id=#{user.id}")
+
+    -if current_user!=user
+      - followed = current_user.following?(user)
+      %span.follow_btn{:style=>(followed ? 'display:none;':'')}
+        =minibutton '关注TA',"javascript:;","data-user-id"=>user.id
+      %span.unfollow_btn{:style=>(followed ? '':'display:none;')}
+        =minibutton '取消关注',"javascript:;","data-user-id"=>user.id

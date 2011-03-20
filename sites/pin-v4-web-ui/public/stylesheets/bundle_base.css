@@ -65,7 +65,7 @@
 fieldset{padding:1.4em;margin:0 0 1.5em 0;border:1px solid #ccc;}
 legend{font-weight:bold;font-size:1.2em;}
 form label{display:block;}
-input.text,textarea,select{margin:0;border:0 none;font-size:14px;}
+input.text,textarea,select{margin:0;border:0 none;font-size:14px;resize:none;}
 input.text{width:200px;height:1.5em;padding:5px 7px;overflow:hidden;}
 input.checkbox{position:relative;top:2px;}
 select{padding:1px;}
@@ -184,7 +184,6 @@ ul.mplist.attachments.nest{margin:10px 0 10px 0;border:none!important;overflow:h
 ul.mplist.attachments.nest li{display:inline-table;border:solid 1px #eee;padding:3px;margin:0 5px 3px 0;position:relative;-moz-border-radius:3px;-webkit-border-radius:3px;-moz-box-shadow:1px 1px 2px #333;-webkit-box-shadow:1px 1px 2px #333;}
 ul.mplist.attachments.list{margin:10px 0 10px 0;border:none!important;overflow:hidden;}
 ul.mplist.attachments.list li{border-top:solid 1px #eee;padding:3px;margin:0 5px 3px 0;position:relative;}
-ul.mplist li.mpli{color:#BBB;padding:6px;}
 ul.mplist li.mpli div.info_div{overflow:visible;position:relative;}
 ul.mplist li.mpli div.info_div div.checkbox{position:absolute;height:100%;left:-20px;top:0;}
 ul.mplist li.mpli div.info_div div.checkbox input{margin-top:8px;}
@@ -354,8 +353,8 @@ div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
 body{margin:0;}
 .page-container{margin:0;}
 .page-content{overflow:visible;clear:both;}
-.page-content .cell{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;box-shadow:0 0 10px #040307;-moz-box-shadow:0 0 10px #040307;-webkit-box-shadow:0 0 10px #040307;padding:18px;margin-bottom:10px;margin-top:-30px;margin-bottom:60px;}
-.page-content .cell .cellhead{margin-bottom:30px;position:relative;}
+.page-content .cell{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;box-shadow:0 0 10px #040307;-moz-box-shadow:0 0 10px #040307;-webkit-box-shadow:0 0 10px #040307;padding:10px 18px 18px 18px;margin-bottom:10px;margin-top:-30px;margin-bottom:60px;}
+.page-content .cell .cellhead{position:relative;}
 .page-content .cell .cellhead .avatared .logo{float:left;margin-right:10px;margin-top:5px;height:20px;width:20px;}
 .page-content .cell .cellhead .avatared .hello{line-height:36px;font-size:14px;}
 .page-content .cell .cellhead .avatared .hello .tips{font-size:12px;margin-left:20px;color:#ababab;}
@@ -463,7 +462,8 @@ body{margin:0;}
 .dev{background-color:#FBEB96;opacity:.2;}
 .lh22{line-height:22px;}
 .aj-loading{height:16px;background:url(/images/loading-s.gif) no-repeat;}
-.avatar img{border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
+.dev-note-float{width:32px;height:32px;background-image:url(/images/icons/development.png);background-color:#3681D5;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;position:absolute;}
+.avatar img,.avatars img,.icons img{border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
 .topl{overflow:hidden;border-top:solid 1px #242438;}
 .topl .grid_11{padding-top:15px;}
 .topl .grid_11.omega{border-left:solid 1px #242438;padding-left:25px;}
