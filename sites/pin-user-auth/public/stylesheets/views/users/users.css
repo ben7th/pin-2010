@@ -1,3 +1,8 @@
+.rc5 {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }
+
 .userpage .upavatar {
   float: left;
   height: 52px; }
@@ -889,6 +894,9 @@ form.new_message .w300 {
             color: #8DCFF4; }
           .index-user-info .scount .meta .chs .ch .kind.mindmap {
             color: #F78CBA; }
+      .index-user-info .scount .meta .icons img {
+        width: 24px;
+        height: 24px; }
   .index-user-info .follows {
     padding: 5px; }
     .index-user-info .follows .count {
@@ -1417,9 +1425,18 @@ form.new_message .w300 {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px; }
+    .userhomepage-head .avatar img {
+      width: 96px;
+      height: 96px; }
   .userhomepage-head .meta {
     padding: 5px; }
     .userhomepage-head .meta .name {
       font-size: 18px;
       font-weight: bold;
       margin: 0 0 10px 0; }
+  .userhomepage-head .action {
+    margin-top: 18px;
+    overflow: hidden; }
+    .userhomepage-head .action .follow_btn, .userhomepage-head .action .unfollow_btn, .userhomepage-head .action .s-msg {
+      float: left;
+      margin-right: 6px; }

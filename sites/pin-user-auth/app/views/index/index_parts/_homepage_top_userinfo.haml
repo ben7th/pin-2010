@@ -7,3 +7,14 @@
     .regtime
       注册于
       =qdatetimefull(user.created_at)
+    .action
+      -if logged_in?
+        -if current_user!=user
+          - followed = current_user.following?(user)
+          .follow_btn{:class=>"btn_#{user.id}",:style=>(followed ? 'display:none;':'')}
+            =minibutton '关注此人',"javascript:;","data-user-id"=>user.id
+          .unfollow_btn{:class=>"btn_#{user.id}",:style=>(followed ? '':'display:none;')}
+            =minibutton '取消关注',"javascript:;","data-user-id"=>user.id
+        -if current_user.can_send_message_to?(user)
+          .s-msg
+            =minibutton '发站内信',pin_url_for('pin-user-auth',"messages/new?receiver_id=#{user.id}")

@@ -5,6 +5,10 @@
   padding:5px;
 }
 
+.rc5{
+  @include border-radius(5px);
+}
+
 @mixin chs-ch{
   .chs .ch{
     margin:0 0 4px 0;
@@ -874,6 +878,9 @@ form.new_message{
       padding:5px;
       overflow:hidden;
       @include chs-ch;
+      .icons{
+        img{width:24px;height:24px;}
+      }
     }
   }
   .follows{
@@ -1431,10 +1438,16 @@ form.new_message{
     float:left;
     padding:5px;
     @include border-radius(5px);
+    img{width:96px;height:96px;}
   }
   .meta{
     padding:5px;
     .name{font-size:18px;font-weight:bold;margin:0 0 10px 0;}
+  }
+  .action{
+    margin-top:18px;
+    overflow:hidden;
+    .follow_btn,.unfollow_btn,.s-msg{float:left;margin-right:6px;}
   }
   
 }
