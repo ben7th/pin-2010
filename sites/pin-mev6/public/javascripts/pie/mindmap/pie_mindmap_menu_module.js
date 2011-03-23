@@ -40,7 +40,7 @@ pie.mindmap_menu_module = {
         }.bind(this)
       });
 
-      this.nodeMenu.addItem("字号颜色",{handler:this.edit_focus_font.bind(this)});
+      //this.nodeMenu.addItem("字号颜色",{handler:this.edit_focus_font.bind(this)});
 
       this.nodeMenu.addItem("编辑备注",{
         handler:function(){
