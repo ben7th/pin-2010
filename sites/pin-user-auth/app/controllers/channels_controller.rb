@@ -1,5 +1,6 @@
 class ChannelsController < ApplicationController
-
+  before_filter :login_required,:only=>:none
+  
   before_filter :per_load
   def per_load
     @channel = Channel.find_by_id(params[:id]) if params[:id] && params[:id] != "none"
@@ -10,14 +11,15 @@ class ChannelsController < ApplicationController
   end
 
   def show
-    _channel_page
-    if params[:id] == "none"
-      @current_channel = "none"
-      @feeds = current_user.no_channel_feeds
-    else
-      @current_channel = @channel
-      @feeds = @channel.feeds
-    end
+    @current_channel = @channel
+    @feeds = @channel.feeds.paginate(:per_page=>10,:page=>1)
+  end
+
+  def none
+    @current_channel = "none"
+    @feeds = current_user.no_channel_feeds.paginate(:per_page=>10,:page=>1)
+    set_cellhead_path('index/cellhead')
+    return render(:template=>'index/index')
   end
 
   def create
@@ -62,31 +64,6 @@ class ChannelsController < ApplicationController
     ids = params[:ids].split(/,|，/)
     current_user.to_sort_channels_by_ids(ids)
     render :status=>200,:text=>"操作成功"
-  end
-
-  private
-  def _channel_page
-    @mindmaps_count = current_user.mindmaps_count
-
-    fans = current_user.fans
-    @fans_count = fans.count
-    @fans = fans[0..7]
-    
-    followings = current_user.followings
-    @followings_count = followings.count
-    @followings = followings[0..7]
-
-    news_feed_proxy = current_user.news_feed_proxy
-    if @channel.blank?
-      @current_channel = "none"
-      @channel_member_count = current_user.no_channel_contact_users.count
-      @feeds = current_user.no_channel_feeds(:per_page=>10,:page=>1)
-    else
-      @current_channel = @channel
-      @channel_member_count = @channel.include_users.count
-      @feeds = @channel.feeds(:per_page=>10,:page=>1)
-    end
-    news_feed_proxy.refresh_newest_feed_id
   end
 
 end

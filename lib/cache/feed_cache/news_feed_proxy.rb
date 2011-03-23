@@ -19,6 +19,8 @@ class NewsFeedProxy
     add_to_fans_inbox_caches(feed.id)
 
     add_to_channels_vector_cache(feed)
+
+    add_to_user_being_quoted_feeds_vector_cache(feed)
   end
 
   def delete_inbox_cache
@@ -126,6 +128,15 @@ class NewsFeedProxy
     else
       channels.each do |channel|
         ChannelNewsFeedProxy.new(channel).update_feed(feed)
+      end
+    end
+  end
+
+  def add_to_user_being_quoted_feeds_vector_cache(feed)
+    if feed.quote_of
+      qf = Feed.find_by_id(feed.quote_of)
+      if qf
+        UserBeingQuotedFeedsProxy.new(qf.creator).add_to_cache(feed.id)
       end
     end
   end

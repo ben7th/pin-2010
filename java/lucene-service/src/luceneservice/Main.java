@@ -48,6 +48,7 @@ public class Main {
     checkOrMkdir(cf.getMindmapIndexPath());
     checkOrMkdir(cf.getNoteFullIndexPath());
     checkOrMkdir(cf.getNoteNewestIndexPath());
+    checkOrMkdir(cf.getFeedIndexPath());
   }
 
   /**
@@ -66,6 +67,8 @@ public class Main {
       beginNotesServer();
     } else if (type.equals("mindmaps")) {
       beginMindmapsServer();
+    } else if(type.equals("feeds")) {
+      beginFeedsServer();
     }
   }
 
@@ -89,5 +92,14 @@ public class Main {
     TServer mindmapServer = new TThreadPoolServer(mindmapProcessor, serverTransport);
     System.out.println("Mindmaps index and search server Starting  ...");
     mindmapServer.serve();
+  }
+
+  private static void beginFeedsServer() throws TTransportException {
+    LuceneFeedsServiceHandler feedsHandler = new LuceneFeedsServiceHandler(Main.cf);
+    serverTransport = new TServerSocket(9092);
+    LuceneFeedsService.Processor feedProcessor = new LuceneFeedsService.Processor(feedsHandler);
+    TServer feedServer = new TThreadPoolServer(feedProcessor, serverTransport);
+    System.out.println("Feeds index and search server Starting  ...");
+    feedServer.serve();
   }
 }

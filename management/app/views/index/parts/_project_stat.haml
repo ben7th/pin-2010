@@ -1,5 +1,9 @@
 %td=project_name
-%td=MindpinServiceManagement.project_state(project_name)
+%td
+  -if MindpinServiceManagement.project_start?(project_name)
+    ="#{MindpinServiceManagement.project_state(project_name)}(pid:#{MindpinServiceManagement.project_pid_count(project_name)})"
+  -else
+    =MindpinServiceManagement.project_state(project_name)
 %td=MindpinServiceManagement.project_log_size(project_name)
 %td=qdatetimefull(MindpinServiceManagement.project_log_mtime(project_name))
 %td
@@ -7,7 +11,6 @@
     =link_to "查看日志",project_log_path(:project_name=>project_name)
   -if MindpinServiceManagement.project_start?(project_name)
     =link_to "停止",operate_project_path(:operate=>"stop",:project=>project_name),:method=>"post"
-    =link_to "重启",operate_project_path(:operate=>"restart",:project=>project_name),:method=>"post"
     =link_to "USR2安全重启",operate_project_path(:operate=>"usr2_stop",:project=>project_name),:method=>"post"
   -else
-    =link_to "重启",operate_project_path(:operate=>"restart",:project=>project_name),:method=>"post"
+    =link_to "启动",operate_project_path(:operate=>"start",:project=>project_name),:method=>"post"

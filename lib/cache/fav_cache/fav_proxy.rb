@@ -17,8 +17,25 @@ module FavProxy
   end
 
   module UserMethods
-    def fav_feeds
-      UserFavFeedsProxy.new(self).xxxs_ids.map{|id|Feed.find_by_id(id)}
+    def fav_feeds(paginate_option={})
+      #UserFavFeedsProxy.new(self).xxxs_ids.map{|id|Feed.find_by_id(id)}
+      feed_ids = UserFavFeedsProxy.new(self).xxxs_ids
+      if paginate_option.blank?
+        first = 0
+        count = feed_ids.count
+      else
+        first = paginate_option[:per_page].to_i*(paginate_option[:page].to_i-1)
+        count = paginate_option[:per_page].to_i
+      end
+      _feeds = []
+      feed_ids[first..-1].each do |id|
+        feed = Feed.find_by_id(id)
+        if !feed.nil?
+          _feeds.push(feed)
+        end
+        break if _feeds.count >= count
+      end
+      _feeds
     end
   end
 

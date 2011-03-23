@@ -24,7 +24,7 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
- *
+ * 搜索基类
  * @author Administrator
  */
 public class Searcher {
@@ -54,7 +54,7 @@ public class Searcher {
   /**
    * 检测索引目录是否存在，以及索引目录下面是否存在生成的索引文件
    */
-  private void checkIndexDir() throws Exception {
+  protected void checkIndexDir() throws Exception {
     if (!indexDir.exists() || !indexDir.isDirectory()) {
       throw new Exception(indexDir + "does not exist or is a directory");
     }

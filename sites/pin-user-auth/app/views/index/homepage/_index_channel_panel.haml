@@ -1,20 +1,26 @@
-.channel-panel{:'dev-note'=>'只显示全部和默认，以及频道设置切换菜单；'}
+.channel-panel
   %ul.channels
     %li.all{:class => @current_channel.blank? ? 'current':''}
-      =link_to '全部',pin_url_for('pin-user-auth'),:class=>'darkbg'
-    %li.none{:class => @current_channel == 'none' ? 'current':''}
-      =link_to '默认频道',pin_url_for('pin-user-auth',"/channels/none"),:class=>'darkbg'
-    -current_user.channels.each do |c|
-      %li{:class => @current_channel == c ? 'current':''}
-        =link_to c.name,pin_url_for('pin-user-auth',"/channels/#{c.id}"),:class=>'darkbg'
-    %li.more
+      =link_to '全部',pin_url_for('pin-user-auth'),:class=>'darkbg csshov'
+    %li.none.hide{:class => @current_channel == 'none' ? 'current':''}
+      =link_to '默认频道',pin_url_for('pin-user-auth',"/channels/none"),:class=>'darkbg csshov'
+    %li.mindmaps{:class => @current_channel == 'mindmaps' ? 'current':''}
+      -link_to pin_url_for('pin-user-auth',"/mindmaps"),:class=>'darkbg csshov' do
+        .icon
+        思维导图
+    %li.more.csshov.hide
       %span 其他
       .icon
 
   .channel-op.darkbg1
     %span.loud.u-count
-      共 #{@channel_member_count} 人
 
   .setting{:style=>'display:none;'}
-    =link_to_remote '调整频道顺序',:url=>'/channels/fb_orderlist',:method=>:get
-    =link_to '管理联系人',pin_url_for('pin-user-auth',"#{current_user.id}/followings")
+    .chs
+      -current_user.channels.each do |c|
+        .ch
+          -link_to pin_url_for('pin-user-auth',"channels/#{c.id}") do
+            %span.kind.darkbg1{:class=>c.kind}
+              =c.kind_name
+            %span.name=truncate_u(c.name,6)
+    =link_to '管理频道',pin_url_for('pin-user-auth',"#{current_user.id}/followings")

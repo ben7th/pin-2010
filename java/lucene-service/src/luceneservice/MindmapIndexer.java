@@ -19,6 +19,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
  * 导图索引
+ * 注意：私有导图，不做索引
  * @author Administrator
  */
 public class MindmapIndexer extends Indexer {
@@ -36,6 +37,11 @@ public class MindmapIndexer extends Indexer {
     this.indexDir = FSDirectory.open(new File(cf.getMindmapIndexPath()));
   }
 
+  public Mindmap makeOfResultset(ResultSet set) throws SQLException {
+    Mindmap mindmap = new Mindmap(set.getString("id"), set.getString("title"), set.getString("content"), set.getString("user_id"), set.getString("private"));
+    return mindmap;
+  }
+
   /**
    * 索引所有的导图
    * @throws ClassNotFoundException
@@ -51,10 +57,12 @@ public class MindmapIndexer extends Indexer {
     int i = 0;
     long begin = new Date().getTime();
     while (set.next()) {
-      Mindmap mindmap = new Mindmap(set.getString("id"), set.getString("title"), set.getString("content"));
+      Mindmap mindmap = makeOfResultset(set);
       //checkMindmapIndex(mindmap);
-      indexMindmapContent(mindmap);
-      i++;
+      if (!mindmap.isPrivate()) {
+        indexMindmapContent(mindmap);
+        i++;
+      }
     }
     writer.optimize();
     writer.close();
@@ -78,7 +86,7 @@ public class MindmapIndexer extends Indexer {
     ResultSet set = stat.executeQuery();
     Mindmap mp = null;
     if (set.next()) {
-      mp = new Mindmap(set.getString("id"), set.getString("title"), set.getString("content"));
+      mp = makeOfResultset(set);
     }
     connection.close();
     return mp;
@@ -93,7 +101,9 @@ public class MindmapIndexer extends Indexer {
     setIndexWriter(isEmpty());
     Mindmap mindmap = find(mindmapId);
     checkMindmapIndex(mindmap);
-    indexMindmapContent(mindmap);
+    if (!mindmap.isPrivate()) {
+      indexMindmapContent(mindmap);
+    }
     int numIndexed = writer.numDocs();
     writer.optimize();
     writer.close();
@@ -107,6 +117,7 @@ public class MindmapIndexer extends Indexer {
     System.out.println(new StringBuffer().append("indexing ").append(mindmap.getId()).append(" ").append(mindmap.getTitle()));
     doc = new Document();
     doc.add(new Field("id", mindmap.getId(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+    doc.add(new Field("user_id", mindmap.getUserId(), Field.Store.YES, Field.Index.NOT_ANALYZED));
     doc.add(new Field("title", mindmap.getTitle(), Field.Store.YES, Field.Index.ANALYZED));
     doc.add(new Field("content", mindmap.getContent(), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS));
     writer.addDocument(doc);
@@ -156,7 +167,7 @@ public class MindmapIndexer extends Indexer {
    */
   public Connection getConnection() throws ClassNotFoundException, SQLException {
     Class.forName("com.mysql.jdbc.Driver");
-    return DriverManager.getConnection(cf.getDatabaseUrl(), cf.getDatabaseUserName(), cf.getDatabasePassword());
+    return DriverManager.getConnection(cf.getMindmapDatabaseUrl(), cf.getDatabaseUserName(), cf.getDatabasePassword());
   }
   /**
   public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {

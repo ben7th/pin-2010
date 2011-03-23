@@ -1,0 +1,6 @@
+-mplist @fav_feeds,:for=>Feed do |feed|
+  -ea = EmailActor.new(feed.email)
+  =avatar feed.email,:mini
+  =link_to ea.name,ea.actor
+  =feed_content(feed)
+  =created_from(feed)

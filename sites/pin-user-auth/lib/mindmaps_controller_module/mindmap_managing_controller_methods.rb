@@ -118,22 +118,19 @@ module MindmapManagingControllerMethods
   end
 
   def index
-    channel_param = params[:channel]
-    
-    if channel_param.blank?
-      @mindmaps = current_user.mindmaps.paginate(:page=>params[:page]||1,:per_page=>21)
-      return
-    end
+    @user = current_user
+    @mindmaps = @user.mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
+    @current_channel = 'mindmaps'
+  end
 
-    if channel_param == "none"
-      @current_channel = "none"
-      @mindmaps = Mindmap.no_channel_mindmaps_of(current_user).paginate(:page=>params[:page]||1,:per_page=>21)
-      return
+  def user_mindmaps
+    @user = User.find(params[:user_id])
+    if @user == current_user
+      redirect_to '/mindmaps'
     end
     
-    channel = Channel.find_by_id(channel_param)
-    @current_channel = channel
-    @mindmaps = Mindmap.channel_mindmaps(channel).paginate(:page=>params[:page]||1,:per_page=>21)
+    @mindmaps = @user.mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
+    @current_channel = 'mindmaps'
   end
   
 end

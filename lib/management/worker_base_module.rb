@@ -49,6 +49,11 @@ module MindpinServiceManagementModule
       log_file_content(file_path)
     end
 
+    def worker_pid_count(worker_name)
+      pid_file_path = get_pid_file_path_by_worker_name(worker_name)
+      get_pid_count_by_pid_file(pid_file_path)
+    end
+
     private
     def check_worker_param(worker_name)
       raise "没有 #{worker_name} 这个worker" if !Workers.include?(worker_name)

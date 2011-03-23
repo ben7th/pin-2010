@@ -27,8 +27,8 @@ notes_pid=/web/2010/pids/unicorn-notes.pid
 mev6_dir=/web/2010/pin-2010/sites/pin-mev6
 mev6_pid=/web/2010/pids/unicorn-mev6.pid
 
-sh_dir=`pwd`
-
+sh_dir=`dirname $0`
+. $sh_dir/pin-2010/function.sh
 . /etc/rc.status
 
   case "$1" in
@@ -91,6 +91,7 @@ sh_dir=`pwd`
 
 case "$2" in
     start)
+      assert_process_from_pid_file_not_exist $pid
       echo "start"
       unicorn_rails -c config/unicorn.rb -D -E production
       rc_status -v
@@ -98,7 +99,6 @@ case "$2" in
     stop)
       echo "stop"
       kill `cat $pid`
-      rm -rf $pid
       rc_status -v
     ;;
     usr2_stop)

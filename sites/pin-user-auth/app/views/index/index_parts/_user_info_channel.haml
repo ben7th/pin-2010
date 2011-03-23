@@ -1,0 +1,31 @@
+- url=pin_url_for('pin-user-auth',"#{user.id}/channels")
+.scount.hide
+  .num
+    =link_to user.channels_count,url,:class=>'loud'
+  .text.lightbg.loud1
+    主持的频道
+  .meta.lightbg
+    .chs
+      -user.channels.each do |c|
+        .ch.btb
+          %span.kind.darkbg{:class=>c.kind}
+            =c.kind_name
+          %span.name=link_to truncate_u(c.name,5),pin_url_for('pin-user-auth',"/channels/#{c.id}")
+    .more
+      =link_to '查看全部',url
+
+- url=pin_url_for('pin-user-auth',"#{user.id}/channels")
+.scount.hide
+  .num
+    =link_to user.belongs_to_channels_count,url,:class=>'loud'
+  .text.lightbg.loud1
+    参与的频道
+  .meta.lightbg
+    .chs
+      -user.belongs_to_channels.each do |c|
+        .ch.btb
+          %span.kind.darkbg{:class=>c.kind}
+            =c.kind_name
+          %span.name=link_to truncate_u(c.name,5),pin_url_for('pin-user-auth',"/channels/#{c.id}")
+    .more
+      =link_to '查看全部',url

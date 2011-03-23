@@ -1,25 +1,58 @@
 -ea = EmailActor.new(feed.email)
 .f.darkbg{:'data-id'=>"#{feed.id}"}
-  .avatar
-    =avatar ea.email,:mini
-  .c
-    .data
-      =link_to ea.name,ea.actor
-      =feed_content(feed)
-.time.lightbg1
+  -if(!feed.reply_to.blank?)
+    .reply-to-feed.darkbg1
+      -rf = feed.replied_feed
+      .data
+        -if rf.nil?
+          %span.quiet 被回应的话题已删除
+        -else
+          -ra = EmailActor.new(rf.email)
+          =link_to ra.name,ra.actor
+          =feed_content(rf)
+  .current-feed
+    .avatar
+      =avatar ea.email,:mini
+    .c
+      .data
+        =link_to ea.name,ea.actor
+        =feed_content(feed)
+      .documents
+        .mindmaps
+          -feed.mindmaps.each do |mindmap|
+            -if mindmap.private?
+              导图目前是私有状态
+            -else
+              -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+                =mindmap_thumb(mindmap)
+
+  -if(!feed.quote_of.blank?)
+    .quote-feed.darkbg1
+      -qf = feed.quoted_feed
+      .data
+        -if qf.nil?
+          %span.quiet 被回应的话题已删除
+        -else
+          -qa = EmailActor.new(qf.email)
+          =link_to qa.name,qa.actor
+          =feed_content(qf)
+
+.time.lightbg
   =created_from(feed)
-.ops
-  -if feed.email == current_user.email
-    .del.darkbg1.csshov
+
+-if logged_in?
+  .ops
+    -if feed.email == current_user.email
+      .del.darkbg.csshov
+        .icon
+        .t 删除
+    .fav.darkbg.csshov{:class=>feed.fav_by?(current_user) ? 'on':'off'}
       .icon
-      .t 删除
-  .fav.darkbg1.csshov{:class=>feed.fav_by?(current_user) ? 'on':'off'}
-    .icon
-    .t.t1 标记
-    .t.t2 取消标记
-  .transmit.darkbg1.csshov
-    .icon
-    .t 传阅
-  .echo.darkbg1.csshov{:'data-count'=>feed.comments_count}
-    .icon
-    .t 回应 #{feed.comments_count}
+      .t.t1 标记
+      .t.t2 取消标记
+    .transmit.darkbg.csshov
+      .icon
+      .t 传阅
+    .echo.darkbg.csshov{:'data-count'=>feed.comments_count}
+      .icon
+      .t 回应 #{feed.comments_count}

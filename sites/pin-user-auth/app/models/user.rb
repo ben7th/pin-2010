@@ -170,7 +170,6 @@ class User < UserBase
   end
 
   has_many :workspaces
-  has_many :mindmaps
 
   include Member::UserMethods
   include Organization::UserMethods
@@ -191,4 +190,6 @@ class User < UserBase
   include ChannelCacheProxy::UserMethods
   include FeedChannel::UserMethods
   include Feed::UserMethods
+  include FeedCommentProxy::UserMethods
+  include UserBeingQuotedFeedsProxy::UserMethods
 end

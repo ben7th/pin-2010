@@ -28,4 +28,12 @@ module MindmapRevisionMethods
     revision == self.revision
   end
 
+  def self.included(base)
+    base.before_save :set_modified_times
+  end
+
+  def set_modified_times
+    self.modified_times = self.revision
+  end
+
 end

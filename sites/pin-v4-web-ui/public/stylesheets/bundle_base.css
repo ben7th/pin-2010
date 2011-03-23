@@ -353,8 +353,8 @@ div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
 body{margin:0;}
 .page-container{margin:0;}
 .page-content{overflow:visible;clear:both;}
-.page-content .cell{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;box-shadow:0 0 10px #040307;-moz-box-shadow:0 0 10px #040307;-webkit-box-shadow:0 0 10px #040307;padding:10px 18px 18px 18px;margin-bottom:10px;margin-top:-30px;margin-bottom:60px;}
-.page-content .cell .cellhead{position:relative;}
+.page-content .cell{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;box-shadow:0 0 10px #040307;-moz-box-shadow:0 0 10px #040307;-webkit-box-shadow:0 0 10px #040307;padding:18px 18px 18px 18px;margin-bottom:10px;margin-top:-30px;margin-bottom:60px;}
+.page-content .cell .cellhead{position:relative;zoom:1;}
 .page-content .cell .cellhead .avatared .logo{float:left;margin-right:10px;margin-top:5px;height:20px;width:20px;}
 .page-content .cell .cellhead .avatared .hello{line-height:36px;font-size:14px;}
 .page-content .cell .cellhead .avatared .hello .tips{font-size:12px;margin-left:20px;color:#ababab;}

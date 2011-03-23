@@ -79,5 +79,30 @@ module MindpinServiceManagementModule
         chdir_to_root_dir{ `sh #{MINDMAP_LUCENE_SH} restart` }
       end
     end
+
+    module FeedsLuceneService
+      FEED_LUCENE_SH = "#{RAILS_ROOT}/../feeds_lucene_service.sh"
+      def feeds_lucene_service_state
+        pid_file_path = "/web/2010/pids/feeds_lucene_service.pid"
+        check_process_by_pid_file(pid_file_path)
+      end
+
+      def feeds_lucene_service_start?
+        feeds_lucene_service_state == "正常运行"
+      end
+
+      def start_feeds_lucene_service
+        chdir_to_root_dir{ `sh #{FEED_LUCENE_SH} start` }
+      end
+
+      def stop_feeds_lucene_service
+        chdir_to_root_dir{ `sh #{FEED_LUCENE_SH} stop` }
+      end
+
+      def restart_feeds_lucene_service
+        chdir_to_root_dir{ `sh #{FEED_LUCENE_SH} restart` }
+      end
+    end
+    
   end
 end

@@ -1,7 +1,7 @@
 module MindpinServiceManagementModule
   module ServerBase
     # 包含的server
-    Servers = ['memcached_service','redis_service','mindmaps_lucene_service']
+    Servers = ['memcached_service','redis_service','mindmaps_lucene_service','feeds_lucene_service']
 
     # 检测服务是否开启
     def server_start?(server_name)
@@ -40,16 +40,28 @@ module MindpinServiceManagementModule
       log_file_content(file_path)
     end
 
+    def server_pid_count(server_name)
+      file_path = find_pid_file_path_by_server_name(server_name)
+      get_pid_count_by_pid_file(file_path)
+    end
+
     private
     def check_server_name_param(server_name)
       raise "没有 #{server_name} 这个 server_name" if !Servers.include?(server_name)
     end
 
     def find_log_file_path_by_server_name(server_name)
-      if !['redis_service','mindmaps_lucene_service'].include?(server_name)
+      if !['redis_service','mindmaps_lucene_service','feeds_lucene_service'].include?(server_name)
         raise "#{server_name} 这个 server_name 没有日志"
       end
       "/web/2010/logs/#{server_name}.log"
+    end
+
+    def find_pid_file_path_by_server_name(server_name)
+      if server_name == "memcached_service"
+        return "/tmp/memcached.pid"
+      end
+      return "/web/2010/pids/#{server_name}.pid"
     end
   end
 end

@@ -1,13 +1,6 @@
 .clearfix
   .me-logo
-    
   .map-head-bar
-    .my-maps
-      =link_to '我的导图',pin_url_for('pin-user-auth')
-    .coop-maps
-      =link_to '协作导图',pin_url_for('pin-user-auth',"/users/#{current_user.id}/cooperate")
-    .all-public-maps
-      =link_to '浏览公开导图',pin_url_for('pin-user-auth',"/mindmaps/public")
     .search
       %form{:action=>"/search",:method=>"get",:id=>"search_form"}
         %input.search-inner.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}

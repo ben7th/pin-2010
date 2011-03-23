@@ -12,7 +12,9 @@ module MindpinServiceManagementModule
       short_name = find_short_project_name_by_project_name(project_name)
       unicorn_sh = File.join(RAILS_ROOT,"../..","unicorn.sh")
       raise "不支持 #{operation} 操作" if !["start","stop","restart","usr2_stop"].include?(operation)
-      `sh #{unicorn_sh} #{short_name} #{operation}`
+      Dir.chdir("#{RAILS_ROOT}/../..") do
+        `sh #{unicorn_sh} #{short_name} #{operation}`
+      end
     end
 
     # 可能返回的值: 正常运行 关闭 停止或者僵死
@@ -42,6 +44,11 @@ module MindpinServiceManagementModule
       file_path = find_log_file_path_by_project_name(project_name)
       return if !File.exist?(file_path)
       log_file_content(file_path)
+    end
+
+    def project_pid_count(project_name)
+      pid_file_path = find_pid_file_path_by_project_name(project_name)
+      get_pid_count_by_pid_file(pid_file_path)
     end
 
     private

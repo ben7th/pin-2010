@@ -13,7 +13,7 @@ class FeedsController < ApplicationController
   def say;end
 
   def do_say
-    feed = Feed.do_say(current_user,params[:content])
+    feed = current_user.send_say_feed(params[:content])
     str = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
     render :text=>str
   end
@@ -76,4 +76,16 @@ class FeedsController < ApplicationController
     render :text=>str
   end
 
+  def favs
+    @fav_feeds = current_user.fav_feeds(:per_page=>10,:page=>params[:page]||1)
+  end
+
+  def quote
+    quote_feed = Feed.find(params[:quote_of])
+    feed = Feed.to_quote_feed(current_user,params[:content],quote_feed)
+    if feed
+      return render :text=>"传阅成功"
+    end
+    render :status=>405,:text=>"传阅失败"
+  end
 end

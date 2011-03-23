@@ -1,5 +1,9 @@
 %td=server_name
-%td=MindpinServiceManagement.server_state(server_name)
+%td
+  -if MindpinServiceManagement.server_start?(server_name)
+    ="#{MindpinServiceManagement.server_state(server_name)}(pid:#{MindpinServiceManagement.server_pid_count(server_name)})"
+  -else
+    =MindpinServiceManagement.server_state(server_name)
 -if server_name != "memcached_service"
   %td=MindpinServiceManagement.server_log_size(server_name)
   %td=qdatetimefull(MindpinServiceManagement.server_log_mtime(server_name))

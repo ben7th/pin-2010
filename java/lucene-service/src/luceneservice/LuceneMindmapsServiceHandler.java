@@ -36,16 +36,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.indexAllMindmap();
       return size != 0;
-    } catch (InterruptedException ex) {
-      ex.printStackTrace();
-      return false;
-    } catch (ClassNotFoundException ex) {
-      ex.printStackTrace();
-      return false;
-    } catch (SQLException ex) {
-      ex.printStackTrace();
-      return false;
-    } catch (IOException ex) {
+    } catch (Exception ex) {
       ex.printStackTrace();
       return false;
     }
@@ -62,16 +53,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.indexMindmap(mindmap_id);
       return size != 0;
-    } catch (InterruptedException ex) {
-      ex.printStackTrace();
-      return false;
-    } catch (ClassNotFoundException ex) {
-      ex.printStackTrace();
-      return false;
-    } catch (SQLException ex) {
-      ex.printStackTrace();
-      return false;
-    } catch (IOException ex) {
+    } catch (Exception ex) {
       ex.printStackTrace();
       return false;
     }
@@ -88,7 +70,7 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       MindmapIndexer mi = new MindmapIndexer(cf);
       int size = mi.deleteIndex(mindmap_id);
       return size != 0;
-    } catch (IOException ex) {
+    } catch (Exception ex) {
       ex.printStackTrace();
       return false;
     }
@@ -105,12 +87,6 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       Searcher s = new MindmapSearcher(indexPath, query);
       String result = s.search(MindmapSearcher.SEARCH_FIELDS);
       return result;
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      return "error";
-    } catch (ParseException ex) {
-      ex.printStackTrace();
-      return "error";
     } catch (Exception ex) {
       ex.printStackTrace();
       return "error";
@@ -130,12 +106,6 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
       Searcher s = new MindmapSearcher(indexPath, query, start, count);
       String result = s.search(MindmapSearcher.SEARCH_FIELDS);
       return result;
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      return "error";
-    } catch (ParseException ex) {
-      ex.printStackTrace();
-      return "error";
     } catch (Exception ex) {
       ex.printStackTrace();
       return "error";

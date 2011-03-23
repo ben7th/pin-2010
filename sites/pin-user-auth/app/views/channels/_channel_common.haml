@@ -1,0 +1,6 @@
+-if logged_in? && @channel.is_include_users_or_creator?(current_user)
+  .feed-common-form
+    =render :partial=>'index/homepage/feeds/channel_feed_form'
+
+.newsfeed
+  =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}

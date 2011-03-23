@@ -3,3 +3,16 @@ migration
     create_channels
     create_channel_contacts
     add_position_to_channels
+
+配置文件的修改
+unicorn.sh 有修改
+unicorn_management.sh 有修改
+feeds_lucene_service.sh 需要修改启动模式为 production
+java/lucene-service/dist/lib/config_production.properties 增加配置
+
+feed表需要清空
+
+导图的全部索引
+MindmapLucene.index_all
+Feed的全部索引
+FeedLucene.index_all

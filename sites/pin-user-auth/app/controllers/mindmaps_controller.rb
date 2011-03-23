@@ -17,4 +17,5 @@ class MindmapsController < ApplicationController
   include MindmapCloneControllerMethods
 
   include MindmapRightsHelper
+
 end

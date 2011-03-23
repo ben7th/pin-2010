@@ -1,50 +1,8 @@
-- user ||= current_user
-
 .index-user-info
-  .base
-    .avatar.lightbg1
-      =avatar(user,'medium')
-    .name.darkbg
-      =user.name
+  =render :partial=>'index/index_parts/user_info_avatar',:locals=>{:user=>user}
 
   .margint30
-    - url = pin_url_for('pin-user-auth',"#{user.id}/followings")
-    - count = @followings_count
-    - arr = @followings
-    - text = '联系人'
-    =render :partial=>'index/index_parts/user_info_ff_scount',:locals=>{:url=>url,:count=>count,:arr=>arr,:text=>text}
-
-    - url=pin_url_for('pin-user-auth',"#{user.id}/fans")
-    - count = @fans_count
-    - arr = @fans
-    - text = '读者'
-    =render :partial=>'index/index_parts/user_info_ff_scount',:locals=>{:url=>url,:count=>count,:arr=>arr,:text=>text}
+    =render :partial=>'index/index_parts/user_info_friends',:locals=>{:user=>user}
 
   .margint30
-    - url=pin_url_for('pin-user-auth',"#{user.id}/channels")
-    .scount
-      .num.darkbg
-        =link_to user.channels_count,url,:class=>'loud'
-      .text.lightbg.loud1
-        主持的频道
-      .meta.darkbg
-        .chs
-          -user.channels.each do |c|
-            .ch.btb
-              %span.kind.darkbg1{:class=>c.kind}
-                =c.kind_name
-              %span.name=link_to truncate_u(c.name,5),"channels/#{c.id}"
-
-    - url=pin_url_for('pin-user-auth',"#{user.id}/channels")
-    .scount
-      .num.darkbg
-        =link_to user.belongs_to_channels_count,url,:class=>'loud'
-      .text.lightbg.loud1
-        参与的频道
-      .meta.darkbg
-        .chs
-          -user.belongs_to_channels.each do |c|
-            .ch.btb
-              %span.kind.darkbg1{:class=>c.kind}
-                =c.kind_name
-              %span.name=link_to truncate_u(c.name,5),"channels/#{c.id}"
+    =render :partial=>'index/index_parts/user_info_channel',:locals=>{:user=>user}

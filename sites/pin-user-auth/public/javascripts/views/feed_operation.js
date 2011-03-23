@@ -1,20 +1,15 @@
 (function(){
 
+  //回应
   jQuery('.feed-echo-form .send-to').live('click',function(){
     jQuery(this).toggleClass('checked');
   })
 
   jQuery('.mplist.feeds .ops .echo').live('click',function(){
     var elm = jQuery(this);
-    var o = elm.offset();
     var id = elm.closest('.mpli').find('.f').attr('data-id');
     var feed_elm = elm.closest('.feed.mpli');
     
-//    feed_echo_form_elm.attr('data-reply-to-id',id);
-//
-//    feed_echo_form_elm.find('textarea').val('');
-//    feed_echo_form_elm.find('.send-to').removeClass('checked');
-//
     if(feed_elm.find('.comments').length > 0){
       feed_elm.find('.comments').remove();
       return;
@@ -61,6 +56,58 @@
     var elm = jQuery(this);
     var cms_elm = elm.closest('.comments');
     cms_elm.remove();
+  });
+
+  //传阅
+  var ftelm = jQuery('<div class="feed-transmit-form darkbg1">'+
+    '<div class="ipt"><textarea class="transmit-inputer"></textarea></div>'+
+    '<div class="btns">'+
+      '<button class="editable-submit">发送</button>'+
+      '<button class="editable-cancel">取消</button>'+
+    '</div>'+
+  '</div>');
+  
+  jQuery('.mplist.feeds .ops .transmit').live('click',function(){
+    var elm = jQuery(this);
+    var o = elm.offset();
+    var id = elm.closest('.mpli').find('.f').attr('data-id');
+    var feed_elm = elm.closest('.feed.mpli');
+
+    if(id == ftelm.attr('data-feed-id')){
+      ftelm.remove();
+      ftelm.attr('data-feed-id','');
+      ftelm.find('textarea').val('');
+    }else{
+      ftelm.css('left',o.left + elm.outerWidth() - 400).css('top',o.top + elm.outerHeight());
+      ftelm.attr('data-feed-id',id);
+
+      jQuery('body').append(ftelm);
+    }
+  });
+
+  jQuery('.feed-transmit-form button.editable-cancel').live('click',function(){
+    ftelm.remove();
+    ftelm.attr('data-feed-id','');
+    ftelm.find('textarea').val('');
+  });
+
+  jQuery('.feed-transmit-form button.editable-submit').live('click',function(){
+    var quote_of_id = ftelm.attr('data-feed-id');
+    var content = ftelm.find('textarea').val();
+    
+    jQuery.ajax({
+      url  : '/feeds/quote',
+      type : 'POST',
+      data : 'quote_of='+quote_of_id
+              + '&content=' + encodeURIComponent(content),
+      success : function(res){
+//        var li_elm = jQuery(res);
+//        form_elm.find('ul.comments-list').prepend(li_elm);
+//        form_elm.find('textarea').val('');
+//        form_elm.find('.send-to').removeClass('checked');
+        alert('发送成功！')
+      }
+    });
   });
 
 

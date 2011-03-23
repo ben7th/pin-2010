@@ -60,11 +60,11 @@
         
     .time
       .create_time
-        ="创建时间: #{qdatetimefull(@mindmap.created_at)}"
+        ="创建时间: #{qdatetime(@mindmap.created_at)}"
       .updated_time
-        ="修改时间: #{qdatetimefull(@mindmap.updated_at)}"
+        ="修改时间: #{qdatetime(@mindmap.updated_at)}"
       .modified_times
-        ="修改次数: #{@mindmap.lock_version}"
+        ="修改次数: #{@mindmap.modified_times}"
 
     =render :partial=>'mindmaps/info_coop.haml'
 

@@ -1,52 +1,25 @@
 module DatetimeHelper
-  def qdatetime_s(time)
-    return "未知" if time.nil?
-    time=time.localtime
-    "#{time.month}月#{time.day}日 #{time.hour}:#{time.min<10 ? "0#{time.min}" : time.min}"
-  end
-
   # 获取当前时区的时间日期的友好形式
   def qdatetime(time)
     return "<span class='date'>未知</span>" if time.nil?
-    time=time.localtime
-    "<span class='date'>#{time.month}月#{time.day}日 #{time.hour}:#{time.min<10 ? "0#{time.min}" : time.min}</span>"
+    "<span class='date'>#{time.localtime.strftime("%m月%d日 %H:%M")}</span>"
   end
   
   # 获取当前时区的日期的友好形式(年月日时分秒)
   def qdatetimefull(time)
     return "<span class='date'>未知</span>" if time.nil?
-    "<span class='date'>#{time.year}年#{_2(time.month)}月#{_2(time.day)}日 #{_2(time.hour)}:#{_2(time.min)}:#{_2(time.sec)}</span>"
-  end
-
-  # 获取当前时区的日期的友好形式(年-月-日时:分:秒)
-  def qdatetimefull_with_line(time)
-    return "<span class='date'>未知</span>" if time.nil?
-    "<span class='date'>#{time.year}-#{_2(time.month)}-#{_2(time.day)} #{_2(time.hour)}:#{_2(time.min)}:#{_2(time.sec)}</span>"
-  end
-
-  def _2(num)
-    num>9 ? num : "0#{num}"
-  end
-  
-  # 获取当前时区的日期的数字形式(20080808)
-  def qdatetimenum(time)
-    return "<span class='date'>未知</span>" if time.nil?
-    time=time.localtime
-    "#{time.year}#{time.month<10 ? "0#{time.month}" : time.month}#{time.day<10 ? "0#{time.day}" : time.day}"
+    "<span class='date'>#{time.localtime.strftime("%Y年%m月%d日 %H:%M:%S")}</span>"
   end
   
   # 获取当前时区的日期的友好形式
   def qdate(time)
     return "<span class='date'>未知</span>" if time.nil?
-    time=time.localtime
-    timestr="#{time.year}年#{time.month}月#{time.day}日"
-    "<span class='date'>#{timestr}</span>"
+    "<span class='date'>#{time.localtime.strftime("%Y年%m月%d日")}</span>"
   end
   
   def qtime(time)
     return "<span class='date'>未知</span>" if time.nil?
-    time=time.localtime
-    "<span class='date'>#{time.hour}:#{time.min<10 ? "0#{time.min}" : time.min}</span>"
+    "<span class='date'>#{time.localtime.strftime("%H:%M")}</span>"
   end
   
   # 记录创建至今

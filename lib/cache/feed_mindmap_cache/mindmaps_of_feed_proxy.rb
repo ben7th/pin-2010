@@ -2,7 +2,7 @@ class MindmapsOfFeedProxy < RedisBaseProxy
 
   def initialize(feed)
     @feed = feed
-    @key = "feed_#{@feed_id}_mindmaps_id"
+    @key = "feed_#{@feed.id}_mindmaps_id"
   end
 
   def xxxs_ids_db

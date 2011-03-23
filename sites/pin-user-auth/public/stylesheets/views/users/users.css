@@ -151,7 +151,7 @@
 
 .feed-form {
   padding: 64px 0 30px 50px;
-  margin: -34px 0 0 0px;
+  margin: 0px 0 0 0px;
   overflow: hidden;
   width: 500px;
   position: relative;
@@ -421,15 +421,15 @@ form.new_message .w300 {
 .grid_11.col h2 {
   margin: 0 0 5px; }
 
-.user_mindmaps {
+.user-mindmaps ul {
   overflow: hidden; }
-  .user_mindmaps .mpli {
+  .user-mindmaps ul .mpli {
     padding-bottom: 15px !important;
     margin: 0 0 15px 0;
-    border-bottom: dotted 1px #666;
+    border-bottom: dashed 1px #424556;
     float: left;
-    width: 170px; }
-    .user_mindmaps .mpli .title {
+    width: 180px; }
+    .user-mindmaps ul .mpli .title {
       width: 166px;
       line-height: 20px;
       height: 20px;
@@ -440,12 +440,12 @@ form.new_message .w300 {
       color: white;
       font-weight: bold;
       font-size: 13px; }
-      .user_mindmaps .mpli .title:hover {
+      .user-mindmaps ul .mpli .title:hover {
         background: #37394B;
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px; }
-      .user_mindmaps .mpli .title form {
+      .user-mindmaps ul .mpli .title form {
         position: absolute;
         width: 172px;
         border-radius: 4px;
@@ -454,7 +454,7 @@ form.new_message .w300 {
         background: #E0EBAF;
         border: solid 2px #323546;
         padding: 2px; }
-        .user_mindmaps .mpli .title form input {
+        .user-mindmaps ul .mpli .title form input {
           background: #F7FCFF;
           border: none;
           padding: 0 2px;
@@ -462,27 +462,27 @@ form.new_message .w300 {
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
           border: solid 1px #111; }
-        .user_mindmaps .mpli .title form button {
+        .user-mindmaps ul .mpli .title form button {
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
           border: none 0px;
           margin: 2px 5px 0 0;
           border: solid 1px #666; }
-          .user_mindmaps .mpli .title form button.editable-submit {
+          .user-mindmaps ul .mpli .title form button.editable-submit {
             color: white;
             background: #0063DC; }
-            .user_mindmaps .mpli .title form button.editable-submit:hover {
+            .user-mindmaps ul .mpli .title form button.editable-submit:hover {
               background: #0054BD; }
-          .user_mindmaps .mpli .title form button.editable-cancel {
+          .user-mindmaps ul .mpli .title form button.editable-cancel {
             color: #666666;
             background: #ddd; }
-            .user_mindmaps .mpli .title form button.editable-cancel:hover {
+            .user-mindmaps ul .mpli .title form button.editable-cancel:hover {
               background: #CFCFCF; }
-      .user_mindmaps .mpli .title form {
+      .user-mindmaps ul .mpli .title form {
         margin-left: -5px;
         margin-top: -2px; }
-    .user_mindmaps .mpli .preview {
+    .user-mindmaps ul .mpli .preview {
       float: left;
       width: 124px;
       height: 124px;
@@ -490,14 +490,14 @@ form.new_message .w300 {
       border-radius: 5px 0 5px 5px;
       -moz-border-radius: 5px 0 5px 5px;
       -webkit-border-radius: 5px 0 5px 5px; }
-      .user_mindmaps .mpli .preview img {
+      .user-mindmaps ul .mpli .preview img {
         border: solid 2px #A3A3A3;
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px; }
-        .user_mindmaps .mpli .preview img:hover {
+        .user-mindmaps ul .mpli .preview img:hover {
           cursor: url("/images/big.cur"), auto; }
-    .user_mindmaps .mpli .rank {
+    .user-mindmaps ul .mpli .rank {
       float: left;
       width: 32px;
       height: 32px;
@@ -505,7 +505,7 @@ form.new_message .w300 {
       -moz-border-radius: 0 5px 5px 0;
       -webkit-border-radius: 0 5px 5px 0;
       margin: 0 0 2px 0; }
-      .user_mindmaps .mpli .rank span {
+      .user-mindmaps ul .mpli .rank span {
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -516,62 +516,22 @@ form.new_message .w300 {
         display: block;
         font-weight: bold;
         font-size: 14px;
-        margin: 3px 0 0 3px;
-        /*
-        border:solid 1px #FBE880;
-        @include gradient(#F9E571,#F7F1B0);
-        color:#724C21;
-        */
-        color: #F8B861; }
-    .user_mindmaps .mpli .action {
+        margin: 3px 0 0 3px; }
+    .user-mindmaps ul .mpli .action {
       float: left;
       width: 32px;
       margin: 0;
       padding: 0;
       font-size: 0;
       position: relative; }
-      .user_mindmaps .mpli .action .edit, .user_mindmaps .mpli .action .coop, .user_mindmaps .mpli .action .info, .user_mindmaps .mpli .action .dup, .user_mindmaps .mpli .action .pt {
-        background: #131520;
-        width: 32px;
-        height: 32px;
-        border-radius: 0 5px 5px 0;
-        -moz-border-radius: 0 5px 5px 0;
-        -webkit-border-radius: 0 5px 5px 0;
-        margin: 0 0 2px 0;
-        width: 4px; }
-        .user_mindmaps .mpli .action .edit a, .user_mindmaps .mpli .action .coop a, .user_mindmaps .mpli .action .info a, .user_mindmaps .mpli .action .dup a, .user_mindmaps .mpli .action .pt a {
-          display: none; }
-      .user_mindmaps .mpli .action .pt {
-        width: 24px;
-        height: 24px; }
-        .user_mindmaps .mpli .action .pt a {
-          display: block; }
-        .user_mindmaps .mpli .action .pt .toggle {
-          cursor: pointer;
-          width: 16px;
-          height: 16px;
-          border-radius: 3px;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px;
-          position: relative;
-          top: 4px;
-          left: 4px;
-          display: block; }
-          .user_mindmaps .mpli .action .pt .toggle.public {
-            background: url(/images/icons/all.png) -34px -100px no-repeat !important; }
-          .user_mindmaps .mpli .action .pt .toggle.private {
-            background: url(/images/icons/all.png) -17px -100px no-repeat !important; }
-          .user_mindmaps .mpli .action .pt .toggle.loading {
-            background: url(/images/icons/toggle-loading-12.gif) 2px 2px no-repeat !important; }
-      .user_mindmaps .mpli .action .info {
-        background: #131520;
+      .user-mindmaps ul .mpli .action .edit, .user-mindmaps ul .mpli .action .coop, .user-mindmaps ul .mpli .action .info, .user-mindmaps ul .mpli .action .dup, .user-mindmaps ul .mpli .action .pt {
         width: 32px;
         height: 32px;
         border-radius: 0 5px 5px 0;
         -moz-border-radius: 0 5px 5px 0;
         -webkit-border-radius: 0 5px 5px 0;
         margin: 0 0 2px 0; }
-        .user_mindmaps .mpli .action .info a {
+        .user-mindmaps ul .mpli .action .edit a, .user-mindmaps ul .mpli .action .coop a, .user-mindmaps ul .mpli .action .info a, .user-mindmaps ul .mpli .action .dup a, .user-mindmaps ul .mpli .action .pt a {
           display: block;
           position: relative;
           top: 3px;
@@ -580,63 +540,62 @@ form.new_message .w300 {
           height: 24px;
           text-indent: -999px;
           font-size: 0px;
-          background: url(/images/icons/all.png) no-repeat 0 -50px; }
-      .user_mindmaps .mpli .action .delete {
-        background: #131520;
+          line-height: 0px; }
+      .user-mindmaps ul .mpli .action .edit a {
+        background: url(/images/icons/all.png) 0 0px no-repeat; }
+      .user-mindmaps ul .mpli .action .coop a {
+        background: url(/images/icons/all.png) 0 -25px no-repeat; }
+      .user-mindmaps ul .mpli .action .info a {
+        background: url(/images/icons/all.png) 0 -50px no-repeat; }
+      .user-mindmaps ul .mpli .action .dup a {
+        background: url(/images/icons/all.png) 0 -75px no-repeat; }
+      .user-mindmaps ul .mpli .action .pt {
+        width: 24px;
+        height: 24px; }
+        .user-mindmaps ul .mpli .action .pt .toggle {
+          cursor: pointer;
+          display: block;
+          width: 16px;
+          height: 16px;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          position: relative;
+          top: 4px;
+          left: 4px; }
+          .user-mindmaps ul .mpli .action .pt .toggle.public {
+            background: url(/images/icons/all.png) -34px -100px no-repeat !important; }
+          .user-mindmaps ul .mpli .action .pt .toggle.private {
+            background: url(/images/icons/all.png) -17px -100px no-repeat !important; }
+          .user-mindmaps ul .mpli .action .pt .toggle.loading {
+            background: url(/images/icons/toggle-loading-12.gif) 2px 2px no-repeat !important; }
+      .user-mindmaps ul .mpli .action .delete {
         width: 16px;
         height: 16px;
+        left: -20px;
+        bottom: -22px;
         border-radius: 0 0 5px 5px;
         -moz-border-radius: 0 0 5px 5px;
         -webkit-border-radius: 0 0 5px 5px;
         margin: 0 0 0 0;
-        position: absolute;
-        left: -20px;
-        bottom: -10px;
-        height: 4px; }
-        .user_mindmaps .mpli .action .delete a {
-          display: none; }
-    .user_mindmaps .mpli:hover .action .edit, .user_mindmaps .mpli:hover .action .coop, .user_mindmaps .mpli:hover .action .info, .user_mindmaps .mpli:hover .action .dup, .user_mindmaps .mpli:hover .action .pt {
-      background: #131520;
-      width: 32px;
-      height: 32px;
-      border-radius: 0 5px 5px 0;
-      -moz-border-radius: 0 5px 5px 0;
-      -webkit-border-radius: 0 5px 5px 0;
-      margin: 0 0 2px 0; }
-    .user_mindmaps .mpli:hover .action .edit a, .user_mindmaps .mpli:hover .action .coop a, .user_mindmaps .mpli:hover .action .info a, .user_mindmaps .mpli:hover .action .dup a {
-      display: block;
-      position: relative;
-      top: 3px;
-      left: 3px;
-      width: 24px;
-      height: 24px;
-      text-indent: -999px;
-      font-size: 0px;
-      line-height: 0px; }
-    .user_mindmaps .mpli:hover .action .edit a {
-      background: url(/images/icons/all.png) 0 0 no-repeat; }
-    .user_mindmaps .mpli:hover .action .coop a {
-      background: url(/images/icons/all.png) 0 -25px no-repeat; }
-    .user_mindmaps .mpli:hover .action .info a {
-      background: url(/images/icons/all.png) 0 -50px no-repeat; }
-    .user_mindmaps .mpli:hover .action .dup a {
-      background: url(/images/icons/all.png) 0 -75px no-repeat; }
-    .user_mindmaps .mpli:hover .action .pt {
-      width: 24px;
-      height: 24px; }
-    .user_mindmaps .mpli:hover .action .delete {
-      bottom: -22px;
-      height: 16px; }
-      .user_mindmaps .mpli:hover .action .delete a {
-        width: 16px;
-        height: 16px;
-        display: block;
-        background: url(/images/icons/all.png) 0 -100px no-repeat;
-        text-indent: -999px;
-        font-size: 0px;
-        line-height: 0px; }
-    .user_mindmaps .mpli .time {
-      padding: 5px; }
+        position: absolute; }
+        .user-mindmaps ul .mpli .action .delete a {
+          width: 16px;
+          height: 16px;
+          display: block;
+          background: url(/images/icons/all.png) 0 -100px no-repeat;
+          text-indent: -999px;
+          font-size: 0px;
+          line-height: 0px; }
+    .user-mindmaps ul .mpli .time {
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      height: 14px;
+      line-height: 14px;
+      padding: 0 4px;
+      margin: 2px 0 0 0; }
 
 /*首页的feeds*/
 .newsfeed {
@@ -663,13 +622,27 @@ form.new_message .w300 {
         width: 490px; }
         .newsfeed ul.feeds li.feed .f .c .data {
           font-size: 14px; }
-        .newsfeed ul.feeds li.feed .f .c .preview {
-          padding: 10px 0 10px 0; }
-          .newsfeed ul.feeds li.feed .f .c .preview img {
-            border: solid 2px #A3A3A3;
+        .newsfeed ul.feeds li.feed .f .c .documents .mindmaps {
+          margin-top: 5px; }
+          .newsfeed ul.feeds li.feed .f .c .documents .mindmaps img {
+            border: 2px solid #A3A3A3;
             border-radius: 3px;
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px; }
+      .newsfeed ul.feeds li.feed .f .current-feed {
+        overflow: hidden; }
+      .newsfeed ul.feeds li.feed .f .reply-to-feed {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        padding: 5px;
+        margin: 0 0 10px 35px; }
+      .newsfeed ul.feeds li.feed .f .quote-feed {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        padding: 5px;
+        margin: 10px 0 0 35px; }
     .newsfeed ul.feeds li.feed .html {
       padding: 10px;
       border-radius: 3px 0 0 3px;
@@ -686,7 +659,7 @@ form.new_message .w300 {
       height: 14px;
       line-height: 14px;
       padding: 0 4px;
-      margin: 2px 0 0 0; }
+      margin: 2px 0 0 40px; }
     .newsfeed ul.feeds li.feed .ops {
       overflow: hidden;
       float: right; }
@@ -822,6 +795,37 @@ form.new_message .w300 {
           width: 28px;
           height: 28px; }
 
+.feed-transmit-form {
+  position: absolute;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  width: 390px;
+  border: solid 2px #424556;
+  padding: 5px; }
+  .feed-transmit-form button {
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: none 0px;
+    margin: 4px 5px 0 0; }
+    .feed-transmit-form button.editable-submit {
+      color: white;
+      background: #0063DC; }
+      .feed-transmit-form button.editable-submit:hover {
+        background: #0054BD; }
+    .feed-transmit-form button.editable-cancel {
+      color: #666666;
+      background: #ddd; }
+      .feed-transmit-form button.editable-cancel:hover {
+        background: #CFCFCF; }
+  .feed-transmit-form .ipt textarea {
+    width: 386px;
+    height: 28px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px; }
+
 /*首页的用户信息*/
 .index-user-info {
   margin: 0 0 25px 0; }
@@ -874,18 +878,6 @@ form.new_message .w300 {
       .index-user-info .scount .meta .chs .ch {
         margin: 0 0 4px 0;
         padding: 0 0 4px 0; }
-        .index-user-info .scount .meta .chs .ch .icon {
-          width: 24px;
-          height: 12px;
-          float: left;
-          position: relative;
-          top: 3px;
-          margin: 0 3px 0 0;
-          background: url(/images/icons/all.png) no-repeat -196px -33px; }
-          .index-user-info .scount .meta .chs .ch .icon.blog {
-            background-position: -196px -48px; }
-          .index-user-info .scount .meta .chs .ch .icon.interview {
-            background-position: -196px -63px; }
         .index-user-info .scount .meta .chs .ch .kind {
           float: left;
           margin: 0 3px 0 0;
@@ -947,7 +939,11 @@ form.new_message .w300 {
 
 .stat .chart {
   margin: 0 0 30px 0;
-  height: 130px; }
+  padding: 4px;
+  height: 110px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
 .stat .keywords {
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -991,7 +987,8 @@ form.new_message .w300 {
   float: left;
   position: relative;
   top: -4px;
-  left: -4px; }
+  left: -4px;
+  margin: 0 0 0 150px; }
 
 .map-head-bar, .head-bar {
   float: right;
@@ -1001,8 +998,6 @@ form.new_message .w300 {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   padding: 5px;
-  position: relative;
-  top: -5px;
   left: 5px; }
   .map-head-bar .my-maps, .map-head-bar .coop-maps, .map-head-bar .all-public-maps, .map-head-bar .search, .head-bar .my-maps, .head-bar .coop-maps, .head-bar .all-public-maps, .head-bar .search {
     float: left;
@@ -1014,8 +1009,8 @@ form.new_message .w300 {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  border: solid 1px #111;
-  margin: 0 0 10px 0; }
+  margin: 0 0 5px 0;
+  padding: 5px; }
   .mplist.users.contacts-list li.user .avatar {
     float: left;
     margin: 0 20px 0 0;
@@ -1058,7 +1053,27 @@ form.new_message .w300 {
   .mplist.users.contacts-list li.user .action {
     float: left; }
     .mplist.users.contacts-list li.user .action .s-msg, .mplist.users.contacts-list li.user .action .follow_btn, .mplist.users.contacts-list li.user .action .unfollow_btn {
-      margin: 0 0 10px 0; }
+      margin: 0 0 5px 0; }
+
+.add-member-form.form {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 15px; }
+  .add-member-form.form .tip {
+    margin: 0 0 5px 0; }
+  .add-member-form.form input#contact_email {
+    width: 400px !important; }
+  .add-member-form.form .add-member-info {
+    margin-top: 5px; }
+
+.contacts-setting-links {
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
 
 .channel-form {
   position: absolute;
@@ -1133,11 +1148,22 @@ form.new_message .w300 {
         color: #e0e0e0;
         font-size: 14px; }
         .channel-panel ul.channels li a:hover {
-          background: #374971;
           text-decoration: none; }
       .channel-panel ul.channels li.current a {
         font-weight: bold;
         color: white; }
+      .channel-panel ul.channels li.mindmaps {
+        width: 110px; }
+        .channel-panel ul.channels li.mindmaps a {
+          color: #F78CBA; }
+          .channel-panel ul.channels li.mindmaps a .icon {
+            width: 18px;
+            height: 18px;
+            float: left;
+            background: url(/images/icons/all.png) no-repeat -128px -120px;
+            margin: 0 5px 0 0;
+            position: relative;
+            top: 2px; }
       .channel-panel ul.channels li.more {
         border-radius: 4px 4px 0 0;
         -moz-border-radius: 4px 4px 0 0;
@@ -1149,7 +1175,6 @@ form.new_message .w300 {
         color: #e0e0e0;
         cursor: pointer; }
         .channel-panel ul.channels li.more:hover {
-          background: #444;
           text-decoration: none; }
         .channel-panel ul.channels li.more .icon {
           width: 16px;
@@ -1164,8 +1189,8 @@ form.new_message .w300 {
     border-radius: 0 4px 4px 4px;
     -moz-border-radius: 0 4px 4px 4px;
     -webkit-border-radius: 0 4px 4px 4px;
-    padding: 10px 10px;
-    margin: 0px 0 20px;
+    padding: 5px 7px;
+    margin: 0 0 20px;
     position: relative;
     *top: -1px; }
     .channel-panel .channel-op .u-count {
@@ -1208,7 +1233,8 @@ form.new_message .w300 {
     -moz-border-radius: 0 4px 4px 4px;
     -webkit-border-radius: 0 4px 4px 4px;
     border: solid 2px #222;
-    background: #333; }
+    background: #333;
+    z-index: 999; }
     .channel-panel .setting a {
       display: block;
       padding: 2px 5px;
@@ -1216,6 +1242,25 @@ form.new_message .w300 {
       .channel-panel .setting a:hover {
         background: #444;
         text-decoration: none; }
+    .channel-panel .setting .chs .ch {
+      margin: 0 0 4px 0;
+      padding: 0 0 4px 0; }
+      .channel-panel .setting .chs .ch .kind {
+        float: left;
+        margin: 0 3px 0 0;
+        color: #C8E19D;
+        /*&.mindmap{color:#FACD8A;}*/ }
+        .channel-panel .setting .chs .ch .kind.blog {
+          color: #FF7D0A; }
+        .channel-panel .setting .chs .ch .kind.interview {
+          color: #8DCFF4; }
+        .channel-panel .setting .chs .ch .kind.mindmap {
+          color: #F78CBA; }
+    .channel-panel .setting .ch {
+      margin: 0 !important;
+      padding: 0 !important; }
+    .channel-panel .setting .chs {
+      border-bottom: 1px dashed #424556; }
 
 #facebox .ch-list {
   overflow: hidden; }
@@ -1360,3 +1405,21 @@ form.new_message .w300 {
 .feed-blog-form .blog-html textarea {
   width: 510px;
   height: 150px; }
+
+.userhomepage-head {
+  overflow: hidden; }
+  .userhomepage-head .avatar {
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0 20px 0 0;
+    float: left;
+    padding: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px; }
+  .userhomepage-head .meta {
+    padding: 5px; }
+    .userhomepage-head .meta .name {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0 0 10px 0; }

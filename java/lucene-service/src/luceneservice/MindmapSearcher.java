@@ -4,6 +4,8 @@ import java.io.IOException;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 
 /**
  * 实现Mindmap的搜索

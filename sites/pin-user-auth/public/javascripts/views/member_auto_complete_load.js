@@ -39,11 +39,24 @@ pie.ContactAutoComplete = Class.create(pie.UserAutoCompleteModule,{
   add_member_submit:function(){
     jQuery('.add-member-info').html('正在处理...');
     var pars = this.inputer.serialize();
-    new Ajax.Request('/contacts', {
-      parameters:pars,
-      onComplete:function(){
-        this.inputer.val('');
-      }.bind(this)
+    jQuery.ajax({
+      url  : '/contacts',
+      type : 'POST',
+      data : pars,
+      dataType : 'text',
+      success : function(res){
+        jQuery(".add-member-info").html("");
+        jQuery("#contact_email").val("");
+        jQuery('.no-member').hide();
+
+        var li_elm = jQuery(res).find('li').hide();
+        jQuery('#mplist_users').prepend(li_elm);
+        li_elm.slideDown(400);
+      },
+      error : function(jqxhr){
+        pie.log(jqxhr.responseText);
+        jQuery(".add-member-info").html(jqxhr.responseText);
+      }
     });
   }
 })

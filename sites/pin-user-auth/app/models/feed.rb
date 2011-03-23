@@ -9,6 +9,14 @@ class Feed < FeedBase
 
   SAY_OPERATE = 'say'
 
+  def replied_feed
+    Feed.find_by_id(reply_to)
+  end
+
+  def quoted_feed
+    Feed.find_by_id(quote_of)
+  end
+
   def validate_on_create
     channels = self.creator.belongs_to_channels_db + self.creator.channels
     self.channels_db.each do |channel|
@@ -20,22 +28,13 @@ class Feed < FeedBase
     end
   end
 
-  def self.do_say(user,content,channel_ids=[])
-    channels = [] if channel_ids.blank?
-    channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-    feed = Feed.create(:email=>user.email,:event=>SAY_OPERATE,:content=>content,:channels_db=>channels)
-    if feed.id
-      user.news_feed_proxy.update_feed(feed)
-    end
-    feed
-  end
-  
   def self.reply_to_feed(user,content,create_new_feed,host_feed,channel_ids=[])
     Feed.transaction do
       host_feed_id = host_feed.id
       fc = FeedComment.new(:feed_id=>host_feed_id,:content=>content,:user_id=>user.id)
       return false if !fc.valid?
       fc.save!
+      UserBeingRepliedCommentsProxy.update_feed_comment(fc)
       if create_new_feed == "true"
         channel_ids = [] if channel_ids.blank?
         channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
@@ -47,6 +46,21 @@ class Feed < FeedBase
         end
       end
       return fc
+    end
+  end
+
+  #
+  def self.to_quote_feed(user,content,quote_feed,options={})
+    channel_ids = options[:channel_ids] || []
+    channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
+    Feed.transaction do
+      feed = Feed.new(:email=>user.email,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels,:quote_of=>quote_feed.id)
+      return false if !feed.valid?
+      feed.save!
+      if feed.id
+        user.news_feed_proxy.update_feed(feed)
+      end
+      return feed
     end
   end
 
@@ -110,6 +124,14 @@ class Feed < FeedBase
         return feed
       end
     end
+
+    def in_feeds
+      self.news_feed_proxy.feeds
+    end
+
+    def refresh_newest_feed_id
+      self.news_feed_proxy.refresh_newest_feed_id
+    end
   end
 
   include FeedMindmap::FeedMethods
@@ -119,4 +141,5 @@ class Feed < FeedBase
   include FeedChannel::FeedMethods
   include HtmlDocument::FeedMethods
   include FeedComment::FeedMethods
+  include FeedLucene::FeedMethods
 end

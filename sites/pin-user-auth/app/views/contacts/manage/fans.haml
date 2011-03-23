@@ -1,0 +1,15 @@
+- require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/follows"
+
+%h3.padding5
+  %span.loud>#{@user.name}
+  的读者，共#{@fans.count}人
+
+.grid_18.alpha
+  =render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>@fans}
+
+.grid_5.omega.fright
+  =render :partial=>"contacts/manage/setting_links"
+

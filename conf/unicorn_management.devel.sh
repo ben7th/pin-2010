@@ -3,12 +3,13 @@
 dir=/web1/pin-2010/management
 pid=/web/2010/pids/unicorn-management.pid
 
-sh_dir=`pwd`
-
+sh_dir=`dirname $0`
+. $sh_dir/pin-2010/function.sh
 . /etc/rc.status
 cd $dir
 case "$1" in
 	start)
+        assert_process_from_pid_file_not_exist $pid
 	echo "start"
 	unicorn_rails -c config/unicorn.rb -D
 	rc_status -v
@@ -16,7 +17,6 @@ case "$1" in
 	stop)
 	echo "stop"
 	kill `cat $pid`
-	rm -rf $pid
 	rc_status -v	
 	;;
 	usr2_stop)

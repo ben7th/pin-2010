@@ -1,5 +1,9 @@
 %td=worker_name
-%td=MindpinServiceManagement.worker_state(worker_name)
+%td
+  -if MindpinServiceManagement.worker_start?(worker_name)
+    ="#{MindpinServiceManagement.worker_state(worker_name)}(pid:#{MindpinServiceManagement.worker_pid_count(worker_name)})"
+  -else
+    =MindpinServiceManagement.worker_state(worker_name)
 %td=MindpinServiceManagement.worker_log_size(worker_name)
 %td=qdatetimefull(MindpinServiceManagement.worker_log_mtime(worker_name))
 %td

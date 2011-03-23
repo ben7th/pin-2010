@@ -63,17 +63,17 @@ a {
 .darkbg .btb {
   border-bottom: dashed 1px #424556; }
 
+.lightbg .btb {
+  border-bottom: dashed 1px #525566; }
+
 .current .darkbg, .darkbg1 {
   background-color: #181a28; }
 
-.darkbg1.csshov:hover {
+.csshov:hover, .darkbg.csshov:hover, .darkbg1.csshov:hover {
   background-color: #424556; }
 
 .lightbg {
   background-color: #424556; }
-
-.lightbg1 {
-  background-color: #525566; }
 
 .concave {
   border-bottom: solid 1px #464660;

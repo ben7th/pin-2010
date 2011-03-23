@@ -1,19 +1,19 @@
-- content_for :title do
-  #{@user.name}的主页
-
-- require_css 'views/users',true
+-require_css 'views/users',true
 
 -content_for :javascripts do
   = javascript_include_tag "views/mindmap_image"
-  = javascript_include_tag "views/user_homepage"
+  = javascript_include_tag "views/index"
+  = javascript_include_tag "views/mindmap_title_inplace_edit"
+  = javascript_include_tag "views/index_channel_panel"
+  = javascript_include_tag "views/feed_operation"
 
-.grid_14
-  =render :partial=>'index/homepage/mindmaps_others'
+.grid_3.alpha
+  =render :partial=>'index/index_parts/user_info_in_homepage',:locals=>{:user=>@user}
 
-.grid_9.omega.fright
-  =render :partial=>'index/homepage/index_user_info',:locals=>{:user=>@user}
+.grid_14.paddingl20
+  =render :partial=>'index/index_parts/homepage_top_userinfo',:locals=>{:user=>@user}
 
-  %div
-    所属频道
-    -channels = @user.belongs_to_channels
-    =channels.map{|c|c.name}*"，"
+  .newsfeed
+    =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@own_feeds}
+
+.grid_4

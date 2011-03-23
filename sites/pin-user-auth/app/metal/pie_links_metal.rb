@@ -19,7 +19,7 @@ class PieLinksMetal < BaseMetal
       g.title('导图趋势分布',"{font-size:13px; color: #111111;}")
       bar.data << mrtc.values
       g.data_sets << bar
-      g.set_bg_color('#ffffff')
+      g.set_bg_color('#E9F1F4')
       
       g.set_x_axis_color('#323546','#EAECF8')
       g.set_y_axis_color('#323546','#EAECF8')
@@ -29,8 +29,8 @@ class PieLinksMetal < BaseMetal
       g.set_y_label_steps(1)
       g.set_y_legend("RANK VALUE", 10, "#1D50A3")
       
-      g.set_x_label_style(10,'#ffffff')
-      g.set_y_label_style(10,'#ffffff')
+      g.set_x_label_style(10,'#333333')
+      g.set_y_label_style(10,'#333333')
       
       g.set_tool_tip("#{user_name} rank值为#x_label#的导图 共#val#个")
 

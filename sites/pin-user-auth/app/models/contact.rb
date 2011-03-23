@@ -26,9 +26,9 @@ class Contact < ContactBase
   def validate
     cons = Contact.find_all_by_user_id_and_email(user.id,email)
     add_user = EmailActor.get_user_by_email(email)
-    errors.add("email","该用户不存在") if add_user.blank?
-    errors.add("email","已添加该联系人") if add_user && !cons.blank?
-    errors.add("email","联系人不能添加自己") if add_user && add_user.id == user.id
+    errors.add("email","系统内没有这个用户") if add_user.blank?
+    errors.add("email","已经添加过该联系人") if add_user && !cons.blank?
+    errors.add("email","不能添加自己为联系人") if add_user && add_user.id == user.id
   end
 
   module UserMethods

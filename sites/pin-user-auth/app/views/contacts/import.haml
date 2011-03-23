@@ -1,22 +1,27 @@
 -require_css 'views/users'
 -require_css 'views/organizations'
 
-=flash_info
+.grid_18.alpha
+  =flash_info
 
-%p.font13
-  你可以通过查找邮箱联系人，来添加MindPin联系人。<br/>
-  MindPin不会记录你的邮箱账号和密码；并且会对你的信息绝对保密！
+  %p.font13
+    你可以通过查找邮箱联系人，来添加MindPin联系人。<br/>
+    MindPin不会记录你的邮箱账号和密码；并且会对你的信息绝对保密！
 
--form_tag "/contacts_setting/import_list" do
-  .field
-    %label
-      邮箱
-      %span.loud (支持 GMail, 163, 126, 新浪)
-    =text_field_tag :email_login
-    %span @
-    =select_tag(:type,options_for_select([["请选择邮箱类型",'0'],"gmail.com","126.com","163.com","sina.com"]))
-  .field
-    %label 密码
-    =password_field_tag :password
-  .actions
-    =submit_tag "查找"
+  -form_tag "/contacts_setting/import_list" do
+    .field
+      %label
+        邮箱
+        %span.loud (支持 GMail, 163, 126, 新浪)
+      =text_field_tag :email_login
+      %span @
+      =select_tag(:type,options_for_select([["请选择邮箱类型",'0'],"gmail.com","126.com","163.com","sina.com"]))
+    .field
+      %label 密码
+      =password_field_tag :password
+    .actions
+      =submit_tag "查找"
+
+.grid_5.omega.fright
+  -@user = current_user
+  =render :partial=>"contacts/manage/setting_links"

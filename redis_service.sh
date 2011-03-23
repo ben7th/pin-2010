@@ -1,14 +1,16 @@
 #! /bin/sh
 
-root_dir=`pwd`
+root_dir=`dirname $0`
 
 processor_pid=/web/2010/pids/redis_service.pid
 
 log_file=/web/2010/logs/redis_service.log
 
 . /etc/rc.status
+. $root_dir/function.sh
 case "$1" in
         start)
+                assert_process_from_pid_file_not_exist $processor_pid
                 echo "redis_service start"
                 cd $root_dir/../redis-2.0.4
                 ./redis-server 1>> $log_file 2>> $log_file & 
@@ -18,7 +20,6 @@ case "$1" in
         stop)
                 echo "redis_service stop"
                 kill -9 `cat $processor_pid`
-                rm -rf $processor_pid
                 rc_status -v
         ;;
         restart)

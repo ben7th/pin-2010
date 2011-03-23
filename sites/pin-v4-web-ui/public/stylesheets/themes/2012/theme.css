@@ -1,0 +1,84 @@
+/*2011年第一套配色*/
+/*杜若*/
+/*青蓝*/
+.page-head {
+  background: -moz-linear-gradient(-90deg, white, #f5f5f5);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#f5f5f5));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='white',endColorstr='#f5f5f5');
+  border-bottom: solid 1px #DFDFDF;
+  color: white; }
+  .page-head .userbox {
+    box-shadow: 0 0 5px #040307;
+    -moz-box-shadow: 0 0 5px #040307;
+    -webkit-box-shadow: 0 0 5px #040307;
+    background-color: #4c6db4;
+    border: solid 2px #3e62ae; }
+  .page-head .line {
+    background-color: #999; }
+
+body {
+  background-color: #ecf4f7;
+  color: #333333; }
+
+.page-content .cell {
+  border: 2px solid white;
+  background-color: white; }
+
+.page-footer {
+  background-color: #284a78; }
+
+.loud {
+  color: #FB4A00 !important; }
+
+.loud1 {
+  color: black; }
+
+.quiet {
+  color: #B5B5B5; }
+
+.date {
+  color: #c5c5c5; }
+
+a {
+  color: #268DD3; }
+  a:hover {
+    color: #5193D4; }
+  a.loud {
+    color: #FBEB96; }
+    a.loud:hover {
+      text-decoration: none !important;
+      color: #FBD300 !important; }
+
+.quote_content {
+  background: #F6F6F6;
+  border: solid 1px #E5E5E5; }
+
+.darkbg {
+  background-color: white; }
+
+.darkbg .btb {
+  border-bottom: dashed 1px #f6f6f7; }
+
+.current .darkbg, .darkbg1 {
+  background-color: #d7d5c7; }
+
+.darkbg1.csshov:hover {
+  background-color: #f6f6f7; }
+
+.lightbg {
+  background-color: #f6f6f7; }
+
+.lightbg1 {
+  background-color: #fafafb; }
+
+.concave {
+  border-bottom: solid 1px #464660;
+  border-right: solid 1px #464660;
+  border-top: solid 1px #000;
+  border-left: solid 1px #000; }
+
+.convex {
+  border-left: solid 1px #464660;
+  border-top: solid 1px #464660;
+  border-bottom: solid 1px #000;
+  border-right: solid 1px #000; }

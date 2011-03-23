@@ -39,11 +39,14 @@ class Mindmap < Mev6Abstract
     if mindmap.valid?
       MindmapDocument.new(mindmap).init_default_struct
       mindmap.save
+      # 创建成功的时候，创建对应的feed
+      mindmap._create_feed
       return mindmap
     end
     false
   end
 
+  # 只被 send_mindmap_feed 调用
   def self.create_by_title!(user,title)
     mindmap = Mindmap.new(:title=>title,:user=>user)
     MindmapDocument.new(mindmap).init_default_struct
@@ -69,7 +72,19 @@ class Mindmap < Mev6Abstract
     else
       raise "错误的导图格式"
     end
+    # 创建成功的时候，创建对应的feed
+    mindmap._create_feed
     mindmap
+  end
+
+  # 创建导图和导入导图时，创建对应的 feed
+  def _create_feed
+    return if self.id.blank?
+    content = "我发布了思维导图：#{self.title}"
+    feed = Feed.create!(:email=>self.user.email,:event=>Feed::SAY_OPERATE,
+      :content=>content)
+    FeedMindmap.create!(:mindmap=>self,:feed=>feed)
+    self.user.news_feed_proxy.update_feed(feed)
   end
 
   def rank_value
@@ -105,6 +120,10 @@ class Mindmap < Mev6Abstract
   end
   
   module UserMethods
+    def self.included(base)
+      base.has_many :mindmaps,:order=>"updated_at desc"
+    end
+
     def mindmaps_count
       Mindmap.count(:all, :conditions => "user_id = #{self.id}")
     end

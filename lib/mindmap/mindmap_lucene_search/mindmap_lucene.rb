@@ -21,7 +21,6 @@ class MindmapLucene
       _protocol = Thrift::BinaryProtocol.new(_transport)
       _client = LuceneMindmapsService::Client.new(_protocol)
       _transport.open()
-      _client
       yield(_client)
     ensure
       _transport.close()

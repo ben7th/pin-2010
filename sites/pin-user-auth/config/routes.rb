@@ -45,8 +45,6 @@ ActionController::Routing::Routes.draw do |map|
     organization.resources :members
   end
 
-  # 联系人
-  map.account_contacts     "contacts_setting/contacts",:controller=>"contacts_setting",:action=>"contacts"
   # 导入联系人
   map.import_contacts      "contacts_setting/import",:controller=>"contacts",:action=>"import"
   # 导入联系人 显示列表
@@ -92,12 +90,16 @@ ActionController::Routing::Routes.draw do |map|
   map.connect_renren "/connect_renren",:controller=>"connect_users",:action=>"connect_renren"
   map.connect_tsina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
 
-  map.resources :feeds,:member=>{:fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,:aj_comments=>:get},:collection=>{:reply_to=>:post}
+  map.resources :feeds,:member=>{
+    :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
+    :aj_comments=>:get},
+    :collection=>{:reply_to=>:post,:quote=>:post}
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
   map.user_feeds_do_say_tmp "/newsfeed/do_say_temp",:controller=>"feeds",:action=>"do_say_temp",:conditions=>{:method=>:post}
   map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
   map.newsfeed_get_new "/newsfeed/get_new_feeds",:controller=>"feeds",:action=>"get_new_feeds"
+  map.favs "/favs",:controller=>"feeds",:action=>"favs"
   
   map.resources :messages
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
@@ -115,6 +117,7 @@ ActionController::Routing::Routes.draw do |map|
       :do_private=>:put,
       :info=>:get
     }
+  map.user_mindmaps "/:user_id/mindmaps",:controller=>"mindmaps",:action=>"user_mindmaps"
 
   map.search '/search.:format',:controller=>'mindmaps_search',:action=>'search'
 
@@ -124,7 +127,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :channels,:collection=>{
       :fb_orderlist=>:get,
-      :sort=>:put
+      :sort=>:put,
+      :none=>:get
     },:member=>{
       :add=>:put,
       :remove=>:put

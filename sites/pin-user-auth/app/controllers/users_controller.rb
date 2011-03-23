@@ -54,33 +54,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
-    @mindmaps_count = @user.mindmaps_count
-    if current_user == @user
-      @mindmaps = @user.mindmaps.all(:order=>'id desc').paginate(:page=>params[:page]||1,:per_page=>21)
-    else
-      @mindmaps = @user.mindmaps.publics.paginate(:order=>'id desc',:page=>params[:page]||1,:per_page=>21)
-    end
-
-    @fans = @user.fans
-    @fans_count = @user.fans_contacts.count
-
-    contacts_user = @user.followings
-    @followings_count = contacts_user.count
-    @followings = contacts_user[0..9]
-
-    @own_feeds = @user.news_feed_proxy.own_feeds.paginate(:page=>params[:page],:per_page=>20)
-    
-    set_cellhead_path('/index/cellhead')
-
-    respond_to do |format|
-      format.html {
-        render :template=>'users/homepage'
-      } # 这一行必须有而且必须在下面这行之前，否则IE里会出问题
-      format.xml {
-        render :xml=>@user.to_xml(:only=>[:id,:name,:created_at],:methods=>:logo)
-      }
-    end
+    @own_feeds = @user.news_feed_proxy.own_feeds.paginate(:page=>params[:page],:per_page=>10)
+    render :template=>'users/homepage'
   end
 
   def cooperate

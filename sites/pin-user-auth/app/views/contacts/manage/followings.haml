@@ -1,0 +1,32 @@
+- require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/follows"
+  = javascript_include_tag "views/follows_channel"
+
+  = javascript_include_tag 'views/member_auto_complete_load'
+  :javascript
+    pie.load(function(){
+      var cac = new pie.ContactAutoComplete('#contact_email');
+      jQuery('.add-member-form .inline-button').bind('click',function(){
+        cac.add_member_submit();
+      });
+    });
+
+%h3.padding5
+  %span.loud>#{@user.name}
+  正在关注的，共#{@followings.count}人
+
+.grid_18.alpha
+  -if @user == current_user
+    .add-member-form.form.darkbg
+      .tip 输入邮箱或用户名，添加联系人
+      = text_field_tag 'contact[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5 inline text'
+      = submit_tag "添加",:class=>'inline-button'
+      .add-member-info
+
+  =render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>@followings}
+
+.grid_5.omega.fright
+  =render :partial=>"contacts/manage/setting_links"
+

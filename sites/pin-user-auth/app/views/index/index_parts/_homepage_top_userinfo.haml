@@ -1,0 +1,9 @@
+.userhomepage-head
+  .avatar.lightbg
+    =avatar user,:medium
+  .meta
+    .name.loud1
+      =user.name
+    .regtime
+      注册于
+      =qdatetimefull(user.created_at)

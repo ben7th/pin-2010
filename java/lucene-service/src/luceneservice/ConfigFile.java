@@ -45,8 +45,16 @@ public class ConfigFile {
     return getProperty("MINDMAP_INDEX_PATH");
   }
 
-  public String getDatabaseUrl() {
-    return getProperty("DATABASE_URL");
+  public String getFeedIndexPath(){
+    return getProperty("FEED_INDEX_PATH");
+  }
+
+  public String getMindmapDatabaseUrl() {
+    return getProperty("MINDMAP_DATABASE_URL");
+  }
+
+  public String getFeedDatabaseUrl() {
+    return getProperty("FEED_DATABASE_URL");
   }
 
   public String getDatabaseUserName() {
@@ -64,7 +72,7 @@ public class ConfigFile {
   public static void main(String[] args) throws FileNotFoundException, IOException{
   ConfigFile cf = new ConfigFile("production");
   System.out.println(cf.getDatabasePassword());
-  System.out.println(cf.getDatabaseUrl());
+  System.out.println(cf.getMindmapDatabaseUrl());
   System.out.println(cf.getDatabaseUserName());
   System.out.println(cf.getMindmapIndexPath());
   System.out.println(cf.getNoteFullIndexPath());

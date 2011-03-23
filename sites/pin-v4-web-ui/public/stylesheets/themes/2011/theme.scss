@@ -73,12 +73,12 @@ a{
 }
 
 .darkbg{background-color:$dark-bg-color;}
-.darkbg .btb{border-bottom:dashed 1px $light-bg-color;}
+.darkbg  .btb{border-bottom:dashed 1px $light-bg-color;}
+.lightbg .btb{border-bottom:dashed 1px $light-bg-color-1;}
 .current .darkbg, .darkbg1{background-color:$dark-bg-color-1;}
-.darkbg1.csshov:hover{background-color:$light-bg-color;}
+.csshov:hover, .darkbg.csshov:hover, .darkbg1.csshov:hover{background-color:$light-bg-color;}
 
 .lightbg{background-color:$light-bg-color;}
-.lightbg1{background-color:$light-bg-color-1;}
 
 .concave{
   border-bottom:solid 1px #464660;

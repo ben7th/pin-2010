@@ -8,19 +8,10 @@ class ContactsController < ApplicationController
   def create
     @contact = current_user.contacts.new(:email=>params[:contact][:email].strip())
     if @contact.save
-      render_ui do |ui|
-        ui.mplist :insert,@contact
-        ui.page << %~  
-          jQuery(".add-member-info").html("");
-          jQuery("#contact_email").val("");
-          jQuery('.no-member').hide();
-        ~
-      end
+      render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>[@contact.contact_user]}
       return
     end
-    render_ui.page << %~  
-      jQuery(".add-member-info").html("#{@contact.errors.first[1]}");
-    ~
+    render :text=>@contact.errors.first[1],:status=>405
   end
 
   def create_for_plugin
@@ -94,14 +85,12 @@ class ContactsController < ApplicationController
 
   def fans
     @user = User.find(params[:user_id])
-    set_cellhead_path("users/cellhead")
     @fans = @user.fans
-    render :template=>"users/homepage/fans"
+    render :template=>"contacts/manage/fans"
   end
 
   def followings
     @user = User.find(params[:user_id])
-    set_cellhead_path("users/cellhead")
     if !params[:channel]
       @followings = @user.followings
     elsif params[:channel] == "none"
@@ -111,7 +100,7 @@ class ContactsController < ApplicationController
       @current_channel = @user.channels.find(params[:channel])
       @followings = @current_channel.include_users
     end
-    render :template=>"users/homepage/followings"
+    render :template=>"contacts/manage/followings"
   end
 
   def follow

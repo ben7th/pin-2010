@@ -1,0 +1,16 @@
+-require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/mindmap_image"
+  = javascript_include_tag "views/index"
+
+.grid_3.alpha
+  =render :partial=>'index/index_parts/user_info_in_homepage',:locals=>{:user=>@user}
+
+.grid_14.paddingl20
+  =render :partial=>'index/index_parts/homepage_top_userinfo',:locals=>{:user=>@user}
+  =render :partial=>'index/homepage/mindmaps'
+
+.grid_5.fright
+  .margint30
+    =render :partial=>'index/homepage/flash_chart',:locals=>{:user=>@user}

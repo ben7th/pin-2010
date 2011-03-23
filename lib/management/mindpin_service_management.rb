@@ -6,6 +6,12 @@ require "servers_module"
 require "worker_base_module"
 class MindpinServiceManagement
   PIN_2010_PATH = File.join(File.dirname(File.expand_path(__FILE__)),"../..")
+
+  def self.get_pid_count_by_pid_file(pid_file_path)
+    return nil if !File.exist?(pid_file_path)
+    `cat #{pid_file_path}`
+  end
+
   def self.check_process_by_pid_file(pid_file_path)
     return "关闭" if !File.exist?(pid_file_path)
     res = `ps \`cat #{pid_file_path}\``
@@ -36,6 +42,7 @@ class MindpinServiceManagement
   extend MindpinServiceManagementModule::Servers::MemcachedService
   extend MindpinServiceManagementModule::Servers::RedisService
   extend MindpinServiceManagementModule::Servers::MindmapsLuceneService
+  extend MindpinServiceManagementModule::Servers::FeedsLuceneService
 
   extend MindpinServiceManagementModule::WorkerBase
 end

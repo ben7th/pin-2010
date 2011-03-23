@@ -1,0 +1,91 @@
+/*2011年第一套配色*/
+@import "../../ui/misc";
+
+$head-bg-color   : #F9F9F9;
+$head-text-color : #ffffff;
+
+$head-userbox-bg-color     : #4C6DB4; /*杜若*/
+$head-userbox-border-color : #3E62AE;
+
+$body-bg-color   : #ECF4F7;
+$body-text-color : #333333;
+
+$content-bg-color     : #ffffff;
+$content-border-color : #ffffff;
+
+$foot-bg-color : #284A78; /*青蓝*/
+
+$dark-bg-color : white;
+$dark-bg-color-1 : #D7D5C7;
+$light-bg-color : #F6F6F7;
+$light-bg-color-1 : #FAFAFB;
+
+
+.page-head{
+  @include gradient(#ffffff,#F5F5F5);
+  border-bottom:solid 1px #DFDFDF;
+  color:$head-text-color;
+  .userbox{
+    @include box-shadow(0 0 5px #040307);
+    background-color:$head-userbox-bg-color;
+    border:solid 2px $head-userbox-border-color;
+  }
+  .line{background-color:#999;}
+}
+
+body{
+  background-color:$body-bg-color;
+  color:$body-text-color;
+}
+
+.page-content{
+  .cell{
+    border:2px solid $content-border-color;
+    background-color:$content-bg-color;
+  }
+}
+
+.page-footer{
+  background-color:$foot-bg-color;
+}
+
+.loud{color:#FB4A00 !important;}
+.loud1{color:black;}
+.quiet{color:#B5B5B5;}
+.date{color:#c5c5c5;}
+
+a{
+  color:#268DD3;
+  &:hover{color:#5193D4;}
+  &.loud{
+    color:#FBEB96;
+    &:hover{text-decoration:none !important;color:#FBD300 !important;}
+  }
+}
+
+.quote_content{
+  background:#F6F6F6;
+  border:solid 1px #E5E5E5
+}
+
+.darkbg{background-color:$dark-bg-color;}
+.darkbg .btb{border-bottom:dashed 1px $light-bg-color;}
+.current .darkbg, .darkbg1{background-color:$dark-bg-color-1;}
+.darkbg1.csshov:hover{background-color:$light-bg-color;}
+
+.lightbg{background-color:$light-bg-color;}
+.lightbg1{background-color:$light-bg-color-1;}
+
+.concave{
+  border-bottom:solid 1px #464660;
+  border-right:solid 1px #464660;
+  border-top:solid 1px #000;
+  border-left:solid 1px #000;
+}
+
+.convex{
+  border-left:solid 1px #464660;
+  border-top:solid 1px #464660;
+  border-bottom:solid 1px #000;
+  border-right:solid 1px #000;
+}
