@@ -664,7 +664,7 @@ form.new_message .w300 {
       height: 14px;
       line-height: 14px;
       padding: 0 4px;
-      margin: 2px 0 0 40px; }
+      margin: 2px 0 0 45px; }
     .newsfeed ul.feeds li.feed .ops {
       overflow: hidden;
       float: right; }
@@ -1440,3 +1440,43 @@ form.new_message .w300 {
     .userhomepage-head .action .follow_btn, .userhomepage-head .action .unfollow_btn, .userhomepage-head .action .s-msg {
       float: left;
       margin-right: 6px; }
+
+.searched-mindmaps .search-result {
+  margin-bottom: 20px;
+  overflow: hidden; }
+  .searched-mindmaps .search-result .meta {
+    padding: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow: hidden; }
+    .searched-mindmaps .search-result .meta .avatar {
+      float: left;
+      margin-right: 10px; }
+      .searched-mindmaps .search-result .meta .avatar img {
+        width: 32px;
+        height: 32px; }
+    .searched-mindmaps .search-result .meta .c {
+      float: left;
+      width: 550px; }
+      .searched-mindmaps .search-result .meta .c .title {
+        font-size: 14px;
+        margin-bottom: 5px; }
+      .searched-mindmaps .search-result .meta .c .loud {
+        color: #FBB300 !important; }
+  .searched-mindmaps .search-result .score, .searched-mindmaps .search-result .time {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    float: left;
+    margin: 2px 0 0 45px;
+    padding: 0 4px;
+    line-height: 14px; }
+  .searched-mindmaps .search-result .time {
+    margin-left: 5px; }
+
+.grid-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding: 5px; }
