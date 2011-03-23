@@ -15,7 +15,7 @@
             .avatar
               =avatar mindmap.user,:tiny
             .c
-              -if mindmap.has_view_rights?(current_user)
+              -if mindmap && !mindmap.private?
                 .title
                   -if mindmap.user.blank?
                     ='[已删除用户]'
