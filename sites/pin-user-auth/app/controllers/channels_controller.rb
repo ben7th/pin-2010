@@ -3,7 +3,7 @@ class ChannelsController < ApplicationController
   
   before_filter :per_load
   def per_load
-    @channel = Channel.find_by_id(params[:id]) if params[:id] && params[:id] != "none"
+    @channel = Channel.find(params[:id]) if params[:id] && params[:id] != "none"
   end
 
   def index
@@ -12,12 +12,12 @@ class ChannelsController < ApplicationController
 
   def show
     @current_channel = @channel
-    @feeds = @channel.feeds.paginate(:per_page=>10,:page=>1)
+    @feeds = @channel.feeds.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   def none
     @current_channel = "none"
-    @feeds = current_user.no_channel_feeds.paginate(:per_page=>10,:page=>1)
+    @feeds = current_user.no_channel_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
     set_cellhead_path('index/cellhead')
     return render(:template=>'index/index')
   end

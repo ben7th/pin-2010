@@ -3,11 +3,10 @@
 -else
   -cid = @current_channel.id
 
--form_tag "/newsfeed/do_say_temp",:method=>:post,:class=>"channel-feed-form" do
+-form_tag "/newsfeed/do_say_in_channel",:method=>:post,:class=>"feed-form" do
   .ipter
     .ipts
-      =text_area_tag "content",'',:class=>"text feed-content"
       =hidden_field_tag "channel_id",cid
+      =text_area_tag "content",'',:class=>"text feed-content"
   .subm
-    =submit_tag '确定'
-    =#minibutton '确定','javascript:;',:class=>'subbtn'
+    =link_to '发 送','javascript:;',:class=>'subbtn'

@@ -1,0 +1,8 @@
+迁移 bug 数据到 feed 的步骤
+
+1 cd /web/2010/pin-2010/sites/pin-user-auth/
+2 创建 channel
+  channel = Channel.create!(:name=>"MindPin意见反馈板",:creator_email=>"ben7th@sina.com",:kind=>Channel::KIND_INTERVIEW)
+
+3 迁移数据
+  ruby script/runner -e production script/migrate_bug_to_feed.rb

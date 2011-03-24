@@ -97,6 +97,10 @@ class ChannelCacheProxy
       include_users + [self.creator]
     end
 
+    def main_users
+      include_users_and_creator
+    end
+
     def is_include_users_or_creator?(user)
       include_users_and_creator.include?(user)
     end

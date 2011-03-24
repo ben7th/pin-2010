@@ -13,18 +13,31 @@ class FeedsController < ApplicationController
   def say;end
 
   def do_say
+    return _do_say_in_channel if params[:channel_id]
+    _do_say_no_channel
+  end
+  
+  def _do_say_no_channel
     feed = current_user.send_say_feed(params[:content])
+    if feed.blank?
+      return render :text=>"发送失败",:status=>403
+    end
     str = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
-    render :text=>str
+    return render :text=>str
   end
 
-  def do_say_temp
+  def _do_say_in_channel
     channel_id = params[:channel_id]
-    res = current_user.send_say_feed(params[:content],:channel_ids=>[channel_id])
-    if res
-      return redirect_to "/channels/#{channel_id}"
+    channel = Channel.find_by_id(channel_id)
+    return render :text=>"频道不存在",:status=>404 if channel.blank?
+    feed = current_user.send_say_feed(params[:content],:channel_ids=>[channel_id])
+    return render :text=>"发送失败",:status=>403 if feed.blank?
+    if channel.kind == Channel::KIND_INTERVIEW
+      @render_text = @template.render :partial=>'channels/channel_interview',:locals=>{:feeds=>[feed],:channel=>channel}
+    else
+      @render_text = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
     end
-    render :text=>"发送失败",:status=>503
+    return render :text=>@render_text
   end
 
   def destroy

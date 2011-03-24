@@ -80,6 +80,10 @@ class Feed < FeedBase
     end
   end
 
+  def send_by_main_user?(channel)
+    channel.main_users.include?(self.creator)
+  end
+
   module UserMethods
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []

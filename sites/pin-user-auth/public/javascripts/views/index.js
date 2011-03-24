@@ -165,32 +165,6 @@
       jQuery(".feed-form-mev6 .create-mindmap").attr("data-href",pie.pin_url_for('pin-mev6')+"mindmaps/"+ mindmap_id+"/edit")
     }
 
-  })
-
-  jQuery('.feed-form .ipter .feed-content').val('');
-
-  jQuery('.feed-form .subm .subbtn').live('click',function(){
-    var inputer_elm = jQuery('.feed-form .ipter .feed-content');
-    var content = inputer_elm.val();
-    pie.log(content)
-    if(jQuery.string(content).blank()){
-      pie.inputflash(inputer_elm);
-      return;
-    }
-
-    jQuery.ajax({
-      url  :pie.pin_url_for('pin-user-auth','/newsfeed/do_say'),
-      type :'post',
-      data :'content='+content,
-      success : function(res){
-        //创建成功
-        inputer_elm.val('');
-        var dom_elm = jQuery(res);
-        var lis = dom_elm.find('li');
-        jQuery('#mplist_feeds').prepend(lis);
-        lis.hide().slideDown(400);
-      }
-    });
-  })
+  });
 
 })();

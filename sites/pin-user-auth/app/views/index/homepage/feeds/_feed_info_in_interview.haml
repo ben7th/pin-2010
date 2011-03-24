@@ -1,48 +1,19 @@
--ea = EmailActor.new(feed.email)
-.f.darkbg{:'data-id'=>"#{feed.id}"}
-  .avatar
-    =avatar ea.email,:mini
-  .c
-    .data
-      =link_to ea.name,ea.actor
-      =feed_content(feed)
--html = feed.html
--if !html.nil?
-  .html
-    =html
+-klass = feed.send_by_main_user?(channel) ? 'notice':'question'
 
--answer_comments = feed.reply_comments_of(@channel.include_users_and_creator)
-.answers{:class=>answer_comments.blank? ? 'hide':''}
+=render :partial=>'index/homepage/feeds/info_parts/info_f',:locals=>{:feed=>feed,:klass=>klass}
+
+-answer_comments = feed.reply_comments_of(channel.include_users_and_creator)
+.answers.darkbg{:class=>answer_comments.blank? ? 'hide':''}
   -answer_comments.each do |c|
-    .answer
+    .answer.btb
       .icon
-        答
       .avatar
         =avatar(c.user,:mini)
       .content
+        =link_to c.user.name,c.user
+        %span.loud 说
         =c.content
 
-.time.lightbg
-  =created_from(feed)
-
--if logged_in?
-  .ops
-    -if feed.email == current_user.email
-      .mindmap.hide
-        .icon
-        .t 附加导图
-      .del
-        .icon
-        .t 删除
-    .fav.hide{:class=>feed.fav_by?(current_user) ? 'on':'off'}
-      .icon
-      .t.t1 标记
-      .t.t2 取消标记
-    .transmit.hide
-      .icon
-      .t 传阅
-    .echo{:'data-count'=>feed.comments_count}
-      .icon
-      .t 回应 #{feed.comments_count}
+=render :partial=>'index/homepage/feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}
     
   

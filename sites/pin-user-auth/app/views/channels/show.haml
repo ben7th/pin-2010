@@ -3,26 +3,52 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.current-channel
-  .title
-    当前频道 -
-    -if @current_channel == 'none'
-      默认频道
-    -else
-      =@current_channel.name
-      =@current_channel.kind
+.grid_3.alpha
+  -if @current_channel.is_a? Channel
+    - channel = @current_channel
+    .index-channel-emcee.lightbg
+      .title.darkbg 频道主持人
+      .m
+        .avatar
+          =avatar channel.creator
+        .name
+          =link_to channel.creator.name,channel.creator
+    .index-channel-emcee.s.lightbg
+      .title.darkbg 副主持人
+      -channel.include_users.each do |u|
+        .m
+          .avatar
+            =avatar u,:tiny
+          .name
+            =link_to u.name,u
 
-.grid_14.alpha
+    
+
+.grid_14.paddingl20
+  .grid-title
+    话题频道 -
+    %span.loud
+      -if @current_channel == 'none'
+        默认频道
+      -else
+        =@current_channel.name
+
   -if !@channel.blank?
     -case @channel.kind
-      -when Channel::KIND_BLOG
-        =render :partial=>'channels/channel_blog',:locals=>{:feed=>@feeds}
       -when Channel::KIND_INTERVIEW
-        =render :partial=>'channels/channel_interview',:locals=>{:feed=>@feeds}
+        =render :partial=>'channels/channel_interview',:locals=>{:feeds=>@feeds,:channel=>@channel}
+      -when Channel::KIND_BLOG
+        =render :partial=>'channels/channel_blog',:locals=>{:feeds=>@feeds}
       -else
-        =render :partial=>'channels/channel_common',:locals=>{:feed=>@feeds}
+        =render :partial=>'channels/channel_common',:locals=>{:feeds=>@feeds}
   -else
     .form
       =render :partial=>'index/homepage/feeds/channel_feed_form'
     .newsfeed
       =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
+
+  .feed-paginate.padding5
+    = will_paginate @feeds
+
+.grid_4.omega.fright
+  =render :partial=>'index/index_parts/feed_links'

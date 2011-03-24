@@ -209,14 +209,17 @@
 }
 
 .feed-form{
-  padding:64px 0 30px 50px;
   margin:0px 0 0 0px;
+  padding-left:50px;
+  padding-bottom:30px;
   overflow:hidden;
   width:500px;
   position:relative;
-  background:url(/images/icons/echo_inputer_1.png) no-repeat;
   .ipter{
     overflow:hidden;
+    .tip{
+      font-size:14px;
+    }
     .ipts{
       float:left;
       padding:0 10px 0 0;
@@ -276,6 +279,12 @@
         border-color:#518CC6;
       }
     }
+  }
+  &.feed-home-form{
+    padding:64px 0 30px 50px;
+    background:url(/images/icons/echo_inputer_1.png) no-repeat;
+  }
+  &.feed-interview-form{
   }
 }
 
@@ -652,6 +661,32 @@ form.new_message{
           padding:5px;
           margin:5px 0 0 35px;
         }
+        &.notice{
+          .c{width:450px;}
+          .icon{
+            @include border-radius(3px);
+            float:left;
+            width:24px;
+            height:24px;
+            background-image:url(/images/icons/all.png);
+            background-repeat:no-repeat;
+            background-position:-50px -142px;
+            margin:0 9px 0 0;
+          }
+        }
+        &.question{
+          .c{width:450px;}
+          .icon{
+            @include border-radius(3px);
+            float:left;
+            width:24px;
+            height:24px;
+            background-image:url(/images/icons/all.png);
+            background-repeat:no-repeat;
+            background-position:0px -142px;
+            margin:0 9px 0 0;
+          }
+        }
       }
       .html{
         padding:10px;
@@ -788,26 +823,25 @@ form.new_message{
       }
       .answers{
         @include border-radius(3px 0 0 3px);
-        background-color:#2C2E3C;
         margin:1px 0 0;
         clear:both;
-        padding:5px;
         .answer{
+          padding:5px;
           overflow:hidden;
           padding:5px;
           .icon{
             float:left;
-            width:30px;
-            font-size:18px;
-            color:#ffcccc;
-            font-weight:bold;
+            width:24px;
+            height:24px;
+            background:url(/images/icons/all.png) no-repeat -25px -142px;
+            margin:0 10px 0 0;
           }
           .avatar{
             float:left;
-            margin-right:10px;
-            width:28px;height:28px;
+            width:40px;height:28px;
           }
           .content{
+            font-size:14px;
           }
         }
       }
@@ -1494,7 +1528,7 @@ form.new_message{
 
 .feed-links{
   @include border-radius(5px);
-  .favs,.received_comments,.quoted-me-feeds{
+  .home,.favs,.received_comments,.quoted-me-feeds{
     padding:5px;
     font-size:14px;
     height:24px;
@@ -1506,6 +1540,9 @@ form.new_message{
       margin-right:8px;
       background:url(/images/icons/all.png) no-repeat -150px -117px;
     }
+  }
+  .home{
+    .icon{background:url(/images/icons/all.png) no-repeat -225px -117px;}
   }
   .received_comments{
     .icon{background:url(/images/icons/all.png) no-repeat -175px -117px;}
@@ -1531,5 +1568,29 @@ form.new_message{
       .ct{margin-bottom:5px;}
       .feed-content{margin:15px 0 0 0;}
     }
+  }
+}
+
+.index-channel-emcee{
+  @include border-radius(5px);
+  margin-bottom:15px;
+  .title{
+    @include border-radius(5px 5px 0 0);
+    padding:5px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:3px;
+  }
+  .m{
+    padding:5px;
+    overflow:hidden;
+    text-align:center;
+    .avatar{
+      text-align:center;
+      margin-bottom:4px;
+    }
+  }
+  &.s{
+    width:90px;margin-left:20px;
   }
 }

@@ -155,14 +155,16 @@
     float: left; }
 
 .feed-form {
-  padding: 64px 0 30px 50px;
   margin: 0px 0 0 0px;
+  padding-left: 50px;
+  padding-bottom: 30px;
   overflow: hidden;
   width: 500px;
-  position: relative;
-  background: url(/images/icons/echo_inputer_1.png) no-repeat; }
+  position: relative; }
   .feed-form .ipter {
     overflow: hidden; }
+    .feed-form .ipter .tip {
+      font-size: 14px; }
     .feed-form .ipter .ipts {
       float: left;
       padding: 0 10px 0 0;
@@ -229,6 +231,9 @@
         background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3072b3), to(#599bdc));
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3072b3',endColorstr='#599bdc');
         border-color: #518CC6; }
+  .feed-form.feed-home-form {
+    padding: 64px 0 30px 50px;
+    background: url(/images/icons/echo_inputer_1.png) no-repeat; }
 
 .feed-form-mev6 {
   padding: 0 0 45px 10px;
@@ -646,6 +651,32 @@ form.new_message .w300 {
       -webkit-border-radius: 3px;
       padding: 5px;
       margin: 5px 0 0 35px; }
+    .newsfeed ul.feeds li.feed .f.notice .c {
+      width: 450px; }
+    .newsfeed ul.feeds li.feed .f.notice .icon {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      float: left;
+      width: 24px;
+      height: 24px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: -50px -142px;
+      margin: 0 9px 0 0; }
+    .newsfeed ul.feeds li.feed .f.question .c {
+      width: 450px; }
+    .newsfeed ul.feeds li.feed .f.question .icon {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      float: left;
+      width: 24px;
+      height: 24px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: 0px -142px;
+      margin: 0 9px 0 0; }
   .newsfeed ul.feeds li.feed .html {
     padding: 10px;
     border-radius: 3px 0 0 3px;
@@ -779,24 +810,24 @@ form.new_message .w300 {
     border-radius: 3px 0 0 3px;
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
-    background-color: #2C2E3C;
     margin: 1px 0 0;
-    clear: both;
-    padding: 5px; }
+    clear: both; }
     .newsfeed ul.feeds li.feed .answers .answer {
+      padding: 5px;
       overflow: hidden;
       padding: 5px; }
       .newsfeed ul.feeds li.feed .answers .answer .icon {
         float: left;
-        width: 30px;
-        font-size: 18px;
-        color: #ffcccc;
-        font-weight: bold; }
+        width: 24px;
+        height: 24px;
+        background: url(/images/icons/all.png) no-repeat -25px -142px;
+        margin: 0 10px 0 0; }
       .newsfeed ul.feeds li.feed .answers .answer .avatar {
         float: left;
-        margin-right: 10px;
-        width: 28px;
+        width: 40px;
         height: 28px; }
+      .newsfeed ul.feeds li.feed .answers .answer .content {
+        font-size: 14px; }
 
 .feed-transmit-form {
   position: absolute;
@@ -1483,17 +1514,19 @@ form.new_message .w300 {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px; }
-  .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds {
+  .feed-links .home, .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds {
     padding: 5px;
     font-size: 14px;
     height: 24px;
     line-height: 24px; }
-    .feed-links .favs .icon, .feed-links .received_comments .icon, .feed-links .quoted-me-feeds .icon {
+    .feed-links .home .icon, .feed-links .favs .icon, .feed-links .received_comments .icon, .feed-links .quoted-me-feeds .icon {
       float: left;
       width: 24px;
       height: 24px;
       margin-right: 8px;
       background: url(/images/icons/all.png) no-repeat -150px -117px; }
+  .feed-links .home .icon {
+    background: url(/images/icons/all.png) no-repeat -225px -117px; }
   .feed-links .received_comments .icon {
     background: url(/images/icons/all.png) no-repeat -175px -117px; }
   .feed-links .quoted-me-feeds .icon {
@@ -1516,3 +1549,27 @@ form.new_message .w300 {
       margin-bottom: 5px; }
     .index-received-comments .c .meta .feed-content {
       margin: 15px 0 0 0; }
+
+.index-channel-emcee {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin-bottom: 15px; }
+  .index-channel-emcee .title {
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    padding: 5px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3px; }
+  .index-channel-emcee .m {
+    padding: 5px;
+    overflow: hidden;
+    text-align: center; }
+    .index-channel-emcee .m .avatar {
+      text-align: center;
+      margin-bottom: 4px; }
+  .index-channel-emcee.s {
+    width: 90px;
+    margin-left: 20px; }

@@ -1,0 +1,43 @@
+-ea = EmailActor.new(feed.email)
+-klass = klass || ''
+
+.f.darkbg{:'data-id'=>"#{feed.id}",:class=>klass}
+  -if(!feed.reply_to.blank?)
+    .reply-to-feed.darkbg1
+      -rf = feed.replied_feed
+      .data
+        -if rf.nil?
+          %span.quiet 被回应的话题已删除
+        -else
+          -ra = EmailActor.new(rf.email)
+          =link_to ra.name,ra.actor
+          =feed_content(rf)
+  .current-feed
+    .icon
+    .avatar
+      =avatar ea.email,:mini
+    .c
+      .data
+        =link_to ea.name,ea.actor
+        =feed_content(feed)
+      .documents
+        .mindmaps
+          -feed.mindmaps.each do |mindmap|
+            -if mindmap.nil?
+              导图已删除
+            -elsif mindmap.private?
+              导图目前是私有状态
+            -else
+              -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+                =mindmap_thumb(mindmap)
+
+  -if(!feed.quote_of.blank?)
+    .quote-feed.darkbg1
+      -qf = feed.quoted_feed
+      .data
+        -if qf.nil?
+          %span.quiet 被传阅的话题已删除
+        -else
+          -qa = EmailActor.new(qf.email)
+          =link_to qa.name,qa.actor
+          =feed_content(qf)

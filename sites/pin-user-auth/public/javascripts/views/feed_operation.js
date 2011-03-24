@@ -1,4 +1,42 @@
-(function(){
+pie.load(function(){
+  jQuery('.feed-form .ipter .feed-content').val('');
+
+  jQuery('.feed-form .subm .subbtn').live('click',function(){
+    var inputer_elm = jQuery('.feed-form .ipter .feed-content');
+    var content = inputer_elm.val();
+
+    var channel_id = jQuery('.feed-form .ipter .channel-id').val();
+
+    var data;
+    if(channel_id){
+      data = 'content='+encodeURIComponent(content)+'&channel_id='+channel_id;
+    }else{
+      data = 'content='+encodeURIComponent(content);
+    }
+
+    pie.log(content)
+    if(jQuery.string(content).blank()){
+      pie.inputflash(inputer_elm);
+      return;
+    }
+
+    jQuery.ajax({
+      url  : pie.pin_url_for('pin-user-auth','/newsfeed/do_say'),
+      type : 'post',
+      data : data,
+      success : function(res){
+        //创建成功
+        inputer_elm.val('');
+        var dom_elm = jQuery(res);
+        var lis = dom_elm.find('li');
+        jQuery('#mplist_feeds').prepend(lis);
+        lis.hide().slideDown(400);
+      }
+    });
+  });
+})
+
+pie.load(function(){
   //标记
   jQuery('.mplist.feeds .ops .fav').live('click',function(){
     var elm = jQuery(this);
@@ -163,4 +201,4 @@
     }
   });
 
-})();
+})

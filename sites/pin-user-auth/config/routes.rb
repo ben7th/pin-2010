@@ -96,7 +96,6 @@ ActionController::Routing::Routes.draw do |map|
     :collection=>{:reply_to=>:post,:quote=>:post}
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
-  map.user_feeds_do_say_tmp "/newsfeed/do_say_temp",:controller=>"feeds",:action=>"do_say_temp",:conditions=>{:method=>:post}
   map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
   map.newsfeed_get_new "/newsfeed/get_new_feeds",:controller=>"feeds",:action=>"get_new_feeds"
   map.favs "/favs",:controller=>"feeds",:action=>"favs"
