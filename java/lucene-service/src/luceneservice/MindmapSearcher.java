@@ -4,8 +4,6 @@ import java.io.IOException;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 
 /**
  * 实现Mindmap的搜索
@@ -61,14 +59,17 @@ public class MindmapSearcher extends Searcher {
   }
 
   /**
-  public static void main(String args[]) throws IOException, ParseException, Exception {
-    String indexDir = "\\\\192.168.1.8\\root\\web\\2010\\lucene\\mindmaps\\index";
-    String[] qs = {"法规"}; // 要查询的单词
+  public static void main(String args[]) throws Exception {
+    // /root/mindpin_base/lucene_index/mindmaps/index
+    String indexDir = "\\\\192.168.1.8\\root\\root\\mindpin_base\\lucene_index\\mindmaps\\index";
+    String[] qs = {"生物"}; // 要查询的单词
 
     for (String q : qs) {
       Searcher s = new MindmapSearcher(indexDir, q);
       System.out.println(s.search(MindmapSearcher.SEARCH_FIELDS));
+      System.out.println(s.searchMindmapsByUserId(MindmapSearcher.SEARCH_FIELDS,"1016235"));
     }
   }
   */
+  
 }

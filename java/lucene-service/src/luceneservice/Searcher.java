@@ -8,10 +8,17 @@ import java.util.Date;
 import java.util.List;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.FieldCacheTermsFilter;
+import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.TermRangeFilter;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
@@ -80,6 +87,56 @@ public class Searcher {
       query = IKQueryParser.parseMultiField(searchFields, q);
       long startTime = new Date().getTime();
       allSearchResult = indexSearch.search(query, null, 100000).scoreDocs;
+      returnSearchResult = getScoreDocs();
+      long endTime = new Date().getTime();
+      searchTime = endTime - startTime;
+      // 输出统计数据
+      System.out.println("Found " + returnSearchResult.length + " document(s) (in " + searchTime + " millisenconds) that matched query '" + q + "'");
+      return getResult();
+    } finally {
+      indexSearch.close();
+      fsDir.close();
+    }
+  }
+
+  // 根据用户的email查找feed
+  public String searchFeedsByUserEmail(String[] searchFields,String email) throws IOException, ParseException, Exception {
+    checkIndexDir();
+    Directory fsDir = FSDirectory.open(indexDir);
+    try {
+      indexSearch = new IndexSearcher(fsDir);
+      indexSearch.setSimilarity(new IKSimilarity());
+      query = IKQueryParser.parseMultiField(searchFields, q);
+
+      // 根据email进行过滤
+      Filter filter = new FieldCacheTermsFilter("email", email);
+
+      long startTime = new Date().getTime();
+      allSearchResult = indexSearch.search(query, filter, 100000).scoreDocs;
+      returnSearchResult = getScoreDocs();
+      long endTime = new Date().getTime();
+      searchTime = endTime - startTime;
+      // 输出统计数据
+      System.out.println("Found " + returnSearchResult.length + " document(s) (in " + searchTime + " millisenconds) that matched query '" + q + "'");
+      return getResult();
+    } finally {
+      indexSearch.close();
+      fsDir.close();
+    }
+  }
+
+  // 根据用户的Id查找相应的导图
+  public String searchMindmapsByUserId(String[] searchFields,String userId) throws IOException, ParseException, Exception {
+    checkIndexDir();
+    Directory fsDir = FSDirectory.open(indexDir);
+    try {
+      indexSearch = new IndexSearcher(fsDir);
+      indexSearch.setSimilarity(new IKSimilarity());
+      query = IKQueryParser.parseMultiField(searchFields, q);
+
+      Filter filter = new FieldCacheTermsFilter("user_id", userId);
+      long startTime = new Date().getTime();
+      allSearchResult = indexSearch.search(query, filter, 100000).scoreDocs;
       returnSearchResult = getScoreDocs();
       long endTime = new Date().getTime();
       searchTime = endTime - startTime;

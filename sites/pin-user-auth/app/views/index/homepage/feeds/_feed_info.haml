@@ -33,7 +33,7 @@
       -qf = feed.quoted_feed
       .data
         -if qf.nil?
-          %span.quiet 被回应的话题已删除
+          %span.quiet 被传阅的话题已删除
         -else
           -qa = EmailActor.new(qf.email)
           =link_to qa.name,qa.actor

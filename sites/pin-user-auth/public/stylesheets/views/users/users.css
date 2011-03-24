@@ -603,202 +603,200 @@ form.new_message .w300 {
       margin: 2px 0 0 0; }
 
 /*首页的feeds*/
-.newsfeed {
-  margin-top: 15px; }
-  .newsfeed ul.feeds li.feed {
-    margin: 0 0 20px 0;
-    padding: 0; }
-    .newsfeed ul.feeds li.feed .f {
-      border-radius: 0 6px 0 6px;
-      -moz-border-radius: 0 6px 0 6px;
-      -webkit-border-radius: 0 6px 0 6px;
-      padding: 6px;
-      overflow: hidden; }
-      .newsfeed ul.feeds li.feed .f .avatar {
-        float: left;
-        width: 40px;
-        height: 28px; }
-        .newsfeed ul.feeds li.feed .f .avatar img {
-          border-radius: 2px;
-          -moz-border-radius: 2px;
-          -webkit-border-radius: 2px; }
-      .newsfeed ul.feeds li.feed .f .c {
-        float: left;
-        width: 490px; }
-        .newsfeed ul.feeds li.feed .f .c .data {
-          font-size: 14px; }
-        .newsfeed ul.feeds li.feed .f .c .documents .mindmaps {
-          margin-top: 5px; }
-          .newsfeed ul.feeds li.feed .f .c .documents .mindmaps img {
-            border: 2px solid #A3A3A3;
-            border-radius: 3px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px; }
-      .newsfeed ul.feeds li.feed .f .current-feed {
-        overflow: hidden; }
-      .newsfeed ul.feeds li.feed .f .reply-to-feed {
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        padding: 5px;
-        margin: 0 0 10px 35px; }
-      .newsfeed ul.feeds li.feed .f .quote-feed {
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        padding: 5px;
-        margin: 10px 0 0 35px; }
-    .newsfeed ul.feeds li.feed .html {
-      padding: 10px;
-      border-radius: 3px 0 0 3px;
-      -moz-border-radius: 3px 0 0 3px;
-      -webkit-border-radius: 3px 0 0 3px;
-      background: #0C0E1C;
-      margin: 1px 0 0 0;
-      font-size: 13px; }
-    .newsfeed ul.feeds li.feed .time {
+.newsfeed ul.feeds li.feed {
+  margin: 0 0 20px 0;
+  padding: 0; }
+  .newsfeed ul.feeds li.feed .f {
+    border-radius: 0 6px 0 6px;
+    -moz-border-radius: 0 6px 0 6px;
+    -webkit-border-radius: 0 6px 0 6px;
+    padding: 6px;
+    overflow: hidden; }
+    .newsfeed ul.feeds li.feed .f .avatar {
       float: left;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      height: 14px;
-      line-height: 14px;
-      padding: 0 4px;
-      margin: 2px 0 0 45px; }
-    .newsfeed ul.feeds li.feed .ops {
-      overflow: hidden;
-      float: right; }
-      .newsfeed ul.feeds li.feed .ops .mindmap, .newsfeed ul.feeds li.feed .ops .del, .newsfeed ul.feeds li.feed .ops .fav, .newsfeed ul.feeds li.feed .ops .transmit, .newsfeed ul.feeds li.feed .ops .echo {
-        float: left;
-        border-radius: 0 0 3px 3px;
-        -moz-border-radius: 0 0 3px 3px;
-        -webkit-border-radius: 0 0 3px 3px;
-        margin: 0 0 0 5px;
-        padding: 0 3px 0 0;
-        overflow: hidden;
-        cursor: pointer; }
-      .newsfeed ul.feeds li.feed .ops .mindmap {
-        height: 24px; }
-        .newsfeed ul.feeds li.feed .ops .mindmap .icon {
-          float: left;
-          width: 24px;
-          height: 24px;
-          background: url(/images/icons/all.png) no-repeat -125px -117px;
-          margin: 0 2px 0 0; }
-        .newsfeed ul.feeds li.feed .ops .mindmap .t {
-          float: left;
-          height: 23px;
-          line-height: 23px; }
-      .newsfeed ul.feeds li.feed .ops .del, .newsfeed ul.feeds li.feed .ops .fav, .newsfeed ul.feeds li.feed .ops .transmit, .newsfeed ul.feeds li.feed .ops .echo {
-        height: 16px; }
-        .newsfeed ul.feeds li.feed .ops .del .icon, .newsfeed ul.feeds li.feed .ops .fav .icon, .newsfeed ul.feeds li.feed .ops .transmit .icon, .newsfeed ul.feeds li.feed .ops .echo .icon {
-          float: left;
-          width: 16px;
-          height: 16px;
-          background: url(/images/icons/all.png) no-repeat 0px -100px;
-          margin: 0 2px 0 0; }
-        .newsfeed ul.feeds li.feed .ops .del .t, .newsfeed ul.feeds li.feed .ops .fav .t, .newsfeed ul.feeds li.feed .ops .transmit .t, .newsfeed ul.feeds li.feed .ops .echo .t {
-          float: left;
-          height: 15px;
-          line-height: 15px; }
-      .newsfeed ul.feeds li.feed .ops .fav.off .icon {
-        background: url(/images/icons/all.png) no-repeat -130px -100px; }
-      .newsfeed ul.feeds li.feed .ops .fav.off .t2 {
-        display: none; }
-      .newsfeed ul.feeds li.feed .ops .fav.on .icon {
-        background: url(/images/icons/all.png) no-repeat -113px -100px; }
-      .newsfeed ul.feeds li.feed .ops .fav.on .t1 {
-        display: none; }
-      .newsfeed ul.feeds li.feed .ops .transmit .icon {
-        background: url(/images/icons/all.png) no-repeat -147px -100px; }
-      .newsfeed ul.feeds li.feed .ops .echo .icon {
-        background: url(/images/icons/all.png) no-repeat -164px -100px; }
-    .newsfeed ul.feeds li.feed .comments {
+      width: 40px;
+      height: 28px; }
+      .newsfeed ul.feeds li.feed .f .avatar img {
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px; }
+    .newsfeed ul.feeds li.feed .f .c {
+      float: left;
+      width: 490px; }
+      .newsfeed ul.feeds li.feed .f .c .data {
+        font-size: 14px; }
+      .newsfeed ul.feeds li.feed .f .c .documents .mindmaps {
+        margin-top: 5px; }
+        .newsfeed ul.feeds li.feed .f .c .documents .mindmaps img {
+          border: 2px solid #A3A3A3;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px; }
+    .newsfeed ul.feeds li.feed .f .current-feed {
+      overflow: hidden; }
+    .newsfeed ul.feeds li.feed .f .reply-to-feed {
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
-      margin: 20px 0 20px 40px;
-      clear: both;
-      padding: 5px; }
-      .newsfeed ul.feeds li.feed .comments.loading {
-        background-image: url(/images/icons/loading-s.gif);
-        background-repeat: no-repeat;
-        background-position: 265px 2px;
-        height: 10px; }
-      .newsfeed ul.feeds li.feed .comments .feed-echo-form .ipt textarea {
-        width: 496px;
-        height: 28px;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px; }
-      .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to {
-        margin: 5px 0 5px 0;
-        height: 19px;
-        line-height: 19px;
-        padding: 0 0 1px 3px;
-        cursor: default; }
-        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to .icon {
-          width: 13px;
-          height: 13px;
-          background: url(/images/icons/all.png) no-repeat -82px -100px;
-          float: left;
-          margin-right: 5px;
-          position: relative;
-          top: 3px; }
-        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to .name {
-          float: left; }
-        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to.checked .icon {
-          background: url(/images/icons/all.png) no-repeat -68px -100px; }
-        .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to:hover {
-          background: #393F4D; }
-      .newsfeed ul.feeds li.feed .comments .feed-echo-form button {
-        border-radius: 2px;
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px;
-        border: none 0px;
-        margin: 4px 5px 0 0; }
-        .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit {
-          color: white;
-          background: #0063DC; }
-          .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit:hover {
-            background: #0054BD; }
-        .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-cancel {
-          color: #666666;
-          background: #ddd; }
-          .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-cancel:hover {
-            background: #CFCFCF; }
-      .newsfeed ul.feeds li.feed .comments ul.comments-list {
-        margin-top: 20px; }
-        .newsfeed ul.feeds li.feed .comments ul.comments-list li.comment {
-          overflow: hidden;
-          padding: 5px; }
-          .newsfeed ul.feeds li.feed .comments ul.comments-list li.comment .avatar {
-            float: left;
-            margin-right: 10px;
-            width: 28px;
-            height: 28px; }
-    .newsfeed ul.feeds li.feed .answers {
-      border-radius: 3px 0 0 3px;
-      -moz-border-radius: 3px 0 0 3px;
-      -webkit-border-radius: 3px 0 0 3px;
-      background-color: #2C2E3C;
-      margin: 1px 0 0;
-      clear: both;
-      padding: 5px; }
-      .newsfeed ul.feeds li.feed .answers .answer {
+      padding: 5px;
+      margin: 0 0 10px 35px; }
+    .newsfeed ul.feeds li.feed .f .quote-feed {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      padding: 5px;
+      margin: 5px 0 0 35px; }
+  .newsfeed ul.feeds li.feed .html {
+    padding: 10px;
+    border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    background: #0C0E1C;
+    margin: 1px 0 0 0;
+    font-size: 13px; }
+  .newsfeed ul.feeds li.feed .time {
+    float: left;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    height: 14px;
+    line-height: 14px;
+    padding: 0 4px;
+    margin: 2px 0 0 42px; }
+  .newsfeed ul.feeds li.feed .ops {
+    overflow: hidden;
+    float: right; }
+    .newsfeed ul.feeds li.feed .ops .mindmap, .newsfeed ul.feeds li.feed .ops .del, .newsfeed ul.feeds li.feed .ops .fav, .newsfeed ul.feeds li.feed .ops .transmit, .newsfeed ul.feeds li.feed .ops .echo {
+      float: left;
+      border-radius: 0 0 3px 3px;
+      -moz-border-radius: 0 0 3px 3px;
+      -webkit-border-radius: 0 0 3px 3px;
+      margin: 0 0 0 5px;
+      padding: 0 3px 0 0;
+      overflow: hidden;
+      cursor: pointer; }
+    .newsfeed ul.feeds li.feed .ops .mindmap {
+      height: 24px; }
+      .newsfeed ul.feeds li.feed .ops .mindmap .icon {
+        float: left;
+        width: 24px;
+        height: 24px;
+        background: url(/images/icons/all.png) no-repeat -125px -117px;
+        margin: 0 2px 0 0; }
+      .newsfeed ul.feeds li.feed .ops .mindmap .t {
+        float: left;
+        height: 23px;
+        line-height: 23px; }
+    .newsfeed ul.feeds li.feed .ops .del, .newsfeed ul.feeds li.feed .ops .fav, .newsfeed ul.feeds li.feed .ops .transmit, .newsfeed ul.feeds li.feed .ops .echo {
+      height: 16px; }
+      .newsfeed ul.feeds li.feed .ops .del .icon, .newsfeed ul.feeds li.feed .ops .fav .icon, .newsfeed ul.feeds li.feed .ops .transmit .icon, .newsfeed ul.feeds li.feed .ops .echo .icon {
+        float: left;
+        width: 16px;
+        height: 16px;
+        background: url(/images/icons/all.png) no-repeat 0px -100px;
+        margin: 0 2px 0 0; }
+      .newsfeed ul.feeds li.feed .ops .del .t, .newsfeed ul.feeds li.feed .ops .fav .t, .newsfeed ul.feeds li.feed .ops .transmit .t, .newsfeed ul.feeds li.feed .ops .echo .t {
+        float: left;
+        height: 15px;
+        line-height: 15px; }
+    .newsfeed ul.feeds li.feed .ops .fav.off .icon {
+      background: url(/images/icons/all.png) no-repeat -130px -100px; }
+    .newsfeed ul.feeds li.feed .ops .fav.off .t2 {
+      display: none; }
+    .newsfeed ul.feeds li.feed .ops .fav.on .icon {
+      background: url(/images/icons/all.png) no-repeat -113px -100px; }
+    .newsfeed ul.feeds li.feed .ops .fav.on .t1 {
+      display: none; }
+    .newsfeed ul.feeds li.feed .ops .transmit .icon {
+      background: url(/images/icons/all.png) no-repeat -147px -100px; }
+    .newsfeed ul.feeds li.feed .ops .echo .icon {
+      background: url(/images/icons/all.png) no-repeat -164px -100px; }
+  .newsfeed ul.feeds li.feed .comments {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin: 20px 0 20px 40px;
+    clear: both;
+    padding: 5px; }
+    .newsfeed ul.feeds li.feed .comments.loading {
+      background-image: url(/images/icons/loading-s.gif);
+      background-repeat: no-repeat;
+      background-position: 265px 2px;
+      height: 10px; }
+    .newsfeed ul.feeds li.feed .comments .feed-echo-form .ipt textarea {
+      width: 496px;
+      height: 28px;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px; }
+    .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to {
+      margin: 5px 0 5px 0;
+      height: 19px;
+      line-height: 19px;
+      padding: 0 0 1px 3px;
+      cursor: default; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to .icon {
+        width: 13px;
+        height: 13px;
+        background: url(/images/icons/all.png) no-repeat -82px -100px;
+        float: left;
+        margin-right: 5px;
+        position: relative;
+        top: 3px; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to .name {
+        float: left; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to.checked .icon {
+        background: url(/images/icons/all.png) no-repeat -68px -100px; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form .send-to:hover {
+        background: #393F4D; }
+    .newsfeed ul.feeds li.feed .comments .feed-echo-form button {
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border: none 0px;
+      margin: 4px 5px 0 0; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit {
+        color: white;
+        background: #0063DC; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit:hover {
+          background: #0054BD; }
+      .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-cancel {
+        color: #666666;
+        background: #ddd; }
+        .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-cancel:hover {
+          background: #CFCFCF; }
+    .newsfeed ul.feeds li.feed .comments ul.comments-list {
+      margin-top: 20px; }
+      .newsfeed ul.feeds li.feed .comments ul.comments-list li.comment {
         overflow: hidden;
         padding: 5px; }
-        .newsfeed ul.feeds li.feed .answers .answer .icon {
-          float: left;
-          width: 30px;
-          font-size: 18px;
-          color: #ffcccc;
-          font-weight: bold; }
-        .newsfeed ul.feeds li.feed .answers .answer .avatar {
+        .newsfeed ul.feeds li.feed .comments ul.comments-list li.comment .avatar {
           float: left;
           margin-right: 10px;
           width: 28px;
           height: 28px; }
+  .newsfeed ul.feeds li.feed .answers {
+    border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    background-color: #2C2E3C;
+    margin: 1px 0 0;
+    clear: both;
+    padding: 5px; }
+    .newsfeed ul.feeds li.feed .answers .answer {
+      overflow: hidden;
+      padding: 5px; }
+      .newsfeed ul.feeds li.feed .answers .answer .icon {
+        float: left;
+        width: 30px;
+        font-size: 18px;
+        color: #ffcccc;
+        font-weight: bold; }
+      .newsfeed ul.feeds li.feed .answers .answer .avatar {
+        float: left;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px; }
 
 .feed-transmit-form {
   position: absolute;
@@ -1480,3 +1478,41 @@ form.new_message .w300 {
   font-weight: bold;
   margin-bottom: 20px;
   padding: 5px; }
+
+.feed-links {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }
+  .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds {
+    padding: 5px;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px; }
+    .feed-links .favs .icon, .feed-links .received_comments .icon, .feed-links .quoted-me-feeds .icon {
+      float: left;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      background: url(/images/icons/all.png) no-repeat -150px -117px; }
+  .feed-links .received_comments .icon {
+    background: url(/images/icons/all.png) no-repeat -175px -117px; }
+  .feed-links .quoted-me-feeds .icon {
+    background: url(/images/icons/all.png) no-repeat -200px -117px; }
+
+.index-received-comments .c {
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 5px; }
+  .index-received-comments .c .avatar {
+    float: left;
+    margin-right: 10px; }
+  .index-received-comments .c .meta {
+    float: left;
+    width: 470px; }
+    .index-received-comments .c .meta .ct {
+      margin-bottom: 5px; }
+    .index-received-comments .c .meta .feed-content {
+      margin: 15px 0 0 0; }

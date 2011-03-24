@@ -3,13 +3,11 @@
 -content_for :javascripts do
   = javascript_include_tag "views/mindmap_image"
   = javascript_include_tag "views/index"
-  = javascript_include_tag "views/mindmap_title_inplace_edit"
   = javascript_include_tag "views/index_channel_panel"
   = javascript_include_tag "views/feed_operation"
 
 .grid_3.alpha
-  .d{:style=>'margin-top:65px;'}
-    =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
+  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 
 .grid_14.paddingl20
   =render :partial=>'index/homepage/feeds/feed_form'
@@ -17,4 +15,6 @@
 
   .newsfeed
     =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
-.grid_4
+
+.grid_4.omega.fright
+  =render :partial=>'index/index_parts/feed_links'

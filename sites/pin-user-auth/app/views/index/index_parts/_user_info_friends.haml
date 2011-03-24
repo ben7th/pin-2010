@@ -1,11 +1,11 @@
 - url = pin_url_for('pin-user-auth',"#{user.id}/followings")
 - count = user.followings.count
-- arr = user.followings
+- arr = user.followings.paginate(:per_page=>9,:page=>1)
 - text = '联系人'
 =render :partial=>'index/index_parts/user_info_ff_scount',:locals=>{:url=>url,:count=>count,:arr=>arr,:text=>text}
 
 - url=pin_url_for('pin-user-auth',"#{user.id}/fans")
 - count = user.fans.count
-- arr = user.fans
+- arr = user.fans.paginate(:per_page=>9,:page=>1)
 - text = '读者'
 =render :partial=>'index/index_parts/user_info_ff_scount',:locals=>{:url=>url,:count=>count,:arr=>arr,:text=>text}

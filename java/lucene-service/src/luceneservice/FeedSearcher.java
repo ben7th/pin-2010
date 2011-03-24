@@ -9,16 +9,16 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
  * 对Feed的搜索
  * @author Administrator
  */
-public class FeedSearcher extends Searcher{
+public class FeedSearcher extends Searcher {
 
   public static final String[] SEARCH_FIELDS = {"content"};
 
   FeedSearcher(String indexDir, String q) {
-    super(indexDir,q);
+    super(indexDir, q);
   }
 
   FeedSearcher(String indexDir, String q, Integer start, Integer count) {
-    super(indexDir,q,start,count);
+    super(indexDir, q, start, count);
   }
 
   /**
@@ -54,4 +54,20 @@ public class FeedSearcher extends Searcher{
     sb.append("</search_results>");
     return sb.toString();
   }
+
+  /**
+   * 测试函数
+   * @param args
+   * @throws Exception
+  public static void main(String[] args) throws Exception {
+    String indexDir = "\\\\192.168.1.8\\root\\root\\mindpin_base\\lucene_index\\feeds\\index";
+    String[] qs = {"广告"}; // 要查询的单词
+
+    for (String q : qs) {
+      Searcher s = new FeedSearcher(indexDir, q);
+      System.out.println(s.search(FeedSearcher.SEARCH_FIELDS));
+      System.out.println(s.searchFeedsByUserEmail(MindmapSearcher.SEARCH_FIELDS, "qdclw1986@sina.cn"));
+    }
+  }
+   */
 }

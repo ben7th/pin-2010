@@ -1,17 +1,19 @@
 
 
-dir=/web/2010/pin-2010/management
+dir=`dirname $0`/../management
 pid=/web/2010/pids/unicorn-management.pid
 
 sh_dir=`dirname $0`
-. $sh_dir/pin-2010/function.sh
+. $sh_dir/function.sh
 . /etc/rc.status
+rails_env=$(get_rails_env)
+sh_dir_path=$(get_sh_dir_path)
 cd $dir
 case "$1" in
 	start)
         assert_process_from_pid_file_not_exist $pid
 	echo "start"
-	unicorn_rails -c config/unicorn.rb -D -E production
+	unicorn_rails -c config/unicorn.rb -D -E $rails_env
 	rc_status -v
 	;;
 	stop)
@@ -26,10 +28,9 @@ case "$1" in
 	;;
 	restart)
 	echo "restart"
-        cd $sh_dir
-	$0 stop
-	sleep 1
-	$0 start
+	$sh_dir_path/`basename $0` stop
+	sleep 1 
+	$sh_dir_path/`basename $0` start
 	;;
 	*)
 	echo "tip:(start|stop|restart|usr2_stop)"
@@ -37,5 +38,4 @@ case "$1" in
 	;;
 esac
 exit 0
-
 

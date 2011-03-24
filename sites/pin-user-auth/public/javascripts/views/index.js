@@ -167,32 +167,6 @@
 
   })
 
-  jQuery('.mplist.feeds .ops .fav').live('click',function(){
-    var elm = jQuery(this);
-    var f_elm = elm.closest('.feed.mpli').children('.f');
-    var id = f_elm.attr('data-id');
-
-    var is_on = elm.hasClass('on');
-
-    if(is_on){
-      jQuery.ajax({
-        url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/unfav'),
-        type :'delete',
-        success : function(res){
-          elm.removeClass('on').addClass('off');
-        }
-      });
-    }else{
-      jQuery.ajax({
-        url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/fav'),
-        type :'post',
-        success : function(res){
-          elm.removeClass('off').addClass('on');
-        }
-      });
-    }
-  });
-
   jQuery('.feed-form .ipter .feed-content').val('');
 
   jQuery('.feed-form .subm .subbtn').live('click',function(){

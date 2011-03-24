@@ -128,5 +128,43 @@ public class LuceneMindmapsServiceHandler implements LuceneMindmapsService.Iface
     }
   }
 
+  /**
+   * 
+   * @param query
+   * @param user_id
+   * @return
+   * @throws TException
+   */
+  public String search_by_user(String query, int user_id) throws TException {
+    try {
+      Searcher s = new MindmapSearcher(indexPath, query);
+      String result = s.searchMindmapsByUserId(MindmapSearcher.SEARCH_FIELDS,String.valueOf(user_id));
+      return result;
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return "error";
+    }
+  }
+
+  /**
+   *
+   * @param query
+   * @param start
+   * @param count
+   * @param user_id
+   * @return
+   * @throws TException
+   */
+  public String search_page_by_user(String query, int start, int count, int user_id) throws TException {
+    try {
+      Searcher s = new MindmapSearcher(indexPath, query, start, count);
+      String result = s.searchMindmapsByUserId(MindmapSearcher.SEARCH_FIELDS,String.valueOf(user_id));
+      return result;
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return "error";
+    }
+  }
+
   
 }

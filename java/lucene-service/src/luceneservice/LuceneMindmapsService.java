@@ -40,6 +40,10 @@ public class LuceneMindmapsService {
 
     public String search_page(String query, int start, int count) throws TException;
 
+    public String search_by_user(String query, int user_id) throws TException;
+
+    public String search_page_by_user(String query, int start, int count, int user_id) throws TException;
+
     public List<String> parse_content(String content) throws TException;
 
   }
@@ -55,6 +59,10 @@ public class LuceneMindmapsService {
     public void search(String query, AsyncMethodCallback<AsyncClient.search_call> resultHandler) throws TException;
 
     public void search_page(String query, int start, int count, AsyncMethodCallback<AsyncClient.search_page_call> resultHandler) throws TException;
+
+    public void search_by_user(String query, int user_id, AsyncMethodCallback<AsyncClient.search_by_user_call> resultHandler) throws TException;
+
+    public void search_page_by_user(String query, int start, int count, int user_id, AsyncMethodCallback<AsyncClient.search_page_by_user_call> resultHandler) throws TException;
 
     public void parse_content(String content, AsyncMethodCallback<AsyncClient.parse_content_call> resultHandler) throws TException;
 
@@ -278,6 +286,82 @@ public class LuceneMindmapsService {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "search_page failed: unknown result");
     }
 
+    public String search_by_user(String query, int user_id) throws TException
+    {
+      send_search_by_user(query, user_id);
+      return recv_search_by_user();
+    }
+
+    public void send_search_by_user(String query, int user_id) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("search_by_user", TMessageType.CALL, ++seqid_));
+      search_by_user_args args = new search_by_user_args();
+      args.setQuery(query);
+      args.setUser_id(user_id);
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public String recv_search_by_user() throws TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      if (msg.seqid != seqid_) {
+        throw new TApplicationException(TApplicationException.BAD_SEQUENCE_ID, "search_by_user failed: out of sequence response");
+      }
+      search_by_user_result result = new search_by_user_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "search_by_user failed: unknown result");
+    }
+
+    public String search_page_by_user(String query, int start, int count, int user_id) throws TException
+    {
+      send_search_page_by_user(query, start, count, user_id);
+      return recv_search_page_by_user();
+    }
+
+    public void send_search_page_by_user(String query, int start, int count, int user_id) throws TException
+    {
+      oprot_.writeMessageBegin(new TMessage("search_page_by_user", TMessageType.CALL, ++seqid_));
+      search_page_by_user_args args = new search_page_by_user_args();
+      args.setQuery(query);
+      args.setStart(start);
+      args.setCount(count);
+      args.setUser_id(user_id);
+      args.write(oprot_);
+      oprot_.writeMessageEnd();
+      oprot_.getTransport().flush();
+    }
+
+    public String recv_search_page_by_user() throws TException
+    {
+      TMessage msg = iprot_.readMessageBegin();
+      if (msg.type == TMessageType.EXCEPTION) {
+        TApplicationException x = TApplicationException.read(iprot_);
+        iprot_.readMessageEnd();
+        throw x;
+      }
+      if (msg.seqid != seqid_) {
+        throw new TApplicationException(TApplicationException.BAD_SEQUENCE_ID, "search_page_by_user failed: out of sequence response");
+      }
+      search_page_by_user_result result = new search_page_by_user_result();
+      result.read(iprot_);
+      iprot_.readMessageEnd();
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new TApplicationException(TApplicationException.MISSING_RESULT, "search_page_by_user failed: unknown result");
+    }
+
     public List<String> parse_content(String content) throws TException
     {
       send_parse_content(content);
@@ -490,6 +574,80 @@ public class LuceneMindmapsService {
       }
     }
 
+    public void search_by_user(String query, int user_id, AsyncMethodCallback<search_by_user_call> resultHandler) throws TException {
+      checkReady();
+      search_by_user_call method_call = new search_by_user_call(query, user_id, resultHandler, this, protocolFactory, transport);
+      manager.call(method_call);
+    }
+
+    public static class search_by_user_call extends TAsyncMethodCall {
+      private String query;
+      private int user_id;
+      public search_by_user_call(String query, int user_id, AsyncMethodCallback<search_by_user_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.query = query;
+        this.user_id = user_id;
+      }
+
+      public void write_args(TProtocol prot) throws TException {
+        prot.writeMessageBegin(new TMessage("search_by_user", TMessageType.CALL, 0));
+        search_by_user_args args = new search_by_user_args();
+        args.setQuery(query);
+        args.setUser_id(user_id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws TException {
+        if (getState() != State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        TMemoryInputTransport memoryTransport = new TMemoryInputTransport(getFrameBuffer().array());
+        TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_search_by_user();
+      }
+    }
+
+    public void search_page_by_user(String query, int start, int count, int user_id, AsyncMethodCallback<search_page_by_user_call> resultHandler) throws TException {
+      checkReady();
+      search_page_by_user_call method_call = new search_page_by_user_call(query, start, count, user_id, resultHandler, this, protocolFactory, transport);
+      manager.call(method_call);
+    }
+
+    public static class search_page_by_user_call extends TAsyncMethodCall {
+      private String query;
+      private int start;
+      private int count;
+      private int user_id;
+      public search_page_by_user_call(String query, int start, int count, int user_id, AsyncMethodCallback<search_page_by_user_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.query = query;
+        this.start = start;
+        this.count = count;
+        this.user_id = user_id;
+      }
+
+      public void write_args(TProtocol prot) throws TException {
+        prot.writeMessageBegin(new TMessage("search_page_by_user", TMessageType.CALL, 0));
+        search_page_by_user_args args = new search_page_by_user_args();
+        args.setQuery(query);
+        args.setStart(start);
+        args.setCount(count);
+        args.setUser_id(user_id);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws TException {
+        if (getState() != State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        TMemoryInputTransport memoryTransport = new TMemoryInputTransport(getFrameBuffer().array());
+        TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_search_page_by_user();
+      }
+    }
+
     public void parse_content(String content, AsyncMethodCallback<parse_content_call> resultHandler) throws TException {
       checkReady();
       parse_content_call method_call = new parse_content_call(content, resultHandler, this, protocolFactory, transport);
@@ -533,6 +691,8 @@ public class LuceneMindmapsService {
       processMap_.put("delete_index", new delete_index());
       processMap_.put("search", new search());
       processMap_.put("search_page", new search_page());
+      processMap_.put("search_by_user", new search_by_user());
+      processMap_.put("search_page_by_user", new search_page_by_user());
       processMap_.put("parse_content", new parse_content());
     }
 
@@ -687,6 +847,58 @@ public class LuceneMindmapsService {
         search_page_result result = new search_page_result();
         result.success = iface_.search_page(args.query, args.start, args.count);
         oprot.writeMessageBegin(new TMessage("search_page", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class search_by_user implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        search_by_user_args args = new search_by_user_args();
+        try {
+          args.read(iprot);
+        } catch (TProtocolException e) {
+          iprot.readMessageEnd();
+          TApplicationException x = new TApplicationException(TApplicationException.PROTOCOL_ERROR, e.getMessage());
+          oprot.writeMessageBegin(new TMessage("search_by_user", TMessageType.EXCEPTION, seqid));
+          x.write(oprot);
+          oprot.writeMessageEnd();
+          oprot.getTransport().flush();
+          return;
+        }
+        iprot.readMessageEnd();
+        search_by_user_result result = new search_by_user_result();
+        result.success = iface_.search_by_user(args.query, args.user_id);
+        oprot.writeMessageBegin(new TMessage("search_by_user", TMessageType.REPLY, seqid));
+        result.write(oprot);
+        oprot.writeMessageEnd();
+        oprot.getTransport().flush();
+      }
+
+    }
+
+    private class search_page_by_user implements ProcessFunction {
+      public void process(int seqid, TProtocol iprot, TProtocol oprot) throws TException
+      {
+        search_page_by_user_args args = new search_page_by_user_args();
+        try {
+          args.read(iprot);
+        } catch (TProtocolException e) {
+          iprot.readMessageEnd();
+          TApplicationException x = new TApplicationException(TApplicationException.PROTOCOL_ERROR, e.getMessage());
+          oprot.writeMessageBegin(new TMessage("search_page_by_user", TMessageType.EXCEPTION, seqid));
+          x.write(oprot);
+          oprot.writeMessageEnd();
+          oprot.getTransport().flush();
+          return;
+        }
+        iprot.readMessageEnd();
+        search_page_by_user_result result = new search_page_by_user_result();
+        result.success = iface_.search_page_by_user(args.query, args.start, args.count, args.user_id);
+        oprot.writeMessageBegin(new TMessage("search_page_by_user", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
         oprot.getTransport().flush();
@@ -3580,6 +3792,1470 @@ public class LuceneMindmapsService {
     @Override
     public String toString() {
       StringBuilder sb = new StringBuilder("search_page_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class search_by_user_args implements TBase<search_by_user_args, search_by_user_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("search_by_user_args");
+
+    private static final TField QUERY_FIELD_DESC = new TField("query", TType.STRING, (short)1);
+    private static final TField USER_ID_FIELD_DESC = new TField("user_id", TType.I32, (short)2);
+
+    public String query;
+    public int user_id;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      QUERY((short)1, "query"),
+      USER_ID((short)2, "user_id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // QUERY
+            return QUERY;
+          case 2: // USER_ID
+            return USER_ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __USER_ID_ISSET_ID = 0;
+    private BitSet __isset_bit_vector = new BitSet(1);
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.QUERY, new FieldMetaData("query", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      tmpMap.put(_Fields.USER_ID, new FieldMetaData("user_id", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.I32)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(search_by_user_args.class, metaDataMap);
+    }
+
+    public search_by_user_args() {
+    }
+
+    public search_by_user_args(
+      String query,
+      int user_id)
+    {
+      this();
+      this.query = query;
+      this.user_id = user_id;
+      setUser_idIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public search_by_user_args(search_by_user_args other) {
+      __isset_bit_vector.clear();
+      __isset_bit_vector.or(other.__isset_bit_vector);
+      if (other.isSetQuery()) {
+        this.query = other.query;
+      }
+      this.user_id = other.user_id;
+    }
+
+    public search_by_user_args deepCopy() {
+      return new search_by_user_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.query = null;
+      setUser_idIsSet(false);
+      this.user_id = 0;
+    }
+
+    public String getQuery() {
+      return this.query;
+    }
+
+    public search_by_user_args setQuery(String query) {
+      this.query = query;
+      return this;
+    }
+
+    public void unsetQuery() {
+      this.query = null;
+    }
+
+    /** Returns true if field query is set (has been asigned a value) and false otherwise */
+    public boolean isSetQuery() {
+      return this.query != null;
+    }
+
+    public void setQueryIsSet(boolean value) {
+      if (!value) {
+        this.query = null;
+      }
+    }
+
+    public int getUser_id() {
+      return this.user_id;
+    }
+
+    public search_by_user_args setUser_id(int user_id) {
+      this.user_id = user_id;
+      setUser_idIsSet(true);
+      return this;
+    }
+
+    public void unsetUser_id() {
+      __isset_bit_vector.clear(__USER_ID_ISSET_ID);
+    }
+
+    /** Returns true if field user_id is set (has been asigned a value) and false otherwise */
+    public boolean isSetUser_id() {
+      return __isset_bit_vector.get(__USER_ID_ISSET_ID);
+    }
+
+    public void setUser_idIsSet(boolean value) {
+      __isset_bit_vector.set(__USER_ID_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case QUERY:
+        if (value == null) {
+          unsetQuery();
+        } else {
+          setQuery((String)value);
+        }
+        break;
+
+      case USER_ID:
+        if (value == null) {
+          unsetUser_id();
+        } else {
+          setUser_id((Integer)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case QUERY:
+        return getQuery();
+
+      case USER_ID:
+        return new Integer(getUser_id());
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case QUERY:
+        return isSetQuery();
+      case USER_ID:
+        return isSetUser_id();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof search_by_user_args)
+        return this.equals((search_by_user_args)that);
+      return false;
+    }
+
+    public boolean equals(search_by_user_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_query = true && this.isSetQuery();
+      boolean that_present_query = true && that.isSetQuery();
+      if (this_present_query || that_present_query) {
+        if (!(this_present_query && that_present_query))
+          return false;
+        if (!this.query.equals(that.query))
+          return false;
+      }
+
+      boolean this_present_user_id = true;
+      boolean that_present_user_id = true;
+      if (this_present_user_id || that_present_user_id) {
+        if (!(this_present_user_id && that_present_user_id))
+          return false;
+        if (this.user_id != that.user_id)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(search_by_user_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      search_by_user_args typedOther = (search_by_user_args)other;
+
+      lastComparison = Boolean.valueOf(isSetQuery()).compareTo(typedOther.isSetQuery());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetQuery()) {
+        lastComparison = TBaseHelper.compareTo(this.query, typedOther.query);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetUser_id()).compareTo(typedOther.isSetUser_id());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetUser_id()) {
+        lastComparison = TBaseHelper.compareTo(this.user_id, typedOther.user_id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 1: // QUERY
+            if (field.type == TType.STRING) {
+              this.query = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case 2: // USER_ID
+            if (field.type == TType.I32) {
+              this.user_id = iprot.readI32();
+              setUser_idIsSet(true);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.query != null) {
+        oprot.writeFieldBegin(QUERY_FIELD_DESC);
+        oprot.writeString(this.query);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldBegin(USER_ID_FIELD_DESC);
+      oprot.writeI32(this.user_id);
+      oprot.writeFieldEnd();
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("search_by_user_args(");
+      boolean first = true;
+
+      sb.append("query:");
+      if (this.query == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.query);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("user_id:");
+      sb.append(this.user_id);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class search_by_user_result implements TBase<search_by_user_result, search_by_user_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("search_by_user_result");
+
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.STRING, (short)0);
+
+    public String success;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(search_by_user_result.class, metaDataMap);
+    }
+
+    public search_by_user_result() {
+    }
+
+    public search_by_user_result(
+      String success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public search_by_user_result(search_by_user_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+    }
+
+    public search_by_user_result deepCopy() {
+      return new search_by_user_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public search_by_user_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been asigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof search_by_user_result)
+        return this.equals((search_by_user_result)that);
+      return false;
+    }
+
+    public boolean equals(search_by_user_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(search_by_user_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      search_by_user_result typedOther = (search_by_user_result)other;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = TBaseHelper.compareTo(this.success, typedOther.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 0: // SUCCESS
+            if (field.type == TType.STRING) {
+              this.success = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        oprot.writeString(this.success);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("search_by_user_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class search_page_by_user_args implements TBase<search_page_by_user_args, search_page_by_user_args._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("search_page_by_user_args");
+
+    private static final TField QUERY_FIELD_DESC = new TField("query", TType.STRING, (short)1);
+    private static final TField START_FIELD_DESC = new TField("start", TType.I32, (short)2);
+    private static final TField COUNT_FIELD_DESC = new TField("count", TType.I32, (short)3);
+    private static final TField USER_ID_FIELD_DESC = new TField("user_id", TType.I32, (short)4);
+
+    public String query;
+    public int start;
+    public int count;
+    public int user_id;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      QUERY((short)1, "query"),
+      START((short)2, "start"),
+      COUNT((short)3, "count"),
+      USER_ID((short)4, "user_id");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // QUERY
+            return QUERY;
+          case 2: // START
+            return START;
+          case 3: // COUNT
+            return COUNT;
+          case 4: // USER_ID
+            return USER_ID;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __START_ISSET_ID = 0;
+    private static final int __COUNT_ISSET_ID = 1;
+    private static final int __USER_ID_ISSET_ID = 2;
+    private BitSet __isset_bit_vector = new BitSet(3);
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.QUERY, new FieldMetaData("query", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      tmpMap.put(_Fields.START, new FieldMetaData("start", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.I32)));
+      tmpMap.put(_Fields.COUNT, new FieldMetaData("count", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.I32)));
+      tmpMap.put(_Fields.USER_ID, new FieldMetaData("user_id", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.I32)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(search_page_by_user_args.class, metaDataMap);
+    }
+
+    public search_page_by_user_args() {
+    }
+
+    public search_page_by_user_args(
+      String query,
+      int start,
+      int count,
+      int user_id)
+    {
+      this();
+      this.query = query;
+      this.start = start;
+      setStartIsSet(true);
+      this.count = count;
+      setCountIsSet(true);
+      this.user_id = user_id;
+      setUser_idIsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public search_page_by_user_args(search_page_by_user_args other) {
+      __isset_bit_vector.clear();
+      __isset_bit_vector.or(other.__isset_bit_vector);
+      if (other.isSetQuery()) {
+        this.query = other.query;
+      }
+      this.start = other.start;
+      this.count = other.count;
+      this.user_id = other.user_id;
+    }
+
+    public search_page_by_user_args deepCopy() {
+      return new search_page_by_user_args(this);
+    }
+
+    @Override
+    public void clear() {
+      this.query = null;
+      setStartIsSet(false);
+      this.start = 0;
+      setCountIsSet(false);
+      this.count = 0;
+      setUser_idIsSet(false);
+      this.user_id = 0;
+    }
+
+    public String getQuery() {
+      return this.query;
+    }
+
+    public search_page_by_user_args setQuery(String query) {
+      this.query = query;
+      return this;
+    }
+
+    public void unsetQuery() {
+      this.query = null;
+    }
+
+    /** Returns true if field query is set (has been asigned a value) and false otherwise */
+    public boolean isSetQuery() {
+      return this.query != null;
+    }
+
+    public void setQueryIsSet(boolean value) {
+      if (!value) {
+        this.query = null;
+      }
+    }
+
+    public int getStart() {
+      return this.start;
+    }
+
+    public search_page_by_user_args setStart(int start) {
+      this.start = start;
+      setStartIsSet(true);
+      return this;
+    }
+
+    public void unsetStart() {
+      __isset_bit_vector.clear(__START_ISSET_ID);
+    }
+
+    /** Returns true if field start is set (has been asigned a value) and false otherwise */
+    public boolean isSetStart() {
+      return __isset_bit_vector.get(__START_ISSET_ID);
+    }
+
+    public void setStartIsSet(boolean value) {
+      __isset_bit_vector.set(__START_ISSET_ID, value);
+    }
+
+    public int getCount() {
+      return this.count;
+    }
+
+    public search_page_by_user_args setCount(int count) {
+      this.count = count;
+      setCountIsSet(true);
+      return this;
+    }
+
+    public void unsetCount() {
+      __isset_bit_vector.clear(__COUNT_ISSET_ID);
+    }
+
+    /** Returns true if field count is set (has been asigned a value) and false otherwise */
+    public boolean isSetCount() {
+      return __isset_bit_vector.get(__COUNT_ISSET_ID);
+    }
+
+    public void setCountIsSet(boolean value) {
+      __isset_bit_vector.set(__COUNT_ISSET_ID, value);
+    }
+
+    public int getUser_id() {
+      return this.user_id;
+    }
+
+    public search_page_by_user_args setUser_id(int user_id) {
+      this.user_id = user_id;
+      setUser_idIsSet(true);
+      return this;
+    }
+
+    public void unsetUser_id() {
+      __isset_bit_vector.clear(__USER_ID_ISSET_ID);
+    }
+
+    /** Returns true if field user_id is set (has been asigned a value) and false otherwise */
+    public boolean isSetUser_id() {
+      return __isset_bit_vector.get(__USER_ID_ISSET_ID);
+    }
+
+    public void setUser_idIsSet(boolean value) {
+      __isset_bit_vector.set(__USER_ID_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case QUERY:
+        if (value == null) {
+          unsetQuery();
+        } else {
+          setQuery((String)value);
+        }
+        break;
+
+      case START:
+        if (value == null) {
+          unsetStart();
+        } else {
+          setStart((Integer)value);
+        }
+        break;
+
+      case COUNT:
+        if (value == null) {
+          unsetCount();
+        } else {
+          setCount((Integer)value);
+        }
+        break;
+
+      case USER_ID:
+        if (value == null) {
+          unsetUser_id();
+        } else {
+          setUser_id((Integer)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case QUERY:
+        return getQuery();
+
+      case START:
+        return new Integer(getStart());
+
+      case COUNT:
+        return new Integer(getCount());
+
+      case USER_ID:
+        return new Integer(getUser_id());
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case QUERY:
+        return isSetQuery();
+      case START:
+        return isSetStart();
+      case COUNT:
+        return isSetCount();
+      case USER_ID:
+        return isSetUser_id();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof search_page_by_user_args)
+        return this.equals((search_page_by_user_args)that);
+      return false;
+    }
+
+    public boolean equals(search_page_by_user_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_query = true && this.isSetQuery();
+      boolean that_present_query = true && that.isSetQuery();
+      if (this_present_query || that_present_query) {
+        if (!(this_present_query && that_present_query))
+          return false;
+        if (!this.query.equals(that.query))
+          return false;
+      }
+
+      boolean this_present_start = true;
+      boolean that_present_start = true;
+      if (this_present_start || that_present_start) {
+        if (!(this_present_start && that_present_start))
+          return false;
+        if (this.start != that.start)
+          return false;
+      }
+
+      boolean this_present_count = true;
+      boolean that_present_count = true;
+      if (this_present_count || that_present_count) {
+        if (!(this_present_count && that_present_count))
+          return false;
+        if (this.count != that.count)
+          return false;
+      }
+
+      boolean this_present_user_id = true;
+      boolean that_present_user_id = true;
+      if (this_present_user_id || that_present_user_id) {
+        if (!(this_present_user_id && that_present_user_id))
+          return false;
+        if (this.user_id != that.user_id)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(search_page_by_user_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      search_page_by_user_args typedOther = (search_page_by_user_args)other;
+
+      lastComparison = Boolean.valueOf(isSetQuery()).compareTo(typedOther.isSetQuery());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetQuery()) {
+        lastComparison = TBaseHelper.compareTo(this.query, typedOther.query);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetStart()).compareTo(typedOther.isSetStart());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetStart()) {
+        lastComparison = TBaseHelper.compareTo(this.start, typedOther.start);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetCount()).compareTo(typedOther.isSetCount());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetCount()) {
+        lastComparison = TBaseHelper.compareTo(this.count, typedOther.count);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetUser_id()).compareTo(typedOther.isSetUser_id());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetUser_id()) {
+        lastComparison = TBaseHelper.compareTo(this.user_id, typedOther.user_id);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 1: // QUERY
+            if (field.type == TType.STRING) {
+              this.query = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case 2: // START
+            if (field.type == TType.I32) {
+              this.start = iprot.readI32();
+              setStartIsSet(true);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case 3: // COUNT
+            if (field.type == TType.I32) {
+              this.count = iprot.readI32();
+              setCountIsSet(true);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          case 4: // USER_ID
+            if (field.type == TType.I32) {
+              this.user_id = iprot.readI32();
+              setUser_idIsSet(true);
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      validate();
+
+      oprot.writeStructBegin(STRUCT_DESC);
+      if (this.query != null) {
+        oprot.writeFieldBegin(QUERY_FIELD_DESC);
+        oprot.writeString(this.query);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldBegin(START_FIELD_DESC);
+      oprot.writeI32(this.start);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(COUNT_FIELD_DESC);
+      oprot.writeI32(this.count);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(USER_ID_FIELD_DESC);
+      oprot.writeI32(this.user_id);
+      oprot.writeFieldEnd();
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("search_page_by_user_args(");
+      boolean first = true;
+
+      sb.append("query:");
+      if (this.query == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.query);
+      }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("start:");
+      sb.append(this.start);
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("count:");
+      sb.append(this.count);
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("user_id:");
+      sb.append(this.user_id);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws TException {
+      // check for required fields
+    }
+
+  }
+
+  public static class search_page_by_user_result implements TBase<search_page_by_user_result, search_page_by_user_result._Fields>, java.io.Serializable, Cloneable   {
+    private static final TStruct STRUCT_DESC = new TStruct("search_page_by_user_result");
+
+    private static final TField SUCCESS_FIELD_DESC = new TField("success", TType.STRING, (short)0);
+
+    public String success;
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+
+    public static final Map<_Fields, FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new FieldMetaData("success", TFieldRequirementType.DEFAULT, 
+          new FieldValueMetaData(TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      FieldMetaData.addStructMetaDataMap(search_page_by_user_result.class, metaDataMap);
+    }
+
+    public search_page_by_user_result() {
+    }
+
+    public search_page_by_user_result(
+      String success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public search_page_by_user_result(search_page_by_user_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+    }
+
+    public search_page_by_user_result deepCopy() {
+      return new search_page_by_user_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public search_page_by_user_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been asigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been asigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof search_page_by_user_result)
+        return this.equals((search_page_by_user_result)that);
+      return false;
+    }
+
+    public boolean equals(search_page_by_user_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    public int compareTo(search_page_by_user_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+      search_page_by_user_result typedOther = (search_page_by_user_result)other;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(typedOther.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = TBaseHelper.compareTo(this.success, typedOther.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(TProtocol iprot) throws TException {
+      TField field;
+      iprot.readStructBegin();
+      while (true)
+      {
+        field = iprot.readFieldBegin();
+        if (field.type == TType.STOP) { 
+          break;
+        }
+        switch (field.id) {
+          case 0: // SUCCESS
+            if (field.type == TType.STRING) {
+              this.success = iprot.readString();
+            } else { 
+              TProtocolUtil.skip(iprot, field.type);
+            }
+            break;
+          default:
+            TProtocolUtil.skip(iprot, field.type);
+        }
+        iprot.readFieldEnd();
+      }
+      iprot.readStructEnd();
+
+      // check for required fields of primitive type, which can't be checked in the validate method
+      validate();
+    }
+
+    public void write(TProtocol oprot) throws TException {
+      oprot.writeStructBegin(STRUCT_DESC);
+
+      if (this.isSetSuccess()) {
+        oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+        oprot.writeString(this.success);
+        oprot.writeFieldEnd();
+      }
+      oprot.writeFieldStop();
+      oprot.writeStructEnd();
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("search_page_by_user_result(");
       boolean first = true;
 
       sb.append("success:");

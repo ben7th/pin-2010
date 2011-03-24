@@ -5,14 +5,15 @@ module MindpinServiceManagementModule
   #       app-mindmap-image-cache
   #       pin-bugs
   module Project
+    UNICORN_SH_PATH = File.join(File.dirname(File.expand_path(__FILE__)),"../../sh")
     # 操作工程的 启动，关闭，重启，usr
     # param operation 要做的操作
     #       start stop restart usr2_stop
     def operate_project(project_name,operation)
       short_name = find_short_project_name_by_project_name(project_name)
-      unicorn_sh = File.join(RAILS_ROOT,"../..","unicorn.sh")
+      unicorn_sh = File.join(UNICORN_SH_PATH,"unicorn.sh")
       raise "不支持 #{operation} 操作" if !["start","stop","restart","usr2_stop"].include?(operation)
-      Dir.chdir("#{RAILS_ROOT}/../..") do
+      Dir.chdir(UNICORN_SH_PATH) do
         `sh #{unicorn_sh} #{short_name} #{operation}`
       end
     end

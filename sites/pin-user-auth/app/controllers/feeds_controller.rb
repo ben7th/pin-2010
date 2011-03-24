@@ -88,4 +88,12 @@ class FeedsController < ApplicationController
     end
     render :status=>405,:text=>"传阅失败"
   end
+
+  def received_comments
+    @feed_comments = current_user.being_replied_comments
+  end
+
+  def quoted_me_feeds
+    @quoted_me_feeds = current_user.being_quoted_feeds
+  end
 end

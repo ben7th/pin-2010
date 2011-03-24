@@ -27,16 +27,19 @@ module MindpinServiceManagementModule
 
     def server_log_size(server_name)
       file_path = find_log_file_path_by_server_name(server_name)
+      `touch #{file_path}` if !File.exist?(file_path)
       File.size(file_path)
     end
 
     def server_log_mtime(server_name)
       file_path = find_log_file_path_by_server_name(server_name)
+      `touch #{file_path}` if !File.exist?(file_path)
       File.mtime(file_path)
     end
 
     def server_log_content(server_name)
       file_path = find_log_file_path_by_server_name(server_name)
+      `touch #{file_path}` if !File.exist?(file_path)
       log_file_content(file_path)
     end
 

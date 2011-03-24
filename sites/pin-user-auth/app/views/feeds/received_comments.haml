@@ -1,0 +1,32 @@
+-require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_3.alpha
+  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
+
+.grid_14.paddingl20
+  .index-received-comments
+    -@feed_comments.each do |c|
+      .c.darkbg
+        .avatar
+          =avatar c.user,:tiny
+        .meta
+          .ct
+            %span.name=link_to c.user.name,pin_url_for('pin-user-auth',"/users/#{c.user.id}")
+            %span.loud 说
+            %span.content “#{c.content}”
+          .time
+            =jtime c.created_at
+          .feed-content
+            -if c.feed.blank?
+              被回应的话题已删除
+            -else
+              回应话题
+              “#{truncate_u c.feed.content,32}”
+
+.grid_4.omega.fright
+  =render :partial=>'index/index_parts/feed_links'
+
+

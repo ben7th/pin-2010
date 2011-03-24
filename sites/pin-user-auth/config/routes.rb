@@ -100,6 +100,8 @@ ActionController::Routing::Routes.draw do |map|
   map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
   map.newsfeed_get_new "/newsfeed/get_new_feeds",:controller=>"feeds",:action=>"get_new_feeds"
   map.favs "/favs",:controller=>"feeds",:action=>"favs"
+  map.received_comments "/received_comments",:controller=>"feeds",:action=>"received_comments"
+  map.quoted_me_feeds "/quoted_me_feeds",:controller=>"feeds",:action=>"quoted_me_feeds"
   
   map.resources :messages
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"

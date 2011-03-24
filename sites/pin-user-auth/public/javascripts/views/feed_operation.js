@@ -1,4 +1,30 @@
 (function(){
+  //标记
+  jQuery('.mplist.feeds .ops .fav').live('click',function(){
+    var elm = jQuery(this);
+    var f_elm = elm.closest('.feed.mpli').children('.f');
+    var id = f_elm.attr('data-id');
+
+    var is_on = elm.hasClass('on');
+
+    if(is_on){
+      jQuery.ajax({
+        url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/unfav'),
+        type :'delete',
+        success : function(res){
+          elm.removeClass('on').addClass('off');
+        }
+      });
+    }else{
+      jQuery.ajax({
+        url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/fav'),
+        type :'post',
+        success : function(res){
+          elm.removeClass('off').addClass('on');
+        }
+      });
+    }
+  });
 
   //回应
   jQuery('.feed-echo-form .send-to').live('click',function(){
@@ -101,10 +127,9 @@
       data : 'quote_of='+quote_of_id
               + '&content=' + encodeURIComponent(content),
       success : function(res){
-//        var li_elm = jQuery(res);
-//        form_elm.find('ul.comments-list').prepend(li_elm);
-//        form_elm.find('textarea').val('');
-//        form_elm.find('.send-to').removeClass('checked');
+        ftelm.remove();
+        ftelm.attr('data-feed-id','');
+        ftelm.find('textarea').val('');
         alert('发送成功！')
       }
     });

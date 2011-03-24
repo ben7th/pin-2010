@@ -609,7 +609,6 @@ form.new_message{
 
 /*首页的feeds*/
 .newsfeed{
-  margin-top:15px;
   ul.feeds{
     li.feed{
       margin:0 0 20px 0;
@@ -651,7 +650,7 @@ form.new_message{
         .quote-feed{
           @include border-radius(3px);
           padding:5px;
-          margin:10px 0 0 35px;
+          margin:5px 0 0 35px;
         }
       }
       .html{
@@ -667,7 +666,7 @@ form.new_message{
         height:14px;
         line-height:14px;
         padding:0 4px;
-        margin:2px 0 0 45px;
+        margin:2px 0 0 42px;
         .date{}
       }
       .ops{
@@ -1491,4 +1490,46 @@ form.new_message{
   font-weight:bold;
   margin-bottom:20px;
   padding:5px;
+}
+
+.feed-links{
+  @include border-radius(5px);
+  .favs,.received_comments,.quoted-me-feeds{
+    padding:5px;
+    font-size:14px;
+    height:24px;
+    line-height:24px;
+    .icon{
+      float:left;
+      width:24px;
+      height:24px;
+      margin-right:8px;
+      background:url(/images/icons/all.png) no-repeat -150px -117px;
+    }
+  }
+  .received_comments{
+    .icon{background:url(/images/icons/all.png) no-repeat -175px -117px;}
+  }
+  .quoted-me-feeds{
+    .icon{background:url(/images/icons/all.png) no-repeat -200px -117px;}
+  }
+}
+
+.index-received-comments{
+  .c{
+    overflow:hidden;
+    margin-bottom:20px;
+    @include border-radius(5px);
+    padding:5px;
+    .avatar{
+      float:left;
+      margin-right:10px;
+    }
+    .meta{
+      float:left;
+      width:470px;
+      .ct{margin-bottom:5px;}
+      .feed-content{margin:15px 0 0 0;}
+    }
+  }
 }

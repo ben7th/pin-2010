@@ -1,5 +1,6 @@
 module MindpinServiceManagementModule
   module Servers
+    SERVERS_SH_PATH = File.join(File.dirname(File.expand_path(__FILE__)),"../../sh/service_sh")
     module MemcachedService
       # 返回 memcached 的运行状态
       def memcached_service_state
@@ -12,8 +13,8 @@ module MindpinServiceManagementModule
       end
 
       def start_memcached_service
-        memcached_sh = File.join(RAILS_ROOT,"../memcache.sh")
-        `sh #{memcached_sh}`
+        memcached_sh = File.join(SERVERS_SH_PATH,"memcache.sh")
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{memcached_sh}` }
       end
 
       def restart_memcached_service
@@ -33,7 +34,7 @@ module MindpinServiceManagementModule
     end
 
     module RedisService
-      REDIS_SERVICE_SH = "#{RAILS_ROOT}/../redis_service.sh"
+      REDIS_SERVICE_SH = File.join(SERVERS_SH_PATH,"redis_service.sh")
       def redis_service_state
         pid_file_path = "/web/2010/pids/redis_service.pid"
         check_process_by_pid_file(pid_file_path)
@@ -44,20 +45,20 @@ module MindpinServiceManagementModule
       end
 
       def start_redis_service
-        chdir_to_root_dir{ `sh #{REDIS_SERVICE_SH} start` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} start` }
       end
 
       def stop_redis_service
-        chdir_to_root_dir{ `sh #{REDIS_SERVICE_SH} stop` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} stop` }
       end
 
       def restart_redis_service
-        chdir_to_root_dir{ `sh #{REDIS_SERVICE_SH} restart` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} restart` }
       end
     end
 
     module MindmapsLuceneService
-      MINDMAP_LUCENE_SH = "#{RAILS_ROOT}/../mindmaps_lucene_service.sh"
+      MINDMAP_LUCENE_SH = File.join(SERVERS_SH_PATH,"mindmaps_lucene_service.sh")
       def mindmaps_lucene_service_state
         pid_file_path = "/web/2010/pids/mindmaps_lucene_service.pid"
         check_process_by_pid_file(pid_file_path)
@@ -68,20 +69,20 @@ module MindpinServiceManagementModule
       end
 
       def start_mindmaps_lucene_service
-        chdir_to_root_dir{ `sh #{MINDMAP_LUCENE_SH} start` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{MINDMAP_LUCENE_SH} start` }
       end
 
       def stop_mindmaps_lucene_service
-        chdir_to_root_dir{ `sh #{MINDMAP_LUCENE_SH} stop` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{MINDMAP_LUCENE_SH} stop` }
       end
 
       def restart_mindmaps_lucene_service
-        chdir_to_root_dir{ `sh #{MINDMAP_LUCENE_SH} restart` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{MINDMAP_LUCENE_SH} restart` }
       end
     end
 
     module FeedsLuceneService
-      FEED_LUCENE_SH = "#{RAILS_ROOT}/../feeds_lucene_service.sh"
+      FEED_LUCENE_SH = File.join(SERVERS_SH_PATH,"feeds_lucene_service.sh")
       def feeds_lucene_service_state
         pid_file_path = "/web/2010/pids/feeds_lucene_service.pid"
         check_process_by_pid_file(pid_file_path)
@@ -92,15 +93,15 @@ module MindpinServiceManagementModule
       end
 
       def start_feeds_lucene_service
-        chdir_to_root_dir{ `sh #{FEED_LUCENE_SH} start` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{FEED_LUCENE_SH} start` }
       end
 
       def stop_feeds_lucene_service
-        chdir_to_root_dir{ `sh #{FEED_LUCENE_SH} stop` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{FEED_LUCENE_SH} stop` }
       end
 
       def restart_feeds_lucene_service
-        chdir_to_root_dir{ `sh #{FEED_LUCENE_SH} restart` }
+        Dir.chdir(SERVERS_SH_PATH){ `sh #{FEED_LUCENE_SH} restart` }
       end
     end
     

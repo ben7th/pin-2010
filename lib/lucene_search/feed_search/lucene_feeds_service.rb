@@ -5,6 +5,7 @@
 #
 
 require 'thrift'
+
 module LuceneFeedsService
   class Client
     include ::Thrift::Client
@@ -84,6 +85,36 @@ module LuceneFeedsService
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search_page failed: unknown result')
     end
 
+    def search_by_user(query, email)
+      send_search_by_user(query, email)
+      return recv_search_by_user()
+    end
+
+    def send_search_by_user(query, email)
+      send_message('search_by_user', Search_by_user_args, :query => query, :email => email)
+    end
+
+    def recv_search_by_user()
+      result = receive_message(Search_by_user_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search_by_user failed: unknown result')
+    end
+
+    def search_page_by_user(query, start, count, email)
+      send_search_page_by_user(query, start, count, email)
+      return recv_search_page_by_user()
+    end
+
+    def send_search_page_by_user(query, start, count, email)
+      send_message('search_page_by_user', Search_page_by_user_args, :query => query, :start => start, :count => count, :email => email)
+    end
+
+    def recv_search_page_by_user()
+      result = receive_message(Search_page_by_user_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search_page_by_user failed: unknown result')
+    end
+
     def parse_content(content)
       send_parse_content(content)
       return recv_parse_content()
@@ -137,6 +168,20 @@ module LuceneFeedsService
       result = Search_page_result.new()
       result.success = @handler.search_page(args.query, args.start, args.count)
       write_result(result, oprot, 'search_page', seqid)
+    end
+
+    def process_search_by_user(seqid, iprot, oprot)
+      args = read_args(iprot, Search_by_user_args)
+      result = Search_by_user_result.new()
+      result.success = @handler.search_by_user(args.query, args.email)
+      write_result(result, oprot, 'search_by_user', seqid)
+    end
+
+    def process_search_page_by_user(seqid, iprot, oprot)
+      args = read_args(iprot, Search_page_by_user_args)
+      result = Search_page_by_user_result.new()
+      result.success = @handler.search_page_by_user(args.query, args.start, args.count, args.email)
+      write_result(result, oprot, 'search_page_by_user', seqid)
     end
 
     def process_parse_content(seqid, iprot, oprot)
@@ -298,6 +343,78 @@ module LuceneFeedsService
   end
 
   class Search_page_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Search_by_user_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    QUERY = 1
+    EMAIL = 2
+
+    FIELDS = {
+      QUERY => {:type => ::Thrift::Types::STRING, :name => 'query'},
+      EMAIL => {:type => ::Thrift::Types::STRING, :name => 'email'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Search_by_user_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Search_page_by_user_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    QUERY = 1
+    START = 2
+    COUNT = 3
+    EMAIL = 4
+
+    FIELDS = {
+      QUERY => {:type => ::Thrift::Types::STRING, :name => 'query'},
+      START => {:type => ::Thrift::Types::I32, :name => 'start'},
+      COUNT => {:type => ::Thrift::Types::I32, :name => 'count'},
+      EMAIL => {:type => ::Thrift::Types::STRING, :name => 'email'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class Search_page_by_user_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 

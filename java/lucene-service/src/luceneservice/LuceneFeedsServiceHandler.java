@@ -105,7 +105,6 @@ public class LuceneFeedsServiceHandler implements LuceneFeedsService.Iface {
       ex.printStackTrace();
       return "error";
     }
-
   }
 
   public List<String> parse_content(String content) throws TException {
@@ -115,6 +114,44 @@ public class LuceneFeedsServiceHandler implements LuceneFeedsService.Iface {
     } catch (Exception ex) {
       ex.printStackTrace();
       return new ArrayList<String>();
+    }
+  }
+
+  /**
+   * 在某个用户的feeds中进行搜索
+   * @param query
+   * @param email
+   * @return
+   * @throws TException
+   */
+  public String search_by_user(String query, String email) throws TException {
+    try {
+      Searcher s = new FeedSearcher(indexPath, query);
+      String result = s.searchFeedsByUserEmail(FeedSearcher.SEARCH_FIELDS, email);
+      return result;
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return "error";
+    }
+  }
+
+  /**
+   * 在某个用户的feeds中进行分页查找
+   * @param query
+   * @param start
+   * @param count
+   * @param email
+   * @return
+   * @throws TException
+   */
+  public String search_page_by_user(String query, int start, int count, String email) throws TException {
+    try {
+      Searcher s = new FeedSearcher(indexPath, query, start, count);
+      String result = s.searchFeedsByUserEmail(FeedSearcher.SEARCH_FIELDS,email);
+      return result;
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return "error";
     }
   }
 }

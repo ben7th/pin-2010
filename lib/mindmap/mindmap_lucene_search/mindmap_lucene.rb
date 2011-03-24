@@ -15,6 +15,14 @@ class MindmapLucene
     end
   end
 
+  def self.search_paginate_by_user(query,user,option)
+    begin
+      Searcher.new(query,option).search_paged_result_by_user(user)
+    rescue Exception => ex
+      raise MindmapSearchFailureError,"搜索服务出现异常，或者正在维护。#{ex}"
+    end
+  end
+
   class Client
     def self.connection
       _transport = Thrift::BufferedTransport.new(Thrift::Socket.new('localhost', 9091))
@@ -39,6 +47,14 @@ class MindmapLucene
       # TODO 参数传递重复，java搜索结果中应包含分页信息以避免此问题
       xml = Client.connection do |client|
         client.search_page(@query, @pager.start_index, @pager.per_page)
+      end
+      LuceneSearchResult.new(xml,:pager=>@pager)
+    end
+
+    def search_paged_result_by_user(user)
+      # TODO 参数传递重复，java搜索结果中应包含分页信息以避免此问题
+      xml = Client.connection do |client|
+        client.search_page_by_user(@query, @pager.start_index, @pager.per_page,user.id)
       end
       LuceneSearchResult.new(xml,:pager=>@pager)
     end
