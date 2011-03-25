@@ -18,6 +18,7 @@ class Feed < FeedBase
   end
 
   def validate_on_create
+    validate_content_length
     channels = self.creator.belongs_to_channels_db + self.creator.channels
     self.channels_db.each do |channel|
       next if channel.kind == Channel::KIND_INTERVIEW
@@ -28,23 +29,41 @@ class Feed < FeedBase
     end
   end
 
+  def validate_content_length
+    if self.content.split(//u).length > 255
+      errors.add(:content,"内容长度不能超过 255 个字符")
+    end
+  end
+
   def self.reply_to_feed(user,content,create_new_feed,host_feed,channel_ids=[])
+    if create_new_feed == "true"
+      self._create_comment_and_new_feed(user,content,host_feed,channel_ids)
+    else
+      self._create_comment(user,content,host_feed)
+    end
+  end
+
+  def self._create_comment(user,content,host_feed)
+    fc = FeedComment.new(:feed_id=>host_feed.id,:content=>content,:user_id=>user.id)
+    return false if !fc.valid?
+    fc.save!
+    UserBeingRepliedCommentsProxy.update_feed_comment(fc)
+    fc
+  end
+
+  def self._create_comment_and_new_feed(user,content,host_feed,channel_ids)
+    channel_ids = [] if channel_ids.blank?
+    channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
+    host_feed_id = host_feed.id
     Feed.transaction do
-      host_feed_id = host_feed.id
       fc = FeedComment.new(:feed_id=>host_feed_id,:content=>content,:user_id=>user.id)
+      feed = Feed.new(:email=>user.email,:event=>SAY_OPERATE,:content=>content,:channels_db=>channels,:reply_to=>host_feed_id)
       return false if !fc.valid?
+      return false if !feed.valid?
       fc.save!
+      feed.save!
       UserBeingRepliedCommentsProxy.update_feed_comment(fc)
-      if create_new_feed == "true"
-        channel_ids = [] if channel_ids.blank?
-        channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-        feed = Feed.new(:email=>user.email,:event=>SAY_OPERATE,:content=>content,:channels_db=>channels,:reply_to=>host_feed_id)
-        return false if !feed.valid?
-        feed.save!
-        if feed.id
-          user.news_feed_proxy.update_feed(feed)
-        end
-      end
+      user.news_feed_proxy.update_feed(feed)
       return fc
     end
   end

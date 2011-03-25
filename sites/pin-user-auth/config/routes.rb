@@ -101,6 +101,7 @@ ActionController::Routing::Routes.draw do |map|
   map.favs "/favs",:controller=>"feeds",:action=>"favs"
   map.received_comments "/received_comments",:controller=>"feeds",:action=>"received_comments"
   map.quoted_me_feeds "/quoted_me_feeds",:controller=>"feeds",:action=>"quoted_me_feeds"
+  map.feed_search "/search_feeds",:controller=>"feeds",:action=>"search"
   
   map.resources :messages
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
@@ -132,7 +133,8 @@ ActionController::Routing::Routes.draw do |map|
       :none=>:get
     },:member=>{
       :add=>:put,
-      :remove=>:put
+      :remove=>:put,
+      :new_blog_post=>:get
     }
 
   map.fans "/:user_id/channels",:controller=>"channels",:action=>"index"

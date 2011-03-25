@@ -5,24 +5,7 @@
 
 .grid_3.alpha
   -if @current_channel.is_a? Channel
-    - channel = @current_channel
-    .index-channel-emcee.lightbg
-      .title.darkbg 频道主持人
-      .m
-        .avatar
-          =avatar channel.creator
-        .name
-          =link_to channel.creator.name,channel.creator
-    .index-channel-emcee.s.lightbg
-      .title.darkbg 副主持人
-      -channel.include_users.each do |u|
-        .m
-          .avatar
-            =avatar u,:tiny
-          .name
-            =link_to u.name,u
-
-    
+    =render :partial=>'channels/show_parts/channel_main_users',:locals=>{:channel=>@channel}
 
 .grid_14.paddingl20
   .grid-title
@@ -38,7 +21,7 @@
       -when Channel::KIND_INTERVIEW
         =render :partial=>'channels/channel_interview',:locals=>{:feeds=>@feeds,:channel=>@channel}
       -when Channel::KIND_BLOG
-        =render :partial=>'channels/channel_blog',:locals=>{:feeds=>@feeds}
+        =render :partial=>'channels/channel_blog',:locals=>{:feeds=>@feeds,:channel=>@channel}
       -else
         =render :partial=>'channels/channel_common',:locals=>{:feeds=>@feeds}
   -else
@@ -51,4 +34,5 @@
     = will_paginate @feeds
 
 .grid_4.omega.fright
-  =render :partial=>'index/index_parts/feed_links'
+  -if logged_in?
+    =render :partial=>'index/index_parts/feed_links'

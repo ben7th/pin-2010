@@ -1,6 +1,11 @@
 -ea = EmailActor.new(feed.email)
 -klass = klass || ''
 
+-content = feed_content(feed)
+-query ||= nil
+-if !!query
+  -content.gsub!(query,"<span class='loud'>#{query}</span>")
+
 .f.darkbg{:'data-id'=>"#{feed.id}",:class=>klass}
   -if(!feed.reply_to.blank?)
     .reply-to-feed.darkbg1
@@ -19,7 +24,7 @@
     .c
       .data
         =link_to ea.name,ea.actor
-        =feed_content(feed)
+        =content
       .documents
         .mindmaps
           -feed.mindmaps.each do |mindmap|

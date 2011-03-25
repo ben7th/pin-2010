@@ -687,13 +687,39 @@ form.new_message{
             margin:0 9px 0 0;
           }
         }
+        .blog-head{
+          .title{font-size:18px;font-weight:bold;margin:0 0 5px 0;}
+          .meta{
+            font-size:12px;
+            height:20px;
+            line-geight:20px;
+            overflow:hidden;
+            margin:0 0 5px 0;
+            .avatar{
+              float:left;
+              width:20px;height:20px;
+              margin-right:10px;
+              img{width:16px;height:16px;}
+            }
+            .name{
+              margin-right:10px;
+              float:left;
+            }
+            .posted-at{
+              float:left;
+            }
+          }
+          .comments-count{
+            margin:0 0 5px 0;
+          }
+        }
+
       }
-      .html{
-        padding:10px;
+      .blog-html{
+        padding:10px 10px 10px 10px;
         @include border-radius(3px 0 0 3px);
-        background:#0C0E1C;
-        margin:1px 0 0 0;
-        font-size:13px;
+        border-top:1px dashed #525566;
+        font-size:14px;
       }
       .time{
         float:left;
@@ -1593,4 +1619,19 @@ form.new_message{
   &.s{
     width:90px;margin-left:20px;
   }
+}
+
+.index-feed-search-form{
+  margin:0 0 20px;
+  input.search-inner{
+    width:80px !important;
+  }
+  input.search-button{
+    padding:0 6px;
+  }
+}
+
+.blog-post-buttons{
+  margin:0 0 10px 0;
+  padding:5px;
 }

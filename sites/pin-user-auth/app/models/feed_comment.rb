@@ -9,6 +9,12 @@ class FeedComment < ActiveRecord::Base
 
   index :feed_id,:order=>:desc
 
+  def validate
+    if self.content.split(//u).length > 255
+      errors.add(:content,"内容长度不能超过 255 个字符")
+    end
+  end
+
   module FeedMethods
     def self.included(base)
       base.has_many :feed_comments,:order=>"id desc"

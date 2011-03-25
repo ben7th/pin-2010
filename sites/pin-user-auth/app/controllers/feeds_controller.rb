@@ -79,7 +79,7 @@ class FeedsController < ApplicationController
       str = @template.render(:partial=>"index/homepage/feeds/feed_comment_info",:locals=>{:comment=>result})
       return render :text=>str
     end
-    return render :status=>405,:text=>"error"
+    return render :status=>403,:text=>"error"
   end
 
   def aj_comments
@@ -99,7 +99,7 @@ class FeedsController < ApplicationController
     if feed
       return render :text=>"传阅成功"
     end
-    render :status=>405,:text=>"传阅失败"
+    render :status=>403,:text=>"传阅失败"
   end
 
   def received_comments
@@ -108,5 +108,15 @@ class FeedsController < ApplicationController
 
   def quoted_me_feeds
     @quoted_me_feeds = current_user.being_quoted_feeds
+  end
+
+  def search
+    begin
+      @query = params[:q]
+      @result = FeedLucene.search_paginate(@query,:page=>params[:page]||1)
+    rescue FeedLucene::FeedSearchFailureError => ex
+      puts ex.backtrace*"\n"
+      return render_status_page(500,ex)
+    end
   end
 end

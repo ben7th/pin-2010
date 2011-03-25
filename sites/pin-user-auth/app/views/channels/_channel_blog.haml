@@ -1,15 +1,7 @@
--if logged_in? && @channel.is_include_users_or_creator?(current_user)
-  -form_tag "/html_document_feeds",:method=>:post,:class=>"feed-blog-form" do
-    =hidden_field_tag :channel_id,@channel.id
-    .blog-title.field
-      %label 标题
-      =text_field_tag :title,'',:class=>'text'
-    .blog-html.field
-      %label 正文
-      =text_area_tag :html,''
-    .field
-      =submit_tag '发送'
+-if logged_in? && channel.is_include_users_or_creator?(current_user)
+  .blog-post-buttons
+    =minibutton '发新日志',pin_url_for('pin-user-auth',"channels/#{channel.id}/new_blog_post")
 
 .newsfeed
-  -mplist @feeds,:for=>Feed do |feed|
+  -mplist feeds,:for=>Feed do |feed|
     =render :partial=>'index/homepage/feeds/feed_info_in_blog',:locals=>{:feed=>feed}

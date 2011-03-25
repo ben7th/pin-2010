@@ -677,14 +677,38 @@ form.new_message .w300 {
       background-repeat: no-repeat;
       background-position: 0px -142px;
       margin: 0 9px 0 0; }
-  .newsfeed ul.feeds li.feed .html {
-    padding: 10px;
+    .newsfeed ul.feeds li.feed .f .blog-head .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0 0 5px 0; }
+    .newsfeed ul.feeds li.feed .f .blog-head .meta {
+      font-size: 12px;
+      height: 20px;
+      line-geight: 20px;
+      overflow: hidden;
+      margin: 0 0 5px 0; }
+      .newsfeed ul.feeds li.feed .f .blog-head .meta .avatar {
+        float: left;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px; }
+        .newsfeed ul.feeds li.feed .f .blog-head .meta .avatar img {
+          width: 16px;
+          height: 16px; }
+      .newsfeed ul.feeds li.feed .f .blog-head .meta .name {
+        margin-right: 10px;
+        float: left; }
+      .newsfeed ul.feeds li.feed .f .blog-head .meta .posted-at {
+        float: left; }
+    .newsfeed ul.feeds li.feed .f .blog-head .comments-count {
+      margin: 0 0 5px 0; }
+  .newsfeed ul.feeds li.feed .blog-html {
+    padding: 10px 10px 10px 10px;
     border-radius: 3px 0 0 3px;
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
-    background: #0C0E1C;
-    margin: 1px 0 0 0;
-    font-size: 13px; }
+    border-top: 1px dashed #525566;
+    font-size: 14px; }
   .newsfeed ul.feeds li.feed .time {
     float: left;
     border-radius: 4px;
@@ -1573,3 +1597,14 @@ form.new_message .w300 {
   .index-channel-emcee.s {
     width: 90px;
     margin-left: 20px; }
+
+.index-feed-search-form {
+  margin: 0 0 20px; }
+  .index-feed-search-form input.search-inner {
+    width: 80px !important; }
+  .index-feed-search-form input.search-button {
+    padding: 0 6px; }
+
+.blog-post-buttons {
+  margin: 0 0 10px 0;
+  padding: 5px; }
