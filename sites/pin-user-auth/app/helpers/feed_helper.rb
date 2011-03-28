@@ -19,6 +19,13 @@ module FeedHelper
     feed_content(feed)
   end
 
+  def channel_last_feed(channel)
+    feed = channel.newest_feed
+    return if feed.nil?
+    user = feed.creator
+    "#{link_to user.name,user} #{feed_content(feed)}"
+  end
+
   def feed_preview(feed)
     ''
   end

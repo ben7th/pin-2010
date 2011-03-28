@@ -77,6 +77,14 @@ class ChannelNewsFeedProxy
     def feeds(paginate_option={})
       ChannelNewsFeedProxy.new(self).feeds(paginate_option)
     end
+
+    def last_feed
+      ChannelNewsFeedProxy.new(self).feeds.first
+    end
+
+    def newest_feed
+      last_feed
+    end
   end
 
 end

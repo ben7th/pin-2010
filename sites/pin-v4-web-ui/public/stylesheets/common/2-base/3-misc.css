@@ -233,6 +233,10 @@
   -webkit-border-radius: 3px;
   position: absolute; }
 
+.avatar {
+  font-size: 0px;
+  line-height: 0px; }
+
 .avatar img, .avatars img, .icons img {
   border-radius: 2px;
   -moz-border-radius: 2px;

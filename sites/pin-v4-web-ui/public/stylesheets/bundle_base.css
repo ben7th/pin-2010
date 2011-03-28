@@ -463,6 +463,7 @@ body{margin:0;}
 .lh22{line-height:22px;}
 .aj-loading{height:16px;background:url(/images/loading-s.gif) no-repeat;}
 .dev-note-float{width:32px;height:32px;background-image:url(/images/icons/development.png);background-color:#3681D5;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;position:absolute;}
+.avatar{font-size:0;line-height:0;}
 .avatar img,.avatars img,.icons img{border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
 .topl{overflow:hidden;border-top:solid 1px #242438;}
 .topl .grid_11{padding-top:15px;}

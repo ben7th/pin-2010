@@ -1608,3 +1608,38 @@ form.new_message .w300 {
 .blog-post-buttons {
   margin: 0 0 10px 0;
   padding: 5px; }
+
+.index-channels, .index-belongs-to-channels {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin: 0 0 30px 0; }
+  .index-channels .title, .index-belongs-to-channels .title {
+    font-size: 14px;
+    padding: 5px; }
+  .index-channels ul.mplist li.mpli, .index-belongs-to-channels ul.mplist li.mpli {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 5px;
+    margin: 0 0 10px 0; }
+    .index-channels ul.mplist li.mpli .meta .name, .index-belongs-to-channels ul.mplist li.mpli .meta .name {
+      font-size: 14px; }
+      .index-channels ul.mplist li.mpli .meta .name .kind, .index-belongs-to-channels ul.mplist li.mpli .meta .name .kind {
+        float: left;
+        margin: 0 3px 0 0;
+        color: #C8E19D; }
+        .index-channels ul.mplist li.mpli .meta .name .kind.blog, .index-belongs-to-channels ul.mplist li.mpli .meta .name .kind.blog {
+          color: #FF7D0A; }
+        .index-channels ul.mplist li.mpli .meta .name .kind.interview, .index-belongs-to-channels ul.mplist li.mpli .meta .name .kind.interview {
+          color: #8DCFF4; }
+    .index-channels ul.mplist li.mpli .avatars, .index-belongs-to-channels ul.mplist li.mpli .avatars {
+      overflow: hidden;
+      margin: 10px 0 0 30px; }
+      .index-channels ul.mplist li.mpli .avatars .avatar, .index-belongs-to-channels ul.mplist li.mpli .avatars .avatar {
+        font-size: 0px;
+        line-height: 0px;
+        float: left;
+        margin-right: 3px; }
+    .index-channels ul.mplist li.mpli .last-feed, .index-belongs-to-channels ul.mplist li.mpli .last-feed {
+      margin: 10px 0 0 30px; }
