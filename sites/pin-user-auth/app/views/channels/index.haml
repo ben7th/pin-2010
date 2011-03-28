@@ -16,7 +16,7 @@
       .avatars
         -c.contact_users.each do |u|
           .avatar{:tip=>u.name}
-            =link_to (avatar u,:mini),u
+            =link_to(avatar(u,:mini),u)
       .last-feed
         =channel_last_feed(c)
 
