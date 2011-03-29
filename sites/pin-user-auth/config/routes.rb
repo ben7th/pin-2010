@@ -61,10 +61,11 @@ ActionController::Routing::Routes.draw do |map|
   map.followings "/:user_id/followings",:controller=>"contacts",:action=>"followings"
 
   # 新浪连接用户 设置邮箱
-  map.setting_email "account/setting_email",:controller=>"account",:action=>"setting_email"
   map.do_setting_email "account/do_setting_email",:controller=>"account",:action=>"do_setting_email",:conditions=>{:method=>:post}
   map.account_rebind "account/rebind",:controller=>"account",:action=>"rebind"
   map.do_account_rebind "account/do_rebind",:controller=>"account",:action=>"do_rebind",:conditions=>{:method=>:post}
+  map.connect_account_settings "account/connect_account_settings",:controller=>"account",:action=>"connect_account_settings"
+  map.do_account_unbind "account/do_unbind",:controller=>"account",:action=>"do_unbind",:conditions=>{:method=>:post}
 
   # 发送邀请函
   map.contacts_setting_invite "contacts_setting/invite",:controller=>"contacts_setting",:action=>"invite"
@@ -87,8 +88,15 @@ ActionController::Routing::Routes.draw do |map|
   map.connect_tsina "/connect_tsina",:controller=>"connect_users",:action=>"connect_tsina"
   map.connect_tsina_callback "/connect_tsina_callback",:controller=>"connect_users",:action=>"connect_tsina_callback"
 
+  map.bind_tsina "/bind_tsina",:controller=>"connect_users",:action=>"bind_tsina"
+  map.bind_tsina_callback "/bind_tsina_callback",:controller=>"connect_users",:action=>"bind_tsina_callback"
+  map.bind_tsina_success "/bind_tsina_success",:controller=>"connect_users",:action=>"bind_tsina_success"
+  map.bind_tsina_failure "/bind_tsina_failure",:controller=>"connect_users",:action=>"bind_tsina_failure"
+
   map.connect_renren "/connect_renren",:controller=>"connect_users",:action=>"connect_renren"
-  map.connect_tsina_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
+  map.connect_renren_callback "/connect_renren_callback",:controller=>"connect_users",:action=>"connect_renren_callback"
+
+  map.connect_success "/connect_success",:controller=>"connect_users",:action=>"connect_success"
 
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
@@ -134,7 +142,8 @@ ActionController::Routing::Routes.draw do |map|
     },:member=>{
       :add=>:put,
       :remove=>:put,
-      :new_blog_post=>:get
+      :new_blog_post=>:get,
+      :add_users=>:post
     }
 
   map.fans "/:user_id/channels",:controller=>"channels",:action=>"index"
