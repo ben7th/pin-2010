@@ -1,0 +1,19 @@
+-mplist channels,:for=>Channel,:li_class=>'darkbg' do |c|
+  .meta
+    .name
+      %span.kind{:class=>c.kind}
+        =c.kind_name
+      -link_to pin_url_for('pin-user-auth',"channels/#{c.id}") do
+        =c.name
+      -if current_user!=c.creator
+        (#{link_to c.creator.name,c.creator})
+
+  .avatars{:'data-c-id'=>c.id}
+    =render 'channels/index_parts/aj_channel_avatars',:users=>c.contact_users.reverse
+
+    -if logged_in? && current_user == c.creator
+      .config.darkbg.csshov{:tipr=>'设置频道参与者'}
+        .icon
+
+  .last-feed
+    =channel_last_feed(c)
