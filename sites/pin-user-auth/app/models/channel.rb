@@ -59,6 +59,13 @@ class Channel < ActiveRecord::Base
     cc.save
   end
 
+  # 那一群人加到一个频道
+  def add_users(users)
+    users.each do |user|
+      ChannelContactOperationQueue.new.add_task(ChannelContactOperationQueue::ADD_OPERATION,self.id,user.id);
+    end
+  end
+
   # 把 user 从 频道去除
   # 去除成功返回 true
   # 失败或者 user 原本就不在频道 返回 false
