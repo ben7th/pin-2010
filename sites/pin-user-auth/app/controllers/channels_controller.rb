@@ -76,4 +76,13 @@ class ChannelsController < ApplicationController
     render :template=>'channels/new_templates/new_blog_post.haml'
   end
 
+  def add_users
+    users = params[:user_ids].split(",").map do |user_id|
+      user = User.find_by_id(user_id)
+      user if !@channel.contact_users.include?(user)
+    end.compact
+    @channel.add_users(users)
+    render :partial=>'channels/index_parts/aj_channel_avatars',:locals=>{:users=>users}
+  end
+
 end

@@ -6,7 +6,7 @@ class IndexController < ApplicationController
     end
     
     # 登录
-    @feeds = current_user.in_feeds.paginate(:per_page=>10,:page=>1)
+    @feeds = current_user.in_feeds.paginate(:per_page=>10,:page=>params[:page]||1)
     current_user.refresh_newest_feed_id
   end
 

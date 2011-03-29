@@ -16,6 +16,9 @@
   .newsfeed
     =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
 
+  .feed-paginate.padding5
+    = will_paginate @feeds
+
 .grid_4.omega.fright
   .index-feed-search-form
     =render :partial=>'index/index_parts/feed_search_form'

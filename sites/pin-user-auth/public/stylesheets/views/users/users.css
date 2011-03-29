@@ -1641,5 +1641,146 @@ form.new_message .w300 {
         line-height: 0px;
         float: left;
         margin-right: 3px; }
+      .index-channels ul.mplist li.mpli .avatars .config, .index-belongs-to-channels ul.mplist li.mpli .avatars .config {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        width: 28px;
+        height: 28px;
+        float: left;
+        cursor: pointer; }
+        .index-channels ul.mplist li.mpli .avatars .config .icon, .index-belongs-to-channels ul.mplist li.mpli .avatars .config .icon {
+          background: url(/images/icons/all.png) no-repeat -75px -142px;
+          width: 24px;
+          height: 24px;
+          position: relative;
+          top: 2px;
+          left: 2px; }
     .index-channels ul.mplist li.mpli .last-feed, .index-belongs-to-channels ul.mplist li.mpli .last-feed {
       margin: 10px 0 0 30px; }
+
+.channel-member-choose-panel {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 5px #040307;
+  -moz-box-shadow: 1px 1px 5px #040307;
+  -webkit-box-shadow: 1px 1px 5px #040307;
+  border: solid 2px #323546;
+  width: 504px;
+  position: absolute; }
+  .channel-member-choose-panel .selected-users {
+    padding: 5px 8px;
+    overflow: hidden;
+    min-height: 22px;
+    border-bottom: dashed 1px #323546; }
+    .channel-member-choose-panel .selected-users .u {
+      padding: 0 4px;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      float: left;
+      margin: 0 4px 4px 0; }
+      .channel-member-choose-panel .selected-users .u .icon {
+        float: right;
+        background: url(/images/icons/all.png) no-repeat -198px -100px;
+        width: 9px;
+        height: 10px;
+        margin-left: 2px;
+        position: relative;
+        top: 4px;
+        cursor: pointer; }
+  .channel-member-choose-panel .intro {
+    padding: 5px 8px;
+    border-bottom: dashed 1px #323546;
+    overflow: hidden; }
+    .channel-member-choose-panel .intro .i, .channel-member-choose-panel .intro .i-added, .channel-member-choose-panel .intro .i-selected {
+      float: left; }
+    .channel-member-choose-panel .intro .i-added {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      height: 18px;
+      width: 29px;
+      background: #223333;
+      cursor: 0.6;
+      margin: 0 3px 0 20px; }
+    .channel-member-choose-panel .intro .i-selected {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      height: 18px;
+      width: 29px;
+      background: #0063DC;
+      margin: 0 3px 0 20px; }
+  .channel-member-choose-panel .fo-users {
+    overflow: hidden;
+    border-bottom: dashed 1px #323546; }
+    .channel-member-choose-panel .fo-users .fo-u {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      cursor: pointer;
+      width: 100px;
+      height: 36px;
+      margin: 6px 8px;
+      float: left;
+      overflow: hidden;
+      padding: 5px;
+      position: relative; }
+      .channel-member-choose-panel .fo-users .fo-u .avatar {
+        float: left;
+        width: 36px;
+        height: 36px;
+        margin: 0 8px 0 0; }
+      .channel-member-choose-panel .fo-users .fo-u .name {
+        width: 56px;
+        float: left;
+        overflow: hidden; }
+      .channel-member-choose-panel .fo-users .fo-u .chkico {
+        width: 16px;
+        height: 16px;
+        background: url(/images/icons/all.png) no-repeat -208px -100px;
+        position: absolute;
+        top: 28px;
+        left: 3px;
+        display: none; }
+      .channel-member-choose-panel .fo-users .fo-u.selected {
+        background-color: #0063DC; }
+        .channel-member-choose-panel .fo-users .fo-u.selected .chkico {
+          display: block; }
+      .channel-member-choose-panel .fo-users .fo-u.added {
+        background-color: #223333 !important;
+        cursor: default; }
+        .channel-member-choose-panel .fo-users .fo-u.added .chkico {
+          display: block;
+          background: url(/images/icons/all.png) no-repeat -225px -100px; }
+        .channel-member-choose-panel .fo-users .fo-u.added .rmvico {
+          display: none; }
+        .channel-member-choose-panel .fo-users .fo-u.added:hover .rmvico {
+          cursor: pointer;
+          display: block;
+          width: 16px;
+          height: 16px;
+          background: url(/images/icons/all.png) no-repeat -242px -100px;
+          position: absolute;
+          top: 28px;
+          right: 3px; }
+  .channel-member-choose-panel .btns {
+    padding: 5px 8px; }
+    .channel-member-choose-panel .btns button {
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border: none 0px;
+      margin: 4px 5px 0 0; }
+      .channel-member-choose-panel .btns button.editable-submit {
+        color: white;
+        background: #0063DC; }
+        .channel-member-choose-panel .btns button.editable-submit:hover {
+          background: #0054BD; }
+      .channel-member-choose-panel .btns button.editable-cancel {
+        color: #666666;
+        background: #ddd; }
+        .channel-member-choose-panel .btns button.editable-cancel:hover {
+          background: #CFCFCF; }

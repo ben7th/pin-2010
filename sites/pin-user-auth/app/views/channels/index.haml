@@ -1,44 +1,48 @@
 -require_css 'views/users',true
 
-.grid-title
-  %span.loud>#{@user.name}
-  创建的频道
+-content_for :javascripts do
+  = javascript_include_tag "views/channels/channel_choose_member"
 
 .grid_18.alpha
+
+  .grid-title
+    %span.loud>#{@user.name}
+    创建的频道
+
   .index-channels
-    -mplist @user.channels,:for=>Channel,:li_class=>'padding5 darkbg' do |c|
-      .meta
-        .name
-          %span.kind{:class=>c.kind}
-            =c.kind_name
-          -link_to pin_url_for('pin-user-auth',"channels/#{c.id}") do
-            =c.name
-      .avatars
-        -c.contact_users.each do |u|
-          .avatar{:tip=>u.name}
-            =link_to(avatar(u,:mini),u)
-      .last-feed
-        =channel_last_feed(c)
+    =render 'channels/index_parts/channels_meta_c',:channels=>@user.channels
+
+  .channel-member-choose-panel.darkbg1{:style=>'display:none;'}
+    .intro
+      .i.loud
+        在下面选择要添加到该频道的联系人。
+      .i-added
+      .fleft
+        已经添加的
+      .i-selected
+      .fleft
+        准备添加的
+
+    .selected-users
+
+    .fo-users
+      -if logged_in?
+        -current_user.followings.each do |fu|
+          .fo-u.csshov{:'data-user-id'=>fu.id}
+            .avatar>=avatar fu,:tiny
+            .name>=fu.name
+            .chkico
+            .rmvico{:tipr=>'从该频道移除'}
+    .btns
+      %button.editable-submit 保存
+      %button.editable-cancel 取消
 
   .grid-title
     %span.loud>#{@user.name}
     所属的频道
 
   .index-belongs-to-channels.darkbg
-    -mplist @user.belongs_to_channels,:for=>Channel do |c|
-      .meta
-        .name
-          %span.kind{:class=>c.kind}
-            =c.kind_name
-          -link_to pin_url_for('pin-user-auth',"channels/#{c.id}") do
-            =c.name
-          (#{link_to c.creator.name,c.creator})
-      .avatars
-        -c.contact_users.each do |u|
-          .avatar{:tip=>u.name}
-            =link_to(avatar(u,:mini),u)
-      .last-feed
-        =channel_last_feed(c)
+    =render 'channels/index_parts/channels_meta_c',:channels=>@user.belongs_to_channels
 
 .grid_5.omega.fright
   

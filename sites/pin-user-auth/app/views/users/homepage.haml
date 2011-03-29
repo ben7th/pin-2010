@@ -23,6 +23,9 @@
     -else
       =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@own_feeds}
 
+  .feed-paginate.padding5
+    = will_paginate @own_feeds
+
 .grid_4.omega.fright
   -if @user==current_user
     =render :partial=>'index/index_parts/feed_links'
