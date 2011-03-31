@@ -1,5 +1,6 @@
 class MindmapsController < ApplicationController
   before_filter :per_load
+  before_filter :login_required,:only=>[:do_clone]
   def per_load
     @mindmap = Mindmap.find(params[:id]) if params[:id]
   end

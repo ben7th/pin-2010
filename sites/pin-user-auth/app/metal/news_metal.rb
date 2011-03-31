@@ -1,4 +1,3 @@
-require "pie-service-lib"
 class NewsMetal < BaseMetal
   def self.routes
     {:method=>'GET',:regexp=>/^\/news\/unread_count/}

@@ -12,11 +12,12 @@ textarea {width:390px;height:54px;padding:4px 2px;}
 
 /*mindpin*/
 form, .form{
-  margin-bottom:1px;
-  label{color:#ababab;}
   div.field{
     margin-bottom:15px;
     .submit{top:-1px;}
+    label{
+      padding:3px;
+    }
   }
   .text, textarea{
     @include border-radius(3px);

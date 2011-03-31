@@ -1,11 +1,22 @@
--require_css 'views/account'
+-content_for :title do
+  邮箱激活
 
-=flash_info
-.email_setting
-  .mail= current_user.email
-  .margint10
-    -if current_user.activated?
-      .email_activated.darkbg 您的注册邮箱已激活
-    -else
-      %span.marginr10 邮箱未激活
-      =minibutton '发送激活邮件',send_activation_mail_path
+-require_css 'views/users'
+
+.grid_14.alpha
+  .grid-title
+    激活您的注册邮箱
+
+  .padding5
+    =flash_info
+    .email_setting
+      .mail.loud= current_user.email
+      .margint10
+        -if current_user.activated?
+          .email_activated.darkbg 您的注册邮箱已经激活
+        -else
+          .email_activated.darkbg 你的注册邮箱尚未激活
+          =minibutton '发送激活邮件',send_activation_mail_path
+
+.grid_4.omega.fright
+  =render :partial=>'account/parts/account_links'

@@ -809,7 +809,8 @@ form.new_message .w300 {
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       border: none 0px;
-      margin: 4px 5px 0 0; }
+      margin: 4px 5px 0 0;
+      height: 18px; }
       .newsfeed ul.feeds li.feed .comments .feed-echo-form button.editable-submit {
         color: white;
         background: #0063DC; }
@@ -866,7 +867,8 @@ form.new_message .w300 {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border: none 0px;
-    margin: 4px 5px 0 0; }
+    margin: 4px 5px 0 0;
+    height: 18px; }
     .feed-transmit-form button.editable-submit {
       color: white;
       background: #0063DC; }
@@ -1465,7 +1467,7 @@ form.new_message .w300 {
   width: 500px; }
 .feed-blog-form .blog-html textarea {
   width: 510px;
-  height: 150px; }
+  height: 250px; }
 
 .userhomepage-head {
   overflow: hidden; }
@@ -1539,7 +1541,7 @@ form.new_message .w300 {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px; }
   .feed-links .home, .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds {
-    padding: 5px;
+    padding: 5px 10px;
     font-size: 14px;
     height: 24px;
     line-height: 24px; }
@@ -1773,7 +1775,8 @@ form.new_message .w300 {
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       border: none 0px;
-      margin: 4px 5px 0 0; }
+      margin: 4px 5px 0 0;
+      height: 18px; }
       .channel-member-choose-panel .btns button.editable-submit {
         color: white;
         background: #0063DC; }
@@ -1784,3 +1787,371 @@ form.new_message .w300 {
         background: #ddd; }
         .channel-member-choose-panel .btns button.editable-cancel:hover {
           background: #CFCFCF; }
+
+.module-links {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin-bottom: 10px; }
+  .module-links .link {
+    padding: 5px 10px;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+    position: relative; }
+    .module-links .link a.selected {
+      font-weight: bold; }
+    .module-links .link .icon {
+      float: left;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px; }
+    .module-links .link .new {
+      width: 32px;
+      height: 32px;
+      background: url(/images/icons/all.png) no-repeat -196px -33px;
+      position: absolute;
+      top: 2px;
+      left: -22px; }
+    .module-links .link.binded .new {
+      background: url(/images/icons/all.png) no-repeat -196px -66px; }
+  .module-links.account .base .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -75px 0px; }
+  .module-links.account .avatared .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -25px 0px; }
+  .module-links.account .message .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -100px 0px; }
+  .module-links.account .password .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat 0px 0px; }
+  .module-links.account .email .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -50px 0px; }
+  .module-links.account .bind-tsina .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -125px 0px; }
+  .module-links.account .bind-renren .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -175px 0px; }
+  .module-links.account .complete_reg_info .icon {
+    background: url(/images/icons_account/account_all.png) no-repeat -150px 0px; }
+  .module-links .tsina-quick-account, .module-links .renren-quick-account {
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    padding: 5px 10px;
+    overflow: hidden; }
+    .module-links .tsina-quick-account .icon, .module-links .renren-quick-account .icon {
+      float: left;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      position: relative;
+      top: 6px;
+      background: url(/images/icons_account/account_all.png) no-repeat -125px 0px; }
+    .module-links .tsina-quick-account.renren-quick-account .icon, .module-links .renren-quick-account.renren-quick-account .icon {
+      background: url(/images/icons_account/account_all.png) no-repeat -175px 0px; }
+
+.module-links-title {
+  padding: 0 5px; }
+
+.email_setting .mail {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  font-size: 32px;
+  font-weight: bold;
+  width: 400px; }
+.email_setting .email_activated {
+  padding: 5px 10px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  width: 150px;
+  font-size: 14px;
+  margin: 0 0 10px 0; }
+
+.message-setting span.dc {
+  font-size: 14px; }
+
+.bind-3rd-site-btn a {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  /*@include gradient(#EB3200,#48A902);
+  @include box-shadow(0px 0px 4px #DF1600);
+  border:solid 1px #F54E00;*/
+  background: -moz-linear-gradient(-90deg, #a4e563, #48a902);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#a4e563), to(#48a902));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#a4e563',endColorstr='#48a902');
+  box-shadow: 0px 0px 4px #89d346;
+  -moz-box-shadow: 0px 0px 4px #89d346;
+  -webkit-box-shadow: 0px 0px 4px #89d346;
+  border: solid 1px #75C631;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.9);
+  margin-bottom: 10px;
+  margin-left: 10px; }
+  .bind-3rd-site-btn a:hover {
+    text-decoration: none;
+    /*@include gradient(#FB4200,#D91800);*/
+    background: -moz-linear-gradient(-90deg, #b9fa78, #58b912);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b9fa78), to(#58b912));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b9fa78',endColorstr='#58b912'); }
+  .bind-3rd-site-btn a.mousedown {
+    /*@include gradient(#D91800,#FB4200);*/
+    background: -moz-linear-gradient(-90deg, #58b912, #b9fa78);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#58b912), to(#b9fa78));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#58b912',endColorstr='#b9fa78'); }
+
+.binded-account .binded-account-info {
+  box-shadow: 0px 0px 2px black;
+  -moz-box-shadow: 0px 0px 2px black;
+  -webkit-box-shadow: 0px 0px 2px black;
+  margin: 0 0 20px 0;
+  position: relative; }
+  .binded-account .binded-account-info .bind-icon {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    background: url(/images/icons_account/account_all.png) no-repeat 0px -25px;
+    top: -20px;
+    right: -20px; }
+  .binded-account .binded-account-info .title {
+    padding: 5px; }
+  .binded-account .binded-account-info .meta {
+    padding: 5px;
+    overflow: hidden; }
+    .binded-account .binded-account-info .meta .avatar {
+      float: left;
+      margin: 0 10px 0 0; }
+    .binded-account .binded-account-info .meta .name {
+      font-size: 14px;
+      font-weight: bold; }
+  .binded-account .binded-account-info .misc {
+    padding: 5px;
+    overflow: hidden; }
+    .binded-account .binded-account-info .misc .time {
+      padding: 0 6px;
+      float: left;
+      margin-right: 20px; }
+    .binded-account .binded-account-info .misc .updating {
+      padding: 0 6px 0 20px;
+      float: left;
+      margin-right: 20px;
+      display: none;
+      height: 18px;
+      line-height: 18px; }
+    .binded-account .binded-account-info .misc.up .time, .binded-account .binded-account-info .misc.up .update {
+      display: none; }
+    .binded-account .binded-account-info .misc.up .updating {
+      display: block; }
+  .binded-account .binded-account-info.tsina {
+    width: 300px; }
+    .binded-account .binded-account-info.tsina .counts {
+      overflow: hidden; }
+      .binded-account .binded-account-info.tsina .counts .friends, .binded-account .binded-account-info.tsina .counts .followers, .binded-account .binded-account-info.tsina .counts .statuses {
+        height: 40px;
+        margin-top: 10px;
+        margin-right: 10px;
+        float: left; }
+        .binded-account .binded-account-info.tsina .counts .friends .count, .binded-account .binded-account-info.tsina .counts .followers .count, .binded-account .binded-account-info.tsina .counts .statuses .count {
+          font-size: 18px;
+          font-weight: bold;
+          line-height: 20px; }
+  .binded-account .binded-account-info.renren {
+    width: 300px; }
+.binded-account .tsina-share-mindpin.darkbg {
+  box-shadow: 0px 0px 2px black;
+  -moz-box-shadow: 0px 0px 2px black;
+  -webkit-box-shadow: 0px 0px 2px black;
+  width: 455px;
+  margin: 0 0 20px 0; }
+  .binded-account .tsina-share-mindpin.darkbg .title {
+    margin: 0 0 6px 0; }
+  .binded-account .tsina-share-mindpin.darkbg .ipt {
+    overflow: hidden; }
+    .binded-account .tsina-share-mindpin.darkbg .ipt textarea {
+      float: left; }
+    .binded-account .tsina-share-mindpin.darkbg .ipt .mplogo {
+      width: 48px;
+      height: 48px;
+      background: url(/images/icons_account/mindpin_logo_s.png) no-repeat 1px 1px;
+      background-color: white;
+      float: left;
+      margin-left: 5px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border: 1px solid #666666;
+      padding: 1px; }
+  .binded-account .tsina-share-mindpin.darkbg button {
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: none 0px;
+    margin: 4px 5px 0 0;
+    height: 18px; }
+    .binded-account .tsina-share-mindpin.darkbg button.editable-submit {
+      color: white;
+      background: #0063DC; }
+      .binded-account .tsina-share-mindpin.darkbg button.editable-submit:hover {
+        background: #0054BD; }
+    .binded-account .tsina-share-mindpin.darkbg button.editable-cancel {
+      color: #666666;
+      background: #ddd; }
+      .binded-account .tsina-share-mindpin.darkbg button.editable-cancel:hover {
+        background: #CFCFCF; }
+  .binded-account .tsina-share-mindpin.darkbg .btn .sending {
+    padding: 0 0 0 20px;
+    display: none;
+    height: 18px;
+    line-height: 18px;
+    margin: 5px 0 0 0; }
+  .binded-account .tsina-share-mindpin.darkbg .btn.se .sending {
+    display: block; }
+  .binded-account .tsina-share-mindpin.darkbg .btn.se button {
+    display: none; }
+  .binded-account .tsina-share-mindpin.darkbg .btn .success {
+    height: 18px;
+    line-height: 18px;
+    margin: 5px 0 0 0;
+    display: inline; }
+  .binded-account .tsina-share-mindpin.darkbg .btn .failure {
+    height: 18px;
+    line-height: 18px;
+    margin: 5px 0 0 0;
+    display: inline;
+    color: #ff8844; }
+
+.bind-failure-desc {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin-bottom: 10px;
+  position: relative; }
+  .bind-failure-desc .p {
+    padding: 6px 8px; }
+    .bind-failure-desc .p .acc {
+      font-size: 16px;
+      margin: 4px 0 4px 24px; }
+  .bind-failure-desc .error-icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: url(/images/icons_account/account_all.png) no-repeat -65px -25px;
+    right: 8px;
+    top: 6px; }
+
+.bind-intro {
+  padding: 5px 10px;
+  margin-bottom: 10px; }
+  .bind-intro .p {
+    margin-bottom: 10px; }
+  .bind-intro .imgs {
+    overflow: hidden; }
+    .bind-intro .imgs .tsina-img {
+      width: 300px;
+      height: 134px;
+      background-image: url(/images/icons_account/bind-tsina-2.png);
+      background-color: white;
+      border: solid 2px #eee;
+      margin-bottom: 20px;
+      float: left;
+      margin-right: 10px; }
+    .bind-intro .imgs .tsina-openwin-img {
+      width: 166px;
+      height: 134px;
+      background-image: url(/images/icons_account/bind-tsina-3.png);
+      background-color: white;
+      border: solid 2px #eee;
+      margin-bottom: 20px;
+      float: left; }
+    .bind-intro .imgs .renren-img {
+      width: 203px;
+      height: 134px;
+      background-image: url(/images/icons_account/renren-1.png);
+      background-color: white;
+      border: solid 2px #eee;
+      margin-bottom: 20px;
+      float: left;
+      margin-right: 10px; }
+    .bind-intro .imgs .renren-openwin-img {
+      width: 205px;
+      height: 134px;
+      background-image: url(/images/icons_account/renren-2.png);
+      background-color: white;
+      border: solid 2px #eee;
+      margin-bottom: 20px;
+      float: left; }
+
+.connect-confirm-btns .connect-create-new-user a {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  /*@include gradient(#EB3200,#48A902);
+  @include box-shadow(0px 0px 4px #DF1600);
+  border:solid 1px #F54E00;*/
+  background: -moz-linear-gradient(-90deg, #a4e563, #48a902);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#a4e563), to(#48a902));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#a4e563',endColorstr='#48a902');
+  box-shadow: 0px 0px 4px #89d346;
+  -moz-box-shadow: 0px 0px 4px #89d346;
+  -webkit-box-shadow: 0px 0px 4px #89d346;
+  border: solid 1px #75C631;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.9);
+  margin-bottom: 10px;
+  margin-left: 10px; }
+  .connect-confirm-btns .connect-create-new-user a:hover {
+    text-decoration: none;
+    /*@include gradient(#FB4200,#D91800);*/
+    background: -moz-linear-gradient(-90deg, #b9fa78, #58b912);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b9fa78), to(#58b912));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b9fa78',endColorstr='#58b912'); }
+  .connect-confirm-btns .connect-create-new-user a.mousedown {
+    /*@include gradient(#D91800,#FB4200);*/
+    background: -moz-linear-gradient(-90deg, #58b912, #b9fa78);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#58b912), to(#b9fa78));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#58b912',endColorstr='#b9fa78'); }
+.connect-confirm-btns .connect-has-reged a {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: -moz-linear-gradient(-90deg, #eb3200, #c90800);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#eb3200), to(#c90800));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#eb3200',endColorstr='#c90800');
+  box-shadow: 0px 0px 4px #df1600;
+  -moz-box-shadow: 0px 0px 4px #df1600;
+  -webkit-box-shadow: 0px 0px 4px #df1600;
+  border: solid 1px #F54E00;
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.9);
+  margin-bottom: 10px;
+  margin-left: 10px; }
+  .connect-confirm-btns .connect-has-reged a:hover {
+    text-decoration: none;
+    background: -moz-linear-gradient(-90deg, #fb4200, #d91800);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fb4200), to(#d91800));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fb4200',endColorstr='#d91800'); }
+  .connect-confirm-btns .connect-has-reged a.mousedown {
+    background: -moz-linear-gradient(-90deg, #d91800, #fb4200);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d91800), to(#fb4200));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d91800',endColorstr='#fb4200'); }

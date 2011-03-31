@@ -1,0 +1,55 @@
+-content_for :title do
+  绑定新浪微博账号失败 - 重复绑定
+
+-require_css 'views/users'
+
+.grid_14.alpha
+  .grid-title
+    尝试绑定新浪微博账号，但是绑定失败。
+
+  .padding5
+    -user = @connect_user.user
+    .bind-failure-desc.darkbg
+      .p
+        你目前登录的新浪微博账号，在此之前已经和另一个MindPin账号绑定了。
+        .acc.loud>
+          #{user.name}(#{user.email})
+      .error-icon
+
+    .bind-failure-desc.darkbg
+      .p
+        一个新浪微博账号只能绑定一个MindPin账号。
+      .p.btb
+        如果想改变绑定关系，请按照以下步骤，顺序操作：
+      .help
+        -if user.is_mindpin_typical_account?
+          .p
+            1. 退出当前登录的MindPin账号；
+          .p
+            2. 使用 <span class='loud'>用微博账号登录</span> 登录MindPin；
+          .p
+            3. 进入 <span class='loud'>用户设置 > 绑定新浪微博</span> 进行“解除绑定”操作；
+          .p
+            4. 换回当前账号登录MindPin，重新尝试绑定新浪微博。
+          .p
+            或者，尝试绑定其他的新浪微博账号。
+        -else
+          .p
+            1. 退出当前登录的MindPin账号；
+          .p
+            2. 使用 <span class='loud'>用微博账号登录</span> 登录MindPin；
+          .p
+            3. 进入 <span class='loud'>用户设置 &gt; 补全注册信息</span> 对账号信息进行补全；
+          .p
+            4. 进入 <span class='loud'>用户设置 > 绑定新浪微博</span> 进行“解除绑定”操作；
+          .p
+            5. 换回当前账号登录MindPin，重新尝试绑定新浪微博。
+          .p
+            或者，尝试绑定其他的新浪微博账号。
+
+    .padding5
+      =minibutton '知道了，返回','/account/bind_tsina'
+
+
+.grid_4.omega.fright
+  =render :partial=>'account/parts/account_links'

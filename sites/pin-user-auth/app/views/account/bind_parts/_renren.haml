@@ -1,0 +1,13 @@
+.binded-account.clearfix
+  =render 'account/bind_parts/binded_renren_account_info'
+
+.padding5
+  -if !current_user.is_quick_connect_account?
+    =minibutton "解除人人网账号绑定","/account/do_unbind?type=renren",:method=>:post,:confirm=>'确定要解除绑定吗？',:class=>'danger ho'
+  -else
+    .font14.loud.marginb10
+      %span> 该账号目前是快速连接账号，可以通过
+      =link_to '补全账号信息','/account/complete_reg_info'
+      %span> 转为正式账号。
+    .font14.loud
+      快速连接账号不能解除绑定（否则将无法登录）。

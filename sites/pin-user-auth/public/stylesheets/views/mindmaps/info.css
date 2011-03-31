@@ -124,11 +124,9 @@
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  border: solid 1px #111;
   padding: 5px;
   padding: 5px;
-  font-size: 14px;
-  background: #323546; }
+  font-size: 14px; }
   .map-action .title {
     font-size: 14px;
     font-weight: bold;
@@ -177,25 +175,25 @@
   margin: 0 0 10px 0;
   border-radius: 4px;
   -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border: solid 1px #111; }
+  -webkit-border-radius: 4px; }
   .map-meta .coop .users {
     margin: 10px 0 0 0;
     overflow: hidden; }
-    .map-meta .coop .users .avatar {
+    .map-meta .coop .users .u {
       float: left;
       width: 52px;
       height: 60px;
       overflow: hidden; }
-      .map-meta .coop .users .avatar .p {
+      .map-meta .coop .users .u .avatar {
+        text-align: center; }
+      .map-meta .coop .users .u .name {
         text-align: center; }
 .map-meta .export, .map-meta .share, .map-meta .similar-maps {
   padding: 5px;
   margin: 0 0 10px 0;
   border-radius: 4px;
   -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border: solid 1px #111; }
+  -webkit-border-radius: 4px; }
 .map-meta .share {
   overflow: hidden; }
   .map-meta .share a.share_to {

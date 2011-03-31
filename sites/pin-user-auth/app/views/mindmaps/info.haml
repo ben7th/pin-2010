@@ -56,7 +56,7 @@
         =avatar @mindmap.user,:tiny
       .meta
         .p 作者
-        .p=@mindmap.user.name
+        .p=@mindmap.user.blank? ? '未知用户' : @mindmap.user.name
         
     .time
       .create_time

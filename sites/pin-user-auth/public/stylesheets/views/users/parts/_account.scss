@@ -1,0 +1,272 @@
+.email_setting{
+  .mail{
+    @include border-radius(4px);
+    font-size:32px;
+    font-weight:bold;
+    width:400px;
+  }
+  .email_activated{
+    padding:5px 10px;
+    @include border-radius(4px);
+    width:150px;
+    font-size:14px;
+    margin:0 0 10px 0;
+  }
+}
+
+.message-setting{
+  span.dc{font-size:14px;}
+}
+
+.bind-3rd-site-btn a{
+  display:block;
+  font-size:16px;
+  font-weight:bold;
+  color:white;
+  @include border-radius(4px);
+  /*@include gradient(#EB3200,#48A902);
+  @include box-shadow(0px 0px 4px #DF1600);
+  border:solid 1px #F54E00;*/
+  @include gradient(#A4E563,#48A902);
+  @include box-shadow(0px 0px 4px #89D346);
+  border:solid 1px #75C631;
+  width:200px;
+  height:50px;
+  line-height:50px;
+  text-align:center;
+  text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+  margin-bottom:10px;
+  margin-left:10px;
+  &:hover{
+    text-decoration:none;
+    /*@include gradient(#FB4200,#D91800);*/
+    @include gradient(#B9FA78,#58B912);
+  }
+  &.mousedown{
+    /*@include gradient(#D91800,#FB4200);*/
+    @include gradient(#58B912,#B9FA78);
+  }
+}
+
+.binded-account{
+  .binded-account-info{
+    @include box-shadow(0px 0px 2px #000000);
+    margin:0 0 20px 0;
+    position:relative;
+    .bind-icon{
+      position:absolute;
+      width:64px;height:64px;
+      background:url(/images/icons_account/account_all.png) no-repeat 0px -25px;
+      top:-20px;
+      right:-20px;
+    }
+    .title{
+      padding:5px;
+    }
+    .meta{
+      padding:5px;
+      overflow:hidden;
+      .avatar{
+        float:left;
+        margin:0 10px 0 0;
+      }
+      .name{font-size:14px;font-weight:bold;}
+    }
+    .misc{
+      padding:5px;
+      overflow:hidden;
+      .time{padding:0 6px;float:left;margin-right:20px;}
+      .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:18px;line-height:18px;}
+      &.up{
+        .time,.update{display:none;}
+        .updating{display:block;}
+      }
+    }
+    &.tsina{
+      width:300px;
+      .counts{
+        overflow:hidden;
+        .friends,.followers,.statuses{
+          height:40px;
+          margin-top:10px;
+          margin-right:10px;
+          float:left;
+          .count{font-size:18px;font-weight:bold;line-height:20px;}
+          .n{}
+        }
+      }
+    }
+    &.renren{
+      width:300px;
+    }
+  }
+
+  .tsina-share-mindpin.darkbg{
+    @include box-shadow(0px 0px 2px #000000);
+    width:455px;
+    margin:0 0 20px 0;
+    .title{margin:0 0 6px 0;}
+    .ipt{
+      overflow:hidden;
+      textarea{
+        float:left;
+      }
+      .mplogo{
+        width:48px;
+        height:48px;
+        background:url(/images/icons_account/mindpin_logo_s.png) no-repeat 1px 1px;
+        background-color:white;
+        float:left;
+        margin-left:5px;
+        @include border-radius(2px);
+        border:1px solid #666666;
+        padding:1px;
+      }
+    }
+    @include submitbtns;
+    .btn{
+      .sending{
+        padding:0 0 0 20px;display:none;
+        height:18px;line-height:18px;
+        margin:5px 0 0 0;
+      }
+      &.se{
+        .sending{display:block;}
+        button{display:none;}
+      }
+      .success{
+        height:18px;line-height:18px;
+        margin:5px 0 0 0;
+        display:inline;
+      }
+      .failure{
+        height:18px;line-height:18px;
+        margin:5px 0 0 0;
+        display:inline;
+        color:#ff8844;
+      }
+    }
+  }
+}
+
+.bind-failure-desc{
+  @include border-radius(5px);
+  margin-bottom:10px;
+  position:relative;
+  .p{
+    padding:6px 8px;
+    .acc{
+      font-size:16px;
+      margin:4px 0 4px 24px;
+    }
+  }
+  .error-icon{
+    position:absolute;
+    width:48px;height:48px;
+    background:url(/images/icons_account/account_all.png) no-repeat -65px -25px;
+    right:8px;
+    top:6px;
+  }
+}
+
+.bind-intro{
+  padding:5px 10px;
+  margin-bottom:10px;
+  .p{
+    margin-bottom:10px;
+  }
+  .imgs{
+    overflow:hidden;
+    .tsina-img{
+      width:300px;height:134px;
+      background-image:url(/images/icons_account/bind-tsina-2.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+      margin-right:10px;
+    }
+    .tsina-openwin-img{
+      width:166px;height:134px;
+      background-image:url(/images/icons_account/bind-tsina-3.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+    }
+    .renren-img{
+      width:203px;height:134px;
+      background-image:url(/images/icons_account/renren-1.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+      margin-right:10px;
+    }
+    .renren-openwin-img{
+      width:205px;height:134px;
+      background-image:url(/images/icons_account/renren-2.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+    }
+  }
+}
+
+.connect-confirm-btns{
+  .connect-create-new-user a{
+    display:block;
+    font-size:16px;
+    font-weight:bold;
+    color:white;
+    @include border-radius(4px);
+    /*@include gradient(#EB3200,#48A902);
+    @include box-shadow(0px 0px 4px #DF1600);
+    border:solid 1px #F54E00;*/
+    @include gradient(#A4E563,#48A902);
+    @include box-shadow(0px 0px 4px #89D346);
+    border:solid 1px #75C631;
+    width:200px;
+    height:50px;
+    line-height:50px;
+    text-align:center;
+    text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+    margin-bottom:10px;
+    margin-left:10px;
+    &:hover{
+      text-decoration:none;
+      /*@include gradient(#FB4200,#D91800);*/
+      @include gradient(#B9FA78,#58B912);
+    }
+    &.mousedown{
+      /*@include gradient(#D91800,#FB4200);*/
+      @include gradient(#58B912,#B9FA78);
+    }
+  }
+
+  .connect-has-reged a{
+    display:block;
+    font-size:16px;
+    font-weight:bold;
+    color:white;
+    @include border-radius(4px);
+    @include gradient(#EB3200,#C90800);
+    @include box-shadow(0px 0px 4px #DF1600);
+    border:solid 1px #F54E00;
+    width:200px;
+    height:50px;
+    line-height:50px;
+    text-align:center;
+    text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+    margin-bottom:10px;
+    margin-left:10px;
+    &:hover{
+      text-decoration:none;
+      @include gradient(#FB4200,#D91800);
+    }
+    &.mousedown{
+      @include gradient(#D91800,#FB4200);
+    }
+  }
+}

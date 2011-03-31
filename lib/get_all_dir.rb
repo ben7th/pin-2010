@@ -17,6 +17,7 @@ class GetAllDir
     config.gem "redis"
     config.gem "pacecar"
     config.gem "contacts_cn"
+    config.gem "nokogiri"
     config.gem "oauth"
     config.gem "uuidtools"
     config.gem "responds_to_parent"

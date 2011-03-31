@@ -65,6 +65,7 @@ module CooperationMindmapMethods
 
   # 协同编辑 邮箱所有者数组
   def cooperate_edit_email_actors
+    return [] if self.user.blank?
     coos = self.cooperations.find(:all,:conditions=>"cooperations.kind = '#{Cooperation::EDITOR}'")
     coo_targets = coos.map{|coo|coo.email_actor}
     EmailActor.unique [EmailActor.new(self.user.email),coo_targets].flatten.compact
@@ -72,6 +73,7 @@ module CooperationMindmapMethods
 
   # 协同查看 邮箱所有者数组
   def cooperate_view_email_actors
+    return [] if self.user.blank?
     coos = self.cooperations.find(:all,:conditions=>"cooperations.kind = '#{Cooperation::VIEWER}'")
     coo_targets = coos.map{|coo|coo.email_actor}
     EmailActor.unique [EmailActor.new(self.user.email),coo_targets].flatten.compact

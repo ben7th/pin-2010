@@ -1,13 +1,23 @@
--require_css 'views/account'
+-content_for :title do
+  站内信设置
 
-=flash_info
+-require_css 'views/users'
 
--form_tag '/account/do_message', :method => :put, :class=>'message-setting' do
-  .field
-    = radio_button_tag 'set', Preference::ALL_USERS,@is_all_users
-    %span.dc 接收所有人发来的站内信
-  .field
-    = radio_button_tag 'set', Preference::ONLY_CONTACTS,@is_only_contacts
-    %span.dc 只接收联系人发来的站内信
-  .field
-    = submit_tag '保存更改',:class=>'submit'
+.grid_14.alpha
+  .grid-title
+    设置站内信的接收规则
+
+  .padding5
+    =flash_info
+    -form_tag '/account/do_message', :method => :put, :class=>'message-setting' do
+      .field
+        = radio_button_tag 'set', Preference::ALL_USERS,@is_all_users
+        %span.dc 接收所有人发来的站内信
+      .field
+        = radio_button_tag 'set', Preference::ONLY_CONTACTS,@is_only_contacts
+        %span.dc 只接收联系人发来的站内信
+      .field
+        = submit_tag '保存更改',:class=>'submit'
+
+.grid_4.omega.fright
+  =render :partial=>'account/parts/account_links'

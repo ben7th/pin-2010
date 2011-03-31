@@ -102,11 +102,9 @@
 .map-action{
   margin-top:20px;
   @include border-radius(4px);
-  border:solid 1px #111;
   padding:5px;
   padding:5px;
   font-size:14px;
-  background:#323546;
   .title{
     font-size:14px;
     font-weight:bold;
@@ -156,16 +154,16 @@
     padding:5px;
     margin:0 0 10px 0;
     @include border-radius(4px);
-    border:solid 1px #111;
     .users{
       margin:10px 0 0 0;
       overflow:hidden;
-      .avatar{
+      .u{
         float:left;
         width:52px;
         height:60px;
         overflow:hidden;
-        .p{text-align:center;}
+        .avatar{text-align:center;}
+        .name{text-align:center;}
       }
     }
   }
@@ -173,7 +171,6 @@
     padding:5px;
     margin:0 0 10px 0;
     @include border-radius(4px);
-    border:solid 1px #111;
   }
   .share{
     overflow:hidden;

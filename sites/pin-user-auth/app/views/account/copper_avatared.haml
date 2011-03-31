@@ -1,20 +1,23 @@
--require_css 'views/account'
+-content_for :title do
+  头像设置 裁剪头像
 
-.steps-head
-  %ul.steps
-    %li.event 设置用户头像
-    %li.complete <span>上传图片</span>
-    %li.current <span>裁切图片</span>
+-require_css 'views/users'
 
-.topl
-  .grid_11.alpha
-    .clearfix
-      .fleft.marginr10
-        %h3 原始图片
-        %img#img_with_preview{:src=>current_user.logo.url(:raw)}
-      .fleft
-        %h3 裁切后的效果
-        #preview_wrap
+- content_for :javascripts do
+  = javascript_include_tag 'jsCropperUi/cropper'
+  = javascript_include_tag 'views/account/image_cut'
+
+.grid_14.alpha
+  .grid-title
+    请在下面选择要裁剪的范围
+
+  .padding5
+    .old-img.darkbg.padding5.rc5.marginb10
+      .title.font14.bold 原始图片
+      %img#img_with_preview{:src=>current_user.logo.url(:raw)}
+    .cutted-img.darkbg.padding5.rc5{:style=>'width:100px;'}
+      .title.font14.bold 裁剪后的效果
+      #preview_wrap
     .margint10
       - form_tag "/account/avatared",:method=>:put,:id=>"copper_form" do
         = hidden_field_tag :copper,"copper"
@@ -24,26 +27,7 @@
         = hidden_field_tag :height,200
         = submit_tag "好了，可以保存了"
 
+.grid_4.omega.fright
+  =render :partial=>'account/parts/account_links'
 
-- content_for :javascripts do
-  = javascript_include_tag 'jsCropperUi/cropper'
-  :javascript
-    pie.load(function(){
-      new Cropper.ImgWithPreview(
-      'img_with_preview',
-      {
-        previewWrap: 'preview_wrap',
-        minWidth: 48,
-        minHeight: 48,
-        ratioDim: { x:48, y:48 },
-        isCenter: true,
-        onEndCrop: function(evt,coords, dimensions){
-          $("copper_form").down("#x1").value = coords.x1
-          $("copper_form").down("#y1").value = coords.y1
-          $("copper_form").down("#width").value = dimensions.width
-          $("copper_form").down("#height").value = dimensions.height
-        }
-      }
-    );
-    })
   

@@ -1,4 +1,3 @@
-require "pie-service-lib"
 class UserAutocompeleteReceiverMetal < BaseMetal
   def self.routes
     {:method=>'GET',:regexp=>/^\/users\/receiver_autocomplete/}

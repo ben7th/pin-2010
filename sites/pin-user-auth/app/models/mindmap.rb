@@ -98,10 +98,13 @@ class Mindmap < Mev6Abstract
   end
 
   def prev(current_user)
-    if current_user == self.user
-      mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    user = self.user
+    return nil if user.blank?
+
+    if current_user == user
+      mindmap_ids = user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     else
-      mindmap_ids = self.user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+      mindmap_ids = user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     end
     index = mindmap_ids.index(self.id)
     return if index == 0
@@ -109,10 +112,13 @@ class Mindmap < Mev6Abstract
   end
   
   def next(current_user)
-    if current_user == self.user
-      mindmap_ids = self.user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+    user = self.user
+    return nil if user.blank?
+
+    if current_user == user
+      mindmap_ids = user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     else
-      mindmap_ids = self.user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+      mindmap_ids = user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     end
     index = mindmap_ids.index(self.id)
     return if index == (mindmap_ids.count-1)

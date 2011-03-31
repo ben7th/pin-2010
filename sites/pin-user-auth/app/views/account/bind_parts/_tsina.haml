@@ -1,0 +1,27 @@
+.binded-account.clearfix
+  =render 'account/bind_parts/binded_tsina_account_info'
+
+  .tsina-share-mindpin.darkbg.rc5.padding5.form
+    .title 对新浪微博的朋友说点什么吧：
+    .ipt
+      =text_area_tag 'content','我正在使用MindPin的知识管理工具~ 一起来试试吧:) http://www.mindpin.com',:class=>'text'
+      .mplogo
+    .btn
+      %button.editable-submit 发送
+      .sending.aj-loading
+        正在发送…
+      .success.loud{:style=>'display:none;'}
+        发送完成！
+      .failure{:style=>'display:none;'}
+        发送失败:(
+
+.padding5
+  -if !current_user.is_quick_connect_account?
+    =minibutton "解除新浪微博账号绑定","/account/do_unbind?type=tsina",:method=>:post,:confirm=>'确定要解除绑定吗？',:class=>'danger ho'
+  -else
+    .font14.loud.marginb10
+      %span> 该账号目前是快速连接账号，可以通过
+      =link_to '补全账号信息','/account/complete_reg_info'
+      %span> 转为正式账号。
+    .font14.loud
+      快速连接账号不能解除绑定（否则将无法登录）。

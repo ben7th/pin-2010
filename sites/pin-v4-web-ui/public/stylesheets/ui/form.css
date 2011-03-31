@@ -35,30 +35,28 @@ textarea {
   padding: 4px 2px; }
 
 /*mindpin*/
-form, .form {
-  margin-bottom: 1px; }
-  form label, .form label {
-    color: #ababab; }
-  form div.field, .form div.field {
-    margin-bottom: 15px; }
-    form div.field .submit, .form div.field .submit {
-      top: -1px; }
-  form .text, form textarea, .form .text, .form textarea {
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    background-color: #C3CDF0; }
-  form .active .text, form .active textarea, .form .active .text, .form .active textarea {
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    background-color: #cceeff; }
-  form .fieldWithErrors .text, form .fieldWithErrors textarea, .form .fieldWithErrors .text, .form .fieldWithErrors textarea {
-    background-color: #F39D77; }
-  form .form_actions, .form .form_actions {
-    line-height: 30px; }
-  form .input-field-tip, .form .input-field-tip {
-    color: #ccc; }
+form div.field, .form div.field {
+  margin-bottom: 15px; }
+  form div.field .submit, .form div.field .submit {
+    top: -1px; }
+  form div.field label, .form div.field label {
+    padding: 3px; }
+form .text, form textarea, .form .text, .form textarea {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #C3CDF0; }
+form .active .text, form .active textarea, .form .active .text, .form .active textarea {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #cceeff; }
+form .fieldWithErrors .text, form .fieldWithErrors textarea, .form .fieldWithErrors .text, .form .fieldWithErrors textarea {
+  background-color: #F39D77; }
+form .form_actions, .form .form_actions {
+  line-height: 30px; }
+form .input-field-tip, .form .input-field-tip {
+  color: #ccc; }
 
 form .submit, form input[type="submit"],
 .form .submit, .form input[type="submit"],

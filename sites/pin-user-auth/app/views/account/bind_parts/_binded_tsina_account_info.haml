@@ -1,0 +1,31 @@
+.binded-account-info.tsina.darkbg.rc5
+  .bind-icon
+  .title.btb 已经和下面的新浪微博账号绑定啦
+  -bindinfo = current_user.tsina_account_info
+  -if !!bindinfo
+    .meta.btb
+      .avatar
+        %img.logo{:src=>bindinfo["profile_image_url"]}
+      .name.loud
+        =bindinfo["user_name"]
+      .counts
+        .friends
+          .count=bindinfo["friends_count"]
+          .n 关注
+        .followers
+          .count=bindinfo["followers_count"]
+          .n 粉丝
+        .statuses
+          .count=bindinfo["statuses_count"]
+          .n 微博
+  -else
+    .meta
+      绑定信息不完整
+  .misc
+    .time.lightbg.rc5
+      信息更新于
+      =jtime(current_user.tsina_connect_user.updated_at)
+    .updating.aj-loading
+      正在更新…
+    .update
+      =link_to '更新信息','javascript:;',:method=>:post

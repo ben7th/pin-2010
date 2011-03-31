@@ -1,13 +1,13 @@
--require_css 'views/account'
+-content_for :title do
+  头像设置 上传头像
 
-.steps-head
-  %ul.steps
-    %li.event 设置用户头像
-    %li.current <span>上传图片</span>
-    %li <span>裁切图片</span>
+-require_css 'views/users'
 
-.topl
-  .grid_11.alpha
+.grid_14.alpha
+  .grid-title
+    上传一张图片，然后选择要裁切的部分，系统会自动替您裁好！~
+
+  .padding5
     = flash_info
     .clearfix
       = logo current_user,:medium
@@ -19,6 +19,5 @@
       = f.file_field(:logo)
       = f.submit "上传图片"
 
-  .grid_11.fright.omega.font13
-    上传一张图片，然后选择要裁切的部分。<br/>
-    MindPin系统会自动替您裁好几种大小的头像！<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+.grid_4.omega.fright
+  =render :partial=>'account/parts/account_links'

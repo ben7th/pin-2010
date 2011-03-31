@@ -1,0 +1,34 @@
+-content_for :title do
+  绑定新浪微博账号
+
+-require_css 'views/users'
+
+-content_for :javascripts do
+  = javascript_include_tag "views/account/binded_tsina"
+
+.grid_14.alpha
+  .grid-title
+    绑定新浪微博账号，分享更方便！
+
+  .padding5
+    =flash_info
+    -if !(current_user.tsina_connect_user)
+      .bind-intro.tsina.darkbg.rc5
+        .p MindPin支持绑定新浪微博啦~
+        .imgs
+          .tsina-img
+          .tsina-openwin-img
+
+        .p 现在绑定，为你带来更多的互动和分享:)
+        .p.font14 按下面的绿色大按钮，在授权界面上选择“授权”，轻松绑定！
+
+      .bind-3rd-site-btn.button
+        =link_to "绑定新浪微博账号","javascript:pie.open_win('/bind_other_site/tsina');"
+        
+        
+    -else
+      -# 已经绑定后显示
+      =render 'account/bind_parts/tsina'
+
+.grid_4.omega.fright
+  =render :partial=>'account/parts/account_links'

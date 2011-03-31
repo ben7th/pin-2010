@@ -1,18 +1,19 @@
 class AccountController <  ApplicationController
   before_filter :login_required,:except=>[:activate]
 
-  before_filter :to_setting_email,:only=>[:password,:do_password,:email]
-  def to_setting_email
-    if EmailActor.get_mindpin_email(current_user) == current_user.email
-      flash[:notice] = "你当前是使用外站帐号连接到 Mindpin！想要直接登录 Mindpin，你需要设置你的邮箱！"
-      redirect_to :action=>:setting_email
+  before_filter :must_is_mindpin_account,:only=>[:password,:do_password,
+    :email,:do_unbind]
+  def must_is_mindpin_account
+    if !current_user.is_mindpin_typical_account?
+      return render_status_page(503,"非法操作")
     end
   end
 
-  before_filter :rebind_filter,:only=>[:rebind,:on_rebind]
-  def rebind_filter
-    if EmailActor.get_mindpin_email(current_user) != current_user.email
-      redirect_to :action=>:base
+  before_filter :link_filter,:only=>[:link,:on_link,
+    :do_setting_email,:complete_reg_info]
+  def link_filter
+    if !current_user.is_unlink_quick_connect_account?
+      return render_status_page(503,"非法操作")
     end
   end
 
@@ -85,43 +86,54 @@ class AccountController <  ApplicationController
     render :layout=>'auth'
   end
 
-  def setting_email;end
-
   def do_setting_email
     email = params[:user][:email]
     password = params[:user][:password]
     password_confirmation = params[:user][:password_confirmation]
-    str = ""
-    str ="邮箱地址不能为空"  if email.blank?
-    str ="密码不能为空"  if password.blank?
-    str = "该邮箱已经被使用了" if EmailActor.new(email).signed_in?
-    if !str.blank?
-      flash[:error] = str
-      return redirect_to :action=>:setting_email
+    error_message = []
+    error_message.push("邮箱地址不能为空")  if email.blank?
+    begin
+      error_message.push("该邮箱已经被使用了") if !email.blank? && EmailActor.new(email).signed_in?
+    rescue EmailActor::EmailFormatError=>ex
+      error_message.push(ex.message)
+    end
+    error_message.push("密码不能为空") if password.blank?
+    if !error_message.blank?
+      flash[:error] = error_message.first
+      return redirect_to :action=>:complete_reg_info
     end
     current_user.email = email
     current_user.password = password
     current_user.password_confirmation = password_confirmation
     if current_user.save
-      flash[:success] = "设置成功"
-      return redirect_to :action=>:base
+      flash[:success] = "账号注册信息补全成功"
+      return _do_setting_email_success_to_redirect
     end
     flash[:error] = get_flash_error(current_user)
-    redirect_to :action=>:setting_email
+    redirect_to :action=>:complete_reg_info
   end
 
-  def rebind;end
+  def _do_setting_email_success_to_redirect
+    if current_user.tsina_connect_user
+      return redirect_to :action=>:bind_tsina
+    end
+    if current_user.renren_connect_user
+      return redirect_to :action=>:bind_renren
+    end
+  end
 
-  def do_rebind
+  def link;end
+
+  def do_link
     cu = ConnectUser.find_by_user_id(current_user.id)
     user = User.authenticate(params[:email],params[:password])
     if !!user
       self.current_user = user
-      cu.rebind(current_user)
+      cu.link(current_user)
       return redirect_to :action=>:base
     end
     flash[:error] = "邮箱或者密码错误"
-    redirect_to :action=>:rebind
+    redirect_to :action=>:link
   end
 
   def message
@@ -152,6 +164,25 @@ class AccountController <  ApplicationController
     end
     flash[:success] = "密码修改成功"
     redirect_to :action=>:password
+  end
+
+  def complete_reg_info
+  end
+
+  def bind_tsina
+  end
+
+  def bind_renren
+  end
+
+  def do_unbind
+    if params[:type] == "tsina"
+      current_user.unbind_tsina_account
+      return redirect_to :action=>:bind_tsina
+    elsif params[:type] == "renren"
+      current_user.unbind_renren_account
+      return redirect_to :action=>:bind_renren
+    end
   end
   
 end

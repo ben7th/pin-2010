@@ -32,6 +32,7 @@
     @include border-radius(2px);
     border:none 0px;
     margin:4px 5px 0 0;
+    height:18px;
     &.editable-submit{
       color:white;
       background:#0063DC;
@@ -1485,7 +1486,7 @@ form.new_message{
   }
   .blog-html textarea{
     width:510px;
-    height:150px;
+    height:250px;
   }
 }
 
@@ -1555,7 +1556,7 @@ form.new_message{
 .feed-links{
   @include border-radius(5px);
   .home,.favs,.received_comments,.quoted-me-feeds{
-    padding:5px;
+    padding:5px 10px;
     font-size:14px;
     height:24px;
     line-height:24px;
@@ -1577,6 +1578,8 @@ form.new_message{
     .icon{background:url(/images/icons/all.png) no-repeat -200px -117px;}
   }
 }
+
+
 
 .index-received-comments{
   .c{
@@ -1636,4 +1639,6 @@ form.new_message{
   padding:5px;
 }
 
-@import 'parts/channel'
+@import 'parts/channel';
+@import 'parts/module_links';
+@import 'parts/account';

@@ -11,10 +11,11 @@
         .rank.darkbg
           %span=mindmap.rank_value
         .action
-          .info{:'tipr'=>'详细查看'}
+          .info.darkbg.csshov{:'tipr'=>'详细查看'}
             =link_to '查看',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
-          .dup{:'tipr'=>'复制导图'}
-            =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
+          -if logged_in?
+            .dup.darkbg.csshov{:'tipr'=>'复制导图'}
+              =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
       .time
         =jtime(mindmap.updated_at)
 

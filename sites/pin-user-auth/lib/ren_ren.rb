@@ -3,6 +3,7 @@ class RenRen
 
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
   CALLBACK_URL = SETTINGS["renren_callback_url"]
+  BIND_CALLBACK_URL = SETTINGS["renren_bind_callback_url"]
   API_KEY = SETTINGS["renren_api_key"]
   API_SECRET = SETTINGS["renren_api_secret"]
   
@@ -10,8 +11,19 @@ class RenRen
     "http://graph.renren.com/oauth/authorize?response_type=code&client_id=#{API_KEY}&redirect_uri=#{CALLBACK_URL}"
   end
 
+  def bind_authorize_url
+    "http://graph.renren.com/oauth/authorize?response_type=code&client_id=#{API_KEY}&redirect_uri=#{BIND_CALLBACK_URL}"
+  end
+
   def get_access_token(authorization_code)
     access_token_url = "http://graph.renren.com/oauth/token?client_id=#{API_KEY}&client_secret=#{API_SECRET}&redirect_uri=#{CALLBACK_URL}&grant_type=authorization_code&code=#{authorization_code}"
+    access_token = HandleGetRequest.get_response_from_url(access_token_url)
+    access_token_hash = ActiveSupport::JSON.decode(access_token)
+    access_token_hash["access_token"]
+  end
+
+  def get_bind_access_token(authorization_code)
+    access_token_url = "http://graph.renren.com/oauth/token?client_id=#{API_KEY}&client_secret=#{API_SECRET}&redirect_uri=#{BIND_CALLBACK_URL}&grant_type=authorization_code&code=#{authorization_code}"
     access_token = HandleGetRequest.get_response_from_url(access_token_url)
     access_token_hash = ActiveSupport::JSON.decode(access_token)
     access_token_hash["access_token"]
@@ -27,7 +39,7 @@ class RenRen
     uid = sesson_hash['uid']
     call_id = Time.now.to_i
 
-    Net::HTTP.post_form(URI.parse('http://api.renren.com/restserver.do'),{
+    user_info_xml = Net::HTTP.post_form(URI.parse('http://api.renren.com/restserver.do'),{
         'api_key'=>API_KEY,
         'method'=>'users.getInfo',
         'call_id'=>call_id,
@@ -35,6 +47,18 @@ class RenRen
         'uids'=>uid,
         'session_key'=>session_key,
         'sig'=>user_info_sig(call_id,session_key,uid)}).body
+
+    doc = Nokogiri::XML(user_info_xml)
+    connect_id = doc.at_css("uid").content
+    user_name = doc.at_css("name").content
+    logo_url = doc.at_css("tinyurl").content
+    sex = doc.at_css("sex").content
+    star = doc.at_css("star").content
+    dom = doc.at_css("university_info name")
+    university_name = dom.blank? ? "" : dom.content
+    {"connect_id"=>connect_id,"user_name"=>user_name,"logo_url"=>logo_url,
+      "sex"=>sex,"star"=>star,"university_name"=>university_name
+    }
   end
 
   def get_session_key_and_uid(access_token)

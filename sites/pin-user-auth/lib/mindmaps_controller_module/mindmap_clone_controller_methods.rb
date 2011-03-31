@@ -1,6 +1,10 @@
 module MindmapCloneControllerMethods
   def clone_form
-    render_ui.fbox :show,:title=>"复制导图",:partial=>'mindmaps/parts/box_clone',:locals=>{:mindmap=>@mindmap}
+    if logged_in?
+      render_ui.fbox :show,:title=>"复制导图",:partial=>'mindmaps/parts/box_clone',:locals=>{:mindmap=>@mindmap}
+      return
+    end
+    render_ui.fbox :show,'您目前没有登录，请登录后再复制导图'
   end
 
   # 克隆

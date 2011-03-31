@@ -1,0 +1,166 @@
+.index-channels, .index-belongs-to-channels{
+  @include border-radius(4px);
+  margin:0 0 30px 0;
+  .title{
+    font-size:14px;
+    padding:5px;
+  }
+  ul.mplist{
+    li.mpli{
+      @include border-radius(4px);
+      padding:5px;
+      margin:0 0 10px 0;
+      .meta{
+        .name{
+          font-size:14px;
+          .kind{
+            float:left;
+            margin:0 3px 0 0;
+            color:#C8E19D;
+            &.blog{color:#FF7D0A;}
+            &.interview{color:#8DCFF4;}
+          }
+        }
+      }
+      .avatars{
+        overflow:hidden;
+        margin:10px 0 0 30px;
+        .avatar{
+          font-size:0px;
+          line-height:0px;
+          float:left;
+          margin-right:3px;
+        }
+        .config{
+          @include border-radius(3px);
+          width:28px;
+          height:28px;
+          float:left;
+          cursor:pointer;
+          .icon{
+            background:url(/images/icons/all.png) no-repeat -75px -142px;
+            width:24px;
+            height:24px;
+            position:relative;
+            top:2px;
+            left:2px;
+          }
+        }
+      }
+      .last-feed{
+        margin:10px 0 0 30px;
+      }
+      .creator{
+        .avatar{
+
+        }
+      }
+    }
+  }
+}
+
+.channel-member-choose-panel{
+  @include border-radius(4px);
+  @include box-shadow(1px 1px 5px #040307);
+  border:solid 2px #323546;
+  width:504px;
+  position:absolute;
+  .selected-users{
+    padding:5px 8px;
+    overflow:hidden;
+    min-height:22px;
+    border-bottom:dashed 1px #323546;
+    .u{
+      padding:0 4px;
+      @include border-radius(3px);
+      float:left;
+      margin:0 4px 4px 0;
+      .icon{
+        float:right;
+        background:url(/images/icons/all.png) no-repeat -198px -100px;
+        width:9px;height:10px;
+        margin-left:2px;
+        position:relative;
+        top:4px;
+        cursor:pointer;
+      }
+    }
+  }
+  .intro{
+    padding:5px 8px;
+    border-bottom:dashed 1px #323546;
+    overflow:hidden;
+    .i,.i-added,.i-selected{
+      float:left;
+    }
+    .i-added{
+      @include border-radius(3px);
+      height:18px;
+      width:29px;
+      background:#223333;
+      cursor:0.6;
+      margin:0 3px 0 20px;
+    }
+    .i-selected{
+      @include border-radius(3px);
+      height:18px;
+      width:29px;
+      background:#0063DC;
+      margin:0 3px 0 20px;
+    }
+  }
+  .fo-users{
+    overflow:hidden;
+    border-bottom:dashed 1px #323546;
+    .fo-u{
+      @include border-radius(4px);
+      cursor:pointer;
+      width:100px;
+      height:36px;
+      margin:6px 8px;
+      float:left;
+      overflow:hidden;
+      padding:5px;
+      position:relative;
+      .avatar{
+        float:left;
+        width:36px;height:36px;
+        margin:0 8px 0 0;
+      }
+      .name{
+        width:56px;
+        float:left;
+        overflow:hidden;
+      }
+      .chkico{
+        width:16px;height:16px;
+        background:url(/images/icons/all.png) no-repeat -208px -100px;
+        position:absolute;top:28px;left:3px;
+        display:none;
+      }
+      &.selected{
+        background-color:#0063DC;
+        .chkico{display:block;}
+      }
+      &.added{
+        background-color:#223333 !important;
+        cursor:default;
+        .chkico{display:block;background:url(/images/icons/all.png) no-repeat -225px -100px;}
+        .rmvico{display:none;}
+        &:hover{
+          .rmvico{
+            cursor:pointer;
+            display:block;
+            width:16px;height:16px;
+            background:url(/images/icons/all.png) no-repeat -242px -100px;
+            position:absolute;top:28px;right:3px;
+          }
+        }
+      }
+    }
+  }
+  .btns{
+    padding:5px 8px;
+    @include submitbtns;
+  }
+}

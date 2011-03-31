@@ -6,16 +6,17 @@
     由以下用户共同编辑：
     .users
       -cooperate_edit_actors.each do |actor|
-        .avatar
-          .p=avatar(actor.email,:tiny)
-          .p=actor.name
-
--if(!cooperate_view_actors.blank?)
-  .coop.darkbg
-    -if @mindmap.private?
-      共同查看者：
-      .users
-        -cooperate_view_actors.each do |actor|
+        .u
           .avatar
-            .p=avatar(actor.email,:tiny)
-            .p=actor.name
+            =avatar(actor.email,:tiny)
+          .name=actor.name
+
+-if(!cooperate_view_actors.blank? && @mindmap.private?)
+  .coop.darkbg
+    共同查看者：
+    .users
+      -cooperate_view_actors.each do |actor|
+        .u
+          .avatar
+            =avatar(actor.email,:tiny)
+          .name=actor.name
