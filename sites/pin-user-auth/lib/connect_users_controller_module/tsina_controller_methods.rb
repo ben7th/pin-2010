@@ -7,8 +7,8 @@ module TsinaControllerMethods
 
   def connect_tsina_callback
     set_tsina_token_to_session_by_request_token_of_session
-    session[:connect_success] = "tsina"
-    opener_window_redirect_to(pin_url_for("pin-user-auth","/connect_success"))
+    session[:connect_confirm] = "tsina"
+    opener_window_redirect_to(pin_url_for("pin-user-auth","/connect_confirm"))
   end
 
   def bind_tsina
@@ -55,7 +55,7 @@ module TsinaControllerMethods
     render :text=>result
   end
 
-  def connect_tsina_success
+  def connect_tsina_confirm
     atoken = session[:tsina_atoken]
     asecret = session[:tsina_asecret]
     @tsina_user_info = Tsina.get_tsina_user_info_by_access_token(atoken,asecret)
@@ -67,7 +67,7 @@ module TsinaControllerMethods
       self.current_user = cu.user
       return redirect_to "/"
     end
-    render :template=>"/connect_users/connect_tsina_success"
+    render :template=>"/connect_users/connect_tsina_confirm"
   end
 
   def create_tsina_quick_connect_account
@@ -90,7 +90,11 @@ module TsinaControllerMethods
     # 没有匹配到用户
     if user.blank?
       flash[:error] = "邮箱或者密码错误"
-      return redirect_to :action=>:connect_success
+      return redirect_to :action=>:connect_confirm,:params=>{:r=>"error"}
+    end
+    if !user.tsina_connect_user.blank?
+      flash[:error] = "指定的账号已经绑定过新浪微博啦"
+      return redirect_to :action=>:connect_confirm,:params=>{:r=>"error"}
     end
 
     atoken = session[:tsina_atoken]
@@ -103,17 +107,13 @@ module TsinaControllerMethods
     if !connect_user.blank?
       return render_status_page(503,"不允许的操作。尝试对同一组账号进行反复绑定。")
     end
-    
-    if !user.tsina_connect_user.blank?
-      flash[:error] = "这个 mindpin账号 已经绑定过其他的新浪微博账号"
-      return redirect_to :action=>:connect_success
-    end
 
     ConnectUser.bind_tsina_connect_user(
       connect_id,user,@tsina_user_info,atoken,asecret)
     self.current_user = user
+    
     clear_session_connect_info
-    redirect_to "/"
+    redirect_to "/account/bind_tsina"
   end
 
   def set_tsina_token_to_session_by_request_token_of_session

@@ -192,4 +192,5 @@ class User < UserBase
   include Feed::UserMethods
   include FeedCommentProxy::UserMethods
   include UserBeingQuotedFeedsProxy::UserMethods
+  include Tsina::UserMethods
 end

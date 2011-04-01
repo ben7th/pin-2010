@@ -7,7 +7,7 @@
   .grid-title
     设置站内信的接收规则
 
-  .padding5
+  .padding5.darkbg.rc5.boxs2
     =flash_info
     -form_tag '/account/do_message', :method => :put, :class=>'message-setting' do
       .field
@@ -16,7 +16,7 @@
       .field
         = radio_button_tag 'set', Preference::ONLY_CONTACTS,@is_only_contacts
         %span.dc 只接收联系人发来的站内信
-      .field
+      .field.marginb3em
         = submit_tag '保存更改',:class=>'submit'
 
 .grid_4.omega.fright

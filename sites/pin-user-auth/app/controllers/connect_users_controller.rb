@@ -21,19 +21,19 @@ class ConnectUsersController < ApplicationController
     render :status=>200,:text=>"success"
   end
 
-  def connect_success
-    case session[:connect_success]
+  def connect_confirm
+    case session[:connect_confirm]
     when "tsina"
-      connect_tsina_success
+      connect_tsina_confirm
     when "renren"
-      connect_renren_success
+      connect_renren_confirm
     else
       raise "未定义的连接类型"
     end
   end
 
   def create_quick_connect_account
-    case session[:connect_success]
+    case session[:connect_confirm]
     when "tsina"
       create_tsina_quick_connect_account
     when "renren"
@@ -44,7 +44,7 @@ class ConnectUsersController < ApplicationController
   end
 
   def bind_mindpin_typical_account
-    case session[:connect_success]
+    case session[:connect_confirm]
     when "tsina"
       tsina_bind_mindpin_typical_account
     when "renren"
@@ -68,7 +68,7 @@ class ConnectUsersController < ApplicationController
     session[:renren_atoken] = nil
     session[:tsina_atoken] = nil
     session[:tsina_asecret] = nil
-    session[:connect_success] = nil
+    session[:connect_confirm] = nil
   end
 
   include RenrenControllerMethods

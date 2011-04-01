@@ -60,12 +60,10 @@ ActionController::Routing::Routes.draw do |map|
   map.fans "/:user_id/fans",:controller=>"contacts",:action=>"fans"
   map.followings "/:user_id/followings",:controller=>"contacts",:action=>"followings"
 
-  # 快速连接账号 设置邮箱，密码，或者绑定 本地 mindpin 账号
+  # 快速连接账号 设置邮箱，密码 变成 mindpin正式账号
   map.complete_reg_info "account/complete_reg_info",:controller=>"account",:action=>"complete_reg_info"
   map.do_setting_email "account/do_setting_email",:controller=>"account",:action=>"do_setting_email",:conditions=>{:method=>:post}
-  map.account_link "account/link",:controller=>"account",:action=>"link"
-  map.do_account_link "account/do_link",:controller=>"account",:action=>"do_link",:conditions=>{:method=>:post}
-  # 本地 mindpin 账号,绑定 快速连接账号
+  # mindpin正式账号 绑定 外站账号
   map.account_bind_tsina "account/bind_tsina",:controller=>"account",:action=>"bind_tsina"
   map.account_bind_renren "account/bind_renren",:controller=>"account",:action=>"bind_renren"
   map.account_do_account_unbind "account/do_unbind",:controller=>"account",:action=>"do_unbind",:conditions=>{:method=>:post}
@@ -109,9 +107,9 @@ ActionController::Routing::Routes.draw do |map|
   map.send_tsina_mindmap_thumb "/connect_users/send_tsina_mindmap",:controller=>"connect_users",:action=>"send_tsina_mindmap",:conditions=>{:method=>:post}
   map.send_tsina_status_with_logo "/connect_users/send_tsina_status_with_logo",:controller=>"connect_users",:action=>"send_tsina_status_with_logo",:conditions=>{:method=>:post}
 
-  map.connect_success "/connect_success",:controller=>"connect_users",:action=>"connect_success"
-  map.connect_success_create_quick_connect_account "/connect_success/create_quick_connect_account",:controller=>"connect_users",:action=>"create_quick_connect_account",:conditions=>{:method=>:post}
-  map.connect_success_bind_mindpin_typical_account "/connect_success/bind_mindpin_typical_account",:controller=>"connect_users",:action=>"bind_mindpin_typical_account",:conditions=>{:method=>:post}
+  map.connect_confirm "/connect_confirm",:controller=>"connect_users",:action=>"connect_confirm"
+  map.connect_confirm_create_quick_connect_account "/connect_confirm/create_quick_connect_account",:controller=>"connect_users",:action=>"create_quick_connect_account",:conditions=>{:method=>:post}
+  map.connect_confirm_bind_mindpin_typical_account "/connect_confirm/bind_mindpin_typical_account",:controller=>"connect_users",:action=>"bind_mindpin_typical_account",:conditions=>{:method=>:post}
 
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,

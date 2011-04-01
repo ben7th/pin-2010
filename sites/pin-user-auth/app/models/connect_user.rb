@@ -124,144 +124,62 @@ class ConnectUser < ActiveRecord::Base
   end
 
   module UserMethods
-    def tsina_wb
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
-      return false if cu.blank? || cu.oauth_token.blank? || cu.oauth_token_secret.blank?
-      require "weibo"
-      Weibo::Config.api_key = Tsina::API_KEY
-      Weibo::Config.api_secret = Tsina::API_SECRET
-      oauth = Weibo::OAuth.new(Weibo::Config.api_key,Weibo::Config.api_secret)
-      oauth.authorize_from_access(cu.oauth_token ,cu.oauth_token_secret)
-      wb = Weibo::Base.new(oauth)
-    end
+    # ---- 以上是微博相关，代码写得不好，重复地方太多。改一个字段名的话，照这种代码改起来会累死。重构
+    # SONGLIANG
 
-    def send_message_to_tsina_weibo(content)
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
-      return false if cu.blank? || cu.oauth_token.blank? || cu.oauth_token_secret.blank?
-      require "weibo"
-      Weibo::Config.api_key = Tsina::API_KEY
-      Weibo::Config.api_secret = Tsina::API_SECRET
-      oauth = Weibo::OAuth.new(Weibo::Config.api_key,Weibo::Config.api_secret)
-      oauth.authorize_from_access(cu.oauth_token ,cu.oauth_token_secret)
-      wb = Weibo::Base.new(oauth)
-      wb.update(content)
-      return true
-    rescue Exception=>ex
-      p ex.message
-      puts ex.backtrace*"\n"
-      return false
-    end
+    # TODO 4月1日部署前务必过一遍这里，然后重新测试
 
-    def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
-      image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
-      send_tsina_image_status(image,content)
-    end
-
-    def send_tsina_image_status(image,content)
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
-      return false if cu.blank? || cu.oauth_token.blank? || cu.oauth_token_secret.blank?
-      require "weibo"
-      Weibo::Config.api_key = Tsina::API_KEY
-      Weibo::Config.api_secret = Tsina::API_SECRET
-      oauth = Weibo::OAuth.new(Weibo::Config.api_key,Weibo::Config.api_secret)
-      oauth.authorize_from_access(cu.oauth_token ,cu.oauth_token_secret)
-      wb = Weibo::Base.new(oauth)
-      File.open(image,"r") do |f|
-       wb.upload(content,f)
-      end
-      return true
-    rescue Exception=>ex
-      p ex.message
-      puts ex.backtrace*"\n"
-      return false
-    end
-
+    # 返回目前账号的类型描述标识
+    # 如果是正式账号
+    # 返回 common(未绑定任何) bind（绑定了至少一个第三方网站）
+    #
+    # 如果是快速连接账号
+    # 返回 tsina(绑定了新浪微博) renren(绑定了人人网)
     def account_type
       cu = ConnectUser.find_by_user_id(self.id)
       return COMMON if cu.blank?
-      if EmailActor.get_mindpin_email(self) == self.email
+      if self.is_quick_connect_account?
         return cu.connect_type
       end
       BIND
     end
 
-    # 该账号是否是一个 本地mindpin 账号
+    # 该账号是否是一个 MindPin正式账号
     def is_mindpin_typical_account?
       !self.hashed_password.blank? &&
         EmailActor.get_mindpin_email(self) != self.email
     end
 
-    # 该账号是否是一个快速连接账号
+    # 该账号是否是一个快速连接账号（不论连接的是什么）
+    # 由于不再考虑“账号关联”这个逻辑，代码中关于 old_user_id 的部分删除了。
     def is_quick_connect_account?
-      cu_1 = ConnectUser.find_by_user_id(self.id)
-      cu_2 = ConnectUser.find_by_old_user_id(self.id)
-      cu = cu_1 || cu_2
-      return false if cu.blank?
-      EmailActor.get_mindpin_email(self) == self.email
+      self.hashed_password.blank? &&
+        EmailActor.get_mindpin_email(self) == self.email
     end
 
-    # 快速链接账号 登录后，没有设置邮箱和密码，也没有绑定 本地 mindpin 账号
-    # 该账号是否是一个这种类型的账号
-    def is_unlink_quick_connect_account?
-      return false if EmailActor.get_mindpin_email(self) != self.email
-      cu = ConnectUser.find_by_user_id(self.id)
-      return false if cu.blank?
-      cu.old_user_id.blank?
-    end
-
-    # 快速链接账号 登录后，绑定了 本地 mindpin 账号，
-    # 该账号是否是其中的快速链接账号
-    def is_link_quick_connect_account?
-      cu = ConnectUser.find_by_old_user_id(self.id)
-      return false if cu.blank?
-      EmailActor.get_mindpin_email(self) == self.email
-    end
-
-    # 是否是 绑定了renren账号 的 本地mindpin账号
-    def has_bind_renren_mindpin_account?
-      is_mindpin_typical_account? &&
-        !ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::RENREN_CONNECT_TYPE).blank?
-    end
-
-    # 取到该账号关联的 人人快速连接账号
-    def get_link_renren_quick_connect_account
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::RENREN_CONNECT_TYPE)
-      return if cu.blank? || cu.old_user_id.blank?
-      User.find_by_id(cu.old_user_id)
-    end
-
-    # 取到该账号关联的 tsina快速连接账号
-    def get_link_tsina_quick_connect_account
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
-      return if cu.blank? || cu.old_user_id.blank?
-      User.find_by_id(cu.old_user_id)
-    end
-
+    # 尝试解除当前账号的新浪微博绑定，并删除绑定对象
     def unbind_tsina_account
-      return if self.get_link_tsina_quick_connect_account
-      cu_1 = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
-      cu_2 = ConnectUser.find_by_old_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
-      cu_1.destroy if cu_1
-      cu_2.destroy if cu_2
+      return if is_quick_connect_account?
+      cu = tsina_connect_user
+      cu.destroy if cu
     end
 
+    # 尝试解除当前账号的人人网绑定，并删除绑定对象
     def unbind_renren_account
-      return if self.get_link_renren_quick_connect_account
-      cu_1 = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::RENREN_CONNECT_TYPE)
-      cu_2 = ConnectUser.find_by_old_user_id_and_connect_type(self.id,ConnectUser::RENREN_CONNECT_TYPE)
-      cu_1.destroy if cu_1
-      cu_2.destroy if cu_2
+      return if is_quick_connect_account?
+      cu = renren_connect_user
+      cu.destroy if cu
     end
 
     # 从数据库获取新浪微博账号信息（HASH）
     def tsina_account_info
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::TSINA_CONNECT_TYPE)
+      cu = tsina_connect_user
       return ActiveSupport::JSON.decode(cu.account_detail) if !!cu && !!cu.account_detail
     end
 
     # 从数据库获取人人网账号信息（HASH）
     def renren_account_info
-      cu = ConnectUser.find_by_user_id_and_connect_type(self.id,ConnectUser::RENREN_CONNECT_TYPE)
+      cu = renren_connect_user
       return ActiveSupport::JSON.decode(cu.account_detail) if !!cu && !!cu.account_detail
     end
 

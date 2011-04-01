@@ -8,6 +8,10 @@ pie.load(function(){
       success : function(res){
         var elm = jQuery(res);
         jQuery('.binded-account-info').html(elm.html());
+      },
+      error : function(res){
+        jQuery('.binded-account-info .meta').html(res.responseText);
+        jQuery('.binded-account-info .updating').hide();
       }
     })
   });

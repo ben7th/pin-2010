@@ -9,10 +9,9 @@ class AccountController <  ApplicationController
     end
   end
 
-  before_filter :link_filter,:only=>[:link,:on_link,
-    :do_setting_email,:complete_reg_info]
-  def link_filter
-    if !current_user.is_unlink_quick_connect_account?
+  before_filter :complete_reg_info_filter,:only=>[:do_setting_email,:complete_reg_info]
+  def complete_reg_info_filter
+    if !current_user.is_quick_connect_account?
       return render_status_page(503,"非法操作")
     end
   end
@@ -120,20 +119,6 @@ class AccountController <  ApplicationController
     if current_user.renren_connect_user
       return redirect_to :action=>:bind_renren
     end
-  end
-
-  def link;end
-
-  def do_link
-    cu = ConnectUser.find_by_user_id(current_user.id)
-    user = User.authenticate(params[:email],params[:password])
-    if !!user
-      self.current_user = user
-      cu.link(current_user)
-      return redirect_to :action=>:base
-    end
-    flash[:error] = "邮箱或者密码错误"
-    redirect_to :action=>:link
   end
 
   def message

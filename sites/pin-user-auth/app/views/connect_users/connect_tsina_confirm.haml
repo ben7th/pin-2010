@@ -1,0 +1,72 @@
+-content_for :title do
+  准备连接新浪微博账号
+
+-require_css 'views/users'
+
+-content_for :javascripts do
+  = javascript_include_tag "views/account/connect_account_confirm"
+
+.binded-account.clearfix
+  .binded-account-info.tsina.darkbg.rc5
+    .title.btb 正在连接下面的新浪微博账号
+    -bindinfo = @tsina_user_info
+    -if !!bindinfo
+      .meta
+        .avatar
+          %img.logo{:src=>bindinfo["profile_image_url"]}
+        .name.loud
+          =bindinfo["user_name"]
+        .counts
+          .friends
+            .count=bindinfo["friends_count"]
+            .n 关注
+          .followers
+            .count=bindinfo["followers_count"]
+            .n 粉丝
+          .statuses
+            .count=bindinfo["statuses_count"]
+            .n 微博
+    -else
+      .meta
+        绑定信息不完整
+
+.index-3rd-connect-operation
+  .connect-confirm-btns{:style=>params[:r] == 'error' ? 'display:none;':''}
+    .desc.loud.marginb10
+      请先完成一个简单的选择步骤，以后不会再重复啦~
+
+    .desc.font14.marginb10
+      如果这是你第一次访问MindPin，<b>从来没有</b>在这里注册账号…别管那么多，请<b>毫不犹豫地</b>按下绿色按钮。
+
+    .connect-create-new-user.button
+      =link_to '我要创建新账号~',"/connect_confirm/create_quick_connect_account",:method=>:post
+
+    .desc.font14.marginb10
+      如果你以前来过这儿，并注册了账号（<span class='font16'>好好回忆回忆</span>），那么，为了不多注册一个账号，请按红色按钮。
+
+    .connect-has-reged.button
+      =link_to '我以前注册过了!','javascript:;'
+
+    .back
+      =link_to '返回首页','/'
+
+  .connect-link-form{:style=>params[:r] == 'error' ? '':'display:none;'}
+    .desc.font14.marginb10
+      还记得你原来注册的账号和密码吧？填在下面，按“绑定”，操作就完毕了~
+
+    .desc.font14.marginb10
+      <span class='loud'>绑定之后有两个好处~</span><br/>
+      1. 以后在首页按“用微博账号登录”，就可以直接登录了。<br/>
+      2. 可以享受以后的各种关联新浪微博的扩展功能~
+
+    .connect-link-form-form.darkbg
+      =flash_info
+      -form_tag "/connect_confirm/bind_mindpin_typical_account" do
+        .field
+          %label=t('activerecord.attributes.user.email')
+          =text_field_tag :email,params[:email],:class=>'text'
+        .field
+          %label=t('activerecord.attributes.user.password')
+          =password_field_tag :password,params[:password],:class=>'text'
+        =submit_tag "绑定",:class=>"button submit"
+        =link_to '啊，算了','javascript:;',:class=>'a-suanle'

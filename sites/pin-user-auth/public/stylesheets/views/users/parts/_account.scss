@@ -214,59 +214,70 @@
   }
 }
 
-.connect-confirm-btns{
-  .connect-create-new-user a{
-    display:block;
-    font-size:16px;
-    font-weight:bold;
-    color:white;
-    @include border-radius(4px);
-    /*@include gradient(#EB3200,#48A902);
-    @include box-shadow(0px 0px 4px #DF1600);
-    border:solid 1px #F54E00;*/
-    @include gradient(#A4E563,#48A902);
-    @include box-shadow(0px 0px 4px #89D346);
-    border:solid 1px #75C631;
-    width:200px;
-    height:50px;
-    line-height:50px;
-    text-align:center;
-    text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
-    margin-bottom:10px;
-    margin-left:10px;
-    &:hover{
-      text-decoration:none;
-      /*@include gradient(#FB4200,#D91800);*/
-      @include gradient(#B9FA78,#58B912);
+.index-3rd-connect-operation{
+  height:350px;
+  .connect-confirm-btns{
+    overflow:hidden;
+    .connect-create-new-user a{
+      display:block;
+      font-size:16px;
+      font-weight:bold;
+      color:white;
+      @include border-radius(4px);
+      /*@include gradient(#EB3200,#48A902);
+      @include box-shadow(0px 0px 4px #DF1600);
+      border:solid 1px #F54E00;*/
+      @include gradient(#A4E563,#48A902);
+      @include box-shadow(0px 0px 4px #89D346);
+      border:solid 1px #75C631;
+      width:200px;
+      height:50px;
+      line-height:50px;
+      text-align:center;
+      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+      margin-bottom:30px;
+      &:hover{
+        text-decoration:none;
+        /*@include gradient(#FB4200,#D91800);*/
+        @include gradient(#B9FA78,#58B912);
+      }
+      &.mousedown{
+        /*@include gradient(#D91800,#FB4200);*/
+        @include gradient(#58B912,#B9FA78);
+      }
     }
-    &.mousedown{
-      /*@include gradient(#D91800,#FB4200);*/
-      @include gradient(#58B912,#B9FA78);
+
+    .connect-has-reged a{
+      display:block;
+      font-size:16px;
+      font-weight:bold;
+      color:white;
+      @include border-radius(4px);
+      @include gradient(#EB3200,#C90800);
+      @include box-shadow(0px 0px 4px #DF1600);
+      border:solid 1px #F54E00;
+      width:200px;
+      height:50px;
+      line-height:50px;
+      text-align:center;
+      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+      margin-bottom:20px;
+      &:hover{
+        text-decoration:none;
+        @include gradient(#FB4200,#D91800);
+      }
+      &.mousedown{
+        @include gradient(#D91800,#FB4200);
+      }
     }
   }
 
-  .connect-has-reged a{
-    display:block;
-    font-size:16px;
-    font-weight:bold;
-    color:white;
-    @include border-radius(4px);
-    @include gradient(#EB3200,#C90800);
-    @include box-shadow(0px 0px 4px #DF1600);
-    border:solid 1px #F54E00;
-    width:200px;
-    height:50px;
-    line-height:50px;
-    text-align:center;
-    text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
-    margin-bottom:10px;
-    margin-left:10px;
-    &:hover{
-      text-decoration:none;
-      @include gradient(#FB4200,#D91800);
-    }
-    &.mousedown{
-      @include gradient(#D91800,#FB4200);
+  .connect-link-form{
+    .a-suanle{margin-left:10px;}
+    .connect-link-form-form{
+      padding:5px;
+      @include box-shadow(0 0 2px black);
+      width:290px;
     }
   }
 }

@@ -1,4 +1,4 @@
-.module-links.account.lightbg
+.module-links.account.lightbg.boxs2
   .link.base.btb
     .icon
     =tabs_link_to "基本信息","/account"
@@ -9,11 +9,11 @@
     .icon
     =tabs_link_to "站内信设置","/account/message"
 
--binded_tsina = !!(current_user.tsina_connect_user)
--binded_renren = !!(current_user.renren_connect_user)
+-binded_tsina = current_user.has_binded_sina?
+-binded_renren = current_user.has_binded_renren?
 
 -if current_user.is_mindpin_typical_account?
-  .module-links.account.lightbg
+  .module-links.account.lightbg.boxs2
     .link.password.btb
       .icon
       =tabs_link_to "修改密码","/account/password"
@@ -31,29 +31,27 @@
 
 -if current_user.is_quick_connect_account?
   -if binded_tsina
-    -if current_user.is_unlink_quick_connect_account?
-      .module-links.account.lightbg
-        .tsina-quick-account.darkbg.btb
-          .icon
-          新浪微博<br/>快速连接账号
-        .link.bind-tsina.btb
-          .icon
-          =tabs_link_to "连接信息","/account/bind_tsina"
-        .link.complete_reg_info
-          .icon
-          =tabs_link_to "补全注册信息","/account/complete_reg_info"
+    .module-links.account.lightbg
+      .tsina-quick-account.darkbg.btb
+        .icon
+        新浪微博<br/>快速连接账号
+      .link.bind-tsina.btb
+        .icon
+        =tabs_link_to "连接信息","/account/bind_tsina"
+      .link.complete_reg_info
+        .icon
+        =tabs_link_to "补全注册信息","/account/complete_reg_info"
 
   -if binded_renren
-    -if current_user.is_unlink_quick_connect_account?
-      .module-links.account.lightbg
-        .renren-quick-account.darkbg.btb
-          .icon
-          人人网<br/>快速连接账号
-        .link.bind-renren.btb
-          .icon
-          =tabs_link_to "连接信息","/account/bind_renren"
-        .link.complete_reg_info
-          .icon
-          =tabs_link_to "补全注册信息","/account/complete_reg_info"
+    .module-links.account.lightbg
+      .renren-quick-account.darkbg.btb
+        .icon
+        人人网<br/>快速连接账号
+      .link.bind-renren.btb
+        .icon
+        =tabs_link_to "连接信息","/account/bind_renren"
+      .link.complete_reg_info
+        .icon
+        =tabs_link_to "补全注册信息","/account/complete_reg_info"
 
 

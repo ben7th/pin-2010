@@ -93,3 +93,10 @@ a{
   border-bottom:solid 1px #000;
   border-right:solid 1px #000;
 }
+
+.boxs2{
+  @include box-shadow(0 0 2px black);
+  &.lightbg{
+    @include box-shadow(0 0 2px #222);
+  }
+}

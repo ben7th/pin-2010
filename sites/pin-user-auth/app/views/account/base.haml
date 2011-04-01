@@ -7,14 +7,14 @@
   .grid-title
     你可以在这里设置你平常使用的用户昵称
 
-  .padding5
+  .padding5.darkbg.rc5.boxs2
     = flash_info
     - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
       = f.text_field(:name)
       .field
         %label
           注册时间 #{created_at current_user}
-      = f.submit '保存更改'
+      = f.submit '保存更改',:class=>'marginb3em'
 
 .grid_4.omega.fright
   =render :partial=>'account/parts/account_links'

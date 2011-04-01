@@ -7,8 +7,8 @@ module RenrenControllerMethods
     renren = RenRen.new
     access_token = renren.get_access_token(params[:code])
     session[:renren_atoken] = access_token
-    session[:connect_success] = "renren"
-    opener_window_redirect_to(pin_url_for("pin-user-auth","/connect_success"))
+    session[:connect_confirm] = "renren"
+    opener_window_redirect_to(pin_url_for("pin-user-auth","/connect_confirm"))
   end
 
   def bind_renren
@@ -49,7 +49,7 @@ module RenrenControllerMethods
     render :text=>result
   end
 
-  def connect_renren_success
+  def connect_renren_confirm
     atoken = session[:renren_atoken]
     @renren_user_info = RenRen.new.get_user_info(atoken)
     connect_id = @renren_user_info["connect_id"]
@@ -60,7 +60,7 @@ module RenrenControllerMethods
       self.current_user = cu.user
       return redirect_to "/"
     end
-    render :template=>"/connect_users/connect_renren_success"
+    render :template=>"/connect_users/connect_renren_confirm"
   end
 
   def create_renren_quick_connect_account
@@ -80,22 +80,28 @@ module RenrenControllerMethods
     user = User.authenticate(params[:email],params[:password])
     if user.blank?
       flash[:error] = "邮箱或者密码错误"
-      return redirect_to :action=>:connect_success
+      return redirect_to :action=>:connect_confirm,:params=>{:r=>"error"}
     end
+    if !user.renren_connect_user.blank?
+      flash[:error] = "指定的账号已经绑定过人人网啦"
+      return redirect_to :action=>:connect_confirm,:params=>{:r=>"error"}
+    end
+
     atoken = session[:renren_atoken]
     @renren_user_info = RenRen.new.get_user_info(atoken)
     connect_id = @renren_user_info["connect_id"]
-    cu = ConnectUser.find_by_connect_type_and_connect_id(
+    connect_user = ConnectUser.find_by_connect_type_and_connect_id(
       ConnectUser::RENREN_CONNECT_TYPE,connect_id)
-    return render_status_page(503,"非法操作") if !cu.blank?
-    if !user.renren_connect_user.blank?
-      flash[:error] = "这个 mindpin账号 已经绑定过其他的人人账号"
-      return redirect_to :action=>:connect_success
+    
+    if !connect_user.blank?
+      return render_status_page(503,"不允许的操作。尝试对同一组账号进行反复绑定。")
     end
+
     ConnectUser.bind_renren_connect_user(
       connect_id,user,@renren_user_info,atoken)
     self.current_user = user
+    
     clear_session_connect_info
-    redirect_to "/"
+    redirect_to "/account/bind_renren"
   end
 end

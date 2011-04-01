@@ -1,10 +1,10 @@
 -if logged_in? && @user == current_user
-  .contacts-setting-links.lightbg
-    .followings
+  .module-links.contacts-setting.lightbg.boxs2
+    .link.followings.btb
       =link_to '查看我的联系人',pin_url_for('pin-user-auth',"#{current_user.id}/followings")
-    .fans
+    .link.fans.btb
       =link_to '查看我的读者',pin_url_for('pin-user-auth',"#{current_user.id}/fans")
-    .invite
+    .link.invite.btb
       =link_to '发邀请邮件',pin_url_for('pin-user-auth',"/contacts_setting/invite")
-    .import
+    .link.import
       =link_to '从邮箱导入联系人',pin_url_for('pin-user-auth',"/contacts_setting/import")

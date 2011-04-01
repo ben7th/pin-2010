@@ -1,4 +1,7 @@
+require "weibo"
 class Tsina
+  class OauthFailureError<StandardError;end
+
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
   CALLBACK_URL = SETTINGS["tsina_callback_url"]
   BIND_CALLBACK_URL = SETTINGS["tsina_bind_callback_url"]
@@ -41,6 +44,7 @@ class Tsina
     access_token = OAuth::AccessToken.new(consumer,atoken,asecret)
     xml = access_token.get("/account/verify_credentials.xml").body
     doc = Nokogiri::XML(xml)
+    raise Tsina::OauthFailureError,"远程网站授权无效，认证失败" if !doc.at_css("error").blank?
     connect_id = doc.at_css("id").content
     user_name = doc.at_css("name").content
     profile_image_url = doc.at_css("profile_image_url").content
@@ -52,5 +56,43 @@ class Tsina
       "profile_image_url"=>profile_image_url,"followers_count"=>followers_count,
       "friends_count"=>friends_count,"statuses_count"=>statuses_count
     }
+  end
+
+  module UserMethods
+    def tsina_weibo
+      cu = self.tsina_connect_user
+      Weibo::Config.api_key = Tsina::API_KEY
+      Weibo::Config.api_secret = Tsina::API_SECRET
+      oauth = Weibo::OAuth.new(Weibo::Config.api_key,Weibo::Config.api_secret)
+      oauth.authorize_from_access(cu.oauth_token ,cu.oauth_token_secret)
+      Weibo::Base.new(oauth)
+    end
+
+    def send_message_to_tsina_weibo(content)
+      wb = self.tsina_weibo
+      wb.update(content)
+      return true
+    rescue Exception=>ex
+      p ex.message
+      puts ex.backtrace*"\n"
+      return false
+    end
+
+    def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
+      image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
+      send_tsina_image_status(image,content)
+    end
+
+    def send_tsina_image_status(image,content)
+      wb = self.tsina_weibo
+      File.open(image,"r") do |f|
+        wb.upload(content,f)
+      end
+      return true
+    rescue Exception=>ex
+      p ex.message
+      puts ex.backtrace*"\n"
+      return false
+    end
   end
 end
