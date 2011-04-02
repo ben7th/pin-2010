@@ -1,4 +1,4 @@
--ea = EmailActor.new(feed.email)
+-creator = feed.creator
 -klass = klass || ''
 
 -content = feed_content(feed)
@@ -14,16 +14,16 @@
         -if rf.nil?
           %span.quiet 被回应的话题已删除
         -else
-          -ra = EmailActor.new(rf.email)
-          =link_to ra.name,ra.actor
+          -rc = rf.creator
+          =link_to rc.name,rc
           =feed_content(rf)
   .current-feed
     .icon
     .avatar
-      =avatar ea.email,:mini
+      =avatar creator.email,:mini
     .c
       .data
-        =link_to ea.name,ea.actor
+        =link_to creator.name,creator
         =content
       .documents
         .mindmaps
@@ -43,6 +43,6 @@
         -if qf.nil?
           %span.quiet 被传阅的话题已删除
         -else
-          -qa = EmailActor.new(qf.email)
-          =link_to qa.name,qa.actor
+          -qc = qf.creator
+          =link_to qc.name,qc
           =feed_content(qf)

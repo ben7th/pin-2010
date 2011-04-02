@@ -55,7 +55,7 @@ module FeedProxyModifyMethods
   def select_not_user_feed(feed_ids,user)
     feed_ids.select do |feed_id|
       feed = Feed.find_by_id(feed_id)
-      feed && feed.email !=user.email
+      feed && feed.creator !=user
     end
   end
 

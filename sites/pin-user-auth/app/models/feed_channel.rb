@@ -19,14 +19,14 @@ class FeedChannel < ActiveRecord::Base
     # user(self) 发送的 制定了channel 的 feeds
     def send_feeds_of_channels_db
       Feed.find(:all,
-        :conditions=>{:email=>self.email},
+        :conditions=>{:creator_id=>self.id},
         :joins=>"inner join feed_channels on feed_channels.feed_id = feeds.id"
       )
     end
 
     # user(self) 发送的 没有指定channel的 feeds
     def send_feeds_of_no_channel_db
-      feeds = Feed.find(:all,:conditions=>{:email=>self.email})
+      feeds = Feed.find(:all,:conditions=>{:creator_id=>self.id})
       feeds - send_feeds_of_channels_db
     end
   end

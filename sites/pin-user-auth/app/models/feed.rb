@@ -1,13 +1,17 @@
-class Feed < FeedBase
+class Feed < UserAuthAbstract
   set_readonly false
 
   validates_presence_of :content
-  validates_presence_of :email
+  validates_presence_of :creator
   validates_presence_of :event
 
-  belongs_to :creator,:class_name=>"User",:foreign_key=>"email",:primary_key=>"email"
+  belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
 
   SAY_OPERATE = 'say'
+
+  named_scope :news_feeds_of_user,lambda {|user|
+    {:conditions=>"feeds.creator_id = #{user.id}"}
+  }
 
   def replied_feed
     Feed.find_by_id(reply_to)
@@ -57,7 +61,7 @@ class Feed < FeedBase
     host_feed_id = host_feed.id
     Feed.transaction do
       fc = FeedComment.new(:feed_id=>host_feed_id,:content=>content,:user_id=>user.id)
-      feed = Feed.new(:email=>user.email,:event=>SAY_OPERATE,:content=>content,:channels_db=>channels,:reply_to=>host_feed_id)
+      feed = Feed.new(:creator=>user,:event=>SAY_OPERATE,:content=>content,:channels_db=>channels,:reply_to=>host_feed_id)
       return false if !fc.valid?
       return false if !feed.valid?
       fc.save!
@@ -73,7 +77,7 @@ class Feed < FeedBase
     channel_ids = options[:channel_ids] || []
     channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
     Feed.transaction do
-      feed = Feed.new(:email=>user.email,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels,:quote_of=>quote_feed.id)
+      feed = Feed.new(:creator=>user,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels,:quote_of=>quote_feed.id)
       return false if !feed.valid?
       feed.save!
       if feed.id
@@ -107,7 +111,7 @@ class Feed < FeedBase
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []
       channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-      feed = Feed.new(:email=>self.email,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
+      feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
       return false if !feed.valid?
       feed.save!
       self.news_feed_proxy.update_feed(feed)
@@ -120,7 +124,7 @@ class Feed < FeedBase
       channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
       Feed.transaction do
         feed = Feed.new(
-        :email=>self.email,:event=>Feed::SAY_OPERATE,
+        :creator=>self,:event=>Feed::SAY_OPERATE,
         :content=>title,:channels_db=>channels)
         hd = HtmlDocument.new(:feed=>feed,:html=>html)
         return false if !hd.valid? || !feed.valid?
@@ -137,7 +141,7 @@ class Feed < FeedBase
       channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
       Feed.transaction do
         feed = Feed.new(
-        :email=>self.email,:event=>Feed::SAY_OPERATE,
+        :creator=>self,:event=>Feed::SAY_OPERATE,
         :content=>title,:channels_db=>channels)
         return false if !feed.valid?
         feed.save!

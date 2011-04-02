@@ -2,7 +2,7 @@
 class NewestUserBeingQuotedFeedsProxy
   def initialize(user)
     @user = user
-    @key = "refresh_newest_user_being_quoted_feed_id_#{user.email}"
+    @key = "refresh_newest_user_being_quoted_feed_id_#{user.id}"
     @redis = RedisCache.instance
     @ubqf_proxy = UserBeingQuotedFeedsProxy.new(@user)
   end

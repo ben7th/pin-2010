@@ -2,7 +2,7 @@
 class NewestUserBeingRepliedCommentsProxy
   def initialize(user)
     @user = user
-    @key = "refresh_newest_user_being_replied_comment_id_#{user.email}"
+    @key = "refresh_newest_user_being_replied_comment_id_#{user.id}"
     @redis = RedisCache.instance
     @ubrc_proxy = UserBeingRepliedCommentsProxy.new(@user)
   end

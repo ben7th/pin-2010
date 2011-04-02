@@ -4,10 +4,9 @@ class NewsFeedProxy
   # 构造喊出，目前接受user作为参数
   def initialize(user)
     @user = user
-    @email = @user.email
-    @outbox_cache_key = "feed_vector_outbox_#{@email}"
-    @inbox_cache_key  = "feed_vector_inbox_#{@email}"
-    @refresh_newest_feed_id_cache_key = "refresh_newest_feed_id_#{@email}"
+    @outbox_cache_key = "feed_vector_outbox_#{@user.id}"
+    @inbox_cache_key  = "feed_vector_inbox_#{@user.id}"
+    @refresh_newest_feed_id_cache_key = "refresh_newest_feed_id_#{@user.id}"
     @redis = RedisCache.instance
   end
 

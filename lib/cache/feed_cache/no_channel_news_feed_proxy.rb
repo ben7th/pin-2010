@@ -1,7 +1,7 @@
 class NoChannelNewsFeedProxy
   def initialize(user)
     @user = user
-    vector_cache_key = "feed_vector_no_channel_#{@user.email}"
+    vector_cache_key = "feed_vector_no_channel_#{@user.id}"
     @vector_cache = RedisVectorArrayCache.new(vector_cache_key)
   end
 

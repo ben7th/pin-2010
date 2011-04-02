@@ -3,7 +3,7 @@
 
 -if logged_in?
   .ops
-    -if feed.email == current_user.email
+    -if feed.creator == current_user
       .del.darkbg.csshov
         .icon
         .t 删除
