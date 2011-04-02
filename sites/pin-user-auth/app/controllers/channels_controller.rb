@@ -23,7 +23,7 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    channel = Channel.new(:name=>params[:name],:creator_email=>current_user.email)
+    channel = Channel.new(:name=>params[:name],:creator=>current_user)
     if channel.save
       return render :json=>channel.to_json
     end

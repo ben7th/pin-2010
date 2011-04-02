@@ -17,16 +17,14 @@ class Channel < ActiveRecord::Base
     KIND_SHOW_NAME[self.kind]
   end
 
-  belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_email,:primary_key=>:email
+  belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
 
   validates_presence_of :name
-  validates_presence_of :creator_email
-  validates_format_of :creator_email,
-    :with=>/^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/
-  validates_uniqueness_of :name,:scope=>"creator_email"
+  validates_presence_of :creator
+  validates_uniqueness_of :name,:scope=>"creator_id"
 
-  index :creator_email
-  index [:creator_email,:id]
+  index :creator_id
+  index [:creator_id,:id]
 
   before_create :set_position
   def set_position
@@ -77,7 +75,7 @@ class Channel < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :channels,:foreign_key=>:creator_email,:primary_key=>:email, :order => "position"
+      base.has_many :channels,:foreign_key=>:creator_id, :order => "position"
     end
 
     def channels_count
