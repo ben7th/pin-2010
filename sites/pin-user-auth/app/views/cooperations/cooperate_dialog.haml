@@ -40,10 +40,10 @@
         .p 您目前在MindPin还没有任何联系人
         .p
           请通过
-          %span>=link_to '联系人设置',pin_url_for('pin-user-auth','/account/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
+          %span>=link_to '联系人设置',pin_url_for('pin-user-auth','/contacts_setting/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
           添加
     -else
-      .p=link_to '联系人设置',pin_url_for('pin-user-auth','/account/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
+      .p=link_to '联系人设置',pin_url_for('pin-user-auth','/contacts_setting/contacts'),:confirm=>'将跳转到其他页面，确定吗？'
       %ul.contacts
         -contacts.each do |contact|
           %li.contact
@@ -61,10 +61,10 @@
         .p 您目前在MindPin还没有任何团队
         .p
           请通过
-          %span>=link_to '团队设置',pin_url_for('pin-user-auth','/account/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
+          %span>=link_to '团队设置',pin_url_for('pin-user-auth','/contacts_setting/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
           添加
     -else
-      .p=link_to '团队设置',pin_url_for('pin-user-auth','/account/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
+      .p=link_to '团队设置',pin_url_for('pin-user-auth','/contacts_setting/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
       %ul.contacts
         -organizations.each do |org|
           %li.contact
