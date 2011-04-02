@@ -1,4 +1,4 @@
-# 对 user 发送的 feeds 的 所有 传阅feed
+# 传阅user发送的feeds 的 所有feeds
 class UserBeingQuotedFeedsProxy < RedisBaseProxy
   def initialize(user)
     @user = user

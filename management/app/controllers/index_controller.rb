@@ -39,6 +39,24 @@ class IndexController < ApplicationController
     @stats = MindpinServiceManagement.check_stats_memcached_service
   end
 
+  def redis_stats
+    begin
+      @stats = MindpinServiceManagement.check_redis_stats
+    rescue Exception => ex
+    end
+  end
+
+  def redis_flushall
+    begin
+      MindpinServiceManagement.redis_flush_all
+      flash[:notice] = "操作成功"
+      return redirect_to :action=>:index
+    rescue Exception => ex
+      flash[:notice] = ex.message
+      return redirect_to :action=>:index
+    end
+  end
+
   def project_log
     @log = MindpinServiceManagement.project_log_content(params[:project_name])
     render :template=>"/index/log"

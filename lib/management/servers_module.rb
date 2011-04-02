@@ -55,6 +55,16 @@ module MindpinServiceManagementModule
       def restart_redis_service
         Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} restart` }
       end
+
+      # 返回redis的状态
+      def check_redis_stats
+        RedisCache.instance.info
+      end
+
+      # 对redis进行重置
+      def redis_flush_all
+        RedisCache.instance.flushall
+      end
     end
 
     module MindmapsLuceneService

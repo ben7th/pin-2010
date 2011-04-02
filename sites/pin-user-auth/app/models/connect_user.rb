@@ -99,18 +99,6 @@ class ConnectUser < ActiveRecord::Base
     url.gsub("/50/","/180/")
   end
 
-  def link(link_user)
-    old_user_id = self.user_id
-    self.update_attributes(:old_user_id=>old_user_id,:user_id=>link_user.id)
-  end
-
-  def unbind
-    if !!self.old_user_id && !!self.user_id
-      id = self.old_user_id
-      self.update_attributes(:user_id=>id,:old_user_id=>nil)
-    end
-  end
-
   def update_account_detail
     if self.connect_type == ConnectUser::TSINA_CONNECT_TYPE
       tsina_user_info = Tsina.get_tsina_user_info_by_access_token(self.oauth_token,self.oauth_token_secret)
@@ -121,6 +109,17 @@ class ConnectUser < ActiveRecord::Base
       renren_user_info = RenRen.new.get_user_info(self.oauth_token)
       self.update_attributes(:account_detail=>renren_user_info.to_json)
     end
+  rescue Tsina::OauthFailureError=>ex
+    self.record_oauth_token_is_invalid
+    raise ex
+  end
+
+  def is_oauth_invalid?
+    oauth_invalid?
+  end
+
+  def record_oauth_token_is_invalid
+    self.update_attributes(:oauth_invalid=>true)
   end
 
   module UserMethods

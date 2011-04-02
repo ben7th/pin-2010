@@ -37,6 +37,9 @@ ActionController::Routing::Routes.draw do |map|
   map.operate_worker "operate_worker", :controller=>"index",:action=>"operate_worker",:conditions=>{:method=>:post}
   map.memcached_stats "memcached_stats", :controller=>"index",:action=>"memcached_stats",:conditions=>{:method=>:get}
 
+  map.redis_stats_path "redis_stats", :controller=>"index",:action=>"redis_stats",:conditions=>{:method=>:get}
+  map.redis_flushall_path "redis_flushall", :controller=>"index",:action=>"redis_flushall",:conditions=>{:method=>:post}
+
   map.project_log "project_log", :controller=>"index",:action=>"project_log",:conditions=>{:method=>:get}
   map.server_log "server_log", :controller=>"index",:action=>"server_log",:conditions=>{:method=>:get}
   map.worker_log "worker_log", :controller=>"index",:action=>"worker_log",:conditions=>{:method=>:get}

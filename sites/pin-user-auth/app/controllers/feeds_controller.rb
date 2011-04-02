@@ -50,14 +50,14 @@ class FeedsController < ApplicationController
   end
 
   def new_count
-    newsfeed_ids = current_user.news_feed_proxy.newsfeed_ids
-    new_fans_ids = NewestFansProxy.new(current_user).newest_fans_ids
-    render :json=>{:feed=>newsfeed_ids.count,:attention=>new_fans_ids.count}
+    info = MessageTip.new(current_user).newest_info
+    render :json=>info
   end
 
   def get_new_feeds
-    current_user.news_feed_proxy.refresh_newest_feed_id
-    newsfeeds = current_user.news_feed_proxy.newsfeed_ids(params[:after]).map{|id|Feed.find(id)}
+    mt = MessageTip.new(current_user)
+    mt.refresh_feeds_info
+    newsfeeds = mt.newest_feeds(params[:after])
     render :partial=>"index/homepage/feeds/new_feeds",:locals=>{:newsfeeds=>newsfeeds}
   end
 

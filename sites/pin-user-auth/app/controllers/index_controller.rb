@@ -7,7 +7,7 @@ class IndexController < ApplicationController
     
     # 登录
     @feeds = current_user.in_feeds.paginate(:per_page=>10,:page=>params[:page]||1)
-    current_user.refresh_newest_feed_id
+    MessageTip.new(current_user).refresh_feeds_info
   end
 
   #----临时调试用----

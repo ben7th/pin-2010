@@ -16,4 +16,23 @@
   });
 })(jQuery);
 
+pie.load(function(){
+  if(pie.env == 'development'){
+    var elm = jQuery('<div class="rc5">development</div>');
+    elm
+      .css('width',210)
+      .css('height',40)
+      .css('font-size',36)
+      .css('line-height','40px')
+      .css('opacity','0.618')
+      .css('position','absolute')
+      .css('padding',10)
+      .css('left',10)
+      .css('top',120)
+      .css('color','white')
+      .css('background','black');
+    jQuery('body').append(elm);
+  }
+})
+
 

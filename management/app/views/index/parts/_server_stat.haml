@@ -17,5 +17,8 @@
     =link_to "停止",operate_server_path(:operate=>"stop",:server=>server_name),:method=>"post"
     -if server_name == "memcached_service"
       =link_to "查看状态",memcached_stats_path,:method=>:get
+    -elsif server_name == "redis_service"
+      =link_to "查看状态", "redis_stats",:method=>:get
+      =link_to "重置", "redis_flushall",:method=>:post
   -else
     =link_to "开启",operate_server_path(:operate=>"start",:server=>server_name),:method=>"post"
