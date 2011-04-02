@@ -48,10 +48,10 @@
         -contacts.each do |contact|
           %li.contact
             .padding4
-              .avatar=avatar contact.email,:tiny
+              .avatar=avatar contact.follow_user,:tiny
               .data
                 .name=contact.contact_user_name
-                .email=contact.email
+                .email=contact.follow_user.email
 
   .friends-list{:style=>'margin-left:20px;'}
     %h3 添加协作团队
