@@ -76,12 +76,12 @@ module FeedProxyModifyMethods
     end
 
     def change_feed_cache_on_add_contact_user
-      NewsFeedProxy.new(self.user).add_contact_user(User.find_by_email(self.email))
+      NewsFeedProxy.new(self.user).add_contact_user(self.follow_user)
       return true
     end
 
     def change_feed_cache_on_remove_contact_user
-      NewsFeedProxy.new(self.user).remove_contact_user(User.find_by_email(self.email))
+      NewsFeedProxy.new(self.user).remove_contact_user(self.follow_user)
       return true
     end
 

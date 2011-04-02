@@ -24,9 +24,9 @@ class FollowOperationQueue
     contact_user = User.find_by_id(task_hash["contact_user_id"])
     case operation
     when FOLLOW_OPERATION
-      user.contacts.new(:email=>contact_user.email).save
+      user.add_contact_user(contact_user)
     when UNFOLLOW_OPERATION
-      contact = user.contacts.find_by_email(contact_user.email)
+      contact = user.get_contact_obj_of(contact_user)
       contact.destroy if !!contact
     end
     return true

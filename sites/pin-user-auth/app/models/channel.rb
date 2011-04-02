@@ -38,7 +38,7 @@ class Channel < ActiveRecord::Base
   end
 
   def contact_users
-    self.contacts.map{|c|EmailActor.get_user_by_email(c.email)}.reverse
+    self.contacts.map{|c|c.follow_user}.reverse
   end
 
   def has_user?(user)
@@ -49,11 +49,9 @@ class Channel < ActiveRecord::Base
   # 增加成功返回 true
   # 增加失败返回 false
   def add_user(user)
-    contacts = self.creator.contacts.find_all_by_email(user.email)
-    contact = contacts.first
-    if contacts.blank?
-      contact = self.creator.contacts.new(:email=>user.email)
-      contact.save
+    contact = self.creator.get_contact_obj_of(user)
+    if contact.blank?
+      contact = self.creator.add_contact_user(user)
     end
     cc = ChannelContact.new(:contact=>contact,:channel=>self)
     cc.save
@@ -70,9 +68,8 @@ class Channel < ActiveRecord::Base
   # 去除成功返回 true
   # 失败或者 user 原本就不在频道 返回 false
   def remove_user(user)
-    contacts = self.creator.contacts.find_all_by_email(user.email)
-    return false if contacts.blank?
-    contact = contacts.first
+    contact = self.creator.get_contact_obj_of(user)
+    return false if contact.blank?
     cc = ChannelContact.find_by_channel_id_and_contact_id(self.id,contact.id)
     return false if !cc
     cc.destroy
@@ -97,7 +94,7 @@ class Channel < ActiveRecord::Base
     end
 
     def no_channel_contact_users_db
-      no_channel_contacts.map{|c|EmailActor.get_user_by_email(c.email)}.compact
+      no_channel_contacts.map{|c|c.follow_user}.compact
     end
 
     # self 是channel的拥有者 user是被查的人
@@ -105,13 +102,13 @@ class Channel < ActiveRecord::Base
       channel_contacts = self.channels.map do |channel|
         channel.channel_contacts
       end.flatten
-      channel_contacts = channel_contacts.select{|cc|cc.contact.email == user.email}
+      channel_contacts = channel_contacts.select{|cc|cc.contact.follow_user == user}
       channel_contacts = channel_contacts.sort{|cc1,cc2|cc1.updated_at<=>cc2.updated_at}
       channel_contacts.map{|cc|cc.channel}.uniq
     end
 
     def belongs_to_channels_db
-      contacts = Contact.find_all_by_email(self.email)
+      contacts = self.fans_contacts_db
       contacts.map do |contact|
         ChannelContact.find_all_by_contact_id(contact.id).map do |cc|
           cc.channel

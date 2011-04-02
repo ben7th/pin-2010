@@ -6,17 +6,26 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = current_user.contacts.new(:email=>params[:contact][:email].strip())
-    if @contact.save
+    email = params[:contact][:email].strip()
+    return _render_error_message("请填写你要增加的联系人的用户邮箱") if email.blank?
+    contact_user = User.find_by_email(email)
+    return _render_error_message("没有找到这个用户") if contact_user.blank?
+    @contact = current_user.add_contact_user(contact_user)
+    if @contact.valid?
       render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>[@contact.contact_user]}
       return
     end
-    render :text=>@contact.errors.first[1],:status=>405
+    _render_error_message(@contact.errors.first[1])
+  end
+
+  def _render_error_message(message)
+    render :text=>message,:status=>503
   end
 
   def create_for_plugin
-    @contact = current_user.contacts.new(:email=>params[:email].strip())
-    if @contact.save
+    email = params[:email].strip()
+    @contact = current_user.add_contact_user(User.find_by_email(email))
+    if @contact.valid?
       user = @contact.contact_user
       data = !!user ? [{:id=>user.id,:name=>user.name,:email=>user.email,:avatar=>user.logo.url()},{:id=>@contact.id,:email=>@contact.email}] : [{},{:id=>@contact.id,:email=>@contact.email}]
       return render :status=>200,:json=>data.to_json

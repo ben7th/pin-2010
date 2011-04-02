@@ -41,9 +41,8 @@ cn:
               taken: 这个名字的频道已经存在
         contact:
           attributes:
-            email:
-              invalid: 邮箱地址不符合规范
-              blank: 请填写邮箱地址
+            follow_user:
+              blank: 没有找到这个用户
         member:
           attributes:
             email:

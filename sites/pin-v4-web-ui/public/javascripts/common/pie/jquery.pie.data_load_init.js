@@ -28,7 +28,7 @@ pie.load(function(){
       .css('position','absolute')
       .css('padding',10)
       .css('left',10)
-      .css('top',120)
+      .css('top',20)
       .css('color','white')
       .css('background','black');
     jQuery('body').append(elm);
