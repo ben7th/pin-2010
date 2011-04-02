@@ -78,7 +78,7 @@ class EmailContact
   end
 
   def current_user_has_contacted?(actor)
-    @current_user.contacts.find_by_email(actor.email)
+    @current_user.get_contact_obj_of(actor.actor)
   end
 
   class ContactEmailTypeError < StandardError;end

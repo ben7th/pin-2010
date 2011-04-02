@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
   rescue Exception=>ex
     flash[:error] = ex.message
   ensure
-    redirect_to "/account/invite"
+    redirect_to "/contacts_setting/invite"
   end
 
   def reg
@@ -35,8 +35,10 @@ class InvitationsController < ApplicationController
     if !emails.blank?
       Contact.transaction do
         !emails.each do |email|
-          contact = current_user.contacts.new(:email=>email.strip())
-          if !contact.save
+          contact_user = User.find_by_email(email.strip())
+          raise ContactSaveError,"没有#{email} 这个用户" if contact_user.blank?
+          contact = current_user.add_contact_user(contact_user)
+          if !contact.valid?
             raise ContactSaveError,contact.errors.first[1]
           end
         end
