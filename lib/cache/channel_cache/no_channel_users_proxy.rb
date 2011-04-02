@@ -9,11 +9,11 @@ class NoChannelUsersProxy < RedisBaseProxy
   end
 
   def add_contact(contact)
-    add_to_cache(User.find_by_email(contact.email).id)
+    add_to_cache(contact.follow_user_id)
   end
 
   def remove_contact(contact)
-    remove_from_cache(User.find_by_email(contact.email).id)
+    remove_from_cache(contact.follow_user_id)
   end
   
 end

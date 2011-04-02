@@ -9,7 +9,7 @@ class ContactProxy
     end
     
     def followings
-      followings_contacts.map{|c|EmailActor.get_user_by_email(c.email)}.compact
+      followings_contacts.map{|c|c.follow_user}.compact
     end
     
     def fans
@@ -34,13 +34,13 @@ class ContactProxy
     end
 
     def change_contact_cache_on_create
-      FansProxy.new(EmailActor.get_user_by_email(self.email)).add_to_cache(self.id)
+      FansProxy.new(self.follow_user).add_to_cache(self.id)
       FollowingsProxy.new(self.user).add_to_cache(self.id)
       return true
     end
 
     def change_contact_cache_on_destroy
-      FansProxy.new(EmailActor.get_user_by_email(self.email)).remove_from_cache(self.id)
+      FansProxy.new(self.follow_user).remove_from_cache(self.id)
       FollowingsProxy.new(self.user).add_to_cache(self.id)
       return true
     end

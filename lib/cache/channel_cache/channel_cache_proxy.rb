@@ -114,12 +114,12 @@ class ChannelCacheProxy
 
     def remove_channel_users_cache
       return true if channel.blank?
-      ChannelCacheProxy.new(User.find_by_email(contact.email),channel).remove
+      ChannelCacheProxy.new(contact.follow_user,channel).remove
       return true
     end
     def add_channel_users_cache
       return true if channel.blank?
-      ChannelCacheProxy.new(User.find_by_email(contact.email),channel).add
+      ChannelCacheProxy.new(contact.follow_user,channel).add
       return true
     end
   end

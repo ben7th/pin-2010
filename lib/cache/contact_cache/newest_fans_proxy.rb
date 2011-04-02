@@ -1,7 +1,7 @@
 class NewestFansProxy
   def initialize(user)
     @user = user
-    @key = "refresh_newest_fans_id_#{user.email}"
+    @key = "refresh_newest_fans_id_#{user.id}"
     @redis = RedisCache.instance
     @fan_proxy = FanProxy.new(@user)
   end

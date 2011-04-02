@@ -1,9 +1,7 @@
 class FollowingsProxy < RedisBaseProxy
   def initialize(user)
     @user = user
-    @email = user.email
-
-    @key = "followings_contacts_vector_#{@email}"
+    @key = "followings_contacts_vector_#{@user.id}"
   end
 
   def xxxs_ids_db
