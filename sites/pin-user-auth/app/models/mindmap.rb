@@ -79,12 +79,17 @@ class Mindmap < Mev6Abstract
 
   # 创建导图和导入导图时，创建对应的 feed
   def _create_feed
-    return if self.id.blank?
-    content = "我发布了思维导图：#{self.title}"
-    feed = Feed.create!(:email=>self.user.email,:event=>Feed::SAY_OPERATE,
-      :content=>content)
-    FeedMindmap.create!(:mindmap=>self,:feed=>feed)
-    self.user.news_feed_proxy.update_feed(feed)
+    begin
+      return if self.id.blank?
+      content = "我发布了思维导图：#{self.title}"
+      feed = Feed.create!(:creator=>self.user,:event=>Feed::SAY_OPERATE,
+        :content=>content)
+      FeedMindmap.create!(:mindmap=>self,:feed=>feed)
+      self.user.news_feed_proxy.update_feed(feed)
+    rescue Exception => ex
+      p '导图发布时feed创建失败'
+      p ex
+    end
   end
 
   def rank_value
