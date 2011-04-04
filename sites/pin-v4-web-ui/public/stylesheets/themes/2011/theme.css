@@ -1,41 +1,52 @@
 /*2011年第一套配色*/
-/*薄花樱*/
-/*杜若*/
-/*勿忘草*/
-/*青蓝*/
+/*页眉*/
+/*页眉背景*/
+/*页眉文字*/
+/*页眉底边*/
+/*顶端用户导航背景*/
+/*顶端用户导航阴影*/
+/*顶端用户导航边线*/
+/*顶端用户导航链接色*/
 .page-head {
-  background-color: #5a79ba;
+  background: -moz-linear-gradient(-90deg, #f3f8db, #ebf2a6);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f3f8db), to(#ebf2a6));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f3f8db',endColorstr='#ebf2a6');
+  border-bottom: solid 1px #dfdfdf;
   color: white; }
-  .page-head a {
-    color: white;
-    text-shadow: 1px 1px #555; }
-    .page-head a:hover {
-      color: white; }
   .page-head .userbox {
-    box-shadow: 0 0 5px #040307;
-    -moz-box-shadow: 0 0 5px #040307;
-    -webkit-box-shadow: 0 0 5px #040307;
-    background-color: #4c6db4;
-    border: solid 2px #3e62ae; }
-  .page-head .line {
-    background-color: #999; }
+    background: -moz-linear-gradient(-90deg, #ebf3a7, #e4ee6f);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ebf3a7), to(#e4ee6f));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ebf3a7',endColorstr='#e4ee6f');
+    box-shadow: 0 0 2px #5c6d0c;
+    -moz-box-shadow: 0 0 2px #5c6d0c;
+    -webkit-box-shadow: 0 0 2px #5c6d0c;
+    border: solid 1px #abbe2e; }
+    .page-head .userbox a {
+      color: #47520e; }
+      .page-head .userbox a:hover {
+        color: #57621e; }
+  .page-head a {
+    color: #47520e; }
+    .page-head a:hover {
+      color: #57621e; }
 
+/*青蓝*/
 body {
-  background-color: #89c3eb;
-  color: #dddddd; }
+  background-color: #f3f8db;
+  color: #333333; }
 
 .page-content .cell {
-  border: 2px solid #343448;
-  background-color: #353747; }
+  border: 2px solid white;
+  background-color: white; }
 
 .page-footer {
   background-color: #284a78; }
 
 .loud {
-  color: #FBEB96 !important; }
+  color: #FB4A00 !important; }
 
 .loud1 {
-  color: white; }
+  color: black; }
 
 .quiet {
   color: #B5B5B5; }
@@ -44,9 +55,9 @@ body {
   color: #c5c5c5; }
 
 a {
-  color: #8EaEFF; }
+  color: #268DD3; }
   a:hover {
-    color: #9EbEFF; }
+    color: #5193D4; }
   a.loud {
     color: #FBEB96; }
     a.loud:hover {
@@ -58,22 +69,22 @@ a {
   border: solid 1px #E5E5E5; }
 
 .darkbg {
-  background-color: #282a38; }
+  background-color: white; }
 
 .darkbg .btb {
-  border-bottom: dashed 1px #424556; }
-
-.lightbg .btb {
-  border-bottom: dashed 1px #525566; }
+  border-bottom: dashed 1px #f6f6f7; }
 
 .current .darkbg, .darkbg1 {
-  background-color: #181a28; }
+  background-color: #d7d5c7; }
 
-.csshov:hover, .darkbg.csshov:hover, .darkbg1.csshov:hover {
-  background-color: #424556; }
+.darkbg1.csshov:hover {
+  background-color: #f6f6f7; }
 
 .lightbg {
-  background-color: #424556; }
+  background-color: #f6f6f7; }
+
+.lightbg1 {
+  background-color: #fafafb; }
 
 .concave {
   border-bottom: solid 1px #464660;
@@ -86,12 +97,3 @@ a {
   border-top: solid 1px #464660;
   border-bottom: solid 1px #000;
   border-right: solid 1px #000; }
-
-.boxs2 {
-  box-shadow: 0 0 2px black;
-  -moz-box-shadow: 0 0 2px black;
-  -webkit-box-shadow: 0 0 2px black; }
-  .boxs2.lightbg {
-    box-shadow: 0 0 2px #222222;
-    -moz-box-shadow: 0 0 2px #222222;
-    -webkit-box-shadow: 0 0 2px #222222; }

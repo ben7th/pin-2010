@@ -126,7 +126,7 @@ body {
       padding: 0 6px;
       margin-right: 10px; }
       .page-head .nav .userbox .inner {
-        padding-top: 10px; }
+        padding-top: 8px; }
         .page-head .nav .userbox .inner .avatarname {
           float: left; }
           .page-head .nav .userbox .inner .avatarname .tiny {
@@ -141,7 +141,8 @@ body {
         .page-head .nav .userbox .inner .sp {
           float: left;
           line-height: 24px;
-          margin-left: 15px; }
+          margin-left: 15px;
+          font-weight: bold; }
     .page-head .nav .topbar {
       clear: right;
       float: right;

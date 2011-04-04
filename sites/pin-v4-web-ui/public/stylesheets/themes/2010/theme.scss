@@ -1,30 +1,34 @@
 /*2011年第一套配色*/
 @import "../../ui/misc";
 
-$head-bg-color   : #F9F9F9;
+$head-bg-color   : #5A79BA; /*薄花樱*/
 $head-text-color : #ffffff;
 
 $head-userbox-bg-color     : #4C6DB4; /*杜若*/
 $head-userbox-border-color : #3E62AE;
 
-$body-bg-color   : #ECF4F7;
-$body-text-color : #333333;
+$body-bg-color   : #89C3EB; /*勿忘草*/
+$body-text-color : #ddd;
 
-$content-bg-color     : #ffffff;
-$content-border-color : #ffffff;
+$content-bg-color     : #353747;
+$content-border-color : #343448;
 
 $foot-bg-color : #284A78; /*青蓝*/
 
-$dark-bg-color : white;
-$dark-bg-color-1 : #D7D5C7;
-$light-bg-color : #F6F6F7;
-$light-bg-color-1 : #FAFAFB;
+$dark-bg-color : #282a38;
+$dark-bg-color-1 : #181a28;
+$light-bg-color : #424556;
+$light-bg-color-1 : #525566;
 
 
 .page-head{
-  @include gradient(#ffffff,#F5F5F5);
-  border-bottom:solid 1px #DFDFDF;
+  background-color:$head-bg-color;
   color:$head-text-color;
+  a{
+    color:$head-text-color;
+    text-shadow:1px 1px #555;
+    &:hover{color:$head-text-color}
+  }
   .userbox{
     @include box-shadow(0 0 5px #040307);
     background-color:$head-userbox-bg-color;
@@ -49,14 +53,14 @@ body{
   background-color:$foot-bg-color;
 }
 
-.loud{color:#FB4A00 !important;}
-.loud1{color:black;}
+.loud{color:#FBEB96 !important;}
+.loud1{color:white;}
 .quiet{color:#B5B5B5;}
 .date{color:#c5c5c5;}
 
 a{
-  color:#268DD3;
-  &:hover{color:#5193D4;}
+  color:#8EaEFF;
+  &:hover{color:#9EbEFF;}
   &.loud{
     color:#FBEB96;
     &:hover{text-decoration:none !important;color:#FBD300 !important;}
@@ -69,12 +73,12 @@ a{
 }
 
 .darkbg{background-color:$dark-bg-color;}
-.darkbg .btb{border-bottom:dashed 1px $light-bg-color;}
+.darkbg  .btb{border-bottom:dashed 1px $light-bg-color;}
+.lightbg .btb{border-bottom:dashed 1px $light-bg-color-1;}
 .current .darkbg, .darkbg1{background-color:$dark-bg-color-1;}
-.darkbg1.csshov:hover{background-color:$light-bg-color;}
+.csshov:hover, .darkbg.csshov:hover, .darkbg1.csshov:hover{background-color:$light-bg-color;}
 
 .lightbg{background-color:$light-bg-color;}
-.lightbg1{background-color:$light-bg-color-1;}
 
 .concave{
   border-bottom:solid 1px #464660;
@@ -88,4 +92,11 @@ a{
   border-top:solid 1px #464660;
   border-bottom:solid 1px #000;
   border-right:solid 1px #000;
+}
+
+.boxs2{
+  @include box-shadow(0 0 2px black);
+  &.lightbg{
+    @include box-shadow(0 0 2px #222);
+  }
 }

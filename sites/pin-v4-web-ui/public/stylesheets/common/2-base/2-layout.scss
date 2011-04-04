@@ -114,14 +114,14 @@ body {margin:0;}
       padding:0 6px;
       margin-right:10px;
       .inner{
-        padding-top:10px;
+        padding-top:8px;
         .avatarname{
           float:left;
           .tiny{width:20px;height:20px;}
           a{float:left;line-height:24px;}
           a.name{font-weight:bold;margin-left:6px;}
         }
-        .sp{float:left;line-height:24px;margin-left:15px;}
+        .sp{float:left;line-height:24px;margin-left:15px;font-weight:bold;}
       }
     }
     .topbar{

@@ -1,12 +1,16 @@
 /*2011年第一套配色*/
+/*薄花樱*/
 /*杜若*/
+/*勿忘草*/
 /*青蓝*/
 .page-head {
-  background: -moz-linear-gradient(-90deg, white, #f5f5f5);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#f5f5f5));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='white',endColorstr='#f5f5f5');
-  border-bottom: solid 1px #DFDFDF;
+  background-color: #5a79ba;
   color: white; }
+  .page-head a {
+    color: white;
+    text-shadow: 1px 1px #555; }
+    .page-head a:hover {
+      color: white; }
   .page-head .userbox {
     box-shadow: 0 0 5px #040307;
     -moz-box-shadow: 0 0 5px #040307;
@@ -17,21 +21,21 @@
     background-color: #999; }
 
 body {
-  background-color: #ecf4f7;
-  color: #333333; }
+  background-color: #89c3eb;
+  color: #dddddd; }
 
 .page-content .cell {
-  border: 2px solid white;
-  background-color: white; }
+  border: 2px solid #343448;
+  background-color: #353747; }
 
 .page-footer {
   background-color: #284a78; }
 
 .loud {
-  color: #FB4A00 !important; }
+  color: #FBEB96 !important; }
 
 .loud1 {
-  color: black; }
+  color: white; }
 
 .quiet {
   color: #B5B5B5; }
@@ -40,9 +44,9 @@ body {
   color: #c5c5c5; }
 
 a {
-  color: #268DD3; }
+  color: #8EaEFF; }
   a:hover {
-    color: #5193D4; }
+    color: #9EbEFF; }
   a.loud {
     color: #FBEB96; }
     a.loud:hover {
@@ -54,22 +58,22 @@ a {
   border: solid 1px #E5E5E5; }
 
 .darkbg {
-  background-color: white; }
+  background-color: #282a38; }
 
 .darkbg .btb {
-  border-bottom: dashed 1px #f6f6f7; }
+  border-bottom: dashed 1px #424556; }
+
+.lightbg .btb {
+  border-bottom: dashed 1px #525566; }
 
 .current .darkbg, .darkbg1 {
-  background-color: #d7d5c7; }
+  background-color: #181a28; }
 
-.darkbg1.csshov:hover {
-  background-color: #f6f6f7; }
+.csshov:hover, .darkbg.csshov:hover, .darkbg1.csshov:hover {
+  background-color: #424556; }
 
 .lightbg {
-  background-color: #f6f6f7; }
-
-.lightbg1 {
-  background-color: #fafafb; }
+  background-color: #424556; }
 
 .concave {
   border-bottom: solid 1px #464660;
@@ -82,3 +86,12 @@ a {
   border-top: solid 1px #464660;
   border-bottom: solid 1px #000;
   border-right: solid 1px #000; }
+
+.boxs2 {
+  box-shadow: 0 0 2px black;
+  -moz-box-shadow: 0 0 2px black;
+  -webkit-box-shadow: 0 0 2px black; }
+  .boxs2.lightbg {
+    box-shadow: 0 0 2px #222222;
+    -moz-box-shadow: 0 0 2px #222222;
+    -webkit-box-shadow: 0 0 2px #222222; }

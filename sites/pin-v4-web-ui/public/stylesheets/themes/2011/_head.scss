@@ -1,0 +1,38 @@
+/*页眉*/
+  /*页眉背景*/
+    $head-bg-color   : #F3F8DB;
+    $head-bg-color-1 : #EBF2A6;
+  /*页眉文字*/
+    $head-text-color : #ffffff;
+  /*页眉底边*/
+    $head-border-bottom-color : #DFDFDF;
+
+  /*顶端用户导航背景*/
+    $head-userbox-bg-color     : #EBF3A7;
+    $head-userbox-bg-color-2   : #E4EE6F;
+  /*顶端用户导航阴影*/
+    $head-userbox-shadow-color :#5C6D0C;
+  /*顶端用户导航边线*/
+    $head-userbox-border-color : #ABBE2E;
+  /*顶端用户导航链接色*/
+    $head-userbox-a-color      : #47520E;
+    $head-userbox-a-color-hover: #57621E;
+
+.page-head{
+  @include gradient($head-bg-color,$head-bg-color-1);
+  border-bottom:solid 1px $head-border-bottom-color;
+  color:$head-text-color;
+  .userbox{
+    @include gradient($head-userbox-bg-color,$head-userbox-bg-color-2);
+    @include box-shadow(0 0 2px $head-userbox-shadow-color);
+    border:solid 1px $head-userbox-border-color;
+    a{
+      color:$head-userbox-a-color;
+      &:hover{color:$head-userbox-a-color-hover;}
+    }
+  }
+  a{
+    color:$head-userbox-a-color;
+    &:hover{color:$head-userbox-a-color-hover;}
+  }
+}
