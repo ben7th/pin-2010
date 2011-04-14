@@ -6,12 +6,22 @@
   = javascript_include_tag "views/index_channel_panel"
   = javascript_include_tag "views/feed_operation"
 
+  - refresh_feed_tip
+  = javascript_include_tag "views/notice/feed_notice"
+  :javascript
+    pie.misc_tip_info = #{misc_tip_info.to_json}
+
 .grid_3.alpha
   =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 
 .grid_14.paddingl20
   =render :partial=>'index/homepage/feeds/feed_form'
   =render :partial=>'index/homepage/index_channel_panel'
+
+  .new-feed-tip{:style=>'display:none;'}
+    =link_to '收到了新的话题，请点击这里查看','javascript:;'
+    .loading-tip
+      正在读取...
 
   .newsfeed
     =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
@@ -20,6 +30,6 @@
     = will_paginate @feeds
 
 .grid_4.omega.fright
-  .index-feed-search-form
+  .index-search-form
     =render :partial=>'index/index_parts/feed_search_form'
   =render :partial=>'index/index_parts/feed_links'

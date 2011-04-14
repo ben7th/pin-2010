@@ -18,6 +18,8 @@ module TsinaControllerMethods
   end
 
   def bind_tsina_callback
+    # TODO 此处会因为浏览器缓存的一些问题导致崩溃
+    # 建议存放在服务器缓存中
     request_token = session[:request_token]
     session[:request_token] = nil
     access_token = Tsina.get_access_token_by_request_token_and_oauth_verifier(request_token,params[:oauth_verifier])
@@ -65,7 +67,7 @@ module TsinaControllerMethods
     if !cu.blank?
       cu.update_tsina_info(@tsina_user_info,atoken,asecret)
       self.current_user = cu.user
-      return redirect_to "/"
+      return to_logged_in_page
     end
     render :template=>"/connect_users/connect_tsina_confirm"
   end
@@ -81,7 +83,7 @@ module TsinaControllerMethods
       atoken,asecret)
     self.current_user = connect_user.user
     clear_session_connect_info
-    redirect_to "/"
+    return to_logged_in_page
   end
 
   def tsina_bind_mindpin_typical_account

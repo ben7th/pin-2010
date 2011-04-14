@@ -56,7 +56,7 @@ class FeedLucene
     def search_paged_result_by_user(user)
       # TODO 参数传递重复，java搜索结果中应包含分页信息以避免此问题
       xml = Client.connection do |client|
-        client.search_page_by_user(@query, @pager.start_index, @pager.per_page,user.email)
+        client.search_page_by_user(@query, @pager.start_index, @pager.per_page,user.id)
       end
       LuceneSearchResult.new(xml,:pager=>@pager)
     end
@@ -98,10 +98,10 @@ class FeedLucene
       def items
         @items ||=
           begin
-            s_arr =  @search_results["search_result"] || []
-            s_arr = [s_arr] if s_arr.class != Array
-            LuceneSearchItem.build_from_array(s_arr)
-          end
+          s_arr =  @search_results["search_result"] || []
+          s_arr = [s_arr] if s_arr.class != Array
+          LuceneSearchItem.build_from_array(s_arr)
+        end
       end
 
       private
@@ -143,7 +143,7 @@ class FeedLucene
   end
 
   def self.index_one_feed(feed_id)
-     Thread.start do
+    Thread.start do
       begin
         Client.connection do |client|
           client.index_one_feed(feed_id)
@@ -180,6 +180,19 @@ class FeedLucene
     end
   end
 
+  # 查找相关的feed
+  def self.similar_feeds_of(feed,feeds_count=5)
+    begin
+      query_str = feed.major_words*" "
+      result = Searcher.new(query_str).search_result(feeds_count + 1)
+
+      feeds = result.items.map{|i|i.feed}.compact
+      feeds = feeds.select{|f|f != feed}[0...feeds_count]
+    rescue Exception => ex
+      raise FeedSearchFailureError,"搜索服务不可用。#{ex}"
+    end
+  end
+
   module FeedMethods
     def self.included(base)
       base.after_create :create_lucene_index_on_create
@@ -193,5 +206,13 @@ class FeedLucene
     def destroy_lucene_index_on_destroy
       FeedLucene.delete_index(self.id)
     end
+
+    def major_words(words_count=5)
+      KeywordsAnalyzer.new(self.content).major_words(words_count)
+    rescue Exception => ex
+      p ex
+      return []
+    end
   end
+
 end

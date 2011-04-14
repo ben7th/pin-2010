@@ -13,12 +13,12 @@ public class Feed {
 
   private String id;        // feed的id
   private String content;   // feed的内容
-  private String email;     // feed的创建者的email
+  private String creatorId; // feed的创建者的creatorId
 
-  Feed(String id, String content, String email){
+  Feed(String id, String content, String creatorId){
     this.id = id;
     this.content = content;
-    this.email = email;
+    this.creatorId = creatorId;
   }
 
   public String getContent(){
@@ -33,7 +33,7 @@ public class Feed {
     return id;
   }
 
-  public String getEmail(){
-    return email;
+  public String getCreatorId(){
+    return creatorId;
   }
 }

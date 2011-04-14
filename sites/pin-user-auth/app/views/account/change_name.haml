@@ -1,0 +1,16 @@
+-require_css 'views/users',true
+
+-if current_user.need_change_name?
+  .grid-title
+    您目前的用户名不符合系统规范，在继续使用之前，请输入一个新的用户名。
+
+  .desc.quiet.padding5.marginb3em
+    用户名在此之后仍可在“用户设置”中自由调整。
+
+  .hrr
+
+  .padding5
+    = flash_info
+    - mindpin_form_for @user,:url=>"/account/change_name",:html=>{:method=>:put} do |f|
+      = f.text_field(:name)
+      = f.submit '保存更改',:class=>'marginb3em'

@@ -1,18 +1,13 @@
 .channel-panel
   %ul.channels
     %li.all{:class => @current_channel.blank? ? 'current':''}
-      =link_to '全部',pin_url_for('pin-user-auth'),:class=>'darkbg csshov'
-    %li.none.hide{:class => @current_channel == 'none' ? 'current':''}
-      =link_to '默认频道',pin_url_for('pin-user-auth',"/channels/none"),:class=>'darkbg csshov'
+      =link_to '互动频道',pin_url_for('pin-user-auth'),:class=>'csshov'
     %li.mindmaps{:class => @current_channel == 'mindmaps' ? 'current':''}
-      -link_to pin_url_for('pin-user-auth',"/mindmaps"),:class=>'darkbg csshov' do
+      -link_to pin_url_for('pin-user-auth',"/mindmaps"),:class=>'csshov' do
         .icon
         思维导图
-    %li.more.csshov.hide
-      %span 其他
-      .icon
 
-  .channel-op.darkbg1
+  .channel-op.darkbg
     %span.loud.u-count
 
   .setting{:style=>'display:none;'}

@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   #  map.connect ':controller/:action/:id'
   #  map.connect ':controller/:action/:id.:format'
-  map.resources :mindmaps,:member=>{:export=>:get} do |mindmap|
+  map.resources :mindmaps,:member=>{:export=>:get,:fav=>:post,:unfav=>:delete} do |mindmap|
 
     mindmap.files                   "files",:controller=>"files",:action=>"index",:conditions=>{:method=>:get}
     mindmap.search_image            "files/search_image",:controller=>"files",:action=>"search_image",:conditions=>{:method=>:get}
@@ -54,5 +54,6 @@ ActionController::Routing::Routes.draw do |map|
     mindmap.show_upload_file_thumb  "thumb/*path",:controller=>"files",:action=>"show_upload_file_thumb",:conditions=>{:method=>:get}
 
     mindmap.delete_upload_file      "files/*path",:controller=>"files",:action=>"destroy",:conditions=>{:method=>:delete}
+    mindmap.resources :comments,:controller=>"comments"
   end
 end

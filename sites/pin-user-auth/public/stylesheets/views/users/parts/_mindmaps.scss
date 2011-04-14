@@ -1,0 +1,161 @@
+.user-mindmaps{
+  ul{
+    overflow:hidden;
+    .mpli{
+      padding-bottom:15px !important;
+      margin: 0 0 15px 0;
+      float:left;
+      width:180px;
+      .title{
+        width:166px;
+        line-height:20px;
+        height:20px;
+        overflow:visible;
+        padding:0 0 0 5px;
+        margin:0 0 2px 0;
+        overflow:hidden;
+        font-weight:bold;
+        font-size:13px;
+        @include border-radius(4px);
+        @include editable-form;
+        cursor:pointer;
+        form{margin-left:-5px;margin-top:-2px;}
+      }
+      .meta{
+        overflow:hidden;
+        .preview{
+          float:left;
+          width:124px;
+          height:124px;
+          padding:5px;
+          @include border-radius(5px 0 5px 5px);
+          img{
+            border:solid 2px #A3A3A3;
+            @include border-radius(3px);
+            &:hover{
+              cursor:url("/images/big.cur"), auto;
+            }
+          }
+        }
+        .rank{
+          float:left;
+          width:32px;
+          height:32px;
+          @include border-radius(0 5px 5px 0);
+          margin: 0 0 2px 0;
+          span{
+            @include border-radius(3px);
+            width:24px;height:24px;
+            line-height:24px;text-align:center;
+            display:block;
+            font-weight:bold;
+            font-size:14px;
+            margin:3px 0 0 3px;
+          }
+        }
+
+        .action{
+          float:left;
+          width:32px;margin:0;padding:0;font-size:0;
+          position:relative;
+          .edit, .coop, .info, .dup, .pt{
+            width:32px;
+            height:32px;
+            @include border-radius(0 5px 5px 0);
+            margin: 0 0 2px 0;
+            a{
+              display:block;
+              position:relative;
+              top:3px;left:3px;
+              width:24px;height:24px;
+              text-indent:-999px;
+              font-size:0px;
+              line-height:0px;
+            }
+          }
+
+          .edit a{background:url(/images/icons/all.png) 0   0px no-repeat;}
+          .coop a{background:url(/images/icons/all.png) 0 -25px no-repeat;}
+          .info a{background:url(/images/icons/all.png) 0 -50px no-repeat;}
+          .dup  a{background:url(/images/icons/all.png) 0 -75px no-repeat;}
+
+          .pt{
+            width:24px;height:24px;
+            .toggle{
+              cursor:pointer;
+              display:block;
+              width:16px;height:16px;
+              @include border-radius(3px);
+              position:relative;top:4px;left:4px;
+              &.public {background:url(/images/icons/all.png) -34px -100px no-repeat !important;}
+              &.private{background:url(/images/icons/all.png) -17px -100px no-repeat !important;}
+              &.loading{background:url(/images/icons/toggle-loading-12.gif) 2px 2px no-repeat !important;}
+            }
+          }
+          .delete{
+            width:16px;
+            height:16px;
+            left:-20px;
+            bottom:-22px;
+            @include border-radius(0 0 5px 5px);
+            margin: 0 0 0 0;
+            position:absolute;
+            a{
+              width:16px;height:16px;
+              display:block;
+              background:url(/images/icons/all.png) 0 -100px no-repeat;
+              text-indent:-999px;
+              font-size:0px;
+              line-height:0px;
+            }
+          }
+        }
+      }
+
+      .time{
+        float:left;
+        @include border-radius(4px);
+        height:14px;
+        line-height:14px;
+        padding:0 4px;
+        margin:2px 0 0 0;
+        .date{}
+      }
+    }
+  }
+}
+
+.searched-mindmaps{
+  .search-result{
+    margin-bottom:20px;
+    overflow:hidden;
+    .meta{
+      padding:5px;
+      @include border-radius(5px);
+      overflow:hidden;
+      .avatar{
+        float:left;
+        margin-right:10px;
+        img{width:32px;height:32px;}
+      }
+      .c{
+        float:left;width:550px;
+        .title{
+          font-size:14px;
+          margin-bottom:5px;
+        }
+        .loud{color:#FBB300 !important;}
+      }
+    }
+    .score,.time{
+      @include border-radius(5px);
+      float:left;
+      margin:2px 0 0 45px;
+      padding:0 4px;
+      line-height:14px;
+    }
+    .time{
+      margin-left:5px;
+    }
+  }
+}

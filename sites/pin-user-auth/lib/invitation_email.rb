@@ -15,6 +15,7 @@ class InvitationEmail
     if @receiver.signed_in?
       raise InvitationError,"被邀请邮箱已经注册过了"
     end
+    @sender.actor.update_attributes(:send_invite_email=>true)
 #    Thread.start{
     Mailer.deliver_invite(self)
 #    }

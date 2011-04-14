@@ -94,8 +94,8 @@
 #mindmap-status-bar
   .cooperate
     %span 共同编辑者:
-    -@mindmap.cooperate_edit_email_actors.each do |ea|
-      %span=email_actor_link(ea,:target=>'_blank')
+    -@mindmap.cooperate_users.each do |user|
+      =link_to user.name,pin_url_for("pin-user-auth","/users/#{user.id}"),:target=>'_blank'
   .buttons
     %a.mindmap-recenter{:title=>'导图重新居中',:href=>'javascript:;',:onclick=>'mindmap.recenter();'}
       %span 导图重新居中

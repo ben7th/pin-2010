@@ -1,0 +1,5 @@
+-query ||= ''
+
+%form{:action=>"/search_mindmaps",:method=>"get"}
+  %input.search-inner.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图',:value=>query}
+  %input.search-button{:value=>"搜索",:type=>"submit"}

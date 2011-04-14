@@ -5,12 +5,13 @@
 
 .grid_14.alpha
   .grid-title
-    你可以在这里设置你平常使用的用户昵称
+    你可以在这里设置你平常使用的用户昵称以及签名档
 
-  .padding5.darkbg.rc5.boxs2
+  .padding5
     = flash_info
     - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
       = f.text_field(:name)
+      = f.text_area(:sign)
       .field
         %label
           注册时间 #{created_at current_user}

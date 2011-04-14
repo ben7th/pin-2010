@@ -132,5 +132,13 @@ class Mindmap < ActiveRecord::Base
   include MindmapImageMethods
   include MindmapRightsMethods
 
-  include CooperationMindmapMethods
+  include MindmapCooperationMethods
+  include MindmapComment::MindmapMethods
+  include MindmapFav::MindmapMethods
+  include MindmapFavProxy::MindmapMethods
+
+  include MindmapCooperationMethods
+  include Channel::MindmapMethods
+  include FeedMindmap::MindmapMethods
+  include FeedMindmapProxy::MindmapMethods
 end

@@ -1,0 +1,10 @@
+-form_tag mindmap_comments_path do
+  %p
+    评论内容
+    %br 
+    =text_area_tag :content
+  %p
+    =check_box_tag :create_feed,"true" ,true
+    添加到新鲜事
+  %p
+    =submit_tag "提交"

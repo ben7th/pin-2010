@@ -112,7 +112,7 @@ class Mindmap < Mev6Abstract
       mindmap_ids = user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     end
     index = mindmap_ids.index(self.id)
-    return if index == 0
+    return if index == 0 || index.blank?
     Mindmap.find(mindmap_ids[index-1])
   end
   
@@ -126,7 +126,7 @@ class Mindmap < Mev6Abstract
       mindmap_ids = user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     end
     index = mindmap_ids.index(self.id)
-    return if index == (mindmap_ids.count-1)
+    return if index == (mindmap_ids.count-1) || index.blank?
     Mindmap.find(mindmap_ids[index+1])
   end
   
@@ -140,7 +140,7 @@ class Mindmap < Mev6Abstract
     end
   end
 
-  include CooperationMindmapMethods
+  include MindmapCooperationMethods
   include Channel::MindmapMethods
   include FeedMindmap::MindmapMethods
   include FeedMindmapProxy::MindmapMethods

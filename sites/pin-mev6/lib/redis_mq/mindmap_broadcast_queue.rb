@@ -19,9 +19,7 @@ class MindmapBroadcastQueue
   end
 
   def get_by_conditions(user,req_rev_local,req_rev_remote)
-    p req_rev_remote
     opers = all.map {|m|ActiveSupport::JSON.decode(m)}
-    p opers
     # 不是自己的
     opers.select  do |oper|
       queue_new_rev_remote = oper["new_rev_remote"].to_i

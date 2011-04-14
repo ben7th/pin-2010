@@ -1,19 +1,23 @@
 -klass = feed.send_by_main_user?(channel) ? 'notice':'question'
 
-=render :partial=>'index/homepage/feeds/info_parts/info_f',:locals=>{:feed=>feed,:klass=>klass}
+.f.ext.interview{:'data-id'=>"#{feed.id}",:class=>[klass,'btb']*' '}
+  =render :partial=>'index/homepage/feeds/info_parts/info_reply_to_feed',:locals=>{:feed=>feed}
+  =render :partial=>'index/homepage/feeds/info_parts/info_current_feed',:locals=>{:feed=>feed}
+  =render :partial=>'index/homepage/feeds/info_parts/info_quote_feed',:locals=>{:feed=>feed}
 
--answer_comments = feed.reply_comments_of(channel.include_users_and_creator)
-.answers.darkbg{:class=>answer_comments.blank? ? 'hide':''}
-  -answer_comments.each do |c|
-    .answer.btb
-      .icon
-      .avatar
-        =avatar(c.user,:mini)
-      .content
-        =link_to c.user.name,c.user
-        %span.loud 说
-        =c.content
+  .extitem
+    -answer_comments = feed.reply_comments_of(channel.include_users_and_creator)
+    .answers{:class=>answer_comments.blank? ? 'hide':''}
+      -answer_comments.each do |c|
+        .answer.darkbg.shadow
+          .icon
+          .avatar
+            =avatar(c.user,:mini)
+          .content
+            =link_to c.user.name,c.user
+            %span.loud 说
+            =c.content
 
-=render :partial=>'index/homepage/feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}
+  =render :partial=>'index/homepage/feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}
     
   

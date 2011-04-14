@@ -23,14 +23,16 @@
 (function($) {
   jQuery(document).ready(function() {
     // -- add active class to active elements
-    $("form select, form .text, form textarea")
+    $("form select, form .text, form textarea, textarea, input.text")
       .live('focus',function( ){
         $(this).closest("div.field").addClass("active");
         $(this).closest("fieldset").addClass("active");
+        $(this).addClass("active");
       })
       .live('blur',function( ){
         $(this).closest("div.field").removeClass("active");
         $(this).closest("fieldset").removeClass("active");
+        $(this).removeClass("active");
       });
 
     $("input[type='submit'],a.button")

@@ -26,6 +26,7 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         logo: 头像
+        sign: 签名档
       message:
         receiver_email: 收信人
         content: 发送内容
@@ -60,10 +61,10 @@ cn:
           attributes:
             name:
               blank: 需要填写用户名
-              invalid: 用户名不符规范
+              invalid: 用户名不符合命名规范
               too_short: 用户名的长度应该大于{{count}}个字符（字符可以是中文或者英文数字）
               too_long: 用户名的长度应该小于{{count}}个字符（字符可以是中文或者英文数字）
-              taken: 这个用户名已经被使用了
+              taken: 指定的用户名已经被其他人使用了，请尝试换用其他用户名
             email:
               blank: 请填写邮箱地址
               invalid: 邮箱地址不符规范

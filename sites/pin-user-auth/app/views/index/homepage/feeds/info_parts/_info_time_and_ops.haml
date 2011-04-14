@@ -1,19 +1,20 @@
-.time.lightbg
-  =created_from(feed)
+.footmisc
+  .time.lightbg
+    =link_to created_from(feed),feed,:class=>'quiet'
 
--if logged_in?
-  .ops
-    -if feed.creator == current_user
-      .del.darkbg.csshov
+  -if logged_in?
+    .ops
+      -if feed.creator == current_user
+        .del.csshov
+          .icon
+          .t 删除
+      .fav.csshov{:class=>feed.fav_by?(current_user) ? 'on':'off'}
         .icon
-        .t 删除
-    .fav.darkbg.csshov{:class=>feed.fav_by?(current_user) ? 'on':'off'}
-      .icon
-      .t.t1 标记
-      .t.t2 取消标记
-    .transmit.darkbg.csshov
-      .icon
-      .t 传阅
-    .echo.darkbg.csshov{:'data-count'=>feed.comments_count}
-      .icon
-      .t 回应 #{feed.comments_count}
+        .t.t1 标记
+        .t.t2 取消标记
+      .transmit.csshov{:'data-colunt'=>feed.quotes_count}
+        .icon
+        .t 传阅 #{feed.quotes_count}
+      .echo.csshov{:'data-count'=>feed.comments_count}
+        .icon
+        .t 回应 #{feed.comments_count}

@@ -12,4 +12,5 @@ class CreateFeedsController < ApplicationController
     res = current_user.send_mindmap_feed(params[:title],:channel_ids=>[channel_id])
     redirect_to "/channels/#{channel_id}"
   end
+
 end

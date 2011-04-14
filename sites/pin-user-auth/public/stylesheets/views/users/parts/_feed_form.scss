@@ -1,0 +1,221 @@
+.feed-form-container{
+  padding:70px 0 20px 50px;
+  @include border-radius(6px);
+  background:url(/images/icons/feed-form-bg.png) no-repeat 0 0;
+  background-color:#E4EE70;
+  border:solid 1px #ddd;
+}
+
+.feed-form{
+  margin:0px 0 0 0px;
+  overflow:hidden;
+  width:500px;
+  position:relative;
+  .ipter{
+    overflow:hidden;
+    .tip{
+      font-size:14px;
+    }
+    .ipts{
+      float:left;
+      padding:0 10px 0 0;
+      font-size:0px;
+      line-height:0px;
+      .feed-content{
+        width:430px;
+        height:98px;
+        overflow:hidden;
+        position:relative;
+        border:solid 4px #293100;
+        *top:-1px;
+      }
+    }
+  }
+  .subm{
+    width:404px;
+    clear:both;
+    overflow:hidden;
+    a{
+      @include border-radius(0 0 4px 4px);
+      float:left;
+      margin-left:10px;
+      border-width:0 1px 1px 1px;
+      border-style:none solid solid solid;
+      font-size:14px;
+      padding:2px 20px 4px;
+      font-weight:bold;
+      color:#fff;
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      &:hover{text-decoration:none;}
+      &.mousedown{}
+    }
+  }
+}
+
+.feed-form{
+  &.feed-todolist-form{margin:0 0 30px 0}
+}
+
+.feed-form-mev6{
+  padding:0 0 45px 10px;
+  margin-top:32px;
+  position:relative;
+  .f-desc{
+    width:230px;
+    height:32px;
+    position:absolute;
+    top:-35px;
+    left:4px;
+    background:url(/images/icons/all.png) no-repeat -25px 0;
+  }
+  .btns{
+    width:500px;
+    overflow:hidden;
+    .import-mindmap,.create-mindmap,.edit-mindmap,.send{
+      width:32px;
+      height:32px;
+      @include border-radius(4px);
+      @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
+      float:left;
+      margin:5px 5px 5px 0;
+      cursor:pointer;
+      color:white;
+      @include gradient(#84A2D4,#2A4072);
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      &:hover{
+        @include gradient(#89C3EB,#4C6DB4);
+        color:white;
+        text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      }
+    }
+    .import-mindmap{
+      /*@include gradient(#BBC9E6,#BCBCDE);*/
+      @include gradient(#94E4FD,#3FC3EF);
+      .icon{
+        background:url(/images/icons/all.png) no-repeat 0 -117px;
+        width:24px;
+        height:24px;
+        margin:3px 0 0 3px;
+      }
+      &:hover{
+        @include gradient(#B3ECFC,#6AD6F4);
+      }
+    }
+    .create-mindmap,.edit-mindmap{
+      width:70px;
+      margin:5px 0 5px;
+      font-size:14px;
+      font-weight:bold;
+      line-height:32px;
+      padding:0 0 0 10px;
+    }
+    .feed-content{
+      width:320px;
+      height:22px;
+      float:left;
+      margin:5px 5px 5px 0;
+      background:#F7FCFF;
+    }
+    .import-loading,.import-loading-tips{display:none;}
+    &.loading{
+      .import-mindmap{display:none;}
+      .import-loading{
+        display:block;float:left;
+        width:32px;height:32px;
+        background:url(/images/icons/feed-form-loading.gif) 1px 1px no-repeat;
+        margin:5px 5px 5px 0;
+      }
+      input.feed-content{display:none;}
+      .create-mindmap{display:none;}
+      .import-loading-tips{
+        display:block;
+        float:left;
+        font-size:14px;
+        margin-top:4px;
+        border:solid 1px #111;
+        background:#323546;
+        padding:0 5px;
+        height:32px;line-height:32px;
+        @include border-radius(4px);
+      }
+    }
+  }
+  .import-mindmap-image{
+    background:#323546;
+    border:solid 1px #111;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    .close-import-mindmap-image {
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+    .image{
+      width:125px;
+      height:125px;
+      margin-top:16px;
+      img{
+        border:solid 2px #A3A3A3;
+        @include border-radius(3px);
+      }
+    }
+  }
+  .import-mindmap-form{
+    background:#323546;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    width:360px;
+    border:solid 3px #D9D9D7;
+    text-align:center;
+    #file-upload-btn{
+      height:32px;
+    }
+    .close{
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+  }
+  .import-error{
+    background:#323546;
+    @include border-radius(4px);
+    border:solid 1px #111;
+    width:300px;
+    padding:5px;
+    position:absolute;
+    top:41px;
+    color:#FFB49C;
+    .close{
+      position:absolute;
+      right:3px;
+      top:6px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+  }
+}

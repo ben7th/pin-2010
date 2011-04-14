@@ -12,36 +12,15 @@
   .index-channels
     =render 'channels/index_parts/channels_meta_c',:channels=>@user.channels
 
-  .channel-member-choose-panel.darkbg1{:style=>'display:none;'}
-    .intro
-      .i.loud
-        在下面选择要添加到该频道的联系人。
-      .i-added
-      .fleft
-        已经添加的
-      .i-selected
-      .fleft
-        准备添加的
+  =render 'channels/index_parts/channel_member_choose_panel'
 
-    .selected-users
-
-    .fo-users
-      -if logged_in?
-        -current_user.followings.each do |fu|
-          .fo-u.csshov{:'data-user-id'=>fu.id}
-            .avatar>=avatar fu,:tiny
-            .name>=fu.name
-            .chkico
-            .rmvico{:tipr=>'从该频道移除'}
-    .btns
-      %button.editable-submit 保存
-      %button.editable-cancel 取消
+  .hrr
 
   .grid-title
     %span.loud>#{@user.name}
     所属的频道
 
-  .index-belongs-to-channels.darkbg
+  .index-belongs-to-channels
     =render 'channels/index_parts/channels_meta_c',:channels=>@user.belongs_to_channels
 
 .grid_5.omega.fright

@@ -10,6 +10,10 @@ class FeedsController < ApplicationController
     @contacts = current_user.fans_contacts
   end
 
+  def all
+    @feeds = Feed.find(:all,:order=>"created_at desc").paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
   def say;end
 
   def do_say
@@ -30,14 +34,34 @@ class FeedsController < ApplicationController
     channel_id = params[:channel_id]
     channel = Channel.find_by_id(channel_id)
     return render :text=>"频道不存在",:status=>404 if channel.blank?
-    feed = current_user.send_say_feed(params[:content],:channel_ids=>[channel_id])
+    feed = _send_feed_by_channel_kind(channel)
     return render :text=>"发送失败",:status=>403 if feed.blank?
-    if channel.kind == Channel::KIND_INTERVIEW
-      @render_text = @template.render :partial=>'channels/channel_interview',:locals=>{:feeds=>[feed],:channel=>channel}
+    _render_content_by_channel_kind(channel,feed)
+  end
+
+  def _send_feed_by_channel_kind(channel)
+    case channel.kind
+    when Channel::KIND_INTERVIEW
+      current_user.send_say_feed(params[:content],:channel_ids=>[channel.id])
+    when Channel::KIND_TODOLIST
+      current_user.send_todolist_feed(params[:content],:channel_ids=>[channel.id])
     else
-      @render_text = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
+      current_user.send_say_feed(params[:content],:channel_ids=>[channel.id])
     end
-    return render :text=>@render_text
+  end
+
+  def _render_content_by_channel_kind(channel,feed)
+    case channel.kind
+    when Channel::KIND_INTERVIEW
+      render_text = @template.render :partial=>'channels/channel_interview',:locals=>{:feeds=>[feed],:channel=>channel}
+      render :text=>render_text
+    when Channel::KIND_TODOLIST
+      render_text = @template.render :partial=>'channels/channel_todolist',:locals=>{:feeds=>[feed],:channel=>channel}
+      render :text=>render_text
+    else
+      render_text = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
+      render :text=>render_text
+    end
   end
 
   def destroy
@@ -103,7 +127,7 @@ class FeedsController < ApplicationController
   end
 
   def received_comments
-    @feed_comments = current_user.being_replied_comments
+    @feed_comments = current_user.being_replied_comments.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   def quoted_me_feeds
@@ -118,5 +142,17 @@ class FeedsController < ApplicationController
       puts ex.backtrace*"\n"
       return render_status_page(500,ex)
     end
+  end
+
+  def show
+    @feed = Feed.find(params[:id])
+  end
+
+  def update
+    return (render :status=>403,:text=>"无权限") if @feed.creator != current_user
+    if @feed.update_attributes(:content=>params[:content])
+      return render :status=>200,:text=>"update success"
+    end
+    render :status=>500,:text=>"update failure"
   end
 end

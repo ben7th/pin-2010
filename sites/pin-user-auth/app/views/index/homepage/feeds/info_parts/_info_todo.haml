@@ -1,0 +1,12 @@
+-todo = feed.todos.first
+-if todo.blank?
+  .feed-todo.darkbg.shadow
+    .meta
+-else
+  .feed-todo.b0.shadow{:'data-id'=>todo.id}
+    .meta
+      .items
+        -if current_user == feed.creator
+          .add-items{:tipr=>'调整任务项'}
+        .items-count
+          =todo.todo_items.count

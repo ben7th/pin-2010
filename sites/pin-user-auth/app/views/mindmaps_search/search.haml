@@ -2,7 +2,7 @@
 
 .grid_16.alpha
   .search
-    %form{:action=>"/search",:method=>"get",:id=>"search_form"}
+    %form{:action=>"/search_mindmaps",:method=>"get",:id=>"search_form"}
       =text_field_tag 'q',@query,:class=>'search-inner text'
       %input.search-button{:value=>"搜索",:type=>"submit"}
 

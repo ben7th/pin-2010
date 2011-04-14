@@ -7,7 +7,7 @@
         =hidden_field_tag :channel_id,channel.id,:class=>'channel-id'
         =text_area_tag "content",'',:class=>"text feed-content"
     .subm
-      =link_to '发 送','javascript:;',:class=>'subbtn'
+      =link_to '发 送','javascript:;',:class=>'subbtn send-button shadow'
 
 .newsfeed
   -mplist feeds,:for=>Feed do |feed|

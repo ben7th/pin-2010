@@ -4,10 +4,9 @@ class IndexController < ApplicationController
     if !logged_in?
       return render :template=>'auth/index',:layout=>'auth'
     end
-    
+
     # 登录
     @feeds = current_user.in_feeds.paginate(:per_page=>10,:page=>params[:page]||1)
-    MessageTip.new(current_user).refresh_feeds_info
   end
 
   #----临时调试用----

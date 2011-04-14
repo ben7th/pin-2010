@@ -1,0 +1,10 @@
+-if(!feed.quote_of.blank?)
+  .quote-feed.darkbg.quote
+    -qf = feed.quoted_feed
+    .data
+      -if qf.nil?
+        %span.quiet 被传阅的话题已删除
+      -else
+        -qc = qf.creator
+        =link_to qc.name,qc
+        =feed_content(qf)

@@ -10,6 +10,8 @@ development:
   tsina_bind_callback_url: http://dev.www.mindpin.com/bind_other_site/tsina_callback
   tsina_api_key: 1526151944
   tsina_api_secret: a00a7048df478244376d69b14bb7ae07
+  douban_api_key: 0698f40c6ba7f4d213cadc2542f7de76
+  douban_api_secret: bad70c605a01184f
   client_cache_key: client_cache_key_devel
 
 test:

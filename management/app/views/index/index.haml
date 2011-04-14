@@ -45,5 +45,6 @@
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"follow_operation_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"feed_operation_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"send_tsina_status_queue_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"synchronous_message_from_tsina_worker"}
 
 =link_to "退出登录","/logout"

@@ -120,14 +120,14 @@ public class LuceneFeedsServiceHandler implements LuceneFeedsService.Iface {
   /**
    * 在某个用户的feeds中进行搜索
    * @param query
-   * @param email
+   * @param creator_id
    * @return
    * @throws TException
    */
-  public String search_by_user(String query, String email) throws TException {
+  public String search_by_user(String query, String creator_id) throws TException {
     try {
       Searcher s = new FeedSearcher(indexPath, query);
-      String result = s.searchFeedsByUserEmail(FeedSearcher.SEARCH_FIELDS, email);
+      String result = s.searchFeedsByUserCreatorId(FeedSearcher.SEARCH_FIELDS, creator_id);
       return result;
     } catch (Exception ex) {
       ex.printStackTrace();
@@ -144,10 +144,10 @@ public class LuceneFeedsServiceHandler implements LuceneFeedsService.Iface {
    * @return
    * @throws TException
    */
-  public String search_page_by_user(String query, int start, int count, String email) throws TException {
+  public String search_page_by_user(String query, int start, int count, String creator_id) throws TException {
     try {
       Searcher s = new FeedSearcher(indexPath, query, start, count);
-      String result = s.searchFeedsByUserEmail(FeedSearcher.SEARCH_FIELDS,email);
+      String result = s.searchFeedsByUserCreatorId(FeedSearcher.SEARCH_FIELDS,creator_id);
       return result;
     } catch (Exception ex) {
       ex.printStackTrace();

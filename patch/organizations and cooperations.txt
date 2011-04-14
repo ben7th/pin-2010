@@ -1,0 +1,49 @@
+团队和协同的修改
+  把团队数据导到频道里
+    1 运行 user-auth工程的 add_channel_id_to_organizations 数据库迁移
+    2 重启 memcached
+    3 运行 user-auth工程的 migrate_organizations_to_channels.rb 脚本
+  把协同数据导入新的表里
+    1 运行 mev6工程的 
+      create_cooperation_users，create_cooperation_channels 数据库迁移
+    2 重启 memcached
+    3 运行 mev6工程的 
+      migrate_cooperations_to_cooperation_users_and_cooperation_channels.rb
+      脚本
+
+htmlDocument
+  把 htmlDocument 关联的 feed 的 creator_id 复制到 htmlDocument上
+  1 运行 user-auth工程的
+    add_creator_id_to_html_documents 数据库迁移
+  2 运行 user-auth工程的
+    copy_feed_creator_id_to_html_documents.rb 脚本
+============================
+  # 得到url的code
+  def self.short(str,length=4)
+    base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    size = base.size
+    md5str = Digest::MD5.digest(str)
+
+    re = ''
+    len = [md5str.length,length].min - 1
+
+    0.upto len do |i|
+      j = md5str[i] % size
+      re << base[j]
+    end
+
+    re
+  end
+
+
+  # 查找这个code是否在数据库中存在，如果存在了，
+  # 那么生成一个确保不存在的
+  def create_a_not_existed_code
+    code = ShortUrl.short(self.url)
+    # 数据库中如果存在，则重新创建，确保唯一性
+    while true
+      return code if !ShortUrl.find_by_code(code)
+      code = ShortUrl.short(self.url,code.length + 1)
+    end
+  end
+    

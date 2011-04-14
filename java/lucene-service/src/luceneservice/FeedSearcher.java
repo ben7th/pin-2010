@@ -66,7 +66,7 @@ public class FeedSearcher extends Searcher {
     for (String q : qs) {
       Searcher s = new FeedSearcher(indexDir, q);
       System.out.println(s.search(FeedSearcher.SEARCH_FIELDS));
-      System.out.println(s.searchFeedsByUserEmail(MindmapSearcher.SEARCH_FIELDS, "qdclw1986@sina.cn"));
+      System.out.println(s.searchFeedsByUserCreatorId(MindmapSearcher.SEARCH_FIELDS, "1016235"));
     }
   }
    */

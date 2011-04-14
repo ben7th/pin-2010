@@ -122,6 +122,18 @@ class ConnectUser < ActiveRecord::Base
     self.update_attributes(:oauth_invalid=>true)
   end
 
+  def set_syn_from_connect
+    self.update_attributes(:syn_from_connect=>true)
+  end
+
+  def cancel_syn_from_connect
+    self.update_attributes(:syn_from_connect=>false)
+  end
+
+  def record_last_syn_message_id(message_id)
+    self.update_attributes(:last_syn_message_id=>message_id)
+  end
+
   module UserMethods
     # ---- 以上是微博相关，代码写得不好，重复地方太多。改一个字段名的话，照这种代码改起来会累死。重构
     # SONGLIANG

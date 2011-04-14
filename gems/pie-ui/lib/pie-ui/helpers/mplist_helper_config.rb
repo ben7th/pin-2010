@@ -56,7 +56,7 @@ module PieUi
     def li_tag_html(model, &block)
       case model
         when ActiveRecord::Base, MplistRecord
-          @context.content_tag_for(:li, model, :class=>li_classname) {
+          @context.content_tag_for(:li, model, :class=>li_classname, :'data-obj-id'=>model.id) {
             _li_tag_innerhtml(model, &block)
           }
         when nil

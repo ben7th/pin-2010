@@ -1,19 +1,19 @@
--ea = EmailActor.new(feed.email)
+-eu = feed.creator
 
-.f.darkbg{:'data-id'=>"#{feed.id}"}
+.f.ext.blog{:'data-id'=>"#{feed.id}",:class=>'btb'}
   .blog-head
-    .title
+    .title.loud
       =link_to feed.content,'javascript:;'
     .meta
       .avatar
-        =avatar ea.email,:mini
+        =avatar eu,:mini
       .name
-        =link_to ea.name,ea.actor
+        =link_to eu.name,eu
       .posted-at
         =jtime feed.created_at
 
--html = feed.html
--if !html.blank?
-  .blog-html.darkbg
-    =html
-=render :partial=>'index/homepage/feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}
+  -html = feed.html
+  -if !html.blank?
+    .blog-html
+      =html
+  =render :partial=>'index/homepage/feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}

@@ -22,6 +22,8 @@
         =render :partial=>'channels/channel_interview',:locals=>{:feeds=>@feeds,:channel=>@channel}
       -when Channel::KIND_BLOG
         =render :partial=>'channels/channel_blog',:locals=>{:feeds=>@feeds,:channel=>@channel}
+      -when Channel::KIND_TODOLIST
+        =render :partial=>'channels/channel_todolist',:locals=>{:feeds=>@feeds,:channel=>@channel}
       -else
         =render :partial=>'channels/channel_common',:locals=>{:feeds=>@feeds}
   -else

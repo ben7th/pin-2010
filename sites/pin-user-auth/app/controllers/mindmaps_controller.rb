@@ -10,6 +10,10 @@ class MindmapsController < ApplicationController
     render :partial=>'index/homepage/aj_words',:locals=>{:user=>current_user}
   end
 
+  def cooperates
+    @mindmaps = current_user.cooperate_mindmaps
+  end
+
   # new import create paramsedit update delete import_base64 create_base64
   include MindmapManagingControllerMethods
 

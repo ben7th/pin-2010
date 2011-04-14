@@ -1,6 +1,5 @@
 -query ||= ''
 
-.feed-search-form
-  %form{:action=>"/search_feeds",:method=>"get"}
-    %input.search-inner.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索话题',:value=>query}
-    %input.search-button{:value=>"搜索",:type=>"submit"}
+%form{:action=>"/search_feeds",:method=>"get"}
+  %input.search-inner.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索话题',:value=>query}
+  %input.search-button{:value=>"搜索",:type=>"submit"}

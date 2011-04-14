@@ -52,6 +52,9 @@ module PieUi
       require 'pie-ui/helpers/git_commit_helper'
       ActionView::Base.send :include, GitCommitHelper
 
+      require 'pie-ui/helpers/auto_link_helper'
+      ActionView::Base.send :include, AutoLinkHelper
+
       ActionController::Base.send :include, MindpinLayout::ControllerFilter
     end
 

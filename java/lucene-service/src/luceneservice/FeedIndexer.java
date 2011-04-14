@@ -37,7 +37,7 @@ public class FeedIndexer extends Indexer {
   }
 
   public Feed makeOfResultSet(ResultSet set) throws SQLException {
-    Feed feed = new Feed(set.getString("id"), set.getString("content"), set.getString("email"));
+    Feed feed = new Feed(set.getString("id"), set.getString("content"), set.getString("creator_id"));
     return feed;
   }
 
@@ -79,10 +79,13 @@ public class FeedIndexer extends Indexer {
    * @throws IOException
    */
   private void indexFeedContent(Feed feed) throws CorruptIndexException, IOException {
+    if(feed.getContent()==null || feed.getCreatorId()==null){
+      return ;
+    }
     System.out.println(new StringBuffer().append("indexing feed ").append(feed.getId()));
     doc = new Document();
     doc.add(new Field("id", feed.getId(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-    doc.add(new Field("email", feed.getEmail(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+    doc.add(new Field("creator_id", feed.getCreatorId(), Field.Store.YES, Field.Index.NOT_ANALYZED));
     doc.add(new Field("content", feed.getContent(), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_POSITIONS_OFFSETS));
     writer.addDocument(doc);
   }

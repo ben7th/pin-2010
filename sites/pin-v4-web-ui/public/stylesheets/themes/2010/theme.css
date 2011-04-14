@@ -72,6 +72,9 @@ a {
 .csshov:hover, .darkbg.csshov:hover, .darkbg1.csshov:hover {
   background-color: #424556; }
 
+.btb {
+  border-bottom: dashed 1px #525566; }
+
 .lightbg {
   background-color: #424556; }
 

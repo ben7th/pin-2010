@@ -1,0 +1,26 @@
+-require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+  = javascript_include_tag "views/notice/feed_notice"
+  :javascript
+    pie.misc_tip_info = #{misc_tip_info.to_json}
+
+.grid_3.alpha
+  .index-user-info
+    =render :partial=>'index/index_parts/user_info_avatar',:locals=>{:user=>@feed.creator}
+
+.grid_14.paddingl20
+  .newsfeed
+    .show-feed.feed
+      =render 'index/homepage/feeds/feed_info',:feed=>@feed
+
+.grid_4.omega.fright
+  .grid-title
+    相关话题
+  .simlar-feeds.padding5
+    -simlar_feeds = FeedLucene.similar_feeds_of(@feed)
+    -simlar_feeds.each do |f|
+      .f.btb
+        =f.content

@@ -1,0 +1,15 @@
+.padding5
+  -if logged_in?
+    -form_tag "/newsfeed/do_say_in_channel",:method=>:post,:class=>"feed-form feed-todolist-form" do
+      .ipter
+        .tip
+          请输入任务计划
+        .ipts
+          =hidden_field_tag :channel_id,channel.id,:class=>'channel-id'
+          =text_area_tag "content",'',:class=>"text feed-content"
+      .subm
+        =link_to '发 送','javascript:;',:class=>'subbtn send-button shadow'
+
+.newsfeed
+  -mplist feeds,:for=>Feed do |feed|
+    =render :partial=>'index/homepage/feeds/feed_info_in_todolist',:locals=>{:feed=>feed,:channel=>channel}

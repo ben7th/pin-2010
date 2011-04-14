@@ -40,9 +40,9 @@ public class LuceneFeedsService {
 
     public String search_page(String query, int start, int count) throws TException;
 
-    public String search_by_user(String query, String email) throws TException;
+    public String search_by_user(String query, String creator_id) throws TException;
 
-    public String search_page_by_user(String query, int start, int count, String email) throws TException;
+    public String search_page_by_user(String query, int start, int count, String creator_id) throws TException;
 
     public List<String> parse_content(String content) throws TException;
 
@@ -60,9 +60,9 @@ public class LuceneFeedsService {
 
     public void search_page(String query, int start, int count, AsyncMethodCallback<AsyncClient.search_page_call> resultHandler) throws TException;
 
-    public void search_by_user(String query, String email, AsyncMethodCallback<AsyncClient.search_by_user_call> resultHandler) throws TException;
+    public void search_by_user(String query, String creator_id, AsyncMethodCallback<AsyncClient.search_by_user_call> resultHandler) throws TException;
 
-    public void search_page_by_user(String query, int start, int count, String email, AsyncMethodCallback<AsyncClient.search_page_by_user_call> resultHandler) throws TException;
+    public void search_page_by_user(String query, int start, int count, String creator_id, AsyncMethodCallback<AsyncClient.search_page_by_user_call> resultHandler) throws TException;
 
     public void parse_content(String content, AsyncMethodCallback<AsyncClient.parse_content_call> resultHandler) throws TException;
 
@@ -286,18 +286,18 @@ public class LuceneFeedsService {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "search_page failed: unknown result");
     }
 
-    public String search_by_user(String query, String email) throws TException
+    public String search_by_user(String query, String creator_id) throws TException
     {
-      send_search_by_user(query, email);
+      send_search_by_user(query, creator_id);
       return recv_search_by_user();
     }
 
-    public void send_search_by_user(String query, String email) throws TException
+    public void send_search_by_user(String query, String creator_id) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("search_by_user", TMessageType.CALL, ++seqid_));
       search_by_user_args args = new search_by_user_args();
       args.setQuery(query);
-      args.setEmail(email);
+      args.setCreator_id(creator_id);
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -323,20 +323,20 @@ public class LuceneFeedsService {
       throw new TApplicationException(TApplicationException.MISSING_RESULT, "search_by_user failed: unknown result");
     }
 
-    public String search_page_by_user(String query, int start, int count, String email) throws TException
+    public String search_page_by_user(String query, int start, int count, String creator_id) throws TException
     {
-      send_search_page_by_user(query, start, count, email);
+      send_search_page_by_user(query, start, count, creator_id);
       return recv_search_page_by_user();
     }
 
-    public void send_search_page_by_user(String query, int start, int count, String email) throws TException
+    public void send_search_page_by_user(String query, int start, int count, String creator_id) throws TException
     {
       oprot_.writeMessageBegin(new TMessage("search_page_by_user", TMessageType.CALL, ++seqid_));
       search_page_by_user_args args = new search_page_by_user_args();
       args.setQuery(query);
       args.setStart(start);
       args.setCount(count);
-      args.setEmail(email);
+      args.setCreator_id(creator_id);
       args.write(oprot_);
       oprot_.writeMessageEnd();
       oprot_.getTransport().flush();
@@ -574,26 +574,26 @@ public class LuceneFeedsService {
       }
     }
 
-    public void search_by_user(String query, String email, AsyncMethodCallback<search_by_user_call> resultHandler) throws TException {
+    public void search_by_user(String query, String creator_id, AsyncMethodCallback<search_by_user_call> resultHandler) throws TException {
       checkReady();
-      search_by_user_call method_call = new search_by_user_call(query, email, resultHandler, this, protocolFactory, transport);
+      search_by_user_call method_call = new search_by_user_call(query, creator_id, resultHandler, this, protocolFactory, transport);
       manager.call(method_call);
     }
 
     public static class search_by_user_call extends TAsyncMethodCall {
       private String query;
-      private String email;
-      public search_by_user_call(String query, String email, AsyncMethodCallback<search_by_user_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+      private String creator_id;
+      public search_by_user_call(String query, String creator_id, AsyncMethodCallback<search_by_user_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.query = query;
-        this.email = email;
+        this.creator_id = creator_id;
       }
 
       public void write_args(TProtocol prot) throws TException {
         prot.writeMessageBegin(new TMessage("search_by_user", TMessageType.CALL, 0));
         search_by_user_args args = new search_by_user_args();
         args.setQuery(query);
-        args.setEmail(email);
+        args.setCreator_id(creator_id);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -608,9 +608,9 @@ public class LuceneFeedsService {
       }
     }
 
-    public void search_page_by_user(String query, int start, int count, String email, AsyncMethodCallback<search_page_by_user_call> resultHandler) throws TException {
+    public void search_page_by_user(String query, int start, int count, String creator_id, AsyncMethodCallback<search_page_by_user_call> resultHandler) throws TException {
       checkReady();
-      search_page_by_user_call method_call = new search_page_by_user_call(query, start, count, email, resultHandler, this, protocolFactory, transport);
+      search_page_by_user_call method_call = new search_page_by_user_call(query, start, count, creator_id, resultHandler, this, protocolFactory, transport);
       manager.call(method_call);
     }
 
@@ -618,13 +618,13 @@ public class LuceneFeedsService {
       private String query;
       private int start;
       private int count;
-      private String email;
-      public search_page_by_user_call(String query, int start, int count, String email, AsyncMethodCallback<search_page_by_user_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
+      private String creator_id;
+      public search_page_by_user_call(String query, int start, int count, String creator_id, AsyncMethodCallback<search_page_by_user_call> resultHandler, TAsyncClient client, TProtocolFactory protocolFactory, TNonblockingTransport transport) throws TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.query = query;
         this.start = start;
         this.count = count;
-        this.email = email;
+        this.creator_id = creator_id;
       }
 
       public void write_args(TProtocol prot) throws TException {
@@ -633,7 +633,7 @@ public class LuceneFeedsService {
         args.setQuery(query);
         args.setStart(start);
         args.setCount(count);
-        args.setEmail(email);
+        args.setCreator_id(creator_id);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -871,7 +871,7 @@ public class LuceneFeedsService {
         }
         iprot.readMessageEnd();
         search_by_user_result result = new search_by_user_result();
-        result.success = iface_.search_by_user(args.query, args.email);
+        result.success = iface_.search_by_user(args.query, args.creator_id);
         oprot.writeMessageBegin(new TMessage("search_by_user", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
@@ -897,7 +897,7 @@ public class LuceneFeedsService {
         }
         iprot.readMessageEnd();
         search_page_by_user_result result = new search_page_by_user_result();
-        result.success = iface_.search_page_by_user(args.query, args.start, args.count, args.email);
+        result.success = iface_.search_page_by_user(args.query, args.start, args.count, args.creator_id);
         oprot.writeMessageBegin(new TMessage("search_page_by_user", TMessageType.REPLY, seqid));
         result.write(oprot);
         oprot.writeMessageEnd();
@@ -3815,15 +3815,15 @@ public class LuceneFeedsService {
     private static final TStruct STRUCT_DESC = new TStruct("search_by_user_args");
 
     private static final TField QUERY_FIELD_DESC = new TField("query", TType.STRING, (short)1);
-    private static final TField EMAIL_FIELD_DESC = new TField("email", TType.STRING, (short)2);
+    private static final TField CREATOR_ID_FIELD_DESC = new TField("creator_id", TType.STRING, (short)2);
 
     public String query;
-    public String email;
+    public String creator_id;
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements TFieldIdEnum {
       QUERY((short)1, "query"),
-      EMAIL((short)2, "email");
+      CREATOR_ID((short)2, "creator_id");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -3840,8 +3840,8 @@ public class LuceneFeedsService {
         switch(fieldId) {
           case 1: // QUERY
             return QUERY;
-          case 2: // EMAIL
-            return EMAIL;
+          case 2: // CREATOR_ID
+            return CREATOR_ID;
           default:
             return null;
         }
@@ -3888,7 +3888,7 @@ public class LuceneFeedsService {
       Map<_Fields, FieldMetaData> tmpMap = new EnumMap<_Fields, FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.QUERY, new FieldMetaData("query", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
-      tmpMap.put(_Fields.EMAIL, new FieldMetaData("email", TFieldRequirementType.DEFAULT, 
+      tmpMap.put(_Fields.CREATOR_ID, new FieldMetaData("creator_id", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       FieldMetaData.addStructMetaDataMap(search_by_user_args.class, metaDataMap);
@@ -3899,11 +3899,11 @@ public class LuceneFeedsService {
 
     public search_by_user_args(
       String query,
-      String email)
+      String creator_id)
     {
       this();
       this.query = query;
-      this.email = email;
+      this.creator_id = creator_id;
     }
 
     /**
@@ -3913,8 +3913,8 @@ public class LuceneFeedsService {
       if (other.isSetQuery()) {
         this.query = other.query;
       }
-      if (other.isSetEmail()) {
-        this.email = other.email;
+      if (other.isSetCreator_id()) {
+        this.creator_id = other.creator_id;
       }
     }
 
@@ -3925,7 +3925,7 @@ public class LuceneFeedsService {
     @Override
     public void clear() {
       this.query = null;
-      this.email = null;
+      this.creator_id = null;
     }
 
     public String getQuery() {
@@ -3952,27 +3952,27 @@ public class LuceneFeedsService {
       }
     }
 
-    public String getEmail() {
-      return this.email;
+    public String getCreator_id() {
+      return this.creator_id;
     }
 
-    public search_by_user_args setEmail(String email) {
-      this.email = email;
+    public search_by_user_args setCreator_id(String creator_id) {
+      this.creator_id = creator_id;
       return this;
     }
 
-    public void unsetEmail() {
-      this.email = null;
+    public void unsetCreator_id() {
+      this.creator_id = null;
     }
 
-    /** Returns true if field email is set (has been asigned a value) and false otherwise */
-    public boolean isSetEmail() {
-      return this.email != null;
+    /** Returns true if field creator_id is set (has been asigned a value) and false otherwise */
+    public boolean isSetCreator_id() {
+      return this.creator_id != null;
     }
 
-    public void setEmailIsSet(boolean value) {
+    public void setCreator_idIsSet(boolean value) {
       if (!value) {
-        this.email = null;
+        this.creator_id = null;
       }
     }
 
@@ -3986,11 +3986,11 @@ public class LuceneFeedsService {
         }
         break;
 
-      case EMAIL:
+      case CREATOR_ID:
         if (value == null) {
-          unsetEmail();
+          unsetCreator_id();
         } else {
-          setEmail((String)value);
+          setCreator_id((String)value);
         }
         break;
 
@@ -4002,8 +4002,8 @@ public class LuceneFeedsService {
       case QUERY:
         return getQuery();
 
-      case EMAIL:
-        return getEmail();
+      case CREATOR_ID:
+        return getCreator_id();
 
       }
       throw new IllegalStateException();
@@ -4018,8 +4018,8 @@ public class LuceneFeedsService {
       switch (field) {
       case QUERY:
         return isSetQuery();
-      case EMAIL:
-        return isSetEmail();
+      case CREATOR_ID:
+        return isSetCreator_id();
       }
       throw new IllegalStateException();
     }
@@ -4046,12 +4046,12 @@ public class LuceneFeedsService {
           return false;
       }
 
-      boolean this_present_email = true && this.isSetEmail();
-      boolean that_present_email = true && that.isSetEmail();
-      if (this_present_email || that_present_email) {
-        if (!(this_present_email && that_present_email))
+      boolean this_present_creator_id = true && this.isSetCreator_id();
+      boolean that_present_creator_id = true && that.isSetCreator_id();
+      if (this_present_creator_id || that_present_creator_id) {
+        if (!(this_present_creator_id && that_present_creator_id))
           return false;
-        if (!this.email.equals(that.email))
+        if (!this.creator_id.equals(that.creator_id))
           return false;
       }
 
@@ -4081,12 +4081,12 @@ public class LuceneFeedsService {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetEmail()).compareTo(typedOther.isSetEmail());
+      lastComparison = Boolean.valueOf(isSetCreator_id()).compareTo(typedOther.isSetCreator_id());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetEmail()) {
-        lastComparison = TBaseHelper.compareTo(this.email, typedOther.email);
+      if (isSetCreator_id()) {
+        lastComparison = TBaseHelper.compareTo(this.creator_id, typedOther.creator_id);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -4115,9 +4115,9 @@ public class LuceneFeedsService {
               TProtocolUtil.skip(iprot, field.type);
             }
             break;
-          case 2: // EMAIL
+          case 2: // CREATOR_ID
             if (field.type == TType.STRING) {
-              this.email = iprot.readString();
+              this.creator_id = iprot.readString();
             } else { 
               TProtocolUtil.skip(iprot, field.type);
             }
@@ -4142,9 +4142,9 @@ public class LuceneFeedsService {
         oprot.writeString(this.query);
         oprot.writeFieldEnd();
       }
-      if (this.email != null) {
-        oprot.writeFieldBegin(EMAIL_FIELD_DESC);
-        oprot.writeString(this.email);
+      if (this.creator_id != null) {
+        oprot.writeFieldBegin(CREATOR_ID_FIELD_DESC);
+        oprot.writeString(this.creator_id);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -4164,11 +4164,11 @@ public class LuceneFeedsService {
       }
       first = false;
       if (!first) sb.append(", ");
-      sb.append("email:");
-      if (this.email == null) {
+      sb.append("creator_id:");
+      if (this.creator_id == null) {
         sb.append("null");
       } else {
-        sb.append(this.email);
+        sb.append(this.creator_id);
       }
       first = false;
       sb.append(")");
@@ -4467,19 +4467,19 @@ public class LuceneFeedsService {
     private static final TField QUERY_FIELD_DESC = new TField("query", TType.STRING, (short)1);
     private static final TField START_FIELD_DESC = new TField("start", TType.I32, (short)2);
     private static final TField COUNT_FIELD_DESC = new TField("count", TType.I32, (short)3);
-    private static final TField EMAIL_FIELD_DESC = new TField("email", TType.STRING, (short)4);
+    private static final TField CREATOR_ID_FIELD_DESC = new TField("creator_id", TType.STRING, (short)4);
 
     public String query;
     public int start;
     public int count;
-    public String email;
+    public String creator_id;
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements TFieldIdEnum {
       QUERY((short)1, "query"),
       START((short)2, "start"),
       COUNT((short)3, "count"),
-      EMAIL((short)4, "email");
+      CREATOR_ID((short)4, "creator_id");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -4500,8 +4500,8 @@ public class LuceneFeedsService {
             return START;
           case 3: // COUNT
             return COUNT;
-          case 4: // EMAIL
-            return EMAIL;
+          case 4: // CREATOR_ID
+            return CREATOR_ID;
           default:
             return null;
         }
@@ -4555,7 +4555,7 @@ public class LuceneFeedsService {
           new FieldValueMetaData(TType.I32)));
       tmpMap.put(_Fields.COUNT, new FieldMetaData("count", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.I32)));
-      tmpMap.put(_Fields.EMAIL, new FieldMetaData("email", TFieldRequirementType.DEFAULT, 
+      tmpMap.put(_Fields.CREATOR_ID, new FieldMetaData("creator_id", TFieldRequirementType.DEFAULT, 
           new FieldValueMetaData(TType.STRING)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       FieldMetaData.addStructMetaDataMap(search_page_by_user_args.class, metaDataMap);
@@ -4568,7 +4568,7 @@ public class LuceneFeedsService {
       String query,
       int start,
       int count,
-      String email)
+      String creator_id)
     {
       this();
       this.query = query;
@@ -4576,7 +4576,7 @@ public class LuceneFeedsService {
       setStartIsSet(true);
       this.count = count;
       setCountIsSet(true);
-      this.email = email;
+      this.creator_id = creator_id;
     }
 
     /**
@@ -4590,8 +4590,8 @@ public class LuceneFeedsService {
       }
       this.start = other.start;
       this.count = other.count;
-      if (other.isSetEmail()) {
-        this.email = other.email;
+      if (other.isSetCreator_id()) {
+        this.creator_id = other.creator_id;
       }
     }
 
@@ -4606,7 +4606,7 @@ public class LuceneFeedsService {
       this.start = 0;
       setCountIsSet(false);
       this.count = 0;
-      this.email = null;
+      this.creator_id = null;
     }
 
     public String getQuery() {
@@ -4679,27 +4679,27 @@ public class LuceneFeedsService {
       __isset_bit_vector.set(__COUNT_ISSET_ID, value);
     }
 
-    public String getEmail() {
-      return this.email;
+    public String getCreator_id() {
+      return this.creator_id;
     }
 
-    public search_page_by_user_args setEmail(String email) {
-      this.email = email;
+    public search_page_by_user_args setCreator_id(String creator_id) {
+      this.creator_id = creator_id;
       return this;
     }
 
-    public void unsetEmail() {
-      this.email = null;
+    public void unsetCreator_id() {
+      this.creator_id = null;
     }
 
-    /** Returns true if field email is set (has been asigned a value) and false otherwise */
-    public boolean isSetEmail() {
-      return this.email != null;
+    /** Returns true if field creator_id is set (has been asigned a value) and false otherwise */
+    public boolean isSetCreator_id() {
+      return this.creator_id != null;
     }
 
-    public void setEmailIsSet(boolean value) {
+    public void setCreator_idIsSet(boolean value) {
       if (!value) {
-        this.email = null;
+        this.creator_id = null;
       }
     }
 
@@ -4729,11 +4729,11 @@ public class LuceneFeedsService {
         }
         break;
 
-      case EMAIL:
+      case CREATOR_ID:
         if (value == null) {
-          unsetEmail();
+          unsetCreator_id();
         } else {
-          setEmail((String)value);
+          setCreator_id((String)value);
         }
         break;
 
@@ -4751,8 +4751,8 @@ public class LuceneFeedsService {
       case COUNT:
         return new Integer(getCount());
 
-      case EMAIL:
-        return getEmail();
+      case CREATOR_ID:
+        return getCreator_id();
 
       }
       throw new IllegalStateException();
@@ -4771,8 +4771,8 @@ public class LuceneFeedsService {
         return isSetStart();
       case COUNT:
         return isSetCount();
-      case EMAIL:
-        return isSetEmail();
+      case CREATOR_ID:
+        return isSetCreator_id();
       }
       throw new IllegalStateException();
     }
@@ -4817,12 +4817,12 @@ public class LuceneFeedsService {
           return false;
       }
 
-      boolean this_present_email = true && this.isSetEmail();
-      boolean that_present_email = true && that.isSetEmail();
-      if (this_present_email || that_present_email) {
-        if (!(this_present_email && that_present_email))
+      boolean this_present_creator_id = true && this.isSetCreator_id();
+      boolean that_present_creator_id = true && that.isSetCreator_id();
+      if (this_present_creator_id || that_present_creator_id) {
+        if (!(this_present_creator_id && that_present_creator_id))
           return false;
-        if (!this.email.equals(that.email))
+        if (!this.creator_id.equals(that.creator_id))
           return false;
       }
 
@@ -4872,12 +4872,12 @@ public class LuceneFeedsService {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetEmail()).compareTo(typedOther.isSetEmail());
+      lastComparison = Boolean.valueOf(isSetCreator_id()).compareTo(typedOther.isSetCreator_id());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetEmail()) {
-        lastComparison = TBaseHelper.compareTo(this.email, typedOther.email);
+      if (isSetCreator_id()) {
+        lastComparison = TBaseHelper.compareTo(this.creator_id, typedOther.creator_id);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -4922,9 +4922,9 @@ public class LuceneFeedsService {
               TProtocolUtil.skip(iprot, field.type);
             }
             break;
-          case 4: // EMAIL
+          case 4: // CREATOR_ID
             if (field.type == TType.STRING) {
-              this.email = iprot.readString();
+              this.creator_id = iprot.readString();
             } else { 
               TProtocolUtil.skip(iprot, field.type);
             }
@@ -4955,9 +4955,9 @@ public class LuceneFeedsService {
       oprot.writeFieldBegin(COUNT_FIELD_DESC);
       oprot.writeI32(this.count);
       oprot.writeFieldEnd();
-      if (this.email != null) {
-        oprot.writeFieldBegin(EMAIL_FIELD_DESC);
-        oprot.writeString(this.email);
+      if (this.creator_id != null) {
+        oprot.writeFieldBegin(CREATOR_ID_FIELD_DESC);
+        oprot.writeString(this.creator_id);
         oprot.writeFieldEnd();
       }
       oprot.writeFieldStop();
@@ -4985,11 +4985,11 @@ public class LuceneFeedsService {
       sb.append(this.count);
       first = false;
       if (!first) sb.append(", ");
-      sb.append("email:");
-      if (this.email == null) {
+      sb.append("creator_id:");
+      if (this.creator_id == null) {
         sb.append("null");
       } else {
-        sb.append(this.email);
+        sb.append(this.creator_id);
       }
       first = false;
       sb.append(")");

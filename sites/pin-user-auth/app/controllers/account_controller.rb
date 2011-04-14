@@ -32,9 +32,7 @@ class AccountController <  ApplicationController
     if @user.save
       flash[:success]="用户 #{@user.email}（#{@user.name}）的信息已经成功修改"
     else
-      (@user.errors).each do |*error|
-        flash[:error]=error*' '
-      end
+    flash[:error] = get_flash_error(@user)
     end
     redirect_to :action=>:base
   end
@@ -168,6 +166,29 @@ class AccountController <  ApplicationController
       current_user.unbind_renren_account
       return redirect_to :action=>:bind_renren
     end
+  end
+
+  def change_name
+    @user = User.find(current_user.id)
+  end
+
+  def do_change_name
+    @user = User.find(current_user.id)
+    @user.update_attributes(params[:user])
+    if @user.save
+      return redirect_to "/"
+    end
+    flash.now[:error] = get_flash_error(@user)
+    render :action=>:change_name
+  end
+
+  def do_tsina_connect_setting
+    if params[:syn_from_connect] == "true"
+      current_user.tsina_connect_user.set_syn_from_connect
+    else
+      current_user.tsina_connect_user.cancel_syn_from_connect
+    end
+    redirect_to "/account/bind_tsina"
   end
   
 end

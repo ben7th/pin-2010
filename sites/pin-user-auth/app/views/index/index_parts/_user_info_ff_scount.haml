@@ -1,9 +1,9 @@
 .scount
   .num
-    =link_to count,url,:class=>'loud'
-  .text.lightbg.loud1
-    =text
-  .meta.lightbg
+    =link_to count,url,:class=>'reverse'
+  .text.bold
+    =link_to text,url,:class=>'reverse'
+  .meta
     .icons
       -arr.each do |u|
         -link_to "/users/#{u.id}",:tip=>"#{u.name}" do

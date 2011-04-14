@@ -85,13 +85,13 @@ module LuceneFeedsService
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search_page failed: unknown result')
     end
 
-    def search_by_user(query, email)
-      send_search_by_user(query, email)
+    def search_by_user(query, creator_id)
+      send_search_by_user(query, creator_id)
       return recv_search_by_user()
     end
 
-    def send_search_by_user(query, email)
-      send_message('search_by_user', Search_by_user_args, :query => query, :email => email)
+    def send_search_by_user(query, creator_id)
+      send_message('search_by_user', Search_by_user_args, :query => query, :creator_id => creator_id)
     end
 
     def recv_search_by_user()
@@ -100,13 +100,13 @@ module LuceneFeedsService
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'search_by_user failed: unknown result')
     end
 
-    def search_page_by_user(query, start, count, email)
-      send_search_page_by_user(query, start, count, email)
+    def search_page_by_user(query, start, count, creator_id)
+      send_search_page_by_user(query, start, count, creator_id)
       return recv_search_page_by_user()
     end
 
-    def send_search_page_by_user(query, start, count, email)
-      send_message('search_page_by_user', Search_page_by_user_args, :query => query, :start => start, :count => count, :email => email)
+    def send_search_page_by_user(query, start, count, creator_id)
+      send_message('search_page_by_user', Search_page_by_user_args, :query => query, :start => start, :count => count, :creator_id => creator_id)
     end
 
     def recv_search_page_by_user()
@@ -173,14 +173,14 @@ module LuceneFeedsService
     def process_search_by_user(seqid, iprot, oprot)
       args = read_args(iprot, Search_by_user_args)
       result = Search_by_user_result.new()
-      result.success = @handler.search_by_user(args.query, args.email)
+      result.success = @handler.search_by_user(args.query, args.creator_id)
       write_result(result, oprot, 'search_by_user', seqid)
     end
 
     def process_search_page_by_user(seqid, iprot, oprot)
       args = read_args(iprot, Search_page_by_user_args)
       result = Search_page_by_user_result.new()
-      result.success = @handler.search_page_by_user(args.query, args.start, args.count, args.email)
+      result.success = @handler.search_page_by_user(args.query, args.start, args.count, args.creator_id)
       write_result(result, oprot, 'search_page_by_user', seqid)
     end
 
@@ -361,11 +361,11 @@ module LuceneFeedsService
   class Search_by_user_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
     QUERY = 1
-    EMAIL = 2
+    CREATOR_ID = 2
 
     FIELDS = {
       QUERY => {:type => ::Thrift::Types::STRING, :name => 'query'},
-      EMAIL => {:type => ::Thrift::Types::STRING, :name => 'email'}
+      CREATOR_ID => {:type => ::Thrift::Types::STRING, :name => 'creator_id'}
     }
 
     def struct_fields; FIELDS; end
@@ -397,13 +397,13 @@ module LuceneFeedsService
     QUERY = 1
     START = 2
     COUNT = 3
-    EMAIL = 4
+    CREATOR_ID = 4
 
     FIELDS = {
       QUERY => {:type => ::Thrift::Types::STRING, :name => 'query'},
       START => {:type => ::Thrift::Types::I32, :name => 'start'},
       COUNT => {:type => ::Thrift::Types::I32, :name => 'count'},
-      EMAIL => {:type => ::Thrift::Types::STRING, :name => 'email'}
+      CREATOR_ID => {:type => ::Thrift::Types::STRING, :name => 'creator_id'}
     }
 
     def struct_fields; FIELDS; end

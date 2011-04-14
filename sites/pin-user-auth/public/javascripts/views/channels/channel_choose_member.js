@@ -46,7 +46,7 @@ pie.load(function(){
     elm.addClass('selected');
     var user_id = elm.attr('data-user-id');
     var user_name = elm.find('.name').html();
-    var u_elm = jQuery('<div class="u lightbg" data-user-id="'+user_id+'">'+user_name+'<div class="icon csshov"></div></div>');
+    var u_elm = jQuery('<div class="u shadow moredarkbg" data-user-id="'+user_id+'">'+user_name+'<div class="icon csshov"></div></div>');
     selected_users_elm.append(u_elm);
   }
 

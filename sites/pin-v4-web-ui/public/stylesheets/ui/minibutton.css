@@ -5,7 +5,7 @@ input[type=text] + .minibutton {
 button.minibutton::-moz-focus-inner {
   margin: -1px -3px; }
 
-.minibutton {
+.page-content .minibutton, .page-content a.minibutton {
   display: inline-block;
   height: 23px;
   padding: 0 0 0 3px;
@@ -18,30 +18,30 @@ button.minibutton::-moz-focus-inner {
   border: none;
   overflow: visible;
   cursor: pointer; }
-  .minibutton.danger {
+  .page-content .minibutton.danger, .page-content a.minibutton.danger {
     color: #900; }
-    .minibutton.danger:hover, .minibutton.danger.ho {
+    .page-content .minibutton.danger:hover, .page-content .minibutton.danger.ho, .page-content a.minibutton.danger:hover, .page-content a.minibutton.danger.ho {
       background-position: 0 -90px; }
-      .minibutton.danger:hover > span, .minibutton.danger.ho > span {
+      .page-content .minibutton.danger:hover > span, .page-content .minibutton.danger.ho > span, .page-content a.minibutton.danger:hover > span, .page-content a.minibutton.danger.ho > span {
         background-position: 100% -90px; }
-    .minibutton.danger.mousedown {
+    .page-content .minibutton.danger.mousedown, .page-content a.minibutton.danger.mousedown {
       background-position: 0 -120px; }
-      .minibutton.danger.mousedown > span {
+      .page-content .minibutton.danger.mousedown > span, .page-content a.minibutton.danger.mousedown > span {
         background-position: 100% -120px; }
-  .minibutton > span {
+  .page-content .minibutton > span, .page-content a.minibutton > span {
     display: block;
     height: 23px;
     padding: 0 10px 0 8px;
     line-height: 23px;
     background: url(/images/modules/buttons/minibutton_matrix.png) 100% 0 no-repeat; }
-  .minibutton:hover, .minibutton.ho {
+  .page-content .minibutton:hover, .page-content .minibutton.ho, .page-content a.minibutton:hover, .page-content a.minibutton.ho {
     color: #fff;
     text-decoration: none;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
     background-position: 0 -30px; }
-    .minibutton:hover > span, .minibutton.ho > span {
+    .page-content .minibutton:hover > span, .page-content .minibutton.ho > span, .page-content a.minibutton:hover > span, .page-content a.minibutton.ho > span {
       background-position: 100% -30px; }
-  .minibutton.mousedown {
+  .page-content .minibutton.mousedown, .page-content a.minibutton.mousedown {
     background-position: 0 -60px; }
-    .minibutton.mousedown > span {
+    .page-content .minibutton.mousedown > span, .page-content a.minibutton.mousedown > span {
       background-position: 100% -60px; }

@@ -2,25 +2,23 @@
   -if @mindmaps.blank?
     您目前还没有思维导图
   -else
-    -mplist @mindmaps,:for=>Mindmap,:li_class=>'' do |mindmap|
-      .title>=mindmap.title
-      .clearfix
-        .preview.darkbg
+    -mplist @mindmaps,:for=>Mindmap,:li_class=>'btb' do |mindmap|
+      .title.csshov>=mindmap.title
+      .meta
+        .preview
           -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
             =mindmap_thumb(mindmap)
-        .rank.darkbg
+        .rank
           %span.loud=mindmap.rank_value
         .action
           -if mindmap.user==current_user
-            .edit.darkbg.csshov{:'tipr'=>'编辑导图'}
+            .edit.csshov{:'tipr'=>'编辑导图'}
               =link_to '编辑',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}/edit"),:target=>'_blank'
-            .coop.darkbg.csshov{:'tipr'=>'协同编辑'}
+            .coop.csshov{:'tipr'=>'协同编辑'}
               =link_to '协同',pin_url_for('pin-user-auth',"/cooperate/#{mindmap.id}")
-            .pt.darkbg.csshov{:'tipr'=>'切换公开/私有'}
+            .pt.csshov{:'tipr'=>'切换公开/私有'}
               %a.toggle{:href=>'javascript:;',:'data-map-id'=>mindmap.id,:class=>(mindmap.private ? 'private':'public')}
-            .delete.darkbg.csshov{:'tipr'=>'删除导图'}
+            .delete.csshov{:'tipr'=>'删除导图'}
               =link_to_remote '删除',:url=>pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}"),:method=>:delete,:confirm=>'确定要删除这个导图吗？删除后不可恢复。'
       .time.lightbg
         =jtime(mindmap.updated_at)
-
-= will_paginate @mindmaps

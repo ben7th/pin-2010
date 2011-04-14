@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def new
     if logged_in?
-      return redirect_to "/"
+      return to_logged_in_page
     end
     render :layout=>'auth',:template=>'auth/login'
   end
@@ -60,7 +60,7 @@ class SessionsController < ApplicationController
     self.current_user=User.authenticate(params[:email],params[:password])
     if logged_in?
       after_logged_in()
-      return redirect_back_or_default(root_url)
+      return to_logged_in_page
     else
       flash[:error]="邮箱/密码不正确"
       redirect_to login_url

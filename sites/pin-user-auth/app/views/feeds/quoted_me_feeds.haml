@@ -3,12 +3,18 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
+  - refresh_quote_tip
+  = javascript_include_tag "views/notice/feed_notice"
+  :javascript
+    pie.misc_tip_info = #{misc_tip_info.to_json}
+
 .grid_3.alpha
   =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 
 .grid_14.paddingl20
   .newsfeed
-    =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@quoted_me_feeds}
+    -mplist @quoted_me_feeds,:for=>Feed do |feed|
+      =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}
 
 .grid_4.omega.fright
   =render :partial=>'index/index_parts/feed_links'

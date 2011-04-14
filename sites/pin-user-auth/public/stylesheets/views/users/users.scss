@@ -28,11 +28,13 @@
 }
 
 @mixin submitbtns{
-  button{
-    @include border-radius(2px);
+  button,a.button{
+    @include border-radius(3px);
     border:none 0px;
     margin:4px 5px 0 0;
-    height:18px;
+    padding:2px 7px;
+    float:left;
+    text-decoration:none;
     &.editable-submit{
       color:white;
       background:#0063DC;
@@ -191,269 +193,6 @@
   }
 }
 
-.show_new_feed{
-  background-color:#FFFDDD;
-  color:#BB861C;
-  @include border-radius(3px);
-  padding:7px 10px;
-  margin-bottom:13px;
-  text-align:right;
-  a{
-    color:#BB861C;
-  }
-}
-
-.loading_new_feed{
-  overflow:hidden;
-  margin-bottom:13px;
-  .p{line-height:32px;float:left;}
-}
-
-.feed-form{
-  margin:0px 0 0 0px;
-  padding-left:50px;
-  padding-bottom:30px;
-  overflow:hidden;
-  width:500px;
-  position:relative;
-  .ipter{
-    overflow:hidden;
-    .tip{
-      font-size:14px;
-    }
-    .ipts{
-      float:left;
-      padding:0 10px 0 0;
-      font-size:0px;
-      line-height:0px;
-      .feed-content{
-        width:400px;
-        height:98px;
-        overflow:hidden;
-        position:relative;
-        border:solid 3px #525566;
-        *top:-1px;
-      }
-    }
-    .btns{
-      overflow:hidden;
-      float:left;
-      .btn{
-        width:32px;
-        height:32px;
-        @include border-radius(4px);
-        @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
-        @include gradient(#FEFEFE,#E2E2E2);
-        text-shadow:1px 1px 0 #FFFFFF;
-        margin:0 5px 5px 0;
-        cursor:pointer;
-        &:hover{
-          @include gradient(#0ca6dd,#0770a0);
-        }
-      }
-    }
-  }
-  .subm{
-    width:404px;
-    clear:both;
-    overflow:hidden;
-    a{
-      @include border-radius(0 0 4px 4px);
-      float:left;
-      margin-left:10px;
-      border-width:0 1px 1px 1px;
-      border-style:none solid solid solid;
-      font-size:14px;
-      padding:2px 20px;
-      font-weight:bold;
-      color:#fff;
-      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-      @include gradient(#397BBC,#105293);
-      border-color:#216CA6;
-      &:hover{
-        text-decoration:none;
-        @include gradient(#599BDC,#3072B3);
-        border-color:#518CC6;
-      }
-      &.mousedown{
-        @include gradient(#3072B3,#599BDC);
-        border-color:#518CC6;
-      }
-    }
-  }
-  &.feed-home-form{
-    padding:64px 0 30px 50px;
-    background:url(/images/icons/echo_inputer_1.png) no-repeat;
-  }
-  &.feed-interview-form{
-  }
-}
-
-
-.feed-form-mev6{
-  padding:0 0 45px 10px;
-  margin-top:32px;
-  position:relative;
-  .f-desc{
-    width:230px;
-    height:32px;
-    position:absolute;
-    top:-35px;
-    left:4px;
-    background:url(/images/icons/all.png) no-repeat -25px 0;
-  }
-  .btns{
-    width:500px;
-    overflow:hidden;
-    .import-mindmap,.create-mindmap,.edit-mindmap,.send{
-      width:32px;
-      height:32px;
-      @include border-radius(4px);
-      @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
-      float:left;
-      margin:5px 5px 5px 0;
-      cursor:pointer;
-      color:white;
-      @include gradient(#84A2D4,#2A4072);
-      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-      &:hover{
-        @include gradient(#89C3EB,#4C6DB4);
-        color:white;
-        text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-      }
-    }
-    .import-mindmap{
-      /*@include gradient(#BBC9E6,#BCBCDE);*/
-      @include gradient(#94E4FD,#3FC3EF);
-      .icon{
-        background:url(/images/icons/all.png) no-repeat 0 -117px;
-        width:24px;
-        height:24px;
-        margin:3px 0 0 3px;
-      }
-      &:hover{
-        @include gradient(#B3ECFC,#6AD6F4);
-      }
-    }
-    .create-mindmap,.edit-mindmap{
-      width:70px;
-      margin:5px 0 5px;
-      font-size:14px;
-      font-weight:bold;
-      line-height:32px;
-      padding:0 0 0 10px;
-    }
-    .feed-content{
-      width:320px;
-      height:22px;
-      float:left;
-      margin:5px 5px 5px 0;
-      background:#F7FCFF;
-    }
-    .import-loading,.import-loading-tips{display:none;}
-    &.loading{
-      .import-mindmap{display:none;}
-      .import-loading{
-        display:block;float:left;
-        width:32px;height:32px;
-        background:url(/images/icons/feed-form-loading.gif) 1px 1px no-repeat;
-        margin:5px 5px 5px 0;
-      }
-      input.feed-content{display:none;}
-      .create-mindmap{display:none;}
-      .import-loading-tips{
-        display:block;
-        float:left;
-        font-size:14px;
-        margin-top:4px;
-        border:solid 1px #111;
-        background:#323546;
-        padding:0 5px;
-        height:32px;line-height:32px;
-        @include border-radius(4px);
-      }
-    }
-  }
-  .import-mindmap-image{
-    background:#323546;
-    border:solid 1px #111;
-    padding:5px;
-    top:41px;
-    z-index:999;
-    position:absolute;
-    @include border-radius(4px);
-    .close-import-mindmap-image {
-      position:absolute;
-      right:3px;
-      top:3px;
-      width:16px;
-      height:16px;
-      background:url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor:pointer;
-      font-size:0;
-      line-height:0;
-      text-indent:-999px;
-    }
-    .image{
-      width:125px;
-      height:125px;
-      margin-top:16px;
-      img{
-        border:solid 2px #A3A3A3;
-        @include border-radius(3px);
-      }
-    }
-  }
-  .import-mindmap-form{
-    background:#323546;
-    padding:5px;
-    top:41px;
-    z-index:999;
-    position:absolute;
-    @include border-radius(4px);
-    width:360px;
-    border:solid 3px #D9D9D7;
-    text-align:center;
-    #file-upload-btn{
-      height:32px;
-    }
-    .close{
-      position:absolute;
-      right:3px;
-      top:3px;
-      width:16px;
-      height:16px;
-      background:url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor:pointer;
-      font-size:0;
-      line-height:0;
-      text-indent:-999px;
-    }
-  }
-  .import-error{
-    background:#323546;
-    @include border-radius(4px);
-    border:solid 1px #111;
-    width:300px;
-    padding:5px;
-    position:absolute;
-    top:41px;
-    color:#FFB49C;
-    .close{
-      position:absolute;
-      right:3px;
-      top:6px;
-      width:16px;
-      height:16px;
-      background:url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor:pointer;
-      font-size:0;
-      line-height:0;
-      text-indent:-999px;
-    }
-  }
-}
-
 .grid_11{
   .newsfeed ul.feeds li.feed .data{width:382px;}
 }
@@ -488,477 +227,6 @@ form.new_message{
     margin:0 0 5px;
   }
 }
-
-.user-mindmaps{
-  ul{
-    overflow:hidden;
-    .mpli{
-      padding-bottom:15px !important;
-      margin: 0 0 15px 0;
-      border-bottom:dashed 1px #424556;
-      float:left;
-      width:180px;
-      .title{
-        width:166px;
-        line-height:20px;
-        height:20px;
-        overflow:visible;
-        padding:0 0 0 5px;
-        margin:0 0 2px 0;
-        overflow:hidden;
-        color:white;
-        font-weight:bold;
-        font-size:13px;
-        &:hover{
-          background:#37394B;
-          @include border-radius(4px);
-        }
-        @include editable-form;
-        form{margin-left:-5px;margin-top:-2px;}
-      }
-      .preview{
-        float:left;
-        width:124px;
-        height:124px;
-        padding:5px;
-        @include border-radius(5px 0 5px 5px);
-        img{
-          border:solid 2px #A3A3A3;
-          @include border-radius(3px);
-          &:hover{
-            cursor:url("/images/big.cur"), auto;
-          }
-        }
-      }
-      .rank{
-        float:left;
-        width:32px;
-        height:32px;
-        @include border-radius(0 5px 5px 0);
-        margin: 0 0 2px 0;
-        span{
-          @include border-radius(3px);
-          width:24px;height:24px;
-          line-height:24px;text-align:center;
-          display:block;
-          font-weight:bold;
-          font-size:14px;
-          margin:3px 0 0 3px;
-        }
-      }
-
-      .action{
-        float:left;
-        width:32px;margin:0;padding:0;font-size:0;
-        position:relative;
-        .edit, .coop, .info, .dup, .pt{
-          width:32px;
-          height:32px;
-          @include border-radius(0 5px 5px 0);
-          margin: 0 0 2px 0;
-          a{
-            display:block;
-            position:relative;
-            top:3px;left:3px;
-            width:24px;height:24px;
-            text-indent:-999px;
-            font-size:0px;
-            line-height:0px;
-          }
-        }
-
-        .edit a{background:url(/images/icons/all.png) 0   0px no-repeat;}
-        .coop a{background:url(/images/icons/all.png) 0 -25px no-repeat;}
-        .info a{background:url(/images/icons/all.png) 0 -50px no-repeat;}
-        .dup  a{background:url(/images/icons/all.png) 0 -75px no-repeat;}
-
-        .pt{
-          width:24px;height:24px;
-          .toggle{
-            cursor:pointer;
-            display:block;
-            width:16px;height:16px;
-            @include border-radius(3px);
-            position:relative;top:4px;left:4px;
-            &.public {background:url(/images/icons/all.png) -34px -100px no-repeat !important;}
-            &.private{background:url(/images/icons/all.png) -17px -100px no-repeat !important;}
-            &.loading{background:url(/images/icons/toggle-loading-12.gif) 2px 2px no-repeat !important;}
-          }
-        }
-        .delete{
-          width:16px;
-          height:16px;
-          left:-20px;
-          bottom:-22px;
-          @include border-radius(0 0 5px 5px);
-          margin: 0 0 0 0;
-          position:absolute;
-          a{
-            width:16px;height:16px;
-            display:block;
-            background:url(/images/icons/all.png) 0 -100px no-repeat;
-            text-indent:-999px;
-            font-size:0px;
-            line-height:0px;
-          }
-        }
-      }
-
-      .time{
-        float:left;
-        @include border-radius(4px);
-        height:14px;
-        line-height:14px;
-        padding:0 4px;
-        margin:2px 0 0 0;
-        .date{}
-      }
-    }
-  }
-}
-
-/*首页的feeds*/
-.newsfeed{
-  ul.feeds{
-    li.feed{
-      margin:0 0 20px 0;
-      padding:0;
-      .f{
-        @include border-radius(0 6px 0 6px);
-        padding:6px;
-        overflow:hidden;
-        .avatar{
-          float:left;
-          width:40px;
-          height:28px;
-          img{@include border-radius(2px);}
-        }
-        .c{
-          float:left;
-          width:490px;
-          .data{
-            font-size:14px;
-          }
-          .documents{
-            .mindmaps{
-              margin-top:5px;
-              img{
-                border:2px solid #A3A3A3;
-                @include border-radius(3px);
-              }
-            }
-          }
-        }
-        .current-feed{
-          overflow:hidden;
-        }
-        .reply-to-feed{
-          @include border-radius(3px);
-          padding:5px;
-          margin:0 0 10px 35px;
-        }
-        .quote-feed{
-          @include border-radius(3px);
-          padding:5px;
-          margin:5px 0 0 35px;
-        }
-        &.notice{
-          .c{width:450px;}
-          .icon{
-            @include border-radius(3px);
-            float:left;
-            width:24px;
-            height:24px;
-            background-image:url(/images/icons/all.png);
-            background-repeat:no-repeat;
-            background-position:-50px -142px;
-            margin:0 9px 0 0;
-          }
-        }
-        &.question{
-          .c{width:450px;}
-          .icon{
-            @include border-radius(3px);
-            float:left;
-            width:24px;
-            height:24px;
-            background-image:url(/images/icons/all.png);
-            background-repeat:no-repeat;
-            background-position:0px -142px;
-            margin:0 9px 0 0;
-          }
-        }
-        .blog-head{
-          .title{font-size:18px;font-weight:bold;margin:0 0 5px 0;}
-          .meta{
-            font-size:12px;
-            height:20px;
-            line-geight:20px;
-            overflow:hidden;
-            margin:0 0 5px 0;
-            .avatar{
-              float:left;
-              width:20px;height:20px;
-              margin-right:10px;
-              img{width:16px;height:16px;}
-            }
-            .name{
-              margin-right:10px;
-              float:left;
-            }
-            .posted-at{
-              float:left;
-            }
-          }
-          .comments-count{
-            margin:0 0 5px 0;
-          }
-        }
-
-      }
-      .blog-html{
-        padding:10px 10px 10px 10px;
-        @include border-radius(3px 0 0 3px);
-        border-top:1px dashed #525566;
-        font-size:14px;
-      }
-      .time{
-        float:left;
-        @include border-radius(4px);
-        height:14px;
-        line-height:14px;
-        padding:0 4px;
-        margin:2px 0 0 42px;
-        .date{}
-      }
-      .ops{
-        overflow:hidden;
-        float:right;
-        .mindmap,.del,.fav,.transmit,.echo{
-          float:left;
-          @include border-radius(0 0 3px 3px);
-          margin:0 0 0 5px;
-          padding:0 3px 0 0;
-          overflow:hidden;
-          cursor:pointer;
-        }
-        .mindmap{
-          height:24px;
-          .icon{
-            float:left;
-            width:24px;height:24px;background:url(/images/icons/all.png) no-repeat -125px -117px;
-            margin:0 2px 0 0;
-          }
-          .t{float:left;height:23px;line-height:23px;}
-        }
-        .del,.fav,.transmit,.echo{
-          height:16px;
-          .icon{
-            float:left;
-            width:16px;height:16px;background:url(/images/icons/all.png) no-repeat 0px -100px;
-            margin:0 2px 0 0;
-          }
-          .t{float:left;height:15px;line-height:15px;}
-        }
-        .fav{
-          &.off{
-            .icon{
-              background:url(/images/icons/all.png) no-repeat -130px -100px;
-            }
-            .t2{display:none;}
-          }
-          &.on{
-            .icon{
-              background:url(/images/icons/all.png) no-repeat -113px -100px;
-            }
-            .t1{display:none;}
-          }
-        }
-        .transmit{
-          .icon{
-            background:url(/images/icons/all.png) no-repeat -147px -100px;
-          }
-        }
-        .echo{
-          .icon{
-            background:url(/images/icons/all.png) no-repeat -164px -100px;
-          }
-        }
-      }
-      .comments{
-        @include border-radius(3px);
-        margin:20px 0 20px 40px;
-        clear:both;
-        padding:5px;
-        &.loading{
-          background-image:url(/images/icons/loading-s.gif);
-          background-repeat:no-repeat;
-          background-position:265px 2px;
-          height:10px;
-        }
-        .feed-echo-form{
-          .ipt{
-            textarea{
-              width:496px;
-              height:28px;
-              @include border-radius(3px);
-            }
-          }
-          .send-to{
-            margin:5px 0 5px 0;
-            height:19px;
-            line-height:19px;
-            padding:0 0 1px 3px;
-            cursor:default;
-            .icon{
-              width:13px;
-              height:13px;
-              background:url(/images/icons/all.png) no-repeat -82px -100px;
-              float:left;
-              margin-right:5px;
-              position:relative;
-              top:3px;
-            }
-            .name{
-              float:left;
-            }
-            &.checked{
-              .icon{
-                background:url(/images/icons/all.png) no-repeat -68px -100px;
-              }
-            }
-            &:hover{
-              background:#393F4D;
-            }
-          }
-          @include submitbtns;
-        }
-        ul.comments-list{
-          margin-top:20px;
-          li.comment{
-            overflow:hidden;
-            padding:5px;
-            .avatar{
-              float:left;
-              margin-right:10px;
-              width:28px;height:28px;
-            }
-            .content{
-            }
-          }
-        }
-      }
-      .answers{
-        @include border-radius(3px 0 0 3px);
-        margin:1px 0 0;
-        clear:both;
-        .answer{
-          padding:5px;
-          overflow:hidden;
-          padding:5px;
-          .icon{
-            float:left;
-            width:24px;
-            height:24px;
-            background:url(/images/icons/all.png) no-repeat -25px -142px;
-            margin:0 10px 0 0;
-          }
-          .avatar{
-            float:left;
-            width:40px;height:28px;
-          }
-          .content{
-            font-size:14px;
-          }
-        }
-      }
-    }
-  }
-}
-
-.feed-transmit-form{
-  position:absolute;
-  @include border-radius(3px);
-  width:390px;
-  border:solid 2px #424556;
-  padding:5px;
-  @include submitbtns;
-  .ipt{
-    textarea{
-      width:386px;
-      height:28px;
-      @include border-radius(3px);
-    }
-  }
-}
-
-/*首页的用户信息*/
-.index-user-info{
-  margin:0 0 25px 0;
-  .base{
-    overflow:hidden;
-    margin:0 0 10px 0;
-    .avatar{
-      @include border-radius(5px 5px 0 0);
-      padding:5px;
-      font-size:0;
-      line-height:0;
-    }
-    .name{
-      @include border-radius(0 0 5px 5px);
-      font-size:14px;
-      padding:5px;
-      text-align:center;
-    }
-  }
-  .scount{
-    margin:0 0 10px 0;
-    overflow:hidden;
-    .text{
-      @include border-radius(5px 5px 0 0);
-      margin:0 0 0 2px;
-      float:left;
-      padding:2px 5px 3px;
-    }
-    .num{
-      @include border-radius(5px);
-      padding:2px 5px;
-      line-height:16px;
-      height:16px;
-      float:left;
-      margin-bottom:2px;
-      a{
-        font-size:16px;
-        font-weight:bold;
-      }
-    }
-    .meta{
-      clear:both;
-      @include border-radius(5px 5px 5px 5px);
-      padding:5px;
-      overflow:hidden;
-      @include chs-ch;
-      .icons{
-        img{width:24px;height:24px;}
-      }
-    }
-  }
-  .follows{
-    padding:5px;
-    .count{
-      margin:0 0 5px 0;
-    }
-  }
-  .avatars a{
-    text-decoration:none;
-    img.mini{
-      height:24px;
-      width:24px;
-    }
-  }
-}
-
-
 
 .site-notice{
   margin:0 0 10px 0;
@@ -1203,138 +471,6 @@ form.new_message{
   }
 }
 
-.channel-panel{
-  margin:10px 0 20px;
-  ul.channels{
-    overflow:hidden;
-    margin:10px 0 0px;
-    li{
-      float:left;
-      a{
-        @include border-radius(4px 4px 0 0);
-        margin:0 5px 0 0;
-        display:block;
-        padding:4px 7px;
-        *padding:5px 7px 3px;
-        color:#e0e0e0;
-        font-size:14px;
-        &:hover{
-          text-decoration:none;
-        }
-      }
-      &.current{
-        a{
-          font-weight:bold;
-          color:white;
-        }
-      }
-      &.mindmaps{
-        width:110px;
-        a{
-          .icon{
-            width:18px;
-            height:18px;
-            float:left;
-            background:url(/images/icons/all.png) no-repeat -128px -120px;
-            margin:0 5px 0 0;
-            position:relative;
-            top:2px;
-          }
-          color:#F78CBA;
-        }
-      }
-      &.more{
-        @include border-radius(4px 4px 0 0);
-        margin:7px 5px 0 10px;
-        display:block;
-        padding:2px 7px;
-        *padding:3px 7px 1px;
-        color:#e0e0e0;
-        cursor:pointer;
-        &:hover{
-          text-decoration:none;
-        }
-        .icon{
-          width:16px;
-          height:16px;
-          background:url(/images/icons/all.png) no-repeat -96px -100px;
-          float:right;
-          position:relative;
-          top:1px;
-        }
-        span{float:left;}
-      }
-    }
-  }
-
-  .channel-op{
-    @include border-radius(0 4px 4px 4px);
-    padding:5px 7px;
-    margin:0 0 20px;
-    position:relative;
-    *top:-1px;
-    .u-count{
-      margin:0 40px 0 0;
-    }
-    .rename-channel{
-      margin:0 10px 0 0;
-    }
-
-    .rename-channel-form{
-      position:absolute;
-      @include border-radius(4px);
-      padding:5px;
-      border:2px solid #323546;
-      background:black;
-      width:128px;
-      z-index:99;
-      top:40px;
-      left:40px;
-      input{
-        width:120px !important;
-      }
-      button{
-        @include border-radius(2px);
-        border:none 0px;
-        margin:4px 5px 0 0;
-        &.editable-submit{
-          color:white;
-          background:#0063DC;
-          &:hover{
-            background:#0054BD;
-          }
-        }
-        &.editable-cancel{
-          color:#666666;
-          background:#ddd;
-          &:hover{
-            background:#CFCFCF;
-          }
-        }
-      }
-    }
-  }
-  .setting{
-    position:absolute;
-    @include border-radius(0 4px 4px 4px);
-    border:solid 2px #222;
-    background:#333;
-    z-index:999;
-    a{
-      display:block;
-      padding:2px 5px;
-      color:#ddd;
-      &:hover{
-        background:#444;
-        text-decoration:none;
-      }
-    }
-    @include chs-ch;
-    .ch{margin:0 !important;padding:0 !important;}
-    .chs{border-bottom:1px dashed #424556;}
-  }
-}
-
 #facebox .ch-list{
   overflow:hidden;
   .preview{
@@ -1511,41 +647,6 @@ form.new_message{
   }
 }
 
-.searched-mindmaps{
-  .search-result{
-    margin-bottom:20px;
-    overflow:hidden;
-    .meta{
-      padding:5px;
-      @include border-radius(5px);
-      overflow:hidden;
-      .avatar{
-        float:left;
-        margin-right:10px;
-        img{width:32px;height:32px;}
-      }
-      .c{
-        float:left;width:550px;
-        .title{
-          font-size:14px;
-          margin-bottom:5px;
-        }
-        .loud{color:#FBB300 !important;}
-      }
-    }
-    .score,.time{
-      @include border-radius(5px);
-      float:left;
-      margin:2px 0 0 45px;
-      padding:0 4px;
-      line-height:14px;
-    }
-    .time{
-      margin-left:5px;
-    }
-  }
-}
-
 .grid-title{
   font-size:14px;
   font-weight:bold;
@@ -1555,7 +656,7 @@ form.new_message{
 
 .feed-links{
   @include border-radius(5px);
-  .home,.favs,.received_comments,.quoted-me-feeds{
+  .home,.favs,.received_comments,.quoted-me-feeds,.todos{
     padding:5px 10px;
     font-size:14px;
     height:24px;
@@ -1577,6 +678,9 @@ form.new_message{
   .quoted-me-feeds{
     .icon{background:url(/images/icons/all.png) no-repeat -200px -117px;}
   }
+  .todos{
+    .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
+  }
 }
 
 
@@ -1584,9 +688,10 @@ form.new_message{
 .index-received-comments{
   .c{
     overflow:hidden;
-    margin-bottom:20px;
     @include border-radius(5px);
     padding:5px;
+    padding-bottom:15px;
+    margin-bottom:10px;
     .avatar{
       float:left;
       margin-right:10px;
@@ -1624,13 +729,16 @@ form.new_message{
   }
 }
 
-.index-feed-search-form{
+.index-feed-search-form,.index-search-form{
   margin:0 0 20px;
   input.search-inner{
     width:80px !important;
   }
   input.search-button{
     padding:0 6px;
+  }
+  &.mindmap{
+    input.search-inner{width:110px !important;}
   }
 }
 
@@ -1639,6 +747,12 @@ form.new_message{
   padding:5px;
 }
 
+@import 'parts/feed_form';
+@import 'parts/feed_info';
+@import 'parts/index_user_info';
 @import 'parts/channel';
 @import 'parts/module_links';
 @import 'parts/account';
+@import 'parts/poptip';
+@import 'parts/mindmaps';
+@import 'parts/todos';

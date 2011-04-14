@@ -1,5 +1,6 @@
-.base
-  .avatar.lightbg
-    =avatar(user,'medium')
-  .name.lightbg.bold
-    =user.name
+.base.shadow
+  .avatar.darkbg
+    -link_to user do
+      =avatar(user,'medium')
+  .name.darkbg.bold
+    =link_to user.name,user

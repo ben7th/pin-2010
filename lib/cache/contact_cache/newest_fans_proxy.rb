@@ -3,7 +3,7 @@ class NewestFansProxy
     @user = user
     @key = "refresh_newest_fans_id_#{user.id}"
     @redis = RedisCache.instance
-    @fan_proxy = FanProxy.new(@user)
+    @fan_proxy = FansProxy.new(@user)
   end
 
   def newest_fans_ids(current_id = nil)

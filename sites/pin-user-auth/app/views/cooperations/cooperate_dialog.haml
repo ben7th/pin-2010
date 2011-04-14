@@ -52,23 +52,3 @@
               .data
                 .name=contact.contact_user_name
                 .email=contact.follow_user.email
-
-  .friends-list{:style=>'margin-left:20px;'}
-    %h3 添加协作团队
-    -organizations = current_user.joined_organizations
-    -if organizations.blank?
-      .no-contact
-        .p 您目前在MindPin还没有任何团队
-        .p
-          请通过
-          %span>=link_to '团队设置',pin_url_for('pin-user-auth','/contacts_setting/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
-          添加
-    -else
-      .p=link_to '团队设置',pin_url_for('pin-user-auth','/contacts_setting/organizations'),:confirm=>'将跳转到其他页面，确定吗？'
-      %ul.contacts
-        -organizations.each do |org|
-          %li.contact
-            .padding4
-              .data
-                .name=org.name
-                .email=org.logic_email

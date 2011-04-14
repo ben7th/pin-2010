@@ -1,0 +1,118 @@
+.index-todos{
+  .to{
+    overflow:hidden;
+    @include border-radius(5px);
+    padding:5px;
+    padding-bottom:15px;
+    margin-bottom:10px;
+    .action{
+      float:left;
+      width:20px;
+      margin-right:5px;
+      .move-up,.move-down{
+        width:20px;
+        height:17px;
+        margin-bottom:2px;
+        background:url(/images/icons/all.png) no-repeat -229px -33px #DFEAF4;
+        cursor:pointer;
+        @include border-radius(3px);
+        &:hover{
+          background:url(/images/icons/all.png) no-repeat -229px -51px #19558d;
+        }
+      }
+      .move-down{
+        background:url(/images/icons/all.png) no-repeat -250px -33px #DFEAF4;
+        &:hover{
+          background:url(/images/icons/all.png) no-repeat -250px -51px #19558d;
+        }
+      }
+    }
+    .item-count{
+      float:left;
+      width:9px;
+      overflow:hidden;
+      margin-right:5px;
+      font-weight:bold;
+      font-size:14px;
+      padding-top:6px;
+    }
+    .status{
+      @include border-radius(4px);
+      width:36px;
+      height:36px;
+      float:left;
+      margin-right:5px;
+      cursor:pointer;
+      &:hover{
+        opacity:0.9;
+      }
+      &.ready{background:#EBFF4C;}
+      &.doing{background:#FBE881;}
+      &.done{background:#FF6203;color:white;}
+      &.drop{background:#E6E6E6;color:#999;}
+      .stext{
+        padding:8px 0 0 6px;
+      }
+    }
+    .avatar{
+      float:left;
+      margin-right:10px;
+    }
+    .meta{
+      float:left;
+      width:380px;
+      .ct{margin-bottom:5px;}
+      .feed-content{margin:15px 0 0 0;}
+    }
+    .items{
+      margin-left:40px;
+      @include border-radius(4px);
+      margin-top:15px;
+      padding:5px;
+      .item{
+        padding:3px 0;
+      }
+    }
+    .executers-status{
+      padding:5px;
+      margin-left:40px;
+      margin-top:10px;
+      overflow:hidden;
+      .exe{
+        float:left;
+        margin-right:12px;
+        overflow:hidden;
+        .name{
+          float:left;
+          margin-right:2px;
+        }
+        .s{
+          @include border-radius(4px);
+          float:left;
+          padding:0 3px;
+          &.ready{background:#EBFF4C;}
+          &.doing{background:#FBE881;}
+          &.done{background:#FF6203;color:white;}
+          &.drop{background:#E6E6E6;color:#999;}
+        }
+      }
+    }
+    .memo{
+      padding:5px;
+      @include border-radius(4px);
+      margin-left:40px;
+      margin-top:10px;
+    }
+  }
+}
+
+.index-todos-filter{
+  overflow:hidden;
+  padding:0 5px;
+  a{
+    float:left;
+    @include border-radius(5px);
+    padding:2px 6px;
+    margin-right:6px;
+  }
+}

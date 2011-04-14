@@ -33,5 +33,6 @@ class GetAllDir
     require "ap"
     path = File.dirname(File.expand_path(__FILE__))
     require "#{path}/flash_chart/open_flash_chart"
+    require "#{path}/global_methods"
   end
 end

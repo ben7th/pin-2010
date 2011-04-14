@@ -1,0 +1,76 @@
+/*首页的用户信息*/
+.index-user-info{
+  margin:0 0 25px 0;
+  .base{
+    overflow:hidden;
+    margin:0 0 10px 0;
+    @include border-radius(5px 5px);
+    .avatar{
+      @include border-radius(5px 5px 0 0);
+      padding:5px;
+      font-size:0;
+      line-height:0;
+    }
+    .name{
+      @include border-radius(0 0 5px 5px);
+      font-size:14px;
+      padding:5px;
+      text-align:center;
+    }
+  }
+  .scount{
+    margin:0 0 10px 0;
+    overflow:hidden;
+    .text{
+      @include border-radius(5px 5px 0 0);
+      margin:0 0 0 2px;
+      float:left;
+      overflow:hidden;
+      padding:4px 0;
+      a{
+        display:block;
+        font-weight:bold;
+        @include border-radius(10px);
+        padding:0 6px;
+        height:14px;
+        line-height:14px;
+      }
+    }
+    .num{
+      overflow:hidden;
+      float:left;
+      padding:4px 0;
+      a{
+        display:block;
+        font-weight:bold;
+        @include border-radius(10px);
+        padding:0 6px;
+        height:14px;
+        line-height:14px;
+      }
+    }
+    .meta{
+      clear:both;
+      @include border-radius(5px 5px 5px 5px);
+      padding:5px;
+      overflow:hidden;
+      @include chs-ch;
+      .icons{
+        img{width:24px;height:24px;}
+      }
+    }
+  }
+  .follows{
+    padding:5px;
+    .count{
+      margin:0 0 5px 0;
+    }
+  }
+  .avatars a{
+    text-decoration:none;
+    img.mini{
+      height:24px;
+      width:24px;
+    }
+  }
+}

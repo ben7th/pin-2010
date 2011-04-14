@@ -1,0 +1,23 @@
+/*body*/
+  /*body背景*/
+    $body-bg-color   : $head-bg-color;
+
+/*正文区*/
+  /*正文区背景*/
+    $content-bg-color     : #ffffff;
+  /*正文区边线*/
+    $content-border-color : #ABABAB;
+  /*正文区阴影*/
+    $content-shadow-color : #ABABAB;
+
+body{
+  background-color:$body-bg-color;
+}
+
+.page-content{
+  .cell{
+    border:2px solid $content-border-color;
+    background-color:$content-bg-color;
+    @include box-shadow(0px 0px 2px $content-shadow-color);
+  }
+}

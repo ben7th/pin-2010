@@ -1,22 +1,20 @@
--cooperate_edit_actors = @mindmap.cooperate_edit_email_actors
--cooperate_view_actors = @mindmap.cooperate_view_email_actors
+-cooperate_users = @mindmap.cooperate_users
+-cooperate_channels = @mindmap.cooperate_channels
 
--if(!cooperate_edit_actors.blank?)
+-if(!cooperate_users.blank?)
   .coop.darkbg
     由以下用户共同编辑：
     .users
-      -cooperate_edit_actors.each do |actor|
+      -cooperate_users.each do |user|
         .u
           .avatar
-            =avatar(actor.email,:tiny)
-          .name=actor.name
+            =avatar(user,:tiny)
+          .name=user.name
 
--if(!cooperate_view_actors.blank? && @mindmap.private?)
+-if(!cooperate_channels.blank?)
   .coop.darkbg
-    共同查看者：
+    由以下频道共同编辑：
     .users
-      -cooperate_view_actors.each do |actor|
+      -cooperate_channels.each do |channel|
         .u
-          .avatar
-            =avatar(actor.email,:tiny)
-          .name=actor.name
+          .name=channel.name

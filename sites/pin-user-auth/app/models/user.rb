@@ -68,6 +68,7 @@ class User < UserBase
 
   validates_format_of :name,:with=>/^([A-Za-z0-9]{1}[A-Za-z0-9_]+)$|^([一-龥]+)$/
   validates_length_of :name, :in => 2..20
+  validates_uniqueness_of :name
 
   validates_presence_of :password,:on=>:create
   validates_presence_of :password_confirmation,:on=>:create
@@ -78,6 +79,20 @@ class User < UserBase
   named_scope :recent,lambda{|*args|
     {:limit=>args.first||5}
   }
+
+  def validate_on_create
+    if !self.email.gsub("@mindpin.com").to_a.blank?
+      errors.add(:email,"邮箱格式不符规范")
+    end
+  end
+
+  def validate_on_update
+    if !self.email.gsub("@mindpin.com").to_a.blank?
+      if !self.is_quick_connect_account?
+        errors.add(:email,"邮箱格式不符规范")
+      end
+    end
+  end
 
   # 创建cookies登录令牌
   def create_cookies_token(expire)
@@ -169,22 +184,15 @@ class User < UserBase
     user.save!
   end
 
+  # 是否需要 修改用户名 用户名不合法
+  def need_change_name?
+    valid?
+    errors.invalid?(:name)
+  end
+
   has_many :workspaces
 
-  include Member::UserMethods
-  include Organization::UserMethods
-  include Contact::UserMethods
-  include Activity::UserMethods
-  include UserAutoCompeleteCache
-
-  include Mindmap::UserMethods
-
-  include ConnectUser::UserMethods
-  include CooperationUserMethods
-  include Channel::UserMethods
-  include NoChannelNewsFeedProxy::UserMethods
-  include Listening::UserMethods
-
+  # 两个工程都引入的
   include Fav::UserMethods
   include FavProxy::UserMethods
   include ChannelCacheProxy::UserMethods
@@ -192,5 +200,22 @@ class User < UserBase
   include Feed::UserMethods
   include FeedCommentProxy::UserMethods
   include UserBeingQuotedFeedsProxy::UserMethods
+  include TodoUser::UserMethods
+  include TodoProxy::UserMethods
+  include UserCooperationMethods
+  include CooperationMindmapProxy::UserMethods
+  include Channel::UserMethods
+  include NoChannelNewsFeedProxy::UserMethods
+  include Contact::UserMethods
+  # 两个工程都引入的
+
+  include Activity::UserMethods
+  include UserAutoCompeleteCache
+  include Mindmap::UserMethods
+  include ConnectUser::UserMethods
+  include Listening::UserMethods
   include Tsina::UserMethods
+
+  include UserBaseEvent
+
 end

@@ -13,8 +13,14 @@
 .grid_14.paddingl20
   =render :partial=>'index/homepage/feeds/feed_form_mev6'
   =render :partial=>'index/homepage/index_channel_panel'
+
   =render :partial=>'index/homepage/mindmaps'
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps
 
 .grid_5.fright
+  .index-search-form.mindmap
+    =render :partial=>'mindmaps/parts/mindmap_search_form'
+  =render :partial=>'mindmaps/parts/mindmap_links'
   .margint30
     =render :partial=>'index/homepage/flash_chart',:locals=>{:user=>@user}

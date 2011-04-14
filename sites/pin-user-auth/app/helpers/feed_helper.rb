@@ -9,8 +9,7 @@ module FeedHelper
   end
 
   def feed_content(feed)
-#    "<span class='loud'>#{feed.event.upcase}</span> #{feed.content}"
-    "<span class='loud'>说</span> #{feed.content}"
+    "<span class='loud'>说</span> #{auto_link(h(feed.content),:html=>{:target=>'_blank'})}"
   end
 
   def user_last_feed(user)
@@ -28,5 +27,29 @@ module FeedHelper
 
   def feed_preview(feed)
     ''
+  end
+
+  def misc_tip_info
+    if logged_in?
+      MessageTip.new(current_user).newest_info
+    else
+      Hash.new(0)
+    end
+  end
+
+  def refresh_feed_tip
+    MessageTip.new(current_user).refresh_feeds_info if logged_in?
+  end
+
+  def refresh_comment_tip
+    MessageTip.new(current_user).refresh_comments_info if logged_in?
+  end
+
+  def refresh_quote_tip
+    MessageTip.new(current_user).refresh_quotes_info if logged_in?
+  end
+
+  def refresh_todo_tip
+    MessageTip.new(current_user).refresh_todos_info if logged_in?
   end
 end

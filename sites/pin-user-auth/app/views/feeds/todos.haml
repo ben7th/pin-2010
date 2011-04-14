@@ -1,0 +1,30 @@
+-require_css 'views/users',true
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+  - refresh_todo_tip
+  = javascript_include_tag "views/notice/feed_notice"
+  :javascript
+    pie.misc_tip_info = #{misc_tip_info.to_json}
+
+.grid_3.alpha
+  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
+
+.grid_14.paddingl20
+  .grid-title
+    我的任务
+
+  =render 'feeds/todos_parts/todo_filter',:status=>params[:status]
+
+  .hrr
+
+  .index-todos
+    -@todos.each do |t|
+      =render 'feeds/todos_parts/todo',:t=>t
+  
+  .page-paginate.padding5
+    = will_paginate @todos
+
+.grid_4.omega.fright
+  =render :partial=>'index/index_parts/feed_links'

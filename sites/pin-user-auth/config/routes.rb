@@ -45,6 +45,12 @@ ActionController::Routing::Routes.draw do |map|
     organization.resources :members
   end
 
+  # 修改用户名
+  map.change_name "account/change_name",:controller=>"account",
+    :action=>"change_name",:conditions=>{:method=>:get}
+  map.do_channge_name "account/change_name",:controller=>"account",
+    :action=>"do_change_name",:conditions=>{:method=>:put}
+
   # 导入联系人
   map.import_contacts      "contacts_setting/import",:controller=>"contacts",:action=>"import"
   # 导入联系人 显示列表
@@ -67,6 +73,9 @@ ActionController::Routing::Routes.draw do |map|
   map.account_bind_tsina "account/bind_tsina",:controller=>"account",:action=>"bind_tsina"
   map.account_bind_renren "account/bind_renren",:controller=>"account",:action=>"bind_renren"
   map.account_do_account_unbind "account/do_unbind",:controller=>"account",:action=>"do_unbind",:conditions=>{:method=>:post}
+  map.account_do_tsina_syn_setting "account/do_tsina_connect_setting",
+    :controller=>"account",:action=>"do_tsina_connect_setting",
+    :conditions=>{:method=>:put}
 
   # 发送邀请函
   map.contacts_setting_invite "contacts_setting/invite",:controller=>"contacts_setting",:action=>"invite"
@@ -114,7 +123,26 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
     :aj_comments=>:get},
-    :collection=>{:reply_to=>:post,:quote=>:post}
+    :collection=>{:reply_to=>:post,:quote=>:post,:all=>:get} do |feed|
+      feed.resources :todos,:collection=>{
+        :remove_last_todo=>:delete
+      }
+    end
+  map.resources :todos,:member=>{
+    :add_memo=>:put,
+    :clear_memo=>:put,
+    :change_status=>:put,
+    :assign=>:post,
+    :unassign=>:delete,
+    :move_to_first=>:put,
+    :move_up=>:put,
+    :move_down=>:put,
+    :remove_last_todo_item=>:delete
+  } do |todo|
+    todo.resources :todo_items
+  end
+  map.resources :todo_items
+
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
   map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
@@ -132,7 +160,8 @@ ActionController::Routing::Routes.draw do |map|
   map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
   map.resources :mindmaps,:collection=>{
       :import_file=>:post,
-      :aj_words=>:get
+      :aj_words=>:get,
+      :cooperates=>:get
     },:member=>{
       :change_title=>:put,
       :clone_form=>:get,
@@ -142,7 +171,7 @@ ActionController::Routing::Routes.draw do |map|
     }
   map.user_mindmaps "/:user_id/mindmaps",:controller=>"mindmaps",:action=>"user_mindmaps"
 
-  map.search '/search.:format',:controller=>'mindmaps_search',:action=>'search'
+  map.search_mindmaps '/search_mindmaps.:format',:controller=>'mindmaps_search',:action=>'search'
 
   #cooperations_controller
   map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}
@@ -163,4 +192,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.create_html_document_feeds "/html_document_feeds",:controller=>"create_feeds",:action=>"html_document_feed",:conditions=>{:method=>:post}
   map.create_mindmap_feeds "/mindmap_feeds",:controller=>"create_feeds",:action=>"mindmap_feed",:conditions=>{:method=>:post}
+
+  map.short_url "/short_url/:code",:controller=>"short_urls",:action=>"show"
 end

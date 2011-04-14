@@ -30,70 +30,143 @@
     .page-head a:hover {
       color: #57621e; }
 
-/*青蓝*/
+/*页脚*/
+/*页脚背景*/
+/*页脚顶边*/
+.page-footer {
+  background: -moz-linear-gradient(-90deg, #ebf2a6, #e4ee6f);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ebf2a6), to(#e4ee6f));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ebf2a6',endColorstr='#e4ee6f');
+  border-top: solid 1px #e4ee6f; }
+  .page-footer a {
+    color: #47520e; }
+    .page-footer a:hover {
+      color: #57621e; }
+
+/*body*/
+/*body背景*/
+/*正文区*/
+/*正文区背景*/
+/*正文区边线*/
+/*正文区阴影*/
 body {
-  background-color: #f3f8db;
-  color: #333333; }
+  background-color: #f3f8db; }
 
 .page-content .cell {
-  border: 2px solid white;
-  background-color: white; }
+  border: 2px solid #ababab;
+  background-color: white;
+  box-shadow: 0px 0px 2px #ababab;
+  -moz-box-shadow: 0px 0px 2px #ababab;
+  -webkit-box-shadow: 0px 0px 2px #ababab; }
 
-.page-footer {
-  background-color: #284a78; }
-
-.loud {
-  color: #FB4A00 !important; }
-
-.loud1 {
-  color: black; }
-
-.quiet {
-  color: #B5B5B5; }
-
-.date {
-  color: #c5c5c5; }
-
-a {
-  color: #268DD3; }
-  a:hover {
-    color: #5193D4; }
-  a.loud {
-    color: #FBEB96; }
-    a.loud:hover {
-      text-decoration: none !important;
-      color: #FBD300 !important; }
-
-.quote_content {
-  background: #F6F6F6;
-  border: solid 1px #E5E5E5; }
+/*一般文字*/
+/*一般文字颜色*/
+/*一般文字强调颜色*/
+/*一般文字弱化颜色*/
+/*链接文字*/
+/*链接文字颜色*/
+/*链接文字强调颜色*/
+/*排版区域*/
+/*强调区域颜色*/
+/*区域阴影颜色*/
+.page-content {
+  color: #333333; }
+  .page-content .loud {
+    color: #fb4a00 !important; }
+  .page-content .quiet {
+    color: #a5a5a5 !important; }
+  .page-content .date {
+    color: #a5a5a5 !important; }
+  .page-content a {
+    color: #3173b4; }
+    .page-content a:hover {
+      color: #5193d4; }
+    .page-content a.quiet {
+      color: #a5a5a5 !important; }
+      .page-content a.quiet:hover {
+        color: #a5a5a5 !important; }
+    .page-content a.loud {
+      color: #fb4a00 !important; }
+      .page-content a.loud:hover {
+        color: #ff4e04 !important; }
+    .page-content a.reverse {
+      background-color: #3173b4;
+      color: white; }
+      .page-content a.reverse:hover {
+        background-color: #5193d4;
+        text-decoration: none; }
 
 .darkbg {
-  background-color: white; }
+  background-color: #f6f8ee; }
+  .darkbg.quote {
+    border: solid 1px #dddddd;
+    box-shadow: 1px 1px 2px #dddddd;
+    -moz-box-shadow: 1px 1px 2px #dddddd;
+    -webkit-box-shadow: 1px 1px 2px #dddddd; }
+  .darkbg .moredarkbg {
+    background-color: #edefe5; }
+  .darkbg .csshov:hover {
+    background-color: #edefe5; }
+  .darkbg.csshov:hover {
+    background-color: #edefe5; }
 
-.darkbg .btb {
-  border-bottom: dashed 1px #f6f6f7; }
+.csshov:hover {
+  background-color: #f6f8ee; }
 
-.current .darkbg, .darkbg1 {
-  background-color: #d7d5c7; }
+.shadow {
+  box-shadow: 1px 1px 2px #dddddd;
+  -moz-box-shadow: 1px 1px 2px #dddddd;
+  -webkit-box-shadow: 1px 1px 2px #dddddd; }
 
-.darkbg1.csshov:hover {
-  background-color: #f6f6f7; }
+.btb {
+  border-bottom: dashed 1px #DFDFDF; }
 
-.lightbg {
-  background-color: #f6f6f7; }
+.hrr {
+  background-color: #f6f8ee;
+  height: 3px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  margin: 12px 0; }
 
-.lightbg1 {
-  background-color: #fafafb; }
+/*表单*/
+/*输入框背景*/
+/*输入框边线*/
+/*“发送”按钮*/
+input.text, textarea {
+  background-color: #f7fdff;
+  border: solid 1px #cccccc;
+  box-shadow: 1px 1px 2px #eeeeee;
+  -moz-box-shadow: 1px 1px 2px #eeeeee;
+  -webkit-box-shadow: 1px 1px 2px #eeeeee; }
+  input.text.active, textarea.active {
+    background-color: #ffffea; }
 
-.concave {
-  border-bottom: solid 1px #464660;
-  border-right: solid 1px #464660;
-  border-top: solid 1px #000;
-  border-left: solid 1px #000; }
+a.send-button {
+  background: -moz-linear-gradient(-90deg, #889b1f, #566710);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#889b1f), to(#566710));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#889b1f',endColorstr='#566710');
+  border-color: #7f9132; }
+  a.send-button:hover {
+    text-decoration: none;
+    background: -moz-linear-gradient(-90deg, #a8bb3f, #768730);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#a8bb3f), to(#768730));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#a8bb3f',endColorstr='#768730'); }
+  a.send-button.mousedown {
+    background: -moz-linear-gradient(-90deg, #768730, #a8bb3f);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#768730), to(#a8bb3f));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#768730',endColorstr='#a8bb3f'); }
 
-.convex {
-  border-left: solid 1px #464660;
-  border-top: solid 1px #464660;
-  border-bottom: solid 1px #000;
-  border-right: solid 1px #000; }
+/*浮动弹出层*/
+.popdiv {
+  box-shadow: 1px 1px 2px #dddddd;
+  -moz-box-shadow: 1px 1px 2px #dddddd;
+  -webkit-box-shadow: 1px 1px 2px #dddddd;
+  background-color: #f6f8ee;
+  border: solid 2px #525566; }
+  .popdiv .moredarkbg {
+    background-color: #edefe5; }
+  .popdiv .csshov:hover {
+    background-color: #edefe5; }
+  .popdiv.csshov:hover {
+    background-color: #edefe5; }

@@ -2,73 +2,140 @@
 @import "../../ui/misc";
 
 @import 'head';
+@import 'footer';
+@import 'body';
 
-$body-bg-color   : $head-bg-color;
-$body-text-color : #333333;
+/*一般文字*/
+  /*一般文字颜色*/
+    $text-color       : #333333;
+  /*一般文字强调颜色*/
+    $text-loud-color  : #FB4A00;
+  /*一般文字弱化颜色*/
+    $text-quiet-color : #A5A5A5;
 
-$content-bg-color     : #ffffff;
-$content-border-color : #ffffff;
+/*链接文字*/
+  /*链接文字颜色*/
+    $text-a-color : #3173B4;
+    $text-a-hover-color : #5193D4;
+  /*链接文字强调颜色*/
+    $text-a-loud-color : #FB4A00;
+    $text-a-loud-hover-color : #FF4E04;
 
-$foot-bg-color : #284A78; /*青蓝*/
-
-$dark-bg-color : white;
-$dark-bg-color-1 : #D7D5C7;
-$light-bg-color : #F6F6F7;
-$light-bg-color-1 : #FAFAFB;
-
-body{
-  background-color:$body-bg-color;
-  color:$body-text-color;
-}
+/*排版区域*/
+  /*强调区域颜色*/
+    $dark-bg-color     : #F6F8EE;
+    $dark-bg-color-1   : #EDEFE5;
+  /*区域阴影颜色*/
+    $box-shadow-color  : #ddd;
 
 .page-content{
-  .cell{
-    border:2px solid $content-border-color;
-    background-color:$content-bg-color;
+  color:$text-color;
+  .loud{color:$text-loud-color !important;}
+  .quiet{color:$text-quiet-color !important;}
+  .date{color:$text-quiet-color !important;}
+  a{
+    color:$text-a-color;
+    &:hover{color:$text-a-hover-color;}
+    &.quiet{
+      color:$text-quiet-color !important;
+      &:hover{color:$text-quiet-color !important;}
+    }
+    &.loud{
+      color:$text-a-loud-color !important;
+      &:hover{color:$text-a-loud-hover-color !important;}
+    }
+    &.reverse{
+      background-color:$text-a-color;
+      color:white;
+      &:hover{background-color:$text-a-hover-color;text-decoration:none;}
+    }
   }
 }
 
-.page-footer{
-  background-color:$foot-bg-color;
-}
-
-.loud{color:#FB4A00 !important;}
-.loud1{color:black;}
-.quiet{color:#B5B5B5;}
-.date{color:#c5c5c5;}
-
-a{
-  color:#268DD3;
-  &:hover{color:#5193D4;}
-  &.loud{
-    color:#FBEB96;
-    &:hover{text-decoration:none !important;color:#FBD300 !important;}
+.darkbg{
+  background-color:$dark-bg-color;
+  &.quote{
+    border:solid 1px $box-shadow-color;
+    @include box-shadow(1px 1px 2px $box-shadow-color);
+  }
+  .moredarkbg{
+    background-color:$dark-bg-color-1;
+  }
+  .csshov:hover{
+    background-color:$dark-bg-color-1;
+  }
+  &.csshov:hover{
+    background-color:$dark-bg-color-1;
   }
 }
 
-.quote_content{
-  background:#F6F6F6;
-  border:solid 1px #E5E5E5
+.csshov:hover{
+  background-color:$dark-bg-color;
 }
 
-.darkbg{background-color:$dark-bg-color;}
-.darkbg .btb{border-bottom:dashed 1px $light-bg-color;}
-.current .darkbg, .darkbg1{background-color:$dark-bg-color-1;}
-.darkbg1.csshov:hover{background-color:$light-bg-color;}
+.shadow{
+  @include box-shadow(1px 1px 2px $box-shadow-color);
+}
+.btb{border-bottom:dashed 1px #DFDFDF;}
 
-.lightbg{background-color:$light-bg-color;}
-.lightbg1{background-color:$light-bg-color-1;}
-
-.concave{
-  border-bottom:solid 1px #464660;
-  border-right:solid 1px #464660;
-  border-top:solid 1px #000;
-  border-left:solid 1px #000;
+.hrr{
+  background-color:$dark-bg-color;
+  height:3px;
+  @include border-radius(3px);
+  margin:12px 0;
 }
 
-.convex{
-  border-left:solid 1px #464660;
-  border-top:solid 1px #464660;
-  border-bottom:solid 1px #000;
-  border-right:solid 1px #000;
+
+/*表单*/
+  /*输入框背景*/
+    $input-bg-color          : #F7FDFF;
+    $input-bg-active-color   : #FFFFEA;
+  /*输入框边线*/
+    $input-border-color      : #ccc;
+
+  /*“发送”按钮*/
+    $send-button-bg-color    : #889B1F;
+    $send-button-bg-color-1  : #566710;
+    $send-button-bg-hover-color    : #A8BB3F;
+    $send-button-bg-hover-color-1  : #768730;
+    $send-button-border-color  : #7F9132;
+
+
+input.text, textarea{
+  background-color:$input-bg-color;
+  border:solid 1px $input-border-color;
+  @include box-shadow(1px 1px 2px #eee);
+  &.active{
+    background-color:$input-bg-active-color;
+  }
+}
+
+a.send-button{
+  @include gradient($send-button-bg-color,$send-button-bg-color-1);
+  border-color:$send-button-border-color;
+  &:hover{
+    text-decoration:none;
+    @include gradient($send-button-bg-hover-color,$send-button-bg-hover-color-1);
+  }
+  &.mousedown{
+    @include gradient($send-button-bg-hover-color-1,$send-button-bg-hover-color);
+  }
+}
+
+/*浮动弹出层*/
+  $popdiv-bd-color : #525566;
+
+.popdiv{
+  @include box-shadow(1px 1px 2px $box-shadow-color);
+  background-color:$dark-bg-color;
+  border:solid 2px $popdiv-bd-color;
+  .moredarkbg{
+    background-color:$dark-bg-color-1;
+  }
+  .csshov:hover{
+    background-color:$dark-bg-color-1;
+  }
+  &.csshov:hover{
+    background-color:$dark-bg-color-1;
+  }
 }

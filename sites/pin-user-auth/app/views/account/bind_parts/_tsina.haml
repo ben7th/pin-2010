@@ -15,6 +15,13 @@
       .failure{:style=>'display:none;'}
         发送失败:(
 
+-form_tag '/account/do_tsina_connect_setting', :method => :put do
+  .field
+    =check_box_tag 'syn_from_connect','true',current_user.tsina_connect_user.syn_from_connect?
+    %span.dc 是否同步新浪微博的信息到 MindPin
+  .field.marginb3em
+    = submit_tag '保存更改',:class=>'submit'
+
 .padding5
   -if !current_user.is_quick_connect_account?
     =minibutton "解除新浪微博账号绑定","/account/do_unbind?type=tsina",:method=>:post,:confirm=>'确定要解除绑定吗？',:class=>'danger ho'

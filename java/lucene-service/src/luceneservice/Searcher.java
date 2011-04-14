@@ -99,8 +99,8 @@ public class Searcher {
     }
   }
 
-  // 根据用户的email查找feed
-  public String searchFeedsByUserEmail(String[] searchFields,String email) throws IOException, ParseException, Exception {
+  // 根据用户的creator_id查找feed
+  public String searchFeedsByUserCreatorId(String[] searchFields,String creator_id) throws IOException, ParseException, Exception {
     checkIndexDir();
     Directory fsDir = FSDirectory.open(indexDir);
     try {
@@ -108,8 +108,8 @@ public class Searcher {
       indexSearch.setSimilarity(new IKSimilarity());
       query = IKQueryParser.parseMultiField(searchFields, q);
 
-      // 根据email进行过滤
-      Filter filter = new FieldCacheTermsFilter("email", email);
+      // 根据creator_id进行过滤
+      Filter filter = new FieldCacheTermsFilter("creator_id", creator_id);
 
       long startTime = new Date().getTime();
       allSearchResult = indexSearch.search(query, filter, 100000).scoreDocs;

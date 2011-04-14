@@ -29,6 +29,10 @@ public
     xxxs_ids_rediscache_save(ids)
   end
 
+  def reset_cache(ids)
+    xxxs_ids_rediscache_save(ids)
+  end
+
 private
   # 强制读缓存
   def xxxs_ids_rediscache
