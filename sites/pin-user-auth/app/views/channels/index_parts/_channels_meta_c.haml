@@ -9,7 +9,7 @@
         (#{link_to c.creator.name,c.creator})
 
   .avatars{:'data-c-id'=>c.id}
-    =render 'channels/index_parts/aj_channel_avatars',:users=>c.contact_users.reverse
+    =render 'channels/index_parts/aj_channel_avatars',:users=>c.include_users.reverse
 
     -if logged_in? && current_user == c.creator
       .config.darkbg.csshov{:tipr=>'设置频道参与者'}

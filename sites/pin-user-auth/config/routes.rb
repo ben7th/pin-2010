@@ -185,7 +185,8 @@ ActionController::Routing::Routes.draw do |map|
       :add=>:put,
       :remove=>:put,
       :new_blog_post=>:get,
-      :add_users=>:post
+      :add_users=>:post,
+      :newest_feed_ids=>:get
     }
 
   map.fans "/:user_id/channels",:controller=>"channels",:action=>"index"

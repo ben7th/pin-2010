@@ -183,7 +183,6 @@ class Feed < UserAuthAbstract
 
   include FeedMindmap::FeedMethods
   include Fav::FeedMethods
-  include FavProxy::FeedMethods
   include FeedMindmapProxy::FeedMethods
   include FeedChannel::FeedMethods
   include HtmlDocument::FeedMethods

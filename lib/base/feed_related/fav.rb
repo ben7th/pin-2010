@@ -37,6 +37,4 @@ class Fav < UserAuthAbstract
       favs.each{|fav|fav.destroy}
     end
   end
-
-  include FavProxy::FavMethods
 end

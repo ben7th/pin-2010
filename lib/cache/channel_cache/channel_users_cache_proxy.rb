@@ -5,6 +5,6 @@ class ChannelUsersCacheProxy < RedisBaseProxy
   end
 
   def xxxs_ids_db
-    @channel.contact_users.map{|user|user.id}
+    @channel.include_users_db.map{|user|user.id}
   end
 end

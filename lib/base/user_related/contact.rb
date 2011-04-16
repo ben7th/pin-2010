@@ -8,21 +8,6 @@ class Contact < UserAuthAbstract
 
   index :user_id
 
-  # 添加联系人的时候，在这个人的默认频道中添加这个redis缓存
-  after_create :add_user_no_channel_user_id
-  def add_user_no_channel_user_id
-    NoChannelUsersProxy.new(user).add_contact(self)
-    return true
-  end
-
-  # 删除contact的时候 已经级联删除 channle_contacts
-  # 删除channel_contact 有回调 删除channel中user_ids对应的reids缓存
-  after_destroy :remove_user_no_channel_user_id
-  def remove_user_no_channel_user_id
-    NoChannelUsersProxy.new(user).remove_contact(self)
-    return true
-  end
-
   def validate_on_create
     if follow_user
       con = user.get_contact_obj_of(follow_user)
@@ -53,6 +38,8 @@ class Contact < UserAuthAbstract
   module UserMethods
     def self.included(base)
       base.has_many :contacts
+      base.has_many :followings_db,:through=>:contacts,:source=>:user
+      base.has_many :fans_db,:through=>:contacts,:source=>:follow_user
     end
     
     def fans_contacts_db
@@ -73,6 +60,5 @@ class Contact < UserAuthAbstract
   end
 
   include ContactProxy::ContactMethods
-  include ChannelContact::ContactMethods
   include NewsFeedProxy::ContactMethods
 end

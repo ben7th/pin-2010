@@ -45,12 +45,12 @@ class ChannelsController < ApplicationController
   end
 
   def add
-    ChannelContactOperationQueue.new.add_task(ChannelContactOperationQueue::ADD_OPERATION,@channel.id,params[:user_id])
+    ChannelUserOperationQueue.new.add_task(ChannelUserOperationQueue::ADD_OPERATION,@channel.id,params[:user_id])
     return render :status=>200,:text=>"操作完成"
   end
 
   def remove
-    ChannelContactOperationQueue.new.add_task(ChannelContactOperationQueue::REMOVE_OPERATION,@channel.id,params[:user_id])
+    ChannelUserOperationQueue.new.add_task(ChannelUserOperationQueue::REMOVE_OPERATION,@channel.id,params[:user_id])
     return render :status=>200,:text=>"操作完成"
   end
 
@@ -78,11 +78,15 @@ class ChannelsController < ApplicationController
 
   def add_users
     users = params[:user_ids].split(",").map do |user_id|
-      user = User.find_by_id(user_id)
-      user if !@channel.contact_users.include?(user)
+      User.find_by_id(user_id)
     end.compact
-    @channel.add_users(users)
+    @channel.add_users_on_queue(users)
     render :partial=>'channels/index_parts/aj_channel_avatars',:locals=>{:users=>users}
+  end
+
+  def newest_feed_ids
+    newest_feeds_ids = ChannelUserFeedProxy.new(current_user,@channel).newest_feeds_ids
+    render :status=>200,:json=>{:newest_feeds_ids_count=>newest_feeds_ids.size}.to_json
   end
 
 end

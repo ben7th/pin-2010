@@ -194,7 +194,6 @@ class User < UserBase
 
   # 两个工程都引入的
   include Fav::UserMethods
-  include FavProxy::UserMethods
   include ChannelCacheProxy::UserMethods
   include FeedChannel::UserMethods
   include Feed::UserMethods
@@ -207,6 +206,7 @@ class User < UserBase
   include Channel::UserMethods
   include NoChannelNewsFeedProxy::UserMethods
   include Contact::UserMethods
+  include ChannelUser::UserMethods
   # 两个工程都引入的
 
   include Activity::UserMethods
@@ -217,5 +217,4 @@ class User < UserBase
   include Tsina::UserMethods
 
   include UserBaseEvent
-
 end

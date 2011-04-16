@@ -19,6 +19,7 @@ class User < UserBase
   include Channel::UserMethods
   include NoChannelNewsFeedProxy::UserMethods
   include Contact::UserMethods
+  include ChannelUser::UserMethods
   # 两个工程都引入的
 
   index :email

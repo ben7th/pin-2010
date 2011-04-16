@@ -114,7 +114,7 @@ class FeedsController < ApplicationController
   end
 
   def favs
-    @fav_feeds = current_user.fav_feeds(:per_page=>10,:page=>params[:page]||1)
+    @fav_feeds = current_user.fav_feeds.paginate(:per_page=>10,:page=>params[:page]||1)
   end
 
   def quote

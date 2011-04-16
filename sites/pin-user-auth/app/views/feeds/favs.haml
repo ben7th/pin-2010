@@ -10,5 +10,8 @@
   .newsfeed
     =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@fav_feeds}
 
+  .paginate.padding5
+    = will_paginate @fav_feeds
+
 .grid_4.omega.fright
   =render :partial=>'index/index_parts/feed_links'

@@ -150,7 +150,7 @@ if defined? ActiveRecord::Base
         :ttl=>604800,
         :namespace=>"global_development",
         :sessions=>false,
-        :debug=>false,
+        :debug=>true,
         :servers=>"localhost:11211"
       },
       :production=>{
@@ -178,6 +178,17 @@ if defined? ActiveRecord::Base
     p "#{ex.message}，不加载 cache money"
   end
 end
+
+if defined? ActiveRecord::Base
+  begin
+    p '>>>>> 加载向量缓存配置'
+    require 'pie-ui/redis_cache_rule'
+    ActiveRecord::Base.send :include, RedisCacheRule
+  rescue Exception => ex
+    p "#{ex.message}，向量缓存配置加载失败"
+  end
+end
+
 require 'pie-ui/global_util'
 include GlobalUtil
 # 一些 helper 方法

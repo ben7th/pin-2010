@@ -1,13 +1,13 @@
-class ChannelContactOperationQueue
-  KEY = "channel_contact_operation_queue"
+class ChannelUserOperationQueue
+  KEY = "channel_user_operation_queue"
   ADD_OPERATION = "add"
   REMOVE_OPERATION = "remove"
   def initialize
     @ccoq = RedisHashMessageQueue.new(KEY)
   end
 
-  # ChannelContactOperationQueue.new.add_task("add",channel_id,user_id)
-  # ChannelContactOperationQueue.new.add_task("remove",channel_id,user_id)
+  # ChannelUserOperationQueue.new.add_task("add",channel_id,user_id)
+  # ChannelUserOperationQueue.new.add_task("remove",channel_id,user_id)
   def add_task(operation,channel_id,user_id)
     raise "不支持 #{operation} 操作" if ![ADD_OPERATION,REMOVE_OPERATION].include?(operation)
     @ccoq.push({:operation=>operation,:channel_id=>channel_id,:user_id=>user_id})

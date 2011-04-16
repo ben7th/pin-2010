@@ -5,13 +5,13 @@
 self_dir=`dirname $0`
 
 . $self_dir/../function.sh
-processor_pid=/web/2010/pids/channel_contact_operation_queue_worker.pid
+processor_pid=/web/2010/pids/channel_user_operation_queue_worker.pid
 
 runner_rb=$self_dir/../../sites/pin-user-auth/script/runner
 
-worker_rb=$self_dir/../../sites/pin-user-auth/script/channel_contact_operation_queue_worker.rb
+worker_rb=$self_dir/../../sites/pin-user-auth/script/channel_user_operation_queue_worker.rb
 
-log_path=/web/2010/logs/channel_contact_operation_queue_worker.log
+log_path=/web/2010/logs/channel_user_operation_queue_worker.log
 
 rails_env=$(get_rails_env)
 

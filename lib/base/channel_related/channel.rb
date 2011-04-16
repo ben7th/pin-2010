@@ -1,5 +1,6 @@
 class Channel < UserAuthAbstract
-  has_many :channel_contacts,:dependent=>:destroy
+  has_many :channel_users,:dependent=>:destroy
+  has_many :include_users_db,:through=>:channel_users,:source=>:user,:order=>"channel_users.id desc"
 
   KIND_CHAT = "chat"                               # 闲聊
   KIND_BLOG = "blog"                               # 信息发布
@@ -28,34 +29,27 @@ class Channel < UserAuthAbstract
   index :creator_id
   index [:creator_id,:id]
 
-  def contacts
-    self.channel_contacts.map{|cc|cc.contact}.compact
+  def has_user_db?(user)
+    include_users_db.include?(user)
   end
 
-  def contact_users
-    self.contacts.map{|c|c.follow_user}.reverse.compact
-  end
-
-  def has_user?(user)
-    contact_users.include?(user)
+  def get_channel_user_obj_of(user)
+    self.channel_users.find_by_user_id(user.id)
   end
 
   # 给频道增加一个联系人
   # 增加成功返回 true
   # 增加失败返回 false
   def add_user(user)
-    contact = self.creator.get_contact_obj_of(user)
-    if contact.blank?
-      contact = self.creator.add_contact_user(user)
-    end
-    cc = ChannelContact.new(:contact=>contact,:channel=>self)
-    cc.save
+    channel_user = get_channel_user_obj_of(user)
+    return if !channel_user.blank?
+    ChannelUser.create(:user=>user,:channel=>self)
   end
 
   # 那一群人加到一个频道
-  def add_users(users)
+  def add_users_on_queue(users)
     users.each do |user|
-      ChannelContactOperationQueue.new.add_task(ChannelContactOperationQueue::ADD_OPERATION,self.id,user.id);
+      ChannelUserOperationQueue.new.add_task(ChannelUserOperationQueue::ADD_OPERATION,self.id,user.id);
     end
   end
 
@@ -63,11 +57,8 @@ class Channel < UserAuthAbstract
   # 去除成功返回 true
   # 失败或者 user 原本就不在频道 返回 false
   def remove_user(user)
-    contact = self.creator.get_contact_obj_of(user)
-    return false if contact.blank?
-    cc = ChannelContact.find_by_channel_id_and_contact_id(self.id,contact.id)
-    return false if !cc
-    cc.destroy
+    channel_user = get_channel_user_obj_of(user)
+    channel_user.destroy if channel_user
   end
 
   module UserMethods
@@ -79,36 +70,22 @@ class Channel < UserAuthAbstract
       channels.count
     end
 
-    def no_channel_contacts
-      all_contacts = self.contacts
-      ccs = all_contacts.map do |contact|
-        ChannelContact.find_all_by_contact_id(contact.id)
-      end.flatten.select{|cc|!cc.channel.blank?}
-      has_channel_contacts = ccs.map{|cc|cc.contact}.uniq
-      all_contacts-has_channel_contacts
-    end
-
-    def no_channel_contact_users_db
-      no_channel_contacts.map{|c|c.follow_user}.compact
+    # user 是否在 self 的 任意 channels 内
+    def channels_has_user?(user)
+      self.channels.each do |channel|
+        if channel.has_user_db?(user)
+          return true
+        end
+      end
+      return false
     end
 
     # self 是channel的拥有者 user是被查的人
     def channels_of_user_db(user)
-      channel_contacts = self.channels.map do |channel|
-        channel.channel_contacts
-      end.flatten
-      channel_contacts = channel_contacts.select{|cc|cc.contact && cc.contact.follow_user == user}
-      channel_contacts = channel_contacts.sort{|cc1,cc2|cc1.updated_at<=>cc2.updated_at}
-      channel_contacts.map{|cc|cc.channel}.uniq
-    end
-
-    def belongs_to_channels_db
-      contacts = self.fans_contacts_db
-      contacts.map do |contact|
-        ChannelContact.find_all_by_contact_id(contact.id).map do |cc|
-          cc.channel
-        end
-      end.flatten.compact.uniq
+      self_channels = self.channels
+      user.belongs_to_channels_db.select do |channel|
+        self_channels.include?(channel)
+      end
     end
 
     def to_sort_channels_by_ids(ids)
@@ -127,22 +104,18 @@ class Channel < UserAuthAbstract
   end
 
   module MindmapMethods
-    def self.included(base)
-      base.extend ClassMethods
-    end
-    module ClassMethods
-      def channel_mindmaps(channel)
-        channel.contact_users.map do |user|
-          user.mindmaps.publics
-        end.compact.flatten.sort{|a,b|b.updated_at<=>a.updated_at}
-      end
-
-      def no_channel_mindmaps_of(user)
-        user.no_channel_contact_users.map do |user_tmp|
-          user_tmp.mindmaps.publics
-        end.compact.flatten.sort{|a,b|b.updated_at<=>a.updated_at}
-      end
-    end
+    # 待修改修改
+#    def self.included(base)
+#      base.extend ClassMethods
+#    end
+#    module ClassMethods
+#      def channel_mindmaps(channel)
+#        channel.contact_users.map do |user|
+#          user.mindmaps.publics
+#        end.compact.flatten.sort{|a,b|b.updated_at<=>a.updated_at}
+#      end
+#
+#    end
   end
   include ChannelNewsFeedProxy::ChannelMethods
 
