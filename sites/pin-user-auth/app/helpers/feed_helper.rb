@@ -56,4 +56,17 @@ module FeedHelper
   def refresh_fans_tip
     MessageTip.new(current_user).refresh_fans_info if logged_in?
   end
+
+  def usersign(user)
+    re = []
+    if user.blank?
+      re << '未知用户'
+    else
+      re << "#{link_to user.name,user}"
+      if !user.sign.blank?
+        re << "<span class='quiet'>，#{truncate_u user.sign,24}</span>"
+      end
+    end
+
+  end
 end

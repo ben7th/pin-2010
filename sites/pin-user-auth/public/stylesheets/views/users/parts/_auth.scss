@@ -1,0 +1,116 @@
+.no-auth{
+  .go-to-signup{
+    margin:0 0 10px 0;
+    .signup-button {
+      @include border-radius(5px);
+      @include btn-color(#76D7F5, #429FD9, #5BBAE6, #CEE7F1, #7BDCFA, #47A4DE);
+      display:block;
+      padding:10px 30px;
+      text-align:center !important;
+      &:hover{color:white !important;}
+      .strong{
+        color:#fff !important;
+        font-weight:bold;
+        font-size:18px;
+      }
+    }
+  }
+  .login{
+    @include border-radius(4px);
+    padding:5px;
+    overflow:hidden;
+    form.login-form{
+      width:220px;
+      input.text{
+        font-weight:bold;
+        font-family:arial;
+      }
+      .misc{
+        overflow:hidden;
+        .remember-me{
+          float:left;
+          margin:0 0 10px 0;
+          line-height:22px;
+        }
+        .forget-password{
+          float:left;
+          margin:0 0 10px 80px;
+          line-height:22px;
+        }
+      }
+    }
+  }
+
+  .site-connect{
+    padding:5px;
+    .text{
+      margin:0 0 10px 0;
+    }
+    .connects{
+      a{
+        font-size:0;
+        line-height:0;
+        text-indent:-999px;
+        width:126px;
+        height:24px;
+        display:block;
+        margin:0 10px 10px 0;
+        &.tsina{background:url(/images/connect_login/connect_all.png) no-repeat;}
+        &.renren{background:url(/images/connect_login/connect_all.png) no-repeat 0 -25px;}
+      }
+    }
+  }
+}
+
+.mindpin-intro{
+  padding:5px 10px;
+  @include border-radius(5px);
+  background:#FFFFDE;
+  border:solid 2px #FBE881;
+  margin:0 0 10px 0;
+  .txt{
+    margin:0 0 20px 0;
+    .p{
+      font-size:14px;
+      margin:0 0 7px 0;
+      span.q{color:#8C6635;}
+      span.a{color:#E8641B;}
+    }
+  }
+  .actions{
+    overflow:hidden;
+    margin:0 0 10px 0;
+    .send-feed{
+      float:left;
+      font-size:14px;
+      font-weight:bold;
+      @include btn-color(#F54F00,#CA0700,#DF1600,#ffffff,#FB5506,#D00C06);
+      padding:5px 10px;
+    }
+    .search{
+      float:right;
+      position:relative;
+      top:6px;
+    }
+  }
+}
+
+.view-old-site{
+  padding:5px;
+}
+
+.hot-user-pages{
+  overflow:hidden;
+  padding:5px;
+  .avatar{
+    float:left;
+    width:28px;height:28px;
+    margin:0 4px 4px 0;
+    img{width:24px;height:24px;}
+    text-decoration:none !important;
+  }
+}
+
+.special-pages{
+  padding:5px;
+}

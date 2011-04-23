@@ -5,6 +5,22 @@
   padding:5px;
 }
 
+@mixin btn-color($c1,$c2,$cb1,$cf,$c3,$c4){
+  @include border-radius(4px);
+  @include gradient($c1,$c2);
+  border:solid 1px $cb1;
+  color:$cf;
+  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
+  &:hover{
+    @include gradient($c3,$c4);
+    text-decoration:none;
+  }
+  &.mousedown{
+    @include gradient($c4,$c3);
+    text-decoration:none;
+  }
+}
+
 .rc5{
   @include border-radius(5px);
 }
@@ -763,3 +779,4 @@ form.new_message{
 @import 'parts/poptip';
 @import 'parts/mindmaps';
 @import 'parts/todos';
+@import 'parts/auth'

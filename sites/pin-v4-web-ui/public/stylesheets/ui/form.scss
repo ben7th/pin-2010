@@ -74,15 +74,14 @@ form .submit,form input[type="submit"],
 a.button.classy{
   @include gradient(#ffffff,#e1e1e1);
   @include border-radius(4px);
-  @include box-shadow(1px 1px 2px rgba(0,0,0,0.2));
   text-shadow:1px 1px 0 #fff;
   border:solid 1px #CFCFCF;
-  $color1:#0770a0;
-  $color2:#0ca6dd;
+  $color1:#3570B8;
+  $color2:#5D99E1;
   &:hover{
     color:#fff;
     text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-    border-bottom-color:$color1;background:$color1;
+    border-color:#2E63A5;background:$color1;
     @include gradient($color2,$color1);
   };
   &.mousedown{
@@ -150,7 +149,7 @@ input.search-inner,input.search{
   *line-height:21px !important;
 }
 input.search-button,input.search-button.submit {
-  height:21px !important;
+  height:23px !important;
   top:-1px !important;
 }
 

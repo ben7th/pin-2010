@@ -1,0 +1,62 @@
+-require_css 'views/users',true
+
+.grid_16.alpha
+  .mindpin-intro
+    .txt
+      .p
+        MindPin 是一个大家提出<span class='q'>问题和想法</span>，互相帮助其他人<span class='a'>解答和完善</span>的地方。
+      .p
+        你可以在这里讨论问题，发表观点，安排计划。也许还可以认识很多有见解的朋友:)
+    .actions
+      %a.send-feed.button{:href=>'/login'}
+        我来发一个新话题
+      .search
+        =render 'index/index_parts/feed_search_form'
+
+  .grid_14.alpha
+    .grid-title
+      大家最近的话题
+    .newsfeed
+      =render 'index/homepage/feeds/new_feeds',:newsfeeds=>@feeds
+
+.grid_7.omega.fright
+  .no-auth
+    .go-to-signup
+      -link_to signup_path,:class=>'signup-button shadow button' do
+        .strong
+          立即注册新账号
+        Signup to work <b>for free</b>!
+
+    .hrr
+    .login
+      =render 'auth/parts/login_form'
+
+    .hrr
+    .site-connect
+      .text
+        .quiet 如果你有下面这些网站的账号
+        .quiet 不用注册就可以直接登录了~
+      .connects
+        =link_to "连接新浪微博","javascript:pie.open_win('#{connect_tsina_path}');",:class=>'tsina',:tipr=>'使用新浪微博账号登录'
+        =link_to "连接人人网","javascript:pie.open_win('#{connect_renren_path}');",:class=>'renren',:tipr=>'使用人人网账号登录'
+
+    .hrr
+    .view-old-site
+      .p 我们已经改版为互动社区了！
+      .p 今后提供的功能将不再仅限于思维导图工具。
+      .p.marginb10 希望大家支持~
+      .p <span class='loud'>如果你还不适应</span>，#{link_to '点击这里访问原来的功能','/mindmaps'}。
+
+    .hrr
+    .grid-title 看看他们的主页吧
+    .hot-user-pages
+      -users = User.find(:all,:conditions=>['logo_file_name is NOT NULL'],:limit=>32)
+      -users.each do |u|
+        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+          =avatar u,:mini
+      
+    .hrr
+    .grid-title 站务
+    .special-pages
+      .font14.marginb5=link_to '给我们提意见','/channels/1'
+      .font14=link_to '开发者日志','/channels/1'

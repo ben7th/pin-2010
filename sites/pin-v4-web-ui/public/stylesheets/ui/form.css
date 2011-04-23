@@ -92,9 +92,6 @@ a.button.classy {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   text-shadow: 1px 1px 0 #fff;
   border: solid 1px #CFCFCF; }
   form .submit:hover, form input[type="submit"]:hover,
@@ -102,17 +99,17 @@ a.button.classy {
   a.button.classy:hover {
     color: #fff;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-    border-bottom-color: #0770a0;
-    background: #0770a0;
-    background: -moz-linear-gradient(-90deg, #0ca6dd, #0770a0);
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0ca6dd), to(#0770a0));
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0ca6dd',endColorstr='#0770a0'); }
+    border-color: #2E63A5;
+    background: #3570b8;
+    background: -moz-linear-gradient(-90deg, #5d99e1, #3570b8);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#5d99e1), to(#3570b8));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5d99e1',endColorstr='#3570b8'); }
   form .submit.mousedown, form input[type="submit"].mousedown,
   .form .submit.mousedown, .form input[type="submit"].mousedown,
   a.button.classy.mousedown {
-    background: -moz-linear-gradient(-90deg, #0770a0, #0ca6dd);
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0770a0), to(#0ca6dd));
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0770a0',endColorstr='#0ca6dd'); }
+    background: -moz-linear-gradient(-90deg, #3570b8, #5d99e1);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3570b8), to(#5d99e1));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3570b8',endColorstr='#5d99e1'); }
   form .submit.glowing, form input[type="submit"].glowing,
   .form .submit.glowing, .form input[type="submit"].glowing,
   a.button.classy.glowing {
@@ -194,7 +191,7 @@ input.search-inner, input.search {
   *line-height: 21px !important; }
 
 input.search-button, input.search-button.submit {
-  height: 21px !important;
+  height: 23px !important;
   top: -1px !important; }
 
 /*inline*/
