@@ -1,18 +1,17 @@
 /*feeds*/
 .newsfeed{
-  ul.feeds li.mpli.feed, .show-feed{
+  ul.feeds li.mpli.feed{
     position:relative;
     overflow:visible;
     .f{
-      padding:6px;
+      padding:0 6px 20px;
       margin-bottom:10px;
-      padding-bottom:10px;
       overflow:hidden;
 
       .reply-to-feed{
-        @include border-radius(3px);
+        @include border-radius(0 3px 3px 0);
         padding:5px;
-        margin:0 0 10px 35px;
+        margin:0 0 6px 40px;
       }
 
       .current-feed{
@@ -27,7 +26,8 @@
           float:left;
           width:490px;
           .data{
-            font-size:14px;
+            .c-name{font-size:12px;margin-bottom:6px;}
+            .ct{font-size:14px;}
           }
           .documents{
             .mindmaps{
@@ -41,9 +41,9 @@
         }
       }
       .quote-feed{
-        @include border-radius(3px);
         padding:5px;
-        margin:5px 0 10px 35px;
+        margin:6px 0 6px 40px;
+        @include border-radius(0 3px 3px 0);
       }
 
       /*feed内容扩展部分*/
@@ -137,60 +137,46 @@
 
       .footmisc{
         overflow:hidden;
-        margin-left:36px;
-        margin-top:2px;
-        .time{
-          float:left;
-          @include border-radius(4px);
-          height:14px;
-          line-height:14px;
-          padding:0 4px;
-          .date{}
-        }
+        margin-left:35px;
+        padding:5px;
+        font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
+        .c-name{float:left;}
+        .split{float:left;padding:0 4px;}
+        .time{float:left;}
+        .view-detail{float:left;}
+        .start-todo{float:left;}
         .ops{
           overflow:hidden;
-          float:right;
+          float:left;
           .mindmap,.del,.fav,.transmit,.echo{
             float:left;
-            @include border-radius(3px);
-            margin:0 0 0 5px;
-            padding:0 3px 0 0;
             overflow:hidden;
             cursor:pointer;
           }
-
           .del,.fav,.transmit,.echo{
-            height:16px;
             .icon{
               float:left;
+              display:none;
               width:16px;height:16px;background:url(/images/icons/all.png) no-repeat 0px -100px;
               margin:0 2px 0 0;
             }
-            .t{float:left;height:15px;line-height:15px;}
+            .t{float:left;}
           }
           .fav{
             &.off{
-              .icon{
-                background:url(/images/icons/all.png) no-repeat -130px -100px;
-              }
+              .icon{background:url(/images/icons/all.png) no-repeat -130px -100px;}
               .t2{display:none;}
             }
             &.on{
-              .icon{
-                background:url(/images/icons/all.png) no-repeat -113px -100px;
-              }
+              .icon{background:url(/images/icons/all.png) no-repeat -113px -100px;}
               .t1{display:none;}
             }
           }
           .transmit{
-            .icon{
-              background:url(/images/icons/all.png) no-repeat -147px -100px;
-            }
+            .icon{background:url(/images/icons/all.png) no-repeat -147px -100px;}
           }
           .echo{
-            .icon{
-              background:url(/images/icons/all.png) no-repeat -164px -100px;
-            }
+            .icon{background:url(/images/icons/all.png) no-repeat -164px -100px;}
           }
 
           .mindmap{
@@ -262,7 +248,7 @@
             .avatar{
               float:left;
               margin-right:10px;
-              width:28px;height:28px;
+              img{width:16px;height:16px;}
             }
             .content{
             }

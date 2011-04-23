@@ -122,12 +122,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
-    :aj_comments=>:get},
+    :aj_comments=>:get,:viewpoint=>:post},
     :collection=>{:reply_to=>:post,:quote=>:post,:all=>:get} do |feed|
       feed.resources :todos,:collection=>{
         :remove_last_todo=>:delete
       }
     end
+  map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
+    :action=>"destroy",:conditions=>{:method=>:delete}
   map.resources :todos,:member=>{
     :add_memo=>:put,
     :clear_memo=>:put,
@@ -142,6 +144,16 @@ ActionController::Routing::Routes.draw do |map|
     todo.resources :todo_items
   end
   map.resources :todo_items
+
+  map.create_viewpoint_comment "/viewpoints/:viewpoint_id/comments",:controller=>"viewpoint_comments",
+    :action=>"create",:conditions=>{:method=>:post}
+  map.viewpoint_aj_comments "/viewpoints/:viewpoint_id/aj_comments",:controller=>"viewpoint_comments",
+    :action=>"aj_comments"
+  map.destroy_viewpoint_comment "/viewpoint_comments/:id",:controller=>"viewpoint_comments",
+    :action=>"destroy",:conditions=>{:method=>:delete}
+  
+  map.create_viewpoint_feed "/viewpoints/:id/feeds",:controller=>"viewpoints",
+    :action=>"create_feed",:conditions=>{:method=>:post}
 
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
@@ -167,15 +179,23 @@ ActionController::Routing::Routes.draw do |map|
       :clone_form=>:get,
       :do_clone=>:put,
       :do_private=>:put,
-      :info=>:get
+      :info=>:get,
+      :share=>:post,
+      :fav=>:post,
+      :unfav=>:delete,
+      :comments=>:post
     }
   map.user_mindmaps "/:user_id/mindmaps",:controller=>"mindmaps",:action=>"user_mindmaps"
 
   map.search_mindmaps '/search_mindmaps.:format',:controller=>'mindmaps_search',:action=>'search'
 
   #cooperations_controller
-  map.cooperate_dialog "/cooperate/:mindmap_id",:controller=>"cooperations",:action=>"cooperate_dialog",:conditions=>{:method=>:get}
-  map.save_cooperations "/save_cooperations/:mindmap_id",:controller=>"cooperations",:action=>"save_cooperations",:conditions=>{:method=>:post}
+  map.add_cooperator "/cooperate/:mindmap_id/add_cooperator",
+    :controller=>"cooperations",:action=>"add_cooperator",
+    :conditions=>{:method=>:post}
+  map.remove_cooperator "/cooperate/:mindmap_id/remove_cooperator",
+    :controller=>"cooperations",:action=>"remove_cooperator",
+    :conditions=>{:method=>:delete}
 
   map.resources :channels,:collection=>{
       :fb_orderlist=>:get,

@@ -35,4 +35,28 @@ pie.load(function(){
     })
   });
 
+  jQuery('.map-action .ac .o .fav').live('click',function(){
+    var elm = jQuery(this);
+    var id = elm.attr("data-m-id");
+    var is_on = elm.hasClass('on');
+
+    if(is_on){
+      jQuery.ajax({
+        url  :pie.pin_url_for('pin-user-auth','/mindmaps/'+id+'/unfav'),
+        type :'delete',
+        success : function(res){
+          elm.removeClass('on').addClass('off');
+        }
+      });
+    }else{
+      jQuery.ajax({
+        url  :pie.pin_url_for('pin-user-auth','/mindmaps/'+id+'/fav'),
+        type :'post',
+        success : function(res){
+          elm.removeClass('off').addClass('on');
+        }
+      });
+    }
+  });
+
 });

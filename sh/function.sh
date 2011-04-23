@@ -15,7 +15,7 @@ function assert_process_from_pid_file_not_exist()
 
   if [ -f $1 ]; then
     pid=$(cat $1)
-    if [ "$(ps $pid|grep -v PID)" ]; then
+    if [ $pid ] && [ "$(ps $pid|grep -v PID)" ]; then
       echo "$1 pid_file 中记录的 pid 还在运行"
       exit 5
     fi

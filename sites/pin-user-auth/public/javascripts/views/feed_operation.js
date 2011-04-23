@@ -206,6 +206,25 @@ pie.load(function(){
 })
 
 pie.load(function(){
+  //删除feed评论
+  //delete /feed_comments/:id
+  jQuery('.newsfeed .feed .comments .delete').live('click',function(){
+    var elm = jQuery(this);
+    var comment_elm = elm.closest('.comment');
+    var comment_id = comment_elm.attr('data-comment-id');
+    if(confirm('确定要删除这条评论吗？')){
+      jQuery.ajax({
+        url : '/feed_comments/'+comment_id,
+        type : 'delete',
+        success : function(){
+          comment_elm.fadeOut();
+        }
+      })
+    }
+  })
+})
+
+pie.load(function(){
 
   var ti_elm = jQuery('<div class="todo-items-config popdiv">'+
     '<div class="title">任务项</div>'+

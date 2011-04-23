@@ -1,0 +1,24 @@
+.channel-member-choose-panel.popdiv{:style=>'display:none;'}
+  .intro.btb
+    .i.loud
+      在下面选择要添加为协同者的联系人。
+    .i-added
+    .fleft
+      已经添加的
+    .i-selected
+    .fleft
+      准备添加的
+
+  .selected-users.btb
+
+  .fo-users.btb
+    -if logged_in?
+      -current_user.followings.each do |fu|
+        .fo-u.csshov{:'data-user-id'=>fu.id}
+          .avatar>=avatar fu,:tiny
+          .name>=fu.name
+          .chkico
+          .rmvico{:tipr=>'移除'}
+  .btns
+    %button.editable-submit 保存
+    %button.editable-cancel 取消

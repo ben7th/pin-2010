@@ -33,6 +33,18 @@ public
     xxxs_ids_rediscache_save(ids)
   end
 
+  # 根据传入的类以及当前proxy对象缓存的id数组
+  # 取出对象数组，并且去空，去重复
+  def get_models(klass)
+    ids = xxxs_ids
+    if ids.blank?
+      return []
+    end
+    ids.map{|id|
+      klass.find_by_id(id)
+    }.compact.uniq
+  end
+
 private
   # 强制读缓存
   def xxxs_ids_rediscache

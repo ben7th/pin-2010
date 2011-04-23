@@ -2,11 +2,14 @@
 -if todo.blank?
   .feed-todo.darkbg.shadow
     .meta
+      -if current_user == feed.creator
+        .start-todo.aligncenter
+          =minibutton '新协同','javascript:;','tipr'=>'当你需要其他人的帮助时，点这里创建互动'
 -else
   .feed-todo.b0.shadow{:'data-id'=>todo.id}
     .meta
       .items
         -if current_user == feed.creator
           .add-items{:tipr=>'调整任务项'}
-        .items-count
-          =todo.todo_items.count
+        .members.aligncenter
+          #{todo.executers.count}人参与

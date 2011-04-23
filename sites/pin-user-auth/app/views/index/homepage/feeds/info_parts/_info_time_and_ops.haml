@@ -2,19 +2,30 @@
   .time.lightbg
     =link_to created_from(feed),feed,:class=>'quiet'
 
+  .split.quiet •
+  .view-detail
+    =link_to '查看详情',feed
+
   -if logged_in?
     .ops
+      .split.quiet •
+      %a.fav{:href=>'javascript:;',:class=>feed.fav_by?(current_user) ? 'on':'off'}
+        .t.t1 关注
+        .t.t2 取消关注
+
+      .split.quiet •
+      %a.transmit{:href=>'javascript:;',:'data-colunt'=>feed.quotes_count} 传播
+
+      .split.quiet •
+      -if feed.comments_count == 0
+        %a.echo{:href=>'javascript:;',:'data-count'=>feed.comments_count} 评论
+      -else
+        %a.echo{:href=>'javascript:;',:'data-count'=>feed.comments_count} #{feed.comments_count}条评论
+
       -if feed.creator == current_user
-        .del.csshov
-          .icon
-          .t 删除
-      .fav.csshov{:class=>feed.fav_by?(current_user) ? 'on':'off'}
-        .icon
-        .t.t1 标记
-        .t.t2 取消标记
-      .transmit.csshov{:'data-colunt'=>feed.quotes_count}
-        .icon
-        .t 传阅 #{feed.quotes_count}
-      .echo.csshov{:'data-count'=>feed.comments_count}
-        .icon
-        .t 回应 #{feed.comments_count}
+        .split.quiet •
+        %a.del{:href=>'javascript:;'} 删除
+
+        .split.quiet •
+        .start-todo
+          =link_to '发起协作','javascript:;',:class=>'loud',:tipr=>'当你需要其他人的帮助，点这里！'

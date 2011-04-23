@@ -9,11 +9,11 @@ module FeedHelper
   end
 
   def feed_content(feed)
-    "<span class='loud'>说</span> #{auto_link(h(feed.content),:html=>{:target=>'_blank'})}"
+    "#{auto_link(h(feed.content),:html=>{:target=>'_blank'})}"
   end
 
   def user_last_feed(user)
-    feed = user.news_feed_proxy.own_newest_feed
+    feed = user.out_newest_feed
     return if feed.nil?
     feed_content(feed)
   end
@@ -51,5 +51,9 @@ module FeedHelper
 
   def refresh_todo_tip
     MessageTip.new(current_user).refresh_todos_info if logged_in?
+  end
+
+  def refresh_fans_tip
+    MessageTip.new(current_user).refresh_fans_info if logged_in?
   end
 end

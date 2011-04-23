@@ -1,5 +1,5 @@
 -if(!feed.quote_of.blank?)
-  .quote-feed.darkbg.quote
+  .quote-feed.quotebg
     -qf = feed.quoted_feed
     .data
       -if qf.nil?
@@ -7,4 +7,5 @@
       -else
         -qc = qf.creator
         =link_to qc.name,qc
+        %span.quiet> ：
         =feed_content(qf)

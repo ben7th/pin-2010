@@ -1,0 +1,26 @@
+.page-feed-show{:'data-id'=>"#{feed.id}",:class=>'btb'}
+  =render 'index/homepage/feeds/info_parts/info_reply_to_feed',:feed=>feed
+  =render 'index/homepage/feeds/show/info_current_feed_show',:feed=>feed
+  =render 'index/homepage/feeds/info_parts/info_quote_feed',:feed=>feed
+  =render 'index/homepage/feeds/show/info_time_and_ops_show',:feed=>feed
+
+.feed-viewpoints
+  -todo = feed.todos.first
+  -if !todo.blank?
+    -todo.todo_users.each do |todo_user|
+      -if !todo_user.memo.blank?
+        =render 'index/homepage/feeds/show/info_feed_viewpoint',:todo_user=>todo_user
+
+
+-if logged_in?
+  -has_vp = feed.viewpoint_by?(current_user)
+  .page-show-add-viewpoint{:'data-feed-id'=>feed.id, :class=>has_vp ? 'vp-added':''}
+    .point-form
+      .title 增加观点
+      .add-viewpoint-inputer
+        %textarea.inputer.text
+      .subm
+        %button.editable-submit 发送
+    .point-added.darkbg
+      .p 你只能对每个话题增加一次观点。不过你可以：
+      .p 随时修改你的观点；针对观点进行讨论；从观点上派生新的话题；

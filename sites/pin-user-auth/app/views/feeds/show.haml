@@ -2,6 +2,7 @@
 
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
+  = javascript_include_tag "views/feed_show_operation"
 
   = javascript_include_tag "views/notice/feed_notice"
   :javascript
@@ -12,9 +13,7 @@
     =render :partial=>'index/index_parts/user_info_avatar',:locals=>{:user=>@feed.creator}
 
 .grid_14.paddingl20
-  .newsfeed
-    .show-feed.feed
-      =render 'index/homepage/feeds/feed_info',:feed=>@feed
+  =render 'index/homepage/feeds/show/feed_show',:feed=>@feed
 
 .grid_4.omega.fright
   .grid-title

@@ -4,7 +4,7 @@ class MessageTip
   end
 
   def newest_info
-    feeds_count = NewsFeedProxy.new(@user).newsfeed_ids.length
+    feeds_count = NewestUserInboxFeedProxy.new(@user).newest_feeds_ids.length
     fans_count = NewestFansProxy.new(@user).newest_fans_ids.length
     comments_count = NewestUserBeingRepliedCommentsProxy.new(@user).newest_comments_ids.length
     todos_count = NewestUserAssignedTodosProxy.new(@user).newset_todos_ids.length
@@ -23,7 +23,7 @@ class MessageTip
   end
 
   def refresh_feeds_info
-    NewsFeedProxy.new(@user).refresh_newest_feed_id
+    NewestUserInboxFeedProxy.new(@user).refresh_newest_feeds_id
   end
 
   def refresh_fans_info
@@ -43,7 +43,7 @@ class MessageTip
   end
 
   def newest_feeds(current_id = nil)
-    NewsFeedProxy.new(@user).newsfeed_ids(current_id).map{|id|Feed.find_by_id(id)}.compact
+    NewestUserInboxFeedProxy.new(@user).newest_feeds_ids(current_id).map{|id|Feed.find_by_id(id)}.compact
   end
 
 end

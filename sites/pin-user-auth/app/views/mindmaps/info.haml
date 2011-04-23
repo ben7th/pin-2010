@@ -43,12 +43,15 @@
         .o
           =link_to '编辑',pin_url_for('pin-mev6',"mindmaps/#{@mindmap.id}/edit"),:target=>'_blank'
           =link_to '删除',"/mindmaps/#{@mindmap.id}",:method=>:delete,:confirm=>"你确定删除这个导图么？"
-          =link_to "协同","/cooperate/#{@mindmap.id}"
           =link_to_remote "复制",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
+          %a.fav{:"data-m-id"=>@mindmap.id,:href=>'javascript:;',:class=>@mindmap.fav_by?(current_user) ? 'on':'off'}
+            .t.t1 收藏
+            .t.t2 取消收藏
     -else
       .ac
         =link_to_remote "复制导图",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
-
+  .map-comment
+    =render :partial=>"mindmaps/info_comments",:locals=>{:mindmap=>@mindmap}
 .grid_9.omega.fright
   .map-meta
     .creator.lightbg
@@ -77,7 +80,10 @@
 
     .share.darkbg
       %h3 快速分享
-      =link_to '分享到新浪微博',"http://www.jiathis.com/send/?webid=tsina&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to tsina',:tip=>'分享到新浪微博'
+      -if !(current_user.tsina_connect_user)
+        =link_to '分享到新浪微博',"http://www.jiathis.com/send/?webid=tsina&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to tsina',:tip=>'分享到新浪微博'
+      -else
+        =link_to_remote '分享到新浪微博',:url=>share_mindmap_path(@mindmap,:site=>ConnectUser::TSINA_CONNECT_TYPE),:method=>:post,:html=>{:class=>'share_to tsina',:tip=>'分享到新浪微博'}
       =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren',:tip=>'分享到人人网'
       =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban',:tip=>'分享到豆瓣'
 

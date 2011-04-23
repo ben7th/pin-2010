@@ -5,5 +5,4 @@ class CooperationUser < Mev6Abstract
   validates_presence_of :mindmap
   validates_uniqueness_of :user_id, :scope => :mindmap_id
 
-  include CooperationMindmapProxy::CooperationUserMethods
 end

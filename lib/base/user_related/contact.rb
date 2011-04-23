@@ -59,6 +59,4 @@ class Contact < UserAuthAbstract
     end
   end
 
-  include ContactProxy::ContactMethods
-  include NewsFeedProxy::ContactMethods
 end

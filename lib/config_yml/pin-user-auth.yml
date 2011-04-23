@@ -13,6 +13,7 @@ development:
   douban_api_key: 0698f40c6ba7f4d213cadc2542f7de76
   douban_api_secret: bad70c605a01184f
   client_cache_key: client_cache_key_devel
+  resque_redis: localhost:6379
 
 test:
   user_logo_file_path_root: /web/2010/devel_images/
@@ -24,6 +25,7 @@ test:
   tsina_callback_url: http://dev.www.mindpin.com/connect_tsina_callback
   tsina_api_key: 1526151944
   tsina_api_secret: a00a7048df478244376d69b14bb7ae07
+  resque_redis: localhost:6379
 
 production:
   user_logo_file_path_root: /web/2010/images/
@@ -38,3 +40,4 @@ production:
   tsina_api_key: 1526151944
   tsina_api_secret: a00a7048df478244376d69b14bb7ae07
   client_cache_key: client_cache_key
+  resque_redis: localhost:6379

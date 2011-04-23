@@ -50,16 +50,27 @@ class SaveOperationRecordMetal < BaseMetal
 #    
     # 02-11 通过消息队列结合DOPT算法对编辑请求进行调度
     begin
-      mq = MindmapInputQueue.new
-      mq.push({
-          :op   => oper,
-          :user => current_user.email,
-          :map  => mindmap.id,
-          :rev  => {
-            :local=>revision["local"],
-            :remote=>revision["remote"]
-          }
-        }.to_json) # 放入消息队列后，由后台进程处理
+#      mq = MindmapInputQueue.new
+#      mq.push({
+#          :op   => oper,
+#          :user => current_user.email,
+#          :map  => mindmap.id,
+#          :rev  => {
+#            :local=>revision["local"],
+#            :remote=>revision["remote"]
+#          }
+#        }.to_json) # 放入消息队列后，由后台进程处理
+
+      operate_json = {
+        :op   => oper,
+        :user => current_user.email,
+        :map  => mindmap.id,
+        :rev  => {
+          :local=>revision["local"],
+          :remote=>revision["remote"]
+        }
+      }.to_json
+      MindmapInputQueueResqueWorker.async_mindmap_input_queue(operate_json)
       return [200, {"Content-Type" => "text/x-json"}, [{:revision=>mindmap.revision}.to_json]]
     rescue Exception => ex
       puts ex.message

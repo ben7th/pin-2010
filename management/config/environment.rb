@@ -8,7 +8,6 @@ Rails::Initializer.run do |config|
 
   require "#{RAILS_ROOT}/../lib/get_all_dir"
   config.load_paths += GetAllDir.get_all_dir("#{RAILS_ROOT}/../lib/management")
-  config.load_paths += GetAllDir.get_all_dir("#{RAILS_ROOT}/../lib/cache")
 
   config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 

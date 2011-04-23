@@ -117,9 +117,6 @@ class Channel < UserAuthAbstract
 #
 #    end
   end
-  include ChannelNewsFeedProxy::ChannelMethods
-
-  include ChannelCacheProxy::ChannelMethods
   include FeedChannel::ChannelMethods
   include PositionMethods
 end

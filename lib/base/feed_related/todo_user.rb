@@ -32,12 +32,21 @@ class TodoUser < UserAuthAbstract
     end
   end
 
+  def has_memo?
+    !self.memo.blank?
+  end
+
   def add_memo(memo)
     self.update_attributes(:memo=>memo)
   end
 
   def clear_memo
     self.update_attributes(:memo=>"")
+  end
+
+  def create_viewpoint_feed(user,content)
+    Feed.create(:event=>Feed::SAY_OPERATE,
+      :content=>content,:creator=>user,:from_viewpoint=>self.id)
   end
 
   module UserMethods
@@ -61,6 +70,14 @@ class TodoUser < UserAuthAbstract
 
     def get_todo_user_by_todo(todo)
       self.todo_users.find_by_todo_id(todo.id)
+    end
+
+    def get_or_create_todo_user_by_todo(todo)
+      todo_user = self.todo_users.find_by_todo_id(todo.id)
+      if todo_user.blank?
+        todo_user = TodoUser.create(:todo=>todo,:user=>self)
+      end
+      todo_user
     end
 
     # 把 todo_id 对应的任务放在最前面
@@ -168,7 +185,9 @@ class TodoUser < UserAuthAbstract
     def create_todo_user_for_channel_main_users
       channels = self.feed.channels_db
       channel = channels.first
+      return true if channel.blank?
       self.add_executers(channel.main_users)
+      return true
     end
 
     # 分配 todo 给 users
@@ -238,6 +257,6 @@ class TodoUser < UserAuthAbstract
     end
   end
 
-  include TodoProxy::TodoUserMethods
   include PositionMethods
+  include TodoMemoComment::TodoUserMethods
 end

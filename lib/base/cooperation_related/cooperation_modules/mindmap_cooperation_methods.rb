@@ -33,6 +33,11 @@ module MindmapCooperationMethods
       CooperationChannel.create(:mindmap=>self,:channel=>channel)
     end
   end
+
+  def remove_cooperate_user(user)
+    cu = self.cooperation_users.find_by_user_id(user.id)
+    cu.destroy
+  end
   
   def remove_all_cooperate_users
     self.cooperation_users.each do |cooperation_user|

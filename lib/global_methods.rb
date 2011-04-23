@@ -1,3 +1,3 @@
 def mup_ap(content)
-  ap ">>>>> #{content}"
+  ap content
 end

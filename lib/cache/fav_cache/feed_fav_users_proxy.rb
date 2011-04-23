@@ -25,8 +25,7 @@ class FeedFavUsersProxy < RedisBaseProxy
     {
       :class => Feed ,
       :fav_users => Proc.new {|feed|
-        ids = FeedFavUsersProxy.new(feed).xxxs_ids
-        User.find_all_by_id ids
+        FeedFavUsersProxy.new(feed).get_models(User)
       }
     }
   end

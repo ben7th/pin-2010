@@ -36,5 +36,4 @@ class FeedMindmap < UserAuthAbstract
 
   end
 
-  include FeedMindmapProxy::FeedMindmapsMethods
 end

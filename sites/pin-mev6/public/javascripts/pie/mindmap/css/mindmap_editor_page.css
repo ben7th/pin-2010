@@ -76,6 +76,7 @@ body {
     float: right;
     overflow: hidden;
     height: 100%;
+    color: white;
     background-color: #0f2b3e !important; }
     #mindmap-main #mindmap-sidebar .mpaccordion-bar .mpaccordion-toggler {
       color: #ccc !important;

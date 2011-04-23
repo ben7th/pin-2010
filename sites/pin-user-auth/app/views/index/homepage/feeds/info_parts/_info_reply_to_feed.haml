@@ -1,5 +1,5 @@
 -if(!feed.reply_to.blank?)
-  .reply-to-feed.darkbg.quote
+  .reply-to-feed.quotebg
     -rf = feed.replied_feed
     .data
       -if rf.nil?
@@ -7,4 +7,5 @@
       -else
         -rc = rf.creator
         =link_to rc.name,rc
+        %span.quiet> ：
         =feed_content(rf)

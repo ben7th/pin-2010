@@ -1,6 +1,7 @@
 module MindpinServiceManagementModule
   module Servers
     SERVERS_SH_PATH = File.join(File.dirname(File.expand_path(__FILE__)),"../../sh/service_sh")
+    REDIS_CLIENT = Redis.new(:thread_safe=>true)
     module MemcachedService
       # 返回 memcached 的运行状态
       def memcached_service_state
@@ -58,12 +59,12 @@ module MindpinServiceManagementModule
 
       # 返回redis的状态
       def check_redis_stats
-        RedisCache.instance.info
+        REDIS_CLIENT.info
       end
 
       # 对redis进行重置
       def redis_flush_all
-        RedisCache.instance.flushall
+        REDIS_CLIENT.flushall
       end
     end
 

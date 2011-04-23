@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @own_feeds = @user.news_feed_proxy.own_feeds.paginate(:page=>params[:page]||1,:per_page=>10)
+    @own_feeds = @user.out_feeds.paginate(:page=>params[:page]||1,:per_page=>10)
     render :template=>'users/homepage'
   end
 

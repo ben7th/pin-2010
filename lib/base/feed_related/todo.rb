@@ -17,6 +17,18 @@ class Todo < UserAuthAbstract
       todo = self.todos.last
       todo.destroy if todo
     end
+
+    def first_todo
+      self.todos.first
+    end
+
+    def get_or_create_first_todo
+      ft = self.first_todo
+      if ft.blank?
+        ft = self.create_todo
+      end
+      ft
+    end
   end
   include TodoUser::TodoMethods
   include TodoItem::TodoMethods

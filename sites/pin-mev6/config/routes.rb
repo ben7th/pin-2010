@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   #  map.connect ':controller/:action/:id'
   #  map.connect ':controller/:action/:id.:format'
-  map.resources :mindmaps,:member=>{:export=>:get,:fav=>:post,:unfav=>:delete} do |mindmap|
+  map.resources :mindmaps,:member=>{:share=>:post,:export=>:get,:fav=>:post,:unfav=>:delete} do |mindmap|
 
     mindmap.files                   "files",:controller=>"files",:action=>"index",:conditions=>{:method=>:get}
     mindmap.search_image            "files/search_image",:controller=>"files",:action=>"search_image",:conditions=>{:method=>:get}

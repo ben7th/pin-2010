@@ -5,8 +5,8 @@ module MindmapManagingControllerMethods
   end
 
   def import_file
-    qid = ImportMindmapQueue.new.add_task(params[:Filename],params[:file],current_user)
-    # ImportMindmapQueue.import_success?(qid)
+#    qid = ImportMindmapQueue.new.add_task(params[:Filename],params[:file],current_user)
+qid = MindmapImportQueueInputWorker.async_import_mindmap_input(params[:Filename],params[:file],current_user)
     render :json=>{:qid=>qid}.to_json
   end
 
@@ -20,13 +20,13 @@ module MindmapManagingControllerMethods
   end
 
   def change_title
-    if has_edit_rights?(@mindmap,current_user)
-      @mindmap.title = params[:title]
-      @mindmap.save_without_timestamping
-      render :status=>200,:text=>params[:title]
-    else
-      return render_status_page(403,'当前用户对这个思维导图没有编辑权限')
+    if(@mindmap.user_id != current_user.id)
+      return render_status_page(503,'当前用户并非导图作者，不能修改导图标题')
     end
+
+    @mindmap.title = params[:title]
+    @mindmap.save_without_timestamping
+    render :status=>200,:text=>params[:title]
   end
 
   # DELETE /mindmaps/1
@@ -34,7 +34,7 @@ module MindmapManagingControllerMethods
     @redirect_mindmap = @mindmap.next(current_user)
     @redirect_mindmap = @mindmap.prev(current_user) if @redirect_mindmap.nil?
     if(@mindmap.user_id != current_user.id)
-      return render_status_page(403,'当前用户并非导图作者，不能删除导图')
+      return render_status_page(503,'当前用户并非导图作者，不能删除导图')
     end
     @mindmap.destroy
     if request.xhr?
@@ -103,13 +103,15 @@ module MindmapManagingControllerMethods
   end
 
   def do_private
-    if has_edit_rights?(@mindmap,current_user)
-      @mindmap.private = @mindmap.private? ? false : true
-      if @mindmap.save_without_timestamping
-        return render :status=>200,:text=>"修改成功"
-      end
+    if(@mindmap.user_id != current_user.id)
+      return render :status=>503,:text=>"修改失败"
     end
-    return render :status=>500,:text=>"修改失败"
+
+    @mindmap.private = @mindmap.private? ? false : true
+    if @mindmap.save_without_timestamping
+      return render :status=>200,:text=>"修改成功"
+    end
+    return render :status=>503,:text=>"修改失败"
   end
 
   def public_maps
@@ -129,7 +131,7 @@ module MindmapManagingControllerMethods
       redirect_to '/mindmaps'
     end
     
-    @mindmaps = @user.mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
+    @mindmaps = @user.mindmaps.publics.paginate(:page=>params[:page]||1,:per_page=>12)
     @current_channel = 'mindmaps'
   end
   

@@ -1,0 +1,3 @@
+-case site
+  -when ConnectUser::TSINA_CONNECT_TYPE
+    =link_to "去我的微博","http://weibo.com/#{current_user.tsina_connect_user.connect_id}",:target=>"_blank"

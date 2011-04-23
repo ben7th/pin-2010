@@ -22,6 +22,8 @@ class GetAllDir
     config.gem "uuidtools"
     config.gem "responds_to_parent"
     config.gem "rubyzip", :version => '0.9.4', :lib => "zip/zip"
+    # resque的引入
+    config.gem "resque"
     # 自己写的 gem
     config.gem "pie-ui"
     # 加载 公共 lib

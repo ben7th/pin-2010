@@ -14,8 +14,6 @@
           -if mindmap.user==current_user
             .edit.csshov{:'tipr'=>'编辑导图'}
               =link_to '编辑',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}/edit"),:target=>'_blank'
-            .coop.csshov{:'tipr'=>'协同编辑'}
-              =link_to '协同',pin_url_for('pin-user-auth',"/cooperate/#{mindmap.id}")
             .pt.csshov{:'tipr'=>'切换公开/私有'}
               %a.toggle{:href=>'javascript:;',:'data-map-id'=>mindmap.id,:class=>(mindmap.private ? 'private':'public')}
             .delete.csshov{:'tipr'=>'删除导图'}

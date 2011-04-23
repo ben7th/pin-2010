@@ -52,12 +52,13 @@
   }
 }
 
+.quotebg{
+  border-left:solid 3px #FFE965;
+  background-color:#FFFADA;
+}
+
 .darkbg{
   background-color:$dark-bg-color;
-  &.quote{
-    border:solid 1px $box-shadow-color;
-    @include box-shadow(1px 1px 2px $box-shadow-color);
-  }
   .moredarkbg{
     background-color:$dark-bg-color-1;
   }

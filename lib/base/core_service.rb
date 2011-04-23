@@ -4,6 +4,12 @@ class CoreService
   NOTES = "pin-notes"
   MEV6 = "pin-mev6"
 
+  def self.find_setting_by_name(file_name)
+    setting = GlobalConfig::SETTING_CONFIG[file_name]
+    raise "没有 #{file_name}.yml 这个 配置文件" if setting.nil?
+    setting[RAILS_ENV]
+  end
+
   def self.find_setting_by_project_name(project_name)
     setting = GlobalConfig::SETTING_CONFIG[project_name]
     raise "没有 #{project_name} 这个工程的 配置文件" if setting.nil?

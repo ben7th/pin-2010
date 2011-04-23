@@ -29,18 +29,18 @@ class ChannelUserOperationQueue
   end
 
   private
-  def _add_user_to_channel(channel_id,user_id)
-    user = User.find_by_id(user_id)
-    channel = Channel.find_by_id(channel_id)
-    return if user.blank? || channel.blank?
-    channel.add_user(user)
-  end
+    def _add_user_to_channel(channel_id,user_id)
+      user = User.find_by_id(user_id)
+      channel = Channel.find_by_id(channel_id)
+      return if user.blank? || channel.blank?
+      channel.add_user(user)
+    end
 
-  def _remove_user_from_channel(channel_id,user_id)
-    user = User.find_by_id(user_id)
-    channel = Channel.find_by_id(channel_id)
-    return if user.blank? || channel.blank?
-    channel.remove_user(user)
-  end
+    def _remove_user_from_channel(channel_id,user_id)
+      user = User.find_by_id(user_id)
+      channel = Channel.find_by_id(channel_id)
+      return if user.blank? || channel.blank?
+      channel.remove_user(user)
+    end
 
 end

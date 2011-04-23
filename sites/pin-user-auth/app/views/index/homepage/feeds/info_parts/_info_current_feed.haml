@@ -6,13 +6,15 @@
   -content.gsub!(query,"<span class='loud'>#{query}</span>")
 
 .current-feed
-  .icon
   .avatar
     =avatar creator,:mini
   .c
     .data
-      =link_to creator.name,creator
-      =content
+      .c-name
+        =link_to creator.name,creator
+        %span.quiet> ，#{truncate_u creator.sign,24}
+      .ct
+        =content
     .documents
       .mindmaps
         -feed.mindmaps.each do |mindmap|

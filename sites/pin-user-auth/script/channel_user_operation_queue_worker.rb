@@ -14,5 +14,3 @@ loop do
     puts ex.backtrace*"\n"
   end
 end
-
-

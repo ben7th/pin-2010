@@ -10,7 +10,10 @@ class Feed < UserAuthAbstract
   SAY_OPERATE = 'say'
 
   named_scope :news_feeds_of_user,lambda {|user|
-    {:conditions=>"feeds.creator_id = #{user.id}"}
+    {
+      :conditions=>"feeds.creator_id = #{user.id}",
+      :order=>'id desc'
+    }
   }
 
   def replied_feed
@@ -51,7 +54,6 @@ class Feed < UserAuthAbstract
     fc = FeedComment.new(:feed_id=>host_feed.id,:content=>content,:user_id=>user.id)
     return false if !fc.valid?
     fc.save!
-    UserBeingRepliedCommentsProxy.update_feed_comment(fc)
     fc
   end
 
@@ -66,8 +68,6 @@ class Feed < UserAuthAbstract
       return false if !feed.valid?
       fc.save!
       feed.save!
-      UserBeingRepliedCommentsProxy.update_feed_comment(fc)
-      user.news_feed_proxy.update_feed(feed)
       return fc
     end
   end
@@ -80,9 +80,6 @@ class Feed < UserAuthAbstract
       feed = Feed.new(:creator=>user,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels,:quote_of=>quote_feed.id)
       return false if !feed.valid?
       feed.save!
-      if feed.id
-        user.news_feed_proxy.update_feed(feed)
-      end
       return feed
     end
   end
@@ -111,6 +108,28 @@ class Feed < UserAuthAbstract
     Feed.find_all_by_quote_of(self.id).length
   end
 
+  # 创建对 feed 的观点
+  def create_or_update_viewpoint(user,content)
+    todo = self.get_or_create_first_todo
+    todo_user = user.get_or_create_todo_user_by_todo(todo)
+    todo_user.add_memo(content)
+    todo_user
+  end
+
+  def viewpoints
+    ft = self.first_todo
+    return [] if ft.blank?
+    ft.todo_users
+  end
+
+  def viewpoint_by?(user)
+    todo = self.first_todo
+    return false if todo.blank?
+    todo_user = user.get_todo_user_by_todo(todo)
+    return false if todo_user.blank?
+    todo_user.has_memo?
+  end
+
   module UserMethods
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []
@@ -118,7 +137,6 @@ class Feed < UserAuthAbstract
       feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
       return false if !feed.valid?
       feed.save!
-      self.news_feed_proxy.update_feed(feed)
       feed
     end
 
@@ -134,7 +152,6 @@ class Feed < UserAuthAbstract
         return false if !hd.valid? || !feed.valid?
         feed.save!
         hd.save!
-        self.news_feed_proxy.update_feed(feed)
         return feed
       end
     end
@@ -151,7 +168,6 @@ class Feed < UserAuthAbstract
         feed.save!
         mindmap = Mindmap.create_by_title!(self,title)
         FeedMindmap.create!(:mindmap=>mindmap,:feed=>feed)
-        self.news_feed_proxy.update_feed(feed)
         return feed
       end
     end
@@ -167,23 +183,26 @@ class Feed < UserAuthAbstract
         return false if !todo.valid? || !feed.valid?
         feed.save!
         todo.save!
-        self.news_feed_proxy.update_feed(feed)
         return feed
       end
     end
 
-    def in_feeds
-      self.news_feed_proxy.feeds
+    def out_feeds_db
+      Feed.news_feeds_of_user(self)
     end
 
-    def refresh_newest_feed_id
-      self.news_feed_proxy.refresh_newest_feed_id
+    def in_feeds_db
+      _id_list = self.followings_and_self_by_db.map{|user|
+        user.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+      }.flatten
+      # 排序，大的就是新的，排在前面
+      _id_list = _id_list.compact.sort{|x,y| y<=>x}[0..99]
+      _id_list.map{|id|Feed.find_by_id(id)}.compact.uniq
     end
   end
 
   include FeedMindmap::FeedMethods
   include Fav::FeedMethods
-  include FeedMindmapProxy::FeedMethods
   include FeedChannel::FeedMethods
   include HtmlDocument::FeedMethods
   include FeedComment::FeedMethods

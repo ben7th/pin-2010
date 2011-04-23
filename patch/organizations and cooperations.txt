@@ -18,4 +18,10 @@ htmlDocument
   2 运行 user-auth工程的
     copy_feed_creator_id_to_html_documents.rb 脚本
 
+改频道参与者表 channel_contacts 为 channel_users
+  1 运行 user-auth工程的
+    from_channel_contact_to_channel_user.rb 脚本
+
+增加了豆瓣认证的代码，需要安装依赖的gem
+  gem install douban-ruby
     

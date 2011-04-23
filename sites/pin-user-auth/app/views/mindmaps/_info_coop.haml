@@ -1,20 +1,18 @@
+-content_for :javascripts do
+  = javascript_include_tag "views/cooperations/mindmap_choose_cooperator"
+
+- require_css 'mindmaps.css'
+- require_css 'views/users',true
+
 -cooperate_users = @mindmap.cooperate_users
 -cooperate_channels = @mindmap.cooperate_channels
+-mindmap = @mindmap
 
--if(!cooperate_users.blank?)
-  .coop.darkbg
-    由以下用户共同编辑：
-    .users
-      -cooperate_users.each do |user|
-        .u
-          .avatar
-            =avatar(user,:tiny)
-          .name=user.name
+%p 当前的协作者
+.avatars{:"data-m-id"=>mindmap.id}
+  =render :partial=>"cooperations/parts/aj_cooperation_avatars",:locals=>{:users=>cooperate_users}
+  -if logged_in? && current_user == mindmap.user
+    .cooperator-config.darkbg.csshov{:tipr=>'设置协同者'}
+      .icon 设置协同者
+    =render 'cooperations/parts/mindmap_cooperator_choose_panel'
 
--if(!cooperate_channels.blank?)
-  .coop.darkbg
-    由以下频道共同编辑：
-    .users
-      -cooperate_channels.each do |channel|
-        .u
-          .name=channel.name

@@ -7,4 +7,41 @@ class ChannelUsersCacheProxy < RedisBaseProxy
   def xxxs_ids_db
     @channel.include_users_db.map{|user|user.id}
   end
+
+  def self.rules
+    {
+      :class=>ChannelUser,
+      :after_create=>Proc.new{|channel_user|
+        user = channel_user.user
+        channel = channel_user.channel
+        next if channel.blank? || user.blank?
+        ChannelUsersCacheProxy.new(channel).add_to_cache(user.id)
+      },
+      :after_destroy=>Proc.new{|channel_user|
+        user = channel_user.user
+        channel = channel_user.channel
+        next if channel.blank? || user.blank?
+        ChannelUsersCacheProxy.new(channel).remove_from_cache(user.id)
+      }
+    }
+  end
+
+  def self.funcs
+    {
+      :class=>Channel,
+      :include_users=>Proc.new{|channel|
+        ChannelUsersCacheProxy.new(channel).get_models(User)
+      },
+      :include_users_and_creator=>Proc.new{|channel|
+        channel.include_users + [channel.creator]
+      },
+      :main_users=>Proc.new{|channel|
+        channel.include_users_and_creator
+      },
+      :'is_include_users_or_creator?'=>Proc.new{|channel,user|
+        channel.include_users_and_creator.include?(user)
+      }
+    }
+  end
+
 end

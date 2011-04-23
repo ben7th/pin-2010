@@ -12,13 +12,34 @@ class UserChannelsCacheProxy < RedisBaseProxy
     @user.belongs_to_channels_db.map{|channel|channel.id}
   end
 
-  # 缓存更新规则
-  # 当ChannelUser创建时，放置channel_user.channel_id到该缓存里
-  # 当ChannelUser删除时，从该缓存里移除
-#  RULES.add ChannelUser,:after_create do |cu|
-#
-#  end
+  def self.rules
+    {
+      :class=>ChannelUser,
+      :after_create=>Proc.new{|channel_user|
+        user = channel_user.user
+        channel = channel_user.channel
+        next if channel.blank? || user.blank?
+        UserChannelsCacheProxy.new(user).add_to_cache(channel.id)
+      },
+      :after_destroy=>Proc.new{|channel_user|
+        user = channel_user.user
+        channel = channel_user.channel
+        next if channel.blank? || user.blank?
+        UserChannelsCacheProxy.new(user).remove_from_cache(channel.id)
+      }
+    }
+  end
 
-  # 缓存给对象添加的方法
-  # user.belongs_to_channels
+  def self.funcs
+    {
+      :class=>User,
+      :belongs_to_channels_count=>Proc.new{|user|
+        UserChannelsCacheProxy.new(user).xxxs_ids.count
+      },
+      :belongs_to_channels=>Proc.new{|user|
+        UserChannelsCacheProxy.new(user).get_models(Channel)
+      }
+    }
+  end
+
 end

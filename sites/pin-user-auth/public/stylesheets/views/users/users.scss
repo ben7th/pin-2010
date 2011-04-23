@@ -28,6 +28,7 @@
 }
 
 @mixin submitbtns{
+  overflow:hidden;
   button,a.button{
     @include border-radius(3px);
     border:none 0px;
@@ -48,6 +49,11 @@
       &:hover{
         background:#CFCFCF;
       }
+    }
+    &.mousedown{
+      position:relative;
+      top:1px;
+      left:1px;
     }
   }
 }
@@ -749,6 +755,7 @@ form.new_message{
 
 @import 'parts/feed_form';
 @import 'parts/feed_info';
+@import 'parts/feed_show';
 @import 'parts/index_user_info';
 @import 'parts/channel';
 @import 'parts/module_links';

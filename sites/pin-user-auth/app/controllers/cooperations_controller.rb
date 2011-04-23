@@ -4,19 +4,24 @@ class CooperationsController < ApplicationController
     @mindmap = Mindmap.find(params[:mindmap_id])
   end
 
-  def cooperate_dialog
-    @cooperate_users = @mindmap.cooperate_users
-    @cooperate_edit_email_list_str = @cooperate_users.map{|user|user.email}*","
+  before_filter :must_is_creator
+  def must_is_creator
+    if(@mindmap.user_id != current_user.id)
+      return render_status_page(503,'当前用户并非导图作者，不能编辑协同')
+    end
   end
 
-  def save_cooperations
-    cooperate_editors = params[:cooperate_editors].split(/\n|,/)
-    cooperate_users = cooperate_editors.map{|email|User.find_by_email(email)}.compact
-    # 清空 协同用户
-    @mindmap.remove_all_cooperate_users
-    # 设置 协同用户
-    @mindmap.add_cooperate_users(cooperate_users)
-    redirect_to "/mindmaps/#{@mindmap.id}/info"
+  def add_cooperator
+    user_ids = params[:user_ids].split(",")
+    users = user_ids.map{|id|User.find_by_id(id)}.compact
+    @mindmap.add_cooperate_users(users)
+
+    render :partial=>"cooperations/parts/aj_cooperation_avatars",:locals=>{:users=>users}
   end
 
+  def remove_cooperator
+    user = User.find_by_id(params[:user_id])
+    @mindmap.remove_cooperate_user(user) if !!user
+    render :text=>200
+  end
 end

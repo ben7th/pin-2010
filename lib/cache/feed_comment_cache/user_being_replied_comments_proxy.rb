@@ -11,8 +11,26 @@ class UserBeingRepliedCommentsProxy < RedisBaseProxy
     ids.sort{|x,y|y<=>x}
   end
 
-  def self.update_feed_comment(feed_comment)
-    user = feed_comment.feed.creator
-    UserBeingRepliedCommentsProxy.new(user).add_to_cache(feed_comment.id)
+  def self.rules
+    {
+      :class => FeedComment ,
+      :after_create => Proc.new {|feed_comment|
+        user = feed_comment.feed.creator
+        UserBeingRepliedCommentsProxy.new(user).add_to_cache(feed_comment.id)
+      },
+      :after_destroy => Proc.new {|feed_comment|
+        user = feed_comment.feed.creator
+        UserBeingRepliedCommentsProxy.new(user).remove_from_cache(feed_comment.id)
+      }
+    }
+  end
+  
+  def self.funcs
+    {
+      :class  => User ,
+      :being_replied_comments => Proc.new {|user|
+        UserBeingRepliedCommentsProxy.new(user).get_models(FeedComment)
+      }
+    }
   end
 end

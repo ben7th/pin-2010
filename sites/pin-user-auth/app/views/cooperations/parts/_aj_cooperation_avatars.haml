@@ -1,0 +1,3 @@
+-users.each do |u|
+  .avatar.cooperator{:tip=>u.name,:'data-id'=>u.id}
+    =link_to(avatar(u,:mini),u)

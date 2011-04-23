@@ -6,24 +6,20 @@ class RedisCache
   end
 
   def self.load_proxy(klass)
-    rules = [klass.rules].flatten
+    rules = klass.rules
     raise("#{klass} cache rules 未定义") if rules.nil?
-    rules.each do |r|
+    [rules].flatten.each do |r|
       @@rules << r
     end
 
-    funcs = [klass.funcs].flatten
-    raise("#{klass} cache funcs 未定义") if rules.nil?
-    funcs.each do |f|
+    funcs = klass.funcs
+    raise("#{klass} cache funcs 未定义") if funcs.nil?
+    [funcs].flatten.each do |f|
       @@funcs << f
     end
   end
 
   def self.refresh_cache_by_rules(model,callback_type)
-    mup_ap 'modify REDIS cache by rules'
-    mup_ap model
-    mup_ap callback_type
-
     @@rules.each do |r|
       if (r[:class] == model.class) && !r[callback_type].nil?
         r[callback_type].call(model)
@@ -51,8 +47,46 @@ class RedisCache
 
   @@rules = []
   @@funcs = []
+  # 标注 feed 缓存
   RedisCache.load_proxy(UserFavFeedsProxy)
   RedisCache.load_proxy(FeedFavUsersProxy)
+
+  # 联系人缓存
+  RedisCache.load_proxy(FansProxy)
+  RedisCache.load_proxy(FollowingsProxy)
+
+  # 频道缓存
+  RedisCache.load_proxy(UserChannelsCacheProxy)
+  RedisCache.load_proxy(ChannelUsersCacheProxy)
+  RedisCache.load_proxy(BlongsChannelsOfUserProxy)
+
+  # 协同导图缓存
+  RedisCache.load_proxy(UserCooperateMindmapsProxy)
+
+  # feed mindmap 缓存
+  RedisCache.load_proxy(FeedsOfMindmapProxy)
+  RedisCache.load_proxy(MindmapsOfFeedProxy)
+
+  # 标注导图缓存
+  RedisCache.load_proxy(UserFavMindmapsProxy)
+  RedisCache.load_proxy(MindmapFavUsersProxy)
+
+  # Todo 缓存
+  RedisCache.load_proxy(UserAssignedTodosProxy)
+  RedisCache.load_proxy(UserReadyTodosProxy)
+  RedisCache.load_proxy(UserDoingTodosProxy)
+  RedisCache.load_proxy(UserDoneTodosProxy)
+  RedisCache.load_proxy(UserDropTodosProxy)
+
+  # feed_comment 缓存
+  RedisCache.load_proxy(UserBeingRepliedCommentsProxy)
+
+  # feed 缓存
+  RedisCache.load_proxy(UserOutboxFeedProxy)
+  RedisCache.load_proxy(UserInboxFeedProxy)
+  RedisCache.load_proxy(UserNoChannelFeedProxy)
+  RedisCache.load_proxy(ChannelFeedProxy)
+  RedisCache.load_proxy(UserBeingQuotedFeedsProxy)
   # ---------- 每增加一个子proxy就配置在这里
   # 用到闭包，method_missing等一些手段，来减少冗余代码
 end

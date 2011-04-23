@@ -85,7 +85,6 @@ class Mindmap < Mev6Abstract
       feed = Feed.create!(:creator=>self.user,:event=>Feed::SAY_OPERATE,
         :content=>content)
       FeedMindmap.create!(:mindmap=>self,:feed=>feed)
-      self.user.news_feed_proxy.update_feed(feed)
     rescue Exception => ex
       p '导图发布时feed创建失败'
       p ex
@@ -143,7 +142,8 @@ class Mindmap < Mev6Abstract
   include MindmapCooperationMethods
   include Channel::MindmapMethods
   include FeedMindmap::MindmapMethods
-  include FeedMindmapProxy::MindmapMethods
+  include MindmapFav::MindmapMethods
+  include MindmapComment::MindmapMethods
   
   include MindmapCloneMethods
   include MindmapExportAndImportMethods

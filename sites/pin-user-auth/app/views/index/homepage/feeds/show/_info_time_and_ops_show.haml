@@ -1,0 +1,17 @@
+.footmisc
+  .time
+    =created_from(feed)
+
+  -if logged_in?
+    .ops
+      .split.quiet •
+      %a.fav{:href=>'javascript:;',:class=>feed.fav_by?(current_user) ? 'on':'off'}
+        .t.t1 关注
+        .t.t2 取消关注
+
+      .split.quiet •
+      %a.transmit{:href=>'javascript:;',:'data-colunt'=>feed.quotes_count} 传播
+
+      -if feed.creator == current_user
+        .split.quiet •
+        %a.del{:href=>'javascript:;'} 删除

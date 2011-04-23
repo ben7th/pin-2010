@@ -4,7 +4,7 @@
   -else
     -mplist @mindmaps,:for=>Mindmap,:li_class=>'' do |mindmap|
       .title>=mindmap.title
-      .clearfix
+      .meta
         .preview.darkbg
           -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
             =mindmap_thumb(mindmap)

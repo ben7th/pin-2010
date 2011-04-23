@@ -1,0 +1,10 @@
+%ul.comments-list
+  -comments.each do |comment|
+    %li.comment.btb{:'data-id'=>comment.id}
+      .avatar
+        =avatar(comment.user,:mini)
+      .content
+        =comment.content
+        %span.quiet (#{jtime(comment.created_at)})
+        -if logged_in? && comment.user == current_user
+          =link_to '删除','javascript:;',:class=>'delete'

@@ -1,4 +1,3 @@
-# 传阅user发送的feeds 的 所有feeds
 class UserBeingQuotedFeedsProxy < RedisBaseProxy
   def initialize(user)
     @user = user
@@ -12,10 +11,34 @@ class UserBeingQuotedFeedsProxy < RedisBaseProxy
     end.sort{|x,y| y<=>x}
   end
 
-  module UserMethods
-    def being_quoted_feeds
-      ids = UserBeingQuotedFeedsProxy.new(self).xxxs_ids
-      ids.map{|id|Feed.find_by_id(id)}.compact
-    end
+  def self.rules
+    {
+      :class => Feed ,
+      :after_create => Proc.new {|feed|
+        if feed.quote_of
+          qf = Feed.find_by_id(feed.quote_of)
+          if qf
+            UserBeingQuotedFeedsProxy.new(qf.creator).add_to_cache(feed.id)
+          end
+        end
+      },
+      :after_destroy => Proc.new {|feed|
+        if feed.quote_of
+          qf = Feed.find_by_id(feed.quote_of)
+          if qf
+            UserBeingQuotedFeedsProxy.new(qf.creator).remove_from_cache(feed.id)
+          end
+        end
+      }
+    }
+  end
+  
+  def self.funcs
+    {
+      :class  => User ,
+      :being_quoted_feeds => Proc.new {|user|
+        UserBeingQuotedFeedsProxy.new(user).get_models(Feed)
+      }
+    }
   end
 end

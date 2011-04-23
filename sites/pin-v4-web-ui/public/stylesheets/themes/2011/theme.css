@@ -96,13 +96,12 @@ body {
         background-color: #5193d4;
         text-decoration: none; }
 
+.quotebg {
+  border-left: solid 3px #FFE965;
+  background-color: #FFFADA; }
+
 .darkbg {
   background-color: #f6f8ee; }
-  .darkbg.quote {
-    border: solid 1px #dddddd;
-    box-shadow: 1px 1px 2px #dddddd;
-    -moz-box-shadow: 1px 1px 2px #dddddd;
-    -webkit-box-shadow: 1px 1px 2px #dddddd; }
   .darkbg .moredarkbg {
     background-color: #edefe5; }
   .darkbg .csshov:hover {

@@ -16,5 +16,4 @@ class ChannelUser < UserAuthAbstract
     end
   end
 
-  include ChannelCacheProxy::ChannelUserMethods
 end

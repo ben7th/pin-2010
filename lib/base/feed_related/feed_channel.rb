@@ -26,8 +26,16 @@ class FeedChannel < UserAuthAbstract
 
     # user(self) 发送的 没有指定channel的 feeds
     def send_feeds_of_no_channel_db
-      feeds = Feed.find(:all,:conditions=>{:creator_id=>self.id})
+      feeds = self.out_feeds_db
       feeds - send_feeds_of_channels_db
+    end
+
+    def inbox_feeds_of_no_channel_db
+      feed_list = self.followings_and_self.map do |user|
+        # 一个人发送的 没有指定频道的 feed
+        user.send_feeds_of_no_channel_db
+      end.flatten
+      feed_list.sort{|x,y|y.id <=> x.id }
     end
   end
 

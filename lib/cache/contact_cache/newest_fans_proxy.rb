@@ -8,7 +8,10 @@ class NewestFansProxy
 
   def newest_fans_ids(current_id = nil)
     current_id = newest_fans_id if current_id.nil?
-    @fan_proxy.xxxs_ids.select{|id|id>(current_id.to_i)}
+    all_ids = @fan_proxy.xxxs_ids
+    index = all_ids.index(current_id)
+    return all_ids if index.blank?
+    return all_ids[0...index]
   end
 
   def newest_fans_id

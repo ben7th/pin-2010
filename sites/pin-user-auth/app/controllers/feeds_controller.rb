@@ -5,11 +5,6 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id]) if params[:id]
   end
 
-  def index
-    @feeds = current_user.news_feed_proxy.feeds
-    @contacts = current_user.fans_contacts
-  end
-
   def all
     @feeds = Feed.find(:all,:order=>"created_at desc").paginate(:per_page=>20,:page=>params[:page]||1)
   end
@@ -154,5 +149,11 @@ class FeedsController < ApplicationController
       return render :status=>200,:text=>"update success"
     end
     render :status=>500,:text=>"update failure"
+  end
+
+  def viewpoint
+    @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
+    render :partial=>"index/homepage/feeds/show/info_feed_viewpoint",
+      :locals=>{:todo_user=>@todo_user}
   end
 end
