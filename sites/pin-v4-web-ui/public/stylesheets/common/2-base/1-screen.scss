@@ -82,8 +82,12 @@ div.uv{
   padding:0 14px;
   margin-bottom:15px;
   overflow:hidden;
+  text-shadow:1px 1px 2px #333333;
+  color:white;
   span{
-    line-height:32px;height:32px;
+    font-weight:bold;
+    height:24px;
+    line-height:24px;
     display:block;
     font-size:14px;
     overflow:hidden;
@@ -92,11 +96,11 @@ div.uv{
 
 .flash-error{
   background:#DF0024;
-  text-shadow:1px 1px 2px #333333;
-  color:white;
+  border:solid 1px #C30000;
   span{
     .others{
       display:inline;
+      font-weight:normal;
       text-shadow:1px 1px 2px #333333;
       background:#610000;
       @include border-radius(3px);
@@ -107,23 +111,16 @@ div.uv{
     }
   }
 }
-
+.flash-success{
+  background:#1E9D31;
+  border:solid 1px #1D7020;
+}
 .flash-notice{
   @include gradient(#FFF8CC,#DAD4AE);
   text-shadow:1px 1px 2px #FFFFFF;
   color:#684000;
   span{
     background-image:url(/images/flashinfo/notice.png);
-    background-position:0 4px;
-    background-repeat:no-repeat;
-  }
-}
-.flash-success{
-  @include gradient(#D3F95A,#97BC3D);
-  text-shadow:1px 1px 2px #FFFFFF;
-  color:#264409;
-  span{
-    background-image:url(/images/flashinfo/success.png);
     background-position:0 4px;
     background-repeat:no-repeat;
   }

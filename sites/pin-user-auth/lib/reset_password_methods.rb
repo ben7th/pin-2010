@@ -1,7 +1,7 @@
 module ResetPasswordMethods
   # 忘记密码时，填写邮件的表单
   def forgot_password_form
-    render :layout=>'auth',:template=>'auth/forgot_password_form'
+    render :template=>'auth/forgot_password_form'
   end
 
   # 根据邮件地址发送邮件
@@ -26,20 +26,22 @@ module ResetPasswordMethods
   # 重置密码的表单
   def reset_password
     @user = User.find_by_reset_password_code(params[:pw_code])
-    render :layout=>'auth',:template=>'auth/reset_password_form'
+    render :template=>'auth/reset_password_form'
   end
 
   # 重置密码
   def change_password
     @user = User.find_by_reset_password_code(params[:pw_code])
-    return render(:layout=>'auth',:template=>'auth/reset_password_form') if @user.blank?
+    return render(:template=>'auth/reset_password_form') if @user.blank?
 
     user_param = params[:user]
 
     if _password_valid(user_param)
-      if @user.update_attributes(:password=>user_param[:password],:reset_password_code=>nil)
+      @user.password = user_param[:password]
+      @user.reset_password_code = nil
+      if @user.save(false)
         flash.now[:success] = "已成功为 #{@user.email} 重设密码"
-        render :layout=>'auth',:template=>"auth/reset_password_success"
+        render :template=>"auth/reset_password_success"
         return
       end
     end
@@ -55,8 +57,8 @@ module ResetPasswordMethods
     user.errors.add(:password,"密码不能为空") if params[:user][:password].blank?
     user.errors.add(:password,"确认密码不能为空") if params[:user][:password_confirmation].blank?
     user.errors.add(:password_confirmation,"密码和确认密码必须相同") if params[:user][:password] != params[:user][:password_confirmation]
-    flash.now[:error] = user.errors.first[1] if !user.errors.blank?
-    render(:layout=>'auth',:template=>'auth/reset_password_form')
+    flash.now[:error] = get_flash_error(user)
+    render(:template=>'auth/reset_password_form')
   end
 
 end

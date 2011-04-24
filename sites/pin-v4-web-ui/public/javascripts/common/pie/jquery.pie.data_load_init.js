@@ -35,4 +35,11 @@ pie.load(function(){
   }
 })
 
+pie.load(function(){
+  jQuery('.flash-error, .flash-notice, .flash-success').each(function(){
+    var elm = jQuery(this);
+    elm.fadeOut('fast').fadeIn('fast');
+  })
+})
+
 

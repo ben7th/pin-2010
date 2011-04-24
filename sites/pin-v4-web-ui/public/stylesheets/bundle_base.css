@@ -340,14 +340,13 @@ div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
 .page-content span.line{padding:0 5px;position:relative;top:-1px;color:#999;}
 .op{color:#3274D0;font-size:14px;}
 .op:hover{color:white;font-size:14px;background-color:#3274D0;}
-.flash-error,.flash-notice,.flash-success{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;padding:0 14px;margin-bottom:15px;overflow:hidden;}
-.flash-error span,.flash-notice span,.flash-success span{line-height:32px;height:32px;display:block;font-size:14px;overflow:hidden;}
-.flash-error{background:#DF0024;text-shadow:1px 1px 2px #333;color:white;}
-.flash-error span .others{display:inline;text-shadow:1px 1px 2px #333;background:#610000;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;font-size:12px;padding:3px;margin-left:15px;cursor:pointer;}
+.flash-error,.flash-notice,.flash-success{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;padding:0 14px;margin-bottom:15px;overflow:hidden;text-shadow:1px 1px 2px #333;color:white;}
+.flash-error span,.flash-notice span,.flash-success span{font-weight:bold;height:24px;line-height:24px;display:block;font-size:14px;overflow:hidden;}
+.flash-error{background:#DF0024;border:solid 1px #C30000;}
+.flash-error span .others{display:inline;font-weight:normal;text-shadow:1px 1px 2px #333;background:#610000;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;font-size:12px;padding:3px;margin-left:15px;cursor:pointer;}
+.flash-success{background:#1E9D31;border:solid 1px #1D7020;}
 .flash-notice{background:-moz-linear-gradient(-90deg,#fff8cc,#dad4ae);background:-webkit-gradient(linear,0% 0,0% 100%,from(#fff8cc),to(#dad4ae));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fff8cc',endColorstr='#dad4ae');text-shadow:1px 1px 2px #FFF;color:#684000;}
 .flash-notice span{background-image:url(/images/flashinfo/notice.png);background-position:0 4px;background-repeat:no-repeat;}
-.flash-success{background:-moz-linear-gradient(-90deg,#d3f95a,#97bc3d);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d3f95a),to(#97bc3d));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d3f95a',endColorstr='#97bc3d');text-shadow:1px 1px 2px #FFF;color:#264409;}
-.flash-success span{background-image:url(/images/flashinfo/success.png);background-position:0 4px;background-repeat:no-repeat;}
 .quote_content{-moz-border-radius:5px;-webkit-border-radius:5px;}
 body{margin:0;}
 .page-container{margin:0;}
