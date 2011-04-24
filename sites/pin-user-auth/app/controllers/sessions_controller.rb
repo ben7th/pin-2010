@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if logged_in?
       return to_logged_in_page
     end
-    render :layout=>'auth',:template=>'auth/login'
+    render :template=>'auth/login'
   end
 
   def new_ajax
