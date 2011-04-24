@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     reset_session
     session[:online_key]=online_key
     @user=User.new
-    render :layout=>'auth',:template=>'auth/signup'
+    render :template=>'auth/signup'
   end
 
   def create
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       login_after_create(@user)
     else
       flash.now[:error]=get_flash_error(@user)
-      render :layout=>'auth',:template=>'auth/signup'
+      render :template=>'auth/signup'
     end
   end
 

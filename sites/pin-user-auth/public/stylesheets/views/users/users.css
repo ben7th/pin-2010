@@ -2853,3 +2853,7 @@ form.new_message .w300 {
 
 .special-pages {
   padding: 5px; }
+
+.where-is-mindmap {
+  padding: 5px;
+  text-align: right; }

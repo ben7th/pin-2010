@@ -79,13 +79,11 @@ div.uv{
 
 .flash-error,.flash-notice,.flash-success{
   @include border-radius(5px);
-  padding:3px 8px;
+  padding:0 14px;
   margin-bottom:15px;
   overflow:hidden;
   span{
-    line-height:32px;
-    height:32px;
-    padding-left:30px;
+    line-height:32px;height:32px;
     display:block;
     font-size:14px;
     overflow:hidden;
@@ -93,13 +91,10 @@ div.uv{
 }
 
 .flash-error{
-  @include gradient(#DF0024,#960014);
+  background:#DF0024;
   text-shadow:1px 1px 2px #333333;
   color:white;
   span{
-    background-image:url(/images/flashinfo/error.png);
-    background-position:0 4px;
-    background-repeat:no-repeat;
     .others{
       display:inline;
       text-shadow:1px 1px 2px #333333;

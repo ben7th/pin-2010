@@ -12,6 +12,8 @@
         我来发一个新话题
       .search
         =render 'index/index_parts/feed_search_form'
+  .where-is-mindmap
+    =link_to '思维导图工具哪去了？','/mindmaps'
 
   .grid_14.alpha
     .grid-title
@@ -34,8 +36,8 @@
     .hrr
     .site-connect
       .text
-        .quiet 如果你有下面这些网站的账号
-        .quiet 不用注册就可以直接登录了~
+        .p 如果你有下面这些网站的账号
+        .p 不用注册就可以直接登录了~
       .connects
         =link_to "连接新浪微博","javascript:pie.open_win('#{connect_tsina_path}');",:class=>'tsina',:tipr=>'使用新浪微博账号登录'
         =link_to "连接人人网","javascript:pie.open_win('#{connect_renren_path}');",:class=>'renren',:tipr=>'使用人人网账号登录'

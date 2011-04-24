@@ -176,38 +176,31 @@ div.uv {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  padding: 3px 8px;
+  padding: 0 14px;
   margin-bottom: 15px;
   overflow: hidden; }
   .flash-error span, .flash-notice span, .flash-success span {
     line-height: 32px;
     height: 32px;
-    padding-left: 30px;
     display: block;
     font-size: 14px;
     overflow: hidden; }
 
 .flash-error {
-  background: -moz-linear-gradient(-90deg, #df0024, #960014);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#df0024), to(#960014));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df0024',endColorstr='#960014');
+  background: #DF0024;
   text-shadow: 1px 1px 2px #333333;
   color: white; }
-  .flash-error span {
-    background-image: url(/images/flashinfo/error.png);
-    background-position: 0 4px;
-    background-repeat: no-repeat; }
-    .flash-error span .others {
-      display: inline;
-      text-shadow: 1px 1px 2px #333333;
-      background: #610000;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      font-size: 12px;
-      padding: 3px;
-      margin-left: 15px;
-      cursor: pointer; }
+  .flash-error span .others {
+    display: inline;
+    text-shadow: 1px 1px 2px #333333;
+    background: #610000;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    font-size: 12px;
+    padding: 3px;
+    margin-left: 15px;
+    cursor: pointer; }
 
 .flash-notice {
   background: -moz-linear-gradient(-90deg, #fff8cc, #dad4ae);
