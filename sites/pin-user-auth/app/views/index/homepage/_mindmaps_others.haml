@@ -1,22 +1,27 @@
 .user-mindmaps
-  -if @mindmaps.blank?
-    该用户还没有思维导图
-  -else
-    -mplist @mindmaps,:for=>Mindmap,:li_class=>'' do |mindmap|
-      .title>=mindmap.title
-      .meta
-        .preview.darkbg
-          -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
-            =mindmap_thumb(mindmap)
-        .rank.darkbg
-          %span=mindmap.rank_value
-        .action
-          .info.darkbg.csshov{:'tipr'=>'详细查看'}
-            =link_to '查看',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
-          -if logged_in?
-            .dup.darkbg.csshov{:'tipr'=>'复制导图'}
-              =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
-      .time
+  -@mindmaps.each do |mindmap|
+    .mindmap.btb
+      .current
+        .avatar
+          =avatar mindmap.user
+        .meta
+          .name
+            =usersign mindmap.user
+          .preview-misc
+            .preview
+              -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+                =mindmap_thumb(mindmap)
+            .rank{:tipr=>'系统综合评分'}
+              =mindmap.rank_value
+
+      .foot-misc
         =jtime(mindmap.updated_at)
+        %span.split.quiet> •
+        =link_to '查看详情',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
+        %span.split.quiet> •
+        =link_to comment_link(mindmap)
+        -if logged_in?
+          %span.split.quiet> •
+          =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
 
 = will_paginate @mindmaps

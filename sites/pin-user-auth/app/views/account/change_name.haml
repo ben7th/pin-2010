@@ -2,7 +2,10 @@
 
 -if current_user.need_change_name?
   .grid-title
-    您目前的用户名不符合系统规范，在继续使用之前，请输入一个新的用户名。
+    由于下列原因，你需要输入一个新的用户名才能继续使用。
+
+  .flash-error
+    %span=@message
 
   .desc.quiet.padding5.marginb3em
     用户名在此之后仍可在“用户设置”中自由调整。

@@ -59,68 +59,75 @@
       -moz-border-radius: 0 6px 6px 0;
       -webkit-border-radius: 0 6px 6px 0; }
 
-.map-info .preview {
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 5px 0;
-  font-size: 0;
-  line-height: 0;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-  .map-info .preview img {
-    border: solid 2px #A3A3A3;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    cursor: url("/images/big.cur"), auto; }
-.map-info .title {
-  font-size: 18px;
-  font-weight: bold;
-  color: white; }
-  .map-info .title:hover {
-    background: #37394B; }
-  .map-info .title form {
-    position: absolute;
-    width: 172px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    background: #E0EBAF;
-    border: solid 2px #323546;
-    padding: 2px; }
-    .map-info .title form input {
-      background: #F7FCFF;
-      border: none;
-      padding: 0 2px;
+.map-info {
+  overflow: hidden;
+  margin: 0 0 20px 0; }
+  .map-info .preview {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 5px 0;
+    font-size: 0;
+    line-height: 0;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px; }
+    .map-info .preview img {
+      border: solid 2px #A3A3A3;
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
-      border: solid 1px #111; }
-    .map-info .title form button {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border: none 0px;
-      margin: 2px 5px 0 0;
-      border: solid 1px #666; }
-      .map-info .title form button.editable-submit {
-        color: white;
-        background: #0063DC; }
-        .map-info .title form button.editable-submit:hover {
-          background: #0054BD; }
-      .map-info .title form button.editable-cancel {
-        color: #666666;
-        background: #ddd; }
-        .map-info .title form button.editable-cancel:hover {
-          background: #CFCFCF; }
-  .map-info .title form {
-    position: relative;
-    background: none;
-    border: none; }
+      cursor: url("/images/big.cur"), auto; }
+  .map-info .title {
+    font-size: 18px;
+    font-weight: bold; }
+    .map-info .title form {
+      position: absolute;
+      width: 172px;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      background: #E0EBAF;
+      border: solid 2px #323546;
+      padding: 2px; }
+      .map-info .title form input {
+        background: #F7FCFF;
+        border: none;
+        padding: 0 2px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: solid 1px #111; }
+      .map-info .title form button {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: none 0px;
+        margin: 2px 5px 0 0;
+        border: solid 1px #666; }
+        .map-info .title form button.editable-submit {
+          color: white;
+          background: #0063DC; }
+          .map-info .title form button.editable-submit:hover {
+            background: #0054BD; }
+        .map-info .title form button.editable-cancel {
+          color: #666666;
+          background: #ddd; }
+          .map-info .title form button.editable-cancel:hover {
+            background: #CFCFCF; }
+    .map-info .title form {
+      position: relative;
+      background: none;
+      border: none; }
+
+.map-misc {
+  margin: 0 0 20px 0;
+  font-size: 14px; }
+  .map-misc .split {
+    padding: 0 4px;
+    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important; }
 
 .map-action {
-  margin-top: 20px;
+  margin: 0 0 20px 0;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -158,39 +165,31 @@
         line-height: 24px; }
 
 .map-meta .creator {
+  overflow: hidden;
   margin: 40px 0 0 0;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   padding: 5px;
   margin: 0 0 10px 0; }
-  .map-meta .creator .cavatar {
+  .map-meta .creator .avatar {
     float: left;
     margin: 0 10px 0 0; }
-.map-meta .time {
-  padding: 5px;
-  margin: 0 0 10px 0; }
+.map-meta .back-to-list {
+  font-size: 14px;
+  margin: 0 0 20px 0;
+  padding: 5px; }
 .map-meta .coop {
   padding: 5px;
-  margin: 0 0 10px 0;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px; }
-  .map-meta .coop .users {
-    margin: 10px 0 0 0;
+  margin: 0 0 20px 0; }
+  .map-meta .coop .avatars {
     overflow: hidden; }
-    .map-meta .coop .users .u {
+    .map-meta .coop .avatars .avatar {
       float: left;
-      width: 52px;
-      height: 60px;
-      overflow: hidden; }
-      .map-meta .coop .users .u .avatar {
-        text-align: center; }
-      .map-meta .coop .users .u .name {
-        text-align: center; }
+      margin: 0 4px 4px 0; }
 .map-meta .export, .map-meta .share, .map-meta .similar-maps {
   padding: 5px;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px; }

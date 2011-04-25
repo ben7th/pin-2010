@@ -1,11 +1,16 @@
 module MindpinServiceManagementModule
   module WorkerBase
     # 包含的 worker
-    Workers = ["mindmap_input_queue_worker","mindmap_image_cache_queue_worker",
-      "mindmap_import_queue_worker","channel_user_operation_queue_worker",
-      "follow_operation_queue_worker","feed_operation_queue_worker",
-      "send_tsina_status_queue_worker",
-      "synchronous_message_from_tsina_worker"
+    Workers = [
+      "mindmap_import_queue_worker",
+      "synchronous_message_from_tsina_worker",
+      "channel_user_operation_queue_resque_worker",
+      "feed_operation_queue_resque_worker",
+      "follow_operation_queue_resque_worker",
+      "mindmap_image_cache_queue_resque_worker",
+      "mindmap_import_queue_resque_worker",
+      "mindmap_input_queue_resque_worker",
+      "send_tsina_status_queue_resque_worker"
       ]
     # 支持的操作
     Operations = ["start",'stop']

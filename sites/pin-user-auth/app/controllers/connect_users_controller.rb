@@ -3,7 +3,7 @@ class ConnectUsersController < ApplicationController
   end
 
   def send_tsina_status
-    SendTsinaStatusQueue.new.add_task(:user_id=>current_user.id,:content=>params[:content])
+    SendTsinaStatusQueueWorker.async_send_tsina_status(:user_id=>current_user.id,:content=>params[:content])
     render :status=>200,:text=>"success"
   end
 
@@ -11,13 +11,13 @@ class ConnectUsersController < ApplicationController
     mindmap = Mindmap.find_by_id(params[:mindmap_id])
     return(reder :status=>500,:text=>"导图不存在") if mindmap.blank?
     image_path = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
-    SendTsinaStatusQueue.new.add_task({:user_id=>current_user.id,:content=>params[:content],:image_path=>image_path})
+    SendTsinaStatusQueueWorker.async_send_tsina_status({:user_id=>current_user.id,:content=>params[:content],:image_path=>image_path})
     render :status=>200,:text=>"success"
   end
 
   def send_tsina_status_with_logo
     logo_image_path = "#{RAILS_ROOT}/public/images/icons_account/mindpin_logo.png"
-    SendTsinaStatusQueue.new.add_task(:user_id=>current_user.id,:content=>params[:content],:image_path=>logo_image_path)
+    SendTsinaStatusQueueWorker.async_send_tsina_status(:user_id=>current_user.id,:content=>params[:content],:image_path=>logo_image_path)
     render :status=>200,:text=>"success"
   end
 

@@ -14,7 +14,6 @@ class InvitationsController < ApplicationController
   def reg
     @invitation_sender = User.find(params["user_id"])
     @email = params[:email]
-    render :layout=>'auth'
   end
 
   def import_invite

@@ -80,7 +80,6 @@ class AccountController <  ApplicationController
     else
       @failure = true
     end
-    render :layout=>'auth'
   end
 
   def do_setting_email
@@ -170,6 +169,17 @@ class AccountController <  ApplicationController
 
   def change_name
     @user = User.find(current_user.id)
+    @user.valid?
+    @user.errors.each_error do |attr,err|
+      if attr == "name"
+        if err.type == :invalid
+          @message = "用户名不符合命名规范。为了保证话题质量，系统目前只允许使用纯中文或者纯英文数字的用户名。"
+        else
+          @message = err.message
+        end
+        return
+      end
+    end
   end
 
   def do_change_name

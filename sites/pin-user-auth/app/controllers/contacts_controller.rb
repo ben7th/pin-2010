@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required,:except=>[:fans,:followings]
   before_filter :per_load
   def per_load
     @contact = Contact.find(params[:id]) if params[:id]
@@ -114,7 +114,7 @@ class ContactsController < ApplicationController
 
   def follow
     contact_user = User.find(params[:user_id])
-    if FollowOperationQueue.new.add_follow_task(current_user,contact_user)
+    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::FOLLOW_OPERATION,current_user,contact_user)
       return render :status=>200,:text=>"关注成功"
     end
     render :status=>500,:text=>"关注失败"
@@ -122,7 +122,7 @@ class ContactsController < ApplicationController
 
   def unfollow
     contact_user = User.find(params[:user_id])
-    if FollowOperationQueue.new.add_unfollow_task(current_user,contact_user)
+    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::UNFOLLOW_OPERATION,current_user,contact_user)
       return render :status=>200,:text=>"取消关注成功"
     end
     render :status=>500,:text=>"取消关注失败"

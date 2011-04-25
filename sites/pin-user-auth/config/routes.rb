@@ -209,7 +209,7 @@ ActionController::Routing::Routes.draw do |map|
       :newest_feed_ids=>:get
     }
 
-  map.fans "/:user_id/channels",:controller=>"channels",:action=>"index"
+  map.fans "/:user_id/channels",:controller=>"channels",:action=>"user_index"
 
   map.create_html_document_feeds "/html_document_feeds",:controller=>"create_feeds",:action=>"html_document_feed",:conditions=>{:method=>:post}
   map.create_mindmap_feeds "/mindmap_feeds",:controller=>"create_feeds",:action=>"mindmap_feed",:conditions=>{:method=>:post}

@@ -49,7 +49,7 @@ class Channel < UserAuthAbstract
   # 那一群人加到一个频道
   def add_users_on_queue(users)
     users.each do |user|
-      ChannelUserOperationQueue.new.add_task(ChannelUserOperationQueue::ADD_OPERATION,self.id,user.id);
+      ChannelUserWorker.async_channel_user_operate(ChannelUserWorker::ADD_OPERATION,self.id,user.id);
     end
   end
 

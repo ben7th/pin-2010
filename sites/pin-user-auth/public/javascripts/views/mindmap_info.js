@@ -1,9 +1,4 @@
 pie.load(function(){
-  $$(".cache_mindmap_image").each(function(dom){
-    var gmt = new GetMindmapImage(dom.id,pie.pin_url_for("pin-mindmap-image-cache"));
-    gmt.get_mindmap_image();
-  });
-  
   var title_dom = jQuery(".title")
   if(title_dom.attr("data-mode") == "edit"){
     var map_id = jQuery(".title").attr("data-map-id")

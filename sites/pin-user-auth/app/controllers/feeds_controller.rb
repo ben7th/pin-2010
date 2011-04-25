@@ -1,5 +1,5 @@
 class FeedsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required,:except=>[:search,:show]
   before_filter :pre_load
   def pre_load
     @feed = Feed.find(params[:id]) if params[:id]
@@ -62,7 +62,7 @@ class FeedsController < ApplicationController
   def destroy
     @feed = Feed.find_by_id(params[:id])
     if current_user == @feed.creator
-      FeedOperationQueue.new.add_destroy_feed_task(FeedOperationQueue::DESTROY_OPERATION,params[:id])
+      FeedOperationQueueWorker.async_feed_operate(FeedOperationQueueWorker::DESTROY_OPERATION,:feed_id=>params[:id])
       return render :status=>200,:text=>"删除成功"
     end
     render :status=>401,:text=>"没有权限"

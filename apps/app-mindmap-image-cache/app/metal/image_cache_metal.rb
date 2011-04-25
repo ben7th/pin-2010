@@ -46,7 +46,7 @@ class ImageCacheMetal < BaseMetal
       # 图片尚未生成，读取loading图片，响应请求，同时异步调用相应方法创建图片，不作304缓存
       img_path = "#{RAILS_ROOT}/public/images/img_loading.png"
       image_file = File.open(img_path)
-      MindmapImageCacheRedisQueue.new.push(mindmap.id,size)
+      MindmapImageCacheQueueWorker.async_mindmap_image_cache(mindmap.id,size)
       return [406, {"Content-Type" => "image/png"}, [image_file.read]]
     end
 

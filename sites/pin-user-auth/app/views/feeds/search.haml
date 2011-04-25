@@ -4,7 +4,8 @@
   = javascript_include_tag "views/feed_operation"
 
 .grid_3.alpha
-  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
+  -if logged_in?
+    =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 
 .grid_14.paddingl20
   .padding5.marginb3em

@@ -650,6 +650,7 @@ form.new_message{
 
 .userhomepage-head{
   overflow:hidden;
+  margin:0 0 20px 0;
   .avatar{
     font-size:0px;line-height:0px;
     margin:0 20px 0 0;
@@ -667,6 +668,13 @@ form.new_message{
     overflow:hidden;
     .follow_btn,.unfollow_btn,.s-msg{float:left;margin-right:6px;}
   }
+}
+
+.homepage-see-others{
+  @include border-radius(5px);
+  padding:5px;
+  font-size:14px;
+  margin:0 0 20px 0;
 }
 
 .grid-title{

@@ -20,5 +20,8 @@
     -elsif server_name == "redis_service"
       =link_to "查看状态", "redis_stats",:method=>:get
       =link_to "重置", "redis_flushall",:method=>:post
+    -elsif server_name == "resque_web_service"
+      -link_url = RAILS_ENV=="development" ? "http://dev.management.mindpin.com:8282/overview" : "http://management.mindpin.com:8282/overview"
+      =link_to "查看状态", link_url,:target=>"_blank"
   -else
     =link_to "开启",operate_server_path(:operate=>"start",:server=>server_name),:method=>"post"

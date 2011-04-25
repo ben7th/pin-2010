@@ -73,9 +73,13 @@ module AuthenticatedSystem
   # to access the requested action.  For example, a popup window might
   # simply close itself.
   def access_denied(info)
-    store_location_with_domain
-    flash[:notice]=info
-    redirect_to pin_url_for("user_auth","login")
+    if request.xhr?
+      render :status=>401,:text=>"not authorized"
+    else
+      store_location_with_domain
+      flash[:notice]=info
+      redirect_to pin_url_for("user_auth","login")
+    end
     #    respond_to do |format|
     #      format.html do
     #        store_location_with_domain

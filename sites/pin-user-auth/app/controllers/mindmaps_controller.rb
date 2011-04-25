@@ -7,7 +7,9 @@ class MindmapsController < ApplicationController
 
   # 常用关键词
   def aj_words
-    render :partial=>'index/homepage/aj_words',:locals=>{:user=>current_user}
+    @user = User.find_by_id(params[:user_id]) if params[:user_id]
+    @user ||= current_user
+    render :partial=>'index/homepage/aj_words',:locals=>{:user=>@user}
   end
 
   def cooperates

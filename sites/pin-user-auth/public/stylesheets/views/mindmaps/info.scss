@@ -70,6 +70,8 @@
 }
 
 .map-info{
+  overflow:hidden;
+  margin:0 0 20px 0;
   .preview{
     text-align:center;
     margin-bottom:20px;
@@ -86,10 +88,6 @@
   .title{
     font-size:18px;
     font-weight:bold;
-    color:white;
-    &:hover{
-      background:#37394B;
-    }
     @include editable-form;
     form{
       position:relative;
@@ -99,8 +97,17 @@
   }
 }
 
+.map-misc{
+  margin: 0 0 20px 0;
+  font-size:14px;
+  .split{
+    padding:0 4px;
+    font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
+  }
+}
+
 .map-action{
-  margin-top:20px;
+  margin: 0 0 20px 0;
   @include border-radius(4px);
   padding:5px;
   padding:5px;
@@ -138,40 +145,39 @@
 
 .map-meta{
   .creator{
+    overflow:hidden;
     margin:40px 0 0 0;
     @include border-radius(4px);
     padding:5px;
     margin:0 0 10px 0;
-    .cavatar{
+    .avatar{
       float:left;margin:0 10px 0 0;
     }
   }
-  .time{
+  .back-to-list{
+    font-size:14px;
+    margin:0 0 20px 0;
     padding:5px;
-    margin:0 0 10px 0;
   }
+
   .coop{
     padding:5px;
-    margin:0 0 10px 0;
-    @include border-radius(4px);
-    .users{
-      margin:10px 0 0 0;
+    margin:0 0 20px 0;
+    .avatars{
       overflow:hidden;
-      .u{
+      .avatar{
         float:left;
-        width:52px;
-        height:60px;
-        overflow:hidden;
-        .avatar{text-align:center;}
-        .name{text-align:center;}
+        margin:0 4px 4px 0;
       }
     }
   }
+
   .export,.share,.similar-maps{
     padding:5px;
-    margin:0 0 10px 0;
+    margin:0 0 20px 0;
     @include border-radius(4px);
   }
+
   .share{
     overflow:hidden;
     a.share_to {

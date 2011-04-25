@@ -43,6 +43,7 @@ class MindpinServiceManagement
   extend MindpinServiceManagementModule::Servers::RedisService
   extend MindpinServiceManagementModule::Servers::MindmapsLuceneService
   extend MindpinServiceManagementModule::Servers::FeedsLuceneService
+  extend MindpinServiceManagementModule::Servers::ResqueWebService
 
   extend MindpinServiceManagementModule::WorkerBase
 end

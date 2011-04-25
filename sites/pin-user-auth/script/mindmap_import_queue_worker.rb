@@ -15,20 +15,3 @@ Thread.new do
   end
 end
 
-# 处理 导图导入队列
-loop do
-  begin
-    execute = imq.process_task
-    if !execute
-      sleep(1)
-    end
-  rescue Errno::ECONNREFUSED => ex
-    raise "连接 redis 服务出错，import_mindmap_worker 关闭"
-  rescue Exception => ex
-    p "import_mindmap_worker 处理输入队列出现异常"
-    p ex.message
-    puts ex.backtrace*"\n"
-  end
-end
-
-

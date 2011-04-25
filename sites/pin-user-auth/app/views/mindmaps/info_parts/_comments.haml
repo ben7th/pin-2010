@@ -1,0 +1,12 @@
+-if logged_in?
+  -form_tag "/mindmaps/#{mindmap.id}/comments",:method=>:post do
+    .p=text_area_tag "content"
+    =check_box_tag 'create_feed', 'true'
+    %psan 同时发送一条话题到个人频道
+    .p=submit_tag "发表评论"
+
+-if mindmap.comments.count > 0
+  -mplist mindmap.comments,:for=>MindmapComment do |comment|
+    =comment.content
+-else
+  .no-comment.quiet 目前还没有人评论这个导图

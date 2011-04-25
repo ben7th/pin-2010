@@ -125,6 +125,69 @@
   }
 }
 
+.user-mindmaps{
+  .mindmap{
+    overflow:hidden;
+    margin:0 0 20px 0;
+    padding:0 6px 20px;
+    .current{
+      margin:0 0 6px 0;
+      overflow:hidden;
+      .avatar{
+        margin:0 20px 0 0;
+        float:left;
+        img{width:48px;height:48px;}
+      }
+      .meta{
+        float:left;
+        width:500px;
+        margin:0 0 6px 0;
+        .name{
+          margin:0 0 6px 0;
+        }
+        .preview-misc{
+          .preview{
+            width:124px;
+            @include border-radius(5px);
+            font-size:0px;
+            line-height:0px;
+            float:left;
+            margin: 0 10px 0 0;
+            img{
+              border:solid 2px #A3A3A3;
+              @include border-radius(3px);
+              &:hover{
+                cursor:url("/images/big.cur"), auto;
+              }
+            }
+          }
+          .rank{
+            float:left;
+            width:32px;
+            height:32px;
+            @include border-radius(5px);
+            background:#0077DD;
+            color:#fff;
+            font-size:18px;
+            font-weight:bold;
+            text-align:center;
+            text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
+            line-height:32px;
+          }
+        }
+      }
+    }
+    .foot-misc{
+      margin:0 0 0 72px;
+      overflow:hidden;
+      font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
+      .split{padding:0 4px;}
+      .time{float:left;}
+    }
+  }
+}
+
+
 .searched-mindmaps{
   .search-result{
     margin-bottom:20px;

@@ -13,7 +13,8 @@
       .search
         =render 'index/index_parts/feed_search_form'
   .where-is-mindmap
-    =link_to '思维导图工具哪去了？','/mindmaps'
+    %span.tan> ?
+    =link_to '思维导图工具哪去了？','/mindmaps',:tip=>'由于网站转型，我们对于功能导航进行了调整，点击这里访问原来的思维导图工具。'
 
   .grid_14.alpha
     .grid-title
@@ -23,30 +24,21 @@
 
 .grid_7.omega.fright
   .no-auth
-    .go-to-signup
-      -link_to signup_path,:class=>'signup-button shadow button' do
-        .strong
-          立即注册新账号
-        Signup to work <b>for free</b>!
+    =render 'auth/no_auth/go_to_signup'
 
     .hrr
     .login
       =render 'auth/parts/login_form'
 
     .hrr
-    .site-connect
-      .text
-        .p 如果您有下面这些网站的账号
-        .p 不用注册就可以直接登录了~
-      .connects
-        =link_to "连接新浪微博","javascript:pie.open_win('#{connect_tsina_path}');",:class=>'tsina',:tipr=>'使用新浪微博账号登录'
-        =link_to "连接人人网","javascript:pie.open_win('#{connect_renren_path}');",:class=>'renren',:tipr=>'使用人人网账号登录'
+    =render 'auth/no_auth/site_connect'
 
     .hrr
-    .view-old-site
-      .p 我们已经改版为互动社区了！
+    .view-old-site.mindmap-desc
+      .p.bold 我们已经改版为互动社区了！
       .p 今后提供的功能将不再仅限于思维导图工具。
-      .p.marginb10 希望大家支持~
+      .p 希望大家支持~
+    .view-old-site
       .p <span class='loud'>如果你还不适应</span>，#{link_to '点击这里访问原来的功能','/mindmaps'}。
 
     .hrr
@@ -61,4 +53,4 @@
     .grid-title 站务
     .special-pages
       .font14.marginb5=link_to '给我们提意见','/channels/1'
-      .font14=link_to '开发者日志','/channels/1'
+      .font14=link_to '开发者日志','/channels/2'

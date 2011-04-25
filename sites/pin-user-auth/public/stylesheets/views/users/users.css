@@ -537,7 +537,8 @@ form.new_message .w300 {
   height: 250px; }
 
 .userhomepage-head {
-  overflow: hidden; }
+  overflow: hidden;
+  margin: 0 0 20px 0; }
   .userhomepage-head .avatar {
     font-size: 0px;
     line-height: 0px;
@@ -562,6 +563,14 @@ form.new_message .w300 {
     .userhomepage-head .action .follow_btn, .userhomepage-head .action .unfollow_btn, .userhomepage-head .action .s-msg {
       float: left;
       margin-right: 6px; }
+
+.homepage-see-others {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  margin: 0 0 20px 0; }
 
 .grid-title {
   font-size: 14px;
@@ -2556,6 +2565,64 @@ form.new_message .w300 {
       padding: 0 4px;
       margin: 2px 0 0 0; }
 
+.user-mindmaps .mindmap {
+  overflow: hidden;
+  margin: 0 0 20px 0;
+  padding: 0 6px 20px; }
+  .user-mindmaps .mindmap .current {
+    margin: 0 0 6px 0;
+    overflow: hidden; }
+    .user-mindmaps .mindmap .current .avatar {
+      margin: 0 20px 0 0;
+      float: left; }
+      .user-mindmaps .mindmap .current .avatar img {
+        width: 48px;
+        height: 48px; }
+    .user-mindmaps .mindmap .current .meta {
+      float: left;
+      width: 500px;
+      margin: 0 0 6px 0; }
+      .user-mindmaps .mindmap .current .meta .name {
+        margin: 0 0 6px 0; }
+      .user-mindmaps .mindmap .current .meta .preview-misc .preview {
+        width: 124px;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        font-size: 0px;
+        line-height: 0px;
+        float: left;
+        margin: 0 10px 0 0; }
+        .user-mindmaps .mindmap .current .meta .preview-misc .preview img {
+          border: solid 2px #A3A3A3;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px; }
+          .user-mindmaps .mindmap .current .meta .preview-misc .preview img:hover {
+            cursor: url("/images/big.cur"), auto; }
+      .user-mindmaps .mindmap .current .meta .preview-misc .rank {
+        float: left;
+        width: 32px;
+        height: 32px;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background: #0077DD;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
+        line-height: 32px; }
+  .user-mindmaps .mindmap .foot-misc {
+    margin: 0 0 0 72px;
+    overflow: hidden;
+    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important; }
+    .user-mindmaps .mindmap .foot-misc .split {
+      padding: 0 4px; }
+    .user-mindmaps .mindmap .foot-misc .time {
+      float: left; }
+
 .searched-mindmaps .search-result {
   margin-bottom: 20px;
   overflow: hidden; }
@@ -2837,6 +2904,13 @@ form.new_message .w300 {
 
 .view-old-site {
   padding: 5px; }
+  .view-old-site.mindmap-desc {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin: 0 0 10px 0;
+    background: #F0FFF0;
+    border: solid 1px #ACCBAC; }
 
 .hot-user-pages {
   overflow: hidden;
@@ -2856,4 +2930,14 @@ form.new_message .w300 {
 
 .where-is-mindmap {
   padding: 5px;
-  text-align: right; }
+  text-align: right;
+  font-size: 14px; }
+  .where-is-mindmap span.tan {
+    color: white;
+    background: #FB4A00;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    font-weight: bold;
+    padding: 0 4px;
+    margin: 0 3px 0 0; }

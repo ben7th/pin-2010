@@ -6,7 +6,7 @@ module MindmapManagingControllerMethods
 
   def import_file
 #    qid = ImportMindmapQueue.new.add_task(params[:Filename],params[:file],current_user)
-qid = MindmapImportQueueInputWorker.async_import_mindmap_input(params[:Filename],params[:file],current_user)
+    qid = MindmapImportQueueInputWorker.async_import_mindmap_input(params[:Filename],params[:file],current_user)
     render :json=>{:qid=>qid}.to_json
   end
 
@@ -120,9 +120,14 @@ qid = MindmapImportQueueInputWorker.async_import_mindmap_input(params[:Filename]
   end
 
   def index
-    @user = current_user
-    @mindmaps = @user.mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
-    @current_channel = 'mindmaps'
+    if logged_in?
+      @user = current_user
+      @mindmaps = @user.mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
+      @current_channel = 'mindmaps'
+    else
+      @mindmaps = Mindmap.publics.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>12})
+      render :template=>'mindmaps/no_auth/no_auth_mindmaps'
+    end
   end
 
   def user_mindmaps

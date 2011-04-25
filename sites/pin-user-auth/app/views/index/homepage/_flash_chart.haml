@@ -1,7 +1,7 @@
 .stat
   .keywords.darkbg
     .title 最常用关键词
-    .data{:'data-load-url'=>'/mindmaps/aj_words'}
+    .data{:'data-load-url'=>"/mindmaps/aj_words?user_id=#{user.id}"}
 
   .chart.darkbg
     =open_flash_chart_object(182,110,pin_url_for("pin-user-auth","users/#{user.id}/mindmaps/pie_links"),true)

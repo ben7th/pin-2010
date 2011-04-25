@@ -15,7 +15,7 @@ class ImageCacheJsonMetal < BaseMetal
     image_src = MindmapImageUrlRedisCache.new.get_cached_url(mindmap,size)
     loaded = !!image_src
     if !loaded
-      MindmapImageCacheRedisQueue.new.push(mindmap.id,size)
+      MindmapImageCacheQueueWorker.async_mindmap_image_cache(mindmap.id,size)
     end
     hash_tmp = {
       "map_id"=>mindmap_id,

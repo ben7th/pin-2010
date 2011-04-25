@@ -28,6 +28,7 @@
     %tr=render :partial=>"index/parts/server_stat",:locals=>{:server_name=>"redis_service"}
     %tr=render :partial=>"index/parts/server_stat",:locals=>{:server_name=>"mindmaps_lucene_service"}
     %tr=render :partial=>"index/parts/server_stat",:locals=>{:server_name=>"feeds_lucene_service"}
+    %tr=render :partial=>"index/parts/server_stat",:locals=>{:server_name=>"resque_web_service"}
 
 %table
   %thead
@@ -38,13 +39,23 @@
       %th 日志最后修改时间
       %th 操作
   %tbody
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_input_queue_worker"}
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_image_cache_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_import_queue_worker"}
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"channel_user_operation_queue_worker"}
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"follow_operation_queue_worker"}
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"feed_operation_queue_worker"}
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"send_tsina_status_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"synchronous_message_from_tsina_worker"}
 
+%table
+  %thead
+    %tr
+      %th resque worker name
+      %th 状态
+      %th 日志大小
+      %th 日志最后修改时间
+      %th 操作
+  %tbody
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_input_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_image_cache_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_import_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"channel_user_operation_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"follow_operation_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"feed_operation_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"send_tsina_status_queue_resque_worker"}
 =link_to "退出登录","/logout"

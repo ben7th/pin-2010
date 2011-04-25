@@ -6,10 +6,10 @@
 -page_title = "MindPin思维导图：#{@mindmap.title}"
 
 .share.padding5
-  -if !(current_user.tsina_connect_user)
-    =link_to '分享到新浪微博',"http://www.jiathis.com/send/?webid=tsina&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to tsina'
-  -else
+  -if current_user && current_user.tsina_connect_user
     =link_to_remote '分享到新浪微博',:url=>share_mindmap_path(@mindmap,:site=>ConnectUser::TSINA_CONNECT_TYPE),:method=>:post,:html=>{:class=>'share_to tsina'}
+  -else
+    =link_to '分享到新浪微博',"http://www.jiathis.com/send/?webid=tsina&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to tsina'
   =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren'
   =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban'
 

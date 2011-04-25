@@ -19,7 +19,7 @@ class SaveOperationRecordMetal < BaseMetal
     oper = ActiveSupport::JSON.decode(params["operation"])
     revision = ActiveSupport::JSON.decode(params["revision"])
 
-    if !MindpinServiceManagement.worker_start?("mindmap_input_queue_worker")
+    if !MindpinServiceManagement.worker_start?("mindmap_input_queue_resque_worker")
       return [406,{"Content-Type" => "text/xml"}, ["编辑处理服务没有启动"]]
     end
 

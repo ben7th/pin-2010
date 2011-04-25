@@ -1,7 +1,9 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  我的思维导图
+
 -content_for :javascripts do
-  = javascript_include_tag "views/mindmap_image"
   = javascript_include_tag "views/index"
   = javascript_include_tag "views/mindmap_title_inplace_edit"
   = javascript_include_tag "views/index_channel_panel"

@@ -1,0 +1,26 @@
+- require_css 'views/users',true
+
+-content_for :title do
+  大家的思维导图
+
+.grid_16.alpha
+  .grid-title
+    大家的思维导图（只显示公开的）
+  =render :partial=>"index/homepage/mindmaps_others"
+
+.grid_7.omega.fright
+  .no-auth
+    =render 'auth/no_auth/go_to_signup'
+
+    .hrr
+    .login
+      =render 'auth/parts/login_form'
+
+    .hrr
+    =render 'auth/no_auth/site_connect'
+
+    .hrr
+    .view-old-site
+      .p 过去相当长的一段时间里，MindPin作为思维导图工具网站，获得了广大朋友的支持和关心。
+      <br/>
+      .p 现在我们正在向社区化的方向转型。原有的工具也将继续改进，尽快和新的交互模式整合！

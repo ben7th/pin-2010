@@ -1,7 +1,7 @@
 module MindpinServiceManagementModule
   module ServerBase
     # 包含的server
-    Servers = ['memcached_service','redis_service','mindmaps_lucene_service','feeds_lucene_service']
+    Servers = ['memcached_service','redis_service','mindmaps_lucene_service','feeds_lucene_service','resque_web_service']
 
     # 检测服务是否开启
     def server_start?(server_name)
@@ -54,7 +54,7 @@ module MindpinServiceManagementModule
     end
 
     def find_log_file_path_by_server_name(server_name)
-      if !['redis_service','mindmaps_lucene_service','feeds_lucene_service'].include?(server_name)
+      if !['redis_service','mindmaps_lucene_service','feeds_lucene_service','resque_web_service'].include?(server_name)
         raise "#{server_name} 这个 server_name 没有日志"
       end
       "/web/2010/logs/#{server_name}.log"

@@ -1,7 +1,9 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  #{@user.name}的主页
+
 -content_for :javascripts do
-  = javascript_include_tag "views/mindmap_image"
   = javascript_include_tag "views/index"
   = javascript_include_tag "views/mindmap_title_inplace_edit"
   = javascript_include_tag "views/index_channel_panel"
@@ -14,7 +16,7 @@
 .grid_14.paddingl20
   =render :partial=>'index/index_parts/homepage_top_userinfo',:locals=>{:user=>@user}
 
-  .look-mindmap.padding5.rc5.font14.margint20
+  .homepage-see-others
     =link_to '>>去看看他的思维导图吧',pin_url_for("pin-user-auth","#{@user.id}/mindmaps")
 
   .newsfeed

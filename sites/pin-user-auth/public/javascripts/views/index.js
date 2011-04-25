@@ -1,12 +1,6 @@
 (function(){
 
   pie.load(function(){
-    //加载导图图片
-    $$(".cache_mindmap_image").each(function(dom){
-      var gmt = new GetMindmapImage(dom.id,pie.pin_url_for("pin-mindmap-image-cache"));
-      gmt.get_mindmap_image();
-    });
-
     //导图切换公开私有
     jQuery('.mplist .mpli .pt .toggle').live('click',function(evt){
       var dom = jQuery(evt.target);

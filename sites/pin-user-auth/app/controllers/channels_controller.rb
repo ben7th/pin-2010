@@ -7,7 +7,11 @@ class ChannelsController < ApplicationController
   end
 
   def index
-    @user = User.find_by_id(params[:user_id])
+    @channels = Channel.all.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
+  def user_index
+    @user = User.find(params[:user_id])
   end
 
   def show
@@ -45,12 +49,12 @@ class ChannelsController < ApplicationController
   end
 
   def add
-    ChannelUserOperationQueue.new.add_task(ChannelUserOperationQueue::ADD_OPERATION,@channel.id,params[:user_id])
+    ChannelUserWorker.async_channel_user_operate(ChannelUserWorker::ADD_OPERATION,@channel.id,params[:user_id])
     return render :status=>200,:text=>"操作完成"
   end
 
   def remove
-    ChannelUserOperationQueue.new.add_task(ChannelUserOperationQueue::REMOVE_OPERATION,@channel.id,params[:user_id])
+    ChannelUserWorker.async_channel_user_operate(ChannelUserWorker::REMOVE_OPERATION,@channel.id,params[:user_id])
     return render :status=>200,:text=>"操作完成"
   end
 

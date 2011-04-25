@@ -1,7 +1,0 @@
--form_tag "/mindmaps/#{mindmap.id}/comments",:method=>:post do
-  .p=text_area_tag "content"
-  =check_box_tag 'create_feed', 'true'
-  %psan 同时发送一条话题到个人频道
-  .p=submit_tag "发表评论"
--mplist mindmap.comments,:for=>MindmapComment do |comment|
-  =comment.content

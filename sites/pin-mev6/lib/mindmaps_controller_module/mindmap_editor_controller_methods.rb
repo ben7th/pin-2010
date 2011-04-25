@@ -6,7 +6,7 @@ module MindmapEditorControllerMethods
   end
 
   def edit
-    if !MindpinServiceManagement.worker_start?("mindmap_input_queue_worker")
+    if !MindpinServiceManagement.worker_start?("mindmap_input_queue_resque_worker")
       return render_status_page(406,"编辑处理服务没有启动")
     end
     if has_edit_rights?(@mindmap,current_user)

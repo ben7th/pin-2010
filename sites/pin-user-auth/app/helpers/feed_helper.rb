@@ -67,6 +67,18 @@ module FeedHelper
         re << "<span class='quiet'>，#{truncate_u user.sign,24}</span>"
       end
     end
+    return re
+  end
 
+  def comment_link(model)
+    re = []
+    if model.blank?
+      re << ''
+    elsif model.comments.count > 0
+      re << "#{model.comments.count}条评论"
+    else
+      re << '评论'
+    end
+    return re
   end
 end
