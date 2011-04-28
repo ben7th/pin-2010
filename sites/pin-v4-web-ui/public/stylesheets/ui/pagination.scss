@@ -1,6 +1,10 @@
 /*will_pageinate style*/
 @import "misc";
 
+$c1:#47520E;
+$b1:#F3FF5F;
+$bdis:#FFFADA;
+
 div.pagination{
   font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
   padding:0;
@@ -12,17 +16,17 @@ div.pagination{
     float:left;
     height:16px;
     line-height:16px;
-    padding:2px 5px;
+    padding:3px 6px;
   }
   a {
     margin:0 3px;
-    border:1px solid #0E0E1A;
     text-decoration:none;
-    color:#fff;
-    background-color:#0E0E1A;
+    color:$c1;
+    background-color:$b1;
     @include border-radius(4px);
     &:hover,&:active{
-      color:#eb7c22;
+      background:#D4E347;
+      color:$c1;
     };
     &.prev_page,&.next_page{
     }
@@ -32,13 +36,12 @@ div.pagination{
       margin:1px 3px;
       border:none;
       font-weight:bold;
-      color:#F8B861;
+      color:$c1;
     }
     &.disabled {
       margin:0 3px;
-      border:1px solid #0E0E1A;
       color:#777;
-      background-color:#0E0E1A;
+      background-color:$bdis;
       @include border-radius(4px);
     }
   }

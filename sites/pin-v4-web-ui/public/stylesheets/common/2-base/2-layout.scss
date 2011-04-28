@@ -126,14 +126,19 @@ body {margin:0;}
     .topbar{
       clear:right;
       float:right;
-      margin:9px 4px 0 0;
+      margin:9px 10px 0 0;
       ul{
-        display:inline;
-        clear:right;
+        float:left;
+        margin:0 10px 0 0;
+        position:relative;
+        top:2px;
         li{
           display:inline;
           margin:0 15px 0 0;
         }
+      }
+      .top-search-form{
+        float:left;
       }
     }
   }
