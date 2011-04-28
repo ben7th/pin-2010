@@ -104,8 +104,12 @@ class Feed < UserAuthAbstract
     channel.main_users.include?(self.creator)
   end
 
+  def quotes
+    Feed.find_all_by_quote_of(self.id)
+  end
+
   def quotes_count
-    Feed.find_all_by_quote_of(self.id).length
+    quotes.length
   end
 
   # 创建对 feed 的观点
@@ -159,11 +163,26 @@ class Feed < UserAuthAbstract
     }.first
   end
 
+  def be_asked_users
+    be_asked_users_db
+  end
+
+  def memoed_users
+    memoed_users_db
+  end
+
   # 被邀请的用户
   def be_asked_users_db
     todo = self.first_todo
     return [] if todo.blank?
     todo.be_asked_users_db
+  end
+
+  # 参与的用户
+  def memoed_users_db
+    todo = self.first_todo
+    return [] if todo.blank?
+    todo.memoed_users_db
   end
 
   # 邀请用户参与话题

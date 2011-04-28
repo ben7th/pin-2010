@@ -982,11 +982,25 @@ form.new_message .w300 {
         border-radius: 0 4px 4px 0;
         -moz-border-radius: 0 4px 4px 0;
         -webkit-border-radius: 0 4px 4px 0;
-        padding: 5px; }
+        padding: 10px; }
       .newsfeed ul.feeds li.mpli.feed .f .reply-to-feed .arrow {
         width: 15px;
         height: 7px;
         background: url(/images/icons/all.png) no-repeat -271px -41px;
+        margin: 0 0 0 36px; }
+    .newsfeed ul.feeds li.mpli.feed .f .quote-feed {
+      margin-bottom: 10px;
+      overflow: hidden;
+      margin-left: 40px; }
+      .newsfeed ul.feeds li.mpli.feed .f .quote-feed .data {
+        border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        -webkit-border-radius: 0 4px 4px 0;
+        padding: 10px; }
+      .newsfeed ul.feeds li.mpli.feed .f .quote-feed .arrow {
+        width: 15px;
+        height: 7px;
+        background: url(/images/icons/all.png) no-repeat -271px -49px;
         margin: 0 0 0 36px; }
     .newsfeed ul.feeds li.mpli.feed .f .current-feed {
       overflow: hidden; }
@@ -1033,12 +1047,6 @@ form.new_message .w300 {
       .newsfeed ul.feeds li.mpli.feed .f .my-viewpoint .time, .newsfeed ul.feeds li.mpli.feed .f .hot-viewpoint .time {
         font-size: 12px;
         margin: 0 0 6px 0; }
-    .newsfeed ul.feeds li.mpli.feed .f .quote-feed {
-      padding: 5px;
-      margin: 6px 0 6px 40px;
-      border-radius: 0 3px 3px 0;
-      -moz-border-radius: 0 3px 3px 0;
-      -webkit-border-radius: 0 3px 3px 0; }
     .newsfeed ul.feeds li.mpli.feed .f .extitem .answers {
       margin: 1px 0 0;
       clear: both; }
@@ -1410,16 +1418,31 @@ form.new_message .w300 {
   /*feed内容扩展部分*/ }
   .page-feed-show .reply-to-feed {
     margin-bottom: 10px;
-    overflow: hidden; }
+    overflow: hidden;
+    width: 500px; }
     .page-feed-show .reply-to-feed .data {
       border-radius: 0 4px 4px 0;
       -moz-border-radius: 0 4px 4px 0;
       -webkit-border-radius: 0 4px 4px 0;
-      padding: 5px; }
+      padding: 10px; }
     .page-feed-show .reply-to-feed .arrow {
       width: 15px;
       height: 7px;
       background: url(/images/icons/all.png) no-repeat -271px -41px;
+      margin: 0 0 0 36px; }
+  .page-feed-show .quote-feed {
+    margin-bottom: 10px;
+    overflow: hidden;
+    width: 500px; }
+    .page-feed-show .quote-feed .data {
+      border-radius: 0 4px 4px 0;
+      -moz-border-radius: 0 4px 4px 0;
+      -webkit-border-radius: 0 4px 4px 0;
+      padding: 10px; }
+    .page-feed-show .quote-feed .arrow {
+      width: 15px;
+      height: 7px;
+      background: url(/images/icons/all.png) no-repeat -271px -49px;
       margin: 0 0 0 36px; }
   .page-feed-show .current-feed {
     overflow: hidden; }
@@ -1438,12 +1461,6 @@ form.new_message .w300 {
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px; }
-  .page-feed-show .quote-feed {
-    padding: 5px;
-    margin: 6px 0 6px;
-    border-radius: 0 3px 3px 0;
-    -moz-border-radius: 0 3px 3px 0;
-    -webkit-border-radius: 0 3px 3px 0; }
   .page-feed-show .extitem .answers {
     margin: 1px 0 0;
     clear: both; }

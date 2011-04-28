@@ -5,6 +5,12 @@
 
   .reply-to-feed{
     @include reply-to-feed;
+    width:500px;
+  }
+
+  .quote-feed{
+    @include quote-feed;
+    width:500px;
   }
 
   .current-feed{
@@ -26,11 +32,6 @@
         }
       }
     }
-  }
-  .quote-feed{
-    padding:5px;
-    margin:6px 0 6px;
-    @include border-radius(0 3px 3px 0);
   }
 
   /*feed内容扩展部分*/

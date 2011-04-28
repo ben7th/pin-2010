@@ -1,5 +1,8 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  =truncate_u(@feed.content,12)
+
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
   = javascript_include_tag "views/feed_show_operation"
@@ -8,14 +11,10 @@
   :javascript
     pie.misc_tip_info = #{misc_tip_info.to_json}
 
-.grid_3.alpha
-  .index-user-info
-    =render :partial=>'index/index_parts/user_info_avatar',:locals=>{:user=>@feed.creator}
-
-.grid_14.paddingl20
+.grid_17
   =render 'feeds/show_parts/feed_show',:feed=>@feed
 
-.grid_4.omega.fright
+.grid_5.omega.fright
   .grid-title
     相关话题
   .simlar-feeds.padding5
