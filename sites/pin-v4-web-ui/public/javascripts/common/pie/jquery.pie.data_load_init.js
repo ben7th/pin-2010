@@ -35,6 +35,16 @@ pie.load(function(){
   }
 })
 
+pie.show_loading_bar = function(){
+  var elm = jQuery('<div class="ajax-loading-bar"><div class="icon"></div>正在加载…</div>');
+  jQuery('body').append(elm);
+  return elm;
+}
+
+pie.hide_loading_bar = function(){
+  jQuery('.ajax-loading-bar').remove();
+}
+
 pie.load(function(){
   jQuery('.flash-error, .flash-notice, .flash-success').each(function(){
     var elm = jQuery(this);

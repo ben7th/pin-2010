@@ -1,24 +1,29 @@
 -user = todo_user.user
+
 .viewpoint.btb{:'data-id'=>todo_user.id}
-  .v-avatar
-    = avatar user,:mini
-  .meta
-    .name
-      = link_to user.name,user
-      %span.quiet> ，#{truncate_u user.sign,24}
-    .content
-      = vp_memo todo_user
-    .ops
+  .main
+    .content>=vp_memo todo_user
+  .footmisc
+    .time
       =jtime todo_user.updated_at
+
+    .ops
       -if logged_in?
         -if user == current_user
-          .split.quiet •
+          .split.quiet> -
           = link_to '修改','javascript:;',:class=>'edit'
 
-        .split.quiet •
+        .split.quiet> -
         -if todo_user.comments.blank?
           = link_to '评论','javascript:;',:class=>'echo'
         -else
           = link_to "#{todo_user.comments.count}条评论",'javascript:;',:class=>'echo'
-        .split.quiet •
+
+        .split.quiet> -
         = link_to '派生新话题','javascript:;',:class=>'new-feed'
+
+    .creator
+      .avatar
+        =avatar user,:tiny
+      .name
+        =usersign(user)

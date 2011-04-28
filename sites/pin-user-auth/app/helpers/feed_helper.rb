@@ -13,11 +13,11 @@ module FeedHelper
   end
 
   def vp_memo(todo_user)
-    "#{auto_link(h(todo_user.memo),:html=>{:target=>'_blank'})}"
+    "#{auto_link(ct(todo_user.memo),:html=>{:target=>'_blank'})}"
   end
 
   def vp_memo_short(todo_user)
-    "#{auto_link(h(truncate_u(todo_user.memo,128)),:html=>{:target=>'_blank'})}"
+    "#{auto_link(ct(truncate_u(todo_user.memo,128)),:html=>{:target=>'_blank'})}"
   end
 
   def j_vp_memo(todo_user)

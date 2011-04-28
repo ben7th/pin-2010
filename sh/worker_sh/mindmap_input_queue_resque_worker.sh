@@ -18,7 +18,7 @@ case "$1" in
   start)
     echo "start"
     assert_process_from_pid_file_not_exist $processor_pid
-    VVERBOSE=1 QUEUE=mindmap_input_queue_worker rake environment resque:work 1>>$log_path 2>>$log_path &
+    VVERBOSE=1 INTERVAL=1 QUEUE=mindmap_input_queue_worker rake environment resque:work 1>>$log_path 2>>$log_path &
     echo $! > $processor_pid
     rc_status -v
   ;;

@@ -3,35 +3,44 @@
   margin-bottom:10px;
   overflow:hidden;
 
-  .reply-to-feed{
-    @include reply-to-feed;
-    width:500px;
-  }
-
-  .quote-feed{
-    @include quote-feed;
-    width:500px;
-  }
-
-  .current-feed{
+  .main{
     overflow:hidden;
-    .c{
-      float:left;
-      width:490px;
-      .data{
-        .c-name{font-size:12px;margin-bottom:6px;}
-        .ct{font-size:14px;}
-      }
-      .documents{
-        .mindmaps{
-          margin-top:5px;
-          img{
-            border:2px solid #A3A3A3;
-            @include border-radius(3px);
+    margin:0 0 10px 0;
+
+    .reply-to-feed{
+      @include reply-to-feed;
+      width:500px;
+    }
+
+    .quote-feed{
+      @include quote-feed;
+      width:500px;
+    }
+
+    .current-feed{
+      overflow:hidden;
+      .c{
+        float:left;
+        width:490px;
+        .data{
+          .c-name{font-size:12px;margin-bottom:6px;}
+          .ct{font-size:14px;}
+        }
+        .documents{
+          .mindmaps{
+            margin-top:5px;
+            img{
+              border:2px solid #A3A3A3;
+              @include border-radius(3px);
+            }
           }
         }
       }
     }
+  }
+
+  .footmisc{
+    @include footmisc;
   }
 
   /*feed内容扩展部分*/
@@ -117,96 +126,28 @@
     }
     .footmisc .time{display:none;}
   }
-  &.ext.todolist{
-    margin-left:85px;
-    .current-feed .c{width:405px;}
-    .feed-echo-form .echo-inputer{width:400px;}
-  }
-
-  .footmisc{
-    overflow:hidden;
-    padding:5px;
-    font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
-    .c-name{float:left;}
-    .split{float:left;padding:0 4px;}
-    .time{float:left;}
-    .view-detail{float:left;}
-    .start-todo{float:left;}
-    .ops{
-      overflow:hidden;
-      float:left;
-      .mindmap,.del,.fav,.transmit,.echo{
-        float:left;
-        overflow:hidden;
-        cursor:pointer;
-      }
-      .del,.fav,.transmit,.echo{
-        .icon{
-          float:left;
-          display:none;
-          width:16px;height:16px;background:url(/images/icons/all.png) no-repeat 0px -100px;
-          margin:0 2px 0 0;
-        }
-        .t{float:left;}
-      }
-      .fav{
-        &.off{
-          .icon{background:url(/images/icons/all.png) no-repeat -130px -100px;}
-          .t2{display:none;}
-        }
-        &.on{
-          .icon{background:url(/images/icons/all.png) no-repeat -113px -100px;}
-          .t1{display:none;}
-        }
-      }
-      .transmit{
-        .icon{background:url(/images/icons/all.png) no-repeat -147px -100px;}
-      }
-      .echo{
-        .icon{background:url(/images/icons/all.png) no-repeat -164px -100px;}
-      }
-
-      .mindmap{
-        height:24px;
-        .icon{
-          float:left;
-          width:24px;height:24px;background:url(/images/icons/all.png) no-repeat -125px -117px;
-          margin:0 2px 0 0;
-        }
-        .t{float:left;height:23px;line-height:23px;}
-      }
-
-    }
-  }
 }
 
-.feed-viewpoints{
+.page-feed-viewpoints{
   margin:0 0 20px;
   .viewpoint{
     overflow:hidden;
     padding:6px 6px 20px;
-    .v-avatar{
-      float:right;
-      margin:0 0 0 10px;
-    }
-    .meta{
-      .name{
-        margin:0 0 6px 0;
-      }
+    .main{
+      margin:0 0 10px 0;
       .content{
         font-size:14px;
         margin:0 0 10px 0;
       }
-      .ops{
-        font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
-        padding:5px;
-        .split{display:inline;}
-      }
+    }
+    .footmisc{
+      @include footmisc;
     }
     .comments{
       padding:5px;
       margin:10px 0 0 0;
       @include border-radius(4px);
+      width:400px;
       .list{
         overflow:hidden;
         margin:0 0 6px 0;
@@ -221,9 +162,21 @@
       }
       .comment-form{
         margin:0 0 6px 0;
+        .inputer{height:42px;}
         .btns{
           @include submitbtns;
         }
+      }
+    }
+    .viewpoint-edit-form{
+      margin:0 0 10px 0;
+      .btns{
+        @include submitbtns;
+      }
+      .inputer{
+        width:600px;
+        height:84px;
+        line-height:21px;
       }
     }
   }
@@ -236,6 +189,12 @@
         font-size:14px;
         font-weight:bold;
         margin:0 0 6px 0;
+      }
+      .add-viewpoint-inputer{
+        textarea{
+          width:450px;
+          height:100px;
+        }
       }
     }
     .point-added{

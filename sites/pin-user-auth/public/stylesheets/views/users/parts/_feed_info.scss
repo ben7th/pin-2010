@@ -26,6 +26,28 @@
   }
 }
 
+@mixin footmisc{
+  overflow:hidden;
+  .time{
+    float:left;
+  }
+  .ops{
+    overflow:hidden;
+    float:left;
+    .fav{
+      &.off{.t2{display:none;}}
+      &.on{.t1{display:none;}}
+    }
+  }
+  .creator{
+    float:right;
+    width:300px;
+    overflow:hidden;
+    .avatar{float:left;}
+    .name{margin-left:46px;}
+  }
+}
+
 /*feeds*/
 .newsfeed{
   ul.feeds li.mpli.feed{
@@ -43,6 +65,11 @@
 
       .quote-feed{
         @include quote-feed;
+        margin-left:40px;
+      }
+
+      .footmisc{
+        @include footmisc;
         margin-left:40px;
       }
 
@@ -183,64 +210,6 @@
         .feed-echo-form .echo-inputer{width:400px;}
       }
 
-      .footmisc{
-        overflow:hidden;
-        margin-left:35px;
-        padding:5px;
-        font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
-        .c-name{float:left;}
-        .split{float:left;padding:0 4px;}
-        .time{float:left;}
-        .view-detail{float:left;}
-        .viewpoints{float:left;}
-        .start-todo{float:left;}
-        .ops{
-          overflow:hidden;
-          float:left;
-          .mindmap,.del,.fav,.transmit,.echo{
-            float:left;
-            overflow:hidden;
-            cursor:pointer;
-          }
-          .del,.fav,.transmit,.echo{
-            .icon{
-              float:left;
-              display:none;
-              width:16px;height:16px;background:url(/images/icons/all.png) no-repeat 0px -100px;
-              margin:0 2px 0 0;
-            }
-            .t{float:left;}
-          }
-          .fav{
-            &.off{
-              .icon{background:url(/images/icons/all.png) no-repeat -130px -100px;}
-              .t2{display:none;}
-            }
-            &.on{
-              .icon{background:url(/images/icons/all.png) no-repeat -113px -100px;}
-              .t1{display:none;}
-            }
-          }
-          .transmit{
-            .icon{background:url(/images/icons/all.png) no-repeat -147px -100px;}
-          }
-          .echo{
-            .icon{background:url(/images/icons/all.png) no-repeat -164px -100px;}
-          }
-
-          .mindmap{
-            height:24px;
-            .icon{
-              float:left;
-              width:24px;height:24px;background:url(/images/icons/all.png) no-repeat -125px -117px;
-              margin:0 2px 0 0;
-            }
-            .t{float:left;height:23px;line-height:23px;}
-          }
-
-        }
-      }
-
       .comments{
         @include border-radius(3px);
         margin:15px 0 15px 35px;
@@ -370,15 +339,22 @@
   }
 }
 
-.feed-transmit-form{
+.feed-transmit-form,.feed-transmit-form-show{
   position:absolute;
   @include border-radius(4px);
   width:390px;
   padding:5px;
+  .title{
+    margin:0 0 10px 0;
+    font-weight:bold;
+  }
+  .ori-feed{
+    margin:0 0 10px 0;
+  }
   .ipt{
     textarea{
       width:386px;
-      height:28px;
+      height:42px;
       @include border-radius(3px);
     }
   }

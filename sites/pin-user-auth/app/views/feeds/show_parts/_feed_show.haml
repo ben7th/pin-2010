@@ -1,14 +1,17 @@
-.page-feed-show{:'data-id'=>"#{feed.id}",:class=>'btb'}
-  =render 'feeds/info_parts/info_reply_to_feed',:feed=>feed
-  =render 'feeds/show_parts/info_current_feed_show',:feed=>feed
-  =render 'feeds/info_parts/info_quote_feed',:feed=>feed
+.page-feed-show{:'data-id'=>"#{feed.id}"}
+  .main
+    =render 'feeds/info_parts/info_reply_to_feed',:feed=>feed
+    =render 'feeds/show_parts/info_current_feed_show',:feed=>feed
+    =render 'feeds/info_parts/info_quote_feed',:feed=>feed
   =render 'feeds/show_parts/info_time_and_ops_show',:feed=>feed
 
-.feed-viewpoints
-  -todo = feed.todos.first
-  -if !todo.blank?
-    -todo.todo_users.each do |todo_user|
-      -if !todo_user.memo.blank?
-        =render 'feeds/show_parts/info_feed_viewpoint_show',:todo_user=>todo_user
+.hrr
+
+.grid-title
+  #{feed.viewpoints.count}个观点
+
+.page-feed-viewpoints
+  -feed.viewpoints.each do |todo_user|
+    =render 'feeds/show_parts/info_feed_viewpoint_show',:todo_user=>todo_user
 
 =render 'feeds/show_parts/feed_show_viewpoint_form',:feed=>feed

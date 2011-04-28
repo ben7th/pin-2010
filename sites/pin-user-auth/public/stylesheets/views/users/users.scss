@@ -27,6 +27,28 @@
 
 .split{display:inline;padding:0 4px;}
 
+.ajax-loading-bar{
+  @include border-radius(0 4px 4px 0);
+  padding:6px 10px;
+  background-color:#5C5E4E;
+  color:#F3F8DB;
+  position:fixed;
+  width:100px;
+  top:150px;
+  left:0px;
+  height:auto;
+  line-height:20px;
+  .icon{
+    float:left;
+    width:18px;
+    height:4px;
+    position:relative;
+    top:8px;
+    margin-right:8px;
+    background:url(/images/icons/progress-dots.gif) no-repeat;
+  }
+}
+
 @mixin chs-ch{
   .chs .ch{
     margin:0 0 4px 0;
@@ -80,6 +102,40 @@
 
 @mixin allicon($x,$y){
   background:url(/images/icons/all.png) no-repeat $x $y;
+}
+
+.jq-confirm-dialog{
+  @include border-radius(4px);
+  width:200px;
+  height:80px;
+
+  border:solid 1px #A0A0A0;
+  position:absolute;
+  @include box-shadow(0 0 6px black);
+  .d{
+    padding:13px;
+    overflow:hidden;
+    .data{
+      height:20px;
+      line-height:20px;
+      font-size:12px;
+      margin:0 0 10px 0;
+      .icon{
+        display:inline;
+        font-size:18px;
+        height:20px;
+        line-height:20px;
+        font-weight:bold;
+        color:#2DA7EE;
+        margin:0 12px 0 0;
+      }
+    }
+    .btns{
+      @include submitbtns;
+      padding:0 0 0 40px;
+      .button{margin-right:12px !important;}
+    }
+  }
 }
 
 .userpage{

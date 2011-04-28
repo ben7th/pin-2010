@@ -7,6 +7,86 @@
   display: inline;
   padding: 0 4px; }
 
+.ajax-loading-bar {
+  border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 0 4px 4px 0;
+  padding: 6px 10px;
+  background-color: #5C5E4E;
+  color: #F3F8DB;
+  position: fixed;
+  width: 100px;
+  top: 150px;
+  left: 0px;
+  height: auto;
+  line-height: 20px; }
+  .ajax-loading-bar .icon {
+    float: left;
+    width: 18px;
+    height: 4px;
+    position: relative;
+    top: 8px;
+    margin-right: 8px;
+    background: url(/images/icons/progress-dots.gif) no-repeat; }
+
+.jq-confirm-dialog {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  width: 200px;
+  height: 80px;
+  border: solid 1px #A0A0A0;
+  position: absolute;
+  box-shadow: 0 0 6px black;
+  -moz-box-shadow: 0 0 6px black;
+  -webkit-box-shadow: 0 0 6px black; }
+  .jq-confirm-dialog .d {
+    padding: 13px;
+    overflow: hidden; }
+    .jq-confirm-dialog .d .data {
+      height: 20px;
+      line-height: 20px;
+      font-size: 12px;
+      margin: 0 0 10px 0; }
+      .jq-confirm-dialog .d .data .icon {
+        display: inline;
+        font-size: 18px;
+        height: 20px;
+        line-height: 20px;
+        font-weight: bold;
+        color: #2DA7EE;
+        margin: 0 12px 0 0; }
+    .jq-confirm-dialog .d .btns {
+      overflow: hidden;
+      padding: 0 0 0 40px; }
+      .jq-confirm-dialog .d .btns button, .jq-confirm-dialog .d .btns a.button {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: none 0px;
+        margin: 4px 5px 0 0;
+        padding: 2px 7px;
+        float: left;
+        text-decoration: none; }
+        .jq-confirm-dialog .d .btns button.editable-submit, .jq-confirm-dialog .d .btns a.button.editable-submit {
+          cursor: pointer;
+          color: white;
+          background: #0063DC; }
+          .jq-confirm-dialog .d .btns button.editable-submit:hover, .jq-confirm-dialog .d .btns a.button.editable-submit:hover {
+            background: #0054BD; }
+        .jq-confirm-dialog .d .btns button.editable-cancel, .jq-confirm-dialog .d .btns a.button.editable-cancel {
+          cursor: pointer;
+          color: #616D7D;
+          background: #C4DFFF; }
+          .jq-confirm-dialog .d .btns button.editable-cancel:hover, .jq-confirm-dialog .d .btns a.button.editable-cancel:hover {
+            background: #B4CFFF; }
+        .jq-confirm-dialog .d .btns button.mousedown, .jq-confirm-dialog .d .btns a.button.mousedown {
+          position: relative;
+          top: 1px;
+          left: 1px; }
+      .jq-confirm-dialog .d .btns .button {
+        margin-right: 12px !important; }
+
 .userpage .upavatar {
   float: left;
   height: 52px; }
@@ -1002,6 +1082,26 @@ form.new_message .w300 {
         height: 7px;
         background: url(/images/icons/all.png) no-repeat -271px -49px;
         margin: 0 0 0 36px; }
+    .newsfeed ul.feeds li.mpli.feed .f .footmisc {
+      overflow: hidden;
+      margin-left: 40px; }
+      .newsfeed ul.feeds li.mpli.feed .f .footmisc .time {
+        float: left; }
+      .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops {
+        overflow: hidden;
+        float: left; }
+        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav.off .t2 {
+          display: none; }
+        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav.on .t1 {
+          display: none; }
+      .newsfeed ul.feeds li.mpli.feed .f .footmisc .creator {
+        float: right;
+        width: 300px;
+        overflow: hidden; }
+        .newsfeed ul.feeds li.mpli.feed .f .footmisc .creator .avatar {
+          float: left; }
+        .newsfeed ul.feeds li.mpli.feed .f .footmisc .creator .name {
+          margin-left: 46px; }
     .newsfeed ul.feeds li.mpli.feed .f .current-feed {
       overflow: hidden; }
       .newsfeed ul.feeds li.mpli.feed .f .current-feed .avatar {
@@ -1133,64 +1233,6 @@ form.new_message .w300 {
         width: 405px; }
       .newsfeed ul.feeds li.mpli.feed .f.ext.todolist .feed-echo-form .echo-inputer {
         width: 400px; }
-    .newsfeed ul.feeds li.mpli.feed .f .footmisc {
-      overflow: hidden;
-      margin-left: 35px;
-      padding: 5px;
-      font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .c-name {
-        float: left; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .split {
-        float: left;
-        padding: 0 4px; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .time {
-        float: left; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .view-detail {
-        float: left; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .viewpoints {
-        float: left; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .start-todo {
-        float: left; }
-      .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops {
-        overflow: hidden;
-        float: left; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .mindmap, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .del, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .transmit, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .echo {
-          float: left;
-          overflow: hidden;
-          cursor: pointer; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .del .icon, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav .icon, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .transmit .icon, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .echo .icon {
-          float: left;
-          display: none;
-          width: 16px;
-          height: 16px;
-          background: url(/images/icons/all.png) no-repeat 0px -100px;
-          margin: 0 2px 0 0; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .del .t, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav .t, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .transmit .t, .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .echo .t {
-          float: left; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav.off .icon {
-          background: url(/images/icons/all.png) no-repeat -130px -100px; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav.off .t2 {
-          display: none; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav.on .icon {
-          background: url(/images/icons/all.png) no-repeat -113px -100px; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .fav.on .t1 {
-          display: none; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .transmit .icon {
-          background: url(/images/icons/all.png) no-repeat -147px -100px; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .echo .icon {
-          background: url(/images/icons/all.png) no-repeat -164px -100px; }
-        .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .mindmap {
-          height: 24px; }
-          .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .mindmap .icon {
-            float: left;
-            width: 24px;
-            height: 24px;
-            background: url(/images/icons/all.png) no-repeat -125px -117px;
-            margin: 0 2px 0 0; }
-          .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops .mindmap .t {
-            float: left;
-            height: 23px;
-            line-height: 23px; }
     .newsfeed ul.feeds li.mpli.feed .f .comments {
       border-radius: 3px;
       -moz-border-radius: 3px;
@@ -1322,23 +1364,28 @@ form.new_message .w300 {
       .newsfeed ul.feeds li.mpli.feed .feed-todo.aj-loading .meta {
         display: none; }
 
-.feed-transmit-form {
+.feed-transmit-form, .feed-transmit-form-show {
   position: absolute;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   width: 390px;
   padding: 5px; }
-  .feed-transmit-form .ipt textarea {
+  .feed-transmit-form .title, .feed-transmit-form-show .title {
+    margin: 0 0 10px 0;
+    font-weight: bold; }
+  .feed-transmit-form .ori-feed, .feed-transmit-form-show .ori-feed {
+    margin: 0 0 10px 0; }
+  .feed-transmit-form .ipt textarea, .feed-transmit-form-show .ipt textarea {
     width: 386px;
-    height: 28px;
+    height: 42px;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px; }
-  .feed-transmit-form .btns {
+  .feed-transmit-form .btns, .feed-transmit-form-show .btns {
     overflow: hidden;
     overflow: hidden; }
-    .feed-transmit-form .btns button, .feed-transmit-form .btns a.button {
+    .feed-transmit-form .btns button, .feed-transmit-form .btns a.button, .feed-transmit-form-show .btns button, .feed-transmit-form-show .btns a.button {
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
@@ -1347,19 +1394,19 @@ form.new_message .w300 {
       padding: 2px 7px;
       float: left;
       text-decoration: none; }
-      .feed-transmit-form .btns button.editable-submit, .feed-transmit-form .btns a.button.editable-submit {
+      .feed-transmit-form .btns button.editable-submit, .feed-transmit-form .btns a.button.editable-submit, .feed-transmit-form-show .btns button.editable-submit, .feed-transmit-form-show .btns a.button.editable-submit {
         cursor: pointer;
         color: white;
         background: #0063DC; }
-        .feed-transmit-form .btns button.editable-submit:hover, .feed-transmit-form .btns a.button.editable-submit:hover {
+        .feed-transmit-form .btns button.editable-submit:hover, .feed-transmit-form .btns a.button.editable-submit:hover, .feed-transmit-form-show .btns button.editable-submit:hover, .feed-transmit-form-show .btns a.button.editable-submit:hover {
           background: #0054BD; }
-      .feed-transmit-form .btns button.editable-cancel, .feed-transmit-form .btns a.button.editable-cancel {
+      .feed-transmit-form .btns button.editable-cancel, .feed-transmit-form .btns a.button.editable-cancel, .feed-transmit-form-show .btns button.editable-cancel, .feed-transmit-form-show .btns a.button.editable-cancel {
         cursor: pointer;
         color: #616D7D;
         background: #C4DFFF; }
-        .feed-transmit-form .btns button.editable-cancel:hover, .feed-transmit-form .btns a.button.editable-cancel:hover {
+        .feed-transmit-form .btns button.editable-cancel:hover, .feed-transmit-form .btns a.button.editable-cancel:hover, .feed-transmit-form-show .btns button.editable-cancel:hover, .feed-transmit-form-show .btns a.button.editable-cancel:hover {
           background: #B4CFFF; }
-      .feed-transmit-form .btns button.mousedown, .feed-transmit-form .btns a.button.mousedown {
+      .feed-transmit-form .btns button.mousedown, .feed-transmit-form .btns a.button.mousedown, .feed-transmit-form-show .btns button.mousedown, .feed-transmit-form-show .btns a.button.mousedown {
         position: relative;
         top: 1px;
         left: 1px; }
@@ -1416,51 +1463,73 @@ form.new_message .w300 {
   margin-bottom: 10px;
   overflow: hidden;
   /*feed内容扩展部分*/ }
-  .page-feed-show .reply-to-feed {
-    margin-bottom: 10px;
+  .page-feed-show .main {
     overflow: hidden;
-    width: 500px; }
-    .page-feed-show .reply-to-feed .data {
-      border-radius: 0 4px 4px 0;
-      -moz-border-radius: 0 4px 4px 0;
-      -webkit-border-radius: 0 4px 4px 0;
-      padding: 10px; }
-    .page-feed-show .reply-to-feed .arrow {
-      width: 15px;
-      height: 7px;
-      background: url(/images/icons/all.png) no-repeat -271px -41px;
-      margin: 0 0 0 36px; }
-  .page-feed-show .quote-feed {
-    margin-bottom: 10px;
-    overflow: hidden;
-    width: 500px; }
-    .page-feed-show .quote-feed .data {
-      border-radius: 0 4px 4px 0;
-      -moz-border-radius: 0 4px 4px 0;
-      -webkit-border-radius: 0 4px 4px 0;
-      padding: 10px; }
-    .page-feed-show .quote-feed .arrow {
-      width: 15px;
-      height: 7px;
-      background: url(/images/icons/all.png) no-repeat -271px -49px;
-      margin: 0 0 0 36px; }
-  .page-feed-show .current-feed {
+    margin: 0 0 10px 0; }
+    .page-feed-show .main .reply-to-feed {
+      margin-bottom: 10px;
+      overflow: hidden;
+      width: 500px; }
+      .page-feed-show .main .reply-to-feed .data {
+        border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        -webkit-border-radius: 0 4px 4px 0;
+        padding: 10px; }
+      .page-feed-show .main .reply-to-feed .arrow {
+        width: 15px;
+        height: 7px;
+        background: url(/images/icons/all.png) no-repeat -271px -41px;
+        margin: 0 0 0 36px; }
+    .page-feed-show .main .quote-feed {
+      margin-bottom: 10px;
+      overflow: hidden;
+      width: 500px; }
+      .page-feed-show .main .quote-feed .data {
+        border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        -webkit-border-radius: 0 4px 4px 0;
+        padding: 10px; }
+      .page-feed-show .main .quote-feed .arrow {
+        width: 15px;
+        height: 7px;
+        background: url(/images/icons/all.png) no-repeat -271px -49px;
+        margin: 0 0 0 36px; }
+    .page-feed-show .main .current-feed {
+      overflow: hidden; }
+      .page-feed-show .main .current-feed .c {
+        float: left;
+        width: 490px; }
+        .page-feed-show .main .current-feed .c .data .c-name {
+          font-size: 12px;
+          margin-bottom: 6px; }
+        .page-feed-show .main .current-feed .c .data .ct {
+          font-size: 14px; }
+        .page-feed-show .main .current-feed .c .documents .mindmaps {
+          margin-top: 5px; }
+          .page-feed-show .main .current-feed .c .documents .mindmaps img {
+            border: 2px solid #A3A3A3;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px; }
+  .page-feed-show .footmisc {
     overflow: hidden; }
-    .page-feed-show .current-feed .c {
-      float: left;
-      width: 490px; }
-      .page-feed-show .current-feed .c .data .c-name {
-        font-size: 12px;
-        margin-bottom: 6px; }
-      .page-feed-show .current-feed .c .data .ct {
-        font-size: 14px; }
-      .page-feed-show .current-feed .c .documents .mindmaps {
-        margin-top: 5px; }
-        .page-feed-show .current-feed .c .documents .mindmaps img {
-          border: 2px solid #A3A3A3;
-          border-radius: 3px;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px; }
+    .page-feed-show .footmisc .time {
+      float: left; }
+    .page-feed-show .footmisc .ops {
+      overflow: hidden;
+      float: left; }
+      .page-feed-show .footmisc .ops .fav.off .t2 {
+        display: none; }
+      .page-feed-show .footmisc .ops .fav.on .t1 {
+        display: none; }
+    .page-feed-show .footmisc .creator {
+      float: right;
+      width: 300px;
+      overflow: hidden; }
+      .page-feed-show .footmisc .creator .avatar {
+        float: left; }
+      .page-feed-show .footmisc .creator .name {
+        margin-left: 46px; }
   .page-feed-show .extitem .answers {
     margin: 1px 0 0;
     clear: both; }
@@ -1541,109 +1610,62 @@ form.new_message .w300 {
       -webkit-border-radius: 2px; }
   .page-feed-show.ext.blog .footmisc .time {
     display: none; }
-  .page-feed-show.ext.todolist {
-    margin-left: 85px; }
-    .page-feed-show.ext.todolist .current-feed .c {
-      width: 405px; }
-    .page-feed-show.ext.todolist .feed-echo-form .echo-inputer {
-      width: 400px; }
-  .page-feed-show .footmisc {
-    overflow: hidden;
-    padding: 5px;
-    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important; }
-    .page-feed-show .footmisc .c-name {
-      float: left; }
-    .page-feed-show .footmisc .split {
-      float: left;
-      padding: 0 4px; }
-    .page-feed-show .footmisc .time {
-      float: left; }
-    .page-feed-show .footmisc .view-detail {
-      float: left; }
-    .page-feed-show .footmisc .start-todo {
-      float: left; }
-    .page-feed-show .footmisc .ops {
-      overflow: hidden;
-      float: left; }
-      .page-feed-show .footmisc .ops .mindmap, .page-feed-show .footmisc .ops .del, .page-feed-show .footmisc .ops .fav, .page-feed-show .footmisc .ops .transmit, .page-feed-show .footmisc .ops .echo {
-        float: left;
-        overflow: hidden;
-        cursor: pointer; }
-      .page-feed-show .footmisc .ops .del .icon, .page-feed-show .footmisc .ops .fav .icon, .page-feed-show .footmisc .ops .transmit .icon, .page-feed-show .footmisc .ops .echo .icon {
-        float: left;
-        display: none;
-        width: 16px;
-        height: 16px;
-        background: url(/images/icons/all.png) no-repeat 0px -100px;
-        margin: 0 2px 0 0; }
-      .page-feed-show .footmisc .ops .del .t, .page-feed-show .footmisc .ops .fav .t, .page-feed-show .footmisc .ops .transmit .t, .page-feed-show .footmisc .ops .echo .t {
-        float: left; }
-      .page-feed-show .footmisc .ops .fav.off .icon {
-        background: url(/images/icons/all.png) no-repeat -130px -100px; }
-      .page-feed-show .footmisc .ops .fav.off .t2 {
-        display: none; }
-      .page-feed-show .footmisc .ops .fav.on .icon {
-        background: url(/images/icons/all.png) no-repeat -113px -100px; }
-      .page-feed-show .footmisc .ops .fav.on .t1 {
-        display: none; }
-      .page-feed-show .footmisc .ops .transmit .icon {
-        background: url(/images/icons/all.png) no-repeat -147px -100px; }
-      .page-feed-show .footmisc .ops .echo .icon {
-        background: url(/images/icons/all.png) no-repeat -164px -100px; }
-      .page-feed-show .footmisc .ops .mindmap {
-        height: 24px; }
-        .page-feed-show .footmisc .ops .mindmap .icon {
-          float: left;
-          width: 24px;
-          height: 24px;
-          background: url(/images/icons/all.png) no-repeat -125px -117px;
-          margin: 0 2px 0 0; }
-        .page-feed-show .footmisc .ops .mindmap .t {
-          float: left;
-          height: 23px;
-          line-height: 23px; }
 
-.feed-viewpoints {
+.page-feed-viewpoints {
   margin: 0 0 20px; }
-  .feed-viewpoints .viewpoint {
+  .page-feed-viewpoints .viewpoint {
     overflow: hidden;
     padding: 6px 6px 20px; }
-    .feed-viewpoints .viewpoint .v-avatar {
-      float: right;
-      margin: 0 0 0 10px; }
-    .feed-viewpoints .viewpoint .meta .name {
-      margin: 0 0 6px 0; }
-    .feed-viewpoints .viewpoint .meta .content {
-      font-size: 14px;
+    .page-feed-viewpoints .viewpoint .main {
       margin: 0 0 10px 0; }
-    .feed-viewpoints .viewpoint .meta .ops {
-      font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
-      padding: 5px; }
-      .feed-viewpoints .viewpoint .meta .ops .split {
-        display: inline; }
-    .feed-viewpoints .viewpoint .comments {
+      .page-feed-viewpoints .viewpoint .main .content {
+        font-size: 14px;
+        margin: 0 0 10px 0; }
+    .page-feed-viewpoints .viewpoint .footmisc {
+      overflow: hidden; }
+      .page-feed-viewpoints .viewpoint .footmisc .time {
+        float: left; }
+      .page-feed-viewpoints .viewpoint .footmisc .ops {
+        overflow: hidden;
+        float: left; }
+        .page-feed-viewpoints .viewpoint .footmisc .ops .fav.off .t2 {
+          display: none; }
+        .page-feed-viewpoints .viewpoint .footmisc .ops .fav.on .t1 {
+          display: none; }
+      .page-feed-viewpoints .viewpoint .footmisc .creator {
+        float: right;
+        width: 300px;
+        overflow: hidden; }
+        .page-feed-viewpoints .viewpoint .footmisc .creator .avatar {
+          float: left; }
+        .page-feed-viewpoints .viewpoint .footmisc .creator .name {
+          margin-left: 46px; }
+    .page-feed-viewpoints .viewpoint .comments {
       padding: 5px;
       margin: 10px 0 0 0;
       border-radius: 4px;
       -moz-border-radius: 4px;
-      -webkit-border-radius: 4px; }
-      .feed-viewpoints .viewpoint .comments .list {
+      -webkit-border-radius: 4px;
+      width: 400px; }
+      .page-feed-viewpoints .viewpoint .comments .list {
         overflow: hidden;
         margin: 0 0 6px 0; }
-        .feed-viewpoints .viewpoint .comments .list .comment {
+        .page-feed-viewpoints .viewpoint .comments .list .comment {
           overflow: hidden;
           padding: 5px; }
-          .feed-viewpoints .viewpoint .comments .list .comment .avatar {
+          .page-feed-viewpoints .viewpoint .comments .list .comment .avatar {
             float: left;
             margin-right: 10px; }
-            .feed-viewpoints .viewpoint .comments .list .comment .avatar img {
+            .page-feed-viewpoints .viewpoint .comments .list .comment .avatar img {
               width: 16px;
               height: 16px; }
-      .feed-viewpoints .viewpoint .comments .comment-form {
+      .page-feed-viewpoints .viewpoint .comments .comment-form {
         margin: 0 0 6px 0; }
-        .feed-viewpoints .viewpoint .comments .comment-form .btns {
+        .page-feed-viewpoints .viewpoint .comments .comment-form .inputer {
+          height: 42px; }
+        .page-feed-viewpoints .viewpoint .comments .comment-form .btns {
           overflow: hidden; }
-          .feed-viewpoints .viewpoint .comments .comment-form .btns button, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button {
+          .page-feed-viewpoints .viewpoint .comments .comment-form .btns button, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button {
             border-radius: 3px;
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
@@ -1652,22 +1674,55 @@ form.new_message .w300 {
             padding: 2px 7px;
             float: left;
             text-decoration: none; }
-            .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit {
+            .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit {
               cursor: pointer;
               color: white;
               background: #0063DC; }
-              .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit:hover, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit:hover {
+              .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit:hover, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit:hover {
                 background: #0054BD; }
-            .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel {
+            .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel {
               cursor: pointer;
               color: #616D7D;
               background: #C4DFFF; }
-              .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel:hover, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel:hover {
+              .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel:hover, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel:hover {
                 background: #B4CFFF; }
-            .feed-viewpoints .viewpoint .comments .comment-form .btns button.mousedown, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.mousedown {
+            .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.mousedown, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.mousedown {
               position: relative;
               top: 1px;
               left: 1px; }
+    .page-feed-viewpoints .viewpoint .viewpoint-edit-form {
+      margin: 0 0 10px 0; }
+      .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns {
+        overflow: hidden; }
+        .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button {
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border: none 0px;
+          margin: 4px 5px 0 0;
+          padding: 2px 7px;
+          float: left;
+          text-decoration: none; }
+          .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button.editable-submit, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button.editable-submit {
+            cursor: pointer;
+            color: white;
+            background: #0063DC; }
+            .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button.editable-submit:hover, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button.editable-submit:hover {
+              background: #0054BD; }
+          .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button.editable-cancel, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button.editable-cancel {
+            cursor: pointer;
+            color: #616D7D;
+            background: #C4DFFF; }
+            .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button.editable-cancel:hover, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button.editable-cancel:hover {
+              background: #B4CFFF; }
+          .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button.mousedown, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button.mousedown {
+            position: relative;
+            top: 1px;
+            left: 1px; }
+      .page-feed-viewpoints .viewpoint .viewpoint-edit-form .inputer {
+        width: 600px;
+        height: 84px;
+        line-height: 21px; }
 
 .page-show-add-viewpoint {
   padding: 5px; }
@@ -1675,6 +1730,9 @@ form.new_message .w300 {
     font-size: 14px;
     font-weight: bold;
     margin: 0 0 6px 0; }
+  .page-show-add-viewpoint .point-form .add-viewpoint-inputer textarea {
+    width: 450px;
+    height: 100px; }
   .page-show-add-viewpoint .point-added {
     padding: 5px 8px;
     border-radius: 4px;
@@ -2514,10 +2572,6 @@ form.new_message .w300 {
   width: 140px;
   height: auto;
   border: solid 1px #ddd;
-  /*
-  top:20px;
-  margin-left:762px;
-  */
   top: 20px;
   margin-left: 162px;
   line-height: 20px;

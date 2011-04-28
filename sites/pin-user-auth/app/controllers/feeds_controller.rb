@@ -153,7 +153,7 @@ class FeedsController < ApplicationController
 
   def viewpoint
     @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
-    render :partial=>"index/homepage/feeds/show/info_feed_viewpoint",
+    render :partial=>"feeds/show_parts/info_feed_viewpoint_show",
       :locals=>{:todo_user=>@todo_user}
   end
 
