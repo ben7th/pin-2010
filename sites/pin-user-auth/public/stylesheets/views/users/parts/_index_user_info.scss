@@ -15,7 +15,9 @@
       @include border-radius(0 0 5px 5px);
       font-size:14px;
       padding:5px;
+      overflow:hidden;
       text-align:center;
+      a{float:left;width:100px;overflow:hidden;}
     }
   }
   .scount{

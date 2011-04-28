@@ -1,7 +1,7 @@
 module UserBaseEvent
 
   def has_avatar?
-    !self.logo.blank?
+    !self.logo_file_name.blank?
   end
 
   def has_invite_others?
@@ -30,21 +30,28 @@ module UserBaseEvent
 
   def complate_percentage
     score = 0;
-    score += 15 if has_avatar?
-    score += 15 if has_invite_others?
-    score += 15 if has_contacts?
-    score += 15 if has_channels?
-    score += 15 if has_feeds?
-    score += 15 if activated?
-    score += 10 if bind_site?
+    score += 18 if has_avatar?
+    score += 10 if has_invite_others?
+    score += 18 if has_contacts?
+#    score += 15 if has_channels?
+    score += 18 if has_feeds?
+    score += 18 if activated?
+    score += 18 if bind_site?
     return score
   end
 
   # 用来表示一些基础的事件有没有完成
   def base_event
-    return {:avatar=>has_avatar?,:invite=>has_invite_others?,:contacts=>has_contacts?,
-      :activated=>activated?,:bind_site=>bind_site?,:channels=>has_channels?,
-      :feeds=>has_feeds?,:complate_percentage=>complate_percentage}
+    return {
+      :avatar=>has_avatar?,
+      :invite=>has_invite_others?,
+      :contacts=>has_contacts?,
+      :activated=>activated?,
+      :bind_site=>bind_site?,
+      :channels=>has_channels?,
+      :feeds=>has_feeds?,
+      :complate_percentage=>complate_percentage
+    }
   end
 
 end

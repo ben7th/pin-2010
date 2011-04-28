@@ -87,6 +87,8 @@ class RedisCache
   RedisCache.load_proxy(UserNoChannelFeedProxy)
   RedisCache.load_proxy(ChannelFeedProxy)
   RedisCache.load_proxy(UserBeingQuotedFeedsProxy)
+  RedisCache.load_proxy(UserMemoedFeedsProxy)
+  RedisCache.load_proxy(UserBeAskedFeedsProxy)
   # ---------- 每增加一个子proxy就配置在这里
   # 用到闭包，method_missing等一些手段，来减少冗余代码
 end

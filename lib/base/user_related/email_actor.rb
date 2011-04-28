@@ -22,8 +22,6 @@ class EmailActor
     case _actor
     when UserBase
       _actor.name
-    when OrganizationBase
-      _actor.name
     when String
       '匿名'
     end

@@ -48,8 +48,8 @@ class UsersController < ApplicationController
   def login_after_create(user)
     self.current_user=user
     after_logged_in()
-    flash[:success] = '注册成功，激活邮件已经发送。'
-    redirect_back_or_default welcome_url
+    flash[:success] = '注册成功，请您继续使用 :)'
+    redirect_to '/'
   end
 
   def show

@@ -20,8 +20,14 @@ class FeedComment < UserAuthAbstract
       base.has_many :feed_comments,:order=>"id desc"
     end
 
+    def comments
+      feed_comments
+    end
+
     def comments_count
       feed_comments.length
     end
   end
+
+  include ShortUrl::FeedCommentMethods
 end

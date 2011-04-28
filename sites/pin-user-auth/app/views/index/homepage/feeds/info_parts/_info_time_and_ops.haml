@@ -3,6 +3,10 @@
     =link_to created_from(feed),feed,:class=>'quiet'
 
   .split.quiet •
+  .viewpoints.quiet
+    =viewpoint_link(feed)
+
+  .split.quiet •
   .view-detail
     =link_to '查看详情',feed
 
@@ -26,6 +30,10 @@
         .split.quiet •
         %a.del{:href=>'javascript:;'} 删除
 
-        .split.quiet •
-        .start-todo
-          =link_to '发起协作','javascript:;',:class=>'loud',:tipr=>'当你需要其他人的帮助，点这里！'
+  -else
+    .ops
+      .split.quiet •
+      -if feed.comments_count == 0
+        %a.echo{:href=>'javascript:;',:'data-count'=>feed.comments_count} 评论
+      -else
+        %a.echo{:href=>'javascript:;',:'data-count'=>feed.comments_count} #{feed.comments_count}条评论

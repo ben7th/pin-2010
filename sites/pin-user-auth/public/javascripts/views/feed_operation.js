@@ -405,3 +405,13 @@ pie.load(function(){
     jQuery(this).closest('.memo').find('.memo-inputer').show();
   })
 })
+
+pie.load(function(){
+  jQuery('.short-content a.show-detail').live('click',function(){
+    var elm = jQuery(this);
+    var short_elm = elm.closest('.short-content');
+    var detail_elm = short_elm.next('.detail-content');
+    short_elm.hide();
+    detail_elm.fadeIn('fast');
+  })
+})

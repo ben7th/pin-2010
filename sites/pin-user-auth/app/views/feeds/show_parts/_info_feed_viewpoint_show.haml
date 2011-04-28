@@ -7,7 +7,7 @@
       = link_to user.name,user
       %span.quiet> ，#{truncate_u user.sign,24}
     .content
-      = todo_user.memo
+      = vp_memo todo_user
     .ops
       =jtime todo_user.updated_at
       -if logged_in?

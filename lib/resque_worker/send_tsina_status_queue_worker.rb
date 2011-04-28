@@ -7,6 +7,7 @@ class SendTsinaStatusQueueWorker
   end
 
   def self.perform(options)
+    return true if options == "wake_up"
     user = User.find_by_id(options["user_id"])
     content = options["content"]
     if options["image_path"].blank?

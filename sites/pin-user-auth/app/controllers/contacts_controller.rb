@@ -94,21 +94,13 @@ class ContactsController < ApplicationController
 
   def fans
     @user = User.find(params[:user_id])
-    @fans = @user.fans
+    @fans = @user.fans.paginate(:per_page=>15,:page=>params[:page]||1)
     render :template=>"contacts/manage/fans"
   end
 
   def followings
     @user = User.find(params[:user_id])
-    if !params[:channel]
-      @followings = @user.followings
-    elsif params[:channel] == "none"
-      @current_channel = "none"
-      @followings = @user.no_channel_contact_users
-    else
-      @current_channel = @user.channels.find(params[:channel])
-      @followings = @current_channel.include_users
-    end
+    @followings = @user.followings.paginate(:per_page=>15,:page=>params[:page]||1)
     render :template=>"contacts/manage/followings"
   end
 

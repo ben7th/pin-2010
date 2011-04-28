@@ -122,12 +122,54 @@ class Feed < UserAuthAbstract
     ft.todo_users
   end
 
+  def viewpoint_of(user)
+    todo = self.first_todo
+    return if todo.blank?
+    todo_user = user.get_todo_user_by_todo(todo)
+    return if todo_user.blank?
+    todo_user
+  end
+
   def viewpoint_by?(user)
     todo = self.first_todo
     return false if todo.blank?
     todo_user = user.get_todo_user_by_todo(todo)
     return false if todo_user.blank?
     todo_user.has_memo?
+  end
+
+  def has_viewpoint?
+    viewpoints = self.viewpoints
+    return false if viewpoints.blank?
+    viewpoints.each do |todo_user|
+      if todo_user.has_memo?
+        return true
+      end
+    end
+    return false
+  end
+
+  def hot_viewpoint
+    viewpoints = self.viewpoints
+    return if viewpoints.blank?
+    viewpoints.sort{|todo_user_1,todo_user_2|
+      memo_1 = (todo_user_1.memo || "")
+      memo_2 = (todo_user_2.memo || "")
+      memo_2.length <=> memo_1.length
+    }.first
+  end
+
+  # 被邀请的用户
+  def be_asked_users_db
+    todo = self.first_todo
+    return [] if todo.blank?
+    todo.be_asked_users_db
+  end
+
+  # 邀请用户参与话题
+  def add_be_asked_users(user)
+    todo = self.get_or_create_first_todo
+    user.get_or_create_todo_user_by_todo(todo)
   end
 
   module UserMethods
@@ -198,6 +240,20 @@ class Feed < UserAuthAbstract
       # 排序，大的就是新的，排在前面
       _id_list = _id_list.compact.sort{|x,y| y<=>x}[0..99]
       _id_list.map{|id|Feed.find_by_id(id)}.compact.uniq
+    end
+
+    # 我参与的话题
+    def memoed_feeds_db
+      self.memoed_todos_db.map do |todo|
+        todo.feed
+      end.compact
+    end
+
+    # 被邀请参加的话题
+    def be_asked_feeds_db
+      self.be_asked_todos_db.map do |todo|
+        todo.feed
+      end.compact
     end
   end
 

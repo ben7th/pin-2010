@@ -4,7 +4,5 @@
       =link_to '查看我的联系人',pin_url_for('pin-user-auth',"#{current_user.id}/followings")
     .link.fans.btb
       =link_to '查看我的读者',pin_url_for('pin-user-auth',"#{current_user.id}/fans")
-    .link.invite.btb
+    .link.invite
       =link_to '发邀请邮件',pin_url_for('pin-user-auth',"/contacts_setting/invite")
-    .link.import
-      =link_to '从邮箱导入联系人',pin_url_for('pin-user-auth',"/contacts_setting/import")

@@ -4,13 +4,16 @@
     =link_to '我的首页',pin_url_for('pin-user-auth','/')
   .favs.btb
     .icon
-    =link_to '我的标记',pin_url_for('pin-user-auth','/favs')
+    =link_to '关注的话题',pin_url_for('pin-user-auth','/favs')
   .received_comments.btb
     .icon
-    =link_to '收到的回应',pin_url_for('pin-user-auth','/received_comments')
+    =link_to '收到的评论',pin_url_for('pin-user-auth','/received_comments')
   .quoted-me-feeds.btb
     .icon
-    =link_to '大家传阅我的',pin_url_for('pin-user-auth','/quoted_me_feeds')
-  .todos
+    =link_to '大家传播我的',pin_url_for('pin-user-auth','/quoted_me_feeds')
+  .memoed-todos.btb
     .icon
-    =link_to '我的任务',pin_url_for('pin-user-auth','/todos')
+    =link_to '参与过的话题',pin_url_for('pin-user-auth','/feeds/memoed')
+  .be-asked-todos
+    .icon
+    =link_to '被邀请的话题',pin_url_for('pin-user-auth','/feeds/be_asked')

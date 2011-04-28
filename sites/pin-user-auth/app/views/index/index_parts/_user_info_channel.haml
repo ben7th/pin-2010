@@ -1,31 +1,32 @@
-- url=pin_url_for('pin-user-auth',"#{user.id}/channels")
-.scount
-  .num
-    =link_to user.channels_count,url,:class=>'reverse'
-  .text.bold
-    =link_to '主持的频道',url
-  .meta
-    .chs
-      -user.channels.each do |c|
-        .ch.btb
-          %span.kind.darkbg{:class=>c.kind}
-            =c.kind_name
-          %span.name=link_to truncate_u(c.name,5),pin_url_for('pin-user-auth',"/channels/#{c.id}")
-    .more
-      =link_to '查看全部',url
+-if user.channels_count > 0
+  - url=pin_url_for('pin-user-auth',"#{user.id}/channels")
+  .scount
+    .num
+      =link_to user.channels_count,url,:class=>'reverse'
+    .text.bold
+      =link_to '主持的频道',url
+    .meta
+      .chs
+        -user.channels.each do |c|
+          .ch.btb
+            %span.kind.darkbg{:class=>c.kind}
+              =c.kind_name
+            %span.name=link_to truncate_u(c.name,5),pin_url_for('pin-user-auth',"/channels/#{c.id}")
+      .more
+        =link_to '查看全部',url
 
-- url=pin_url_for('pin-user-auth',"#{user.id}/channels")
-.scount.hide
-  .num
-    =link_to user.belongs_to_channels_count,url,:class=>'reverse'
-  .text.bold
-    =link_to '参与的频道',url,:class=>'reverse'
-  .meta
-    .chs
-      -user.belongs_to_channels.each do |c|
-        .ch.btb
-          %span.kind.darkbg{:class=>c.kind}
-            =c.kind_name
-          %span.name=link_to truncate_u(c.name,5),pin_url_for('pin-user-auth',"/channels/#{c.id}")
-    .more
-      =link_to '查看全部',url
+  - url=pin_url_for('pin-user-auth',"#{user.id}/channels")
+  .scount.hide
+    .num
+      =link_to user.belongs_to_channels_count,url,:class=>'reverse'
+    .text.bold
+      =link_to '参与的频道',url,:class=>'reverse'
+    .meta
+      .chs
+        -user.belongs_to_channels.each do |c|
+          .ch.btb
+            %span.kind.darkbg{:class=>c.kind}
+              =c.kind_name
+            %span.name=link_to truncate_u(c.name,5),pin_url_for('pin-user-auth',"/channels/#{c.id}")
+      .more
+        =link_to '查看全部',url

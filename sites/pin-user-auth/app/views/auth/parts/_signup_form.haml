@@ -4,4 +4,4 @@
   = f.password_field :password,:value=>'',:maxlength=>32
   = f.password_field :password_confirmation,:value=>'',:maxlength=>32
   .form_actions
-    = f.submit "确认注册"
+    = f.submit "确认注册",:onclick=>'jQuery(".form_actions #user_submit").attr("disabled","disabled").addClass("disabled")'

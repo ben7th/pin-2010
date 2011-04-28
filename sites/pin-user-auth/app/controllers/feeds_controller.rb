@@ -1,5 +1,5 @@
 class FeedsController < ApplicationController
-  before_filter :login_required,:except=>[:search,:show]
+  before_filter :login_required,:except=>[:search,:show,:aj_comments]
   before_filter :pre_load
   def pre_load
     @feed = Feed.find(params[:id]) if params[:id]
@@ -155,5 +155,15 @@ class FeedsController < ApplicationController
     @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
     render :partial=>"index/homepage/feeds/show/info_feed_viewpoint",
       :locals=>{:todo_user=>@todo_user}
+  end
+
+  def memoed
+    @feeds = current_user.memoed_feeds
+    render :template=>"feeds/todos_memoed"
+  end
+
+  def be_asked
+    @feeds = current_user.be_asked_feeds
+    render :template=>"feeds/todos_be_asked"
   end
 end

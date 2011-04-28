@@ -10,6 +10,7 @@ class ChannelUserWorker
   end
 
   def self.perform(operation,channel_id,user_id)
+    return true if operation == "wake_up"
     case operation
     when ADD_OPERATION
       _add_user_to_channel(channel_id,user_id)

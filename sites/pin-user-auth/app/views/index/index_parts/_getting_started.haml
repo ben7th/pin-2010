@@ -1,0 +1,29 @@
+- be = current_user.base_event
+- percentage = be[:complate_percentage]
+
+-if logged_in? && percentage < 100
+  .homepage-getting-started
+    .title.btb 起步指南
+    .percent
+      .p
+        进行以下活动来完善你的信息，目前完成度 <span class='bold'>#{percentage}%</span>
+      .bar
+        .c{:style=>"width:#{percentage}%;"}
+    .items
+      .set{:class=>be[:avatar] ? 'complete':''}
+        =link_to '设置个性头像','/account/avatared'
+
+      .set{:class=>be[:contacts] ? 'complete':''}
+        =link_to '添加联系人',"/#{current_user.id}/followings"
+
+      .set{:class=>be[:feeds] ? 'complete':''}
+        =link_to '发表话题','/'
+
+      .set{:class=>be[:invite] ? 'complete':''}
+        =link_to '邀请其他用户','/contacts_setting/invite'
+
+      .set{:class=>be[:bind_site] ? 'complete':''}
+        =link_to '绑定其他平台','/account/bind_tsina'
+
+      .set{:class=>be[:activated] ? 'complete':''}
+        =link_to '激活邮箱','/account/email'

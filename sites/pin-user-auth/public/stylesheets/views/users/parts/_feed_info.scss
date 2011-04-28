@@ -1,3 +1,17 @@
+@mixin reply-to-feed{
+  margin-bottom:10px;
+  overflow:hidden;
+  .data{
+    @include border-radius(0 4px 4px 0);
+    padding:5px;
+  }
+  .arrow{
+    width:15px;height:7px;
+    @include allicon(-271px,-41px);
+    margin:0 0 0 36px;
+  }
+}
+
 /*feeds*/
 .newsfeed{
   ul.feeds li.mpli.feed{
@@ -9,9 +23,8 @@
       overflow:hidden;
 
       .reply-to-feed{
-        @include border-radius(0 3px 3px 0);
-        padding:5px;
-        margin:0 0 6px 40px;
+        @include reply-to-feed;
+        margin-left:40px;
       }
 
       .current-feed{
@@ -40,6 +53,28 @@
           }
         }
       }
+
+      .my-viewpoint,.hot-viewpoint{
+        padding:5px;
+        margin:0 0 10px 40px;
+        font-size:14px;
+        background:#F0F9FE;
+        border-left:solid 3px #9BD8FE;
+        @include border-radius(0 3px 3px 0);
+        .avatar{
+          float:right;
+          img{width:20px;height:20px;}
+        }
+        .name{
+          font-size:12px;
+          margin:0 0 6px 0;
+        }
+        .time{
+          font-size:12px;
+          margin:0 0 6px 0;
+        }
+      }
+
       .quote-feed{
         padding:5px;
         margin:6px 0 6px 40px;
@@ -144,6 +179,7 @@
         .split{float:left;padding:0 4px;}
         .time{float:left;}
         .view-detail{float:left;}
+        .viewpoints{float:left;}
         .start-todo{float:left;}
         .ops{
           overflow:hidden;

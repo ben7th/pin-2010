@@ -3,14 +3,11 @@
 -content_for :title do
   #{@user.name}的思维导图
 
--content_for :javascripts do
-  = javascript_include_tag "views/index"
-
 .grid_3.alpha
-  =render :partial=>'index/index_parts/user_info_in_homepage',:locals=>{:user=>@user}
+  =render 'users/homepage/user_misc_info',:user=>@user
 
 .grid_14.paddingl20
-  =render :partial=>'index/index_parts/homepage_top_userinfo',:locals=>{:user=>@user}
+  =render 'users/homepage/top_userinfo',:user=>@user
 
   .homepage-see-others
     =link_to '>>去看看他的话题吧',pin_url_for("pin-user-auth","/users/#{@user.id}")

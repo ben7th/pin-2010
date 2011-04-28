@@ -23,6 +23,7 @@ class MindmapImportQueueInputWorker
   end
 
   def self.perform(qid)
+    return true if qid == "wake_up"
     info = @info_hash.get(qid)
     # 处理这个任务
     _info = MindmapImportQueueInputWorker.new.create_mindmap_and_image_and_build_complete_info_hash(info)

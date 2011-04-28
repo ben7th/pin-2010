@@ -2,8 +2,7 @@
   .avatar
     =avatar user.email
   .meta
-    .name
-      =link_to user.name,user
+    .name=usersign(user)
     .fans_count
       #{user.fans.count}个读者
     .last_feed

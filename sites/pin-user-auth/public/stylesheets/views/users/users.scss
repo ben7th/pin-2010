@@ -9,7 +9,7 @@
   @include border-radius(4px);
   @include gradient($c1,$c2);
   border:solid 1px $cb1;
-  color:$cf;
+  color:$cf !important;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
   &:hover{
     @include gradient($c3,$c4);
@@ -24,6 +24,8 @@
 .rc5{
   @include border-radius(5px);
 }
+
+.split{display:inline;padding:0 4px;}
 
 @mixin chs-ch{
   .chs .ch{
@@ -53,6 +55,7 @@
     float:left;
     text-decoration:none;
     &.editable-submit{
+      cursor:pointer;
       color:white;
       background:#0063DC;
       &:hover{
@@ -60,10 +63,11 @@
       }
     }
     &.editable-cancel{
-      color:#666666;
-      background:#ddd;
+      cursor:pointer;
+      color:#616D7D;
+      background:#C4DFFF;
       &:hover{
-        background:#CFCFCF;
+        background:#B4CFFF;
       }
     }
     &.mousedown{
@@ -72,6 +76,10 @@
       left:1px;
     }
   }
+}
+
+@mixin allicon($x,$y){
+  background:url(/images/icons/all.png) no-repeat $x $y;
 }
 
 .userpage{
@@ -412,7 +420,10 @@ form.new_message{
   @include border-radius(4px);
   padding:5px;
   margin-bottom:15px;
-  .tip{margin:0 0 5px 0;}
+  .tip{
+    margin:0 0 5px 0;
+    padding:3px;
+  }
   input#contact_email{
     width:400px !important;
   }
@@ -648,25 +659,86 @@ form.new_message{
   }
 }
 
+.welcom-to-signup{
+  @include border-radius(5px);
+  margin:0 0 30px 0;
+  background:#F0FFF0;
+  border:1px solid #ACCBAC;
+  padding:20px;
+  .title{
+    font-size:14px;
+    font-weight:bold;
+    margin:0 300px 12px 0;
+  }
+  .desc{
+    margin:0 300px 0 0;
+  }
+  .signup-button{
+    float:right;
+    padding:15px 30px;
+    font-weight:bold;
+    font-size:20px;
+    @include btn-color(#5D99E1, #3570B8, #2E63A5, #FFF, #7BDCFA, #47A4DE);
+  }
+}
+
 .userhomepage-head{
   overflow:hidden;
   margin:0 0 20px 0;
+  padding:5px;
   .avatar{
     font-size:0px;line-height:0px;
-    margin:0 20px 0 0;
     float:left;
-    padding:5px;
     @include border-radius(5px);
     img{width:96px;height:96px;}
   }
   .meta{
-    padding:5px;
+    margin:0 0 0 130px;
+    .sign{margin:0 0 10px 0;}
     .name{font-size:18px;font-weight:bold;margin:0 0 10px 0;}
   }
   .action{
     margin-top:18px;
     overflow:hidden;
     .follow_btn,.unfollow_btn,.s-msg{float:left;margin-right:6px;}
+  }
+}
+
+.homepage-getting-started{
+  @include border-radius(4px);
+  /*
+  border:solid 2px #F0F077;
+  background:#FBFBDD;
+  */
+  border:solid 2px #FFE965;
+  background:#FFFADA;
+  padding:5px;
+  margin:0 0 20px 0;
+  .title{
+    font-weight:bold;
+    margin:0 0 6px 0;
+  }
+  .percent{
+    margin:0 0 10px 0;
+    .p{margin:0 0 6px 0;}
+    .bar{
+      font-size:0px;
+      line-height:0px;
+      height:16px;
+      border:solid 1px #C7C7C7;
+      background:white;
+      .c{
+        height:16px;
+        @include gradient(#9DF770,#8DE565);
+      }
+    }
+  }
+  .items{
+    .set{
+      &.complete{
+        a{color:#ccc !important;text-decoration:line-through;}
+      }
+    }
   }
 }
 
@@ -686,7 +758,7 @@ form.new_message{
 
 .feed-links{
   @include border-radius(5px);
-  .home,.favs,.received_comments,.quoted-me-feeds,.todos{
+  .home,.favs,.received_comments,.quoted-me-feeds,.todos,.memoed-todos,.be-asked-todos{
     padding:5px 10px;
     font-size:14px;
     height:24px;
@@ -709,6 +781,12 @@ form.new_message{
     .icon{background:url(/images/icons/all.png) no-repeat -200px -117px;}
   }
   .todos{
+    .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
+  }
+  .memoed-todos{
+    .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
+  }
+  .be-asked-todos{
     .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
   }
 }

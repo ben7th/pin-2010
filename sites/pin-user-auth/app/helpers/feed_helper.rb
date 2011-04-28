@@ -12,6 +12,27 @@ module FeedHelper
     "#{auto_link(h(feed.content),:html=>{:target=>'_blank'})}"
   end
 
+  def vp_memo(todo_user)
+    "#{auto_link(h(todo_user.memo),:html=>{:target=>'_blank'})}"
+  end
+
+  def vp_memo_short(todo_user)
+    "#{auto_link(h(truncate_u(todo_user.memo,128)),:html=>{:target=>'_blank'})}"
+  end
+
+  def j_vp_memo(todo_user)
+    t1 = todo_user.memo
+    t2 = truncate_u(todo_user.memo,128)
+    if t1.length == t2.length
+      vp_memo(todo_user)
+    else
+      %~
+        <div class='short-content'>#{vp_memo_short(todo_user)} <a href='javascript:;' class='show-detail font12'>显示全部</a></div>
+        <div class='detail-content' style='display:none;'>#{vp_memo(todo_user)}</div>
+      ~
+    end
+  end
+
   def user_last_feed(user)
     feed = user.out_newest_feed
     return if feed.nil?
@@ -57,13 +78,13 @@ module FeedHelper
     MessageTip.new(current_user).refresh_fans_info if logged_in?
   end
 
-  def usersign(user)
+  def usersign(user, sign = true)
     re = []
     if user.blank?
       re << '未知用户'
     else
-      re << "#{link_to user.name,user}"
-      if !user.sign.blank?
+      re << "#{link_to user.name,user,:class=>'bold'}"
+      if !user.sign.blank? && sign
         re << "<span class='quiet'>，#{truncate_u user.sign,24}</span>"
       end
     end
@@ -78,6 +99,18 @@ module FeedHelper
       re << "#{model.comments.count}条评论"
     else
       re << '评论'
+    end
+    return re
+  end
+
+  def viewpoint_link(feed)
+    re = []
+    if feed.blank?
+      re << ''
+    elsif feed.viewpoints.blank?
+      re << '没有观点'
+    else
+      re << "#{feed.viewpoints.count}个观点"
     end
     return re
   end

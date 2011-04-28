@@ -1,11 +1,12 @@
 .userhomepage-head
-  .avatar.lightbg
+  .avatar
     =avatar user,:medium
   .meta
-    .name.loud1
-      =user.name
-    .regtime
-      注册于
+    .name=user.name
+    -if !user.sign.blank?
+      .sign.quiet=user.sign
+    .regtime>
+      %span.quiet> 注册于
       =qdatetimefull(user.created_at)
     .action
       -if logged_in?

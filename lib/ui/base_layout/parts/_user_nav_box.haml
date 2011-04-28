@@ -12,4 +12,8 @@
 .topbar
   %ul
     %li=link_to '联系人',pin_url_for("pin-user-auth","#{current_user.id}/followings")
-    %li=link_to '团队',pin_url_for("pin-user-auth","/contacts_setting/organizations")
+    %li=link_to '话题频道',pin_url_for("pin-user-auth","/channels")
+  .top-search-form
+    %form{:action=>"/search_feeds",:method=>"get"}
+      %input.search-inner.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索话题'}
+      %input.search-button{:value=>"搜索",:type=>"submit"}

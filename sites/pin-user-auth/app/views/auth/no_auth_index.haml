@@ -1,5 +1,11 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  欢迎访问
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
 .grid_16.alpha
   .mindpin-intro
     .txt

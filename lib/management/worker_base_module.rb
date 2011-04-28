@@ -4,6 +4,7 @@ module MindpinServiceManagementModule
     Workers = [
       "mindmap_import_queue_worker",
       "synchronous_message_from_tsina_worker",
+      "wake_up_resque_worker",
       "channel_user_operation_queue_resque_worker",
       "feed_operation_queue_resque_worker",
       "follow_operation_queue_resque_worker",

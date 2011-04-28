@@ -1,17 +1,23 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  话题搜索结果页
+
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
-
-.grid_3.alpha
-  -if logged_in?
-    =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 
 .grid_14.paddingl20
   .padding5.marginb3em
     =render :partial=>'index/index_parts/feed_search_form',:locals=>{:query=>@query}
+
+  .grid-title
+    关于
+    %span.loud>#{@query}
+    的搜索结果
+
   .newsfeed
     =render :partial=>'feeds/search_parts/feed_search_results',:locals=>{:result=>@result,:query=>@query}
 
 .grid_4.omega.fright
-  =render :partial=>'index/index_parts/feed_links'
+  -if logged_in?
+    =render :partial=>'index/index_parts/feed_links'

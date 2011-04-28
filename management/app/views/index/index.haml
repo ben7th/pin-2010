@@ -41,6 +41,7 @@
   %tbody
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_import_queue_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"synchronous_message_from_tsina_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"wake_up_resque_worker"}
 
 %table
   %thead

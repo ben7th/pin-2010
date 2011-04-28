@@ -9,8 +9,7 @@
   .c
     .data
       .c-name
-        =link_to creator.name,creator
-        %span.quiet> ，#{truncate_u creator.sign,24}
+        =usersign(creator)
       .ct
         =content
     .documents

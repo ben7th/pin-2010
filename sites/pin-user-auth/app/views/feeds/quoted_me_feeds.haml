@@ -1,5 +1,8 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  我关注的话题
+
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
@@ -12,6 +15,9 @@
   =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 
 .grid_14.paddingl20
+  .grid-title
+    其他人对我的话题进行的传播
+
   .newsfeed
     -mplist @quoted_me_feeds,:for=>Feed do |feed|
       =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}

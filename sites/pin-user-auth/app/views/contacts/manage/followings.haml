@@ -1,5 +1,8 @@
 - require_css 'views/users',true
 
+-content_for :title do
+  #{@user.name}的联系人
+
 -content_for :javascripts do
   = javascript_include_tag "views/follows"
   = javascript_include_tag "views/follows_channel"
@@ -13,12 +16,19 @@
       });
     });
 
-.grid-title
-  %span.loud>#{@user.name}
-  正在关注的，共#{@followings.count}人
 
 .grid_18.alpha
-  -if @user == current_user
+  .grid-title
+    %span.loud>#{@user.name}
+    的联系人，共#{@followings.count}人
+
+  .homepage-see-others
+    -if logged_in? && current_user == @user
+      =link_to "&gt;&gt;返回我的首页","/"
+    -else
+      =link_to "&gt;&gt;返回#{@user.name}的个人页","/users/#{@user.id}"
+
+  -if logged_in? && @user == current_user
     .add-member-form.form.darkbg
       .tip 输入邮箱或用户名，添加联系人
       = text_field_tag 'contact[email]',"",:size=>25,:maxlength=>255,:class=>'marginr5 inline text'
@@ -26,6 +36,9 @@
       .add-member-info
 
   =render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>@followings}
+
+  .padding5
+    = will_paginate @followings
 
 .grid_5.omega.fright
   =render :partial=>"contacts/manage/setting_links"

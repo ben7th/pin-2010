@@ -1,0 +1,17 @@
+-if(!feed.reply_to.blank?)
+  -r_feed = feed.replied_feed
+  .reply-to-feed
+    .data.quotebg
+      -if r_feed.nil?
+        %span.quiet 被回应的话题已删除
+      -else
+        =usersign r_feed.creator,false
+        %span.quiet> ：
+        =feed_content(r_feed)
+        %a.quiet{:href=>"/feeds/#{r_feed.id}"}
+          原话题被评论#{r_feed.comments.count}次
+        .split.quiet> -
+        %a.quiet{:href=>"/feeds/#{r_feed.id}"}
+          查看详情
+
+    .arrow

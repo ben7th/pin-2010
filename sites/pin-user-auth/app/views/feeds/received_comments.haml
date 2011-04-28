@@ -1,5 +1,8 @@
 -require_css 'views/users',true
 
+-content_for :title do
+  我收到的评论
+
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
@@ -13,7 +16,7 @@
 
 .grid_14.paddingl20
   .grid-title
-    其他人对我的回应
+    其他人对我的评论
   .index-received-comments
     -@feed_comments.each do |c|
       .c.darkbg

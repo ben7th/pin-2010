@@ -7,6 +7,7 @@ class MindmapImageCacheQueueWorker
   end
 
   def self.perform(mindmap_id, size)
+    return true if mindmap_id == "wake_up"
     mindmap = Mindmap.find(mindmap_id)
     MindmapImageCache.new(mindmap).refresh_cache_file(size)
     image_src = self.get_image_src(mindmap_id,size)

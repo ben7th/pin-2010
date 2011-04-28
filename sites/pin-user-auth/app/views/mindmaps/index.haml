@@ -4,7 +4,7 @@
   我的思维导图
 
 -content_for :javascripts do
-  = javascript_include_tag "views/index"
+  = javascript_include_tag "views/mindmap_create_form"
   = javascript_include_tag "views/mindmap_title_inplace_edit"
   = javascript_include_tag "views/index_channel_panel"
   = javascript_include_tag "views/feed_operation"
@@ -14,7 +14,9 @@
 
 .grid_14.paddingl20
   =render :partial=>'index/homepage/feeds/feed_form_mev6'
-  =render :partial=>'index/homepage/index_channel_panel'
+
+  .homepage-see-others
+    =link_to '&gt;&gt;转到话题页',pin_url_for("pin-user-auth","/")
 
   =render :partial=>'index/homepage/mindmaps'
   .mindmap-paginate.padding5

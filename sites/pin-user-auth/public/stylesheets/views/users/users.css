@@ -3,6 +3,10 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px; }
 
+.split {
+  display: inline;
+  padding: 0 4px; }
+
 .userpage .upavatar {
   float: left;
   height: 52px; }
@@ -324,7 +328,8 @@ form.new_message .w300 {
   padding: 5px;
   margin-bottom: 15px; }
   .add-member-form.form .tip {
-    margin: 0 0 5px 0; }
+    margin: 0 0 5px 0;
+    padding: 3px; }
   .add-member-form.form input#contact_email {
     width: 400px !important; }
   .add-member-form.form .add-member-info {
@@ -536,15 +541,53 @@ form.new_message .w300 {
   width: 510px;
   height: 250px; }
 
+.welcom-to-signup {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin: 0 0 30px 0;
+  background: #F0FFF0;
+  border: 1px solid #ACCBAC;
+  padding: 20px; }
+  .welcom-to-signup .title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 300px 12px 0; }
+  .welcom-to-signup .desc {
+    margin: 0 300px 0 0; }
+  .welcom-to-signup .signup-button {
+    float: right;
+    padding: 15px 30px;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: -moz-linear-gradient(-90deg, #5d99e1, #3570b8);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#5d99e1), to(#3570b8));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5d99e1',endColorstr='#3570b8');
+    border: solid 1px #2e63a5;
+    color: white !important;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25); }
+    .welcom-to-signup .signup-button:hover {
+      background: -moz-linear-gradient(-90deg, #7bdcfa, #47a4de);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#7bdcfa), to(#47a4de));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#7bdcfa',endColorstr='#47a4de');
+      text-decoration: none; }
+    .welcom-to-signup .signup-button.mousedown {
+      background: -moz-linear-gradient(-90deg, #47a4de, #7bdcfa);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#47a4de), to(#7bdcfa));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#47a4de',endColorstr='#7bdcfa');
+      text-decoration: none; }
+
 .userhomepage-head {
   overflow: hidden;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  padding: 5px; }
   .userhomepage-head .avatar {
     font-size: 0px;
     line-height: 0px;
-    margin: 0 20px 0 0;
     float: left;
-    padding: 5px;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px; }
@@ -552,7 +595,9 @@ form.new_message .w300 {
       width: 96px;
       height: 96px; }
   .userhomepage-head .meta {
-    padding: 5px; }
+    margin: 0 0 0 130px; }
+    .userhomepage-head .meta .sign {
+      margin: 0 0 10px 0; }
     .userhomepage-head .meta .name {
       font-size: 18px;
       font-weight: bold;
@@ -563,6 +608,40 @@ form.new_message .w300 {
     .userhomepage-head .action .follow_btn, .userhomepage-head .action .unfollow_btn, .userhomepage-head .action .s-msg {
       float: left;
       margin-right: 6px; }
+
+.homepage-getting-started {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  /*
+  border:solid 2px #F0F077;
+  background:#FBFBDD;
+  */
+  border: solid 2px #FFE965;
+  background: #FFFADA;
+  padding: 5px;
+  margin: 0 0 20px 0; }
+  .homepage-getting-started .title {
+    font-weight: bold;
+    margin: 0 0 6px 0; }
+  .homepage-getting-started .percent {
+    margin: 0 0 10px 0; }
+    .homepage-getting-started .percent .p {
+      margin: 0 0 6px 0; }
+    .homepage-getting-started .percent .bar {
+      font-size: 0px;
+      line-height: 0px;
+      height: 16px;
+      border: solid 1px #C7C7C7;
+      background: white; }
+      .homepage-getting-started .percent .bar .c {
+        height: 16px;
+        background: -moz-linear-gradient(-90deg, #9df770, #8de565);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#9df770), to(#8de565));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#9df770',endColorstr='#8de565'); }
+  .homepage-getting-started .items .set.complete a {
+    color: #ccc !important;
+    text-decoration: line-through; }
 
 .homepage-see-others {
   border-radius: 5px;
@@ -582,12 +661,12 @@ form.new_message .w300 {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px; }
-  .feed-links .home, .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds, .feed-links .todos {
+  .feed-links .home, .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds, .feed-links .todos, .feed-links .memoed-todos, .feed-links .be-asked-todos {
     padding: 5px 10px;
     font-size: 14px;
     height: 24px;
     line-height: 24px; }
-    .feed-links .home .icon, .feed-links .favs .icon, .feed-links .received_comments .icon, .feed-links .quoted-me-feeds .icon, .feed-links .todos .icon {
+    .feed-links .home .icon, .feed-links .favs .icon, .feed-links .received_comments .icon, .feed-links .quoted-me-feeds .icon, .feed-links .todos .icon, .feed-links .memoed-todos .icon, .feed-links .be-asked-todos .icon {
       float: left;
       width: 24px;
       height: 24px;
@@ -600,6 +679,10 @@ form.new_message .w300 {
   .feed-links .quoted-me-feeds .icon {
     background: url(/images/icons/all.png) no-repeat -200px -117px; }
   .feed-links .todos .icon {
+    background: url(/images/icons/all.png) no-repeat -250px -117px; }
+  .feed-links .memoed-todos .icon {
+    background: url(/images/icons/all.png) no-repeat -250px -117px; }
+  .feed-links .be-asked-todos .icon {
     background: url(/images/icons/all.png) no-repeat -250px -117px; }
 
 .index-received-comments .c {
@@ -660,6 +743,7 @@ form.new_message .w300 {
 
 .feed-form-container {
   padding: 70px 0 20px 50px;
+  margin: 0 0 12px 0;
   border-radius: 6px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -891,11 +975,19 @@ form.new_message .w300 {
     overflow: hidden;
     /*feed内容扩展部分*/ }
     .newsfeed ul.feeds li.mpli.feed .f .reply-to-feed {
-      border-radius: 0 3px 3px 0;
-      -moz-border-radius: 0 3px 3px 0;
-      -webkit-border-radius: 0 3px 3px 0;
-      padding: 5px;
-      margin: 0 0 6px 40px; }
+      margin-bottom: 10px;
+      overflow: hidden;
+      margin-left: 40px; }
+      .newsfeed ul.feeds li.mpli.feed .f .reply-to-feed .data {
+        border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        -webkit-border-radius: 0 4px 4px 0;
+        padding: 5px; }
+      .newsfeed ul.feeds li.mpli.feed .f .reply-to-feed .arrow {
+        width: 15px;
+        height: 7px;
+        background: url(/images/icons/all.png) no-repeat -271px -41px;
+        margin: 0 0 0 36px; }
     .newsfeed ul.feeds li.mpli.feed .f .current-feed {
       overflow: hidden; }
       .newsfeed ul.feeds li.mpli.feed .f .current-feed .avatar {
@@ -921,6 +1013,26 @@ form.new_message .w300 {
             border-radius: 3px;
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px; }
+    .newsfeed ul.feeds li.mpli.feed .f .my-viewpoint, .newsfeed ul.feeds li.mpli.feed .f .hot-viewpoint {
+      padding: 5px;
+      margin: 0 0 10px 40px;
+      font-size: 14px;
+      background: #F0F9FE;
+      border-left: solid 3px #9BD8FE;
+      border-radius: 0 3px 3px 0;
+      -moz-border-radius: 0 3px 3px 0;
+      -webkit-border-radius: 0 3px 3px 0; }
+      .newsfeed ul.feeds li.mpli.feed .f .my-viewpoint .avatar, .newsfeed ul.feeds li.mpli.feed .f .hot-viewpoint .avatar {
+        float: right; }
+        .newsfeed ul.feeds li.mpli.feed .f .my-viewpoint .avatar img, .newsfeed ul.feeds li.mpli.feed .f .hot-viewpoint .avatar img {
+          width: 20px;
+          height: 20px; }
+      .newsfeed ul.feeds li.mpli.feed .f .my-viewpoint .name, .newsfeed ul.feeds li.mpli.feed .f .hot-viewpoint .name {
+        font-size: 12px;
+        margin: 0 0 6px 0; }
+      .newsfeed ul.feeds li.mpli.feed .f .my-viewpoint .time, .newsfeed ul.feeds li.mpli.feed .f .hot-viewpoint .time {
+        font-size: 12px;
+        margin: 0 0 6px 0; }
     .newsfeed ul.feeds li.mpli.feed .f .quote-feed {
       padding: 5px;
       margin: 6px 0 6px 40px;
@@ -1027,6 +1139,8 @@ form.new_message .w300 {
         float: left; }
       .newsfeed ul.feeds li.mpli.feed .f .footmisc .view-detail {
         float: left; }
+      .newsfeed ul.feeds li.mpli.feed .f .footmisc .viewpoints {
+        float: left; }
       .newsfeed ul.feeds li.mpli.feed .f .footmisc .start-todo {
         float: left; }
       .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops {
@@ -1118,15 +1232,17 @@ form.new_message .w300 {
           float: left;
           text-decoration: none; }
           .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns button.editable-submit, .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns a.button.editable-submit {
+            cursor: pointer;
             color: white;
             background: #0063DC; }
             .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns button.editable-submit:hover, .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns a.button.editable-submit:hover {
               background: #0054BD; }
           .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns button.editable-cancel, .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns a.button.editable-cancel {
-            color: #666666;
-            background: #ddd; }
+            cursor: pointer;
+            color: #616D7D;
+            background: #C4DFFF; }
             .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns button.editable-cancel:hover, .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns a.button.editable-cancel:hover {
-              background: #CFCFCF; }
+              background: #B4CFFF; }
           .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns button.mousedown, .newsfeed ul.feeds li.mpli.feed .f .comments .feed-echo-form .btns a.button.mousedown {
             position: relative;
             top: 1px;
@@ -1224,15 +1340,17 @@ form.new_message .w300 {
       float: left;
       text-decoration: none; }
       .feed-transmit-form .btns button.editable-submit, .feed-transmit-form .btns a.button.editable-submit {
+        cursor: pointer;
         color: white;
         background: #0063DC; }
         .feed-transmit-form .btns button.editable-submit:hover, .feed-transmit-form .btns a.button.editable-submit:hover {
           background: #0054BD; }
       .feed-transmit-form .btns button.editable-cancel, .feed-transmit-form .btns a.button.editable-cancel {
-        color: #666666;
-        background: #ddd; }
+        cursor: pointer;
+        color: #616D7D;
+        background: #C4DFFF; }
         .feed-transmit-form .btns button.editable-cancel:hover, .feed-transmit-form .btns a.button.editable-cancel:hover {
-          background: #CFCFCF; }
+          background: #B4CFFF; }
       .feed-transmit-form .btns button.mousedown, .feed-transmit-form .btns a.button.mousedown {
         position: relative;
         top: 1px;
@@ -1269,15 +1387,17 @@ form.new_message .w300 {
       float: left;
       text-decoration: none; }
       .todo-items-config .btns button.editable-submit, .todo-items-config .btns a.button.editable-submit {
+        cursor: pointer;
         color: white;
         background: #0063DC; }
         .todo-items-config .btns button.editable-submit:hover, .todo-items-config .btns a.button.editable-submit:hover {
           background: #0054BD; }
       .todo-items-config .btns button.editable-cancel, .todo-items-config .btns a.button.editable-cancel {
-        color: #666666;
-        background: #ddd; }
+        cursor: pointer;
+        color: #616D7D;
+        background: #C4DFFF; }
         .todo-items-config .btns button.editable-cancel:hover, .todo-items-config .btns a.button.editable-cancel:hover {
-          background: #CFCFCF; }
+          background: #B4CFFF; }
       .todo-items-config .btns button.mousedown, .todo-items-config .btns a.button.mousedown {
         position: relative;
         top: 1px;
@@ -1289,11 +1409,18 @@ form.new_message .w300 {
   overflow: hidden;
   /*feed内容扩展部分*/ }
   .page-feed-show .reply-to-feed {
-    border-radius: 0 3px 3px 0;
-    -moz-border-radius: 0 3px 3px 0;
-    -webkit-border-radius: 0 3px 3px 0;
-    padding: 5px;
-    margin: 0 0 6px; }
+    margin-bottom: 10px;
+    overflow: hidden; }
+    .page-feed-show .reply-to-feed .data {
+      border-radius: 0 4px 4px 0;
+      -moz-border-radius: 0 4px 4px 0;
+      -webkit-border-radius: 0 4px 4px 0;
+      padding: 5px; }
+    .page-feed-show .reply-to-feed .arrow {
+      width: 15px;
+      height: 7px;
+      background: url(/images/icons/all.png) no-repeat -271px -41px;
+      margin: 0 0 0 36px; }
   .page-feed-show .current-feed {
     overflow: hidden; }
     .page-feed-show .current-feed .c {
@@ -1509,15 +1636,17 @@ form.new_message .w300 {
             float: left;
             text-decoration: none; }
             .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit {
+              cursor: pointer;
               color: white;
               background: #0063DC; }
               .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit:hover, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit:hover {
                 background: #0054BD; }
             .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel {
-              color: #666666;
-              background: #ddd; }
+              cursor: pointer;
+              color: #616D7D;
+              background: #C4DFFF; }
               .feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel:hover, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel:hover {
-                background: #CFCFCF; }
+                background: #B4CFFF; }
             .feed-viewpoints .viewpoint .comments .comment-form .btns button.mousedown, .feed-viewpoints .viewpoint .comments .comment-form .btns a.button.mousedown {
               position: relative;
               top: 1px;
@@ -1562,7 +1691,12 @@ form.new_message .w300 {
       -webkit-border-radius: 0 0 5px 5px;
       font-size: 14px;
       padding: 5px;
+      overflow: hidden;
       text-align: center; }
+      .index-user-info .base .name a {
+        float: left;
+        width: 100px;
+        overflow: hidden; }
   .index-user-info .scount {
     margin: 0 0 10px 0;
     overflow: hidden; }
@@ -1796,15 +1930,17 @@ form.new_message .w300 {
       float: left;
       text-decoration: none; }
       .channel-member-choose-panel .btns button.editable-submit, .channel-member-choose-panel .btns a.button.editable-submit {
+        cursor: pointer;
         color: white;
         background: #0063DC; }
         .channel-member-choose-panel .btns button.editable-submit:hover, .channel-member-choose-panel .btns a.button.editable-submit:hover {
           background: #0054BD; }
       .channel-member-choose-panel .btns button.editable-cancel, .channel-member-choose-panel .btns a.button.editable-cancel {
-        color: #666666;
-        background: #ddd; }
+        cursor: pointer;
+        color: #616D7D;
+        background: #C4DFFF; }
         .channel-member-choose-panel .btns button.editable-cancel:hover, .channel-member-choose-panel .btns a.button.editable-cancel:hover {
-          background: #CFCFCF; }
+          background: #B4CFFF; }
       .channel-member-choose-panel .btns button.mousedown, .channel-member-choose-panel .btns a.button.mousedown {
         position: relative;
         top: 1px;
@@ -2150,15 +2286,17 @@ form.new_message .w300 {
     float: left;
     text-decoration: none; }
     .binded-account .tsina-share-mindpin.darkbg button.editable-submit, .binded-account .tsina-share-mindpin.darkbg a.button.editable-submit {
+      cursor: pointer;
       color: white;
       background: #0063DC; }
       .binded-account .tsina-share-mindpin.darkbg button.editable-submit:hover, .binded-account .tsina-share-mindpin.darkbg a.button.editable-submit:hover {
         background: #0054BD; }
     .binded-account .tsina-share-mindpin.darkbg button.editable-cancel, .binded-account .tsina-share-mindpin.darkbg a.button.editable-cancel {
-      color: #666666;
-      background: #ddd; }
+      cursor: pointer;
+      color: #616D7D;
+      background: #C4DFFF; }
       .binded-account .tsina-share-mindpin.darkbg button.editable-cancel:hover, .binded-account .tsina-share-mindpin.darkbg a.button.editable-cancel:hover {
-        background: #CFCFCF; }
+        background: #B4CFFF; }
     .binded-account .tsina-share-mindpin.darkbg button.mousedown, .binded-account .tsina-share-mindpin.darkbg a.button.mousedown {
       position: relative;
       top: 1px;
@@ -2794,7 +2932,7 @@ form.new_message .w300 {
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#76d7f5), to(#429fd9));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#76d7f5',endColorstr='#429fd9');
     border: solid 1px #5bbae6;
-    color: #cee7f1;
+    color: #cee7f1 !important;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
     display: block;
     padding: 10px 30px;
@@ -2884,7 +3022,7 @@ form.new_message .w300 {
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f54f00), to(#ca0700));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f54f00',endColorstr='#ca0700');
       border: solid 1px #df1600;
-      color: white;
+      color: white !important;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
       padding: 5px 10px; }
       .mindpin-intro .actions .send-feed:hover {

@@ -9,6 +9,7 @@ class FollowOperationQueueWorker
   end
 
   def self.perform(operate,user_id,contact_user_id)
+    return true if operate == "wake_up"
     user = User.find_by_id(user_id)
     contact_user = User.find_by_id(contact_user_id)
     case operate

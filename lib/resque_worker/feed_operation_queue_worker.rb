@@ -14,6 +14,7 @@ class FeedOperationQueueWorker
   end
 
   def self.perform(operate,options)
+    return true if operate == "wake_up"
     case operate
     when CREATE_OPERATION
       creator = User.find_by_id(options['creator_id'])

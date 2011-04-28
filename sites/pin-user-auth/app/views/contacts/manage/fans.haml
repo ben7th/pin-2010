@@ -1,5 +1,8 @@
 - require_css 'views/users',true
 
+-content_for :title do
+  #{@user.name}的读者
+
 -content_for :javascripts do
   = javascript_include_tag "views/follows"
 
@@ -8,12 +11,22 @@
   :javascript
     pie.misc_tip_info = #{misc_tip_info.to_json}
 
-.grid-title
-  %span.loud>#{@user.name}
-  的读者，共#{@fans.count}人
-
 .grid_18.alpha
+  .grid-title
+    %span.loud>#{@user.name}
+    的读者，共#{@fans.count}人
+
+  .homepage-see-others
+    -if logged_in? && current_user == @user
+      =link_to "&gt;&gt;返回我的首页","/"
+    -else
+      =link_to "&gt;&gt;返回#{@user.name}的个人页","/users/#{@user.id}"
+
+
   =render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>@fans}
+
+  .padding5
+    = will_paginate @fans
 
 .grid_5.omega.fright
   =render :partial=>"contacts/manage/setting_links"

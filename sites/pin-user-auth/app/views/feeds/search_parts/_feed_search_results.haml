@@ -1,3 +1,7 @@
 -feeds = result.items.map{|it| it.feed}
--mplist feeds,:for=>Feed do |feed|
-  =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}
+-if feeds.blank?
+  .no-result.quiet.font14.padding5
+    没有搜索到任何结果
+-else
+  -mplist feeds,:for=>Feed do |feed|
+    =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}

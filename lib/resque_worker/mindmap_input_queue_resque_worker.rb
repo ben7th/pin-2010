@@ -7,6 +7,7 @@ class MindmapInputQueueResqueWorker
   end
 
   def self.perform(req_json)
+    return true if req_json == "wake_up"
     mirw = MindmapInputQueueResqueWorker.new
     req = mirw.get_request_from_input_mq(req_json)
     mirw.execute_request(req)
