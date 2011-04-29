@@ -1,4 +1,5 @@
 class ChannelContact < UserAuthAbstract
+  belongs_to :contact
 end
 
 ActiveRecord::Base.transaction do

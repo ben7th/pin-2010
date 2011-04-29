@@ -44,3 +44,6 @@ htmlDocument
   from_channel_contact_to_channel_user.rb 脚本
  8 增加了豆瓣认证的代码，需要安装依赖的gem
   gem install douban-ruby
+
+ 9 gem install redis redis-namespace yajl-ruby vegas sinatra
+ 10 gem install resque
