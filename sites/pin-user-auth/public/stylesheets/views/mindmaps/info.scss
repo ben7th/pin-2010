@@ -172,6 +172,21 @@
         float:left;
         margin:0 4px 4px 0;
       }
+      .cooperator-config{
+        @include border-radius(3px);
+        width:28px;
+        height:28px;
+        float:left;
+        cursor:pointer;
+        .icon{
+          background:url(/images/icons/all.png) no-repeat -75px -142px;
+          width:24px;
+          height:24px;
+          position:relative;
+          top:2px;
+          left:2px;
+        }
+      }
     }
   }
 

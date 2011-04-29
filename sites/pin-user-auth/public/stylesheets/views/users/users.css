@@ -35,7 +35,6 @@
   -webkit-border-radius: 4px;
   width: 200px;
   height: 80px;
-  border: solid 1px #A0A0A0;
   position: absolute;
   box-shadow: 0 0 6px black;
   -moz-box-shadow: 0 0 6px black;
@@ -58,7 +57,8 @@
         margin: 0 12px 0 0; }
     .jq-confirm-dialog .d .btns {
       overflow: hidden;
-      padding: 0 0 0 40px; }
+      position: relative;
+      left: 40px; }
       .jq-confirm-dialog .d .btns button, .jq-confirm-dialog .d .btns a.button {
         border-radius: 3px;
         -moz-border-radius: 3px;
@@ -605,7 +605,8 @@ form.new_message .w300 {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5d99e1',endColorstr='#3570b8');
     border: solid 1px #2e63a5;
     color: white !important;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25); }
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+    zoom: 1; }
     .welcom-to-signup .signup-button:hover {
       background: -moz-linear-gradient(-90deg, #7bdcfa, #47a4de);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#7bdcfa), to(#47a4de));
@@ -2738,6 +2739,7 @@ form.new_message .w300 {
 
 .feed-form-mev6 {
   padding: 60px 0 45px 10px;
+  margin: 0 0 10px 0;
   position: relative;
   background: url(/images/icons/mindmap-form-bg.png) no-repeat 0 0;
   border-radius: 6px;
@@ -2806,7 +2808,7 @@ form.new_message .w300 {
       float: left;
       width: 32px;
       height: 32px;
-      background: url(/images/icons/feed-form-loading.gif) 1px 1px no-repeat;
+      background: url(/images/icons/progress-dots.gif) 1px 1px no-repeat;
       margin: 5px 5px 5px 0; }
     .feed-form-mev6 .btns.loading input.feed-content {
       display: none; }
@@ -2817,8 +2819,8 @@ form.new_message .w300 {
       float: left;
       font-size: 14px;
       margin-top: 4px;
-      border: solid 1px #111;
-      background: #323546;
+      border: solid 1px #A3A3A3;
+      background: white;
       padding: 0 5px;
       height: 32px;
       line-height: 32px;
@@ -2826,8 +2828,8 @@ form.new_message .w300 {
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px; }
   .feed-form-mev6 .import-mindmap-image {
-    background: #323546;
-    border: solid 1px #111;
+    background: #F6F8EE;
+    border: solid 1px #A3A3A3;
     padding: 5px;
     top: 41px;
     z-index: 999;
@@ -2856,7 +2858,6 @@ form.new_message .w300 {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px; }
   .feed-form-mev6 .import-mindmap-form {
-    background: #323546;
     padding: 5px;
     top: 41px;
     z-index: 999;
@@ -3042,6 +3043,7 @@ form.new_message .w300 {
     border: solid 1px #5bbae6;
     color: #cee7f1 !important;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+    zoom: 1;
     display: block;
     padding: 10px 30px;
     text-align: center !important; }
@@ -3132,6 +3134,7 @@ form.new_message .w300 {
       border: solid 1px #df1600;
       color: white !important;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+      zoom: 1;
       padding: 5px 10px; }
       .mindpin-intro .actions .send-feed:hover {
         background: -moz-linear-gradient(-90deg, #fb5506, #d00c06);

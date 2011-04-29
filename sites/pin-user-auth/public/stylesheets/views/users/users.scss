@@ -11,6 +11,7 @@
   border:solid 1px $cb1;
   color:$cf !important;
   text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
+  zoom:1;
   &:hover{
     @include gradient($c3,$c4);
     text-decoration:none;
@@ -108,8 +109,6 @@
   @include border-radius(4px);
   width:200px;
   height:80px;
-
-  border:solid 1px #A0A0A0;
   position:absolute;
   @include box-shadow(0 0 6px black);
   .d{
@@ -132,7 +131,8 @@
     }
     .btns{
       @include submitbtns;
-      padding:0 0 0 40px;
+      position:relative;
+      left:40px;
       .button{margin-right:12px !important;}
     }
   }

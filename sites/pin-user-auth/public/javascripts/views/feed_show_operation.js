@@ -31,8 +31,8 @@ pie.load(function(){
       '<div class="comment-form">'+
         '<div class="ipt"><textarea class="inputer"/></div>'+
         '<div class="btns">'+
-          '<a class="button editable-submit" href="javascript:;">发送</button>'+
-          '<a class="button editable-cancel" href="javascript:;">取消</button>'+
+          '<a class="button editable-submit" href="javascript:;">发送</a>'+
+          '<a class="button editable-cancel" href="javascript:;">取消</a>'+
         '</div>'+
       '</div>'+
       '<div class="list"></div>'+
@@ -123,8 +123,8 @@ pie.load(function(){
   var form_elm = jQuery(
     '<div class="viewpoint-edit-form">'+
       '<div class="btns">'+
-        '<a class="button editable-submit" href="javascript:;">发送</button>'+
-        '<a class="button editable-cancel" href="javascript:;">取消</button>'+
+        '<a class="button editable-submit" href="javascript:;">发送</a>'+
+        '<a class="button editable-cancel" href="javascript:;">取消</a>'+
       '</div>'+
     '</div>'
   )
@@ -249,8 +249,8 @@ pie.load(function(){
     '<div class="ori-feed"></div>'+
     '<div class="ipt"><textarea class="transmit-inputer"></textarea></div>'+
     '<div class="btns">'+
-      '<a class="button editable-submit" href="javascript:;">发送</button>'+
-      '<a class="button editable-cancel" href="javascript:;">取消</button>'+
+      '<a class="button editable-submit" href="javascript:;">发送</a>'+
+      '<a class="button editable-cancel" href="javascript:;">取消</a>'+
     '</div>'+
   '</div>');
 

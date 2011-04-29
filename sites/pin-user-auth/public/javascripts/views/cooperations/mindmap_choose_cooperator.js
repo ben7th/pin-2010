@@ -44,10 +44,16 @@ pie.load(function(){
       url : "/cooperate/"+mindmap_id+"/add_cooperator",
       data : "user_ids="+add_cooperator_ids.join(","),
       type : "POST",
+      beforeSend:function(){
+        pie.show_loading_bar();
+      },
       success : function(res){
         close_ccpanel();
         var ava_elm = jQuery(res);
         jQuery(".avatars").find('.cooperator-config').before(ava_elm);
+      },
+      complete:function(){
+        pie.hide_loading_bar();
       }
     });
   });
@@ -113,6 +119,7 @@ pie.load(function(){
 
   function close_ccpanel(){
     ccpanel_elm.hide();
+    ccpanel_elm.attr("data-show",null)
   }
 });
 

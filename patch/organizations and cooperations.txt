@@ -24,4 +24,23 @@ htmlDocument
 
 增加了豆瓣认证的代码，需要安装依赖的gem
   gem install douban-ruby
-    
+  
+-----------------------
+整个步骤
+ 1 运行 user-auth 工程的 数据库迁移
+ 2 运行 mev6 工程的 数据库迁移
+ 3 重启 memcached
+ 4 把团队数据导到频道里
+  运行 user-auth工程的 migrate_organizations_to_channels.rb 脚本
+ 5 把协同数据导入新的表里
+  运行 mev6工程的 
+      migrate_cooperations_to_cooperation_users_and_cooperation_channels.rb
+      脚本
+ 6 把 htmlDocument 关联的 feed 的 creator_id 复制到 htmlDocument上
+  运行 user-auth工程的
+    copy_feed_creator_id_to_html_documents.rb 脚本
+ 7 改频道参与者表 channel_contacts 为 channel_users
+  运行 user-auth工程的
+  from_channel_contact_to_channel_user.rb 脚本
+ 8 增加了豆瓣认证的代码，需要安装依赖的gem
+  gem install douban-ruby

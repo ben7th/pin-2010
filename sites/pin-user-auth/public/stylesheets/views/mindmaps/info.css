@@ -190,6 +190,21 @@
     .map-meta .coop .avatars .avatar {
       float: left;
       margin: 0 4px 4px 0; }
+    .map-meta .coop .avatars .cooperator-config {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      width: 28px;
+      height: 28px;
+      float: left;
+      cursor: pointer; }
+      .map-meta .coop .avatars .cooperator-config .icon {
+        background: url(/images/icons/all.png) no-repeat -75px -142px;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        top: 2px;
+        left: 2px; }
 .map-meta .export, .map-meta .share, .map-meta .similar-maps {
   padding: 5px;
   margin: 0 0 20px 0;
