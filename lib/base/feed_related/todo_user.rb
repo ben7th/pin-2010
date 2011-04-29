@@ -188,9 +188,9 @@ class TodoUser < UserAuthAbstract
       base.has_many :todo_users
       base.has_many :executers,:through=>:todo_users,:source=>:user
       base.has_many :memoed_users_db,:through=>:todo_users,:source=>:user,
-        :conditions=>"todo_user.memo is not null"
+        :conditions=>"todo_users.memo is not null"
       base.has_many :be_asked_users_db,:through=>:todo_users,:source=>:user,
-        :conditions=>"todo_user.memo is null"
+        :conditions=>"todo_users.memo is null"
     end
 
     def create_todo_user_for_channel_main_users

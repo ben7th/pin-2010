@@ -14,14 +14,14 @@
       =link_to '传播','javascript:;',:class=>'transmit',:'data-colunt'=>feed.quotes_count
 
       .split.quiet> -
-      =link_to '评论','javascript:;',:class=>'echo',:'data-colunt'=>feed.quotes_count
+      =link_to '评论','javascript:;',:class=>'echo'
 
       -if feed.creator == current_user
         .split.quiet> -
-        =link_to '删除','javascript:;',:class=>'del',:'data-colunt'=>feed.quotes_count
+        =link_to '删除','javascript:;',:class=>'del'
     -else
       .split.quiet> -
-      =link_to '评论','javascript:;',:class=>'echo',:'data-colunt'=>feed.quotes_count
+      =link_to '评论','javascript:;',:class=>'echo'
 
   .creator
     .avatar

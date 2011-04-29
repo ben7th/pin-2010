@@ -19,8 +19,9 @@
         -else
           = link_to "#{todo_user.comments.count}条评论",'javascript:;',:class=>'echo'
 
-        .split.quiet> -
-        = link_to '派生新话题','javascript:;',:class=>'new-feed'
+        -if params[:dev]
+          .split.quiet> -
+          =link_to '派生新话题','javascript:;',:class=>'new-feed'
 
     .creator
       .avatar

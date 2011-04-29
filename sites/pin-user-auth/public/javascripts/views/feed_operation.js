@@ -47,19 +47,27 @@ pie.load(function(){
     var is_on = elm.hasClass('on');
 
     if(is_on){
+      pie.show_loading_bar();
       jQuery.ajax({
         url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/unfav'),
         type :'delete',
         success : function(res){
           elm.removeClass('on').addClass('off');
+        },
+        complete : function(){
+          pie.hide_loading_bar();
         }
       });
     }else{
+      pie.show_loading_bar();
       jQuery.ajax({
         url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/fav'),
         type :'post',
         success : function(res){
           elm.removeClass('off').addClass('on');
+        },
+        complete : function(){
+          pie.hide_loading_bar();
         }
       });
     }
@@ -67,7 +75,7 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  //回应
+  //评论
   jQuery('.newsfeed .feed .ops .echo').live('click',function(){
     var elm = jQuery(this);
     var feed_f_elm = elm.closest('.f');
@@ -91,11 +99,11 @@ pie.load(function(){
     })
   })
 
-  jQuery('.feed-echo-form .send-to').live('click',function(){
+  jQuery('.newsfeed .feed .feed-echo-form .send-to').live('click',function(){
     jQuery(this).toggleClass('checked');
   })
 
-  jQuery('.feed-echo-form button.editable-submit').live('click',function(){
+  jQuery('.newsfeed .feed .feed-echo-form button.editable-submit').live('click',function(){
     var elm = jQuery(this);
     var form_elm = elm.closest('.feed-echo-form');
     var reply_to_id = form_elm.attr('data-feed-id');
@@ -103,6 +111,7 @@ pie.load(function(){
     var content = form_elm.find('textarea').val();
     var send_new_feed = form_elm.find('.send-to').hasClass('checked');
 
+    pie.show_loading_bar();
     jQuery.ajax({
       url  : '/feeds/reply_to',
       type : 'POST',
@@ -114,20 +123,48 @@ pie.load(function(){
         form_elm.find('ul.comments-list').prepend(li_elm);
         form_elm.find('textarea').val('');
         form_elm.find('.send-to').removeClass('checked');
+      },
+      complete : function(){
+        pie.hide_loading_bar();
       }
     });
   })
 
-  jQuery('.feed-echo-form button.editable-cancel').live('click',function(){
+  jQuery('.newsfeed .feed .feed-echo-form button.editable-cancel').live('click',function(){
     var elm = jQuery(this);
     var cms_elm = elm.closest('.comments');
     cms_elm.remove();
   });
+
+  //删除feed评论
+  //delete /feed_comments/:id
+  jQuery('.newsfeed .feed .comments .delete').live('click',function(){
+    var elm = jQuery(this);
+    var comment_elm = elm.closest('.comment');
+    var comment_id = comment_elm.attr('data-comment-id');
+
+    elm.confirm_dialog('确定要删除这条评论吗',function(){
+      pie.show_loading_bar();
+      jQuery.ajax({
+        url : '/feed_comments/'+comment_id,
+        type : 'delete',
+        success : function(){
+          comment_elm.fadeOut();
+        },
+        complete : function(){
+          pie.hide_loading_bar();
+        }
+      })
+    });
+  })
 });
 
 pie.load(function(){
-  //传阅
+  //传播
   var ftelm = jQuery('<div class="feed-transmit-form popdiv">'+
+    '<div class="title">传播一个话题</div>'+
+    '<div class="flash-success"><span>发送成功</span></div>'+
+    '<div class="ori-feed"></div>'+
     '<div class="ipt"><textarea class="transmit-inputer"></textarea></div>'+
     '<div class="btns">'+
       '<a class="button editable-submit" href="javascript:;">发送</button>'+
@@ -137,41 +174,52 @@ pie.load(function(){
   
   jQuery('.newsfeed .feed .ops .transmit').live('click',function(){
     var elm = jQuery(this);
-    var o = elm.offset();
-    var id = elm.closest('.f').attr('data-id');
+    var off = elm.offset();
+    var fct = elm.closest('.feed').find('.ct').html();
+    var feed_id = elm.closest('.f').attr('data-id');
 
-    if(id == ftelm.attr('data-feed-id')){
+    if(feed_id == ftelm.attr('data-feed-id')){
       ftelm.remove();
       ftelm.attr('data-feed-id','');
       ftelm.find('textarea').val('');
+      ftelm.find('.ori-feed').html('');
     }else{
-      ftelm.css('left',o.left + elm.outerWidth() - 400).css('top',o.top + elm.outerHeight());
-      ftelm.attr('data-feed-id',id);
-
+      ftelm.css('left',off.left - 200).css('top',off.top + elm.outerHeight() + 2);
+      ftelm.attr('data-feed-id',feed_id);
+      ftelm.find('.ori-feed').html(fct);
+      ftelm.find('.flash-success').hide();
       jQuery('body').append(ftelm);
     }
   });
 
-  jQuery('.feed-transmit-form a.button.editable-cancel').live('click',function(){
+  //取消按钮
+  jQuery('.feed-transmit-form .editable-cancel').live('click',function(){
     ftelm.remove();
     ftelm.attr('data-feed-id','');
     ftelm.find('textarea').val('');
   });
 
+  //确定按钮
   jQuery('.feed-transmit-form a.button.editable-submit').live('click',function(){
     var quote_of_id = ftelm.attr('data-feed-id');
     var content = ftelm.find('textarea').val();
-    
+
+    pie.show_loading_bar();
     jQuery.ajax({
       url  : '/feeds/quote',
       type : 'POST',
-      data : 'quote_of='+quote_of_id
-              + '&content=' + encodeURIComponent(content),
+      data : 'quote_of='+quote_of_id+
+             '&content=' + encodeURIComponent(content),
       success : function(res){
-        ftelm.remove();
-        ftelm.attr('data-feed-id','');
-        ftelm.find('textarea').val('');
-        alert('发送成功！')
+        ftelm.find('.flash-success').fadeIn(200);
+        setTimeout(function(){
+          ftelm.remove();
+          ftelm.attr('data-feed-id','');
+          ftelm.find('textarea').val('');
+        },400)
+      },
+      complete : function(){
+        pie.hide_loading_bar();
       }
     });
   });
@@ -203,25 +251,6 @@ pie.load(function(){
       });
     })
   });
-})
-
-pie.load(function(){
-  //删除feed评论
-  //delete /feed_comments/:id
-  jQuery('.newsfeed .feed .comments .delete').live('click',function(){
-    var elm = jQuery(this);
-    var comment_elm = elm.closest('.comment');
-    var comment_id = comment_elm.attr('data-comment-id');
-    if(confirm('确定要删除这条评论吗？')){
-      jQuery.ajax({
-        url : '/feed_comments/'+comment_id,
-        type : 'delete',
-        success : function(){
-          comment_elm.fadeOut();
-        }
-      })
-    }
-  })
 })
 
 pie.load(function(){

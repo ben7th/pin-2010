@@ -1,0 +1,13 @@
+-if feed.has_viewpoint?
+  -vp = feed.hot_viewpoint
+  .hot-viewpoint
+    .arrow
+    .data
+      .avatar
+        =avatar vp.user,:mini
+      .name
+        =usersign(vp.user)
+      .time.quiet
+        =jtime vp.updated_at
+      .memo-content
+        =j_vp_memo(vp)

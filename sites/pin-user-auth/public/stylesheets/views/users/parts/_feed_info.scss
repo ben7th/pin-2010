@@ -28,12 +28,13 @@
 
 @mixin footmisc{
   overflow:hidden;
+  margin-bottom:10px;
   .time{
-    float:left;
+    display:inline;
   }
   .ops{
     overflow:hidden;
-    float:left;
+    display:inline;
     .fav{
       &.off{.t2{display:none;}}
       &.on{.t1{display:none;}}
@@ -45,6 +46,72 @@
     overflow:hidden;
     .avatar{float:left;}
     .name{margin-left:46px;}
+  }
+}
+
+@mixin comments{
+  @include border-radius(3px);
+  margin-bottom:12px;
+  clear:both;
+  padding:5px;
+  &.loading{
+    background-image:url(/images/icons/progress-dots.gif);
+    background-repeat:no-repeat;
+    background-position:10px 4px;
+    height:10px;
+  }
+  .feed-echo-form{
+    .ipt{
+      textarea{
+        width:480px;
+        height:32px;
+        @include border-radius(3px);
+      }
+    }
+    .send-to{
+      margin:5px 0 5px 0;
+      height:19px;
+      line-height:19px;
+      padding:0 0 1px 3px;
+      width:180px;
+      @include border-radius(4px);
+      cursor:default;
+      .icon{
+        width:13px;
+        height:13px;
+        background:url(/images/icons/all.png) no-repeat -82px -100px;
+        float:left;
+        margin-right:5px;
+        position:relative;
+        top:3px;
+      }
+      .name{
+        float:left;
+      }
+      &.checked{
+        .icon{
+          background:url(/images/icons/all.png) no-repeat -68px -100px;
+        }
+      }
+    }
+    .btns{
+      overflow:hidden;
+      @include submitbtns;
+    }
+  }
+  ul.comments-list{
+    margin-top:20px;
+    li.comment{
+      overflow:hidden;
+      padding:5px;
+      .avatar{
+        float:left;
+        margin-right:10px;
+        img{width:16px;height:16px;}
+      }
+      .content{
+      }
+    }
   }
 }
 
@@ -101,23 +168,33 @@
       }
 
       .my-viewpoint,.hot-viewpoint{
-        padding:5px;
         margin:0 0 10px 40px;
-        font-size:14px;
-        background:#F0F9FE;
-        border-left:solid 3px #9BD8FE;
-        @include border-radius(0 3px 3px 0);
-        .avatar{
-          float:right;
-          img{width:20px;height:20px;}
+        .arrow{
+          width:15px;height:7px;
+          @include allicon(-271px,-65px);
+          margin:0 0 0 36px;
         }
-        .name{
-          font-size:12px;
-          margin:0 0 6px 0;
-        }
-        .time{
-          font-size:12px;
-          margin:0 0 6px 0;
+        .data{
+          padding:10px;
+          font-size:14px;
+          background:#F0F9FE;
+          border-left:solid 3px #9BD8FE;
+          @include border-radius(0 3px 3px 0);
+          .avatar{
+            float:right;
+            img{width:20px;height:20px;}
+          }
+          .name{
+            font-size:12px;
+            margin:0 0 6px 0;
+          }
+          .time{
+            font-size:12px;
+            margin:0 0 6px 0;
+          }
+          .memo-content{
+            p{margin:0;}
+          }
         }
       }
 
@@ -211,67 +288,8 @@
       }
 
       .comments{
-        @include border-radius(3px);
-        margin:15px 0 15px 35px;
-        clear:both;
-        padding:5px;
-        &.loading{
-          background-image:url(/images/icons/loading-s.gif);
-          background-repeat:no-repeat;
-          background-position:205px 2px;
-          height:10px;
-        }
-        .feed-echo-form{
-          .ipt{
-            textarea{
-              width:486px;
-              height:28px;
-              @include border-radius(3px);
-            }
-          }
-          .send-to{
-            margin:5px 0 5px 0;
-            height:19px;
-            line-height:19px;
-            padding:0 0 1px 3px;
-            cursor:default;
-            .icon{
-              width:13px;
-              height:13px;
-              background:url(/images/icons/all.png) no-repeat -82px -100px;
-              float:left;
-              margin-right:5px;
-              position:relative;
-              top:3px;
-            }
-            .name{
-              float:left;
-            }
-            &.checked{
-              .icon{
-                background:url(/images/icons/all.png) no-repeat -68px -100px;
-              }
-            }
-          }
-          .btns{
-            overflow:hidden;
-            @include submitbtns;
-          }
-        }
-        ul.comments-list{
-          margin-top:20px;
-          li.comment{
-            overflow:hidden;
-            padding:5px;
-            .avatar{
-              float:left;
-              margin-right:10px;
-              img{width:16px;height:16px;}
-            }
-            .content{
-            }
-          }
-        }
+        @include comments;
+        margin-left:40px;
       }
 
     }

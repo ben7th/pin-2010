@@ -10,10 +10,10 @@ pie.load(function(){
       '<div class="comments"><span class="num">1</span> 条新回应，<a href="'+
         pie.pin_url_for('pin-user-auth','received_comments')
       +'">点击查看~</a></div>'+
-      '<div class="quotes"><span class="num">1</span> 次被传阅，<a href="'+
+      '<div class="quotes"><span class="num">1</span> 次被传播，<a href="'+
         pie.pin_url_for('pin-user-auth','quoted_me_feeds')
       +'">点击查看~</a></div>'+
-      '<div class="todos"><span class="num">1</span> 个新任务，<a href="'+
+      '<div class="todos"><span class="num">1</span> 个话题邀请，<a href="'+
         pie.pin_url_for('pin-user-auth','todos')
       +'">点击查看~</a></div>'+
     '</div>'

@@ -43,6 +43,11 @@
     @include footmisc;
   }
 
+  .comments{
+    @include comments;
+    width:500px;
+  }
+
   /*feed内容扩展部分*/
   .extitem{
     .answers{
@@ -150,7 +155,6 @@
       width:400px;
       .list{
         overflow:hidden;
-        margin:0 0 6px 0;
         .comment{
           overflow:hidden;
           padding:5px;
@@ -176,7 +180,7 @@
       .inputer{
         width:600px;
         height:84px;
-        line-height:21px;
+        font-size:12px;
       }
     }
   }
@@ -192,8 +196,9 @@
       }
       .add-viewpoint-inputer{
         textarea{
-          width:450px;
-          height:100px;
+          width:600px;
+          height:84px;
+          font-size:12px;
         }
       }
     }
@@ -205,5 +210,17 @@
   &.vp-added{
     .point-form{display:none;}
     .point-added{display:block;}
+  }
+}
+
+.show-page-memoed-users{
+  padding:5px;
+  .avatar{margin:0 4px 4px 0;}
+}
+
+.show-page-simlar-feeds{
+  overflow:hidden;
+  .f{
+    padding:5px;
   }
 }

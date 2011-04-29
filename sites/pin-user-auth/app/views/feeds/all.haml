@@ -1,5 +1,16 @@
-.newsfeed
-  =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
+-require_css 'views/users',true
 
-.feed-paginate.padding5
-  = will_paginate @feeds
+-content_for :title do
+  大家最近的话题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_14.alpha
+  .grid-title
+    大家最近的话题
+  .newsfeed
+    =render 'index/homepage/feeds/new_feeds',:newsfeeds=>@feeds
+
+  .feed-paginate.padding5
+    = will_paginate @feeds

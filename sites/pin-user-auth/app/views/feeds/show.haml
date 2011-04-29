@@ -15,10 +15,16 @@
   =render 'feeds/show_parts/feed_show',:feed=>@feed
 
 .grid_5.omega.fright
-  .grid-title
-    相关话题
-  .simlar-feeds.padding5
+  .grid-title 参与者
+  .show-page-memoed-users
+    -@feed.memoed_users.each do |u|
+      %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+        =avatar u,:mini
+
+  .hrr
+  .grid-title 相关话题
+  .show-page-simlar-feeds
     -simlar_feeds = FeedLucene.similar_feeds_of(@feed)
     -simlar_feeds.each do |f|
       .f.btb
-        =f.content
+        =link_to truncate_u(f.content,32),"/feeds/#{f.id}"

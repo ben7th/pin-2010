@@ -4,6 +4,7 @@
       .avatar
         =avatar(comment.user,:mini)
       .content
+        %span.name=link_to comment.user.name,comment.user
         =comment.content
         %span.quiet (#{jtime(comment.created_at)})
         -if logged_in? && comment.user == current_user

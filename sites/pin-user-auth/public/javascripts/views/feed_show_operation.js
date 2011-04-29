@@ -1,4 +1,5 @@
 pie.load(function(){
+  // 发表观点
   jQuery('.page-show-add-viewpoint .subm .editable-submit').live('click',function(){
     var elm = jQuery(this);
     var psav_elm = elm.closest('.page-show-add-viewpoint');
@@ -6,20 +7,25 @@ pie.load(function(){
     var content = psav_elm.find('.add-viewpoint-inputer .inputer').val();
 
     //   post /feeds/:id/viewpoint params[:content]
+    pie.show_loading_bar();
     jQuery.ajax({
       url : '/feeds/'+feed_id+'/viewpoint',
       type : 'post',
       data : 'content='+encodeURIComponent(content),
       success : function(res){
         var vp_elm = jQuery(res);
-        jQuery('.feed-viewpoints').append(vp_elm);
+        jQuery('.page-feed-viewpoints').append(vp_elm);
         vp_elm.hide().fadeIn('fast');
         jQuery('.page-show-add-viewpoint').addClass('vp-added');
+      },
+      complete : function(){
+        pie.hide_loading_bar();
       }
     })
   });
+});
 
-
+pie.load(function(){
   var comments_elm = jQuery(
     '<div class="comments darkbg">'+
       '<div class="comment-form">'+
@@ -33,7 +39,7 @@ pie.load(function(){
     '</div>'
   )
 
-  //观点的评论
+  // 针对观点的评论
   jQuery('.page-feed-viewpoints .viewpoint .ops .echo').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
@@ -59,6 +65,7 @@ pie.load(function(){
     }
   })
 
+  // 确定
   jQuery('.page-feed-viewpoints .viewpoint .comments .btns .editable-submit').live('click',function(){
     //post /viewpoints/:id/comments params[:content]
     var elm = jQuery(this);
@@ -83,6 +90,7 @@ pie.load(function(){
     })
   })
 
+  //取消
   jQuery('.page-feed-viewpoints .viewpoint .comments .btns .editable-cancel').live('click',function(){
     comments_elm.remove();
   })
@@ -110,9 +118,8 @@ pie.load(function(){
   })
 });
 
+
 pie.load(function(){
-  //修改观点
-  var ori_form_elm = jQuery('.page-show-add-viewpoint .point-form .add-viewpoint-inputer');
   var form_elm = jQuery(
     '<div class="viewpoint-edit-form">'+
       '<div class="btns">'+
@@ -121,9 +128,12 @@ pie.load(function(){
       '</div>'+
     '</div>'
   )
-  form_elm.find('.btns').before(ori_form_elm);
 
+  //修改观点
   jQuery('.page-feed-viewpoints .viewpoint .ops .edit').live('click',function(){
+    var ori_form_elm = jQuery('.page-show-add-viewpoint .point-form .add-viewpoint-inputer');
+    form_elm.find('.btns').before(ori_form_elm);
+
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
     var main_elm = vp_elm.find('.main');
@@ -133,6 +143,7 @@ pie.load(function(){
     form_elm.show();
   });
 
+  //确定
   jQuery('.page-feed-viewpoints .viewpoint .viewpoint-edit-form .editable-submit').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
@@ -156,10 +167,10 @@ pie.load(function(){
         pie.hide_loading_bar();
       }
     })
-
   });
 
 
+  //取消
   jQuery('.page-feed-viewpoints .viewpoint .viewpoint-edit-form .editable-cancel').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
@@ -170,8 +181,9 @@ pie.load(function(){
 
 });
 
-//show页面的关注
+
 pie.load(function(){
+  //show页面的关注
   jQuery('.page-feed-show .ops .fav').live('click',function(){
     var elm = jQuery(this);
     var feed_id = elm.closest('.page-feed-show').attr('data-id');
@@ -206,8 +218,8 @@ pie.load(function(){
   });
 });
 
-//show页面的删除
 pie.load(function(){
+  //show页面的删除
   jQuery('.page-feed-show .ops .del').live('click',function(){
     var elm = jQuery(this);
     var feed_id = elm.closest('.page-feed-show').attr('data-id');
@@ -228,8 +240,9 @@ pie.load(function(){
   });
 });
 
-//show页面的传播
+
 pie.load(function(){
+  //show页面的传播
   var ftelm = jQuery('<div class="feed-transmit-form-show popdiv">'+
     '<div class="title">传播一个话题</div>'+
     '<div class="flash-success"><span>发送成功</span></div>'+
@@ -268,6 +281,7 @@ pie.load(function(){
     ftelm.find('textarea').val('');
   });
 
+  //确定按钮
   jQuery('.feed-transmit-form-show .editable-submit').live('click',function(){
     var quote_of_id = ftelm.attr('data-feed-id');
     var content = ftelm.find('textarea').val();
@@ -292,3 +306,88 @@ pie.load(function(){
     });
   });
 })
+
+pie.load(function(){
+  //show页面的评论
+  jQuery('.page-feed-show .ops .echo').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var feed_id = feed_elm.attr('data-id');
+    var footmisc_elm = feed_elm.find('.footmisc')
+
+    if(footmisc_elm.next('.comments').length > 0){
+      feed_elm.find('.comments').remove();
+      return;
+    }
+
+    var cms_elm = jQuery('<div class="comments darkbg loading"></div>')
+    feed_elm.append(cms_elm);
+
+    jQuery.ajax({
+      url  : "/feeds/" + feed_id + "/aj_comments",
+      type : 'GET',
+      success : function(res){
+        var res_elm = jQuery(res);
+        cms_elm.append(res_elm).removeClass('loading');
+      }
+    })
+    
+  })
+
+  jQuery('.page-feed-show .feed-echo-form .send-to').live('click',function(){
+    jQuery(this).toggleClass('checked');
+  })
+
+  jQuery('.page-feed-show .feed-echo-form button.editable-cancel').live('click',function(){
+    var elm = jQuery(this);
+    var cms_elm = elm.closest('.comments');
+    cms_elm.remove();
+  });
+
+  jQuery('.page-feed-show .feed-echo-form button.editable-submit').live('click',function(){
+    var elm = jQuery(this);
+    var form_elm = elm.closest('.feed-echo-form');
+    var reply_to_id = form_elm.attr('data-feed-id');
+
+    var content = form_elm.find('textarea').val();
+    var send_new_feed = form_elm.find('.send-to').hasClass('checked');
+
+    pie.show_loading_bar();
+    jQuery.ajax({
+      url  : '/feeds/reply_to',
+      type : 'POST',
+      data : 'reply_to='+reply_to_id
+              + '&content=' + encodeURIComponent(content)
+              + '&send_new_feed=' + send_new_feed,
+      success : function(res){
+        var li_elm = jQuery(res);
+        form_elm.find('ul.comments-list').prepend(li_elm);
+        form_elm.find('textarea').val('');
+        form_elm.find('.send-to').removeClass('checked');
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    });
+  })
+
+  jQuery('.page-feed-show .feed-echo-form .comments-list .delete').live('click',function(){
+    var elm = jQuery(this);
+    var comment_elm = elm.closest('.comment');
+    var comment_id = comment_elm.attr('data-comment-id');
+
+    elm.confirm_dialog('确定要删除这条评论吗',function(){
+      pie.show_loading_bar();
+      jQuery.ajax({
+        url : '/feed_comments/'+comment_id,
+        type : 'delete',
+        success : function(){
+          comment_elm.fadeOut();
+        },
+        complete : function(){
+          pie.hide_loading_bar();
+        }
+      })
+    });
+  })
+});
