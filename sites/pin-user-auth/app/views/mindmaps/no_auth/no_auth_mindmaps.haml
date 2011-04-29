@@ -6,7 +6,10 @@
 .grid_16.alpha
   .grid-title
     大家的思维导图（只显示公开的）
-  =render :partial=>"index/homepage/mindmaps_others"
+  =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
+
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps
 
 .grid_7.omega.fright
   .no-auth

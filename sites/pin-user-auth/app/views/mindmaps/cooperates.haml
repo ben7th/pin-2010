@@ -1,2 +1,17 @@
--@mindmaps.each do |mindmap|
-  =mindmap.title
+- require_css 'views/users',true
+
+-content_for :title do
+  我的协同思维导图
+
+.grid_16.alpha
+  .grid-title
+    我参与协同编辑的思维导图
+  =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
+
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps
+
+.grid_5.fright
+  .index-search-form.mindmap
+    =render :partial=>'mindmaps/parts/mindmap_search_form'
+  =render :partial=>'mindmaps/parts/mindmap_links'

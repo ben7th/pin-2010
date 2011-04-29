@@ -3,17 +3,13 @@
 -content_for :title do
   #{@user.name}的思维导图
 
-.grid_3.alpha
-  =render 'users/homepage/user_misc_info',:user=>@user
-
-.grid_14.paddingl20
+.grid_16.alpha
   =render 'users/homepage/top_userinfo',:user=>@user
 
   .homepage-see-others
     =link_to '>>去看看他的话题吧',pin_url_for("pin-user-auth","/users/#{@user.id}")
 
-  =render :partial=>'index/homepage/mindmaps'
+  =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
 
 .grid_5.fright
-  .margint30
-    =render :partial=>'index/homepage/flash_chart',:locals=>{:user=>@user}
+  =render :partial=>'mindmaps/homepage/flash_chart',:locals=>{:user=>@user}

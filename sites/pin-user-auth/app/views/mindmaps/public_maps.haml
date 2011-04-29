@@ -1,3 +1,17 @@
 - require_css 'views/users',true
-  
-=render :partial=>"index/homepage/mindmaps_others"
+
+-content_for :title do
+  大家的思维导图
+
+.grid_16.alpha
+  .grid-title
+    大家的思维导图（只显示公开的）
+  =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
+
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps
+
+.grid_5.fright
+  .index-search-form.mindmap
+    =render :partial=>'mindmaps/parts/mindmap_search_form'
+  =render :partial=>'mindmaps/parts/mindmap_links'

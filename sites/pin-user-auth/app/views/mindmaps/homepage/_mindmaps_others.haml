@@ -1,0 +1,39 @@
+.user-mindmaps
+  -mindmaps.each do |mindmap|
+    .mindmap.btb
+      .current
+        .avatar
+          =avatar mindmap.user
+        .meta
+          .name
+            =usersign mindmap.user
+          .preview-misc
+            .preview
+              -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+                =mindmap_thumb(mindmap)
+            .rank{:tipr=>'系统综合评分'}
+              =mindmap.rank_value
+          .map-title=link_to mindmap.title,pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info")
+
+          -if mindmap.cooperate_users.count > 0
+            .map-coop-users.quotebg
+              .desc.quiet 由以下用户协同编辑
+              -mindmap.cooperate_users.each do |u|
+                %a.co-avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+                  =avatar u,:mini
+          
+
+      .foot-misc
+        =jtime(mindmap.updated_at)
+        %span.split.quiet> -
+        =link_to '查看详情',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}/info")
+
+        %span.split.quiet> -
+        =link_to '在编辑器中查看',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}"),:target=>'_blank'
+
+        %span.split.quiet> -
+        =link_to comment_link(mindmap),'javascript:;'
+
+        -if logged_in?
+          %span.split.quiet> -
+          =link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get

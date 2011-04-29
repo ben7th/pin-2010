@@ -9,11 +9,11 @@ class MindmapsController < ApplicationController
   def aj_words
     @user = User.find_by_id(params[:user_id]) if params[:user_id]
     @user ||= current_user
-    render :partial=>'index/homepage/aj_words',:locals=>{:user=>@user}
+    render :partial=>'mindmaps/homepage/aj_words',:locals=>{:user=>@user}
   end
 
   def cooperates
-    @mindmaps = current_user.cooperate_mindmaps
+    @mindmaps = current_user.cooperate_mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
   end
 
   def share

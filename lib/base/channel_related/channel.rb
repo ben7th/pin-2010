@@ -119,4 +119,5 @@ class Channel < UserAuthAbstract
   end
   include FeedChannel::ChannelMethods
   include PositionMethods
+  include CooperationChannel::ChannelMethods
 end

@@ -146,6 +146,8 @@
           margin:0 0 6px 0;
         }
         .preview-misc{
+          overflow:hidden;
+          margin:0 0 6px 0;
           .preview{
             width:124px;
             @include border-radius(5px);
@@ -174,6 +176,16 @@
             text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
             line-height:32px;
           }
+        }
+        .map-title{
+          margin:0 0 6px 0;
+          font-size:14px;
+          font-weight:bold;
+        }
+        .map-coop-users{
+          padding:5px;
+          @include border-radius(0 4px 4px 0);
+          .desc{margin:0 0 6px 0;}
         }
       }
     }
@@ -219,6 +231,37 @@
     }
     .time{
       margin-left:5px;
+    }
+  }
+}
+
+.homepage-stat{
+  .chart{
+    margin:0 0 30px 0;
+    padding:4px;
+    height:110px;
+    @include border-radius(4px);
+  }
+  .keywords{
+    overflow:hidden;
+    margin:0 0 20px 0;
+    padding:5px;
+    .w{
+      margin:0 0 6px 0;
+      overflow:hidden;
+      a.word{
+        float:left;
+        background:#E0EAF1;
+        padding:3px 4px;
+        height:15px;line-height:15px;
+        border-right:solid 1px #3E6D8E;
+        border-bottom:solid 1px #3E6D8E;
+        &:hover{
+          text-decoration:none !important;
+          background:#3E6D8E;
+          color:#e0eaf1;
+        }
+      }
     }
   }
 }

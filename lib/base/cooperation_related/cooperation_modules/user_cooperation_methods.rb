@@ -9,5 +9,15 @@ module UserCooperationMethods
       cooperation_user.mindmap
     end.compact
   end
+  
+  def channel_cooperate_mindmaps
+    channel_cooperate_mindmaps_db
+  end
+
+  def channel_cooperate_mindmaps_db
+    self.belongs_to_channels_db.each do |channel|
+      channel.cooperate_mindmaps_db
+    end.flatten.compact
+  end
 end
 
