@@ -1,0 +1,37 @@
+.user-mindmaps
+  -if mindmaps.blank?
+    .blank.darkbg.font14.padding5.rc5
+      目前还没有思维导图
+  -else
+    -mindmaps.each do |mindmap|
+      .mindmap-m.btb{:'data-id'=>mindmap.id}
+        .current
+          .title.csshov{:tipr=>'点击修改标题'}>=mindmap.title
+          .meta
+            .preview-misc
+              .preview
+                -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
+                  =mindmap_thumb(mindmap)
+              .rank{:tipr=>'系统综合评分'}
+                =mindmap.rank_value
+
+        .foot-misc
+          .time
+            =jtime(mindmap.updated_at)
+            %span.split.quiet> -
+            =link_to '查看详情',pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info")
+
+          .ops
+            -if mindmap.user==current_user
+              =link_to '编辑导图',pin_url_for('pin-mev6',"/mindmaps/#{mindmap.id}/edit"),:target=>'_blank'
+
+              %span.split.quiet> -
+              -klass = mindmap.private ? 'private':'public'
+              -link_to 'javascript:;',:'data-map-id'=>mindmap.id,:class=>"toggle #{klass}" do
+                %span.icon>
+                切换
+                %span.p1> 公开
+                %span.p2> 私有
+
+              %span.split.quiet> -
+              =link_to '删除','javascript:;',:class=>'delete'

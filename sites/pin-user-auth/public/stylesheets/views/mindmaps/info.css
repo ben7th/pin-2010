@@ -1,6 +1,7 @@
 .map-explore {
   overflow: hidden;
-  margin: 0 0 15px 0; }
+  margin: 0 0 15px 0;
+  padding: 5px; }
   .map-explore .btns {
     float: right; }
     .map-explore .btns .prev, .map-explore .btns .next, .map-explore .btns .show {
@@ -61,7 +62,8 @@
 
 .map-info {
   overflow: hidden;
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  padding: 5px; }
   .map-info .preview {
     text-align: center;
     margin-bottom: 20px;
@@ -120,6 +122,7 @@
       border: none; }
 
 .map-misc {
+  padding: 5px;
   margin: 0 0 20px 0;
   font-size: 14px; }
   .map-misc .split {
@@ -215,3 +218,14 @@
       background-image: url(/images/share/renren.png); }
     .map-meta .share a.share_to.douban {
       background-image: url(/images/share/douban.png); }
+
+.map-comment {
+  padding: 5px; }
+  .map-comment .form {
+    margin: 0 0 20px 0; }
+  .map-comment .mindmap-comment-list .comment {
+    padding: 5px; }
+    .map-comment .mindmap-comment-list .comment .avatar {
+      float: left; }
+    .map-comment .mindmap-comment-list .comment .data {
+      margin: 0 0 0 40px; }

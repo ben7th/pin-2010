@@ -1,131 +1,38 @@
-.user-mindmaps{
-  ul{
-    overflow:hidden;
-    .mpli{
-      padding-bottom:15px !important;
-      margin: 0 0 15px 0;
-      float:left;
-      width:180px;
-      .title{
-        width:166px;
-        line-height:20px;
-        height:20px;
-        overflow:visible;
-        padding:0 0 0 5px;
-        margin:0 0 2px 0;
-        overflow:hidden;
-        font-weight:bold;
-        font-size:13px;
-        @include border-radius(4px);
-        @include editable-form;
-        cursor:pointer;
-        form{margin-left:-5px;margin-top:-2px;}
-      }
-      .meta{
-        overflow:hidden;
-        .preview{
-          float:left;
-          width:124px;
-          height:124px;
-          padding:5px;
-          @include border-radius(5px 0 5px 5px);
-          img{
-            border:solid 2px #A3A3A3;
-            @include border-radius(3px);
-            &:hover{
-              cursor:url("/images/big.cur"), auto;
-            }
-          }
-        }
-        .rank{
-          float:left;
-          width:32px;
-          height:32px;
-          @include border-radius(0 5px 5px 0);
-          margin: 0 0 2px 0;
-          span{
-            @include border-radius(3px);
-            width:24px;height:24px;
-            line-height:24px;text-align:center;
-            display:block;
-            font-weight:bold;
-            font-size:14px;
-            margin:3px 0 0 3px;
-          }
-        }
-
-        .action{
-          float:left;
-          width:32px;margin:0;padding:0;font-size:0;
-          position:relative;
-          .edit, .coop, .info, .dup, .pt{
-            width:32px;
-            height:32px;
-            @include border-radius(0 5px 5px 0);
-            margin: 0 0 2px 0;
-            a{
-              display:block;
-              position:relative;
-              top:3px;left:3px;
-              width:24px;height:24px;
-              text-indent:-999px;
-              font-size:0px;
-              line-height:0px;
-            }
-          }
-
-          .edit a{background:url(/images/icons/all.png) 0   0px no-repeat;}
-          .coop a{background:url(/images/icons/all.png) 0 -25px no-repeat;}
-          .info a{background:url(/images/icons/all.png) 0 -50px no-repeat;}
-          .dup  a{background:url(/images/icons/all.png) 0 -75px no-repeat;}
-
-          .pt{
-            width:24px;height:24px;
-            .toggle{
-              cursor:pointer;
-              display:block;
-              width:16px;height:16px;
-              @include border-radius(3px);
-              position:relative;top:4px;left:4px;
-              &.public {background:url(/images/icons/all.png) -34px -100px no-repeat !important;}
-              &.private{background:url(/images/icons/all.png) -17px -100px no-repeat !important;}
-              &.loading{background:url(/images/icons/toggle-loading-12.gif) 2px 2px no-repeat !important;}
-            }
-          }
-          .delete{
-            width:16px;
-            height:16px;
-            left:-20px;
-            bottom:-22px;
-            @include border-radius(0 0 5px 5px);
-            margin: 0 0 0 0;
-            position:absolute;
-            a{
-              width:16px;height:16px;
-              display:block;
-              background:url(/images/icons/all.png) 0 -100px no-repeat;
-              text-indent:-999px;
-              font-size:0px;
-              line-height:0px;
-            }
-          }
-        }
-      }
-
-      .time{
-        float:left;
-        @include border-radius(4px);
-        height:14px;
-        line-height:14px;
-        padding:0 4px;
-        margin:2px 0 0 0;
-        .date{}
+@mixin preview-misc{
+  overflow:hidden;
+  margin:0 0 6px 0;
+  .preview{
+    width:124px;
+    @include border-radius(5px);
+    font-size:0px;
+    line-height:0px;
+    float:left;
+    margin: 0 10px 0 0;
+    img{
+      border:solid 2px #A3A3A3;
+      @include border-radius(3px);
+      &:hover{
+        cursor:url("/images/big.cur"), auto;
       }
     }
+  }
+  .rank{
+    float:left;
+    width:32px;
+    height:32px;
+    @include border-radius(5px);
+    background:#0077DD;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
+    line-height:32px;
   }
 }
 
 .user-mindmaps{
+  overflow:hidden;
   .mindmap{
     overflow:hidden;
     margin:0 0 20px 0;
@@ -146,36 +53,7 @@
           margin:0 0 6px 0;
         }
         .preview-misc{
-          overflow:hidden;
-          margin:0 0 6px 0;
-          .preview{
-            width:124px;
-            @include border-radius(5px);
-            font-size:0px;
-            line-height:0px;
-            float:left;
-            margin: 0 10px 0 0;
-            img{
-              border:solid 2px #A3A3A3;
-              @include border-radius(3px);
-              &:hover{
-                cursor:url("/images/big.cur"), auto;
-              }
-            }
-          }
-          .rank{
-            float:left;
-            width:32px;
-            height:32px;
-            @include border-radius(5px);
-            background:#0077DD;
-            color:#fff;
-            font-size:18px;
-            font-weight:bold;
-            text-align:center;
-            text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
-            line-height:32px;
-          }
+          @include preview-misc;
         }
         .map-title{
           margin:0 0 6px 0;
@@ -195,6 +73,66 @@
       font-family:"Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important;
       .split{padding:0 4px;}
       .time{float:left;}
+    }
+  }
+
+  .mindmap-m{
+    float:left;
+    width:250px;
+    padding:5px;
+    margin:0 10px 10px 0;
+    border-right:dashed 1px #DFDFDF;
+    .current{
+      .title{
+        font-weight:bold;
+        margin:0 0 12px 0;
+        @include border-radius(4px);
+        position:relative;
+        height:22px;
+        line-height:22px;
+        form{
+          left:-5px;top:-5px;
+          @include border-radius(4px);
+          border:solid 2px 2px solid #525566;
+          background:#F6F8EE;
+          padding:5px;
+          position:absolute;
+          @include submitbtns;
+          input{font-size:12px;}
+        }
+      }
+    }
+    .meta{
+      margin:0 0 10px 0;
+      .preview-misc{
+        @include preview-misc;
+        height:124px;
+      }
+    }
+    .foot-misc{
+      margin:0 0 10px 0;
+      .time{
+        margin:0 0 6px 0;
+      }
+      .ops{
+        .toggle{
+          position:relative;
+          margin-left:18px;
+          .icon{
+            width:16px;height:16px;
+            position:absolute;
+            left:-18px;
+          }
+          &.public{
+            .icon{@include allicon(-34px,-100px);}
+            .p1{font-weight:bold;}
+          }
+          &.private{
+            .icon{@include allicon(-17px,-100px);}
+            .p2{font-weight:bold;}
+          }
+        }
+      }
     }
   }
 }
@@ -262,6 +200,168 @@
           color:#e0eaf1;
         }
       }
+    }
+  }
+}
+
+
+.feed-form-mev6{
+  padding:60px 0 45px 10px;
+  position:relative;
+  background:url(/images/icons/mindmap-form-bg.png) no-repeat 0 0;
+  @include border-radius(6px);
+  border:solid 1px #ddd;
+  width:520px;
+
+  .btns{
+    width:500px;
+    overflow:hidden;
+    .import-mindmap,.create-mindmap,.edit-mindmap,.send{
+      width:32px;
+      height:32px;
+      @include border-radius(4px);
+      float:left;
+      margin:5px 5px 5px 0;
+      cursor:pointer;
+      color:white;
+      @include gradient(#84A2D4,#2A4072);
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      border:solid 1px #6CD4F6;
+      &:hover{
+        @include gradient(#89C3EB,#4C6DB4);
+        color:white;
+        text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      }
+    }
+    .import-mindmap{
+      /*@include gradient(#BBC9E6,#BCBCDE);*/
+      @include gradient(#94E4FD,#3FC3EF);
+      .icon{
+        background:url(/images/icons/all.png) no-repeat 0 -117px;
+        width:24px;
+        height:24px;
+        margin:3px 0 0 3px;
+      }
+      &:hover{
+        @include gradient(#B3ECFC,#6AD6F4);
+      }
+    }
+    .create-mindmap,.edit-mindmap{
+      width:70px;
+      margin:5px 0 5px;
+      font-size:14px;
+      font-weight:bold;
+      line-height:32px;
+      padding:0 0 0 10px;
+      border:solid 1px #556FA1;
+    }
+    .feed-content{
+      width:320px;
+      height:22px;
+      float:left;
+      margin:5px 5px 5px 0;
+      background:#F7FCFF;
+    }
+    .import-loading,.import-loading-tips{display:none;}
+    &.loading{
+      .import-mindmap{display:none;}
+      .import-loading{
+        display:block;float:left;
+        width:32px;height:32px;
+        background:url(/images/icons/feed-form-loading.gif) 1px 1px no-repeat;
+        margin:5px 5px 5px 0;
+      }
+      input.feed-content{display:none;}
+      .create-mindmap{display:none;}
+      .import-loading-tips{
+        display:block;
+        float:left;
+        font-size:14px;
+        margin-top:4px;
+        border:solid 1px #111;
+        background:#323546;
+        padding:0 5px;
+        height:32px;line-height:32px;
+        @include border-radius(4px);
+      }
+    }
+  }
+  .import-mindmap-image{
+    background:#323546;
+    border:solid 1px #111;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    .close-import-mindmap-image {
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+    .image{
+      width:125px;
+      height:125px;
+      margin-top:16px;
+      img{
+        border:solid 2px #A3A3A3;
+        @include border-radius(3px);
+      }
+    }
+  }
+  .import-mindmap-form{
+    background:#323546;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    width:360px;
+    border:solid 3px #D9D9D7;
+    text-align:center;
+    #file-upload-btn{
+      height:32px;
+    }
+    .close{
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+  }
+  .import-error{
+    background:#323546;
+    @include border-radius(4px);
+    border:solid 1px #111;
+    width:300px;
+    padding:5px;
+    position:absolute;
+    top:41px;
+    color:#FFB49C;
+    .close{
+      position:absolute;
+      right:3px;
+      top:6px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
     }
   }
 }

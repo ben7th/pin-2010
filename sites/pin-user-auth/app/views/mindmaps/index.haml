@@ -6,25 +6,25 @@
 -content_for :javascripts do
   = javascript_include_tag "views/mindmap_create_form"
   = javascript_include_tag "views/mindmap_title_inplace_edit"
-  = javascript_include_tag "views/index_channel_panel"
   = javascript_include_tag "views/feed_operation"
 
 .grid_3.alpha
-  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>@user}
+  =render 'index/index_parts/user_info',:user=>@user
 
 .grid_14.paddingl20
-  =render :partial=>'index/homepage/feeds/feed_form_mev6'
+  =render 'index/homepage/feeds/feed_form_mev6'
 
   .homepage-see-others
     =link_to '&gt;&gt;转到话题页',pin_url_for("pin-user-auth","/")
 
-  =render :partial=>'index/homepage/mindmaps'
+  =render 'mindmaps/homepage/mindmaps_management',:mindmaps=>@mindmaps
+
   .mindmap-paginate.padding5
     = will_paginate @mindmaps
 
 .grid_5.fright
   .index-search-form.mindmap
-    =render :partial=>'mindmaps/parts/mindmap_search_form'
-  =render :partial=>'mindmaps/parts/mindmap_links'
+    =render 'mindmaps/parts/mindmap_search_form'
+  =render 'mindmaps/parts/mindmap_links'
   .margint30
-    =render :partial=>'mindmaps/homepage/flash_chart',:locals=>{:user=>@user}
+    =render 'mindmaps/homepage/flash_chart',:user=>@user

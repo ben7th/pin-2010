@@ -3,6 +3,7 @@
 .map-explore{
   overflow:hidden;
   margin:0 0 15px 0;
+  padding:5px;
   .btns{
     float:right;
     .prev,.next,.show{
@@ -72,6 +73,7 @@
 .map-info{
   overflow:hidden;
   margin:0 0 20px 0;
+  padding:5px;
   .preview{
     text-align:center;
     margin-bottom:20px;
@@ -98,6 +100,7 @@
 }
 
 .map-misc{
+  padding:5px;
   margin: 0 0 20px 0;
   font-size:14px;
   .split{
@@ -200,6 +203,24 @@
       }
       &.douban {
         background-image: url(/images/share/douban.png);
+      }
+    }
+  }
+}
+
+.map-comment{
+  padding:5px;
+  .form{
+    margin:0 0 20px 0;
+  }
+  .mindmap-comment-list{
+    .comment{
+      padding:5px;
+      .avatar{
+        float:left;
+      }
+      .data{
+        margin:0 0 0 40px;
       }
     }
   }

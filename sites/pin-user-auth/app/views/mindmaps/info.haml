@@ -40,16 +40,15 @@
 
   .map-misc
     =jtime(@mindmap.updated_at)
-    %span.split.quiet> •
+    %span.split.quiet> -
     %span> 被修改#{@mindmap.modified_times}次
-    %span.split.quiet> •
+    %span.split.quiet> -
     %span>="#{@mindmap.cooperate_users.count}个协同编辑者"
-    %span.split.quiet> •
+    %span.split.quiet> -
     %span>=link_to '在编辑器中查看',pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}"),:target=>'_blank'
 
   -if logged_in?
     .map-action
-      .title 导图操作
       -if @mindmap.has_edit_rights?(current_user)
         .ac
           .pt
@@ -57,15 +56,22 @@
             .desc 切换公开/私有
           .o
             =link_to '编辑',pin_url_for('pin-mev6',"mindmaps/#{@mindmap.id}/edit"),:target=>'_blank'
+
+            %span.split.quiet> -
             =link_to '删除',"/mindmaps/#{@mindmap.id}",:method=>:delete,:confirm=>"你确定删除这个导图么？"
+
+            %span.split.quiet> -
             =link_to_remote "复制",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
-            %a.fav{:"data-m-id"=>@mindmap.id,:href=>'javascript:;',:class=>@mindmap.fav_by?(current_user) ? 'on':'off'}
+
+            %a.fav.hide{:"data-m-id"=>@mindmap.id,:href=>'javascript:;',:class=>@mindmap.fav_by?(current_user) ? 'on':'off'}
               .t.t1 收藏
               .t.t2 取消收藏
       -else
         .ac
           =link_to_remote "复制导图",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
 
+  .grid-title
+    导图评论
   .map-comment
     =render "mindmaps/info_parts/comments",:mindmap=>@mindmap
 
