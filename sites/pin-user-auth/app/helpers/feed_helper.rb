@@ -122,7 +122,21 @@ module FeedHelper
       :joins=>'JOIN feeds ON feeds.creator_id = users.id',
       :conditions=>['logo_file_name IS NOT NULL'],
       :limit=>32,
-      :order=>'feeds.id asc'
+      :order=>'feeds.id desc'
+    )
+  end
+
+  def recent_feeds
+    Feed.paginate(:per_page=>5,:page=>1,:order=>'id desc')
+  end
+
+  def hot_discuss_feeds
+    Feed.find(
+      :all,
+      :select=>'DISTINCT feeds.*',
+      :joins=>'JOIN todos on todos.feed_id = feeds.id',
+      :limit=>10,
+      :order=>'feeds.id desc'
     )
   end
 end

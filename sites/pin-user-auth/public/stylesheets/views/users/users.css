@@ -805,7 +805,7 @@ form.new_message .w300 {
       line-height: 0px; }
       .feed-form .ipter .ipts .feed-content {
         width: 430px;
-        height: 98px;
+        height: 96px;
         overflow: hidden;
         position: relative;
         border: solid 4px #293100;
@@ -1743,6 +1743,35 @@ form.new_message .w300 {
     .index-user-info .avatars a img.mini {
       height: 24px;
       width: 24px; }
+
+.index-no-feeds {
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  font-size: 14px;
+  margin: 0 0 10px 0; }
+
+.index-newbie-welcome {
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  font-size: 14px; }
+  .index-newbie-welcome .title {
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 12px 0; }
+  .index-newbie-welcome .desc .p.mb {
+    margin: 0 0 14px 0; }
+  .index-newbie-welcome .desc span.l {
+    color: #8C6635; }
+  .index-newbie-welcome .desc .feeds {
+    margin: 0 0 12px 12px; }
+  .index-newbie-welcome .desc .users {
+    margin: 0 0 12px 12px; }
+    .index-newbie-welcome .desc .users .avatar {
+      margin: 0 4px 4px 0; }
 
 .index-channels, .index-belongs-to-channels {
   border-radius: 4px;

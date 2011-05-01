@@ -93,3 +93,32 @@
     }
   }
 }
+
+.index-no-feeds{
+  padding:5px;
+  @include border-radius(4px);
+  font-size:14px;
+  margin: 0 0 10px 0;
+}
+
+.index-newbie-welcome{
+  padding:5px;
+  @include border-radius(4px);
+  font-size:14px;
+  .title{
+    font-weight:bold;
+    font-size:14px;
+    margin:0 0 12px 0;
+  }
+  .desc{
+    .p.mb{margin:0 0 14px 0;}
+    span.l{color:#8C6635;}
+    .feeds{
+      margin:0 0 12px 12px;
+    }
+    .users{
+      margin:0 0 12px 12px;
+      .avatar{margin:0 4px 4px 0};
+    }
+  }
+}
