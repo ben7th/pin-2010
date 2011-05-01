@@ -114,4 +114,15 @@ module FeedHelper
     end
     return re
   end
+
+  def page_hot_users
+    User.find(
+      :all,
+      :select=>'DISTINCT users.*',
+      :joins=>'JOIN feeds ON feeds.creator_id = users.id',
+      :conditions=>['logo_file_name IS NOT NULL'],
+      :limit=>32,
+      :order=>'id asc'
+    )
+  end
 end

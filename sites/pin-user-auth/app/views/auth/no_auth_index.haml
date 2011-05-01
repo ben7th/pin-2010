@@ -50,8 +50,7 @@
     .hrr
     .grid-title 看看他们的主页吧
     .hot-user-pages
-      -users = User.find(:all,:select=>'distinct users.*',:joins=>'join feeds on feeds.creator_id = users.id',:conditions=>['logo_file_name is NOT NULL'],:limit=>32)
-      -users.each do |u|
+      -page_hot_users.each do |u|
         %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
           =avatar u,:mini
       
