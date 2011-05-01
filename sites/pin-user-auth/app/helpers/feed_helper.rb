@@ -122,7 +122,7 @@ module FeedHelper
       :joins=>'JOIN feeds ON feeds.creator_id = users.id',
       :conditions=>['logo_file_name IS NOT NULL'],
       :limit=>32,
-      :order=>'id asc'
+      :order=>'feeds.id asc'
     )
   end
 end
