@@ -3,32 +3,50 @@
   margin:0 0 25px 0;
   .base{
     overflow:hidden;
-    margin:0 0 10px 0;
+    margin:0 0 20px 0;
     @include border-radius(5px 5px);
     .avatar{
-      @include border-radius(5px 5px 0 0);
       padding:5px;
       font-size:0;
       line-height:0;
     }
     .name{
-      @include border-radius(0 0 5px 5px);
       font-size:14px;
+      font-weight:bold;
       padding:5px;
       overflow:hidden;
       text-align:center;
-      a{float:left;width:100px;overflow:hidden;}
+      a{
+        float:left;width:100px;overflow:hidden;
+        color:black;
+      }
     }
   }
-  .scount{
-    margin:0 0 10px 0;
+
+  .base-no-avatar{
+    margin:0 0 20px 0;
     overflow:hidden;
-    .text{
-      @include border-radius(5px 5px 0 0);
-      margin:0 0 0 2px;
-      float:left;
+    background:#FFFADA;
+    @include border-radius(5px);
+    padding:5px;
+    .desc .tan{
+      color:white;
+      background:#FB4A00;
+      @include border-radius(6px);
+      padding:0 4px;
+      font-weight:bold;
+      margin:0 3px 0 0;
+    }
+  }
+
+  .scount{
+    margin:0 0 20px 0;
+    overflow:hidden;
+    padding:5px;
+    .num{
       overflow:hidden;
-      padding:4px 0;
+      float:left;
+      margin:0 3px 6px 0;
       a{
         display:block;
         font-weight:bold;
@@ -38,15 +56,15 @@
         line-height:14px;
       }
     }
-    .num{
-      overflow:hidden;
+    .text{
+      @include border-radius(5px 5px 0 0);
+      margin:0 0 6px 0;
       float:left;
-      padding:4px 0;
+      overflow:hidden;
       a{
         display:block;
         font-weight:bold;
         @include border-radius(10px);
-        padding:0 6px;
         height:14px;
         line-height:14px;
       }
@@ -54,7 +72,6 @@
     .meta{
       clear:both;
       @include border-radius(5px 5px 5px 5px);
-      padding:5px;
       overflow:hidden;
       @include chs-ch;
       .icons{

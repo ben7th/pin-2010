@@ -5,20 +5,21 @@
 
 .grid_14.alpha
   .grid-title
-    激活您的注册邮箱
+    激活你的注册邮箱
 
   .padding5
     =flash_info
     .email_setting
-      .mail.loud= current_user.email
-      .margint10.marginb3em
-        -if current_user.activated?
-          .email_activated.darkbg 你的注册邮箱已经激活
-        -else
-          .email_activated.darkbg
-            .marginb10
-              你的注册邮箱尚未激活
-            =minibutton '发送激活邮件',send_activation_mail_path
+      .mail
+        %span=current_user.email
+      .hrr
+      -if current_user.activated?
+        .email_activated 你的注册邮箱已经激活
+      -else
+        .email_activated
+          .marginb10
+            你的注册邮箱尚未激活
+          =minibutton '发送激活邮件',send_activation_mail_path
 
 .grid_4.omega.fright
   =render :partial=>'account/parts/account_links'

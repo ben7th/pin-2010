@@ -1643,53 +1643,50 @@ form.new_message .w300 {
   margin: 0 0 25px 0; }
   .index-user-info .base {
     overflow: hidden;
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
     border-radius: 5px 5px;
     -moz-border-radius: 5px 5px;
     -webkit-border-radius: 5px 5px; }
     .index-user-info .base .avatar {
-      border-radius: 5px 5px 0 0;
-      -moz-border-radius: 5px 5px 0 0;
-      -webkit-border-radius: 5px 5px 0 0;
       padding: 5px;
       font-size: 0;
       line-height: 0; }
     .index-user-info .base .name {
-      border-radius: 0 0 5px 5px;
-      -moz-border-radius: 0 0 5px 5px;
-      -webkit-border-radius: 0 0 5px 5px;
       font-size: 14px;
+      font-weight: bold;
       padding: 5px;
       overflow: hidden;
       text-align: center; }
       .index-user-info .base .name a {
         float: left;
         width: 100px;
-        overflow: hidden; }
+        overflow: hidden;
+        color: black; }
+  .index-user-info .base-no-avatar {
+    margin: 0 0 20px 0;
+    overflow: hidden;
+    background: #FFFADA;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 5px; }
+    .index-user-info .base-no-avatar .desc .tan {
+      color: white;
+      background: #FB4A00;
+      border-radius: 6px;
+      -moz-border-radius: 6px;
+      -webkit-border-radius: 6px;
+      padding: 0 4px;
+      font-weight: bold;
+      margin: 0 3px 0 0; }
   .index-user-info .scount {
-    margin: 0 0 10px 0;
-    overflow: hidden; }
-    .index-user-info .scount .text {
-      border-radius: 5px 5px 0 0;
-      -moz-border-radius: 5px 5px 0 0;
-      -webkit-border-radius: 5px 5px 0 0;
-      margin: 0 0 0 2px;
-      float: left;
-      overflow: hidden;
-      padding: 4px 0; }
-      .index-user-info .scount .text a {
-        display: block;
-        font-weight: bold;
-        border-radius: 10px;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        padding: 0 6px;
-        height: 14px;
-        line-height: 14px; }
+    margin: 0 0 20px 0;
+    overflow: hidden;
+    padding: 5px; }
     .index-user-info .scount .num {
       overflow: hidden;
       float: left;
-      padding: 4px 0; }
+      margin: 0 3px 6px 0; }
       .index-user-info .scount .num a {
         display: block;
         font-weight: bold;
@@ -1699,12 +1696,26 @@ form.new_message .w300 {
         padding: 0 6px;
         height: 14px;
         line-height: 14px; }
+    .index-user-info .scount .text {
+      border-radius: 5px 5px 0 0;
+      -moz-border-radius: 5px 5px 0 0;
+      -webkit-border-radius: 5px 5px 0 0;
+      margin: 0 0 6px 0;
+      float: left;
+      overflow: hidden; }
+      .index-user-info .scount .text a {
+        display: block;
+        font-weight: bold;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        height: 14px;
+        line-height: 14px; }
     .index-user-info .scount .meta {
       clear: both;
       border-radius: 5px 5px 5px 5px;
       -moz-border-radius: 5px 5px 5px 5px;
       -webkit-border-radius: 5px 5px 5px 5px;
-      padding: 5px;
       overflow: hidden; }
       .index-user-info .scount .meta .chs .ch {
         margin: 0 0 4px 0;
@@ -2107,15 +2118,17 @@ form.new_message .w300 {
 .module-links-title {
   padding: 0 5px; }
 
-.email_setting .mail {
+.email_setting .mail span {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  font-size: 32px;
+  font-size: 24px;
+  padding: 6px;
   font-weight: bold;
-  width: 400px; }
+  background: #388FFF;
+  color: white;
+  text-shadow: -1px -1px rgba(0, 0, 0, 0.4); }
 .email_setting .email_activated {
-  padding: 5px 10px;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;

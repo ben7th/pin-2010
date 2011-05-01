@@ -1,12 +1,16 @@
 .email_setting{
   .mail{
-    @include border-radius(4px);
-    font-size:32px;
-    font-weight:bold;
-    width:400px;
+    span{
+      @include border-radius(4px);
+      font-size:24px;
+      padding:6px;
+      font-weight:bold;
+      background:#388FFF;
+      color:white;
+      text-shadow:-1px -1px rgba(0,0,0,0.4);
+    }
   }
   .email_activated{
-    padding:5px 10px;
     @include border-radius(4px);
     width:150px;
     font-size:14px;
