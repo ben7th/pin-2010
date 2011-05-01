@@ -50,11 +50,10 @@
     .hrr
     .grid-title 看看他们的主页吧
     .hot-user-pages
-      -users = User.find(:all,:conditions=>['logo_file_name is NOT NULL'],:limit=>32)
+      -users = User.find(:all,:select=>'distinct users.*',:joins=>'join feeds on feeds.creator_id = users.id',:conditions=>['logo_file_name is NOT NULL'],:limit=>32)
       -users.each do |u|
-        -if !u.out_feeds.blank?
-          %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-            =avatar u,:mini
+        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+          =avatar u,:mini
       
     .hrr
     .grid-title 站务
