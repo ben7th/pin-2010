@@ -52,8 +52,9 @@
     .hot-user-pages
       -users = User.find(:all,:conditions=>['logo_file_name is NOT NULL'],:limit=>32)
       -users.each do |u|
-        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-          =avatar u,:mini
+        -if !u.out_feeds.blank?
+          %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+            =avatar u,:mini
       
     .hrr
     .grid-title 站务
