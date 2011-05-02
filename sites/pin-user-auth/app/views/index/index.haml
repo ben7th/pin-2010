@@ -51,7 +51,7 @@
           -hot_discuss_feeds.each do |f|
             .feed
               =link_to truncate_u(f.content,32),f
-        .p.mb 或者去看看这些人的主页
+        .p.mb 或者去看看这些朋友的主页
         .users
           -page_hot_users.each do |u|
             %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}

@@ -130,7 +130,7 @@ pie.load(function(){
   )
 
   //修改观点
-  jQuery('.page-feed-viewpoints .viewpoint .ops .edit').live('click',function(){
+  jQuery('.page-feed-viewpoints .viewpoint .edit-vp .edit').live('click',function(){
     var ori_form_elm = jQuery('.page-show-add-viewpoint .point-form .add-viewpoint-inputer');
     form_elm.find('.btns').before(ori_form_elm);
 

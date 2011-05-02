@@ -3,16 +3,19 @@
 .viewpoint.btb{:'data-id'=>todo_user.id}
   .main
     .content>=vp_memo todo_user
+
+    -if logged_in? && user == current_user
+      .edit-vp
+        -link_to 'javascript:;',:class=>'edit csshov' do
+          .icon
+          %span 修改观点
+
   .footmisc
     .time
       =jtime todo_user.updated_at
 
     .ops
       -if logged_in?
-        -if user == current_user
-          .split.quiet> -
-          = link_to '修改','javascript:;',:class=>'edit'
-
         .split.quiet> -
         -if todo_user.comments.blank?
           = link_to '评论','javascript:;',:class=>'echo'

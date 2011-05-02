@@ -1504,6 +1504,26 @@ form.new_message .w300 {
       .page-feed-viewpoints .viewpoint .main .content {
         font-size: 14px;
         margin: 0 0 10px 0; }
+    .page-feed-viewpoints .viewpoint .edit-vp {
+      overflow: hidden;
+      margin: 0 0 10px 0; }
+      .page-feed-viewpoints .viewpoint .edit-vp a.edit {
+        overflow: hidden;
+        line-height: 16px;
+        height: 16px;
+        float: left;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 0 3px; }
+        .page-feed-viewpoints .viewpoint .edit-vp a.edit .icon {
+          width: 10px;
+          height: 10px;
+          float: left;
+          background: url(/images/icons/all.png) no-repeat -229px -87px;
+          margin: 0 3px 0 0;
+          position: relative;
+          top: 3px; }
     .page-feed-viewpoints .viewpoint .footmisc {
       overflow: hidden;
       margin-bottom: 10px; }
