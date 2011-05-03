@@ -5,7 +5,6 @@ class ImageCacheJsonMetal < BaseMetal
 
 
   def self.deal(hash)
-    0/0
     env = hash[:env]
     url_match = hash[:url_match]
     jsonp_name = env["rack.request.query_hash"]["mindmap_image_cache_callback"]
