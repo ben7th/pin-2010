@@ -139,4 +139,10 @@ module FeedHelper
       :order=>'feeds.id desc'
     )
   end
+
+  def support_str(todo_user)
+    todo_user.viewpoint_votes.map{|vote|
+      link_to(vote.user.name,vote.user,:class=>'quiet')
+    }*',' + '表示赞成'
+  end
 end

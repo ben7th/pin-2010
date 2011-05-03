@@ -87,105 +87,12 @@ class TodoUser < UserAuthAbstract
       todo_user
     end
 
-    # 把 todo_id 对应的任务放在最前面
-    def set_todo_to_first_of_assigned_todos(todo_id)
-      todo_id = todo_id.to_i
-      ids = _assert_assigned_todos_ids_include_todo_id_and_return_assigned_todos_ids(todo_id)
-      return if ids.first == todo_id
-      
-      first_todo = Todo.find(ids.first)
-      todo = Todo.find(todo_id)
-      first_position = first_todo.position
-      todo.update_attributes(:position=>first_position+1)
-
-      # 更新缓存
-      ids.delete(todo_id)
-      new_ids = ids.unshift(todo_id)
-      _change_sort_of_assigned_todos_ids(new_ids)
-    end
-
-    # 把 todo_id 对应的任务和它后边的任务换位置
-    def set_todo_to_down_of_assigned_todos(todo_id)
-      todo_id = todo_id.to_i
-      ids = _assert_assigned_todos_ids_include_todo_id_and_return_assigned_todos_ids(todo_id)
-
-      todo_index = ids.index(todo_id)
-      next_todo_index = todo_index+1
-      next_todo_id = ids[next_todo_index]
-      return if next_todo_id.blank?
-
-      _swap_two_todos_position(todo_id,next_todo_id)
-      new_ids = _swap_two_item_on_array(ids,todo_index,next_todo_index)
-      _change_sort_of_assigned_todos_ids(new_ids)
-    end
-
-    # 把 todo_id 对应的任务和它前面的任务换位置
-    def set_todo_to_up_of_assigned_todos(todo_id)
-      todo_id = todo_id.to_i
-      ids = _assert_assigned_todos_ids_include_todo_id_and_return_assigned_todos_ids(todo_id)
-
-      todo_index = ids.index(todo_id)
-      prev_todo_index = todo_index-1
-      return if prev_todo_index < 0
-      prev_todo_id = ids[prev_todo_index]
-      return if prev_todo_id.blank?
-      _swap_two_todos_position(todo_id,prev_todo_id)
-      new_ids = _swap_two_item_on_array(ids,todo_index,prev_todo_index)
-      _change_sort_of_assigned_todos_ids(new_ids)
-    end
-
-    def _swap_two_todos_position(todo_id,other_todo_id)
-      todo = Todo.find(todo_id)
-      other_todo = Todo.find(other_todo_id)
-      todo_user = self.get_todo_user_by_todo(todo)
-      next_todo_user = self.get_todo_user_by_todo(other_todo)
-      tp = todo_user.position
-      ntp = next_todo_user.position
-      todo_user.update_attributes(:position=>ntp)
-      next_todo_user.update_attributes(:position=>tp)
-    end
-
-    def _swap_two_item_on_array(array,index,other_index)
-      new_array = array.clone
-      other_item = new_array[other_index]
-      item = new_array[index]
-      new_array[index] = other_item
-      new_array[other_index] = item
-      return new_array
-    end
-
-    def _assert_assigned_todos_ids_include_todo_id_and_return_assigned_todos_ids(todo_id)
-      ids = self.assigned_todos_db.map{|todo|todo.id}
-      raise "用户的assigned_todos_ids 中没有这个todo_id" if !ids.include?(todo_id)
-      return ids
-    end
-
-    def to_sort_todos_by_ids(todo_ids)
-      raise "todo_ids 数量有错误" if self.assigned_todos.length != todo_ids.length
-      raise "todo_ids 中 有不属于 user 的 todo" if (todo_ids|self.assigned_todos_ids) != todo_ids
-      begin
-        todos = Todo.find(todo_ids)
-        todos.each_with_index do |todo,index|
-          todo_user = self.get_todo_user_by_todo(todo)
-          todo_user.positon = index+1
-          todo_user.save if todo_user.changed?
-        end
-        self.change_sort_of_assigned_todos_ids(todo_ids)
-      rescue ActiveRecord::RecordNotFound => ex
-        raise "todo_ids 中 有不存在的 todo"
-      end
-    end
-
-    def _change_sort_of_assigned_todos_ids(todos_ids)
-      UserAssignedTodosProxy.new(self).change_sort(todos_ids)
-    end
-
   end
 
   module TodoMethods
     def self.included(base)
       base.after_create :create_todo_user_for_channel_main_users
-      base.has_many :todo_users
+      base.has_many :todo_users,:order=>"todo_users.vote_score desc"
       base.has_many :executers,:through=>:todo_users,:source=>:user
       base.has_many :memoed_users_db,:through=>:todo_users,:source=>:user,
         :conditions=>"todo_users.memo is not null"
@@ -268,7 +175,7 @@ class TodoUser < UserAuthAbstract
     end
   end
 
-  include PositionMethods
   include TodoMemoComment::TodoUserMethods
   include ShortUrl::TodoUserMethods
+  include ViewpointVote::TodoUserMethods
 end

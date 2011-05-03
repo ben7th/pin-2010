@@ -166,38 +166,49 @@
           }
         }
       }
-
-      .my-viewpoint,.hot-viewpoint{
+      .viewpoint{
         margin:0 0 10px 40px;
-        .arrow{
-          width:15px;height:7px;
-          @include allicon(-271px,-65px);
-          margin:0 0 0 36px;
-        }
-        .data{
-          padding:10px;
-          font-size:14px;
-          background:#F0F9FE;
-          border-left:solid 3px #9BD8FE;
-          @include border-radius(0 3px 3px 0);
-          .avatar{
-            float:right;
-            img{width:20px;height:20px;}
+        .my-viewpoint,.hot-viewpoint{
+          margin:0 0 10px 0;
+          .arrow{
+            width:15px;height:7px;
+            @include allicon(-271px,-65px);
+            margin:0 0 0 36px;
           }
-          .name{
-            font-size:12px;
-            margin:0 0 6px 0;
-            .title{
-              font-size:12px;font-weight:bold;
+          .data{
+            padding:10px;
+            font-size:14px;
+            background:#F0F9FE;
+            border-left:solid 3px #9BD8FE;
+            @include border-radius(0 3px 3px 0);
+            .avatar{
+              float:right;
+              img{width:20px;height:20px;}
+            }
+            .name{
+              font-size:12px;
+              margin:0 0 6px 0;
+              .title{
+                font-size:12px;font-weight:bold;
+                margin:0 0 6px 0;
+              }
+              .vote-score{
+                @include border-radius(4px);
+                background:#53BCFE;
+                color:white;
+                font-weight:bold;
+                margin:0 4px 0 0;
+                padding:0 6px;
+                cursor:default;
+              }
+            }
+            .time{
+              font-size:12px;
               margin:0 0 6px 0;
             }
-          }
-          .time{
-            font-size:12px;
-            margin:0 0 6px 0;
-          }
-          .memo-content{
-            p{margin:0;}
+            .memo-content{
+              p{margin:0;}
+            }
           }
         }
       }
@@ -294,6 +305,27 @@
       .comments{
         @include comments;
         margin-left:40px;
+      }
+
+      .add-viewpoint-form{
+        @include border-radius(4px);
+        padding:5px;
+        margin-left:40px;
+        &.loading{
+          background-image:url(/images/icons/progress-dots.gif);
+          background-repeat:no-repeat;
+          background-position:10px 4px;
+          height:10px;
+        }
+        .title{
+          margin:0 0 6px 0;
+        }
+        .ipt{
+          .inputer{width:482px;height:48px;}
+        }
+        .btns{
+          @include submitbtns;
+        }
       }
 
     }

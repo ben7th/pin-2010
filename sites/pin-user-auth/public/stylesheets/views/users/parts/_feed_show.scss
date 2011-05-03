@@ -138,8 +138,55 @@
   .viewpoint{
     overflow:hidden;
     padding:6px 6px 20px;
+    .vote-ops{
+      float:left;
+      @include border-radius(4px);
+      padding:0 5px;
+      width:20px;
+      height:100px;
+      .vote-up{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        @include allicon(-229px,-33px);
+        background-color:#FEF4A6;
+        cursor:pointer;
+        &:hover{
+          @include allicon(-229px,-51px);
+          background-color:#A8500E;
+        }
+      }
+      .vote-down{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        @include allicon(-250px,-33px);
+        background-color:#FEF4A6;
+        cursor:pointer;
+        &:hover{
+          @include allicon(-250px,-51px);
+          background-color:#A8500E;
+        }
+      }
+      .vote-score{
+        font-size:18px;
+        font-weight:bold;
+        text-align:center;
+        margin:4px 0;
+      }
+      .voted-up{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        @include allicon(-229px,-51px);
+        background-color:#E2B38F;
+      }
+      .voted-down{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        @include allicon(-250px,-51px);
+        background-color:#E2B38F;
+      }
+    }
     .main{
-      margin:0 0 10px 0;
+      margin:0 0 10px 40px;
       .content{
         font-size:14px;
         margin:0 0 10px 0;
@@ -162,13 +209,15 @@
           }
         }
       }
+      .supporters{margin:0 0 10px 0;}
     }
     .footmisc{
       @include footmisc;
+      margin-left:40px;
     }
     .comments{
       padding:5px;
-      margin:10px 0 0 0;
+      margin:10px 0 0 40px;
       @include border-radius(4px);
       width:400px;
       .list{
@@ -190,6 +239,7 @@
         }
       }
     }
+
     .viewpoint-edit-form{
       margin:0 0 10px 0;
       .btns{

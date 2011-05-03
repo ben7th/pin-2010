@@ -19,12 +19,11 @@
       .split.quiet> -
       =link_to '传播','javascript:;',:class=>'transmit',:'data-colunt'=>feed.quotes_count
 
-      -if false
-        .split.quiet> -
-        -if !feed.viewpoint_by?(current_user)
-          =link_to '发表观点','javascript:;',:class=>'add-viewpoint'
-        -else
-          %span.quiet> 已发表过观点
+      .split.quiet> -
+      -if !feed.viewpoint_by?(current_user)
+        =link_to '发表观点','javascript:;',:class=>'add-viewpoint'
+      -else
+        %span.quiet> 已发表过观点
 
       -if feed.creator == current_user
         .split.quiet> -

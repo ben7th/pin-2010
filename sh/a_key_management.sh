@@ -16,7 +16,10 @@ case "$1" in
     ./worker_sh/follow_operation_queue_resque_worker.sh start
     ./worker_sh/feed_operation_queue_resque_worker.sh start
     ./worker_sh/send_tsina_status_queue_resque_worker.sh start
-    ./worker_sh/synchronous_message_from_tsina_worker.sh start
+
+    ./worker_sh/mindmap_import_queue_worker.sh start
+    #./worker_sh/synchronous_message_from_tsina_worker.sh start
+    ./worker_sh/wake_up_resque_worker.sh start
 
     ./unicorn.sh mindmap_image_cache start
     ./unicorn.sh mev6 start
@@ -35,7 +38,10 @@ case "$1" in
     ./worker_sh/follow_operation_queue_resque_worker.sh stop
     ./worker_sh/feed_operation_queue_resque_worker.sh stop
     ./worker_sh/send_tsina_status_queue_resque_worker.sh stop
-    ./worker_sh/synchronous_message_from_tsina_worker.sh stop
+
+    ./worker_sh/mindmap_import_queue_worker.sh stop
+    ./worker_sh/wake_up_resque_worker.sh stop
+    #./worker_sh/synchronous_message_from_tsina_worker.sh stop
 
     ./service_sh/memcache.sh
     ./service_sh/feeds_lucene_service.sh stop

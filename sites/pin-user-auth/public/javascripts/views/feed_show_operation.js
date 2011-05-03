@@ -391,3 +391,66 @@ pie.load(function(){
     });
   })
 });
+
+pie.load(function(){
+  // 投赞成
+  jQuery('.page-feed-viewpoints .viewpoint .vote-up').live('click',function(){
+    var elm = jQuery(this);
+    var vp_elm = elm.closest('.viewpoint');
+    var vp_id = vp_elm.attr('data-id');
+
+    // POST /viewpoints/:id/vote_up
+    jQuery.ajax({
+      url : '/viewpoints/'+vp_id+'/vote_up',
+      type : 'post',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        resort_viewpoints(res,vp_id);
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+  jQuery('.page-feed-viewpoints .viewpoint .vote-down').live('click',function(){
+    var elm = jQuery(this);
+    var vp_elm = elm.closest('.viewpoint');
+    var vp_id = vp_elm.attr('data-id');
+
+    // POST /viewpoints/:id/vote_up
+    jQuery.ajax({
+      url : '/viewpoints/'+vp_id+'/vote_down',
+      type : 'post',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        resort_viewpoints(res,vp_id);
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+  //重新加载观点dom
+  function resort_viewpoints(res,vp_id){
+    var new_elm = jQuery('<div>'+res+'</div>');
+    var new_vps_elm = new_elm.find('.page-feed-viewpoints');
+    var old_vps_elm = jQuery('.page-feed-viewpoints');
+    old_vps_elm.before(new_vps_elm).remove();
+    jQuery('.page-feed-viewpoints .viewpoint[data-id='+vp_id+']').hide().fadeIn();
+    jQuery('.tipsy').remove();
+
+    //重新加载tipr 在有更好的方法之前 此处暂时先这样写，
+    jQuery('.page-feed-viewpoints [tipr]').tipsy({html:true,gravity:'w',title:function(){
+      var tip = this.getAttribute('tipr')
+      var doms = jQuery(tip)
+      if(doms.length == 0) return tip;
+      return doms.html();
+    }});
+  }
+});

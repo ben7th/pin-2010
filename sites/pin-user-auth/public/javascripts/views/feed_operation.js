@@ -170,6 +170,68 @@ pie.load(function(){
 
 })
 
+pie.load(function(){
+  //发表观点
+  jQuery('.newsfeed .feed .ops .add-viewpoint').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.f');
+    var feed_id = feed_elm.attr('data-id');
+
+    if(feed_elm.find('.add-viewpoint-form').length > 0){
+      feed_elm.find('.add-viewpoint-form').remove();
+      return;
+    }
+
+    var form_elm = jQuery(
+      '<div class="add-viewpoint-form darkbg">'+
+        '<div class="title">输入你的观点：</div>'+
+        '<div class="ipt"><textarea class="inputer"/></div>'+
+        '<div class="btns">'+
+          '<a class="button editable-submit" href="javascript:;">发送</a>'+
+          '<a class="button editable-cancel" href="javascript:;">取消</a>'+
+        '</div>'+
+      '</div>'
+    )
+    feed_elm.append(form_elm);
+  })
+
+  jQuery('.newsfeed .feed .add-viewpoint-form .editable-cancel').live('click',function(){
+    var elm = jQuery(this);
+    var form_elm = elm.closest('.add-viewpoint-form');
+    form_elm.remove();
+  });
+
+  jQuery('.newsfeed .feed .add-viewpoint-form .editable-submit').live('click',function(){
+    var elm = jQuery(this);
+    var form_elm = elm.closest('.add-viewpoint-form');
+    var feed_elm = elm.closest('.f');
+    var feed_id = feed_elm.attr('data-id');
+
+    var content = form_elm.find('.inputer').val();
+    
+    jQuery.ajax({
+      url  : '/feeds/'+feed_id+'/aj_viewpoint_in_list',
+      type : 'POST',
+      data : 'content=' + encodeURIComponent(content),
+
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        var vp_elm = jQuery(res);
+        feed_elm.find('.footmisc').next('.viewpoint').remove();
+        feed_elm.find('.footmisc').after(vp_elm);
+        form_elm.remove();
+        feed_elm.find('.ops .add-viewpoint').after('<span class="quiet">已发表过观点</span>')
+        feed_elm.find('.ops .add-viewpoint').remove();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    });
+  })
+});
+
 
 pie.load(function(){
   //显示较长观点的全文

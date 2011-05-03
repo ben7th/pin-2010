@@ -122,7 +122,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
-    :aj_comments=>:get,:viewpoint=>:post},
+    :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post},
     :collection=>{:reply_to=>:post,:quote=>:post,:all=>:get,
     :memoed=>:get,:be_asked=>:get
     } do |feed|
@@ -156,6 +156,11 @@ ActionController::Routing::Routes.draw do |map|
   
   map.create_viewpoint_feed "/viewpoints/:id/feeds",:controller=>"viewpoints",
     :action=>"create_feed",:conditions=>{:method=>:post}
+  map.viewpoint_vote_up "/viewpoints/:id/vote_up",:controller=>"viewpoints",
+    :action=>"vote_up",:conditions=>{:method=>:post}
+  map.viewpoint_vote_down "/viewpoints/:id/vote_down",:controller=>"viewpoints",
+    :action=>"vote_down",:conditions=>{:method=>:post}
+
 
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}

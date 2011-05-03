@@ -154,13 +154,7 @@ class Feed < UserAuthAbstract
   end
 
   def hot_viewpoint
-    viewpoints = self.viewpoints
-    return if viewpoints.blank?
-    viewpoints.sort{|todo_user_1,todo_user_2|
-      memo_1 = (todo_user_1.memo || "")
-      memo_2 = (todo_user_2.memo || "")
-      memo_2.length <=> memo_1.length
-    }.first
+    self.viewpoints.first
   end
 
   def be_asked_users

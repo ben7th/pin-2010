@@ -157,6 +157,12 @@ class FeedsController < ApplicationController
       :locals=>{:todo_user=>@todo_user}
   end
 
+  def aj_viewpoint_in_list
+    @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
+    render :partial=>"feeds/info_parts/info_viewpoint",
+      :locals=>{:feed=>@feed}
+  end
+
   def memoed
     @feeds = current_user.memoed_feeds
     render :template=>"feeds/todos_memoed"
