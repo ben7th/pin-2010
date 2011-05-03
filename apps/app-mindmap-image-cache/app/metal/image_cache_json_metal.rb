@@ -5,6 +5,7 @@ class ImageCacheJsonMetal < BaseMetal
 
 
   def self.deal(hash)
+    0/0
     env = hash[:env]
     url_match = hash[:url_match]
     jsonp_name = env["rack.request.query_hash"]["mindmap_image_cache_callback"]
@@ -32,8 +33,13 @@ class ImageCacheJsonMetal < BaseMetal
     str = "#{jsonp_name}(#{loaded_data_hash.to_json})"
     return [200, {"Content-Type" => "text/json"}, [str]]
   rescue Exception => ex
-    puts ex.backtrace*"\n"
-    puts ex.message
+    error_msg = %~
+      #{ex}
+      #{ex.message}
+      #{ex.backtrace*"\n"}
+    ~
+    puts error_msg
+    return [500, {"Content-Type" => "text/html"}, [error_msg]]
   end
 
 
