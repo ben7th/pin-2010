@@ -7,14 +7,15 @@ case "$1" in
     
     ./service_sh/feeds_lucene_service.sh start
     ./service_sh/mindmaps_lucene_service.sh start
+    ./service_sh/resque_web_service.sh start
 
-    ./worker_sh/mindmap_input_queue_worker.sh start
-    ./worker_sh/mindmap_image_cache_queue_worker.sh start
-    ./worker_sh/mindmap_import_queue_worker.sh start
-    ./worker_sh/channel_user_operation_queue_worker.sh start
-    ./worker_sh/follow_operation_queue_worker.sh start
-    ./worker_sh/feed_operation_queue_worker.sh start
-    ./worker_sh/send_tsina_status_queue_worker.sh start
+    ./worker_sh/mindmap_input_queue_resque_worker.sh start
+    ./worker_sh/mindmap_image_cache_queue_resque_worker.sh start
+    ./worker_sh/mindmap_import_queue_resque_worker.sh start
+    ./worker_sh/channel_user_operation_queue_resque_worker.sh start
+    ./worker_sh/follow_operation_queue_resque_worker.sh start
+    ./worker_sh/feed_operation_queue_resque_worker.sh start
+    ./worker_sh/send_tsina_status_queue_resque_worker.sh start
     ./worker_sh/synchronous_message_from_tsina_worker.sh start
 
     ./unicorn.sh mindmap_image_cache start
@@ -27,18 +28,19 @@ case "$1" in
     ./unicorn.sh mev6 stop
     ./unicorn.sh mindmap_image_cache stop
 
-    ./worker_sh/mindmap_input_queue_worker.sh stop
-    ./worker_sh/mindmap_image_cache_queue_worker.sh stop
-    ./worker_sh/mindmap_import_queue_worker.sh stop
-    ./worker_sh/channel_user_operation_queue_worker.sh stop
-    ./worker_sh/follow_operation_queue_worker.sh stop
-    ./worker_sh/feed_operation_queue_worker.sh stop
-    ./worker_sh/send_tsina_status_queue_worker.sh stop
+    ./worker_sh/mindmap_input_queue_resque_worker.sh stop
+    ./worker_sh/mindmap_image_cache_queue_resque_worker.sh stop
+    ./worker_sh/mindmap_import_queue_resque_worker.sh stop
+    ./worker_sh/channel_user_operation_queue_resque_worker.sh stop
+    ./worker_sh/follow_operation_queue_resque_worker.sh stop
+    ./worker_sh/feed_operation_queue_resque_worker.sh stop
+    ./worker_sh/send_tsina_status_queue_resque_worker.sh stop
     ./worker_sh/synchronous_message_from_tsina_worker.sh stop
 
     ./service_sh/memcache.sh
     ./service_sh/feeds_lucene_service.sh stop
     ./service_sh/mindmaps_lucene_service.sh stop
+    ./service_sh/resque_web_service.sh stop
 
     ./unicorn_management.sh stop
   ;;

@@ -10,25 +10,36 @@ class MindmapImageUrlRedisCache
     @mindmap_image_redis_cache = RedisHash.new(@key)
   end
 
-  # 设置一个缓存
+  # 指定一个导图的size，url，设置一个缓存
   def set_cache(mindmap,size,url)
     key = "#{mindmap.id}_#{size}"
-    value = {:timestamp=>mindmap.updated_at.to_i,:url=>url}
+    value = {'timestamp'=>mindmap.updated_at.to_i,'url'=>url}
     @mindmap_image_redis_cache.set(key,value)
   end
 
-  # 取到 一个 mindmap 的 size 尺寸的 缓存 url
+  # 尝试取到一个导图的 指定size的缓存url
   def get_cached_url(mindmap,size)
     begin
       key = "#{mindmap.id}_#{size}"
       value = @mindmap_image_redis_cache.get(key)
-      return if value.blank? || mindmap.updated_at.to_i > value["timestamp"].to_i
-      return value["url"]
+
+      if value.blank?
+        # 缓存不存在
+        return
+      end
+
+      if mindmap.updated_at.to_i > value['timestamp'].to_i
+        # 缓存已过期
+        clear_cache(mindmap,size)
+        return
+      end
+
+      return value['url']
     rescue Exception => ex
       p '获取缩略图缓存地址时发生异常'
       p ex
       p value
-      return ''
+      return
     end
   end
   

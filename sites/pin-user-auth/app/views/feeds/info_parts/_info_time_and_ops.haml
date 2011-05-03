@@ -9,7 +9,7 @@
   =link_to '查看详情',feed
 
   -if logged_in?
-    .ops
+    .ops>
       .split.quiet> -
       -klass = feed.fav_by?(current_user) ? 'on':'off'
       -link_to 'javascript:;',:class=>"fav #{klass}" do
@@ -19,20 +19,13 @@
       .split.quiet> -
       =link_to '传播','javascript:;',:class=>'transmit',:'data-colunt'=>feed.quotes_count
 
-      .split.quiet> -
-      -if feed.comments_count == 0
-        =link_to '评论','javascript:;',:class=>'echo'
-      -else
-        =link_to "#{feed.comments_count}条评论",'javascript:;',:class=>'echo'
+      -if false
+        .split.quiet> -
+        -if !feed.viewpoint_by?(current_user)
+          =link_to '发表观点','javascript:;',:class=>'add-viewpoint'
+        -else
+          %span.quiet> 已发表过观点
 
       -if feed.creator == current_user
         .split.quiet> -
         =link_to '删除','javascript:;',:class=>'del'
-
-  -else
-    .ops
-      .split.quiet> -
-      -if feed.comments_count == 0
-        =link_to '评论','javascript:;',:class=>'echo'
-      -else
-        =link_to "#{feed.comments_count}条评论",'javascript:;',:class=>'echo'

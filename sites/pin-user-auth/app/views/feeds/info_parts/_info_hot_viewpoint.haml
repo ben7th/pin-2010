@@ -1,13 +1,30 @@
 -if feed.has_viewpoint?
-  -vp = feed.hot_viewpoint
+  -hot_vp = feed.hot_viewpoint
   .hot-viewpoint
     .arrow
     .data
       .avatar
-        =avatar vp.user,:mini
+        =avatar hot_vp.user,:mini
       .name
-        =usersign(vp.user)
+        %span.title 主要观点
+        %span.split> -
+        =usersign(hot_vp.user)
       .time.quiet
-        =jtime vp.updated_at
+        =jtime hot_vp.updated_at
       .memo-content
-        =j_vp_memo(vp)
+        =j_vp_memo(hot_vp)
+
+  -if logged_in?
+    -my_vp = feed.viewpoint_of(current_user)
+    -if !my_vp.blank? && hot_vp!=my_vp
+      .my-viewpoint
+        .arrow
+        .data
+          .avatar
+            =avatar my_vp.user,:mini
+          .name
+            %span.title 我的观点
+          .time.quiet
+            =jtime my_vp.updated_at
+          .memo-content
+            =j_vp_memo(my_vp)

@@ -1,21 +1,19 @@
 module MindmapHelper
+  # 在页面上显示导图缩略图固定120x120尺寸，会被js lazy load
   def mindmap_thumb(mindmap)
     mindmap_image(mindmap,'120x120')
   end
 
+  # 在页面上显示导图某尺寸缩略图，会被js lazy load
   def mindmap_image(mindmap,size_param)
-    @mindmap_image_cache_asset_num ||= 0
-    dom_id = randstr
-    map_id = mindmap.id
-    updated_at = mindmap.updated_at.to_i
-    src = MindmapImageUrlRedisCache.new.get_cached_url(mindmap,size_param)
-    loading_src = mindmap_image_cache_url("images/loading-s.gif")
+    loaded_src = MindmapImageUrlRedisCache.new.get_cached_url(mindmap,size_param)
+    loading_src = pin_url_for('pin-user-auth',"/images/icons/loading-s-1.gif")
+    
     str = %~
-      <div id='#{dom_id}' class='cached-mindmap-image' data-map-id='#{map_id}' data-map-size='#{size_param}' data-updated-at='#{updated_at}' data-loaded-src='#{src}'>
+      <div id='#{randstr}' class='cached-mindmap-image' data-map-id='#{mindmap.id}' data-map-size='#{size_param}' data-updated-at='#{mindmap.updated_at.to_i}' data-loaded-src='#{loaded_src}'>
         <img class='loading' src='#{loading_src}' />
       </div>
     ~
-    @mindmap_image_cache_asset_num = (@mindmap_image_cache_asset_num + 1) % 10
     str
   end
 

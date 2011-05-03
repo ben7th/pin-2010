@@ -1,8 +1,11 @@
 class MindmapImageCacheQueueWorker
-
-  @queue = :mindmap_image_cache_queue_worker
+  QUEUE = :mindmap_image_cache_queue_worker
+  @queue = QUEUE
 
   def self.async_mindmap_image_cache(mindmap_id, size)
+    jobs = Resque.peek(QUEUE,0,Resque.size(QUEUE))
+    jobs = Array(jobs)
+    return if jobs.map{|job|job["args"]}.include?([mindmap_id,size])
     Resque.enqueue(MindmapImageCacheQueueWorker, mindmap_id, size)
   end
 

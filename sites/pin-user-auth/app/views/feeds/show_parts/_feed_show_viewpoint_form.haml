@@ -2,11 +2,11 @@
   -has_vp = feed.viewpoint_by?(current_user)
   .page-show-add-viewpoint{:'data-feed-id'=>feed.id, :class=>has_vp ? 'vp-added':''}
     .point-form
-      .title 增加观点
+      .title 发表观点
       .add-viewpoint-inputer
         %textarea.inputer.text>=has_vp ? feed.viewpoint_of(current_user).memo : ''
       .subm
         %button.editable-submit 发送
     .point-added.darkbg
-      .p 你只能对每个话题增加一次观点。不过你可以：
+      .p 你只能对每个话题发表一次观点。不过你可以：
       .p 随时修改你的观点；针对观点进行讨论；<span style='display:none'>从观点上派生新的话题；</span>
