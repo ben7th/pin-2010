@@ -415,6 +415,7 @@ pie.load(function(){
     })
   });
 
+  // 投反对
   jQuery('.page-feed-viewpoints .viewpoint .vote-down').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
@@ -435,6 +436,28 @@ pie.load(function(){
       }
     })
   });
+
+  //取消投票
+  jQuery('.page-feed-viewpoints .viewpoint .voted-up, .page-feed-viewpoints .viewpoint .voted-down')
+  .live('click',function(){
+    var elm = jQuery(this);
+    var vp_elm = elm.closest('.viewpoint');
+    var vp_id = vp_elm.attr('data-id');
+    //delete /viewpints/:id/cancel_vote
+    jQuery.ajax({
+      url : '/viewpoints/'+vp_id+'/cancel_vote',
+      type : 'delete',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        resort_viewpoints(res,vp_id);
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
 
   //重新加载观点dom
   function resort_viewpoints(res,vp_id){

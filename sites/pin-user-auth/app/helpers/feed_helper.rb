@@ -141,8 +141,34 @@ module FeedHelper
   end
 
   def support_str(todo_user)
-    todo_user.viewpoint_votes.map{|vote|
+    todo_user.viewpoint_up_votes.map{|vote|
       link_to(vote.user.name,vote.user,:class=>'quiet')
-    }*',' + '表示赞成'
+    }*',' + ' 表示赞成'
+  end
+
+  def unsupport_str(todo_user)
+    "#{todo_user.viewpoint_down_votes.length}人表示反对"
+  end
+
+  def vote_up_tip_str(vote_tip)
+    voters = vote_tip.voters
+    feed = vote_tip.viewpoint.todo.feed
+
+    re = []
+
+    vre = []
+    voters.each do |voter|
+      vre << link_to(voter.name,voter)
+    end
+
+    re << vre*','
+    re << '对于你在话题'
+    re << link_to(truncate_u(feed.content,16),feed)
+    re << '中的观点表示赞成'
+    re << "<span class='quiet'>#{jtime vote_tip.time}</span>"
+    return re*' '
+  rescue Exception => ex
+    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
+    return ''
   end
 end

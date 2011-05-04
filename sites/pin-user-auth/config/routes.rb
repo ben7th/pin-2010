@@ -160,7 +160,8 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"vote_up",:conditions=>{:method=>:post}
   map.viewpoint_vote_down "/viewpoints/:id/vote_down",:controller=>"viewpoints",
     :action=>"vote_down",:conditions=>{:method=>:post}
-
+  map.viewpoint_cancel_vote "/viewpoints/:id/cancel_vote",:controller=>"viewpoints",
+    :action=>"cancel_vote",:conditions=>{:method=>:delete}
 
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
@@ -222,4 +223,10 @@ ActionController::Routing::Routes.draw do |map|
   map.create_mindmap_feeds "/mindmap_feeds",:controller=>"create_feeds",:action=>"mindmap_feed",:conditions=>{:method=>:post}
 
   map.short_url "/short_url/:code",:controller=>"short_urls",:action=>"show"
+
+
+  map.connect "/tips/remove_viewpoint_vote_up_tip",:controller=>"tips",
+    :action=>"remove_viewpoint_vote_up_tip",:conditions=>{:method=>:delete}
+  map.connect "/tips/remove_all_viewpoint_vote_up_tips",:controller=>"tips",
+    :action=>"remove_all_viewpoint_vote_up_tips",:conditions=>{:method=>:delete}
 end

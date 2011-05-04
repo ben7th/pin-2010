@@ -282,3 +282,58 @@ pie.load(function(){
     jQuery('.jq-confirm-dialog').remove();
   })
 });
+
+//关于投票的通知
+pie.load(function(){
+  //清除所有通知
+  jQuery('.homepage-new-voteup-tip .btns .clear-all').live('click',function(){
+    //delete /tips/remove_all_viewpoint_vote_up_tips
+    jQuery.ajax({
+      url : '/tips/remove_all_viewpoint_vote_up_tips',
+      type : 'delete',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        var hnvt_elm = jQuery('.homepage-new-voteup-tip');
+        hnvt_elm.fadeOut(function(){
+          hnvt_elm.remove();
+        });
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+  //清除单条通知
+  jQuery('.homepage-new-voteup-tip .tip .delete').live('click',function(){
+    var tip_elm = jQuery(this).closest('.tip')
+    var tip_id = tip_elm.attr('data-id');
+
+    //delete /tips/remove_viewpoint_vote_up_tip?tip_id
+    jQuery.ajax({
+      url : '/tips/remove_viewpoint_vote_up_tip',
+      type : 'delete',
+      data : 'tip_id='+tip_id,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        if(jQuery('.homepage-new-voteup-tip .tip').length == 1){
+          var hnvt_elm = jQuery('.homepage-new-voteup-tip');
+          hnvt_elm.fadeOut(function(){
+            hnvt_elm.remove();
+          });
+        }else{
+          tip_elm.fadeOut(function(){
+            tip_elm.remove();
+          });
+        }
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+})

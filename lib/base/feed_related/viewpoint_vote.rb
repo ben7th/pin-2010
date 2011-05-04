@@ -8,25 +8,21 @@ class ViewpointVote < UserAuthAbstract
   UP = "UP"
   DOWN = "DOWN"
 
-  def update_to_up
-    if self.status != ViewpointVote::UP
-      self.update_attribute(:status,ViewpointVote::UP)
-    end
+  def is_vote_up?
+    self.status == ViewpointVote::UP
   end
 
-  def update_to_down
-    if self.status != ViewpointVote::DOWN
-      self.update_attribute(:status,ViewpointVote::DOWN)
-    end
+  def is_vote_down?
+    self.status == ViewpointVote::DOWN
   end
 
   module TodoUserMethods
     def self.included(base)
       base.has_many :viewpoint_votes,:foreign_key=>:viewpoint_id
-      base.has_many :up_viewpoint_votes,:foreign_key=>:viewpoint_id,
+      base.has_many :viewpoint_up_votes,:foreign_key=>:viewpoint_id,
         :class_name=>"ViewpointVote",
         :conditions=>"viewpoint_votes.status = '#{ViewpointVote::UP}' "
-      base.has_many :down_viewpoint_votes,:foreign_key=>:viewpoint_id,
+      base.has_many :viewpoint_down_votes,:foreign_key=>:viewpoint_id,
         :class_name=>"ViewpointVote",
         :conditions=>"viewpoint_votes.status = '#{ViewpointVote::DOWN}' "
       base.has_many :voted_up_users,:through=>:viewpoint_votes,:source=>:user,
@@ -36,24 +32,26 @@ class ViewpointVote < UserAuthAbstract
     end
     
     def vote_up(user)
-      return if self.user == user
-      vote = self.viewpoint_votes.find_by_user_id(user.id)
-      if vote.blank?
-        ViewpointVote.create(:user=>user,:viewpoint=>self,:status=>ViewpointVote::UP)
-      else
-        vote.update_to_up
-      end
+      return if voted_up_by?(user)
+      
+      cancel_vote(user) if voted_down_by?(user)
+      ViewpointVote.create(:user=>user,:viewpoint=>self,:status=>ViewpointVote::UP)
       update_vote_score_by_viewpoint_votes
     end
     
     def vote_down(user)
+      return if voted_down_by?(user)
+
+      cancel_vote(user) if voted_up_by?(user)
+      ViewpointVote.create(:user=>user,:viewpoint=>self,:status=>ViewpointVote::DOWN)
+      update_vote_score_by_viewpoint_votes
+    end
+
+    def cancel_vote(user)
       return if self.user == user
       vote = self.viewpoint_votes.find_by_user_id(user.id)
-      if vote.blank?
-        ViewpointVote.create(:user=>user,:viewpoint=>self,:status=>ViewpointVote::DOWN)
-      else
-        vote.update_to_down
-      end
+      return if vote.blank?
+      vote.destroy
       update_vote_score_by_viewpoint_votes
     end
     
@@ -73,10 +71,13 @@ class ViewpointVote < UserAuthAbstract
     end
 
     def update_vote_score_by_viewpoint_votes
-      up_count = self.up_viewpoint_votes.length
-      down_count = self.down_viewpoint_votes.length
+      self.reload
+      up_count = self.viewpoint_up_votes.length
+      down_count = self.viewpoint_down_votes.length
       vote_score = up_count - down_count
       self.update_attribute(:vote_score,vote_score)
     end
   end
+
+  include UserViewpointVoteUpTipProxy::ViewpointVoteMethods
 end

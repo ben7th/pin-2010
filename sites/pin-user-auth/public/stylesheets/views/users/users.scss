@@ -766,6 +766,45 @@ form.new_message{
   margin:0 0 20px 0;
 }
 
+.homepage-new-voteup-tip{
+  @include border-radius(5px);
+  background:#DFEAF4;
+  border:solid 2px #BED4E8;
+  padding:5px 10px;
+  margin:0 0 20px 0;
+  .title{
+    line-height:20px;
+    font-weight:bold;margin:0 0 4px 0;
+    border-bottom:solid 1px #BED4E8;
+  }
+  .vote-tips{
+    margin:0 0 6px 0;
+    .tip{
+      overflow:hidden;
+      .data{
+        margin:0 20px 0 0;
+        line-height:20px;
+      }
+      .delete{
+        float:right;
+        width:12px;height:12px;
+        @include allicon(-240px,-87px);
+        position:relative;
+        top:4px;
+        cursor:pointer;
+        background-color:#BED4E8;
+        @include border-radius(2px);
+        &:hover{background-color:#3173B4;}
+      }
+    }
+  }
+  .btns{
+    .minibutton{
+      font-weight:normal;
+    }
+  }
+}
+
 .grid-title{
   font-size:14px;
   font-weight:bold;

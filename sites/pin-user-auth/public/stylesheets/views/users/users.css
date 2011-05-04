@@ -689,6 +689,43 @@ form.new_message .w300 {
   font-size: 14px;
   margin: 0 0 20px 0; }
 
+.homepage-new-voteup-tip {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #DFEAF4;
+  border: solid 2px #BED4E8;
+  padding: 5px 10px;
+  margin: 0 0 20px 0; }
+  .homepage-new-voteup-tip .title {
+    line-height: 20px;
+    font-weight: bold;
+    margin: 0 0 4px 0;
+    border-bottom: solid 1px #BED4E8; }
+  .homepage-new-voteup-tip .vote-tips {
+    margin: 0 0 6px 0; }
+    .homepage-new-voteup-tip .vote-tips .tip {
+      overflow: hidden; }
+      .homepage-new-voteup-tip .vote-tips .tip .data {
+        margin: 0 20px 0 0;
+        line-height: 20px; }
+      .homepage-new-voteup-tip .vote-tips .tip .delete {
+        float: right;
+        width: 12px;
+        height: 12px;
+        background: url(/images/icons/all.png) no-repeat -240px -87px;
+        position: relative;
+        top: 4px;
+        cursor: pointer;
+        background-color: #BED4E8;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px; }
+        .homepage-new-voteup-tip .vote-tips .tip .delete:hover {
+          background-color: #3173B4; }
+  .homepage-new-voteup-tip .btns .minibutton {
+    font-weight: normal; }
+
 .grid-title {
   font-size: 14px;
   font-weight: bold;
@@ -1596,21 +1633,17 @@ form.new_message .w300 {
         text-align: center;
         margin: 4px 0; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-up {
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        width: 20px;
-        height: 17px;
-        background: url(/images/icons/all.png) no-repeat -229px -51px;
-        background-color: #E2B38F; }
+        background: url(/images/icons/all.png) no-repeat -229px -51px; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-down {
+        background: url(/images/icons/all.png) no-repeat -250px -51px; }
+      .page-feed-viewpoints .viewpoint .vote-ops .voted-up, .page-feed-viewpoints .viewpoint .vote-ops .voted-down {
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         width: 20px;
         height: 17px;
-        background: url(/images/icons/all.png) no-repeat -250px -51px;
-        background-color: #E2B38F; }
+        background-color: #E2B38F;
+        cursor: pointer; }
     .page-feed-viewpoints .viewpoint .main {
       margin: 0 0 10px 40px; }
       .page-feed-viewpoints .viewpoint .main .content {

@@ -22,6 +22,18 @@
   .homepage-see-others
     =link_to '&gt;&gt;转到思维导图页',pin_url_for("pin-user-auth","/mindmaps")
 
+  -vote_tips = UserViewpointVoteUpTipProxy.new(current_user).tips
+  -if !vote_tips.blank?
+    .homepage-new-voteup-tip
+      .title> 话题通知
+      .vote-tips
+        -vote_tips.each do |vote_tip|
+          .tip{:'data-id'=>vote_tip.id}
+            .delete
+            .data=vote_up_tip_str(vote_tip)
+      .btns
+        =minibutton '清除所有通知','javascript:;',:class=>'clear-all'
+
   .new-feed-tip{:style=>'display:none;'}
     =link_to '收到了新的话题，请点击这里查看','javascript:;'
     .loading-tip

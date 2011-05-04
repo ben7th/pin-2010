@@ -15,7 +15,7 @@ class ViewpointsController < ApplicationController
   end
 
 
-  before_filter :vote_filter,:only=>[:vote_up,:vote_down]
+  before_filter :vote_filter,:only=>[:vote_up,:vote_down,:cancel_vote]
   def vote_filter
     if @todo_user.user == current_user
       return render :text=>503,:status=>503
@@ -30,6 +30,12 @@ class ViewpointsController < ApplicationController
 
   def vote_down
     @todo_user.vote_down(current_user)
+    render :partial=>"feeds/show_parts/feed_show",
+      :locals=>{:feed=>@todo_user.todo.feed}
+  end
+
+  def cancel_vote
+    @todo_user.cancel_vote(current_user)
     render :partial=>"feeds/show_parts/feed_show",
       :locals=>{:feed=>@todo_user.todo.feed}
   end

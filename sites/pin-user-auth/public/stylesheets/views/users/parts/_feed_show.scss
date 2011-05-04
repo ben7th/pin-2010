@@ -172,17 +172,13 @@
         text-align:center;
         margin:4px 0;
       }
-      .voted-up{
+      .voted-up{@include allicon(-229px,-51px);}
+      .voted-down{@include allicon(-250px,-51px);}
+      .voted-up,.voted-down{
         @include border-radius(3px);
         width:20px;height:17px;
-        @include allicon(-229px,-51px);
         background-color:#E2B38F;
-      }
-      .voted-down{
-        @include border-radius(3px);
-        width:20px;height:17px;
-        @include allicon(-250px,-51px);
-        background-color:#E2B38F;
+        cursor:pointer;
       }
     }
     .main{
