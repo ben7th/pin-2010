@@ -20,8 +20,10 @@ class UserNoChannelFeedProxy < RedisBaseProxy
           end
         },
         :after_destroy => Proc.new {|feed|
+          creator = feed.creator
+          next if creator.blank?
           next if !feed.channels_db.blank?
-          users = feed.creator.hotfans + [feed.creator]
+          users = creator.hotfans + [feed.creator]
           users.each do |user|
             UserNoChannelFeedProxy.new(user).remove_from_cache(feed.id)
           end

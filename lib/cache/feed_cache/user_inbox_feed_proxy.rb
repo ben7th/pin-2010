@@ -39,6 +39,7 @@ class UserInboxFeedProxy < RedisBaseProxy
         },
         :after_destroy => Proc.new {|feed|
           feed_creator = feed.creator
+          next if feed_creator.blank?
           users = feed_creator.hotfans + [feed_creator]
           users.each do |user|
             UserInboxFeedProxy.new(user).remove_from_cache(feed.id)

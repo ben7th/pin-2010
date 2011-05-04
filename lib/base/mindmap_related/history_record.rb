@@ -19,14 +19,13 @@ class HistoryRecord < Mev6Abstract
     DO_CHANGE_FONT_SIZE,DO_SET_FONT_BOLD,DO_SET_FONT_ITALIC
     ]
   
+  version 11504
   belongs_to :mindmap
-  validates_inclusion_of :in =>OPERATIONS
+  validates_inclusion_of :kind,:in =>OPERATIONS
 
-  # struct 操作以前的快照
   # kind 操作的类型
   # params_hash 操作的参数
   def self.record_operation(mindmap,option)
-    struct = option[:struct]
     kind = option[:kind]
     params_hash = option[:params_hash]
     operator = option[:operator]
@@ -34,7 +33,7 @@ class HistoryRecord < Mev6Abstract
     raise "params_hash is not a hash" if !params_hash.is_a?(Hash)
    
     params_json = params_hash.to_json
-    HistoryRecord.create!(:params_json=>params_json,:mindmap_id=>mindmap.id,:struct=>struct,:kind=>kind,:email=>operator.email)
+    HistoryRecord.create!(:params_json=>params_json,:mindmap_id=>mindmap.id,:kind=>kind,:email=>operator.email)
   end
 
 end

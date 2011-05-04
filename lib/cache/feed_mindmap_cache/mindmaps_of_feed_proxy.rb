@@ -18,6 +18,7 @@ class MindmapsOfFeedProxy < RedisBaseProxy
       },
       :after_destroy => Proc.new{|feed_mindmap|
         feed,mindmap = feed_mindmap.feed,feed_mindmap.mindmap
+        next if feed.blank? || mindmap.blank?
         MindmapsOfFeedProxy.new(feed).remove_from_cache(mindmap)
       }
     }

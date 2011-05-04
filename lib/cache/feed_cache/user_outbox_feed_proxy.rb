@@ -19,7 +19,9 @@ class UserOutboxFeedProxy < RedisBaseProxy
         uofp.send(:xxxs_ids_rediscache_save,ids)
       },
       :after_destroy => Proc.new {|feed|
-        UserOutboxFeedProxy.new(feed.creator).remove_from_cache(feed.id)
+        creator = feed.creator
+        next if creator.blank?
+        UserOutboxFeedProxy.new(creator).remove_from_cache(feed.id)
       }
     }
   end

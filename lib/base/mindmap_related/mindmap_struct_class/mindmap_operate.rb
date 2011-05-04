@@ -211,7 +211,6 @@ class MindmapOperate
       end
 
       HistoryRecord.record_operation(@mindmap,
-        :struct=>old_struct,
         :kind=>operation_kind,
         :params_hash=>params_hash,
         :operator=>operator)

@@ -39,8 +39,6 @@ class Mindmap < Mev6Abstract
     if mindmap.valid?
       MindmapDocument.new(mindmap).init_default_struct
       mindmap.save
-      # 创建成功的时候，创建对应的feed
-      mindmap._create_feed
       return mindmap
     end
     false
@@ -72,23 +70,7 @@ class Mindmap < Mev6Abstract
     else
       raise "错误的导图格式"
     end
-    # 创建成功的时候，创建对应的feed
-    mindmap._create_feed
     mindmap
-  end
-
-  # 创建导图和导入导图时，创建对应的 feed
-  def _create_feed
-    begin
-      return if self.id.blank?
-      content = "我发布了思维导图：#{self.title}"
-      feed = Feed.create!(:creator=>self.user,:event=>Feed::SAY_OPERATE,
-        :content=>content)
-      FeedMindmap.create!(:mindmap=>self,:feed=>feed)
-    rescue Exception => ex
-      p '导图发布时feed创建失败'
-      p ex
-    end
   end
 
   def rank_value
