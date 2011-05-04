@@ -17,7 +17,7 @@ class FeedsController < ApplicationController
   end
   
   def _do_say_no_channel
-    feed = current_user.send_say_feed(params[:content])
+    feed = current_user.send_say_feed(params[:content],:detail=>params[:detail])
     if feed.blank?
       return render :text=>"发送失败",:status=>403
     end
@@ -171,5 +171,15 @@ class FeedsController < ApplicationController
   def be_asked
     @feeds = current_user.be_asked_feeds
     render :template=>"feeds/todos_be_asked"
+  end
+
+  def update_detail
+    @feed.update_detail_content(params[:detail])
+    render :partial=>'feeds/show_parts/info_detail',:locals=>{:feed=>@feed}
+  end
+
+  def update_content
+    @feed.update_content(params[:content])
+    render :text=>200
   end
 end

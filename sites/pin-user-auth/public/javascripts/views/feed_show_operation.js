@@ -181,6 +181,65 @@ pie.load(function(){
 
 });
 
+pie.load(function(){
+  var form_elm = jQuery(
+    '<div class="feed-detail-edit-form">'+
+      '<textarea class="inputer"></textarea>'+
+      '<div class="btns">'+
+        '<a class="button editable-submit" href="javascript:;">发送</a>'+
+        '<a class="button editable-cancel" href="javascript:;">取消</a>'+
+      '</div>'+
+    '</div>'
+  )
+
+  //修改话题正文
+  jQuery('.page-feed-show .detail-data .edit-detail .edit').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var detail_elm = feed_elm.find('.detail-data');
+
+    detail_elm.before(form_elm);
+    detail_elm.hide();
+  });
+
+  //确定
+  jQuery('.page-feed-show .feed-detail-edit-form .editable-submit').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var detail_elm = feed_elm.find('.detail-data');
+    var feed_id = feed_elm.attr('data-id');
+    var content = form_elm.find('.inputer').val();
+
+    //  put /feeds/:id/update_detail params[:detail]
+    pie.show_loading_bar();
+    jQuery.ajax({
+      url : '/feeds/'+feed_id+'/update_detail',
+      type : 'put',
+      data : 'detail='+encodeURIComponent(content),
+      success : function(res){
+        var new_detail_elm = jQuery(res);
+        detail_elm.after(new_detail_elm);
+        detail_elm.remove();
+        form_elm.remove();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+
+  //取消
+  jQuery('.page-feed-show .feed-detail-edit-form .editable-cancel').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var detail_elm = feed_elm.find('.detail-data');
+    detail_elm.show();
+    form_elm.remove();
+  });
+
+});
+
 
 pie.load(function(){
   //show页面的关注

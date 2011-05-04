@@ -38,21 +38,17 @@ class UserViewpointVoteUpTipProxy
   end
 
   def remove_tip(viewpoint,voter)
-    mup_ap @rh.all
     tip_id = find_tip_id_by_viewpoint_id(viewpoint.id)
     return if tip_id.blank?
     tip_hash = @rh.get(tip_id)
     if tip_hash["voter_id"].to_s.split(",").uniq == [voter.id.to_s]
-      mup_ap 1
       remove_tip_by_tip_id(tip_id)
     else
-      mup_ap 2
       voters_ids = tip_hash["voter_id"].to_s.split(",")
       voters_ids.delete(voter.id.to_s)
       tip_hash["voter_id"] = voters_ids*","
       @rh.set(tip_id,tip_hash)
     end
-    mup_ap @rh.all
   end
 
   def remove_all_tips

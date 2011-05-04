@@ -21,8 +21,8 @@ module FeedHelper
   end
 
   def j_vp_memo(todo_user)
-    t1 = todo_user.memo
-    t2 = truncate_u(todo_user.memo,128)
+    t1 = "#{todo_user.memo}"
+    t2 = truncate_u(t1,128)
     if t1.length == t2.length
       vp_memo(todo_user)
     else
@@ -31,6 +31,9 @@ module FeedHelper
         <div class='detail-content' style='display:none;'>#{vp_memo(todo_user)}</div>
       ~
     end
+  rescue Exception => ex
+    return "观点信息解析错误#{ex}" if RAILS_ENV == 'development'
+    return ''
   end
 
   def user_last_feed(user)

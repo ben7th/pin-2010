@@ -8,15 +8,14 @@ class TodoItem < UserAuthAbstract
       base.has_many :todo_items,:order=>"id desc"
     end
 
-    def create_todo_item(content)
-      todo_item = TodoItem.create(:todo=>self,:content=>content)
-      if !todo_item.new_record?
-        # 如果todo添加item成功了，就添加todo id 到 到用户 的 “状态改变的todo任务列表中”
-        todo_item.todo.todo_users.each do |todo_user|
-          todo_user.add_todo_to_user_change_status_todos
-        end
-      end
-      todo_item.valid?
+    def first_todo_item
+      self.todo_items.first
+    end
+
+    def create_or_update_todo_item(content)
+      ti = self.first_todo_item
+      return TodoItem.create(:todo=>self,:content=>content) if ti.blank?
+      ti.update_attribute(:content,content)
     end
 
     def remove_last_todo_item

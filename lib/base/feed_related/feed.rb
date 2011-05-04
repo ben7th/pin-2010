@@ -112,6 +112,25 @@ class Feed < UserAuthAbstract
     quotes.length
   end
 
+  def detail_content
+    ft = self.first_todo
+    return if ft.blank?
+    fti = ft.first_todo_item
+    return if fti.blank?
+    fti.content
+  end
+
+  def update_content(content)
+    self.update_attribute(:content,content)
+  end
+  
+  # 话题详情
+  def update_detail_content(content)
+    todo = self.get_or_create_first_todo
+    todo.create_or_update_todo_item(content)
+  end
+
+
   # 创建对 feed 的观点
   def create_or_update_viewpoint(user,content)
     todo = self.get_or_create_first_todo
@@ -192,6 +211,7 @@ class Feed < UserAuthAbstract
       feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
       return false if !feed.valid?
       feed.save!
+      feed.update_detail_content(options[:detail]) if options[:detail]
       feed
     end
 

@@ -122,8 +122,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
-    :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post},
-    :collection=>{:reply_to=>:post,:quote=>:post,:all=>:get,
+    :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post,
+    :update_detail=>:put,:update_content=>:put
+  },:collection=>{
+    :reply_to=>:post,:quote=>:post,:all=>:get,
     :memoed=>:get,:be_asked=>:get
     } do |feed|
       feed.resources :todos,:collection=>{

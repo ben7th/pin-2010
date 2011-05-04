@@ -1,10 +1,28 @@
+@mixin editlink{
+  overflow:hidden;
+  margin:0 0 10px 0;
+  a.edit{
+    overflow:hidden;
+    line-height:16px;
+    height:16px;
+    float:left;
+    @include border-radius(4px);
+    padding:0 3px;
+    .icon{
+      width:10px;height:10px;float:left;
+      @include allicon(-229px,-87px);
+      margin:0 3px 0 0;
+      position:relative;top:3px;
+    }
+  }
+}
+
 .page-feed-show{
   padding:0 6px 20px;
   margin-bottom:10px;
   overflow:hidden;
 
   .main{
-    overflow:hidden;
     margin:0 0 10px 0;
 
     .reply-to-feed{
@@ -19,6 +37,7 @@
 
     .current-feed{
       overflow:hidden;
+      margin:0 0 6px 0;
       .c{
         float:left;
         width:490px;
@@ -35,6 +54,28 @@
             }
           }
         }
+      }
+    }
+
+    .feed-detail-edit-form{
+      margin:0 0 10px 0;
+      .btns{
+        @include submitbtns;
+      }
+      .inputer{
+        width:600px;
+        height:84px;
+        font-size:12px;
+      }
+    }
+
+    .detail-data{
+      .data{
+        margin:0 0 10px 0;
+        font-size:14px;
+      }
+      .edit-detail{
+        @include editlink;
       }
     }
   }
@@ -188,22 +229,7 @@
         margin:0 0 10px 0;
       }
       .edit-vp{
-        overflow:hidden;
-        margin:0 0 10px 0;
-        a.edit{
-          overflow:hidden;
-          line-height:16px;
-          height:16px;
-          float:left;
-          @include border-radius(4px);
-          padding:0 3px;
-          .icon{
-            width:10px;height:10px;float:left;
-            @include allicon(-229px,-87px);
-            margin:0 3px 0 0;
-            position:relative;top:3px;
-          }
-        }
+        @include editlink;
       }
       .supporters{margin:0 0 10px 0;}
     }
