@@ -1,4 +1,4 @@
--feeds = result.items.map{|it| it.feed}
+-feeds = result.items.map{|it| it.feed}.compact
 -if feeds.blank?
   .no-result.quiet.font14.padding5
     没有搜索到任何结果
