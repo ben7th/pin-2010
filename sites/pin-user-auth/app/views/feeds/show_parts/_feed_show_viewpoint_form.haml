@@ -4,7 +4,8 @@
     .point-form
       .title 发表观点
       .add-viewpoint-inputer
-        %textarea.inputer.text>=has_vp ? feed.viewpoint_of(current_user).memo : ''
+        -value = has_vp ? feed.viewpoint_of(current_user).memo : ''
+        =text_area_tag :inputer,value,:class=>'inputer text'
       .subm
         %button.editable-submit 发送
     .point-added.darkbg

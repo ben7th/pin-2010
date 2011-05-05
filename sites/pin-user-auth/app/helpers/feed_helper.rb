@@ -12,6 +12,10 @@ module FeedHelper
     "#{auto_link(h(feed.content),:html=>{:target=>'_blank'})}"
   end
 
+  def feed_detail(feed)
+    "#{auto_link(ct(feed.detail_content),:html=>{:target=>'_blank'})}"
+  end
+
   def vp_memo(todo_user)
     "#{auto_link(ct(todo_user.memo),:html=>{:target=>'_blank'})}"
   end

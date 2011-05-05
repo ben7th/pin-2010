@@ -105,6 +105,38 @@
   background:url(/images/icons/all.png) no-repeat $x $y;
 }
 
+.jquery-qeditor{
+  @include border-radius(4px);
+  background:#EAEAEA;
+  padding:5px;
+  .qeditor-toolbar{
+    overflow:hidden;
+    margin:0 0 4px 0;
+    a{
+      float:left;
+      border:solid 1px #666;
+      width:18px;height:14px;
+      padding:4px 2px;
+      color:black;
+      font-family:Georgia,default;
+      line-height:11px;
+      font-size:11px;
+      font-weight:bold;
+      text-shadow:0 1px white;
+      margin:0 1px 0 0;
+      text-align:center;
+      &.qeditor_glast{margin:0 5px 0 0;}
+    }
+  }
+  .qeditor-preview{
+    height:84px;
+    background:#F7FDFF;
+    border:solid 1px #CCCCCC;
+    @include border-radius(4px);
+    padding:4px 2px;
+  }
+}
+
 .jq-confirm-dialog{
   @include border-radius(4px);
   width:200px;

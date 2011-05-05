@@ -1,5 +1,7 @@
 pie.load(function(){
   // 发表观点
+  //jQuery('.page-show-add-viewpoint .add-viewpoint-inputer .inputer').qeditor();
+
   jQuery('.page-show-add-viewpoint .subm .editable-submit').live('click',function(){
     var elm = jQuery(this);
     var psav_elm = elm.closest('.page-show-add-viewpoint');
@@ -182,15 +184,7 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  var form_elm = jQuery(
-    '<div class="feed-detail-edit-form">'+
-      '<textarea class="inputer"></textarea>'+
-      '<div class="btns">'+
-        '<a class="button editable-submit" href="javascript:;">发送</a>'+
-        '<a class="button editable-cancel" href="javascript:;">取消</a>'+
-      '</div>'+
-    '</div>'
-  )
+  var form_elm = jQuery('.feed-detail-edit-form')
 
   //修改话题正文
   jQuery('.page-feed-show .detail-data .edit-detail .edit').live('click',function(){
@@ -198,7 +192,7 @@ pie.load(function(){
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
 
-    detail_elm.before(form_elm);
+    form_elm.show();
     detail_elm.hide();
   });
 
@@ -208,7 +202,7 @@ pie.load(function(){
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
     var feed_id = feed_elm.attr('data-id');
-    var content = form_elm.find('.inputer').val();
+    var content = form_elm.find('.detail-inputer').val();
 
     //  put /feeds/:id/update_detail params[:detail]
     pie.show_loading_bar();
@@ -220,7 +214,7 @@ pie.load(function(){
         var new_detail_elm = jQuery(res);
         detail_elm.after(new_detail_elm);
         detail_elm.remove();
-        form_elm.remove();
+        form_elm.hide();
       },
       complete : function(){
         pie.hide_loading_bar();
@@ -235,7 +229,7 @@ pie.load(function(){
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
     detail_elm.show();
-    form_elm.remove();
+    form_elm.hide();
   });
 
 });

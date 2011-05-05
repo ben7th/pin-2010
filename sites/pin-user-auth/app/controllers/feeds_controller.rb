@@ -173,12 +173,19 @@ class FeedsController < ApplicationController
     render :template=>"feeds/todos_be_asked"
   end
 
+
   def update_detail
+    if @feed.creator != current_user
+      return render :status=>503,:text=>503
+    end
     @feed.update_detail_content(params[:detail])
     render :partial=>'feeds/show_parts/info_detail',:locals=>{:feed=>@feed}
   end
 
   def update_content
+    if @feed.creator != current_user
+      return render :status=>503,:text=>503
+    end
     @feed.update_content(params[:content])
     render :text=>200
   end

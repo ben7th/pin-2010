@@ -61,7 +61,11 @@ module DomUtilHelper
   # 对纯文本字符串进行格式化，增加中文段首缩进，以便于阅读
   def group_content_format(content,indent=0)
     indent_str = '　'*indent
-    simple_format(h(content)).gsub("<p>", "#{indent_str}<p>").gsub("<br />","#{indent_str}<br />")
+    simple_format_str = simple_format(h(content))
+    return simple_format_str.
+            gsub('<p>', "#{indent_str}<p>").
+            gsub('<br />',"#{indent_str}<br/>").
+            gsub(' ','&nbsp;')
   end
 
   def ct(content)

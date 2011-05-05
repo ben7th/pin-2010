@@ -29,6 +29,40 @@
     margin-right: 8px;
     background: url(/images/icons/progress-dots.gif) no-repeat; }
 
+.jquery-qeditor {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background: #EAEAEA;
+  padding: 5px; }
+  .jquery-qeditor .qeditor-toolbar {
+    overflow: hidden;
+    margin: 0 0 4px 0; }
+    .jquery-qeditor .qeditor-toolbar a {
+      float: left;
+      border: solid 1px #666;
+      width: 18px;
+      height: 14px;
+      padding: 4px 2px;
+      color: black;
+      font-family: Georgia,default;
+      line-height: 11px;
+      font-size: 11px;
+      font-weight: bold;
+      text-shadow: 0 1px white;
+      margin: 0 1px 0 0;
+      text-align: center; }
+      .jquery-qeditor .qeditor-toolbar a.qeditor_glast {
+        margin: 0 5px 0 0; }
+  .jquery-qeditor .qeditor-preview {
+    height: 84px;
+    background: #F7FDFF;
+    border: solid 1px #CCCCCC;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 4px 2px; }
+
 .jq-confirm-dialog {
   border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1438,7 +1472,7 @@ form.new_message .w300 {
             position: relative;
             top: 1px;
             left: 1px; }
-      .page-feed-show .main .feed-detail-edit-form .inputer {
+      .page-feed-show .main .feed-detail-edit-form .detail-inputer {
         width: 600px;
         height: 84px;
         font-size: 12px; }
