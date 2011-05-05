@@ -184,10 +184,11 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  var form_elm = jQuery('.feed-detail-edit-form')
+  
 
   //修改话题正文
   jQuery('.page-feed-show .detail-data .edit-detail .edit').live('click',function(){
+    var form_elm = jQuery('.feed-detail-edit-form')
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
@@ -198,6 +199,7 @@ pie.load(function(){
 
   //确定
   jQuery('.page-feed-show .feed-detail-edit-form .editable-submit').live('click',function(){
+    var form_elm = jQuery('.feed-detail-edit-form')
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
@@ -225,6 +227,7 @@ pie.load(function(){
 
   //取消
   jQuery('.page-feed-show .feed-detail-edit-form .editable-cancel').live('click',function(){
+    var form_elm = jQuery('.feed-detail-edit-form')
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
@@ -236,10 +239,11 @@ pie.load(function(){
 
 
 pie.load(function(){
-  var form_elm = jQuery('.feed-content-edit-form')
+  
 
   //修改话题标题
   jQuery('.page-feed-show .current-feed .edit-ct .edit').live('click',function(){
+    var form_elm = jQuery('.feed-content-edit-form')
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var content_elm = feed_elm.find('.data .ct');
@@ -250,6 +254,7 @@ pie.load(function(){
 
   //确定
   jQuery('.page-feed-show .feed-content-edit-form .editable-submit').live('click',function(){
+    var form_elm = jQuery('.feed-content-edit-form')
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var content_elm = feed_elm.find('.data .ct');
@@ -278,6 +283,7 @@ pie.load(function(){
 
   //取消
   jQuery('.page-feed-show .feed-content-edit-form .editable-cancel').live('click',function(){
+    var form_elm = jQuery('.feed-content-edit-form')
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var content_elm = feed_elm.find('.data .ct');
