@@ -200,5 +200,10 @@ class AccountController <  ApplicationController
     end
     redirect_to "/account/bind_tsina"
   end
+
+  def feed_form_show_detail_cookie
+    cookies[:feed_form_show_detail] = params[:value]
+    render :text=>200
+  end
   
 end

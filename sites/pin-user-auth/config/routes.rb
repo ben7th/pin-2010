@@ -76,6 +76,8 @@ ActionController::Routing::Routes.draw do |map|
   map.account_do_tsina_syn_setting "account/do_tsina_connect_setting",
     :controller=>"account",:action=>"do_tsina_connect_setting",
     :conditions=>{:method=>:put}
+  map.connect "/account/feed_form_show_detail_cookie",:controller=>"account",
+    :action=>"feed_form_show_detail_cookie",:conditions=>{:method=>:put}
 
   # 发送邀请函
   map.contacts_setting_invite "contacts_setting/invite",:controller=>"contacts_setting",:action=>"invite"
@@ -231,4 +233,8 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"remove_viewpoint_vote_up_tip",:conditions=>{:method=>:delete}
   map.connect "/tips/remove_all_viewpoint_vote_up_tips",:controller=>"tips",
     :action=>"remove_all_viewpoint_vote_up_tips",:conditions=>{:method=>:delete}
+  map.connect "/tips/remove_viewpoint_tip",:controller=>"tips",
+    :action=>"remove_viewpoint_tip",:conditions=>{:method=>:delete}
+  map.connect "/tips/remove_all_viewpoint_tips",:controller=>"tips",
+    :action=>"remove_all_viewpoint_tips",:conditons=>{:method=>:delete}
 end

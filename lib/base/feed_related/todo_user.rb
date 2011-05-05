@@ -101,10 +101,12 @@ class TodoUser < UserAuthAbstract
     end
 
     def create_todo_user_for_channel_main_users
-      channels = self.feed.channels_db
-      channel = channels.first
-      return true if channel.blank?
-      self.add_executers(channel.main_users)
+      # 暂时去掉  2011.5.5 李飞
+      # 频道内的 feed 对应的todo 创建的时候，不在默认创建频道成员的 todo_user
+#      channels = self.feed.channels_db
+#      channel = channels.first
+#      return true if channel.blank?
+#      self.add_executers(channel.main_users)
       return true
     end
 
@@ -178,4 +180,5 @@ class TodoUser < UserAuthAbstract
   include TodoMemoComment::TodoUserMethods
   include ShortUrl::TodoUserMethods
   include ViewpointVote::TodoUserMethods
+  include UserAddViewpointTipProxy::TodoUserMethods
 end

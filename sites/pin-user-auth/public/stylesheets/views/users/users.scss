@@ -798,7 +798,7 @@ form.new_message{
   margin:0 0 20px 0;
 }
 
-.homepage-new-voteup-tip{
+.homepage-new-voteup-tip,.homepage-new-viewpoint-tip{
   @include border-radius(5px);
   background:#DFEAF4;
   border:solid 2px #BED4E8;
@@ -809,7 +809,7 @@ form.new_message{
     font-weight:bold;margin:0 0 4px 0;
     border-bottom:solid 1px #BED4E8;
   }
-  .vote-tips{
+  .tips{
     margin:0 0 6px 0;
     .tip{
       overflow:hidden;

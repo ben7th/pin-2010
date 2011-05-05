@@ -723,7 +723,7 @@ form.new_message .w300 {
   font-size: 14px;
   margin: 0 0 20px 0; }
 
-.homepage-new-voteup-tip {
+.homepage-new-voteup-tip, .homepage-new-viewpoint-tip {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -731,19 +731,19 @@ form.new_message .w300 {
   border: solid 2px #BED4E8;
   padding: 5px 10px;
   margin: 0 0 20px 0; }
-  .homepage-new-voteup-tip .title {
+  .homepage-new-voteup-tip .title, .homepage-new-viewpoint-tip .title {
     line-height: 20px;
     font-weight: bold;
     margin: 0 0 4px 0;
     border-bottom: solid 1px #BED4E8; }
-  .homepage-new-voteup-tip .vote-tips {
+  .homepage-new-voteup-tip .tips, .homepage-new-viewpoint-tip .tips {
     margin: 0 0 6px 0; }
-    .homepage-new-voteup-tip .vote-tips .tip {
+    .homepage-new-voteup-tip .tips .tip, .homepage-new-viewpoint-tip .tips .tip {
       overflow: hidden; }
-      .homepage-new-voteup-tip .vote-tips .tip .data {
+      .homepage-new-voteup-tip .tips .tip .data, .homepage-new-viewpoint-tip .tips .tip .data {
         margin: 0 20px 0 0;
         line-height: 20px; }
-      .homepage-new-voteup-tip .vote-tips .tip .delete {
+      .homepage-new-voteup-tip .tips .tip .delete, .homepage-new-viewpoint-tip .tips .tip .delete {
         float: right;
         width: 12px;
         height: 12px;
@@ -755,9 +755,9 @@ form.new_message .w300 {
         border-radius: 2px;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px; }
-        .homepage-new-voteup-tip .vote-tips .tip .delete:hover {
+        .homepage-new-voteup-tip .tips .tip .delete:hover, .homepage-new-viewpoint-tip .tips .tip .delete:hover {
           background-color: #3173B4; }
-  .homepage-new-voteup-tip .btns .minibutton {
+  .homepage-new-voteup-tip .btns .minibutton, .homepage-new-viewpoint-tip .btns .minibutton {
     font-weight: normal; }
 
 .grid-title {
@@ -851,7 +851,7 @@ form.new_message .w300 {
   padding: 5px; }
 
 .feed-form-container {
-  padding: 70px 0 20px 50px;
+  padding: 45px 0 20px 50px;
   margin: 0 0 12px 0;
   border-radius: 6px;
   -moz-border-radius: 6px;
@@ -866,7 +866,8 @@ form.new_message .w300 {
   width: 500px;
   position: relative; }
   .feed-form .ipter {
-    overflow: hidden; }
+    overflow: hidden;
+    margin: 0 0 6px 0; }
     .feed-form .ipter .tip {
       font-size: 14px; }
     .feed-form .ipter .ipts {
@@ -876,30 +877,126 @@ form.new_message .w300 {
       line-height: 0px; }
       .feed-form .ipter .ipts .feed-content {
         width: 430px;
-        height: 96px;
+        height: 32px;
         overflow: hidden;
         position: relative;
-        border: solid 4px #293100;
+        border: solid 2px #293100;
         *top: -1px; }
+  .feed-form .detail-ipter {
+    overflow: hidden;
+    margin: 0 0 6px 0; }
+    .feed-form .detail-ipter .feed-detail {
+      width: 430px;
+      height: 96px;
+      overflow: hidden;
+      position: relative;
+      border: solid 2px #293100;
+      *top: -1px; }
   .feed-form .subm {
     width: 404px;
     clear: both;
     overflow: hidden; }
-    .feed-form .subm a {
-      border-radius: 0 0 4px 4px;
-      -moz-border-radius: 0 0 4px 4px;
-      -webkit-border-radius: 0 0 4px 4px;
+    .feed-form .subm .subbtn {
       float: left;
-      margin-left: 10px;
-      border-width: 0 1px 1px 1px;
-      border-style: none solid solid solid;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 4px 20px 4px;
+      margin: 0 6px 0 0;
       font-size: 14px;
-      padding: 2px 20px 4px;
       font-weight: bold;
-      color: #fff;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-      .feed-form .subm a:hover {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      background: -moz-linear-gradient(-90deg, #5c98e0, #3671b9);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#5c98e0), to(#3671b9));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5c98e0',endColorstr='#3671b9');
+      border: solid 1px #2e63a5;
+      color: white !important;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+      zoom: 1;
+      /*@include btn-color(#879A1F, #576810, #7F9132, #ffffff, #A7BA3F, #778830);*/ }
+      .feed-form .subm .subbtn:hover {
+        background: -moz-linear-gradient(-90deg, #6ca8f0, #4681c9);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#6ca8f0), to(#4681c9));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#6ca8f0',endColorstr='#4681c9');
         text-decoration: none; }
+      .feed-form .subm .subbtn.mousedown {
+        background: -moz-linear-gradient(-90deg, #4681c9, #6ca8f0);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4681c9), to(#6ca8f0));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4681c9',endColorstr='#6ca8f0');
+        text-decoration: none; }
+      .feed-form .subm .subbtn:hover {
+        text-decoration: none; }
+    .feed-form .subm .show-detail-ipt, .feed-form .subm .hide-detail-ipt {
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      margin: 0 10px 0 0;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      height: 29px;
+      width: 29px; }
+      .feed-form .subm .show-detail-ipt:hover, .feed-form .subm .hide-detail-ipt:hover {
+        text-decoration: none; }
+    .feed-form .subm .show-detail-ipt {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      background: -moz-linear-gradient(-90deg, #f54f00, #ca0700);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f54f00), to(#ca0700));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f54f00',endColorstr='#ca0700');
+      border: solid 1px #df1600;
+      color: white !important;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+      zoom: 1; }
+      .feed-form .subm .show-detail-ipt:hover {
+        background: -moz-linear-gradient(-90deg, #fb5506, #d00c06);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fb5506), to(#d00c06));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fb5506',endColorstr='#d00c06');
+        text-decoration: none; }
+      .feed-form .subm .show-detail-ipt.mousedown {
+        background: -moz-linear-gradient(-90deg, #d00c06, #fb5506);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d00c06), to(#fb5506));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d00c06',endColorstr='#fb5506');
+        text-decoration: none; }
+      .feed-form .subm .show-detail-ipt .icon {
+        width: 19px;
+        height: 19px;
+        background: url(/images/icons/all.png) no-repeat -256px -13px;
+        position: relative;
+        top: 5px;
+        left: 5px; }
+    .feed-form .subm .hide-detail-ipt {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      background: -moz-linear-gradient(-90deg, #a8684b, #8b413e);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#a8684b), to(#8b413e));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#a8684b',endColorstr='#8b413e');
+      border: solid 1px #9a4d45;
+      color: white !important;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
+      zoom: 1; }
+      .feed-form .subm .hide-detail-ipt:hover {
+        background: -moz-linear-gradient(-90deg, #b8785b, #9b514e);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b8785b), to(#9b514e));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b8785b',endColorstr='#9b514e');
+        text-decoration: none; }
+      .feed-form .subm .hide-detail-ipt.mousedown {
+        background: -moz-linear-gradient(-90deg, #9b514e, #b8785b);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#9b514e), to(#b8785b));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#9b514e',endColorstr='#b8785b');
+        text-decoration: none; }
+      .feed-form .subm .hide-detail-ipt .icon {
+        width: 19px;
+        height: 19px;
+        background: url(/images/icons/all.png) no-repeat -276px -13px;
+        position: relative;
+        top: 5px;
+        left: 5px; }
 
 .feed-form.feed-todolist-form {
   margin: 0 0 30px 0; }

@@ -139,6 +139,10 @@ class Feed < UserAuthAbstract
     todo_user
   end
 
+  def memoed_viewpoints
+    viewpoints.select{|vp|vp.has_memo?}
+  end
+
   def viewpoints
     ft = self.first_todo
     return [] if ft.blank?
@@ -211,7 +215,7 @@ class Feed < UserAuthAbstract
       feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
       return false if !feed.valid?
       feed.save!
-      feed.update_detail_content(options[:detail]) if options[:detail]
+      feed.update_detail_content(options[:detail]) if !options[:detail].blank?
       feed
     end
 

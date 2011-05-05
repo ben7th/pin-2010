@@ -178,4 +178,26 @@ module FeedHelper
     return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
     return ''
   end
+
+  def viewpoint_tip_str(viewpoint_tip)
+    viewpointers = viewpoint_tip.viewpointers
+    feed = viewpoint_tip.feed
+
+    re = []
+
+    vre = []
+    viewpointers.each do |viewpointer|
+      vre << link_to(viewpointer.name,viewpointer)
+    end
+
+    re << vre*','
+    re << '在你的话题'
+    re << link_to(truncate_u(feed.content,16),feed)
+    re << '中发表了观点'
+    re << "<span class='quiet'>#{jtime viewpoint_tip.time}</span>"
+    return re*' '
+  rescue Exception => ex
+    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
+    return ''
+  end
 end
