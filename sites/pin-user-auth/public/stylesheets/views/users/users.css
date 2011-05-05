@@ -1547,8 +1547,7 @@ form.new_message .w300 {
       overflow: hidden;
       margin: 0 0 20px 0; }
       .page-feed-show .main .current-feed .c {
-        float: left;
-        width: 490px; }
+        float: left; }
         .page-feed-show .main .current-feed .c .data .c-name {
           font-size: 12px;
           margin-bottom: 6px; }
