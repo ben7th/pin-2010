@@ -120,14 +120,18 @@ class Feed < UserAuthAbstract
     fti.content
   end
 
-  def update_content(content)
+  def update_content(content,editer)
+    return if editer.blank?
     self.update_attribute(:content,content)
+    self.record_editer(editer)
   end
   
   # 话题详情
-  def update_detail_content(content)
+  def update_detail_content(content,editer)
+    return if editer.blank?
     todo = self.get_or_create_first_todo
     todo.create_or_update_todo_item(content)
+    self.record_editer(editer)
   end
 
 
@@ -203,9 +207,9 @@ class Feed < UserAuthAbstract
   end
 
   # 邀请用户参与话题
-  def add_be_asked_users(user)
+  def add_be_asked_users(users)
     todo = self.get_or_create_first_todo
-    user.get_or_create_todo_user_by_todo(todo)
+    users.each{|user|user.get_or_create_todo_user_by_todo(todo)}
   end
 
   module UserMethods
@@ -302,4 +306,5 @@ class Feed < UserAuthAbstract
   include FeedLucene::FeedMethods
   include Todo::FeedMethods
   include ShortUrl::FeedMethods
+  include FeedChange::FeedMethods
 end

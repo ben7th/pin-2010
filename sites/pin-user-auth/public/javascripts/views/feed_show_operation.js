@@ -211,9 +211,9 @@ pie.load(function(){
       type : 'put',
       data : 'detail='+encodeURIComponent(content),
       success : function(res){
-        var new_detail_elm = jQuery(res);
-        detail_elm.after(new_detail_elm);
-        detail_elm.remove();
+        var new_feed_elm = jQuery(res);
+        feed_elm.after(new_feed_elm);
+        feed_elm.remove();
         form_elm.hide();
       },
       complete : function(){
@@ -229,6 +229,60 @@ pie.load(function(){
     var feed_elm = elm.closest('.page-feed-show');
     var detail_elm = feed_elm.find('.detail-data');
     detail_elm.show();
+    form_elm.hide();
+  });
+
+});
+
+
+pie.load(function(){
+  var form_elm = jQuery('.feed-content-edit-form')
+
+  //修改话题标题
+  jQuery('.page-feed-show .current-feed .edit-ct .edit').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var content_elm = feed_elm.find('.data .ct');
+
+    form_elm.show();
+    content_elm.hide();
+  });
+
+  //确定
+  jQuery('.page-feed-show .feed-content-edit-form .editable-submit').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var content_elm = feed_elm.find('.data .ct');
+
+    var feed_id = feed_elm.attr('data-id');
+    var content = form_elm.find('.content-inputer').val();
+
+    //  put /feeds/:id/update_content params[:detail]
+    pie.show_loading_bar();
+    jQuery.ajax({
+      url : '/feeds/'+feed_id+'/update_content',
+      type : 'put',
+      data : 'content='+encodeURIComponent(content),
+      success : function(res){
+        var new_feed_elm = jQuery(res);
+        feed_elm.after(new_feed_elm);
+        feed_elm.remove();
+        form_elm.hide();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+
+  //取消
+  jQuery('.page-feed-show .feed-content-edit-form .editable-cancel').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var content_elm = feed_elm.find('.data .ct');
+
+    content_elm.show();
     form_elm.hide();
   });
 

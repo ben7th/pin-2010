@@ -85,14 +85,14 @@ module FeedHelper
     MessageTip.new(current_user).refresh_fans_info if logged_in?
   end
 
-  def usersign(user, sign = true)
+  def usersign(user, sign=true, length=24)
     re = []
     if user.blank?
       re << '未知用户'
     else
       re << "#{link_to user.name,user,:class=>'bold'}"
       if !user.sign.blank? && sign
-        re << "<span class='quiet'>，#{truncate_u user.sign,24}</span>"
+        re << "<span class='quiet'>，#{truncate_u user.sign,length}</span>"
       end
     end
     return re
@@ -193,7 +193,8 @@ module FeedHelper
     re << vre*','
     re << '在你的话题'
     re << link_to(truncate_u(feed.content,16),feed)
-    re << '中发表了观点'
+    str_hash = {UserAddViewpointTipProxy::ADD=>'发表了',UserAddViewpointTipProxy::EDIT=>'修改了'}
+    re << "中#{str_hash[viewpoint_tip.kind]}观点"
     re << "<span class='quiet'>#{jtime viewpoint_tip.time}</span>"
     return re*' '
   rescue Exception => ex

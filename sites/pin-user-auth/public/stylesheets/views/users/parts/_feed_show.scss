@@ -1,19 +1,24 @@
+@mixin editlinka{
+  overflow:hidden;
+  line-height:16px;
+  height:16px;
+  float:left;
+  @include border-radius(4px);
+  padding:0 3px;
+  .icon{
+    width:10px;height:10px;float:left;
+    @include allicon(-229px,-87px);
+    margin:0 3px 0 0;
+    position:relative;top:3px;
+    display:inline-block;
+  }
+}
+
 @mixin editlink{
   overflow:hidden;
   margin:0 0 10px 0;
   a.edit{
-    overflow:hidden;
-    line-height:16px;
-    height:16px;
-    float:left;
-    @include border-radius(4px);
-    padding:0 3px;
-    .icon{
-      width:10px;height:10px;float:left;
-      @include allicon(-229px,-87px);
-      margin:0 3px 0 0;
-      position:relative;top:3px;
-    }
+    @include editlinka;
   }
 }
 
@@ -37,13 +42,27 @@
 
     .current-feed{
       overflow:hidden;
-      margin:0 0 6px 0;
+      margin:0 0 20px 0;
       .c{
         float:left;
         width:490px;
         .data{
           .c-name{font-size:12px;margin-bottom:6px;}
-          .ct{font-size:14px;}
+          .ct{
+            font-size:20px;font-weight:bold;
+            .edit-ct{
+              @include editlink;
+              display:inline-block;
+              font-size:12px;font-weight:normal;
+              position:relative;top:9px;
+            }
+          }
+          .feed-content-edit-form{
+            textarea{height:32px;}
+            .btns{
+              @include submitbtns;
+            }
+          }
         }
         .documents{
           .mindmaps{

@@ -175,18 +175,21 @@ class FeedsController < ApplicationController
 
 
   def update_detail
-    if @feed.creator != current_user
-      return render :status=>503,:text=>503
-    end
-    @feed.update_detail_content(params[:detail])
-    render :partial=>'feeds/show_parts/info_detail',:locals=>{:feed=>@feed}
+    @feed.update_detail_content(params[:detail],current_user)
+    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
   end
 
   def update_content
+    @feed.update_content(params[:content],current_user)
+    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
+  end
+
+  def invite
     if @feed.creator != current_user
       return render :status=>503,:text=>503
     end
-    @feed.update_content(params[:content])
+    users = params[:user_ids].split(",").uniq.map{|id|User.find_by_id(id)}.compact
+    @feed.add_be_asked_users(users)
     render :text=>200
   end
 end

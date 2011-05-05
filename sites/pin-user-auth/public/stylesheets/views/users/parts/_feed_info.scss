@@ -40,12 +40,32 @@
       &.on{.t1{display:none;}}
     }
   }
-  .creator{
+  .last-edited-user{
     float:right;
-    width:300px;
+    width:200px;
+    padding:5px;
+    margin:0 10px 0 0;
     overflow:hidden;
     .avatar{float:left;}
     .name{margin-left:46px;}
+    &.feed-editor{
+      background:#F0F9FE;
+    }
+
+    .time{margin:0 0 6px 0;display:block;}
+  }
+  .creator{
+    float:right;
+    width:200px;
+    padding:5px;
+    overflow:hidden;
+    .avatar{float:left;}
+    .name{margin-left:46px;}
+    &.feed-creator{
+      background:#FFFADA;
+    }
+
+    .time{margin:0 0 6px 0;display:block;}
   }
 }
 

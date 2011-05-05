@@ -10,6 +10,17 @@
     .data
       .ct
         =content
+        .edit-ct
+          -link_to 'javascript:;',:class=>'edit csshov' do
+            .icon
+            %span 修改
+      .feed-content-edit-form{:style=>'display:none'}
+        -value = feed.content
+        =text_area_tag :'content-inputer',value,:class=>'content-inputer text'
+        .btns
+          %a.button.editable-submit{:href=>'javascript:;'} 发送
+          %a.button.editable-cancel{:href=>'javascript:;'} 取消
+
     .documents
       .mindmaps
         -feed.mindmaps.each do |mindmap|

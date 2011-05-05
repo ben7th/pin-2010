@@ -24,19 +24,19 @@ class ViewpointsController < ApplicationController
 
   def vote_up
     @todo_user.vote_up(current_user)
-    render :partial=>"feeds/show_parts/feed_show",
+    render :partial=>"feeds/show_parts/feed_show_viewpoints",
       :locals=>{:feed=>@todo_user.todo.feed}
   end
 
   def vote_down
     @todo_user.vote_down(current_user)
-    render :partial=>"feeds/show_parts/feed_show",
+    render :partial=>"feeds/show_parts/feed_show_viewpoints",
       :locals=>{:feed=>@todo_user.todo.feed}
   end
 
   def cancel_vote
     @todo_user.cancel_vote(current_user)
-    render :partial=>"feeds/show_parts/feed_show",
+    render :partial=>"feeds/show_parts/feed_show_viewpoints",
       :locals=>{:feed=>@todo_user.todo.feed}
   end
 

@@ -6,13 +6,3 @@
     =render 'feeds/show_parts/info_detail',:feed=>feed
   =render 'feeds/show_parts/info_time_and_ops_show',:feed=>feed
 
-.hrr
-
-.grid-title
-  #{feed.viewpoints.count}个观点
-
-.page-feed-viewpoints
-  -feed.memoed_viewpoints.each do |todo_user|
-    =render 'feeds/show_parts/info_feed_viewpoint_show',:todo_user=>todo_user
-
-=render 'feeds/show_parts/feed_show_viewpoint_form',:feed=>feed

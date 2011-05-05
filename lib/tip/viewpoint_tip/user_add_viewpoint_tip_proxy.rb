@@ -23,8 +23,9 @@ class UserAddViewpointTipProxy
         User.find_by_id(id)
       end.compact
       time = Time.at(tip_hash["time"].to_f)
+      kind = tip_hash["kind"]
       next if feed.blank? || viewpointers.blank?
-      tips.push(UserAddViewpointTip.new(tip_id,feed,viewpointers,time))
+      tips.push(UserAddViewpointTip.new(tip_id,feed,viewpointers,kind,time))
     end
     tips
   end
@@ -70,20 +71,22 @@ class UserAddViewpointTipProxy
     def add_tip_of_add(viewpoint)
       feed = viewpoint.todo.feed
       viewpointer = viewpoint.user
+      return if viewpointer == feed.creator
       self.new(feed.creator).add_tip_of_add(viewpointer,feed)
     end
 
     def add_tip_of_edit(viewpoint)
       feed = viewpoint.todo.feed
       viewpointer = viewpoint.user
+      return if viewpointer == feed.creator
       self.new(feed.creator).add_tip_of_edit(viewpointer,feed)
     end
   end
 
   class UserAddViewpointTip
-    attr_reader :id,:feed,:viewpointers,:time
-    def initialize(id,feed,viewpointers,time)
-      @id,@feed,@viewpointers,@time=id,feed,viewpointers,time
+    attr_reader :id,:feed,:viewpointers,:kind,:time
+    def initialize(id,feed,viewpointers,kind,time)
+      @id,@feed,@viewpointers,@kind,@time=id,feed,viewpointers,kind,time
     end
   end
 
