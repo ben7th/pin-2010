@@ -10,10 +10,11 @@
     .data
       .ct
         =content
-        .edit-ct
-          -link_to 'javascript:;',:class=>'edit csshov' do
-            .icon
-            %span 修改
+        -if logged_in?
+          .edit-ct
+            -link_to 'javascript:;',:class=>'edit csshov' do
+              .icon
+              %span 修改
       .feed-content-edit-form{:style=>'display:none'}
         -value = feed.content
         =text_area_tag :'content-inputer',value,:class=>'content-inputer text'
