@@ -33,7 +33,7 @@ class MessageProxy
     hash_json = @redis.get(@message_vector_cache_key)
     ActiveSupport::JSON.decode(hash_json).keys.map do |email|
       EmailActor.get_user_by_email(email)
-    end
+    end.compact
   end
 
   def messages_from(the_other_user)

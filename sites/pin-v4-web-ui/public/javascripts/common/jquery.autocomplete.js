@@ -8,6 +8,8 @@
  *   http://www.gnu.org/licenses/gpl.html
  *
  * Revision: $Id: jquery.autocomplete.js 15 2009-08-22 10:30:27Z joern.zaefferer $
+ *
+ * 2011-5-6 modified by ben7th mindpin.com
  */
 
 ;(function($) {
@@ -726,7 +728,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
 		show: function() {
 			var offset = $(input).offset();
 			element.css({
-				width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
+				width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).outerWidth()-2,
 				top: offset.top + input.offsetHeight,
 				left: offset.left
 			}).show();

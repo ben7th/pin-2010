@@ -20,4 +20,14 @@ class TipsController < ApplicationController
     UserAddViewpointTipProxy.new(current_user).remove_all_tips
     render :text=>200
   end
+
+  def remove_feed_invite_tip
+    UserBeInvitedFeedTipProxy.new(current_user).remove_tip_by_tip_id(params[:tip_id])
+    render :text=>200
+  end
+
+  def remove_all_feed_invite_tips
+    UserBeInvitedFeedTipProxy.new(current_user).remove_all_tips
+    render :text=>200
+  end
 end

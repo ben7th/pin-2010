@@ -11,12 +11,7 @@
 
       .split.quiet> -
       =link_to '评论','javascript:;',:class=>'echo'
-
-      -if feed.creator == current_user
-        .split.quiet> -
-        =link_to '删除','javascript:;',:class=>'del'
     -else
-      .split.quiet> -
       =link_to '评论','javascript:;',:class=>'echo'
 
   .creator.feed-creator

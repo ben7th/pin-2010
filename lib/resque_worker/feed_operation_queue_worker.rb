@@ -21,7 +21,7 @@ class FeedOperationQueueWorker
       feed = Feed.create(:creator=>creator,:event=>options['event'],:content=>options['content'])
     when DESTROY_OPERATION
       feed_destroy = Feed.find_by_id(options['feed_id'])
-      feed_destroy.destroy
+      feed_destroy.hide
     end
   end
 

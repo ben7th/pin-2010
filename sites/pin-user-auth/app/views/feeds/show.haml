@@ -11,17 +11,32 @@
   :javascript
     pie.misc_tip_info = #{misc_tip_info.to_json}
 
+  = javascript_include_tag 'views/member_auto_complete_load'
+  :javascript
+    pie.load(function(){
+      var cac = new pie.FeedInviteComplete('.show-page-invite #contact_email',{
+        feed_id:#{@feed.id}
+      });
+      jQuery('.show-page-invite .editable-submit').live('click',function(){
+        cac.result();
+      });
+    });
+
 .grid_17
   =render 'feeds/show_parts/feed_show',:feed=>@feed
   .hrr
   =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
 
 .grid_5.omega.fright
-  .grid-title 参与者
+  .grid-title 目前的参与者
   .show-page-memoed-users
     -@feed.memoed_users.each do |u|
       %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
         =avatar u,:mini
+
+  .hrr
+  .grid-title 邀请其他人参与
+  =render 'feeds/show_parts/invite_users',{:feed=>@feed}
 
   .hrr
   .grid-title 相关话题

@@ -125,10 +125,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feeds,:member=>{
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
     :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post,
-    :update_detail=>:put,:update_content=>:put,:invite=>:post
+    :update_detail=>:put,:update_content=>:put,:invite=>:post,:cancel_invite=>:delete,
+    :recover=>:put
   },:collection=>{
     :reply_to=>:post,:quote=>:post,:all=>:get,
-    :memoed=>:get,:be_asked=>:get
+    :memoed=>:get,:be_invited=>:get
     } do |feed|
       feed.resources :todos,:collection=>{
         :remove_last_todo=>:delete
@@ -237,4 +238,8 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"remove_viewpoint_tip",:conditions=>{:method=>:delete}
   map.connect "/tips/remove_all_viewpoint_tips",:controller=>"tips",
     :action=>"remove_all_viewpoint_tips",:conditons=>{:method=>:delete}
+  map.connect "/tips/remove_feed_invite_tip",:controller=>"tips",
+    :action=>"remove_feed_invite_tip",:conditions=>{:method=>:delete}
+  map.connect "/tips/remove_all_feed_invite_tips",:controller=>"tips",
+    :action=>"remove_all_feed_invite_tips",:conditons=>{:method=>:delete}
 end

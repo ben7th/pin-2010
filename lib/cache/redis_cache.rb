@@ -71,12 +71,6 @@ class RedisCache
   RedisCache.load_proxy(UserFavMindmapsProxy)
   RedisCache.load_proxy(MindmapFavUsersProxy)
 
-  # Todo 缓存
-  RedisCache.load_proxy(UserAssignedTodosProxy)
-  RedisCache.load_proxy(UserReadyTodosProxy)
-  RedisCache.load_proxy(UserDoingTodosProxy)
-  RedisCache.load_proxy(UserDoneTodosProxy)
-  RedisCache.load_proxy(UserDropTodosProxy)
 
   # feed_comment 缓存
   RedisCache.load_proxy(UserBeingRepliedCommentsProxy)
@@ -88,7 +82,7 @@ class RedisCache
   RedisCache.load_proxy(ChannelFeedProxy)
   RedisCache.load_proxy(UserBeingQuotedFeedsProxy)
   RedisCache.load_proxy(UserMemoedFeedsProxy)
-  RedisCache.load_proxy(UserBeAskedFeedsProxy)
+  RedisCache.load_proxy(UserBeInvitedFeedsProxy)
   # ---------- 每增加一个子proxy就配置在这里
   # 用到闭包，method_missing等一些手段，来减少冗余代码
 end

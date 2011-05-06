@@ -26,24 +26,39 @@ class UserInboxFeedProxy < RedisBaseProxy
     xxxs_ids_db
   end
 
+  def self.add_feed_cache(feed)
+    feed_creator = feed.creator
+    users = feed_creator.hotfans + [feed_creator]
+    users.each do |user|
+      UserInboxFeedProxy.new(user).add_to_cache(feed.id)
+    end
+  end
+
+  def self.remove_feed_cache(feed)
+    feed_creator = feed.creator
+    return if feed_creator.blank?
+    users = feed_creator.hotfans + [feed_creator]
+    users.each do |user|
+      UserInboxFeedProxy.new(user).remove_from_cache(feed.id)
+    end
+  end
+
   def self.rules
     [
       {
         :class => Feed ,
         :after_create => Proc.new {|feed|
-          feed_creator = feed.creator
-          users = feed_creator.hotfans + [feed_creator]
-          users.each do |user|
-            UserInboxFeedProxy.new(user).add_to_cache(feed.id)
+          UserInboxFeedProxy.add_feed_cache(feed)
+        },
+        :after_update => Proc.new {|feed|
+          if feed.to_hide?
+            UserInboxFeedProxy.remove_feed_cache(feed)
+          elsif feed.to_show?
+            UserInboxFeedProxy.add_feed_cache(feed)
           end
         },
         :after_destroy => Proc.new {|feed|
-          feed_creator = feed.creator
-          next if feed_creator.blank?
-          users = feed_creator.hotfans + [feed_creator]
-          users.each do |user|
-            UserInboxFeedProxy.new(user).remove_from_cache(feed.id)
-          end
+          UserInboxFeedProxy.remove_feed_cache(feed)
         }
       },
       {

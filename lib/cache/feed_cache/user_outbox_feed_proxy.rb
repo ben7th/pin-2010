@@ -8,20 +8,35 @@ class UserOutboxFeedProxy < RedisBaseProxy
     @user.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
   end
 
+  def self.remove_feed_cache(feed)
+    creator = feed.creator
+    return if creator.blank?
+    UserOutboxFeedProxy.new(creator).remove_from_cache(feed.id)
+  end
+
+  def self.add_feed_cache(feed)
+    uofp = UserOutboxFeedProxy.new(feed.creator)
+    ids = uofp.xxxs_ids
+    ids.unshift(feed.id)
+    ids = ids[0..99] if ids.length > 100
+    uofp.send(:xxxs_ids_rediscache_save,ids)
+  end
+
   def self.rules
     {
       :class => Feed ,
       :after_create => Proc.new {|feed|
-        uofp = UserOutboxFeedProxy.new(feed.creator)
-        ids = uofp.xxxs_ids
-        ids.unshift(feed.id)
-        ids = ids[0..99] if ids.length > 100
-        uofp.send(:xxxs_ids_rediscache_save,ids)
+        UserOutboxFeedProxy.add_feed_cache(feed)
+      },
+      :after_update => Proc.new {|feed|
+        if feed.to_hide?
+          UserOutboxFeedProxy.remove_feed_cache(feed)
+        elsif feed.to_show?
+          UserOutboxFeedProxy.add_feed_cache(feed)
+        end
       },
       :after_destroy => Proc.new {|feed|
-        creator = feed.creator
-        next if creator.blank?
-        UserOutboxFeedProxy.new(creator).remove_from_cache(feed.id)
+        UserOutboxFeedProxy.remove_feed_cache(feed)
       }
     }
   end

@@ -590,3 +590,28 @@ pie.load(function(){
     }});
   }
 });
+
+pie.load(function(){
+  //删除被邀请者
+  jQuery('.show-page-be-invited-users .user .delete').live('click',function(){
+    var elm = jQuery(this);
+    var user_elm = elm.closest('.user');
+    var user_id = user_elm.attr('data-id');
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+    // delete /feeds/:id/cancel_invite params[:user_id]
+    jQuery.ajax({
+      url : '/feeds/'+feed_id+'/cancel_invite',
+      type : 'delete',
+      data : 'user_id='+user_id,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(){
+        user_elm.fadeOut(200,function(){user_elm.remove()});
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+})

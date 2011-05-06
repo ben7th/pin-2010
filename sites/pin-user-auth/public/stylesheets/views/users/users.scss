@@ -322,24 +322,6 @@ form.new_message{
   }
 }
 
-.ac_results ul li {
-  line-height:24px;
-  height:24px;
-  overflow:hidden;
-  padding:1px 2px;
-  @include border-radius(3px);
-  .logo.tiny{
-    width:20px;
-    height:20px;
-    margin-right:10px;
-    float:left;
-  }
-  &.ac_over {
-    background-color: #96B5DA;
-    color: black;
-  }
-}
-
 .grid_11.col{
   h2{
     margin:0 0 5px;
@@ -798,7 +780,7 @@ form.new_message{
   margin:0 0 20px 0;
 }
 
-.homepage-new-voteup-tip,.homepage-new-viewpoint-tip{
+.homepage-new-voteup-tip,.homepage-new-viewpoint-tip,.homepage-be-invited-tip{
   @include border-radius(5px);
   background:#DFEAF4;
   border:solid 2px #BED4E8;

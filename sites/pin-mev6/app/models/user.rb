@@ -14,6 +14,7 @@ class User < UserBase
   include Tsina::UserMethods
   include MindmapFav::UserMethods
   include MindmapComment::UserMethods
+  include FeedInvite::UserMethods
   # 两个工程都引入的
 
   index :email

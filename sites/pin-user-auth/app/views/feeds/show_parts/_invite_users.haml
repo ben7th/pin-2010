@@ -1,0 +1,14 @@
+.show-page-invite
+  .tip 输入邮箱或用户名来查找用户
+  .ipt=text_field_tag 'contact[email]',"",:size=>25,:maxlength=>255,:class=>'inline text'
+  .btns
+    %a.button.editable-submit{:href=>'javascript:;'} 添加
+
+.show-page-be-invited-users
+  -feed.be_invited_users.each do |biu|
+    .user.btb{:'data-id'=>biu.id}
+      .delete
+      .avatar
+        =avatar biu,:mini
+      .name
+        =usersign(biu,false)

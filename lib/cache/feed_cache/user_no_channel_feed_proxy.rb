@@ -8,25 +8,40 @@ class UserNoChannelFeedProxy < RedisBaseProxy
     @user.inbox_feeds_of_no_channel_db.map{|feed|feed.id}
   end
 
+  def self.add_feed_cache(feed)
+    return if !feed.channels_db.blank?
+    users = feed.creator.hotfans + [feed.creator]
+    users.each do |user|
+      UserNoChannelFeedProxy.new(user).add_to_cache(feed.id)
+    end
+  end
+
+  def self.remove_feed_cache(feed)
+    creator = feed.creator
+    return if creator.blank?
+    return if !feed.channels_db.blank?
+    users = creator.hotfans + [feed.creator]
+    users.each do |user|
+      UserNoChannelFeedProxy.new(user).remove_from_cache(feed.id)
+    end
+  end
+
   def self.rules
     [
       {
         :class => Feed ,
         :after_create => Proc.new {|feed|
-          next if !feed.channels_db.blank?
-          users = feed.creator.hotfans + [feed.creator]
-          users.each do |user|
-            UserNoChannelFeedProxy.new(user).add_to_cache(feed.id)
+          UserNoChannelFeedProxy.add_feed_cache(feed)
+        },
+        :after_update => Proc.new {|feed|
+          if feed.to_hide?
+            UserNoChannelFeedProxy.remove_feed_cache(feed)
+          elsif feed.to_show?
+            UserNoChannelFeedProxy.add_feed_cache(feed)
           end
         },
         :after_destroy => Proc.new {|feed|
-          creator = feed.creator
-          next if creator.blank?
-          next if !feed.channels_db.blank?
-          users = creator.hotfans + [feed.creator]
-          users.each do |user|
-            UserNoChannelFeedProxy.new(user).remove_from_cache(feed.id)
-          end
+          UserNoChannelFeedProxy.remove_feed_cache(feed)
         }
       },
       {

@@ -19,7 +19,7 @@ class FeedChannel < UserAuthAbstract
     # user(self) 发送的 制定了channel 的 feeds
     def send_feeds_of_channels_db
       Feed.find(:all,
-        :conditions=>{:creator_id=>self.id},
+        :conditions=>"creator_id = #{self.id} and hidden is not true",
         :joins=>"inner join feed_channels on feed_channels.feed_id = feeds.id"
       )
     end
@@ -42,7 +42,9 @@ class FeedChannel < UserAuthAbstract
   module ChannelMethods
     def self.included(base)
       base.has_many :feed_channels,:dependent=>:destroy,:order=>"id desc"
-      base.has_many :feeds_db,:through=>:feed_channels,:source=>:feed,:order=>"feed_channels.id desc"
+      base.has_many :feeds_db,:through=>:feed_channels,:source=>:feed,
+        :conditions=>"feeds.hidden is not true",
+        :order=>"feed_channels.id desc"
     end
   end
 

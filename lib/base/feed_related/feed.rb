@@ -1,4 +1,5 @@
 class Feed < UserAuthAbstract
+  version 20110506
   set_readonly false
 
   validates_presence_of :content
@@ -15,6 +16,8 @@ class Feed < UserAuthAbstract
       :order=>'id desc'
     }
   }
+
+  named_scope :unhidden,:conditions=>"hidden is not true"
 
   def replied_feed
     Feed.find_by_id(reply_to)
@@ -134,82 +137,24 @@ class Feed < UserAuthAbstract
     self.record_editer(editer)
   end
 
-
-  # 创建对 feed 的观点
-  def create_or_update_viewpoint(user,content)
-    todo = self.get_or_create_first_todo
-    todo_user = user.get_or_create_todo_user_by_todo(todo)
-    todo_user.add_memo(content)
-    todo_user
+  def show
+    return if !self.hidden?
+    self.update_attribute(:hidden,false)
   end
 
-  def memoed_viewpoints
-    viewpoints.select{|vp|vp.has_memo?}
+  def hide
+    return if self.hidden?
+    self.update_attribute(:hidden,true)
   end
 
-  def viewpoints
-    ft = self.first_todo
-    return [] if ft.blank?
-    ft.todo_users
+  def to_show?
+    return false if self.changes["hidden"].blank?
+    !self.hidden?
   end
 
-  def viewpoint_of(user)
-    todo = self.first_todo
-    return if todo.blank?
-    todo_user = user.get_todo_user_by_todo(todo)
-    return if todo_user.blank?
-    todo_user
-  end
-
-  def viewpoint_by?(user)
-    todo = self.first_todo
-    return false if todo.blank?
-    todo_user = user.get_todo_user_by_todo(todo)
-    return false if todo_user.blank?
-    todo_user.has_memo?
-  end
-
-  def has_viewpoint?
-    viewpoints = self.viewpoints
-    return false if viewpoints.blank?
-    viewpoints.each do |todo_user|
-      if todo_user.has_memo?
-        return true
-      end
-    end
-    return false
-  end
-
-  def hot_viewpoint
-    self.viewpoints.first
-  end
-
-  def be_asked_users
-    be_asked_users_db
-  end
-
-  def memoed_users
-    memoed_users_db
-  end
-
-  # 被邀请的用户
-  def be_asked_users_db
-    todo = self.first_todo
-    return [] if todo.blank?
-    todo.be_asked_users_db
-  end
-
-  # 参与的用户
-  def memoed_users_db
-    todo = self.first_todo
-    return [] if todo.blank?
-    todo.memoed_users_db
-  end
-
-  # 邀请用户参与话题
-  def add_be_asked_users(users)
-    todo = self.get_or_create_first_todo
-    users.each{|user|user.get_or_create_todo_user_by_todo(todo)}
+  def to_hide?
+    return false if self.changes["hidden"].blank?
+    self.hidden?
   end
 
   module UserMethods
@@ -271,7 +216,7 @@ class Feed < UserAuthAbstract
     end
 
     def out_feeds_db
-      Feed.news_feeds_of_user(self)
+      Feed.news_feeds_of_user(self).unhidden
     end
 
     def in_feeds_db
@@ -283,19 +228,6 @@ class Feed < UserAuthAbstract
       _id_list.map{|id|Feed.find_by_id(id)}.compact.uniq
     end
 
-    # 我参与的话题
-    def memoed_feeds_db
-      self.memoed_todos_db.map do |todo|
-        todo.feed
-      end.compact
-    end
-
-    # 被邀请参加的话题
-    def be_asked_feeds_db
-      self.be_asked_todos_db.map do |todo|
-        todo.feed
-      end.compact
-    end
   end
 
   include FeedMindmap::FeedMethods
@@ -307,4 +239,6 @@ class Feed < UserAuthAbstract
   include Todo::FeedMethods
   include ShortUrl::FeedMethods
   include FeedChange::FeedMethods
+  include TodoUser::FeedMethods
+  include FeedInvite::FeedMethods
 end

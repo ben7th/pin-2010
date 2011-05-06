@@ -332,3 +332,38 @@
     padding:5px;
   }
 }
+
+.show-page-invite{
+  padding:5px;
+  .ipt{
+    input{width:180px !important;}
+  }
+  .btns{
+    @include submitbtns;
+  }
+}
+
+.show-page-be-invited-users{
+  padding:5px;
+  .user{
+    padding:4px;
+    margin:0 0 4px 0;
+    overflow:hidden;
+    .avatar{
+      float:left;
+      img{width:20px;height:20px;}
+    }
+    .name{margin-left:30px;line-height:24px;}
+    .delete{
+      float:right;
+      width:12px;height:12px;
+      @include allicon(-240px,-87px);
+      position:relative;
+      top:4px;
+      cursor:pointer;
+      background-color:#BED4E8;
+      @include border-radius(2px);
+      &:hover{background-color:#3173B4;}
+    }
+  }
+}

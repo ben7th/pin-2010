@@ -178,7 +178,7 @@ pie.load(function(){
   });
 
 
-  //删除feed
+  //隐藏feed
   jQuery('.newsfeed .feed .ops .del').live('click',function(){
     var elm = jQuery(this);
     var f_elm = elm.closest('.feed.mpli').find('.f');
@@ -187,7 +187,7 @@ pie.load(function(){
 
     var li_elm = f_elm.closest('li');
 
-    elm.confirm_dialog('确定要删除这个话题吗',function(){
+    elm.confirm_dialog('确定要隐藏这个话题吗',function(){
       li_elm.slideUp({
         complete : function(){
           li_elm.remove();
@@ -415,6 +415,61 @@ pie.load(function(){
       success : function(res){
         if(jQuery('.homepage-new-viewpoint-tip .tip').length == 1){
           var hnvt_elm = jQuery('.homepage-new-viewpoint-tip');
+          hnvt_elm.fadeOut(function(){
+            hnvt_elm.remove();
+          });
+        }else{
+          tip_elm.fadeOut(function(){
+            tip_elm.remove();
+          });
+        }
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+})
+
+//关于邀请的通知
+pie.load(function(){
+  //清除所有通知
+  jQuery('.homepage-be-invited-tip .btns .clear-all').live('click',function(){
+    //delete /tips/remove_all_viewpoint_vote_up_tips
+    jQuery.ajax({
+      url : '/tips/remove_all_feed_invite_tips',
+      type : 'delete',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        var hnvt_elm = jQuery('.homepage-be-invited-tip');
+        hnvt_elm.fadeOut(function(){
+          hnvt_elm.remove();
+        });
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+  //清除单条通知
+  jQuery('.homepage-be-invited-tip .tip .delete').live('click',function(){
+    var tip_elm = jQuery(this).closest('.tip')
+    var tip_id = tip_elm.attr('data-id');
+
+    //delete /tips/remove_viewpoint_vote_up_tip?tip_id
+    jQuery.ajax({
+      url : '/tips/remove_feed_invite_tip',
+      type : 'delete',
+      data : 'tip_id='+tip_id,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        if(jQuery('.homepage-be-invited-tip .tip').length == 1){
+          var hnvt_elm = jQuery('.homepage-be-invited-tip');
           hnvt_elm.fadeOut(function(){
             hnvt_elm.remove();
           });

@@ -201,4 +201,21 @@ module FeedHelper
     return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
     return ''
   end
+
+  def be_invited_tip_str(be_invited_tip)
+    # id feed creator
+
+    user = be_invited_tip.creator
+    feed = be_invited_tip.feed
+    
+    re = []
+    re << user.name
+    re << '邀请你参与话题'
+    re << link_to(truncate_u(feed.content,16),feed)
+    re << "<span class='quiet'>#{jtime be_invited_tip.time}</span>"
+    return re*' '
+  rescue Exception => ex
+    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
+    return ''
+  end
 end

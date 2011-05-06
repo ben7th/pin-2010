@@ -21,3 +21,15 @@
           .data=viewpoint_tip_str(viewpoint_tip)
     .btns
       =minibutton '清除所有','javascript:;',:class=>'clear-all'
+
+-be_invited_tips = UserBeInvitedFeedTipProxy.new(current_user).tips
+-if !be_invited_tips.blank?
+  .homepage-be-invited-tip
+    .title> 邀请通知
+    .tips
+      -be_invited_tips.each do |be_invited_tip|
+        .tip{:'data-id'=>be_invited_tip.id}
+          .delete
+          .data=be_invited_tip_str(be_invited_tip)
+    .btns
+      =minibutton '清除所有','javascript:;',:class=>'clear-all'

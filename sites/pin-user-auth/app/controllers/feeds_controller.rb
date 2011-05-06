@@ -168,9 +168,9 @@ class FeedsController < ApplicationController
     render :template=>"feeds/todos_memoed"
   end
 
-  def be_asked
-    @feeds = current_user.be_asked_feeds
-    render :template=>"feeds/todos_be_asked"
+  def be_invited
+    @feeds = current_user.be_invited_feeds
+    render :template=>"feeds/todos_be_invited"
   end
 
 
@@ -185,11 +185,25 @@ class FeedsController < ApplicationController
   end
 
   def invite
-    if @feed.creator != current_user
-      return render :status=>503,:text=>503
-    end
     users = params[:user_ids].split(",").uniq.map{|id|User.find_by_id(id)}.compact
-    @feed.add_be_asked_users(users)
+    return render :text=>"不能邀请自己",:status=>503 if users.include?(current_user)
+    return render :text=>"不能邀请话题的创建者",:status=>503 if users.include?(@feed.creator)
+    @feed.invite_users(users,current_user)
+    render :partial=>'feeds/show_parts/invite_users',:locals=>{:feed=>@feed}
+  end
+
+  def cancel_invite
+    user = User.find_by_id(params[:user_id])
+    @feed.cancel_invite_user(user)
     render :text=>200
+  end
+
+  def recover
+    @feed = Feed.find_by_id(params[:id])
+    if current_user == @feed.creator
+      @feed.show
+      return render :status=>200,:text=>"删除成功"
+    end
+    render :status=>401,:text=>"没有权限"
   end
 end

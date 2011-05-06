@@ -14,7 +14,7 @@ pie.load(function(){
         pie.pin_url_for('pin-user-auth','quoted_me_feeds')
       +'">点击查看~</a></div>'+
       '<div class="todos"><span class="num">1</span> 个话题邀请，<a href="'+
-        pie.pin_url_for('pin-user-auth','todos')
+        pie.pin_url_for('pin-user-auth','feeds/be_invited')
       +'">点击查看~</a></div>'+
     '</div>'
   )
