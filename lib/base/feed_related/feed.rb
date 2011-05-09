@@ -19,6 +19,10 @@ class Feed < UserAuthAbstract
 
   named_scope :unhidden,:conditions=>"hidden is not true"
 
+  def self.recent_hot(paginate_options)
+    Feed.unhidden.paginate(paginate_options)
+  end
+
   def replied_feed
     Feed.find_by_id(reply_to)
   end

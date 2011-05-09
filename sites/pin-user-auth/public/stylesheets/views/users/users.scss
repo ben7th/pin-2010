@@ -826,43 +826,6 @@ form.new_message{
   padding:5px;
 }
 
-.feed-links{
-  @include border-radius(5px);
-  .home,.favs,.received_comments,.quoted-me-feeds,.todos,.memoed-todos,.be-asked-todos{
-    padding:5px 10px;
-    font-size:14px;
-    height:24px;
-    line-height:24px;
-    .icon{
-      float:left;
-      width:24px;
-      height:24px;
-      margin-right:8px;
-      background:url(/images/icons/all.png) no-repeat -150px -117px;
-    }
-  }
-  .home{
-    .icon{background:url(/images/icons/all.png) no-repeat -225px -117px;}
-  }
-  .received_comments{
-    .icon{background:url(/images/icons/all.png) no-repeat -175px -117px;}
-  }
-  .quoted-me-feeds{
-    .icon{background:url(/images/icons/all.png) no-repeat -200px -117px;}
-  }
-  .todos{
-    .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
-  }
-  .memoed-todos{
-    .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
-  }
-  .be-asked-todos{
-    .icon{background:url(/images/icons/all.png) no-repeat -250px -117px;}
-  }
-}
-
-
-
 .index-received-comments{
   .c{
     overflow:hidden;

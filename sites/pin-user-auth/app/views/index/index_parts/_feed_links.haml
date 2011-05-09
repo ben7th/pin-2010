@@ -1,19 +1,26 @@
-.feed-links.lightbg.boxs2
-  .home.btb
+.module-links.feeds
+  .link.home.btb
     .icon
-    =link_to '我的首页',pin_url_for('pin-user-auth','/')
-  .favs.btb
+    =tabs_link_to '我的首页',pin_url_for('pin-user-auth','/')
+  .link.favs.btb
     .icon
-    =link_to '关注的话题',pin_url_for('pin-user-auth','/favs')
-  .received_comments.btb
+    =tabs_link_to '关注的话题',pin_url_for('pin-user-auth','/favs')
+  .link.memoed-todos.btb
     .icon
-    =link_to '收到的评论',pin_url_for('pin-user-auth','/received_comments')
-  .quoted-me-feeds.btb
+    =tabs_link_to '参与的话题',pin_url_for('pin-user-auth','/feeds/memoed')
+  .link.be-asked-todos
     .icon
-    =link_to '大家传播我的',pin_url_for('pin-user-auth','/quoted_me_feeds')
-  .memoed-todos.btb
+    =tabs_link_to '被邀请的话题',pin_url_for('pin-user-auth','/feeds/be_invited')
+
+.module-links.feeds
+  .link.recent-hot-feeds
     .icon
-    =link_to '参与过的话题',pin_url_for('pin-user-auth','/feeds/memoed')
-  .be-asked-todos
+    =tabs_link_to '这里正在进行…',pin_url_for('pin-user-auth','/feeds/all')
+
+.module-links{:style=>'display:none;'}
+  .link.received_comments.btb
     .icon
-    =link_to '被邀请的话题',pin_url_for('pin-user-auth','/feeds/be_invited')
+    =tabs_link_to '收到的评论',pin_url_for('pin-user-auth','/received_comments')
+  .link.quoted-me-feeds.btb
+    .icon
+    =tabs_link_to '大家传播我的',pin_url_for('pin-user-auth','/quoted_me_feeds')

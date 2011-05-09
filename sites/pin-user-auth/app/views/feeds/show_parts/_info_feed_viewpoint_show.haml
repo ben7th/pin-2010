@@ -14,6 +14,9 @@
         .vote-down{:tipr=>'投反对票（不记名），观点排序将下降'}
       -else
         .voted-down{:tipr=>'你已经投过反对票了，再点一次取消投票'}
+  -else
+    .vote-ops
+      .vote-score.show=todo_user.vote_score
 
   .main
     .content>=vp_memo todo_user
@@ -32,14 +35,10 @@
           =unsupport_str(todo_user)
 
   .footmisc
-    .time
-      =jtime todo_user.updated_at
-
     .ops
       -if logged_in?
-        .split.quiet> -
         -if todo_user.comments.blank?
-          = link_to '评论','javascript:;',:class=>'echo'
+          = link_to '增加评论','javascript:;',:class=>'echo'
         -else
           = link_to "#{todo_user.comments.count}条评论",'javascript:;',:class=>'echo'
 
@@ -48,7 +47,10 @@
           =link_to '派生新话题','javascript:;',:class=>'new-feed'
 
     .creator
-      .avatar
-        =avatar user,:tiny
-      .name
-        =usersign(user)
+      .time
+        创建于 #{jtime todo_user.updated_at}
+      .data
+        .avatar
+          =avatar user,:tiny
+        .name
+          =usersign(user)

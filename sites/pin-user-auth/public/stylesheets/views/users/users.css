@@ -749,34 +749,6 @@ form.new_message .w300 {
   margin-bottom: 20px;
   padding: 5px; }
 
-.feed-links {
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-  .feed-links .home, .feed-links .favs, .feed-links .received_comments, .feed-links .quoted-me-feeds, .feed-links .todos, .feed-links .memoed-todos, .feed-links .be-asked-todos {
-    padding: 5px 10px;
-    font-size: 14px;
-    height: 24px;
-    line-height: 24px; }
-    .feed-links .home .icon, .feed-links .favs .icon, .feed-links .received_comments .icon, .feed-links .quoted-me-feeds .icon, .feed-links .todos .icon, .feed-links .memoed-todos .icon, .feed-links .be-asked-todos .icon {
-      float: left;
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
-      background: url(/images/icons/all.png) no-repeat -150px -117px; }
-  .feed-links .home .icon {
-    background: url(/images/icons/all.png) no-repeat -225px -117px; }
-  .feed-links .received_comments .icon {
-    background: url(/images/icons/all.png) no-repeat -175px -117px; }
-  .feed-links .quoted-me-feeds .icon {
-    background: url(/images/icons/all.png) no-repeat -200px -117px; }
-  .feed-links .todos .icon {
-    background: url(/images/icons/all.png) no-repeat -250px -117px; }
-  .feed-links .memoed-todos .icon {
-    background: url(/images/icons/all.png) no-repeat -250px -117px; }
-  .feed-links .be-asked-todos .icon {
-    background: url(/images/icons/all.png) no-repeat -250px -117px; }
-
 .index-received-comments .c {
   overflow: hidden;
   border-radius: 5px;
@@ -1869,8 +1841,7 @@ form.new_message .w300 {
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
       padding: 0 5px;
-      width: 20px;
-      height: 100px; }
+      width: 20px; }
       .page-feed-viewpoints .viewpoint .vote-ops .vote-up {
         border-radius: 3px;
         -moz-border-radius: 3px;
@@ -1879,7 +1850,8 @@ form.new_message .w300 {
         height: 17px;
         background: url(/images/icons/all.png) no-repeat -229px -33px;
         background-color: #FEF4A6;
-        cursor: pointer; }
+        cursor: pointer;
+        margin: 0 0 4px 0; }
         .page-feed-viewpoints .viewpoint .vote-ops .vote-up:hover {
           background: url(/images/icons/all.png) no-repeat -229px -51px;
           background-color: #A8500E; }
@@ -1891,15 +1863,23 @@ form.new_message .w300 {
         height: 17px;
         background: url(/images/icons/all.png) no-repeat -250px -33px;
         background-color: #FEF4A6;
-        cursor: pointer; }
+        cursor: pointer;
+        margin: 0 0 4px 0; }
         .page-feed-viewpoints .viewpoint .vote-ops .vote-down:hover {
           background: url(/images/icons/all.png) no-repeat -250px -51px;
           background-color: #A8500E; }
       .page-feed-viewpoints .viewpoint .vote-ops .vote-score {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         text-align: center;
-        margin: 4px 0; }
+        margin: 0 0 4px 0;
+        line-height: 20px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+        .page-feed-viewpoints .viewpoint .vote-ops .vote-score.show {
+          color: white;
+          background: #53BCFE; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-up {
         background: url(/images/icons/all.png) no-repeat -229px -51px; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-down {
@@ -1943,7 +1923,7 @@ form.new_message .w300 {
     .page-feed-viewpoints .viewpoint .footmisc {
       overflow: hidden;
       margin-bottom: 10px;
-      margin-left: 40px; }
+      margin: 0 0 10px 40px; }
       .page-feed-viewpoints .viewpoint .footmisc .time {
         display: inline; }
       .page-feed-viewpoints .viewpoint .footmisc .ops {
@@ -2743,6 +2723,23 @@ form.new_message .w300 {
 
 .module-links-title {
   padding: 0 5px; }
+
+.module-links.feeds .home .icon {
+  background: url(/images/icons/all.png) no-repeat -225px -117px; }
+.module-links.feeds .favs .icon {
+  background: url(/images/icons/all.png) no-repeat -150px -117px; }
+.module-links.feeds .received_comments .icon {
+  background: url(/images/icons/all.png) no-repeat -175px -117px; }
+.module-links.feeds .quoted-me-feeds .icon {
+  background: url(/images/icons/all.png) no-repeat -200px -117px; }
+.module-links.feeds .todos .icon {
+  background: url(/images/icons/all.png) no-repeat -250px -117px; }
+.module-links.feeds .memoed-todos .icon {
+  background: url(/images/icons/all.png) no-repeat -250px -117px; }
+.module-links.feeds .be-asked-todos .icon {
+  background: url(/images/icons/all.png) no-repeat -275px -117px; }
+.module-links.feeds .recent-hot-feeds .icon {
+  background: url(/images/icons/all.png) no-repeat -300px -117px; }
 
 .email_setting .mail span {
   border-radius: 4px;

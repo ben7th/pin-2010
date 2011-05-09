@@ -1,12 +1,12 @@
 class FeedsController < ApplicationController
-  before_filter :login_required,:except=>[:search,:show,:aj_comments]
+  before_filter :login_required,:except=>[:all,:search,:show,:aj_comments]
   before_filter :pre_load
   def pre_load
     @feed = Feed.find(params[:id]) if params[:id]
   end
 
   def all
-    @feeds = Feed.find(:all,:order=>"created_at desc").paginate(:per_page=>20,:page=>params[:page]||1)
+    @feeds = Feed.recent_hot(:per_page=>20,:page=>params[:page]||1,:order=>'id desc')
   end
 
   def say;end

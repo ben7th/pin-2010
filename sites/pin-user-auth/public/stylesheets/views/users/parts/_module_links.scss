@@ -78,3 +78,30 @@
 .module-links-title{
   padding:0 5px;
 }
+
+.module-links.feeds{
+  .home{
+    .icon{@include allicon(-225px,-117px)}
+  }
+  .favs{
+    .icon{@include allicon(-150px,-117px)}
+  }
+  .received_comments{
+    .icon{@include allicon(-175px,-117px)}
+  }
+  .quoted-me-feeds{
+    .icon{@include allicon(-200px,-117px)}
+  }
+  .todos{
+    .icon{@include allicon(-250px,-117px)}
+  }
+  .memoed-todos{
+    .icon{@include allicon(-250px,-117px)}
+  }
+  .be-asked-todos{
+    .icon{@include allicon(-275px,-117px)}
+  }
+  .recent-hot-feeds{
+    .icon{@include allicon(-300px,-117px)}
+  }
+}
