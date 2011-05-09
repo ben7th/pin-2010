@@ -157,12 +157,16 @@ class Feed < UserAuthAbstract
     self.hidden?
   end
 
+  def send_invite_email(sender,recipient_email,title,postscript)
+    Mailer.deliver_feed_invite(self,sender,recipient_email,title,postscript)
+  end
+
   module UserMethods
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []
       channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
       feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
-      return false if !feed.valid?
+      return feed if !feed.valid?
       feed.save!
       feed.update_detail_content(options[:detail],self) if !options[:detail].blank?
       feed

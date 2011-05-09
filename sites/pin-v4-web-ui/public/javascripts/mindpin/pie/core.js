@@ -220,10 +220,15 @@ pie.dir = function(){
   eval('try{console.dir('+arr.join(',')+')}catch(e){}')
 }
 
-pie.open_win = function(url){
-  var top = (document.body.clientHeight - 420) / 2;
-  var left = (document.body.clientWidth - 520) / 2;
-  window.open(url, "connect_window", "height=420, width=520, toolbar =no, menubar=no, scrollbars=yes, resizable=no,top=" + top + ",left=" + left + ", location=no, status=no");
+pie.open_win = function(url,w,h,wname){
+  var width = w||520;
+  var height = h||420;
+  var win_name = wname || "connect_window"
+
+  var left = (document.body.clientWidth - width) / 2;
+  var top = (document.body.clientHeight - height) / 2;
+
+  window.open(url, win_name, "height="+height+", width="+width+", toolbar =no, menubar=no, scrollbars=yes, resizable=no,top=" + top + ",left=" + left + ", location=no, status=no");
 }
 
 //onload

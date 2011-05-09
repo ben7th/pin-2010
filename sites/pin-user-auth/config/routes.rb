@@ -126,7 +126,7 @@ ActionController::Routing::Routes.draw do |map|
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
     :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post,
     :update_detail=>:put,:update_content=>:put,:invite=>:post,:cancel_invite=>:delete,
-    :recover=>:put
+    :recover=>:put,:send_invite_email=>:post
   },:collection=>{
     :reply_to=>:post,:quote=>:post,:all=>:get,
     :memoed=>:get,:be_invited=>:get

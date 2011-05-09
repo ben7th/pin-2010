@@ -615,3 +615,88 @@ pie.load(function(){
     })
   })
 })
+
+//邮件邀请
+pie.load(function(){
+  jQuery('.show-page-invite-email .send-invite-email').live('click',function(){
+    var form_elm = jQuery('.show-page-feed-share-form');
+
+    jQuery.facebox(
+      '<h3 class="f_box">发送话题讨论邀请邮件</h3>'+
+      '<div class="show-page-feed-share-form">'+
+        '<div class="flash-success" style="display:none;"><span>邮件发送完毕</span></div>'+
+        form_elm.html()+
+      '</div>'
+    )
+  })
+
+  jQuery('.show-page-feed-share-form .editable-cancel').live('click',function(){
+    jQuery.facebox.close();
+  })
+
+  //发送邮件
+  jQuery('.show-page-feed-share-form .editable-submit').live('click',function(){
+//    post /feeds/id/send_invite_email
+//      params[:email]
+//      params[:title]
+//      params[:postscript]
+    var elm = jQuery(this);
+    var form_elm = elm.closest('.show-page-feed-share-form');
+    var email = form_elm.find('input.email').val();
+    var title = form_elm.find('input.title').val();
+    var postscript = form_elm.find('textarea.postscript').val();
+
+    if(jQuery.string(email).blank()){
+      pie.inputflash(form_elm.find('input.email'));
+      return;
+    }
+
+    if(jQuery.string(title).blank()){
+      pie.inputflash(form_elm.find('input.title'));
+      return;
+    }
+
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+    jQuery.ajax({
+      url : '/feeds/'+feed_id+'/send_invite_email',
+      type : 'post',
+      data : 'email='+encodeURIComponent(email)+
+        '&title='+encodeURIComponent(title)+
+        '&postscript='+encodeURIComponent(postscript),
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(){
+        form_elm.find('.flash-success').fadeIn(100);
+        setTimeout(function(){jQuery.facebox.close();},500);
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+
+  })
+})
+
+//转发链接
+pie.load(function(){
+  jQuery('.show-page-invite-link-share .send-invite-link-share').live('click',function(){
+    var form_elm = jQuery('.show-page-feed-link-share-form');
+
+    jQuery.facebox(
+      '<h3 class="f_box">转发话题链接地址</h3>'+
+      '<div class="show-page-feed-link-share-form">'+
+        form_elm.html()+
+      '</div>'
+    )
+
+    var cnt_elm = jQuery('#facebox textarea');
+    var start = 0;
+    var end = cnt_elm.val().length;
+    cnt_elm[0].setSelectionRange(start,end);
+  })
+
+  jQuery('.show-page-feed-link-share-form .editable-cancel').live('click',function(){
+    jQuery.facebox.close();
+  })
+});

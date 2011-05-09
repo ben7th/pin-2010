@@ -1,0 +1,44 @@
+-if logged_in?
+  .show-page-invite-email
+    -link_to 'javascript:;',:class=>'send-invite-email' do
+      <div class='icon'></div>邮件邀请
+
+    .show-page-feed-share-form.form{:style=>'display:none;'}
+      .field
+        %label 收件人（邮件地址）
+        %input.text.inline.email{:type=>'text'}
+      .field
+        %label 邮件主题
+        %input.text.inline.title{:type=>'text',:value=>"#{current_user.name}向你推荐讨论话题"}
+      .field
+        %label 邮件内容
+        .cont.darkbg
+          .p
+            #{current_user.name}说：
+          .p
+            我向你推荐来自MindPin的这个讨论话题：
+          .p
+            =feed.content
+          .p
+            访问地址 #{pin_url_for('pin-user-auth',"feeds/#{feed.id}")}
+      .field
+        %label 内容附言
+        %textarea.postscript 我已经参与讨论了，你也快来看看吧 :)
+      .btns
+        %a.button.editable-submit{:href=>'javascript:;'} 发送邮件
+        %a.button.editable-cancel{:href=>'javascript:;'} 取消
+
+.show-page-invite-link-share
+  -link_to 'javascript:;',:class=>'send-invite-link-share' do
+    <div class='icon'></div>转发链接
+
+  .show-page-feed-link-share-form.form{:style=>'display:none;'}
+    .field
+      %label 推荐文字
+      -url = pin_url_for('pin-user-auth',"feeds/#{feed.id}")
+      -str = "#{feed.content}\n#{url}"
+      %textarea.cnt=str
+    .field
+      你可以选中并复制上面的内容，把它转发到各种微博或者发给你的QQ，MSN好友。他们就可以链接过来啦。
+    .btns
+      %a.button.editable-cancel{:href=>'javascript:;'} 关闭

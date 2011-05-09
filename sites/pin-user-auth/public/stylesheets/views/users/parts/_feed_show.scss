@@ -345,6 +345,7 @@
 
 .show-page-be-invited-users{
   padding:5px;
+  margin:0 0 20px 0;
   .user{
     padding:4px;
     margin:0 0 4px 0;
@@ -365,5 +366,66 @@
       @include border-radius(2px);
       &:hover{background-color:#3173B4;}
     }
+  }
+}
+
+.invite-share{
+  padding:5px;
+  overflow:hidden;
+  margin:0 0 12px 0;
+  .show-page-invite-email{
+    float:left;margin:0 10px 0 0;
+    .send-invite-email{
+      .icon{
+        width:16px;height:16px;
+        float:left;
+        @include allicon(-315px,-100px);
+        margin:0 3px 0 0;
+      }
+    }
+  }
+  .show-page-invite-link-share{
+    float:left;margin:0 10px 0 0;
+    .send-invite-link-share{
+      .icon{
+        width:16px;height:16px;
+        float:left;
+        @include allicon(-332px,-100px);
+        margin:0 0px 0 0;
+      }
+    }
+  }
+}
+
+.show-page-feed-share-form,.show-page-feed-link-share-form{
+  width:400px;
+  .field{
+    margin:0 0 6px 0;
+    label{
+      display:block;padding:3px;
+    }
+    input.text.email{width:200px !important;}
+    input.text.title{width:300px !important;}
+    .cont{
+      padding:5px;
+      margin:0 0 6px 0;
+    }
+    .postscript{
+      font-size:12px;
+      height:32px;
+    }
+  }
+  .btns{
+    @include submitbtns;
+  }
+}
+
+.show-page-share-tsina{
+  padding:5px;
+  .icon{
+    width:16px;height:16px;
+    float:left;
+    @include allicon(0px,-167px);
+    margin:0 3px 0 0;
   }
 }

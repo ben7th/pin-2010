@@ -18,8 +18,8 @@ class FeedsController < ApplicationController
   
   def _do_say_no_channel
     feed = current_user.send_say_feed(params[:content],:detail=>params[:detail])
-    if feed.blank?
-      return render :text=>"发送失败",:status=>403
+    if feed.id.blank?
+      return render :text=>get_flash_error(feed),:status=>403
     end
     str = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
     return render :text=>str
@@ -199,11 +199,16 @@ class FeedsController < ApplicationController
   end
 
   def recover
-    @feed = Feed.find_by_id(params[:id])
     if current_user == @feed.creator
       @feed.show
       return render :status=>200,:text=>"删除成功"
     end
     render :status=>401,:text=>"没有权限"
   end
+
+  def send_invite_email
+    @feed.send_invite_email(current_user,params[:email],params[:title],params[:postscript])
+    render :text=>200
+  end
+
 end

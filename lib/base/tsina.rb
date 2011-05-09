@@ -78,18 +78,6 @@ class Tsina
       return false
     end
 
-    def share_mindmap_to_tsina_in_queue(mindmap)
-      image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
-      SendTsinaStatusQueue.new.add_task({
-          :user_id=>self.id,:content=>"分享导图 #{mindmap.title}",
-          :image_path=>image})
-    end
-
-    def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
-      image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
-      send_tsina_image_status(image,content)
-    end
-
     def send_tsina_image_status(image,content)
       wb = self.tsina_weibo
       File.open(image,"r") do |f|
@@ -100,6 +88,11 @@ class Tsina
       p ex.message
       puts ex.backtrace*"\n"
       return false
+    end
+
+    def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
+      image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
+      send_tsina_image_status(image,content)
     end
   end
 

@@ -34,10 +34,13 @@
       %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
         =avatar u,:mini
 
+  .hrr
   -if logged_in?
-    .hrr
     .grid-title 邀请其他人参与
     =render 'feeds/show_parts/invite_users',{:feed=>@feed}
+  .invite-share
+    =render 'feeds/show_parts/invite_share',{:feed=>@feed}
+  =render 'feeds/show_parts/share_to',{:feed=>@feed}
 
   .hrr
   .grid-title 相关话题
