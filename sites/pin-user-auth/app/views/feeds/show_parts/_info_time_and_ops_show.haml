@@ -15,7 +15,7 @@
       =link_to '评论','javascript:;',:class=>'echo'
 
   .creator.feed-creator
-    .time
+    .time.quiet
       创建于 #{created_from(feed)}
     .data
       .avatar
@@ -26,8 +26,8 @@
   -if !feed.last_edited_user.blank?
     .last-edited-user.feed-editor
       -leu = feed.last_edited_user
-      .time
-        修改于 #{jtime feed.last_edited_time}
+      .time.quiet
+        编辑于 #{jtime feed.last_edited_time}
       .data
         .avatar
           =avatar leu,:tiny
