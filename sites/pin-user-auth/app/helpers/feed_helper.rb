@@ -218,4 +218,35 @@ module FeedHelper
     return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
     return ''
   end
+
+  def fav_change_tip_str(fav_change_tip)
+    #:tip_id,:feed,:user,:kind,:time
+
+    user = fav_change_tip.user
+    feed = fav_change_tip.feed
+
+    arr = {
+      'edit_feed_content' => '修改了主题',
+      'edit_viewpoint' => '修改了观点',
+      'add_viewpoint' => '发表了观点'
+    }
+
+
+    re = []
+    re << user.name
+
+    if fav_change_tip.kind == 'edit_feed_content'
+      re << '修改了话题'
+      re << link_to(truncate_u(feed.content,16),feed)
+    else
+      re << '在话题'
+      re << link_to(truncate_u(feed.content,16),feed)
+      re << "中#{arr[fav_change_tip.kind]}"
+    end
+    re << "<span class='quiet'>#{jtime fav_change_tip.time}</span>"
+    return re*' '
+  rescue Exception => ex
+    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
+    return ''
+  end
 end

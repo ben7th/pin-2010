@@ -206,6 +206,39 @@ pie.load(function(){
     })
   });
 
+  //恢复feed
+  jQuery('.newsfeed .feed .ops .recover').live('click',function(){
+    var elm = jQuery(this);
+    var f_elm = elm.closest('.feed.mpli').find('.f');
+    var id = f_elm.attr('data-id');
+
+
+    var li_elm = f_elm.closest('li');
+
+    elm.confirm_dialog('确定要恢复这个话题吗',function(){
+      // put /feeds/id/recover
+      li_elm.slideUp({
+        complete : function(){
+          li_elm.remove();
+        }
+      })
+      
+      jQuery.ajax({
+        url  :pie.pin_url_for('pin-user-auth','/feeds/'+id+'/recover'),
+        type :'put',
+        beforeSend : function(){
+          pie.show_loading_bar();
+        },
+        success : function(res){
+
+        },
+        complete : function(){
+          pie.hide_loading_bar();
+        }
+      });
+    })
+  });
+
 })
 
 pie.load(function(){
@@ -470,6 +503,61 @@ pie.load(function(){
       success : function(res){
         if(jQuery('.homepage-be-invited-tip .tip').length == 1){
           var hnvt_elm = jQuery('.homepage-be-invited-tip');
+          hnvt_elm.fadeOut(function(){
+            hnvt_elm.remove();
+          });
+        }else{
+          tip_elm.fadeOut(function(){
+            tip_elm.remove();
+          });
+        }
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+})
+
+//关于关注话题的通知
+pie.load(function(){
+  //清除所有通知
+  jQuery('.homepage-fav-change-tip .btns .clear-all').live('click',function(){
+	//delete /tips/remove_all_fav_feed_change_tips
+    jQuery.ajax({
+      url : '/tips/remove_all_fav_feed_change_tips',
+      type : 'delete',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        var hnvt_elm = jQuery('.homepage-fav-change-tip');
+        hnvt_elm.fadeOut(function(){
+          hnvt_elm.remove();
+        });
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  });
+
+  //清除单条通知
+  jQuery('.homepage-fav-change-tip .tip .delete').live('click',function(){
+    var tip_elm = jQuery(this).closest('.tip')
+    var tip_id = tip_elm.attr('data-id');
+
+    //delete /tips/remove_fav_feed_change_tip?tip_id
+    jQuery.ajax({
+      url : '/tips/remove_fav_feed_change_tip',
+      type : 'delete',
+      data : 'tip_id='+tip_id,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        if(jQuery('.homepage-fav-change-tip .tip').length == 1){
+          var hnvt_elm = jQuery('.homepage-fav-change-tip');
           hnvt_elm.fadeOut(function(){
             hnvt_elm.remove();
           });

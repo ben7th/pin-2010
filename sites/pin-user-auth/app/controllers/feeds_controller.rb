@@ -198,17 +198,35 @@ class FeedsController < ApplicationController
     render :text=>200
   end
 
+  def send_invite_email
+    @feed.send_invite_email(current_user,params[:email],params[:title],params[:postscript])
+    render :text=>200
+  end
+
+  def save_viewpoint_draft
+    @feed.save_viewpoint_draft(current_user,params[:content])
+    render :text=>200
+  end
+
+  def add_spam_mark
+    @feed.add_spam_mark(current_user)
+    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
+  end
+
   def recover
-    if current_user == @feed.creator
-      @feed.show
+    if @feed.can_be_recovered_by?(current_user)
+      @feed.recover(current_user)
       return render :status=>200,:text=>"删除成功"
     end
     render :status=>401,:text=>"没有权限"
   end
 
-  def send_invite_email
-    @feed.send_invite_email(current_user,params[:email],params[:title],params[:postscript])
-    render :text=>200
+  def mine_hidden
+    @feeds = current_user.hidden_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
+  def all_hidden
+    @feeds = Feed.hidden.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
 end

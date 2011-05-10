@@ -8,9 +8,12 @@
   .link.memoed-todos.btb
     .icon
     =tabs_link_to '参与的话题',pin_url_for('pin-user-auth','/feeds/memoed')
-  .link.be-asked-todos
+  .link.be-asked-todos.btb
     .icon
     =tabs_link_to '被邀请的话题',pin_url_for('pin-user-auth','/feeds/be_invited')
+  .link.be-hidden-todos
+    .icon
+    =tabs_link_to '被隐藏的话题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
 
 .module-links.feeds
   .link.recent-hot-feeds

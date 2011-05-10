@@ -68,7 +68,6 @@
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   width: 200px;
-  height: 80px;
   position: absolute;
   box-shadow: 0 0 6px black;
   -moz-box-shadow: 0 0 6px black;
@@ -77,7 +76,6 @@
     padding: 13px;
     overflow: hidden; }
     .jq-confirm-dialog .d .data {
-      height: 20px;
       line-height: 20px;
       font-size: 12px;
       margin: 0 0 10px 0; }
@@ -706,7 +704,10 @@ form.new_message .w300 {
   font-size: 14px;
   margin: 0 0 20px 0; }
 
-.homepage-new-voteup-tip, .homepage-new-viewpoint-tip, .homepage-be-invited-tip {
+.homepage-new-voteup-tip,
+.homepage-new-viewpoint-tip,
+.homepage-be-invited-tip,
+.homepage-fav-change-tip {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -714,19 +715,34 @@ form.new_message .w300 {
   border: solid 2px #BED4E8;
   padding: 5px 10px;
   margin: 0 0 20px 0; }
-  .homepage-new-voteup-tip .title, .homepage-new-viewpoint-tip .title, .homepage-be-invited-tip .title {
+  .homepage-new-voteup-tip .title,
+  .homepage-new-viewpoint-tip .title,
+  .homepage-be-invited-tip .title,
+  .homepage-fav-change-tip .title {
     line-height: 20px;
     font-weight: bold;
     margin: 0 0 4px 0;
     border-bottom: solid 1px #BED4E8; }
-  .homepage-new-voteup-tip .tips, .homepage-new-viewpoint-tip .tips, .homepage-be-invited-tip .tips {
+  .homepage-new-voteup-tip .tips,
+  .homepage-new-viewpoint-tip .tips,
+  .homepage-be-invited-tip .tips,
+  .homepage-fav-change-tip .tips {
     margin: 0 0 6px 0; }
-    .homepage-new-voteup-tip .tips .tip, .homepage-new-viewpoint-tip .tips .tip, .homepage-be-invited-tip .tips .tip {
+    .homepage-new-voteup-tip .tips .tip,
+    .homepage-new-viewpoint-tip .tips .tip,
+    .homepage-be-invited-tip .tips .tip,
+    .homepage-fav-change-tip .tips .tip {
       overflow: hidden; }
-      .homepage-new-voteup-tip .tips .tip .data, .homepage-new-viewpoint-tip .tips .tip .data, .homepage-be-invited-tip .tips .tip .data {
+      .homepage-new-voteup-tip .tips .tip .data,
+      .homepage-new-viewpoint-tip .tips .tip .data,
+      .homepage-be-invited-tip .tips .tip .data,
+      .homepage-fav-change-tip .tips .tip .data {
         margin: 0 20px 0 0;
         line-height: 20px; }
-      .homepage-new-voteup-tip .tips .tip .delete, .homepage-new-viewpoint-tip .tips .tip .delete, .homepage-be-invited-tip .tips .tip .delete {
+      .homepage-new-voteup-tip .tips .tip .delete,
+      .homepage-new-viewpoint-tip .tips .tip .delete,
+      .homepage-be-invited-tip .tips .tip .delete,
+      .homepage-fav-change-tip .tips .tip .delete {
         float: right;
         width: 12px;
         height: 12px;
@@ -738,9 +754,15 @@ form.new_message .w300 {
         border-radius: 2px;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px; }
-        .homepage-new-voteup-tip .tips .tip .delete:hover, .homepage-new-viewpoint-tip .tips .tip .delete:hover, .homepage-be-invited-tip .tips .tip .delete:hover {
+        .homepage-new-voteup-tip .tips .tip .delete:hover,
+        .homepage-new-viewpoint-tip .tips .tip .delete:hover,
+        .homepage-be-invited-tip .tips .tip .delete:hover,
+        .homepage-fav-change-tip .tips .tip .delete:hover {
           background-color: #3173B4; }
-  .homepage-new-voteup-tip .btns .minibutton, .homepage-new-viewpoint-tip .btns .minibutton, .homepage-be-invited-tip .btns .minibutton {
+  .homepage-new-voteup-tip .btns .minibutton,
+  .homepage-new-viewpoint-tip .btns .minibutton,
+  .homepage-be-invited-tip .btns .minibutton,
+  .homepage-fav-change-tip .btns .minibutton {
     font-weight: normal; }
 
 .grid-title {
@@ -1011,7 +1033,10 @@ form.new_message .w300 {
         width: 200px;
         padding: 5px;
         margin: 0 10px 0 0;
-        overflow: hidden; }
+        overflow: hidden;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
         .newsfeed ul.feeds li.mpli.feed .f .footmisc .last-edited-user .avatar {
           float: left; }
         .newsfeed ul.feeds li.mpli.feed .f .footmisc .last-edited-user .name {
@@ -1645,7 +1670,10 @@ form.new_message .w300 {
       width: 200px;
       padding: 5px;
       margin: 0 10px 0 0;
-      overflow: hidden; }
+      overflow: hidden;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px; }
       .page-feed-show .footmisc .last-edited-user .avatar {
         float: left; }
       .page-feed-show .footmisc .last-edited-user .name {
@@ -1923,7 +1951,8 @@ form.new_message .w300 {
     .page-feed-viewpoints .viewpoint .footmisc {
       overflow: hidden;
       margin-bottom: 10px;
-      margin: 0 0 10px 40px; }
+      margin: 0 0 10px 40px;
+      width: 618px; }
       .page-feed-viewpoints .viewpoint .footmisc .time {
         display: inline; }
       .page-feed-viewpoints .viewpoint .footmisc .ops {
@@ -1938,7 +1967,10 @@ form.new_message .w300 {
         width: 200px;
         padding: 5px;
         margin: 0 10px 0 0;
-        overflow: hidden; }
+        overflow: hidden;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
         .page-feed-viewpoints .viewpoint .footmisc .last-edited-user .avatar {
           float: left; }
         .page-feed-viewpoints .viewpoint .footmisc .last-edited-user .name {
@@ -2738,6 +2770,8 @@ form.new_message .w300 {
   background: url(/images/icons/all.png) no-repeat -250px -117px; }
 .module-links.feeds .be-asked-todos .icon {
   background: url(/images/icons/all.png) no-repeat -275px -117px; }
+.module-links.feeds .be-hidden-todos .icon {
+  background: url(/images/icons/all.png) no-repeat -325px -117px; }
 .module-links.feeds .recent-hot-feeds .icon {
   background: url(/images/icons/all.png) no-repeat -300px -117px; }
 

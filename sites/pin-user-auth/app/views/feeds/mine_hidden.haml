@@ -1,7 +1,7 @@
 -require_css 'views/users',true
 
 -content_for :title do
-  我参与的话题
+  被隐藏的话题
 
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
@@ -11,11 +11,11 @@
 
 .grid_14.paddingl20
   .grid-title
-    我参与的话题
+    我被隐藏的话题
 
   .newsfeed
     -mplist @feeds,:for=>Feed do |feed|
-      =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}
+      =render :partial=>'index/homepage/feeds/feed_info_hidden',:locals=>{:feed=>feed}
 
 .grid_4.omega.fright
   =render :partial=>'index/index_parts/feed_links'

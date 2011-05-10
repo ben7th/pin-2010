@@ -13,6 +13,8 @@ class UserBase < UserAuthAbstract
     LOGO_URL_ROOT = SETTINGS["user_logo_file_url_root"]
   end
 
+  ADMIN_USER_EMAILS = CoreService.find_setting_by_name("admin_users_email")
+
   # logo
   @logo_path = "#{LOGO_PATH_ROOT}:class/:attachment/:id/:style/:basename.:extension"
   @logo_url = "#{LOGO_URL_ROOT}:class/:attachment/:id/:style/:basename.:extension"
@@ -37,6 +39,10 @@ class UserBase < UserAuthAbstract
   # 是否激活
   def activated?
     !activated_at.blank?
+  end
+
+  def is_admin_user?
+    ADMIN_USER_EMAILS.include?(self.email)
   end
 
   # 根据传入的邮箱名和密码进行用户验证

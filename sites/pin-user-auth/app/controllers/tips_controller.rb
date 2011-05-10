@@ -30,4 +30,14 @@ class TipsController < ApplicationController
     UserBeInvitedFeedTipProxy.new(current_user).remove_all_tips
     render :text=>200
   end
+
+  def remove_fav_feed_change_tip
+    UserFavFeedChangeTipProxy.new(current_user).remove_tip_by_tip_id(params[:tip_id])
+    render :text=>200
+  end
+
+  def remove_all_fav_feed_change_tips
+    UserFavFeedChangeTipProxy.new(current_user).remove_all_tips
+    render :text=>200
+  end
 end

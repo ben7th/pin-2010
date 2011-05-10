@@ -33,3 +33,15 @@
           .data=be_invited_tip_str(be_invited_tip)
     .btns
       =minibutton '清除所有','javascript:;',:class=>'clear-all'
+
+-fav_change_tips = UserFavFeedChangeTipProxy.new(current_user).tips
+-if !fav_change_tips.blank?
+  .homepage-fav-change-tip
+    .title> 关注话题通知
+    .tips
+      -fav_change_tips.each do |fav_change_tip|
+        .tip{:'data-id'=>fav_change_tip.id}
+          .delete
+          .data=fav_change_tip_str(fav_change_tip)
+    .btns
+      =minibutton '清除所有','javascript:;',:class=>'clear-all'

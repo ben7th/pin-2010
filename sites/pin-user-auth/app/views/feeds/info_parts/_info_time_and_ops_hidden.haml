@@ -1,0 +1,15 @@
+- hide_by_creator = feed.spam_mark_score < 5
+
+.footmisc
+  =link_to '查看详情',feed
+
+  -if logged_in?
+    .ops>
+      .split.quiet> -
+      -if hide_by_creator
+        %span.quiet> 话题被创建者隐藏
+        -if feed.creator == current_user
+          .split.quiet> -
+          =link_to '从隐藏状态恢复','javascript:;',:class=>'recover'
+      -else
+        %span.quiet> 话题被认为不值得讨论，不可恢复

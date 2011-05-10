@@ -139,8 +139,10 @@ pie.load(function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
     var main_elm = vp_elm.find('.main');
+    var vote_elm = vp_elm.find('.vote-ops');
 
     main_elm.hide();
+    vote_elm.hide();
     main_elm.after(form_elm);
     form_elm.show();
   });
@@ -149,7 +151,6 @@ pie.load(function(){
   jQuery('.page-feed-viewpoints .viewpoint .viewpoint-edit-form .editable-submit').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
-    var main_elm = vp_elm.find('.main');
 
     var feed_id = jQuery('.page-feed-show').attr('data-id');
     var content = form_elm.find('.inputer').val();
@@ -177,7 +178,10 @@ pie.load(function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
     var main_elm = vp_elm.find('.main');
+    var vote_elm = vp_elm.find('.vote-ops');
+
     main_elm.show();
+    vote_elm.show();
     form_elm.remove();
   });
 
@@ -504,6 +508,41 @@ pie.load(function(){
     });
   })
 });
+
+pie.load(function(){
+  // 不值得讨论
+  jQuery('.page-feed-show .ops .spam').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var feed_id = feed_elm.attr('data-id');
+    elm.confirm_dialog('如果很多人都这么觉得，话题将被隐藏。',function(){
+      // post /feeds/id/add_spam_mark
+      jQuery.ajax({
+        url : '/feeds/'+feed_id+'/add_spam_mark',
+        type : 'post',
+        beforeSend : function(){
+          pie.show_loading_bar();
+        },
+        success : function(res){
+          var new_feed_elm = jQuery(res);
+          feed_elm.after(new_feed_elm);
+          feed_elm.remove();
+          jQuery('.tipsy').remove();
+          //重新加载tipr 在有更好的方法之前 此处暂时先这样写，
+          new_feed_elm.find('[tipr]').tipsy({html:true,gravity:'w',title:function(){
+            var tip = this.getAttribute('tipr')
+            var doms = jQuery(tip)
+            if(doms.length == 0) return tip;
+            return doms.html();
+          }});
+        },
+        complete : function(){
+          pie.hide_loading_bar();
+        }
+      })
+    })
+  })
+})
 
 pie.load(function(){
   // 投赞成

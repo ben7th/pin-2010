@@ -23,4 +23,6 @@ class FeedChange < UserAuthAbstract
       FeedChange.create(:feed=>self,:user=>editer)
     end
   end
+
+  include UserFavFeedChangeTipProxy::FeedChangeMethods
 end

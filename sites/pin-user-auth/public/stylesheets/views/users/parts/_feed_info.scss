@@ -46,6 +46,7 @@
     padding:5px;
     margin:0 10px 0 0;
     overflow:hidden;
+    @include border-radius(4px);
     .avatar{float:left;}
     .name{margin-left:46px;}
     &.feed-editor{

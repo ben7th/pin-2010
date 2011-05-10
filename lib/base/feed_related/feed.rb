@@ -19,6 +19,8 @@ class Feed < UserAuthAbstract
 
   named_scope :unhidden,:conditions=>"hidden is not true"
 
+  named_scope :hidden,:conditions=>"hidden is true",:order=>"id desc"
+
   def self.recent_hot(paginate_options)
     Feed.unhidden.paginate(paginate_options)
   end
@@ -236,6 +238,10 @@ class Feed < UserAuthAbstract
       _id_list.map{|id|Feed.find_by_id(id)}.compact.uniq
     end
 
+    def hidden_feeds
+      Feed.news_feeds_of_user(self).hidden
+    end
+
   end
 
   include FeedMindmap::FeedMethods
@@ -249,4 +255,6 @@ class Feed < UserAuthAbstract
   include FeedChange::FeedMethods
   include TodoUser::FeedMethods
   include FeedInvite::FeedMethods
+  include ViewpointDraft::FeedMethods
+  include SpamMark::FeedMethods
 end

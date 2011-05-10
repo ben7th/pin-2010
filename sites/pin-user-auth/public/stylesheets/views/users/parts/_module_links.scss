@@ -101,6 +101,9 @@
   .be-asked-todos{
     .icon{@include allicon(-275px,-117px)}
   }
+  .be-hidden-todos{
+    .icon{@include allicon(-325px,-117px)}
+  }
   .recent-hot-feeds{
     .icon{@include allicon(-300px,-117px)}
   }

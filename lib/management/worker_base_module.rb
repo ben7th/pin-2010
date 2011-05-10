@@ -11,7 +11,8 @@ module MindpinServiceManagementModule
       "mindmap_image_cache_queue_resque_worker",
       "mindmap_import_queue_resque_worker",
       "mindmap_input_queue_resque_worker",
-      "send_tsina_status_queue_resque_worker"
+      "send_tsina_status_queue_resque_worker",
+      "user_fav_feed_change_tip_resque_queue_worker"
       ]
     # 支持的操作
     Operations = ["start",'stop']

@@ -126,10 +126,12 @@ ActionController::Routing::Routes.draw do |map|
     :fav=>:post,:unfav=>:delete,:mine_newer_than=>:get,
     :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post,
     :update_detail=>:put,:update_content=>:put,:invite=>:post,:cancel_invite=>:delete,
-    :recover=>:put,:send_invite_email=>:post
+    :send_invite_email=>:post,:save_viewpoint_draft=>:post,
+    :recover=>:put,:add_spam_mark=>:post
   },:collection=>{
     :reply_to=>:post,:quote=>:post,:all=>:get,
-    :memoed=>:get,:be_invited=>:get
+    :memoed=>:get,:be_invited=>:get,
+    :mine_hidden=>:get,:all_hidden=>:get
     } do |feed|
       feed.resources :todos,:collection=>{
         :remove_last_todo=>:delete
@@ -242,4 +244,8 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"remove_feed_invite_tip",:conditions=>{:method=>:delete}
   map.connect "/tips/remove_all_feed_invite_tips",:controller=>"tips",
     :action=>"remove_all_feed_invite_tips",:conditons=>{:method=>:delete}
+  map.connect "/tips/remove_fav_feed_change_tip",:controller=>"tips",
+    :action=>"remove_fav_feed_change_tip",:conditions=>{:method=>:delete}
+  map.connect "/tips/remove_all_fav_feed_change_tips",:controller=>"tips",
+    :action=>"remove_all_fav_feed_change_tips",:conditons=>{:method=>:delete}
 end

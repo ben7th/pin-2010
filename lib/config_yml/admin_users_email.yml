@@ -1,0 +1,10 @@
+# 每次修改此配置文件之后应重启工程
+
+development:
+  - ben7th@126.com
+
+test:
+  - ben7th@126.com
+
+production:
+  - ben7th@sina.com

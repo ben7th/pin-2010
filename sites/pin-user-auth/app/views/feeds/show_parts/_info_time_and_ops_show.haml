@@ -1,19 +1,4 @@
 .footmisc
-  .ops
-    -if logged_in?
-      -klass = feed.fav_by?(current_user) ? 'on':'off'
-      -link_to 'javascript:;',:class=>"fav #{klass}" do
-        %span.t1> 关注
-        %span.t2> 取消关注
-
-      .split.quiet> -
-      =link_to '传播','javascript:;',:class=>'transmit',:'data-colunt'=>feed.quotes_count
-
-      .split.quiet> -
-      =link_to '评论','javascript:;',:class=>'echo'
-    -else
-      =link_to '评论','javascript:;',:class=>'echo'
-
   .creator.feed-creator
     .time.quiet
       创建于 #{created_from(feed)}
@@ -33,3 +18,31 @@
           =avatar leu,:tiny
         .name
           =usersign(leu)
+
+  .ops
+    -if logged_in?
+      .o.marginb10
+        -klass = feed.fav_by?(current_user) ? 'on':'off'
+        -link_to 'javascript:;',:class=>"fav #{klass}" do
+          %span.t1> 关注
+          %span.t2> 取消关注
+
+        .split.quiet> -
+        =link_to '传播','javascript:;',:class=>'transmit',:'data-colunt'=>feed.quotes_count
+
+        .split.quiet> -
+        =link_to '评论','javascript:;',:class=>'echo'
+      .o
+        -if feed.is_spam_marked_by?(current_user)
+          %span.quiet 你觉得不值得讨论
+        -else
+          =link_to '这个话题不值得讨论','javascript:;',:class=>'spam',:tipr=>'#is-a-spam'
+        #is-a-spam.hide
+          你觉得这个话题很无趣，很空泛；<br/>
+          或者“在google上baidu一下”就能轻易解决~
+
+        -if feed.spam_marks.count > 0
+          %span.quiet="#{feed.spam_marks.count}人觉得"
+    -else
+      .o
+        =link_to '评论','javascript:;',:class=>'echo'
