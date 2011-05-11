@@ -79,5 +79,4 @@ class ViewpointVote < UserAuthAbstract
     end
   end
 
-  include UserViewpointVoteUpTipProxy::ViewpointVoteMethods
 end

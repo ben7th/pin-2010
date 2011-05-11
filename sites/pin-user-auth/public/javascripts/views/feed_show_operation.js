@@ -301,37 +301,47 @@ pie.load(function(){
 
 pie.load(function(){
   //show页面的关注
-  jQuery('.page-feed-show .ops .fav').live('click',function(){
-    var elm = jQuery(this);
-    var feed_id = elm.closest('.page-feed-show').attr('data-id');
-    
-    var is_on = elm.hasClass('on');
 
-    if(is_on){
-      pie.show_loading_bar();
-      jQuery.ajax({
-        url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id+'/unfav'),
-        type :'delete',
-        success : function(res){
-          elm.removeClass('on').addClass('off');
-        },
-        complete : function(){
-          pie.hide_loading_bar();
-        }
-      });
-    }else{
-      pie.show_loading_bar();
-      jQuery.ajax({
-        url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id+'/fav'),
-        type :'post',
-        success : function(res){
-          elm.removeClass('off').addClass('on');
-        },
-        complete : function(){
-          pie.hide_loading_bar();
-        }
-      });
-    }
+  jQuery('.show-page-ops .fav').live('click',function(){
+    var fav_elm = jQuery('.show-page-ops .fav');
+    var unfav_elm = jQuery('.show-page-ops .unfav');
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+
+    jQuery.ajax({
+      url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id+'/fav'),
+      type :'post',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        fav_elm.hide();
+        unfav_elm.show();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    });
+  });
+
+  jQuery('.show-page-ops .unfav').live('click',function(){
+    var fav_elm = jQuery('.show-page-ops .fav');
+    var unfav_elm = jQuery('.show-page-ops .unfav');
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+
+    jQuery.ajax({
+      url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id+'/unfav'),
+      type :'delete',
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        fav_elm.show();
+        unfav_elm.hide();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    });
   });
 });
 
@@ -386,6 +396,7 @@ pie.load(function(){
       ftelm.css('left',off.left - 5).css('top',off.top + elm.outerHeight() + 2);
       ftelm.attr('data-feed-id',feed_id);
       ftelm.find('.ori-feed').html(fct);
+      ftelm.find('.edit-ct').remove();
       ftelm.find('.flash-success').hide();
       jQuery('body').append(ftelm);
     }

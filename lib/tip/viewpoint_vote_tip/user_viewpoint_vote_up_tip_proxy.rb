@@ -5,7 +5,8 @@
               "#{randstr}"=>{"voter_id"=>"","viewpoint_id"=>"","time"=>""}
             }
 =end
-class UserViewpointVoteUpTipProxy
+class UserViewpointVoteUpTipProxy < BaseTipProxy
+  definition_tip_attrs :id,:viewpoint,:voters,:time
   def initialize(user)
     @user = user
     @key = "user_#{@user.id}_viewpint_vote_up_tip"
@@ -20,7 +21,7 @@ class UserViewpointVoteUpTipProxy
       voters = voters_ids.map{|id|User.find_by_id(id)}.compact
       time = Time.at(tip_hash["time"].to_f)
       next if voters.blank? || viewpoint.blank?
-      tips.push(UserViewpointVoteUpTip.new(tip_id,viewpoint,voters,time))
+      tips.push(UserViewpointVoteUpTipProxy::Tip.new(tip_id,viewpoint,voters,time))
     end
     tips
   end
@@ -51,14 +52,6 @@ class UserViewpointVoteUpTipProxy
     end
   end
 
-  def remove_all_tips
-    @rh.del
-  end
-
-  def remove_tip_by_tip_id(tip_id)
-    @rh.remove(tip_id)
-  end
-
   def find_tip_id_by_viewpoint_id(viewpoint_id)
     @rh.all.each do |tip_id,tip_hash|
       if tip_hash["viewpoint_id"] == viewpoint_id
@@ -81,29 +74,17 @@ class UserViewpointVoteUpTipProxy
       self.new(viewpoint.user).remove_tip(viewpoint,voter)
     end
 
-  end
-
-  class UserViewpointVoteUpTip
-    attr_reader :id,:viewpoint,:voters,:time
-    def initialize(id,viewpoint,voters,time)
-      @id,@viewpoint,@voters,@time = id,viewpoint,voters,time
+    def rules
+      {
+        :class => ViewpointVote,
+        :after_create => Proc.new{|viewpoint_vote|
+          UserViewpointVoteUpTipProxy.add_tip(viewpoint_vote) if viewpoint_vote.is_vote_up?
+        },
+        :after_destroy => Proc.new{|viewpoint_vote|
+          UserViewpointVoteUpTipProxy.remove_tip(viewpoint_vote) if viewpoint_vote.is_vote_up?
+        }
+      }
     end
   end
 
-  module ViewpointVoteMethods
-    def self.included(base)
-      base.after_create :add_vote_up_tip
-      base.after_destroy :remove_vote_up_tip
-    end
-
-    def add_vote_up_tip
-      UserViewpointVoteUpTipProxy.add_tip(self) if self.is_vote_up?
-      return true
-    end
-
-    def remove_vote_up_tip
-      UserViewpointVoteUpTipProxy.remove_tip(self) if self.is_vote_up?
-      return true
-    end
-  end
 end

@@ -35,6 +35,14 @@
           =unsupport_str(todo_user)
 
   .footmisc
+    .creator
+      .time.quiet
+        编辑于 #{jtime todo_user.updated_at}
+      .data
+        .avatar
+          =avatar user,:tiny
+        .name
+          =usersign(user,true,18)
     .ops
       -if logged_in?
         -if todo_user.comments.blank?
@@ -45,12 +53,3 @@
         -if params[:dev]
           .split.quiet> -
           =link_to '派生新话题','javascript:;',:class=>'new-feed'
-
-    .creator
-      .time.quiet
-        编辑于 #{jtime todo_user.updated_at}
-      .data
-        .avatar
-          =avatar user,:tiny
-        .name
-          =usersign(user)

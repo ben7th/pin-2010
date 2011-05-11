@@ -5,7 +5,8 @@
               "#{randstr}"=>{"creator_id"=>"","feed_id"=>"","time"=>""}
             }
 =end
-class UserBeInvitedFeedTipProxy
+class UserBeInvitedFeedTipProxy < BaseTipProxy
+  definition_tip_attrs :id,:feed,:creator,:time
   def initialize(user)
     @user = user
     @key = "user_#{@user.id}_be_invited_feed_tip"
@@ -19,7 +20,7 @@ class UserBeInvitedFeedTipProxy
       creator = User.find_by_id(tip_hash["creator_id"])
       time = Time.at(tip_hash["time"].to_f)
       next if feed.blank? || creator.blank?
-      tips.push(UserBeInvitedFeedTip.new(tip_id,feed,creator,time))
+      tips.push(UserBeInvitedFeedTipProxy::Tip.new(tip_id,feed,creator,time))
     end
     tips
   end
@@ -42,14 +43,6 @@ class UserBeInvitedFeedTipProxy
     end
   end
 
-  def remove_all_tips
-    @rh.del
-  end
-
-  def remove_tip_by_tip_id(tip_id)
-    @rh.remove(tip_id)
-  end
-
   class << self
     def add_tip(feed_invite)
       user = feed_invite.user
@@ -60,29 +53,18 @@ class UserBeInvitedFeedTipProxy
       user = feed_invite.user
       self.new(user).remove_tip(feed_invite)
     end
-  end
 
-  module FeedInviteMethods
-    def self.included(base)
-      base.after_create :add_feed_invite_tip
-      base.after_destroy :remove_feed_invite_tip
-    end
-
-    def add_feed_invite_tip
-      UserBeInvitedFeedTipProxy.add_tip(self)
-      return true
-    end
-
-    def remove_feed_invite_tip
-      UserBeInvitedFeedTipProxy.remove_tip(self)
-      return true
+    def rules
+      {
+        :class => FeedInvite,
+        :after_create => Proc.new{|feed_invite|
+          UserBeInvitedFeedTipProxy.add_tip(feed_invite)
+        },
+        :after_destroy => Proc.new{|feed_invite|
+          UserBeInvitedFeedTipProxy.remove_tip(feed_invite)
+        }
+      }
     end
   end
 
-  class UserBeInvitedFeedTip
-    attr_reader :id,:feed,:creator,:time
-    def initialize(id,feed,creator,time)
-      @id,@feed,@creator,@time = id,feed,creator,time
-    end
-  end
 end

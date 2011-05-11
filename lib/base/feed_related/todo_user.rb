@@ -142,7 +142,5 @@ class TodoUser < UserAuthAbstract
   include TodoMemoComment::TodoUserMethods
   include ShortUrl::TodoUserMethods
   include ViewpointVote::TodoUserMethods
-  include UserAddViewpointTipProxy::TodoUserMethods
-  include UserFavFeedChangeTipProxy::TodoUserMethods
   include ViewpointDraft::TodoUserMethods
 end

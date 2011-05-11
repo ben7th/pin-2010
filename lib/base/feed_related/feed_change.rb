@@ -24,5 +24,4 @@ class FeedChange < UserAuthAbstract
     end
   end
 
-  include UserFavFeedChangeTipProxy::FeedChangeMethods
 end

@@ -5,7 +5,8 @@
               "#{randstr}"=>{"feed_id"=>"","viewpointer_ids"=>"",:kind=>"edit","time"=>""}
             }
 =end
-class UserAddViewpointTipProxy
+class UserAddViewpointTipProxy < BaseTipProxy
+  definition_tip_attrs :id,:feed,:viewpointers,:kind,:time
   ADD = "add"
   EDIT = "edit"
   
@@ -25,7 +26,7 @@ class UserAddViewpointTipProxy
       time = Time.at(tip_hash["time"].to_f)
       kind = tip_hash["kind"]
       next if feed.blank? || viewpointers.blank?
-      tips.push(UserAddViewpointTip.new(tip_id,feed,viewpointers,kind,time))
+      tips.push(UserAddViewpointTipProxy::Tip.new(tip_id,feed,viewpointers,kind,time))
     end
     tips
   end
@@ -48,14 +49,6 @@ class UserAddViewpointTipProxy
       tip_hash["viewpointer_ids"] = tip_hash["viewpointer_ids"].to_s.split(",").push(viewpointer.id).uniq*","
     end
     @rh.set(tip_id,tip_hash)
-  end
-
-  def remove_tip_by_tip_id(tip_id)
-    @rh.remove(tip_id)
-  end
-
-  def remove_all_tips
-    @rh.del
   end
 
   def find_tip_id_by_feed_id_and_kind(feed_id,kind)
@@ -81,37 +74,26 @@ class UserAddViewpointTipProxy
       return if viewpointer == feed.creator
       self.new(feed.creator).add_tip_of_edit(viewpointer,feed)
     end
-  end
 
-  class UserAddViewpointTip
-    attr_reader :id,:feed,:viewpointers,:kind,:time
-    def initialize(id,feed,viewpointers,kind,time)
-      @id,@feed,@viewpointers,@kind,@time=id,feed,viewpointers,kind,time
+    def rules
+      {
+        :class => TodoUser,
+        :after_create => Proc.new{|todo_user|
+          unless todo_user.memo.blank?
+            UserAddViewpointTipProxy.add_tip_of_add(todo_user)
+          end
+        },
+        :after_update => Proc.new{|todo_user|
+          memo_arr = todo_user.changes["memo"]
+          next if memo_arr.blank?
+          if memo_arr.first.blank?
+            UserAddViewpointTipProxy.add_tip_of_add(todo_user)
+          else
+            UserAddViewpointTipProxy.add_tip_of_edit(todo_user)
+          end
+        }
+      }
     end
   end
 
-  module TodoUserMethods
-    def self.included(base)
-      base.after_create :change_user_add_viewpint_tip_on_create
-      base.after_update :change_user_add_viewpint_tip_on_update
-    end
-
-    def change_user_add_viewpint_tip_on_create
-      unless self.memo.blank?
-        UserAddViewpointTipProxy.add_tip_of_add(self)
-      end
-      return true
-    end
-
-    def change_user_add_viewpint_tip_on_update
-      memo_arr = self.changes["memo"]
-      return true if memo_arr.blank?
-      if memo_arr.first.blank?
-        UserAddViewpointTipProxy.add_tip_of_add(self)
-      else
-        UserAddViewpointTipProxy.add_tip_of_edit(self)
-      end
-      return true
-    end
-  end
 end

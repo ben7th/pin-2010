@@ -40,5 +40,4 @@ class FeedInvite < UserAuthAbstract
     end
   end
 
-  include UserBeInvitedFeedTipProxy::FeedInviteMethods
 end

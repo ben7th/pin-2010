@@ -189,6 +189,16 @@ if defined? ActiveRecord::Base
   end
 end
 
+if defined? ActiveRecord::Base
+  begin
+    p '>>>>> 加载 tip 配置'
+    require 'pie-ui/tip_rule'
+    ActiveRecord::Base.send :include, TipRule
+  rescue Exception => ex
+    p "#{ex.message}，tip 配置加载失败"
+  end
+end
+
 require 'pie-ui/global_util'
 include GlobalUtil
 # 一些 helper 方法

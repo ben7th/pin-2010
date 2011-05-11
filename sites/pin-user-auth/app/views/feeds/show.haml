@@ -41,6 +41,13 @@
   =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
 
 .grid_5.omega.fright
+  -if logged_in?
+    .show-page-ops
+      -faved = @feed.fav_by?(current_user)
+      %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''} 关注这个话题
+      %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'} 　取消关注　
+    .hrr
+
   .grid-title 目前的参与者
   .show-page-memoed-users
     -@feed.memoed_users.each do |u|
