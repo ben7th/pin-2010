@@ -1,23 +1,31 @@
 //发送feed
 pie.load(function(){
-  jQuery('.feed-form .ipter .feed-content').val('');
-  jQuery('.feed-form .feed-detail').val('');
+  jQuery('.page-new-feed-button a.button').live('click',function(){
+    var form_elm = jQuery('.page-new-feed-button .new-form');
 
-  jQuery('.feed-form .subm .subbtn').live('click',function(){
-    var inputer_elm = jQuery('.feed-form .ipter .feed-content');
+    jQuery.facebox(
+      '<div class="page-new-feed-fbox-form">'+
+        form_elm.html()+
+      '</div>'
+    );
+
+    jQuery('#facebox_overlay').unbind('click');
+  });
+
+  jQuery('#facebox .page-new-feed-fbox-form .subm .cancel').live('click',function(){
+    jQuery.facebox.close();
+  })
+
+  jQuery('#facebox .page-new-feed-fbox-form .subm .send-feed').live('click',function(){
+    var form_elm = jQuery(this).closest('.page-new-feed-fbox-form');
+    var inputer_elm = form_elm.find('.ipter .feed-content');
     var content = inputer_elm.val();
 
-    var detail_inputer_elm = jQuery('.feed-form .feed-detail');
+    var detail_inputer_elm = form_elm.find('.feed-detail');
     var detail = detail_inputer_elm.val();
 
-    var channel_id = jQuery('.feed-form .ipter .channel-id').val();
-
     var data;
-    if(channel_id){
-      data = 'content='+encodeURIComponent(content)+'&channel_id='+channel_id;
-    }else{
-      data = 'content='+encodeURIComponent(content)+'&detail='+encodeURIComponent(detail);
-    }
+    data = 'content='+encodeURIComponent(content)+'&detail='+encodeURIComponent(detail);
 
     if(jQuery.string(content).blank()){
       pie.inputflash(inputer_elm);
@@ -30,6 +38,9 @@ pie.load(function(){
       data : data,
       beforeSend : function(){
         pie.show_loading_bar();
+        form_elm.find('.sending').fadeIn('100');
+        form_elm.find('.send-feed , .cancel').hide();
+        form_elm.find('textarea').addClass('disabled');
       },
       success : function(res){
         //创建成功
@@ -37,41 +48,26 @@ pie.load(function(){
         detail_inputer_elm.val('');
         var dom_elm = jQuery(res);
         var lis = dom_elm.find('li');
-        jQuery('#mplist_feeds').prepend(lis);
-        lis.hide().slideDown(400);
+        
+        var suce_elm = form_elm.find('.success');
+        suce_elm.fadeIn('200');
+
+        var feed_id = lis.attr('data-obj-id');
+        window.location.href = pie.pin_url_for('pin-user-auth','/feeds/'+feed_id);
+
+//        jQuery('#mplist_feeds').prepend(lis);
+//        lis.hide().slideDown(400);
       },
       complete : function(){
         pie.hide_loading_bar();
+        form_elm.find('.sending').hide();
+      },
+      error : function(){
+        form_elm.find('.send-feed , .cancel').show();
+        form_elm.find('textarea').removeClass('disabled');
       }
     });
   });
-})
-
-//表单形态切换
-pie.load(function(){
-  jQuery('.feed-form .show-detail-ipt').live('click',function(){
-    jQuery('.feed-form .detail-ipter').slideDown(200);
-    jQuery(this).hide();
-    jQuery('.feed-form .hide-detail-ipt').show();
-    //put /account/feed_form_show_detail_cookie params[:value]
-    jQuery.ajax({
-      url : '/account/feed_form_show_detail_cookie',
-      type : 'put',
-      data : 'value=true'
-    })
-  })
-
-  jQuery('.feed-form .hide-detail-ipt').live('click',function(){
-    jQuery('.feed-form .detail-ipter').slideUp(200);
-    jQuery(this).hide();
-    jQuery('.feed-form .show-detail-ipt').show();
-    //put /account/feed_form_show_detail_cookie params[:value]
-    jQuery.ajax({
-      url : '/account/feed_form_show_detail_cookie',
-      type : 'put',
-      data : 'value=false'
-    })
-  })
 })
 
 
@@ -354,6 +350,7 @@ pie.load(function(){
   })
 });
 
+//通知相关
 //关于投票的通知
 pie.load(function(){
   //清除所有通知
@@ -369,6 +366,7 @@ pie.load(function(){
         var hnvt_elm = jQuery('.homepage-new-voteup-tip');
         hnvt_elm.fadeOut(function(){
           hnvt_elm.remove();
+          pie.recount_feed_notice();
         });
       },
       complete : function(){
@@ -395,65 +393,12 @@ pie.load(function(){
           var hnvt_elm = jQuery('.homepage-new-voteup-tip');
           hnvt_elm.fadeOut(function(){
             hnvt_elm.remove();
+            pie.recount_feed_notice();
           });
         }else{
           tip_elm.fadeOut(function(){
             tip_elm.remove();
-          });
-        }
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  })
-})
-
-//关于观点的通知
-pie.load(function(){
-  //清除所有通知
-  jQuery('.homepage-new-viewpoint-tip .btns .clear-all').live('click',function(){
-    //delete /tips/remove_all_viewpoint_vote_up_tips
-    jQuery.ajax({
-      url : '/tips/remove_all_viewpoint_tips',
-      type : 'delete',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        var hnvt_elm = jQuery('.homepage-new-viewpoint-tip');
-        hnvt_elm.fadeOut(function(){
-          hnvt_elm.remove();
-        });
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  });
-
-  //清除单条通知
-  jQuery('.homepage-new-viewpoint-tip .tip .delete').live('click',function(){
-    var tip_elm = jQuery(this).closest('.tip')
-    var tip_id = tip_elm.attr('data-id');
-
-    //delete /tips/remove_viewpoint_vote_up_tip?tip_id
-    jQuery.ajax({
-      url : '/tips/remove_viewpoint_tip',
-      type : 'delete',
-      data : 'tip_id='+tip_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        if(jQuery('.homepage-new-viewpoint-tip .tip').length == 1){
-          var hnvt_elm = jQuery('.homepage-new-viewpoint-tip');
-          hnvt_elm.fadeOut(function(){
-            hnvt_elm.remove();
-          });
-        }else{
-          tip_elm.fadeOut(function(){
-            tip_elm.remove();
+            pie.recount_feed_notice();
           });
         }
       },
@@ -479,6 +424,7 @@ pie.load(function(){
         var hnvt_elm = jQuery('.homepage-be-invited-tip');
         hnvt_elm.fadeOut(function(){
           hnvt_elm.remove();
+          pie.recount_feed_notice();
         });
       },
       complete : function(){
@@ -505,10 +451,12 @@ pie.load(function(){
           var hnvt_elm = jQuery('.homepage-be-invited-tip');
           hnvt_elm.fadeOut(function(){
             hnvt_elm.remove();
+            pie.recount_feed_notice();
           });
         }else{
           tip_elm.fadeOut(function(){
             tip_elm.remove();
+            pie.recount_feed_notice();
           });
         }
       },
@@ -534,6 +482,7 @@ pie.load(function(){
         var hnvt_elm = jQuery('.homepage-fav-change-tip');
         hnvt_elm.fadeOut(function(){
           hnvt_elm.remove();
+          pie.recount_feed_notice();
         });
       },
       complete : function(){
@@ -560,10 +509,12 @@ pie.load(function(){
           var hnvt_elm = jQuery('.homepage-fav-change-tip');
           hnvt_elm.fadeOut(function(){
             hnvt_elm.remove();
+            pie.recount_feed_notice();
           });
         }else{
           tip_elm.fadeOut(function(){
             tip_elm.remove();
+            pie.recount_feed_notice();
           });
         }
       },
@@ -573,3 +524,61 @@ pie.load(function(){
     })
   })
 })
+
+//首页tab切换
+pie.load(function(){
+  jQuery('.index-page-tabs .tab.feeds').live('click',function(){
+    var elm = jQuery(this);
+    if(elm.hasClass('selected')){
+      return;
+    }
+
+    jQuery('.index-page-tabs .tab').removeClass('selected');
+    elm.addClass('selected');
+    
+    jQuery('.index-tab-ct').hide();
+    jQuery('.index-tab-ct.feeds').fadeIn(200);
+  })
+
+  jQuery('.index-page-tabs .tab.logs').live('click',function(){
+    var elm = jQuery(this);
+    if(elm.hasClass('selected')){
+      return;
+    }
+
+    jQuery('.index-page-tabs .tab').removeClass('selected');
+    elm.addClass('selected');
+
+    jQuery('.index-tab-ct').hide();
+    jQuery('.index-tab-ct.userlogs').fadeIn(200);
+  })
+
+  jQuery('.index-page-tabs .tab.notice').live('click',function(){
+    var elm = jQuery(this);
+    if(elm.hasClass('selected')){
+      return;
+    }
+
+    jQuery('.index-page-tabs .tab').removeClass('selected');
+    elm.addClass('selected');
+
+    jQuery('.index-tab-ct').hide();
+    jQuery('.index-tab-ct.notice').fadeIn(200);
+
+  })
+})
+
+pie.recount_feed_notice = function(){
+  var elms = jQuery('.index-tab-ct.notice .tips .tip');
+  pie.log(elms.length)
+  if(elms.length > 0){
+    jQuery('.index-page-tabs .tab.notice').append(
+      '<div class="count">'+elms.length+'</div>'
+    )
+  }else{
+    jQuery('.index-page-tabs .tab.notice .count').remove();
+  }
+}
+
+//通知计数
+pie.load(pie.recount_feed_notice);

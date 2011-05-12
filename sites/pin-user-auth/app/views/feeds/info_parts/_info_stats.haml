@@ -1,0 +1,5 @@
+.stats
+  -vcount = feed.viewpoints.count
+  .stat.viewpoints{:class=>(vcount.zero?)?'zero':'not-zero'}
+    .num=vcount
+    .w 观点

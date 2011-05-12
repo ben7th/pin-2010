@@ -889,6 +889,82 @@ form.new_message{
   padding:5px;
 }
 
+.page-new-feed-button{
+  overflow:hidden;
+  margin:0 0 20px 0;
+  padding:5px;
+  .button{
+    float:left;
+    font-size:14px;
+    font-weight:bold;
+    /*@include btn-color(#F54F00,#CA0700,#DF1600,#ffffff,#FB5506,#D00C06);*/
+    @include btn-color(#76D7F5, #429FD9, #5BBAE6, #fff, #7BDCFA, #47A4DE);
+    /*@include btn-color(#5D99E1, #3570B8, #2E63A5, #FFF, #7BDCFA, #47A4DE);*/
+    /*@include btn-color(#0076F4, #0099CA, #2E63A5, #FFF, #0076F4, #0076F4);*/
+    padding:10px 20px;
+  }
+}
+
+.index-page-tabs{
+  overflow:hidden;
+  margin:0 0 20px 0;
+  padding:5px;
+  .tab{
+    cursor:pointer;
+    @include border-radius(4px);
+    width:120px;
+    float:left;
+    margin:0 20px 0 0;
+    padding:10px 5px;
+    .title{font-size:14px;font-weight:bold;color:#333;}
+    .icon{width:32px;height:32px;float:left;margin:0 6px 0 0;}
+    &:hover{text-decoration:none;}
+    &.selected{
+      background:#686B72;
+      .title{color:white;}
+      .quiet{color:#ddd !important;}
+    }
+
+    &.feeds{
+      .icon{@include allicon(-25px,-66px);}
+      &.selected{
+        .icon{@include allicon(-58px,-66px);}
+      }
+    }
+    &.logs{
+      .icon{@include allicon(-25px,-33px);}
+      &.selected{
+        .icon{@include allicon(-58px,-33px);}
+      }
+    }
+    &.notice{
+      position:relative;
+      .icon{@include allicon(-91px,-66px);}
+      &.selected{
+        .icon{@include allicon(-124px,-66px);}
+      }
+      .count{
+        position:absolute;
+        @include border-radius(4px);
+        color:white;
+        top:10px;
+        left:115px;
+        padding:4px 7px;
+        font-size:16px;font-weight:bold;
+        line-height:16px;
+        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        background:#FF3D00;
+      }
+    }
+    &.gogogo{
+      .icon{@include allicon(-91px,-33px);}
+      &.selected{
+        .icon{@include allicon(-124px,-33px);}
+      }
+    }
+  }
+}
+
 @import 'parts/feed_form';
 @import 'parts/feed_info';
 @import 'parts/feed_show';
@@ -899,4 +975,5 @@ form.new_message{
 @import 'parts/poptip';
 @import 'parts/mindmaps';
 @import 'parts/todos';
-@import 'parts/auth'
+@import 'parts/auth';
+@import 'parts/userlog';

@@ -19,7 +19,6 @@ class TipManagement
   @@rules = []
   TipManagement.load_proxy(UserFavFeedChangeTipProxy)
   TipManagement.load_proxy(UserBeInvitedFeedTipProxy)
-  TipManagement.load_proxy(UserAddViewpointTipProxy)
   TipManagement.load_proxy(UserViewpointVoteUpTipProxy)
   # ---------- 每增加一个子proxy就配置在这里
   # 用到闭包，method_missing等一些手段，来减少冗余代码

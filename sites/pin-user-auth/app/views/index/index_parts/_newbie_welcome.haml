@@ -1,0 +1,22 @@
+.index-newbie-welcome
+  .title 欢迎来到 Mindpin
+  .desc
+    .p 这里是大家提出问题，发表观点，进行讨论，畅所欲言的地方。
+    .p 你可以<span class='l'>发起一个新话题</span>，邀请其他人来一起讨论。
+    .p.mb 也可以对其他人的话题<span class='l'>提出自己的观点</span>。
+    .p.mb 现在你可以看看这些最近的话题：
+    .feeds
+      -recent_feeds.each do |f|
+        .feed
+          =link_to truncate_u(f.content,32),f
+    .p.mb 也可以去参与这些话题的讨论：
+    .feeds
+      -hot_discuss_feeds.each do |f|
+        .feed
+          =link_to truncate_u(f.content,32),f
+    .p.mb 或者去看看这些朋友的主页
+    .users
+      -page_hot_users.each do |u|
+        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+          =avatar u,:mini
+    .p 祝你好运~

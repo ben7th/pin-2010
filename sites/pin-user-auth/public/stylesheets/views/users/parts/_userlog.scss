@@ -1,0 +1,37 @@
+.index-userlogs{
+  .log{
+    padding:5px 5px 40px 5px;
+    .overflow:hidden;
+    .avatar{float:left;}
+    .ct{
+      font-size:14px;
+      margin-left:40px;
+      margin-bottom:6px;
+      a.bold{font-weight:normal !important;}
+    }
+    .footmisc{
+      margin-left:40px;
+      overflow:hidden;
+      .time{
+        float:left;
+        margin:0 40px 0 0;
+      }
+      .viewpoint{
+        float:left;
+        .arrow{
+          width:15px;height:7px;
+          @include allicon(-271px,-65px);
+          margin:0 0 0 36px;
+        }
+        .data{
+          padding:5px;
+          background:#F0F9FE;
+          @include border-radius(3px);
+          max-width:400px;
+          min-width:80px;
+          p{margin:0;}
+        }
+      }
+    }
+  }
+}

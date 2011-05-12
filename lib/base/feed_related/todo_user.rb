@@ -143,4 +143,5 @@ class TodoUser < UserAuthAbstract
   include ShortUrl::TodoUserMethods
   include ViewpointVote::TodoUserMethods
   include ViewpointDraft::TodoUserMethods
+  include UserLog::TodoUserMethods
 end

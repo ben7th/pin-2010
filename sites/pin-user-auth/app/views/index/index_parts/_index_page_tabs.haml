@@ -1,0 +1,20 @@
+.index-page-tabs
+  -link_to 'javascript:;',:class=>'tab feeds darkbg csshov selected' do
+    .icon
+    .title 话题
+    .desc.quiet 参加讨论吧~
+
+  -link_to 'javascript:;',:class=>'tab logs darkbg csshov' do
+    .icon
+    .title 动态
+    .desc.quiet 大家在干嘛？
+
+  -link_to 'javascript:;',:class=>'tab notice darkbg csshov' do
+    .icon
+    .title 通知
+    .desc.quiet 查收新消息…
+
+  =#index_tabs_link_to '/feeds/all',:class=>'tab gogogo darkbg csshov' do
+  =#  .icon
+  =#  .title 随意看看
+  =#  .desc.quiet 周围有动静…

@@ -10,18 +10,6 @@
     .btns
       =minibutton '清除所有','javascript:;',:class=>'clear-all'
 
--viewpoint_tips = UserAddViewpointTipProxy.new(current_user).tips
--if !viewpoint_tips.blank?
-  .homepage-new-viewpoint-tip
-    .title> 观点通知
-    .tips
-      -viewpoint_tips.each do |viewpoint_tip|
-        .tip{:'data-id'=>viewpoint_tip.id}
-          .delete
-          .data=viewpoint_tip_str(viewpoint_tip)
-    .btns
-      =minibutton '清除所有','javascript:;',:class=>'clear-all'
-
 -be_invited_tips = UserBeInvitedFeedTipProxy.new(current_user).tips
 -if !be_invited_tips.blank?
   .homepage-be-invited-tip

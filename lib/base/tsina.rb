@@ -94,6 +94,12 @@ class Tsina
       image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
       send_tsina_image_status(image,content)
     end
+
+    def share_mindmap_to_tsina_in_queue(mindmap)
+      image_path = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
+      SendTsinaStatusQueueWorker.async_send_tsina_status({
+          :user_id=>self.id,:content=>"分享导图 #{mindmap.title}",:image_path=>image_path})
+    end
   end
 
 end

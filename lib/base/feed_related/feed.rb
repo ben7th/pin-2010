@@ -21,6 +21,11 @@ class Feed < UserAuthAbstract
 
   named_scope :hidden,:conditions=>"hidden is true",:order=>"id desc"
 
+  after_create :creator_to_fav_feed_on_create
+  def creator_to_fav_feed_on_create
+    self.creator.add_fav_feed(self)
+  end
+
   def self.recent_hot(paginate_options)
     Feed.unhidden.paginate(paginate_options)
   end
@@ -257,4 +262,6 @@ class Feed < UserAuthAbstract
   include FeedInvite::FeedMethods
   include ViewpointDraft::FeedMethods
   include SpamMark::FeedMethods
+  include FeedTag::FeedMethods
+  include UserLog::FeedMethods
 end

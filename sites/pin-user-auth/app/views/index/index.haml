@@ -12,59 +12,47 @@
   :javascript
     pie.misc_tip_info = #{misc_tip_info.to_json}
 
-.grid_3.alpha
-  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
+.grid_16.alpha
+  =render 'index/index_parts/index_page_tabs'
 
-.grid_14.paddingl20
-  =flash_info
-  =render :partial=>'index/homepage/feeds/feed_form'
+  .hrr
+  .index-tab-ct.feeds
+    .newsfeed
+      =render 'feeds/lists/feeds_stat',:feeds=>@feeds
 
-  .homepage-see-others
-    =link_to '&gt;&gt;转到思维导图页',pin_url_for("pin-user-auth","/mindmaps")
+    -if @feeds.length < 10
+      =render 'index/index_parts/newbie_welcome'
 
-  -if logged_in?
+
+    .feed-paginate.padding5
+      = will_paginate @feeds
+
+  .index-tab-ct.userlogs{:style=>'display:none;'}
+    .index-userlogs
+      -current_user.inbox_logs.each do |log|
+        =userlog_partial(log)
+
+  .index-tab-ct.notice
     =render 'index/homepage/page_tips'
 
-  .new-feed-tip{:style=>'display:none;'}
-    =link_to '收到了新的话题，请点击这里查看','javascript:;'
-    .loading-tip
-      正在读取...
+.grid_5.omega.fright
+  .page-new-feed-button
+    %a.button.shadow{:href=>'javascript:;'} 发一个新话题
+    .new-form{:style=>"display:none;"}
+      .ipter
+        .ipts
+          =text_area_tag "content",'',:class=>"text feed-content"
+      .detail-ipter
+        =text_area_tag "detail",'',:class=>"text feed-detail"
+      .subm
+        =link_to '创建话题','javascript:;',:class=>'subbtn send-feed shadow'
+        =link_to '取消','javascript:;',:class=>'button cancel shadow'
+        .success.aj-loading{:style=>'display:none;'}
+          创建成功，正在跳转…
+        .sending.aj-loading{:style=>'display:none;'}
+          正在发送…
 
-  .newsfeed
-    =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
-
-  -if @feeds.blank?
-    .index-no-feeds.darkbg
-      你目前还没有任何话题
-
-  -if @feeds.length < 10
-    .index-newbie-welcome
-      .title 欢迎来到 Mindpin
-      .desc
-        .p 这里是大家提出想法，讨论问题，畅所欲言的地方。
-        .p 你可以<span class='l'>发起一个新话题</span>，邀请其他人来一起讨论。
-        .p.mb 也可以对其他人的话题<span class='l'>提出自己的观点</span>。
-        .p.mb 现在你可以看看这些最近的话题：
-        .feeds
-          -recent_feeds.each do |f|
-            .feed
-              =link_to truncate_u(f.content,32),f
-        .p.mb 也可以去参与这些话题的讨论：
-        .feeds
-          -hot_discuss_feeds.each do |f|
-            .feed
-              =link_to truncate_u(f.content,32),f
-        .p.mb 或者去看看这些朋友的主页
-        .users
-          -page_hot_users.each do |u|
-            %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-              =avatar u,:mini
-        .p 祝你好运~
-          
-
-  .feed-paginate.padding5
-    = will_paginate @feeds
-
-.grid_4.omega.fright
-  =render 'index/index_parts/getting_started'
   =render 'index/index_parts/feed_links'
+
+  .hrr
+  =render 'index/index_parts/getting_started'

@@ -75,7 +75,8 @@ class ViewpointVote < UserAuthAbstract
       up_count = self.viewpoint_up_votes.length
       down_count = self.viewpoint_down_votes.length
       vote_score = up_count - down_count
-      self.update_attribute(:vote_score,vote_score)
+      self.vote_score = vote_score
+      self.save_without_timestamping
     end
   end
 

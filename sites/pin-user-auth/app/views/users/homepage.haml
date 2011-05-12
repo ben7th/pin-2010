@@ -35,7 +35,7 @@
     -if @own_feeds.blank?
       .blank.darkbg.font14.padding5.rc5 这位朋友现在还没有任何话题~
     -else
-      =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@own_feeds}
+      =render :partial=>'feeds/lists/feeds',:locals=>{:newsfeeds=>@own_feeds}
 
   .feed-paginate.padding5
     = will_paginate @own_feeds

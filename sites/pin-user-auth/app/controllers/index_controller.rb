@@ -7,6 +7,6 @@ class IndexController < ApplicationController
     end
 
     # 登录后，显示登录后首页
-    @feeds = current_user.in_feeds.paginate(:per_page=>10,:page=>params[:page]||1)
+    @feeds = current_user.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 end

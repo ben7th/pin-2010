@@ -21,12 +21,12 @@ module FeedHelper
   end
 
   def vp_memo_short(todo_user)
-    "#{auto_link(ct(truncate_u(todo_user.memo,128)),:html=>{:target=>'_blank'})}"
+    "#{auto_link(ct(truncate_u(todo_user.memo,64)),:html=>{:target=>'_blank'})}"
   end
 
   def j_vp_memo(todo_user)
     t1 = "#{todo_user.memo}"
-    t2 = truncate_u(t1,128)
+    t2 = truncate_u(t1,64)
     if t1.length == t2.length
       vp_memo(todo_user)
     else

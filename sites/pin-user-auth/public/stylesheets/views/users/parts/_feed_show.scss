@@ -449,7 +449,7 @@
   font-size:14px;
   .fav{
     float:left;
-    padding:6px 10px;
+    padding:10px 20px;
     @include border-radius(4px);
     @include btn-color(#B3D34C,#97BC3D,#97AF4D,white,#9BC238,#8BAD37);
     font-weight:bold;
@@ -457,7 +457,7 @@
   }
   .unfav{
     float:left;
-    padding:6px 10px;
+    padding:10px 20px;
     @include border-radius(4px);
     font-weight:bold;
     cursor:pointer;

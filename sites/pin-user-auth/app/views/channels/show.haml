@@ -30,7 +30,7 @@
     .form
       =render :partial=>'index/homepage/feeds/channel_feed_form'
     .newsfeed
-      =render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>@feeds}
+      =render :partial=>'feeds/lists/feeds',:locals=>{:newsfeeds=>@feeds}
 
   .feed-paginate.padding5
     = will_paginate @feeds

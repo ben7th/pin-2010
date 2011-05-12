@@ -127,7 +127,8 @@ ActionController::Routing::Routes.draw do |map|
     :aj_comments=>:get,:viewpoint=>:post,:aj_viewpoint_in_list=>:post,
     :update_detail=>:put,:update_content=>:put,:invite=>:post,:cancel_invite=>:delete,
     :send_invite_email=>:post,:save_viewpoint_draft=>:post,
-    :recover=>:put,:add_spam_mark=>:post
+    :recover=>:put,:add_spam_mark=>:post,
+    :add_tags=>:post,:remove_tag=>:delete
   },:collection=>{
     :reply_to=>:post,:quote=>:post,:all=>:get,
     :memoed=>:get,:be_invited=>:get,
@@ -248,4 +249,6 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"remove_fav_feed_change_tip",:conditions=>{:method=>:delete}
   map.connect "/tips/remove_all_fav_feed_change_tips",:controller=>"tips",
     :action=>"remove_all_fav_feed_change_tips",:conditons=>{:method=>:delete}
+
+  map.resources :tags
 end

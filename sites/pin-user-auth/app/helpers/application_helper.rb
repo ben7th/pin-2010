@@ -3,4 +3,91 @@ module ApplicationHelper
   def preview_email(method)
     render :partial=>"mailer/#{method}",:locals=>{:preview=>true,:sender=>current_user}
   end
+
+  def index_tabs_link_to(options = {}, html_options = {}, &block)
+    klass = html_options[:class]
+    klass = [klass,'selected']*' '
+    return link_to(options, html_options.merge(:class=>klass), &block) if current_page?(options)
+    link_to(options, html_options, &block)
+  end
+
+  def userlog_partial(log)
+    render 'index/index_parts/info_userlog',:log=>log
+  rescue Exception => ex
+    "用户活动记录解析错误 #{ex}" if RAILS_ENV == 'development'
+  end
+
+  def userlog_ct(log)
+    re = []
+    re << usersign(log.user,false)
+    info = log.info
+    case info.kind
+    when 'ADD_FEED'
+      re << _userlog_ct_add_feed(info)
+    when 'EDIT_FEED'
+      re << _userlog_ct_edit_feed(info)
+    when 'ADD_VIEWPOINT'
+      re << _userlog_ct_add_viewpoint(info)
+    when 'EDIT_VIEWPOINT'
+      re << _userlog_ct_edit_viewpoint(info)
+    else
+      re << info.kind
+    end
+
+    re * ' '
+  end
+
+  def _userlog_ct_add_feed(info)
+    re = []
+    feed = info.feed
+    re << '创建了话题'
+    re << link_to(truncate_u(feed.content,32),feed)
+    re * ' '
+  end
+
+  def _userlog_ct_edit_feed(info)
+    re = []
+    feed = info.feed
+    re << '修改了话题'
+    re << link_to(truncate_u(feed.content,32),feed)
+    re * ' '
+  end
+
+  def _userlog_ct_add_viewpoint(info)
+    re = []
+    feed = info.feed
+    re << '在话题'
+    re << link_to(truncate_u(feed.content,32),feed)
+    re << '中发表了观点'
+  end
+
+  def _userlog_ct_edit_viewpoint(info)
+    re = []
+    feed = info.feed
+    re << '编辑了话题'
+    re << link_to(truncate_u(feed.content,32),feed)
+    re << '中的观点'
+  end
+
+  def userlog_footmisc(log)
+    re = []
+
+    re << "<div class='time'>#{jtime(log.created_at)}</div>"
+    
+    info = log.info
+    case info.kind
+    when 'ADD_VIEWPOINT','EDIT_VIEWPOINT'
+      re << %~
+        <div class="viewpoint">
+          <div class="arrow"></div>
+          <div class="data">
+            #{j_vp_memo(info.viewpoint)}
+          </div>
+        </div>
+      ~
+    end
+
+    re * ' '
+  end
+
 end

@@ -9,8 +9,6 @@ class FeedsController < ApplicationController
     @feeds = Feed.recent_hot(:per_page=>20,:page=>params[:page]||1,:order=>'id desc')
   end
 
-  def say;end
-
   def do_say
     return _do_say_in_channel if params[:channel_id]
     _do_say_no_channel
@@ -21,7 +19,7 @@ class FeedsController < ApplicationController
     if feed.id.blank?
       return render :text=>get_flash_error(feed),:status=>403
     end
-    str = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
+    str = @template.render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>[feed]}
     return render :text=>str
   end
 
@@ -227,6 +225,16 @@ class FeedsController < ApplicationController
 
   def all_hidden
     @feeds = Feed.hidden.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
+  def add_tags
+    @feed.add_tags(params[:tag_names])
+    render :text=>200
+  end
+
+  def remove_tag
+    @feed.remove_tag(params[:tag_name])
+    render :text=>200
   end
 
 end

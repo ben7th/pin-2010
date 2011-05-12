@@ -4,13 +4,11 @@
     .hot-viewpoint
       .arrow
       .data
-        .avatar
-          =avatar hot_vp.user,:mini
         .name
           %span.vote-score{:tip=>"投票认可度"}=hot_vp.vote_score
           %span.title 主要观点
           %span.split> -
-          =usersign(hot_vp.user)
+          =usersign(hot_vp.user,false)
         .memo-content
           =j_vp_memo(hot_vp)
 
@@ -20,8 +18,6 @@
         .my-viewpoint
           .arrow
           .data
-            .avatar
-              =avatar my_vp.user,:mini
             .name
               %span.vote-score{:tip=>"投票认可度"}=my_vp.vote_score
               %span.title 我的观点

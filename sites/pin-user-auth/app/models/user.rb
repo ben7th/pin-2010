@@ -206,6 +206,7 @@ class User < UserBase
   include MindmapFav::UserMethods
   include MindmapComment::UserMethods
   include FeedInvite::UserMethods
+  include UserLog::UserMethods
   # 两个工程都引入的
 
   include Activity::UserMethods

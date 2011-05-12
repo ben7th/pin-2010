@@ -6,21 +6,7 @@
   -content.gsub!(query,"<span class='loud'>#{query}</span>")
 
 .current-feed
-  .avatar
-    =avatar creator,:mini
   .c
     .data
-      .c-name
-        =usersign(creator)
       .ct
-        =content
-    .documents
-      .mindmaps
-        -feed.mindmaps.each do |mindmap|
-          -if mindmap.nil?
-            导图已删除
-          -elsif mindmap.private?
-            导图目前是私有状态
-          -else
-            -link_to pin_url_for('pin-user-auth',"/mindmaps/#{mindmap.id}/info") do
-              =mindmap_thumb(mindmap)
+        =link_to truncate_u(content,64),"/feeds/#{feed.id}"

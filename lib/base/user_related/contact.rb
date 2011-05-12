@@ -59,4 +59,5 @@ class Contact < UserAuthAbstract
     end
   end
 
+  include UserLog::ContactMethods
 end

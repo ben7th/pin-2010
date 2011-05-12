@@ -45,10 +45,12 @@
     text-decoration:none;
     /*@include gradient(#FB4200,#D91800);*/
     @include gradient(#B9FA78,#58B912);
+    color:white;
   }
   &.mousedown{
     /*@include gradient(#D91800,#FB4200);*/
     @include gradient(#58B912,#B9FA78);
+    color:white;
   }
 }
 
