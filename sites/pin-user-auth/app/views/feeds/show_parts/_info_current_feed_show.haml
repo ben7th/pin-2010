@@ -8,6 +8,27 @@
 .current-feed
   .c
     .data
+      .tags
+        -if !feed.tag_names.blank?
+          -feed.tag_names.each do |tag_name|
+            %a.tag{:href=>"/tags/#{tag_name}"}=tag_name
+        -else
+          %a.tag{:href=>"/tags/没有关键词"} 没有关键词
+          
+
+        -if logged_in?
+          .edit-tags
+            -link_to 'javascript:;',:class=>'edit csshov' do
+              .icon
+              %span 修改
+      .feed-tags-edit-form{:style=>'display:none'}
+        -tags_value = feed.tag_names*', '.gsub('没有关键词','')
+        =text_field_tag :'tags-inputer',tags_value,:class=>'tags-inputer text inline'
+        .btns
+          %a.button.editable-submit{:href=>'javascript:;'} 发送
+          %a.button.editable-cancel{:href=>'javascript:;'} 取消
+
+
       .ct
         =content
         -if logged_in?

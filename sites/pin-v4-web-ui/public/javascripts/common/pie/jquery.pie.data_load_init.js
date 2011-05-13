@@ -45,6 +45,14 @@ pie.hide_loading_bar = function(){
   jQuery('.ajax-loading-bar').remove();
 }
 
+jQuery('body')
+  .bind("ajaxStart", function(){
+    pie.show_loading_bar();
+  })
+  .bind("ajaxComplete", function(){
+    pie.hide_loading_bar();
+  });
+
 pie.load(function(){
   jQuery('.flash-error, .flash-notice, .flash-success').each(function(){
     var elm = jQuery(this);

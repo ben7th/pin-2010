@@ -232,6 +232,11 @@ class FeedsController < ApplicationController
     render :text=>200
   end
 
+  def change_tags
+    @feed.change_tags(params[:tag_names])
+    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
+  end
+
   def remove_tag
     @feed.remove_tag(params[:tag_name])
     render :text=>200

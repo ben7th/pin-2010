@@ -6,11 +6,6 @@
 -content_for :javascripts do
   = javascript_include_tag "views/follows"
 
-  - refresh_fans_tip
-  = javascript_include_tag "views/notice/feed_notice"
-  :javascript
-    pie.misc_tip_info = #{misc_tip_info.to_json}
-
 .grid_18.alpha
   .grid-title
     %span.loud>#{@user.name}

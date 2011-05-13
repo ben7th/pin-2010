@@ -6,11 +6,6 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-  - refresh_comment_tip
-  = javascript_include_tag "views/notice/feed_notice"
-  :javascript
-    pie.misc_tip_info = #{misc_tip_info.to_json}
-
 .grid_3.alpha
   =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
 

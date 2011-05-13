@@ -23,7 +23,7 @@
 }
 
 .page-feed-show{
-  padding:0 6px 20px;
+  padding:0 5px 20px;
   margin-bottom:10px;
   overflow:hidden;
 
@@ -47,13 +47,34 @@
         float:left;
         .data{
           .c-name{font-size:12px;margin-bottom:6px;}
+          .tags{
+            @include tags;
+            float:none;
+            margin:0 0 10px 0;
+            .edit-tags{
+              @include editlink;
+              display:inline-block;
+              font-size:12px;font-weight:normal;
+              position:relative;top:2px;
+            }
+          }
+          .feed-tags-edit-form{
+            margin:0 0 10px 0;
+            input{
+              width:400px !important;
+            }
+            .btns{
+              @include submitbtns;
+            }
+          }
+
           .ct{
             font-size:20px;font-weight:bold;
             .edit-ct{
               @include editlink;
               display:inline-block;
               font-size:12px;font-weight:normal;
-              position:relative;top:9px;
+              position:relative;top:11px;
             }
           }
           .feed-content-edit-form{
@@ -196,7 +217,7 @@
   margin:0 0 20px;
   .viewpoint{
     overflow:hidden;
-    padding:6px 6px 20px;
+    padding:5px 5px 20px;
     .vote-ops{
       float:left;
       @include border-radius(4px);

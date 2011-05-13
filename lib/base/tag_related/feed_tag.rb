@@ -32,6 +32,7 @@ class FeedTag < UserAuthAbstract
       FeedTag.find_all_by_feed_id(self.id).map{|ft|ft.tag.name}
     end
 
+    # 增加tag
     def add_tags(tag_names_string)
       names = tag_names_string.split(/[，, ]+/)
       names.each do |name|
@@ -41,12 +42,31 @@ class FeedTag < UserAuthAbstract
       end
     end
 
+    # 移除指定的一个tag
     def remove_tag(tag_name)
       tag = Tag.find_by_name(tag_name)
       return if tag.blank?
       ft = self.feed_tags.find_by_tag_id(tag.id)
       ft.destroy unless ft.blank?
     end
+
+    # 根据传入的字符串修改tag
+    def change_tags(tag_names_string)
+      new_names = tag_names_string.split(/[，, ]+/)
+      old_names = self.tag_names
+
+      arr_add = new_names - old_names
+      arr_remove = old_names - new_names
+
+      arr_remove.each do |name|
+        self.remove_tag(name)
+      end
+
+      self.add_tags arr_add*','
+
+      return self.tag_names
+    end
+
   end
 
   module TagMethods

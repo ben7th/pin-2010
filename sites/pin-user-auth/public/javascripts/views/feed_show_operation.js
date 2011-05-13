@@ -9,7 +9,6 @@ pie.load(function(){
     var content = psav_elm.find('.add-viewpoint-inputer .inputer').val();
 
     //   post /feeds/:id/viewpoint params[:content]
-    pie.show_loading_bar();
     jQuery.ajax({
       url : '/feeds/'+feed_id+'/viewpoint',
       type : 'post',
@@ -19,9 +18,6 @@ pie.load(function(){
         jQuery('.page-feed-viewpoints').append(vp_elm);
         vp_elm.hide().fadeIn('fast');
         jQuery('.page-show-add-viewpoint').addClass('vp-added');
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   });
@@ -75,7 +71,6 @@ pie.load(function(){
     var viewpoint_id = vp_elm.attr('data-id');
     var content = elm.closest('.comments').find('.ipt .inputer').val();
 
-    pie.show_loading_bar();
     jQuery.ajax({
       url : '/viewpoints/'+viewpoint_id+'/comments',
       type : 'post',
@@ -85,9 +80,6 @@ pie.load(function(){
         var list_elm = comments_elm.find('.list');
         list_elm.prepend(li_elm);
         elm.closest('.comments').find('.ipt .inputer').val('');
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   })
@@ -105,15 +97,11 @@ pie.load(function(){
     elm.confirm_dialog('确定要删除这条评论吗',function(){
       // delete /viewpoint_comments/:id
 
-      pie.show_loading_bar();
       jQuery.ajax({
         url : '/viewpoint_comments/'+comment_id,
         type : 'delete',
         success : function(){
           comment_elm.fadeOut(200);
-        },
-        complete : function(){
-          pie.hide_loading_bar();
         }
       })
     });
@@ -156,7 +144,6 @@ pie.load(function(){
     var content = form_elm.find('.inputer').val();
 
     //   post /feeds/:id/viewpoint params[:content]
-    pie.show_loading_bar();
     jQuery.ajax({
       url : '/feeds/'+feed_id+'/viewpoint',
       type : 'post',
@@ -165,9 +152,6 @@ pie.load(function(){
         var new_vp_elm = jQuery(res);
         vp_elm.after(new_vp_elm);
         vp_elm.remove();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   });
@@ -188,8 +172,6 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  
-
   //修改话题正文
   jQuery('.page-feed-show .detail-data .edit-detail .edit').live('click',function(){
     var form_elm = jQuery('.feed-detail-edit-form')
@@ -211,7 +193,6 @@ pie.load(function(){
     var content = form_elm.find('.detail-inputer').val();
 
     //  put /feeds/:id/update_detail params[:detail]
-    pie.show_loading_bar();
     jQuery.ajax({
       url : '/feeds/'+feed_id+'/update_detail',
       type : 'put',
@@ -221,9 +202,6 @@ pie.load(function(){
         feed_elm.after(new_feed_elm);
         feed_elm.remove();
         form_elm.hide();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   });
@@ -243,8 +221,6 @@ pie.load(function(){
 
 
 pie.load(function(){
-  
-
   //修改话题标题
   jQuery('.page-feed-show .current-feed .edit-ct .edit').live('click',function(){
     var form_elm = jQuery('.feed-content-edit-form')
@@ -267,7 +243,6 @@ pie.load(function(){
     var content = form_elm.find('.content-inputer').val();
 
     //  put /feeds/:id/update_content params[:detail]
-    pie.show_loading_bar();
     jQuery.ajax({
       url : '/feeds/'+feed_id+'/update_content',
       type : 'put',
@@ -277,9 +252,6 @@ pie.load(function(){
         feed_elm.after(new_feed_elm);
         feed_elm.remove();
         form_elm.hide();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   });
@@ -298,6 +270,55 @@ pie.load(function(){
 
 });
 
+pie.load(function(){
+  //修改话题页的tag
+  jQuery('.page-feed-show .current-feed .edit-tags .edit').live('click',function(){
+    var form_elm = jQuery('.feed-tags-edit-form')
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var content_elm = feed_elm.find('.data .tags');
+
+    form_elm.show();
+    content_elm.hide();
+  });
+
+  //确定
+  jQuery('.page-feed-show .feed-tags-edit-form .editable-submit').live('click',function(){
+    var form_elm = jQuery('.feed-tags-edit-form');
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var content_elm = feed_elm.find('.data .tags');
+
+    var feed_id = feed_elm.attr('data-id');
+    var tag_names = form_elm.find('.tags-inputer').val();
+
+    //  post /feeds/:id/add_tags        params[:tag_names]
+    
+    jQuery.ajax({
+      url : '/feeds/'+feed_id+'/change_tags',
+      type : 'put',
+      data : 'tag_names='+encodeURIComponent(tag_names),
+      success : function(res){
+        var new_feed_elm = jQuery(res);
+        feed_elm.after(new_feed_elm);
+        feed_elm.remove();
+        form_elm.hide();
+      }
+    })
+  });
+
+  //取消
+  jQuery('.page-feed-show .feed-tags-edit-form .editable-cancel').live('click',function(){
+    var form_elm = jQuery('.feed-tags-edit-form')
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var content_elm = feed_elm.find('.data .tags');
+
+    content_elm.show();
+    form_elm.hide();
+  });
+})
+
 
 pie.load(function(){
   //show页面的关注
@@ -310,15 +331,9 @@ pie.load(function(){
     jQuery.ajax({
       url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id+'/fav'),
       type :'post',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
         fav_elm.hide();
         unfav_elm.show();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     });
   });
@@ -331,109 +346,14 @@ pie.load(function(){
     jQuery.ajax({
       url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id+'/unfav'),
       type :'delete',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
         fav_elm.show();
         unfav_elm.hide();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     });
   });
 });
 
-pie.load(function(){
-  //show页面的删除
-  jQuery('.page-feed-show .ops .del').live('click',function(){
-    var elm = jQuery(this);
-    var feed_id = elm.closest('.page-feed-show').attr('data-id');
-
-    elm.confirm_dialog('确定要删除这个话题吗',function(){
-      pie.show_loading_bar();
-      jQuery.ajax({
-        url  :pie.pin_url_for('pin-user-auth','/feeds/'+feed_id),
-        type :'delete',
-        success : function(res){
-          window.location.href = pie.pin_url_for('pin-user-auth','/');
-        },
-        complete : function(){
-          pie.hide_loading_bar();
-        }
-      });
-    });
-  });
-});
-
-
-pie.load(function(){
-  //show页面的传播
-  var ftelm = jQuery('<div class="feed-transmit-form-show popdiv">'+
-    '<div class="title">传播一个话题</div>'+
-    '<div class="flash-success"><span>发送成功</span></div>'+
-    '<div class="ori-feed"></div>'+
-    '<div class="ipt"><textarea class="transmit-inputer"></textarea></div>'+
-    '<div class="btns">'+
-      '<a class="button editable-submit" href="javascript:;">发送</a>'+
-      '<a class="button editable-cancel" href="javascript:;">取消</a>'+
-    '</div>'+
-  '</div>');
-
-  jQuery('.page-feed-show .ops .transmit').live('click',function(){
-    var elm = jQuery(this);
-    var feed_id = elm.closest('.page-feed-show').attr('data-id');
-    var fct = elm.closest('.page-feed-show').find('.ct').html();
-    var off = elm.offset();
-
-    if(feed_id == ftelm.attr('data-feed-id')){
-      ftelm.remove();
-      ftelm.attr('data-feed-id','');
-      ftelm.find('textarea').val('');
-      ftelm.find('.ori-feed').html('');
-    }else{
-      ftelm.css('left',off.left - 5).css('top',off.top + elm.outerHeight() + 2);
-      ftelm.attr('data-feed-id',feed_id);
-      ftelm.find('.ori-feed').html(fct);
-      ftelm.find('.edit-ct').remove();
-      ftelm.find('.flash-success').hide();
-      jQuery('body').append(ftelm);
-    }
-  });
-
-  //取消按钮
-  jQuery('.feed-transmit-form-show .editable-cancel').live('click',function(){
-    ftelm.remove();
-    ftelm.attr('data-feed-id','');
-    ftelm.find('textarea').val('');
-  });
-
-  //确定按钮
-  jQuery('.feed-transmit-form-show .editable-submit').live('click',function(){
-    var quote_of_id = ftelm.attr('data-feed-id');
-    var content = ftelm.find('textarea').val();
-
-    pie.show_loading_bar();
-    jQuery.ajax({
-      url  : '/feeds/quote',
-      type : 'POST',
-      data : 'quote_of='+quote_of_id+
-             '&content=' + encodeURIComponent(content),
-      success : function(res){
-        ftelm.find('.flash-success').fadeIn(200);
-        setTimeout(function(){
-          ftelm.remove();
-          ftelm.attr('data-feed-id','');
-          ftelm.find('textarea').val('');
-        },400)
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    });
-  });
-})
 
 pie.load(function(){
   //show页面的评论
@@ -480,7 +400,6 @@ pie.load(function(){
     var content = form_elm.find('textarea').val();
     var send_new_feed = form_elm.find('.send-to').hasClass('checked');
 
-    pie.show_loading_bar();
     jQuery.ajax({
       url  : '/feeds/reply_to',
       type : 'POST',
@@ -492,9 +411,6 @@ pie.load(function(){
         form_elm.find('ul.comments-list').prepend(li_elm);
         form_elm.find('textarea').val('');
         form_elm.find('.send-to').removeClass('checked');
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     });
   })
@@ -505,15 +421,11 @@ pie.load(function(){
     var comment_id = comment_elm.attr('data-comment-id');
 
     elm.confirm_dialog('确定要删除这条评论吗',function(){
-      pie.show_loading_bar();
       jQuery.ajax({
         url : '/feed_comments/'+comment_id,
         type : 'delete',
         success : function(){
           comment_elm.fadeOut();
-        },
-        complete : function(){
-          pie.hide_loading_bar();
         }
       })
     });
@@ -531,9 +443,6 @@ pie.load(function(){
       jQuery.ajax({
         url : '/feeds/'+feed_id+'/add_spam_mark',
         type : 'post',
-        beforeSend : function(){
-          pie.show_loading_bar();
-        },
         success : function(res){
           var new_feed_elm = jQuery(res);
           feed_elm.after(new_feed_elm);
@@ -546,9 +455,6 @@ pie.load(function(){
             if(doms.length == 0) return tip;
             return doms.html();
           }});
-        },
-        complete : function(){
-          pie.hide_loading_bar();
         }
       })
     })
@@ -566,14 +472,8 @@ pie.load(function(){
     jQuery.ajax({
       url : '/viewpoints/'+vp_id+'/vote_up',
       type : 'post',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
         resort_viewpoints(res,vp_id);
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   });
@@ -588,14 +488,8 @@ pie.load(function(){
     jQuery.ajax({
       url : '/viewpoints/'+vp_id+'/vote_down',
       type : 'post',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
         resort_viewpoints(res,vp_id);
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   });
@@ -610,14 +504,8 @@ pie.load(function(){
     jQuery.ajax({
       url : '/viewpoints/'+vp_id+'/cancel_vote',
       type : 'delete',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
         resort_viewpoints(res,vp_id);
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   })
@@ -653,14 +541,8 @@ pie.load(function(){
       url : '/feeds/'+feed_id+'/cancel_invite',
       type : 'delete',
       data : 'user_id='+user_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(){
         user_elm.fadeOut(200,function(){user_elm.remove()});
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   })
@@ -713,15 +595,9 @@ pie.load(function(){
       data : 'email='+encodeURIComponent(email)+
         '&title='+encodeURIComponent(title)+
         '&postscript='+encodeURIComponent(postscript),
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(){
         form_elm.find('.flash-success').fadeIn(100);
         setTimeout(function(){jQuery.facebox.close();},500);
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
 
