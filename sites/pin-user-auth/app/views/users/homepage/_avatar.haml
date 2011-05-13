@@ -2,9 +2,9 @@
   .avatar
     =avatar user,:medium
   .ccount
-    %a.c.followings{:href=>"#{user.id}/followings"}
+    %a.c.followings{:href=>"/#{user.id}/followings"}
       .num=user.followings.count
       .text.quiet 联系人
-    %a.c.fans{:href=>"#{user.id}/fans"}
+    %a.c.fans{:href=>"/#{user.id}/fans"}
       .num=user.fans.count
       .text.quiet 读者
