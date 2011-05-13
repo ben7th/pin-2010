@@ -4,54 +4,35 @@
   我的首页
 
 -content_for :javascripts do
-  = javascript_include_tag "views/index_channel_panel"
   = javascript_include_tag "views/feed_operation"
-
-  - refresh_feed_tip
-  = javascript_include_tag "views/notice/feed_notice"
-  :javascript
-    pie.misc_tip_info = #{misc_tip_info.to_json}
 
 .grid_16.alpha
   =render 'index/index_parts/index_page_tabs'
 
   .hrr
+
+  .homepage-see-others.font14.bold
+    =link_to '&gt;&gt; 访问思维导图功能','/mindmaps'
+
+
   .index-tab-ct.feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+    .page-list-more{:'data-count'=>'10'} 查看更多
+
 
     -if @feeds.length < 10
       =render 'index/index_parts/newbie_welcome'
 
-
-    .feed-paginate.padding5
-      = will_paginate @feeds
-
   .index-tab-ct.userlogs{:style=>'display:none;'}
-    .index-userlogs
-      -current_user.inbox_logs.each do |log|
-        =userlog_partial(log)
+    =render 'index/userlog/userlog',:logs=>current_user.inbox_logs_limit(20)
+    .page-list-more{:'data-count'=>'10'} 查看更多
 
-  .index-tab-ct.notice
+  .index-tab-ct.notice{:style=>'display:none;'}
     =render 'index/homepage/page_tips'
 
 .grid_5.omega.fright
-  .page-new-feed-button
-    %a.button.shadow{:href=>'javascript:;'} 发一个新话题
-    .new-form{:style=>"display:none;"}
-      .ipter
-        .ipts
-          =text_area_tag "content",'',:class=>"text feed-content"
-      .detail-ipter
-        =text_area_tag "detail",'',:class=>"text feed-detail"
-      .subm
-        =link_to '创建话题','javascript:;',:class=>'subbtn send-feed shadow'
-        =link_to '取消','javascript:;',:class=>'button cancel shadow'
-        .success.aj-loading{:style=>'display:none;'}
-          创建成功，正在跳转…
-        .sending.aj-loading{:style=>'display:none;'}
-          正在发送…
-
+  =render 'feeds/infos/new_button'
   =render 'index/index_parts/feed_links'
 
   .hrr

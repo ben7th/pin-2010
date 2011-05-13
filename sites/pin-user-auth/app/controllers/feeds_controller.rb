@@ -15,7 +15,7 @@ class FeedsController < ApplicationController
   end
   
   def _do_say_no_channel
-    feed = current_user.send_say_feed(params[:content],:detail=>params[:detail])
+    feed = current_user.send_say_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags])
     if feed.id.blank?
       return render :text=>get_flash_error(feed),:status=>403
     end
@@ -106,10 +106,6 @@ class FeedsController < ApplicationController
     render :text=>str
   end
 
-  def favs
-    @fav_feeds = current_user.fav_feeds.paginate(:per_page=>10,:page=>params[:page]||1)
-  end
-
   def quote
     quote_feed = Feed.find(params[:quote_of])
     feed = Feed.to_quote_feed(current_user,params[:content],quote_feed)
@@ -161,14 +157,26 @@ class FeedsController < ApplicationController
       :locals=>{:feed=>@feed}
   end
 
+  def favs
+    @feeds = current_user.fav_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
   def memoed
-    @feeds = current_user.memoed_feeds
-    render :template=>"feeds/todos_memoed"
+    @feeds = current_user.memoed_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    render :template=>"feeds/memoed"
   end
 
   def be_invited
-    @feeds = current_user.be_invited_feeds
-    render :template=>"feeds/todos_be_invited"
+    @feeds = current_user.be_invited_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    render :template=>"feeds/be_invited"
+  end
+
+  def mine_hidden
+    @feeds = current_user.hidden_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
+  def all_hidden
+    @feeds = Feed.hidden.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
 
@@ -217,14 +225,6 @@ class FeedsController < ApplicationController
       return render :status=>200,:text=>"删除成功"
     end
     render :status=>401,:text=>"没有权限"
-  end
-
-  def mine_hidden
-    @feeds = current_user.hidden_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def all_hidden
-    @feeds = Feed.hidden.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   def add_tags

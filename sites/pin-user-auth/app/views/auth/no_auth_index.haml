@@ -22,11 +22,10 @@
     %span.tan> ?
     =link_to '思维导图工具哪去了？','/mindmaps',:tip=>'由于网站转型，我们对于功能导航进行了调整，点击这里访问原来的思维导图工具。'
 
-  .grid_14.alpha
-    .grid-title
-      大家最近的话题
-    .newsfeed
-      =render 'feeds/lists/feeds',:newsfeeds=>@feeds
+  .grid-title
+    大家最近的话题
+  .newsfeed
+    =render 'feeds/lists/feeds_stat',:feeds=>@feeds
 
 .grid_7.omega.fright
   .no-auth

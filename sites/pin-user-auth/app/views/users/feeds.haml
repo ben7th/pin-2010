@@ -1,0 +1,22 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  #{@user.name}的话题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+=render 'auth/no_auth/welcome_to_signup'
+
+=render 'users/homepage/top_info'
+
+.hrr
+.grid_16.alpha
+  .newsfeed
+    -if @feeds.blank?
+      .blank.darkbg.font14.padding5.rc5 这位朋友现在还没有任何话题~
+    -else
+      =render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
+
+.grid_6.omega.fright
+  =render 'users/homepage/avatar',:user=>@user

@@ -2,6 +2,8 @@ ActionController::Routing::Routes.draw do |map|
   # ---------------- 首页和欢迎页面 ---------
   map.root :controller=>'index'
   map.welcome '/welcome',:controller=>'index',:action=>'welcome'
+  map.connect "/inbox_logs_more",:controller=>"index",:action=>"inbox_logs_more"
+  map.connect "/in_feeds_more",:controller=>"index",:action=>"in_feeds_more"
 
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
@@ -13,7 +15,10 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup',:controller=>'users',:action=>'new'
 
   map.resource :session
-  map.resources :users,:member=>{:cooperate=>:get}
+  map.resources :users,:member=>{
+    :cooperate=>:get,:feeds=>:get,:viewpoints=>:get,
+    :favs=>:get
+    }
 
   # 忘记密码
   map.forgot_password_form '/forgot_password_form',:controller=>'users',:action=>'forgot_password_form'
@@ -250,5 +255,5 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/tips/remove_all_fav_feed_change_tips",:controller=>"tips",
     :action=>"remove_all_fav_feed_change_tips",:conditons=>{:method=>:delete}
 
-  map.resources :tags
+  map.resources :tags,:member=>{:logo=>:put,:detail=>:put}
 end

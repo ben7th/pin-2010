@@ -1,0 +1,20 @@
+.tag-page-top-info{
+  overflow:hidden;
+  .base-info{
+    padding:5px;
+    margin:0 0 10px 0;
+    .name{font-size:20px;font-weight:bold;margin:0 0 6px 0;}
+  }
+}
+
+.tag-page-logo{
+  padding:5px;
+  float:left;
+}
+
+.tag-page-feeds{
+  margin:0 0 0 120px;
+  .newsfeed .mplist .footmisc{
+    width:460px !important;
+  }
+}

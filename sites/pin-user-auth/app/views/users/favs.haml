@@ -1,0 +1,22 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  #{@user.name}关注的话题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+=render 'auth/no_auth/welcome_to_signup'
+
+=render 'users/homepage/top_info'
+
+.hrr
+.grid_16.alpha
+  .grid-title
+    #{@user.name}关注的话题
+
+  .newsfeed
+    =render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
+
+.grid_6.omega.fright
+  =render 'users/homepage/avatar',:user=>@user

@@ -26,6 +26,10 @@ class UserFavFeedsProxy < RedisBaseProxy
       :class  => User ,
       :fav_feeds => Proc.new {|user|
         UserFavFeedsProxy.new(user).get_models(Feed)
+      },
+      :fav_feeds_limit => Proc.new{|user,count|
+        ids = UserFavFeedsProxy.new(user).xxxs_ids[0...count.to_i]
+        ids.map{|id|Feed.find_by_id(id)}.compact
       }
     }
   end

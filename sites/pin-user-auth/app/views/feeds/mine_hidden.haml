@@ -6,16 +6,15 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.grid_3.alpha
-  =render :partial=>'index/index_parts/user_info',:locals=>{:user=>current_user}
-
-.grid_14.paddingl20
+.grid_16.alpha
   .grid-title
     我被隐藏的话题
-
   .newsfeed
     -mplist @feeds,:for=>Feed do |feed|
       =render :partial=>'index/homepage/feeds/feed_info_hidden',:locals=>{:feed=>feed}
+  .paginate.padding5
+    = will_paginate @feeds
 
-.grid_4.omega.fright
+.grid_5.omega.fright
+  =render 'feeds/infos/new_button'
   =render :partial=>'index/index_parts/feed_links'

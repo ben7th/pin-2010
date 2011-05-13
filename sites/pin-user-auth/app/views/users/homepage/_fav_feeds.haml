@@ -1,0 +1,8 @@
+.user-page-favs
+  .title
+    关注了
+    =link_to "#{user.fav_feeds.count}个话题","/users/#{user.id}/favs",:class=>'bold'
+  .fav-feeds
+    -user.fav_feeds.paginate(:per_page=>5,:page=>1).each do |fav_feed|
+      .fav.btb
+        =link_to truncate_u(fav_feed.content,32),"/feeds/#{fav_feed.id}"

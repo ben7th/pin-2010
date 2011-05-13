@@ -180,6 +180,11 @@ class Feed < UserAuthAbstract
       return feed if !feed.valid?
       feed.save!
       feed.update_detail_content(options[:detail],self) if !options[:detail].blank?
+      if options[:tags].blank?
+        feed.add_default_tag_when_no_tag
+      else
+        feed.add_tags(options[:tags])
+      end
       feed
     end
 
@@ -234,6 +239,10 @@ class Feed < UserAuthAbstract
       Feed.news_feeds_of_user(self).unhidden
     end
 
+    def all_feeds_count
+      Feed.news_feeds_of_user(self).unhidden.count
+    end
+
     def in_feeds_db
       _id_list = self.followings_and_self_by_db.map{|user|
         user.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
@@ -264,4 +273,5 @@ class Feed < UserAuthAbstract
   include SpamMark::FeedMethods
   include FeedTag::FeedMethods
   include UserLog::FeedMethods
+  include FeedTag::FeedMethods
 end

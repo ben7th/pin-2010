@@ -105,6 +105,80 @@
   background:url(/images/icons/all.png) no-repeat $x $y;
 }
 
+@mixin miniavatar{
+  overflow:hidden;
+  .avatar{
+    float:left;
+    width:28px;height:28px;
+    margin:0 4px 4px 0;
+    img{width:24px;height:24px;}
+    text-decoration:none !important;
+  }
+}
+
+@mixin followbtn{
+  float:left;
+  padding:10px 20px;
+  @include border-radius(4px);
+  @include btn-color(#B3D34C,#97BC3D,#97AF4D,#fff,#9BC238,#8BAD37);
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
+}
+
+@mixin unfollowbtn{
+  float:left;
+  padding:10px 20px;
+  @include border-radius(4px);
+  @include btn-color(#dddddd,#dddddd,#dddddd,#666,#dddddd,#dddddd);
+  font-weight:bold;
+  cursor:pointer;
+  font-size:14px;
+  text-shadow:0 0 #f0f0f0;
+}
+
+@mixin viewpoint-in-list{
+  margin:0 10px 10px 0;
+  .arrow{
+    width:15px;height:7px;
+    @include allicon(-271px,-65px);
+    margin:0 0 0 36px;
+  }
+  .data{
+    padding:5px;
+    background:#F0F9FE;
+    @include border-radius(3px);
+    .avatar{
+      float:right;
+      img{width:20px;height:20px;}
+    }
+    .name{
+      font-size:12px;
+      margin:0 0 6px 0;
+      .title{
+        font-size:12px;font-weight:bold;
+        margin:0 0 6px 0;
+      }
+      .vote-score{
+        @include border-radius(4px);
+        background:#53BCFE;
+        color:white;
+        font-weight:bold;
+        margin:0 4px 0 0;
+        padding:0 6px;
+        cursor:default;
+      }
+    }
+    .time{
+      font-size:12px;
+      margin:0 0 6px 0;
+    }
+    .memo-content{
+      p{margin:0;}
+    }
+  }
+}
+
 .jquery-qeditor{
   @include border-radius(4px);
   background:#EAEAEA;
@@ -965,6 +1039,79 @@ form.new_message{
   }
 }
 
+.page-list-more{
+  @include border-radius(4px);
+  background:#DFEAF4;
+  text-align:center;
+  padding:5px;
+  cursor:pointer;
+  font-size:14px;
+  &:hover{
+    color:white;
+    background:#3e6d8e;
+  }
+}
+
+.user-page-avatar{
+  margin:0 0 20px 0;
+  padding:5px;
+  overflow:hidden;
+  .avatar{
+    float:left;
+    width:100px;
+  }
+  .ccount{
+    margin:0 0 0 120px;
+    .c{
+      display:block;
+      margin:0 0 10px 0;
+      color:#A5A5A5;
+      &:hover{color:#A5A5A5;}
+      .num{
+        color:#333;
+        font-size:24px;
+        line-height:24px;
+        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+      }
+    }
+  }
+}
+
+.user-page-favs{
+  padding:5px;
+  margin:0 0 20px 0;
+  .title{
+    margin:0 0 10px 0;font-weight:bold;
+  }
+  .fav{
+    padding:5px 0;
+  }
+}
+
+.user-page-viewpoints{
+  padding:5px;
+  .viewpoint{
+    padding:5px 5px 30px;
+    .feed{
+      font-size:14px;
+      font-weight:bold;
+      font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+    }
+    .vp-ct{
+      @include viewpoint-in-list;
+      .data{
+        .name{
+          float:left;
+          width:30px;
+        }
+        .memo-content{
+          margin:0 0 0 30px;
+        }
+      }
+    }
+  }
+}
+
 @import 'parts/feed_form';
 @import 'parts/feed_info';
 @import 'parts/feed_show';
@@ -977,3 +1124,5 @@ form.new_message{
 @import 'parts/todos';
 @import 'parts/auth';
 @import 'parts/userlog';
+@import 'parts/user_page';
+@import 'parts/tag_page';

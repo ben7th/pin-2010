@@ -26,6 +26,15 @@ class UserOutboxLogProxy < RedisBaseProxy
       :class  => User ,
       :outbox_logs => Proc.new {|user|
         UserOutboxLogProxy.new(user).get_models(UserLog)
+      },
+      :outbox_logs_limit => Proc.new{|user,count|
+        ids = UserOutboxLogProxy.new(user).xxxs_ids[0...count.to_i]
+        ids.map{|id|UserLog.find_by_id(id)}.compact
+      },
+      :outbox_logs_more => Proc.new{|user,current_id,count|
+        ids = UserOutboxLogProxy.new(user).xxxs_ids
+        ids = ids.select{|id|id.to_i > current_id.to_i}[0...count.to_i]
+        ids.map{|id|UserLog.find_by_id(id)}.compact
       }
     }
   end

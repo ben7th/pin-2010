@@ -568,9 +568,9 @@ pie.load(function(){
   })
 })
 
+//刷新通知计数显示
 pie.recount_feed_notice = function(){
   var elms = jQuery('.index-tab-ct.notice .tips .tip');
-  pie.log(elms.length)
   if(elms.length > 0){
     jQuery('.index-page-tabs .tab.notice').append(
       '<div class="count">'+elms.length+'</div>'
@@ -582,3 +582,99 @@ pie.recount_feed_notice = function(){
 
 //通知计数
 pie.load(pie.recount_feed_notice);
+
+//查看更多动态
+pie.load(function(){
+  jQuery('.index-tab-ct.userlogs .page-list-more').live('click',function(){
+    // get /inbox_logs_more  params[:current_id] params[:count]
+    var count = jQuery(this).attr('data-count');
+    var current_id = jQuery('.index-tab-ct.userlogs .log').last().attr('data-id');
+    jQuery.ajax({
+      url : '/inbox_logs_more',
+      type : 'get',
+      data : 'current_id='+current_id+'&count='+count,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        var logs_elm = jQuery(res).find('.log');
+        logs_elm.hide();
+        jQuery('.index-tab-ct.userlogs .index-userlogs').append(logs_elm);
+        logs_elm.fadeIn(200);
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+})
+
+//查看更多话题
+pie.load(function(){
+  jQuery('.index-tab-ct.feeds .page-list-more').live('click',function(){
+    // get /in_feeds_more  params[:current_id] params[:count]
+
+    var count = jQuery(this).attr('data-count');
+    var current_id = jQuery('.index-tab-ct.feeds li').last().attr('data-obj-id');
+    jQuery.ajax({
+      url : '/in_feeds_more',
+      type : 'get',
+      data : 'current_id='+current_id+'&count='+count,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        var lis_elm = jQuery(res).find('li');
+        lis_elm.hide();
+        jQuery('.index-tab-ct.feeds .newsfeed .mplist.feeds').append(lis_elm);
+        lis_elm.fadeIn(200);
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+})
+
+pie.load(function(){
+  jQuery('.user-page-ops a.follow').live('click',function(){
+    var user_id = jQuery(this).attr('data-id');
+
+    jQuery.ajax({
+      type    : 'POST',
+      url     : '/contacts/follow',
+      data    : 'user_id='+user_id,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        jQuery('.user-page-ops a.follow').hide();
+        jQuery('.user-page-ops a.unfollow').show();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+
+  jQuery('.user-page-ops a.unfollow').live('click',function(){
+    var user_id = jQuery(this).attr('data-id');
+
+    jQuery.ajax({
+      type    : 'DELETE',
+      url     : '/contacts/unfollow',
+      data    : 'user_id='+user_id,
+      beforeSend : function(){
+        pie.show_loading_bar();
+      },
+      success : function(res){
+        jQuery('.user-page-ops a.follow').show();
+        jQuery('.user-page-ops a.unfollow').hide();
+      },
+      complete : function(){
+        pie.hide_loading_bar();
+      }
+    })
+  })
+
+})

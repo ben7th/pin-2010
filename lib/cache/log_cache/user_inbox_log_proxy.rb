@@ -42,6 +42,15 @@ class UserInboxLogProxy < RedisBaseProxy
       :class => User,
       :inbox_logs => Proc.new{|user|
         UserInboxLogProxy.new(user).get_models(UserLog)
+      },
+      :inbox_logs_limit => Proc.new{|user,count|
+        ids = UserInboxLogProxy.new(user).xxxs_ids[0...count.to_i]
+        ids.map{|id|UserLog.find_by_id(id)}.compact
+      },
+      :inbox_logs_more => Proc.new{|user,current_id,count|
+        ids = UserInboxLogProxy.new(user).xxxs_ids
+        ids = ids.select{|id|id.to_i < current_id.to_i}[0...count.to_i]
+        ids.map{|id|UserLog.find_by_id(id)}.compact
       }
     }
   end

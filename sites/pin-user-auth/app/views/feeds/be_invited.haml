@@ -1,17 +1,16 @@
 -require_css 'views/users',true
 
 -content_for :title do
-  我关注的话题
+  我被邀请的话题
 
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
 .grid_16.alpha
   .grid-title
-    我关注的话题
+    我被邀请的话题
   .newsfeed
     =render 'feeds/lists/feeds_stat',:feeds=>@feeds
-
   .paginate.padding5
     = will_paginate @feeds
 

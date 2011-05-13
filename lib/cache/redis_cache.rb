@@ -87,6 +87,9 @@ class RedisCache
   # log 缓存
   RedisCache.load_proxy(UserOutboxLogProxy)
   RedisCache.load_proxy(UserInboxLogProxy)
+
+  # viewpoint 缓存
+  RedisCache.load_proxy(UserHotViewpointsProxy)
   # ---------- 每增加一个子proxy就配置在这里
   # 用到闭包，method_missing等一些手段，来减少冗余代码
 end

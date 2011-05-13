@@ -50,6 +50,15 @@ class UserOutboxFeedProxy < RedisBaseProxy
       :out_newest_feed => Proc.new{|user|
         feed_id = UserOutboxFeedProxy.new(user).xxxs_ids.first
         Feed.find_by_id(feed_id) if !feed_id.nil?
+      },
+      :out_feeds_limit => Proc.new {|user,count|
+        ids = UserOutboxFeedProxy.new(user).xxxs_ids[0...count.to_i]
+        ids.map{|id|Feed.find_by_id(id)}.compact
+      },
+      :out_feeds_more => Proc.new {|user,current_id,count|
+        ids = UserOutboxFeedProxy.new(user).xxxs_ids
+        ids = ids.select{|id|id.to_i < current_id.to_i}[0...count.to_i]
+        ids.map{|id|Feed.find_by_id(id)}.compact
       }
     }
   end

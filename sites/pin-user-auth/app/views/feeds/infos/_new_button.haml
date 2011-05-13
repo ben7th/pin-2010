@@ -1,0 +1,16 @@
+-if logged_in?
+  .page-new-feed-button
+    %a.button.shadow{:href=>'javascript:;'} 发一个新话题
+    .new-form{:style=>"display:none;"}
+      .ipter
+        .ipts
+          =text_area_tag "content",'',:class=>"text feed-content"
+      .detail-ipter
+        =text_area_tag "detail",'',:class=>"text feed-detail"
+      .subm
+        =link_to '创建话题','javascript:;',:class=>'subbtn send-feed shadow'
+        =link_to '取消','javascript:;',:class=>'button cancel shadow'
+        .success.aj-loading{:style=>'display:none;'}
+          创建成功，正在跳转…
+        .sending.aj-loading{:style=>'display:none;'}
+          正在发送…

@@ -1,0 +1,22 @@
+.user-page-top-info
+  .grid_16.alpha
+    .base-info
+      .name=@user.name
+      .sign=@user.sign
+    .tabs
+      -index_tabs_link_to "/users/#{@user.id}",:class=>'darkbg csshov tab' do
+        .t>动态
+      -index_tabs_link_to "/users/#{@user.id}/feeds",:class=>'darkbg csshov tab' do
+        .t>话题
+        .count>=@user.all_feeds_count
+      -index_tabs_link_to "/users/#{@user.id}/viewpoints",:class=>'darkbg csshov tab' do
+        .t>观点
+        .count>=@user.all_viewpoints_count
+
+
+  .grid_6.omega.fright
+    -if logged_in? && @user != current_user
+      .user-page-ops
+        - followed = current_user.following?(@user)
+        %a.follow.shadow.button{:'data-id'=>@user.id,:href=>'javascript:;',:style=>followed ? 'display:none;':''} 关注这位朋友
+        %a.unfollow{:'data-id'=>@user.id,:href=>'javascript:;',:style=>followed ? '':'display:none;'} 　取消关注　

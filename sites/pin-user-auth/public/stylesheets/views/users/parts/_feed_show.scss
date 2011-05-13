@@ -446,22 +446,10 @@
   margin:0 0 12px 0;
   padding:5px;
   overflow:hidden;
-  font-size:14px;
   .fav{
-    float:left;
-    padding:10px 20px;
-    @include border-radius(4px);
-    @include btn-color(#B3D34C,#97BC3D,#97AF4D,white,#9BC238,#8BAD37);
-    font-weight:bold;
-    cursor:pointer;
+    @include followbtn;
   }
   .unfav{
-    float:left;
-    padding:10px 20px;
-    @include border-radius(4px);
-    font-weight:bold;
-    cursor:pointer;
-    @include btn-color(#dddddd,#dddddd,#dddddd,#666,#dddddd,#dddddd);
-    text-shadow:0 0 #f0f0f0;
+    @include unfollowbtn;
   }
 }

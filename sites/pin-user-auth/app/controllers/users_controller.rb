@@ -52,17 +52,31 @@ class UsersController < ApplicationController
     redirect_to '/'
   end
 
-  def show
-    @user = User.find(params[:id])
-    @own_feeds = @user.out_feeds.paginate(:page=>params[:page]||1,:per_page=>10)
-    render :template=>'users/homepage'
-  end
-
   def cooperate
     set_cellhead_path('/index/cellhead')
     @user = User.find(params[:id])
     @cooperate_edit_mindmaps = @user.cooperate_edit_mindmaps
     @cooperate_view_mindmaps = @user.cooperate_view_mindmaps
+  end
+
+  def show
+    @user = User.find(params[:id])
+    render :template=>'users/homepage'
+  end
+
+  def feeds
+    @user = User.find(params[:id])
+    @feeds = @user.out_feeds_limit(20)
+  end
+
+  def viewpoints
+    @user = User.find(params[:id])
+    @viewpoints = @user.viewpoints_limit(20)
+  end
+
+  def favs
+    @user = User.find(params[:id])
+    @feeds = @user.fav_feeds_limit(20)
   end
 
   private

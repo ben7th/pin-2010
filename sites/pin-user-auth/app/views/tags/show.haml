@@ -1,0 +1,22 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  #{@tag.name}
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.tag-page-top-info
+  .base-info
+    .name=@tag.name
+
+.hrr
+.grid_16.alpha
+  .tag-page-logo
+    =logo @tag,:medium
+  .tag-page-feeds
+    .newsfeed
+      =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+
+
+.grid_6.omega.fright

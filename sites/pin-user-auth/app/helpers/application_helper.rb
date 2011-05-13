@@ -12,14 +12,19 @@ module ApplicationHelper
   end
 
   def userlog_partial(log)
-    render 'index/index_parts/info_userlog',:log=>log
+    render 'index/userlog/info_userlog',:log=>log
   rescue Exception => ex
     "用户活动记录解析错误 #{ex}" if RAILS_ENV == 'development'
   end
 
   def userlog_ct(log)
     re = []
-    re << usersign(log.user,false)
+    if logged_in? && current_user == log.user
+      re << link_to('我',current_user)
+    else
+      re << usersign(log.user,false)
+    end
+
     info = log.info
     case info.kind
     when 'ADD_FEED'
@@ -30,6 +35,8 @@ module ApplicationHelper
       re << _userlog_ct_add_viewpoint(info)
     when 'EDIT_VIEWPOINT'
       re << _userlog_ct_edit_viewpoint(info)
+    when 'ADD_CONTACT'
+      re << _userlog_ct_add_contact(info)
     else
       re << info.kind
     end
@@ -67,6 +74,14 @@ module ApplicationHelper
     re << '编辑了话题'
     re << link_to(truncate_u(feed.content,32),feed)
     re << '中的观点'
+  end
+
+  def _userlog_ct_add_contact(info)
+    re = []
+    user = info.contact_user
+    re << '关注了'
+    re << avatar(user,:mini)
+    re << link_to(user.name,user)
   end
 
   def userlog_footmisc(log)

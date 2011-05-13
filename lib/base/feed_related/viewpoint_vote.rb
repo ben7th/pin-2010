@@ -30,6 +30,10 @@ class ViewpointVote < UserAuthAbstract
       base.has_many :voted_down_users,:through=>:viewpoint_votes,:source=>:user,
         :conditions=>"viewpoint_votes.status = '#{ViewpointVote::DOWN}' "
     end
+
+    def has_user_up?
+      self.viewpoint_up_votes.count > 0
+    end
     
     def vote_up(user)
       return if voted_up_by?(user)

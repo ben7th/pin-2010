@@ -9,10 +9,8 @@
 .grid_16.alpha
   .grid-title
     大家最近的话题
-
   .newsfeed
     =render 'feeds/lists/feeds_stat',:feeds=>@feeds
-
   .feed-paginate.padding5
     = will_paginate @feeds
 

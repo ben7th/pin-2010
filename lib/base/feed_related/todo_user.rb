@@ -6,7 +6,15 @@ class TodoUser < UserAuthAbstract
   validates_presence_of :user,:on=>:create
   validates_presence_of :memo
   validates_uniqueness_of :todo_id, :scope => :user_id
-  
+
+  named_scope :limited, lambda {|count|
+    {:limit=>count.to_i,:order=>"todo_users.updated_at desc"}
+  }
+
+  def feed
+    self.todo.feed
+  end
+
   def add_memo(memo)
     self.update_attributes(:memo=>memo)
   end
@@ -34,15 +42,36 @@ class TodoUser < UserAuthAbstract
   module UserMethods
     def self.included(base)
       base.has_many :todo_users
-      base.has_many :viewpoints_db,:through=>:todo_users,
+      base.has_many :viewpoints,:class_name=>"TodoUser",:conditions=>"todo_users.memo is not null",
+        :order=>"todo_users.updated_at desc"
+      base.has_many :todos_db,:through=>:todo_users,
         :source=>:todo,:order=>"todo_users.updated_at desc"
+    end
+
+    def all_viewpoints_count
+      self.viewpoints.count
+    end
+
+    def viewpoints_limit(count)
+      self.viewpoints.limited(count)
     end
 
     # 我参与的话题
     def memoed_feeds_db
-      self.viewpoints_db.map do |todo|
+      self.todos_db.map do |todo|
         todo.feed
       end.compact
+    end
+
+    def top_viewpoints_db
+      self.viewpoints.select do |viewpoint|
+        feed=viewpoint.todo.feed
+        if feed.blank?
+          false
+        else
+          feed.hot_viewpoint == viewpoint && viewpoint.vote_score > 0
+        end
+      end
     end
 
   end

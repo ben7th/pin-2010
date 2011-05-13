@@ -108,13 +108,7 @@
 .hot-user-pages{
   overflow:hidden;
   padding:5px;
-  .avatar{
-    float:left;
-    width:28px;height:28px;
-    margin:0 4px 4px 0;
-    img{width:24px;height:24px;}
-    text-decoration:none !important;
-  }
+  @include miniavatar;
 }
 
 .special-pages{
