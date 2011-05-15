@@ -10,8 +10,6 @@
   /*顶端用户导航背景*/
     $head-userbox-bg-color     : #EBF3A7;
     $head-userbox-bg-color-2   : #E4EE6F;
-  /*顶端用户导航阴影*/
-    $head-userbox-shadow-color :#5C6D0C;
   /*顶端用户导航边线*/
     $head-userbox-border-color : #ABBE2E;
   /*顶端用户导航链接色*/
@@ -24,7 +22,6 @@
   color:$head-text-color;
   .userbox{
     @include gradient($head-userbox-bg-color,$head-userbox-bg-color-2);
-    @include box-shadow(0 0 2px $head-userbox-shadow-color);
     border:solid 1px $head-userbox-border-color;
     a{
       color:$head-userbox-a-color;

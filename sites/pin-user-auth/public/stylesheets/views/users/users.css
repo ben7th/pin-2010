@@ -771,6 +771,12 @@ form.new_message .w300 {
   margin-bottom: 20px;
   padding: 5px; }
 
+.grid-title-s {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding: 5px; }
+
 .index-received-comments .c {
   overflow: hidden;
   border-radius: 5px;
@@ -1332,11 +1338,13 @@ form.new_message .w300 {
           float: left;
           background: #E0EAF1;
           padding: 1px 4px;
-          margin: 0 4px 0 0;
+          margin: 0 6px 0 0;
           line-height: 18px;
-          border-radius: 4px;
-          -moz-border-radius: 4px;
-          -webkit-border-radius: 4px; }
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          border-right: solid 1px #7F9FB6;
+          border-bottom: solid 1px #7F9FB6; }
           .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag:hover {
             text-decoration: none !important;
             background: #3E6D8E;
@@ -1807,11 +1815,13 @@ form.new_message .w300 {
             float: left;
             background: #E0EAF1;
             padding: 1px 4px;
-            margin: 0 4px 0 0;
+            margin: 0 6px 0 0;
             line-height: 18px;
-            border-radius: 4px;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px; }
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-right: solid 1px #7F9FB6;
+            border-bottom: solid 1px #7F9FB6; }
             .page-feed-show .main .current-feed .c .data .tags .tag:hover {
               text-decoration: none !important;
               background: #3E6D8E;
@@ -2007,11 +2017,13 @@ form.new_message .w300 {
         float: left;
         background: #E0EAF1;
         padding: 1px 4px;
-        margin: 0 4px 0 0;
+        margin: 0 6px 0 0;
         line-height: 18px;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px; }
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-right: solid 1px #7F9FB6;
+        border-bottom: solid 1px #7F9FB6; }
         .page-feed-show .footmisc .tags .tag:hover {
           text-decoration: none !important;
           background: #3E6D8E;
@@ -2325,11 +2337,13 @@ form.new_message .w300 {
           float: left;
           background: #E0EAF1;
           padding: 1px 4px;
-          margin: 0 4px 0 0;
+          margin: 0 6px 0 0;
           line-height: 18px;
-          border-radius: 4px;
-          -moz-border-radius: 4px;
-          -webkit-border-radius: 4px; }
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          border-right: solid 1px #7F9FB6;
+          border-bottom: solid 1px #7F9FB6; }
           .page-feed-viewpoints .viewpoint .footmisc .tags .tag:hover {
             text-decoration: none !important;
             background: #3E6D8E;
@@ -2494,7 +2508,7 @@ form.new_message .w300 {
 .show-page-invite {
   padding: 5px; }
   .show-page-invite .tip {
-    padding: 0 0 0 3px; }
+    padding: 3px; }
   .show-page-invite .ipt input {
     width: 180px !important; }
   .show-page-invite .btns {
@@ -3221,8 +3235,10 @@ form.new_message .w300 {
   background: url(/images/icons/all.png) no-repeat -275px -117px; }
 .module-links.feeds .be-hidden-todos .icon {
   background: url(/images/icons/all.png) no-repeat -325px -117px; }
-.module-links.feeds .recent-hot-feeds .icon {
+.module-links.feeds .recent-userlogs .icon {
   background: url(/images/icons/all.png) no-repeat -300px -117px; }
+.module-links.feeds .recent-hot-feeds .icon {
+  background: url(/images/icons/all.png) no-repeat -350px -117px; }
 
 .email_setting .mail span {
   border-radius: 4px;

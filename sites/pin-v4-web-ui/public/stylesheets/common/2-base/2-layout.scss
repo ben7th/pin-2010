@@ -11,7 +11,7 @@ body {margin:0;}
     position:relative;
     padding:18px 18px 18px 18px;
     margin-bottom:10px;
-    top:-30px;
+    top:-60px;
     margin-bottom:60px;
     .cellhead{
       position:relative;
@@ -83,17 +83,56 @@ body {margin:0;}
   .nav {
     clear:both;overflow:hidden;
     .site-logo{
-      width:240px;height:40px;margin:25px 0 0 5px;float:left;
+      width:110px;
+      height:24px;
+      margin:16px 20px 3px 5px;
+      float:left;
       a{
-        width:240px;
-        height:40px;
+        width:110px;
+        height:24px;
         float:left;
-        background:url(/images/mindpin_logo.png) no-repeat;
+        background:url(/images/mindpin_logo_2.png) no-repeat;
       }
     }
+    .topbar{
+      float:left;
+      margin:16px 20px 3px 0;
+      .top-search-form{
+        float:left;
+        input.search-inner{width:250px !important;}
+      }
+    }
+
+    .userbox{
+      float:right;
+      @include border-radius(5px);
+      padding:4px 10px;
+      margin:12px 6px 3px 0;
+      .inner{
+        overflow:hidden;
+        .avatarname{
+          float:left;
+          margin-left:15px;
+          height:20px;
+          line-height:20px;
+          .avatar{font-size:0;line-height:0;}
+          .tiny{width:16px;height:16px;}
+          a{float:left;line-height:20px;}
+          a.name{font-weight:bold;margin-left:6px;}
+        }
+        .sp{
+          float:left;
+          line-height:20px;
+          margin-left:15px;
+          font-weight:bold;
+          &.homepage{margin-left:0;}
+        }
+      }
+    }
+
     .start{
       float:right;
-      margin:25px 10px 0 0;
+      margin:9px 10px 0 0;
       overflow:hidden;
       span{
         float:left;
@@ -106,42 +145,7 @@ body {margin:0;}
         background:url(/images/piece/home.png) no-repeat 0 center;
       }
     }
-    .userbox{
-      float:right;height:40px;
-      border-top:none;
-      @include border-radius-side(bottom,left,6px);
-      @include border-radius-side(bottom,right,6px);
-      padding:0 6px;
-      margin-right:10px;
-      .inner{
-        padding-top:8px;
-        .avatarname{
-          float:left;
-          .tiny{width:20px;height:20px;}
-          a{float:left;line-height:24px;}
-          a.name{font-weight:bold;margin-left:6px;}
-        }
-        .sp{float:left;line-height:24px;margin-left:15px;font-weight:bold;}
-      }
-    }
-    .topbar{
-      clear:right;
-      float:right;
-      margin:9px 10px 0 0;
-      ul{
-        float:left;
-        margin:0 10px 0 0;
-        position:relative;
-        top:2px;
-        li{
-          display:inline;
-          margin:0 15px 0 0;
-        }
-      }
-      .top-search-form{
-        float:left;
-      }
-    }
+
   }
   &.basic{height:90px}
 }

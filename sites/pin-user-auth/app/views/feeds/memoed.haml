@@ -9,11 +9,12 @@
 .grid_16.alpha
   .grid-title
     我参与的话题
+  .hrr
   .newsfeed
     =render 'feeds/lists/feeds_stat',:feeds=>@feeds
   .paginate.padding5
     = will_paginate @feeds
 
-.grid_5.omega.fright
+.grid_6.omega.fright
   =render 'feeds/infos/new_button'
   =render :partial=>'index/index_parts/feed_links'

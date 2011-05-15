@@ -313,7 +313,7 @@ caption{background:#eee;}
 .haslayout{zoom:1;}
 html,body{height:100%;}
 .page-warp{min-height:100%;}
-.page-container{overflow:visible;padding-bottom:90px;}
+.page-container{overflow:visible;padding-bottom:31px;}
 .page-footer{position:relative;margin-top:-91px;height:90px;clear:both;}
 body:before{content:"";height:100%;float:left;width:0;margin-top:-32767px;/;}
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0;}
@@ -356,7 +356,7 @@ div.uv div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
 body{margin:0;}
 .page-container{margin:0;}
 .page-content{overflow:visible;clear:both;}
-.page-content .cell{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;position:relative;padding:18px 18px 18px 18px;margin-bottom:10px;top:-30px;margin-bottom:60px;}
+.page-content .cell{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;position:relative;padding:18px 18px 18px 18px;margin-bottom:10px;top:-60px;margin-bottom:60px;}
 .page-content .cell .cellhead{position:relative;zoom:1;}
 .page-content .cell .cellhead .avatared .logo{float:left;margin-right:10px;margin-top:5px;height:20px;width:20px;}
 .page-content .cell .cellhead .avatared .hello{line-height:36px;font-size:14px;}
@@ -369,23 +369,24 @@ body{margin:0;}
 .page-content.container_auto .cell{margin-top:0;background:none;padding:15px 0 0 0;border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;}
 .page-head{height:115px;}
 .page-head .nav{clear:both;overflow:hidden;}
-.page-head .nav .site-logo{width:240px;height:40px;margin:25px 0 0 5px;float:left;}
-.page-head .nav .site-logo a{width:240px;height:40px;float:left;background:url(/images/mindpin_logo.png) no-repeat;}
-.page-head .nav .start{float:right;margin:25px 10px 0 0;overflow:hidden;}
+.page-head .nav .site-logo{width:110px;height:24px;margin:16px 20px 3px 5px;float:left;}
+.page-head .nav .site-logo a{width:110px;height:24px;float:left;background:url(/images/mindpin_logo_2.png) no-repeat;}
+.page-head .nav .topbar{float:left;margin:16px 20px 3px 0;}
+.page-head .nav .topbar .top-search-form{float:left;}
+.page-head .nav .topbar .top-search-form input.search-inner{width:250px!important;}
+.page-head .nav .userbox{float:right;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;padding:4px 10px;margin:12px 6px 3px 0;}
+.page-head .nav .userbox .inner{overflow:hidden;}
+.page-head .nav .userbox .inner .avatarname{float:left;margin-left:15px;height:20px;line-height:20px;}
+.page-head .nav .userbox .inner .avatarname .avatar{font-size:0;line-height:0;}
+.page-head .nav .userbox .inner .avatarname .tiny{width:16px;height:16px;}
+.page-head .nav .userbox .inner .avatarname a{float:left;line-height:20px;}
+.page-head .nav .userbox .inner .avatarname a.name{font-weight:bold;margin-left:6px;}
+.page-head .nav .userbox .inner .sp{float:left;line-height:20px;margin-left:15px;font-weight:bold;}
+.page-head .nav .userbox .inner .sp.homepage{margin-left:0;}
+.page-head .nav .start{float:right;margin:9px 10px 0 0;overflow:hidden;}
 .page-head .nav .start span{float:left;margin-left:20px;height:40px;line-height:40px;}
 .page-head .nav .start span .font14{height:40px;line-height:40px;}
 .page-head .nav .start .home{padding-left:18px;background:url(/images/piece/home.png) no-repeat 0 center;}
-.page-head .nav .userbox{float:right;height:40px;border-top:none;border-bottom-left-radius:6px;-moz-border-radius-bottomleft:6px;-webkit-border-bottom-left-radius:6px;border-bottom-right-radius:6px;-moz-border-radius-bottomright:6px;-webkit-border-bottom-right-radius:6px;padding:0 6px;margin-right:10px;}
-.page-head .nav .userbox .inner{padding-top:8px;}
-.page-head .nav .userbox .inner .avatarname{float:left;}
-.page-head .nav .userbox .inner .avatarname .tiny{width:20px;height:20px;}
-.page-head .nav .userbox .inner .avatarname a{float:left;line-height:24px;}
-.page-head .nav .userbox .inner .avatarname a.name{font-weight:bold;margin-left:6px;}
-.page-head .nav .userbox .inner .sp{float:left;line-height:24px;margin-left:15px;font-weight:bold;}
-.page-head .nav .topbar{clear:right;float:right;margin:9px 10px 0 0;}
-.page-head .nav .topbar ul{float:left;margin:0 10px 0 0;position:relative;top:2px;}
-.page-head .nav .topbar ul li{display:inline;margin:0 15px 0 0;}
-.page-head .nav .topbar .top-search-form{float:left;}
 .page-head.basic{height:90px;}
 .page-footer{overflow:hidden;}
 .page-footer .links{margin-top:20px;}

@@ -4,7 +4,6 @@
 /*页眉文字*/
 /*页眉底边*/
 /*顶端用户导航背景*/
-/*顶端用户导航阴影*/
 /*顶端用户导航边线*/
 /*顶端用户导航链接色*/
 .page-head {
@@ -17,9 +16,6 @@
     background: -moz-linear-gradient(-90deg, #ebf3a7, #e4ee6f);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ebf3a7), to(#e4ee6f));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ebf3a7',endColorstr='#e4ee6f');
-    box-shadow: 0 0 2px #5c6d0c;
-    -moz-box-shadow: 0 0 2px #5c6d0c;
-    -webkit-box-shadow: 0 0 2px #5c6d0c;
     border: solid 1px #abbe2e; }
     .page-head .userbox a {
       color: #47520e; }
@@ -53,11 +49,11 @@ body {
   background-color: #f3f8db; }
 
 .page-content .cell {
-  border: 2px solid #ababab;
+  border: 1px solid #ababab;
   background-color: white;
-  box-shadow: 0px 0px 2px #ababab;
-  -moz-box-shadow: 0px 0px 2px #ababab;
-  -webkit-box-shadow: 0px 0px 2px #ababab; }
+  box-shadow: 0px 0px 3px #ababab;
+  -moz-box-shadow: 0px 0px 3px #ababab;
+  -webkit-box-shadow: 0px 0px 3px #ababab; }
 
 /*一般文字*/
 /*一般文字颜色*/
@@ -118,7 +114,7 @@ body {
   -webkit-box-shadow: 1px 1px 2px #dddddd; }
 
 .btb {
-  border-bottom: dashed 1px #DFDFDF; }
+  border-bottom: dotted 1px #DFDFDF; }
 
 .hrr {
   background-color: #f6f8ee;

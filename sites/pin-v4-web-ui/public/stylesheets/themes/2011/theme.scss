@@ -77,7 +77,7 @@
 .shadow{
   @include box-shadow(1px 1px 2px $box-shadow-color);
 }
-.btb{border-bottom:dashed 1px #DFDFDF;}
+.btb{border-bottom:dotted 1px #DFDFDF;}
 
 .hrr{
   background-color:$dark-bg-color;

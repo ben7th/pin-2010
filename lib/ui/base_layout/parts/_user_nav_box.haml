@@ -1,18 +1,15 @@
 .userbox
   .inner
-    .avatarname{:'original-title'=>'去个人主页'}
-      -link_to pin_url_for('pin-user-auth',"users/#{current_user.id}") do
-        =logo current_user,:tiny
+    .sp.homepage=link_to '回首页',pin_url_for("pin-user-auth")
+    .avatarname{:'original-title'=>'去我的主页'}
+      -link_to pin_url_for('pin-user-auth',"users/#{current_user.id}"),:class=>'avatar' do
+        =avatar current_user,:tiny
       =link_to "#{current_user.name}",pin_url_for('pin-user-auth',"users/#{current_user.id}"),:class=>'name'
-    .sp=link_to '回首页',pin_url_for("pin-user-auth")
     .sp=link_to "站内信",pin_url_for('user_auth','/messages'),:'original-title'=>'收发站内信'
     .sp=link_to "用户设置",pin_url_for('user_auth','/account'),:'original-title'=>'设置头像，昵称'
     .sp=link_to "退出",pin_url_for('user_auth','/logout'),:'original-title'=>'点这里退出登录'
 
 .topbar
-  %ul
-    %li=link_to '联系人',pin_url_for("pin-user-auth","#{current_user.id}/followings")
-    %li=link_to '话题频道',pin_url_for("pin-user-auth","/channels")
   .top-search-form
     %form{:action=>"/search_feeds",:method=>"get"}
       %input.search-inner.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索话题'}

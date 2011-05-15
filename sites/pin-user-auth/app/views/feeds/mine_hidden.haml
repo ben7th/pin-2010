@@ -9,12 +9,13 @@
 .grid_16.alpha
   .grid-title
     我被隐藏的话题
+  .hrr
   .newsfeed
     -mplist @feeds,:for=>Feed do |feed|
       =render :partial=>'index/homepage/feeds/feed_info_hidden',:locals=>{:feed=>feed}
   .paginate.padding5
     = will_paginate @feeds
 
-.grid_5.omega.fright
+.grid_6.omega.fright
   =render 'feeds/infos/new_button'
   =render :partial=>'index/index_parts/feed_links'

@@ -104,7 +104,10 @@
   .be-hidden-todos{
     .icon{@include allicon(-325px,-117px)}
   }
-  .recent-hot-feeds{
+  .recent-userlogs{
     .icon{@include allicon(-300px,-117px)}
+  }
+  .recent-hot-feeds{
+    .icon{@include allicon(-350px,-117px)}
   }
 }

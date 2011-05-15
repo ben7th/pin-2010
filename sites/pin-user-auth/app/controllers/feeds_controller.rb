@@ -5,10 +5,6 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id]) if params[:id]
   end
 
-  def all
-    @feeds = Feed.recent_hot(:per_page=>20,:page=>params[:page]||1,:order=>'id desc')
-  end
-
   def do_say
     return _do_say_in_channel if params[:channel_id]
     _do_say_no_channel
@@ -177,6 +173,14 @@ class FeedsController < ApplicationController
 
   def all_hidden
     @feeds = Feed.hidden.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
+  def all
+    @feeds = Feed.recent_hot(:per_page=>30,:page=>params[:page]||1,:order=>'id desc')
+  end
+
+  def userlogs
+    @userlogs = UserLog.paginate(:per_page=>30,:page=>params[:page]||1,:order=>'id desc')
   end
 
 

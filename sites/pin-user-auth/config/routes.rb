@@ -137,7 +137,8 @@ ActionController::Routing::Routes.draw do |map|
   },:collection=>{
     :reply_to=>:post,:quote=>:post,:all=>:get,
     :memoed=>:get,:be_invited=>:get,
-    :mine_hidden=>:get,:all_hidden=>:get
+    :mine_hidden=>:get,:all_hidden=>:get,
+    :userlogs=>:get
     } do |feed|
       feed.resources :todos,:collection=>{
         :remove_last_todo=>:delete

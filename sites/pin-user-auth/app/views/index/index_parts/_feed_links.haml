@@ -16,9 +16,12 @@
     =tabs_link_to '被隐藏的话题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
 
 .module-links.feeds
+  .link.recent-userlogs.btb
+    .icon
+    =tabs_link_to '这里正在进行…',pin_url_for('pin-user-auth','/feeds/userlogs')
   .link.recent-hot-feeds
     .icon
-    =tabs_link_to '这里正在进行…',pin_url_for('pin-user-auth','/feeds/all')
+    =tabs_link_to '大家最近的话题',pin_url_for('pin-user-auth','/feeds/all')
 
 .module-links{:style=>'display:none;'}
   .link.received_comments.btb

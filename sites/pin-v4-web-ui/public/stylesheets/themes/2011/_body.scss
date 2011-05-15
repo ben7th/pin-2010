@@ -16,8 +16,8 @@ body{
 
 .page-content{
   .cell{
-    border:2px solid $content-border-color;
+    border:1px solid $content-border-color;
     background-color:$content-bg-color;
-    @include box-shadow(0px 0px 2px $content-shadow-color);
+    @include box-shadow(0px 0px 3px $content-shadow-color);
   }
 }
