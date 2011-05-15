@@ -155,8 +155,9 @@
     .name{
       font-size:12px;
       margin:0 0 6px 0;
+      color:#A5A5A5;
       .title{
-        font-size:12px;font-weight:bold;
+        font-size:12px;
         margin:0 0 6px 0;
       }
       .vote-score{
@@ -168,6 +169,7 @@
         padding:0 6px;
         cursor:default;
       }
+      .bold{font-weight:normal;}
     }
     .time{
       font-size:12px;

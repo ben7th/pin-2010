@@ -994,10 +994,10 @@ form.new_message .w300 {
             height: 20px; }
         .user-page-viewpoints .viewpoint .vp-ct .data .name {
           font-size: 12px;
-          margin: 0 0 6px 0; }
+          margin: 0 0 6px 0;
+          color: #A5A5A5; }
           .user-page-viewpoints .viewpoint .vp-ct .data .name .title {
             font-size: 12px;
-            font-weight: bold;
             margin: 0 0 6px 0; }
           .user-page-viewpoints .viewpoint .vp-ct .data .name .vote-score {
             border-radius: 4px;
@@ -1009,6 +1009,8 @@ form.new_message .w300 {
             margin: 0 4px 0 0;
             padding: 0 6px;
             cursor: default; }
+          .user-page-viewpoints .viewpoint .vp-ct .data .name .bold {
+            font-weight: normal; }
         .user-page-viewpoints .viewpoint .vp-ct .data .time {
           font-size: 12px;
           margin: 0 0 6px 0; }
@@ -1287,7 +1289,7 @@ form.new_message .w300 {
   position: relative;
   overflow: visible; }
   .newsfeed ul.feeds li.mpli.feed .f {
-    padding: 5px;
+    padding: 5px 5px 36px;
     margin-bottom: 10px;
     overflow: hidden; }
     .newsfeed ul.feeds li.mpli.feed .f .reply-to-feed {
@@ -1421,10 +1423,10 @@ form.new_message .w300 {
               height: 20px; }
           .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .data .name, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .data .name {
             font-size: 12px;
-            margin: 0 0 6px 0; }
+            margin: 0 0 6px 0;
+            color: #A5A5A5; }
             .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .data .name .title, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .data .name .title {
               font-size: 12px;
-              font-weight: bold;
               margin: 0 0 6px 0; }
             .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .data .name .vote-score, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .data .name .vote-score {
               border-radius: 4px;
@@ -1436,11 +1438,15 @@ form.new_message .w300 {
               margin: 0 4px 0 0;
               padding: 0 6px;
               cursor: default; }
+            .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .data .name .bold, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .data .name .bold {
+              font-weight: normal; }
           .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .data .time, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .data .time {
             font-size: 12px;
             margin: 0 0 6px 0; }
           .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .data .memo-content p, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .data .memo-content p {
             margin: 0; }
+        .newsfeed ul.feeds li.mpli.feed .f .viewpoint .my-viewpoint .memo-content, .newsfeed ul.feeds li.mpli.feed .f .viewpoint .hot-viewpoint .memo-content {
+          margin-left: 26px; }
     .newsfeed ul.feeds li.mpli.feed .f .comments {
       border-radius: 3px;
       -moz-border-radius: 3px;
@@ -4348,10 +4354,10 @@ form.new_message .w300 {
               height: 20px; }
           .index-userlogs .log .footmisc .viewpoint .data .name {
             font-size: 12px;
-            margin: 0 0 6px 0; }
+            margin: 0 0 6px 0;
+            color: #A5A5A5; }
             .index-userlogs .log .footmisc .viewpoint .data .name .title {
               font-size: 12px;
-              font-weight: bold;
               margin: 0 0 6px 0; }
             .index-userlogs .log .footmisc .viewpoint .data .name .vote-score {
               border-radius: 4px;
@@ -4363,6 +4369,8 @@ form.new_message .w300 {
               margin: 0 4px 0 0;
               padding: 0 6px;
               cursor: default; }
+            .index-userlogs .log .footmisc .viewpoint .data .name .bold {
+              font-weight: normal; }
           .index-userlogs .log .footmisc .viewpoint .data .time {
             font-size: 12px;
             margin: 0 0 6px 0; }
