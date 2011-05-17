@@ -4388,36 +4388,52 @@ form.new_message .w300 {
           position: relative;
           top: 1px; }
   .no-auth-head .footmisc {
-    overflow: hidden; }
+    overflow: hidden;
+    line-height: 16px; }
     .no-auth-head .footmisc .see-oldsite-mindmap {
-      padding: 5px;
-      font-size: 14px;
-      line-height: 24px;
-      border-radius: 5px;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
-      padding: 5px;
-      float: left;
-      background: #686B72; }
-      .no-auth-head .footmisc .see-oldsite-mindmap a {
-        color: white; }
-      .no-auth-head .footmisc .see-oldsite-mindmap a:hover {
-        color: white; }
-      .no-auth-head .footmisc .see-oldsite-mindmap .icon {
-        width: 24px;
-        height: 24px;
+      float: right; }
+      .no-auth-head .footmisc .see-oldsite-mindmap .tan {
         float: left;
-        margin-right: 10px;
-        background: url(/images/icons/all.png) no-repeat -225px -142px; }
-      .no-auth-head .footmisc .see-oldsite-mindmap span.tan {
         color: white;
-        background: #FB4A00;
-        border-radius: 6px;
-        -moz-border-radius: 6px;
-        -webkit-border-radius: 6px;
         font-weight: bold;
-        padding: 0 4px;
-        margin: 0 3px 0 0; }
+        background: #FB4A00;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        font-weight: bold;
+        text-align: center;
+        width: 12px;
+        height: 12px;
+        margin: 0 3px 0 0;
+        position: relative;
+        top: 2px;
+        line-height: 12px; }
+      .no-auth-head .footmisc .see-oldsite-mindmap .link {
+        float: left;
+        margin-right: 6px; }
+      .no-auth-head .footmisc .see-oldsite-mindmap .icon {
+        width: 16px;
+        height: 16px;
+        float: left;
+        background: url(/images/icons/all.png) no-repeat -34px -167px; }
+    .no-auth-head .footmisc .site-connect {
+      overflow: hidden;
+      line-height: 16px;
+      float: right; }
+      .no-auth-head .footmisc .site-connect span.connect {
+        float: left;
+        margin-right: 6px; }
+      .no-auth-head .footmisc .site-connect a.tsina, .no-auth-head .footmisc .site-connect a.renren {
+        float: left;
+        width: 16px;
+        height: 16px; }
+        .no-auth-head .footmisc .site-connect a.tsina span, .no-auth-head .footmisc .site-connect a.renren span {
+          display: none; }
+      .no-auth-head .footmisc .site-connect a.tsina {
+        margin-right: 6px;
+        background: url(/images/icons/all.png) no-repeat 0px -167px; }
+      .no-auth-head .footmisc .site-connect a.renren {
+        background: url(/images/icons/all.png) no-repeat -17px -167px; }
 
 .index-userlogs {
   margin: 0 0 20px 0; }

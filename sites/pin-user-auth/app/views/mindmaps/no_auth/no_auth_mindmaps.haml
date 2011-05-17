@@ -18,20 +18,13 @@
     .hide
       =render 'auth/no_auth/site_connect'
 
-    .grid-title 看看他们的思维导图吧
+    .grid-title-s 看看他们的思维导图吧
     .hot-user-pages
       -page_hot_users.each do |u|
         %a.avatar{:href=>"/#{u.id}/mindmaps",:tip=>u.name}
           =avatar u,:mini
 
     .hrr
-    .grid-title 站务
-    .special-pages
-      .font14.marginb5=link_to '给我们提意见','/channels/1'
-      .font14=link_to '开发者日志','/channels/2'
-
-    .hrr
     .view-old-site
-      .p 过去相当长的一段时间里，MindPin作为思维导图工具网站，获得了广大朋友的支持和关心。
-      <br/>
-      .p 现在我们正在向社区化的方向转型。原有的工具也将继续改进，尽快和新的交互模式整合！
+      %p 过去的一段时间里，MindPin作为思维导图工具网站，获得了广大朋友的支持和关心。
+      %p 现在我们正在向社区化的方向转型。原有的工具也将继续改进，尽快和新的交互模式整合。

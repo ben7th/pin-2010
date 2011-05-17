@@ -180,31 +180,48 @@
 
   .footmisc{
     overflow:hidden;
+    line-height:16px;
     .see-oldsite-mindmap{
-      padding:5px;
-      font-size:14px;
-      line-height:24px;
-      @include border-radius(5px);
-      padding:5px;
-      float:left;
-      background:#686B72;
-      a{color:white;}
-      a:hover{color:white;}
-
-
-      .icon{
-        width:24px;height:24px;
+      float:right;
+      .tan{
         float:left;
-        margin-right:10px;
-        @include allicon(-225px,-142px);
-      }
-      span.tan{
         color:white;
-        background:#FB4A00;
-        @include border-radius(6px);
         font-weight:bold;
-        padding:0 4px;
+        background:#FB4A00;
+        @include border-radius(3px);
+        font-weight:bold;
+        text-align:center;
+        width:12px;height:12px;
         margin:0 3px 0 0;
+        position:relative;top:2px;
+        line-height:12px;
+      }
+      .link{
+        float:left;
+        margin-right:6px;
+      }
+      .icon{
+        width:16px;height:16px;
+        float:left;
+        @include allicon(-34px,-167px);
+      }
+    }
+    .site-connect{
+      overflow:hidden;
+      line-height:16px;
+      float:right;
+      span.connect{float:left;margin-right:6px;}
+      a.tsina,a.renren{
+        float:left;
+        width:16px;height:16px;
+        span{display:none;}
+      }
+      a.tsina{
+        margin-right:6px;
+        @include allicon(0px,-167px);
+      }
+      a.renren{
+        @include allicon(-17px,-167px);
       }
     }
   }
