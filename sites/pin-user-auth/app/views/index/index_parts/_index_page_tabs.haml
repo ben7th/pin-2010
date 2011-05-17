@@ -1,18 +1,21 @@
 .index-page-tabs
-  -link_to 'javascript:;',:class=>'tab feeds darkbg csshov selected' do
+  -index_tabs_link_to '/',:class=>'tab feeds darkbg csshov' do
     .icon
     .title 话题
     .desc.quiet 参加讨论吧~
 
-  -link_to 'javascript:;',:class=>'tab logs darkbg csshov' do
+  -index_tabs_link_to '/user_logs',:class=>'tab logs darkbg csshov' do
     .icon
     .title 动态
     .desc.quiet 大家在干嘛？
 
-  -link_to 'javascript:;',:class=>'tab notice darkbg csshov' do
+  -index_tabs_link_to '/user_notices',:class=>'tab notice darkbg csshov' do
     .icon
     .title 通知
     .desc.quiet 查收新消息…
+    -notice_count = UserTipProxy.new(current_user).tips_count
+    -if notice_count > 0
+      .count=notice_count
 
   =#index_tabs_link_to '/feeds/all',:class=>'tab gogogo darkbg csshov' do
   =#  .icon

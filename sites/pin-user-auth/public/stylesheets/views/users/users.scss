@@ -138,7 +138,7 @@
 }
 
 @mixin viewpoint-in-list{
-  margin:0 10px 10px 0;
+  margin:0 0 10px 0;
   .arrow{
     width:15px;height:7px;
     @include allicon(-271px,-65px);
@@ -146,7 +146,7 @@
   }
   .data{
     padding:5px;
-    background:#F0F9FE;
+    background:#F0F7FF;
     @include border-radius(3px);
     .avatar{
       float:right;
@@ -180,6 +180,8 @@
     }
   }
 }
+
+@mixin bluebutton{@include btn-color(#3B94FF, #006AED, #00698D, #fff, #3B94FF, #006AED);}
 
 .jquery-qeditor{
   @include border-radius(4px);
@@ -854,27 +856,18 @@ form.new_message{
   margin:0 0 20px 0;
 }
 
-.homepage-new-voteup-tip,
-.homepage-new-viewpoint-tip,
-.homepage-be-invited-tip,
-.homepage-fav-change-tip{
-  @include border-radius(5px);
-  background:#DFEAF4;
-  border:solid 2px #BED4E8;
-  padding:5px 10px;
+.homepage-user-notices{
   margin:0 0 20px 0;
-  .title{
-    line-height:20px;
-    font-weight:bold;margin:0 0 4px 0;
-    border-bottom:solid 1px #BED4E8;
-  }
   .tips{
     margin:0 0 6px 0;
     .tip{
       overflow:hidden;
+      padding:5px;
       .data{
-        margin:0 20px 0 0;
+        margin:0 20px 20px 0;
         line-height:20px;
+        font-size:14px;
+        .bold{font-weight:normal;}
       }
       .delete{
         float:right;
@@ -890,9 +883,7 @@ form.new_message{
     }
   }
   .btns{
-    .minibutton{
-      font-weight:normal;
-    }
+    padding:5px;
   }
 }
 
@@ -980,11 +971,8 @@ form.new_message{
     float:left;
     font-size:14px;
     font-weight:bold;
-    /*@include btn-color(#F54F00,#CA0700,#DF1600,#ffffff,#FB5506,#D00C06);*/
-    @include btn-color(#76D7F5, #429FD9, #5BBAE6, #fff, #7BDCFA, #47A4DE);
-    /*@include btn-color(#5D99E1, #3570B8, #2E63A5, #FFF, #7BDCFA, #47A4DE);*/
-    /*@include btn-color(#0076F4, #0099CA, #2E63A5, #FFF, #0076F4, #0076F4);*/
     padding:10px 20px;
+    @include bluebutton;
   }
 }
 

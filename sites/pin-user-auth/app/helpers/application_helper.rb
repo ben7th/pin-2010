@@ -48,7 +48,7 @@ module ApplicationHelper
     re = []
     feed = info.feed
     re << '创建了话题'
-    re << link_to(truncate_u(feed.content,32),feed)
+    re << link_to(h(truncate_u(feed.content,32)),feed)
     re * ' '
   end
 
@@ -56,7 +56,7 @@ module ApplicationHelper
     re = []
     feed = info.feed
     re << '修改了话题'
-    re << link_to(truncate_u(feed.content,32),feed)
+    re << link_to(h(truncate_u(feed.content,32)),feed)
     re * ' '
   end
 
@@ -64,7 +64,7 @@ module ApplicationHelper
     re = []
     feed = info.feed
     re << '在话题'
-    re << link_to(truncate_u(feed.content,32),feed)
+    re << link_to(h(truncate_u(feed.content,32)),feed)
     re << '中发表了观点'
   end
 
@@ -72,7 +72,7 @@ module ApplicationHelper
     re = []
     feed = info.feed
     re << '编辑了话题'
-    re << link_to(truncate_u(feed.content,32),feed)
+    re << link_to(h(truncate_u(feed.content,32)),feed)
     re << '中的观点'
   end
 

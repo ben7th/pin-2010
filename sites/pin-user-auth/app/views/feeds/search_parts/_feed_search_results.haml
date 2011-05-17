@@ -3,5 +3,4 @@
   .no-result.quiet.font14.padding5
     没有搜索到任何结果
 -else
-  -mplist feeds,:for=>Feed do |feed|
-    =render :partial=>'index/homepage/feeds/feed_info',:locals=>{:feed=>feed}
+  =render 'feeds/lists/feeds_stat',:feeds=>feeds

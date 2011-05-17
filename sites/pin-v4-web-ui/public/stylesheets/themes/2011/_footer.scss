@@ -1,13 +1,15 @@
 /*页脚*/
   /*页脚背景*/
-    $foot-bg-color   : $head-bg-color-1;
-    $foot-bg-color-1 : #E4EE6F;
+    $foot-bg-color   : #F1F1F1;
+    $foot-bg-color-1 : #F1F1F1;
   /*页脚顶边*/
-    $foot-border-top-color : #E4EE6F;
+    $foot-border-top-color : #DDDDDD;
 
 .page-footer{
   @include gradient($foot-bg-color,$foot-bg-color-1);
-  border-top:solid 1px $foot-border-top-color;
+  .pf{
+    border-top:solid 2px $foot-border-top-color;
+  }
   a{
     color:$head-userbox-a-color;
     &:hover{color:$head-userbox-a-color-hover;}

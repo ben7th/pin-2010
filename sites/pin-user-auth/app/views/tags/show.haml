@@ -11,12 +11,14 @@
     .name=@tag.name
 
 .hrr
-.grid_16.alpha
+.grid_20.alpha
   .tag-page-logo
     =logo @tag,:medium
+    -if logged_in?
+      .upload=link_to '上传图片',"/tags/#{@tag.name}/upload_logo"
   .tag-page-feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
 
 
-.grid_6.omega.fright
+.grid_2.omega.fright

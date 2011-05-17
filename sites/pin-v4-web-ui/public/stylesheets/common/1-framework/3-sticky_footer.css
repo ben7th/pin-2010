@@ -1,7 +1,46 @@
-/*footer*/
-html,body{height:100%;}
-.page-warp{min-height:100%;}
-.page-container{overflow:visible;padding-bottom:31px;}
-.page-footer{position:relative;margin-top:-91px;height:90px;clear:both;}
+/*
+Sticky Footer Solution
+by Steve Hatcher
+http://stever.ca
+http://www.cssstickyfooter.com
+*/
+
+* {margin:0;padding:0;}
+
+/* must declare 0 margins on everything, also for main layout components use padding, not
+vertical margins (top and bottom) to add spacing, else those margins get added to total height
+and your footer gets pushed down a bit more, creating vertical scroll bars in the browser */
+
+html, body {height: 100%;}
+
+.page-wrap {min-height: 100%;}
+
+.page-container {overflow:visible;
+	padding-bottom: 90px;}  /* must be same height as the footer */
+.page-footer {position: relative;
+	margin-top: -90px; /* negative value of footer height */
+	height: 90px;
+	clear:both;}
+
 /*Opera Fix*/
-body:before{content:"";height:100%;float:left;width:0;margin-top:-32767px;/}
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+
+
+/* IMPORTANT
+
+You also need to include this conditional style in the <head> of your HTML file to feed this style to IE 6 and lower and 8 and higher.
+
+<!--[if !IE 7]>
+	<style type="text/css">
+		.page-wrap {display:table;height:100%}
+	</style>
+<![endif]-->
+
+*/

@@ -11,9 +11,9 @@
       %th 操作
   %tbody
     %tr=render :partial=>"index/parts/project_stat",:locals=>{:project_name=>"pin-user-auth"}
-    %tr=render :partial=>"index/parts/project_stat",:locals=>{:project_name=>"pin-bugs"}
     %tr=render :partial=>"index/parts/project_stat",:locals=>{:project_name=>"pin-mev6"}
     %tr=render :partial=>"index/parts/project_stat",:locals=>{:project_name=>"app-mindmap-image-cache"}
+    
 
 %table
   %thead
@@ -40,7 +40,6 @@
       %th 操作
   %tbody
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"mindmap_import_queue_worker"}
-    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"synchronous_message_from_tsina_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"wake_up_resque_worker"}
 
 %table
@@ -59,5 +58,21 @@
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"follow_operation_queue_resque_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"feed_operation_queue_resque_worker"}
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"send_tsina_status_queue_resque_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"user_tip_resque_queue_worker"}
+
+
+
+%table
+  %thead
+    %tr
+      %th 待删除内容
+      %th 状态
+      %th 日志大小
+      %th 日志最后修改时间
+      %th 操作
+  %tbody
     %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"user_fav_feed_change_tip_resque_queue_worker"}
+    %tr=render :partial=>"index/parts/worker_stat",:locals=>{:worker_name=>"synchronous_message_from_tsina_worker"}
+    %tr=render :partial=>"index/parts/project_stat",:locals=>{:project_name=>"pin-bugs"}
+
 =link_to "退出登录","/logout"

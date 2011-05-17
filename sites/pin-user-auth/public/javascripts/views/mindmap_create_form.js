@@ -112,7 +112,6 @@ pie.load(function(){
     });
   }
   function create_loading_image_div(map_id,dom_id,size_param,updated_at,loading_src){
-    pie.log(loading_src)
     return jQuery('<div id="'+dom_id+'" class="cache_mindmap_image" data-map-id="'+map_id+'" data-map-size="'+size_param+'" data-updated-at="'+updated_at+'" ><img class="loading" src="'+loading_src +'" /></div>')
   }
 

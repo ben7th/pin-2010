@@ -3,6 +3,8 @@
 -content_for :title do
   大家的思维导图
 
+=render 'auth/no_auth/no_auth_head'
+
 .grid_16.alpha
   .grid-title
     大家的思维导图（只显示公开的）
@@ -13,14 +15,20 @@
 
 .grid_7.omega.fright
   .no-auth
-    =render 'auth/no_auth/go_to_signup'
+    .hide
+      =render 'auth/no_auth/site_connect'
+
+    .grid-title 看看他们的思维导图吧
+    .hot-user-pages
+      -page_hot_users.each do |u|
+        %a.avatar{:href=>"/#{u.id}/mindmaps",:tip=>u.name}
+          =avatar u,:mini
 
     .hrr
-    .login
-      =render 'auth/parts/login_form'
-
-    .hrr
-    =render 'auth/no_auth/site_connect'
+    .grid-title 站务
+    .special-pages
+      .font14.marginb5=link_to '给我们提意见','/channels/1'
+      .font14=link_to '开发者日志','/channels/2'
 
     .hrr
     .view-old-site

@@ -173,4 +173,5 @@ class TodoUser < UserAuthAbstract
   include ViewpointVote::TodoUserMethods
   include ViewpointDraft::TodoUserMethods
   include UserLog::TodoUserMethods
+  include ViewpointSpamMark::TodoUserMethods
 end

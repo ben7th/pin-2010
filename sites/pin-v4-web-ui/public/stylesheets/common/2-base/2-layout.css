@@ -12,10 +12,8 @@ body {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    position: relative;
     padding: 18px 18px 18px 18px;
-    margin-bottom: 10px;
-    top: -60px;
+    margin-top: 30px;
     margin-bottom: 60px; }
     .page-content .cell .cellhead {
       position: relative;
@@ -82,34 +80,41 @@ body {
 
 /*顶部*/
 .page-head {
-  height: 115px; }
+  height: 55px; }
   .page-head .nav {
     clear: both;
     overflow: hidden; }
     .page-head .nav .site-logo {
       width: 110px;
       height: 24px;
-      margin: 16px 20px 3px 5px;
+      margin: 16px 20px 3px 22px;
       float: left; }
       .page-head .nav .site-logo a {
         width: 110px;
         height: 24px;
         float: left;
-        background: url(/images/mindpin_logo_2.png) no-repeat; }
+        background: url(/images/mindpin_logo_2.png) 0 -25px no-repeat; }
+        .page-head .nav .site-logo a:hover {
+          background: url(/images/mindpin_logo_2.png) 0 0 no-repeat; }
     .page-head .nav .topbar {
       float: left;
       margin: 16px 20px 3px 0; }
       .page-head .nav .topbar .top-search-form {
         float: left; }
         .page-head .nav .topbar .top-search-form input.search-inner {
-          width: 250px !important; }
+          width: 250px !important;
+          margin-right: 5px; }
+        .page-head .nav .topbar .top-search-form button.minibutton {
+          position: relative;
+          top: -2px;
+          margin-left: 0 !important; }
     .page-head .nav .userbox {
       float: right;
       border-radius: 5px;
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
       padding: 4px 10px;
-      margin: 12px 6px 3px 0; }
+      margin: 13px 6px 3px 0; }
       .page-head .nav .userbox .inner {
         overflow: hidden; }
         .page-head .nav .userbox .inner .avatarname {
@@ -135,10 +140,11 @@ body {
           margin-left: 15px;
           font-weight: bold; }
           .page-head .nav .userbox .inner .sp.homepage {
-            margin-left: 0; }
+            padding-left: 18px;
+            background: url(/images/piece/home.png) no-repeat 0 center; }
     .page-head .nav .start {
       float: right;
-      margin: 9px 10px 0 0;
+      margin: 9px 23px 0 0;
       overflow: hidden; }
       .page-head .nav .start span {
         float: left;

@@ -237,7 +237,7 @@ class FeedsController < ApplicationController
   end
 
   def change_tags
-    @feed.change_tags(params[:tag_names])
+    @feed.change_tags(params[:tag_names],current_user)
     render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
   end
 

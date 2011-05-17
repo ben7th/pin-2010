@@ -8,21 +8,20 @@
   = javascript_include_tag "views/mindmap_title_inplace_edit"
   = javascript_include_tag "views/feed_operation"
 
-.grid_3.alpha
-  =render 'index/index_parts/user_info',:user=>@user
-
-.grid_14.paddingl20
+.grid_17.alpha
   =render 'index/homepage/feeds/feed_form_mev6'
 
-  .homepage-see-others
-    =link_to '&gt;&gt;转到话题页',pin_url_for("pin-user-auth","/")
+  .homepage-see-others.bold
+    =link_to '&gt;&gt; 访问主题协作功能',pin_url_for("pin-user-auth","/")
 
   =render 'mindmaps/homepage/mindmaps_management',:mindmaps=>@mindmaps
 
   .mindmap-paginate.padding5
     = will_paginate @mindmaps
 
-.grid_5.fright
+.grid_6.omega.fright
+  =render 'users/homepage/avatar',:user=>@user
+
   .index-search-form.mindmap
     =render 'mindmaps/parts/mindmap_search_form'
   =render 'mindmaps/parts/mindmap_links'

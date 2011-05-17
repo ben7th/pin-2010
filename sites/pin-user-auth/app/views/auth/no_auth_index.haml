@@ -6,22 +6,9 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.grid_16.alpha
-  .mindpin-intro
-    .txt
-      .p
-        MindPin 是一个大家提出<span class='q'>问题和想法</span>，互相帮助其他人<span class='a'>解答和完善</span>的地方。
-      .p
-        你可以在这里讨论问题，发表观点，安排计划。也许还可以认识很多有见解的朋友:)
-    .actions
-      %a.send-feed.button{:href=>'/login'}
-        我来发一个新话题
-      .search
-        =render 'index/index_parts/feed_search_form'
-  .where-is-mindmap
-    %span.tan> ?
-    =link_to '思维导图工具哪去了？','/mindmaps',:tip=>'由于网站转型，我们对于功能导航进行了调整，点击这里访问原来的思维导图工具。'
+=render 'auth/no_auth/no_auth_head'
 
+.grid_16.alpha
   .grid-title
     大家最近的话题
   .newsfeed
@@ -29,24 +16,9 @@
 
 .grid_7.omega.fright
   .no-auth
-    =render 'auth/no_auth/go_to_signup'
+    .hide
+      =render 'auth/no_auth/site_connect'
 
-    .hrr
-    .login
-      =render 'auth/parts/login_form'
-
-    .hrr
-    =render 'auth/no_auth/site_connect'
-
-    .hrr
-    .view-old-site.mindmap-desc
-      .p.bold 我们已经改版为互动社区了！
-      .p 今后提供的功能将不再仅限于思维导图工具。
-      .p 希望大家支持~
-    .view-old-site
-      .p <span class='loud'>如果你还不适应</span>，#{link_to '点击这里访问原来的功能','/mindmaps'}。
-
-    .hrr
     .grid-title 看看他们的主页吧
     .hot-user-pages
       -page_hot_users.each do |u|

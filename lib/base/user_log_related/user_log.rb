@@ -17,6 +17,10 @@ class UserLog < UserAuthAbstract
     }
   }
 
+  def self.last_of_user(user)
+    UserLog.of_user(user).first
+  end
+
   def info_hash
     ActiveSupport::JSON.decode(self.info_json)
   end
@@ -132,9 +136,10 @@ class UserLog < UserAuthAbstract
     end
 
     def add_edit_feed_log
-      creator = self.feed.creator
-      return true if creator.last_edit_feed == self.feed
-      creator.create_edit_feed_log(self.feed)
+      user = self.user
+      return true if user.last_edit_feed == self.feed
+
+      user.create_edit_feed_log(self.feed)
       return true
     rescue Exception => ex
       p ex
@@ -159,6 +164,14 @@ class UserLog < UserAuthAbstract
     def add_edit_viewpoint_log
       return true if self.changes["memo"].blank?
       return true if self.user.last_edit_viewpoint == self
+
+      ul = UserLog.last_of_user(self.user)
+      unless ul.blank?
+        if ul.kind == UserLog::ADD_VIEWPOINT && ul.info.viewpoint.id == self.id
+          return true
+        end
+      end
+
       self.user.create_edit_viewpoint_log(self)
       return true
     rescue Exception => ex

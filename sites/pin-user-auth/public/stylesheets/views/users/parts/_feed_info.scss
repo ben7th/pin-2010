@@ -43,6 +43,18 @@
       background:#3E6D8E;
       color:#e0eaf1;
     }
+    &.has-logo{
+      padding:1px 4px 1px 2px;
+      img.mini{
+        padding:0;
+        border:none;
+        position:relative;
+        top:1px;
+        width:16px;height:16px;
+        float:left;
+        margin-right:3px;
+      }
+    }
   }
 }
 
@@ -307,10 +319,10 @@
 .newsfeed{
   ul.feeds li.mpli.feed{
     .f.with-stats{
-      .current-feed,.footmisc{
-        margin-left:40px;
+      .current-feed,.footmisc,.viewpoint{
+        margin-left:50px;
       }
-      .footmisc{width:580px;}
+      .footmisc{width:570px;}
       .stats{
         overflow:hidden;
         float:left;
@@ -318,22 +330,23 @@
           font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
           overflow:hidden;
           float:left;
-          margin:0 3px 0 0;
+          padding:3px 8px;
+
           .num{
             font-size:22px;font-weight:bold;
             line-height:22px;height:22px;
-            margin:0 3px 0 0;
             text-align:center;
           }
           .w{
             font-size:12px;display:inline;color:#666;
-            margin:0 3px 0 0;
             text-align:center;
           }
           &.viewpoints{
             &.not-zero{
               @include border-radius(4px);
-              /*background:#53BCFE;*/
+              background:#686B72;
+              .num{color:white;}
+              .w{color:#DDDDDD;}
             }
             &.zero{
               color:#9A4444;

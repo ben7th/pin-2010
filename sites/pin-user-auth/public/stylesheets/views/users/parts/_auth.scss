@@ -1,20 +1,4 @@
 .no-auth{
-  .go-to-signup{
-    margin:0 0 10px 0;
-    .signup-button {
-      @include border-radius(5px);
-      @include btn-color(#76D7F5, #429FD9, #5BBAE6, #CEE7F1, #7BDCFA, #47A4DE);
-      display:block;
-      padding:10px 30px;
-      text-align:center !important;
-      &:hover{color:white !important;}
-      .strong{
-        color:#fff !important;
-        font-weight:bold;
-        font-size:18px;
-      }
-    }
-  }
   .login{
     @include border-radius(4px);
     padding:5px;
@@ -62,39 +46,6 @@
   }
 }
 
-.mindpin-intro{
-  padding:5px 10px;
-  @include border-radius(5px);
-  background:#FFFFDE;
-  border:solid 2px #FBE881;
-  margin:0 0 10px 0;
-  .txt{
-    margin:0 0 20px 0;
-    .p{
-      font-size:14px;
-      margin:0 0 7px 0;
-      span.q{color:#8C6635;}
-      span.a{color:#E8641B;}
-    }
-  }
-  .actions{
-    overflow:hidden;
-    margin:0 0 10px 0;
-    .send-feed{
-      float:left;
-      font-size:14px;
-      font-weight:bold;
-      @include btn-color(#F54F00,#CA0700,#DF1600,#ffffff,#FB5506,#D00C06);
-      padding:5px 10px;
-    }
-    .search{
-      float:right;
-      position:relative;
-      top:6px;
-    }
-  }
-}
-
 .view-old-site{
   padding:5px;
   &.mindmap-desc{
@@ -115,16 +66,146 @@
   padding:5px;
 }
 
-.where-is-mindmap{
-  padding:5px;
-  text-align:right;
-  font-size:14px;
-  span.tan{
-    color:white;
-    background:#FB4A00;
-    @include border-radius(6px);
-    font-weight:bold;
-    padding:0 4px;
-    margin:0 3px 0 0;
+.no-auth-head{
+  position:relative;
+  top:-20px;
+  zoom:1;
+
+  .intro_and_form{
+    border-bottom:solid 1px #DFDFDF;
+    @include border-radius(0 0 8px 8px);
+
+    @include gradient(#FFFFFF,#F3F3F3);
+    overflow:hidden;
+    padding:10px;
+    margin:-10px -10px 10px;
+
+    .mindpin-intro{
+      padding:5px;
+      margin:0 0 10px 0;
+      border-right:solid 1px #F2F2F2;
+      .misc{
+        .go-to-signup{
+          margin:15px 0 10px 0;
+          float:left;
+          .signup-button {
+            @include border-radius(5px);
+            @include bluebutton;
+            
+
+            display:block;
+            padding:10px 0;
+            margin:0 0 0 55px;
+            width:180px;
+            text-align:center !important;
+            font-weight:bold;
+            font-size:18px;
+          }
+          .icon{
+            margin:0 0 20px 0;
+            width:291px;
+            height:24px;
+            @include allicon(0px,-184px);
+          }
+        }
+        .txt{
+          margin:0 0 10px 345px;
+          position:relative;
+          top:5px;
+          .p{
+            font-size:14px;
+            margin:0 0 10px 0;
+            line-height:24px;
+            .icon1,.icon2,.icon3,.icon4{width:24px;height:24px;float:left;margin-right:10px;}
+            .icon1{@include allicon(-125px,-142px);}
+            .icon2{@include allicon(-150px,-142px);}
+            .icon3{@include allicon(-175px,-142px);}
+            .icon4{@include allicon(-200px,-142px);}
+          }
+        }
+      }
+      .actions{
+        overflow:hidden;
+        margin:0 0 10px 0;
+        .search{
+          float:right;
+          position:relative;
+          top:6px;
+        }
+      }
+    }
+
+    .login{
+      padding:5px;
+      .title{
+        font-weight:bold;
+        margin:0 0 10px 40px;
+      }
+      .login-form{
+        .field{
+          overflow:hidden;
+          padding:0 0 2px 0;
+          margin:0 0 4px 0;
+          label{
+            display:inline;
+            margin-right:10px;
+            padding:0 0 0 6px;
+            line-height:24px;
+          }
+          input.inline{width:200px !important;display:inline;}
+        }
+        .form-actions{
+          .misc{
+            margin-left:40px;
+            .remember-me{
+              margin:0 0 6px 0
+            }
+          }
+          .misc1{
+            margin-left:40px;
+            overflow:hidden;
+            .submit-btn{
+              float:left;
+              input{top:0px !important;}
+            }
+            .forget-password{
+              margin-left:132px;
+              position:relative;top:1px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footmisc{
+    overflow:hidden;
+    .see-oldsite-mindmap{
+      padding:5px;
+      font-size:14px;
+      line-height:24px;
+      @include border-radius(5px);
+      padding:5px;
+      float:left;
+      background:#686B72;
+      a{color:white;}
+      a:hover{color:white;}
+
+
+      .icon{
+        width:24px;height:24px;
+        float:left;
+        margin-right:10px;
+        @include allicon(-225px,-142px);
+      }
+      span.tan{
+        color:white;
+        background:#FB4A00;
+        @include border-radius(6px);
+        font-weight:bold;
+        padding:0 4px;
+        margin:0 3px 0 0;
+      }
+    }
   }
 }

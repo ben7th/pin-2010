@@ -72,7 +72,7 @@ a.button.classy {
   font-size: 1em;
   color: #333;
   white-space: nowrap;
-  border: none;
+  border: solid 1px;
   overflow: visible;
   background: #ddd;
   cursor: pointer;
@@ -101,14 +101,16 @@ a.button.classy {
 form .submit, form input[type="submit"],
 .form .submit, .form input[type="submit"],
 a.button.classy {
-  background: -moz-linear-gradient(-90deg, white, #e1e1e1);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#e1e1e1));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='white',endColorstr='#e1e1e1');
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  text-shadow: 1px 1px 0 #fff;
-  border: solid 1px #CFCFCF; }
+  color: #fff;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+  border-color: #2E63A5;
+  background: #3570b8;
+  background: -moz-linear-gradient(-90deg, #5d99e1, #3570b8);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#5d99e1), to(#3570b8));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5d99e1',endColorstr='#3570b8'); }
   form .submit:hover, form input[type="submit"]:hover,
   .form .submit:hover, .form input[type="submit"]:hover,
   a.button.classy:hover {
@@ -205,7 +207,7 @@ input.search-inner, input.search {
   *top: -1px;
   *line-height: 21px !important; }
 
-input.search-button, input.search-button.submit {
+input.search-button, input.search-button.submit, .small-button {
   height: 23px !important;
   top: -1px !important; }
 

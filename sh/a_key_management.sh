@@ -16,6 +16,7 @@ case "$1" in
     ./worker_sh/follow_operation_queue_resque_worker.sh start
     ./worker_sh/feed_operation_queue_resque_worker.sh start
     ./worker_sh/send_tsina_status_queue_resque_worker.sh start
+    ./worker_sh/user_tip_resque_queue_worker.sh start
 
     ./worker_sh/mindmap_import_queue_worker.sh start
     #./worker_sh/synchronous_message_from_tsina_worker.sh start
@@ -38,6 +39,7 @@ case "$1" in
     ./worker_sh/follow_operation_queue_resque_worker.sh stop
     ./worker_sh/feed_operation_queue_resque_worker.sh stop
     ./worker_sh/send_tsina_status_queue_resque_worker.sh stop
+    ./worker_sh/user_tip_resque_queue_worker.sh stop
 
     ./worker_sh/mindmap_import_queue_worker.sh stop
     ./worker_sh/wake_up_resque_worker.sh stop

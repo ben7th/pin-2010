@@ -11,7 +11,7 @@
       .tags
         -if !feed.tag_names.blank?
           -feed.tag_names.each do |tag_name|
-            %a.tag{:href=>"/tags/#{tag_name}"}=tag_name
+            =tag_label(tag_name)
         -else
           %a.tag{:href=>"/tags/没有关键词"} 没有关键词
           

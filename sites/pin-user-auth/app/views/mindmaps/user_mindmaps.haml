@@ -3,13 +3,15 @@
 -content_for :title do
   #{@user.name}的思维导图
 
+=render 'auth/no_auth/welcome_to_signup'
+
 .grid_16.alpha
   =render 'users/homepage/top_userinfo',:user=>@user
 
   .homepage-see-others
-    =link_to '>>去看看他的话题吧',pin_url_for("pin-user-auth","/users/#{@user.id}")
+    =link_to '>>去看看这位朋友的话题主页吧',pin_url_for("pin-user-auth","/users/#{@user.id}")
 
   =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
 
-.grid_5.fright
+.grid_6.omega.fright
   =render :partial=>'mindmaps/homepage/flash_chart',:locals=>{:user=>@user}

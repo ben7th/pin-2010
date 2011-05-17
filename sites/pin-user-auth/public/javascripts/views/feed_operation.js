@@ -351,46 +351,45 @@ pie.load(function(){
 });
 
 //通知相关
-//关于投票的通知
+//用户通知的清除方法
 pie.load(function(){
   //清除所有通知
-  jQuery('.homepage-new-voteup-tip .btns .clear-all').live('click',function(){
-    //delete /tips/remove_all_viewpoint_vote_up_tips
-    jQuery.ajax({
-      url : '/tips/remove_all_viewpoint_vote_up_tips',
-      type : 'delete',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        var hnvt_elm = jQuery('.homepage-new-voteup-tip');
-        hnvt_elm.fadeOut(function(){
-          hnvt_elm.remove();
-          pie.recount_feed_notice();
-        });
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
+  jQuery('.homepage-user-notices .btns .clear-all').live('click',function(){
+    // delete /tips/remove_all_user_tips
+
+    var elm = jQuery(this);
+
+    elm.confirm_dialog('确定这样做吗',function(){
+
+      jQuery.ajax({
+        url : '/tips/remove_all_user_tips',
+        type : 'delete',
+        success : function(res){
+          var hnvt_elm = jQuery('.homepage-user-notices');
+          hnvt_elm.fadeOut(function(){
+            hnvt_elm.remove();
+            pie.recount_feed_notice();
+          });
+        }
+      })
+    });
+
   });
 
   //清除单条通知
-  jQuery('.homepage-new-voteup-tip .tip .delete').live('click',function(){
+  jQuery('.homepage-user-notices .tip .delete').live('click',function(){
     var tip_elm = jQuery(this).closest('.tip')
     var tip_id = tip_elm.attr('data-id');
 
-    //delete /tips/remove_viewpoint_vote_up_tip?tip_id
+    // delete /tips/remove_user_tip params[:tip_id]
+
     jQuery.ajax({
-      url : '/tips/remove_viewpoint_vote_up_tip',
+      url : '/tips/remove_user_tip',
       type : 'delete',
       data : 'tip_id='+tip_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
-        if(jQuery('.homepage-new-voteup-tip .tip').length == 1){
-          var hnvt_elm = jQuery('.homepage-new-voteup-tip');
+        if(jQuery('.homepage-user-notices .tip').length == 1){
+          var hnvt_elm = jQuery('.homepage-user-notices');
           hnvt_elm.fadeOut(function(){
             hnvt_elm.remove();
             pie.recount_feed_notice();
@@ -401,187 +400,69 @@ pie.load(function(){
             pie.recount_feed_notice();
           });
         }
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  })
-})
-
-//关于邀请的通知
-pie.load(function(){
-  //清除所有通知
-  jQuery('.homepage-be-invited-tip .btns .clear-all').live('click',function(){
-    //delete /tips/remove_all_viewpoint_vote_up_tips
-    jQuery.ajax({
-      url : '/tips/remove_all_feed_invite_tips',
-      type : 'delete',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        var hnvt_elm = jQuery('.homepage-be-invited-tip');
-        hnvt_elm.fadeOut(function(){
-          hnvt_elm.remove();
-          pie.recount_feed_notice();
-        });
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  });
-
-  //清除单条通知
-  jQuery('.homepage-be-invited-tip .tip .delete').live('click',function(){
-    var tip_elm = jQuery(this).closest('.tip')
-    var tip_id = tip_elm.attr('data-id');
-
-    //delete /tips/remove_viewpoint_vote_up_tip?tip_id
-    jQuery.ajax({
-      url : '/tips/remove_feed_invite_tip',
-      type : 'delete',
-      data : 'tip_id='+tip_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        if(jQuery('.homepage-be-invited-tip .tip').length == 1){
-          var hnvt_elm = jQuery('.homepage-be-invited-tip');
-          hnvt_elm.fadeOut(function(){
-            hnvt_elm.remove();
-            pie.recount_feed_notice();
-          });
-        }else{
-          tip_elm.fadeOut(function(){
-            tip_elm.remove();
-            pie.recount_feed_notice();
-          });
-        }
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  })
-})
-
-//关于关注话题的通知
-pie.load(function(){
-  //清除所有通知
-  jQuery('.homepage-fav-change-tip .btns .clear-all').live('click',function(){
-	//delete /tips/remove_all_fav_feed_change_tips
-    jQuery.ajax({
-      url : '/tips/remove_all_fav_feed_change_tips',
-      type : 'delete',
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        var hnvt_elm = jQuery('.homepage-fav-change-tip');
-        hnvt_elm.fadeOut(function(){
-          hnvt_elm.remove();
-          pie.recount_feed_notice();
-        });
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  });
-
-  //清除单条通知
-  jQuery('.homepage-fav-change-tip .tip .delete').live('click',function(){
-    var tip_elm = jQuery(this).closest('.tip')
-    var tip_id = tip_elm.attr('data-id');
-
-    //delete /tips/remove_fav_feed_change_tip?tip_id
-    jQuery.ajax({
-      url : '/tips/remove_fav_feed_change_tip',
-      type : 'delete',
-      data : 'tip_id='+tip_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        if(jQuery('.homepage-fav-change-tip .tip').length == 1){
-          var hnvt_elm = jQuery('.homepage-fav-change-tip');
-          hnvt_elm.fadeOut(function(){
-            hnvt_elm.remove();
-            pie.recount_feed_notice();
-          });
-        }else{
-          tip_elm.fadeOut(function(){
-            tip_elm.remove();
-            pie.recount_feed_notice();
-          });
-        }
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   })
 })
 
 //首页tab切换
-pie.load(function(){
-  jQuery('.index-page-tabs .tab.feeds').live('click',function(){
-    var elm = jQuery(this);
-    if(elm.hasClass('selected')){
-      return;
-    }
-
-    jQuery('.index-page-tabs .tab').removeClass('selected');
-    elm.addClass('selected');
-    
-    jQuery('.index-tab-ct').hide();
-    jQuery('.index-tab-ct.feeds').fadeIn(200);
-  })
-
-  jQuery('.index-page-tabs .tab.logs').live('click',function(){
-    var elm = jQuery(this);
-    if(elm.hasClass('selected')){
-      return;
-    }
-
-    jQuery('.index-page-tabs .tab').removeClass('selected');
-    elm.addClass('selected');
-
-    jQuery('.index-tab-ct').hide();
-    jQuery('.index-tab-ct.userlogs').fadeIn(200);
-  })
-
-  jQuery('.index-page-tabs .tab.notice').live('click',function(){
-    var elm = jQuery(this);
-    if(elm.hasClass('selected')){
-      return;
-    }
-
-    jQuery('.index-page-tabs .tab').removeClass('selected');
-    elm.addClass('selected');
-
-    jQuery('.index-tab-ct').hide();
-    jQuery('.index-tab-ct.notice').fadeIn(200);
-
-  })
-})
+//TODO 先注掉，稍后换成github那种效果
+//pie.load(function(){
+//  jQuery('.index-page-tabs .tab.feeds').live('click',function(){
+//    var elm = jQuery(this);
+//    if(elm.hasClass('selected')){
+//      return;
+//    }
+//
+//    jQuery('.index-page-tabs .tab').removeClass('selected');
+//    elm.addClass('selected');
+//
+//    jQuery('.index-tab-ct').hide();
+//    jQuery('.index-tab-ct.feeds').fadeIn(200);
+//  })
+//
+//  jQuery('.index-page-tabs .tab.logs').live('click',function(){
+//    var elm = jQuery(this);
+//    if(elm.hasClass('selected')){
+//      return;
+//    }
+//
+//    jQuery('.index-page-tabs .tab').removeClass('selected');
+//    elm.addClass('selected');
+//
+//    jQuery('.index-tab-ct').hide();
+//    jQuery('.index-tab-ct.userlogs').fadeIn(200);
+//  })
+//
+//  jQuery('.index-page-tabs .tab.notice').live('click',function(){
+//    var elm = jQuery(this);
+//    if(elm.hasClass('selected')){
+//      return;
+//    }
+//
+//    jQuery('.index-page-tabs .tab').removeClass('selected');
+//    elm.addClass('selected');
+//
+//    jQuery('.index-tab-ct').hide();
+//    jQuery('.index-tab-ct.notice').fadeIn(200);
+//
+//  })
+//})
 
 //刷新通知计数显示
 pie.recount_feed_notice = function(){
   var elms = jQuery('.index-tab-ct.notice .tips .tip');
   if(elms.length > 0){
-    jQuery('.index-page-tabs .tab.notice').append(
-      '<div class="count">'+elms.length+'</div>'
-    )
+    var tab_elm = jQuery('.index-page-tabs .tab.notice')
+    if(tab_elm.find('.count').length > 0){
+      tab_elm.find('.count').html(elms.length);
+    }else{
+      tab_elm.append('<div class="count">'+elms.length+'</div>')
+    }
   }else{
     jQuery('.index-page-tabs .tab.notice .count').remove();
   }
 }
-
-//通知计数
-pie.load(pie.recount_feed_notice);
 
 //查看更多动态
 pie.load(function(){

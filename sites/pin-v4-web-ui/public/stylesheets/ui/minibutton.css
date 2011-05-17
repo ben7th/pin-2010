@@ -1,47 +1,126 @@
 /*minibotton from github*/
-input[type=text] + .minibutton {
+.page-content input[type="text"] + .minibutton, .page-head input[type="text"] + .minibutton {
   margin-left: 5px; }
-
-button.minibutton::-moz-focus-inner {
+.page-content button.minibutton::-moz-focus-inner, .page-head button.minibutton::-moz-focus-inner {
   margin: -1px -3px; }
-
-.page-content .minibutton, .page-content a.minibutton {
-  display: inline-block;
+.page-content button.minibutton, .page-head button.minibutton {
   height: 23px;
-  padding: 0 0 0 3px;
+  outline: none; }
+  .page-content button.minibutton::-moz-focus-inner, .page-head button.minibutton::-moz-focus-inner {
+    border: none; }
+.page-content input.minibutton, .page-head input.minibutton {
+  height: 23px; }
+.page-content .minibutton, .page-head .minibutton {
   font-size: 12px;
   font-weight: bold;
-  color: #333;
-  text-shadow: 1px 1px 0 #fff;
-  background: url(/images/modules/buttons/minibutton_matrix.png) 0 0 no-repeat;
-  white-space: nowrap;
-  border: none;
-  overflow: visible;
-  cursor: pointer; }
-  .page-content .minibutton.danger, .page-content a.minibutton.danger {
-    color: #900; }
-    .page-content .minibutton.danger:hover, .page-content .minibutton.danger.ho, .page-content a.minibutton.danger:hover, .page-content a.minibutton.danger.ho {
-      background-position: 0 -90px; }
-      .page-content .minibutton.danger:hover > span, .page-content .minibutton.danger.ho > span, .page-content a.minibutton.danger:hover > span, .page-content a.minibutton.danger.ho > span {
-        background-position: 100% -90px; }
-    .page-content .minibutton.danger.mousedown, .page-content a.minibutton.danger.mousedown {
-      background-position: 0 -120px; }
-      .page-content .minibutton.danger.mousedown > span, .page-content a.minibutton.danger.mousedown > span {
-        background-position: 100% -120px; }
-  .page-content .minibutton > span, .page-content a.minibutton > span {
+  height: 21px;
+  padding: 0 0 0 3px;
+  box-shadow: 1px 1px 2px #eeeeee;
+  -moz-box-shadow: 1px 1px 2px #eeeeee;
+  -webkit-box-shadow: 1px 1px 2px #eeeeee; }
+  .page-content .minibutton span, .page-head .minibutton span {
     display: block;
-    height: 23px;
-    padding: 0 10px 0 8px;
-    line-height: 23px;
-    background: url(/images/modules/buttons/minibutton_matrix.png) 100% 0 no-repeat; }
-  .page-content .minibutton:hover, .page-content .minibutton.ho, .page-content a.minibutton:hover, .page-content a.minibutton.ho {
-    color: #fff;
+    height: 21px;
+    line-height: 21px;
+    padding: 0 10px 0 7px; }
+  .page-content .minibutton:hover, .page-head .minibutton:hover {
+    background: -moz-linear-gradient(-90deg, #3b94ff, #006aed);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3b94ff), to(#006aed));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3b94ff',endColorstr='#006aed');
+    border-color: #00698D;
+    color: #FFFFFF;
     text-decoration: none;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-    background-position: 0 -30px; }
-    .page-content .minibutton:hover > span, .page-content .minibutton.ho > span, .page-content a.minibutton:hover > span, .page-content a.minibutton.ho > span {
-      background-position: 100% -30px; }
-  .page-content .minibutton.mousedown, .page-content a.minibutton.mousedown {
-    background-position: 0 -60px; }
-    .page-content .minibutton.mousedown > span, .page-content a.minibutton.mousedown > span {
-      background-position: 100% -60px; }
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+  .page-content .minibutton.mousedown, .page-head .minibutton.mousedown {
+    background: -moz-linear-gradient(-90deg, #006aed, #3b94ff);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#006aed), to(#3b94ff));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#006aed',endColorstr='#3b94ff');
+    border-color: #00698D; }
+  .page-content .minibutton.selected, .page-head .minibutton.selected {
+    background: -moz-linear-gradient(-90deg, #767676, #9e9e9e);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#767676), to(#9e9e9e));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#767676',endColorstr='#9e9e9e');
+    border-color: #686868;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5); }
+  .page-content .minibutton.disabled, .page-content .minibutton.disabled:hover, .page-head .minibutton.disabled, .page-head .minibutton.disabled:hover {
+    cursor: default;
+    opacity: 0.5;
+    filter: alpha(opacity=50); }
+  .page-content .minibutton.lighter, .page-content .minibutton.disabled.lighter:hover, .page-head .minibutton.lighter, .page-head .minibutton.disabled.lighter:hover {
+    background: -moz-linear-gradient(-90deg, #fafafa, #dddddd);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fafafa), to(#dddddd));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fafafa',endColorstr='#dddddd');
+    border: none;
+    color: #333333;
+    text-shadow: 1px 1px 0 #FFFFFF; }
+  .page-content .minibutton.green, .page-content .minibutton.disabled.green:hover, .page-head .minibutton.green, .page-head .minibutton.disabled.green:hover {
+    background: -moz-linear-gradient(-90deg, #36b825, #28881b);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#36b825), to(#28881b));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#36b825',endColorstr='#28881b');
+    border-color: #4A993E;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+    .page-content .minibutton.green.mousedown, .page-content .minibutton.disabled.green:hover.mousedown, .page-head .minibutton.green.mousedown, .page-head .minibutton.disabled.green:hover.mousedown {
+      background: -moz-linear-gradient(-90deg, #28881b, #36b825);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#28881b), to(#36b825));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#28881b',endColorstr='#36b825'); }
+  .page-content .minibutton.blue, .page-content .minibutton.disabled.blue:hover, .page-head .minibutton.blue, .page-head .minibutton.disabled.blue:hover {
+    background: -moz-linear-gradient(-90deg, #5d99e1, #3570b8);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#5d99e1), to(#3570b8));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5d99e1',endColorstr='#3570b8');
+    border-color: #275666;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+    .page-content .minibutton.blue:hover, .page-content .minibutton.disabled.blue:hover:hover, .page-head .minibutton.blue:hover, .page-head .minibutton.disabled.blue:hover:hover {
+      background: -moz-linear-gradient(-90deg, #3b94ff, #006aed);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3b94ff), to(#006aed));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3b94ff',endColorstr='#006aed');
+      border-color: #00698D; }
+    .page-content .minibutton.blue.mousedown, .page-content .minibutton.disabled.blue:hover.mousedown, .page-head .minibutton.blue.mousedown, .page-head .minibutton.disabled.blue:hover.mousedown {
+      background: -moz-linear-gradient(-90deg, #006aed, #3b94ff);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#006aed), to(#3b94ff));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#006aed',endColorstr='#3b94ff');
+      border-color: #00698D; }
+  .page-content .minibutton.red, .page-content .minibutton.disabled.red:hover, .page-head .minibutton.red, .page-head .minibutton.disabled.red:hover {
+    background: -moz-linear-gradient(-90deg, #dc5f59, #b33630);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dc5f59), to(#b33630));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dc5f59',endColorstr='#b33630');
+    border-color: #C65651 #C65651 #A0302A;
+    color: #FFFFFF;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+  .page-content .minibutton.danger, .page-head .minibutton.danger {
+    color: #990000; }
+    .page-content .minibutton.danger:hover, .page-head .minibutton.danger:hover {
+      color: #FFFFFF;
+      background: -moz-linear-gradient(-90deg, #dc5f59, #b33630);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dc5f59), to(#b33630));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dc5f59',endColorstr='#b33630');
+      border-color: #C65651 #C65651 #A0302A; }
+    .page-content .minibutton.danger.mousedown, .page-head .minibutton.danger.mousedown {
+      background: -moz-linear-gradient(-90deg, #b33630, #dc5f59);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b33630), to(#dc5f59));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b33630',endColorstr='#dc5f59');
+      border-color: #A0302A #A0302A #C65651; }
+    .page-content .minibutton.danger.disabled:hover, .page-head .minibutton.danger.disabled:hover {
+      background: -moz-linear-gradient(-90deg, #f4f4f4, #ececec);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f4f4f4), to(#ececec));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f4f4f4',endColorstr='#ececec');
+      border-color: #D4D4D4;
+      color: #990000; }
+.page-content .minibutton, .page-content .minibutton.disabled:hover, .page-head .minibutton, .page-head .minibutton.disabled:hover {
+  background: -moz-linear-gradient(-90deg, #f4f4f4, #ececec);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f4f4f4), to(#ececec));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f4f4f4',endColorstr='#ececec');
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 1px solid #D4D4D4;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: helvetica,arial,freesans,clean,sans-serif;
+  overflow: visible;
+  position: relative;
+  text-shadow: 1px 1px 0 #FFFFFF;
+  white-space: nowrap; }

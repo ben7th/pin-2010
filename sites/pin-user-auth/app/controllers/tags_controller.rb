@@ -1,18 +1,25 @@
 class TagsController < ApplicationController
   before_filter :per_load
   def per_load
-    @tag = Tag.find_by_name(params[:id]) if params[:id]
+    if params[:id]
+      @tag = Tag.find_by_name(params[:id])
+      render_status_page(404,"标签没有找到") if @tag.blank?
+    end
   end
 
   def show
     @feeds = @tag.feeds_limited(20)
   end
 
+  def upload_logo
+  end
+
   def logo
     if @tag.update_attribute(:logo,params[:logo])
-      render :text=>"logo 保存成功"
+      redirect_to :action=>:show
     else
-      render :text=>"logo 保存失败",:status=>401
+      flash[:error] = "修改失败"
+      redirect_to :action=>:upload_logo
     end
   end
 

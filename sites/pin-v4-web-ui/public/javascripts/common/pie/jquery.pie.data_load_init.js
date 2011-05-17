@@ -60,4 +60,14 @@ pie.load(function(){
   })
 })
 
+//去掉IE6 7的虚线框
+pie.load(function(){
+  if(jQuery.browser.msie){
+    var v = jQuery.browser.version;
+    if(v=='7.0' || v=='6.0'){
+      jQuery('a').attr('hideFocus','hidefocus');
+    }
+  }
+})
+
 

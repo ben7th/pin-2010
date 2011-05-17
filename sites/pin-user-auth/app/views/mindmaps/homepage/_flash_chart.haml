@@ -1,8 +1,8 @@
 .homepage-stat
   .grid-title 统计
   .chart.darkbg
-    =open_flash_chart_object(182,110,pin_url_for("pin-user-auth","users/#{user.id}/mindmaps/pie_links"),true)
+    =open_flash_chart_object(222,110,pin_url_for("pin-user-auth","users/#{user.id}/mindmaps/pie_links"),true)
 
-  .grid-title 最常用关键词
+  .grid-title 最常用的词语
   .keywords
     .data{:'data-load-url'=>"/mindmaps/aj_words?user_id=#{user.id}"}

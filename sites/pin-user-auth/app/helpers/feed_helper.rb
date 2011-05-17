@@ -9,7 +9,7 @@ module FeedHelper
   end
 
   def feed_content(feed)
-    "#{auto_link(h(feed.content),:html=>{:target=>'_blank'})}"
+    "#{h(feed.content)}"
   end
 
   def feed_detail(feed)
@@ -155,98 +155,5 @@ module FeedHelper
 
   def unsupport_str(todo_user)
     "#{todo_user.viewpoint_down_votes.length}人表示反对"
-  end
-
-  def vote_up_tip_str(vote_tip)
-    voters = vote_tip.voters
-    feed = vote_tip.viewpoint.todo.feed
-
-    re = []
-
-    vre = []
-    voters.each do |voter|
-      vre << link_to(voter.name,voter)
-    end
-
-    re << vre*','
-    re << '对于你在话题'
-    re << link_to(truncate_u(feed.content,16),feed)
-    re << '中的观点表示赞成'
-    re << "<span class='quiet'>#{jtime vote_tip.time}</span>"
-    return re*' '
-  rescue Exception => ex
-    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
-    return ''
-  end
-
-  def viewpoint_tip_str(viewpoint_tip)
-    viewpointers = viewpoint_tip.viewpointers
-    feed = viewpoint_tip.feed
-
-    re = []
-
-    vre = []
-    viewpointers.each do |viewpointer|
-      vre << link_to(viewpointer.name,viewpointer)
-    end
-
-    re << vre*','
-    re << '在你的话题'
-    re << link_to(truncate_u(feed.content,16),feed)
-    str_hash = {UserAddViewpointTipProxy::ADD=>'发表了',UserAddViewpointTipProxy::EDIT=>'修改了'}
-    re << "中#{str_hash[viewpoint_tip.kind]}观点"
-    re << "<span class='quiet'>#{jtime viewpoint_tip.time}</span>"
-    return re*' '
-  rescue Exception => ex
-    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
-    return ''
-  end
-
-  def be_invited_tip_str(be_invited_tip)
-    # id feed creator
-
-    user = be_invited_tip.creator
-    feed = be_invited_tip.feed
-    
-    re = []
-    re << user.name
-    re << '邀请你参与话题'
-    re << link_to(truncate_u(feed.content,16),feed)
-    re << "<span class='quiet'>#{jtime be_invited_tip.time}</span>"
-    return re*' '
-  rescue Exception => ex
-    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
-    return ''
-  end
-
-  def fav_change_tip_str(fav_change_tip)
-    #:tip_id,:feed,:user,:kind,:time
-
-    user = fav_change_tip.user
-    feed = fav_change_tip.feed
-
-    arr = {
-      'edit_feed_content' => '修改了主题',
-      'edit_viewpoint' => '修改了观点',
-      'add_viewpoint' => '发表了观点'
-    }
-
-
-    re = []
-    re << user.name
-
-    if fav_change_tip.kind == 'edit_feed_content'
-      re << '修改了话题'
-      re << link_to(truncate_u(feed.content,16),feed)
-    else
-      re << '在话题'
-      re << link_to(truncate_u(feed.content,16),feed)
-      re << "中#{arr[fav_change_tip.kind]}"
-    end
-    re << "<span class='quiet'>#{jtime fav_change_tip.time}</span>"
-    return re*' '
-  rescue Exception => ex
-    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
-    return ''
   end
 end

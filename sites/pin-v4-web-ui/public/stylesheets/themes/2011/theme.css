@@ -6,38 +6,36 @@
 /*顶端用户导航背景*/
 /*顶端用户导航边线*/
 /*顶端用户导航链接色*/
-.page-head {
-  background: -moz-linear-gradient(-90deg, #f3f8db, #ebf2a6);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f3f8db), to(#ebf2a6));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f3f8db',endColorstr='#ebf2a6');
-  border-bottom: solid 1px #dfdfdf;
-  color: white; }
-  .page-head .userbox {
-    background: -moz-linear-gradient(-90deg, #ebf3a7, #e4ee6f);
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ebf3a7), to(#e4ee6f));
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ebf3a7',endColorstr='#e4ee6f');
-    border: solid 1px #abbe2e; }
-    .page-head .userbox a {
-      color: #47520e; }
-      .page-head .userbox a:hover {
-        color: #57621e; }
-  .page-head a {
-    color: #47520e; }
-    .page-head a:hover {
-      color: #57621e; }
+.ph {
+  border-bottom: solid 1px #dfdfdf; }
+  .ph .page-head {
+    border-bottom: solid 1px white;
+    background: -moz-linear-gradient(-90deg, white, #f5f5f5);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#f5f5f5));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='white',endColorstr='#f5f5f5');
+    color: white; }
+    .ph .page-head .userbox a {
+      color: #333333; }
+      .ph .page-head .userbox a:hover {
+        color: #333333; }
+    .ph .page-head a {
+      color: #333333; }
+      .ph .page-head a:hover {
+        color: #333333; }
 
 /*页脚*/
 /*页脚背景*/
 /*页脚顶边*/
 .page-footer {
-  background: -moz-linear-gradient(-90deg, #ebf2a6, #e4ee6f);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ebf2a6), to(#e4ee6f));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ebf2a6',endColorstr='#e4ee6f');
-  border-top: solid 1px #e4ee6f; }
+  background: -moz-linear-gradient(-90deg, #f1f1f1, #f1f1f1);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f1f1f1), to(#f1f1f1));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f1f1f1',endColorstr='#f1f1f1'); }
+  .page-footer .pf {
+    border-top: solid 2px #dddddd; }
   .page-footer a {
-    color: #47520e; }
+    color: #333333; }
     .page-footer a:hover {
-      color: #57621e; }
+      color: #333333; }
 
 /*body*/
 /*body背景*/
@@ -46,14 +44,10 @@
 /*正文区边线*/
 /*正文区阴影*/
 body {
-  background-color: #f3f8db; }
+  background-color: white; }
 
 .page-content .cell {
-  border: 1px solid #ababab;
-  background-color: white;
-  box-shadow: 0px 0px 3px #ababab;
-  -moz-box-shadow: 0px 0px 3px #ababab;
-  -webkit-box-shadow: 0px 0px 3px #ababab; }
+  background-color: white; }
 
 /*一般文字*/
 /*一般文字颜色*/
@@ -74,7 +68,7 @@ body {
   .page-content .date {
     color: #a5a5a5 !important; }
   .page-content a {
-    color: #3173b4; }
+    color: #4984cc; }
     .page-content a:hover {
       color: #5193d4; }
     .page-content a.quiet {
@@ -86,7 +80,7 @@ body {
       .page-content a.loud:hover {
         color: #ff4e04 !important; }
     .page-content a.reverse {
-      background-color: #3173b4;
+      background-color: #4984cc;
       color: white; }
       .page-content a.reverse:hover {
         background-color: #5193d4;
@@ -97,16 +91,16 @@ body {
   background-color: #FFFADA; }
 
 .darkbg {
-  background-color: #f6f8ee; }
+  background-color: #f6f6f6; }
   .darkbg .moredarkbg {
-    background-color: #edefe5; }
+    background-color: #f0f0f0; }
   .darkbg .csshov:hover {
-    background-color: #edefe5; }
+    background-color: #f0f0f0; }
   .darkbg.csshov:hover {
-    background-color: #edefe5; }
+    background-color: #f0f0f0; }
 
 .csshov:hover {
-  background-color: #f6f8ee; }
+  background-color: #f6f6f6; }
 
 .shadow {
   box-shadow: 1px 1px 2px #dddddd;
@@ -117,7 +111,7 @@ body {
   border-bottom: dotted 1px #DFDFDF; }
 
 .hrr {
-  background-color: #f6f8ee;
+  background-color: #f6f6f6;
   height: 3px;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -129,7 +123,7 @@ body {
 /*输入框边线*/
 /*“发送”按钮*/
 input.text, textarea {
-  background-color: #f7fdff;
+  background-color: white;
   border: solid 1px #cccccc;
   box-shadow: 1px 1px 2px #eeeeee;
   -moz-box-shadow: 1px 1px 2px #eeeeee;
@@ -157,11 +151,11 @@ a.send-button {
   box-shadow: 1px 1px 2px #dddddd;
   -moz-box-shadow: 1px 1px 2px #dddddd;
   -webkit-box-shadow: 1px 1px 2px #dddddd;
-  background-color: #f6f8ee;
+  background-color: #f6f6f6;
   border: solid 2px #525566; }
   .popdiv .moredarkbg {
-    background-color: #edefe5; }
+    background-color: #f0f0f0; }
   .popdiv .csshov:hover {
-    background-color: #edefe5; }
+    background-color: #f0f0f0; }
   .popdiv.csshov:hover {
-    background-color: #edefe5; }
+    background-color: #f0f0f0; }

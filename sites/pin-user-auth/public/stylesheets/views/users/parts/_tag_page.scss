@@ -10,11 +10,25 @@
 .tag-page-logo{
   padding:5px;
   float:left;
+  position:relative;
+  .upload{display:none;}
+  &:hover{
+    .upload{
+      display:block;
+      position:absolute;
+      bottom:10px;
+      width:90px;
+      background-color:rgba(0, 0, 0, 0.5);
+      padding:5px;
+      text-align:center;
+      a{
+        color:white;
+        &:hover{color:white;}
+      }
+    }
+  }
 }
 
 .tag-page-feeds{
   margin:0 0 0 120px;
-  .newsfeed .mplist .footmisc{
-    width:460px !important;
-  }
 }

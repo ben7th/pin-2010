@@ -233,8 +233,8 @@ pie.open_win = function(url,w,h,wname){
 
 //onload
 pie.load = function(func){
-  document.observe('dom:loaded',function(){
-    try{func();}catch(e){alert(e);}
+  jQuery(document).ready(function(){
+    try{func();}catch(e){alert(e.name + ':' + e.message);}
   });
 }
 

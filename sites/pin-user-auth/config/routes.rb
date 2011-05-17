@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   map.welcome '/welcome',:controller=>'index',:action=>'welcome'
   map.connect "/inbox_logs_more",:controller=>"index",:action=>"inbox_logs_more"
   map.connect "/in_feeds_more",:controller=>"index",:action=>"in_feeds_more"
+  map.connect "/user_logs",:controller=>"index",:action=>"user_logs"
+  map.connect "/user_notices",:controller=>"index",:action=>"user_notices"
 
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
@@ -239,22 +241,10 @@ ActionController::Routing::Routes.draw do |map|
   map.short_url "/short_url/:code",:controller=>"short_urls",:action=>"show"
 
 
-  map.connect "/tips/remove_viewpoint_vote_up_tip",:controller=>"tips",
-    :action=>"remove_viewpoint_vote_up_tip",:conditions=>{:method=>:delete}
-  map.connect "/tips/remove_all_viewpoint_vote_up_tips",:controller=>"tips",
-    :action=>"remove_all_viewpoint_vote_up_tips",:conditions=>{:method=>:delete}
-  map.connect "/tips/remove_viewpoint_tip",:controller=>"tips",
-    :action=>"remove_viewpoint_tip",:conditions=>{:method=>:delete}
-  map.connect "/tips/remove_all_viewpoint_tips",:controller=>"tips",
-    :action=>"remove_all_viewpoint_tips",:conditons=>{:method=>:delete}
-  map.connect "/tips/remove_feed_invite_tip",:controller=>"tips",
-    :action=>"remove_feed_invite_tip",:conditions=>{:method=>:delete}
-  map.connect "/tips/remove_all_feed_invite_tips",:controller=>"tips",
-    :action=>"remove_all_feed_invite_tips",:conditons=>{:method=>:delete}
-  map.connect "/tips/remove_fav_feed_change_tip",:controller=>"tips",
-    :action=>"remove_fav_feed_change_tip",:conditions=>{:method=>:delete}
-  map.connect "/tips/remove_all_fav_feed_change_tips",:controller=>"tips",
-    :action=>"remove_all_fav_feed_change_tips",:conditons=>{:method=>:delete}
+  map.connect "/tips/remove_user_tip",:controller=>"tips",
+    :action=>"remove_user_tip",:conditions=>{:method=>:delete}
+  map.connect "/tips/remove_all_user_tips",:controller=>"tips",
+    :action=>"remove_all_user_tips",:conditions=>{:method=>:delete}
 
-  map.resources :tags,:member=>{:logo=>:put,:detail=>:put}
+  map.resources :tags,:member=>{:logo=>:put,:detail=>:put,:upload_logo=>:get}
 end

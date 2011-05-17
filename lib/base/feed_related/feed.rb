@@ -141,6 +141,12 @@ class Feed < UserAuthAbstract
   end
   
   # 话题详情
+  def create_detail_content(content)
+    todo = self.get_or_create_first_todo
+    todo.create_or_update_todo_item(content)
+  end
+
+  # 话题详情
   def update_detail_content(content,editer)
     return if editer.blank?
     todo = self.get_or_create_first_todo
@@ -179,7 +185,7 @@ class Feed < UserAuthAbstract
       feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
       return feed if !feed.valid?
       feed.save!
-      feed.update_detail_content(options[:detail],self) if !options[:detail].blank?
+      feed.create_detail_content(options[:detail]) if !options[:detail].blank?
       if options[:tags].blank?
         feed.add_default_tag_when_no_tag
       else

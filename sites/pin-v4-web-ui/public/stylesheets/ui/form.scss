@@ -59,7 +59,9 @@ form .submit,form input[type="submit"],
 a.button.classy{
   height:31px;padding:0 11px;position:relative;top:1px;margin:0;
   font-weight:bold;font-size:1em;color:#333;
-  white-space:nowrap;border:none;overflow:visible;background:#ddd;
+  white-space:nowrap;
+  border:solid 1px;
+  overflow:visible;background:#ddd;
   cursor:pointer;
   -webkit-font-smoothing:subpixel-antialiased !important;
   &::-moz-focus-inner { border: 0; }
@@ -84,12 +86,16 @@ a.button.classy{
 form .submit,form input[type="submit"],
 .form .submit,.form input[type="submit"],
 a.button.classy{
-  @include gradient(#ffffff,#e1e1e1);
-  @include border-radius(4px);
-  text-shadow:1px 1px 0 #fff;
-  border:solid 1px #CFCFCF;
   $color1:#3570B8;
   $color2:#5D99E1;
+
+  @include border-radius(4px);
+
+  color:#fff;
+  text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+  border-color:#2E63A5;background:$color1;
+  @include gradient($color2,$color1);
+
   &:hover{
     color:#fff;
     text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
@@ -160,7 +166,7 @@ input.search-inner,input.search{
   *top:-1px;
   *line-height:21px !important;
 }
-input.search-button,input.search-button.submit {
+input.search-button,input.search-button.submit,.small-button {
   height:23px !important;
   top:-1px !important;
 }

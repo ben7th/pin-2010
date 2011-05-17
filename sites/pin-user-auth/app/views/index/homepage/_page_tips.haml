@@ -1,35 +1,11 @@
--vote_tips = UserViewpointVoteUpTipProxy.new(current_user).tips
--if !vote_tips.blank?
-  .homepage-new-voteup-tip
-    .title> 投票通知
+.grid-title 用户通知
+.hrr
+-if !tips.blank?
+  .homepage-user-notices
     .tips
-      -vote_tips.each do |vote_tip|
-        .tip{:'data-id'=>vote_tip.id}
+      -tips.each do |tip|
+        .tip.btb{:'data-id'=>tip.id}
           .delete
-          .data=vote_up_tip_str(vote_tip)
+          .data=user_tip_str(tip)
     .btns
-      =minibutton '清除所有','javascript:;',:class=>'clear-all'
-
--be_invited_tips = UserBeInvitedFeedTipProxy.new(current_user).tips
--if !be_invited_tips.blank?
-  .homepage-be-invited-tip
-    .title> 邀请通知
-    .tips
-      -be_invited_tips.each do |be_invited_tip|
-        .tip{:'data-id'=>be_invited_tip.id}
-          .delete
-          .data=be_invited_tip_str(be_invited_tip)
-    .btns
-      =minibutton '清除所有','javascript:;',:class=>'clear-all'
-
--fav_change_tips = UserFavFeedChangeTipProxy.new(current_user).tips
--if !fav_change_tips.blank?
-  .homepage-fav-change-tip
-    .title> 关注话题通知
-    .tips
-      -fav_change_tips.each do |fav_change_tip|
-        .tip{:'data-id'=>fav_change_tip.id}
-          .delete
-          .data=fav_change_tip_str(fav_change_tip)
-    .btns
-      =minibutton '清除所有','javascript:;',:class=>'clear-all'
+      =minibutton '清除所有通知','javascript:;',:class=>'clear-all blue'

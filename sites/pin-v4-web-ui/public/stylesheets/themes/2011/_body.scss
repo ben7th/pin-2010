@@ -1,6 +1,6 @@
 /*body*/
   /*body背景*/
-    $body-bg-color   : $head-bg-color;
+    $body-bg-color   : #ffffff;
 
 /*正文区*/
   /*正文区背景*/
@@ -16,8 +16,6 @@ body{
 
 .page-content{
   .cell{
-    border:1px solid $content-border-color;
     background-color:$content-bg-color;
-    @include box-shadow(0px 0px 3px $content-shadow-color);
   }
 }

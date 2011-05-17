@@ -13,6 +13,15 @@ class Tag < UserAuthAbstract
     :default_url => "/images/logo/default_:class_:style.png",
     :default_style => :normal
 
+  def has_logo?
+    !self.logo_updated_at.blank?
+  end
+
+  def self.has_logo?(tag_name)
+    tag = Tag.find_by_name(tag_name)
+    return false if tag.blank?
+    tag.has_logo?
+  end
 
   include FeedTag::TagMethods
 end

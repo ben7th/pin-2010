@@ -1,7 +1,7 @@
 /*页眉*/
   /*页眉背景*/
-    $head-bg-color   : #F3F8DB;
-    $head-bg-color-1 : #EBF2A6;
+    $head-bg-color   : #FFFFFF;
+    $head-bg-color-1 : #F5F5F5;
   /*页眉文字*/
     $head-text-color : #ffffff;
   /*页眉底边*/
@@ -13,23 +13,23 @@
   /*顶端用户导航边线*/
     $head-userbox-border-color : #ABBE2E;
   /*顶端用户导航链接色*/
-    $head-userbox-a-color      : #47520E;
-    $head-userbox-a-color-hover: #57621E;
-
-.page-head{
-  @include gradient($head-bg-color,$head-bg-color-1);
+    $head-userbox-a-color      : #333;
+    $head-userbox-a-color-hover: #333;
+.ph{
   border-bottom:solid 1px $head-border-bottom-color;
-  color:$head-text-color;
-  .userbox{
-    @include gradient($head-userbox-bg-color,$head-userbox-bg-color-2);
-    border:solid 1px $head-userbox-border-color;
+  .page-head{
+    border-bottom:solid 1px white;
+    @include gradient($head-bg-color,$head-bg-color-1);
+    color:$head-text-color;
+    .userbox{
+      a{
+        color:$head-userbox-a-color;
+        &:hover{color:$head-userbox-a-color-hover;}
+      }
+    }
     a{
       color:$head-userbox-a-color;
       &:hover{color:$head-userbox-a-color-hover;}
     }
-  }
-  a{
-    color:$head-userbox-a-color;
-    &:hover{color:$head-userbox-a-color-hover;}
   }
 }

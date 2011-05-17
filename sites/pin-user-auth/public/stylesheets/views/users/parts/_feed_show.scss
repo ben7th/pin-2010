@@ -339,6 +339,9 @@
           font-size:12px;
         }
       }
+      .subm{
+        @include submitbtns;
+      }
     }
     .point-added{
       padding:5px 8px;
