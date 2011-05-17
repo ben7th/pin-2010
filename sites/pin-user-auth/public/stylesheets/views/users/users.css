@@ -4391,7 +4391,8 @@ form.new_message .w300 {
     overflow: hidden;
     line-height: 16px; }
     .no-auth-head .footmisc .see-oldsite-mindmap {
-      float: right; }
+      float: right;
+      padding: 0 5px; }
       .no-auth-head .footmisc .see-oldsite-mindmap .tan {
         float: left;
         color: white;
