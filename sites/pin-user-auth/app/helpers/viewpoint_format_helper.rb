@@ -7,7 +7,7 @@ module ViewpointFormatHelper
   end
 
   def feed_detail(feed)
-    content = feed.detail_content
+    content = feed.detail_content || ''
     find_and_preserve MindpinTextFormat.new(content).to_html
   end
 
