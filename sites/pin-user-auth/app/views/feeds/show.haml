@@ -30,21 +30,21 @@
 
 .grid_5.omega.fright
   -if logged_in?
-    .grid-title-s 邀请其他人参与
+    .grid-title-s 邀请其他人一起来讨论
     =render 'feeds/show_parts/invite_users',{:feed=>@feed}
   .invite-share
     =render 'feeds/show_parts/invite_share',{:feed=>@feed}
   =render 'feeds/show_parts/share_to',{:feed=>@feed}
 
   .hrr
-  .grid-title-s 目前的参与者
+  .grid-title-s 在此发表过观点的人
   .show-page-memoed-users
     -@feed.memoed_users.each do |u|
       %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
         =avatar u,:mini
 
   .hrr
-  .grid-title-s 相关话题
+  .grid-title-s 相关的话题
   .show-page-simlar-feeds
     -simlar_feeds = FeedLucene.similar_feeds_of(@feed)
     -simlar_feeds.each do |f|
