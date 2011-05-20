@@ -221,25 +221,35 @@ pie.load(function(){
 
 
 pie.load(function(){
-  //修改话题标题
-  jQuery('.page-feed-show .current-feed .edit-ct .edit').live('click',function(){
-    var form_elm = jQuery('.feed-content-edit-form')
+  //修改话题页的标题
+  jQuery('.feed-show-page-head .ftitle .edit-feed-title .edit').live('click',function(){
+    var form_elm = jQuery('.feed-title-edit-form')
     var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
-    var content_elm = feed_elm.find('.data .ct');
+    var head_elm = elm.closest('.feed-show-page-head');
+    var content_elm = head_elm.find('.ftitle .feed-title');
 
     form_elm.show();
     content_elm.hide();
   });
 
-  //确定
-  jQuery('.page-feed-show .feed-content-edit-form .editable-submit').live('click',function(){
-    var form_elm = jQuery('.feed-content-edit-form')
+  //取消
+  jQuery('.feed-show-page-head .ftitle .feed-title-edit-form .editable-cancel').live('click',function(){
+    var form_elm = jQuery('.feed-title-edit-form')
     var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
-    var content_elm = feed_elm.find('.data .ct');
+    var head_elm = elm.closest('.feed-show-page-head');
+    var content_elm = head_elm.find('.ftitle .feed-title');
 
-    var feed_id = feed_elm.attr('data-id');
+    form_elm.hide();
+    content_elm.show();
+  });
+
+  //确定
+  jQuery('.feed-show-page-head .ftitle .feed-title-edit-form .editable-submit').live('click',function(){
+    var form_elm = jQuery('.feed-title-edit-form')
+    var elm = jQuery(this);
+    var head_elm = elm.closest('.feed-show-page-head');
+
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
     var content = form_elm.find('.content-inputer').val();
 
     //  put /feeds/:id/update_content params[:detail]
@@ -248,74 +258,63 @@ pie.load(function(){
       type : 'put',
       data : 'content='+encodeURIComponent(content),
       success : function(res){
-        var new_feed_elm = jQuery(res);
-        feed_elm.after(new_feed_elm);
-        feed_elm.remove();
-        form_elm.hide();
+        var new_ftitle_elm = jQuery(res).find('.ftitle');
+        var old_ftitle_elm = head_elm.find('.ftitle');
+        old_ftitle_elm.after(new_ftitle_elm);
+        old_ftitle_elm.remove();
       }
     })
   });
-
-
-  //取消
-  jQuery('.page-feed-show .feed-content-edit-form .editable-cancel').live('click',function(){
-    var form_elm = jQuery('.feed-content-edit-form')
-    var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
-    var content_elm = feed_elm.find('.data .ct');
-
-    content_elm.show();
-    form_elm.hide();
-  });
-
 });
 
 pie.load(function(){
   //修改话题页的tag
-  jQuery('.page-feed-show .current-feed .edit-tags .edit').live('click',function(){
-    var form_elm = jQuery('.feed-tags-edit-form')
+  jQuery('.feed-show-page-head .ftag .edit-tags .edit').live('click',function(){
     var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
-    var content_elm = feed_elm.find('.data .tags');
+    var head_elm = elm.closest('.feed-show-page-head');
+
+    var form_elm = head_elm.find('.feed-tags-edit-form')
+    var tags_elm = head_elm.find('.feed-tags');
 
     form_elm.show();
-    content_elm.hide();
+    tags_elm.hide();
   });
 
   //确定
-  jQuery('.page-feed-show .feed-tags-edit-form .editable-submit').live('click',function(){
-    var form_elm = jQuery('.feed-tags-edit-form');
+  jQuery('.feed-show-page-head .ftag .feed-tags-edit-form .editable-submit').live('click',function(){
     var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
-    var content_elm = feed_elm.find('.data .tags');
+    var head_elm = elm.closest('.feed-show-page-head');
 
-    var feed_id = feed_elm.attr('data-id');
+    var form_elm = head_elm.find('.feed-tags-edit-form')
+
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
     var tag_names = form_elm.find('.tags-inputer').val();
 
     //  post /feeds/:id/add_tags        params[:tag_names]
-    
+
     jQuery.ajax({
       url : '/feeds/'+feed_id+'/change_tags',
       type : 'put',
       data : 'tag_names='+encodeURIComponent(tag_names),
       success : function(res){
-        var new_feed_elm = jQuery(res);
-        feed_elm.after(new_feed_elm);
-        feed_elm.remove();
-        form_elm.hide();
+        var new_ftag_elm = jQuery(res).find('.ftag');
+        var old_ftag_elm = head_elm.find('.ftag');
+        old_ftag_elm.after(new_ftag_elm);
+        old_ftag_elm.remove();
       }
     })
   });
 
   //取消
-  jQuery('.page-feed-show .feed-tags-edit-form .editable-cancel').live('click',function(){
-    var form_elm = jQuery('.feed-tags-edit-form')
+  jQuery('.feed-show-page-head .ftag .feed-tags-edit-form .editable-cancel').live('click',function(){
     var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
-    var content_elm = feed_elm.find('.data .tags');
+    var head_elm = elm.closest('.feed-show-page-head');
 
-    content_elm.show();
+    var form_elm = head_elm.find('.feed-tags-edit-form')
+    var tags_elm = head_elm.find('.feed-tags');
+
     form_elm.hide();
+    tags_elm.show();
   });
 })
 

@@ -20,19 +20,15 @@
 
 =render 'auth/no_auth/welcome_to_signup'
 
-.grid_17
+=render 'feeds/show_parts/show_page_head',:feed=>@feed
+
+.hrr
+.grid_17.alpha
   =render 'feeds/show_parts/feed_show',:feed=>@feed
   .hrr
   =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
 
 .grid_5.omega.fright
-  -if logged_in?
-    .show-page-ops
-      -faved = @feed.fav_by?(current_user)
-      %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''} 关注这个话题
-      %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'} 　取消关注　
-    .hrr
-
   -if logged_in?
     .grid-title-s 邀请其他人参与
     =render 'feeds/show_parts/invite_users',{:feed=>@feed}

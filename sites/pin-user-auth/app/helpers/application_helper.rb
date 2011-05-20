@@ -96,7 +96,7 @@ module ApplicationHelper
         <div class="viewpoint">
           <div class="arrow"></div>
           <div class="data">
-            #{j_vp_memo(info.viewpoint)}
+            #{viewpoint_memo_format_in_list(info.viewpoint)}
           </div>
         </div>
       ~

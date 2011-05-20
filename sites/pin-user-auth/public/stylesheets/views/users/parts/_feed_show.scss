@@ -60,79 +60,57 @@
   }
 }
 
+.feed-show-page-head{
+  .ftag{
+    .feed-tags{
+      @include tags;
+      float:none;
+      margin:0 0 10px 0;
+      .edit-tags{
+        @include editlink;
+        display:inline-block;
+        font-size:12px;font-weight:normal;
+        position:relative;top:2px;
+      }
+    }
+    .feed-tags-edit-form{
+      margin:0 0 10px 0;
+      input{
+        width:400px !important;
+      }
+      .btns{
+        @include submitbtns;
+      }
+    }
+  }
+
+  .ftitle{
+    .feed-title{
+      font-size:20px;font-weight:bold;
+      .edit-feed-title{
+        @include editlink;
+        display:inline-block;
+        font-size:12px;font-weight:normal;
+        position:relative;top:11px;
+      }
+    }
+    .feed-title-edit-form{
+      textarea{height:32px;}
+      .btns{
+        @include submitbtns;
+      }
+    }
+  }
+
+}
+
 .page-feed-show{
-  padding:0 5px 20px;
+  padding:5px 5px 20px;
   margin-bottom:10px;
   overflow:hidden;
 
   .main{
     margin:0 0 10px 0;
-
-    .reply-to-feed{
-      @include reply-to-feed;
-      width:500px;
-    }
-
-    .quote-feed{
-      @include quote-feed;
-      width:500px;
-    }
-
-    .current-feed{
-      overflow:hidden;
-      margin:0 0 20px 0;
-      .c{
-        float:left;
-        .data{
-          .c-name{font-size:12px;margin-bottom:6px;}
-          .tags{
-            @include tags;
-            float:none;
-            margin:0 0 10px 0;
-            .edit-tags{
-              @include editlink;
-              display:inline-block;
-              font-size:12px;font-weight:normal;
-              position:relative;top:2px;
-            }
-          }
-          .feed-tags-edit-form{
-            margin:0 0 10px 0;
-            input{
-              width:400px !important;
-            }
-            .btns{
-              @include submitbtns;
-            }
-          }
-
-          .ct{
-            font-size:20px;font-weight:bold;
-            .edit-ct{
-              @include editlink;
-              display:inline-block;
-              font-size:12px;font-weight:normal;
-              position:relative;top:11px;
-            }
-          }
-          .feed-content-edit-form{
-            textarea{height:32px;}
-            .btns{
-              @include submitbtns;
-            }
-          }
-        }
-        .documents{
-          .mindmaps{
-            margin-top:5px;
-            img{
-              border:2px solid #A3A3A3;
-              @include border-radius(3px);
-            }
-          }
-        }
-      }
-    }
 
     .feed-detail-edit-form{
       margin:0 0 10px 0;

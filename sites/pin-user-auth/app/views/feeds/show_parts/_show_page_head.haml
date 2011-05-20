@@ -1,20 +1,13 @@
--creator = feed.creator
-
--content = feed_content(feed)
--query ||= nil
--if !!query
-  -content.gsub!(query,"<span class='loud'>#{query}</span>")
-
-.current-feed
-  .c
-    .data
-      .tags
+.feed-show-page-head.clearfix
+  .grid_17.alpha
+    .ftag
+      .feed-tags
         -if !feed.tags.blank?
           -feed.tags.each do |tag|
             =tag_label(tag)
         -else
           %a.tag{:href=>"/tags/没有关键词"} 没有关键词
-          
+
 
         -if logged_in?
           .edit-tags
@@ -25,20 +18,29 @@
         -tags_value = feed.tag_names*', '.gsub('没有关键词','')
         =text_field_tag :'tags-inputer',tags_value,:class=>'tags-inputer text inline'
         .btns
-          %a.button.editable-submit{:href=>'javascript:;'} 发送
+          %a.button.editable-submit{:href=>'javascript:;'} 确定
           %a.button.editable-cancel{:href=>'javascript:;'} 取消
 
 
-      .ct
-        =content
+    .ftitle
+      .feed-title
+        =feed_content(feed)
         -if logged_in?
-          .edit-ct
+          .edit-feed-title
             -link_to 'javascript:;',:class=>'edit csshov' do
               .icon
               %span 修改
-      .feed-content-edit-form{:style=>'display:none'}
+
+      .feed-title-edit-form{:style=>'display:none'}
         -value = feed.content
         =text_area_tag :'content-inputer',value,:class=>'content-inputer text'
         .btns
-          %a.button.editable-submit{:href=>'javascript:;'} 发送
+          %a.button.editable-submit{:href=>'javascript:;'} 确定
           %a.button.editable-cancel{:href=>'javascript:;'} 取消
+
+  .grid_5.omega.fright
+    -if logged_in?
+      .show-page-ops
+        -faved = feed.fav_by?(current_user)
+        %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''}> 关注这个话题
+        %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'}> 　取消关注　

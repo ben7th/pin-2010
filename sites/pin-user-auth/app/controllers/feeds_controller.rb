@@ -133,14 +133,6 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id])
   end
 
-  def update
-    return (render :status=>403,:text=>"无权限") if @feed.creator != current_user
-    if @feed.update_attributes(:content=>params[:content])
-      return render :status=>200,:text=>"update success"
-    end
-    render :status=>500,:text=>"update failure"
-  end
-
   def viewpoint
     @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
     render :partial=>"feeds/show_parts/info_feed_viewpoint_show",
@@ -191,7 +183,7 @@ class FeedsController < ApplicationController
 
   def update_content
     @feed.update_content(params[:content],current_user)
-    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
+    render :partial=>'feeds/show_parts/show_page_head',:locals=>{:feed=>@feed}
   end
 
   def invite
@@ -238,12 +230,19 @@ class FeedsController < ApplicationController
 
   def change_tags
     @feed.change_tags(params[:tag_names],current_user)
-    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
+    render :partial=>'feeds/show_parts/show_page_head',:locals=>{:feed=>@feed}
   end
 
   def remove_tag
     @feed.remove_tag(params[:tag_name])
     render :text=>200
+  end
+
+  def lock
+    if @feed.lock_by(current_user)
+      return render :text=>200
+    end
+    return render :status=>401,:text=>401
   end
 
 end

@@ -9,7 +9,7 @@
 .tag-page-top-info
   .base-info
     -if @tag.namespace.blank?
-      .name>=tag.name
+      .name>=@tag.name
     -else
       .name>="<span class='darkbg'>#{@tag.namespace}</span> #{@tag.name}"
 

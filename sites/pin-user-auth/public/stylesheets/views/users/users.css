@@ -1326,11 +1326,13 @@ form.new_message .w300 {
               height: 16px;
               float: left;
               margin-right: 3px; }
+            .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag.has-logo span.namespace {
+              margin: -1px 2px -1px -2px; }
           .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag span.namespace {
             float: left;
             background: #3E6D8E;
             color: #e0eaf1;
-            margin: -1px 2px -1px -2px;
+            margin: -1px 2px -1px -4px;
             border-radius: 2px 0 0 2px;
             -moz-border-radius: 2px 0 0 2px;
             -webkit-border-radius: 2px 0 0 2px;
@@ -1751,211 +1753,171 @@ form.new_message .w300 {
         top: 1px;
         left: 1px; }
 
+.feed-show-page-head .ftag .feed-tags {
+  overflow: hidden;
+  float: left;
+  float: none;
+  margin: 0 0 10px 0; }
+  .feed-show-page-head .ftag .feed-tags .tag {
+    float: left;
+    background: #E0EAF1;
+    padding: 1px 4px;
+    margin: 0 6px 0 0;
+    line-height: 18px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-right: solid 1px #7F9FB6;
+    border-bottom: solid 1px #7F9FB6; }
+    .feed-show-page-head .ftag .feed-tags .tag:hover {
+      text-decoration: none !important;
+      background: #3E6D8E;
+      color: #e0eaf1; }
+    .feed-show-page-head .ftag .feed-tags .tag.has-logo {
+      padding: 1px 4px 1px 2px; }
+      .feed-show-page-head .ftag .feed-tags .tag.has-logo img.mini {
+        padding: 0;
+        border: none;
+        position: relative;
+        top: 1px;
+        width: 16px;
+        height: 16px;
+        float: left;
+        margin-right: 3px; }
+      .feed-show-page-head .ftag .feed-tags .tag.has-logo span.namespace {
+        margin: -1px 2px -1px -2px; }
+    .feed-show-page-head .ftag .feed-tags .tag span.namespace {
+      float: left;
+      background: #3E6D8E;
+      color: #e0eaf1;
+      margin: -1px 2px -1px -4px;
+      border-radius: 2px 0 0 2px;
+      -moz-border-radius: 2px 0 0 2px;
+      -webkit-border-radius: 2px 0 0 2px;
+      padding: 1px 2px; }
+  .feed-show-page-head .ftag .feed-tags .edit-tags {
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    position: relative;
+    top: 2px; }
+    .feed-show-page-head .ftag .feed-tags .edit-tags a.edit {
+      overflow: hidden;
+      line-height: 16px;
+      height: 16px;
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 0 3px; }
+      .feed-show-page-head .ftag .feed-tags .edit-tags a.edit .icon {
+        width: 10px;
+        height: 10px;
+        float: left;
+        background: url(/images/icons/all.png) no-repeat -229px -87px;
+        margin: 0 3px 0 0;
+        position: relative;
+        top: 3px;
+        display: inline-block; }
+.feed-show-page-head .ftag .feed-tags-edit-form {
+  margin: 0 0 10px 0; }
+  .feed-show-page-head .ftag .feed-tags-edit-form input {
+    width: 400px !important; }
+  .feed-show-page-head .ftag .feed-tags-edit-form .btns {
+    overflow: hidden; }
+    .feed-show-page-head .ftag .feed-tags-edit-form .btns button, .feed-show-page-head .ftag .feed-tags-edit-form .btns a.button {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border: none 0px;
+      margin: 4px 5px 0 0;
+      padding: 2px 7px;
+      float: left;
+      text-decoration: none; }
+      .feed-show-page-head .ftag .feed-tags-edit-form .btns button.editable-submit, .feed-show-page-head .ftag .feed-tags-edit-form .btns a.button.editable-submit {
+        cursor: pointer;
+        color: white;
+        background: #0063DC; }
+        .feed-show-page-head .ftag .feed-tags-edit-form .btns button.editable-submit:hover, .feed-show-page-head .ftag .feed-tags-edit-form .btns a.button.editable-submit:hover {
+          background: #0054BD; }
+      .feed-show-page-head .ftag .feed-tags-edit-form .btns button.editable-cancel, .feed-show-page-head .ftag .feed-tags-edit-form .btns a.button.editable-cancel {
+        cursor: pointer;
+        color: #616D7D;
+        background: #C4DFFF; }
+        .feed-show-page-head .ftag .feed-tags-edit-form .btns button.editable-cancel:hover, .feed-show-page-head .ftag .feed-tags-edit-form .btns a.button.editable-cancel:hover {
+          background: #B4CFFF; }
+      .feed-show-page-head .ftag .feed-tags-edit-form .btns button.mousedown, .feed-show-page-head .ftag .feed-tags-edit-form .btns a.button.mousedown {
+        position: relative;
+        top: 1px;
+        left: 1px; }
+.feed-show-page-head .ftitle .feed-title {
+  font-size: 20px;
+  font-weight: bold; }
+  .feed-show-page-head .ftitle .feed-title .edit-feed-title {
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    position: relative;
+    top: 11px; }
+    .feed-show-page-head .ftitle .feed-title .edit-feed-title a.edit {
+      overflow: hidden;
+      line-height: 16px;
+      height: 16px;
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 0 3px; }
+      .feed-show-page-head .ftitle .feed-title .edit-feed-title a.edit .icon {
+        width: 10px;
+        height: 10px;
+        float: left;
+        background: url(/images/icons/all.png) no-repeat -229px -87px;
+        margin: 0 3px 0 0;
+        position: relative;
+        top: 3px;
+        display: inline-block; }
+.feed-show-page-head .ftitle .feed-title-edit-form textarea {
+  height: 32px; }
+.feed-show-page-head .ftitle .feed-title-edit-form .btns {
+  overflow: hidden; }
+  .feed-show-page-head .ftitle .feed-title-edit-form .btns button, .feed-show-page-head .ftitle .feed-title-edit-form .btns a.button {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: none 0px;
+    margin: 4px 5px 0 0;
+    padding: 2px 7px;
+    float: left;
+    text-decoration: none; }
+    .feed-show-page-head .ftitle .feed-title-edit-form .btns button.editable-submit, .feed-show-page-head .ftitle .feed-title-edit-form .btns a.button.editable-submit {
+      cursor: pointer;
+      color: white;
+      background: #0063DC; }
+      .feed-show-page-head .ftitle .feed-title-edit-form .btns button.editable-submit:hover, .feed-show-page-head .ftitle .feed-title-edit-form .btns a.button.editable-submit:hover {
+        background: #0054BD; }
+    .feed-show-page-head .ftitle .feed-title-edit-form .btns button.editable-cancel, .feed-show-page-head .ftitle .feed-title-edit-form .btns a.button.editable-cancel {
+      cursor: pointer;
+      color: #616D7D;
+      background: #C4DFFF; }
+      .feed-show-page-head .ftitle .feed-title-edit-form .btns button.editable-cancel:hover, .feed-show-page-head .ftitle .feed-title-edit-form .btns a.button.editable-cancel:hover {
+        background: #B4CFFF; }
+    .feed-show-page-head .ftitle .feed-title-edit-form .btns button.mousedown, .feed-show-page-head .ftitle .feed-title-edit-form .btns a.button.mousedown {
+      position: relative;
+      top: 1px;
+      left: 1px; }
+
 .page-feed-show {
-  padding: 0 5px 20px;
+  padding: 5px 5px 20px;
   margin-bottom: 10px;
   overflow: hidden;
   /*feed内容扩展部分*/ }
   .page-feed-show .main {
     margin: 0 0 10px 0; }
-    .page-feed-show .main .reply-to-feed {
-      margin-bottom: 10px;
-      overflow: hidden;
-      width: 500px; }
-      .page-feed-show .main .reply-to-feed .data {
-        border-radius: 0 4px 4px 0;
-        -moz-border-radius: 0 4px 4px 0;
-        -webkit-border-radius: 0 4px 4px 0;
-        padding: 10px; }
-      .page-feed-show .main .reply-to-feed .arrow {
-        width: 15px;
-        height: 7px;
-        background: url(/images/icons/all.png) no-repeat -271px -41px;
-        margin: 0 0 0 36px; }
-    .page-feed-show .main .quote-feed {
-      margin-bottom: 10px;
-      overflow: hidden;
-      width: 500px; }
-      .page-feed-show .main .quote-feed .data {
-        border-radius: 0 4px 4px 0;
-        -moz-border-radius: 0 4px 4px 0;
-        -webkit-border-radius: 0 4px 4px 0;
-        padding: 10px; }
-      .page-feed-show .main .quote-feed .arrow {
-        width: 15px;
-        height: 7px;
-        background: url(/images/icons/all.png) no-repeat -271px -49px;
-        margin: 0 0 0 36px; }
-    .page-feed-show .main .current-feed {
-      overflow: hidden;
-      margin: 0 0 20px 0; }
-      .page-feed-show .main .current-feed .c {
-        float: left; }
-        .page-feed-show .main .current-feed .c .data .c-name {
-          font-size: 12px;
-          margin-bottom: 6px; }
-        .page-feed-show .main .current-feed .c .data .tags {
-          overflow: hidden;
-          float: left;
-          float: none;
-          margin: 0 0 10px 0; }
-          .page-feed-show .main .current-feed .c .data .tags .tag {
-            float: left;
-            background: #E0EAF1;
-            padding: 1px 4px;
-            margin: 0 6px 0 0;
-            line-height: 18px;
-            border-radius: 2px;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            border-right: solid 1px #7F9FB6;
-            border-bottom: solid 1px #7F9FB6; }
-            .page-feed-show .main .current-feed .c .data .tags .tag:hover {
-              text-decoration: none !important;
-              background: #3E6D8E;
-              color: #e0eaf1; }
-            .page-feed-show .main .current-feed .c .data .tags .tag.has-logo {
-              padding: 1px 4px 1px 2px; }
-              .page-feed-show .main .current-feed .c .data .tags .tag.has-logo img.mini {
-                padding: 0;
-                border: none;
-                position: relative;
-                top: 1px;
-                width: 16px;
-                height: 16px;
-                float: left;
-                margin-right: 3px; }
-            .page-feed-show .main .current-feed .c .data .tags .tag span.namespace {
-              float: left;
-              background: #3E6D8E;
-              color: #e0eaf1;
-              margin: -1px 2px -1px -2px;
-              border-radius: 2px 0 0 2px;
-              -moz-border-radius: 2px 0 0 2px;
-              -webkit-border-radius: 2px 0 0 2px;
-              padding: 1px 2px; }
-          .page-feed-show .main .current-feed .c .data .tags .edit-tags {
-            overflow: hidden;
-            margin: 0 0 10px 0;
-            display: inline-block;
-            font-size: 12px;
-            font-weight: normal;
-            position: relative;
-            top: 2px; }
-            .page-feed-show .main .current-feed .c .data .tags .edit-tags a.edit {
-              overflow: hidden;
-              line-height: 16px;
-              height: 16px;
-              float: left;
-              border-radius: 4px;
-              -moz-border-radius: 4px;
-              -webkit-border-radius: 4px;
-              padding: 0 3px; }
-              .page-feed-show .main .current-feed .c .data .tags .edit-tags a.edit .icon {
-                width: 10px;
-                height: 10px;
-                float: left;
-                background: url(/images/icons/all.png) no-repeat -229px -87px;
-                margin: 0 3px 0 0;
-                position: relative;
-                top: 3px;
-                display: inline-block; }
-        .page-feed-show .main .current-feed .c .data .feed-tags-edit-form {
-          margin: 0 0 10px 0; }
-          .page-feed-show .main .current-feed .c .data .feed-tags-edit-form input {
-            width: 400px !important; }
-          .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns {
-            overflow: hidden; }
-            .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns button, .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns a.button {
-              border-radius: 3px;
-              -moz-border-radius: 3px;
-              -webkit-border-radius: 3px;
-              border: none 0px;
-              margin: 4px 5px 0 0;
-              padding: 2px 7px;
-              float: left;
-              text-decoration: none; }
-              .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns button.editable-submit, .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns a.button.editable-submit {
-                cursor: pointer;
-                color: white;
-                background: #0063DC; }
-                .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns button.editable-submit:hover, .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns a.button.editable-submit:hover {
-                  background: #0054BD; }
-              .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns button.editable-cancel, .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns a.button.editable-cancel {
-                cursor: pointer;
-                color: #616D7D;
-                background: #C4DFFF; }
-                .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns button.editable-cancel:hover, .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns a.button.editable-cancel:hover {
-                  background: #B4CFFF; }
-              .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns button.mousedown, .page-feed-show .main .current-feed .c .data .feed-tags-edit-form .btns a.button.mousedown {
-                position: relative;
-                top: 1px;
-                left: 1px; }
-        .page-feed-show .main .current-feed .c .data .ct {
-          font-size: 20px;
-          font-weight: bold; }
-          .page-feed-show .main .current-feed .c .data .ct .edit-ct {
-            overflow: hidden;
-            margin: 0 0 10px 0;
-            display: inline-block;
-            font-size: 12px;
-            font-weight: normal;
-            position: relative;
-            top: 11px; }
-            .page-feed-show .main .current-feed .c .data .ct .edit-ct a.edit {
-              overflow: hidden;
-              line-height: 16px;
-              height: 16px;
-              float: left;
-              border-radius: 4px;
-              -moz-border-radius: 4px;
-              -webkit-border-radius: 4px;
-              padding: 0 3px; }
-              .page-feed-show .main .current-feed .c .data .ct .edit-ct a.edit .icon {
-                width: 10px;
-                height: 10px;
-                float: left;
-                background: url(/images/icons/all.png) no-repeat -229px -87px;
-                margin: 0 3px 0 0;
-                position: relative;
-                top: 3px;
-                display: inline-block; }
-        .page-feed-show .main .current-feed .c .data .feed-content-edit-form textarea {
-          height: 32px; }
-        .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns {
-          overflow: hidden; }
-          .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns button, .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns a.button {
-            border-radius: 3px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-            border: none 0px;
-            margin: 4px 5px 0 0;
-            padding: 2px 7px;
-            float: left;
-            text-decoration: none; }
-            .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns button.editable-submit, .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns a.button.editable-submit {
-              cursor: pointer;
-              color: white;
-              background: #0063DC; }
-              .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns button.editable-submit:hover, .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns a.button.editable-submit:hover {
-                background: #0054BD; }
-            .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns button.editable-cancel, .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns a.button.editable-cancel {
-              cursor: pointer;
-              color: #616D7D;
-              background: #C4DFFF; }
-              .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns button.editable-cancel:hover, .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns a.button.editable-cancel:hover {
-                background: #B4CFFF; }
-            .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns button.mousedown, .page-feed-show .main .current-feed .c .data .feed-content-edit-form .btns a.button.mousedown {
-              position: relative;
-              top: 1px;
-              left: 1px; }
-        .page-feed-show .main .current-feed .c .documents .mindmaps {
-          margin-top: 5px; }
-          .page-feed-show .main .current-feed .c .documents .mindmaps img {
-            border: 2px solid #A3A3A3;
-            border-radius: 3px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px; }
     .page-feed-show .main .feed-detail-edit-form {
       margin: 0 0 10px 0; }
       .page-feed-show .main .feed-detail-edit-form .btns {
@@ -2084,11 +2046,13 @@ form.new_message .w300 {
             height: 16px;
             float: left;
             margin-right: 3px; }
+          .page-feed-show .footmisc .tags .tag.has-logo span.namespace {
+            margin: -1px 2px -1px -2px; }
         .page-feed-show .footmisc .tags .tag span.namespace {
           float: left;
           background: #3E6D8E;
           color: #e0eaf1;
-          margin: -1px 2px -1px -2px;
+          margin: -1px 2px -1px -4px;
           border-radius: 2px 0 0 2px;
           -moz-border-radius: 2px 0 0 2px;
           -webkit-border-radius: 2px 0 0 2px;
@@ -2461,11 +2425,13 @@ form.new_message .w300 {
               height: 16px;
               float: left;
               margin-right: 3px; }
+            .page-feed-viewpoints .viewpoint .footmisc .tags .tag.has-logo span.namespace {
+              margin: -1px 2px -1px -2px; }
           .page-feed-viewpoints .viewpoint .footmisc .tags .tag span.namespace {
             float: left;
             background: #3E6D8E;
             color: #e0eaf1;
-            margin: -1px 2px -1px -2px;
+            margin: -1px 2px -1px -4px;
             border-radius: 2px 0 0 2px;
             -moz-border-radius: 2px 0 0 2px;
             -webkit-border-radius: 2px 0 0 2px;
