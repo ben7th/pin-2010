@@ -1,21 +1,24 @@
 -require_css 'views/users',true
 
 -content_for :title do
-  #{@tag.name}
+  #{@tag.full_name}
 
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
 .tag-page-top-info
   .base-info
-    .name=@tag.name
+    -if @tag.namespace.blank?
+      .name>=tag.name
+    -else
+      .name>="<span class='darkbg'>#{@tag.namespace}</span> #{@tag.name}"
 
 .hrr
 .grid_20.alpha
   .tag-page-logo
     =logo @tag,:medium
     -if logged_in?
-      .upload=link_to '上传图片',"/tags/#{@tag.name}/upload_logo"
+      .upload=link_to '上传图片',"/tags/#{@tag.full_name}/upload_logo"
   .tag-page-feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
