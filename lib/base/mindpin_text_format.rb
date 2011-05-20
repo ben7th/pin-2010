@@ -47,7 +47,9 @@ class MindpinTextFormat
 
   def to_html
     html = @markdown.to_html
+
     doc = Nokogiri::HTML.fragment("<div>#{html}</div>")
+
     doc.css('pre code').each do |code_doc|
       code_text = code_doc.text
       klass = code_doc['class']
@@ -59,6 +61,11 @@ class MindpinTextFormat
         pre.remove
       end
     end
+
+    doc.css('a').each do |a_elm|
+      a_elm['target']='_blank'
+    end
+
     doc.at_css('div').inner_html
   end
 
