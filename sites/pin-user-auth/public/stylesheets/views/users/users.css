@@ -1326,6 +1326,15 @@ form.new_message .w300 {
               height: 16px;
               float: left;
               margin-right: 3px; }
+          .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag span.namespace {
+            float: left;
+            background: #3E6D8E;
+            color: #e0eaf1;
+            margin: -1px 2px -1px -2px;
+            border-radius: 2px 0 0 2px;
+            -moz-border-radius: 2px 0 0 2px;
+            -webkit-border-radius: 2px 0 0 2px;
+            padding: 1px 2px; }
       .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops {
         overflow: hidden;
         display: inline; }
@@ -1816,6 +1825,15 @@ form.new_message .w300 {
                 height: 16px;
                 float: left;
                 margin-right: 3px; }
+            .page-feed-show .main .current-feed .c .data .tags .tag span.namespace {
+              float: left;
+              background: #3E6D8E;
+              color: #e0eaf1;
+              margin: -1px 2px -1px -2px;
+              border-radius: 2px 0 0 2px;
+              -moz-border-radius: 2px 0 0 2px;
+              -webkit-border-radius: 2px 0 0 2px;
+              padding: 1px 2px; }
           .page-feed-show .main .current-feed .c .data .tags .edit-tags {
             overflow: hidden;
             margin: 0 0 10px 0;
@@ -1969,11 +1987,48 @@ form.new_message .w300 {
             left: 1px; }
       .page-feed-show .main .feed-detail-edit-form .detail-inputer {
         width: 600px;
-        height: 84px;
+        height: 168px;
         font-size: 12px; }
     .page-feed-show .main .detail-data .data {
-      margin: 0 0 10px 0;
-      font-size: 14px; }
+      font-size: 14px;
+      margin: 0 0 10px 0; }
+      .page-feed-show .main .detail-data .data code {
+        background: #F8F8FF; }
+      .page-feed-show .main .detail-data .data pre {
+        background: #F8F8FF;
+        padding: 5px;
+        border: solid 1px #DEDEDE;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
+      .page-feed-show .main .detail-data .data img {
+        border: solid 1px #DFDFDF;
+        padding: 1px; }
+      .page-feed-show .main .detail-data .data h1 {
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
+      .page-feed-show .main .detail-data .data h2 {
+        font-size: 16px;
+        margin: 0 0 0.5em 0; }
+      .page-feed-show .main .detail-data .data h3, .page-feed-show .main .detail-data .data h4, .page-feed-show .main .detail-data .data h5, .page-feed-show .main .detail-data .data h6 {
+        font-size: 14px;
+        line-height: 18px;
+        margin: 0 0 0.5em 0; }
+      .page-feed-show .main .detail-data .data ul {
+        margin-left: 1.5em;
+        list-style-type: circle; }
+        .page-feed-show .main .detail-data .data ul ul {
+          list-style-type: square; }
+      .page-feed-show .main .detail-data .data ol {
+        margin-left: 1.5em; }
+      .page-feed-show .main .detail-data .data blockquote {
+        margin: 1.5em 0 1.5em 1.5em;
+        background: #FFFADA;
+        border-left: 3px solid #FFE965;
+        padding: 5px; }
+        .page-feed-show .main .detail-data .data blockquote p {
+          margin: 0; }
     .page-feed-show .main .detail-data .edit-detail {
       overflow: hidden;
       margin: 0 0 10px 0; }
@@ -2029,6 +2084,15 @@ form.new_message .w300 {
             height: 16px;
             float: left;
             margin-right: 3px; }
+        .page-feed-show .footmisc .tags .tag span.namespace {
+          float: left;
+          background: #3E6D8E;
+          color: #e0eaf1;
+          margin: -1px 2px -1px -2px;
+          border-radius: 2px 0 0 2px;
+          -moz-border-radius: 2px 0 0 2px;
+          -webkit-border-radius: 2px 0 0 2px;
+          padding: 1px 2px; }
     .page-feed-show .footmisc .ops {
       overflow: hidden;
       display: inline; }
@@ -2301,6 +2365,43 @@ form.new_message .w300 {
       .page-feed-viewpoints .viewpoint .main .content {
         font-size: 14px;
         margin: 0 0 10px 0; }
+        .page-feed-viewpoints .viewpoint .main .content code {
+          background: #F8F8FF; }
+        .page-feed-viewpoints .viewpoint .main .content pre {
+          background: #F8F8FF;
+          padding: 5px;
+          border: solid 1px #DEDEDE;
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px; }
+        .page-feed-viewpoints .viewpoint .main .content img {
+          border: solid 1px #DFDFDF;
+          padding: 1px; }
+        .page-feed-viewpoints .viewpoint .main .content h1 {
+          font-size: 18px;
+          font-weight: bold;
+          font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
+        .page-feed-viewpoints .viewpoint .main .content h2 {
+          font-size: 16px;
+          margin: 0 0 0.5em 0; }
+        .page-feed-viewpoints .viewpoint .main .content h3, .page-feed-viewpoints .viewpoint .main .content h4, .page-feed-viewpoints .viewpoint .main .content h5, .page-feed-viewpoints .viewpoint .main .content h6 {
+          font-size: 14px;
+          line-height: 18px;
+          margin: 0 0 0.5em 0; }
+        .page-feed-viewpoints .viewpoint .main .content ul {
+          margin-left: 1.5em;
+          list-style-type: circle; }
+          .page-feed-viewpoints .viewpoint .main .content ul ul {
+            list-style-type: square; }
+        .page-feed-viewpoints .viewpoint .main .content ol {
+          margin-left: 1.5em; }
+        .page-feed-viewpoints .viewpoint .main .content blockquote {
+          margin: 1.5em 0 1.5em 1.5em;
+          background: #FFFADA;
+          border-left: 3px solid #FFE965;
+          padding: 5px; }
+          .page-feed-viewpoints .viewpoint .main .content blockquote p {
+            margin: 0; }
       .page-feed-viewpoints .viewpoint .main .edit-vp {
         overflow: hidden;
         margin: 0 0 10px 0; }
@@ -2360,6 +2461,15 @@ form.new_message .w300 {
               height: 16px;
               float: left;
               margin-right: 3px; }
+          .page-feed-viewpoints .viewpoint .footmisc .tags .tag span.namespace {
+            float: left;
+            background: #3E6D8E;
+            color: #e0eaf1;
+            margin: -1px 2px -1px -2px;
+            border-radius: 2px 0 0 2px;
+            -moz-border-radius: 2px 0 0 2px;
+            -webkit-border-radius: 2px 0 0 2px;
+            padding: 1px 2px; }
       .page-feed-viewpoints .viewpoint .footmisc .ops {
         overflow: hidden;
         display: inline; }
@@ -2453,7 +2563,7 @@ form.new_message .w300 {
               top: 1px;
               left: 1px; }
     .page-feed-viewpoints .viewpoint .viewpoint-edit-form {
-      margin: 0 0 10px 0; }
+      margin: 0 0 10px 40px; }
       .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns {
         overflow: hidden; }
         .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns button, .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns a.button {
@@ -2483,7 +2593,7 @@ form.new_message .w300 {
             left: 1px; }
       .page-feed-viewpoints .viewpoint .viewpoint-edit-form .inputer {
         width: 600px;
-        height: 84px;
+        height: 168px;
         font-size: 12px; }
 
 .page-show-add-viewpoint {

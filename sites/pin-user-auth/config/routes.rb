@@ -207,7 +207,8 @@ ActionController::Routing::Routes.draw do |map|
       :share=>:post,
       :fav=>:post,
       :unfav=>:delete,
-      :comments=>:post
+      :comments=>:post,
+      :newest=>:get
     }
   map.user_mindmaps "/:user_id/mindmaps",:controller=>"mindmaps",:action=>"user_mindmaps"
 
@@ -247,4 +248,5 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"remove_all_user_tips",:conditions=>{:method=>:delete}
 
   map.resources :tags,:member=>{:logo=>:put,:detail=>:put,:upload_logo=>:get}
+
 end

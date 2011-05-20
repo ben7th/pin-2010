@@ -44,6 +44,11 @@ class MindmapsController < ApplicationController
     end
   end
 
+  def newest
+    file_path = MindmapImageCache.new(@mindmap).get_img_path_by("120x120")
+    send_file file_path,:type=>"image/png",:disposition=>'inline'
+  end
+
   # new import create paramsedit update delete import_base64 create_base64
   include MindmapManagingControllerMethods
 

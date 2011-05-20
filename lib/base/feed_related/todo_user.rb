@@ -153,7 +153,9 @@ class TodoUser < UserAuthAbstract
     end
 
     def hot_viewpoint
-      self.viewpoints.first
+      viewpoint = self.viewpoints.first
+      return if viewpoint.vote_score < 0
+      return viewpoint
     end
 
     def memoed_users
@@ -169,7 +171,7 @@ class TodoUser < UserAuthAbstract
   end
 
   include TodoMemoComment::TodoUserMethods
-  include ShortUrl::TodoUserMethods
+#  include ShortUrl::TodoUserMethods
   include ViewpointVote::TodoUserMethods
   include ViewpointDraft::TodoUserMethods
   include UserLog::TodoUserMethods

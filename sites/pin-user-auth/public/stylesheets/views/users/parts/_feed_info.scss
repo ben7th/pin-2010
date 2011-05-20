@@ -55,6 +55,14 @@
         margin-right:3px;
       }
     }
+    span.namespace{
+      float:left;
+      background:#3E6D8E;
+      color:#e0eaf1;
+      margin:-1px 2px -1px -2px;
+      @include border-radius(2px 0 0 2px);
+      padding:1px 2px;
+    }
   }
 }
 

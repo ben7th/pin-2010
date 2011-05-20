@@ -8,38 +8,6 @@ module FeedHelper
     ex
   end
 
-  def feed_content(feed)
-    "#{h(feed.content)}"
-  end
-
-  def feed_detail(feed)
-    "#{auto_link(ct(feed.detail_content),:html=>{:target=>'_blank'})}"
-  end
-
-  def vp_memo(todo_user)
-    "#{auto_link(ct(todo_user.memo),:html=>{:target=>'_blank'})}"
-  end
-
-  def vp_memo_short(todo_user)
-    "#{auto_link(ct(truncate_u(todo_user.memo,64)),:html=>{:target=>'_blank'})}"
-  end
-
-  def j_vp_memo(todo_user)
-    t1 = "#{todo_user.memo}"
-    t2 = truncate_u(t1,64)
-    if t1.length == t2.length
-      vp_memo(todo_user)
-    else
-      %~
-        <div class='short-content'>#{vp_memo_short(todo_user)} <a href='javascript:;' class='show-detail font12'>显示全部</a></div>
-        <div class='detail-content' style='display:none;'>#{vp_memo(todo_user)}</div>
-      ~
-    end
-  rescue Exception => ex
-    return "观点信息解析错误#{ex}" if RAILS_ENV == 'development'
-    return ''
-  end
-
   def user_last_feed(user)
     feed = user.out_newest_feed
     return if feed.nil?

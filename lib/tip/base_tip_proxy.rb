@@ -10,6 +10,13 @@ class BaseTipProxy
     @rh.del
   end
 
+  def self.add_rules(rules)
+    @@rules||=[]
+     [rules].flatten.each do |rule|
+       @@rules << rule
+     end
+  end
+
   def self.definition_tip_attrs(*options)
     attrs_str = options.map{|a|":#{a}"}*","
     class_eval %`

@@ -1,3 +1,10 @@
+# 运营管理员
+# 具有下列权限：
+
+# 1 直接对一个话题投“无效”票，或者恢复一个无效的话题
+# 2 直接对一个观点投“无效”票
+# 3 可以用 aa:bb 的形式创建tag名称空间
+
 # 每次修改此配置文件之后应重启工程
 
 development:
@@ -8,3 +15,5 @@ test:
 
 production:
   - ben7th@sina.com
+  - 4820357@qq.com
+  - sophia.njtu@gmail.com

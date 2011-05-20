@@ -1,0 +1,51 @@
+.CodeRay {
+  font-family: 'Courier New', 'Terminal', monospace;
+  overflow: auto;
+  font-size: 12px;
+  pre {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  &.dark{
+    /*dark background*/
+    .an { color:#E7BE69 }                      /* html attribute */
+    .c  { color:#BC9358; font-style: italic; } /* comment */
+    .ch { color:#509E4F }                      /* escaped character */
+    .cl { color:#FFF }                         /* class */
+    .co { color:#FFF }                         /* constant */
+    .fl { color:#A4C260 }                      /* float */
+    .fu { color:#FFC56D }                      /* function */
+    .gv { color:#D0CFFE }                      /* global variable */
+    .i  { color:#A4C260 }                      /* integer */
+    .il { background:#151515 }                 /* inline code */
+    .iv { color:#D0CFFE }                      /* instance variable */
+    .pp { color:#E7BE69 }                      /* doctype */
+    .r  { color:#CB7832 }                      /* keyword */
+    .rx { color:#A4C260 }                      /* regex */
+    .s  { color:#A4C260 }                      /* string */
+    .sy { color:#6C9CBD }                      /* symbol */
+    .ta { color:#E7BE69 }                      /* html tag */
+    .pc { color:#6C9CBD }                      /* boolean */
+  }
+
+  .an { color:#008080 }                        /* html attribute */
+  .c  { color:#BC9358; font-style: italic; } /* comment */
+  .ch {  }                                     /*+ escaped character */
+  .cl { color:#FFF }                         /* class */
+  .co { color:#008080 }                        /*+ constant */
+  .fl { color:#009999 }                        /* float */
+  .fu { color:#990000;font-weight:bold; }      /*+ function */
+  .gv { color:#008080 }                        /*+ global variable */
+  .i  { color:#009999 }                        /*+ integer */
+  .il { background:#F0F0F7 }                   /*+ inline code */
+  .iv { color:#008080 }                        /*+ instance variable */
+  .pp { color:#E7BE69 }                      /* doctype */
+  .r  { font-weight:bold; }                    /*+ keyword */
+  .rx { color:#009926 }                        /*+ regex */
+  .s  { color:#DD1144 }                        /*+ string */
+  .sy { color:#990073 }                        /*+ symbol */
+  .ta { color:#000080 }                        /* html tag */
+  .pc { color:#6C9CBD }                      /* boolean */
+  .kw { font-weight:bold; }
+}

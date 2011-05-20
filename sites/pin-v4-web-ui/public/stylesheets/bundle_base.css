@@ -45,26 +45,44 @@
 .mpaccordion-toggler.close{color:black;}
 .mpaccordion-toggler.open{color:white;}
 .mpaccordion-content{overflow:hidden;zoom:1;}
-.CodeRay{background-color:#232323;border:1px solid black;font-family:'Courier New','Terminal',monospace;color:#E6E0DB;padding:3px 5px;overflow:auto;font-size:12px;margin:0 0 12px 0;}
+.CodeRay{font-family:'Courier New','Terminal',monospace;overflow:auto;font-size:12px;}
 .CodeRay pre{margin:0;padding:0;}
-.CodeRay .an{color:#E7BE69;}
+.CodeRay.dark .an{color:#E7BE69;}
+.CodeRay.dark .c{color:#BC9358;font-style:italic;}
+.CodeRay.dark .ch{color:#509E4F;}
+.CodeRay.dark .cl{color:#FFF;}
+.CodeRay.dark .co{color:#FFF;}
+.CodeRay.dark .fl{color:#A4C260;}
+.CodeRay.dark .fu{color:#FFC56D;}
+.CodeRay.dark .gv{color:#D0CFFE;}
+.CodeRay.dark .i{color:#A4C260;}
+.CodeRay.dark .il{background:#151515;}
+.CodeRay.dark .iv{color:#D0CFFE;}
+.CodeRay.dark .pp{color:#E7BE69;}
+.CodeRay.dark .r{color:#CB7832;}
+.CodeRay.dark .rx{color:#A4C260;}
+.CodeRay.dark .s{color:#A4C260;}
+.CodeRay.dark .sy{color:#6C9CBD;}
+.CodeRay.dark .ta{color:#E7BE69;}
+.CodeRay.dark .pc{color:#6C9CBD;}
+.CodeRay .an{color:#008080;}
 .CodeRay .c{color:#BC9358;font-style:italic;}
-.CodeRay .ch{color:#509E4F;}
 .CodeRay .cl{color:#FFF;}
-.CodeRay .co{color:#FFF;}
-.CodeRay .fl{color:#A4C260;}
-.CodeRay .fu{color:#FFC56D;}
-.CodeRay .gv{color:#D0CFFE;}
-.CodeRay .i{color:#A4C260;}
-.CodeRay .il{background:#151515;}
-.CodeRay .iv{color:#D0CFFE;}
+.CodeRay .co{color:#008080;}
+.CodeRay .fl{color:#099;}
+.CodeRay .fu{color:#900;font-weight:bold;}
+.CodeRay .gv{color:#008080;}
+.CodeRay .i{color:#099;}
+.CodeRay .il{background:#F0F0F7;}
+.CodeRay .iv{color:#008080;}
 .CodeRay .pp{color:#E7BE69;}
-.CodeRay .r{color:#CB7832;}
-.CodeRay .rx{color:#A4C260;}
-.CodeRay .s{color:#A4C260;}
-.CodeRay .sy{color:#6C9CBD;}
-.CodeRay .ta{color:#E7BE69;}
+.CodeRay .r{font-weight:bold;}
+.CodeRay .rx{color:#009926;}
+.CodeRay .s{color:#D14;}
+.CodeRay .sy{color:#990073;}
+.CodeRay .ta{color:#000080;}
 .CodeRay .pc{color:#6C9CBD;}
+.CodeRay .kw{font-weight:bold;}
 fieldset{padding:1.4em;margin:0 0 1.5em 0;border:1px solid #ccc;}
 legend{font-weight:bold;font-size:1.2em;}
 form label{display:block;}

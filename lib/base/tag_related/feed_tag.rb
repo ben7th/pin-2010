@@ -18,55 +18,51 @@ class FeedTag < UserAuthAbstract
   module FeedMethods
     def self.included(base)
       base.has_many :feed_tags
+      base.has_many :tags,:through=>:feed_tags,:source=>:tag
       base.after_update :add_default_tag_when_no_tag
     end
 
     def add_default_tag_when_no_tag
       if self.tag_names.blank?
-        self.add_tags(Tag::DEFAULT)
+        self.add_tag(Tag::DEFAULT)
       end
       return true
     end
 
     def tag_names
-      FeedTag.find_all_by_feed_id(self.id).map{|ft|ft.tag.name}
+      FeedTag.find_all_by_feed_id(self.id).map{|ft|ft.tag.full_name}
     end
 
-    # 增加tag
-    def add_tags(tag_names_string)
-      names = tag_names_string.split(/[，, ]+/)
-      old_tag_names = self.tag_names
-      return if (names - old_tag_names) == []
-      
-      names.each do |name|
-        tag = Tag.find_or_create_by_name(name)
-        next if tag.blank?
-        FeedTag.find_or_create_by_feed_id_and_tag_id(self.id,tag.id)
-      end
+    def add_tag(tag_name,namespace = nil)
+      tag = Tag.find_or_create_by_name_and_namespace(tag_name,namespace)
+      FeedTag.find_or_create_by_feed_id_and_tag_id(self.id,tag.id)
     end
 
     # 移除指定的一个tag
-    def remove_tag(tag_name)
-      old_tag_names = self.tag_names
-      return unless old_tag_names.include?(tag_name)
-      
-      tag = Tag.find_by_name(tag_name)
+    def remove_tag(tag_name,namespace = nil)
+      tag = Tag.get_tag(tag_name,namespace)
       ft = self.feed_tags.find_by_tag_id(tag.id)
-      ft.destroy
+      ft.destroy unless ft.blank?
     end
 
     # 根据传入的字符串修改tag
     def change_tags(tag_names_string,editor)
-      new_names = tag_names_string.split(/[，, ]+/)
+      new_names = Tag.get_tag_names_by_string(tag_names_string,editor)
       old_names = self.tag_names
 
       arr_add = new_names - old_names
       arr_remove = old_names - new_names
 
-      self.add_tags(arr_add*',')
+      arr_add.each do |tag_full_name|
+        namespace = Tag.get_namespace_from_tag_full_name(tag_full_name)
+        name = Tag.get_name_from_tag_full_name(tag_full_name)
+        self.add_tag(name,namespace)
+      end
       
-      arr_remove.each do |name|
-        self.remove_tag(name)
+      arr_remove.each do |tag_full_name|
+        namespace = Tag.get_namespace_from_tag_full_name(tag_full_name)
+        name = Tag.get_name_from_tag_full_name(tag_full_name)
+        self.remove_tag(name,namespace)
       end
       
       if !arr_add.blank? || !arr_remove.blank?

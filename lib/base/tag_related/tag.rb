@@ -1,5 +1,5 @@
 class Tag < UserAuthAbstract
-  version 201105131
+  version 20110518
   DEFAULT = "没有关键词"
 
   validates_format_of :name,:with=>/^[A-Za-z0-9一-龥]+$/
@@ -17,10 +17,44 @@ class Tag < UserAuthAbstract
     !self.logo_updated_at.blank?
   end
 
-  def self.has_logo?(tag_name)
-    tag = Tag.find_by_name(tag_name)
-    return false if tag.blank?
-    tag.has_logo?
+  def full_name
+    if self.namespace.blank?
+      self.name
+    else
+      "#{self.namespace}:#{self.name}"
+    end
+  end
+  
+  def self.get_tag(tag_name,namespace = nil)
+    Tag.find_by_name_and_namespace(tag_name,namespace)
+  end
+
+  def self.get_tag_by_full_name(full_name)
+    namespace = self.get_namespace_from_tag_full_name(full_name)
+    name = self.get_name_from_tag_full_name(full_name)
+    self.get_tag(name,namespace)
+  end
+
+  def self.get_namespace_from_tag_full_name(tag_full_name)
+    arr = tag_full_name.split(":")
+    return if arr.count == 1
+    arr.first
+  end
+
+  def self.get_name_from_tag_full_name(tag_full_name)
+    arr = tag_full_name.split(":")
+    return arr.first if arr.count <= 1
+    arr.shift
+    arr*":"
+  end
+
+  def self.get_tag_names_by_string(tag_names_string,editor)
+    tag_names = tag_names_string.split(/[，, ]+/).select{|name|!name.blank?}
+    return tag_names if editor.is_admin_user?
+
+    tag_names.map do |name|
+      self.get_name_from_tag_full_name(name)
+    end
   end
 
   include FeedTag::TagMethods

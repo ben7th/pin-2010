@@ -19,7 +19,8 @@
       .vote-score.show=todo_user.vote_score
 
   .main
-    .content>=vp_memo todo_user
+    .content>
+      =viewpoint_memo_format_show(todo_user)
 
     -if logged_in? && user == current_user
       .edit-vp

@@ -5,4 +5,4 @@
   =render :partial=>'feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}
   -if logged_in?
     .my-viewpoint
-      =j_vp_memo feed.viewpoint_of(current_user)
+      =viewpoint_memo_format_in_list feed.viewpoint_of(current_user)

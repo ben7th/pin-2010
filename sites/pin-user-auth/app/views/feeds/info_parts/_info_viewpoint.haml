@@ -1,16 +1,17 @@
 -if feed.has_viewpoint?
   .viewpoint
     -hot_vp = feed.hot_viewpoint
-    .hot-viewpoint
-      .arrow
-      .data
-        .name
-          %span.vote-score{:tip=>"投票认可度"}=hot_vp.vote_score
-          %span.title 热门观点
-          %span.split> -
-          =usersign(hot_vp.user,false)
-        .memo-content
-          =j_vp_memo(hot_vp)
+    -if !hot_vp.blank?
+      .hot-viewpoint
+        .arrow
+        .data
+          .name
+            %span.vote-score{:tip=>"投票认可度"}=hot_vp.vote_score
+            %span.title 热门观点
+            %span.split> -
+            =usersign(hot_vp.user,false)
+          .memo-content
+            =viewpoint_memo_format_in_list(hot_vp)
 
     -if logged_in?
       -my_vp = feed.viewpoint_of(current_user)
@@ -22,4 +23,4 @@
               %span.vote-score{:tip=>"投票认可度"}=my_vp.vote_score
               %span.title 我的观点
             .memo-content
-              =j_vp_memo(my_vp)
+              =viewpoint_memo_format_in_list(my_vp)

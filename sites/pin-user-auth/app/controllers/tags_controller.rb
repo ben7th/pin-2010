@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   before_filter :per_load
   def per_load
     if params[:id]
-      @tag = Tag.find_by_name(params[:id])
+      @tag = Tag.get_tag_by_full_name(params[:id])
       render_status_page(404,"标签没有找到") if @tag.blank?
     end
   end

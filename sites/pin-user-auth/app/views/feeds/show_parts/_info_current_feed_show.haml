@@ -9,9 +9,9 @@
   .c
     .data
       .tags
-        -if !feed.tag_names.blank?
-          -feed.tag_names.each do |tag_name|
-            =tag_label(tag_name)
+        -if !feed.tags.blank?
+          -feed.tags.each do |tag|
+            =tag_label(tag)
         -else
           %a.tag{:href=>"/tags/没有关键词"} 没有关键词
           

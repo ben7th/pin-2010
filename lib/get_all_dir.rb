@@ -24,6 +24,8 @@ class GetAllDir
     config.gem "rubyzip", :version => '0.9.4', :lib => "zip/zip"
     # resque的引入
     config.gem "resque"
+    # markdown 解析器
+    config.gem 'redcarpet'
     # 自己写的 gem
     config.gem "pie-ui"
     # 加载 公共 lib

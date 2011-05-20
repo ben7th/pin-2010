@@ -29,5 +29,4 @@ class FeedComment < UserAuthAbstract
     end
   end
 
-  include ShortUrl::FeedCommentMethods
 end

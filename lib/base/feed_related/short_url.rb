@@ -89,18 +89,6 @@ class ShortUrl < UserAuthAbstract
     end
   end
 
-  module FeedCommentMethods
-    def self.included(base)
-      base.before_validation_on_create :replace_url_to_short_url
-    end
-
-    def replace_url_to_short_url
-      self.content.gsub!(ShortUrl::URL_REGEX) do
-        ShortUrl.get_short_url($&)
-      end
-    end
-  end
-
   module TodoUserMethods
     def self.included(base)
       base.before_validation_on_create :replace_url_to_short_url
