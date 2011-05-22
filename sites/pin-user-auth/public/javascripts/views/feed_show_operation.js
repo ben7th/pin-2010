@@ -625,3 +625,16 @@ pie.load(function(){
     jQuery.facebox.close();
   })
 });
+
+pie.feed_image_resize = function(elm){
+  var width = elm.width();
+  var height = elm.height();
+
+  if(width<=600) return;
+
+  // w/600 = h/x
+  // x = 600h/w
+
+  var new_height = 600 * height / width;
+  elm.attr('width',600).attr('height',new_height)
+}

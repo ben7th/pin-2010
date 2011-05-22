@@ -66,6 +66,10 @@ class MindpinTextFormat
       a_elm['target']='_blank'
     end
 
+    doc.css('img').each do |img_elm|
+      img_elm['onload']='pie.feed_image_resize(jQuery(this))'
+    end
+
     doc.at_css('div').inner_html
   end
 

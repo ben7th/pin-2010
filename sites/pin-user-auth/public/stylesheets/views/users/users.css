@@ -2304,7 +2304,8 @@ form.new_message .w300 {
         font-weight: bold;
         text-align: center;
         margin: 0 0 4px 0;
-        line-height: 20px;
+        padding: 2px 0 0 0;
+        line-height: 18px;
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px; }
