@@ -54,7 +54,7 @@ pie.load(function(){
         url : '/viewpoints/'+viewpoint_id+'/aj_comments',
         type : 'get',
         success : function(res){
-          var comments_list_elm = jQuery(res);
+          var comments_list_elm = jQuery('<div>'+res+'</div>');
           list_elm.html(comments_list_elm.html()).removeClass('aj-loading');;
         }
       })
