@@ -49,7 +49,8 @@ module UserNoticeHelper
 
   rescue Exception => ex
     return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
-    return '　'
+#    return '　'
+    "提示信息解析错误#{ex}"
   end
 
   # 被邀请的通知
