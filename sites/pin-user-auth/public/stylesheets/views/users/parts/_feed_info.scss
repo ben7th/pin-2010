@@ -32,17 +32,20 @@
   .tag{
     float:left;
     background:#E0EAF1;
-    padding:1px 4px;
-    margin:0 6px 0 0;
     line-height:18px;
     @include border-radius(2px);
     border-right:solid 1px #7F9FB6;
     border-bottom:solid 1px #7F9FB6;
+
+    padding:1px 0;
+    margin:0 6px 0 0;
+
     &:hover{
       text-decoration:none !important;
       background:#3E6D8E;
       color:#e0eaf1;
     }
+/*
     &.has-logo{
       padding:1px 4px 1px 2px;
       img.mini{
@@ -56,11 +59,24 @@
       }
       span.namespace{margin:-1px 2px -1px -2px;}
     }
+*/
+    img.mini{
+      padding:0;
+      border:none;
+      position:relative;
+      top:1px;
+      width:16px;height:16px;
+      float:left;
+      margin:0 0 0 3px;
+    }
+    span.tag-name{
+      padding:0 4px;
+    }
     span.namespace{
       float:left;
       background:#3E6D8E;
       color:#e0eaf1;
-      margin:-1px 2px -1px -4px;
+      margin:-1px 0;
       @include border-radius(2px 0 0 2px);
       padding:1px 2px;
     }

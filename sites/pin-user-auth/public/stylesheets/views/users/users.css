@@ -1303,36 +1303,49 @@ form.new_message .w300 {
         .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag {
           float: left;
           background: #E0EAF1;
-          padding: 1px 4px;
-          margin: 0 6px 0 0;
           line-height: 18px;
           border-radius: 2px;
           -moz-border-radius: 2px;
           -webkit-border-radius: 2px;
           border-right: solid 1px #7F9FB6;
-          border-bottom: solid 1px #7F9FB6; }
+          border-bottom: solid 1px #7F9FB6;
+          padding: 1px 0;
+          margin: 0 6px 0 0;
+          /*
+              &.has-logo{
+                padding:1px 4px 1px 2px;
+                img.mini{
+                  padding:0;
+                  border:none;
+                  position:relative;
+                  top:1px;
+                  width:16px;height:16px;
+                  float:left;
+                  margin-right:3px;
+                }
+                span.namespace{margin:-1px 2px -1px -2px;}
+              }
+          */ }
           .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag:hover {
             text-decoration: none !important;
             background: #3E6D8E;
             color: #e0eaf1; }
-          .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag.has-logo {
-            padding: 1px 4px 1px 2px; }
-            .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag.has-logo img.mini {
-              padding: 0;
-              border: none;
-              position: relative;
-              top: 1px;
-              width: 16px;
-              height: 16px;
-              float: left;
-              margin-right: 3px; }
-            .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag.has-logo span.namespace {
-              margin: -1px 2px -1px -2px; }
+          .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag img.mini {
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 1px;
+            width: 16px;
+            height: 16px;
+            float: left;
+            margin: 0 0 0 3px; }
+          .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag span.tag-name {
+            padding: 0 4px; }
           .newsfeed ul.feeds li.mpli.feed .f .footmisc .tags .tag span.namespace {
             float: left;
             background: #3E6D8E;
             color: #e0eaf1;
-            margin: -1px 2px -1px -4px;
+            margin: -1px 0;
             border-radius: 2px 0 0 2px;
             -moz-border-radius: 2px 0 0 2px;
             -webkit-border-radius: 2px 0 0 2px;
@@ -1761,36 +1774,49 @@ form.new_message .w300 {
   .feed-show-page-head .ftag .feed-tags .tag {
     float: left;
     background: #E0EAF1;
-    padding: 1px 4px;
-    margin: 0 6px 0 0;
     line-height: 18px;
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-right: solid 1px #7F9FB6;
-    border-bottom: solid 1px #7F9FB6; }
+    border-bottom: solid 1px #7F9FB6;
+    padding: 1px 0;
+    margin: 0 6px 0 0;
+    /*
+        &.has-logo{
+          padding:1px 4px 1px 2px;
+          img.mini{
+            padding:0;
+            border:none;
+            position:relative;
+            top:1px;
+            width:16px;height:16px;
+            float:left;
+            margin-right:3px;
+          }
+          span.namespace{margin:-1px 2px -1px -2px;}
+        }
+    */ }
     .feed-show-page-head .ftag .feed-tags .tag:hover {
       text-decoration: none !important;
       background: #3E6D8E;
       color: #e0eaf1; }
-    .feed-show-page-head .ftag .feed-tags .tag.has-logo {
-      padding: 1px 4px 1px 2px; }
-      .feed-show-page-head .ftag .feed-tags .tag.has-logo img.mini {
-        padding: 0;
-        border: none;
-        position: relative;
-        top: 1px;
-        width: 16px;
-        height: 16px;
-        float: left;
-        margin-right: 3px; }
-      .feed-show-page-head .ftag .feed-tags .tag.has-logo span.namespace {
-        margin: -1px 2px -1px -2px; }
+    .feed-show-page-head .ftag .feed-tags .tag img.mini {
+      padding: 0;
+      border: none;
+      position: relative;
+      top: 1px;
+      width: 16px;
+      height: 16px;
+      float: left;
+      margin: 0 0 0 3px; }
+    .feed-show-page-head .ftag .feed-tags .tag span.tag-name {
+      padding: 0 4px; }
     .feed-show-page-head .ftag .feed-tags .tag span.namespace {
       float: left;
       background: #3E6D8E;
       color: #e0eaf1;
-      margin: -1px 2px -1px -4px;
+      margin: -1px 0;
       border-radius: 2px 0 0 2px;
       -moz-border-radius: 2px 0 0 2px;
       -webkit-border-radius: 2px 0 0 2px;
@@ -2023,36 +2049,49 @@ form.new_message .w300 {
       .page-feed-show .footmisc .tags .tag {
         float: left;
         background: #E0EAF1;
-        padding: 1px 4px;
-        margin: 0 6px 0 0;
         line-height: 18px;
         border-radius: 2px;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
         border-right: solid 1px #7F9FB6;
-        border-bottom: solid 1px #7F9FB6; }
+        border-bottom: solid 1px #7F9FB6;
+        padding: 1px 0;
+        margin: 0 6px 0 0;
+        /*
+            &.has-logo{
+              padding:1px 4px 1px 2px;
+              img.mini{
+                padding:0;
+                border:none;
+                position:relative;
+                top:1px;
+                width:16px;height:16px;
+                float:left;
+                margin-right:3px;
+              }
+              span.namespace{margin:-1px 2px -1px -2px;}
+            }
+        */ }
         .page-feed-show .footmisc .tags .tag:hover {
           text-decoration: none !important;
           background: #3E6D8E;
           color: #e0eaf1; }
-        .page-feed-show .footmisc .tags .tag.has-logo {
-          padding: 1px 4px 1px 2px; }
-          .page-feed-show .footmisc .tags .tag.has-logo img.mini {
-            padding: 0;
-            border: none;
-            position: relative;
-            top: 1px;
-            width: 16px;
-            height: 16px;
-            float: left;
-            margin-right: 3px; }
-          .page-feed-show .footmisc .tags .tag.has-logo span.namespace {
-            margin: -1px 2px -1px -2px; }
+        .page-feed-show .footmisc .tags .tag img.mini {
+          padding: 0;
+          border: none;
+          position: relative;
+          top: 1px;
+          width: 16px;
+          height: 16px;
+          float: left;
+          margin: 0 0 0 3px; }
+        .page-feed-show .footmisc .tags .tag span.tag-name {
+          padding: 0 4px; }
         .page-feed-show .footmisc .tags .tag span.namespace {
           float: left;
           background: #3E6D8E;
           color: #e0eaf1;
-          margin: -1px 2px -1px -4px;
+          margin: -1px 0;
           border-radius: 2px 0 0 2px;
           -moz-border-radius: 2px 0 0 2px;
           -webkit-border-radius: 2px 0 0 2px;
@@ -2403,36 +2442,49 @@ form.new_message .w300 {
         .page-feed-viewpoints .viewpoint .footmisc .tags .tag {
           float: left;
           background: #E0EAF1;
-          padding: 1px 4px;
-          margin: 0 6px 0 0;
           line-height: 18px;
           border-radius: 2px;
           -moz-border-radius: 2px;
           -webkit-border-radius: 2px;
           border-right: solid 1px #7F9FB6;
-          border-bottom: solid 1px #7F9FB6; }
+          border-bottom: solid 1px #7F9FB6;
+          padding: 1px 0;
+          margin: 0 6px 0 0;
+          /*
+              &.has-logo{
+                padding:1px 4px 1px 2px;
+                img.mini{
+                  padding:0;
+                  border:none;
+                  position:relative;
+                  top:1px;
+                  width:16px;height:16px;
+                  float:left;
+                  margin-right:3px;
+                }
+                span.namespace{margin:-1px 2px -1px -2px;}
+              }
+          */ }
           .page-feed-viewpoints .viewpoint .footmisc .tags .tag:hover {
             text-decoration: none !important;
             background: #3E6D8E;
             color: #e0eaf1; }
-          .page-feed-viewpoints .viewpoint .footmisc .tags .tag.has-logo {
-            padding: 1px 4px 1px 2px; }
-            .page-feed-viewpoints .viewpoint .footmisc .tags .tag.has-logo img.mini {
-              padding: 0;
-              border: none;
-              position: relative;
-              top: 1px;
-              width: 16px;
-              height: 16px;
-              float: left;
-              margin-right: 3px; }
-            .page-feed-viewpoints .viewpoint .footmisc .tags .tag.has-logo span.namespace {
-              margin: -1px 2px -1px -2px; }
+          .page-feed-viewpoints .viewpoint .footmisc .tags .tag img.mini {
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 1px;
+            width: 16px;
+            height: 16px;
+            float: left;
+            margin: 0 0 0 3px; }
+          .page-feed-viewpoints .viewpoint .footmisc .tags .tag span.tag-name {
+            padding: 0 4px; }
           .page-feed-viewpoints .viewpoint .footmisc .tags .tag span.namespace {
             float: left;
             background: #3E6D8E;
             color: #e0eaf1;
-            margin: -1px 2px -1px -4px;
+            margin: -1px 0;
             border-radius: 2px 0 0 2px;
             -moz-border-radius: 2px 0 0 2px;
             -webkit-border-radius: 2px 0 0 2px;
