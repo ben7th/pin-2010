@@ -6,11 +6,16 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
+.index-page-head.clearfix
+  .grid_16.alpha
+    =render 'index/index_parts/index_page_tabs'
+
+  .grid_6.omega.fright
+    =render 'feeds/infos/new_button'
+
+.hrr
+
 .grid_16.alpha
-  =render 'index/index_parts/index_page_tabs'
-
-  .hrr
-
   .homepage-see-others.font14.bold
     =link_to '&gt;&gt; 访问思维导图功能','/mindmaps'
 
@@ -20,5 +25,4 @@
       .page-list-more{:'data-count'=>'10'} 查看更多
 
 .grid_6.omega.fright
-  =render 'feeds/infos/new_button'
   =render 'index/index_parts/feed_links'
