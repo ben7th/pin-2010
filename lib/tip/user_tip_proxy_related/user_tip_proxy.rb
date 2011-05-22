@@ -20,28 +20,31 @@ class UserTipProxy < BaseTipProxy
     @rh.all.keys.count
   end
 
+  # 这里只组织数据，不删除任何失效条目。
+  # 否则会出现 tips_count 和 tips 数量上不一致的情况。
+  # 显示在前端的效果就是 看见有通知数量提示，但却没有显示。体验不好。
   def tips
     tips = []
     @rh.all.each do |tip_id,tip_hash|
       case tip_hash["kind"]
       when FAVS_EDIT_FEED_CONTENT
         tip = build_favs_tip(tip_id,tip_hash)
-        next if tip.blank?
+        # next if tip.blank?
         tips.push(tip)
       when FAVS_ADD_VIEWPOINT
         tip = build_favs_tip(tip_id,tip_hash)
-        next if tip.blank?
+        # next if tip.blank?
         tips.push(tip)
       when FAVS_EDIT_VIEWPOINT
         tip = build_favs_tip(tip_id,tip_hash)
-        next if tip.blank?
+        # next if tip.blank?
         tips.push(tip)
       when FEED_INVITE
         feed = Feed.find_by_id(tip_hash["feed_id"])
         creator = User.find_by_id(tip_hash["creator_id"])
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
-        next if feed.blank? || creator.blank?
+        # next if feed.blank? || creator.blank?
         tip = Struct.new(:id,:feed,:creator,:kind,:time).new(tip_id,feed,creator,kind,time)
         tips.push(tip)
       when VIEWPOINT_VOTE_UP
@@ -50,7 +53,7 @@ class UserTipProxy < BaseTipProxy
         voters = voters_ids.map{|id|User.find_by_id(id)}.compact
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
-        next if voters.blank? || viewpoint.blank?
+        # next if voters.blank? || viewpoint.blank?
         tip = Struct.new(:id,:viewpoint,:voters,:kind,:time).new(tip_id,viewpoint,voters,kind,time)
         tips.push(tip)
       when VIEWPOINT_SPAM_MARK_EFFECT
@@ -58,14 +61,14 @@ class UserTipProxy < BaseTipProxy
         feed = Feed.find_by_id(tip_hash["feed_id"])
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
-        next if feed.blank? || viewpoint.blank?
+        # next if feed.blank? || viewpoint.blank?
         tip = Struct.new(:id,:viewpoint,:feed,:kind,:time).new(tip_id,viewpoint,feed,kind,time)
         tips.push(tip)
       when FEED_SPAM_MARK_EFFECT
         feed = Feed.find_by_id(tip_hash["feed_id"])
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
-        next if feed.blank?
+        # next if feed.blank?
         tip = Struct.new(:id,:feed,:kind,:time).new(tip_id,feed,kind,time)
         tips.push(tip)
       when VIEWPOINT_COMMENT
@@ -75,7 +78,7 @@ class UserTipProxy < BaseTipProxy
         user = User.find_by_id(tip_hash["user_id"])
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
-        next if feed.blank? || viewpoint.blank? || viewpoint_comment.blank?
+        # next if feed.blank? || viewpoint.blank? || viewpoint_comment.blank?
         tip = Struct.new(:id,:feed,:viewpoint,:viewpoint_comment,:user,:kind,:time).new(tip_id,feed,viewpoint,viewpoint_comment,user,kind,time)
         tips.push(tip)
       end
