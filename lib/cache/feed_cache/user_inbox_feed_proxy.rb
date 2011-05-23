@@ -98,15 +98,6 @@ class UserInboxFeedProxy < RedisBaseProxy
       :class  => User ,
       :in_feeds => Proc.new {|user|
         UserInboxFeedProxy.new(user).get_models(Feed)
-      },
-      :in_feeds_limit => Proc.new {|user,count|
-        ids = UserInboxFeedProxy.new(user).xxxs_ids[0...count.to_i]
-        ids.map{|id|Feed.find_by_id(id)}.compact
-      },
-      :in_feeds_more => Proc.new {|user,current_id,count|
-        ids = UserInboxFeedProxy.new(user).xxxs_ids
-        ids = ids.select{|id|id.to_i < current_id.to_i}[0...count.to_i]
-        ids.map{|id|Feed.find_by_id(id)}.compact
       }
     }
   end

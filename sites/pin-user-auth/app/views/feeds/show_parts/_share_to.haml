@@ -2,9 +2,9 @@
   -url = pin_url_for('pin-user-auth',"feeds/#{feed.id}")
   -cnt = truncate_u(feed.content,50).gsub("\n",' ')
   -if logged_in? && feed.creator == current_user
-    -title = "我在MindPin发起了一个讨论话题：#{cnt} "
+    -title = "我在MindPin发起了一个讨论主题：#{cnt} "
   -else
-    -title = "我正在访问MindPin，分享一个讨论话题：#{cnt} "
+    -title = "我正在访问MindPin，分享一个讨论主题：#{cnt} "
   -win_url = "http://service.weibo.com/share/share.php?url=#{url}&appkey=1526151944&title=#{title}&pic=&ralateUid="
   -link_to "javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:class=>'send-to-tsina' do
     <div class='icon'></div>分享到新浪微博

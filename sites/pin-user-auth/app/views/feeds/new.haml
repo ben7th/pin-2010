@@ -1,0 +1,69 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  创建新主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.clearfix
+  .grid-title
+    创建新主题：提出你的问题、想法或计划，一起来讨论吧
+
+.hrr
+.grid_16.alpha
+
+  -form_tag "/feeds",:class=>'page-new-feed-form common_form' do
+    =flash_info
+    .field
+      %label.font14.bold 标题（必须有）
+      =text_area_tag "content",'',:class=>"text content-ipter"
+    .field
+      %label.font14.bold 正文
+      =text_area_tag "detail",'',:class=>"text detail-ipter"
+    .field
+      %label.font14.bold 关键词
+      =text_field_tag "tags",'',:class=>"text tags-ipter"
+    .subm
+      =submit_tag '写好了，确定',:class=>'submit'
+      =link_to '取消返回','/',:class=>'go-back'
+      %span.quiet.submit-desc （标题、正文、关键词都可以在写好后再修改）
+
+
+.grid_7.omega.fright
+  .page-new-feed-tips
+    .tip.what-is-it.darkbg
+      .title.btb 我应该创建怎样的主题？
+      %p.bold
+        一个好的主题，或者是可以被讨论的话题；或者是能够获得确切答案的问题。
+      %p
+        这里既不是微博，也不是个人空间。<br/>这里不欢迎任何形式的“流水账”。<br/>
+        不要发“冷笑话”，也不要写“心情日记”
+      %p
+        =":)"
+      %p
+        简单的小问题，请善用搜索引擎。
+      .alignright
+        <a href='http://www.mindpin.com/feeds/2770' target='_blank'>具体请参考这里»</a>
+
+    .tip.format-help.darkbg{:style=>'display:none;'}
+      .title.btb 简明格式帮助
+      %ul
+        %li **<strong>粗体字</strong>**
+        %li _<em>斜体字</em>_
+        %li ~~<strike quiet>删除线</strike>~~
+        %li &gt; 引用块
+        %li * 列表项
+        %li 小标题<br/>------
+        %li ![图片名](图片地址)
+      .alignright
+        <a href='http://www.mindpin.com/feeds/6039' target='_blank'>具体请参考这里»</a>
+
+    .tip.tag-help.darkbg{:style=>'display:none;'}
+      .title.btb 怎样添加关键词
+      %p
+        挑选简明扼要的，能代表文章内容的词或简单短语作为关键词。
+      %p
+        使用纯中文或者英文数字，不支持特殊符号。
+      %p
+        输入多个关键词，用逗号或空格分隔。

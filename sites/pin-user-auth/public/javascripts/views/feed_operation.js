@@ -1,73 +1,25 @@
 //发送feed
 pie.load(function(){
-  jQuery('.page-new-feed-button a.button').live('click',function(){
-    var form_elm = jQuery('.page-new-feed-button .new-form');
-
-    jQuery.facebox(
-      '<div class="page-new-feed-fbox-form">'+
-        form_elm.html()+
-      '</div>'
-    );
-
-    jQuery('#facebox_overlay').unbind('click');
-  });
-
-  jQuery('#facebox .page-new-feed-fbox-form .subm .cancel').live('click',function(){
-    jQuery.facebox.close();
+  jQuery('.page-new-feed-form .content-ipter').live('focus',function(){
+    var t_elm = jQuery('.page-new-feed-tips .tip.what-is-it');
+    if(t_elm.css('display')!='none') return;
+    jQuery('.page-new-feed-tips .tip').hide();
+    t_elm.fadeIn();
   })
 
-  jQuery('#facebox .page-new-feed-fbox-form .subm .send-feed').live('click',function(){
-    var form_elm = jQuery(this).closest('.page-new-feed-fbox-form');
-    var inputer_elm = form_elm.find('.ipter .feed-content');
-    var content = inputer_elm.val();
+  jQuery('.page-new-feed-form .detail-ipter').live('focus',function(){
+    var t_elm = jQuery('.page-new-feed-tips .tip.format-help');
+    if(t_elm.css('display')!='none') return;
+    jQuery('.page-new-feed-tips .tip').hide();
+    t_elm.fadeIn();
+  })
 
-    var detail_inputer_elm = form_elm.find('.feed-detail');
-    var detail = detail_inputer_elm.val();
-
-    var data;
-    data = 'content='+encodeURIComponent(content)+'&detail='+encodeURIComponent(detail);
-
-    if(jQuery.string(content).blank()){
-      pie.inputflash(inputer_elm);
-      return;
-    }
-
-    jQuery.ajax({
-      url  : pie.pin_url_for('pin-user-auth','/newsfeed/do_say'),
-      type : 'post',
-      data : data,
-      beforeSend : function(){
-        pie.show_loading_bar();
-        form_elm.find('.sending').fadeIn('100');
-        form_elm.find('.send-feed , .cancel').hide();
-        form_elm.find('textarea').addClass('disabled');
-      },
-      success : function(res){
-        //创建成功
-        inputer_elm.val('');
-        detail_inputer_elm.val('');
-        var dom_elm = jQuery(res);
-        var lis = dom_elm.find('li');
-        
-        var suce_elm = form_elm.find('.success');
-        suce_elm.fadeIn('200');
-
-        var feed_id = lis.attr('data-obj-id');
-        window.location.href = pie.pin_url_for('pin-user-auth','/feeds/'+feed_id);
-
-//        jQuery('#mplist_feeds').prepend(lis);
-//        lis.hide().slideDown(400);
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-        form_elm.find('.sending').hide();
-      },
-      error : function(){
-        form_elm.find('.send-feed , .cancel').show();
-        form_elm.find('textarea').removeClass('disabled');
-      }
-    });
-  });
+  jQuery('.page-new-feed-form .tags-ipter').live('focus',function(){
+    var t_elm = jQuery('.page-new-feed-tips .tip.tag-help');
+    if(t_elm.css('display')!='none') return;
+    jQuery('.page-new-feed-tips .tip').hide();
+    t_elm.fadeIn();
+  })
 })
 
 
@@ -111,7 +63,7 @@ pie.load(function(){
 pie.load(function(){
   //传播
   var ftelm = jQuery('<div class="feed-transmit-form popdiv">'+
-    '<div class="title">传播一个话题</div>'+
+    '<div class="title">传播一个主题</div>'+
     '<div class="flash-success"><span>发送成功</span></div>'+
     '<div class="ori-feed"></div>'+
     '<div class="ipt"><textarea class="transmit-inputer"></textarea></div>'+
@@ -183,7 +135,7 @@ pie.load(function(){
 
     var li_elm = f_elm.closest('li');
 
-    elm.confirm_dialog('确定要隐藏这个话题吗',function(){
+    elm.confirm_dialog('确定要隐藏这个主题吗',function(){
       li_elm.slideUp({
         complete : function(){
           li_elm.remove();
@@ -211,7 +163,7 @@ pie.load(function(){
 
     var li_elm = f_elm.closest('li');
 
-    elm.confirm_dialog('确定要恢复这个话题吗',function(){
+    elm.confirm_dialog('确定要恢复这个主题吗',function(){
       // put /feeds/id/recover
       li_elm.slideUp({
         complete : function(){
@@ -490,28 +442,28 @@ pie.load(function(){
   })
 })
 
-//查看更多话题
+//查看更多主题
 pie.load(function(){
   jQuery('.index-tab-ct.feeds .page-list-more').live('click',function(){
     // get /in_feeds_more  params[:current_id] params[:count]
 
+    var last_vector = jQuery('.index-tab-ct.feeds li').last().attr('data-obj-id');
+
     var count = jQuery(this).attr('data-count');
-    var current_id = jQuery('.index-tab-ct.feeds li').last().attr('data-obj-id');
+    var url = jQuery(this).attr('data-url');
+
     jQuery.ajax({
-      url : '/in_feeds_more',
-      type : 'get',
-      data : 'current_id='+current_id+'&count='+count,
-      beforeSend : function(){
-        pie.show_loading_bar();
+      url : url,
+      type : 'GET',
+      data : {
+        'last_vector' : last_vector,
+        'count' : count
       },
       success : function(res){
         var lis_elm = jQuery(res).find('li');
         lis_elm.hide();
         jQuery('.index-tab-ct.feeds .newsfeed .mplist.feeds').append(lis_elm);
         lis_elm.fadeIn(200);
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     })
   })

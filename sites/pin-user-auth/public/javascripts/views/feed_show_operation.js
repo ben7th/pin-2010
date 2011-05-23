@@ -172,7 +172,7 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  //修改话题正文
+  //修改主题正文
   jQuery('.page-feed-show .detail-data .edit-detail .edit').live('click',function(){
     var form_elm = jQuery('.feed-detail-edit-form')
     var elm = jQuery(this);
@@ -221,7 +221,7 @@ pie.load(function(){
 
 
 pie.load(function(){
-  //修改话题页的标题
+  //修改主题页的标题
   jQuery('.feed-show-page-head .ftitle .edit-feed-title .edit').live('click',function(){
     var form_elm = jQuery('.feed-title-edit-form')
     var elm = jQuery(this);
@@ -268,7 +268,7 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  //修改话题页的tag
+  //修改主题页的tag
   jQuery('.feed-show-page-head .ftag .edit-tags .edit').live('click',function(){
     var elm = jQuery(this);
     var head_elm = elm.closest('.feed-show-page-head');
@@ -437,7 +437,7 @@ pie.load(function(){
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var feed_id = feed_elm.attr('data-id');
-    elm.confirm_dialog('如果很多人都这么觉得，话题将被隐藏。',function(){
+    elm.confirm_dialog('如果很多人都这么觉得，主题将被隐藏。',function(){
       // post /feeds/id/add_spam_mark
       jQuery.ajax({
         url : '/feeds/'+feed_id+'/add_spam_mark',
@@ -553,7 +553,7 @@ pie.load(function(){
     var form_elm = jQuery('.show-page-feed-share-form');
 
     jQuery.facebox(
-      '<h3 class="f_box">发送话题讨论邀请邮件</h3>'+
+      '<h3 class="f_box">发送主题讨论邀请邮件</h3>'+
       '<div class="show-page-feed-share-form">'+
         '<div class="flash-success" style="display:none;"><span>邮件发送完毕</span></div>'+
         form_elm.html()+
@@ -609,7 +609,7 @@ pie.load(function(){
     var form_elm = jQuery('.show-page-feed-link-share-form');
 
     jQuery.facebox(
-      '<h3 class="f_box">转发话题链接地址</h3>'+
+      '<h3 class="f_box">转发主题链接地址</h3>'+
       '<div class="show-page-feed-link-share-form">'+
         form_elm.html()+
       '</div>'

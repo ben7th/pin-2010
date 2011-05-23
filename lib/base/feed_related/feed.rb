@@ -1,5 +1,4 @@
 class Feed < UserAuthAbstract
-  version 20110506
   set_readonly false
 
   validates_presence_of :content
@@ -135,8 +134,9 @@ class Feed < UserAuthAbstract
   end
 
   def update_content(content,editer)
+    return if self.locked? && !editer.is_admin_user?
     return if editer.blank?
-    self.update_attribute(:content,content)
+    self.update_attributes(:content=>content)
     self.record_editer(editer)
   end
   
@@ -148,6 +148,7 @@ class Feed < UserAuthAbstract
 
   # 话题详情
   def update_detail_content(content,editer)
+    return if self.locked? && !editer.is_admin_user?
     return if editer.blank?
     todo = self.get_or_create_first_todo
     todo.create_or_update_todo_item(content)
@@ -176,6 +177,16 @@ class Feed < UserAuthAbstract
 
   def send_invite_email(sender,recipient_email,title,postscript)
     Mailer.deliver_feed_invite(self,sender,recipient_email,title,postscript)
+  end
+
+  def lock
+    self.update_attributes(:locked=>true) unless self.locked?
+  end
+
+  def lock_by(user)
+    return false unless user.is_admin_user?
+    self.lock
+    return true
   end
 
   module UserMethods

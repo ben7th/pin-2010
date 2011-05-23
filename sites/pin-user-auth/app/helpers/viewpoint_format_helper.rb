@@ -1,5 +1,5 @@
 module ViewpointFormatHelper
-  # 话题
+  # 主题
   #-----------------
 
   def feed_content(feed)

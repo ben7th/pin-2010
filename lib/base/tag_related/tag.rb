@@ -1,5 +1,4 @@
 class Tag < UserAuthAbstract
-  version 20110518
   DEFAULT = "没有关键词"
 
   validates_format_of :name,:with=>/^[A-Za-z0-9一-龥]+$/

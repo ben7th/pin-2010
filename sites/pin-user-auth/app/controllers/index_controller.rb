@@ -7,17 +7,20 @@ class IndexController < ApplicationController
     end
 
     # 登录后，显示登录后首页
-    @feeds = current_user.in_feeds_limit(20)
+    @feed_collection = UserInboxFeedProxy.new(current_user).xxxs_ids.vector_more(20,:model=>Feed)
+    @feeds = @feed_collection.result
+  end
+
+  def in_feeds_more
+    @feed_collection = UserInboxFeedProxy.new(current_user).xxxs_ids.
+      vector_more(params[:count].to_i,:vector=>params[:last_vector],:model=>Feed)
+    @feeds = @feed_collection.result
+    render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
   end
 
   def inbox_logs_more
     @logs = current_user.inbox_logs_more(params[:current_id],params[:count])
     render :partial=>'index/userlog/userlog',:locals=>{:logs=>@logs}
-  end
-
-  def in_feeds_more
-    @feeds = current_user.in_feeds_more(params[:current_id],params[:count])
-    render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
   end
 
   def user_logs

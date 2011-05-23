@@ -31,7 +31,7 @@ class Mailer < ActionMailer::Base
     @content_type = "text/html"
   end
 
-  # 话题邀请
+  # 主题邀请
   def feed_invite(feed,sender,recipient_email,title,postscript)
     @recipients = recipient_email
     @from = 'MindPin<noreply@mindpin.com>'

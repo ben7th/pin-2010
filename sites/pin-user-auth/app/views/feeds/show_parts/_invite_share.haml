@@ -9,14 +9,14 @@
         %input.text.inline.email{:type=>'text'}
       .field
         %label 邮件主题
-        %input.text.inline.title{:type=>'text',:value=>"#{current_user.name}向你推荐讨论话题"}
+        %input.text.inline.title{:type=>'text',:value=>"#{current_user.name}向你推荐讨论主题"}
       .field
         %label 邮件内容
         .cont.darkbg
           .p
             #{current_user.name}说：
           .p
-            我向你推荐来自MindPin的这个讨论话题：
+            我向你推荐来自MindPin的这个讨论主题：
           .p
             =feed.content
           .p

@@ -43,5 +43,5 @@
     -if logged_in?
       .show-page-ops
         -faved = feed.fav_by?(current_user)
-        %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''}> 关注这个话题
+        %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''}> 关注这个主题
         %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'}> 　取消关注　

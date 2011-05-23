@@ -238,7 +238,7 @@
     .vote-ops{
       float:left;
       @include border-radius(4px);
-      padding:0 5px;
+      padding:0 5px 0 0;
       width:20px;
       .vote-up{
         @include border-radius(3px);

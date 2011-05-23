@@ -5,6 +5,21 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id]) if params[:id]
   end
 
+  def new
+    # 创建主题的页面，do nothing here.
+    @feed = Feed.new
+  end
+
+  def create
+    # songliang 2011.5.23 暂时先不考虑频道的情况
+    feed = current_user.send_say_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags])
+    if feed.id.blank?
+      flash[:error]=get_flash_error(feed)
+      return redirect_to '/feeds/new'
+    end
+    redirect_to feed
+  end
+
   def do_say
     return _do_say_in_channel if params[:channel_id]
     _do_say_no_channel
@@ -189,7 +204,7 @@ class FeedsController < ApplicationController
   def invite
     users = params[:user_ids].split(",").uniq.map{|id|User.find_by_id(id)}.compact
     return render :text=>"不能邀请自己",:status=>503 if users.include?(current_user)
-    return render :text=>"不能邀请话题的创建者",:status=>503 if users.include?(@feed.creator)
+    return render :text=>"不能邀请主题的创建者",:status=>503 if users.include?(@feed.creator)
     @feed.invite_users(users,current_user)
     render :partial=>'feeds/show_parts/invite_users',:locals=>{:feed=>@feed}
   end

@@ -1,14 +1,14 @@
 -require_css 'views/users',true
 
 -content_for :title do
-  我参与的话题
+  我参与的主题
 
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
 .grid_16.alpha
   .grid-title
-    我参与的话题
+    我参与的主题
   .hrr
   .newsfeed
     =render 'feeds/lists/feeds_stat',:feeds=>@feeds

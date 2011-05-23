@@ -97,7 +97,7 @@ class UserTipProxy < BaseTipProxy
   end
 
   def self.rules
-    @@rules||[]
+    @@rules||=[]
   end
 
   extend QueueMethods

@@ -4,16 +4,16 @@
     =tabs_link_to '我的首页',pin_url_for('pin-user-auth','/')
   .link.favs.btb
     .icon
-    =tabs_link_to '关注的话题',pin_url_for('pin-user-auth','/favs')
+    =tabs_link_to '关注的主题',pin_url_for('pin-user-auth','/favs')
   .link.memoed-todos.btb
     .icon
-    =tabs_link_to '参与的话题',pin_url_for('pin-user-auth','/feeds/memoed')
+    =tabs_link_to '参与的主题',pin_url_for('pin-user-auth','/feeds/memoed')
   .link.be-asked-todos.btb
     .icon
-    =tabs_link_to '被邀请的话题',pin_url_for('pin-user-auth','/feeds/be_invited')
+    =tabs_link_to '被邀请的主题',pin_url_for('pin-user-auth','/feeds/be_invited')
   .link.be-hidden-todos
     .icon
-    =tabs_link_to '被隐藏的话题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
+    =tabs_link_to '被隐藏的主题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
 
 .module-links.feeds
   .link.recent-userlogs.btb
@@ -21,7 +21,7 @@
     =tabs_link_to '这里正在进行…',pin_url_for('pin-user-auth','/feeds/userlogs')
   .link.recent-hot-feeds
     .icon
-    =tabs_link_to '大家最近的话题',pin_url_for('pin-user-auth','/feeds/all')
+    =tabs_link_to '大家最近的主题',pin_url_for('pin-user-auth','/feeds/all')
 
 .module-links{:style=>'display:none;'}
   .link.received_comments.btb

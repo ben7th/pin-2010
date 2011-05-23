@@ -47,7 +47,7 @@ module ApplicationHelper
   def _userlog_ct_add_feed(info)
     re = []
     feed = info.feed
-    re << '创建了话题'
+    re << '创建了主题'
     re << link_to(h(truncate_u(feed.content,32)),feed)
     re * ' '
   end
@@ -55,7 +55,7 @@ module ApplicationHelper
   def _userlog_ct_edit_feed(info)
     re = []
     feed = info.feed
-    re << '修改了话题'
+    re << '修改了主题'
     re << link_to(h(truncate_u(feed.content,32)),feed)
     re * ' '
   end
@@ -63,7 +63,7 @@ module ApplicationHelper
   def _userlog_ct_add_viewpoint(info)
     re = []
     feed = info.feed
-    re << '在话题'
+    re << '在主题'
     re << link_to(h(truncate_u(feed.content,32)),feed)
     re << '中发表了观点'
   end
@@ -71,7 +71,7 @@ module ApplicationHelper
   def _userlog_ct_edit_viewpoint(info)
     re = []
     feed = info.feed
-    re << '编辑了话题'
+    re << '编辑了主题'
     re << link_to(h(truncate_u(feed.content,32)),feed)
     re << '中的观点'
   end

@@ -9,7 +9,7 @@
   =render 'users/homepage/top_userinfo',:user=>@user
 
   .homepage-see-others
-    =link_to '>>去看看这位朋友的话题主页吧',pin_url_for("pin-user-auth","/users/#{@user.id}")
+    =link_to '>>去看看这位朋友的主题协作主页吧',pin_url_for("pin-user-auth","/users/#{@user.id}")
 
   =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
 

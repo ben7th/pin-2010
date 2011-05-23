@@ -18,7 +18,7 @@
         =link_to '添加联系人',"/#{current_user.id}/followings"
 
       .set{:class=>be[:feeds] ? 'complete':''}
-        =link_to '发表话题','/'
+        =link_to '发表主题','/'
 
       .set{:class=>be[:invite] ? 'complete':''}
         =link_to '邀请其他用户','/contacts_setting/invite'

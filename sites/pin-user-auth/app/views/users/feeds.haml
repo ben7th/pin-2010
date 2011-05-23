@@ -1,7 +1,7 @@
 -require_css 'views/users',true
 
 -content_for :title do
-  #{@user.name}的话题
+  #{@user.name}的主题
 
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
@@ -14,7 +14,7 @@
 .grid_16.alpha
   .newsfeed
     -if @feeds.blank?
-      .blank.darkbg.font14.padding5.rc5 这位朋友现在还没有任何话题~
+      .blank.darkbg.font14.padding5.rc5 这位朋友现在还没有任何主题~
     -else
       =render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
 

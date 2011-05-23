@@ -61,7 +61,7 @@ module UserNoticeHelper
 
     re = []
     re << usersign(user,false)
-    re << '邀请你参与话题'
+    re << '邀请你参与主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
   end
 
@@ -73,7 +73,7 @@ module UserNoticeHelper
     
     re = []
     re << usersign(user,false)
-    re << '修改了话题'
+    re << '修改了主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
   end
 
@@ -83,7 +83,7 @@ module UserNoticeHelper
 
     re = []
     re << usersign(user,false)
-    re << '在话题'
+    re << '在主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
     re << "中发表了观点"
   end
@@ -94,7 +94,7 @@ module UserNoticeHelper
 
     re = []
     re << usersign(user,false)
-    re << '在话题'
+    re << '在主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
     re << "中修改了观点"
   end
@@ -111,7 +111,7 @@ module UserNoticeHelper
     end
 
     re << vre*','
-    re << '对于你在话题'
+    re << '对于你在主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
     re << '中的观点表示赞成'
   end
@@ -131,7 +131,7 @@ module UserNoticeHelper
     feed = tip.feed
 
     re = []
-    re << '你的话题'
+    re << '你的主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
     re << '因为被认为不值得讨论而被隐藏'
   end

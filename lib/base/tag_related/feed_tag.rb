@@ -1,5 +1,4 @@
 class FeedTag < UserAuthAbstract
-  version 20110513
   belongs_to :feed
   belongs_to :tag
   validates_presence_of :feed
@@ -47,6 +46,8 @@ class FeedTag < UserAuthAbstract
 
     # 根据传入的字符串修改tag
     def change_tags(tag_names_string,editor)
+      return if self.locked? && !editor.is_admin_user?
+
       new_names = Tag.get_tag_names_by_string(tag_names_string,editor)
       old_names = self.tag_names
 
@@ -58,13 +59,13 @@ class FeedTag < UserAuthAbstract
         name = Tag.get_name_from_tag_full_name(tag_full_name)
         self.add_tag(name,namespace)
       end
-      
+
       arr_remove.each do |tag_full_name|
         namespace = Tag.get_namespace_from_tag_full_name(tag_full_name)
         name = Tag.get_name_from_tag_full_name(tag_full_name)
         self.remove_tag(name,namespace)
       end
-      
+
       if !arr_add.blank? || !arr_remove.blank?
         self.record_editer(editor)
       end

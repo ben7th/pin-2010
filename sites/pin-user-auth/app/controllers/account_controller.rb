@@ -173,7 +173,7 @@ class AccountController <  ApplicationController
     @user.errors.each_error do |attr,err|
       if attr == "name"
         if err.type == :invalid
-          @message = "用户名不符合命名规范。为了保证话题质量，系统目前只允许使用纯中文或者纯英文数字的用户名。"
+          @message = "用户名不符合命名规范。为了保证内容质量，系统目前只允许使用纯中文或者纯英文数字的用户名。"
         else
           @message = err.message
         end

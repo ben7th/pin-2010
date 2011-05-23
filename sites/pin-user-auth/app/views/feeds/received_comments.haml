@@ -30,9 +30,9 @@
             =jtime c.created_at
           .feed-content
             -if c.feed.blank?
-              被回应的话题已删除
+              被回应的主题已删除
             -else
-              回应话题
+              回应主题
               “#{truncate_u c.feed.content,32}”
 
   .paginate.padding5
