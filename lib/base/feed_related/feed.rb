@@ -200,7 +200,7 @@ class Feed < UserAuthAbstract
       if options[:tags].blank?
         feed.add_default_tag_when_no_tag
       else
-        feed.add_tags(options[:tags])
+        feed.change_tags(options[:tags],self)
       end
       feed
     end
