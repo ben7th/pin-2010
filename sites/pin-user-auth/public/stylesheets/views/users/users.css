@@ -1909,6 +1909,7 @@ form.new_message .w300 {
       .page-feed-show .main .detail-data .data ol {
         margin-left: 1.5em; }
       .page-feed-show .main .detail-data .data blockquote {
+        font-style: normal;
         margin: 1.5em 0 1.5em 1.5em;
         background: #FFFADA;
         border-left: 3px solid #FFE965;
@@ -2285,6 +2286,7 @@ form.new_message .w300 {
         .page-feed-viewpoints .viewpoint .main .content ol {
           margin-left: 1.5em; }
         .page-feed-viewpoints .viewpoint .main .content blockquote {
+          font-style: normal;
           margin: 1.5em 0 1.5em 1.5em;
           background: #FFFADA;
           border-left: 3px solid #FFE965;
