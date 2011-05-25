@@ -45,6 +45,33 @@ public
     }.compact.uniq
   end
 
+  def vector_more(count,model,vector=nil)
+    ids = _vector_more_ids(count,vector)
+    is_end = _vector_more_is_end(ids)
+
+    result = ids.map{|id|model.find_by_id(id)}.compact
+    last_value = ids.last
+    MoreCollection.new(result,last_value,is_end)
+  end
+
+  def _vector_more_is_end(ids)
+    all_ids = xxxs_ids
+    ids.last == all_ids.last
+  end
+
+  def _vector_more_ids(count,vector)
+    count = count.to_i
+    all_ids = xxxs_ids
+
+    return all_ids[0...count] if vector.blank?
+
+    vector = vector.to_i
+    index = all_ids.index(vector)
+    return [] if index.blank?
+
+    all_ids[index+1..index+count]
+  end
+
 private
   # 强制读缓存
   def xxxs_ids_rediscache

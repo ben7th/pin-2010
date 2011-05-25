@@ -3,32 +3,67 @@
   .base-info{
     padding:5px;
     margin:0 0 10px 0;
-    .name{font-size:20px;font-weight:bold;margin:0 0 6px 0;}
-  }
-}
+    overflow:hidden;
 
-.tag-page-logo{
-  padding:5px;
-  float:left;
-  position:relative;
-  .upload{display:none;}
-  &:hover{
-    .upload{
-      display:block;
-      position:absolute;
-      bottom:10px;
-      width:90px;
-      background-color:rgba(0, 0, 0, 0.5);
-      padding:5px;
-      text-align:center;
-      a{
-        color:white;
-        &:hover{color:white;}
+    .name{font-size:20px;font-weight:bold;margin:0 0 6px 0;}
+
+    .tag-page-logo{
+      float:right;
+      position:relative;
+      .upload{display:none;}
+      &:hover{
+        .upload{
+          display:block;
+          position:absolute;
+          bottom:5px;
+          width:90px;
+          background-color:rgba(0, 0, 0, 0.5);
+          padding:5px;
+          text-align:center;
+          a{
+            color:white;
+            &:hover{color:white;}
+          }
+        }
       }
     }
   }
 }
 
+.tag-page-ops{
+  padding:5px;
+  overflow:hidden;
+  .fav{
+    @include followbtn;
+  }
+  .unfav{
+    @include unfollowbtn;
+  }
+}
+
+.tag-related-feed-count{
+  padding:5px;
+  margin:0 0 30px 0;
+  .count{
+    font-size:45px;font-weight:bold;
+  }
+}
+
 .tag-page-feeds{
-  margin:0 0 0 120px;
+}
+
+.tag-related-tags{
+  padding:5px;
+  .title{font-weight:bold;margin-bottom:10px;}
+  .tag-and-count{
+    @include tags;
+    float:none;
+    display:block;
+    margin:0 0 6px 0;
+    .count{
+      line-height:21px;
+      font-weight:bold;
+      font-size:14px;
+    }
+  }
 }

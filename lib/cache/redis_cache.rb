@@ -83,6 +83,7 @@ class RedisCache
   RedisCache.load_proxy(UserBeingQuotedFeedsProxy)
   RedisCache.load_proxy(UserMemoedFeedsProxy)
   RedisCache.load_proxy(UserBeInvitedFeedsProxy)
+  RedisCache.load_proxy(UserFavTagFeedsProxy)
 
   # log 缓存
   RedisCache.load_proxy(UserOutboxLogProxy)

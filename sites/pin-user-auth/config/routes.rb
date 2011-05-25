@@ -29,6 +29,9 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_password '/reset_password/:pw_code',:controller=>'users',:action=>'reset_password'
   map.change_password '/change_password/:pw_code',:controller=>'users',:action=>'change_password'
 
+  # ---- 起步指南相关 ----
+  map.start_up_basic_setting '/startup/basic-setting',:controller=>'help',:action=>'basic_setting'
+
   # ----------------- 设置相关 -------------
   map.resource :preference,:collection=>{:selector=>:get,:ajax_theme_change=>:get}
 
@@ -85,6 +88,12 @@ ActionController::Routing::Routes.draw do |map|
     :conditions=>{:method=>:put}
   map.connect "/account/feed_form_show_detail_cookie",:controller=>"account",
     :action=>"feed_form_show_detail_cookie",:conditions=>{:method=>:put}
+
+  map.connect "/account/hide_startup",:controller=>"account",
+    :action=>"hide_startup",:conditions=>{:method=>:put}
+
+  map.connect "/account/hide_new_feature_tips",:controller=>"account",
+    :action=>"hide_new_feature_tips",:conditions=>{:method=>:put}
 
   # 发送邀请函
   map.contacts_setting_invite "contacts_setting/invite",:controller=>"contacts_setting",:action=>"invite"
@@ -247,6 +256,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/tips/remove_all_user_tips",:controller=>"tips",
     :action=>"remove_all_user_tips",:conditions=>{:method=>:delete}
 
-  map.resources :tags,:member=>{:logo=>:put,:detail=>:put,:upload_logo=>:get}
+  map.resources :tags,:member=>{
+    :logo=>:put,:detail=>:put,:upload_logo=>:get,
+    :fav=>:post,:unfav=>:delete}
 
 end

@@ -30,4 +30,8 @@ class RedisHash
   def del
     @redis.del(@key)
   end
+
+  def exists?
+    @redis.exists(@key)
+  end
 end

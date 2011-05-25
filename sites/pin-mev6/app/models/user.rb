@@ -16,6 +16,7 @@ class User < UserBase
   include MindmapComment::UserMethods
   include FeedInvite::UserMethods
   include UserLog::UserMethods
+  include TagFav::UserMethods
   # 两个工程都引入的
 
   index :email

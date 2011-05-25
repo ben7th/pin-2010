@@ -511,3 +511,17 @@ pie.load(function(){
   })
 
 })
+
+//隐藏新功能通知
+pie.load(function(){
+  // put /account/hide_startup
+  jQuery('.index-page-new-feature-tip .close').live('click',function(){
+    jQuery.ajax({
+      url : '/account/hide_new_feature_tips',
+      type : 'PUT',
+      beforeSend : function(){
+        jQuery('.index-page-new-feature-tip').fadeOut(200);
+      }
+    })
+  })
+})

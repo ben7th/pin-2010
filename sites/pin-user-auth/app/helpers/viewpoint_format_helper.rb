@@ -11,6 +11,9 @@ module ViewpointFormatHelper
     find_and_preserve MindpinTextFormat.new(content).to_html
   end
 
+  def feed_detail_short(feed)
+    find_and_preserve "#{h(truncate_u(feed.detail_content,128))}"
+  end
 
 
   # 观点
@@ -36,10 +39,10 @@ module ViewpointFormatHelper
   end
 
   def _viewpoint_memo_format_in_list_long(vp)
-    MindpinTextFormat.new(vp.memo).to_text
+    h MindpinTextFormat.new(vp.memo).to_text
   end
 
   def _viewpoint_memo_format_in_list_short(vp)
-    truncate_u(MindpinTextFormat.new(vp.memo).to_text, 64)
+    h truncate_u(MindpinTextFormat.new(vp.memo).to_text, 64)
   end
 end

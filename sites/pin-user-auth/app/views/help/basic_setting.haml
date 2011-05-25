@@ -1,0 +1,60 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  起步指南：基础设置
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.clearfix
+  .grid-title 基础设置
+.hrr
+.grid_16.alpha
+  .help-page-text.padding5
+    %h2 <span class='quiet'>首先：</span>开始进行用户基础设置
+    %p 在顶部导航条，你可以找到<a href='/account'>用户设置</a>链接，点击它，会进入用户设置页面：
+    %p 这里可以进行一些常见的用户设置，和大多数网站并无大多不同，如果你对此已经很熟悉，可以<a href='#see-other'>跳过这些说明</a>。
+    =helpimg('user-setting',91)
+    %ol
+      %li
+        %h3 基本信息设置
+        %p 在右侧导航区域打开<a href='/account'>基本信息设置</a>界面
+        =helpimg('user-setting-1',69)
+        =helpimg('user-setting-1-1',254)
+        %p 
+          在这里可以设置用户名和签名档。<br/>
+          用户名是<b>全站唯一的</b>，但是可以随时修改。<br/>
+          签名档会显示在主题和观点里。
+        %p 填写好以后，点击“保存更改”，修改就会即时生效。
+      %li
+        %h3 头像设置
+        %p 在右侧导航区域打开<a href='/account/avatared'>修改头像</a>界面
+        =helpimg('user-setting-2',60)
+        =helpimg('user-setting-2-1',216)
+        %p
+          可以在这里通过上传图片来修改头像<br/>
+          头像有几种不同尺寸，会用在系统内的不同地方。
+        %p
+          选择你本地硬盘上的图片文件并上传。
+        =helpimg('user-setting-2-2',467)
+        %p
+          上传完毕后，需要你对图片进行裁切，选择适合作为头像的正方形区域。
+        %p
+          选择好之后，按下“<b>好了，可以保存了</b>”，就设置完成！
+
+    %h2#see-other <span class='quiet'>然后：</span>查看其它起步指南
+    %p
+      现在你已经设置好头像和签名档了，那么，怎样进行主题讨论呢？<br/>
+      看看指南的其他部分吧：
+    %ol
+      %li.quiet 基础设置
+      %li <a href='/startup/edit-feed'>创建主题</a>
+      %li <a href='/startup/discuss'>参与讨论</a>
+      %li <a href='/startup/friends'>结识朋友</a>
+
+.grid_3.omega.fright
+  %ol.font14
+    %li.quiet 基础设置
+    %li <a href='/startup/edit-feed'>创建主题</a>
+    %li <a href='/startup/discuss'>参与讨论</a>
+    %li <a href='/startup/friends'>结识朋友</a>

@@ -1,30 +1,41 @@
-- be = current_user.base_event
-- percentage = be[:complate_percentage]
-
--if logged_in? && percentage < 100
-  .hrr
-  .homepage-getting-started
-    .title.btb 起步指南
-    .percent
-      .p
-        进行以下活动来完善你的信息，目前完成度 <span class='bold'>#{percentage}%</span>
-      .bar
-        .c{:style=>"width:#{percentage}%;"}
-    .items
-      .set{:class=>be[:avatar] ? 'complete':''}
-        =link_to '设置个性头像','/account/avatared'
-
-      .set{:class=>be[:contacts] ? 'complete':''}
-        =link_to '添加联系人',"/#{current_user.id}/followings"
-
-      .set{:class=>be[:feeds] ? 'complete':''}
-        =link_to '发表主题','/'
-
-      .set{:class=>be[:invite] ? 'complete':''}
-        =link_to '邀请其他用户','/contacts_setting/invite'
-
-      .set{:class=>be[:bind_site] ? 'complete':''}
-        =link_to '绑定其他平台','/account/bind_tsina'
-
-      .set{:class=>be[:activated] ? 'complete':''}
-        =link_to '激活邮箱','/account/email'
+.index-page-getting-start.clearfix
+  .title>
+    MindPin - 起步指南
+    %span> 如果你初来乍到，可以通过下面这些步骤，熟悉这里的环境。
+  .s-body.blue
+    %ul.start-up
+      %li.basic-setting
+        %a{:target=>'_blank',:href=>'/startup/basic-setting'}
+          .image
+          .desc>
+            .p1> 基础设置
+            .p2> 个人头像，昵称，签名
+          %span.step-num> 1
+      %li.edit-feed
+        %a{:target=>'_blank',:href=>'/startup/edit-feed'}
+          .image
+          .desc>
+            .p1> 创建主题
+            .p2> 内容编排，使用关键词
+          %span.step-num> 2
+      %li.discuss
+        %a{:target=>'_blank',:href=>'/startup/discuss'}
+          .image
+          .desc>
+            .p1> 参与讨论
+            .p2> 发表观点，投票互动
+          %span.step-num> 3
+      %li.friends
+        %a{:target=>'_blank',:href=>'/startup/friends'}
+          .image
+          .desc>
+            .p1> 结识朋友
+            .p2> 互相关注，邀请
+          %span.step-num> 4
+      %li.check-in
+        %a{:target=>'_blank',:href=>'http://www.mindpin.com/feeds/3121'}
+          .image
+          .desc>
+            .p1> 签到
+            .p2> 来这里报道吧~
+          %span.step-num> 5

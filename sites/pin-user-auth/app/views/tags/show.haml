@@ -6,22 +6,42 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.tag-page-top-info
-  .base-info
-    -if @tag.namespace.blank?
-      .name>=@tag.name
-    -else
-      .name>="<span class='darkbg'>#{@tag.namespace}</span> #{@tag.name}"
+.tag-page-top-info.clearfix
+  .grid_16.alpha
+    .base-info
+      .tag-page-logo
+        =logo @tag,:medium
+        -if logged_in?
+          .upload=link_to '上传图片',"/tags/#{@tag.full_name}/upload_logo"
+
+      -if @tag.namespace.blank?
+        .name>=@tag.name
+      -else
+        .name>="<span class='darkbg'>#{@tag.namespace}</span> #{@tag.name}"
+
+  .grid_6.omega.fright
+    .tag-page-ops
+      -faved = @tag.fav_by?(current_user)
+      %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''}> 关注这个关键词
+      %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'}> 　取消关注　
 
 .hrr
-.grid_20.alpha
-  .tag-page-logo
-    =logo @tag,:medium
-    -if logged_in?
-      .upload=link_to '上传图片',"/tags/#{@tag.full_name}/upload_logo"
+.grid_16.alpha
   .tag-page-feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
 
 
-.grid_2.omega.fright
+.grid_6.omega.fright
+  .tag-related-feed-count
+    .count
+      =@tag.feeds.count
+    .desc 主题带有此关键词
+
+  .hrr
+  .tag-related-tags
+    .title 相关关键词
+    -@tag.related_feed_tags_map.each do |tc|
+      .tag-and-count
+        =tag_label(tc[:tag])
+        .count="× #{tc[:count]}"

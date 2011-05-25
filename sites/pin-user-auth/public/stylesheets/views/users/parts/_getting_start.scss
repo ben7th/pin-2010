@@ -1,0 +1,165 @@
+.homepage-getting-started{
+  @include border-radius(4px);
+  /*
+  border:solid 2px #F0F077;
+  background:#FBFBDD;
+  */
+  border:solid 2px #FFE965;
+  background:#FFFADA;
+  padding:5px;
+  margin:0 0 20px 0;
+  .title{
+    font-weight:bold;
+    margin:0 0 6px 0;
+  }
+  .percent{
+    margin:0 0 10px 0;
+    .p{margin:0 0 6px 0;}
+    .bar{
+      font-size:0px;
+      line-height:0px;
+      height:16px;
+      border:solid 1px #C7C7C7;
+      background:white;
+      .c{
+        height:16px;
+        @include gradient(#9DF770,#8DE565);
+      }
+    }
+  }
+  .items{
+    .set{
+      &.complete{
+        a{color:#ccc !important;text-decoration:line-through;}
+      }
+    }
+  }
+}
+
+@mixin steps-img($x,$y){
+  background:url(/images/help/start_steps.png) no-repeat $x $y;
+}
+
+.index-page-getting-start{
+  margin:0 0 20px 0;
+  padding:5px;
+  .title{
+    @include border-radius(5px 5px 0 0);
+    background:#597DAA;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
+    padding:8px 18px;
+    margin:0;
+    span{
+      color:#E9F1F4;
+      font-size:12px;
+      font-weight:normal;
+      padding:0 0 0 12px;
+      text-shadow:none;
+    }
+  }
+
+  .s-body{
+    &.yellow{
+      background:#F3F3F3;
+      ul li{
+        @include gradient(#FFFFF5, #F5F3B4);
+        border:1px solid #DFDDB5;
+        a{
+          .image{
+            border-bottom:1px solid #F1EFAF;
+          }
+          .step-num{color:#E4E1A8;}
+        }
+        &:hover{
+          @include gradient(#FCFCE9, #F1EEA3);
+          border: 1px solid #D6D4AD;
+          .step-num{color:#E3DF96;}
+        }
+      }
+    }
+    &.blue{
+      background:#F3F3F3;
+      ul li{
+        @include gradient(#FEFEFC, #E6EAEA);
+        border:1px solid #DDE3E9;
+        a{
+          .image{
+            border-bottom:1px solid #DDE3E9;
+          }
+          .step-num{color:#C0CCE7;}
+        }
+        &:hover{
+          @include gradient(#F9F9F7, #E3E7E7);
+          border: 1px solid #DADFE6;
+        }
+      }
+    }
+
+    @include border-radius(0 0 5px 5px);
+    border-bottom:solid 1px #DFDFDF;
+    overflow:hidden;
+    padding:10px 0 10px 11px; /* <=== */
+    ul{
+      li{
+        @include box-shadow(0 1px 0 #FFFFFF);
+        @include border-radius(5px);
+        float:left;
+        position:relative;
+        display:block;
+        color:#666;
+        font-weight:normal;
+        margin:0 9px 0 0;
+        width:168px;height:168px; /* <=== */
+
+        a{
+          color:#666;
+          display:block;
+          text-decoration:none;
+          .image{
+            position:relative;
+            display:block;
+            height:111px; /* <=== */
+          }
+          .desc{
+            border-top:1px solid #FFFFFF;
+            position:relative;
+            padding:0 0 0 8px;
+            height:55px; /* <=== */
+            .p1{
+              font-size:14px;
+              color:#393939;
+              font-weight:bold;
+              padding:6px 0 0 0;
+            }
+            .p2{
+              font-size:12px;
+              color:#666;
+            }
+          }
+          span.step-num{
+            position:absolute;
+            font-weight:bold;
+            font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+            right:0;
+            bottom:0;
+            text-align:center;
+            overflow:hidden;
+            font-size:80px;
+            line-height:55px;
+            height:55px;
+            width:40px;
+          }
+        }
+
+        &.basic-setting .image{@include steps-img(0px,0px);}
+        &.edit-feed .image{@include steps-img(-169px,0px);}
+        &.discuss .image{@include steps-img(-338px,0px);}
+        &.friends .image{@include steps-img(-507px,0px);}
+        &.check-in .image{@include steps-img(-676px,0px);}
+      }
+    }
+  }
+}

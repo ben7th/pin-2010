@@ -205,5 +205,15 @@ class AccountController <  ApplicationController
     cookies[:feed_form_show_detail] = params[:value]
     render :text=>200
   end
+
+  def hide_startup
+    current_user.do_hide_startup
+    render :text=>200
+  end
+
+  def hide_new_feature_tips
+    current_user.hide_new_feature_tips
+    render :text=>200
+  end
   
 end

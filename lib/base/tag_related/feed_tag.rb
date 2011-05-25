@@ -3,6 +3,7 @@ class FeedTag < UserAuthAbstract
   belongs_to :tag
   validates_presence_of :feed
   validates_presence_of :tag
+  validates_uniqueness_of :feed_id, :scope => :tag_id
 
   module FeedChangeMethods
     def self.included(base)
@@ -16,8 +17,8 @@ class FeedTag < UserAuthAbstract
 
   module FeedMethods
     def self.included(base)
-      base.has_many :feed_tags
-      base.has_many :tags,:through=>:feed_tags,:source=>:tag
+      base.has_many :feed_tags,:order=>"feed_tags.id asc"
+      base.has_many :tags,:through=>:feed_tags,:source=>:tag,:order=>"feed_tags.id asc"
       base.after_update :add_default_tag_when_no_tag
     end
 
@@ -77,12 +78,14 @@ class FeedTag < UserAuthAbstract
 
   module TagMethods
     def self.included(base)
-      base.has_many :feed_tags
-      base.has_many :feeds,:through=>:feed_tags,:order=>"feeds.updated_at desc"
+      base.has_many :feed_tags,:order=>"feed_tags.id desc"
+      base.has_many :feeds,:through=>:feed_tags,:order=>"feed_tags.id desc"
     end
 
     def feeds_limited(count)
       self.feeds.find(:all,:limit=>count.to_i)
     end
   end
+
+  include TagRelatedFeedTagsMapProxy::FeedTagMethods
 end

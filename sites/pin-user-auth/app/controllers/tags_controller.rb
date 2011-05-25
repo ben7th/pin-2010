@@ -30,4 +30,15 @@ class TagsController < ApplicationController
       render :text=>"描述保存失败",:status=>401
     end
   end
+
+  before_filter :login_required,:only=>[:fav,:unfav]
+  def fav
+    current_user.do_fav(@tag)
+    render :stats=>200,:text=>"关注成功"
+  end
+
+  def unfav
+    current_user.do_unfav(@tag)
+    render :stats=>200,:text=>"取消关注成功"
+  end
 end

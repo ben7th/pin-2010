@@ -6,15 +6,12 @@ class IndexController < ApplicationController
       return render(:template=>'auth/no_auth_index')
     end
 
-    # 登录后，显示登录后首页
-    @feed_collection = UserInboxFeedProxy.new(current_user).xxxs_ids.vector_more(20,:model=>Feed)
-    @feeds = @feed_collection.result
+    @feeds = current_user.in_feeds_more(20)
   end
 
   def in_feeds_more
-    @feed_collection = UserInboxFeedProxy.new(current_user).xxxs_ids.
-      vector_more(params[:count].to_i,:vector=>params[:last_vector],:model=>Feed)
-    @feeds = @feed_collection.result
+    @feeds = current_user.in_feeds_more(params[:count],params[:last_vector])
+
     render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
   end
 

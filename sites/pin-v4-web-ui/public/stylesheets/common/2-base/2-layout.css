@@ -12,7 +12,8 @@ body {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    padding: 18px 18px 18px 18px;
+    padding: 20px;
+    /*这样正好剩余920px，23个grid*/
     margin-top: 30px;
     margin-bottom: 60px; }
     .page-content .cell .cellhead {

@@ -1,15 +1,11 @@
 
 module More
-  class Collection
-    attr_reader :last_value,:result
-    def initialize(result,last_value)
-      @result,@last_value = result,last_value
-    end
-
-    def each(&block)
-      @result.each do |item|
-        block.call(item)
-      end
+  class Collection < Array
+    attr_reader :last_value,:is_end
+    def initialize(result,last_value,is_end)
+      @last_value = last_value
+      @is_end = is_end
+      replace(result)
     end
   end
   

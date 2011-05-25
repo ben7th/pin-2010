@@ -23,6 +23,12 @@ class Tag < UserAuthAbstract
       "#{self.namespace}:#{self.name}"
     end
   end
+
+  def self.system_feature_ids
+    Tag.get_tag_by_full_name("系统:功能更新").feeds.map{|f|f.id}
+  rescue Exception => ex
+    []
+  end
   
   def self.get_tag(tag_name,namespace = nil)
     Tag.find_by_name_and_namespace(tag_name,namespace)
@@ -57,4 +63,6 @@ class Tag < UserAuthAbstract
   end
 
   include FeedTag::TagMethods
+  include TagFav::TagMethods
+  include TagRelatedFeedTagsMapProxy::TagMethods
 end

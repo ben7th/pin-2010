@@ -12,8 +12,8 @@ case "$1" in
         start)
                 assert_process_from_pid_file_not_exist $processor_pid
                 echo "redis_service start"
-                cd $root_dir/../../../redis-2.0.4
-                ./redis-server 1>> $log_file 2>> $log_file & 
+                cd $root_dir/../../../redis-2.2.7
+                ./src/redis-server 1>> $log_file 2>> $log_file & 
                 echo $! > $processor_pid
                 rc_status -v
         ;;

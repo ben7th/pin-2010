@@ -1,0 +1,38 @@
+.index-page-new-feature-tip{
+  padding:5px;
+  margin:0 0 20px 0;
+  .tip{
+    padding:10px 10px 10px 10px;
+    border-color: #D1EAD2 #BBD2BC #BBD2BC;
+    border-radius: 5px 5px 5px 5px;
+    border-right: 1px solid #BBD2BC;
+    border-style: solid;
+    border-width: 1px;
+    @include border-radius(5px);
+    /*background:#DCF7DD;*/
+    /*background:#FFF99D;*/
+    @include gradient(#FFFACA,#FAF5BA);
+    border:solid 1px #DFDDB5;
+    .title{
+      font-size:14px;font-weight:bold;
+      color:black;
+    }
+    .desc{}
+  }
+  .link{
+    overflow:hidden;
+    .close{
+      float:left;
+      color:#666666;
+      span{font-weight:bold;font-size:14px;color:#a60000;}
+      &:hover{
+        color:#666666;
+        span{color:#a60000;}
+      }
+    }
+    .show-more{
+      float:right;
+      .count{font-weight:bold;}
+    }
+  }
+}

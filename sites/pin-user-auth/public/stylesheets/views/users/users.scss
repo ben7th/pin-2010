@@ -811,44 +811,6 @@ form.new_message{
   }
 }
 
-.homepage-getting-started{
-  @include border-radius(4px);
-  /*
-  border:solid 2px #F0F077;
-  background:#FBFBDD;
-  */
-  border:solid 2px #FFE965;
-  background:#FFFADA;
-  padding:5px;
-  margin:0 0 20px 0;
-  .title{
-    font-weight:bold;
-    margin:0 0 6px 0;
-  }
-  .percent{
-    margin:0 0 10px 0;
-    .p{margin:0 0 6px 0;}
-    .bar{
-      font-size:0px;
-      line-height:0px;
-      height:16px;
-      border:solid 1px #C7C7C7;
-      background:white;
-      .c{
-        height:16px;
-        @include gradient(#9DF770,#8DE565);
-      }
-    }
-  }
-  .items{
-    .set{
-      &.complete{
-        a{color:#ccc !important;text-decoration:line-through;}
-      }
-    }
-  }
-}
-
 .homepage-see-others{
   @include border-radius(5px);
   padding:5px;
@@ -992,6 +954,7 @@ form.new_message{
     &:hover{text-decoration:none;}
     &.selected{
       background:#686B72;
+      border:solid 1px #677C89;
       .title{color:white;}
       .quiet{color:#ddd !important;}
     }
@@ -1123,3 +1086,6 @@ form.new_message{
 @import 'parts/userlog';
 @import 'parts/user_page';
 @import 'parts/tag_page';
+@import 'parts/getting_start';
+@import 'parts/index_page';
+@import 'parts/help_page';

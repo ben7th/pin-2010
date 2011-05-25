@@ -41,7 +41,7 @@
                 %span.quiet 在本机记住我的登录状态
             .misc1
               .submit-btn
-                %button.minibutton
+                %button.minibutton{:type=>'submit'}
                   %span 登 录
               .forget-password
                 =link_to '忘记密码了…',forgot_password_form_path
