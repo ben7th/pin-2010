@@ -239,8 +239,6 @@ class FeedsController < ApplicationController
   end
 
   def add_tags
-    @feed.add_tags(params[:tag_names])
-    render :text=>200
   end
 
   def change_tags
@@ -249,8 +247,6 @@ class FeedsController < ApplicationController
   end
 
   def remove_tag
-    @feed.remove_tag(params[:tag_name])
-    render :text=>200
   end
 
   def lock

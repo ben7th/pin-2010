@@ -69,7 +69,7 @@ class TodoUser < UserAuthAbstract
         if feed.blank?
           false
         else
-          feed.hot_viewpoint == viewpoint && viewpoint.vote_score > 0
+          feed.hot_viewpoint == viewpoint
         end
       end
     end
@@ -154,7 +154,7 @@ class TodoUser < UserAuthAbstract
 
     def hot_viewpoint
       viewpoint = self.viewpoints.first
-      return if viewpoint.vote_score < 0
+      return if viewpoint.vote_score <= 0
       return viewpoint
     end
 

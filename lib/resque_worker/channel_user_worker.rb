@@ -1,6 +1,6 @@
 class ChannelUserWorker
 
-  @queue = :channel_user_operate_worker
+  @queue = :channel_user_operate_resque_queue
 
   ADD_OPERATION = "add"
   REMOVE_OPERATION = "remove"

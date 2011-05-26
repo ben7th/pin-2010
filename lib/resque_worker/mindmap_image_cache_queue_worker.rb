@@ -1,5 +1,5 @@
 class MindmapImageCacheQueueWorker
-  QUEUE = :mindmap_image_cache_queue_worker
+  QUEUE = :mindmap_image_cache_resque_queue
   @queue = QUEUE
 
   def self.async_mindmap_image_cache(mindmap_id, size)

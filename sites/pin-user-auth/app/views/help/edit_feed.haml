@@ -1,0 +1,53 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  起步指南：创建主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.clearfix
+  .grid-title 创建主题
+.hrr
+.grid_16.alpha
+  .help-page-text.padding5
+    %h2 <span class='quiet'>首先：</span>创建一个主题
+    %p 在首页和其他一些页面的右上方，你可以找到<a href='/feeds/new'>创建新主题</a>按钮，点击它，会进入主题创建页面：
+    =helpimg('create-feed',202)
+    %p 主题必须填写标题，而正文和关键字都是可选的（尽管这样，我们强烈建议你添加合适的关键字。）
+    =helpimg('create-feed-1',270)
+    %p 
+      在一开始，你可以把主题理解为一个问题，或者一个发散的话题。<br/>
+      你创建主题的目的，是为了和大家一起讨论，所以，需要<b>指出讨论方向</b>。
+    %p
+      更详细的说明，你可以参考<a href='http://www.mindpin.com/feeds/5916'>什么是主题协作</a>，以及<a href='http://www.mindpin.com/feeds/2770'>什么是合适的主题</a>
+
+    %p
+      MindPin的主题和观点正文部分都支持markdown文本格式。当你在撰写主题正文时，页面右侧会有对于格式的一些辅助提示信息。<br/>
+      比较具体的格式帮助，可以参考：<a href='http://www.mindpin.com/feeds/6039'>怎样使用MindPin的文本格式</a>。
+
+    =helpimg('create-feed-2',253)
+
+    %p 最后，按下<b>“写好了，确定”</b>按钮，一个主题就创建完毕了！
+
+    .hrr
+    %h2 <span class='quiet'>或者：</span>寻找和关注感兴趣的主题
+      
+
+    .hrr
+    %h2#see-other <span class='quiet'>然后：</span>查看其它起步指南
+    %p
+      创建了/找到了感兴趣的主题，怎样参与讨论，怎样和其他人进行互动呢？<br/>
+      看看指南的其他部分吧：
+    %ol
+      %li <a href='/startup/basic-setting'>创建主题</a>
+      %li.quiet 创建主题
+      %li <a href='/startup/discuss'>参与讨论</a>
+      %li <a href='/startup/friends'>结识朋友</a>
+
+.grid_3.omega.fright
+  %ol.font14
+    %li <a href='/startup/basic-setting'>创建主题</a>
+    %li.quiet 创建主题
+    %li <a href='/startup/discuss'>参与讨论</a>
+    %li <a href='/startup/friends'>结识朋友</a>

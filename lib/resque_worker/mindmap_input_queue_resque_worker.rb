@@ -1,6 +1,6 @@
 class MindmapInputQueueResqueWorker
   
-  @queue = :mindmap_input_queue_worker
+  @queue = :mindmap_input_resque_queue
 
   def self.async_mindmap_input_queue(req_json)
     Resque.enqueue(MindmapInputQueueResqueWorker, req_json)

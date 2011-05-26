@@ -31,6 +31,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # ---- 起步指南相关 ----
   map.start_up_basic_setting '/startup/basic-setting',:controller=>'help',:action=>'basic_setting'
+  map.start_up_edit_feed '/startup/edit-feed',:controller=>'help',:action=>'edit_feed'
+  map.start_up_discuss '/startup/discuss',:controller=>'help',:action=>'discuss'
+  map.start_up_friends '/startup/friends',:controller=>'help',:action=>'friends'
 
   # ----------------- 设置相关 -------------
   map.resource :preference,:collection=>{:selector=>:get,:ajax_theme_change=>:get}

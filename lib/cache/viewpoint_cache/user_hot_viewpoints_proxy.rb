@@ -54,7 +54,9 @@ class UserHotViewpointsProxy < RedisBaseProxy
         UserHotViewpointsProxy.remove_from_cache_when_include(todo_user)
 
         hot_viewpoint = feed.hot_viewpoint
-        UserHotViewpointsProxy.add_to_cache_when_not_include(hot_viewpoint)
+        unless hot_viewpoint.blank?
+          UserHotViewpointsProxy.add_to_cache_when_not_include(hot_viewpoint)
+        end
         
     end
   end

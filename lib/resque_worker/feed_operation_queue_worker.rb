@@ -1,6 +1,6 @@
 class FeedOperationQueueWorker
 
-  @queue = :feed_operation_queue_worker
+  @queue = :feed_operation_resque_queue
 
   CREATE_OPERATION = "create"
   DESTROY_OPERATION = "destroy"

@@ -127,10 +127,10 @@ class Feed < UserAuthAbstract
 
   def detail_content
     ft = self.first_todo
-    return if ft.blank?
+    return "" if ft.blank?
     fti = ft.first_todo_item
-    return if fti.blank?
-    fti.content
+    return "" if fti.blank?
+    fti.content||""
   end
 
   def update_content(content,editer)
@@ -200,7 +200,7 @@ class Feed < UserAuthAbstract
       if options[:tags].blank?
         feed.add_default_tag_when_no_tag
       else
-        feed.change_tags(options[:tags],self)
+        feed.add_tags_without_record_editer(options[:tags],self)
       end
       feed
     end

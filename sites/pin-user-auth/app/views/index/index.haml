@@ -6,8 +6,8 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-
-=render 'index/index_parts/getting_started'
+%div{:style=>'display:none;'}
+  =render 'index/index_parts/getting_started'
 
 .index-page-head.clearfix
   .grid_16.alpha
@@ -28,10 +28,10 @@
       .tip
         -feed = @current_user.unread_new_featrue
         -count = @current_user.unread_new_feature_tips_count
-        %a.title{:href=>"/feeds/#{feed.id}"}=feed_content(feed)
+        %a.title{:href=>"/feeds/#{feed.id}"}="功能更新：#{feed_content(feed)}"
         .desc=feed_detail_short(feed)
       .link
-        %a.close{:href=>'javascript:;'} <span>×</span> 隐藏功能通知
+        %a.close{:href=>'javascript:;'} <span>×</span> 隐藏功能更新通知
         %a.show-more{:href=>'/tags/系统:功能更新'} 查看全部 <span class='count'>#{count}</span> 条功能更新
 
 

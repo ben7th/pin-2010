@@ -35,6 +35,15 @@ class IndexController < ApplicationController
     redirect_to :action=>:index
   end
 
+  def operate_resque_queue_worker
+    MindpinServiceManagement.operate_resque_queue_worker(params[:queue],params[:operate])
+    flash[:notice] = "操作成功"
+    redirect_to :action=>:index
+  rescue Exception=>ex
+    flash[:notice] = ex.message
+    redirect_to :action=>:index
+  end
+
   def memcached_stats
     @stats = MindpinServiceManagement.check_stats_memcached_service
   end
@@ -69,6 +78,11 @@ class IndexController < ApplicationController
 
   def server_log
     @log = MindpinServiceManagement.server_log_content(params[:server_name])
+    render :template=>"/index/log"
+  end
+
+  def resque_queue_worker_log
+    @log = MindpinServiceManagement.resque_queue_worker_log_content(params[:queue_name])
     render :template=>"/index/log"
   end
 

@@ -1,6 +1,6 @@
 class SendTsinaStatusQueueWorker
   
-  @queue = :send_tsina_status_queue_worker
+  @queue = :send_tsina_status_resque_queue
 
   def self.async_send_tsina_status(options)
     Resque.enqueue(SendTsinaStatusQueueWorker,options)

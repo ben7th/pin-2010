@@ -4,6 +4,7 @@ require "server_base_module"
 require "servers_module"
 
 require "worker_base_module"
+require "resque_queue_worker_module"
 class MindpinServiceManagement
   PIN_2010_PATH = File.join(File.dirname(File.expand_path(__FILE__)),"../..")
 
@@ -46,4 +47,5 @@ class MindpinServiceManagement
   extend MindpinServiceManagementModule::Servers::ResqueWebService
 
   extend MindpinServiceManagementModule::WorkerBase
+  extend MindpinServiceManagementModule::ResqueQueueWorker
 end

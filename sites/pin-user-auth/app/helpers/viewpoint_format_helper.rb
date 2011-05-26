@@ -12,7 +12,8 @@ module ViewpointFormatHelper
   end
 
   def feed_detail_short(feed)
-    find_and_preserve "#{h(truncate_u(feed.detail_content,128))}"
+    content = feed.detail_content || ''
+    find_and_preserve "#{h(truncate_u(content,128))}"
   end
 
 

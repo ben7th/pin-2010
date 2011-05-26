@@ -24,7 +24,7 @@ class FeedTag < UserAuthAbstract
 
     def add_default_tag_when_no_tag
       if self.tag_names.blank?
-        self.add_tag(Tag::DEFAULT)
+        self.add_tag_without_record_editer(Tag::DEFAULT)
       end
       return true
     end
@@ -33,16 +33,27 @@ class FeedTag < UserAuthAbstract
       FeedTag.find_all_by_feed_id(self.id).map{|ft|ft.tag.full_name}
     end
 
-    def add_tag(tag_name,namespace = nil)
+    def add_tag_without_record_editer(tag_name,namespace = nil)
       tag = Tag.find_or_create_by_name_and_namespace(tag_name,namespace)
       FeedTag.find_or_create_by_feed_id_and_tag_id(self.id,tag.id)
     end
 
-    # 移除指定的一个tag
-    def remove_tag(tag_name,namespace = nil)
+    def remove_tag_without_record_editer(tag_name,namespace = nil)
       tag = Tag.get_tag(tag_name,namespace)
       ft = self.feed_tags.find_by_tag_id(tag.id)
       ft.destroy unless ft.blank?
+    end
+
+    def add_tags_without_record_editer(tag_names_string,editor)
+      new_names = Tag.get_tag_names_by_string(tag_names_string,editor)
+      old_names = self.tag_names
+
+      arr_add = new_names - old_names
+      arr_add.each do |tag_full_name|
+        namespace = Tag.get_namespace_from_tag_full_name(tag_full_name)
+        name = Tag.get_name_from_tag_full_name(tag_full_name)
+        self.add_tag_without_record_editer(name,namespace)
+      end
     end
 
     # 根据传入的字符串修改tag
@@ -58,13 +69,13 @@ class FeedTag < UserAuthAbstract
       arr_add.each do |tag_full_name|
         namespace = Tag.get_namespace_from_tag_full_name(tag_full_name)
         name = Tag.get_name_from_tag_full_name(tag_full_name)
-        self.add_tag(name,namespace)
+        self.add_tag_without_record_editer(name,namespace)
       end
 
       arr_remove.each do |tag_full_name|
         namespace = Tag.get_namespace_from_tag_full_name(tag_full_name)
         name = Tag.get_name_from_tag_full_name(tag_full_name)
-        self.remove_tag(name,namespace)
+        self.remove_tag_without_record_editer(name,namespace)
       end
 
       if !arr_add.blank? || !arr_remove.blank?

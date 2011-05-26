@@ -1,5 +1,5 @@
 class FollowOperationQueueWorker
-  @queue = :follow_operation_queue_worker
+  @queue = :follow_operation_resque_queue
 
   FOLLOW_OPERATION = "follow"
   UNFOLLOW_OPERATION = "unfollow"
