@@ -20,33 +20,48 @@
 
 =render 'auth/no_auth/welcome_to_signup'
 
-=render 'feeds/show_parts/show_page_head',:feed=>@feed
+-useless = @feed.hidden? && @feed.hidden_by_useless?
 
-.hrr
-.grid_17.alpha
-  =render 'feeds/show_parts/feed_show',:feed=>@feed
-  .hrr
-  =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
+-if !useless || params[:show] == 'force'
 
-.grid_5.omega.fright
-  -if logged_in?
-    .grid-title-s 邀请其他人一起来讨论
-    =render 'feeds/show_parts/invite_users',{:feed=>@feed}
-  .invite-share
-    =render 'feeds/show_parts/invite_share',{:feed=>@feed}
-  =render 'feeds/show_parts/share_to',{:feed=>@feed}
+  =render 'feeds/show_parts/show_page_head',:feed=>@feed
 
   .hrr
-  .grid-title-s 在此发表过观点的人
-  .show-page-memoed-users
-    -@feed.memoed_users.each do |u|
-      %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-        =avatar u,:mini
+  .grid_17.alpha
+    =render 'feeds/show_parts/feed_show',:feed=>@feed
+    .hrr
+    =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
 
-  .hrr
-  .grid-title-s 相关的主题
-  .show-page-simlar-feeds
-    -simlar_feeds = FeedLucene.similar_feeds_of(@feed)
-    -simlar_feeds.each do |f|
-      .f.btb
-        =link_to truncate_u(f.content,32),"/feeds/#{f.id}"
+  .grid_5.omega.fright
+    -if logged_in?
+      .grid-title-s 邀请其他人一起来讨论
+      =render 'feeds/show_parts/invite_users',{:feed=>@feed}
+    .invite-share
+      =render 'feeds/show_parts/invite_share',{:feed=>@feed}
+    =render 'feeds/show_parts/share_to',{:feed=>@feed}
+
+    .hrr
+    .grid-title-s 在此发表过观点的人
+    .show-page-memoed-users
+      -@feed.memoed_users.each do |u|
+        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+          =avatar u,:mini
+
+    .hrr
+    .grid-title-s 相关的主题
+    .show-page-related-feeds
+      -related_feeds = @feed.related_feeds
+      -related_feeds.each do |f|
+        .f.btb
+          =link_to truncate_u(f.content,32),"/feeds/#{f.id}"
+
+-else
+
+  .padding5
+    .feed-is-hidden-by-useless
+      .icon
+      .desc 此主题被认为不值得讨论或无意义/无价值，已被隐藏。
+
+  .padding5
+    =minibutton '我仍然想查看',"/feeds/#{@feed.id}?show=force",:style=>'margin-right:10px;'
+    =link_to '算了，回首页吧',"/"

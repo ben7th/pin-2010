@@ -256,4 +256,11 @@ class FeedsController < ApplicationController
     return render :status=>401,:text=>401
   end
 
+  def unlock
+    if @feed.unlock_by(current_user)
+      return render :text=>200
+    end
+    return render :status=>401,:text=>401
+  end
+
 end

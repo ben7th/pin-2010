@@ -12,6 +12,10 @@ class Tag < UserAuthAbstract
     :default_url => "/images/logo/default_:class_:style.png",
     :default_style => :normal
 
+  def is_default?
+    self.name == Tag::DEFAULT
+  end
+
   def has_logo?
     !self.logo_updated_at.blank?
   end
@@ -54,6 +58,7 @@ class Tag < UserAuthAbstract
   end
 
   def self.get_tag_names_by_string(tag_names_string,editor)
+    return [] if tag_names_string.blank?
     tag_names = tag_names_string.split(/[，, ]+/).select{|name|!name.blank?}
     return tag_names if editor.is_admin_user?
 

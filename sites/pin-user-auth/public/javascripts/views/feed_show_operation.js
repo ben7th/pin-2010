@@ -638,3 +638,32 @@ pie.feed_image_resize = function(elm){
   var new_height = 600 * height / width;
   elm.attr('width',600).attr('height',new_height)
 }
+
+// 管理员锁定主题
+pie.load(function(){
+  jQuery('.feed-show-page-head .show-page-lock a.admin-lock').live('click',function(){
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+
+    // put /feeds/id/lock
+    jQuery.ajax({
+      url : "/feeds/"+feed_id+'/lock',
+      type : 'PUT',
+      success : function(){
+        location.reload(true);
+      }
+    });
+  })
+
+  jQuery('.feed-show-page-head .show-page-lock a.unlock').live('click',function(){
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+
+    // put /feeds/id/lock
+    jQuery.ajax({
+      url : "/feeds/"+feed_id+'/unlock',
+      type : 'PUT',
+      success : function(){
+        location.reload(true);
+      }
+    });
+  })
+})

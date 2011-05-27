@@ -1,7 +1,7 @@
 .detail-data
   .data
     =feed_detail feed
-  -if logged_in?
+  -if logged_in? && !feed.locked?
     -if feed.detail_content.blank?
       .edit-detail
         -link_to 'javascript:;',:class=>'edit csshov' do

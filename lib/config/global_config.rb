@@ -1,7 +1,7 @@
 require "yaml"
 class GlobalConfig
-  yml_file_dir = File.join(File.dirname(File.expand_path(__FILE__)),"config_yml")
-  pin_2010_path = File.join(File.dirname(File.expand_path(__FILE__)),"..")
+  yml_file_dir = File.join(File.dirname(File.expand_path(__FILE__)),"../config_yml")
+  pin_2010_path = File.join(File.dirname(File.expand_path(__FILE__)),"../..")
   yml_file_names = Dir.entries(yml_file_dir).select{|file_name|!!file_name.match(/\.yml/)}
 
   # 初始化 SETTING_CONFIG

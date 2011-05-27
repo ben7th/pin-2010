@@ -9,17 +9,9 @@ case "$1" in
     ./service_sh/mindmaps_lucene_service.sh start
     ./service_sh/resque_web_service.sh start
 
-    ./worker_sh/mindmap_input_queue_resque_worker.sh start
-    ./worker_sh/mindmap_image_cache_queue_resque_worker.sh start
-    ./worker_sh/mindmap_import_queue_resque_worker.sh start
-    ./worker_sh/channel_user_operation_queue_resque_worker.sh start
-    ./worker_sh/follow_operation_queue_resque_worker.sh start
-    ./worker_sh/feed_operation_queue_resque_worker.sh start
-    ./worker_sh/send_tsina_status_queue_resque_worker.sh start
-    ./worker_sh/user_tip_resque_queue_worker.sh start
-
-    ./worker_sh/mindmap_import_queue_worker.sh start
+    ./worker_sh/resque_queue_workers_all.rb start
     ./worker_sh/wake_up_resque_worker.sh start
+    ./worker_sh/mindmap_import_queue_worker.sh start
 
     ./unicorn.sh mindmap_image_cache start
     ./unicorn.sh mev6 start
@@ -31,23 +23,15 @@ case "$1" in
     ./unicorn.sh mev6 stop
     ./unicorn.sh mindmap_image_cache stop
 
-    ./worker_sh/mindmap_input_queue_resque_worker.sh stop
-    ./worker_sh/mindmap_image_cache_queue_resque_worker.sh stop
-    ./worker_sh/mindmap_import_queue_resque_worker.sh stop
-    ./worker_sh/channel_user_operation_queue_resque_worker.sh stop
-    ./worker_sh/follow_operation_queue_resque_worker.sh stop
-    ./worker_sh/feed_operation_queue_resque_worker.sh stop
-    ./worker_sh/send_tsina_status_queue_resque_worker.sh stop
-    ./worker_sh/user_tip_resque_queue_worker.sh stop
-
-    ./worker_sh/mindmap_import_queue_worker.sh stop
     ./worker_sh/wake_up_resque_worker.sh stop
+    ./worker_sh/resque_queue_workers_all.rb stop 
+    ./worker_sh/mindmap_import_queue_worker.sh stop
 
-    ./service_sh/memcache.sh
     ./service_sh/feeds_lucene_service.sh stop
     ./service_sh/mindmaps_lucene_service.sh stop
     ./service_sh/resque_web_service.sh stop
 
+    ./service_sh/memcache.sh
     ./unicorn_management.sh stop
   ;;
   *)

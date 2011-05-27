@@ -23,17 +23,19 @@
     -if logged_in?
       .o.marginb10
         =link_to '增加评论','javascript:;',:class=>'echo'
-      .o
-        -if feed.is_spam_marked_by?(current_user)
-          %span.quiet 你觉得不值得讨论
-        -else
-          =link_to '这个主题不值得讨论','javascript:;',:class=>'spam',:tipr=>'#is-a-spam'
-        #is-a-spam.hide
-          你觉得这个主题很无趣，很空泛；<br/>
-          或者“在google上baidu一下”就能轻易解决~
 
-        -if feed.spam_marks.count > 0
-          %span.quiet="#{feed.spam_marks.count}人觉得"
+      -if !feed.locked?
+        .o
+          -if feed.is_spam_marked_by?(current_user)
+            %span.quiet 你觉得不值得讨论
+          -else
+            =link_to '这个主题不值得讨论','javascript:;',:class=>'spam',:tipr=>'#is-a-spam'
+          #is-a-spam.hide
+            你觉得这个主题很无趣，很空泛；<br/>
+            或者“在google上baidu一下”就能轻易解决~
+
+          -if feed.spam_marks.count > 0
+            %span.quiet="#{feed.spam_marks.count}人觉得"
     -else
       .o
         =link_to '增加评论','javascript:;',:class=>'echo'

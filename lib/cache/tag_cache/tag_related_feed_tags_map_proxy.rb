@@ -19,6 +19,7 @@ class TagRelatedFeedTagsMapProxy
         join feed_tags FT2 on F1.id = FT2.feed_id
         join tags T2 on FT2.tag_id = T2.id
         where T1.id = #{@tag.id} and T1.id <> T2.id
+           and T1.name <> "#{Tag::DEFAULT}" and T2.name <> "#{Tag::DEFAULT}"
         group by T2.id
         order by c1 desc
       `)
@@ -81,12 +82,22 @@ class TagRelatedFeedTagsMapProxy
     end
 
     def change_related_feed_tags_map_cache_on_create
+      return true if self.tag.is_default?
+
       old_tags = self.feed.tags.split(self.tag).first
+      old_tags = old_tags.select{|otag|!otag.is_default?}
+      return true if old_tags.blank?
+
       TagRelatedFeedTagsMapProxy.related_increase(old_tags,self.tag)
     end
 
     def change_related_feed_tags_map_cache_on_destroy
+      return true if self.tag.is_default?
+
       old_tags = self.feed.tags.split(self.tag).first
+      old_tags = old_tags.select{|otag|!otag.is_default?}
+      return true if old_tags.blank?
+
       TagRelatedFeedTagsMapProxy.related_decrease(old_tags,self.tag)
     end
   end

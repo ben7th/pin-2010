@@ -175,6 +175,20 @@ class Feed < UserAuthAbstract
     self.hidden?
   end
 
+  # 当话题是隐藏的
+  # 并且 feed.spam_mark_effect? 不为真时
+  # 返回 true
+  def hidden_by_creator?
+    self.hidden? && !self.spam_mark_effect?
+  end
+
+  # 当话题是隐藏的
+  # 并且 feed.spam_mark_effect? 为真时
+  # 返回 true
+  def hidden_by_useless?
+    self.hidden? && self.spam_mark_effect?
+  end
+
   def send_invite_email(sender,recipient_email,title,postscript)
     Mailer.deliver_feed_invite(self,sender,recipient_email,title,postscript)
   end
@@ -183,10 +197,32 @@ class Feed < UserAuthAbstract
     self.update_attributes(:locked=>true) unless self.locked?
   end
 
+  def unlock
+    self.update_attributes(:locked=>false) if self.locked?
+  end
+
   def lock_by(user)
     return false unless user.is_admin_user?
     self.lock
     return true
+  end
+
+  def unlock_by(user)
+    return false unless user.is_admin_user?
+    self.unlock
+    return true
+  end
+
+  def related_feeds(count = 5)
+    ActiveRecord::Base.connection.select_all(%`
+        select F1.id from feeds F
+        join feed_tags FT on FT.feed_id = F.id
+        join feed_tags FT1 on FT1.tag_id = FT.tag_id
+        join feeds F1 on F1.id = FT1.feed_id
+        where F.id = #{self.id} and F1.id <> #{self.id} and F1.hidden = 0
+        order by F1.id desc
+        limit #{count}
+      `).map{|item|Feed.find_by_id(item["id"])}.uniq.compact
   end
 
   module UserMethods
@@ -197,11 +233,10 @@ class Feed < UserAuthAbstract
       return feed if !feed.valid?
       feed.save!
       feed.create_detail_content(options[:detail]) if !options[:detail].blank?
-      if options[:tags].blank?
-        feed.add_default_tag_when_no_tag
-      else
-        feed.add_tags_without_record_editer(options[:tags],self)
-      end
+
+      feed.add_tags_without_record_editer(options[:tags],self)
+      feed.add_default_tag_when_no_tag
+
       feed
     end
 

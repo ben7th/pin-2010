@@ -107,7 +107,33 @@
       }
     }
   }
+}
 
+.feed-is-locked,.feed-is-hidden-by-useless{
+  overflow:hidden;
+  font-size:14px;font-weight:bold;
+  border:solid 2px #DFDFDF;
+  background:#F5F5F5;
+  @include border-radius(5px);
+  margin: 0 0 12px 0;
+  padding:10px;
+  .icon{
+    width:24px;height:24px;
+    @include allicon(-275px,-142px);
+    float:left;
+    margin-right:10px;
+  }
+  .desc{
+    height:24px;line-height:24px;
+    float:left;
+    color:#666;
+  }
+}
+
+.feed-is-hidden-by-useless{
+  .icon{
+    @include allicon(-300px,-142px);
+  }
 }
 
 .page-feed-show{
@@ -380,7 +406,7 @@
   .avatar{margin:0 4px 4px 0;}
 }
 
-.show-page-simlar-feeds{
+.show-page-related-feeds{
   overflow:hidden;
   .f{
     padding:5px;
@@ -488,7 +514,6 @@
 }
 
 .show-page-ops{
-  margin:0 0 12px 0;
   padding:5px;
   overflow:hidden;
   .fav{
@@ -496,5 +521,12 @@
   }
   .unfav{
     @include unfollowbtn;
+  }
+}
+
+.show-page-lock{
+  padding:5px;
+  .unlock{
+    font-size:14px;font-weight:bold;
   }
 }
