@@ -213,15 +213,15 @@ class Feed < UserAuthAbstract
     return true
   end
 
-  def related_feeds(count = 5)
+  def related_feeds(count = 10)
     ActiveRecord::Base.connection.select_all(%`
-        select F1.id from feeds F
-        join feed_tags FT on FT.feed_id = F.id
-        join feed_tags FT1 on FT1.tag_id = FT.tag_id
-        join feeds F1 on F1.id = FT1.feed_id
-        where F.id = #{self.id} and F1.id <> #{self.id} and F1.hidden = 0
-        order by F1.id desc
-        limit #{count}
+        SELECT DISTINCT F1.id FROM feeds F
+        JOIN feed_tags FT ON FT.feed_id = F.id
+        JOIN feed_tags FT1 ON FT1.tag_id = FT.tag_id
+        JOIN feeds F1 ON F1.id = FT1.feed_id
+        WHERE F.id = #{self.id} AND F1.id <> #{self.id} AND F1.hidden = false
+        ORDER BY F1.id desc
+        LIMIT #{count}
       `).map{|item|Feed.find_by_id(item["id"])}.uniq.compact
   end
 
