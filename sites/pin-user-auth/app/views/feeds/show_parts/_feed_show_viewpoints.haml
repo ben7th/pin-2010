@@ -2,7 +2,7 @@
   #{feed.viewpoints.count}个观点
 
 .page-feed-viewpoints
-  -feed.memoed_viewpoints.each do |todo_user|
-    =render 'feeds/show_parts/info_feed_viewpoint_show',:todo_user=>todo_user
+  -feed.memoed_viewpoints.each do |viewpoint|
+    =render 'feeds/show_parts/info_feed_viewpoint_show',:viewpoint=>viewpoint
 
 =render 'feeds/show_parts/feed_show_viewpoint_form',:feed=>feed

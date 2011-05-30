@@ -1,6 +1,0 @@
-=render 'index/homepage/feeds/info_parts/info_todo',:feed=>feed
-.f.ext.todolist{:'data-id'=>"#{feed.id}",:class=>'btb'}
-  =render :partial=>'feeds/info_parts/info_reply_to_feed',:locals=>{:feed=>feed}
-  =render :partial=>'feeds/info_parts/info_current_feed',:locals=>{:feed=>feed}
-  =render :partial=>'feeds/info_parts/info_quote_feed',:locals=>{:feed=>feed}
-  =render :partial=>'feeds/info_parts/info_time_and_ops',:locals=>{:feed=>feed}

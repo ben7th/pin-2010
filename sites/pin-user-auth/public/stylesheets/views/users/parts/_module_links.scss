@@ -92,16 +92,14 @@
   .quoted-me-feeds{
     .icon{@include allicon(-200px,-117px)}
   }
-  .todos{
+
+  .answered-feeds{
     .icon{@include allicon(-250px,-117px)}
   }
-  .memoed-todos{
-    .icon{@include allicon(-250px,-117px)}
-  }
-  .be-asked-todos{
+  .be-asked-feeds{
     .icon{@include allicon(-275px,-117px)}
   }
-  .be-hidden-todos{
+  .be-hidden-feeds{
     .icon{@include allicon(-325px,-117px)}
   }
   .recent-userlogs{

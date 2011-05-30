@@ -8,41 +8,41 @@ class UserHotViewpointsProxy < RedisBaseProxy
     @user.top_viewpoints_db.map{|viewpoint|viewpoint.id}
   end
 
-  def self.add_to_cache_when_not_include(todo_user)
-    return unless todo_user.vote_score > 0
-    uhvp = UserHotViewpointsProxy.new(todo_user.user)
+  def self.add_to_cache_when_not_include(viewpoint)
+    return unless viewpoint.vote_score > 0
+    uhvp = UserHotViewpointsProxy.new(viewpoint.user)
     ids = uhvp.xxxs_ids
-    unless ids.include?(todo_user.id)
-      ids.unshift(todo_user.id)
+    unless ids.include?(viewpoint.id)
+      ids.unshift(viewpoint.id)
       uhvp.send(:xxxs_ids_rediscache_save,ids)
     end
   end
 
-  def self.remove_from_cache_when_include(todo_user)
-    uhvp = UserHotViewpointsProxy.new(todo_user.user)
+  def self.remove_from_cache_when_include(viewpoint)
+    uhvp = UserHotViewpointsProxy.new(viewpoint.user)
     ids = uhvp.xxxs_ids
-    if ids.include?(todo_user.id)
-      ids.delete(todo_user.id)
+    if ids.include?(viewpoint.id)
+      ids.delete(viewpoint.id)
       uhvp.send(:xxxs_ids_rediscache_save,ids)
     end
   end
 
-  def self.refresh_cache_on_edit_viewpoint(todo_user)
-    feed = todo_user.feed
-    if feed.hot_viewpoint == todo_user
-      uhvp = UserHotViewpointsProxy.new(todo_user.user)
+  def self.refresh_cache_on_edit_viewpoint(viewpoint)
+    feed = viewpoint.feed
+    if feed.hot_viewpoint == viewpoint
+      uhvp = UserHotViewpointsProxy.new(viewpoint.user)
       ids = uhvp.xxxs_ids
-      ids.delete(todo_user.id)
-      ids.unshift(todo_user.id)
+      ids.delete(viewpoint.id)
+      ids.unshift(viewpoint.id)
       uhvp.send(:xxxs_ids_rediscache_save,ids)
     end
   end
 
-  def self.refresh_cache_on_viewpoint_vote(todo_user)
-    feed = todo_user.feed
-    if feed.hot_viewpoint == todo_user
+  def self.refresh_cache_on_viewpoint_vote(viewpoint)
+    feed = viewpoint.feed
+    if feed.hot_viewpoint == viewpoint
       
-        UserHotViewpointsProxy.add_to_cache_when_not_include(todo_user)
+        UserHotViewpointsProxy.add_to_cache_when_not_include(viewpoint)
 
         second_viewpoint = feed.viewpoints[1]
         if !second_viewpoint.blank?
@@ -51,7 +51,7 @@ class UserHotViewpointsProxy < RedisBaseProxy
 
     else
       
-        UserHotViewpointsProxy.remove_from_cache_when_include(todo_user)
+        UserHotViewpointsProxy.remove_from_cache_when_include(viewpoint)
 
         hot_viewpoint = feed.hot_viewpoint
         unless hot_viewpoint.blank?
@@ -63,12 +63,12 @@ class UserHotViewpointsProxy < RedisBaseProxy
 
   def self.rules
     {
-      :class => TodoUser,
-      :after_update => Proc.new {|todo_user|
-        if !todo_user.changes["memo"].blank?
-          UserHotViewpointsProxy.refresh_cache_on_edit_viewpoint(todo_user)
-        elsif !todo_user.changes["vote_score"].blank?
-          UserHotViewpointsProxy.refresh_cache_on_viewpoint_vote(todo_user)
+      :class => Viewpoint,
+      :after_update => Proc.new {|viewpoint|
+        if !viewpoint.changes["memo"].blank?
+          UserHotViewpointsProxy.refresh_cache_on_edit_viewpoint(viewpoint)
+        elsif !viewpoint.changes["vote_score"].blank?
+          UserHotViewpointsProxy.refresh_cache_on_viewpoint_vote(viewpoint)
         end
       }
     }
@@ -78,7 +78,7 @@ class UserHotViewpointsProxy < RedisBaseProxy
     {
       :class => User,
       :top_viewpoints => Proc.new{|user|
-        UserHotViewpointsProxy.new(user).get_models(TodoUser)
+        UserHotViewpointsProxy.new(user).get_models(Viewpoint)
       }
     }
   end

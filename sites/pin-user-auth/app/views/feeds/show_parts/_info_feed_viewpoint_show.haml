@@ -1,26 +1,26 @@
--user = todo_user.user
+-user = viewpoint.user
 
-.viewpoint.btb{:'data-id'=>todo_user.id,:'data-vote-score'=>todo_user.vote_score}
+.viewpoint.btb{:'data-id'=>viewpoint.id,:'data-vote-score'=>viewpoint.vote_score}
   -if logged_in? && user != current_user
     .vote-ops
-      -if !todo_user.voted_up_by?(current_user)
+      -if !viewpoint.voted_up_by?(current_user)
         .vote-up{:tipr=>'投赞成票，观点排序将上升'}
       -else
         .voted-up{:tipr=>'你已经投过赞成票了，再点一次取消投票'}
 
-      .vote-score=todo_user.vote_score
+      .vote-score=viewpoint.vote_score
 
-      -if !todo_user.voted_down_by?(current_user)
+      -if !viewpoint.voted_down_by?(current_user)
         .vote-down{:tipr=>'投反对票（不记名），观点排序将下降'}
       -else
         .voted-down{:tipr=>'你已经投过反对票了，再点一次取消投票'}
   -else
     .vote-ops
-      .vote-score.show=todo_user.vote_score
+      .vote-score.show=viewpoint.vote_score
 
   .main
     .content>
-      =viewpoint_memo_format_show(todo_user)
+      =viewpoint_memo_format_show(viewpoint)
 
     -if logged_in? && user == current_user
       .edit-vp
@@ -28,17 +28,17 @@
           .icon
           %span 修改观点
 
-    -if !todo_user.viewpoint_votes.blank?
+    -if !viewpoint.viewpoint_votes.blank?
       .supporters.quiet
-        -if !todo_user.viewpoint_up_votes.blank?
-          =support_str(todo_user)
-        -if !todo_user.viewpoint_down_votes.blank?
-          =unsupport_str(todo_user)
+        -if !viewpoint.viewpoint_up_votes.blank?
+          =support_str(viewpoint)
+        -if !viewpoint.viewpoint_down_votes.blank?
+          =unsupport_str(viewpoint)
 
   .footmisc
     .creator
       .time.quiet
-        编辑于 #{jtime todo_user.updated_at}
+        编辑于 #{jtime viewpoint.updated_at}
       .data
         .avatar
           =avatar user,:tiny
@@ -46,10 +46,10 @@
           =usersign(user,true,18)
     .ops
       -if logged_in?
-        -if todo_user.comments.blank?
+        -if viewpoint.comments.blank?
           = link_to '增加评论','javascript:;',:class=>'echo'
         -else
-          = link_to "#{todo_user.comments.count}条评论",'javascript:;',:class=>'echo'
+          = link_to "#{viewpoint.comments.count}条评论",'javascript:;',:class=>'echo'
 
         -if params[:dev]
           .split.quiet> -

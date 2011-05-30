@@ -154,27 +154,10 @@ ActionController::Routing::Routes.draw do |map|
     :memoed=>:get,:be_invited=>:get,
     :mine_hidden=>:get,:all_hidden=>:get,
     :userlogs=>:get
-    } do |feed|
-      feed.resources :todos,:collection=>{
-        :remove_last_todo=>:delete
-      }
-    end
+    }
+    
   map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
     :action=>"destroy",:conditions=>{:method=>:delete}
-  map.resources :todos,:member=>{
-    :add_memo=>:put,
-    :clear_memo=>:put,
-    :change_status=>:put,
-    :assign=>:post,
-    :unassign=>:delete,
-    :move_to_first=>:put,
-    :move_up=>:put,
-    :move_down=>:put,
-    :remove_last_todo_item=>:delete
-  } do |todo|
-    todo.resources :todo_items
-  end
-  map.resources :todo_items
 
   map.create_viewpoint_comment "/viewpoints/:viewpoint_id/comments",:controller=>"viewpoint_comments",
     :action=>"create",:conditions=>{:method=>:post}

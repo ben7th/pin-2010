@@ -35,11 +35,11 @@ class UserLog < UserAuthAbstract
       feed = Feed.find_by_id(hash["feed_id"])
       Struct.new(:feed,:user,:kind).new(feed,self.user,self.kind)
     when ADD_VIEWPOINT
-      viewpoint = TodoUser.find_by_id(hash["viewpoint_id"])
-      Struct.new(:viewpoint,:feed,:user,:kind).new(viewpoint,viewpoint.todo.feed,self.user,self.kind)
+      viewpoint = Viewpoint.find_by_id(hash["viewpoint_id"])
+      Struct.new(:viewpoint,:feed,:user,:kind).new(viewpoint,viewpoint.feed,self.user,self.kind)
     when EDIT_VIEWPOINT
-      viewpoint = TodoUser.find_by_id(hash["viewpoint_id"])
-      Struct.new(:viewpoint,:feed,:user,:kind).new(viewpoint,viewpoint.todo.feed,self.user,self.kind)
+      viewpoint = Viewpoint.find_by_id(hash["viewpoint_id"])
+      Struct.new(:viewpoint,:feed,:user,:kind).new(viewpoint,viewpoint.feed,self.user,self.kind)
     when ADD_CONTACT
       contact_user = User.find_by_id(hash["contact_user_id"])
       Struct.new(:contact_user,:user,:kind).new(contact_user,self.user,self.kind)
@@ -97,7 +97,7 @@ class UserLog < UserAuthAbstract
     def last_edit_viewpoint
       ul = UserLog.find(:first,:conditions=>"kind = '#{UserLog::EDIT_VIEWPOINT}' and user_id = #{self.id}",:order=>"id desc")
       return if ul.blank?
-      TodoUser.find_by_id(ul.info_hash["viewpoint_id"])
+      Viewpoint.find_by_id(ul.info_hash["viewpoint_id"])
     end
   end
 
@@ -147,7 +147,7 @@ class UserLog < UserAuthAbstract
     end
   end
 
-  module TodoUserMethods
+  module ViewpointMethods
     def self.included(base)
       base.after_create :add_add_viewpoint_log
       base.after_update :add_edit_viewpoint_log

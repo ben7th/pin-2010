@@ -149,13 +149,13 @@ class FeedsController < ApplicationController
   end
 
   def viewpoint
-    @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
+    @viewpoint = @feed.create_or_update_viewpoint(current_user,params[:content])
     render :partial=>"feeds/show_parts/info_feed_viewpoint_show",
-      :locals=>{:todo_user=>@todo_user}
+      :locals=>{:viewpoint=>@viewpoint}
   end
 
   def aj_viewpoint_in_list
-    @todo_user = @feed.create_or_update_viewpoint(current_user,params[:content])
+    @viewpoint = @feed.create_or_update_viewpoint(current_user,params[:content])
     render :partial=>"feeds/info_parts/info_viewpoint",
       :locals=>{:feed=>@feed}
   end

@@ -126,11 +126,9 @@ class Feed < UserAuthAbstract
   end
 
   def detail_content
-    ft = self.first_todo
-    return "" if ft.blank?
-    fti = ft.first_todo_item
-    return "" if fti.blank?
-    fti.content||""
+    fd = self.feed_detail
+    return "" if fd.blank?
+    fd.content||""
   end
 
   def update_content(content,editer)
@@ -142,16 +140,14 @@ class Feed < UserAuthAbstract
   
   # 话题详情
   def create_detail_content(content)
-    todo = self.get_or_create_first_todo
-    todo.create_or_update_todo_item(content)
+    self.create_or_update_detail(content)
   end
 
   # 话题详情
   def update_detail_content(content,editer)
     return if self.locked? && !editer.is_admin_user?
     return if editer.blank?
-    todo = self.get_or_create_first_todo
-    todo.create_or_update_todo_item(content)
+    self.create_or_update_detail(content)
     self.record_editer(editer)
   end
 
@@ -273,18 +269,6 @@ class Feed < UserAuthAbstract
     end
 
     def send_todolist_feed(title,options={})
-      channel_ids = options[:channel_ids] || []
-      channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-      Feed.transaction do
-        feed = Feed.new(
-          :creator=>self,:event=>Feed::SAY_OPERATE,
-          :content=>title,:channels_db=>channels)
-        todo = Todo.new(:creator=>self,:feed=>feed)
-        return false if !todo.valid? || !feed.valid?
-        feed.save!
-        todo.save!
-        return feed
-      end
     end
 
     def out_feeds_db
@@ -316,14 +300,14 @@ class Feed < UserAuthAbstract
   include HtmlDocument::FeedMethods
   include FeedComment::FeedMethods
   include FeedLucene::FeedMethods
-  include Todo::FeedMethods
   include ShortUrl::FeedMethods
   include FeedChange::FeedMethods
-  include TodoUser::FeedMethods
+  include Viewpoint::FeedMethods
   include FeedInvite::FeedMethods
   include ViewpointDraft::FeedMethods
   include SpamMark::FeedMethods
   include FeedTag::FeedMethods
   include UserLog::FeedMethods
   include FeedTag::FeedMethods
+  include FeedDetail::FeedMethods
 end

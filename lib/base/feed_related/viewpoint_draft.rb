@@ -34,14 +34,14 @@ class ViewpointDraft < UserAuthAbstract
     end
   end
 
-  module TodoUserMethods
+  module ViewpointMethods
     def self.included(base)
       base.after_create :remove_viewpoint_draft
       base.after_update :remove_viewpoint_draft_on_update
     end
 
     def remove_viewpoint_draft
-      vd = self.todo.feed.viewpoint_draft_of(self.user)
+      vd = self.feed.viewpoint_draft_of(self.user)
       vd.destroy unless vd.blank?
       return true
     end

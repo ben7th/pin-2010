@@ -196,7 +196,7 @@ class User < UserBase
   include Fav::UserMethods
   include FeedChannel::UserMethods
   include Feed::UserMethods
-  include TodoUser::UserMethods
+  include Viewpoint::UserMethods
   include UserCooperationMethods
   include Channel::UserMethods
   include Contact::UserMethods

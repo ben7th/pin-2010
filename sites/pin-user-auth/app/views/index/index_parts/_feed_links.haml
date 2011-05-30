@@ -5,23 +5,23 @@
   .link.favs.btb
     .icon
     =tabs_link_to '关注的主题',pin_url_for('pin-user-auth','/favs')
-  .link.memoed-todos.btb
+  .link.answered-feeds.btb
     .icon
     =tabs_link_to '参与的主题',pin_url_for('pin-user-auth','/feeds/memoed')
-  .link.be-asked-todos.btb
+  .link.be-asked-feeds.btb
     .icon
     =tabs_link_to '被邀请的主题',pin_url_for('pin-user-auth','/feeds/be_invited')
-  .link.be-hidden-todos
+  .link.be-hidden-feeds
     .icon
     =tabs_link_to '被隐藏的主题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
 
 .module-links.feeds
   .link.recent-userlogs.btb
     .icon
-    =tabs_link_to '这里正在进行…',pin_url_for('pin-user-auth','/feeds/userlogs')
+    =tabs_link_to '大家最近的动态',pin_url_for('pin-user-auth','/feeds/userlogs')
   .link.recent-hot-feeds
     .icon
-    =tabs_link_to '大家最近的主题',pin_url_for('pin-user-auth','/feeds/all')
+    =tabs_link_to '浏览最新主题',pin_url_for('pin-user-auth','/feeds/all')
 
 .module-links{:style=>'display:none;'}
   .link.received_comments.btb

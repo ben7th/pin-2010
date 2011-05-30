@@ -45,10 +45,6 @@ module FeedHelper
     MessageTip.new(current_user).refresh_quotes_info if logged_in?
   end
 
-  def refresh_todo_tip
-    MessageTip.new(current_user).refresh_todos_info if logged_in?
-  end
-
   def refresh_fans_tip
     MessageTip.new(current_user).refresh_fans_info if logged_in?
   end
@@ -109,19 +105,19 @@ module FeedHelper
     Feed.find(
       :all,
       :select=>'DISTINCT feeds.*',
-      :joins=>'JOIN todos on todos.feed_id = feeds.id',
+      :joins=>'JOIN viewpoints on viewpoints.feed_id = feeds.id',
       :limit=>10,
       :order=>'feeds.id desc'
     )
   end
 
-  def support_str(todo_user)
-    todo_user.viewpoint_up_votes.map{|vote|
+  def support_str(viewpoint)
+    viewpoint.viewpoint_up_votes.map{|vote|
       link_to(vote.user.name,vote.user,:class=>'quiet')
     }*',' + ' 表示赞成'
   end
 
-  def unsupport_str(todo_user)
-    "#{todo_user.viewpoint_down_votes.length}人表示反对"
+  def unsupport_str(viewpoint)
+    "#{viewpoint.viewpoint_down_votes.length}人表示反对"
   end
 end

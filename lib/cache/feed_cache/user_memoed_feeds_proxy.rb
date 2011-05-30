@@ -10,31 +10,27 @@ class UserMemoedFeedsProxy < RedisBaseProxy
 
   def self.rules
     {
-      :class => TodoUser ,
-      :after_create => Proc.new {|todo_user|
-        user = todo_user.user
-        feed = todo_user.todo.feed
-        unless todo_user.memo.nil?
+      :class => Viewpoint ,
+      :after_create => Proc.new {|viewpoint|
+        user = viewpoint.user
+        feed = viewpoint.feed
+        unless viewpoint.memo.nil?
           UserMemoedFeedsProxy.new(user).add_to_cache(feed.id)
         end
       },
-      :after_update => Proc.new {|todo_user|
-        user = todo_user.user
-        todo = todo_user.todo
-        next if user.blank? || todo.blank?
-        feed = todo.feed
-        next if feed.blank?
+      :after_update => Proc.new {|viewpoint|
+        user = viewpoint.user
+        feed = viewpoint.feed
+        next if feed.blank? || user.blank?
         UserMemoedFeedsProxy.new(user).remove_from_cache(feed.id)
-        unless todo_user.memo.nil?
+        unless viewpoint.memo.nil?
           UserMemoedFeedsProxy.new(user).add_to_cache(feed.id)
         end
       },
-      :after_destroy => Proc.new {|todo_user|
-        user = todo_user.user
-        todo = todo_user.todo
-        next if user.blank? || todo.blank?
-        feed = todo.feed
-        next if feed.blank?
+      :after_destroy => Proc.new {|viewpoint|
+        user = viewpoint.user
+        feed = viewpoint.feed
+        next if feed.blank? || user.blank?
         UserMemoedFeedsProxy.new(user).remove_from_cache(feed.id)
       }
     }

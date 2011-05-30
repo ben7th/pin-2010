@@ -46,7 +46,7 @@ class UserTipProxy < BaseTipProxy
         tip = Struct.new(:id,:feed,:creator,:kind,:time).new(tip_id,feed,creator,kind,time)
         tips.push(tip)
       when VIEWPOINT_VOTE_UP
-        viewpoint = TodoUser.find_by_id(tip_hash["viewpoint_id"])
+        viewpoint = Viewpoint.find_by_id(tip_hash["viewpoint_id"])
         voters_ids = tip_hash["voter_id"].to_s.split(",").uniq
         voters = voters_ids.map{|id|User.find_by_id(id)}.compact
         kind = tip_hash["kind"]
@@ -54,7 +54,7 @@ class UserTipProxy < BaseTipProxy
         tip = Struct.new(:id,:viewpoint,:voters,:kind,:time).new(tip_id,viewpoint,voters,kind,time)
         tips.push(tip)
       when VIEWPOINT_SPAM_MARK_EFFECT
-        viewpoint = TodoUser.find_by_id(tip_hash["viewpoint_id"])
+        viewpoint = Viewpoint.find_by_id(tip_hash["viewpoint_id"])
         feed = Feed.find_by_id(tip_hash["feed_id"])
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
@@ -68,8 +68,8 @@ class UserTipProxy < BaseTipProxy
         tips.push(tip)
       when VIEWPOINT_COMMENT
         feed = Feed.find_by_id(tip_hash["feed_id"])
-        viewpoint = TodoUser.find_by_id(tip_hash["viewpoint_id"])
-        viewpoint_comment = TodoMemoComment.find_by_id(tip_hash["viewpoint_comment_id"])
+        viewpoint = Viewpoint.find_by_id(tip_hash["viewpoint_id"])
+        viewpoint_comment = ViewpointComment.find_by_id(tip_hash["viewpoint_comment_id"])
         user = User.find_by_id(tip_hash["user_id"])
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)

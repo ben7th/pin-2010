@@ -2,13 +2,13 @@ module FavsAddViewpointMethods
   def self.included(base)
     base.extend ClassMethods
     base.add_rules({
-        :class => TodoUser,
-        :after_create => Proc.new{|todo_user|
-          UserTipProxy.create_favs_add_viewpoint_tip_on_queue(todo_user)
+        :class => Viewpoint,
+        :after_create => Proc.new{|viewpoint|
+          UserTipProxy.create_favs_add_viewpoint_tip_on_queue(viewpoint)
         },
-        :after_update => Proc.new{|todo_user|
-          next if todo_user.changes["memo"].blank?
-          UserTipProxy.create_fav_edit_viewpoint_tip_on_queue(todo_user)
+        :after_update => Proc.new{|viewpoint|
+          next if viewpoint.changes["memo"].blank?
+          UserTipProxy.create_fav_edit_viewpoint_tip_on_queue(viewpoint)
         }
       })
   end

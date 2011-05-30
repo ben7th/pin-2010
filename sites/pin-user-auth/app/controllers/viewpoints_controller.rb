@@ -2,12 +2,12 @@ class ViewpointsController < ApplicationController
   before_filter :login_required
   before_filter :per_load
   def per_load
-    @todo_user = TodoUser.find(params[:id]) if params[:id]
+    @viewpoint = Viewpoint.find(params[:id]) if params[:id]
   end
 
   # post /viewpoints/:id/feeds
   def create_feed
-    feed = @todo_user.create_viewpoint_feed(current_user,params[:content])
+    feed = @viewpoint.create_viewpoint_feed(current_user,params[:content])
     if feed.id
       return render :text=>"create viewpoint feed success",:status=>200
     end
@@ -17,27 +17,27 @@ class ViewpointsController < ApplicationController
 
   before_filter :vote_filter,:only=>[:vote_up,:vote_down,:cancel_vote]
   def vote_filter
-    if @todo_user.user == current_user
+    if @viewpoint.user == current_user
       return render :text=>503,:status=>503
     end
   end
 
   def vote_up
-    @todo_user.vote_up(current_user)
+    @viewpoint.vote_up(current_user)
     render :partial=>"feeds/show_parts/feed_show_viewpoints",
-      :locals=>{:feed=>@todo_user.todo.feed}
+      :locals=>{:feed=>@viewpoint.feed}
   end
 
   def vote_down
-    @todo_user.vote_down(current_user)
+    @viewpoint.vote_down(current_user)
     render :partial=>"feeds/show_parts/feed_show_viewpoints",
-      :locals=>{:feed=>@todo_user.todo.feed}
+      :locals=>{:feed=>@viewpoint.feed}
   end
 
   def cancel_vote
-    @todo_user.cancel_vote(current_user)
+    @viewpoint.cancel_vote(current_user)
     render :partial=>"feeds/show_parts/feed_show_viewpoints",
-      :locals=>{:feed=>@todo_user.todo.feed}
+      :locals=>{:feed=>@viewpoint.feed}
   end
 
 end

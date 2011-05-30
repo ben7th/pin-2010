@@ -2,7 +2,7 @@ module ViewpointCommentMethods
   def self.included(base)
     base.extend ClassMethods
     base.add_rules({
-        :class => TodoMemoComment,
+        :class => ViewpointComment,
         :after_create => Proc.new{|tc|
           UserTipProxy.create_viewpoint_comment_tip_on_queue(tc)
         }
@@ -11,7 +11,7 @@ module ViewpointCommentMethods
 
   def create_viewpoint_comment_tip(viewpoint_comment)
     user = viewpoint_comment.user
-    viewpoint = viewpoint_comment.todo_user
+    viewpoint = viewpoint_comment.viewpoint
     feed = viewpoint.feed
     tip_id = randstr
 
@@ -28,7 +28,7 @@ module ViewpointCommentMethods
     end
 
     def create_viewpoint_comment_tip(viewpoint_comment)
-      UserTipProxy.new(viewpoint_comment.todo_user.user).create_viewpoint_comment_tip(viewpoint_comment)
+      UserTipProxy.new(viewpoint_comment.viewpoint.user).create_viewpoint_comment_tip(viewpoint_comment)
     end
   end
 end

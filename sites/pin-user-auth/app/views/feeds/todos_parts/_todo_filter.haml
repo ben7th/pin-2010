@@ -1,6 +1,0 @@
-.index-todos-filter
-  =link_to '全部','/todos',:class=>['all',status.blank? ? 'reverse':'']*' '
-  =link_to '预备','/todos?status=ready',:class=>['ready',status=='ready' ? 'reverse':'']*' '
-  =link_to '执行中','/todos?status=doing',:class=>['doing',status=='doing' ? 'reverse':'']*' '
-  =link_to '已完成','/todos?status=done',:class=>['done',status=='done' ? 'reverse':'']*' '
-  =link_to '已放弃','/todos?status=drop',:class=>['drop',status=='drop' ? 'reverse':'']*' '

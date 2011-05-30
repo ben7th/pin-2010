@@ -43,9 +43,7 @@
   .fans{display:none;}
   .comments{display:none;}
   .quotes{display:none;}
-  .todos{display:none;}
   &.show-fans{.fans{display:block;}}
   &.show-comments{.comments{display:block;}}
   &.show-quotes{.quotes{display:block;}}
-  &.show-todos{.todos{display:block;}}
 }

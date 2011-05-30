@@ -101,7 +101,7 @@ module UserNoticeHelper
 
   def vote_up_tip_str(vote_tip)
     voters = vote_tip.voters
-    feed = vote_tip.viewpoint.todo.feed
+    feed = vote_tip.viewpoint.feed
 
     re = []
 

@@ -1109,9 +1109,6 @@ form.new_message .w300 {
         top: 5px;
         left: 5px; }
 
-.feed-form.feed-todolist-form {
-  margin: 0 0 30px 0; }
-
 .page-new-feed-form {
   padding: 5px; }
   .page-new-feed-form .content-ipter {
@@ -3269,13 +3266,11 @@ form.new_message .w300 {
   background: url(/images/icons/all.png) no-repeat -175px -117px; }
 .module-links.feeds .quoted-me-feeds .icon {
   background: url(/images/icons/all.png) no-repeat -200px -117px; }
-.module-links.feeds .todos .icon {
+.module-links.feeds .answered-feeds .icon {
   background: url(/images/icons/all.png) no-repeat -250px -117px; }
-.module-links.feeds .memoed-todos .icon {
-  background: url(/images/icons/all.png) no-repeat -250px -117px; }
-.module-links.feeds .be-asked-todos .icon {
+.module-links.feeds .be-asked-feeds .icon {
   background: url(/images/icons/all.png) no-repeat -275px -117px; }
-.module-links.feeds .be-hidden-todos .icon {
+.module-links.feeds .be-hidden-feeds .icon {
   background: url(/images/icons/all.png) no-repeat -325px -117px; }
 .module-links.feeds .recent-userlogs .icon {
   background: url(/images/icons/all.png) no-repeat -300px -117px; }
@@ -3661,15 +3656,11 @@ form.new_message .w300 {
     display: none; }
   .misc-tip .quotes {
     display: none; }
-  .misc-tip .todos {
-    display: none; }
   .misc-tip.show-fans .fans {
     display: block; }
   .misc-tip.show-comments .comments {
     display: block; }
   .misc-tip.show-quotes .quotes {
-    display: block; }
-  .misc-tip.show-todos .todos {
     display: block; }
 
 .user-mindmaps {
@@ -4082,130 +4073,6 @@ form.new_message .w300 {
       font-size: 0;
       line-height: 0;
       text-indent: -999px; }
-
-.index-todos .to {
-  overflow: hidden;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  padding: 5px;
-  padding-bottom: 15px;
-  margin-bottom: 10px; }
-  .index-todos .to .action {
-    float: left;
-    width: 20px;
-    margin-right: 5px; }
-    .index-todos .to .action .move-up, .index-todos .to .action .move-down {
-      width: 20px;
-      height: 17px;
-      margin-bottom: 2px;
-      background: url(/images/icons/all.png) no-repeat -229px -33px #dfeaf4;
-      cursor: pointer;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px; }
-      .index-todos .to .action .move-up:hover, .index-todos .to .action .move-down:hover {
-        background: url(/images/icons/all.png) no-repeat -229px -51px #19558d; }
-    .index-todos .to .action .move-down {
-      background: url(/images/icons/all.png) no-repeat -250px -33px #dfeaf4; }
-      .index-todos .to .action .move-down:hover {
-        background: url(/images/icons/all.png) no-repeat -250px -51px #19558d; }
-  .index-todos .to .item-count {
-    float: left;
-    width: 9px;
-    overflow: hidden;
-    margin-right: 5px;
-    font-weight: bold;
-    font-size: 14px;
-    padding-top: 6px; }
-  .index-todos .to .status {
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    width: 36px;
-    height: 36px;
-    float: left;
-    margin-right: 5px;
-    cursor: pointer; }
-    .index-todos .to .status:hover {
-      opacity: 0.9; }
-    .index-todos .to .status.ready {
-      background: #EBFF4C; }
-    .index-todos .to .status.doing {
-      background: #FBE881; }
-    .index-todos .to .status.done {
-      background: #FF6203;
-      color: white; }
-    .index-todos .to .status.drop {
-      background: #E6E6E6;
-      color: #999; }
-    .index-todos .to .status .stext {
-      padding: 8px 0 0 6px; }
-  .index-todos .to .avatar {
-    float: left;
-    margin-right: 10px; }
-  .index-todos .to .meta {
-    float: left;
-    width: 380px; }
-    .index-todos .to .meta .ct {
-      margin-bottom: 5px; }
-    .index-todos .to .meta .feed-content {
-      margin: 15px 0 0 0; }
-  .index-todos .to .items {
-    margin-left: 40px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    margin-top: 15px;
-    padding: 5px; }
-    .index-todos .to .items .item {
-      padding: 3px 0; }
-  .index-todos .to .executers-status {
-    padding: 5px;
-    margin-left: 40px;
-    margin-top: 10px;
-    overflow: hidden; }
-    .index-todos .to .executers-status .exe {
-      float: left;
-      margin-right: 12px;
-      overflow: hidden; }
-      .index-todos .to .executers-status .exe .name {
-        float: left;
-        margin-right: 2px; }
-      .index-todos .to .executers-status .exe .s {
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        float: left;
-        padding: 0 3px; }
-        .index-todos .to .executers-status .exe .s.ready {
-          background: #EBFF4C; }
-        .index-todos .to .executers-status .exe .s.doing {
-          background: #FBE881; }
-        .index-todos .to .executers-status .exe .s.done {
-          background: #FF6203;
-          color: white; }
-        .index-todos .to .executers-status .exe .s.drop {
-          background: #E6E6E6;
-          color: #999; }
-  .index-todos .to .memo {
-    padding: 5px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    margin-left: 40px;
-    margin-top: 10px; }
-
-.index-todos-filter {
-  overflow: hidden;
-  padding: 0 5px; }
-  .index-todos-filter a {
-    float: left;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    padding: 2px 6px;
-    margin-right: 6px; }
 
 .no-auth .login {
   border-radius: 4px;

@@ -1,6 +1,6 @@
 class ViewpointVote < UserAuthAbstract
   belongs_to :user
-  belongs_to :viewpoint,:class_name=>"TodoUser"
+  belongs_to :viewpoint
   validates_presence_of :user
   validates_presence_of :viewpoint
   validates_uniqueness_of :user_id, :scope => :viewpoint_id
@@ -16,7 +16,7 @@ class ViewpointVote < UserAuthAbstract
     self.status == ViewpointVote::DOWN
   end
 
-  module TodoUserMethods
+  module ViewpointMethods
     def self.included(base)
       base.has_many :viewpoint_votes,:foreign_key=>:viewpoint_id
       base.has_many :viewpoint_up_votes,:foreign_key=>:viewpoint_id,

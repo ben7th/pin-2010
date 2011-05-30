@@ -1,0 +1,29 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  起步指南：参与讨论
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.clearfix
+  .grid-title 参与讨论
+.hrr
+.grid_16.alpha
+  .help-page-text.padding5
+    %h2 <span class='quiet'>首先：</span>创建一个主题
+
+    %h2#see-other <span class='quiet'>然后：</span>查看其它起步指南
+
+    %ol
+      %li <a href='/startup/basic-setting'>创建主题</a>
+      %li <a href='/startup/edit-feed'>创建主题</a>
+      %li.quiet 参与讨论
+      %li <a href='/startup/friends'>结识朋友</a>
+
+.grid_3.omega.fright
+  %ol.font14
+    %li <a href='/startup/basic-setting'>创建主题</a>
+    %li <a href='/startup/edit-feed'>创建主题</a>
+    %li.quiet 参与讨论
+    %li <a href='/startup/friends'>结识朋友</a>

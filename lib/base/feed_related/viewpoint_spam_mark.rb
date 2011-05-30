@@ -1,5 +1,5 @@
 class ViewpointSpamMark < UserAuthAbstract
-  belongs_to :viewpoint,:class_name=>"TodoUser"
+  belongs_to :viewpoint
   belongs_to :user
   validates_presence_of :viewpoint
   validates_presence_of :user
@@ -7,7 +7,7 @@ class ViewpointSpamMark < UserAuthAbstract
 
   EFFECT_COUNT = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)["spam_mark_effect_count"]
 
-  module TodoUserMethods
+  module ViewpointMethods
     def self.included(base)
       base.has_many :spam_marks,:class_name=>"ViewpointSpamMark",
         :foreign_key=>:viewpoint_id
