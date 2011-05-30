@@ -16,6 +16,7 @@ class Feed < UserAuthAbstract
     }
   }
 
+  named_scope :normal,:conditions=>"hidden is not true"
   named_scope :unhidden,:conditions=>"hidden is not true"
 
   named_scope :hidden,:conditions=>"hidden is true",:order=>"id desc"

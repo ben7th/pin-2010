@@ -65,7 +65,7 @@ class Viewpoint < UserAuthAbstract
   module FeedMethods
     def self.included(base)
       base.has_many :viewpoints
-      base.has_many :memoed_viewpoints,:class_name=>"Viewpoint",:conditions=>"viewpoints.memo is not null"
+      base.has_many :memoed_viewpoints,:class_name=>"Viewpoint",:conditions=>"viewpoints.memo is not null",:order=>'vote_score desc'
       base.has_many :memoed_users_db,:through=>:viewpoints,:source=>:user,
         :order=>"viewpoints.vote_score desc"
     end

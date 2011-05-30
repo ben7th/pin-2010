@@ -94,7 +94,8 @@ class FeedTag < UserAuthAbstract
     end
 
     def feeds_limited(count)
-      self.feeds.find(:all,:limit=>count.to_i)
+      # 只显示非隐藏的
+      self.feeds.normal.find(:all,:limit=>count.to_i)
     end
   end
 

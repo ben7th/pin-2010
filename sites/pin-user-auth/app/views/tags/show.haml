@@ -35,7 +35,8 @@
 .grid_6.omega.fright
   .tag-related-feed-count
     .count
-      =@tag.feeds.count
+      =# 只显示非隐藏的
+      =@tag.feeds.normal.count
     .desc 主题带有此关键词
 
   .hrr
