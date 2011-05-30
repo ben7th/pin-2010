@@ -149,6 +149,8 @@ class Feed < UserAuthAbstract
     return if editer.blank?
     self.create_or_update_detail(content)
     self.record_editer(editer)
+    self.reload
+    self
   end
 
   def show
