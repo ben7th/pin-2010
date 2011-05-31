@@ -3220,6 +3220,16 @@ form.new_message .w300 {
       position: absolute;
       top: 2px;
       left: -22px; }
+    .module-links .link .count {
+      display: inline;
+      color: white;
+      background: #FF3D00;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 0 4px; }
     .module-links .link.binded .new {
       background: url(/images/icons/all.png) no-repeat -196px -66px; }
   .module-links.account .base .icon {
@@ -4892,3 +4902,15 @@ form.new_message .w300 {
   display: block; }
 .help-page-text ol {
   margin-left: 1.5em; }
+
+.page-user-be-invited .invite {
+  padding: 5px 5px 30px; }
+  .page-user-be-invited .invite .avatar {
+    float: left; }
+  .page-user-be-invited .invite .desc {
+    font-size: 14px;
+    margin: 0 0 6px 40px; }
+    .page-user-be-invited .invite .desc .bold {
+      font-weight: normal; }
+  .page-user-be-invited .invite .footmisc {
+    margin: 0 0 0 40px; }

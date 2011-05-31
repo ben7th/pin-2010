@@ -1,19 +1,25 @@
-.module-links.feeds
-  .link.home.btb
-    .icon
-    =tabs_link_to '我的首页',pin_url_for('pin-user-auth','/')
-  .link.favs.btb
-    .icon
-    =tabs_link_to '关注的主题',pin_url_for('pin-user-auth','/favs')
-  .link.answered-feeds.btb
-    .icon
-    =tabs_link_to '参与的主题',pin_url_for('pin-user-auth','/feeds/memoed')
-  .link.be-asked-feeds.btb
-    .icon
-    =tabs_link_to '被邀请的主题',pin_url_for('pin-user-auth','/feeds/be_invited')
-  .link.be-hidden-feeds
-    .icon
-    =tabs_link_to '被隐藏的主题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
+-if logged_in?
+  .module-links.feeds
+    .link.home.btb
+      .icon
+      =tabs_link_to '我的首页',pin_url_for('pin-user-auth','/')
+    .link.favs.btb
+      .icon
+      =tabs_link_to '关注的主题',pin_url_for('pin-user-auth','/favs')
+    .link.answered-feeds.btb
+      .icon
+      =tabs_link_to '参与的主题',pin_url_for('pin-user-auth','/feeds/memoed')
+
+    .link.be-asked-feeds.btb
+      .icon
+      -invite_count = current_user.feed_invites.count
+      =tabs_link_to '收到的邀请',pin_url_for('pin-user-auth','/feeds/be_invited')
+      -if invite_count > 0
+        .count=invite_count
+
+    .link.be-hidden-feeds
+      .icon
+      =tabs_link_to '被隐藏的主题',pin_url_for('pin-user-auth','/feeds/mine_hidden')
 
 .module-links.feeds
   .link.recent-userlogs.btb
@@ -22,11 +28,3 @@
   .link.recent-hot-feeds
     .icon
     =tabs_link_to '浏览最新主题',pin_url_for('pin-user-auth','/feeds/all')
-
-.module-links{:style=>'display:none;'}
-  .link.received_comments.btb
-    .icon
-    =tabs_link_to '收到的评论',pin_url_for('pin-user-auth','/received_comments')
-  .link.quoted-me-feeds.btb
-    .icon
-    =tabs_link_to '大家传播我的',pin_url_for('pin-user-auth','/quoted_me_feeds')

@@ -106,7 +106,7 @@ class UserTipProxy < BaseTipProxy
   include FavsEditFeedContentMethods
   include FavsAddViewpointMethods
   include FavsEditViewpointMethods
-  include FeedInviteMethods
+#  include FeedInviteMethods 2011.5.31 由于邀请已在导航中单独显示，不再激活此通知
   include ViewpointVoteUpMethods
   include ViewpointSpamMarkEffectMethods
   include FeedSpamMarkEffectMethods

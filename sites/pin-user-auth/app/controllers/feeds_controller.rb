@@ -170,7 +170,7 @@ class FeedsController < ApplicationController
   end
 
   def be_invited
-    @feeds = current_user.be_invited_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    @feed_invites = current_user.feed_invites.paginate(:per_page=>20,:page=>params[:page]||1)
     render :template=>"feeds/be_invited"
   end
 

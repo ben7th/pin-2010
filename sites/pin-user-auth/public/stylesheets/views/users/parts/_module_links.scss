@@ -24,6 +24,14 @@
       top:2px;
       left:-22px;
     }
+    .count{
+      display:inline;
+      color:white;
+      background:#FF3D00;
+      @include border-radius(3px);
+      font-size:14px;font-weight:bold;
+      padding:0 4px;
+    }
     &.binded{
       .new{background:url(/images/icons/all.png) no-repeat -196px -66px;}
     }
