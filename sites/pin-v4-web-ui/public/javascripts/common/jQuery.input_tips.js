@@ -18,56 +18,61 @@
  *
  */
 (function($) {
-  $.fn.input_tips = function(str) {
-    initial_target($(this),str);
+  $.fn.input_tips = function(tip_str) {
+    var elm = $(this);
 
+    //初始化
+    initial_target(elm,tip_str);
+
+    //focus和blur的事件绑定，不能以live来声明
     $(this)
-      .blur(function(){
-        if($(this).val()==''){
-          initial_target($(this),str);
-        }
-      })
       .focus(function(){
-        if($(this).hasClass('input-field-tip')){
-          clear_target($(this));
-        }
+        clear_target(elm);
+      })
+      .blur(function(){
+        show_target(elm);
       });
   };
 
-  function refresh_target(target,str){
-    if(target.val() != str && target.hasClass('input-field-tip')){
-      var color = target.attr('data-current-color');
-      target.css('color',color);
-      target.removeClass('input-field-tip');
-    }
+  // 初始化
+  function initial_target(input_elm,str) {
+    var tip_elm = $('<div class="quiet j-input-tip">'+str+'</div>')
+    tip_elm.css('position','absolute');
+    tip_elm.css('font-size',input_elm.css('font-size'));
+
+    var o = input_elm.offset();
+    var left = o.left + parseInt(input_elm.css('padding-left')) + 2;
+    var top = o.top + 1;
+
+    tip_elm.css('left',left).css('top',top);
+
+    tip_elm.mousedown(function(event){
+      tip_elm.hide();
+      setTimeout(function(){
+        input_elm.focus();
+      },1);
+    })
+
+    input_elm.after(tip_elm);
+  }
+  
+  // 聚焦时，清除提示
+  function clear_target(input_elm){
+    var tip_elm = input_elm.next('.j-input-tip');
+    tip_elm.hide();
   }
 
-  // 用于失焦时 use for focus
-  function initial_target(target,str) {
-    target.attr('data-current-color',target.css('color'));
-    target.css('color','#999999');
-    target.addClass('input-field-tip');
-    target.val(str);
-  }
-  // 用于聚焦时 use for blur
-  function clear_target( target ) {
-    var color = target.attr('data-current-color');
-    target.css('color',color);
-    target.removeClass('input-field-tip');
-    target.val('');
+  // 失焦时，显示提示
+  function show_target(input_elm){
+    var tip_elm = input_elm.next('.j-input-tip');
+    if(input_elm.val() == '') tip_elm.show();
   }
 
+  //全页面的input tip初始化
   $(document).ready(function() {
     $('[data-input-tip]').each(function(){
       var d = $(this);
       d.input_tips(d.attr('data-input-tip'));
     });
-
-    setInterval(function(){
-      $('[data-input-tip]').each(function(){
-        var d = $(this);
-        refresh_target(d,d.attr('data-input-tip'));
-      });
-    },10);
   });
 })(jQuery);

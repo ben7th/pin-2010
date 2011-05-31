@@ -109,6 +109,16 @@
   }
 }
 
+.feedback-closed{
+  overflow:hidden;
+  font-size:14px;font-weight:bold;
+  border:solid 2px #DFDFDF;
+  background:#F5F5F5;
+  @include border-radius(5px);
+  margin: 0 0 12px 0;
+  padding:10px;
+}
+
 .feed-is-locked,.feed-is-hidden-by-useless{
   overflow:hidden;
   font-size:14px;font-weight:bold;

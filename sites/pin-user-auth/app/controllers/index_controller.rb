@@ -28,4 +28,8 @@ class IndexController < ApplicationController
     utp = UserTipProxy.new(current_user)
     @tips = utp.tips
   end
+
+  def feedback
+    
+  end
 end

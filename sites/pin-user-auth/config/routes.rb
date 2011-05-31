@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/in_feeds_more",:controller=>"index",:action=>"in_feeds_more"
   map.connect "/user_logs",:controller=>"index",:action=>"user_logs"
   map.connect "/user_notices",:controller=>"index",:action=>"user_notices"
+  map.connect "/feedback",:controller=>"index",:action=>"feedback"
 
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
