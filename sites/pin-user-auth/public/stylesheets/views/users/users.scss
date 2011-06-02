@@ -945,7 +945,7 @@ form.new_message{
   .tab{
     cursor:pointer;
     @include border-radius(4px);
-    width:120px;
+    width:130px;
     float:left;
     margin:0 20px 0 0;
     padding:10px 5px;
@@ -982,7 +982,7 @@ form.new_message{
         @include border-radius(4px);
         color:white;
         top:10px;
-        left:115px;
+        left:125px;
         padding:4px 7px;
         font-size:16px;font-weight:bold;
         line-height:16px;

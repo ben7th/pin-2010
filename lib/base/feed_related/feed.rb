@@ -235,7 +235,7 @@ class Feed < UserAuthAbstract
 
       feed.add_tags_without_record_editer(options[:tags],self)
       feed.add_default_tag_when_no_tag
-
+      FeedLucene.index_one_feed(feed.id)
       feed
     end
 

@@ -121,15 +121,17 @@ class FeedLucene
       end
 
       class LuceneSearchItem
-        attr_reader :id,:feed,:content,:score
+        attr_reader :id,:feed,:content,:score,:detail
 
         def initialize(hash)
           @id       = hash["id"]
           @feed  =    Feed.find_by_id(@id)
           @content  = hash["content"]
           @score    = hash["score"]
+          @detail   = hash["detail"]
 
-          @content = '' if @content == 'null'
+          @content = '' if @content.strip == 'null'
+          @detail = '' if @detail.strip == 'null'
         end
 
         def self.build_from_array(search_result_hash_array)
@@ -145,6 +147,8 @@ class FeedLucene
   def self.index_one_feed(feed_id)
     Thread.start do
       begin
+        # 等待 ruby 程序把数据写入数据库并提交后
+        # 再调用 java 建立索引
         Client.connection do |client|
           client.index_one_feed(feed_id)
         end
@@ -193,18 +197,32 @@ class FeedLucene
     end
   end
 
-  module FeedMethods
+  module FeedChangeMethods
     def self.included(base)
-      base.after_create :create_lucene_index_on_create
-      base.after_destroy :destroy_lucene_index_on_destroy
+      base.after_create :update_lucene_index_on_create
     end
 
-    def create_lucene_index_on_create
-      FeedLucene.index_one_feed(self.id)
+    def update_lucene_index_on_create
+      FeedLucene.index_one_feed(self.feed.id)
+      return true
+    end
+  end
+
+  module FeedMethods
+    def self.included(base)
+      base.after_update :update_lucene_index_on_update
+      base.after_destroy :destroy_lucene_index_on_destroy
     end
 
     def destroy_lucene_index_on_destroy
       FeedLucene.delete_index(self.id)
+      return true
+    end
+
+    def update_lucene_index_on_update
+      return true if self.changes["hidden"].blank?
+      FeedLucene.index_one_feed(self.id)
+      return true
     end
 
     def major_words(words_count=5)

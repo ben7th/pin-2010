@@ -67,6 +67,44 @@ class Tag < UserAuthAbstract
     end
   end
 
+  def self.full_name_str(name,namespace=nil)
+    return name if namespace.blank?
+    return "#{namespace}:#{name}"
+  end
+
+  def users_map_of_created_feeds
+    ab = ActiveRecord::Base.connection.select_all(%`
+        select users.id,users.email,count(*) count from users
+        inner join feeds on users.id = feeds.creator_id
+        inner join feed_tags on feeds.id = feed_tags.feed_id
+        where feed_tags.tag_id = #{self.id} and feeds.hidden = false
+        group by users.id
+        order by count desc
+        limit 50
+      `)
+    ab.map do |item|
+      user, count = User.find_by_id(item["id"]), item["count"]
+      {user=>count}
+    end
+  end
+
+  def users_map_of_memoed_feeds
+        ab = ActiveRecord::Base.connection.select_all(%`
+          select users.id,users.email,count(*) count from users
+          inner join viewpoints on viewpoints.user_id = users.id
+          inner join feed_tags on viewpoints.feed_id = feed_tags.feed_id
+          inner join feeds on feeds.id = viewpoints.feed_id
+          where feed_tags.tag_id = #{self.id} and feeds.hidden = false
+          group by users.id
+          order by count desc
+          limit 50
+      `)
+    ab.map do |item|
+      user, count = User.find_by_id(item["id"]), item["count"]
+      {user=>count}
+    end
+  end
+
   include FeedTag::TagMethods
   include TagFav::TagMethods
   include TagRelatedFeedTagsMapProxy::TagMethods

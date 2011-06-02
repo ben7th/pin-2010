@@ -26,4 +26,5 @@ class FeedChange < UserAuthAbstract
 
   include UserLog::FeedChangeMethods
   include FeedTag::FeedChangeMethods
+  include FeedLucene::FeedChangeMethods
 end

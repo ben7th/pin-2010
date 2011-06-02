@@ -46,6 +46,8 @@
 
     tip_elm.css('left',left).css('top',top);
 
+    if(input_elm.val() != '') tip_elm.hide();
+
     tip_elm.mousedown(function(event){
       tip_elm.hide();
       setTimeout(function(){

@@ -2,17 +2,17 @@
   -index_tabs_link_to '/',:class=>'tab feeds darkbg csshov' do
     .icon
     .title 主题
-    .desc.quiet 参加讨论吧~
+    .desc.quiet 一起来讨论吧~
 
   -index_tabs_link_to '/user_logs',:class=>'tab logs darkbg csshov' do
     .icon
     .title 动态
-    .desc.quiet 大家在干嘛？
+    .desc.quiet 朋友们在干嘛？
 
   -index_tabs_link_to '/user_notices',:class=>'tab notice darkbg csshov' do
     .icon
     .title 通知
-    .desc.quiet 查收新消息…
+    .desc.quiet 查看最新消息…
     -notice_count = UserTipProxy.new(current_user).tips_count
     -if notice_count > 0
       .count=notice_count

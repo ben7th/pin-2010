@@ -6,7 +6,7 @@ class IndexController < ApplicationController
       return render(:template=>'auth/no_auth_index')
     end
 
-    @feeds = current_user.in_feeds_more(20)
+    @feeds = current_user.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   def in_feeds_more

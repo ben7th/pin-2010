@@ -38,9 +38,8 @@
   .index-tab-ct.feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
-    -if !@feeds.blank?
-      -last_value = @feeds.last_value
-      .page-list-more{:'data-count'=>10,:'data-url'=>'/in_feeds_more'} 查看更多
+    .paginate.padding5
+      = will_paginate @feeds
 
     -if @feeds.length == 0
       =render 'index/index_parts/newbie_welcome'

@@ -44,23 +44,6 @@ class UserInboxFeedProxy < RedisBaseProxy
   end
 
   def self.rules
-    [
-      {
-        :class => Feed ,
-        :after_create => Proc.new {|feed|
-          UserInboxFeedProxy.add_feed_cache(feed)
-        },
-        :after_update => Proc.new {|feed|
-          if feed.to_hide?
-            UserInboxFeedProxy.remove_feed_cache(feed)
-          elsif feed.to_show?
-            UserInboxFeedProxy.add_feed_cache(feed)
-          end
-        },
-        :after_destroy => Proc.new {|feed|
-          UserInboxFeedProxy.remove_feed_cache(feed)
-        }
-      },
       {
         :class => Contact,
         :after_create => Proc.new{|contact|
@@ -89,8 +72,6 @@ class UserInboxFeedProxy < RedisBaseProxy
           uifp.send(:xxxs_ids_rediscache_save,ids[0..199])
         }
       }
-    ]
-
   end
 
   def self.funcs

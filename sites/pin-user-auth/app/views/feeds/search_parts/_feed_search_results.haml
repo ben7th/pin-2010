@@ -1,6 +1,14 @@
--feeds = result.items.map{|it| it.feed}.compact
--if feeds.blank?
+-items = result.items
+-if items.blank?
   .no-result.quiet.font14.padding5
     没有搜索到任何结果
 -else
-  =render 'feeds/lists/feeds_stat',:feeds=>feeds
+  .page-searched-feeds
+    -items.each do |item|
+      -feed = item.feed
+      .feed.btb
+        =render 'feeds/info_parts/info_stats',:feed=>feed
+        .data
+          .title=link_to item.content,feed
+          .detail=item.detail
+        =render 'feeds/info_parts/info_time_and_ops',:feed=>feed

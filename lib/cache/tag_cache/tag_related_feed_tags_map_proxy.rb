@@ -25,14 +25,9 @@ class TagRelatedFeedTagsMapProxy
       `)
     @redis_set.touch
     ab.each do |item|
-      full_name = _syn_cache_tag_full_name(item["namespace"],item["name"])
+      full_name = Tag.full_name_str(item["name"],item["namespace"])
       @redis_set.set_score(full_name,item["c1"])
     end
-  end
-
-  def _syn_cache_tag_full_name(namespace,name)
-    return name if namespace.blank?
-    return "#{namespace}:#{name}"
   end
 
   def syn_cache_when_unexists
@@ -40,12 +35,16 @@ class TagRelatedFeedTagsMapProxy
   end
 
   def related_increase(otag)
-    syn_cache_when_unexists
+    unless @redis_set.exists?
+      return syn_cache
+    end
     @redis_set.increase(otag.full_name)
   end
 
   def realted_decrease(otag)
-    syn_cache_when_unexists
+    unless @redis_set.exists?
+      return syn_cache
+    end
     @redis_set.decrease(otag.full_name)
   end
 

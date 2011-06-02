@@ -26,14 +26,6 @@ class UserInboxLogProxy < RedisBaseProxy
 
   def self.rules
     {
-      :class => UserLog,
-      :after_create => Proc.new{|user_log|
-        user_log_owner = user_log.user
-        users = user_log_owner.hotfans + [user_log_owner]
-        users.each do |user|
-          UserInboxLogProxy.new(user).add_to_cache(user_log.id)
-        end
-      }
     }
   end
 

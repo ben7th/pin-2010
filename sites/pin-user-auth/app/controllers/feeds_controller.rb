@@ -134,10 +134,11 @@ class FeedsController < ApplicationController
     @quoted_me_feeds = current_user.being_quoted_feeds
   end
 
+  # 搜索
   def search
     begin
       @query = params[:q]
-      @result = FeedLucene.search_paginate(@query,:page=>params[:page]||1)
+      @result = FeedLucene.search_paginate(@query,:per_page=>20,:page=>params[:page]||1)
     rescue FeedLucene::FeedSearchFailureError => ex
       puts ex.backtrace*"\n"
       return render_status_page(500,ex)

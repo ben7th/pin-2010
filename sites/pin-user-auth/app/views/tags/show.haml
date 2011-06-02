@@ -30,6 +30,8 @@
   .tag-page-feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+    .padding5
+      =will_paginate @feeds
 
 
 .grid_6.omega.fright

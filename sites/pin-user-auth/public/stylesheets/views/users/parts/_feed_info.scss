@@ -326,6 +326,39 @@
   }
 }
 
+@mixin feed-stats{
+  overflow:hidden;
+  float:left;
+  .stat{
+    font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+    overflow:hidden;
+    float:left;
+    padding:3px 8px;
+
+    .num{
+      font-size:22px;font-weight:bold;
+      line-height:22px;height:22px;
+      text-align:center;
+    }
+    .w{
+      font-size:12px;display:inline;color:#666;
+      text-align:center;
+    }
+    &.viewpoints{
+      &.not-zero{
+        @include border-radius(4px);
+        background:#686B72;
+        .num{color:white;}
+        .w{color:#DDDDDD;}
+      }
+      &.zero{
+        color:#9A4444;
+        .w{color:#9A4444;}
+      }
+    }
+  }
+}
+
 .newsfeed{
   ul.feeds li.mpli.feed{
     .f.with-stats{
@@ -334,37 +367,33 @@
       }
       .footmisc{width:570px;}
       .stats{
-        overflow:hidden;
-        float:left;
-        .stat{
-          font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
-          overflow:hidden;
-          float:left;
-          padding:3px 8px;
-
-          .num{
-            font-size:22px;font-weight:bold;
-            line-height:22px;height:22px;
-            text-align:center;
-          }
-          .w{
-            font-size:12px;display:inline;color:#666;
-            text-align:center;
-          }
-          &.viewpoints{
-            &.not-zero{
-              @include border-radius(4px);
-              background:#686B72;
-              .num{color:white;}
-              .w{color:#DDDDDD;}
-            }
-            &.zero{
-              color:#9A4444;
-              .w{color:#9A4444;}
-            }
-          }
-        }
+        @include feed-stats;
       }
+    }
+  }
+}
+
+.page-searched-feeds{
+  .feed{
+    padding:5px 5px 20px;
+    .stats{
+      @include feed-stats;
+    }
+    .data,.footmisc{
+      margin-left:50px;
+    }
+    .data{
+      margin-bottom:10px;
+      .title{
+        font-size:14px;font-weight:bold;
+        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        margin:0 0 5px 0;
+      }
+      .detail{
+      }
+    }
+    .footmisc{
+      @include footmisc;
     }
   }
 }

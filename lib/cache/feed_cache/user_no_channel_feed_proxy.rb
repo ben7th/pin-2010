@@ -52,7 +52,7 @@ class UserNoChannelFeedProxy < RedisBaseProxy
           self_ids = uncfp.xxxs_ids
           user_ids = UserNoChannelFeedProxy.new(contact.follow_user).xxxs_ids
           ids = (self_ids + user_ids).sort{|x,y|y<=>x}
-
+          ids.uniq!
           uncfp.send(:xxxs_ids_rediscache_save,ids)
         },
         :after_destroy => Proc.new {|contact|

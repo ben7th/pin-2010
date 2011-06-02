@@ -15,6 +15,7 @@ class UserOutboxLogProxy < RedisBaseProxy
         uolp = UserOutboxLogProxy.new(user_log.user)
         ids = uolp.xxxs_ids
         ids.unshift(user_log.id)
+        ids.uniq!
         ids = ids[0..99] if ids.length > 100
         uolp.send(:xxxs_ids_rediscache_save,ids)
       }

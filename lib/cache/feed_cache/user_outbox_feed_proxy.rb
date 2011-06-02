@@ -18,6 +18,7 @@ class UserOutboxFeedProxy < RedisBaseProxy
     uofp = UserOutboxFeedProxy.new(feed.creator)
     ids = uofp.xxxs_ids
     ids.unshift(feed.id)
+    ids.uniq!
     ids = ids[0..99] if ids.length > 100
     uofp.send(:xxxs_ids_rediscache_save,ids)
   end

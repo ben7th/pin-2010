@@ -262,3 +262,8 @@
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px; }
+
+.search-highlight {
+  background: #FFFFCC;
+  color: #333333;
+  font-weight: bold; }

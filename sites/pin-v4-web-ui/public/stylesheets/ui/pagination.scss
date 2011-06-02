@@ -1,50 +1,49 @@
 /*will_pageinate style*/
 @import "misc";
 
-$c1:#47520E;
-$b1:#F3FF5F;
-$bdis:#FFFADA;
+$color1:#3E6D8E;
+$radius:15px;
 
 div.pagination{
-  font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
-  padding:0;
-  margin:3px 0;
   overflow:hidden;
   clear:both;
   
   a, span {
-    float:left;
     height:16px;
     line-height:16px;
-    padding:3px 6px;
+    padding:5px 9px;
+    @include border-radius($radius);
+    font-weight:bold;
+    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    float:left;
+    margin-right:4px;
   }
   a {
-    margin:0 3px;
     text-decoration:none;
-    color:$c1;
-    background-color:$b1;
-    @include border-radius(4px);
+    color:$color1;
+
+    border:solid 1px #CDCDCD;
+    padding:4px 8px;
     &:hover,&:active{
-      background:#D4E347;
-      color:$c1;
+      background:#F0F7FF;
+      color:$color1;
     };
-    &.prev_page,&.next_page{
-    }
   }
   span{
     &.current {
-      margin:1px 3px;
-      border:none;
-      font-weight:bold;
-      color:$c1;
+      background-color:#3E6D8E;
+      color:white;
     }
-    &.disabled {
-      margin:0 3px;
-      color:#777;
-      background-color:$bdis;
-      @include border-radius(4px);
-    }
+    &.disabled {display:none;}
   }
-  .prev_page{margin-left:0px !important;}
-  .next_page{margin-right:0px !important;}
+  .prev_page{
+    background:none;
+    border:none;
+    padding:5px 9px;
+  }
+  .next_page{
+    background:none;
+    border:none;
+    padding:5px 9px;
+  }
 }

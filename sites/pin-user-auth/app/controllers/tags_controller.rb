@@ -8,7 +8,7 @@ class TagsController < ApplicationController
   end
 
   def show
-    @feeds = @tag.feeds_limited(20)
+    @feeds = @tag.feeds.normal.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   def upload_logo
