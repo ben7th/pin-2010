@@ -239,6 +239,10 @@ class Feed < UserAuthAbstract
   end
 
   module UserMethods
+    def self.included(base)
+      base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
+    end
+
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []
       channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact

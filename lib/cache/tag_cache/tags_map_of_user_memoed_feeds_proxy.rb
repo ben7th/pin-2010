@@ -108,12 +108,11 @@ class TagsMapOfUserMemoedFeedsProxy
 
     # 根据用户参与的主题包括的tag，来给用户推荐可能可以参与的主题
     def recommend_feeds(count=nil)
-      created_feeds = Feed.news_feeds_of_user(self)
       except_feeds = (memoed_feeds | created_feeds)
 
       recommend_feeds = []
       tags_of_memoed_feeds.each do |tag|
-        feeds = tag.feeds - except_feeds
+        feeds = tag.feeds.normal - except_feeds
         recommend_feeds |= feeds
         break if !count.blank? && recommend_feeds.length >= count
       end
