@@ -42,7 +42,7 @@
 
     var o = input_elm.offset();
     var left = o.left + parseInt(input_elm.css('padding-left')) + 2;
-    var top = o.top + 1;
+    var top = o.top + parseInt(input_elm.css('padding-top')) + 1;
 
     tip_elm.css('left',left).css('top',top);
 

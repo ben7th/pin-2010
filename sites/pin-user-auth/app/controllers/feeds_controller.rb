@@ -166,7 +166,7 @@ class FeedsController < ApplicationController
   end
 
   def memoed
-    @feeds = current_user.memoed_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    @feeds = current_user.memoed_feeds.normal.paginate(:per_page=>20,:page=>params[:page]||1)
     render :template=>"feeds/memoed"
   end
 
