@@ -42,7 +42,7 @@
       =render 'feeds/show_parts/share_to',{:feed=>@feed}
 
     -if logged_in?
-      -recommend_users = @feed.recommend_users - [current_user]
+      -recommend_users = @feed.recommend_users(5) - [current_user]
       -if !recommend_users.blank?
         .hrr
         .page-show-who-recommend
