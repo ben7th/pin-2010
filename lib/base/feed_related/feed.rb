@@ -16,10 +16,10 @@ class Feed < UserAuthAbstract
     }
   }
 
-  named_scope :normal,:conditions=>"hidden is not true"
-  named_scope :unhidden,:conditions=>"hidden is not true"
+  named_scope :normal,:conditions=>"hidden is not true",:order=>"feeds.id desc"
+  named_scope :unhidden,:conditions=>"hidden is not true",:order=>"feeds.id desc"
 
-  named_scope :hidden,:conditions=>"hidden is true",:order=>"id desc"
+  named_scope :hidden,:conditions=>"hidden is true",:order=>"feeds.id desc"
 
   after_create :creator_to_fav_feed_on_create
   def creator_to_fav_feed_on_create
@@ -229,7 +229,7 @@ class Feed < UserAuthAbstract
 
     iusers = []
     self.tags.each do |tag|
-      users = tag.users_of_memoed_feeds-except_users
+      users = tag.users_of_memoed_feeds - except_users
       iusers|=users
       break if !count.blank? && iusers.count >=count
     end
