@@ -1,0 +1,19 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  推荐给我的主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_16.alpha
+  .grid-title
+    你可能有兴趣或者可以参与下面的主题：
+
+  .hrr
+  .newsfeed
+    =render 'feeds/lists/feeds_recommend',:feeds=>@feeds
+
+.grid_6.omega.fright
+  =render 'feeds/infos/new_button'
+  =render :partial=>'index/index_parts/feed_links'

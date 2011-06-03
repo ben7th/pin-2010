@@ -89,14 +89,44 @@ class TagsMapOfUserMemoedFeedsProxy
   end
 
   module UserMethods
-    # 暂时差数据库，不用缓存
+
+    # 返回关于用户参与的主题包括的tag统计的hash数组
     def tags_map_of_memoed_feeds
-      tags_map_of_memoed_feeds_db
-      #TagsMapOfUserMemoedFeedsProxy.new(self).map
+      ab = _tags_items_of_memoed_feeds
+      ab.map do |item|
+        tag = Tag.get_tag(item["name"],item["namespace"])
+        count = item["count"]
+        {:tag=>tag,:count=>count}
+      end
     end
 
-    def tags_map_of_memoed_feeds_db
-      ab = ActiveRecord::Base.connection.select_all(%`
+    # 返回用户参与的主题包括的tag，按出现次数排序，出现多的排前面
+    def tags_of_memoed_feeds
+      ab = _tags_items_of_memoed_feeds
+      ab.map{|item|Tag.get_tag(item["name"],item["namespace"])}
+    end
+
+    # 根据用户参与的主题包括的tag，来给用户推荐可能可以参与的主题
+    def recommend_feeds(count=nil)
+      created_feeds = Feed.news_feeds_of_user(self)
+      except_feeds = (memoed_feeds | created_feeds)
+
+      recommend_feeds = []
+      tags_of_memoed_feeds.each do |tag|
+        feeds = tag.feeds - except_feeds
+        recommend_feeds |= feeds
+        break if !count.blank? && recommend_feeds.length >= count
+      end
+
+      return recommend_feeds if count.blank?
+      return recommend_feeds[0..count-1]
+    end
+
+
+
+    private
+    def _tags_items_of_memoed_feeds
+      ActiveRecord::Base.connection.select_all(%`
         select tags.name,tags.namespace,count(*) count from tags
         inner join feed_tags on tags.id = feed_tags.tag_id
         inner join viewpoints on feed_tags.feed_id = viewpoints.feed_id
@@ -106,11 +136,6 @@ class TagsMapOfUserMemoedFeedsProxy
         group by tags.id
         order by count desc
         `)
-      ab.map do |item|
-        tag = Tag.get_tag(item["name"],item["namespace"])
-        count = item["count"]
-        {tag=>count}
-      end
     end
   end
 end

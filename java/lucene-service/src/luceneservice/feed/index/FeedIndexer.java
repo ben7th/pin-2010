@@ -142,9 +142,9 @@ public class FeedIndexer extends Indexer {
     for(int i=0;i<tagStrs.length;i++){
       Field field_tag = new Field("tag", tagStrs[i],
         Field.Store.YES,
-        Field.Index.NOT_ANALYZED
+        Field.Index.ANALYZED
       );
-      field_tag.setBoost(4.0f);
+      field_tag.setBoost(3.0f);
       doc.add(field_tag);
     }
 

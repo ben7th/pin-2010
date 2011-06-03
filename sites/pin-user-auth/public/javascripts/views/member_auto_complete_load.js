@@ -98,6 +98,7 @@ pie.ReceiverAutoComplete = Class.create(pie.UserAutoCompleteModule,{
   }
 })
 
+
 pie.FeedInviteComplete = Class.create(pie.UserAutoCompleteModule,{
   init:function(){
     this.feed_id = this.options.feed_id;
@@ -106,18 +107,13 @@ pie.FeedInviteComplete = Class.create(pie.UserAutoCompleteModule,{
     var json = data[0].evalJSON();
     var user_id = json.id;
     var feed_id = this.feed_id;
-    pie.log(feed_id,user_id)
     var inputer = this.inputer;
     //post /feeds/:id/invite params[:user_ids] 1,2,3
-
 
     jQuery.ajax({
       url  : '/feeds/'+feed_id+'/invite',
       type : 'post',
       data : 'user_ids='+user_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
       success : function(res){
         inputer.val('');
         var elm = jQuery('<div>'+res+'</div>');
@@ -125,10 +121,32 @@ pie.FeedInviteComplete = Class.create(pie.UserAutoCompleteModule,{
         var old_biu_elm = jQuery('.show-page-be-invited-users');
         old_biu_elm.after(new_biu_elm);
         old_biu_elm.remove();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
       }
     });
   }
+})
+
+//邀请推荐的参与者
+pie.load(function(){
+  jQuery('.page-show-who-recommend .user .invite a').live('click',function(){
+    var elm = jQuery(this);
+    var user_elm = elm.closest('.user');
+    var user_id = user_elm.attr('data-id');
+    var feed_id = jQuery('.page-feed-show').attr('data-id');
+
+    jQuery.ajax({
+      url  : '/feeds/'+feed_id+'/invite',
+      type : 'post',
+      data : 'user_ids='+user_id,
+      success : function(res){
+        var elm = jQuery('<div>'+res+'</div>');
+        var new_biu_elm = elm.find('.show-page-be-invited-users');
+        var old_biu_elm = jQuery('.show-page-be-invited-users');
+        old_biu_elm.after(new_biu_elm);
+        old_biu_elm.remove();
+        user_elm.fadeOut(200);
+      }
+    });
+
+  });
 })

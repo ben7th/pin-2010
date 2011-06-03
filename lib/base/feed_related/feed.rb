@@ -224,6 +224,20 @@ class Feed < UserAuthAbstract
       `).map{|item|Feed.find_by_id(item["id"])}.uniq.compact
   end
 
+  def recommend_users(count=nil)
+    except_users = self.be_invited_users | [self.creator] | self.memoed_users
+
+    iusers = []
+    self.tags.each do |tag|
+      users = tag.users_of_memoed_feeds-except_users
+      iusers|=users
+      break if !count.blank? && iusers.count >=count
+    end
+
+    return iusers if count.blank?
+    return iusers[0..count-1]
+  end
+
   module UserMethods
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []

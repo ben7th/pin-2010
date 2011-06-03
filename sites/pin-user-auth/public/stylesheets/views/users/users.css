@@ -1547,58 +1547,58 @@ form.new_message .w300 {
       .newsfeed ul.feeds li.mpli.feed .f.with-stats .stats .stat.viewpoints.zero .w {
         color: #9A4444; }
 
-.page-searched-feeds .feed {
+.page-searched-feeds .feed, .page-recommend-feeds .feed {
   padding: 5px 5px 20px; }
-  .page-searched-feeds .feed .stats {
+  .page-searched-feeds .feed .stats, .page-recommend-feeds .feed .stats {
     overflow: hidden;
     float: left; }
-    .page-searched-feeds .feed .stats .stat {
+    .page-searched-feeds .feed .stats .stat, .page-recommend-feeds .feed .stats .stat {
       font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
       overflow: hidden;
       float: left;
       padding: 3px 8px; }
-      .page-searched-feeds .feed .stats .stat .num {
+      .page-searched-feeds .feed .stats .stat .num, .page-recommend-feeds .feed .stats .stat .num {
         font-size: 22px;
         font-weight: bold;
         line-height: 22px;
         height: 22px;
         text-align: center; }
-      .page-searched-feeds .feed .stats .stat .w {
+      .page-searched-feeds .feed .stats .stat .w, .page-recommend-feeds .feed .stats .stat .w {
         font-size: 12px;
         display: inline;
         color: #666;
         text-align: center; }
-      .page-searched-feeds .feed .stats .stat.viewpoints.not-zero {
+      .page-searched-feeds .feed .stats .stat.viewpoints.not-zero, .page-recommend-feeds .feed .stats .stat.viewpoints.not-zero {
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
         background: #686B72; }
-        .page-searched-feeds .feed .stats .stat.viewpoints.not-zero .num {
+        .page-searched-feeds .feed .stats .stat.viewpoints.not-zero .num, .page-recommend-feeds .feed .stats .stat.viewpoints.not-zero .num {
           color: white; }
-        .page-searched-feeds .feed .stats .stat.viewpoints.not-zero .w {
+        .page-searched-feeds .feed .stats .stat.viewpoints.not-zero .w, .page-recommend-feeds .feed .stats .stat.viewpoints.not-zero .w {
           color: #DDDDDD; }
-      .page-searched-feeds .feed .stats .stat.viewpoints.zero {
+      .page-searched-feeds .feed .stats .stat.viewpoints.zero, .page-recommend-feeds .feed .stats .stat.viewpoints.zero {
         color: #9A4444; }
-        .page-searched-feeds .feed .stats .stat.viewpoints.zero .w {
+        .page-searched-feeds .feed .stats .stat.viewpoints.zero .w, .page-recommend-feeds .feed .stats .stat.viewpoints.zero .w {
           color: #9A4444; }
-  .page-searched-feeds .feed .data, .page-searched-feeds .feed .footmisc {
+  .page-searched-feeds .feed .data, .page-searched-feeds .feed .footmisc, .page-recommend-feeds .feed .data, .page-recommend-feeds .feed .footmisc {
     margin-left: 50px; }
-  .page-searched-feeds .feed .data {
+  .page-searched-feeds .feed .data, .page-recommend-feeds .feed .data {
     margin-bottom: 10px; }
-    .page-searched-feeds .feed .data .title {
+    .page-searched-feeds .feed .data .title, .page-recommend-feeds .feed .data .title {
       font-size: 14px;
       font-weight: bold;
       font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
       margin: 0 0 5px 0; }
-  .page-searched-feeds .feed .footmisc {
+  .page-searched-feeds .feed .footmisc, .page-recommend-feeds .feed .footmisc {
     overflow: hidden;
     margin-bottom: 10px; }
-    .page-searched-feeds .feed .footmisc .time {
+    .page-searched-feeds .feed .footmisc .time, .page-recommend-feeds .feed .footmisc .time {
       display: inline; }
-    .page-searched-feeds .feed .footmisc .tags {
+    .page-searched-feeds .feed .footmisc .tags, .page-recommend-feeds .feed .footmisc .tags {
       overflow: hidden;
       float: left; }
-      .page-searched-feeds .feed .footmisc .tags .tag {
+      .page-searched-feeds .feed .footmisc .tags .tag, .page-recommend-feeds .feed .footmisc .tags .tag {
         float: left;
         background: #E0EAF1;
         line-height: 18px;
@@ -1609,11 +1609,11 @@ form.new_message .w300 {
         border-bottom: solid 1px #7F9FB6;
         padding: 1px 0;
         margin: 0 6px 0 0; }
-        .page-searched-feeds .feed .footmisc .tags .tag:hover {
+        .page-searched-feeds .feed .footmisc .tags .tag:hover, .page-recommend-feeds .feed .footmisc .tags .tag:hover {
           text-decoration: none !important;
           background: #3E6D8E;
           color: #e0eaf1; }
-        .page-searched-feeds .feed .footmisc .tags .tag img.mini {
+        .page-searched-feeds .feed .footmisc .tags .tag img.mini, .page-recommend-feeds .feed .footmisc .tags .tag img.mini {
           padding: 0;
           border: none;
           position: relative;
@@ -1622,9 +1622,9 @@ form.new_message .w300 {
           height: 16px;
           float: left;
           margin: 0 0 0 3px; }
-        .page-searched-feeds .feed .footmisc .tags .tag span.tag-name {
+        .page-searched-feeds .feed .footmisc .tags .tag span.tag-name, .page-recommend-feeds .feed .footmisc .tags .tag span.tag-name {
           padding: 0 4px; }
-        .page-searched-feeds .feed .footmisc .tags .tag span.namespace {
+        .page-searched-feeds .feed .footmisc .tags .tag span.namespace, .page-recommend-feeds .feed .footmisc .tags .tag span.namespace {
           float: left;
           background: #3E6D8E;
           color: #e0eaf1;
@@ -1633,14 +1633,14 @@ form.new_message .w300 {
           -moz-border-radius: 2px 0 0 2px;
           -webkit-border-radius: 2px 0 0 2px;
           padding: 1px 4px; }
-    .page-searched-feeds .feed .footmisc .ops {
+    .page-searched-feeds .feed .footmisc .ops, .page-recommend-feeds .feed .footmisc .ops {
       overflow: hidden;
       display: inline; }
-      .page-searched-feeds .feed .footmisc .ops .fav.off .t2 {
+      .page-searched-feeds .feed .footmisc .ops .fav.off .t2, .page-recommend-feeds .feed .footmisc .ops .fav.off .t2 {
         display: none; }
-      .page-searched-feeds .feed .footmisc .ops .fav.on .t1 {
+      .page-searched-feeds .feed .footmisc .ops .fav.on .t1, .page-recommend-feeds .feed .footmisc .ops .fav.on .t1 {
         display: none; }
-    .page-searched-feeds .feed .footmisc .last-edited-user {
+    .page-searched-feeds .feed .footmisc .last-edited-user, .page-recommend-feeds .feed .footmisc .last-edited-user {
       float: right;
       width: 200px;
       padding: 5px;
@@ -1649,32 +1649,32 @@ form.new_message .w300 {
       border-radius: 4px;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px; }
-      .page-searched-feeds .feed .footmisc .last-edited-user .avatar {
+      .page-searched-feeds .feed .footmisc .last-edited-user .avatar, .page-recommend-feeds .feed .footmisc .last-edited-user .avatar {
         float: left; }
-      .page-searched-feeds .feed .footmisc .last-edited-user .name {
+      .page-searched-feeds .feed .footmisc .last-edited-user .name, .page-recommend-feeds .feed .footmisc .last-edited-user .name {
         margin-left: 46px; }
-      .page-searched-feeds .feed .footmisc .last-edited-user.feed-editor {
+      .page-searched-feeds .feed .footmisc .last-edited-user.feed-editor, .page-recommend-feeds .feed .footmisc .last-edited-user.feed-editor {
         background: #F0F9FE; }
-      .page-searched-feeds .feed .footmisc .last-edited-user .time {
+      .page-searched-feeds .feed .footmisc .last-edited-user .time, .page-recommend-feeds .feed .footmisc .last-edited-user .time {
         margin: 0 0 6px 0;
         display: block; }
-    .page-searched-feeds .feed .footmisc .creator {
+    .page-searched-feeds .feed .footmisc .creator, .page-recommend-feeds .feed .footmisc .creator {
       float: right;
       width: 200px;
       padding: 5px;
       overflow: hidden; }
-      .page-searched-feeds .feed .footmisc .creator .avatar {
+      .page-searched-feeds .feed .footmisc .creator .avatar, .page-recommend-feeds .feed .footmisc .creator .avatar {
         float: left; }
-      .page-searched-feeds .feed .footmisc .creator .name {
+      .page-searched-feeds .feed .footmisc .creator .name, .page-recommend-feeds .feed .footmisc .creator .name {
         margin-left: 46px; }
-      .page-searched-feeds .feed .footmisc .creator.feed-creator {
+      .page-searched-feeds .feed .footmisc .creator.feed-creator, .page-recommend-feeds .feed .footmisc .creator.feed-creator {
         background: #FFFADA; }
-      .page-searched-feeds .feed .footmisc .creator .time {
+      .page-searched-feeds .feed .footmisc .creator .time, .page-recommend-feeds .feed .footmisc .creator .time {
         margin: 0 0 6px 0;
         display: block; }
-    .page-searched-feeds .feed .footmisc .creator-in-list {
+    .page-searched-feeds .feed .footmisc .creator-in-list, .page-recommend-feeds .feed .footmisc .creator-in-list {
       float: right; }
-      .page-searched-feeds .feed .footmisc .creator-in-list .bold {
+      .page-searched-feeds .feed .footmisc .creator-in-list .bold, .page-recommend-feeds .feed .footmisc .creator-in-list .bold {
         font-weight: normal; }
 
 .feed-transmit-form, .feed-transmit-form-show {
@@ -2671,66 +2671,121 @@ form.new_message .w300 {
   .page-show-add-viewpoint.vp-added .point-added {
     display: block; }
 
-.show-page-memoed-users {
+.page-show-side-invite {
   padding: 5px; }
-  .show-page-memoed-users .avatar {
-    margin: 0 4px 4px 0; }
-
-.show-page-related-feeds {
-  overflow: hidden; }
-  .show-page-related-feeds .f {
-    padding: 5px; }
-
-.show-page-invite {
-  padding: 5px; }
-  .show-page-invite .tip {
-    padding: 3px; }
-  .show-page-invite .ipt input {
-    width: 180px !important; }
-  .show-page-invite .btns {
-    overflow: hidden; }
-    .show-page-invite .btns button, .show-page-invite .btns a.button {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border: none 0px;
-      margin: 4px 5px 0 0;
-      padding: 2px 7px;
-      float: left;
-      text-decoration: none; }
-      .show-page-invite .btns button.editable-submit, .show-page-invite .btns a.button.editable-submit {
-        cursor: pointer;
-        color: white;
-        background: #0063DC; }
-        .show-page-invite .btns button.editable-submit:hover, .show-page-invite .btns a.button.editable-submit:hover {
-          background: #0054BD; }
-      .show-page-invite .btns button.editable-cancel, .show-page-invite .btns a.button.editable-cancel {
-        cursor: pointer;
-        color: #616D7D;
-        background: #C4DFFF; }
-        .show-page-invite .btns button.editable-cancel:hover, .show-page-invite .btns a.button.editable-cancel:hover {
-          background: #B4CFFF; }
-      .show-page-invite .btns button.mousedown, .show-page-invite .btns a.button.mousedown {
+  .page-show-side-invite .title {
+    font-weight: bold;
+    margin: 0 0 10px; }
+  .page-show-side-invite .show-page-invite {
+    margin: 0 0 5px; }
+    .page-show-side-invite .show-page-invite .tip {
+      padding: 3px; }
+    .page-show-side-invite .show-page-invite .ipt input {
+      width: 175px !important; }
+    .page-show-side-invite .show-page-invite .btns {
+      overflow: hidden; }
+      .page-show-side-invite .show-page-invite .btns button, .page-show-side-invite .show-page-invite .btns a.button {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: none 0px;
+        margin: 4px 5px 0 0;
+        padding: 2px 7px;
+        float: left;
+        text-decoration: none; }
+        .page-show-side-invite .show-page-invite .btns button.editable-submit, .page-show-side-invite .show-page-invite .btns a.button.editable-submit {
+          cursor: pointer;
+          color: white;
+          background: #0063DC; }
+          .page-show-side-invite .show-page-invite .btns button.editable-submit:hover, .page-show-side-invite .show-page-invite .btns a.button.editable-submit:hover {
+            background: #0054BD; }
+        .page-show-side-invite .show-page-invite .btns button.editable-cancel, .page-show-side-invite .show-page-invite .btns a.button.editable-cancel {
+          cursor: pointer;
+          color: #616D7D;
+          background: #C4DFFF; }
+          .page-show-side-invite .show-page-invite .btns button.editable-cancel:hover, .page-show-side-invite .show-page-invite .btns a.button.editable-cancel:hover {
+            background: #B4CFFF; }
+        .page-show-side-invite .show-page-invite .btns button.mousedown, .page-show-side-invite .show-page-invite .btns a.button.mousedown {
+          position: relative;
+          top: 1px;
+          left: 1px; }
+  .page-show-side-invite .show-page-be-invited-users {
+    margin: 0 0 20px 0; }
+    .page-show-side-invite .show-page-be-invited-users .user {
+      padding: 4px 0;
+      margin: 0 0 0 0;
+      overflow: hidden; }
+      .page-show-side-invite .show-page-be-invited-users .user .avatar {
+        float: left; }
+        .page-show-side-invite .show-page-be-invited-users .user .avatar img {
+          width: 20px;
+          height: 20px; }
+      .page-show-side-invite .show-page-be-invited-users .user .name {
+        margin-left: 30px;
+        line-height: 24px; }
+      .page-show-side-invite .show-page-be-invited-users .user .delete {
+        float: right;
+        width: 12px;
+        height: 12px;
+        background: url(/images/icons/all.png) no-repeat -240px -87px;
         position: relative;
-        top: 1px;
-        left: 1px; }
+        top: 4px;
+        cursor: pointer;
+        background-color: #BED4E8;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px; }
+        .page-show-side-invite .show-page-be-invited-users .user .delete:hover {
+          background-color: #3173B4; }
+  .page-show-side-invite .invite-share {
+    overflow: hidden;
+    margin: 0 0 12px 0; }
+    .page-show-side-invite .invite-share .show-page-invite-email {
+      float: left;
+      margin: 0 10px 0 0; }
+      .page-show-side-invite .invite-share .show-page-invite-email .send-invite-email .icon {
+        width: 16px;
+        height: 16px;
+        float: left;
+        background: url(/images/icons/all.png) no-repeat -315px -100px;
+        margin: 0 3px 0 0; }
+    .page-show-side-invite .invite-share .show-page-invite-link-share {
+      float: left;
+      margin: 0 10px 0 0; }
+      .page-show-side-invite .invite-share .show-page-invite-link-share .send-invite-link-share .icon {
+        width: 16px;
+        height: 16px;
+        float: left;
+        background: url(/images/icons/all.png) no-repeat -332px -100px;
+        margin: 0 0px 0 0; }
+  .page-show-side-invite .show-page-share-tsina {
+    margin: 0 0 12px; }
+    .page-show-side-invite .show-page-share-tsina .icon {
+      width: 16px;
+      height: 16px;
+      float: left;
+      background: url(/images/icons/all.png) no-repeat 0px -167px;
+      margin: 0 3px 0 0; }
 
-.show-page-be-invited-users {
-  padding: 5px;
-  margin: 0 0 20px 0; }
-  .show-page-be-invited-users .user {
+.page-show-who-recommend {
+  margin: 0 0 20px 0;
+  padding: 5px; }
+  .page-show-who-recommend .title {
+    font-weight: bold;
+    margin: 0 0 10px; }
+  .page-show-who-recommend .user {
     padding: 4px 0;
     margin: 0 0 0 0;
     overflow: hidden; }
-    .show-page-be-invited-users .user .avatar {
+    .page-show-who-recommend .user .avatar {
       float: left; }
-      .show-page-be-invited-users .user .avatar img {
+      .page-show-who-recommend .user .avatar img {
         width: 20px;
         height: 20px; }
-    .show-page-be-invited-users .user .name {
+    .page-show-who-recommend .user .name {
       margin-left: 30px;
       line-height: 24px; }
-    .show-page-be-invited-users .user .delete {
+    .page-show-who-recommend .user .delete {
       float: right;
       width: 12px;
       height: 12px;
@@ -2742,31 +2797,29 @@ form.new_message .w300 {
       border-radius: 2px;
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px; }
-      .show-page-be-invited-users .user .delete:hover {
+      .page-show-who-recommend .user .delete:hover {
         background-color: #3173B4; }
+  .page-show-who-recommend .user .invite {
+    float: right; }
 
-.invite-share {
+.page-show-side-status {
+  padding: 5px; }
+  .page-show-side-status .title {
+    font-weight: bold;
+    margin: 0 0 10px; }
+  .page-show-side-status .show-page-memoed-users {
+    margin: 0 0 12px; }
+    .page-show-side-status .show-page-memoed-users .avatar {
+      margin: 0 4px 4px 0; }
+
+.page-show-related-feeds {
   padding: 5px;
-  overflow: hidden;
-  margin: 0 0 12px 0; }
-  .invite-share .show-page-invite-email {
-    float: left;
-    margin: 0 10px 0 0; }
-    .invite-share .show-page-invite-email .send-invite-email .icon {
-      width: 16px;
-      height: 16px;
-      float: left;
-      background: url(/images/icons/all.png) no-repeat -315px -100px;
-      margin: 0 3px 0 0; }
-  .invite-share .show-page-invite-link-share {
-    float: left;
-    margin: 0 10px 0 0; }
-    .invite-share .show-page-invite-link-share .send-invite-link-share .icon {
-      width: 16px;
-      height: 16px;
-      float: left;
-      background: url(/images/icons/all.png) no-repeat -332px -100px;
-      margin: 0 0px 0 0; }
+  overflow: hidden; }
+  .page-show-related-feeds .title {
+    font-weight: bold;
+    margin: 0 0 10px; }
+  .page-show-related-feeds .f {
+    padding: 5px 0; }
 
 .show-page-feed-share-form, .show-page-feed-link-share-form {
   width: 400px; }
@@ -2812,15 +2865,6 @@ form.new_message .w300 {
         position: relative;
         top: 1px;
         left: 1px; }
-
-.show-page-share-tsina {
-  padding: 5px; }
-  .show-page-share-tsina .icon {
-    width: 16px;
-    height: 16px;
-    float: left;
-    background: url(/images/icons/all.png) no-repeat 0px -167px;
-    margin: 0 3px 0 0; }
 
 .show-page-ops {
   padding: 5px;
@@ -3428,6 +3472,8 @@ form.new_message .w300 {
   background: url(/images/icons/all.png) no-repeat -300px -117px; }
 .module-links.feeds .recent-hot-feeds .icon {
   background: url(/images/icons/all.png) no-repeat -350px -117px; }
+.module-links.feeds .recommend .icon {
+  background: url(/images/icons/all.png) no-repeat -375px -117px; }
 
 .email_setting .mail span {
   border-radius: 4px;

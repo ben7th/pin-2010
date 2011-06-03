@@ -411,34 +411,7 @@
   }
 }
 
-.show-page-memoed-users{
-  padding:5px;
-  .avatar{margin:0 4px 4px 0;}
-}
-
-.show-page-related-feeds{
-  overflow:hidden;
-  .f{
-    padding:5px;
-  }
-}
-
-.show-page-invite{
-  padding:5px;
-  .tip{
-    padding:3px;
-  }
-  .ipt{
-    input{width:180px !important;}
-  }
-  .btns{
-    @include submitbtns;
-  }
-}
-
-.show-page-be-invited-users{
-  padding:5px;
-  margin:0 0 20px 0;
+@mixin side-users-list{
   .user{
     padding:4px 0;
     margin:0 0 0 0;
@@ -462,31 +435,102 @@
   }
 }
 
-.invite-share{
+.page-show-side-invite{
   padding:5px;
-  overflow:hidden;
-  margin:0 0 12px 0;
-  .show-page-invite-email{
-    float:left;margin:0 10px 0 0;
-    .send-invite-email{
-      .icon{
-        width:16px;height:16px;
-        float:left;
-        @include allicon(-315px,-100px);
-        margin:0 3px 0 0;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  .show-page-invite{
+    margin:0 0 5px;
+    .tip{
+      padding:3px;
+    }
+    .ipt{
+      input{width:175px !important;}
+    }
+    .btns{
+      @include submitbtns;
+    }
+  }
+  .show-page-be-invited-users{
+    margin:0 0 20px 0;
+    @include side-users-list;
+  }
+
+  .invite-share{
+    overflow:hidden;
+    margin:0 0 12px 0;
+    .show-page-invite-email{
+      float:left;margin:0 10px 0 0;
+      .send-invite-email{
+        .icon{
+          width:16px;height:16px;
+          float:left;
+          @include allicon(-315px,-100px);
+          margin:0 3px 0 0;
+        }
+      }
+    }
+    .show-page-invite-link-share{
+      float:left;margin:0 10px 0 0;
+      .send-invite-link-share{
+        .icon{
+          width:16px;height:16px;
+          float:left;
+          @include allicon(-332px,-100px);
+          margin:0 0px 0 0;
+        }
       }
     }
   }
-  .show-page-invite-link-share{
-    float:left;margin:0 10px 0 0;
-    .send-invite-link-share{
-      .icon{
-        width:16px;height:16px;
-        float:left;
-        @include allicon(-332px,-100px);
-        margin:0 0px 0 0;
-      }
+
+  .show-page-share-tsina{
+    margin:0 0 12px;
+    .icon{
+      width:16px;height:16px;
+      float:left;
+      @include allicon(0px,-167px);
+      margin:0 3px 0 0;
     }
+  }
+
+}
+
+.page-show-who-recommend{
+  margin:0 0 20px 0;
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  @include side-users-list;
+  .user{
+    .invite{float:right;}
+  }
+}
+
+.page-show-side-status{
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  .show-page-memoed-users{
+    margin:0 0 12px;
+    .avatar{margin:0 4px 4px 0;}
+  }
+}
+
+.page-show-related-feeds{
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  overflow:hidden;
+  .f{
+    padding:5px 0;
   }
 }
 
@@ -510,16 +554,6 @@
   }
   .btns{
     @include submitbtns;
-  }
-}
-
-.show-page-share-tsina{
-  padding:5px;
-  .icon{
-    width:16px;height:16px;
-    float:left;
-    @include allicon(0px,-167px);
-    margin:0 3px 0 0;
   }
 }
 

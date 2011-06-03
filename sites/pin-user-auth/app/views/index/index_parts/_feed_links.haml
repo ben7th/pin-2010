@@ -8,8 +8,11 @@
       =tabs_link_to '关注的主题',pin_url_for('pin-user-auth','/favs')
     .link.answered-feeds.btb
       .icon
-      =tabs_link_to '参与的主题',pin_url_for('pin-user-auth','/feeds/memoed')
+      =tabs_link_to '参与过的主题',pin_url_for('pin-user-auth','/feeds/memoed')
 
+    .link.recommend.btb
+      .icon
+      =tabs_link_to '推荐给我的主题',pin_url_for('pin-user-auth','feeds/recommend')
     .link.be-asked-feeds.btb
       .icon
       -invite_count = current_user.feed_invites.count

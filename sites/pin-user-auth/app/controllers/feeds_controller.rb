@@ -264,4 +264,8 @@ class FeedsController < ApplicationController
     return render :status=>401,:text=>401
   end
 
+  def recommend
+    @feeds = current_user.recommend_feeds(20)
+  end
+
 end

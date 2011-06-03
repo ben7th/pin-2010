@@ -154,7 +154,7 @@ ActionController::Routing::Routes.draw do |map|
     :reply_to=>:post,:quote=>:post,:all=>:get,
     :memoed=>:get,:be_invited=>:get,
     :mine_hidden=>:get,:all_hidden=>:get,
-    :userlogs=>:get
+    :userlogs=>:get,:recommend=>:get
     }
     
   map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
