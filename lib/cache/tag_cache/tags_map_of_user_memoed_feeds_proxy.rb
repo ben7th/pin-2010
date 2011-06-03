@@ -110,12 +110,9 @@ class TagsMapOfUserMemoedFeedsProxy
     def recommend_feeds(count=nil)
       except_feeds = (memoed_feeds | created_feeds)
 
-      recommend_feeds = []
-      tags_of_memoed_feeds.each do |tag|
-        feeds = tag.feeds.normal - except_feeds
-        recommend_feeds |= feeds
-        break if !count.blank? && recommend_feeds.length >= count
-      end
+      recommend_feeds = tags_of_memoed_feeds.map do |tag|
+        tag.feeds.normal - except_feeds
+      end.flatten.sort{|x,y|x.viewpoints.count<=>y.viewpoints.count}
 
       return recommend_feeds if count.blank?
       return recommend_feeds[0..count-1]
