@@ -184,7 +184,7 @@ class FeedsController < ApplicationController
   end
 
   def all
-    @feeds = Feed.recent_hot(:per_page=>30,:page=>params[:page]||1,:order=>'id desc')
+    @feeds = Feed.normal.paginate(:per_page=>30,:page=>params[:page]||1,:order=>'id desc')
   end
 
   def userlogs

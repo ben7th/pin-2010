@@ -26,8 +26,15 @@ class Feed < UserAuthAbstract
     self.creator.add_fav_feed(self)
   end
 
+  # 20110604 songliang 改为有tag的主题
   def self.recent_hot(paginate_options)
-    Feed.unhidden.paginate(paginate_options)
+    Feed.find(:all,
+      :select=>'DISTINCT feeds.*',
+      :joins=>[
+        'JOIN feed_tags FT ON FT.feed_id = feeds.id',
+        'JOIN tags T ON FT.tag_id = T.id AND T.name != "没有关键词"',
+      ],
+      :conditions=>['feeds.hidden = ?',false]).paginate(paginate_options)
   end
 
   def replied_feed
