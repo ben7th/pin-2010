@@ -34,6 +34,7 @@ class Feed < UserAuthAbstract
         'JOIN feed_tags FT ON FT.feed_id = feeds.id',
         'JOIN tags T ON FT.tag_id = T.id AND T.name != "没有关键词"',
       ],
+      :order=>'feeds.id desc',
       :conditions=>['feeds.hidden = ?',false]).paginate(paginate_options)
   end
 

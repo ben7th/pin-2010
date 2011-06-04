@@ -13,6 +13,8 @@
     大家最近的主题
   .newsfeed
     =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+  .paginate.padding5
+    = will_paginate @feeds
 
 .grid_7.omega.fright
   .no-auth
