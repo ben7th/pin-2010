@@ -1,0 +1,22 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  被隐藏的所有主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_16.alpha
+  .grid-title
+    被隐藏的所有主题
+  .padding5.quiet
+    以下主题因为各种原因被隐藏，将不会在其他列表中显示。
+
+  .hrr
+  .newsfeed
+    =render 'feeds/lists/feeds_recommend',:feeds=>@feeds
+
+  .paginate.padding5
+    = will_paginate @feed_invites
+
+.grid_6.omega.fright

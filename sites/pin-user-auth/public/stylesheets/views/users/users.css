@@ -5077,18 +5077,22 @@ form.new_message .w300 {
   font-weight: bold;
   margin: 0 0 1em 0; }
 .help-page-text h3 {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   margin: 0 0 1em 0; }
 .help-page-text img {
-  margin: 0 0 1em 0;
+  margin: 0 0 1em 1em;
   border: 1px solid #DDDDDD;
   box-shadow: 1px 1px 3px #dddddd;
   -moz-box-shadow: 1px 1px 3px #dddddd;
   -webkit-box-shadow: 1px 1px 3px #dddddd;
   display: block; }
 .help-page-text ol {
-  margin-left: 1.5em; }
+  margin-left: 2.5em;
+  font-size: 14px; }
+.help-page-text p {
+  margin: 0 0 1.5em 1em;
+  font-size: 14px; }
 
 .page-user-be-invited .invite {
   padding: 5px 5px 30px; }
