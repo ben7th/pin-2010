@@ -1821,8 +1821,6 @@ form.new_message .w300 {
     top: 2px; }
     .feed-show-page-head .ftag .feed-tags .edit-tags a.edit {
       overflow: hidden;
-      line-height: 16px;
-      height: 16px;
       float: left;
       border-radius: 4px;
       -moz-border-radius: 4px;
@@ -1837,6 +1835,8 @@ form.new_message .w300 {
         position: relative;
         top: 3px;
         display: inline-block; }
+    .feed-show-page-head .ftag .feed-tags .edit-tags .icon {
+      top: 4px !important; }
 .feed-show-page-head .ftag .feed-tags-edit-form {
   margin: 0 0 10px 0; }
   .feed-show-page-head .ftag .feed-tags-edit-form input {
@@ -1881,8 +1881,6 @@ form.new_message .w300 {
     top: 11px; }
     .feed-show-page-head .ftitle .feed-title .edit-feed-title a.edit {
       overflow: hidden;
-      line-height: 16px;
-      height: 16px;
       float: left;
       border-radius: 4px;
       -moz-border-radius: 4px;
@@ -2054,8 +2052,6 @@ form.new_message .w300 {
       margin: 0 0 10px 0; }
       .page-feed-show .main .detail-data .edit-detail a.edit {
         overflow: hidden;
-        line-height: 16px;
-        height: 16px;
         float: left;
         border-radius: 4px;
         -moz-border-radius: 4px;
@@ -2174,8 +2170,6 @@ form.new_message .w300 {
     overflow: hidden; }
     .page-feed-show .add-comment a.echo {
       overflow: hidden;
-      line-height: 16px;
-      height: 16px;
       border-radius: 4px;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
@@ -2339,27 +2333,6 @@ form.new_message .w300 {
           padding: 5px; }
           .page-feed-viewpoints .viewpoint .main .content blockquote p {
             margin: 0; }
-      .page-feed-viewpoints .viewpoint .main .edit-vp {
-        overflow: hidden;
-        margin: 0 0 10px 0; }
-        .page-feed-viewpoints .viewpoint .main .edit-vp a.edit {
-          overflow: hidden;
-          line-height: 16px;
-          height: 16px;
-          float: left;
-          border-radius: 4px;
-          -moz-border-radius: 4px;
-          -webkit-border-radius: 4px;
-          padding: 0 3px; }
-          .page-feed-viewpoints .viewpoint .main .edit-vp a.edit .icon {
-            width: 10px;
-            height: 10px;
-            float: left;
-            background: url(/images/icons/all.png) no-repeat -229px -87px;
-            margin: 0 3px 0 0;
-            position: relative;
-            top: 3px;
-            display: inline-block; }
       .page-feed-viewpoints .viewpoint .main .supporters {
         margin: 0 0 10px 0; }
     .page-feed-viewpoints .viewpoint .footmisc {
@@ -2450,15 +2423,28 @@ form.new_message .w300 {
         float: right; }
         .page-feed-viewpoints .viewpoint .footmisc .creator-in-list .bold {
           font-weight: normal; }
-      .page-feed-viewpoints .viewpoint .footmisc .creator {
-        padding: 0 5px;
-        width: 370px;
-        overflow: hidden; }
-        .page-feed-viewpoints .viewpoint .footmisc .creator .time {
-          float: left; }
-        .page-feed-viewpoints .viewpoint .footmisc .creator .data {
-          float: right;
-          width: 200px; }
+      .page-feed-viewpoints .viewpoint .footmisc .ops {
+        float: left;
+        padding: 5px 0; }
+        .page-feed-viewpoints .viewpoint .footmisc .ops .edit-vp {
+          overflow: hidden;
+          margin: 0 0 10px 0; }
+          .page-feed-viewpoints .viewpoint .footmisc .ops .edit-vp a.edit {
+            overflow: hidden;
+            float: left;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            padding: 0 3px; }
+            .page-feed-viewpoints .viewpoint .footmisc .ops .edit-vp a.edit .icon {
+              width: 10px;
+              height: 10px;
+              float: left;
+              background: url(/images/icons/all.png) no-repeat -229px -87px;
+              margin: 0 3px 0 0;
+              position: relative;
+              top: 3px;
+              display: inline-block; }
     .page-feed-viewpoints .viewpoint .comments {
       margin: 0 0 10px 40px;
       border-top: 1px dotted #DFDFDF; }
@@ -2477,8 +2463,6 @@ form.new_message .w300 {
       overflow: hidden; }
       .page-feed-viewpoints .viewpoint .add-comment a.echo {
         overflow: hidden;
-        line-height: 16px;
-        height: 16px;
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;

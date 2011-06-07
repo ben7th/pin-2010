@@ -136,7 +136,7 @@ pie.load(function(){
       '</div>'+
     '</div>'
   )
-
+  
   //修改观点
   jQuery('.page-feed-viewpoints .viewpoint .edit-vp .edit').live('click',function(){
     var ori_form_elm = jQuery('.page-show-add-viewpoint .point-form .add-viewpoint-inputer');
@@ -146,9 +146,11 @@ pie.load(function(){
     var vp_elm = elm.closest('.viewpoint');
     var main_elm = vp_elm.find('.main');
     var vote_elm = vp_elm.find('.vote-ops');
+    var footmisc_elm = vp_elm.find('.footmisc');
 
     main_elm.hide();
     vote_elm.hide();
+    footmisc_elm.hide();
     main_elm.after(form_elm);
     form_elm.show();
   });
@@ -170,6 +172,8 @@ pie.load(function(){
         var new_vp_elm = jQuery(res);
         vp_elm.after(new_vp_elm);
         vp_elm.remove();
+
+        pie.highlight(new_vp_elm);
       }
     })
   });
@@ -181,9 +185,11 @@ pie.load(function(){
     var vp_elm = elm.closest('.viewpoint');
     var main_elm = vp_elm.find('.main');
     var vote_elm = vp_elm.find('.vote-ops');
+    var footmisc_elm = vp_elm.find('.footmisc');
 
     main_elm.show();
     vote_elm.show();
+    footmisc_elm.show();
     form_elm.remove();
   });
 

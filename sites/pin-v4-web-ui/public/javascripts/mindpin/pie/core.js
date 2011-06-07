@@ -145,6 +145,17 @@ pie.truncate_u = function(str,length){
   return res;
 }
 
+//effects
+pie.highlight=function(elm){
+  var jq_elm = jQuery(elm);
+  
+  jq_elm.css('background-color','#FFFADA');
+  jq_elm.animate({
+    backgroundColor:'white'
+  },500,function(){
+    jq_elm.css('background-color','');
+  })
+}
 
 //---XML code begin
 pie.dom.xml={

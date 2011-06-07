@@ -3,8 +3,6 @@
   margin:0 0 10px 0;
   a.edit{
     overflow:hidden;
-    line-height:16px;
-    height:16px;
     float:left;
     @include border-radius(4px);
     padding:0 3px;
@@ -23,8 +21,6 @@
   overflow:hidden;
   a.echo{
     overflow:hidden;
-    line-height:16px;
-    height:16px;
     @include border-radius(4px);
     padding:0 3px;
     text-decoration:none;
@@ -111,6 +107,7 @@
         display:inline-block;
         font-size:12px;font-weight:normal;
         position:relative;top:2px;
+        .icon{top:4px !important;}
       }
     }
     .feed-tags-edit-form{
@@ -243,6 +240,7 @@
 .page-feed-viewpoints{
   margin:0 0 20px;
   border-top:solid 1px #DFDFDF;
+
   .viewpoint{
     overflow:hidden;
     padding:20px 5px 20px;
@@ -299,28 +297,28 @@
         margin:0 0 4px 0;
       }
     }
+
     .main{
       margin:0 0 10px 40px;
       .content{
         @include markdown_content;
       }
-      .edit-vp{
-        @include editlink;
-      }
       .supporters{margin:0 0 10px 0;}
     }
+
     .footmisc{
       @include footmisc;
       margin:0 0 20px 40px;
       width:620px;
-      .creator{
-        padding:0 5px;
-        width:370px;
-        overflow:hidden;
-        .time{float:left;}
-        .data{float:right;width:200px;}
+      .ops{
+        float:left;
+        padding:5px 0;
+        .edit-vp{
+          @include editlink;
+        }
       }
     }
+
     .comments{
       margin:0 0 10px 40px;
       @include feed-show-comments;

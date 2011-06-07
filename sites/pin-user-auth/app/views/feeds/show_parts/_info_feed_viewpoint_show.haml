@@ -22,12 +22,6 @@
     .content>
       =viewpoint_memo_format_show(viewpoint)
 
-    -if logged_in? && user == current_user
-      .edit-vp
-        -link_to 'javascript:;',:class=>'edit csshov' do
-          .icon
-          %span 修改观点
-
     -if !viewpoint.viewpoint_votes.blank?
       .supporters.quiet
         -if !viewpoint.viewpoint_up_votes.blank?
@@ -38,13 +32,25 @@
   .footmisc
     .creator
       .time.quiet
-        编辑于 #{jtime viewpoint.updated_at}
+        发表于 #{jtime viewpoint.created_at}
       .data
         .avatar
           =avatar user,:tiny
         .name
           =usersign(user,true,18)
+
+    -if viewpoint.updated_at != viewpoint.created_at
+      .last-edited-user
+        .time.quiet
+          编辑于 #{jtime viewpoint.updated_at}
+
     .ops
+      -if logged_in? && user == current_user
+        .edit-vp
+          -link_to 'javascript:;',:class=>'edit csshov' do
+            .icon
+            %span 修改观点
+
       -if logged_in?
         -if params[:dev]
           .split.quiet> -
