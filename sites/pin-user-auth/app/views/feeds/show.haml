@@ -32,45 +32,7 @@
     =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
 
   .grid_5.omega.fright
-    .page-show-side-invite
-      -if logged_in?
-        .title 邀请其他人一起来讨论
-        =render 'feeds/show_parts/invite_users',{:feed=>@feed}
-      .invite-share
-        =render 'feeds/show_parts/invite_share',{:feed=>@feed}
-      =render 'feeds/show_parts/share_to',{:feed=>@feed}
-
-    -if logged_in?
-      -recommend_users = @feed.recommend_users(5) - [current_user]
-      -if !recommend_users.blank?
-        .hrr
-        .page-show-who-recommend
-          .title 这些人也许可以参与讨论：
-          -# 此处的js事件绑定在 member_auto_complete_load 里
-          -recommend_users.each do |ru|
-            .user{:'data-id'=>ru.id}
-              .invite=minibutton '邀请','javascript:;'
-              .avatar
-                =avatar ru,:mini
-              .name
-                =usersign(ru,false)
-
-
-    .hrr
-    .page-show-side-status
-      .title 在此发表过观点的人
-      .show-page-memoed-users
-        -@feed.memoed_users.each do |u|
-          %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-            =avatar u,:mini
-
-    .hrr
-    .page-show-related-feeds
-      .title 相关的主题
-      -related_feeds = @feed.related_feeds
-      -related_feeds.each do |f|
-        .f
-          =link_to truncate_u(f.content,32),"/feeds/#{f.id}"
+    =render 'feeds/show_parts/side',:feed=>@feed
 
 -else
 

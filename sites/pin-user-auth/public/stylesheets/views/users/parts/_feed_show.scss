@@ -87,6 +87,19 @@
   }
 }
 
+@mixin feed-show-comments{
+  border-top:1px dotted #DFDFDF;
+  .comment{
+    overflow:hidden;
+    padding:5px;
+    background:#FAFAFA;
+    .avatar{
+      float:left;margin-right:10px;
+      img{width:16px;height:16px;}
+    }
+  }
+}
+
 .feed-show-page-head{
   .ftag{
     .feed-tags{
@@ -167,14 +180,14 @@
   }
 }
 
+
 .page-feed-show{
-  padding:5px 5px 20px;
-  margin-bottom:10px;
+  padding:5px;
+  margin-bottom:30px;
   overflow:hidden;
 
   .main{
     margin:0 0 10px 0;
-
     .feed-detail-edit-form{
       margin:0 0 10px 0;
       .btns{
@@ -186,7 +199,6 @@
         font-size:12px;
       }
     }
-
     .detail-data{
       .data{
         @include markdown_content;
@@ -199,96 +211,27 @@
 
   .footmisc{
     @include footmisc;
+    margin-bottom:20px;
   }
 
   .comments{
-    @include comments;
-    width:500px;
+    margin:0 0 10px 0;
+    @include feed-show-comments;
   }
 
-  /*feed内容扩展部分*/
-  .extitem{
-    .answers{
-      margin:1px 0 0;
-      clear:both;
-      .answer{
-        @include border-radius(4px);
-        padding:5px;
-        margin-bottom:5px;
-        overflow:hidden;
-        .icon{
-          float:left;
-          width:24px;
-          height:24px;
-          background:url(/images/icons/all.png) no-repeat -25px -142px;
-          margin:0 10px 0 0;
-        }
-        .avatar{
-          float:left;
-          width:40px;height:28px;
-        }
-        .content{
-          font-size:14px;
-        }
-      }
+  .add-comment{
+    @include commentlink;
+  }
+
+  .comment-form{
+    .inputer{
+      width:500px;
+    }
+    .btns{
+      @include submitbtns;
     }
   }
-  &.ext.interview.notice, &.ext.interview.question{
-    .c{width:450px;}
-    .current-feed .icon{
-      @include border-radius(3px);
-      float:left;
-      width:24px;
-      height:24px;
-      background-image:url(/images/icons/all.png);
-      background-repeat:no-repeat;
-      background-position:-50px -142px;
-      margin:0 9px 0 5px;
-    }
-    &.question{
-      .current-feed .icon{background-position:0px -142px;}
-    }
-  }
-  &.ext.blog{
-    .blog-head{
-      padding:5px;
-      @include border-radius(4px);
-      .title{font-size:18px;font-weight:bold;margin:0 0 5px 0;}
-      .meta{
-        font-size:12px;
-        height:20px;
-        line-geight:20px;
-        overflow:hidden;
-        .avatar{
-          float:left;
-          width:20px;height:20px;
-          margin-right:10px;
-          img{width:16px;height:16px;}
-        }
-        .name{
-          margin-right:10px;
-          float:left;
-        }
-        .posted-at{
-          float:left;
-        }
-      }
-      .comments-count{
-        margin:0 0 5px 0;
-      }
-    }
-    .blog-html{
-      padding:10px 5px 5px;
-      @include border-radius(3px 0 0 3px);
-      font-size:14px;
-      img{
-        border:1px solid #CCCCCC;
-        padding:1px;
-        @include border-radius(2px);
-      }
-    }
-    .footmisc .time{display:none;}
-  }
+
 }
 
 .page-feed-viewpoints-title{
@@ -380,16 +323,7 @@
     }
     .comments{
       margin:0 0 10px 40px;
-      border-top:1px dotted #DFDFDF;
-      .comment{
-        overflow:hidden;
-        padding:5px;
-        background:#FAFAFA;
-        .avatar{
-          float:left;margin-right:10px;
-          img{width:16px;height:16px;}
-        }
-      }
+      @include feed-show-comments;
     }
     .add-comment{
       margin:0 0 0 40px;

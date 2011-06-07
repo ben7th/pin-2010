@@ -17,16 +17,16 @@ class ViewpointCommentsController < ApplicationController
   def create
     comment = @viewpoint.create_comment(current_user,params[:content])
     if comment.id
-      render :partial=>"feeds/show_parts/viewpoint_comments_list",
+      render :partial=>"feeds/show_parts/comments",
         :locals=>{:comments=>[comment]}
       return
     end
-    render :status=>500,:text=>"观点评论创建失败"
+    render :status=>403,:text=>"观点评论创建失败"
   end
 
   # get /viewpoints/:viewpoint_id/aj_comments
   def aj_comments
-    render :partial=>"feeds/show_parts/viewpoint_comments_list",
+    render :partial=>"feeds/show_parts/comments",
       :locals=>{:comments=>@viewpoint.comments}
   end
 end

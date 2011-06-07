@@ -52,7 +52,7 @@
 
   -comments = viewpoint.comments
   -if !comments.blank?
-    =render 'feeds/show_parts/viewpoint_comments_list',:comments=>comments
+    =render 'feeds/show_parts/comments',:comments=>comments
 
   -if logged_in?
     .add-comment

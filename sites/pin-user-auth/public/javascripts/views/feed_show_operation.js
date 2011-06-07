@@ -1,7 +1,6 @@
+// 发表观点
 pie.load(function(){
-  // 发表观点
-  //jQuery('.page-show-add-viewpoint .add-viewpoint-inputer .inputer').qeditor();
-
+  
   jQuery('.page-show-add-viewpoint .subm .editable-submit').live('click',function(){
     var elm = jQuery(this);
     var psav_elm = elm.closest('.page-show-add-viewpoint');
@@ -21,9 +20,12 @@ pie.load(function(){
       }
     })
   });
+  
 });
 
+//针对观点的评论
 pie.load(function(){
+  
   var comment_form_str =
     '<div class="comment-form">'+
       '<div class="ipt"><textarea class="inputer"/></div>'+
@@ -39,11 +41,8 @@ pie.load(function(){
   jQuery(prefix + '.add-comment').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
-    var viewpoint_id = vp_elm.attr('data-id');
-    var foot_elm = vp_elm.find('.footmisc');
 
     if(vp_elm.find('.comment-form').length == 0){
-      pie.log(viewpoint_id)
       elm.after(comment_form_str);
       elm.hide();
     }
@@ -122,11 +121,13 @@ pie.load(function(){
       })
     });
   });
-  
+
 });
 
 
+//修改观点
 pie.load(function(){
+  
   var form_elm = jQuery(
     '<div class="viewpoint-edit-form">'+
       '<div class="btns">'+
@@ -188,8 +189,10 @@ pie.load(function(){
 
 });
 
+
+//修改主题正文
 pie.load(function(){
-  //修改主题正文
+  
   jQuery('.page-feed-show .detail-data .edit-detail .edit').live('click',function(){
     var form_elm = jQuery('.feed-detail-edit-form')
     var elm = jQuery(this);
@@ -237,8 +240,9 @@ pie.load(function(){
 });
 
 
+//修改主题页的标题
 pie.load(function(){
-  //修改主题页的标题
+  
   jQuery('.feed-show-page-head .ftitle .edit-feed-title .edit').live('click',function(){
     var form_elm = jQuery('.feed-title-edit-form')
     var elm = jQuery(this);
@@ -282,10 +286,13 @@ pie.load(function(){
       }
     })
   });
+  
 });
 
+
+//修改主题页的tag
 pie.load(function(){
-  //修改主题页的tag
+  
   jQuery('.feed-show-page-head .ftag .edit-tags .edit').live('click',function(){
     var elm = jQuery(this);
     var head_elm = elm.closest('.feed-show-page-head');
@@ -333,11 +340,12 @@ pie.load(function(){
     form_elm.hide();
     tags_elm.show();
   });
+  
 })
 
 
+//show页面的关注
 pie.load(function(){
-  //show页面的关注
 
   jQuery('.show-page-ops .fav').live('click',function(){
     var fav_elm = jQuery('.show-page-ops .fav');
@@ -368,84 +376,107 @@ pie.load(function(){
       }
     });
   });
+  
 });
 
 
+//针对主题的评论
 pie.load(function(){
-  //show页面的评论
-  jQuery('.page-feed-show .ops .echo').live('click',function(){
+  
+  var comment_form_str =
+    '<div class="comment-form">'+
+      '<div class="ipt"><textarea class="inputer"/></div>'+
+      '<div class="btns">'+
+        '<a class="button editable-submit" href="javascript:;">发送</a>'+
+        '<a class="button editable-cancel" href="javascript:;">取消</a>'+
+      '</div>'+
+    '</div>';
+
+  jQuery('.page-feed-show .add-comment').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+
+    if(feed_elm.find('.comment-form').length == 0){
+      elm.after(comment_form_str);
+      elm.hide();
+    }
+  });
+
+  //取消
+  jQuery('.page-feed-show .comment-form .btns .editable-cancel').live('click',function(){
+    var elm = jQuery(this);
+    var feed_elm = elm.closest('.page-feed-show');
+    var form_elm = feed_elm.find('.comment-form');
+    var add_comment_elm = feed_elm.find('.add-comment');
+
+    form_elm.remove();
+    add_comment_elm.show();
+  })
+
+  // 确定，提交
+  jQuery('.page-feed-show .comment-form .btns .editable-submit').live('click',function(){
+    //post /viewpoints/:id/comments params[:content]
     var elm = jQuery(this);
     var feed_elm = elm.closest('.page-feed-show');
     var feed_id = feed_elm.attr('data-id');
-    var footmisc_elm = feed_elm.find('.footmisc')
 
-    if(footmisc_elm.next('.comments').length > 0){
-      feed_elm.find('.comments').remove();
-      return;
-    }
+    var form_elm = feed_elm.find('.comment-form');
+    var content = form_elm.find('.ipt .inputer').val();
 
-    var cms_elm = jQuery('<div class="comments darkbg loading"></div>')
-    feed_elm.append(cms_elm);
-
-    jQuery.ajax({
-      url  : "/feeds/" + feed_id + "/aj_comments",
-      type : 'GET',
-      success : function(res){
-        var res_elm = jQuery(res);
-        cms_elm.append(res_elm).removeClass('loading');
-      }
-    })
-    
-  })
-
-  jQuery('.page-feed-show .feed-echo-form .send-to').live('click',function(){
-    jQuery(this).toggleClass('checked');
-  })
-
-  jQuery('.page-feed-show .feed-echo-form button.editable-cancel').live('click',function(){
-    var elm = jQuery(this);
-    var cms_elm = elm.closest('.comments');
-    cms_elm.remove();
-  });
-
-  jQuery('.page-feed-show .feed-echo-form button.editable-submit').live('click',function(){
-    var elm = jQuery(this);
-    var form_elm = elm.closest('.feed-echo-form');
-    var reply_to_id = form_elm.attr('data-feed-id');
-
-    var content = form_elm.find('textarea').val();
-    var send_new_feed = form_elm.find('.send-to').hasClass('checked');
+    var add_comment_elm = feed_elm.find('.add-comment');
 
     jQuery.ajax({
       url  : '/feeds/reply_to',
-      type : 'POST',
-      data : 'reply_to='+reply_to_id
-              + '&content=' + encodeURIComponent(content)
-              + '&send_new_feed=' + send_new_feed,
+      type : 'post',
+      data : 'reply_to='+feed_id
+              + '&content=' + encodeURIComponent(content),
       success : function(res){
-        var li_elm = jQuery(res);
-        form_elm.find('ul.comments-list').prepend(li_elm);
-        form_elm.find('textarea').val('');
-        form_elm.find('.send-to').removeClass('checked');
-      }
-    });
-  })
+        var new_comments_elm = jQuery(res);
 
-  jQuery('.page-feed-show .feed-echo-form .comments-list .delete').live('click',function(){
+        var old_comments_elm = feed_elm.find('.comments');
+
+        if(old_comments_elm.length == 0){
+          //原来没有评论
+          old_comments_elm.remove();
+          add_comment_elm.before(new_comments_elm);
+          new_comments_elm.hide().fadeIn(200);
+        }else{
+          //原来已经有评论
+          var c_elm = new_comments_elm.find('.comment');
+          old_comments_elm.append(c_elm);
+          c_elm.hide().fadeIn(200);
+        }
+
+        form_elm.remove();
+        add_comment_elm.show();
+      }
+    })
+  });
+
+  //删除观点的评论
+  jQuery('.page-feed-show .comments .comment .delete').live('click',function(){
     var elm = jQuery(this);
+    var comments_elm = elm.closest('.comments');
     var comment_elm = elm.closest('.comment');
-    var comment_id = comment_elm.attr('data-comment-id');
+    var comment_id = comment_elm.attr('data-id');
 
     elm.confirm_dialog('确定要删除这条评论吗',function(){
+      // delete /viewpoint_comments/:id
       jQuery.ajax({
         url : '/feed_comments/'+comment_id,
         type : 'delete',
         success : function(){
-          comment_elm.fadeOut();
+          comment_elm.fadeOut(200,function(){
+            comment_elm.remove();
+            if(comments_elm.find('.comment').length == 0){
+              comments_elm.remove();
+            }
+          });
         }
       })
     });
-  })
+  });
+
 });
 
 pie.load(function(){

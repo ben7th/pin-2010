@@ -102,19 +102,18 @@ class FeedsController < ApplicationController
   def reply_to
     @host_feed = Feed.find_by_id(params[:reply_to])
     channel_param = params[:channel_id].blank? ? [] : [params[:channel_id]]
-    result = Feed.reply_to_feed(current_user,params[:content],params[:send_new_feed],@host_feed,channel_param)
-    if result
-      str = @template.render(:partial=>"index/homepage/feeds/feed_comment_info",:locals=>{:comment=>result})
-      return render :text=>str
+    comment = Feed.reply_to_feed(current_user,params[:content],params[:send_new_feed],@host_feed,channel_param)
+    if comment
+      render :partial=>"feeds/show_parts/comments",
+        :locals=>{:comments=>[comment]}
+      return
     end
-    return render :status=>403,:text=>"error"
+    return render :status=>403,:text=>"主题评论创建失败"
   end
 
   def aj_comments
-    str = @template.render(
-    :partial=>"index/homepage/feeds/feed_comment_list",
-      :locals=>{:comments=>@feed.feed_comments,:feed=>@feed})
-    render :text=>str
+    render :partial=>"feeds/show_parts/comments",
+      :locals=>{:comments=>@feed.comments}
   end
 
   def quote

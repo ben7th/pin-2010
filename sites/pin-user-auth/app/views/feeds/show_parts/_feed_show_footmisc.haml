@@ -1,12 +1,13 @@
 .footmisc
   .creator.feed-creator
+    -fcu = feed.creator
     .time.quiet
       创建于 #{created_from(feed)}
     .data
       .avatar
-        =avatar feed.creator,:tiny
+        =avatar fcu,:tiny
       .name
-        =usersign(feed.creator,true,18)
+        =usersign(fcu,true,18)
 
   -if !feed.last_edited_user.blank?
     .last-edited-user.feed-editor
@@ -21,9 +22,6 @@
 
   .ops
     -if logged_in?
-      .o.marginb10
-        =link_to '增加评论','javascript:;',:class=>'echo'
-
       -if !feed.locked?
         .o
           -if feed.is_spam_marked_by?(current_user)
@@ -36,6 +34,11 @@
 
           -if feed.spam_marks.count > 0
             %span.quiet="#{feed.spam_marks.count}人觉得"
-    -else
-      .o
-        =link_to '增加评论','javascript:;',:class=>'echo'
+
+-comments = feed.comments
+-if !comments.blank?
+  =render 'feeds/show_parts/comments',:comments=>comments
+
+-if logged_in?
+  .add-comment
+    =link_to '<div class="icon"></div><span>增加评论</span>','javascript:;',:class=>'echo csshov'
