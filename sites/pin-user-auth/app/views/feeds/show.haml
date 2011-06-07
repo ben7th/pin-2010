@@ -29,7 +29,6 @@
   .hrr
   .grid_17.alpha
     =render 'feeds/show_parts/feed_show',:feed=>@feed
-    .hrr
     =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
 
   .grid_5.omega.fright
@@ -49,7 +48,7 @@
           .title 这些人也许可以参与讨论：
           -# 此处的js事件绑定在 member_auto_complete_load 里
           -recommend_users.each do |ru|
-            .user.btb{:'data-id'=>ru.id}
+            .user{:'data-id'=>ru.id}
               .invite=minibutton '邀请','javascript:;'
               .avatar
                 =avatar ru,:mini
@@ -70,7 +69,7 @@
       .title 相关的主题
       -related_feeds = @feed.related_feeds
       -related_feeds.each do |f|
-        .f.btb
+        .f
           =link_to truncate_u(f.content,32),"/feeds/#{f.id}"
 
 -else

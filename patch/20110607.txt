@@ -1,0 +1,19 @@
+针对主题的投票：
+主题上有和观点类似的投票
+赞成+1
+不赞成-1
+可以取消
+
+主题的被查看数
+一个账号查看过算一次查看。
+模型 FeedViewings
+字段 feed_viewing_count
+
+关键词的相关分享：
+TagShare
+字段：
+tag_id
+creator_id
+url
+title
+description

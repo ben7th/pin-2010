@@ -2,7 +2,7 @@ class TagRelatedFeedTagsMapProxy
   def initialize(tag)
     @tag = tag
     @key = "tag_#{tag.id}_related_feed_tags_map"
-    @redis_set = RedisSortedSet.new(@key)
+    @redis_set = RedisCacheSortedSet.new(@key)
   end
 
   # [{"苹果"=>2}, {"桃子"=>1}, {"关键词"=>1}, {"主人"=>1}, {"test"=>1}]

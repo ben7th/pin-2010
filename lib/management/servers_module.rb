@@ -66,6 +66,28 @@ module MindpinServiceManagementModule
       def redis_flush_all
         REDIS_CLIENT.flushall
       end
+      
+      # 对redis_cache 进行重置
+      def redis_cache_flush
+        redis_flushdb(2)
+      end
+
+      # 对redis_tip 进行重置
+      def redis_tip_flush
+        redis_flushdb(1)
+      end
+
+      # 对redis_queue 进行重置
+      def redis_queue_flush
+        redis_flushdb(0)
+      end
+
+      # 对 redis 第 count 个数据库进行重置
+      def redis_flushdb(count)
+        REDIS_CLIENT.select(count)
+        REDIS_CLIENT.flushdb
+      end
+
     end
 
     module MindmapsLuceneService

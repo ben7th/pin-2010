@@ -17,7 +17,7 @@ class FeedComment < UserAuthAbstract
 
   module FeedMethods
     def self.included(base)
-      base.has_many :feed_comments,:order=>"id desc"
+      base.has_many :feed_comments,:order=>"id asc"
     end
 
     def comments

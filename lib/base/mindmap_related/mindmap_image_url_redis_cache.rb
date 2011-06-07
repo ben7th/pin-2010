@@ -7,7 +7,7 @@ value 是个hash
 class MindmapImageUrlRedisCache
   def initialize
     @key = "mindmap_image_url_cache"
-    @mindmap_image_redis_cache = RedisHash.new(@key)
+    @mindmap_image_redis_cache = RedisCacheHash.new(@key)
   end
 
   # 指定一个导图的size，url，设置一个缓存

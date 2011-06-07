@@ -4,7 +4,7 @@
 
 .show-page-be-invited-users
   -feed.be_invited_users.each do |biu|
-    .user.btb{:'data-id'=>biu.id}
+    .user{:'data-id'=>biu.id}
       .delete
       .avatar
         =avatar biu,:mini

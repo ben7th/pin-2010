@@ -2,7 +2,7 @@ class MindmapImportQueueInputWorker
 
   INFO_HASH = "import_mindmap_info_hash"
   @queue = :mindmap_import_resque_queue
-  @info_hash = RedisHash.new(INFO_HASH)
+  @info_hash = RedisQueueHash.new(INFO_HASH)
   @complete_queue = RedisMessageQueue.new("import_mindmap_complete_queue")
 
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)

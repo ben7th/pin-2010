@@ -2318,11 +2318,18 @@ form.new_message .w300 {
   .page-feed-show.ext.blog .footmisc .time {
     display: none; }
 
+.page-feed-viewpoints-title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px; }
+
 .page-feed-viewpoints {
-  margin: 0 0 20px; }
+  margin: 0 0 20px;
+  border-top: solid 1px #DFDFDF; }
   .page-feed-viewpoints .viewpoint {
     overflow: hidden;
-    padding: 5px 5px 20px; }
+    padding: 20px 5px 20px;
+    border-bottom: solid 1px #DFDFDF; }
     .page-feed-viewpoints .viewpoint .vote-ops {
       float: left;
       border-radius: 4px;
@@ -2455,8 +2462,8 @@ form.new_message .w300 {
     .page-feed-viewpoints .viewpoint .footmisc {
       overflow: hidden;
       margin-bottom: 10px;
-      margin: 0 0 10px 40px;
-      width: 618px; }
+      margin: 0 0 20px 40px;
+      width: 620px; }
       .page-feed-viewpoints .viewpoint .footmisc .time {
         display: inline; }
       .page-feed-viewpoints .viewpoint .footmisc .tags {
@@ -2540,55 +2547,81 @@ form.new_message .w300 {
         float: right; }
         .page-feed-viewpoints .viewpoint .footmisc .creator-in-list .bold {
           font-weight: normal; }
-    .page-feed-viewpoints .viewpoint .comments {
-      padding: 5px;
-      margin: 10px 0 0 40px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      width: 400px; }
-      .page-feed-viewpoints .viewpoint .comments .list {
+      .page-feed-viewpoints .viewpoint .footmisc .creator {
+        padding: 0 5px;
+        width: 370px;
         overflow: hidden; }
-        .page-feed-viewpoints .viewpoint .comments .list .comment {
-          overflow: hidden;
-          padding: 5px; }
-          .page-feed-viewpoints .viewpoint .comments .list .comment .avatar {
-            float: left;
-            margin-right: 10px; }
-            .page-feed-viewpoints .viewpoint .comments .list .comment .avatar img {
-              width: 16px;
-              height: 16px; }
-      .page-feed-viewpoints .viewpoint .comments .comment-form {
-        margin: 0 0 6px 0; }
-        .page-feed-viewpoints .viewpoint .comments .comment-form .inputer {
-          height: 42px; }
-        .page-feed-viewpoints .viewpoint .comments .comment-form .btns {
-          overflow: hidden; }
-          .page-feed-viewpoints .viewpoint .comments .comment-form .btns button, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button {
-            border-radius: 3px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-            border: none 0px;
-            margin: 4px 5px 0 0;
-            padding: 2px 7px;
-            float: left;
-            text-decoration: none; }
-            .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit {
-              cursor: pointer;
-              color: white;
-              background: #0063DC; }
-              .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-submit:hover, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-submit:hover {
-                background: #0054BD; }
-            .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel {
-              cursor: pointer;
-              color: #616D7D;
-              background: #C4DFFF; }
-              .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.editable-cancel:hover, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.editable-cancel:hover {
-                background: #B4CFFF; }
-            .page-feed-viewpoints .viewpoint .comments .comment-form .btns button.mousedown, .page-feed-viewpoints .viewpoint .comments .comment-form .btns a.button.mousedown {
-              position: relative;
-              top: 1px;
-              left: 1px; }
+        .page-feed-viewpoints .viewpoint .footmisc .creator .time {
+          float: left; }
+        .page-feed-viewpoints .viewpoint .footmisc .creator .data {
+          float: right;
+          width: 200px; }
+    .page-feed-viewpoints .viewpoint .comments {
+      margin: 0 0 10px 40px;
+      border-top: 1px dotted #DFDFDF; }
+      .page-feed-viewpoints .viewpoint .comments .comment {
+        overflow: hidden;
+        padding: 5px;
+        background: #FAFAFA; }
+        .page-feed-viewpoints .viewpoint .comments .comment .avatar {
+          float: left;
+          margin-right: 10px; }
+          .page-feed-viewpoints .viewpoint .comments .comment .avatar img {
+            width: 16px;
+            height: 16px; }
+    .page-feed-viewpoints .viewpoint .add-comment {
+      margin: 0 0 0 40px;
+      overflow: hidden; }
+      .page-feed-viewpoints .viewpoint .add-comment a.echo {
+        overflow: hidden;
+        line-height: 16px;
+        height: 16px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 0 3px;
+        text-decoration: none; }
+        .page-feed-viewpoints .viewpoint .add-comment a.echo .icon {
+          width: 10px;
+          height: 10px;
+          background: url(/images/icons/all.png) no-repeat -253px -87px;
+          margin: 0 3px 0 0;
+          position: relative;
+          top: 1px;
+          display: inline-block; }
+        .page-feed-viewpoints .viewpoint .add-comment a.echo:hover span {
+          text-decoration: underline; }
+    .page-feed-viewpoints .viewpoint .comment-form {
+      margin: 0 0 0 40px; }
+      .page-feed-viewpoints .viewpoint .comment-form .inputer {
+        width: 500px; }
+      .page-feed-viewpoints .viewpoint .comment-form .btns {
+        overflow: hidden; }
+        .page-feed-viewpoints .viewpoint .comment-form .btns button, .page-feed-viewpoints .viewpoint .comment-form .btns a.button {
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border: none 0px;
+          margin: 4px 5px 0 0;
+          padding: 2px 7px;
+          float: left;
+          text-decoration: none; }
+          .page-feed-viewpoints .viewpoint .comment-form .btns button.editable-submit, .page-feed-viewpoints .viewpoint .comment-form .btns a.button.editable-submit {
+            cursor: pointer;
+            color: white;
+            background: #0063DC; }
+            .page-feed-viewpoints .viewpoint .comment-form .btns button.editable-submit:hover, .page-feed-viewpoints .viewpoint .comment-form .btns a.button.editable-submit:hover {
+              background: #0054BD; }
+          .page-feed-viewpoints .viewpoint .comment-form .btns button.editable-cancel, .page-feed-viewpoints .viewpoint .comment-form .btns a.button.editable-cancel {
+            cursor: pointer;
+            color: #616D7D;
+            background: #C4DFFF; }
+            .page-feed-viewpoints .viewpoint .comment-form .btns button.editable-cancel:hover, .page-feed-viewpoints .viewpoint .comment-form .btns a.button.editable-cancel:hover {
+              background: #B4CFFF; }
+          .page-feed-viewpoints .viewpoint .comment-form .btns button.mousedown, .page-feed-viewpoints .viewpoint .comment-form .btns a.button.mousedown {
+            position: relative;
+            top: 1px;
+            left: 1px; }
     .page-feed-viewpoints .viewpoint .viewpoint-edit-form {
       margin: 0 0 10px 40px; }
       .page-feed-viewpoints .viewpoint .viewpoint-edit-form .btns {
@@ -2729,7 +2762,7 @@ form.new_message .w300 {
         height: 12px;
         background: url(/images/icons/all.png) no-repeat -240px -87px;
         position: relative;
-        top: 4px;
+        top: 5px;
         cursor: pointer;
         background-color: #BED4E8;
         border-radius: 2px;
@@ -2791,7 +2824,7 @@ form.new_message .w300 {
       height: 12px;
       background: url(/images/icons/all.png) no-repeat -240px -87px;
       position: relative;
-      top: 4px;
+      top: 5px;
       cursor: pointer;
       background-color: #BED4E8;
       border-radius: 2px;

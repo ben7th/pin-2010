@@ -1,7 +1,9 @@
 class RedisCache
   def self.instance
     @@instance ||= begin
-      Redis.new(:thread_safe=>true)
+      redis = Redis.new(:thread_safe=>true)
+      redis.select(2)
+      redis
     end
   end
 

@@ -5,7 +5,7 @@ class ImportMindmapQueue
   def initialize
     @input_queue = RedisMessageQueue.new(INPUT_QUEUE)
     @complete_queue = RedisMessageQueue.new(COMPLETE_QUEUE)
-    @info_hash = RedisHash.new(INFO_HASH)
+    @info_hash = RedisQueueHash.new(INFO_HASH)
   end
 
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)

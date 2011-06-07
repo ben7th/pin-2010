@@ -339,4 +339,6 @@ class Feed < UserAuthAbstract
   include UserLog::FeedMethods
   include FeedTag::FeedMethods
   include FeedDetail::FeedMethods
+  include FeedVote::FeedMethods
+  include FeedViewing::FeedMethods
 end

@@ -1,6 +1,6 @@
 -user = viewpoint.user
 
-.viewpoint.btb{:'data-id'=>viewpoint.id,:'data-vote-score'=>viewpoint.vote_score}
+.viewpoint{:'data-id'=>viewpoint.id,:'data-vote-score'=>viewpoint.vote_score}
   -if logged_in? && user != current_user
     .vote-ops
       -if !viewpoint.voted_up_by?(current_user)
@@ -46,11 +46,14 @@
           =usersign(user,true,18)
     .ops
       -if logged_in?
-        -if viewpoint.comments.blank?
-          = link_to '增加评论','javascript:;',:class=>'echo'
-        -else
-          = link_to "#{viewpoint.comments.count}条评论",'javascript:;',:class=>'echo'
-
         -if params[:dev]
           .split.quiet> -
           =link_to '派生新主题','javascript:;',:class=>'new-feed'
+
+  -comments = viewpoint.comments
+  -if !comments.blank?
+    =render 'feeds/show_parts/viewpoint_comments_list',:comments=>comments
+
+  -if logged_in?
+    .add-comment
+      =link_to '<div class="icon"></div><span>增加评论</span>','javascript:;',:class=>'echo csshov'

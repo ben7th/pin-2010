@@ -7,7 +7,7 @@ class ViewpointComment < UserAuthAbstract
 
   module ViewpointMethods
     def self.included(base)
-      base.has_many :comments,:class_name=>"ViewpointComment",:order=>"id desc"
+      base.has_many :comments,:class_name=>"ViewpointComment",:order=>"id asc"
     end
 
     def create_comment(user,content)

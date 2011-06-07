@@ -2,7 +2,7 @@ class TagsMapOfUserCreatedFeedsProxy
   def initialize(user)
     @user = user
     @key = "tags_map_of_user_#{@user.id}_created_feeds"
-    @redis_set = RedisSortedSet.new(@key)
+    @redis_set = RedisCacheSortedSet.new(@key)
   end
 
   def map

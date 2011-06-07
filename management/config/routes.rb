@@ -45,6 +45,10 @@ ActionController::Routing::Routes.draw do |map|
   map.redis_stats_path "redis_stats", :controller=>"index",:action=>"redis_stats",:conditions=>{:method=>:get}
   map.redis_flushall_path "redis_flushall", :controller=>"index",:action=>"redis_flushall",:conditions=>{:method=>:post}
 
+  map.redis_cache_flush_path "redis_cache_flush", :controller=>"index",:action=>"redis_cache_flush",:conditions=>{:method=>:post}
+  map.redis_tip_flush_path "redis_tip_flush", :controller=>"index",:action=>"redis_tip_flush",:conditions=>{:method=>:post}
+  map.redis_queue_flush_path "redis_queue_flush", :controller=>"index",:action=>"redis_queue_flush",:conditions=>{:method=>:post}
+
   map.project_log "project_log", :controller=>"index",:action=>"project_log",:conditions=>{:method=>:get}
   map.server_log "server_log", :controller=>"index",:action=>"server_log",:conditions=>{:method=>:get}
   map.worker_log "worker_log", :controller=>"index",:action=>"worker_log",:conditions=>{:method=>:get}

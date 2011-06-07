@@ -1,20 +1,20 @@
-class RedisSortedSet
+class RedisCacheSortedSet
   PLACEHOLDER = "PLACEHOLDER_NULL_31415926"
   def initialize(key)
-    @redis = RedisCache.instance
+    @redis_cache = RedisCache.instance
     @key = key
   end
 
   def del
-    @redis.del(@key)
+    @redis_cache.del(@key)
   end
 
   def get_score(member)
-    @redis.zscore(@key, member).to_i
+    @redis_cache.zscore(@key, member).to_i
   end
 
   def set_score(member,score)
-    @redis.zadd(@key, score, member)
+    @redis_cache.zadd(@key, score, member)
   end
 
   def increase(member)
@@ -32,14 +32,14 @@ class RedisSortedSet
   end
 
   def remove(member)
-    @redis.zrem(@key, member)
+    @redis_cache.zrem(@key, member)
   end
 
   def member_lists(count = -1)
     if count == -1
-      mlist = @redis.zrevrangebyscore(@key, "+inf","-inf")
+      mlist = @redis_cache.zrevrangebyscore(@key, "+inf","-inf")
     else
-      mlist = @redis.zrevrangebyscore(@key, "+inf","-inf",:limit=>[0,count])
+      mlist = @redis_cache.zrevrangebyscore(@key, "+inf","-inf",:limit=>[0,count])
     end
     mlist-[PLACEHOLDER]
   end
@@ -52,7 +52,7 @@ class RedisSortedSet
   end
 
   def exists?
-    @redis.exists(@key)
+    @redis_cache.exists(@key)
   end
 
   def touch

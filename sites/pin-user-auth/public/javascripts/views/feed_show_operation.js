@@ -24,88 +24,105 @@ pie.load(function(){
 });
 
 pie.load(function(){
-  var comments_elm = jQuery(
-    '<div class="comments darkbg">'+
-      '<div class="comment-form">'+
-        '<div class="ipt"><textarea class="inputer"/></div>'+
-        '<div class="btns">'+
-          '<a class="button editable-submit" href="javascript:;">发送</a>'+
-          '<a class="button editable-cancel" href="javascript:;">取消</a>'+
-        '</div>'+
+  var comment_form_str =
+    '<div class="comment-form">'+
+      '<div class="ipt"><textarea class="inputer"/></div>'+
+      '<div class="btns">'+
+        '<a class="button editable-submit" href="javascript:;">发送</a>'+
+        '<a class="button editable-cancel" href="javascript:;">取消</a>'+
       '</div>'+
-      '<div class="list"></div>'+
-    '</div>'
-  )
+    '</div>';
+    
+  var prefix = '.page-feed-viewpoints .viewpoint ';
 
   // 针对观点的评论
-  jQuery('.page-feed-viewpoints .viewpoint .ops .echo').live('click',function(){
+  jQuery(prefix + '.add-comment').live('click',function(){
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
     var viewpoint_id = vp_elm.attr('data-id');
     var foot_elm = vp_elm.find('.footmisc');
 
-    if(foot_elm.next('.comments').length == 0){
-      foot_elm.after(comments_elm);
-      
-      // get /viewpoints/:id/aj-comments
-      var list_elm = comments_elm.find('.list');
-      list_elm.html('').addClass('aj-loading');
-      jQuery.ajax({
-        url : '/viewpoints/'+viewpoint_id+'/aj_comments',
-        type : 'get',
-        success : function(res){
-          var comments_list_elm = jQuery('<div>'+res+'</div>');
-          list_elm.html(comments_list_elm.html()).removeClass('aj-loading');;
-        }
-      })
-    }else{
-      comments_elm.remove();
+    if(vp_elm.find('.comment-form').length == 0){
+      pie.log(viewpoint_id)
+      elm.after(comment_form_str);
+      elm.hide();
     }
+  });
+
+  //取消
+  jQuery(prefix + '.comment-form .btns .editable-cancel').live('click',function(){
+    var elm = jQuery(this);
+    var vp_elm = elm.closest('.viewpoint');
+    var form_elm = vp_elm.find('.comment-form');
+    var add_comment_elm = vp_elm.find('.add-comment');
+
+    form_elm.remove();
+    add_comment_elm.show();
   })
 
-  // 确定
-  jQuery('.page-feed-viewpoints .viewpoint .comments .btns .editable-submit').live('click',function(){
+  // 确定，提交
+  jQuery(prefix + '.comment-form .btns .editable-submit').live('click',function(){
     //post /viewpoints/:id/comments params[:content]
     var elm = jQuery(this);
     var vp_elm = elm.closest('.viewpoint');
     var viewpoint_id = vp_elm.attr('data-id');
-    var content = elm.closest('.comments').find('.ipt .inputer').val();
+
+    var form_elm = vp_elm.find('.comment-form');
+    var content = form_elm.find('.ipt .inputer').val();
+
+    var add_comment_elm = vp_elm.find('.add-comment');
 
     jQuery.ajax({
       url : '/viewpoints/'+viewpoint_id+'/comments',
       type : 'post',
       data : 'content='+encodeURIComponent(content),
       success : function(res){
-        var li_elm = jQuery(res).find('li');
-        var list_elm = comments_elm.find('.list');
-        list_elm.prepend(li_elm);
-        elm.closest('.comments').find('.ipt .inputer').val('');
+        var new_comments_elm = jQuery(res);
+
+        var old_comments_elm = vp_elm.find('.comments');
+
+        if(old_comments_elm.length == 0){
+          //原来没有评论
+          old_comments_elm.remove();
+          add_comment_elm.before(new_comments_elm);
+          new_comments_elm.hide().fadeIn(200);
+        }else{
+          //原来已经有评论
+          var c_elm = new_comments_elm.find('.comment');
+          old_comments_elm.append(c_elm);
+          c_elm.hide().fadeIn(200);
+        }
+
+        form_elm.remove();
+        add_comment_elm.show();
       }
     })
-  })
-
-  //取消
-  jQuery('.page-feed-viewpoints .viewpoint .comments .btns .editable-cancel').live('click',function(){
-    comments_elm.remove();
-  })
+  });
 
   //删除观点的评论
-  jQuery('.page-feed-viewpoints .viewpoint .comments .comment .delete').live('click',function(){
+  jQuery(prefix + '.comments .comment .delete').live('click',function(){
     var elm = jQuery(this);
-    var comment_elm = elm.closest('.comment')
+    var comments_elm = elm.closest('.comments');
+    var comment_elm = elm.closest('.comment');
     var comment_id = comment_elm.attr('data-id');
+
     elm.confirm_dialog('确定要删除这条评论吗',function(){
       // delete /viewpoint_comments/:id
-
       jQuery.ajax({
         url : '/viewpoint_comments/'+comment_id,
         type : 'delete',
         success : function(){
-          comment_elm.fadeOut(200);
+          comment_elm.fadeOut(200,function(){
+            comment_elm.remove();
+            if(comments_elm.find('.comment').length == 0){
+              comments_elm.remove();
+            }
+          });
         }
       })
     });
-  })
+  });
+  
 });
 
 

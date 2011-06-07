@@ -118,4 +118,5 @@ class Tag < UserAuthAbstract
   include FeedTag::TagMethods
   include TagFav::TagMethods
   include TagRelatedFeedTagsMapProxy::TagMethods
+  include TagShare::TagMethods
 end

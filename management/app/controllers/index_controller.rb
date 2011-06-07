@@ -66,6 +66,39 @@ class IndexController < ApplicationController
     end
   end
 
+  def redis_cache_flush
+    begin
+      MindpinServiceManagement.redis_cache_flush
+      flash[:notice] = "操作成功"
+      return redirect_to :action=>:index
+    rescue Exception => ex
+      flash[:notice] = ex.message
+      return redirect_to :action=>:index
+    end
+  end
+
+  def redis_tip_flush
+    begin
+      MindpinServiceManagement.redis_tip_flush
+      flash[:notice] = "操作成功"
+      return redirect_to :action=>:index
+    rescue Exception => ex
+      flash[:notice] = ex.message
+      return redirect_to :action=>:index
+    end
+  end
+
+  def redis_queue_flush
+    begin
+      MindpinServiceManagement.redis_queue_flush
+      flash[:notice] = "操作成功"
+      return redirect_to :action=>:index
+    rescue Exception => ex
+      flash[:notice] = ex.message
+      return redirect_to :action=>:index
+    end
+  end
+
   def project_log
     @log = MindpinServiceManagement.project_log_content(params[:project_name])
     render :template=>"/index/log"

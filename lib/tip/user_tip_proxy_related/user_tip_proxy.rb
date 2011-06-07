@@ -13,7 +13,7 @@ class UserTipProxy < BaseTipProxy
   def initialize(user)
     @user = user
     @key = "user_#{@user.id}_tip"
-    @rh = RedisHash.new(@key)
+    @rh = RedisTipHash.new(@key)
   end
 
   def tips_count
