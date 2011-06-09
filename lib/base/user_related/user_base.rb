@@ -45,6 +45,10 @@ class UserBase < UserAuthAbstract
     ADMIN_USER_EMAILS.include?(self.email)
   end
 
+  def is_admin?
+    is_admin_user?
+  end
+
   # 根据传入的邮箱名和密码进行用户验证
   def self.authenticate(email,password)
     user=User.find_by_email(email)
