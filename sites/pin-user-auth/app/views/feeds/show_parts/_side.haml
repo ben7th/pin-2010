@@ -24,11 +24,23 @@
 
 .hrr
 .page-show-side-status
-  .title 在此发表过观点的人
-  .show-page-memoed-users
-    -feed.memoed_users.each do |u|
-      %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-        =avatar u,:mini
+  -if !feed.memoed_users.blank?
+    .title 在此发表过观点的人
+    .show-page-memoed-users
+      -feed.memoed_users.each do |u|
+        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+          =avatar u,:mini
+
+  .title 统计信息
+  .tags-count
+    -@feed.tags.each do |tag|
+      .tag-and-count
+        =tag_label(tag)
+        .count="× #{tag.feeds.normal.count}"
+  .created-at.marginb5
+    创建于 #{jtime feed.created_at}
+  .viewings-count
+    被查看 <b>#{feed.feed_viewings_count}</b> 次
 
 .hrr
 .page-show-related-feeds

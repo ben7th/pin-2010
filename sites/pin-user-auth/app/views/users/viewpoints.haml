@@ -23,7 +23,7 @@
       -@user.top_viewpoints[0..4].each do |vp|
         .viewpoint.btb
           %span.vote-score{:tip=>"投票认可度"}=vp.vote_score
-          .feed-ct=link_to truncate_u(vp.feed.content,16),vp.feed
+          .feed-ct=link_to feed_content_short(vp.feed),vp.feed
           .vp-ct
             .arrow
             .data

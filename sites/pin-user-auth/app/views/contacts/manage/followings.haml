@@ -23,10 +23,7 @@
     的联系人，共#{@followings.count}人
 
   .homepage-see-others
-    -if logged_in? && current_user == @user
-      =link_to "&gt;&gt;返回我的首页","/"
-    -else
-      =link_to "&gt;&gt;返回#{@user.name}的个人页","/users/#{@user.id}"
+    =link_to "&gt;&gt;返回#{@user.name}的个人页","/users/#{@user.id}"
 
   -if logged_in? && @user == current_user
     .add-member-form.form.darkbg

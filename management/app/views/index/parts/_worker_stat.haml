@@ -1,14 +1,14 @@
 %td=worker_name
 %td
-  -if MindpinServiceManagement.worker_start?(worker_name)
-    ="#{MindpinServiceManagement.worker_state(worker_name)}(pid:#{MindpinServiceManagement.worker_pid_count(worker_name)})"
+  -if WorkerManagement.start?(worker_name)
+    ="#{WorkerManagement.state(worker_name)}(pid:#{WorkerManagement.pid_count(worker_name)})"
   -else
-    =MindpinServiceManagement.worker_state(worker_name)
-%td=MindpinServiceManagement.worker_log_size(worker_name)
-%td=qdatetimefull(MindpinServiceManagement.worker_log_mtime(worker_name))
+    =WorkerManagement.state(worker_name)
+%td=WorkerManagement.log_size(worker_name)
+%td=qdatetimefull(WorkerManagement.log_mtime(worker_name))
 %td
   =link_to "查看日志",worker_log_path(:worker_name=>worker_name)
-  -if MindpinServiceManagement.worker_start?(worker_name)
+  -if WorkerManagement.start?(worker_name)
     =link_to "停止",operate_worker_path(:operate=>"stop",:worker=>worker_name),:method=>"post"
   -else
     =link_to "开启",operate_worker_path(:operate=>"start",:worker=>worker_name),:method=>"post"

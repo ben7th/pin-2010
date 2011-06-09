@@ -1,10 +1,18 @@
-module MindpinServiceManagementModule
-  module ServerBase
-    # 包含的server
-    Servers = ['memcached_service','redis_service','mindmaps_lucene_service','feeds_lucene_service','resque_web_service']
+class ServerManagement
+  # 包含的server
+  Servers = ['memcached_service','redis_service','mindmaps_lucene_service','feeds_lucene_service','resque_web_service']
+  SERVERS_SH_PATH = File.join(ConfigManager.pin_2010_path,"sh/service_sh")
+  
+  include ServersMemcached
+  include ServersRedis
+  include ServersMindmapsLucene
+  include ServersFeedsLucene
+  include ServersResqueWeb
+  
 
+  class << self
     # 检测服务是否开启
-    def server_start?(server_name)
+    def start?(server_name)
       check_server_name_param(server_name)
       eval("#{server_name}_start?")
     rescue Exception=>ex
@@ -12,40 +20,40 @@ module MindpinServiceManagementModule
     end
 
     # 服务的状态
-    def server_state(server_name)
+    def state(server_name)
       check_server_name_param(server_name)
       eval("#{server_name}_state")
     end
 
     # 服务的操作
-    def operate_server(server_name,operation)
+    def operate(server_name,operation)
       check_server_name_param(server_name)
       eval("#{operation}_#{server_name}")
     rescue Exception=>ex
       raise ex
     end
 
-    def server_log_size(server_name)
+    def log_size(server_name)
       file_path = find_log_file_path_by_server_name(server_name)
       `touch #{file_path}` if !File.exist?(file_path)
       File.size(file_path)
     end
 
-    def server_log_mtime(server_name)
+    def log_mtime(server_name)
       file_path = find_log_file_path_by_server_name(server_name)
       `touch #{file_path}` if !File.exist?(file_path)
       File.mtime(file_path)
     end
 
-    def server_log_content(server_name)
+    def log_content(server_name)
       file_path = find_log_file_path_by_server_name(server_name)
       `touch #{file_path}` if !File.exist?(file_path)
-      log_file_content(file_path)
+      ManagementUtil.log_file_content(file_path)
     end
 
-    def server_pid_count(server_name)
+    def pid_count(server_name)
       file_path = find_pid_file_path_by_server_name(server_name)
-      get_pid_count_by_pid_file(file_path)
+      ManagementUtil.get_pid_count_by_pid_file(file_path)
     end
 
     private

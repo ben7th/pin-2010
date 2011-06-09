@@ -215,5 +215,16 @@ class AccountController <  ApplicationController
     current_user.hide_new_feature_tips
     render :text=>200
   end
+
+  def usage_setting
+    return render(:template=>'account/usage_setting')
+  end
+
+  def set_usage
+    current_user.set_usage(params[:usage])
+    redirect_to "/"
+  rescue Exception => ex
+    render_status_page(503,'传入的值不正确')
+  end
   
 end

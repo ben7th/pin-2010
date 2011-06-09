@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.resources :users,:member=>{
     :cooperate=>:get,:feeds=>:get,:viewpoints=>:get,
-    :favs=>:get
+    :favs=>:get,:logs=>:get
     }
 
   # 忘记密码
@@ -98,6 +98,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect "/account/hide_new_feature_tips",:controller=>"account",
     :action=>"hide_new_feature_tips",:conditions=>{:method=>:put}
+
+  map.connect "/account/set_usage",:controller=>"account",
+    :action=>"set_usage",:conditions=>{:method=>:post}
+
+  map.connect "/account/usage_setting",:controller=>"account",
+    :action=>"usage_setting"
 
   # 发送邀请函
   map.contacts_setting_invite "contacts_setting/invite",:controller=>"contacts_setting",:action=>"invite"

@@ -6,6 +6,10 @@ module ViewpointFormatHelper
     "#{h(feed.content)}"
   end
 
+  def feed_content_short(feed,length=16)
+    "#{h(truncate_u(feed.content,length))}"
+  end
+
   def feed_detail(feed)
     content = feed.detail_content || ''
     find_and_preserve MindpinTextFormat.new(content).to_html

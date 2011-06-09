@@ -8,8 +8,8 @@
 .grid_16.alpha
   =render 'users/homepage/top_userinfo',:user=>@user
 
-  .homepage-see-others
-    =link_to '>>去看看这位朋友的主题协作主页吧',pin_url_for("pin-user-auth","/users/#{@user.id}")
+  .homepage-see-others.font14.bold
+    =link_to '&gt;&gt; 看看这位朋友的主题协作主页',pin_url_for("pin-user-auth","/users/#{@user.id}/logs")
 
   =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
 

@@ -85,6 +85,11 @@
       }
       .feed-ct,.vp-ct{
         margin:0 0 0 40px;
+        .memo-content{
+          word-wrap:break-word;
+          word-break:break-all;
+          overflow:hidden;
+        }
       }
     }
   }

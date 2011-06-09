@@ -61,6 +61,27 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    if !logged_in?
+      render :template=>'users/homepage'
+      return
+    end
+
+    if current_user.use_feed?
+      redirect_to "/users/#{@user.id}/logs",:status=>301
+      return
+    end
+
+    if current_user.use_mindmap?
+      redirect_to "/#{@user.id}/mindmaps",:status=>301
+      return
+    end
+
+    redirect_to '/account/usage_setting',:status=>301
+  end
+
+  def logs
+    @user = User.find(params[:id])
     render :template=>'users/homepage'
   end
 

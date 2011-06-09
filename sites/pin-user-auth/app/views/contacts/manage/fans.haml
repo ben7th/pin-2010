@@ -12,10 +12,7 @@
     的读者，共#{@fans.count}人
 
   .homepage-see-others
-    -if logged_in? && current_user == @user
-      =link_to "&gt;&gt;返回我的首页","/"
-    -else
-      =link_to "&gt;&gt;返回#{@user.name}的个人页","/users/#{@user.id}"
+    =link_to "&gt;&gt;返回#{@user.name}的个人页","/users/#{@user.id}"
 
 
   =render :partial=>"contacts/manage/mplist_followings_users",:locals=>{:users=>@fans}

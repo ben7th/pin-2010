@@ -1,17 +1,22 @@
 class FeedViewing < UserAuthAbstract
   belongs_to :user
-  belongs_to :feed,:counter_cache=>true
+  belongs_to :feed
   validates_presence_of :user
   validates_presence_of :feed
   validates_uniqueness_of :user_id, :scope => :feed_id
 
+  after_create :update_feed_view_count
+  def update_feed_view_count
+    feed = self.feed
+    feed.feed_viewings_count = feed.feed_viewings.count
+    feed.save_without_timestamping
+    return true
+  end
+
+
   module FeedMethods
     def self.included(base)
       base.has_many :feed_viewings
-    end
-
-    def view_count
-      self.feed_viewings.size
     end
 
     def view_by(user)

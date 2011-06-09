@@ -4,7 +4,7 @@
       .name=@user.name
       .sign=@user.sign
     .tabs
-      -index_tabs_link_to "/users/#{@user.id}",:class=>'darkbg csshov tab' do
+      -index_tabs_link_to "/users/#{@user.id}/logs",:class=>'darkbg csshov tab' do
         .t>动态
       -index_tabs_link_to "/users/#{@user.id}/feeds",:class=>'darkbg csshov tab' do
         .t>主题

@@ -5,7 +5,15 @@
     margin:0 0 10px 0;
     overflow:hidden;
 
-    .name{font-size:20px;font-weight:bold;margin:0 0 6px 0;}
+    .tag-main{
+      .name{font-size:20px;font-weight:bold;margin:0 0 6px 0;}
+      .edit-detail{
+        display:none;
+        @include editlink;
+        .icon{top:4px;}
+      }
+    }
+
 
     .tag-page-logo{
       float:right;
@@ -52,9 +60,7 @@
 .tag-page-feeds{
 }
 
-.tag-related-tags{
-  padding:5px;
-  .title{font-weight:bold;margin-bottom:10px;}
+@mixin tag-and-count{
   .tag-and-count{
     @include tags;
     float:none;
@@ -65,5 +71,18 @@
       font-weight:bold;
       font-size:14px;
     }
+  }
+}
+
+.tag-related-tags{
+  padding:5px;
+  .title{font-weight:bold;margin-bottom:10px;}
+  @include tag-and-count;
+}
+
+.page-show-side-status{
+  .tags-count{
+    margin:0 0 10px 0;
+    @include tag-and-count;
   }
 }

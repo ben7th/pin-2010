@@ -10,7 +10,7 @@ require 'socket'
 # stats cachedump slab_id limit_num
 # stats detail [on|off|dump]
 
-class Memcached
+class MemcachedStatus
   class << self
     def open(host, port)
       s = TCPSocket.open(host, port)

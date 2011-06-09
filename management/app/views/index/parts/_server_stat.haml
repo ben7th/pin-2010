@@ -1,19 +1,19 @@
 %td=server_name
 %td
-  -if MindpinServiceManagement.server_start?(server_name)
-    ="#{MindpinServiceManagement.server_state(server_name)}(pid:#{MindpinServiceManagement.server_pid_count(server_name)})"
+  -if ServerManagement.start?(server_name)
+    ="#{ServerManagement.state(server_name)}(pid:#{ServerManagement.pid_count(server_name)})"
   -else
-    =MindpinServiceManagement.server_state(server_name)
+    =ServerManagement.state(server_name)
 -if server_name != "memcached_service"
-  %td=MindpinServiceManagement.server_log_size(server_name)
-  %td=qdatetimefull(MindpinServiceManagement.server_log_mtime(server_name))
+  %td=ServerManagement.log_size(server_name)
+  %td=qdatetimefull(ServerManagement.log_mtime(server_name))
 -else
   %td 无
   %td 无
 %td
   -if server_name != "memcached_service"
     =link_to "查看日志",server_log_path(:server_name=>server_name)
-  -if MindpinServiceManagement.server_start?(server_name)
+  -if ServerManagement.start?(server_name)
     =link_to "停止",operate_server_path(:operate=>"stop",:server=>server_name),:method=>"post"
     -if server_name == "memcached_service"
       =link_to "查看状态",memcached_stats_path,:method=>:get

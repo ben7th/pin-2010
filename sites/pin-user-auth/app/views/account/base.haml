@@ -15,6 +15,19 @@
       .field
         %label
           注册时间 #{created_at current_user}
+
+      .field
+        %label
+          %span.marginr5
+            -if current_user.use_feed?
+              主要网站用途：<b>主题协作</b>
+            -elsif current_user.use_mindmap?
+              主要网站用途：<b>思维导图</b>
+            -else
+              主要网站用途：<b>未确定</b>
+
+          =minibutton '修改','/account/usage_setting'
+
       = f.submit '保存更改',:class=>'marginb3em'
 
 .grid_4.omega.fright

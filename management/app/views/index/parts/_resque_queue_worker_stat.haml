@@ -1,14 +1,14 @@
 %td=queue_name
 %td
-  -if MindpinServiceManagement.resque_queue_worker_start?(queue_name)
-    ="#{MindpinServiceManagement.resque_queue_worker_state(queue_name)}(pid:#{MindpinServiceManagement.resque_queue_worker_pid_count(queue_name)})"
+  -if ResqueQueueWorkerManagement.start?(queue_name)
+    ="#{ResqueQueueWorkerManagement.state(queue_name)}(pid:#{ResqueQueueWorkerManagement.pid_count(queue_name)})"
   -else
-    =MindpinServiceManagement.resque_queue_worker_state(queue_name)
-%td=MindpinServiceManagement.resque_queue_worker_log_size(queue_name)
-%td=qdatetimefull(MindpinServiceManagement.resque_queue_worker_log_mtime(queue_name))
+    =ResqueQueueWorkerManagement.state(queue_name)
+%td=ResqueQueueWorkerManagement.log_size(queue_name)
+%td=qdatetimefull(ResqueQueueWorkerManagement.log_mtime(queue_name))
 %td
   =link_to "查看日志",resque_queue_worker_log_path(:queue_name=>queue_name)
-  -if MindpinServiceManagement.resque_queue_worker_start?(queue_name)
+  -if ResqueQueueWorkerManagement.start?(queue_name)
     =link_to "停止",operate_resque_queue_worker_path(:operate=>"stop",:queue=>queue_name),:method=>"post"
   -else
     =link_to "开启",operate_resque_queue_worker_path(:operate=>"start",:queue=>queue_name),:method=>"post"

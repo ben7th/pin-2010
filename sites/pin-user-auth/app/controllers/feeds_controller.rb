@@ -5,6 +5,11 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id]) if params[:id]
   end
 
+  def index
+    @feeds = current_user.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    render :template=>'index/index'
+  end
+
   def new
     # 创建主题的页面，do nothing here.
     @feed = Feed.new
@@ -146,6 +151,7 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.find(params[:id])
+    @feed.view_by(current_user) if @feed && current_user
   end
 
   def viewpoint

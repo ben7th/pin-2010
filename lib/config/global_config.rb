@@ -4,6 +4,7 @@ class GlobalConfig
   pin_2010_path = File.join(File.dirname(File.expand_path(__FILE__)),"../..")
   yml_file_names = Dir.entries(yml_file_dir).select{|file_name|!!file_name.match(/\.yml/)}
 
+  PIN_2010_PATH = pin_2010_path
   # 初始化 SETTING_CONFIG
   setting_config = {}
   yml_file_names.each do |fname|

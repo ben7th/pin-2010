@@ -6,7 +6,22 @@ class IndexController < ApplicationController
       return render(:template=>'auth/no_auth_index')
     end
 
-    @feeds = current_user.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    # 登录后
+
+    # 主题协作
+    if current_user.use_feed?
+      redirect_to '/feeds',:status=>301
+      return
+    end
+
+    # 思维导图
+    if current_user.use_mindmap?
+      redirect_to '/mindmaps',:status=>301
+      return
+    end
+
+    # 选择用途
+    redirect_to '/account/usage_setting',:status=>301
   end
 
   def in_feeds_more

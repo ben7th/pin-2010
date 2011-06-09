@@ -2,7 +2,7 @@
   -@viewpoints.each do |vp|
     .viewpoint.btb
       .feed
-        =link_to truncate_u(vp.feed.content,32),vp.feed
+        =link_to feed_content_short(vp.feed,32),vp.feed
       .vp-ct
         .arrow
         .data

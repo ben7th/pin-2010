@@ -9,7 +9,7 @@ class IndexController < ApplicationController
   def index;end
 
   def operate_project
-    MindpinServiceManagement.operate_project(params[:project],params[:operate])
+    ProjectManagement.operate(params[:project],params[:operate])
     flash[:notice] = "操作成功"
     redirect_to :action=>:index
   rescue Exception=>ex
@@ -18,7 +18,7 @@ class IndexController < ApplicationController
   end
 
   def operate_server
-    MindpinServiceManagement.operate_server(params[:server],params[:operate])
+    ServerManagement.operate(params[:server],params[:operate])
     flash[:notice] = "操作成功"
     redirect_to :action=>:index
   rescue Exception=>ex
@@ -27,7 +27,7 @@ class IndexController < ApplicationController
   end
 
   def operate_worker
-    MindpinServiceManagement.operate_worker(params[:worker],params[:operate])
+    WorkerManagement.operate(params[:worker],params[:operate])
     flash[:notice] = "操作成功"
     redirect_to :action=>:index
   rescue Exception=>ex
@@ -36,7 +36,7 @@ class IndexController < ApplicationController
   end
 
   def operate_resque_queue_worker
-    MindpinServiceManagement.operate_resque_queue_worker(params[:queue],params[:operate])
+    ResqueQueueWorkerManagement.operate(params[:queue],params[:operate])
     flash[:notice] = "操作成功"
     redirect_to :action=>:index
   rescue Exception=>ex
@@ -45,19 +45,19 @@ class IndexController < ApplicationController
   end
 
   def memcached_stats
-    @stats = MindpinServiceManagement.check_stats_memcached_service
+    @stats = ServerManagement.check_stats_memcached_service
   end
 
   def redis_stats
     begin
-      @stats = MindpinServiceManagement.check_redis_stats
+      @stats = ServerManagement.check_redis_stats
     rescue Exception => ex
     end
   end
 
   def redis_flushall
     begin
-      MindpinServiceManagement.redis_flush_all
+      ServerManagement.redis_flush_all
       flash[:notice] = "操作成功"
       return redirect_to :action=>:index
     rescue Exception => ex
@@ -68,7 +68,7 @@ class IndexController < ApplicationController
 
   def redis_cache_flush
     begin
-      MindpinServiceManagement.redis_cache_flush
+      ServerManagement.redis_cache_flush
       flash[:notice] = "操作成功"
       return redirect_to :action=>:index
     rescue Exception => ex
@@ -79,7 +79,7 @@ class IndexController < ApplicationController
 
   def redis_tip_flush
     begin
-      MindpinServiceManagement.redis_tip_flush
+      ServerManagement.redis_tip_flush
       flash[:notice] = "操作成功"
       return redirect_to :action=>:index
     rescue Exception => ex
@@ -90,7 +90,7 @@ class IndexController < ApplicationController
 
   def redis_queue_flush
     begin
-      MindpinServiceManagement.redis_queue_flush
+      ServerManagement.redis_queue_flush
       flash[:notice] = "操作成功"
       return redirect_to :action=>:index
     rescue Exception => ex
@@ -100,22 +100,22 @@ class IndexController < ApplicationController
   end
 
   def project_log
-    @log = MindpinServiceManagement.project_log_content(params[:project_name])
+    @log = ProjectManagement.log_content(params[:project_name])
     render :template=>"/index/log"
   end
 
   def worker_log
-    @log = MindpinServiceManagement.worker_log_content(params[:worker_name])
+    @log = WorkerManagement.log_content(params[:worker_name])
     render :template=>"/index/log"
   end
 
   def server_log
-    @log = MindpinServiceManagement.server_log_content(params[:server_name])
+    @log = ServerManagement.log_content(params[:server_name])
     render :template=>"/index/log"
   end
 
   def resque_queue_worker_log
-    @log = MindpinServiceManagement.resque_queue_worker_log_content(params[:queue_name])
+    @log = ResqueQueueWorkerManagement.log_content(params[:queue_name])
     render :template=>"/index/log"
   end
 
