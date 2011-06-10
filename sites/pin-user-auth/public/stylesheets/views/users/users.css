@@ -3394,6 +3394,8 @@ form.new_message .w300 {
   background: url(/images/icons/all.png) no-repeat -350px -117px; }
 .module-links.feeds .recommend .icon {
   background: url(/images/icons/all.png) no-repeat -375px -117px; }
+.module-links.feeds .atmes .icon {
+  background: url(/images/icons/all.png) no-repeat -325px -142px; }
 
 .email_setting .mail span {
   border-radius: 4px;
@@ -5149,3 +5151,129 @@ form.new_message .w300 {
       font-weight: normal; }
   .page-user-be-invited .invite .footmisc {
     margin: 0 0 0 40px; }
+
+.page-atmes {
+  padding: 5px; }
+
+.page-revisions {
+  padding: 5px; }
+  .page-revisions .revision {
+    margin: 0 0 20px 0; }
+    .page-revisions .revision .meta {
+      padding: 5px 10px;
+      margin: 0 0 10px 0;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      background: #3A93FE;
+      color: white;
+      overflow: hidden; }
+      .page-revisions .revision .meta .num {
+        float: left;
+        font-size: 32px;
+        font-weight: bold;
+        line-height: 60px;
+        height: 60px;
+        margin: 0 20px 0 0; }
+      .page-revisions .revision .meta .creator {
+        float: right;
+        width: 200px;
+        color: white;
+        overflow: hidden;
+        color: white; }
+        .page-revisions .revision .meta .creator .quiet {
+          color: #E9F1F4 !important; }
+        .page-revisions .revision .meta .creator .date {
+          color: #E9F1F4 !important; }
+        .page-revisions .revision .meta .creator .avatar {
+          float: left; }
+        .page-revisions .revision .meta .creator .name {
+          margin-left: 46px; }
+          .page-revisions .revision .meta .creator .name a {
+            color: white !important; }
+        .page-revisions .revision .meta .creator.feed-creator {
+          background: #FFFADA; }
+        .page-revisions .revision .meta .creator .time {
+          margin: 0 0 6px 46px;
+          display: block; }
+      .page-revisions .revision .meta .message {
+        float: left;
+        font-size: 14px;
+        position: relative;
+        top: 13px; }
+    .page-revisions .revision .main {
+      padding: 10px; }
+      .page-revisions .revision .main .title {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        padding: 0 0 5px 0; }
+      .page-revisions .revision .main .details {
+        font-size: 14px;
+        margin: 0 0 10px 0;
+        padding: 0 0 5px 0; }
+      .page-revisions .revision .main .tags {
+        overflow: hidden;
+        float: left;
+        overflow: hidden;
+        float: none;
+        margin: 0 0 10px 0;
+        padding: 0 0 5px 0; }
+        .page-revisions .revision .main .tags .tag {
+          float: left;
+          background: #E0EAF1;
+          line-height: 18px;
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          border-right: solid 1px #7F9FB6;
+          border-bottom: solid 1px #7F9FB6;
+          padding: 1px 0;
+          margin: 0 6px 0 0; }
+          .page-revisions .revision .main .tags .tag:hover {
+            text-decoration: none !important;
+            background: #3E6D8E;
+            color: #e0eaf1; }
+          .page-revisions .revision .main .tags .tag img.mini {
+            padding: 0;
+            border: none;
+            position: relative;
+            top: 1px;
+            width: 16px;
+            height: 16px;
+            float: left;
+            margin: 0 0 0 3px; }
+          .page-revisions .revision .main .tags .tag span.tag-name {
+            padding: 0 4px; }
+          .page-revisions .revision .main .tags .tag span.namespace {
+            float: left;
+            background: #3E6D8E;
+            color: #e0eaf1;
+            margin: -1px 0;
+            border-radius: 2px 0 0 2px;
+            -moz-border-radius: 2px 0 0 2px;
+            -webkit-border-radius: 2px 0 0 2px;
+            padding: 1px 4px; }
+        .page-revisions .revision .main .tags .tag.diff-del span.tag-name {
+          background: #FFDDDD;
+          color: #800000;
+          text-decoration: line-through; }
+        .page-revisions .revision .main .tags .tag.diff-ins span.tag-name {
+          background: #DDFFDD;
+          color: #405A04; }
+  .page-revisions del.differ {
+    background: #FFDDDD;
+    color: #800000;
+    overflow: hidden; }
+    .page-revisions del.differ .br {
+      height: 16px;
+      background: #FFDDDD;
+      width: 8px; }
+  .page-revisions ins.differ {
+    background: #DDFFDD;
+    color: #405A04;
+    overflow: hidden; }
+    .page-revisions ins.differ .br {
+      height: 16px;
+      background: #DDFFDD;
+      width: 8px; }

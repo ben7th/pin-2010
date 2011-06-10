@@ -38,13 +38,13 @@ pie.load(function(){
   var prefix = '.page-feed-viewpoints .viewpoint ';
 
   // 针对观点的评论
-  jQuery(prefix + '.add-comment').live('click',function(){
-    var elm = jQuery(this);
-    var vp_elm = elm.closest('.viewpoint');
+  jQuery(prefix + '.add-comment a').live('click',function(){
+    var add_comment_elm = jQuery(this).closest('.add-comment');
+    var vp_elm = add_comment_elm.closest('.viewpoint');
 
     if(vp_elm.find('.comment-form').length == 0){
-      elm.after(comment_form_str);
-      elm.hide();
+      add_comment_elm.after(comment_form_str);
+      add_comment_elm.hide();
     }
   });
 
@@ -121,6 +121,21 @@ pie.load(function(){
       })
     });
   });
+
+  //回复其他人的评论
+  jQuery(prefix + '.comments .comment .reply').live('click',function(){
+    var elm = jQuery(this);
+    var user_name = elm.closest('.comment').attr('data-creator-name');
+    var vp_elm = elm.closest('.viewpoint');
+    var addc_elm = vp_elm.find('.add-comment');
+
+    if(vp_elm.find('.comment-form').length == 0){
+      addc_elm.after(comment_form_str);
+      addc_elm.hide();
+    }
+
+    vp_elm.find('.comment-form .inputer').val('回复@'+user_name+':').focus();
+  })
 
 });
 
@@ -398,13 +413,13 @@ pie.load(function(){
       '</div>'+
     '</div>';
 
-  jQuery('.page-feed-show .add-comment').live('click',function(){
-    var elm = jQuery(this);
-    var feed_elm = elm.closest('.page-feed-show');
+  jQuery('.page-feed-show .add-comment a').live('click',function(){
+    var add_comment_elm = jQuery(this).closest('.add-comment');
+    var feed_elm = add_comment_elm.closest('.page-feed-show');
 
     if(feed_elm.find('.comment-form').length == 0){
-      elm.after(comment_form_str);
-      elm.hide();
+      add_comment_elm.after(comment_form_str);
+      add_comment_elm.hide();
     }
   });
 
@@ -482,6 +497,21 @@ pie.load(function(){
       })
     });
   });
+
+  //回复其他人的评论
+  jQuery('.page-feed-show .comments .comment .reply').live('click',function(){
+    var elm = jQuery(this);
+    var user_name = elm.closest('.comment').attr('data-creator-name');
+    var feed_elm = elm.closest('.page-feed-show');
+    var addc_elm = feed_elm.find('.add-comment');
+
+    if(feed_elm.find('.comment-form').length == 0){
+      addc_elm.after(comment_form_str);
+      addc_elm.hide();
+    }
+
+    feed_elm.find('.comment-form .inputer').val('回复@'+user_name+':').focus();
+  })
 
 });
 

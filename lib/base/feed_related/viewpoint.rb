@@ -108,4 +108,6 @@ class Viewpoint < UserAuthAbstract
   include ViewpointDraft::ViewpointMethods
   include UserLog::ViewpointMethods
   include ViewpointSpamMark::ViewpointMethods
+  include Atme::AtableMethods
+  include Atme::ViewpointMethods
 end

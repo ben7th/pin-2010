@@ -1,6 +1,6 @@
 module TagHelper
 
-  def tag_label(tag)
+  def tag_label(tag,klass='')
     tag_full_name = tag.full_name
 
     tag_namespace_label = tag.namespace.blank? ? '':"<span class='namespace'>#{tag.namespace}</span>"
@@ -8,9 +8,9 @@ module TagHelper
 
     if tag.has_logo?
       tag_logo_label = logo(tag,:mini)
-      link_to "#{tag_namespace_label}#{tag_logo_label}#{tag_name_label}","/tags/#{tag_full_name}",:class=>'tag has-logo'
+      link_to "#{tag_namespace_label}#{tag_logo_label}#{tag_name_label}","/tags/#{tag_full_name}",:class=>['tag has-logo',klass]*' '
     else
-      link_to "#{tag_namespace_label}#{tag_name_label}","/tags/#{tag_full_name}",:class=>'tag'
+      link_to "#{tag_namespace_label}#{tag_name_label}","/tags/#{tag_full_name}",:class=>['tag',klass]*' '
     end
 
   rescue Exception => ex

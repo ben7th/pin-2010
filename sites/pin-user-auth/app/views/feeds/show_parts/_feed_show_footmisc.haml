@@ -9,11 +9,14 @@
       .name
         =usersign(fcu,true,18)
 
-  -if !feed.last_edited_user.blank?
+  -if feed.feed_revisions.count > 1
     .last-edited-user.feed-editor
       -leu = feed.last_edited_user
       .time.quiet
-        编辑于 #{jtime feed.last_edited_time}
+        编辑于
+        -link_to "/feeds/#{feed.id}/revisions" do
+          #{jtime feed.last_edited_time}
+          查看版本
       .data
         .avatar
           =avatar leu,:tiny

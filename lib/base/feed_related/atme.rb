@@ -1,11 +1,14 @@
 class Atme < UserAuthAbstract
   belongs_to :user
   belongs_to :atable,:polymorphic=>true
+  belongs_to :creator,:class_name=>"User"
 
   validates_presence_of :user
   validates_presence_of :atable
+  validates_presence_of :creator
 
-  AT_REG = /@(\S+)/
+  AT_REG = /@([A-Za-z0-9]{1}[A-Za-z0-9_]{2,20}|[一-龥]{2,20})/
+
 
   def self.parse_at_users(content)
     atme_strings = content.gsub(AT_REG).to_a
@@ -15,17 +18,23 @@ class Atme < UserAuthAbstract
     end.compact
   end
 
-  def self.add_atmes_by_atable(atable,content)
+  def self.add_atmes_by_atable(atable,content,creator)
     users = Atme.parse_at_users(content)
-    users.each{|u|u.atmes.create(:atable=>atable)}
+    users.each do |u|
+      next if u == creator
+      u.atmes.create(:atable=>atable,:creator=>creator)
+    end
   end
 
-  def self.change_atmes_by_atable(atable,content)
+  def self.change_atmes_by_atable(atable,content,creator)
     users = Atme.parse_at_users(content)
     old_users = atable.atmes.map{|a|a.user}
 
     # 增加没有的
-    (users-old_users).each{|u|u.atmes.create(:atable=>atable)}
+    (users-old_users).each do |u|
+      next if u == creator
+      u.atmes.create(:atable=>atable,:creator=>creator)
+    end
     # 删除去掉的
     (old_users-users).each do |u|
       atme = atable.atmes.find_by_user_id(u.id)
@@ -35,7 +44,7 @@ class Atme < UserAuthAbstract
 
   module UserMethods
     def self.included(base)
-      base.has_many :atmes
+      base.has_many :atmes,:order=>"id desc"
     end
   end
 
@@ -45,24 +54,16 @@ class Atme < UserAuthAbstract
     end
   end
 
-  module FeedMethods
+  module FeedRevisionMethods
     def self.included(base)
-      base.after_create :add_atmes_by_content
+      base.after_create :add_or_change_atmes_by_content
     end
 
-    def add_atmes_by_content
-      Atme.add_atmes_by_atable(self,self.content)
-      return true
-    end
-  end
-
-  module FeedDetailMethods
-    def self.included(base)
-      base.after_create :add_atmes_by_content
-    end
-
-    def add_atmes_by_content
-      Atme.add_atmes_by_atable(self.feed,self.content)
+    def add_or_change_atmes_by_content
+      feed = self.feed
+      content = feed.detail_content
+      user = self.user
+      Atme.change_atmes_by_atable(feed,content,user)
       return true
     end
   end
@@ -74,28 +75,14 @@ class Atme < UserAuthAbstract
     end
 
     def add_atmes_by_memo_on_create
-      Atme.add_atmes_by_atable(self,self.memo)
+      Atme.add_atmes_by_atable(self,self.memo,self.user)
       return true
     end
 
     def add_atmes_by_memo_on_update
-      Atme.change_atmes_by_atable(self,self.memo)
+      Atme.change_atmes_by_atable(self,self.memo,self.user)
       return true
     end
-  end
-
-  module FeedChangeMethods
-    def self.included(base)
-      base.after_create :change_atmes_by_feed_content
-    end
-
-    def change_atmes_by_feed_content
-      feed = self.feed
-      content = "#{feed.content} #{feed.detail_content}"
-      Atme.change_atmes_by_atable(feed,content)
-      return true
-    end
-
   end
 
   module FeedCommentMethods
@@ -105,7 +92,7 @@ class Atme < UserAuthAbstract
     end
 
     def add_atmes_by_content
-      Atme.add_atmes_by_atable(self,self.content)
+      Atme.add_atmes_by_atable(self,self.content,self.user)
     end
 
     def destroy_related_atmes
@@ -120,7 +107,7 @@ class Atme < UserAuthAbstract
     end
 
     def add_atmes_by_content
-      Atme.add_atmes_by_atable(self,self.content)
+      Atme.add_atmes_by_atable(self,self.content,self.user)
     end
 
     def destroy_related_atmes

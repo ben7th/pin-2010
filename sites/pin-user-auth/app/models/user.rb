@@ -68,7 +68,7 @@ class User < UserBase
 
   validates_format_of :name,:with=>/^([A-Za-z0-9]{1}[A-Za-z0-9_]+)$|^([一-龥]+)$/
   validates_length_of :name, :in => 2..20
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name,:case_sensitive=>false
 
   validates_presence_of :password,:on=>:create
   validates_presence_of :password_confirmation,:on=>:create
@@ -210,6 +210,7 @@ class User < UserBase
   include TagFav::UserMethods
   include TagsMapOfUserCreatedFeedsProxy::UserMethods
   include TagsMapOfUserMemoedFeedsProxy::UserMethods
+  include Atme::UserMethods
   # 两个工程都引入的
 
   include Activity::UserMethods

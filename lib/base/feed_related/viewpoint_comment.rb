@@ -14,4 +14,6 @@ class ViewpointComment < UserAuthAbstract
       ViewpointComment.create(:viewpoint=>self,:user=>user,:content=>content)
     end
   end
+  include Atme::AtableMethods
+  include Atme::ViewpointCommentMethods
 end

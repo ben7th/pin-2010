@@ -1,0 +1,72 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  历史版本查看
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_revision"
+
+.clearfix
+  .font14.bold.padding5
+    =link_to '&gt;&gt; 返回主题讨论页',@feed
+
+.hrr
+
+.page-revisions
+  -rev_num = @feed.feed_revisions.count
+  -@feed.feed_revisions.each do |rev|
+    -prev = rev.prev
+    .revision
+      -if prev.blank?
+        .meta
+          .num=rev_num
+          -rev_num-=1
+          .message=rev.message
+          .creator
+            -creator = rev.user
+            .time.quiet
+              创建于 #{created_from(rev)}
+            .data
+              .avatar
+                =avatar creator,:tiny
+              .name
+                =usersign(creator,true,18)
+        .main
+          .tags
+            -Tag.find_all_by_id(rev.tag_ids).each do |tag|
+              =tag_label tag
+          .title.btb>=rev.title
+          .details.btb>=rev.detail.gsub(/\n/,'<br/>')
+      -else
+        .meta
+          .num=rev_num
+          -rev_num-=1
+          .message=rev.message
+          .creator
+            -creator = rev.user
+            .time.quiet
+              修改于 #{created_from(rev)}
+            .data
+              .avatar
+                =avatar creator,:tiny
+              .name
+                =usersign(creator,true,18)
+        .main
+          -tag_diff = MindpinDiff.diff_tag_ids(prev.tag_ids,rev.tag_ids)
+          -if prev.tag_ids != rev.tag_ids
+            .tags
+              -tag_diff.each do |change|
+                =tag_label change[:tag],change[:action]
+
+          -title = CGI.escapeHTML rev.title
+          -prev_title = CGI.escapeHTML prev.title
+          -title_diff = MindpinDiff.new(prev_title,title)
+          -if prev.title != rev.title
+            .title.btb>=title_diff.html
+
+          -detail = CGI.escapeHTML rev.detail
+          -prev_detail = CGI.escapeHTML prev.detail
+          -detail_diff = MindpinDiff.new(prev_title,title)
+          -if prev.detail != rev.detail
+            .details.btb>=MindpinDiff.new(prev_detail,detail).html
+

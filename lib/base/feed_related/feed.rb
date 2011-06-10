@@ -144,7 +144,7 @@ class Feed < UserAuthAbstract
     return if self.locked? && !editer.is_admin_user?
     return if editer.blank?
     self.update_attributes(:content=>content)
-    self.record_editer(editer)
+    self.record_editer(editer,"修改标题")
   end
   
   # 话题详情
@@ -157,7 +157,7 @@ class Feed < UserAuthAbstract
     return if self.locked? && !editer.is_admin_user?
     return if editer.blank?
     self.create_or_update_detail(content)
-    self.record_editer(editer)
+    self.record_editer(editer,"修改正文")
     self.reload
     self
   end
@@ -261,7 +261,7 @@ class Feed < UserAuthAbstract
 
       feed.add_tags_without_record_editer(options[:tags],self)
       feed.add_default_tag_when_no_tag
-      FeedLucene.index_one_feed(feed.id)
+      feed.record_editer(self)
       feed
     end
 
@@ -330,7 +330,7 @@ class Feed < UserAuthAbstract
   include FeedComment::FeedMethods
   include FeedLucene::FeedMethods
   include ShortUrl::FeedMethods
-  include FeedChange::FeedMethods
+  include FeedRevision::FeedMethods
   include Viewpoint::FeedMethods
   include FeedInvite::FeedMethods
   include ViewpointDraft::FeedMethods
@@ -341,4 +341,5 @@ class Feed < UserAuthAbstract
   include FeedDetail::FeedMethods
   include FeedVote::FeedMethods
   include FeedViewing::FeedMethods
+  include Atme::AtableMethods
 end

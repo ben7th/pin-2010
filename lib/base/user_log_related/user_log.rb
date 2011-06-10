@@ -130,12 +130,17 @@ class UserLog < UserAuthAbstract
     end
   end
 
-  module FeedChangeMethods
+  module FeedRevisionMethods
     def self.included(base)
       base.after_create :add_edit_feed_log
     end
 
     def add_edit_feed_log
+      feed = self.feed
+      fvs = feed.feed_revisions
+      fvs = fvs-[self]
+      return true if fvs.blank?
+
       user = self.user
       return true if user.last_edit_feed == self.feed
 

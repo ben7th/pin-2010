@@ -1,11 +1,14 @@
 .comments
   -comments.each do |comment|
-    .comment.btb{:'data-id'=>comment.id}
+    .comment.btb{:'data-id'=>comment.id,:'data-creator-name'=>comment.user.name}
       .content
-        =h comment.content
+        =comment_content comment
         %span.quiet -
         %span.name=link_to comment.user.name,comment.user
         %span.quiet=jtime(comment.created_at)
-        -if logged_in? && comment.user == current_user
+        -if logged_in?
           %span.quiet -
-          =link_to '删除','javascript:;',:class=>'delete'
+          -if comment.user == current_user
+            =link_to '删除','javascript:;',:class=>'delete'
+          -else
+            =link_to '回复','javascript:;',:class=>'reply'

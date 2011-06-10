@@ -161,7 +161,9 @@ ActionController::Routing::Routes.draw do |map|
     :memoed=>:get,:be_invited=>:get,
     :mine_hidden=>:get,:all_hidden=>:get,
     :userlogs=>:get,:recommend=>:get
-    }
+    } do |feed|
+      feed.resources :feed_revisions,:as=>"revisions"
+    end
     
   map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
     :action=>"destroy",:conditions=>{:method=>:delete}
@@ -253,5 +255,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags,:member=>{
     :logo=>:put,:detail=>:put,:upload_logo=>:get,
     :fav=>:post,:unfav=>:delete}
+
+  map.resources :atmes
 
 end

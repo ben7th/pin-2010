@@ -8,6 +8,7 @@ class UserTipProxy < BaseTipProxy
 
   FEED_SPAM_MARK_EFFECT = "feed_spam_mark_effect"
   VIEWPOINT_COMMENT = "viewpoint_comment"
+  ATME = "atme"
 
 
   def initialize(user)
@@ -74,6 +75,16 @@ class UserTipProxy < BaseTipProxy
         kind = tip_hash["kind"]
         time = Time.at(tip_hash["time"].to_f)
         tip = Struct.new(:id,:feed,:viewpoint,:viewpoint_comment,:user,:kind,:time).new(tip_id,feed,viewpoint,viewpoint_comment,user,kind,time)
+        tips.push(tip)
+      when ATME
+        atme = Atme.find_by_id(tip_hash["atme_id"])
+        next if atme.blank?
+        atable = atme.atable
+        next if atable.blank?
+
+        kind = tip_hash["kind"]
+        time = Time.at(tip_hash["time"].to_f)
+        tip = Struct.new(:id,:atable,:kind,:time).new(tip_id,atable,kind,time)
         tips.push(tip)
       end
     end

@@ -1,4 +1,6 @@
 class MindpinTextFormat
+
+  AT_REG = /@([A-Za-z0-9]{1}[A-Za-z0-9_]{2,20}|[一-龥]{2,20})/
   
 #  [O]autolink	 [RW] 	 Enable the Autolinking extension
 #  [O]fenced_code	 [RW] 	 Enable PHP-Markdown fenced code extension
@@ -70,7 +72,12 @@ class MindpinTextFormat
       img_elm['onload']='pie.feed_image_resize(jQuery(this))'
     end
 
-    doc.at_css('div').inner_html
+    restr = doc.at_css('div').inner_html
+
+    restr.gsub(AT_REG) do
+      "<a href='/atmes/#{$1}'>@#{$1}</a>"
+    end
+
   end
 
   def to_text

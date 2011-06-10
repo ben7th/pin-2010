@@ -4,6 +4,7 @@ module ViewpointCommentMethods
     base.add_rules({
         :class => ViewpointComment,
         :after_create => Proc.new{|tc|
+          next if tc.user == tc.viewpoint.user
           UserTipProxy.create_viewpoint_comment_tip_on_queue(tc)
         }
       })

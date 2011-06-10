@@ -1,0 +1,98 @@
+.page-revisions{
+  padding:5px;
+  .revision{
+    margin:0 0 20px 0;
+    .meta{
+      padding:5px 10px;
+      margin:0 0 10px 0;
+      @include border-radius(5px);
+      background:#3A93FE;
+      color:white;
+      overflow:hidden;
+      .num{
+        float:left;
+        font-size:32px;font-weight:bold;
+        line-height:60px;height:60px;
+        margin:0 20px 0 0;
+      }
+      .creator{
+        float:right;
+        width:200px;
+        color:white;
+        overflow:hidden;
+        color:white;
+        .quiet{color:#E9F1F4 !important;}
+        .date{color:#E9F1F4 !important;}
+        .avatar{float:left;}
+        .name{
+          margin-left:46px;
+          a{color:white !important;}
+        }
+        &.feed-creator{
+          background:#FFFADA;
+        }
+
+        .time{margin:0 0 6px 46px;display:block;}
+      }
+      .message{
+        float:left;
+        font-size:14px;
+        position:relative;top:13px;
+      }
+    }
+    .main{
+      padding:10px;
+      .title{
+        font-size:14px;
+        font-weight:bold;
+        margin:0 0 10px 0;
+        padding:0 0 5px 0;
+      }
+      .details{
+        font-size:14px;
+        margin:0 0 10px 0;
+        padding:0 0 5px 0;
+      }
+      .tags{
+        @include tags;
+        overflow:hidden;
+        float:none;
+        margin:0 0 10px 0;
+        padding:0 0 5px 0;
+        .tag{
+          &.diff-del{
+            span.tag-name{
+              background:#FFDDDD;
+              color:#800000;
+              text-decoration:line-through;
+            }
+          }
+          &.diff-ins{
+            span.tag-name{
+              background:#DDFFDD;color:#405A04;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  del.differ{
+    background:#FFDDDD;
+    color:#800000;
+    overflow:hidden;
+    .br{
+      height:16px;background:#FFDDDD;
+      width:8px;
+    }
+  }
+  ins.differ{
+    background:#DDFFDD;
+    color:#405A04;
+    overflow:hidden;
+    .br{
+      height:16px;background:#DDFFDD;
+      width:8px;
+    }
+  }
+}

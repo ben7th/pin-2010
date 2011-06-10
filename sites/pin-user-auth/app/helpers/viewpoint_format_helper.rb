@@ -1,4 +1,12 @@
 module ViewpointFormatHelper
+  # 评论
+  def comment_content(comment)
+    str = h comment.content
+    str.gsub(MindpinTextFormat::AT_REG) do
+      "<a href='/atmes/#{$1}'>@#{$1}</a>"
+    end
+  end
+
   # 主题
   #-----------------
 

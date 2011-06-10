@@ -197,7 +197,7 @@ class FeedLucene
     end
   end
 
-  module FeedChangeMethods
+  module FeedRevisionMethods
     def self.included(base)
       base.after_create :update_lucene_index_on_create
     end

@@ -1,4 +1,4 @@
--require_css 'views/users',true
+-require_css 'views/usage',true
 
 -content_for :title do
   选择主要用途
@@ -30,10 +30,12 @@
 
 .padding5.font14
   %p
-    MindPin目前提供两个<b>不同的</b>服务，请选择一项。<b class='loud'>之后，网站界面将根据你的选择呈现</b>。
-
-  %p.font12
-    （你随时可以在用户设置里修改主要用途）
+    MindPin目前提供两个<b>不同的</b>服务，请选择一项。<b class='loud'>之后，网站界面将根据你的选择呈现</b>。<br/>
+    %span.font12 （你随时可以在用户设置里修改主要用途）
+  %p.bold
+    如果你看不到下面的图片，网页是乱的，或者无法继续操作，请
+    =minibutton '按此刷新页面','javascript:location.reload();'
+    
 
   .page-usage-select
     .grid_11

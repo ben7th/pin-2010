@@ -68,57 +68,6 @@
   }
 }
 
-@mixin footmisc{
-  overflow:hidden;
-  margin-bottom:10px;
-  .time{
-    display:inline;
-  }
-  .tags{
-    @include tags;
-  }
-  .ops{
-    overflow:hidden;
-    display:inline;
-    .fav{
-      &.off{.t2{display:none;}}
-      &.on{.t1{display:none;}}
-    }
-  }
-  .last-edited-user{
-    float:right;
-    width:200px;
-    padding:5px;
-    margin:0 10px 0 0;
-    overflow:hidden;
-    @include border-radius(4px);
-    .avatar{float:left;}
-    .name{margin-left:46px;}
-    &.feed-editor{
-      background:#F0F9FE;
-    }
-
-    .time{margin:0 0 6px 0;display:block;}
-  }
-  .creator{
-    float:right;
-    width:200px;
-    padding:5px;
-    overflow:hidden;
-    .avatar{float:left;}
-    .name{margin-left:46px;}
-    &.feed-creator{
-      background:#FFFADA;
-    }
-
-    .time{margin:0 0 6px 0;display:block;}
-  }
-  .creator-in-list{
-    float:right;
-    .bold{font-weight:normal;}
-  }
-}
-
 @mixin comments{
   @include border-radius(3px);
   margin-bottom:12px;

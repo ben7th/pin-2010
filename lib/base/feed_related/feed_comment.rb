@@ -29,4 +29,6 @@ class FeedComment < UserAuthAbstract
     end
   end
 
+  include Atme::AtableMethods
+  include Atme::FeedCommentMethods
 end

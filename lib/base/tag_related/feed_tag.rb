@@ -5,7 +5,7 @@ class FeedTag < UserAuthAbstract
   validates_presence_of :tag
   validates_uniqueness_of :feed_id, :scope => :tag_id
 
-  module FeedChangeMethods
+  module FeedRevisionMethods
     def self.included(base)
       base.after_create :add_default_tag_on_feed_update
     end
@@ -79,7 +79,7 @@ class FeedTag < UserAuthAbstract
       end
 
       if !arr_add.blank? || !arr_remove.blank?
-        self.record_editer(editor)
+        self.record_editer(editor,"修改关键词")
       end
 
       return self.tag_names

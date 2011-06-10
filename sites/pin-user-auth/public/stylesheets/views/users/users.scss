@@ -68,43 +68,6 @@
   }
 }
 
-@mixin submitbtns{
-  overflow:hidden;
-  button,a.button{
-    @include border-radius(3px);
-    border:none 0px;
-    margin:4px 5px 0 0;
-    padding:2px 7px;
-    float:left;
-    text-decoration:none;
-    &.editable-submit{
-      cursor:pointer;
-      color:white;
-      background:#0063DC;
-      &:hover{
-        background:#0054BD;
-      }
-    }
-    &.editable-cancel{
-      cursor:pointer;
-      color:#616D7D;
-      background:#C4DFFF;
-      &:hover{
-        background:#B4CFFF;
-      }
-    }
-    &.mousedown{
-      position:relative;
-      top:1px;
-      left:1px;
-    }
-  }
-}
-
-@mixin allicon($x,$y){
-  background:url(/images/icons/all.png) no-repeat $x $y;
-}
-
 @mixin miniavatar{
   overflow:hidden;
   .avatar{
@@ -1089,3 +1052,5 @@ form.new_message{
 @import 'parts/index_page';
 @import 'parts/help_page';
 @import 'parts/invite';
+@import 'parts/atmes';
+@import 'parts/revision';
