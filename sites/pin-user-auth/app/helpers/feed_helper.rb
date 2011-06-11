@@ -95,6 +95,7 @@ module FeedHelper
         SELECT DISTINCT U.*,count(*) COUNTU
         FROM users U
         JOIN feeds F ON F.creator_id = U.id AND F.hidden = false
+        WHERE U.logo_file_name IS NOT NULL
         GROUP BY U.id
         ORDER BY COUNTU DESC
       ) SUB
