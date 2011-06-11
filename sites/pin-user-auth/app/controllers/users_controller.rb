@@ -48,7 +48,6 @@ class UsersController < ApplicationController
   def login_after_create(user)
     self.current_user=user
     after_logged_in()
-    flash[:success] = '注册成功，请您继续使用 :)'
     redirect_to '/'
   end
 

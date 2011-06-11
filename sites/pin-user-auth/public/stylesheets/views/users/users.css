@@ -800,7 +800,6 @@ form.new_message .w300 {
 
 .index-page-tabs {
   overflow: hidden;
-  margin: 0 0 20px 0;
   padding: 5px; }
   .index-page-tabs .tab {
     cursor: pointer;
@@ -2979,15 +2978,29 @@ form.new_message .w300 {
     font-weight: bold;
     font-size: 14px;
     margin: 0 0 12px 0; }
-  .index-newbie-welcome .desc .p.mb {
-    margin: 0 0 14px 0; }
-  .index-newbie-welcome .desc span.l {
-    color: #8C6635; }
-  .index-newbie-welcome .desc .feeds {
-    margin: 0 0 12px 12px; }
-  .index-newbie-welcome .desc .users {
-    margin: 0 0 12px 12px; }
-    .index-newbie-welcome .desc .users .avatar {
+  .index-newbie-welcome .feeds-for-newbie {
+    margin: 0 0 20px 0; }
+    .index-newbie-welcome .feeds-for-newbie .feed {
+      overflow: hidden;
+      padding: 0 0 5px 0;
+      margin: 0 0 5px 0; }
+      .index-newbie-welcome .feeds-for-newbie .feed .vcount {
+        float: left;
+        background-color: #686B72;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        color: white;
+        width: 20px;
+        text-align: center;
+        font-weight: bold;
+        font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
+      .index-newbie-welcome .feeds-for-newbie .feed .t {
+        margin-left: 30px; }
+  .index-newbie-welcome .users {
+    margin: 0 0 20px 0;
+    overflow: hidden; }
+    .index-newbie-welcome .users .avatar {
       margin: 0 4px 4px 0; }
 
 .index-channels, .index-belongs-to-channels {
@@ -4923,10 +4936,6 @@ form.new_message .w300 {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  /*
-  border:solid 2px #F0F077;
-  background:#FBFBDD;
-  */
   border: solid 2px #FFE965;
   background: #FFFADA;
   padding: 5px;
@@ -4954,7 +4963,7 @@ form.new_message .w300 {
     text-decoration: line-through; }
 
 .index-page-getting-start {
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   padding: 5px; }
   .index-page-getting-start .title {
     border-radius: 5px 5px 0 0;
@@ -4962,10 +4971,10 @@ form.new_message .w300 {
     -webkit-border-radius: 5px 5px 0 0;
     background: #597DAA;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
-    padding: 8px 18px;
+    padding: 5px 10px;
     margin: 0; }
     .index-page-getting-start .title span {
       color: #E9F1F4;
@@ -4979,7 +4988,7 @@ form.new_message .w300 {
     -webkit-border-radius: 0 0 5px 5px;
     border-bottom: solid 1px #DFDFDF;
     overflow: hidden;
-    padding: 10px 0 10px 11px;
+    padding: 10px 0 10px 10px;
     /* <=== */ }
     .index-page-getting-start .s-body.yellow {
       background: #F3F3F3; }
@@ -5027,9 +5036,10 @@ form.new_message .w300 {
       display: block;
       color: #666;
       font-weight: normal;
-      margin: 0 9px 0 0;
-      width: 168px;
-      height: 168px;
+      margin: 0 10px 0 0;
+      /* <=== */
+      width: 110px;
+      height: 110px;
       /* <=== */ }
       .index-page-getting-start .s-body ul li a {
         color: #666;
@@ -5038,13 +5048,13 @@ form.new_message .w300 {
         .index-page-getting-start .s-body ul li a .image {
           position: relative;
           display: block;
-          height: 111px;
+          height: 72px;
           /* <=== */ }
         .index-page-getting-start .s-body ul li a .desc {
           border-top: 1px solid #FFFFFF;
           position: relative;
           padding: 0 0 0 8px;
-          height: 55px;
+          height: 37px;
           /* <=== */ }
           .index-page-getting-start .s-body ul li a .desc .p1 {
             font-size: 14px;
@@ -5052,6 +5062,7 @@ form.new_message .w300 {
             font-weight: bold;
             padding: 6px 0 0 0; }
           .index-page-getting-start .s-body ul li a .desc .p2 {
+            display: none;
             font-size: 12px;
             color: #666; }
         .index-page-getting-start .s-body ul li a span.step-num {
@@ -5062,20 +5073,22 @@ form.new_message .w300 {
           bottom: 0;
           text-align: center;
           overflow: hidden;
-          font-size: 80px;
-          line-height: 55px;
-          height: 55px;
-          width: 40px; }
+          font-size: 55px;
+          line-height: 37px;
+          /* <=== */
+          height: 37px;
+          /* <=== */
+          width: 30px; }
       .index-page-getting-start .s-body ul li.basic-setting .image {
-        background: url(/images/help/start_steps.png) no-repeat 0px 0px; }
+        background: url(/images/help/start_steps_1.png) no-repeat 0px 0px; }
       .index-page-getting-start .s-body ul li.edit-feed .image {
-        background: url(/images/help/start_steps.png) no-repeat -169px 0px; }
+        background: url(/images/help/start_steps_1.png) no-repeat -111px 0px; }
       .index-page-getting-start .s-body ul li.discuss .image {
-        background: url(/images/help/start_steps.png) no-repeat -338px 0px; }
+        background: url(/images/help/start_steps_1.png) no-repeat -222px 0px; }
       .index-page-getting-start .s-body ul li.friends .image {
-        background: url(/images/help/start_steps.png) no-repeat -507px 0px; }
+        background: url(/images/help/start_steps_1.png) no-repeat -333px 0px; }
       .index-page-getting-start .s-body ul li.check-in .image {
-        background: url(/images/help/start_steps.png) no-repeat -676px 0px; }
+        background: url(/images/help/start_steps_1.png) no-repeat -444px 0px; }
 
 .index-page-new-feature-tip {
   padding: 5px;

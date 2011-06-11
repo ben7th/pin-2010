@@ -1,22 +1,22 @@
+-# 新手欢迎模板
+
 .index-newbie-welcome
-  .title 欢迎来到 Mindpin
-  .desc
-    .p 这里是大家提出问题，发表观点，进行讨论，畅所欲言的地方。
-    .p 你可以<span class='l'>发起一个新主题</span>，邀请其他人来一起讨论。
-    .p.mb 也可以对其他人的主题<span class='l'>提出自己的观点</span>。
-    .p.mb 现在你可以看看这些最近的主题：
-    .feeds
-      -recent_feeds.each do |f|
-        .feed
-          =link_to truncate_u(f.content,32),f
-    .p.mb 也可以去参与这些主题的讨论：
-    .feeds
-      -hot_discuss_feeds.each do |f|
-        .feed
-          =link_to truncate_u(f.content,32),f
-    .p.mb 或者去看看这些朋友的主页
-    .users
-      -page_hot_users.each do |u|
-        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-          =avatar u,:mini
-    .p 祝你好运~
+  %p
+    <b>欢迎来到Mindpin主题协作社区！</b>
+    你可以<a href='feeds/new' class='bold'>创建一个新主题</a>，也可以看看下面这些主题：
+  .feeds-for-newbie
+    -feeds_for_newbie.each do |f|
+      .feed.btb
+        -vcount = f.viewpoints.count
+        .vcount=vcount
+        .t>
+          =usersign f.creator,false
+          %span.quiet> ：
+          =link_to feed_content_short(f,32),f
+
+  %p 或者去看看这些朋友的主页：
+  .users
+    -hot_users_for_newbie.each do |u|
+      %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+        =avatar u,:tiny
+  .p 祝你好运~

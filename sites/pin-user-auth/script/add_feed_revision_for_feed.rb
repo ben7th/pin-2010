@@ -10,7 +10,7 @@ end
 
 
 ActiveRecord::Base.transaction do
-  feeds = Feed.normal
+  feeds = Feed.all
   feeds_count = feeds.length
 
   feeds.each_with_index do |feed,index|

@@ -86,29 +86,26 @@ module FeedHelper
     return re
   end
 
-  def page_hot_users
-    User.find(
-      :all,
-      :select=>'DISTINCT users.*',
-      :joins=>'JOIN feeds ON feeds.creator_id = users.id',
-      :conditions=>['logo_file_name IS NOT NULL'],
-      :limit=>32,
-      :order=>'feeds.id desc'
-    )
+  def page_hot_users(count = 1)
+    # 查找主题数大于2的用户
+    ActiveRecord::Base.connection.select_all(%~
+      SELECT SUB.id,COUNTU
+
+      FROM (
+        SELECT DISTINCT U.*,count(*) COUNTU
+        FROM users U
+        JOIN feeds F ON F.creator_id = U.id AND F.hidden = false
+        GROUP BY U.id
+        ORDER BY COUNTU DESC
+      ) SUB
+
+      WHERE SUB.COUNTU >= #{count}
+      LIMIT 16
+    ~).map{|item|User.find_by_id(item["id"])}.uniq.compact
   end
 
   def recent_feeds
     Feed.paginate(:per_page=>5,:page=>1,:order=>'id desc')
-  end
-
-  def hot_discuss_feeds
-    Feed.find(
-      :all,
-      :select=>'DISTINCT feeds.*',
-      :joins=>'JOIN viewpoints on viewpoints.feed_id = feeds.id',
-      :limit=>10,
-      :order=>'feeds.id desc'
-    )
   end
 
   def support_str(viewpoint)

@@ -6,9 +6,6 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-
-=render 'index/index_parts/getting_started'
-
 .index-page-head.clearfix
   .grid_16.alpha
     =render 'index/index_parts/index_page_tabs'
@@ -19,29 +16,17 @@
 .hrr
 
 .grid_16.alpha
-  .homepage-see-others.font14.bold
-    =link_to '&gt;&gt; 访问思维导图功能','/mindmaps'
-  
-  -if logged_in? && @current_user.unread_new_feature_tips_count > 0
-    .index-page-new-feature-tip
-      .tip
-        -feed = @current_user.unread_new_featrue
-        -count = @current_user.unread_new_feature_tips_count
-        %a.title{:href=>"/feeds/#{feed.id}"}="功能更新：#{feed_content(feed)}"
-        .desc=feed_detail_short(feed)
-      .link
-        %a.close{:href=>'javascript:;'} <span>×</span> 隐藏功能更新通知
-        %a.show-more{:href=>'/tags/系统:功能更新'} 查看全部 <span class='count'>#{count}</span> 条功能更新
-
+  =render 'index/index_parts/getting_started'
+  =render 'index/index_parts/new_feature_tips'
 
   .index-tab-ct.feeds
-    .newsfeed
-      =render 'feeds/lists/feeds_stat',:feeds=>@feeds
-    .paginate.padding5
-      = will_paginate @feeds
-
-    -if @feeds.length == 0
+    -if current_user_is_newbie?
       =render 'index/index_parts/newbie_welcome'
+    -else
+      .newsfeed
+        =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+      .paginate.padding5
+        = will_paginate @feeds
 
 .grid_6.omega.fright
   =render 'index/index_parts/feed_links'

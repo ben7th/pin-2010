@@ -82,6 +82,9 @@ class UserInboxFeedProxy < RedisBaseProxy
       },
       :in_feeds_more => Proc.new {|user,count,vector|
         UserInboxFeedProxy.new(user).vector_more(count,Feed,vector)
+      },
+      :in_feeds_count => Proc.new {|user|
+        UserInboxFeedProxy.new(user).xxxs_ids.length
       }
     }
   end
