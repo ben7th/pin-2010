@@ -22,6 +22,6 @@ module NewbieHelper
 
   # 给新手推荐的用户
   def hot_users_for_newbie
-    page_hot_users
+    page_hot_users(14)
   end
 end

@@ -86,7 +86,7 @@ module FeedHelper
     return re
   end
 
-  def page_hot_users
+  def page_hot_users(limit = 32)
     # 查找活动数大于4的用户
     ActiveRecord::Base.connection.select_all(%~
       SELECT SUB.id,SUB.name,SUB.logo_file_name,COUNTU
@@ -100,8 +100,8 @@ module FeedHelper
         ORDER BY COUNTU DESC
       ) SUB
 
-      WHERE SUB.COUNTU >= 4
-      LIMIT 16
+      WHERE SUB.COUNTU >= 1
+      LIMIT #{limit}
     ~).map{|item|User.find_by_id(item["id"])}.uniq.compact
   end
 
