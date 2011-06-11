@@ -86,21 +86,21 @@ module FeedHelper
     return re
   end
 
-  def page_hot_users(count = 1)
-    # 查找主题数大于2的用户
+  def page_hot_users
+    # 查找活动数大于4的用户
     ActiveRecord::Base.connection.select_all(%~
-      SELECT SUB.id,COUNTU
+      SELECT SUB.id,SUB.name,SUB.logo_file_name,COUNTU
 
       FROM (
         SELECT DISTINCT U.*,count(*) COUNTU
         FROM users U
-        JOIN feeds F ON F.creator_id = U.id AND F.hidden = false
+        JOIN user_logs UL ON UL.user_id = U.id
         WHERE U.logo_file_name IS NOT NULL
         GROUP BY U.id
         ORDER BY COUNTU DESC
       ) SUB
 
-      WHERE SUB.COUNTU >= #{count}
+      WHERE SUB.COUNTU >= 4
       LIMIT 16
     ~).map{|item|User.find_by_id(item["id"])}.uniq.compact
   end
