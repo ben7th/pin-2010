@@ -100,7 +100,8 @@ class RollingController <  ApplicationController
 
   def do_up_img
     @user = User.find(params[:user_id])
-    @user.update_attributes({:logo=>params[:user][:logo]})
+    @user.logo = params[:user][:logo]
+    @user.save(false) # 某些马甲的邮箱 @mindpin.com 不符合规范，需要跳过校验
     redirect_to "/zhi_ma_kai_men/"
   end
 
