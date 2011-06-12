@@ -11,12 +11,12 @@
 =render 'users/homepage/top_info'
 
 .hrr
-.grid_16.alpha
+.grid_18.alpha
   .newsfeed
     -if @feeds.blank?
       .blank.darkbg.font14.padding5.rc5 这位朋友现在还没有任何主题~
     -else
       =render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'users/homepage/avatar',:user=>@user

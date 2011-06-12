@@ -7,7 +7,7 @@
   = javascript_include_tag "views/feed_operation"
 
 .tag-page-top-info.clearfix
-  .grid_16.alpha
+  .grid_18.alpha
     .base-info
       .tag-page-logo
         =logo @tag,:medium
@@ -32,14 +32,14 @@
                 .icon
                 %span 修改关键词描述
 
-  .grid_6.omega.fright
+  .grid_5.omega.fright
     .tag-page-ops{:style=>"display:none;"}
       -faved = @tag.fav_by?(current_user)
       %a.fav.shadow.button{:href=>'javascript:;',:style=>faved ? 'display:none;':''}> 关注这个关键词
       %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'}> 　取消关注　
 
 .hrr
-.grid_16.alpha
+.grid_18.alpha
   .tag-page-feeds
     .newsfeed
       =render 'feeds/lists/feeds_stat',:feeds=>@feeds
@@ -47,7 +47,7 @@
       =will_paginate @feeds
 
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   .tag-related-feed-count
     .count
       =# 只显示非隐藏的

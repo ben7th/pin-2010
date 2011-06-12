@@ -68,22 +68,20 @@
 
 .no-auth-head{
   position:relative;
-  top:-20px;
+  margin:-10px -10px 20px -10px;
   zoom:1;
 
   .intro_and_form{
-    border-bottom:solid 1px #DFDFDF;
-    @include border-radius(0 0 8px 8px);
+    @include border-radius(8px);
 
-    @include gradient(#FFFFFF,#F3F3F3);
+    background:#F5F5F5;
     overflow:hidden;
     padding:10px;
-    margin:-10px -10px 10px;
+    margin:0 0 10px 0;
 
     .mindpin-intro{
       padding:5px;
-      margin:0 0 10px 0;
-      border-right:solid 1px #F2F2F2;
+      border-right:solid 1px #F0F0F0;
       .misc{
         .go-to-signup{
           margin:15px 0 10px 0;

@@ -26,48 +26,6 @@
   }
 }
 
-@mixin tags{
-  overflow:hidden;
-  float:left;
-  .tag{
-    float:left;
-    background:#E0EAF1;
-    line-height:18px;
-    @include border-radius(2px);
-    border-right:solid 1px #7F9FB6;
-    border-bottom:solid 1px #7F9FB6;
-
-    padding:1px 0;
-    margin:0 6px 0 0;
-
-    &:hover{
-      text-decoration:none !important;
-      background:#3E6D8E;
-      color:#e0eaf1;
-    }
-    img.mini{
-      padding:0;
-      border:none;
-      position:relative;
-      top:1px;
-      width:16px;height:16px;
-      float:left;
-      margin:0 0 0 3px;
-    }
-    span.tag-name{
-      padding:0 4px;
-    }
-    span.namespace{
-      float:left;
-      background:#3E6D8E;
-      color:#e0eaf1;
-      margin:-1px 0;
-      @include border-radius(2px 0 0 2px);
-      padding:1px 4px;
-    }
-  }
-}
-
 @mixin comments{
   @include border-radius(3px);
   margin-bottom:12px;
@@ -140,9 +98,10 @@
     position:relative;
     overflow:visible;
     .f{
-      padding:5px 5px 36px;
+      padding:5px 5px 20px;
       margin-bottom:10px;
       overflow:hidden;
+
 
       .reply-to-feed{
         @include reply-to-feed;
@@ -161,18 +120,19 @@
       .current-feed{
         overflow:hidden;
         margin:0 0 10px 0;
-        .avatar{
-          float:right;
-          img{@include border-radius(2px);}
-        }
-        .c{
-          .data{
-            .c-name{font-size:12px;margin:0 0 6px 0;}
-            .ct{
-              font-size:14px;font-weight:bold;
-              font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        .f-title{
+          font-size:14px;font-weight:bold;
+          @include tfont;
+          margin:0 0 5px 0;
+          a{
+            color:#426389;
+            &:hover{
+              text-decoration:none;
+              border-bottom:dotted 1px #666;
             }
           }
+        }
+        .detail{
         }
       }
       .viewpoint{
@@ -279,13 +239,13 @@
   overflow:hidden;
   float:left;
   .stat{
-    font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+    @include tfont;
     overflow:hidden;
     float:left;
     padding:3px 8px;
 
     .num{
-      font-size:22px;font-weight:bold;
+      font-size:20px;font-weight:bold;
       line-height:22px;height:22px;
       text-align:center;
     }
@@ -296,13 +256,12 @@
     &.viewpoints{
       &.not-zero{
         @include border-radius(4px);
-        background:#686B72;
-        .num{color:white;}
-        .w{color:#DDDDDD;}
+        background:#E5F1DD;
+        .num{color:#418370;}
+        .w{color:#418370;}
       }
       &.zero{
-        color:#9A4444;
-        .w{color:#9A4444;}
+
       }
     }
   }
@@ -312,9 +271,9 @@
   ul.feeds li.mpli.feed{
     .f.with-stats{
       .current-feed,.footmisc,.viewpoint{
-        margin-left:50px;
+        margin-left:60px;
       }
-      .footmisc{width:570px;}
+      .footmisc{width:600px;}
       .stats{
         @include feed-stats;
       }
@@ -335,7 +294,7 @@
       margin-bottom:10px;
       .title{
         font-size:14px;font-weight:bold;
-        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        @include tfont;
         margin:0 0 5px 0;
       }
       .detail{

@@ -6,7 +6,6 @@
   -content.gsub!(query,"<span class='loud'>#{query}</span>")
 
 .current-feed
-  .c
-    .data
-      .ct
-        =link_to truncate_u(content,64),"/feeds/#{feed.id}"
+  .f-title
+    =link_to truncate_u(content,64),"/feeds/#{feed.id}"
+  .detail=feed_detail_short(feed)

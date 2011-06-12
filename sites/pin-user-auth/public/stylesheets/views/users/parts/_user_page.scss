@@ -40,7 +40,7 @@
         top:-8px;
         left:47px;
         padding:3px 6px;
-        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        @include tfont;
         font-size:12px;line-height:12px;
         font-weight:bold;
       }
@@ -78,7 +78,7 @@
         @include border-radius(4px);
         background:#53BCFE;
         color:white;
-        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        @include tfont;
         float:left;
         text-align:center;
         cursor:default;

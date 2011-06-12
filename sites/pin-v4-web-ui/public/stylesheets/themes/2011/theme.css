@@ -44,10 +44,10 @@
 /*正文区边线*/
 /*正文区阴影*/
 body {
-  background-color: white; }
+  background-color: #fafafa; }
 
 .page-content .cell {
-  background-color: white; }
+  background-color: #fcfcfc; }
 
 /*一般文字*/
 /*一般文字颜色*/
@@ -108,7 +108,7 @@ body {
   -webkit-box-shadow: 1px 1px 2px #dddddd; }
 
 .btb {
-  border-bottom: dotted 1px #DFDFDF; }
+  border-bottom: #EDEDED solid 1px; }
 
 .hrr {
   background-color: #f6f6f6;

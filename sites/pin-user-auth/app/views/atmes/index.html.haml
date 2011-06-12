@@ -6,7 +6,7 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.grid_16.alpha
+.grid_18.alpha
   .grid-title
     @其他人在主题/评论里提到我
 
@@ -26,6 +26,6 @@
           -if atable.class.name == 'FeedComment'
             主题评论
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'feeds/infos/new_button'
   =render :partial=>'index/index_parts/feed_links'

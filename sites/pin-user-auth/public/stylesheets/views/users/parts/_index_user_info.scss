@@ -124,7 +124,7 @@
         width:20px;
         text-align:center;
         font-weight:bold;
-        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        @include tfont;
       }
       .t{
         margin-left:30px;

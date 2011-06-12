@@ -7,15 +7,15 @@
   = javascript_include_tag "views/feed_operation"
 
 .index-page-head.clearfix
-  .grid_16.alpha
+  .grid_18.alpha
     =render 'index/index_parts/index_page_tabs'
 
-  .grid_6.omega.fright
+  .grid_5.omega.fright
     =render 'feeds/infos/new_button'
 
 .hrr
 
-.grid_16.alpha
+.grid_18.alpha
   =render 'index/index_parts/getting_started'
   =render 'index/index_parts/new_feature_tips'
 
@@ -28,5 +28,5 @@
       .paginate.padding5
         = will_paginate @feeds
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'index/index_parts/feed_links'

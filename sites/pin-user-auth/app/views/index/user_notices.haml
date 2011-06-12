@@ -7,20 +7,20 @@
   = javascript_include_tag "views/feed_operation"
 
 .index-page-head.clearfix
-  .grid_16.alpha
+  .grid_18.alpha
     =render 'index/index_parts/index_page_tabs'
 
-  .grid_6.omega.fright
+  .grid_5.omega.fright
     =render 'feeds/infos/new_button'
 
 .hrr
 
-.grid_16.alpha
+.grid_18.alpha
   .homepage-see-others.font14.bold
     =link_to '&gt;&gt; 访问思维导图功能','/mindmaps'
 
   .index-tab-ct.notice
     =render 'index/homepage/page_tips',:tips=>@tips
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'index/index_parts/feed_links'

@@ -13,7 +13,7 @@
     的搜索结果(#{@result.total_count})
 
 .hrr
-.grid_16.alpha
+.grid_18.alpha
 
   .newsfeed
     =render :partial=>'feeds/search_parts/feed_search_results',:locals=>{:result=>@result,:query=>@query}
@@ -21,6 +21,6 @@
   .padding5
     =will_paginate @result
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   -if logged_in?
     =render :partial=>'index/index_parts/feed_links'

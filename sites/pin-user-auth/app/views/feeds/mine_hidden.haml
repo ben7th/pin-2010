@@ -6,7 +6,7 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.grid_16.alpha
+.grid_18.alpha
   .grid-title
     我被隐藏的主题
   .hrr
@@ -16,6 +16,6 @@
   .paginate.padding5
     = will_paginate @feeds
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'feeds/infos/new_button'
   =render :partial=>'index/index_parts/feed_links'

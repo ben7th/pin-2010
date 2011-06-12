@@ -153,3 +153,64 @@
     .bold{font-weight:normal;}
   }
 }
+
+@mixin tfont{
+  font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+}
+
+@mixin tags{
+  overflow:hidden;
+  float:left;
+  .tag{
+    float:left;
+    @include allicon(0,-209px);
+    line-height:19px;
+    padding:0 0 0 13px;
+    margin:0 6px 0 0;
+
+    color:#5D7A9C;
+    &:hover{
+      text-decoration:none !important;
+      color:#222;
+    }
+
+    img.mini{
+      padding:0;
+      border:none;
+      position:relative;
+      top:1px;
+      width:16px;height:16px;
+      float:left;
+      margin:0 0 0 3px;
+      @include border-radius(3px);
+    }
+    span.tag-name{
+      padding:0 4px;
+      line-height:19px;
+    }
+    span.namespace{
+      float:left;
+      background:#5D7A9C;
+      color:#E2EDFA;
+      @include border-radius(3px);
+      padding:0 4px;
+      line-height:15px;
+      position:relative;top:2px;
+    }
+  }
+}
+
+@mixin tag-and-count{
+  .tag-and-count{
+    @include tags;
+    float:none;
+    display:block;
+    margin:0 0 6px 0;
+    .count{
+      line-height:21px;
+      font-weight:bold;
+      font-size:14px;
+      color:#888888;
+    }
+  }
+}

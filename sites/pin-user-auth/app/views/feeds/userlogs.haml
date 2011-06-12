@@ -6,7 +6,7 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.grid_16.alpha
+.grid_18.alpha
   .grid-title
     大家最近的动态…
   .hrr
@@ -15,7 +15,7 @@
   .feed-paginate.padding5
     = will_paginate @userlogs
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'feeds/infos/new_button'
   =render 'index/index_parts/feed_links'
 

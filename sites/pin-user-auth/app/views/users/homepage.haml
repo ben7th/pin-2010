@@ -11,13 +11,13 @@
 =render 'users/homepage/top_info'
 
 .hrr
-.grid_16.alpha
+.grid_18.alpha
   .homepage-see-others.font14.bold
     =link_to '&gt;&gt; 看看这位朋友的思维导图主页',"/#{@user.id}/mindmaps"
 
   =render 'index/userlog/userlog',:logs=>@user.outbox_logs_limit(20)
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'users/homepage/avatar',:user=>@user
 
   =render 'users/homepage/fav_feeds',:user=>@user

@@ -948,7 +948,7 @@ form.new_message{
         padding:4px 7px;
         font-size:16px;font-weight:bold;
         line-height:16px;
-        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        @include tfont;
         background:#FF3D00;
       }
     }
@@ -993,7 +993,7 @@ form.new_message{
         color:#333;
         font-size:24px;
         line-height:24px;
-        font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+        @include tfont;
       }
     }
   }
@@ -1017,7 +1017,7 @@ form.new_message{
     .feed{
       font-size:14px;
       font-weight:bold;
-      font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;
+      @include tfont;
     }
     .vp-ct{
       @include viewpoint-in-list;

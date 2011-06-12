@@ -1,5 +1,5 @@
 .user-page-top-info
-  .grid_16.alpha
+  .grid_18.alpha
     .base-info
       .name=@user.name
       .sign=@user.sign
@@ -14,7 +14,7 @@
         .count>=@user.all_viewpoints_count
 
 
-  .grid_6.omega.fright
+  .grid_5.omega.fright
     -if logged_in? && @user != current_user
       .user-page-ops
         - followed = current_user.following?(@user)

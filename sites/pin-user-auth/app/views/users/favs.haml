@@ -11,12 +11,12 @@
 =render 'users/homepage/top_info'
 
 .hrr
-.grid_16.alpha
+.grid_18.alpha
   .grid-title
     #{@user.name}关注的主题
 
   .newsfeed
     =render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
 
-.grid_6.omega.fright
+.grid_5.omega.fright
   =render 'users/homepage/avatar',:user=>@user
