@@ -17,10 +17,11 @@
     .padding5
       =will_paginate @feeds
 
-  .grid_4.omega.fright
+  .grid_5.omega.fright
     .title.btb 这里是各种马甲
     .majia-users
       -@majia_users.each do |u|
         .user
           .avatar=avatar u,:mini
           .name=truncate_u u.name,5
+          .up=minibutton '改头像',"/zhi_ma_kai_men/up_user_img/#{u.id}"

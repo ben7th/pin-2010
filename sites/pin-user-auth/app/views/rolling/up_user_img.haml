@@ -1,0 +1,16 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  改头像
+
+.padding5
+  = flash_info
+  .clearfix
+    = logo @user,:medium
+    = logo @user,:normal
+    = logo @user,:tiny
+    = logo @user,:mini
+
+  - mindpin_form_for @user,:url=>"/zhi_ma_kai_men/do_up_img/#{@user.id}",:method=>:put,:html=>{:multipart=>true} do |f|
+    = f.file_field(:logo)
+    = f.submit "上传图片",:class=>'marginb3em'

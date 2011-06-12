@@ -56,6 +56,15 @@ ActionController::Routing::Routes.draw do |map|
     :action=>'update_vp',
     :conditions=>{:method=>:post}
 
+  map.connect '/zhi_ma_kai_men/up_user_img/:user_id',
+    :controller=>'rolling',
+    :action=>'up_user_img',
+    :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/do_up_img/:user_id',
+    :controller=>'rolling',
+    :action=>'do_up_img',
+    :conditions=>{:method=>:put}
+
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
   map.login_fbox '/login_fbox',:controller=>'sessions',:action=>'login_fbox'

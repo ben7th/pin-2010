@@ -94,4 +94,14 @@ class RollingController <  ApplicationController
     redirect_to "/zhi_ma_kai_men/show/#{@feed.id}"
   end
 
+  def up_user_img
+    @user = User.find(params[:user_id])
+  end
+
+  def do_up_img
+    @user = User.find(params[:user_id])
+    @user.update_attributes({:logo=>params[:user][:logo]})
+    redirect_to "/zhi_ma_kai_men/"
+  end
+
 end
