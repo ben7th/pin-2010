@@ -1,0 +1,26 @@
+-require_css 'views/users',true
+-require_css 'views/zhimakaimen',true
+
+-content_for :title do
+  芝麻~开门~
+
+
+.zhimakaimen
+  .grid_18.alpha
+    .grid-title 芝麻~开门..
+    .padding5.quiet 这里是特别准备的方便输入内容的工具，省去了来回换马甲的麻烦
+    .hrr
+    .padding5.marginb10
+      .new.marginb5=minibutton '创建新主题','/zhi_ma_kai_men/feeds/new'
+    .newsfeed
+      =render 'rolling/feeds_stat',:feeds=>@feeds
+    .padding5
+      =will_paginate @feeds
+
+  .grid_4.omega.fright
+    .title.btb 这里是各种马甲
+    .majia-users
+      -@majia_users.each do |u|
+        .user
+          .avatar=avatar u,:mini
+          .name=truncate_u u.name,5

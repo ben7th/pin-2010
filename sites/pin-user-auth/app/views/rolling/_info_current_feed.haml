@@ -1,0 +1,13 @@
+-creator = feed.creator
+
+-content = feed_content(feed)
+-content = "<span class='loud'>[by 芝麻]</span>#{content}" if feed.event == 'rolling'
+
+-query ||= nil
+-if !!query
+  -content.gsub!(query,"<span class='loud'>#{query}</span>")
+
+.current-feed
+  .f-title
+    =link_to truncate_u(content,64),"/zhi_ma_kai_men/show/#{feed.id}"
+  .detail=feed_detail_short(feed)

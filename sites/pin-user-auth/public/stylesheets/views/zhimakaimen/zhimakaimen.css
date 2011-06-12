@@ -1,0 +1,20 @@
+.zhimakaimen .title {
+  padding: 5px;
+  margin: 0 0 5px 0;
+  font-weight: bold; }
+.zhimakaimen .majia-users {
+  padding: 5px;
+  overflow: hidden; }
+  .zhimakaimen .majia-users .user {
+    overflow: hidden;
+    margin: 0 10px 10px 0; }
+    .zhimakaimen .majia-users .user .avatar {
+      float: left; }
+      .zhimakaimen .majia-users .user .avatar img {
+        width: 16px;
+        height: 16px;
+        margin: 0 5px 0 0; }
+    .zhimakaimen .majia-users .user .name {
+      float: left;
+      width: 80px;
+      overflow: hidden; }

@@ -78,6 +78,7 @@ class FeedTag < UserAuthAbstract
         self.remove_tag_without_record_editer(name,namespace)
       end
 
+      # 如果没有变化，则不修改
       if !arr_add.blank? || !arr_remove.blank?
         self.record_editer(editor,"修改关键词")
       end

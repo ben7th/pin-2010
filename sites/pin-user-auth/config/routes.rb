@@ -8,6 +8,54 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/user_notices",:controller=>"index",:action=>"user_notices"
   map.connect "/feedback",:controller=>"index",:action=>"feedback"
 
+  # ---------------- 管理员后门 -------------
+  map.connect '/zhi_ma_kai_men',
+    :controller=>'rolling',
+    :action=>'zhimakaimen',
+    :conditions=>{:method=>:get}
+
+  # -----------------
+  map.connect '/zhi_ma_kai_men/feeds/new',
+    :controller=>'rolling',
+    :action=>'new_feed',
+    :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/feeds/create',
+    :controller=>'rolling',
+    :action=>'create_feed',
+    :conditions=>{:method=>:post}
+
+  map.connect '/zhi_ma_kai_men/show/:id',
+    :controller=>'rolling',
+    :action=>'show_feed',
+    :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/feeds/:id/edit',
+    :controller=>'rolling',
+    :action=>'edit_feed',
+    :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/feeds/:id/update',
+    :controller=>'rolling',
+    :action=>'update_feed',
+    :conditions=>{:method=>:post}
+
+  # ------------------
+  map.connect '/zhi_ma_kai_men/:feed_id/vp/new',
+    :controller=>'rolling',
+    :action=>'new_vp',
+    :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/:feed_id/vp/create',
+    :controller=>'rolling',
+    :action=>'create_vp',
+    :conditions=>{:method=>:post}
+
+  map.connect '/zhi_ma_kai_men/vp/:vp_id/edit',
+    :controller=>'rolling',
+    :action=>'edit_vp',
+    :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/vp/:vp_id/update',
+    :controller=>'rolling',
+    :action=>'update_vp',
+    :conditions=>{:method=>:post}
+
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
   map.login_fbox '/login_fbox',:controller=>'sessions',:action=>'login_fbox'

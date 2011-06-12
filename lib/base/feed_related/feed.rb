@@ -140,24 +140,46 @@ class Feed < UserAuthAbstract
     fd.content||""
   end
 
-  def update_content(content,editer)
-    return if self.locked? && !editer.is_admin_user?
-    return if editer.blank?
+  # 临时方法，需要重构，各种判断纠结不清
+  def update_all_attr(content, tags, detail_content, editor)
+    return if self.locked? && !editor.is_admin_user?
+    return if editor.blank?
+
+    con1 = content != self.content
+    con2 = detail_content != self.detail_content
+
+    self.update_attributes(:content=>content) if con1
+    self.create_or_update_detail(detail_content) if con2
+    self.record_editer(editor,"") if con1 || con2
+    self.reload
+    
+    self.change_tags(tags, editor)
+  end
+
+  def update_content(content,editor)
+    return if self.locked? && !editor.is_admin_user?
+    return if editor.blank?
+    # 没有改动则不修改
+    return self if content == self.content
+
     self.update_attributes(:content=>content)
-    self.record_editer(editer,"修改标题")
+    self.record_editer(editor,"修改标题")
   end
   
   # 话题详情
-  def create_detail_content(content)
-    self.create_or_update_detail(content)
+  def create_detail_content(detail_content)
+    self.create_or_update_detail(detail_content)
   end
 
   # 话题详情
-  def update_detail_content(content,editer)
-    return if self.locked? && !editer.is_admin_user?
-    return if editer.blank?
-    self.create_or_update_detail(content)
-    self.record_editer(editer,"修改正文")
+  def update_detail_content(detail_content,editor)
+    return if self.locked? && !editor.is_admin_user?
+    return if editor.blank?
+    # 没有改动则不修改
+    return self if detail_content == self.detail_content
+
+    self.create_or_update_detail(detail_content)
+    self.record_editer(editor,"修改正文")
     self.reload
     self
   end
@@ -254,7 +276,9 @@ class Feed < UserAuthAbstract
     def send_say_feed(content,options={})
       channel_ids = options[:channel_ids] || []
       channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-      feed = Feed.new(:creator=>self,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels)
+      event = options[:event] || Feed::SAY_OPERATE
+      
+      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:channels_db=>channels)
       return feed if !feed.valid?
       feed.save!
       feed.create_detail_content(options[:detail]) if !options[:detail].blank?
