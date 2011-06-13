@@ -221,6 +221,7 @@ ActionController::Routing::Routes.draw do |map|
     } do |feed|
       feed.resources :feed_revisions,:as=>"revisions"
     end
+  map.resources :feed_revisions,:member=>{:rollback=>:put}
     
   map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
     :action=>"destroy",:conditions=>{:method=>:delete}
@@ -240,6 +241,9 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"vote_down",:conditions=>{:method=>:post}
   map.viewpoint_cancel_vote "/viewpoints/:id/cancel_vote",:controller=>"viewpoints",
     :action=>"cancel_vote",:conditions=>{:method=>:delete}
+
+  map.resources :viewpoint_revisions,:as=>"revisions",:path_prefix=>"/viewpoints/:viewpoint_id"
+  map.resources :viewpoint_revisions,:member=>{:rollback=>:put}
 
   map.user_feeds "newsfeed",:controller=>"feeds",:action=>"index"
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}

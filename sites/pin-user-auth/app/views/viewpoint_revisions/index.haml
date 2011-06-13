@@ -1,0 +1,52 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  历史版本查看
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_revision"
+
+.clearfix
+  .font14.bold.padding5
+    =link_to '&gt;&gt; 返回主题讨论页',@viewpoint.feed
+
+.hrr
+
+.page-revisions
+  -rev_num = @viewpoint.viewpoint_revisions.count
+  -@viewpoint.viewpoint_revisions.each do |rev|
+    -prev = rev.prev
+    .revision.viewpoint{:'data-id'=>rev.id,:'data-feed-id'=>@viewpoint.feed.id}
+      .meta
+        .num=rev_num
+        .misc
+          .message=rev.message
+          .ops>
+            =link_to '查看详情',"/viewpoint_revisions/#{rev.id}"
+            -if logged_in? && current_user == @viewpoint.user && rev_num != @viewpoint.viewpoint_revisions.count
+              %span -
+              =link_to '恢复到此版本','javascript:;',:class=>'rollback'
+
+        -rev_num-=1
+
+        .creator
+          -creator = rev.user
+          .time.quiet
+            创建于 #{created_from(rev)}
+          .data
+            .avatar
+              =avatar creator,:tiny
+            .name
+              =usersign(creator,true,18)
+
+      -if prev.blank?
+        .main
+          .details.btb>=rev.content.gsub(/\n/,'<br/>')
+      -else
+        .main
+          -content = CGI.escapeHTML rev.content
+          -prev_content = CGI.escapeHTML prev.content
+          -detail_diff = MindpinDiff.new(prev_content,content)
+          -if prev_content != content
+            .details.btb>=detail_diff.html
+

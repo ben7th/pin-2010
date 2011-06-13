@@ -43,6 +43,8 @@
       .last-edited-user
         .time.quiet
           编辑于 #{jtime viewpoint.updated_at}
+          -link_to "/viewpoints/#{viewpoint.id}/revisions" do
+            查看历史
 
     .ops
       -if logged_in? && user == current_user

@@ -13,10 +13,9 @@
     .last-edited-user.feed-editor
       -leu = feed.last_edited_user
       .time.quiet
-        编辑于
+        编辑于 #{jtime feed.last_edited_time}
         -link_to "/feeds/#{feed.id}/revisions" do
-          #{jtime feed.last_edited_time}
-          查看版本
+          查看历史
       .data
         .avatar
           =avatar leu,:tiny
@@ -32,8 +31,8 @@
           -else
             =link_to '这个主题不值得讨论','javascript:;',:class=>'spam',:tipr=>'#is-a-spam'
           #is-a-spam.hide
-            你觉得这个主题很无趣，很空泛；<br/>
-            或者“在google上baidu一下”就能轻易解决~
+            你觉得这个主题很空泛，意义不明，属于灌水。<br/>
+            或者没有明确提出讨论方向，不知从何说起。
 
           -if feed.spam_marks.count > 0
             %span.quiet="#{feed.spam_marks.count}人觉得"

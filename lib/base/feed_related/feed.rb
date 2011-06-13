@@ -140,48 +140,61 @@ class Feed < UserAuthAbstract
     fd.content||""
   end
 
-  # 临时方法，需要重构，各种判断纠结不清
-  def update_all_attr(content, tags, detail_content, editor)
+  def update_attrs_and_record_editor(editor,options)
+    options.assert_valid_keys(:content,:detail_content,:tag_names_string,:message)
     return if self.locked? && !editor.is_admin_user?
     return if editor.blank?
-
-    con1 = content != self.content
-    con2 = detail_content != self.detail_content
-
-    self.update_attributes(:content=>content) if con1
-    self.create_or_update_detail(detail_content) if con2
-    self.record_editer(editor,"") if con1 || con2
-    self.reload
     
-    self.change_tags(tags, editor)
+    content = options[:content]
+    detail_content = options[:detail_content]
+    tag_names_string = options[:tag_names_string]
+    tag_names_string = Tag::DEFAULT if tag_names_string == ""
+    mesage = options[:message]|| ""
+
+    con1 = (!content.blank? && content !=self.content)
+    con2 = (!detail_content.blank? && detail_content !=self.detail_content)
+    con3 = (!tag_names_string.nil?) && self.tag_has_change?(tag_names_string,editor)
+
+    # 更新 feed 标题
+    if con1
+      self.update_attributes(:content=>content)
+    end
+
+    # 更新 feed 详细内容
+    if con2
+      self.create_or_update_detail(detail_content)
+    end
+
+    # 更新 tags 详细内容
+    if con3
+      self.change_tags_without_record_editor(tag_names_string, editor)
+    end
+
+    if con1 || con2 || con3
+      self.record_editer(editor,mesage)
+    end
+
   end
 
-  def update_content(content,editor)
-    return if self.locked? && !editor.is_admin_user?
-    return if editor.blank?
-    # 没有改动则不修改
-    return self if content == self.content
-
-    self.update_attributes(:content=>content)
-    self.record_editer(editor,"修改标题")
-  end
-  
-  # 话题详情
+  # 创建 feed detail_content
   def create_detail_content(detail_content)
     self.create_or_update_detail(detail_content)
   end
 
-  # 话题详情
+  # 更新 feed content
+  def update_content(content,editor)
+    update_attrs_and_record_editor(editor,:content=>content,:message=>"修改标题")
+  end
+  
+  # 更新 feed detail_content
   def update_detail_content(detail_content,editor)
-    return if self.locked? && !editor.is_admin_user?
-    return if editor.blank?
-    # 没有改动则不修改
-    return self if detail_content == self.detail_content
+    update_attrs_and_record_editor(editor,:detail_content=>detail_content,:message=>"修改正文")
+  end
 
-    self.create_or_update_detail(detail_content)
-    self.record_editer(editor,"修改正文")
-    self.reload
-    self
+  def update_all_attr(content, tags, detail_content, editor)
+    update_attrs_and_record_editor(editor,:content=>content,
+      :detail_content=>detail_content,:tag_names_string=>tags
+    )
   end
 
   def show
@@ -283,8 +296,10 @@ class Feed < UserAuthAbstract
       feed.save!
       feed.create_detail_content(options[:detail]) if !options[:detail].blank?
 
-      feed.add_tags_without_record_editer(options[:tags],self)
-      feed.add_default_tag_when_no_tag
+      tags = options[:tags]
+      tags = Tag::DEFAULT if tags.blank?
+      
+      feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)
       feed
     end

@@ -263,45 +263,6 @@ pie.load(function(){
   })
 })
 
-pie.load(function(){
-  //confirm对话框，取代系统默认
-  jQuery.fn.confirm_dialog = function(str,func){
-    var elm = jQuery(this);
-    var off = elm.offset();
-
-    func == func || function(){};
-
-    var dialog_elm = jQuery(
-      '<div class="jq-confirm-dialog popdiv">'+
-        '<div class="d">'+
-          '<div class="data"><div class="icon">?</div>'+str+'</div>'+
-          '<div class="btns">'+
-            '<a class="button editable-submit" href="javascript:;">确定</a>'+
-            '<a class="button editable-cancel" href="javascript:;">取消</a>'+
-          '</div>'+
-        '</div>'+
-      '</div>'
-    );
-
-    jQuery('.jq-confirm-dialog').remove();
-    dialog_elm.css('left',off.left - 100 + elm.outerWidth()/2).css('top',off.top - 83);
-    jQuery('body').append(dialog_elm);
-
-    //IE下面这样写有问题，估计是append之后不能立即fadeIn
-    dialog_elm.hide().fadeIn();
-    
-    jQuery('.jq-confirm-dialog .editable-submit').unbind();
-    jQuery('.jq-confirm-dialog .editable-submit').bind('click',function(){
-      jQuery('.jq-confirm-dialog').remove();
-      func();
-    });
-  }
-  
-  jQuery('.jq-confirm-dialog .editable-cancel').live('click',function(){
-    jQuery('.jq-confirm-dialog').remove();
-  })
-});
-
 //通知相关
 //用户通知的清除方法
 pie.load(function(){

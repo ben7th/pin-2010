@@ -34,10 +34,23 @@
 
         .time{margin:0 0 6px 46px;display:block;}
       }
-      .message{
+      .misc{
         float:left;
-        font-size:14px;
-        position:relative;top:13px;
+        position:relative;top:9px;
+        .message{
+          background:#E2EDFA;
+          @include border-radius(3px);
+          font-size:14px;color:#666;
+          padding:0 6px;
+          margin:0 0 2px 0;
+        }
+        .ops{
+          padding:0 6px;
+          a{
+            color:#E9F1F4;
+            &:hover{color:#E9F1F4;}
+          }
+        }
       }
     }
     .main{

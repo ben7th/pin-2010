@@ -6,6 +6,20 @@ class FeedRevision < UserAuthAbstract
   validates_presence_of :user
   validates_presence_of :title
 
+  def content
+    self.title
+  end
+
+  def detail_content
+    self.detail
+  end
+
+  def tags
+    tag_ids.map do |id|
+      Tag.find_by_id(id)
+    end.compact
+  end
+
   def tag_ids
     ActiveSupport::JSON.decode(tag_ids_json)
   end
@@ -67,7 +81,6 @@ class FeedRevision < UserAuthAbstract
   end
 
   include UserLog::FeedRevisionMethods
-  include FeedTag::FeedRevisionMethods
   include FeedLucene::FeedRevisionMethods
   include Atme::FeedRevisionMethods
 end

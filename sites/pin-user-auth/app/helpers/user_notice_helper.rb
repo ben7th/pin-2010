@@ -133,7 +133,7 @@ module UserNoticeHelper
     re = []
     re << '你的主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
-    re << '因为被认为不值得讨论而被隐藏'
+    re << '因为被认为不值得讨论或目的不明确而被隐藏'
   end
 
   def viewpoint_comment_str(tip)

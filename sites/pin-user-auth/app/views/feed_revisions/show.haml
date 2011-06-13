@@ -1,0 +1,39 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  查看主题历史版本内容详情
+
+.clearfix
+  .font14.bold.padding5
+    =link_to '&gt;&gt; 返回历史版本列表',"/feeds/#{@feed_revision.feed.id}/revisions"
+
+.hrr
+
+.grid_18.alpha
+  .feed-show-page-head.btb.clearfix
+    .padding5
+      .ftag
+        .feed-tags
+          -@feed_revision.tags.each do |tag|
+            =tag_label(tag)
+
+        .ftitle
+          .feed-title
+            =feed_content(@feed_revision)
+
+  .page-feed-show
+    .main
+      .detail-data
+        .data
+          =feed_detail @feed_revision
+
+    .footmisc
+      .creator
+        -creator = @feed_revision.user
+        .time.quiet
+          编辑于 #{created_from(@feed_revision)}
+        .data
+          .avatar
+            =avatar creator,:tiny
+          .name
+            =usersign(creator,true,18)

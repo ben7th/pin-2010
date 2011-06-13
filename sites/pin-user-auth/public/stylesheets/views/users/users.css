@@ -1222,9 +1222,9 @@ form.new_message .w300 {
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
             padding: 0 4px;
-            line-height: 15px;
+            line-height: 16px;
             position: relative;
-            top: 2px; }
+            top: 1px; }
       .newsfeed ul.feeds li.mpli.feed .f .footmisc .ops {
         overflow: hidden;
         display: inline; }
@@ -1620,9 +1620,9 @@ form.new_message .w300 {
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
           padding: 0 4px;
-          line-height: 15px;
+          line-height: 16px;
           position: relative;
-          top: 2px; }
+          top: 1px; }
     .page-searched-feeds .feed .footmisc .ops, .page-recommend-feeds .feed .footmisc .ops {
       overflow: hidden;
       display: inline; }
@@ -1799,9 +1799,9 @@ form.new_message .w300 {
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
       padding: 0 4px;
-      line-height: 15px;
+      line-height: 16px;
       position: relative;
-      top: 2px; }
+      top: 1px; }
   .feed-show-page-head .ftag .feed-tags .edit-tags {
     overflow: hidden;
     margin: 0 0 10px 0;
@@ -2099,9 +2099,9 @@ form.new_message .w300 {
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
           padding: 0 4px;
-          line-height: 15px;
+          line-height: 16px;
           position: relative;
-          top: 2px; }
+          top: 1px; }
     .page-feed-show .footmisc .ops {
       overflow: hidden;
       display: inline; }
@@ -2370,9 +2370,9 @@ form.new_message .w300 {
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
             padding: 0 4px;
-            line-height: 15px;
+            line-height: 16px;
             position: relative;
-            top: 2px; }
+            top: 1px; }
       .page-feed-viewpoints .viewpoint .footmisc .ops {
         overflow: hidden;
         display: inline; }
@@ -4867,9 +4867,9 @@ form.new_message .w300 {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         padding: 0 4px;
-        line-height: 15px;
+        line-height: 16px;
         position: relative;
-        top: 2px; }
+        top: 1px; }
     .tag-related-tags .tag-and-count .count {
       line-height: 21px;
       font-weight: bold;
@@ -4917,9 +4917,9 @@ form.new_message .w300 {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         padding: 0 4px;
-        line-height: 15px;
+        line-height: 16px;
         position: relative;
-        top: 2px; }
+        top: 1px; }
     .page-show-side-status .tags-count .tag-and-count .count {
       line-height: 21px;
       font-weight: bold;
@@ -5206,11 +5206,25 @@ form.new_message .w300 {
         .page-revisions .revision .meta .creator .time {
           margin: 0 0 6px 46px;
           display: block; }
-      .page-revisions .revision .meta .message {
+      .page-revisions .revision .meta .misc {
         float: left;
-        font-size: 14px;
         position: relative;
-        top: 13px; }
+        top: 9px; }
+        .page-revisions .revision .meta .misc .message {
+          background: #E2EDFA;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          font-size: 14px;
+          color: #666;
+          padding: 0 6px;
+          margin: 0 0 2px 0; }
+        .page-revisions .revision .meta .misc .ops {
+          padding: 0 6px; }
+          .page-revisions .revision .meta .misc .ops a {
+            color: #E9F1F4; }
+            .page-revisions .revision .meta .misc .ops a:hover {
+              color: #E9F1F4; }
     .page-revisions .revision .main {
       padding: 10px; }
       .page-revisions .revision .main .title {
@@ -5262,9 +5276,9 @@ form.new_message .w300 {
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
             padding: 0 4px;
-            line-height: 15px;
+            line-height: 16px;
             position: relative;
-            top: 2px; }
+            top: 1px; }
         .page-revisions .revision .main .tags .tag.diff-del span.tag-name {
           background: #FFDDDD;
           color: #800000;

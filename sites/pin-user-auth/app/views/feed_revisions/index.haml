@@ -16,21 +16,30 @@
   -rev_num = @feed.feed_revisions.count
   -@feed.feed_revisions.each do |rev|
     -prev = rev.prev
-    .revision
-      -if prev.blank?
-        .meta
-          .num=rev_num
-          -rev_num-=1
+    .revision.feed{:'data-id'=>rev.id,:'data-feed-id'=>@feed.id}
+      .meta
+        .num=rev_num
+        .misc
           .message=rev.message
-          .creator
-            -creator = rev.user
-            .time.quiet
-              创建于 #{created_from(rev)}
-            .data
-              .avatar
-                =avatar creator,:tiny
-              .name
-                =usersign(creator,true,18)
+          .ops>
+            =link_to '查看详情',"/feed_revisions/#{rev.id}"
+            -if logged_in? && current_user.is_admin? && rev_num != @feed.feed_revisions.count
+              %span -
+              =link_to '恢复到此版本','javascript:;',:class=>'rollback'
+
+        -rev_num-=1
+
+        .creator
+          -creator = rev.user
+          .time.quiet
+            创建于 #{created_from(rev)}
+          .data
+            .avatar
+              =avatar creator,:tiny
+            .name
+              =usersign(creator,true,18)
+
+      -if prev.blank?
         .main
           .tags
             -Tag.find_all_by_id(rev.tag_ids).each do |tag|
@@ -38,19 +47,6 @@
           .title.btb>=rev.title
           .details.btb>=rev.detail.gsub(/\n/,'<br/>')
       -else
-        .meta
-          .num=rev_num
-          -rev_num-=1
-          .message=rev.message
-          .creator
-            -creator = rev.user
-            .time.quiet
-              修改于 #{created_from(rev)}
-            .data
-              .avatar
-                =avatar creator,:tiny
-              .name
-                =usersign(creator,true,18)
         .main
           -tag_diff = MindpinDiff.diff_tag_ids(prev.tag_ids,rev.tag_ids)
           -if prev.tag_ids != rev.tag_ids
@@ -61,12 +57,12 @@
           -title = CGI.escapeHTML rev.title
           -prev_title = CGI.escapeHTML prev.title
           -title_diff = MindpinDiff.new(prev_title,title)
-          -if prev.title != rev.title
+          -if prev_title != title
             .title.btb>=title_diff.html
 
           -detail = CGI.escapeHTML rev.detail
           -prev_detail = CGI.escapeHTML prev.detail
-          -detail_diff = MindpinDiff.new(prev_title,title)
-          -if prev.detail != rev.detail
-            .details.btb>=MindpinDiff.new(prev_detail,detail).html
+          -detail_diff = MindpinDiff.new(prev_detail,detail)
+          -if prev_detail != detail
+            .details.btb>=detail_diff.html
 

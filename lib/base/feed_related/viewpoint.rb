@@ -81,9 +81,13 @@ class Viewpoint < UserAuthAbstract
     # 创建对 feed 的观点
     def create_or_update_viewpoint(user,content)
       viewpoint = self.viewpoint_of(user)
-      return Viewpoint.create(:feed=>self,:user=>user,:memo=>content) if viewpoint.blank?
-
-      viewpoint.add_memo(content)
+      if viewpoint.blank?
+        viewpoint = Viewpoint.create(:feed=>self,:user=>user,:memo=>content)
+        viewpoint.record_editer(user)
+      elsif viewpoint.memo != content
+        viewpoint.add_memo(content)
+        viewpoint.record_editer(user)
+      end
       viewpoint
     end
 
@@ -110,4 +114,5 @@ class Viewpoint < UserAuthAbstract
   include ViewpointSpamMark::ViewpointMethods
   include Atme::AtableMethods
   include Atme::ViewpointMethods
+  include ViewpointRevision::ViewpointMethods
 end
