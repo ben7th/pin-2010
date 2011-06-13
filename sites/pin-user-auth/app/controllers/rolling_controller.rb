@@ -4,7 +4,7 @@ class RollingController <  ApplicationController
   def get_majia_user
     if RAILS_ENV == 'production'
       return render_status_page(403,'必须指定用户登陆后才能操作') if !logged_in?
-      return render_status_page(403,'只有指定用户才能操作') if ![1002,1018,1012851,1001].include? current_user.id
+      return render_status_page(403,'只有指定用户才能操作') if ![1002,1018,1012851,1001,1017].include? current_user.id
     end
 
 
@@ -12,7 +12,7 @@ class RollingController <  ApplicationController
     when 'development'
       (1000001..1000029).to_a + [1000035,1000036,1000039,1000040,1000041,1000043,1000044,1000046,1000050,1000051,1000056]
     when 'production'
-      (1000001..1000029).to_a + [1000035,1000036,1000039,1000040,1000041,1000043,1000044,1000046,1000050,1000051,1000056]
+      (1000001..1000029).to_a + [1000035,1000036,1000039,1000040,1000041,1000043,1000044,1000046,1000050,1000051,1000056] + [1026617, 1026621, 1026623]
     end
 
     @majia_users = majia_ids.map {|id|
