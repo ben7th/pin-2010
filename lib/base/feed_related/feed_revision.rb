@@ -45,10 +45,15 @@ class FeedRevision < UserAuthAbstract
     detail_content = self.detail
     tag_ids = self.tag_ids
 
+    # 有可能是被合并的标签
+    tags = tag_ids.map{|tid|Tag.find(tid)}
+    tags = tags.map{|tag|Tag.get_tag(tag.name,tag.namespace)}
+    tag_ids = tags.map{|tag|tag.id}
+
     # 回滚标题和标签
     feed.update_attributes(:content=>content,:tag_ids=>tag_ids)
     # 回滚正文
-    feed.create_or_update_detail(detail_content) unless detail_content.blank?
+    feed.create_or_update_detail(detail_content)
     # 建立新 revision
 
     feed.record_editer(editor,"回滚到 版本#{revision_count}")

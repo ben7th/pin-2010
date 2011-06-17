@@ -1,0 +1,20 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  目前还没有人参与的主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_18.alpha
+  .grid-title
+    目前还没有人参与的主题
+  .hrr
+  .newsfeed
+    =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+
+  .paginate.padding5
+    = will_paginate @feeds
+
+.grid_5.omega.fright
+  =show_sub_menu

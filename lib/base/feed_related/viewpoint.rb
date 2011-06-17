@@ -105,6 +105,11 @@ class Viewpoint < UserAuthAbstract
       memoed_users_db
     end
 
+    def joined_users_and_creator
+      users = memoed_users+[self.creator]
+      users.uniq
+    end
+
   end
 
   include ViewpointComment::ViewpointMethods

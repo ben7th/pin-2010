@@ -67,53 +67,65 @@
 }
 
 .no-auth-head{
-  position:relative;
-  margin:-10px -10px 20px -10px;
-  zoom:1;
-
   .intro_and_form{
     @include border-radius(8px);
 
-    background:#F5F5F5;
+    background:url(/images/icons/no-auth-head-bg.png);
     overflow:hidden;
     padding:10px;
+    height:120px;
+    overflow:hidden;
     margin:0 0 10px 0;
-
+    border:solid 1px #EDEDED;
     .mindpin-intro{
-      padding:5px;
-      border-right:solid 1px #F0F0F0;
       .misc{
+        overflow:hidden;
         .go-to-signup{
           margin:15px 0 10px 0;
           float:left;
+          padding-left:40px;
+          .desc{
+            font-size:14px;
+            color:#666;
+            margin:0 0 10px 0;
+          }
           .signup-button {
             @include border-radius(5px);
-            @include bluebutton;
-            
+            background:url(/images/icons/sign-btn-g-1.png) center 0 no-repeat #68B624;
+
+            border:solid 1px #4A993E;
 
             display:block;
-            padding:10px 0;
-            margin:0 0 0 55px;
-            width:180px;
-            text-align:center !important;
-            font-weight:bold;
-            font-size:18px;
-          }
-          .icon{
-            margin:0 0 20px 0;
-            width:291px;
-            height:24px;
-            @include allicon(0px,-184px);
+            float:left;
+
+            span{
+              display:block;
+              padding:10px 20px;
+              text-align:center !important;
+              font-weight:bold;
+              font-size:14px;
+
+              color:white !important;
+              text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
+              border-top:solid 1px #99DA65;
+              border-left:solid 1px #99DA65;
+              @include border-radius(4px);
+            }
+
+            &:hover{
+              text-decoration:none;
+            }
           }
         }
         .txt{
-          margin:0 0 10px 345px;
+          margin:10px 0 10px 385px;
           position:relative;
           top:5px;
           .p{
             font-size:14px;
-            margin:0 0 10px 0;
+            margin:0 0 5px 0;
             line-height:24px;
+            color:#666;
             .icon1,.icon2,.icon3,.icon4{width:24px;height:24px;float:left;margin-right:10px;}
             .icon1{@include allicon(-125px,-142px);}
             .icon2{@include allicon(-150px,-142px);}
@@ -121,106 +133,6 @@
             .icon4{@include allicon(-200px,-142px);}
           }
         }
-      }
-      .actions{
-        overflow:hidden;
-        margin:0 0 10px 0;
-        .search{
-          float:right;
-          position:relative;
-          top:6px;
-        }
-      }
-    }
-
-    .login{
-      padding:5px;
-      .title{
-        font-weight:bold;
-        margin:0 0 10px 40px;
-      }
-      .login-form{
-        .field{
-          overflow:hidden;
-          padding:0 0 2px 0;
-          margin:0 0 4px 0;
-          label{
-            display:inline;
-            margin-right:10px;
-            padding:0 0 0 6px;
-            line-height:24px;
-          }
-          input.inline{width:200px !important;display:inline;}
-        }
-        .form-actions{
-          .misc{
-            margin-left:40px;
-            .remember-me{
-              margin:0 0 6px 0
-            }
-          }
-          .misc1{
-            margin-left:40px;
-            overflow:hidden;
-            .submit-btn{
-              float:left;
-              input{top:0px !important;}
-            }
-            .forget-password{
-              margin-left:132px;
-              position:relative;top:1px;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .footmisc{
-    overflow:hidden;
-    line-height:16px;
-    .see-oldsite-mindmap{
-      float:right;
-      padding:0 5px;
-      .tan{
-        float:left;
-        color:white;
-        font-weight:bold;
-        background:#FB4A00;
-        @include border-radius(3px);
-        font-weight:bold;
-        text-align:center;
-        width:12px;height:12px;
-        margin:0 3px 0 0;
-        position:relative;top:2px;
-        line-height:12px;
-      }
-      .link{
-        float:left;
-        margin-right:6px;
-      }
-      .icon{
-        width:16px;height:16px;
-        float:left;
-        @include allicon(-34px,-167px);
-      }
-    }
-    .site-connect{
-      overflow:hidden;
-      line-height:16px;
-      float:right;
-      span.connect{float:left;margin-right:6px;}
-      a.tsina,a.renren{
-        float:left;
-        width:16px;height:16px;
-        span{display:none;}
-      }
-      a.tsina{
-        margin-right:6px;
-        @include allicon(0px,-167px);
-      }
-      a.renren{
-        @include allicon(-17px,-167px);
       }
     }
   }

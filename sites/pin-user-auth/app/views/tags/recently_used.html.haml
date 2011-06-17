@@ -1,0 +1,21 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  关键词最近被使用情况
+
+.grid_18.alpha
+  .grid-title 最近被使用的关键词
+
+  .hrr
+  .page-tags-rank-list
+    -@tags_hash_arr.each do |tc|
+      .tag-info
+        .tag-and-count
+          =tag_label(tc[:tag])
+          .count="× #{tc[:count]}"
+
+  .padding5
+    = will_paginate @tags_hash_arr
+
+.grid_5.omega.fright
+  =show_sub_menu

@@ -12,6 +12,6 @@ module GitCommitHelper
       add = additions * 6 / total
       del = deletions * 6 / total
     end
-    render :partial=>base_haml_path('commit.haml'),:locals=>{:commit=>commit,:add=>add,:del=>del}
+    render 'layouts/haml/commit',:commit=>commit,:add=>add,:del=>del
   end
 end

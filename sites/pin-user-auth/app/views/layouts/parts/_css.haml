@@ -1,0 +1,8 @@
+= require_ui_css
+= require_theme_css
+
+/[if !IE 7]
+  :css
+    .page-wrap {display:table;height:100%}
+
+= yield :css

@@ -85,7 +85,7 @@ module PieUi
     # 加载css文件，并声明是否包含iefix
     def require_css(bundle, iefix = false)
       content_for :head do
-        render :file=>base_haml_path("_require_css.haml"),:locals=>{:bundle=>bundle,:iefix=>iefix}
+        render "layouts/haml/require_css",:bundle=>bundle,:iefix=>iefix
       end
     end
     

@@ -20,6 +20,7 @@ class User < UserBase
   include TagsMapOfUserCreatedFeedsProxy::UserMethods
   include TagsMapOfUserMemoedFeedsProxy::UserMethods
   include Atme::UserMethods
+  include ReputationLog::UserMethods
   # 两个工程都引入的
 
   index :email

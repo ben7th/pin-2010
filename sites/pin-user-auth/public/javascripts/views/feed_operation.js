@@ -364,17 +364,39 @@ pie.load(function(){
 
 //刷新通知计数显示
 pie.recount_feed_notice = function(){
+  //统计页面上的tip元素数
   var elms = jQuery('.index-tab-ct.notice .tips .tip');
+
+
   if(elms.length > 0){
-    var tab_elm = jQuery('.index-page-tabs .tab.notice')
+
+    var tab_elm = jQuery('.page-submenu .with-count.i-am-here');
+
     if(tab_elm.find('.count').length > 0){
       tab_elm.find('.count').html(elms.length);
     }else{
       tab_elm.append('<div class="count">'+elms.length+'</div>')
     }
+
   }else{
-    jQuery('.index-page-tabs .tab.notice .count').remove();
+
+    jQuery('.page-submenu .with-count.i-am-here .count').remove();
+    
   }
+
+  var menu_elm = jQuery('.sub_nav .menu .notices');
+  if(menu_elm.find('.count').length > 0){
+    var i = parseInt(menu_elm.find('.count').html());
+    if(i>0){
+      menu_elm.find('.count').html(i-1);
+    }else{
+      menu_elm.find('.count').remove();
+    }
+  }else{
+    menu_elm.append('<div class="count">'+elms.length+'</div>')
+  }
+
+
 }
 
 //查看更多动态

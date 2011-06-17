@@ -1,13 +1,10 @@
 class FeedsController < ApplicationController
-  before_filter :login_required,:except=>[:all,:search,:show,:aj_comments]
+  before_filter :login_required,:except=>[:index,:no_reply,:newest,:search,:show,:aj_comments]
   before_filter :pre_load
+  include FeedsControllerNavigationMethods
+  include FeedsControllerInviteMethods
   def pre_load
     @feed = Feed.find(params[:id]) if params[:id]
-  end
-
-  def index
-    @feeds = current_user.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
-    render :template=>'index/index'
   end
 
   def new
@@ -121,21 +118,8 @@ class FeedsController < ApplicationController
       :locals=>{:comments=>@feed.comments}
   end
 
-  def quote
-    quote_feed = Feed.find(params[:quote_of])
-    feed = Feed.to_quote_feed(current_user,params[:content],quote_feed)
-    if feed
-      return render :text=>"传阅成功"
-    end
-    render :status=>403,:text=>"传阅失败"
-  end
-
   def received_comments
     @feed_comments = current_user.being_replied_comments.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def quoted_me_feeds
-    @quoted_me_feeds = current_user.being_quoted_feeds
   end
 
   # 搜索
@@ -166,37 +150,6 @@ class FeedsController < ApplicationController
       :locals=>{:feed=>@feed}
   end
 
-  def favs
-    @feeds = current_user.fav_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def memoed
-    @feeds = current_user.memoed_feeds_db.normal.paginate(:per_page=>20,:page=>params[:page]||1)
-    render :template=>"feeds/memoed"
-  end
-
-  def be_invited
-    @feed_invites = current_user.feed_invites.paginate(:per_page=>20,:page=>params[:page]||1)
-    render :template=>"feeds/be_invited"
-  end
-
-  def mine_hidden
-    @feeds = current_user.hidden_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def all_hidden
-    @feeds = Feed.hidden.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def all
-    @feeds = Feed.normal.paginate(:per_page=>30,:page=>params[:page]||1,:order=>'id desc')
-  end
-
-  def userlogs
-    @userlogs = UserLog.paginate(:per_page=>30,:page=>params[:page]||1,:order=>'id desc')
-  end
-
-
   def update_detail
     @feed.update_detail_content(params[:detail],current_user)
     render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
@@ -207,24 +160,6 @@ class FeedsController < ApplicationController
     render :partial=>'feeds/show_parts/show_page_head',:locals=>{:feed=>@feed}
   end
 
-  def invite
-    users = params[:user_ids].split(",").uniq.map{|id|User.find_by_id(id)}.compact
-    return render :text=>"不能邀请自己",:status=>503 if users.include?(current_user)
-    return render :text=>"不能邀请主题的创建者",:status=>503 if users.include?(@feed.creator)
-    @feed.invite_users(users,current_user)
-    render :partial=>'feeds/show_parts/invite_users',:locals=>{:feed=>@feed}
-  end
-
-  def cancel_invite
-    user = User.find_by_id(params[:user_id])
-    @feed.cancel_invite_user(user)
-    render :text=>200
-  end
-
-  def send_invite_email
-    @feed.send_invite_email(current_user,params[:email],params[:title],params[:postscript])
-    render :text=>200
-  end
 
   def save_viewpoint_draft
     @feed.save_viewpoint_draft(current_user,params[:content])
@@ -267,10 +202,6 @@ class FeedsController < ApplicationController
       return render :text=>200
     end
     return render :status=>401,:text=>401
-  end
-
-  def recommend
-    @feeds = current_user.recommend_feeds(20)
   end
 
 end

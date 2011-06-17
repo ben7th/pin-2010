@@ -13,7 +13,7 @@
 .hrr
 .grid_18.alpha
   .homepage-see-others.font14.bold
-    =link_to '&gt;&gt; 看看这位朋友的思维导图主页',"/#{@user.id}/mindmaps"
+    =link_to '&gt;&gt; 看看这位朋友的思维导图主页',"/mindmaps/users/#{@user.id}"
 
   =render 'index/userlog/userlog',:logs=>@user.outbox_logs_limit(20)
 

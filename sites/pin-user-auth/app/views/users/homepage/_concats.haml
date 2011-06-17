@@ -1,7 +1,7 @@
 .user-page-followings
   .title
     关注了
-    =link_to "#{user.followings.count}个联系人","/#{user.id}/followings",:class=>'bold'
+    =link_to "#{user.followings.count}个联系人","/users/#{user.id}/followings",:class=>'bold'
   .avatars
     -user.followings.paginate(:per_page=>12,:page=>1).each do |u|
       %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
@@ -11,7 +11,7 @@
 .user-page-fans
   .title
     被
-    =link_to "#{user.fans.count}个读者","/#{user.id}/fans",:class=>'bold'
+    =link_to "#{user.fans.count}个读者","/users/#{user.id}/fans",:class=>'bold'
     关注
   .avatars
     -user.fans.paginate(:per_page=>12,:page=>1).each do |u|

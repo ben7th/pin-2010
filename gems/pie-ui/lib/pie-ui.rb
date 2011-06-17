@@ -100,16 +100,7 @@ module PieUi
   end
 end
 
-if defined? Rails
-
-  def base_layout_path(filename)
-    "#{RAILS_ROOT}/../../lib/ui/base_layout/#{filename}"
-  end
-
-  def base_haml_path(filename)
-    "#{RAILS_ROOT}/../../lib/ui/haml/#{filename}"
-  end
-  
+if defined? Rails  
   PieUi.auth_include_modules
   PieUi.enable_classes
   PieUi.enable_actionpack if defined? ActionController
@@ -181,23 +172,14 @@ end
 
 if defined? ActiveRecord::Base
   begin
-    p '>>>>> 加载向量缓存配置'
-    require 'pie-ui/redis_cache_rule'
-    ActiveRecord::Base.send :include, RedisCacheRule
+    p '>>>>> 加载 mindpin_logic 配置'
+    require 'pie-ui/mindpin_logic_rule'
+    ActiveRecord::Base.send :include, MindpinLogicRule
   rescue Exception => ex
-    p "#{ex.message}，向量缓存配置加载失败"
+    p "#{ex.message}，mindpin_logic 配置 加载失败"
   end
 end
 
-if defined? ActiveRecord::Base
-  begin
-    p '>>>>> 加载 tip 配置'
-    require 'pie-ui/tip_rule'
-    ActiveRecord::Base.send :include, TipRule
-  rescue Exception => ex
-    p "#{ex.message}，tip 配置加载失败"
-  end
-end
 
 require 'pie-ui/global_util'
 include GlobalUtil

@@ -1,0 +1,12 @@
+%body.echo
+
+  .page-wrap
+    .page-container
+      .page-content{:class=>container_classname}
+        =yield
+
+  #page-hide.hide
+    =yield :hide
+    %iframe{:name=>"upload_frame",:style=>"width:1px;height:1px;border:0px;",:src=>"about:blank"}
+
+  =render 'layouts/parts/javascripts'

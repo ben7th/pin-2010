@@ -49,6 +49,15 @@ class MindmapsController < ApplicationController
     send_file file_path,:type=>"image/png",:disposition=>'inline'
   end
 
+  def search
+    begin
+      @query = params[:q]
+      @result = MindmapLucene.search_paginate(@query,:page=>params[:page])
+    rescue MindmapLucene::MindmapSearchFailureError => ex
+      return render_status_page(500,ex)
+    end
+  end
+
   # new import create paramsedit update delete import_base64 create_base64
   include MindmapManagingControllerMethods
 

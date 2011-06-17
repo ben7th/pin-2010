@@ -93,12 +93,7 @@ img.cur_big {
   border: none !important; }
 
 a.username {
-  color: #E8641B !important; }
-
-a.username:hover {
-  background-color: #DF6B31;
-  color: white !important;
-  text-decoration: none; }
+  font-weight: bold; }
 
 /*资源图标*/
 img.logo-ss {

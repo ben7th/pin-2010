@@ -79,8 +79,8 @@
   .map-meta
     =render 'mindmaps/info_parts/creator_info',:mindmap=>@mindmap
 
-    .back-to-list
-      =link_to '&gt;&gt;返回他的导图列表页',"/#{@mindmap.user.id}/mindmaps"
+    .back-to-list.bold
+      =link_to '&gt;&gt; 返回他的导图列表页',"/mindmaps/users/#{@mindmap.user.id}"
 
     .hrr
     =render 'mindmaps/info_parts/coop',:mindmap=>@mindmap

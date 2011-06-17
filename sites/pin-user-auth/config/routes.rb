@@ -2,10 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   # ---------------- 首页和欢迎页面 ---------
   map.root :controller=>'index'
   map.welcome '/welcome',:controller=>'index',:action=>'welcome'
-  map.connect "/inbox_logs_more",:controller=>"index",:action=>"inbox_logs_more"
   map.connect "/in_feeds_more",:controller=>"index",:action=>"in_feeds_more"
-  map.connect "/user_logs",:controller=>"index",:action=>"user_logs"
-  map.connect "/user_notices",:controller=>"index",:action=>"user_notices"
   map.connect "/feedback",:controller=>"index",:action=>"feedback"
 
   # ---------------- 管理员后门 -------------
@@ -78,7 +75,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users,:member=>{
     :cooperate=>:get,:feeds=>:get,:viewpoints=>:get,
     :favs=>:get,:logs=>:get
+    },:collection=>{:fans=>:get,:followings=>:get,:reputation_rank=>:get,
+      :feeds_rank=>:get,:viewpoints_rank=>:get
     }
+  map.fans "/users/:user_id/fans",:controller=>"contacts",:action=>"fans"
+  map.followings "/users/:user_id/followings",:controller=>"contacts",:action=>"followings"
 
   # 忘记密码
   map.forgot_password_form '/forgot_password_form',:controller=>'users',:action=>'forgot_password_form'
@@ -134,8 +135,6 @@ ActionController::Routing::Routes.draw do |map|
       :follow=>:post,
       :unfollow=>:delete
   }
-  map.fans "/:user_id/fans",:controller=>"contacts",:action=>"fans"
-  map.followings "/:user_id/followings",:controller=>"contacts",:action=>"followings"
 
   # 快速连接账号 设置邮箱，密码 变成 mindpin正式账号
   map.complete_reg_info "account/complete_reg_info",:controller=>"account",:action=>"complete_reg_info"
@@ -214,14 +213,15 @@ ActionController::Routing::Routes.draw do |map|
     :add_tags=>:post,:remove_tag=>:delete,:change_tags=>:put,
     :lock=>:put,:unlock=>:put
   },:collection=>{
-    :reply_to=>:post,:quote=>:post,:all=>:get,
-    :memoed=>:get,:be_invited=>:get,
-    :mine_hidden=>:get,:all_hidden=>:get,
-    :userlogs=>:get,:recommend=>:get
+    :friends=>:get,:newest=>:get,
+    :recommend=>:get,:joined=>:get,
+    :favs=>:get,:hidden=>:get,:no_reply=>:get,
+    :reply_to=>:post,:search=>:get
     } do |feed|
       feed.resources :feed_revisions,:as=>"revisions"
     end
   map.resources :feed_revisions,:member=>{:rollback=>:put}
+  map.resources :user_logs,:collection=>{:friends=>:get,:newest=>:get}
     
   map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
     :action=>"destroy",:conditions=>{:method=>:delete}
@@ -249,10 +249,7 @@ ActionController::Routing::Routes.draw do |map|
   map.user_feeds_do_say "newsfeed/do_say",:controller=>"feeds",:action=>"do_say",:conditions=>{:method=>:post}
   map.newsfeed_new_count "newsfeed/new_count",:controller=>"feeds",:action=>"new_count"
   map.newsfeed_get_new "/newsfeed/get_new_feeds",:controller=>"feeds",:action=>"get_new_feeds"
-  map.favs "/favs",:controller=>"feeds",:action=>"favs"
   map.received_comments "/received_comments",:controller=>"feeds",:action=>"received_comments"
-  map.quoted_me_feeds "/quoted_me_feeds",:controller=>"feeds",:action=>"quoted_me_feeds"
-  map.feed_search "/search_feeds",:controller=>"feeds",:action=>"search"
   
   map.resources :messages
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
@@ -263,7 +260,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :mindmaps,:collection=>{
       :import_file=>:post,
       :aj_words=>:get,
-      :cooperates=>:get
+      :cooperates=>:get,
+      :search=>:get
     },:member=>{
       :change_title=>:put,
       :clone_form=>:get,
@@ -276,9 +274,7 @@ ActionController::Routing::Routes.draw do |map|
       :comments=>:post,
       :newest=>:get
     }
-  map.user_mindmaps "/:user_id/mindmaps",:controller=>"mindmaps",:action=>"user_mindmaps"
-
-  map.search_mindmaps '/search_mindmaps.:format',:controller=>'mindmaps_search',:action=>'search'
+  map.user_mindmaps "/mindmaps/users/:user_id",:controller=>"mindmaps",:action=>"user_mindmaps"
 
   #cooperations_controller
   map.add_cooperator "/cooperate/:mindmap_id/add_cooperator",
@@ -318,5 +314,9 @@ ActionController::Routing::Routes.draw do |map|
     :fav=>:post,:unfav=>:delete}
 
   map.resources :atmes
+
+
+  # 主题邀请，提示
+  map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
 
 end

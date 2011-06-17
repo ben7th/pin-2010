@@ -12,6 +12,31 @@ class Tag < UserAuthAbstract
     :default_url => "/images/logo/default_:class_:style.png",
     :default_style => :normal
 
+
+  def self.hot
+    abs = ActiveRecord::Base.connection.select_all(%`
+        select *,count(*) count from tags
+        inner join feed_tags on feed_tags.tag_id = tags.id
+        inner join feeds on feed_tags.feed_id = feeds.id
+        where tags.name != "#{Tag::DEFAULT}" and feeds.hidden is not true
+        group by tags.id
+        order by count desc
+      `)
+    abs.map{|ab|{:tag=>Tag.find(ab["tag_id"]),:count=>ab["count"]}}
+  end
+
+  def self.recently_used
+    abs = ActiveRecord::Base.connection.select_all(%`
+        select *,count(*) count from tags
+        inner join feed_tags on feed_tags.tag_id = tags.id
+        inner join feeds on feed_tags.feed_id = feeds.id
+        where tags.name != "#{Tag::DEFAULT}" and feeds.hidden is not true
+        group by tags.id
+        order by feed_tags.created_at desc
+      `)
+    abs.map{|ab|{:tag=>Tag.find(ab["tag_id"]),:count=>ab["count"]}}
+  end
+
   def is_default?
     self.name == Tag::DEFAULT
   end
@@ -35,7 +60,17 @@ class Tag < UserAuthAbstract
   end
   
   def self.get_tag(tag_name,namespace = nil)
+    tag = Tag.find_tag_by_another_name(tag_name,namespace)
+    return tag unless tag.blank?
+    
     Tag.find_by_name_and_namespace(tag_name,namespace)
+  end
+
+  def self.get_or_create_tag(tag_name,namespace = nil)
+    tag = Tag.find_tag_by_another_name(tag_name,namespace)
+    return tag unless tag.blank?
+
+    Tag.find_or_create_by_name_and_namespace(tag_name,namespace)
   end
 
   def self.get_tag_by_full_name(full_name)
@@ -70,6 +105,19 @@ class Tag < UserAuthAbstract
   def self.full_name_str(name,namespace=nil)
     return name if namespace.blank?
     return "#{namespace}:#{name}"
+  end
+
+  def self.find_tag_by_another_name(another_name,namespace = nil)
+    if namespace.blank?
+      tag = Tag.find(:first,:conditions=>"tag_another_names.name = '#{another_name}' and  tags.namespace is null",
+        :joins=>"inner join tag_another_names on tags.id = tag_another_names.tag_id"
+      )
+    else
+      tag = Tag.find(:first,:conditions=>"tag_another_names.name = '#{another_name}' and  tags.namespace = '#{namespace}' ",
+        :joins=>"inner join tag_another_names on tags.id = tag_another_names.tag_id"
+      )
+    end
+    return tag
   end
 
   def users_map_of_created_feeds

@@ -72,3 +72,15 @@
     @include tag-and-count;
   }
 }
+
+.page-tags-rank-list{
+  overflow:hidden;
+  padding:5px;
+  .tag-info{
+    float:left;
+    width:215px;
+    height:50px;
+    margin:0 10px 0 0;
+    @include tag-and-count;
+  }
+}

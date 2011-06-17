@@ -10,7 +10,7 @@ module ControllerFilter
 
   def hold_ie6
     if /MSIE 6.0/.match(request.user_agent)
-      render :template=>base_layout_path("status_page/hold_ie6.haml"),:layout => false
+      render "layouts/status_page/hold_ie6",:layout=>false
     end
   end
 

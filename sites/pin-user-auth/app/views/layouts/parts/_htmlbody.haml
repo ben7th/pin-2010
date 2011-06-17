@@ -1,0 +1,16 @@
+%body.echo
+
+  .page-wrap
+    .page-container
+      =render 'layouts/parts/nav'
+      .page-content{:class=>container_classname}
+        .cell.clearfix{:class=>show_feed_menu_bg? ? 'feed-menu-bg':''}
+          =yield
+
+  =render :partial=>'layouts/parts/footer'
+
+  #page-hide.hide
+    =yield :hide
+    %iframe{:name=>"upload_frame",:style=>"width:1px;height:1px;border:0px;",:src=>"about:blank"}
+
+  =render 'layouts/parts/javascripts'

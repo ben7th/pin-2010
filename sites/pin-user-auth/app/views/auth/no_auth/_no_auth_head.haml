@@ -1,60 +1,18 @@
 .no-auth-head.clearfix
   .intro_and_form
-    .grid_16.alpha
-      .mindpin-intro
-        .misc
-          .go-to-signup
-            .icon
-            =link_to '立即注册新账号',signup_path,:class=>'signup-button shadow button'
+    .mindpin-intro
+      .misc
+        .go-to-signup
+          .desc 如果还不是会员，现在就注册吧
+          =link_to '<span>注册新账号 &raquo;</span>',signup_path,:class=>'signup-button shadow button'
 
-          .txt
-            .p
-              .icon1
-              提出<span class='bold'>问题、想法或创意</span>
-            .p
-              .icon2
-              参与讨论，发表<span class='bold'>观点</span>，交换<span class='bold'>意见</span>
-            .p
-              .icon3
-              寻找，结识兴趣一致的<span class='bold'>朋友</span>
-            .p
-              .icon4
-              互相帮助，整理完善<span class='bold'>个人知识库</span>
-
-
-
-
-    .grid_7.omega.fright
-      .login
-        .title 登录MindPin
-        -form_tag({:controller=>'sessions',:action=>'create'},{:class=>'login-form'}) do
-          .field
-            %label>邮箱
-            =text_field_tag :email,params[:email],:class=>'text inline'
-          .field
-            %label>密码
-            =password_field_tag :password,params[:password],:class=>'text inline'
-          .form-actions
-            .misc
-              .remember-me
-                %span=check_box_tag :remember_me,params[:remember_me],false,:class=>'checkbox'
-                %span.quiet 在本机记住我的登录状态
-            .misc1
-              .submit-btn
-                %button.minibutton{:type=>'submit'}
-                  %span 登 录
-              .forget-password
-                =link_to '忘记密码了…',forgot_password_form_path
-
-
-  .footmisc
-    .grid_16.alpha
-      .see-oldsite-mindmap
-        .tan> !
-        =link_to '访问思维导图工具：','/mindmaps',:tip=>'由于网站转型，我们对于功能导航进行了调整，点击这里访问原来的思维导图工具。',:class=>'link'
-        .icon
-    .grid_7.omega.fright
-      .site-connect
-        %span.connect 用其他平台账号登录：
-        =link_to "<span>新浪微博</span>","javascript:pie.open_win('#{connect_tsina_path}',680,420);",:class=>'tsina',:tipr=>'使用新浪微博账号登录'
-        =link_to "<span>人人网</span>","javascript:pie.open_win('#{connect_renren_path}',680,420);",:class=>'renren',:tipr=>'使用人人网账号登录'
+        .txt
+          .p
+            .icon1
+            提出<span class='bold'>问题、想法或创意</span>
+          .p
+            .icon2
+            参与讨论，发表<span class='bold'>观点</span>，交换<span class='bold'>意见</span>
+          .p
+            .icon3
+            寻找，结识兴趣一致的<span class='bold'>朋友</span>

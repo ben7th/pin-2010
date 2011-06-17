@@ -2,7 +2,7 @@ class ResqueQueueWorkerManagement
   # 包含的 queue
   Queues = ConfigManager.resque_queues
   # 支持的操作
-  Operations = ["start",'stop']
+  Operations = ["start",'stop','pause','cont']
   WORKER_SH_PATH = File.join(ConfigManager.pin_2010_path,"sh/worker_sh")
   
   class << self
@@ -11,10 +11,15 @@ class ResqueQueueWorkerManagement
       state(queue_name) == "正常运行"
     end
 
+    def pause?(queue_name)
+      check_resque_queue_name(queue_name)
+      state(queue_name) == "暂停"
+    end
+
     def state(queue_name)
       check_resque_queue_name(queue_name)
       pid_file_path = get_pid_file_path_by_queue_name(queue_name)
-      ManagementUtil.check_process_by_pid_file(pid_file_path)
+      check_resque_process_by_pid_file(pid_file_path)
     end
 
     def operate(queue_name,operation)
@@ -70,7 +75,26 @@ class ResqueQueueWorkerManagement
     def find_log_file_path_by_queue_name(queue_name)
       check_resque_queue_name(queue_name)
       "/web/2010/logs/#{queue_name}_worker.log"
-    end    
+    end
+
+    ###################
+    def check_resque_process_by_pid_file(pid_file_path)
+      return "关闭" if !File.exist?(pid_file_path)
+      res = `ps \`cat #{pid_file_path}\``
+      res_lines = res.split("\n")
+      return "关闭" if res_lines.count == 1
+      parse_ps_resque_line(res_lines[1])
+    end
+
+    def parse_ps_resque_line(line)
+      stat = line.split(" ")[2]
+      return "停止或者僵死" if %w(Z T).include?(stat)
+
+      return "暂停" unless line.match("Paused").blank?
+
+      "正常运行"
+    end
+
   end
 
 end

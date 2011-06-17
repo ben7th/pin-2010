@@ -49,19 +49,6 @@ module FeedHelper
     MessageTip.new(current_user).refresh_fans_info if logged_in?
   end
 
-  def usersign(user, sign=true, length=24)
-    re = []
-    if user.blank?
-      re << '未知用户'
-    else
-      re << "#{link_to user.name,user,:class=>'bold'}"
-      if !user.sign.blank? && sign
-        re << "<span class='quiet'>，#{truncate_u user.sign,length}</span>"
-      end
-    end
-    return re
-  end
-
   def comment_link(model)
     re = []
     if model.blank?

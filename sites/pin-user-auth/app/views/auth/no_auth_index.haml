@@ -6,9 +6,9 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-=render 'auth/no_auth/no_auth_head'
-
 .grid_18.alpha
+  =render 'auth/no_auth/no_auth_head'
+
   .grid-title
     大家最近的主题
   .newsfeed
@@ -17,10 +17,9 @@
     = will_paginate @feeds
 
 .grid_5.omega.fright
-  .no-auth
-    .hide
-      =render 'auth/no_auth/site_connect'
+  =show_sub_menu
 
+  .no-auth
     .grid-title-s 看看他们的主页吧
     .hot-user-pages
       -page_hot_users.each do |u|

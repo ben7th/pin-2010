@@ -80,6 +80,16 @@ class User < UserBase
     {:limit=>args.first||5}
   }
 
+  named_scope :reputation_rank,:conditions=>"users.reputation != 0",
+    :order=>"reputation desc"
+
+  named_scope :feeds_rank,:conditions=>"feeds.hidden is not true",
+    :joins=>"inner join feeds on feeds.creator_id = users.id",
+    :group=>"users.id",:order=>"count(*) desc"
+
+  named_scope :viewpoints_rank,:joins=>"inner join viewpoints on viewpoints.user_id = users.id",
+    :group=>"users.id",:order=>"count(*) desc"
+
   def validate_on_create
     if !self.email.gsub("@mindpin.com").to_a.blank?
       errors.add(:email,"邮箱格式不符规范")
@@ -211,6 +221,7 @@ class User < UserBase
   include TagsMapOfUserCreatedFeedsProxy::UserMethods
   include TagsMapOfUserMemoedFeedsProxy::UserMethods
   include Atme::UserMethods
+  include ReputationLog::UserMethods
   # 两个工程都引入的
 
   include Activity::UserMethods

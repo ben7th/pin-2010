@@ -3,8 +3,6 @@
 -content_for :title do
   大家的思维导图
 
-=render 'auth/no_auth/no_auth_head'
-
 .grid_16.alpha
   .grid-title
     大家的思维导图（只显示公开的）
@@ -21,7 +19,7 @@
     .grid-title-s 看看他们的思维导图吧
     .hot-user-pages
       -page_hot_users.each do |u|
-        %a.avatar{:href=>"/#{u.id}/mindmaps",:tip=>u.name}
+        %a.avatar{:href=>"/mindmaps/users/#{u.id}",:tip=>u.name}
           =avatar u,:mini
 
     .hrr

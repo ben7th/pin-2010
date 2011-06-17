@@ -1,0 +1,54 @@
+.ph
+  .page-head{:class=>head_classname}
+    .nav{:class=>container_classname}
+      .site-logo
+        <a href="/" title="回 MindPin 首页"></a>
+
+      .topbar
+        .sp.feeds=link_to '主题协作','/feeds'
+        .sp.mindmaps=link_to '思维导图','/mindmaps'
+
+      .userbox
+        -if logged_in?
+          .sp.homepage=link_to '首页','/'
+
+          .avatarname{:'original-title'=>'去我的主页'}
+            -link_to "/users/#{current_user.id}",:class=>'avatar' do
+              =avatar current_user,:tiny
+            =link_to "#{current_user.name}","/users/#{current_user.id}",:class=>'name'
+
+          .sp=link_to "站内信",'/messages',:'original-title'=>'收发站内信'
+          .sp=link_to "用户设置",'/account',:'original-title'=>'设置头像，昵称'
+          .sp=link_to "退出",'/logout',:'original-title'=>'点这里退出登录'
+
+        -else
+          .sp.homepage=link_to '首页','/'
+          .sp=link_to '用户注册','/signup'
+          .sp=link_to '登录','/login'
+
+.ps
+  .page-sub-head{:class=>container_classname}
+    .sub_nav
+      .grid_18.alpha
+        -if show_feed_menu?
+          .menu
+            %ul
+              =feed_menu_li '主题','/feeds','feeds'
+              =feed_menu_li '动态','/user_logs','user_logs'
+              =feed_menu_li '用户网络','/users','users'
+              =feed_menu_li '关键词','/tags','tags'
+              -if logged_in?
+                =feed_menu_li '通知','/notices','notices'
+
+          -if logged_in?
+            .page-new-feed-button
+              %a.button.shadow{:href=>'/feeds/new'} 创建新主题
+
+      .grid_5.omega.fright
+        .sites
+          %ul
+            %li.feed=link_to '<div class="icon"></div><span>主题协作</span>','/feeds'
+            %li.mindmap.last=link_to '<div class="icon"></div><span>思维导图</span>','/mindmaps'
+
+
+        

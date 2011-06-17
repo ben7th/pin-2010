@@ -1,0 +1,20 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  被隐藏的主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_18.alpha
+  .grid-title
+    我被隐藏的主题
+  .hrr
+  .newsfeed
+    -mplist @feeds,:for=>Feed do |feed|
+      =render :partial=>'index/homepage/feeds/feed_info_hidden',:locals=>{:feed=>feed}
+  .paginate.padding5
+    = will_paginate @feeds
+
+.grid_5.omega.fright
+  =show_sub_menu

@@ -30,20 +30,6 @@ class IndexController < ApplicationController
     render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>@feeds}
   end
 
-  def inbox_logs_more
-    @logs = current_user.inbox_logs_more(params[:current_id],params[:count])
-    render :partial=>'index/userlog/userlog',:locals=>{:logs=>@logs}
-  end
-
-  def user_logs
-    @logs = current_user.inbox_logs_limit(20)
-  end
-
-  def user_notices
-    utp = UserTipProxy.new(current_user)
-    @tips = utp.tips
-  end
-
   def feedback
     
   end

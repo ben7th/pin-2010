@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_filter :login_required,:only=>[:fav,:unfav,:upload_logo,:logo]
   before_filter :per_load
   def per_load
     if params[:id]
@@ -31,7 +32,7 @@ class TagsController < ApplicationController
     end
   end
 
-  before_filter :login_required,:only=>[:fav,:unfav]
+  
   def fav
     current_user.do_fav(@tag)
     render :stats=>200,:text=>"关注成功"
@@ -41,4 +42,45 @@ class TagsController < ApplicationController
     current_user.do_unfav(@tag)
     render :stats=>200,:text=>"取消关注成功"
   end
+
+  def index
+    case params[:tab]
+    when "hot"
+      _index_tab_hot
+    when "recently_used"
+      _index_tab_recently_used
+    else
+      _index_tab_cookies
+    end
+  end
+
+  def _index_tab_cookies
+    case cookies[:menu_tags_tab]
+    when "hot"
+      _index_tab_hot
+    when "recently_used"
+      _index_tab_recently_used
+    else
+      _index_tab_hot
+    end
+  end
+
+  def _index_tab_hot
+    set_cookies_menu_tags_tab "hot"
+    @tags_hash_arr = Tag.hot.paginate(:per_page=>40,:page=>params[:page]||1)
+    render :template=>"tags/hot"
+  end
+
+  def _index_tab_recently_used
+    set_cookies_menu_tags_tab "recently_used"
+    @tags_hash_arr = Tag.recently_used.paginate(:per_page=>40,:page=>params[:page]||1)
+    render :template=>"tags/recently_used"
+  end
+
+  private
+  def set_cookies_menu_tags_tab(name)
+    cookies[:menu_tags_tab] = name
+  end
+
+
 end

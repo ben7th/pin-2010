@@ -1,5 +1,5 @@
 class AtmesController <  ApplicationController
-  before_filter :login_required
+  before_filter :login_required,:only=>[:index]
   def index
     @atmes = current_user.atmes
   end

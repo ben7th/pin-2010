@@ -34,8 +34,18 @@ case "$2" in
     sleep 1
     $0 start
   ;;
+  pause)
+    echo "pause"
+    kill -12 `cat $processor_pid`
+    rc_status -v
+  ;;
+  cont)
+    echo "cont"
+    kill -18 `cat $processor_pid`
+    rc_status -v
+  ;;
   *)
-    echo "tip:(start|stop|restart)"
+    echo "tip:(start|stop|restart|pause|cont)"
     exit 5
   ;;
 esac

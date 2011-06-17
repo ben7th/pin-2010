@@ -7,10 +7,6 @@ body {margin:0;}
 .page-content {
   overflow:visible;clear:both;
   .cell{
-    @include border-radius(10px);
-    padding:20px; /*这样正好剩余920px，23个grid*/
-    margin-top:30px;
-    margin-bottom:60px;
     .cellhead{
       position:relative;
       zoom:1;
@@ -77,60 +73,36 @@ body {margin:0;}
 
 /*顶部*/
 .page-head{
-  height:55px;
+  height:30px;
   .nav {
     clear:both;overflow:hidden;
-    .site-logo{
-      width:110px;
-      height:24px;
-      margin:16px 20px 3px 22px;
-      float:left;
-      a{
-        width:110px;
-        height:24px;
-        float:left;
-        background:url(/images/mindpin_logo_2.png) 0 -25px no-repeat;
-        &:hover{
-          background:url(/images/mindpin_logo_2.png) 0 0 no-repeat;
-        }
-      }
-    }
-    .topbar{
-      float:left;
-      margin:16px 20px 3px 0;
-      .top-search-form{
-        float:left;
-        input.search-inner{width:250px !important;margin-right:5px;}
-        button.minibutton{position:relative;top:-2px;margin-left:0 !important;}
-      }
-    }
+    padding-top:5px;
+
 
     .userbox{
       float:right;
       @include border-radius(5px);
-      padding:4px 10px;
-      margin:13px 6px 3px 0;
-      .inner{
-        overflow:hidden;
-        .avatarname{
-          float:left;
-          margin-left:15px;
-          height:20px;
-          line-height:20px;
-          .avatar{font-size:0;line-height:0;}
-          .tiny{width:16px;height:16px;}
-          a{float:left;line-height:20px;}
-          a.name{font-weight:bold;margin-left:6px;}
-        }
-        .sp{
-          float:left;
-          line-height:20px;
-          margin-left:15px;
-          font-weight:bold;
-          &.homepage{
-            padding-left:18px;
-            background:url(/images/piece/home.png) no-repeat 0 center;
-          }
+      margin:0 25px 0 0;
+      position:relative;top:1px;
+      overflow:hidden;
+      .avatarname{
+        float:left;
+        margin-left:15px;
+        height:20px;
+        line-height:20px;
+        .avatar{font-size:0;line-height:0;}
+        .tiny{width:16px;height:16px;}
+        a{float:left;line-height:20px;}
+        a.name{font-weight:bold;margin-left:6px;}
+      }
+      .sp{
+        float:left;
+        line-height:20px;
+        margin-left:15px;
+        font-weight:bold;
+        &.homepage{
+          padding-left:18px;
+          background:url(/images/piece/home.png) no-repeat 0 center;
         }
       }
     }

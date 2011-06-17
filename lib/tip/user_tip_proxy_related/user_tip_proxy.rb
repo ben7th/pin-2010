@@ -1,4 +1,4 @@
-class UserTipProxy < BaseTipProxy
+class UserTipProxy
   FAVS_EDIT_FEED_CONTENT = "favs_edit_feed_content"
   FAVS_ADD_VIEWPOINT = "favs_add_viewpoint"
   FAVS_EDIT_VIEWPOINT = "favs_edit_viewpoint"
@@ -109,6 +109,25 @@ class UserTipProxy < BaseTipProxy
 
   def self.rules
     @@rules||=[]
+  end
+
+  def self.funcs
+    []
+  end
+
+  def remove_tip_by_tip_id(tip_id)
+    @rh.remove(tip_id)
+  end
+
+  def remove_all_tips
+    @rh.del
+  end
+
+  def self.add_rules(rules)
+    @@rules||=[]
+    [rules].flatten.each do |rule|
+      @@rules << rule
+    end
   end
 
   extend QueueMethods

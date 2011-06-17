@@ -6,14 +6,14 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.index-page-head.clearfix
+.grid_18.alpha
+
   .grid-title
     关于
     %span.loud>#{@query}
     的搜索结果(#{@result.total_count})
 
-.hrr
-.grid_18.alpha
+  .hrr
 
   .newsfeed
     =render :partial=>'feeds/search_parts/feed_search_results',:locals=>{:result=>@result,:query=>@query}
@@ -22,5 +22,3 @@
     =will_paginate @result
 
 .grid_5.omega.fright
-  -if logged_in?
-    =render :partial=>'index/index_parts/feed_links'

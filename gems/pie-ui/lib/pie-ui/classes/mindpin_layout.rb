@@ -13,10 +13,7 @@ class MindpinLayout
   module ControllerFilter
     def self.included(base)   
       base.send(:include,InstanceMethods)
-      
       base.before_filter :init_layout
-      base.layout base_layout_path('application.haml')
-
     end
 
     module InstanceMethods
@@ -42,7 +39,7 @@ class MindpinLayout
         set_tabs_path false
         @status_text = text
         @status_code = code
-        render :template=>base_layout_path("status_page/status_page.haml"),:status=>code
+        render "layouts/status_page/status_page",:status=>code
       end
 
     end

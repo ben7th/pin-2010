@@ -1,0 +1,45 @@
+.clearfix
+  .page-submenu.clearfix
+    -case name
+    -when 'welcome'
+      %h1 欢迎来访
+      %div{:style=>'padding:0 0 20px 10px;'}
+        =minibutton '登录','/login',:class=>'blue marginr5'
+        =minibutton '注册','/signup',:class=>'green'
+      %ul.welcome
+        =sub_menu_li '<div class="icon"></div>主题协作','/feeds',:class=>'feeds'
+        =sub_menu_li '<div class="icon"></div>思维导图','/mindmaps',:class=>'mindmaps'
+
+    -when 'feeds'
+      %h1 主题浏览
+      %ul.feeds
+        =sub_menu_li '好友的','/feeds/friends' if logged_in?
+        =sub_menu_li '所有人的','/feeds/newest'
+        =sub_menu_li '推荐给我的','/feeds/recommend' if logged_in?
+        =sub_menu_li '参与过的','/feeds/joined' if logged_in?
+        =sub_menu_li '我关注的','/feeds/favs' if logged_in?
+        =sub_menu_li '被隐藏的','/feeds/hidden' if logged_in?
+        =sub_menu_li '零回复的','/feeds/no_reply'
+    -when 'user_logs'
+      %h1 大家的活动
+      %ul.user-logs
+        =sub_menu_li '好友的','/user_logs/friends' if logged_in?
+        =sub_menu_li '所有人的','/user_logs/newest'
+    -when 'users'
+      %h1 用户网络和好友关系
+      %ul.users
+        =sub_menu_li '我关注的','/users/followings' if logged_in?
+        =sub_menu_li '关注我的','/users/fans' if logged_in?
+        =sub_menu_li '声望排行','/users/reputation_rank'
+        =sub_menu_li '主题数排行','/users/feeds_rank'
+        =sub_menu_li '观点数排行','/users/viewpoints_rank'
+    -when 'tags'
+      %h1 关键词和统计
+      %ul.tags
+        =sub_menu_li '热度排行','/tags?tab=hot'
+        =sub_menu_li '最近被使用的','/tags?tab=recently_used'
+    -when 'notices'
+      %h1 通知和邀请
+      %ul.notices
+        =sub_menu_li_with_count '主题通知','/notices/common',UserTipProxy.new(current_user).tips_count
+        =sub_menu_li_with_count '收到的邀请','/notices/invites',current_user.feed_invites.count

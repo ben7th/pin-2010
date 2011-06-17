@@ -25,7 +25,7 @@ class FeedTag < UserAuthAbstract
     end
 
     def add_tag_without_record_editer(tag_name,namespace = nil)
-      tag = Tag.find_or_create_by_name_and_namespace(tag_name,namespace)
+      tag = Tag.get_or_create_tag(tag_name,namespace)
       FeedTag.find_or_create_by_feed_id_and_tag_id(self.id,tag.id)
     end
 

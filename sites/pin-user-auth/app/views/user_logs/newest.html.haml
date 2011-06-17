@@ -1,0 +1,24 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  大家最近的动态…
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_18.alpha
+  .grid-title
+    大家最近的动态…
+  .hrr
+  .all-page-userlogs
+    =render 'index/userlog/userlog',:logs=>@userlogs
+  .feed-paginate.padding5
+    = will_paginate @userlogs
+
+.grid_5.omega.fright
+  =show_sub_menu
+  .grid-title-s 看看他们的主页吧
+  .hot-user-pages
+    -page_hot_users.each do |u|
+      %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+        =avatar u,:mini

@@ -50,6 +50,7 @@
     padding:5px;
     border:solid 1px #DEDEDE;
     @include border-radius(4px);
+    overflow-x:auto;
   }
   img{
     border:solid 1px #DFDFDF;

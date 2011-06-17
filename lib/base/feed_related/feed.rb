@@ -21,6 +21,10 @@ class Feed < UserAuthAbstract
 
   named_scope :hidden,:conditions=>"hidden is true",:order=>"feeds.id desc"
 
+  named_scope :no_reply,:conditions=>"viewpoints.feed_id is null",
+    :joins=>"left join viewpoints on viewpoints.feed_id = feeds.id",
+    :order=>"id desc"
+
   after_create :creator_to_fav_feed_on_create
   def creator_to_fav_feed_on_create
     self.creator.add_fav_feed(self)

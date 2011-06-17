@@ -8,67 +8,59 @@ body {
 .page-content {
   overflow: visible;
   clear: both; }
-  .page-content .cell {
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    padding: 20px;
-    /*这样正好剩余920px，23个grid*/
-    margin-top: 30px;
-    margin-bottom: 60px; }
-    .page-content .cell .cellhead {
+  .page-content .cell .cellhead {
+    position: relative;
+    zoom: 1; }
+    .page-content .cell .cellhead .avatared .logo {
+      float: left;
+      margin-right: 10px;
+      margin-top: 5px;
+      height: 20px;
+      width: 20px; }
+    .page-content .cell .cellhead .avatared .hello {
+      line-height: 36px;
+      font-size: 14px; }
+      .page-content .cell .cellhead .avatared .hello .tips {
+        font-size: 12px;
+        margin-left: 20px;
+        color: #ababab; }
+    .page-content .cell .cellhead .actions {
+      position: absolute;
+      top: 7px;
+      right: 0px; }
+    .page-content .cell .cellhead .tabs ul {
+      margin-top: 15px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border: solid 1px #464660;
+      background-color: #222433;
       position: relative;
-      zoom: 1; }
-      .page-content .cell .cellhead .avatared .logo {
+      overflow: hidden; }
+      .page-content .cell .cellhead .tabs ul li a {
+        font-size: 14px;
         float: left;
+        line-height: 26px;
+        padding: 0 8px;
         margin-right: 10px;
-        margin-top: 5px;
-        height: 20px;
-        width: 20px; }
-      .page-content .cell .cellhead .avatared .hello {
-        line-height: 36px;
-        font-size: 14px; }
-        .page-content .cell .cellhead .avatared .hello .tips {
-          font-size: 12px;
-          margin-left: 20px;
-          color: #ababab; }
-      .page-content .cell .cellhead .actions {
-        position: absolute;
-        top: 7px;
-        right: 0px; }
-      .page-content .cell .cellhead .tabs ul {
-        margin-top: 15px;
-        padding: 6px 10px;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border: solid 1px #464660;
-        background-color: #222433;
-        position: relative;
-        overflow: hidden; }
-        .page-content .cell .cellhead .tabs ul li a {
-          font-size: 14px;
-          float: left;
-          line-height: 26px;
-          padding: 0 8px;
-          margin-right: 10px;
-          text-shadow: 1px 1px #555555;
-          color: #ddd;
-          text-decoration: none; }
-          .page-content .cell .cellhead .tabs ul li a:hover {
-            background-color: #171826;
-            border-radius: 4px;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px; }
-          .page-content .cell .cellhead .tabs ul li a.selected {
-            border-style: solid;
-            border-width: 1px;
-            border-color: #0E0E16 #2E2E3C #2E2E3C #0E0E16;
-            border-radius: 4px;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px;
-            background-color: #0E0E1A;
-            font-weight: bold; }
+        text-shadow: 1px 1px #555555;
+        color: #ddd;
+        text-decoration: none; }
+        .page-content .cell .cellhead .tabs ul li a:hover {
+          background-color: #171826;
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px; }
+        .page-content .cell .cellhead .tabs ul li a.selected {
+          border-style: solid;
+          border-width: 1px;
+          border-color: #0E0E16 #2E2E3C #2E2E3C #0E0E16;
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          background-color: #0E0E1A;
+          font-weight: bold; }
 
 .page-content.container_auto .cell {
   margin-top: 0px;
@@ -81,68 +73,45 @@ body {
 
 /*顶部*/
 .page-head {
-  height: 55px; }
+  height: 30px; }
   .page-head .nav {
     clear: both;
-    overflow: hidden; }
-    .page-head .nav .site-logo {
-      width: 110px;
-      height: 24px;
-      margin: 16px 20px 3px 22px;
-      float: left; }
-      .page-head .nav .site-logo a {
-        width: 110px;
-        height: 24px;
-        float: left;
-        background: url(/images/mindpin_logo_2.png) 0 -25px no-repeat; }
-        .page-head .nav .site-logo a:hover {
-          background: url(/images/mindpin_logo_2.png) 0 0 no-repeat; }
-    .page-head .nav .topbar {
-      float: left;
-      margin: 16px 20px 3px 0; }
-      .page-head .nav .topbar .top-search-form {
-        float: left; }
-        .page-head .nav .topbar .top-search-form input.search-inner {
-          width: 250px !important;
-          margin-right: 5px; }
-        .page-head .nav .topbar .top-search-form button.minibutton {
-          position: relative;
-          top: -2px;
-          margin-left: 0 !important; }
+    overflow: hidden;
+    padding-top: 5px; }
     .page-head .nav .userbox {
       float: right;
       border-radius: 5px;
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
-      padding: 4px 10px;
-      margin: 13px 6px 3px 0; }
-      .page-head .nav .userbox .inner {
-        overflow: hidden; }
-        .page-head .nav .userbox .inner .avatarname {
+      margin: 0 25px 0 0;
+      position: relative;
+      top: 1px;
+      overflow: hidden; }
+      .page-head .nav .userbox .avatarname {
+        float: left;
+        margin-left: 15px;
+        height: 20px;
+        line-height: 20px; }
+        .page-head .nav .userbox .avatarname .avatar {
+          font-size: 0;
+          line-height: 0; }
+        .page-head .nav .userbox .avatarname .tiny {
+          width: 16px;
+          height: 16px; }
+        .page-head .nav .userbox .avatarname a {
           float: left;
-          margin-left: 15px;
-          height: 20px;
           line-height: 20px; }
-          .page-head .nav .userbox .inner .avatarname .avatar {
-            font-size: 0;
-            line-height: 0; }
-          .page-head .nav .userbox .inner .avatarname .tiny {
-            width: 16px;
-            height: 16px; }
-          .page-head .nav .userbox .inner .avatarname a {
-            float: left;
-            line-height: 20px; }
-          .page-head .nav .userbox .inner .avatarname a.name {
-            font-weight: bold;
-            margin-left: 6px; }
-        .page-head .nav .userbox .inner .sp {
-          float: left;
-          line-height: 20px;
-          margin-left: 15px;
-          font-weight: bold; }
-          .page-head .nav .userbox .inner .sp.homepage {
-            padding-left: 18px;
-            background: url(/images/piece/home.png) no-repeat 0 center; }
+        .page-head .nav .userbox .avatarname a.name {
+          font-weight: bold;
+          margin-left: 6px; }
+      .page-head .nav .userbox .sp {
+        float: left;
+        line-height: 20px;
+        margin-left: 15px;
+        font-weight: bold; }
+        .page-head .nav .userbox .sp.homepage {
+          padding-left: 18px;
+          background: url(/images/piece/home.png) no-repeat 0 center; }
     .page-head .nav .start {
       float: right;
       margin: 9px 23px 0 0;

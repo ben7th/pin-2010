@@ -1,0 +1,14 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  我的通知
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.grid_18.alpha
+  .index-tab-ct.notice
+    =render 'index/homepage/page_tips',:tips=>@tips
+
+.grid_5.omega.fright
+  =show_sub_menu
