@@ -23,6 +23,7 @@ module SubMenuHelper
     return false if ['tags','upload_logo'] == [cname, aname]
 
     return false if ['feeds','show'] == [cname, aname]
+    return false if ['feeds','new'] == [cname, aname]
     return false if ['feeds','search'] == [cname, aname]
     return false if ['feed_revisions','index'] == [cname, aname]
 
