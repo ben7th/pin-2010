@@ -41,7 +41,15 @@ class Tag < UserAuthAbstract
         group by tags.id
         order by feed_tags.created_at desc
       `)
-    abs.map{|ab|{:tag=>Tag.find(ab["tag_id"]),:count=>ab["count"]}}
+
+    abs.map do |ab|
+      tag = Tag.find_by_id(ab["tag_id"])
+      if !tag.blank?
+        {:tag=>tag,:count=>ab["count"]}
+      else
+        nil
+      end
+    end.compact
   end
 
   def is_default?
