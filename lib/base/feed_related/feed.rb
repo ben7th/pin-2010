@@ -21,7 +21,7 @@ class Feed < UserAuthAbstract
 
   named_scope :hidden,:conditions=>"hidden is true",:order=>"feeds.id desc"
 
-  named_scope :no_reply,:conditions=>"viewpoints.feed_id is null",
+  named_scope :no_reply,:conditions=>"viewpoints.feed_id is null and feeds.hidden is not true",
     :joins=>"left join viewpoints on viewpoints.feed_id = feeds.id",
     :order=>"id desc"
 
