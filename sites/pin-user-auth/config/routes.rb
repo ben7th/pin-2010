@@ -10,6 +10,10 @@ ActionController::Routing::Routes.draw do |map|
     :controller=>'rolling',
     :action=>'zhimakaimen',
     :conditions=>{:method=>:get}
+  map.connect '/zhi_ma_kai_men/xb',
+    :controller=>'rolling',
+    :action=>'xb',
+    :conditions=>{:method=>:get}
 
   # -----------------
   map.connect '/zhi_ma_kai_men/feeds/new',

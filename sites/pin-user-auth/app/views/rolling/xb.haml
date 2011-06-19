@@ -1,0 +1,39 @@
+:css
+  .ps{display:none;}
+  .ph{display:none;}
+  .pf{display:none;}
+  body{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
+
+-content_for :javascripts do
+  :javascript
+    pie.load(function(){
+      jQuery('.num').live('click',function(){
+        pie.log(1)
+        var elm = jQuery(this);
+        var num = parseInt(elm.html());
+        var n = num - 1;
+        if(n>=0)
+        elm.html(n);
+      });
+
+      jQuery('.reset15').click(function(){
+        jQuery('.num').html(15);
+      })
+
+      jQuery('.reset18').click(function(){
+        jQuery('.num').html(18);
+      })
+
+    })
+
+.clearfix{:style=>'margin-top:40px;margin-bottom:50px;'}
+  .grid_11.alpha.aligncenter
+    =link_to 'reset 15','javascript:;',:class=>'reset15',:style=>'padding:5px;color:#eee;background:#444444;font-weight:bold;font-size:16px;'
+  .grid_11.omega.fright.aligncenter
+    =link_to 'reset 18','javascript:;',:class=>'reset18',:style=>'padding:5px;color:#eee;background:#444444;font-weight:bold;font-size:16px;'
+
+.grid_11.alpha.aligncenter
+  .num{:style=>'font-size:300px;color:#3A93FF;'}=15
+
+.grid_11.omega.fright.aligncenter
+  .num{:style=>'font-size:300px;color:#DF0024;'}=15

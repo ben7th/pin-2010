@@ -43,7 +43,7 @@ module MindmapManagingControllerMethods
     respond_to do |format|
       format.html do
         return redirect_to info_mindmap_path(@redirect_mindmap) if !!@redirect_mindmap
-        return redirect_to "users/#{current_user.id}"
+        return redirect_to "/mindmaps/users/#{current_user.id}"
       end
       format.xml do
         head :ok

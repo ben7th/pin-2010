@@ -105,4 +105,8 @@ class RollingController <  ApplicationController
     redirect_to "/zhi_ma_kai_men/"
   end
 
+  def xb
+    
+  end
+
 end
