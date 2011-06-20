@@ -7,8 +7,8 @@ class TagAnotherName < UserAuthAbstract
 
   def self.merge_tag(full_name,another_names)
     namespace = Tag.get_namespace_from_tag_full_name(full_name)
-    mname = Tag.get_name_from_tag_full_name(full_name)
-    mtag = Tag.find_by_name_and_namespace(mname,namespace)
+    merge_target_name = Tag.get_name_from_tag_full_name(full_name)
+    merge_target_tag = Tag.find_by_name_and_namespace(merge_target_name,namespace)
 
     another_tags = another_names.map do |name|
       Tag.find_by_name_and_namespace(name,namespace)
@@ -22,21 +22,18 @@ class TagAnotherName < UserAuthAbstract
         feeds.each_with_index do |feed,index|
           p "共#{tags_count}个关键词，正在处理第#{tindex+1}个关键词 #{tag.name} #{index+1}/#{count}"
 
-          feed_tag = FeedTag.new(:tag=>mtag,:feed=>feed)
-          unless feed_tag.valid?
-            feed_tag.errors.each do |error,message|
-              p error
-              p message
-            end
-            raise "意外终止"
+          # 试图合并至目标tag，先判断当前feed是否已经和目标tag产生关联
+          # 如果还没有产生关联，则建立关联对象
+          mft = feed.feed_tags.find_by_tag_id(merge_target_tag.id)
+          if mft.blank?
+            FeedTag.create!(:tag=>merge_target_tag,:feed=>feed)
           end
-          
-          feed_tag.save
+
           ft = feed.feed_tags.find_by_tag_id(tag.id)
           ft.destroy
           
         end
-        TagAnotherName.create(:name=>tag.name,:tag=>mtag)
+        TagAnotherName.create(:name=>tag.name,:tag=>merge_target_tag)
       end
 
     end
