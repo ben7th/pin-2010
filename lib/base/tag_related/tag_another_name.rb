@@ -22,9 +22,19 @@ class TagAnotherName < UserAuthAbstract
         feeds.each_with_index do |feed,index|
           p "共#{tags_count}个关键词，正在处理第#{tindex+1}个关键词 #{tag.name} #{index+1}/#{count}"
 
+          feed_tag = FeedTag.new(:tag=>mtag,:feed=>feed)
+          unless feed_tag.valid?
+            feed_tag.errors.each do |error,message|
+              p error
+              p message
+            end
+            raise "意外终止"
+          end
+          
+          feed_tag.save
           ft = feed.feed_tags.find_by_tag_id(tag.id)
           ft.destroy
-          FeedTag.create!(:tag=>mtag,:feed=>feed)
+          
         end
         TagAnotherName.create(:name=>tag.name,:tag=>mtag)
       end
