@@ -84,3 +84,39 @@
     @include tag-and-count;
   }
 }
+
+.page-tags-with-another-name{
+  .intro{
+    padding:5px;
+    background:#FBF7E3;
+    @include border-radius(4px);
+    border:solid 1px #eee;
+    margin:0 0 30px 0;
+    font-size:13px;
+  }
+
+  .labels{
+    padding:5px;
+    .label-tag{
+      float:left;
+    }
+    .label-another-names{
+      margin-left:150px;
+    }
+  }
+  .tag-info{
+    overflow:hidden;
+    padding:5px;
+    padding-bottom:30px;
+    .tag{
+      float:left;
+      @include tags;
+    }
+    .another-names{
+      margin-left:150px;
+      .another-name{
+        @include tags;
+      }
+    }
+  }
+}

@@ -15,8 +15,13 @@ class TagAnotherName < UserAuthAbstract
     end
 
     ActiveRecord::Base.transaction do
-      another_tags.each do |tag|
-        tag.feeds.each do |feed|
+      tags_count = another_tags.length
+      another_tags.each_with_index do |tag,tindex|
+        feeds = tag.feeds
+        count = feeds.length
+        feeds.each_with_index do |feed,index|
+          p "共#{tags_count}个关键词，正在处理第#{tindex+1}个关键词 #{tag.name} #{index+1}/#{count}"
+
           ft = feed.feed_tags.find_by_tag_id(tag.id)
           ft.destroy
           FeedTag.create!(:tag=>mtag,:feed=>feed)
@@ -26,5 +31,17 @@ class TagAnotherName < UserAuthAbstract
 
     end
     
+  end
+
+  module TagMethods
+    def self.included(base)
+      base.has_many :tag_another_names
+    end
+
+    def another_name_tags
+      self.tag_another_names.map do|tan|
+        Tag.find_by_name_and_namespace(tan.name,self.namespace)
+      end.compact
+    end
   end
 end

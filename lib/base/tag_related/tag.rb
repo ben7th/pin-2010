@@ -13,6 +13,16 @@ class Tag < UserAuthAbstract
     :default_style => :normal
 
 
+  before_save :downcase_name_and_namespace
+  def downcase_name_and_namespace
+    self.name = self.name.downcase
+    self.namespace = self.namespace.downcase unless self.namespace.blank?
+  end
+
+  named_scope :has_another_name,:joins=>"inner join tag_another_names on tag_another_names.tag_id = tags.id",
+    :group=>"tags.id"
+
+
   def self.hot
     abs = ActiveRecord::Base.connection.select_all(%`
         select *,count(*) count from tags
@@ -34,16 +44,23 @@ class Tag < UserAuthAbstract
 
   def self.recently_used
     abs = ActiveRecord::Base.connection.select_all(%`
-        select *,count(*) count from tags
-        inner join feed_tags on feed_tags.tag_id = tags.id
-        inner join feeds on feed_tags.feed_id = feeds.id
-        where tags.name != "#{Tag::DEFAULT}" and feeds.hidden is not true
-        group by tags.id
-        order by feed_tags.created_at desc
+      SELECT
+        DISTINCT S1.tags_id,
+        (SELECT COUNT(*) FROM feed_tags WHERE feed_tags.tag_id = S1.tags_id) count
+      FROM
+      (
+          SELECT
+            T.id tags_id
+          FROM tags T
+          JOIN feed_tags FT ON FT.tag_id = T.id
+          JOIN feeds F ON FT.feed_id = F.id
+          WHERE T.name != "#{Tag::DEFAULT}" AND F.hidden IS NOT true
+          ORDER BY FT.created_at DESC
+      ) S1
       `)
 
     abs.map do |ab|
-      tag = Tag.find_by_id(ab["tag_id"])
+      tag = Tag.find_by_id(ab["tags_id"])
       if !tag.blank?
         {:tag=>tag,:count=>ab["count"]}
       else
@@ -110,11 +127,24 @@ class Tag < UserAuthAbstract
   def self.get_tag_names_by_string(tag_names_string,editor)
     return [] if tag_names_string.blank?
     tag_names = tag_names_string.split(/[，, ]+/).select{|name|!name.blank?}
-    return tag_names if editor.is_admin_user?
 
-    tag_names.map do |name|
-      self.get_name_from_tag_full_name(name)
+    unless editor.is_admin_user?
+      tag_names = tag_names.map do |name|
+        self.get_name_from_tag_full_name(name)
+      end
     end
+
+    tag_names = tag_names.map do |name|
+      Tag.convert_name_if_has_another_name(name)
+    end
+
+    tag_names
+  end
+
+  def self.convert_name_if_has_another_name(full_name)
+    tag = self.get_tag_by_full_name(full_name)
+    return full_name if tag.blank?
+    tag.full_name
   end
 
   def self.full_name_str(name,namespace=nil)
@@ -182,4 +212,5 @@ class Tag < UserAuthAbstract
   include TagFav::TagMethods
   include TagRelatedFeedTagsMapProxy::TagMethods
   include TagShare::TagMethods
+  include TagAnotherName::TagMethods
 end

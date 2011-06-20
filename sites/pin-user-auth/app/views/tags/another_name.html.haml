@@ -1,0 +1,37 @@
+-require_css 'views/users',true
+
+-content_for :title do
+  带有同义词的关键词列表
+
+.grid_18.alpha
+  .grid-title 带有同义词的关键词列表
+  .hrr
+
+  .page-tags-with-another-name
+    .intro
+      .p
+        本页面包含了系统中所有已经定义的同义词。<br/>
+        <br/>
+        同义词一般包括因同一词语具有不同语言形式，或者因同一精确概念具有不同称谓时，<br/>
+        为防止引用混乱，以及实现精确的更精确的内容关联所进行的特殊声明处理。<br/>
+        <br/>
+        系统维护时将不定期在同义词列表增加定义。
+
+    .labels.btb
+      .label-tag 关键词
+      .label-another-names 同义词
+    -@tags.each do |tag|
+      .tag-info.btb
+        .tag
+          =tag_label(tag)
+        .another-names
+          -tag.another_name_tags.each do |atag|
+            .another-name
+              =tag_label(atag)
+            
+
+  .padding5
+    = will_paginate @tags_hash_arr
+
+.grid_5.omega.fright
+  =show_sub_menu

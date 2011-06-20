@@ -549,7 +549,7 @@ form.new_message .w300 {
   -webkit-border-radius: 5px;
   margin: 0 0 20px 0;
   background: #EEF9EB;
-  border: solid 1px #E6F7E2;
+  border: solid 1px #EDEDED;
   padding: 20px;
   color: #555; }
   .welcome-to-signup .title {
@@ -4686,7 +4686,7 @@ form.new_message .w300 {
         position: relative;
         top: 1px; }
     .tag-related-tags .tag-and-count .count {
-      line-height: 21px;
+      line-height: 19px;
       font-weight: bold;
       font-size: 14px;
       color: #888888; }
@@ -4736,7 +4736,7 @@ form.new_message .w300 {
         position: relative;
         top: 1px; }
     .page-show-side-status .tags-count .tag-and-count .count {
-      line-height: 21px;
+      line-height: 19px;
       font-weight: bold;
       font-size: 14px;
       color: #888888; }
@@ -4792,10 +4792,111 @@ form.new_message .w300 {
           position: relative;
           top: 1px; }
       .page-tags-rank-list .tag-info .tag-and-count .count {
-        line-height: 21px;
+        line-height: 19px;
         font-weight: bold;
         font-size: 14px;
         color: #888888; }
+
+.page-tags-with-another-name .intro {
+  padding: 5px;
+  background: #FBF7E3;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: solid 1px #eee;
+  margin: 0 0 30px 0;
+  font-size: 13px; }
+.page-tags-with-another-name .labels {
+  padding: 5px; }
+  .page-tags-with-another-name .labels .label-tag {
+    float: left; }
+  .page-tags-with-another-name .labels .label-another-names {
+    margin-left: 150px; }
+.page-tags-with-another-name .tag-info {
+  overflow: hidden;
+  padding: 5px;
+  padding-bottom: 30px; }
+  .page-tags-with-another-name .tag-info .tag {
+    float: left;
+    overflow: hidden;
+    float: left; }
+    .page-tags-with-another-name .tag-info .tag .tag {
+      float: left;
+      background: url(/images/icons/all.png) no-repeat 0 -209px;
+      line-height: 19px;
+      padding: 0 0 0 13px;
+      margin: 0 6px 0 0;
+      color: #5D7A9C; }
+      .page-tags-with-another-name .tag-info .tag .tag:hover {
+        text-decoration: none !important;
+        color: #222; }
+      .page-tags-with-another-name .tag-info .tag .tag img.mini {
+        padding: 0;
+        border: none;
+        position: relative;
+        top: 1px;
+        width: 16px;
+        height: 16px;
+        float: left;
+        margin: 0 0 0 3px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+      .page-tags-with-another-name .tag-info .tag .tag span.tag-name {
+        padding: 0 4px;
+        line-height: 19px; }
+      .page-tags-with-another-name .tag-info .tag .tag span.namespace {
+        float: left;
+        background: #5D7A9C;
+        color: #E2EDFA;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        padding: 0 4px;
+        line-height: 16px;
+        position: relative;
+        top: 1px; }
+  .page-tags-with-another-name .tag-info .another-names {
+    margin-left: 150px; }
+    .page-tags-with-another-name .tag-info .another-names .another-name {
+      overflow: hidden;
+      float: left; }
+      .page-tags-with-another-name .tag-info .another-names .another-name .tag {
+        float: left;
+        background: url(/images/icons/all.png) no-repeat 0 -209px;
+        line-height: 19px;
+        padding: 0 0 0 13px;
+        margin: 0 6px 0 0;
+        color: #5D7A9C; }
+        .page-tags-with-another-name .tag-info .another-names .another-name .tag:hover {
+          text-decoration: none !important;
+          color: #222; }
+        .page-tags-with-another-name .tag-info .another-names .another-name .tag img.mini {
+          padding: 0;
+          border: none;
+          position: relative;
+          top: 1px;
+          width: 16px;
+          height: 16px;
+          float: left;
+          margin: 0 0 0 3px;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px; }
+        .page-tags-with-another-name .tag-info .another-names .another-name .tag span.tag-name {
+          padding: 0 4px;
+          line-height: 19px; }
+        .page-tags-with-another-name .tag-info .another-names .another-name .tag span.namespace {
+          float: left;
+          background: #5D7A9C;
+          color: #E2EDFA;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          padding: 0 4px;
+          line-height: 16px;
+          position: relative;
+          top: 1px; }
 
 .homepage-getting-started {
   border-radius: 4px;
