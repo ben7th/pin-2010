@@ -4524,32 +4524,70 @@ form.new_message .w300 {
     padding: 5px;
     margin: 0 0 10px 0;
     overflow: hidden; }
-    .tag-page-top-info .base-info .tag-main .name {
-      font-size: 20px;
-      font-weight: bold;
-      margin: 0 0 6px 0; }
-    .tag-page-top-info .base-info .tag-main .edit-detail {
-      display: none;
-      overflow: hidden;
-      margin: 0 0 10px 0; }
-      .tag-page-top-info .base-info .tag-main .edit-detail a.edit {
+    .tag-page-top-info .base-info .tag-main {
+      float: left;
+      width: 580px; }
+      .tag-page-top-info .base-info .tag-main .name {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 0 6px 0; }
+      .tag-page-top-info .base-info .tag-main .detail-data .data {
+        margin: 0 0 10px 0;
+        word-wrap: break-word;
+        word-break: break-all; }
+      .tag-page-top-info .base-info .tag-main .detail-data .edit-detail {
         overflow: hidden;
-        float: left;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        padding: 0 3px; }
-        .tag-page-top-info .base-info .tag-main .edit-detail a.edit .icon {
-          width: 10px;
-          height: 10px;
+        margin: 0 0 10px 0; }
+        .tag-page-top-info .base-info .tag-main .detail-data .edit-detail a.edit {
+          overflow: hidden;
           float: left;
-          background: url(/images/icons/all.png) no-repeat -229px -87px;
-          margin: 0 3px 0 0;
-          position: relative;
-          top: 3px;
-          display: inline-block; }
-      .tag-page-top-info .base-info .tag-main .edit-detail .icon {
-        top: 4px; }
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          padding: 0 3px; }
+          .tag-page-top-info .base-info .tag-main .detail-data .edit-detail a.edit .icon {
+            width: 10px;
+            height: 10px;
+            float: left;
+            background: url(/images/icons/all.png) no-repeat -229px -87px;
+            margin: 0 3px 0 0;
+            position: relative;
+            top: 3px;
+            display: inline-block; }
+        .tag-page-top-info .base-info .tag-main .detail-data .edit-detail .icon {
+          top: 4px; }
+      .tag-page-top-info .base-info .tag-main .tag-detail-edit-form {
+        margin: 0 0 10px 0; }
+        .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns {
+          overflow: hidden; }
+          .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns button, .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns a.button {
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border: none 0px;
+            margin: 4px 5px 0 0;
+            padding: 2px 7px;
+            float: left;
+            text-decoration: none; }
+            .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns button.editable-submit, .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns a.button.editable-submit {
+              cursor: pointer;
+              color: white;
+              background: #0063DC; }
+              .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns button.editable-submit:hover, .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns a.button.editable-submit:hover {
+                background: #0054BD; }
+            .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns button.editable-cancel, .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns a.button.editable-cancel {
+              cursor: pointer;
+              color: #616D7D;
+              background: #C4DFFF; }
+              .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns button.editable-cancel:hover, .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns a.button.editable-cancel:hover {
+                background: #B4CFFF; }
+            .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns button.mousedown, .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .btns a.button.mousedown {
+              position: relative;
+              top: 1px;
+              left: 1px; }
+        .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .detail-inputer {
+          height: 100px;
+          font-size: 12px; }
     .tag-page-top-info .base-info .tag-page-logo {
       float: right;
       position: relative; }
@@ -4742,13 +4780,12 @@ form.new_message .w300 {
       color: #888888; }
 
 .page-tags-rank-list {
-  overflow: hidden;
-  padding: 5px; }
+  overflow: hidden; }
   .page-tags-rank-list .tag-info {
+    padding: 5px;
     float: left;
     width: 215px;
-    height: 50px;
-    margin: 0 10px 0 0; }
+    height: 100px; }
     .page-tags-rank-list .tag-info .tag-and-count {
       overflow: hidden;
       float: left;

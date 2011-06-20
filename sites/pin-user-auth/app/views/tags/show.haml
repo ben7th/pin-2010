@@ -4,35 +4,14 @@
   #{@tag.full_name}
 
 -content_for :javascripts do
-  = javascript_include_tag "views/feed_operation"
+  = javascript_include_tag "views/tag_show_operation"
 
 =render 'auth/no_auth/welcome_to_signup'
 
 .tag-page-top-info.clearfix
   .grid_18.alpha
-    .base-info
-      .tag-page-logo
-        =logo @tag,:medium
-        -if logged_in?
-          .upload=link_to '上传图片',"/tags/#{@tag.full_name}/upload_logo"
+    =render 'tags/show_parts/tag_base_info',:tag=>@tag
 
-      .tag-main
-        -if @tag.namespace.blank?
-          .name>=@tag.name
-        -else
-          .name>="<span class='darkbg'>#{@tag.namespace}</span> #{@tag.name}"
-
-        -if logged_in?
-          -if @tag.detail.blank?
-            .edit-detail
-              -link_to 'javascript:;',:class=>'edit csshov' do
-                .icon
-                %span 增加关键词描述
-          -else
-            .edit-detail
-              -link_to 'javascript:;',:class=>'edit csshov' do
-                .icon
-                %span 修改关键词描述
 
   .grid_5.omega.fright
     .tag-page-ops{:style=>"display:none;"}

@@ -25,9 +25,10 @@ class TagsController < ApplicationController
     end
   end
 
-  def detail
+  def update_detail
     if @tag.update_attribute(:detail,params[:detail])
-      render :text=>"描述保存成功"
+      str = @template.render :partial=>'tags/show_parts/tag_base_info',:locals=>{:tag=>@tag}
+      render :text=>str
     else
       render :text=>"描述保存失败",:status=>401
     end

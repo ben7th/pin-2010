@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import luceneservice.base.Indexer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;

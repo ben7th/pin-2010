@@ -158,6 +158,11 @@
   font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
 }
 
+@mixin word-break{
+  word-wrap:break-word;
+  word-break:break-all;
+}
+
 @mixin tags{
   overflow:hidden;
   float:left;

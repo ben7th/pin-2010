@@ -9,10 +9,13 @@
   .hrr
   .page-tags-rank-list
     -@tags_hash_arr.each do |tc|
-      .tag-info
+      .tag-info.btb
+        -tag, count = tc[:tag], tc[:count]
         .tag-and-count
-          =tag_label(tc[:tag])
-          .count="× #{tc[:count]}"
+          =tag_label(tag)
+          .count="× #{count}"
+        .tag-desc
+          =h(truncate_u(tag.detail||'',48))
 
   .padding5
     = will_paginate @tags_hash_arr

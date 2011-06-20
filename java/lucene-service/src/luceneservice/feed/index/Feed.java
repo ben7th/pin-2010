@@ -156,14 +156,32 @@ public class Feed {
     }
   }
 
-  // 查询tags
+  // 查询tags 以及tags别名
   private static String[] getFeedTagStrsById(int feed_id, Connection connection) {
     PreparedStatement stat = null;
     ResultSet set = null;
     List<String> list = new ArrayList<String>();
     try {
-      stat = connection.prepareStatement("SELECT tags.id,tags.name FROM tags JOIN feed_tags ON tags.id = feed_tags.tag_id WHERE feed_tags.feed_id = ?");
+      stat = connection.prepareStatement(
+        "SELECT TN.name "+
+        "FROM tag_another_names TN "+
+        "WHERE TN.tag_id IN ( "+
+          "SELECT T.id "+
+          "FROM tags T "+
+          "INNER JOIN feed_tags FT ON FT.tag_id = T.id "+
+          "WHERE FT.feed_id = ? "+
+        ") "+
+
+        "UNION "+
+
+        "SELECT T.name "+
+        "FROM tags T "+
+        "INNER JOIN feed_tags FT ON FT.tag_id = T.id "+
+        "WHERE FT.feed_id = ? "
+      );
       stat.setInt(1, feed_id);
+      stat.setInt(2, feed_id);
+      
       set = stat.executeQuery();
       while (set.next()) {
         list.add(set.getString("name"));
