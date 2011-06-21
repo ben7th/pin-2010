@@ -16,7 +16,7 @@
 #
 require 'uuidtools'
 
-class Mindmap < ActiveRecord::Base
+class Mindmap < Mev6Abstract
   MINDMAP_IMAGE_BASE_PATH = CoreService.find_setting_by_project_name(CoreService::MEV6)["mindmap_image_base_path"]
   belongs_to :user
   

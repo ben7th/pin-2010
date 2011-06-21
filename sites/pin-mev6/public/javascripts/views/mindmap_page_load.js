@@ -66,7 +66,7 @@ pie.MindmapPageLoader = {
   },
 
   mindmap_resize:function(){
-    var height = document.viewport.getHeight() - 40 - 38;
+    var height = document.viewport.getHeight() - 40 - 30;
     var sidebar_width = this.sidebar.visible() ? this.sidebar.getWidth():0;
     var width = $('mindmap-status-bar').getWidth() - sidebar_width;
     $('mindmap-main').setStyle({
@@ -85,48 +85,6 @@ pie.MindmapPageLoader = {
       }
     });
   },
-  
-  pull:function(mindmap_id){
-    var pars =
-      'map=' + mindmap_id + '&' +
-      'revision=' + Object.toJSON(mindmap.revision);
-
-    new Ajax.Request("/mindmaps/pull",{
-      parameters:pars,
-      method:'GET',
-      onFailure:function(trans){
-        pie.log('获取失败');
-        setTimeout(function(){
-          this.pull(mindmap_id);
-        }.bind(this),6000);
-      }.bind(this),
-      onSuccess:function(trans){
-        try{
-          var array = trans.responseText.evalJSON();
-          array.each(function(json){
-            pie.log('同步协同暂未实现，不对其他编辑请求作处理')
-            mindmap.coop_break();
-//            mindmap.show_op_instance(json);
-          }.bind(this))
-
-          setTimeout(function(){
-            this.pull(mindmap_id);
-          }.bind(this),6000);
-        }catch(e){}
-      }.bind(this)
-    });
-  },
-
-//  add_chat:function(chat_json){
-//    var username = chat_json.username;
-//    var text = chat_json.text;
-//    var cl = $$('.chat-list')[0];
-//    var node = Builder.node('div',{'class':'chat-line'},[
-//      Builder.node('span',{'class':'username'},username+': '),
-//      Builder.node('span',{},text)
-//    ]);
-//    cl.appendChild(node);
-//  },
 
   toggle_sidebar:function(){
     Element.toggle(this.sidebar);
@@ -159,30 +117,5 @@ TimeKeeper = Class.create({
         }.bind(this)
       })
     }.bind(this), 30);
-  }
-});
-
-pie.MindmapUser = Class.create({
-  initialize:function(user_name,mindmap_id){
-    this.user_name = user_name;
-    this.mindmap_id = mindmap_id;
-  },
-  say:function(text){
-    try{
-      var json = Object.toJSON({
-        'username':this.user_name,
-        'text':text
-      });
-      var pars = 'channel='+'mindmap_'+this.mindmap_id;
-      new Ajax.Request("/mindmaps/push?"+pars,{
-        method:'POST',
-        postBody:json,
-        onSuccess:function(trans){
-          //
-        }
-      });
-    }catch(ex){
-      alert(ex)
-    }
   }
 });

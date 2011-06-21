@@ -9,56 +9,173 @@ pie.mindmap_save_module = {
    * 操作顺序
    * 如果当前不是编辑模式，方法直接退出
    * 如果当前是DEMO，直接退出
-   * 如果当前编辑器不在READY状态，先把操作记录放入队列，然后退出
+   * 如果当前编辑器不在READY状态，先把操作记录放入保存数组，然后退出
    *
    */
   _save:function(record){
     if(!this.editmode) return;
     if(this.id == 'demo') return;
 
-    var pars =
-      'map=' + this.id + '&' +
-      'revision=' + encodeURIComponent(Object.toJSON(this.revision)) + '&' +
-      'operation=' + encodeURIComponent(Object.toJSON(record));
-    
-    var info_label;
+    var mindmap = this;
 
-    new Ajax.Request("/mindmaps/do",{
-      parameters:pars,
-      method:"PUT",
-      onCreate:function(){
-        info_label = new pie.mindmap.InfoLabel(this).notice('正在自动保存...');
-      }.bind(this),
-      onSuccess:function(trans){
+    mindmap.ajax_save_opers = mindmap.ajax_save_opers || [];
+    mindmap.ajax_save_opers.push(record);
+
+    //不在ready状态则放入数组后退出
+    if(mindmap.on_ajax_save == true){
+      return;
+    }
+
+    mindmap.__do_ajax_save();
+  },
+
+  __do_ajax_save:function(){
+    var mindmap = this;
+
+    var id = mindmap.id;
+    var ajax_save_opers = mindmap.ajax_save_opers;
+    var opers_length = ajax_save_opers.length;
+
+    var revision = mindmap.revision;
+
+    //在ready状态则保存
+    var pars =
+      'map=' + id + '&' +
+      'revision=' + encodeURIComponent(Object.toJSON(revision)) + '&' +
+      'operations=' + encodeURIComponent(Object.toJSON(ajax_save_opers));
+
+    mindmap.ajax_save_opers = [];
+
+
+    var info_label;
+    jQuery.ajax({
+      url : "/mindmaps/do",
+      data : pars,
+      type : 'PUT',
+      beforeSend : function(){
+        info_label = new pie.mindmap.InfoLabel(mindmap).notice('正在自动保存...');
+        mindmap.on_ajax_save = true;
+      },
+      success : function(res){
         info_label.close();
-      }.bind(this),
-      onFailure:function(trans){
-        var code = trans.responseText.evalJSON().code;
+        mindmap.revision.remote = res.revision;
+      },
+      error : function(res){
+        var code = res.responseText.evalJSON().code;
         switch(code){
           case '1':{
-            this.__on_node_not_exist();
+            mindmap.__on_node_not_exist();
           }break;
           case '2':{
-            this.__on_mindmap_not_save();
+            mindmap.__on_mindmap_not_save();
+          }break;
+          case '3':{
+            mindmap.__on_revision_not_valid();
+          }break;
+          case '4':{
+            mindmap.__on_access_not_valid();
           }break;
           default:{
-            this.__on_other_error();
+            mindmap.__on_other_error();
           }
         }
-      }.bind(this)
+      },
+      complete : function(){
+        pie.log(mindmap.revision);
+        mindmap.on_ajax_save = false;
+
+        if(mindmap.ajax_save_opers.length > 0){
+          mindmap.__do_ajax_save();
+        }
+      }
     });
 
-    this.revision.local += 1;
-    pie.log(this.revision);
+    //每多一个操作，本地版本+1
+    mindmap.revision.local += opers_length;
+    pie.log(mindmap.revision)
   },
 
   __on_node_not_exist:function(){
-    new pie.mindmap.InfoLabel(this).error('节点不存在或已删除。').hold(5);
+    //第一步 闪烁提示
+    new pie.mindmap.InfoLabel(this).error('节点不存在或已删除。').pulsate();
+
+    //第二步 白板遮盖锁定
+    this.lock_mindmap();
+
+    var info_dialog = Builder.node('div',{},[
+      Builder.node('h3',{'class':'f_box'},'错误#1 试图对一个不存在的节点进行操作'),
+      Builder.node('div',{'class':'mindmap_save_error'},[
+        Builder.node('div',{},'当前正在被操作的节点在服务器数据中不存在，或者已被其他协同编辑者删除。'),
+        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入导图。'),
+        Builder.node('div',{},'或手动刷新页面')
+      ])
+    ]);
+
+    //第三步 提示刷新
+    jQuery.facebox(info_dialog);
+    jQuery('#facebox_overlay').unbind('click');
   },
 
   __on_mindmap_not_save:function(){
-    var map = pie.MindmapPageLoader.reload_map();
-    new pie.mindmap.InfoLabel(map).error('导图数据保存失败，自动重新载入。').hold(5);
+    //var map = pie.MindmapPageLoader.reload_map();
+    //先不自动重新载入啦
+    new pie.mindmap.InfoLabel(this).error('导图数据保存失败').pulsate();
+
+    //第二步 白板遮盖锁定
+    this.lock_mindmap();
+
+    var info_dialog = Builder.node('div',{},[
+      Builder.node('h3',{'class':'f_box'},'错误#2 上一步操作保存失败'),
+      Builder.node('div',{'class':'mindmap_save_error'},[
+        Builder.node('div',{},'由于网络或服务器原因，或者由于导图已经被其他协同编辑者修改，上一步操作保存失败。'),
+        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入导图。'),
+        Builder.node('div',{},'或手动刷新页面')
+      ])
+    ]);
+
+    //第三步 提示刷新
+    jQuery.facebox(info_dialog);
+    jQuery('#facebox_overlay').unbind('click');
+  },
+
+  __on_revision_not_valid:function(){
+    new pie.mindmap.InfoLabel(this).error('导图数据保存失败').pulsate();
+
+    //第二步 白板遮盖锁定
+    this.lock_mindmap();
+
+    var info_dialog = Builder.node('div',{},[
+      Builder.node('h3',{'class':'f_box'},'错误#3 导图已经被其他人修改'),
+      Builder.node('div',{'class':'mindmap_save_error'},[
+        Builder.node('div',{},'由于导图已经被其他协同编辑者修改，操作保存失败。'),
+        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入导图。'),
+        Builder.node('div',{},'或手动刷新页面')
+      ])
+    ]);
+
+    //第三步 提示刷新
+    jQuery.facebox(info_dialog);
+    jQuery('#facebox_overlay').unbind('click');
+  },
+
+  __on_access_not_valid:function(){
+    new pie.mindmap.InfoLabel(this).error('导图数据保存失败').pulsate();
+
+    //第二步 白板遮盖锁定
+    this.lock_mindmap();
+
+    var info_dialog = Builder.node('div',{},[
+      Builder.node('h3',{'class':'f_box'},'错误#4 没有编辑权限'),
+      Builder.node('div',{'class':'mindmap_save_error'},[
+        Builder.node('div',{},'你对当前导图没有编辑权限，或者协同编辑权限已被取消。'),
+        Builder.node('a',{'href':'/mindmaps/'+this.id+'/edit'},'请点击这里重新载入导图。'),
+        Builder.node('div',{},'或手动刷新页面')
+      ])
+    ]);
+
+    //第三步 提示刷新
+    jQuery.facebox(info_dialog);
+    jQuery('#facebox_overlay').unbind('click');
   },
 
   __on_other_error:function(){
@@ -112,6 +229,8 @@ pie.mindmap_save_module = {
   }
 }
 
+//*******************************
+//导图的顶部信息提示区块
 pie.mindmap.InfoLabel = Class.create({
   initialize:function(mindmap){
     this.map = mindmap;
@@ -158,6 +277,8 @@ pie.mindmap.InfoLabel = Class.create({
   
 });
 
+//******************
+//锁定导图时的遮蔽DOM
 pie.mindmap.LockWhiteBoard=Class.create({
   initialize:function(mindmap){
     try{

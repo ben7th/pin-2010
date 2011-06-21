@@ -9,8 +9,6 @@
 
 -content_for :javascripts do
   = javascript_include_tag 'mindmap_editor_packed'
-
-  = javascript_include_tag 'nicedit/nicEdit'
   = javascript_include_tag 'excanvas/excanvas.compiled'
   = javascript_include_tag 'views/mindmap_page_load'
   = javascript_include_tag 'pie/resizer/pie_resizable'
@@ -63,24 +61,21 @@
 
 #mindmap-toolbar
   .map-logo
-    =logo @mindmap
   .map-title
-    =escape_title(@mindmap,10)
+    =link_to escape_title(@mindmap,10),pin_url_for('pin-user-auth',"/mindmaps/#{@mindmap.id}/info"),:target=>'_blank'
   .map-creator
-    =link_to @mindmap.user.name,pin_url_for('pin-mindmap-editor',"/users/#{@mindmap.user.id}/mindmaps"),:target=>'_blank'
+    -muser = @mindmap.user
+    .avatar
+      =avatar muser,:mini
+    .name
+      =link_to muser.name,pin_url_for('pin-user-auth',"/mindmaps/users/#{@mindmap.user.id}"),:target=>'_blank'
   .map-timestamp
     %span 创建于
-    %span.loud=created_at @mindmap
-  .map-edit
-    - if has_edit_rights?(@mindmap,current_user)
-      =minibutton_remote "修改信息",:url=>"/",:method=>:get
+    %span.loud=jtime @mindmap.created_at
   .map-export
     =minibutton_remote "导出为..",:url=>"/mindmaps/#{@mindmap.id}/export",:method=>:get
-    %span.ex=link_to 'Jpg图片',"/mindmaps/#{@mindmap.id}.jpg",:target=>'_blank'
-    %span.ex=link_to 'Word文档',"/mindmaps/#{@mindmap.id}.doc"
-    -if RAILS_ENV == 'development'
-      =minibutton '显示rev','javascript:pie.log(mindmap.revision);'
-      =minibutton '远程同步','javascript:pie.MindmapPageLoader.pull(mindmap.id);'
+    %span.ex=link_to 'PNG图片',"/mindmaps/#{@mindmap.id}.png",:target=>'_blank'
+    %span.ex=link_to 'WORD文档',"/mindmaps/#{@mindmap.id}.doc"
   .map-close
     =link_to '关闭，返回',pin_url_for("pin-user-auth","/mindmaps/#{@mindmap.id}/info")
   

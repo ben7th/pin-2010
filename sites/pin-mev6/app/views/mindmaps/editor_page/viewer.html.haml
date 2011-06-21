@@ -7,7 +7,6 @@
 
 -content_for :javascripts do
   = javascript_include_tag 'mindmap_viewer_packed'
-
   = javascript_include_tag 'excanvas/excanvas.compiled'
   = javascript_include_tag 'views/mindmap_page_load'
 
@@ -18,14 +17,18 @@
 
 #mindmap-toolbar
   .map-logo
-    =logo @mindmap
   .map-title
-    =escape_title(@mindmap,10)
+    =link_to escape_title(@mindmap,10),pin_url_for('pin-user-auth',"/mindmaps/#{@mindmap.id}/info"),:target=>'_blank'
   .map-creator
-    =link_to @mindmap.user.name,pin_url_for('pin-mindmap-editor',"/users/#{@mindmap.user.id}/mindmaps"),:target=>'_blank'
+    -muser = @mindmap.user
+    .avatar
+      =avatar muser,:mini
+    .name
+      =link_to muser.name,pin_url_for('pin-user-auth',"/mindmaps/users/#{@mindmap.user.id}"),:target=>'_blank'
   .map-timestamp
     %span 创建于
-    %span.loud=created_at @mindmap
+    %span.loud=jtime @mindmap.created_at
+
   .map-close
     =link_to '关闭，返回',pin_url_for("pin-user-auth","/mindmaps/#{@mindmap.id}/info")
 

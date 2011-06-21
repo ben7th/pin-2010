@@ -3,56 +3,69 @@ body {
   background: #0f2b3e !important; }
   body .page-container {
     padding: 0; }
+  body .rc5 {
+    display: none; }
 
 #mindmap-toolbar {
   float: left;
   width: 100%;
   overflow: hidden;
-  height: 37px;
-  background: -moz-linear-gradient(-90deg, #66c7f5, #2793e8);
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#66c7f5), to(#2793e8));
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66c7f5',endColorstr='#2793e8');
-  border-bottom: 1px solid #1259A4;
-  color: white;
-  text-shadow: 1px 1px 0 #666; }
+  height: 30px;
+  background: #444444;
+  color: white; }
   #mindmap-toolbar .map-logo {
     float: left;
-    padding: 6px 0 0 5px;
-    margin-right: 10px; }
-    #mindmap-toolbar .map-logo .logo {
-      height: 20px;
-      width: 20px; }
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: url(/images/mindmap_logo_20.png);
+    margin: 5px; }
   #mindmap-toolbar .map-title {
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
     font-size: 14px;
     font-weight: bold;
-    line-height: 35px; }
+    line-height: 30px; }
+    #mindmap-toolbar .map-title a {
+      color: #E4F1FF; }
   #mindmap-toolbar .map-creator {
     float: left;
-    margin-right: 10px;
-    line-height: 35px; }
-    #mindmap-toolbar .map-creator a {
-      color: #E4F1FF; }
+    overflow: hidden;
+    margin-right: 20px;
+    line-height: 30px; }
+    #mindmap-toolbar .map-creator .avatar {
+      float: left; }
+      #mindmap-toolbar .map-creator .avatar img.logo {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border: 0;
+        padding: 0;
+        margin: 5px; }
+    #mindmap-toolbar .map-creator .name {
+      float: left; }
+      #mindmap-toolbar .map-creator .name a {
+        color: #E4F1FF; }
   #mindmap-toolbar .map-timestamp {
     float: left;
-    margin-right: 10px;
-    line-height: 35px; }
+    margin-right: 20px;
+    line-height: 30px; }
     #mindmap-toolbar .map-timestamp .date {
-      color: #FFF799 !important; }
-  #mindmap-toolbar .map-edit {
-    float: left;
-    margin-right: 10px;
-    line-height: 35px; }
+      color: #ccc !important; }
   #mindmap-toolbar .map-export {
     float: left;
-    margin-right: 10px;
-    line-height: 35px; }
+    margin-right: 20px;
+    line-height: 30px; }
+    #mindmap-toolbar .map-export .minibutton {
+      box-shadow: none; }
     #mindmap-toolbar .map-export span.ex {
       margin-left: 5px; }
       #mindmap-toolbar .map-export span.ex a {
-        color: #FBEB96;
-        color: #FFF799;
+        color: #FBF3CA;
         font-weight: bold; }
   #mindmap-toolbar .map-close {
     float: right;
@@ -91,11 +104,14 @@ body {
       color: #222;
       width: 200px; }
       #mindmap-main #mindmap-sidebar .note_editor .editor_box #mindmap-note-edit {
-        width: 196px !important;
+        width: 194px !important;
         height: 121px !important;
-        background-color: #FBEA9E; }
-      #mindmap-main #mindmap-sidebar .note_editor .editor_box .nicEdit-main {
-        font-size: 12px; }
+        background-color: #FBF3CA;
+        border: none;
+        box-shadow: none;
+        border-radius: 0px;
+        -moz-border-radius: 0px;
+        -webkit-border-radius: 0px; }
     #mindmap-main #mindmap-sidebar .snapshots-list {
       margin-bottom: 5px; }
     #mindmap-main #mindmap-sidebar .chat-box .chat-list {

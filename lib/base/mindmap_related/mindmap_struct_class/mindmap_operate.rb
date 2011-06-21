@@ -186,11 +186,10 @@ class MindmapOperate
   def _change_struct(&block)
     old_struct = @mindmap.struct.clone
     doc = MindmapDocument.new(@mindmap)
-    
+
     params = yield doc
 
-    current_revision = doc.revision
-    doc.revision = current_revision + 1
+    doc.revision = doc.revision + 1
     doc.modified = @operator
     @mindmap.struct = doc.struct
 
@@ -222,6 +221,8 @@ class MindmapOperate
     UNKNOWN = "0"
     NODE_NOT_EXIST = "1"
     MINDMAP_NOT_SAVE = "2"
+    REVISION_NOT_VALID = "3"
+    ACCESS_NOT_VALID = "4"
   end
 
   class NodeNotExistError < StandardError;end

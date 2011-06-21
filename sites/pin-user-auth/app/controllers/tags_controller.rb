@@ -36,12 +36,12 @@ class TagsController < ApplicationController
 
   
   def fav
-    current_user.do_fav(@tag)
+    current_user.do_fav_tag(@tag)
     render :stats=>200,:text=>"关注成功"
   end
 
   def unfav
-    current_user.do_unfav(@tag)
+    current_user.do_unfav_tag(@tag)
     render :stats=>200,:text=>"取消关注成功"
   end
 

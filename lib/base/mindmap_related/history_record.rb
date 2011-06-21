@@ -19,7 +19,6 @@ class HistoryRecord < Mev6Abstract
     DO_CHANGE_FONT_SIZE,DO_SET_FONT_BOLD,DO_SET_FONT_ITALIC
     ]
   
-  version 11504
   belongs_to :mindmap
   validates_inclusion_of :kind,:in =>OPERATIONS
 
@@ -31,7 +30,7 @@ class HistoryRecord < Mev6Abstract
     operator = option[:operator]
     raise "operation_kind is not a valid" if !OPERATIONS.include?(kind)
     raise "params_hash is not a hash" if !params_hash.is_a?(Hash)
-   
+
     params_json = params_hash.to_json
     HistoryRecord.create!(:params_json=>params_json,:mindmap_id=>mindmap.id,:kind=>kind,:email=>operator.email)
   end

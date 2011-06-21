@@ -18,11 +18,11 @@ class TagFav < UserAuthAbstract
       feeds.sort{|x,y|y.id<=>x.id}
     end
     
-    def do_fav(tag)
+    def do_fav_tag(tag)
       TagFav.find_or_create_by_tag_id_and_user_id(tag.id,self.id)
     end
 
-    def do_unfav(tag)
+    def do_unfav_tag(tag)
       tag_fav = tag.tag_favs.find_by_user_id(self.id)
       tag_fav.destroy unless tag_fav.blank?
     end

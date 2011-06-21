@@ -6,63 +6,80 @@ body{
   overflow:hidden;
   background:$bgc !important;
   .page-container{padding:0;}
+  .rc5{
+    display:none;
+  }
 }
 
 #mindmap-toolbar{
   float:left;
   width:100%;
   overflow:hidden;
-  height:37px;
-  @include gradient(#66C7F5,#2793E8);
-  border-bottom: 1px solid #1259A4;
+  height:30px;
+  background:#444444;
   color:white;
-  text-shadow:1px 1px 0 #666;
+
   .map-logo{
     float:left;
-    padding:6px 0 0 5px;
-    margin-right:10px;
-    .logo{
-      height:20px;
-      width:20px;
-    }
+    width:20px;
+    height:20px;
+    @include border-radius(4px);
+    background:url(/images/mindmap_logo_20.png);
+    margin:5px;
   }
+
   .map-title{
     float:left;
-    margin-right:10px;
+    margin-right:20px;
     font-size:14px;
     font-weight:bold;
-    line-height:35px;
-  }
-  .map-creator{
-    float:left;
-    margin-right:10px;
-    line-height:35px;
+    line-height:30px;
     a{
       color:#E4F1FF;
     }
   }
-  .map-timestamp{
+
+  .map-creator{
     float:left;
-    margin-right:10px;
-    line-height:35px;
-    .date{
-      color:#FFF799 !important;
+    overflow:hidden;
+    margin-right:20px;
+    line-height:30px;
+    .avatar{
+      float:left;
+      img.logo{
+        width:20px;height:20px;@include border-radius(4px);
+        border:0;padding:0;
+        margin:5px;
+      }
+    }
+    .name{
+      float:left;
+      a{
+        color:#E4F1FF;
+      }
     }
   }
-  .map-edit{
+
+  .map-timestamp{
     float:left;
-    margin-right:10px;
-    line-height:35px;
+    margin-right:20px;
+    line-height:30px;
+    .date{
+      color:#ccc !important;
+    }
   }
+
   .map-export{
     float:left;
-    margin-right:10px;
-    line-height:35px;
+    margin-right:20px;
+    line-height:30px;
+    .minibutton{
+      box-shadow:none;
+    }
     span.ex{
       margin-left:5px;
       a{
-        color:#FBEB96;
-        color:#FFF799;
+        color:#FBF3CA;
         font-weight:bold;
       }
     }
@@ -115,11 +132,13 @@ body{
         background-color:#FEFCD7;color:#222;
         width:200px;
         #mindmap-note-edit{
-          width:196px !important;
+          width:194px !important;
           height:121px !important;
-          background-color:#FBEA9E;
+          background-color:#FBF3CA;
+          border:none;
+          box-shadow:none;
+          @include border-radius(0px);
         }
-        .nicEdit-main{font-size:12px;}
       }
     }
     .snapshots-list{
