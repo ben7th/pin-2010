@@ -25,3 +25,12 @@
       .btns
         %a.button.editable-submit{:href=>'javascript:;'} 发送
         %a.button.editable-cancel{:href=>'javascript:;'} 取消
+
+
+    .footmisc
+      .last-edited-user
+        -user = tag.last_editor
+        .time.quiet
+          #{usersign user} 编辑于 #{jtime tag.updated_at}
+          -link_to "/tags/#{tag.full_name}/revisions" do
+            查看历史

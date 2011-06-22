@@ -2695,7 +2695,7 @@ form.new_message .w300 {
   overflow: hidden; }
   .show-page-ops .fav {
     float: left;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -2724,7 +2724,7 @@ form.new_message .w300 {
       text-decoration: none; }
   .show-page-ops .unfav {
     float: left;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -4375,7 +4375,7 @@ form.new_message .w300 {
     padding: 5px; }
     .user-page-top-info .user-page-ops .follow {
       float: left;
-      padding: 10px 20px;
+      padding: 5px 10px;
       border-radius: 4px;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
@@ -4404,7 +4404,7 @@ form.new_message .w300 {
         text-decoration: none; }
     .user-page-top-info .user-page-ops .unfollow {
       float: left;
-      padding: 10px 20px;
+      padding: 5px 10px;
       border-radius: 4px;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
@@ -4588,6 +4588,12 @@ form.new_message .w300 {
         .tag-page-top-info .base-info .tag-main .tag-detail-edit-form .detail-inputer {
           height: 100px;
           font-size: 12px; }
+      .tag-page-top-info .base-info .tag-main .footmisc {
+        overflow: hidden; }
+        .tag-page-top-info .base-info .tag-main .footmisc .last-edited-user {
+          float: right; }
+          .tag-page-top-info .base-info .tag-main .footmisc .last-edited-user .bold {
+            font-weight: normal; }
     .tag-page-top-info .base-info .tag-page-logo {
       float: right;
       position: relative; }
@@ -4611,7 +4617,7 @@ form.new_message .w300 {
   overflow: hidden; }
   .tag-page-ops .fav {
     float: left;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -4640,7 +4646,7 @@ form.new_message .w300 {
       text-decoration: none; }
   .tag-page-ops .unfav {
     float: left;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -4934,6 +4940,16 @@ form.new_message .w300 {
           line-height: 16px;
           position: relative;
           top: 1px; }
+
+.tag-page-rss {
+  padding: 5px; }
+  .tag-page-rss a {
+    overflow: hidden;
+    line-height: 22em;
+    width: 32px;
+    height: 32px;
+    display: block;
+    background: url(/images/icons/all.png) no-repeat -320px -66px; }
 
 .homepage-getting-started {
   border-radius: 4px;

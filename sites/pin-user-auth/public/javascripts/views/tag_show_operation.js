@@ -1,7 +1,8 @@
+//编辑关键词详细信息
 pie.load(function(){
   var perfix = '.tag-page-top-info .base-info .tag-main ';
 
-  jQuery(perfix + '.edit-detail').live('click',function(){
+  jQuery(perfix + '.edit-detail .edit').live('click',function(){
     var form_elm = jQuery('.tag-detail-edit-form');
 
     var elm = jQuery(this);
@@ -45,6 +46,41 @@ pie.load(function(){
         form_elm.hide();
       }
     })
+  });
+  
+})
+
+//关注关键词
+pie.load(function(){
+
+  jQuery('.tag-page-ops .fav').live('click',function(){
+    var fav_elm = jQuery('.tag-page-ops .fav');
+    var unfav_elm = jQuery('.tag-page-ops .unfav');
+    var tag_name = jQuery('.base-info .tag-main').attr('data-name');
+
+    jQuery.ajax({
+      url  :pie.pin_url_for('pin-user-auth','/tags/'+tag_name+'/fav'),
+      type :'post',
+      success : function(res){
+        fav_elm.hide();
+        unfav_elm.show();
+      }
+    });
+  });
+
+  jQuery('.tag-page-ops .unfav').live('click',function(){
+    var fav_elm = jQuery('.tag-page-ops .fav');
+    var unfav_elm = jQuery('.tag-page-ops .unfav');
+    var tag_name = jQuery('.base-info .tag-main').attr('data-name');
+
+    jQuery.ajax({
+      url  :pie.pin_url_for('pin-user-auth','/tags/'+tag_name+'/unfav'),
+      type :'delete',
+      success : function(res){
+        fav_elm.show();
+        unfav_elm.hide();
+      }
+    });
   });
   
 })

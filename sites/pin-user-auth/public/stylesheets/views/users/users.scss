@@ -79,27 +79,6 @@
   }
 }
 
-@mixin followbtn{
-  float:left;
-  padding:10px 20px;
-  @include border-radius(4px);
-  @include btn-color(#B3D34C,#97BC3D,#97AF4D,#fff,#9BC238,#8BAD37);
-  font-weight:bold;
-  cursor:pointer;
-  font-size:14px;
-}
-
-@mixin unfollowbtn{
-  float:left;
-  padding:10px 20px;
-  @include border-radius(4px);
-  @include btn-color(#dddddd,#dddddd,#dddddd,#666,#dddddd,#dddddd);
-  font-weight:bold;
-  cursor:pointer;
-  font-size:14px;
-  text-shadow:0 0 #f0f0f0;
-}
-
 @mixin viewpoint-in-list{
   margin:0 0 10px 0;
   .arrow{

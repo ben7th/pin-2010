@@ -48,13 +48,13 @@
     .ps .page-sub-head .sub_nav .page-new-feed-button {
       overflow: hidden;
       float: right;
-      padding: 7px 0;
+      padding: 5px 0;
       margin: 0 0 0 10px; }
       .ps .page-sub-head .sub_nav .page-new-feed-button .button {
         float: left;
         font-size: 14px;
         font-weight: bold;
-        padding: 2px 7px;
+        padding: 4px 8px;
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;

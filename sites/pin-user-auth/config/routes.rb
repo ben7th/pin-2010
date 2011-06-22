@@ -314,8 +314,11 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"remove_all_user_tips",:conditions=>{:method=>:delete}
 
   map.resources :tags,:member=>{
-    :logo=>:put,:upload_logo=>:get,
-    :fav=>:post,:unfav=>:delete,:update_detail=>:put}
+    :logo=>:put,:upload_logo=>:get,:atom=>:get,
+    :fav=>:post,:unfav=>:delete,:update_detail=>:put} do |tag|
+      tag.resources :tag_detail_revisions,:as=>"revisions"
+    end
+  map.resources :tag_detail_revisions,:member=>{:rollback=>:put}
 
   map.resources :atmes
 

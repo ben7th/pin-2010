@@ -122,4 +122,7 @@ module DatetimeHelper
     return "<span class='date'>#{str}</span>"
   end
 
+  def time_tz(time)
+    time.strftime("%Y-%m-%dT%H:%M:%SZ")
+  end
 end

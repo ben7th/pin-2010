@@ -29,6 +29,13 @@
           font-size:12px;
         }
       }
+      .footmisc{
+        overflow:hidden;
+        .last-edited-user{
+          float:right;
+          .bold{font-weight:normal;}
+        }
+      }
     }
 
 
@@ -134,5 +141,17 @@
         @include tags;
       }
     }
+  }
+}
+
+.tag-page-rss{
+  padding:5px;
+  a{
+    overflow:hidden;
+    line-height:22em;
+    width:32px;
+    height:32px;
+    display:block;
+    @include allicon(-320px,-66px);
   }
 }

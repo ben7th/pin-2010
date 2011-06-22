@@ -19,6 +19,12 @@ class Fav < UserAuthAbstract
     def fav_by?(user)
       self.fav_users.include?(user)
     end
+
+    def friends_who_followed_it_of(user)
+      (user.following_user_ids & self.fav_user_ids).map do |uid|
+        User.find_by_id(uid)
+      end.compact
+    end
   end
 
   module UserMethods

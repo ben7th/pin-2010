@@ -8,7 +8,7 @@ class TagFav < UserAuthAbstract
   module UserMethods
     def self.included(base)
       base.has_many :tag_favs
-      base.has_many :fav_tags,:through=>:tag_favs,:source=>:tag
+      base.has_many :fav_tags_db,:through=>:tag_favs,:source=>:tag
     end
 
     def fav_tag_feeds_db
@@ -31,11 +31,17 @@ class TagFav < UserAuthAbstract
   module TagMethods
     def self.included(base)
       base.has_many :tag_favs
-      base.has_many :fav_users,:through=>:tag_favs,:source=>:user
+      base.has_many :fav_users_db,:through=>:tag_favs,:source=>:user
     end
 
     def fav_by?(user)
       self.fav_users.include?(user)
+    end
+
+    def friends_who_followed_it_of(user)
+      (user.following_user_ids & self.fav_user_ids).map do |uid|
+        User.find_by_id(uid)
+      end.compact
     end
     
   end

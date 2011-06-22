@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  before_filter :login_required,:only=>[:fav,:unfav,:upload_logo,:logo]
+  before_filter :login_required,:only=>[:fav,:unfav,:upload_logo,:logo,:update_detail]
   before_filter :per_load
   def per_load
     if params[:id]
@@ -26,7 +26,7 @@ class TagsController < ApplicationController
   end
 
   def update_detail
-    if @tag.update_attribute(:detail,params[:detail])
+    if @tag.update_detail(params[:detail],current_user)
       str = @template.render :partial=>'tags/show_parts/tag_base_info',:locals=>{:tag=>@tag}
       render :text=>str
     else
@@ -45,6 +45,13 @@ class TagsController < ApplicationController
     render :stats=>200,:text=>"取消关注成功"
   end
 
+  def atom
+    @feeds = @tag.feeds.normal.paginate(:per_page=>20,:page=>1)
+    @tag_name = @tag.full_name
+    headers['Content-Type'] = "text/xml; charset=utf-8"
+    render :layout=>false
+  end
+
   def index
     case params[:tab]
     when "hot"
@@ -53,6 +60,8 @@ class TagsController < ApplicationController
       _index_tab_recently_used
     when "another_name"
       _index_tab_another_name
+    when "followings"
+      _index_tab_followings
     else
       _index_tab_cookies
     end
@@ -66,6 +75,8 @@ class TagsController < ApplicationController
       _index_tab_recently_used
     when "another_name"
       _index_tab_another_name
+    when "followings"
+      _index_tab_followings
     else
       _index_tab_hot
     end
@@ -87,6 +98,15 @@ class TagsController < ApplicationController
     set_cookies_menu_tags_tab "another_name"
     @tags = Tag.has_another_name.paginate(:per_page=>40,:page=>params[:page]||1)
     render :template=>"tags/another_name"
+  end
+
+  def _index_tab_followings
+    set_cookies_menu_tags_tab "followings"
+    unless current_user.blank?
+      @tags = current_user.fav_tags.paginate(:per_page=>20,:page=>params[:page]||1)
+      return render :template=>"tags/followings"
+    end
+    login_required
   end
 
   private

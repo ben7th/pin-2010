@@ -38,6 +38,7 @@
       %ul.tags
         =sub_menu_li '热度排行','/tags?tab=hot'
         =sub_menu_li '最近被使用的','/tags?tab=recently_used'
+        =sub_menu_li '我关注的','/tags?tab=followings' if logged_in?
         =sub_menu_li '同义词','/tags?tab=another_name'
     -when 'notices'
       %h1 通知和邀请

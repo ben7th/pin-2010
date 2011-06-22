@@ -36,6 +36,9 @@ class FollowingsProxy < RedisBaseProxy
       },
       :followings_and_self=>Proc.new{|user|
         user.followings + [user]
+      },
+      :following_user_ids=>Proc.new{|user|
+        FollowingsProxy.new(user).xxxs_ids
       }
     }
   end

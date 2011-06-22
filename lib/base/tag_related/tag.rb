@@ -85,6 +85,16 @@ class Tag < UserAuthAbstract
     end
   end
 
+  def update_detail(detail,user)
+    return false if user.blank?
+    old_detail = self.detail
+    return false if old_detail == detail
+
+    self.update_attribute(:detail,detail)
+    self.record_detail_editor(detail,user)
+    return true
+  end
+
   def self.system_feature_ids
     Tag.get_tag_by_full_name("系统:功能更新").feeds.map{|f|f.id}
   rescue Exception => ex
@@ -213,4 +223,5 @@ class Tag < UserAuthAbstract
   include TagRelatedFeedTagsMapProxy::TagMethods
   include TagShare::TagMethods
   include TagAnotherName::TagMethods
+  include TagDetailRevision::TagMethods
 end

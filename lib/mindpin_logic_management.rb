@@ -116,6 +116,9 @@ class MindpinLogicManagement
     # viewpoint 缓存
     MindpinLogicManagement.load_redis_proxy(UserHotViewpointsProxy)
 
+    # tag 缓存
+    MindpinLogicManagement.load_redis_proxy(UserFavTagsProxy)
+    MindpinLogicManagement.load_redis_proxy(TagFavUsersProxy)
 
   # tip
     MindpinLogicManagement.load_tip_proxy(UserTipProxy)

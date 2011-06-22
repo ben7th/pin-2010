@@ -110,6 +110,12 @@ class Viewpoint < UserAuthAbstract
       users.uniq
     end
 
+    def friends_who_joined_it_of(user)
+      (user.following_user_ids & self.memoed_users_db_ids).map do |uid|
+        User.find_by_id(uid)
+      end.compact
+    end
+
   end
 
   include ViewpointComment::ViewpointMethods

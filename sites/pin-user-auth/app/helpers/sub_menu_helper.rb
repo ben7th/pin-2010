@@ -22,6 +22,8 @@ module SubMenuHelper
     return false if ['tags','show'] == [cname, aname]
     return false if ['tags','upload_logo'] == [cname, aname]
 
+    return false if ['tag_detail_revisions','index'] == [cname, aname]
+
     return false if ['feeds','show'] == [cname, aname]
     return false if ['feeds','new'] == [cname, aname]
     return false if ['feeds','search'] == [cname, aname]
