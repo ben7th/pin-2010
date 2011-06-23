@@ -8,9 +8,17 @@ module TagHelper
 
     if tag.has_logo?
       tag_logo_label = logo(tag,:mini)
-      link_to "#{tag_namespace_label}#{tag_logo_label}#{tag_name_label}","/tags/#{tag_full_name}",:class=>['tag has-logo',klass]*' '
+      link_to "#{tag_namespace_label}#{tag_logo_label}#{tag_name_label}",
+        "/tags/#{tag_full_name}",
+        :class=>['tag has-logo',klass]*' ',
+        :rel=>'tag',
+        :'data-name'=>tag.full_name
     else
-      link_to "#{tag_namespace_label}#{tag_name_label}","/tags/#{tag_full_name}",:class=>['tag',klass]*' '
+      link_to "#{tag_namespace_label}#{tag_name_label}",
+        "/tags/#{tag_full_name}",
+        :class=>['tag',klass]*' ',
+        :rel=>'tag',
+        :'data-name'=>tag.full_name
     end
 
   rescue Exception => ex

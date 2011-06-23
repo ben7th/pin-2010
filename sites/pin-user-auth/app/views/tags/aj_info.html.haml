@@ -1,0 +1,13 @@
+.box
+  .base
+    .count
+      #{@tag.feeds.normal.count}主题
+    .count
+      #{@tag.fav_user_ids.length}关注
+    .rss
+      =link_to 'RSS订阅',"/tags/#{@tag.full_name}/atom",:target=>'_blank'
+  .detail
+    -if @tag.detail.blank?
+      没有详细信息
+    -else
+      =h(@tag.detail)

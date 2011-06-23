@@ -52,6 +52,10 @@ class TagsController < ApplicationController
     render :layout=>false
   end
 
+  def aj_info
+    render :layout=>false
+  end
+
   def index
     case params[:tab]
     when "hot"

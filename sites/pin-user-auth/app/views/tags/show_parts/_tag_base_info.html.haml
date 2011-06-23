@@ -28,9 +28,10 @@
 
 
     .footmisc
-      .last-edited-user
-        -user = tag.last_editor
-        .time.quiet
-          #{usersign user} 编辑于 #{jtime tag.updated_at}
-          -link_to "/tags/#{tag.full_name}/revisions" do
-            查看历史
+      -if !tag.tag_detail_revisions.blank?
+        .last-edited-user
+          -user = tag.last_editor
+          .time.quiet
+            #{usersign user,false} 编辑于 #{jtime tag.updated_at}
+            -link_to "/tags/#{tag.full_name}/revisions" do
+              查看历史

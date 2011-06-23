@@ -4951,6 +4951,47 @@ form.new_message .w300 {
     display: block;
     background: url(/images/icons/all.png) no-repeat -320px -66px; }
 
+.tag-aj-info {
+  background-color: #444;
+  color: #ddd;
+  position: absolute;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: solid 1px #222;
+  box-shadow: 1px 1px 2px #999999;
+  -moz-box-shadow: 1px 1px 2px #999999;
+  -webkit-box-shadow: 1px 1px 2px #999999;
+  width: 260px; }
+  .tag-aj-info.aj-loading {
+    height: 30px;
+    background-position: 8px 12px; }
+  .tag-aj-info .box {
+    width: 240px;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-top: solid 1px #666;
+    padding: 5px 10px 10px; }
+    .tag-aj-info .box .base {
+      border-bottom: solid 1px #666;
+      overflow: hidden;
+      padding-bottom: 3px;
+      margin: 0 0 5px 0; }
+      .tag-aj-info .box .base .count {
+        float: left;
+        color: white;
+        font-weight: bold;
+        margin: 0 10px 0 0;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+      .tag-aj-info .box .base .rss {
+        float: right; }
+        .tag-aj-info .box .base .rss a {
+          color: #FBF3CA; }
+          .tag-aj-info .box .base .rss a:hover {
+            color: #FBF3CA;
+            text-decoration: none; }
+
 .homepage-getting-started {
   border-radius: 4px;
   -moz-border-radius: 4px;
