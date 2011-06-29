@@ -6,7 +6,7 @@
     $foot-border-top-color : #DDDDDD;
 
 .page-footer{
-  @include gradient($foot-bg-color,$foot-bg-color-1);
+  background-color:#e6e6e6;
   .pf{
     border-top:solid 2px $foot-border-top-color;
   }

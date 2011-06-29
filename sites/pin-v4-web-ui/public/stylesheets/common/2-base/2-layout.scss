@@ -71,62 +71,6 @@ body {margin:0;}
   @include box-shadow(none);
 }
 
-/*顶部*/
-.page-head{
-  height:30px;
-  .nav {
-    clear:both;overflow:hidden;
-    padding-top:5px;
-
-
-    .userbox{
-      float:right;
-      @include border-radius(5px);
-      margin:0 25px 0 0;
-      position:relative;top:1px;
-      overflow:hidden;
-      .avatarname{
-        float:left;
-        margin-left:15px;
-        height:20px;
-        line-height:20px;
-        .avatar{font-size:0;line-height:0;}
-        .tiny{width:16px;height:16px;}
-        a{float:left;line-height:20px;}
-        a.name{font-weight:bold;margin-left:6px;}
-      }
-      .sp{
-        float:left;
-        line-height:20px;
-        margin-left:15px;
-        font-weight:bold;
-        &.homepage{
-          padding-left:18px;
-          background:url(/images/piece/home.png) no-repeat 0 center;
-        }
-      }
-    }
-
-    .start{
-      float:right;
-      margin:9px 23px 0 0;
-      overflow:hidden;
-      span{
-        float:left;
-        margin-left:20px;
-        height:40px;line-height:40px;
-        .font14{height:40px;line-height:40px;}
-      }
-      .home{
-        padding-left:18px;
-        background:url(/images/piece/home.png) no-repeat 0 center;
-      }
-    }
-
-  }
-  &.basic{height:90px}
-}
-
 /*底部*/
 .page-footer{
   overflow:hidden;
@@ -134,7 +78,7 @@ body {margin:0;}
     margin-top:20px;
   }
   .rights{
-    margin-top:5px;
+    margin:5px 0;
   }
   .links,.rights{
     margin-left:10px;

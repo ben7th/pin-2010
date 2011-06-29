@@ -15,212 +15,165 @@
   /*顶端用户导航链接色*/
     $head-userbox-a-color      : #eee;
     $head-userbox-a-color-hover: #fff;
+
+/*顶部*/
 .ph{
-  margin: 0;
+  background:#444;
+  color:$head-text-color;
+  padding-bottom:10px;
+  border-bottom:solid 3px #666;
   .page-head{
-    border-bottom:solid 1px #555;
-    @include gradient($head-bg-color,$head-bg-color-1);
-    color:$head-text-color;
-    .nav{
-      .topbar{
-        float:left;
-        margin:0 0 0 25px;
-        .sp{
+    overflow:hidden;
+
+    .site-logo{
+      float:left;
+      padding-top:15px;
+      padding-left:5px;
+      .logo{
+        width:240px;
+        height:40px;
+        display:block;
+        overflow:hidden;
+        font-size:0px;
+        line-height:22em;
+        &.feeds{
+          background:url(/images/sites.png) 0px -25px;
+        }
+        &.mindmaps{
+          background:url(/images/sites.png) 0px -66px;
+        }
+      }
+    }
+
+    .menu{
+      float:left;
+      padding-top:30px;
+      ul{
+        overflow:hidden;
+
+        li{
           float:left;
-          line-height:20px;
-          margin-right:15px;
-          font-weight:bold;
-          &.feeds{a{color:#E2EDFA;}}
-          &.mindmaps{a{color:#FBF3CA;}}
+          margin-left:10px;
+          &.first{margin-left:0px;}
+          a{
+            font-size:16px;
+            height:24px;line-height:24px;
+            @include border-radius(4px);
+            display:block;
+            padding:0 5px;
+            font-weight:bold;
+            color:#fff;
+            overflow:hidden;
+            &:hover{
+              color:#444;
+              text-decoration:none;
+              background:#e0e7eF;
+            }
+            span{
+              float:left;
+            }
+          }
+
+          &.i-am-here{
+            a{
+              color:#444;
+              text-decoration:none;
+              background:#e0e7eF;
+            }
+          }
+
+          &.with-count{
+            a{
+              span{
+                margin-right:3px;
+              }
+              .count{
+                float:left;
+                font-size:14px;
+                @include gradient(#FF3D00,#D3293D);
+                color:white;
+                font-weight:bold;
+                font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+                @include border-radius(3px);
+                padding:0px 4px 2px;
+                height:14px;
+                line-height:14px;
+
+                position:relative;
+                top:4px;
+              }
+            }
+          }
+
         }
       }
-      .userbox{
-        a{
-          color:$head-userbox-a-color;
-          &:hover{color:$head-userbox-a-color-hover;}
-        }
-      }
+    }
+
+    .nav{
+      float:right;
+      padding-right:5px;
       a{
         color:$head-userbox-a-color;
         &:hover{color:$head-userbox-a-color-hover;}
       }
-    }
-  }
-}
 
-/*副导航栏，临时写在这里*/
-@mixin btn-color($c1,$c2,$cb1,$cf,$c3,$c4){
-  @include border-radius(4px);
-  @include gradient($c1,$c2);
-  border:solid 1px $cb1;
-  color:$cf !important;
-  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.25);
-  zoom:1;
-  &:hover{
-    @include gradient($c3,$c4);
-    text-decoration:none;
-  }
-  &.mousedown{
-    @include gradient($c4,$c3);
-    text-decoration:none;
-  }
-}
-
-@mixin bluebutton{@include btn-color(#3B94FF, #006AED, #00698D, #fff, #3B94FF, #006AED);}
-
-.ps{
-  padding: 30px 0 10px 0;
-  margin: 0 0 0 0;
-
-  .page-sub-head{
-    .sub_nav{
-      padding:0 20px;
-      overflow:hidden;
-      @include border-radius(10px);
-
-      .page-new-feed-button{
+      .topbar{
+        padding-top:5px;
         overflow:hidden;
-        float:right;
-        padding:5px 0;
-        margin:0 0 0 10px;
-        .button{
+        
+        .sp{
           float:left;
-          font-size:14px;
-          font-weight:bold;
-          padding:4px 8px;
-          @include bluebutton;
-        }
-      }
-
-      .menu{
-        padding:5px 0;
-        float:right;
-        ul{
-          overflow:hidden;
-          background:#F0F7FF;
-          padding:2px;
-
-          @include border-radius(6px);
-
-          border:solid 2px #E2EDFA;
-          li{
-            float:left;
-            margin-left:10px;
-            &.first{margin-left:0px;}
-            a{
-              font-size:14px;
-              line-height:24px;height:24px;
-              @include border-radius(4px);
-              display:block;
-              padding:0 5px;
-              font-weight:bold;
-              color:#5D7A9C;
-              overflow:hidden;
-              &:hover{
-                color:#5D7A9C;
-                text-decoration:none;
-                background:#e0e7eF;
-              }
-              span{
-                float:left;
-              }
-            }
-
-            &.i-am-here{
-              a{
-                background:#5D7A9C;
-                color:white;
-                font-weight:bold;
-              }
-            }
-
-            &.with-count{
-              a{
-                span{
-                  margin-right:3px;
-                }
-                .count{
-                  float:left;
-                  @include gradient(#FF3D00,#D3293D);
-                  color:white;
-                  font-weight:bold;
-                  font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-                  @include border-radius(4px);
-                  padding:0 4px;
-                  height:15px;
-                  line-height:15px;
-
-                  position:relative;
-                  top:4px;
-                }
-              }
-            }
-
-          }
-        }
-      }
-
-      .site-logo{
-        float:left;
-        .logo{
-          width:240px;
-          height:40px;
-          display:block;
-          overflow:hidden;
-          font-size:0px;
-          line-height:22em;
-          &.feeds{
-            background:url(/images/sites.png) 0px -25px;
-          }
-          &.mindmaps{
-            background:url(/images/sites.png) 0px -66px;
-          }
+          line-height:20px;
+          margin-left:15px;
+          &.feeds{a{color:#E2EDFA;}}
+          &.mindmaps{a{color:#FBF3CA;}}
         }
       }
 
       .search-form{
-        margin:5px 0;
-        padding:3px;
-        @include border-radius(6px);
-        @include gradient(#eaeaea,#f7f7f7);
-        border:solid 1px #eee;
+        margin:5px 0 0 0;
         overflow:hidden;
-        float:left;
-        input{
-          height:22px !important;line-height:22px !important;
-          @include border-radius(3px 0 0 3px);
-          float:left;
-          @include box-shadow(none);
-        }
-        .do-search{
-          overflow:hidden;
-          float:left;
-          @include border-radius(0 3px 3px 0);
-          border:solid 1px #CCCCCC;
-          border-left:none;
-          height:22px;
-          width:22px;
-          line-height:22em;
-          text-align:center;
-          color:#666;
-          font-weight:bold;
-          background-image:url(/images/sites.png);
-          background-repeat:no-repeat;
-          background-position:-50px -1px;
-          @include box-shadow(none);
+        form{
+          float:right;
+          input{
+            height:22px !important;line-height:22px !important;
+            @include border-radius(4px 0 0 4px);
+            float:left;
+            @include box-shadow(none);
+            border-color:#555;
+            border-right:#999 solid 1px;
+            padding-left:7px !important;
+            width:172px !important;
+          }
+          .do-search{
+            overflow:hidden;
+            float:left;
+            @include border-radius(0 4px 4px 0);
+            border:solid 1px #555;
+            border-left:none;
+            height:22px;
+            width:22px;
+            line-height:22em;
+            text-align:center;
+            color:#666;
+            font-weight:bold;
+            background-image:url(/images/sites.png);
+            background-repeat:no-repeat;
+            background-position:-50px -1px;
+            @include box-shadow(none);
+          }
         }
       }
 
     }
   }
 }
+
 
 .page-submenu{
   overflow:hidden;
   margin:0 0 30px 0;
   width:120px;
-  position:relative;
-  left:-10px;
   h1{
     font-size:14px;
     font-weight:bold;
@@ -337,10 +290,12 @@
 }
 
 .page-content .cell{
-  @include border-radius(10px);
-  padding:10px;
-  margin:0 10px 60px; /*这样正好剩余920px，23个grid*/
-  &.feed-menu-bg{
-    background:url(/images/sub-menu-bg.png) 730px 0 repeat-y #FCFCFC;
+  padding:10px 0 60px;
+  margin:0; /*这样正好剩余960px，24个grid*/
+  .mside{
+    background-color:#F6F6F6;
+    background-color:#F4F7FA;
+    @include border-radius(8px);
+    padding-top:5px;
   }
 }

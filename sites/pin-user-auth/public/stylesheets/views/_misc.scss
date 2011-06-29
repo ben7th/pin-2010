@@ -105,7 +105,6 @@
 
 @mixin footmisc{
   overflow:hidden;
-  margin-bottom:10px;
   .time{
     display:inline;
   }
@@ -145,12 +144,39 @@
     &.feed-creator{
       background:#FFFADA;
     }
-
     .time{margin:0 0 6px 0;display:block;}
   }
   .creator-in-list{
-    float:right;
-    .bold{font-weight:normal;}
+    border:solid 2px #F1F1F1;
+    @include border-radius(5px);
+    background-color:white;
+    position:absolute;
+    right:20px;
+
+    .avatar{
+      float:left;
+    }
+    .name{
+      margin-left:55px;
+      .bold{font-weight:normal;}
+    }
+    .rep{
+      margin-left:55px;
+      overflow:hidden;
+      .score{
+        @include tfont;
+        font-weight:bold;
+        font-size:18px;
+        float:left;
+        margin:0 5px 0 0;
+        color:#666;
+      }
+      .t{
+        float:left;
+        position:relative;
+        top:6px;
+      }
+    }
   }
 }
 

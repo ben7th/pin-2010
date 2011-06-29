@@ -28,14 +28,6 @@ div.hr {
 .tab-loading-tip{float:left;line-height:32px;display:inline-block;margin:0 8px;}
 
 /*图像*/
-img.logo{
-  border:solid 1px #DFDFDF;
-  background-color:white;
-  padding:1px;float:none;
-  margin:0;display:inline-block;
-  overflow:hidden;
-}
-img.logo.b2{padding:2px !important;}
 img.cur_big{cursor:url("/images/cursor/big.cur"),auto}
 
 .rclogo .logo{@include border-radius(4px);border:none !important;}
@@ -45,13 +37,6 @@ a.username{font-weight:bold;}
 /*资源图标*/
 img.logo-ss{padding:1px;float:none;margin:0;width:32px;height:32px;display:inline-block;}
 img.logo-mid{border:solid 1px #eee;padding:1px;float:none;margin:0;width:80px;height:80px;display:inline-block;}
-
-/*用户头像*/
-div.uv{
-  width:60px;overflow:hidden;text-align:center;display:inline-block;margin-bottom:5px;
-  div.l{padding:0 5px;height:52px;}
-  div.n{margin-top:3px;width:52px;overflow:hidden;padding:0 5px;}
-}
 
 /*图片居中的容器*/
 .image_center_div{

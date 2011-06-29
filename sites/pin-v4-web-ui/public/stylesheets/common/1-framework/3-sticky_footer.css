@@ -16,10 +16,10 @@ html, body {height: 100%;}
 .page-wrap {min-height: 100%; width: 100%;}
 
 .page-container {overflow:visible;
-	padding-bottom: 90px;}  /* must be same height as the footer */
+	padding-bottom: 30px;}  /* must be same height as the footer */
 .page-footer {position: relative;
-	margin-top: -90px; /* negative value of footer height */
-	height: 90px;
+	margin-top: -30px; /* negative value of footer height */
+	height: 30px;
 	clear:both;}
 
 /*Opera Fix*/

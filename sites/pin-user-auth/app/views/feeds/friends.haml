@@ -6,18 +6,12 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.grid_18.alpha
-  =render 'index/index_parts/getting_started'
-  =render 'index/index_parts/new_feature_tips'
+.main.grid_18
+  .feeds
+    .newsfeed
+      =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+    .paginate.padding5
+      = will_paginate @feeds
 
-  .index-tab-ct.feeds
-    -if current_user_is_newbie?
-      =render 'index/index_parts/newbie_welcome'
-    -else
-      .newsfeed
-        =render 'feeds/lists/feeds_stat',:feeds=>@feeds
-      .paginate.padding5
-        = will_paginate @feeds
-
-.grid_5.omega.fright
+.mside.grid_6
   =show_sub_menu

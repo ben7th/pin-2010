@@ -71,18 +71,6 @@ div.hr {
   margin: 0 8px; }
 
 /*图像*/
-img.logo {
-  border: solid 1px #DFDFDF;
-  background-color: white;
-  padding: 1px;
-  float: none;
-  margin: 0;
-  display: inline-block;
-  overflow: hidden; }
-
-img.logo.b2 {
-  padding: 2px !important; }
-
 img.cur_big {
   cursor: url("/images/cursor/big.cur"), auto; }
 
@@ -112,22 +100,6 @@ img.logo-mid {
   width: 80px;
   height: 80px;
   display: inline-block; }
-
-/*用户头像*/
-div.uv {
-  width: 60px;
-  overflow: hidden;
-  text-align: center;
-  display: inline-block;
-  margin-bottom: 5px; }
-  div.uv div.l {
-    padding: 0 5px;
-    height: 52px; }
-  div.uv div.n {
-    margin-top: 3px;
-    width: 52px;
-    overflow: hidden;
-    padding: 0 5px; }
 
 /*图片居中的容器*/
 .image_center_div {

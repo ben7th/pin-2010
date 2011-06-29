@@ -1,73 +1,51 @@
 .ph
-  .page-head{:class=>head_classname}
-    .nav{:class=>container_classname}
+  .page-head.container_24
+    .site-logo
+      -if sub_menu_name != 'mindmaps'
+        =link_to '主题协作','/',:class=>'logo feeds'
+      -else
+        =link_to '思维导图','/mindmaps',:class=>'logo mindmaps'
+
+    .menu
+      -if show_feed_menu?
+        %ul
+          -if !logged_in?
+            =feed_menu_li '欢迎页','/','welcome',:class=>'first'
+            =feed_menu_li '主题','/feeds','feeds'
+            =feed_menu_li '动态','/user_logs','user_logs'
+            =feed_menu_li '用户网络','/users','users'
+            =feed_menu_li '关键词','/tags','tags'
+          -if logged_in?
+            =feed_menu_li '主题','/feeds','feeds',:class=>'first'
+            =feed_menu_li '动态','/user_logs','user_logs'
+            =feed_menu_li '用户网络','/users','users'
+            =feed_menu_li '关键词','/tags','tags'
+
+            -notice_count = UserTipProxy.new(current_user).tips_count
+            -invite_count = current_user.feed_invites.count
+            =feed_menu_li_with_count '通知','/notices','notices', notice_count + invite_count
+
+    .nav
       .topbar
-        .sp.feeds=link_to '主题协作社区','/feeds'
+        .sp.feeds=link_to '主题协作','/feeds'
         .sp.mindmaps=link_to '思维导图','/mindmaps'
-
-      .userbox
         -if logged_in?
-          .sp.homepage=link_to '首页','/'
-
-          .avatarname{:'original-title'=>'去我的主页'}
-            -link_to "/users/#{current_user.id}",:class=>'avatar' do
-              =avatar current_user,:tiny
-            =link_to "#{current_user.name}","/users/#{current_user.id}",:class=>'name'
-
-          .sp=link_to "站内信",'/messages',:'original-title'=>'收发站内信'
-          .sp=link_to "用户设置",'/account',:'original-title'=>'设置头像，昵称'
-          .sp=link_to "退出",'/logout',:'original-title'=>'点这里退出登录'
+          .sp=link_to "用户设置",'/account'
+          .sp=link_to "退出",'/logout'
 
         -else
-          .sp.homepage=link_to '首页','/'
           .sp=link_to '用户注册','/signup'
           .sp=link_to '登录','/login'
 
-.ps
-  .page-sub-head{:class=>container_classname}
-    .sub_nav
-      .grid_18.alpha
-        .site-logo
-          -if sub_menu_name != 'mindmaps'
-            =link_to '主题协作','/',:class=>'logo feeds'
-          -else
-            =link_to '思维导图','/mindmaps',:class=>'logo mindmaps'
-
-        -if show_feed_menu?
-
-          -if logged_in?
-            .page-new-feed-button
-              %a.button.shadow{:href=>'/feeds/new'} 创建新主题
-
-          .menu
-            %ul
-              -if !logged_in?
-                =feed_menu_li '欢迎页','/','welcome',:class=>'first'
-                =feed_menu_li '主题','/feeds','feeds'
-                =feed_menu_li '动态','/user_logs','user_logs'
-                =feed_menu_li '用户网络','/users','users'
-                =feed_menu_li '关键词','/tags','tags'
-              -if logged_in?
-                =feed_menu_li '主题','/feeds','feeds',:class=>'first'
-                =feed_menu_li '动态','/user_logs','user_logs'
-                =feed_menu_li '用户网络','/users','users'
-                =feed_menu_li '关键词','/tags','tags'
-
-                -notice_count = UserTipProxy.new(current_user).tips_count
-                -invite_count = current_user.feed_invites.count
-                =feed_menu_li_with_count '通知','/notices','notices', notice_count + invite_count
-
-      .grid_5.omega
-        .search-form
-          -if sub_menu_name != 'mindmaps'
-            %form{:action=>"/feeds/search",:method=>"get"}>
-              %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索主题'}>
-              =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
-          -else
-            %form{:action=>"/mindmaps/search",:method=>"get"}>
-              %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
-              =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
+      .search-form>
+        -if sub_menu_name != 'mindmaps'
+          %form{:action=>"/feeds/search",:method=>"get"}>
+            %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索主题'}>
+            =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
+        -else
+          %form{:action=>"/mindmaps/search",:method=>"get"}>
+            %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
+            =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
 
 
 
-        

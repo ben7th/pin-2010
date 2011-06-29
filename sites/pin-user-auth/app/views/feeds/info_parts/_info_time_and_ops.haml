@@ -1,27 +1,8 @@
 .footmisc
   .creator-in-list
-    =jtime feed.created_at
-    =usersign(feed.creator,false)
+    .avatar
+      =avatar feed.creator
 
   .tags
-    -if !feed.tags.blank?
-      -feed.tags.each do |tag|
-        =tag_label(tag)
-
-    -else
-      %a.tag{:href=>"/tags/没有关键词"} 没有关键词
-
-
-  %span.quiet.hide>=viewpoint_link(feed)
-
-  -if logged_in?
-    .ops.hide>
-      .split.quiet> -
-      -klass = feed.fav_by?(current_user) ? 'on':'off'
-      -link_to 'javascript:;',:class=>"fav #{klass}" do
-        %span.t1> 关注
-        %span.t2> 取消关注
-
-      -if feed.creator == current_user
-        .split.quiet> -
-        =link_to '隐藏','javascript:;',:class=>'del'
+    -feed.tags.each do |tag|
+      =tag_label(tag)

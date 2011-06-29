@@ -93,25 +93,19 @@
 }
 
 /*feeds*/
-.newsfeed{
-  ul.feeds li.mpli.feed{
-    position:relative;
-    overflow:visible;
+.newsfeed ul.feeds{
+  overflow:hidden;
+  position:relative;
+  li.mpli.feed{
+    float:left;width:335px;
+    margin-right:20px;
     .f{
-      padding:5px 5px 20px;
-      margin-bottom:10px;
-      overflow:hidden;
-
-
-      .reply-to-feed{
-        @include reply-to-feed;
-        margin-left:40px;
-      }
-
-      .quote-feed{
-        @include quote-feed;
-        margin-left:40px;
-      }
+      background:white;
+      padding:10px;
+      margin-bottom:30px;
+      @include border-radius(8px);
+      border-bottom:solid 2px #e5e5e5;
+      position:relative;
 
       .footmisc{
         @include footmisc;
@@ -135,8 +129,8 @@
         .detail{
         }
       }
+
       .viewpoint{
-        margin:0 0 10px 40px;
         overflow:hidden;
         .my-viewpoint,.hot-viewpoint{
           @include viewpoint-in-list;
@@ -144,94 +138,7 @@
         }
       }
 
-      .comments{
-        @include comments;
-        margin-left:40px;
-      }
-
-      .add-viewpoint-form{
-        @include border-radius(4px);
-        padding:5px;
-        margin-left:40px;
-        &.loading{
-          background-image:url(/images/icons/progress-dots.gif);
-          background-repeat:no-repeat;
-          background-position:10px 4px;
-          height:10px;
-        }
-        .title{
-          margin:0 0 6px 0;
-        }
-        .ipt{
-          .inputer{width:482px;height:48px;}
-        }
-        .btns{
-          @include submitbtns;
-        }
-      }
-
     }
-
-    .feed-todo{
-      float:left;
-      width:80px;
-      position:absolute;
-      height:100%;
-      padding:2px 0;
-      margin-top:-7px;
-      left:0;
-      @include border-radius(4px);
-      .meta{
-        padding:3px 5px;
-        .items{
-          .add-items{
-            width:12px;height:12px;
-            background:url(/images/icons/all.png) no-repeat -285px -100px;
-            &:hover{opacity:0.6;}
-            position:relative;
-            cursor:pointer;
-            float:left;
-            margin-right:4px;
-          }
-          .items-count{
-            line-height:12px;
-            height:12px;
-            font-weight:bold;
-          }
-        }
-      }
-      .exer{
-        padding:3px 5px;
-      }
-      .add{
-        width:12px;height:12px;
-        background:url(/images/icons/all.png) no-repeat -259px -100px;
-        &:hover{opacity:0.6;}
-        position:absolute;
-        left:5px;
-        bottom:5px;
-        cursor:pointer;
-      }
-      .remove{
-        width:12px;height:12px;
-        background:url(/images/icons/all.png) no-repeat -272px -100px;
-        &:hover{opacity:0.6;}
-        position:absolute;
-        left:19px;
-        bottom:5px;
-        cursor:pointer;
-      }
-      &.b0{background-color:#EBFF4C}
-      &.aj-loading{
-        background-position:5px 5px;
-        .meta{display:none;}
-      }
-    }
-
-    &.show-feed{
-      
-    }
-
   }
 }
 
@@ -262,20 +169,6 @@
       }
       &.zero{
 
-      }
-    }
-  }
-}
-
-.newsfeed{
-  ul.feeds li.mpli.feed{
-    .f.with-stats{
-      .current-feed,.footmisc,.viewpoint{
-        margin-left:60px;
-      }
-      .footmisc{width:600px;}
-      .stats{
-        @include feed-stats;
       }
     }
   }

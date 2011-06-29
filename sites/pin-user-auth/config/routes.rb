@@ -326,4 +326,13 @@ ActionController::Routing::Routes.draw do |map|
   # 主题邀请，提示
   map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
 
+
+  map.namespace :v2 do |v2|
+    v2.root :controller=>'index'
+    v2.connect "/do_activate",:controller=>"index",:action=>"do_activate",
+      :conditions=>{:method=>:post}
+    v2.connect "/chat",:controller=>"index",:action=>"chat"
+    v2.connect "/chat_say",:controller=>"index",:action=>"chat_say",
+      :conditions=>{:method=>:post}
+  end
 end
