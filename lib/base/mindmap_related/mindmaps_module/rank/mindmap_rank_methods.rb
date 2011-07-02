@@ -1,7 +1,7 @@
 module MindmapRankMethods
   def rank
     begin
-      MindmapRank.new(self).rank_value.to_f
+      MindmapRank.rank_value(self.weight).to_f
     rescue Exception => ex
       -10
     end

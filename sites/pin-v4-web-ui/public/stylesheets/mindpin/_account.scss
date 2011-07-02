@@ -1,0 +1,339 @@
+.email_setting{
+  .mail{
+    span{
+      @include border-radius(4px);
+      font-size:24px;
+      padding:6px;
+      font-weight:bold;
+      background:#388FFF;
+      color:white;
+      text-shadow:-1px -1px rgba(0,0,0,0.4);
+    }
+  }
+  .email_activated{
+    @include border-radius(4px);
+    width:150px;
+    font-size:14px;
+    margin:0 0 10px 0;
+  }
+}
+
+.message-setting{
+  span.dc{font-size:14px;}
+}
+
+.bind-3rd-site-btn a{
+  display:block;
+  font-size:16px;
+  font-weight:bold;
+  color:white;
+  @include border-radius(4px);
+  /*@include gradient(#EB3200,#48A902);
+  @include box-shadow(0px 0px 4px #DF1600);
+  border:solid 1px #F54E00;*/
+  @include gradient(#A4E563,#48A902);
+  @include box-shadow(0px 0px 4px #89D346);
+  border:solid 1px #75C631;
+  width:200px;
+  height:50px;
+  line-height:50px;
+  text-align:center;
+  text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+  margin-bottom:10px;
+  margin-left:10px;
+  &:hover{
+    text-decoration:none;
+    /*@include gradient(#FB4200,#D91800);*/
+    @include gradient(#B9FA78,#58B912);
+    color:white;
+  }
+  &.mousedown{
+    /*@include gradient(#D91800,#FB4200);*/
+    @include gradient(#58B912,#B9FA78);
+    color:white;
+  }
+}
+
+.binded-account{
+  .binded-account-info{
+    @include box-shadow(0px 0px 2px #000000);
+    margin:0 0 20px 0;
+    position:relative;
+    .bind-icon{
+      position:absolute;
+      width:64px;height:64px;
+      background:url(/images/icons_account/account_all.png) no-repeat 0px -25px;
+      top:-20px;
+      right:-20px;
+    }
+    .title{
+      padding:5px;
+    }
+    .meta{
+      padding:5px;
+      overflow:hidden;
+      .avatar{
+        float:left;
+        margin:0 10px 0 0;
+      }
+      .name{font-size:14px;font-weight:bold;}
+    }
+    .misc{
+      padding:5px;
+      overflow:hidden;
+      .time{padding:0 6px;float:left;margin-right:20px;}
+      .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:18px;line-height:18px;}
+      &.up{
+        .time,.update{display:none;}
+        .updating{display:block;}
+      }
+    }
+    &.tsina{
+      width:300px;
+      .counts{
+        overflow:hidden;
+        .friends,.followers,.statuses{
+          height:40px;
+          margin-top:10px;
+          margin-right:10px;
+          float:left;
+          .count{font-size:18px;font-weight:bold;line-height:20px;}
+          .n{}
+        }
+      }
+    }
+    &.renren{
+      width:300px;
+    }
+  }
+
+  .tsina-share-mindpin.darkbg{
+    @include box-shadow(0px 0px 2px #000000);
+    width:455px;
+    margin:0 0 20px 0;
+    .title{margin:0 0 6px 0;}
+    .ipt{
+      overflow:hidden;
+      textarea{
+        float:left;
+      }
+      .mplogo{
+        width:48px;
+        height:48px;
+        background:url(/images/icons_account/mindpin_logo_s.png) no-repeat 1px 1px;
+        background-color:white;
+        float:left;
+        margin-left:5px;
+        @include border-radius(2px);
+        border:1px solid #666666;
+        padding:1px;
+      }
+    }
+    @include submitbtns;
+    .btn{
+      .sending{
+        padding:0 0 0 20px;display:none;
+        height:18px;line-height:18px;
+        margin:5px 0 0 0;
+      }
+      &.se{
+        .sending{display:block;}
+        button{display:none;}
+      }
+      .success{
+        height:18px;line-height:18px;
+        margin:5px 0 0 0;
+        display:inline;
+      }
+      .failure{
+        height:18px;line-height:18px;
+        margin:5px 0 0 0;
+        display:inline;
+        color:#ff8844;
+      }
+    }
+  }
+}
+
+.bind-failure-desc{
+  @include border-radius(5px);
+  margin-bottom:10px;
+  position:relative;
+  .p{
+    padding:6px 8px;
+    .acc{
+      font-size:16px;
+      margin:4px 0 4px 24px;
+    }
+  }
+  .error-icon{
+    position:absolute;
+    width:48px;height:48px;
+    background:url(/images/icons_account/account_all.png) no-repeat -65px -25px;
+    right:8px;
+    top:6px;
+  }
+}
+
+.bind-intro{
+  padding:5px 10px;
+  margin-bottom:10px;
+  .p{
+    margin-bottom:10px;
+  }
+  .imgs{
+    overflow:hidden;
+    .tsina-img{
+      width:300px;height:134px;
+      background-image:url(/images/icons_account/bind-tsina-2.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+      margin-right:10px;
+    }
+    .tsina-openwin-img{
+      width:166px;height:134px;
+      background-image:url(/images/icons_account/bind-tsina-3.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+    }
+    .renren-img{
+      width:203px;height:134px;
+      background-image:url(/images/icons_account/renren-1.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+      margin-right:10px;
+    }
+    .renren-openwin-img{
+      width:205px;height:134px;
+      background-image:url(/images/icons_account/renren-2.png);
+      background-color:white;
+      border:solid 2px #eee;
+      margin-bottom:20px;
+      float:left;
+    }
+  }
+}
+
+.index-3rd-connect-operation{
+  height:350px;
+  .connect-confirm-btns{
+    overflow:hidden;
+    .connect-create-new-user a{
+      display:block;
+      font-size:16px;
+      font-weight:bold;
+      color:white;
+      @include border-radius(4px);
+      /*@include gradient(#EB3200,#48A902);
+      @include box-shadow(0px 0px 4px #DF1600);
+      border:solid 1px #F54E00;*/
+      @include gradient(#A4E563,#48A902);
+      @include box-shadow(0px 0px 4px #89D346);
+      border:solid 1px #75C631;
+      width:200px;
+      height:50px;
+      line-height:50px;
+      text-align:center;
+      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+      margin-bottom:30px;
+      &:hover{
+        text-decoration:none;
+        /*@include gradient(#FB4200,#D91800);*/
+        @include gradient(#B9FA78,#58B912);
+      }
+      &.mousedown{
+        /*@include gradient(#D91800,#FB4200);*/
+        @include gradient(#58B912,#B9FA78);
+      }
+    }
+
+    .connect-has-reged a{
+      display:block;
+      font-size:16px;
+      font-weight:bold;
+      color:white;
+      @include border-radius(4px);
+      @include gradient(#EB3200,#C90800);
+      @include box-shadow(0px 0px 4px #DF1600);
+      border:solid 1px #F54E00;
+      width:200px;
+      height:50px;
+      line-height:50px;
+      text-align:center;
+      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+      margin-bottom:20px;
+      &:hover{
+        text-decoration:none;
+        @include gradient(#FB4200,#D91800);
+      }
+      &.mousedown{
+        @include gradient(#D91800,#FB4200);
+      }
+    }
+  }
+
+  .connect-link-form{
+    .a-suanle{margin-left:10px;}
+    .connect-link-form-form{
+      padding:5px;
+      @include box-shadow(0 0 2px black);
+      width:290px;
+    }
+  }
+}
+
+.page-usage-select{
+  overflow:hidden;
+  margin:0 0 40px 0;
+  padding:30px 0;
+  border-top:dotted 1px #DFDFDF;
+  border-bottom:dotted 1px #DFDFDF;
+  .feeds{
+    margin-right:80px;
+    .icon{
+      width:180px;
+      height:140px;
+      background:url(/images/icons/usage-feed.png);
+      border:solid 2px #DFDFDF;
+      margin:0 0 10px 0;
+      cursor:pointer;
+    }
+  }
+  .mindmaps{
+    .icon{
+      width:180px;
+      height:140px;
+      background:url(/images/icons/usage-mindmap.png);
+      border:solid 2px #DFDFDF;
+      margin:0 0 10px 0;
+      cursor:pointer;
+    }
+  }
+  .feeds, .mindmaps{
+    padding:5px;
+    float:left;
+    position:relative;
+    &.checked{
+      background:#FFF3B2;
+      @include border-radius(5px);
+      .check{
+        width:32px;height:32px;
+        @include allicon(-196px,-66px);
+        position:absolute;
+        top:10px;left:170px;
+      }
+      .choose{display:none;}
+      .ok{float:left;margin-right:10px;display:block !important;}
+    }
+    .desc{
+      margin:0 0 10px 0;
+    }
+    .choose{float:left;margin-right:10px;}
+  }
+}

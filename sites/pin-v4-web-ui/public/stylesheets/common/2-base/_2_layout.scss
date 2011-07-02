@@ -1,0 +1,112 @@
+/*页面基础容器*/
+body {margin:0;}
+
+.page-container {margin:0;}
+.page-content {
+  overflow:visible;clear:both;
+  .cell{
+    .cellhead{
+      position:relative;
+      zoom:1;
+      .avatared{
+        .logo{float:left;margin-right:10px;margin-top:5px;height:20px;width:20px;}
+        .hello{
+          line-height:36px;font-size:14px;
+          .tips{
+            font-size:12px;margin-left:20px;color:#ababab;
+          }
+        }
+      }
+      .actions{
+        position:absolute;
+        top:7px;
+        right:0px;
+      }
+      .tabs{
+        ul{
+          margin-top:15px;
+          padding:6px 10px;
+          @include border-radius(5px);
+          border:solid 1px #464660;
+          background-color:#222433;
+          position:relative;
+          overflow:hidden;
+          li{
+            a{
+              font-size:14px;
+              float:left;
+              line-height:26px;
+              padding:0 8px;
+              margin-right:10px;
+              text-shadow:1px 1px #555555;
+              color:#ddd;
+              text-decoration:none;
+              &:hover{
+                background-color:#171826;
+                @include border-radius(4px);
+              };
+              &.selected{
+                border-style:solid;
+                border-width:1px;
+                border-color:#0E0E16 #2E2E3C #2E2E3C #0E0E16;
+                @include border-radius(4px);
+                background-color:#0E0E1A;
+                font-weight:bold;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.page-content.container_auto .cell{
+  margin-top:0px;
+  background:none;
+  padding:15px 0 0 0;
+  border:none;
+  @include box-shadow(none);
+}
+
+/*底部*/
+.page-footer{
+  overflow:hidden;
+  .links{
+    margin-top:20px;
+  }
+  .rights{
+    margin:5px 0;
+    text-align:center;
+  }
+  .links,.rights{
+    margin-left:10px;
+    span{padding-left:10px;}
+  }
+  .container_24{overflow:hidden;}
+}
+
+.yours{
+  @include border-radius(4px);
+  @include box-shadow(0 0 5px #09070E);
+  margin-bottom:20px;
+  .top-bar{
+    background-color:#0E0E1A;
+    @include border-radius-side(top,left,5px);
+    @include border-radius-side(top,right,5px);
+    padding:10px;
+  }
+  .yours-list{
+    background-color:#323546;
+    @include border-radius-side(bottom,left,5px);
+    @include border-radius-side(bottom,right,5px);
+    padding:0 0 10px 0;
+    li{
+      border-bottom:solid 1px #464660;
+      padding:10px 6px 6px 6px;
+    }
+    .no-item{
+      padding:6px 10px 0;
+    }
+  }
+}

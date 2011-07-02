@@ -87,10 +87,6 @@ class MindpinLogicManagement
     # 协同导图缓存
     MindpinLogicManagement.load_redis_proxy UserCooperateMindmapsProxy
 
-    # feed mindmap 缓存
-    MindpinLogicManagement.load_redis_proxy FeedsOfMindmapProxy
-    MindpinLogicManagement.load_redis_proxy MindmapsOfFeedProxy
-
 
     # 标注导图缓存
     MindpinLogicManagement.load_redis_proxy UserFavMindmapsProxy
@@ -119,6 +115,11 @@ class MindpinLogicManagement
     # tag 缓存
     MindpinLogicManagement.load_redis_proxy(UserFavTagsProxy)
     MindpinLogicManagement.load_redis_proxy(TagFavUsersProxy)
+
+    # mindmap 缓存
+    MindpinLogicManagement.load_redis_proxy(UserMindmapsMajorWordsProxy)
+    MindpinLogicManagement.load_redis_proxy(UserOutboxMindmapProxy)
+    MindpinLogicManagement.load_redis_proxy(UserInboxMindmapProxy)
 
   # tip
     MindpinLogicManagement.load_tip_proxy(UserTipProxy)

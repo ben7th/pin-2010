@@ -1,11 +1,13 @@
 class ImindmapParser < MapFileParser
   def self.import(mindmap,file_form_param)
+    mindmap.struct = self.struct_of_import(file_form_param)
+    mindmap.save
+  end
+
+  def self.struct_of_import(file_form_param)
     imm_xml = self._find_xml_from_imm(file_form_param)
     struct = xslt_transform_form_xml(imm_xml,MapFileParser.xslt_file_path("imindmap_import.xslt"))
-    struct = process_note_id_to_randstr(struct)
-    
-    mindmap.struct = struct
-    mindmap.save
+    process_note_id_to_randstr(struct)
   end
 
   # 从 imm 文件中找出 xml

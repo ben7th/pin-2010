@@ -1,0 +1,19 @@
+.page-side-mindmaps-stat
+  .ranks
+    %h5 导图分数统计
+    .chart
+      -c_arr = user.mindmaps_chart_arr
+      -max = c_arr.max
+      -i = 1
+      -c_arr.each do |c|
+        -klass = (i.odd?) ? 'odd':'even'
+        %s{:class=>klass,:style=>"height:#{c*30/max}px;"}
+        -i = i+1
+
+  %hr.split.mb10
+  .words
+    %h5 最常用的词语
+    .keywords
+      -user.mindmaps_major_words.each do |word|
+        .w
+          =link_to word,search_mindmaps_path(:q=>word),:class=>'word'

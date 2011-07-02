@@ -324,22 +324,6 @@ class Feed < UserAuthAbstract
       end
     end
 
-    # option :channel_ids
-    def send_mindmap_feed(title,options={})
-      channel_ids = options[:channel_ids] || []
-      channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-      Feed.transaction do
-        feed = Feed.new(
-        :creator=>self,:event=>Feed::SAY_OPERATE,
-        :content=>title,:channels_db=>channels)
-        return false if !feed.valid?
-        feed.save!
-        mindmap = Mindmap.create_by_title!(self,title)
-        FeedMindmap.create!(:mindmap=>mindmap,:feed=>feed)
-        return feed
-      end
-    end
-
     def send_todolist_feed(title,options={})
     end
 

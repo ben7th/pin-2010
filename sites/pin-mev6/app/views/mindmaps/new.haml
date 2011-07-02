@@ -1,0 +1,35 @@
+.main.white.grid_18
+  .page-new-mindmap-form
+    %h2.main-title 创建思维导图
+    =flash_info
+    .grid_7.alpha
+      - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+        .field.title
+          %label 标题
+          = text_field_tag :'mindmap[title]','',:class=>'text'
+        .field.description
+          %label 描述 <span class='quiet font12'>(选填)</span>
+          = text_area_tag :'mindmap[description]','',:class=>'text'
+        .field
+          = f.check_box :private
+          %span 设置这个导图为私有
+        .field
+          =f.submit "好了，确定创建",:class=>'submit'
+          %span.marginl10=link_to '算了，取消','/'
+
+.mside.grid_6
+  .padding10
+    %h5 关于创建思维导图的说明
+    %p.margint10
+      思维导图的创建时的标题，会自动被作为根节点的文字内容。
+    %p
+      导图的图示用于在列表中区分不同的导图，您可以选择您喜欢的图片，系统会自动裁切和调整大小。
+    %p
+      如果您设置导图为私有，其他人将看不见，也无法搜索到这个导图。
+    %p
+      如果您手头已经有在
+      %span.loud> MindManager© 或者 FreeMind© 软件
+      中绘制的思维导图
+      ，通常情况下您不用重复绘制。只需要使用
+      =link_to '从文件导入导图',pin_url_for('pin-mindmap-editor','mindmaps/import')
+      功能，就可以很容易地把已有的导图上传到MindPin网站。

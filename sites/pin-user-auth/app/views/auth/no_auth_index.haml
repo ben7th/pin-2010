@@ -12,7 +12,7 @@
   .grid-title
     大家最近的主题
   .newsfeed
-    =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+    =render 'feeds/lists/feeds',:feeds=>@feeds
   .paginate.padding5
     = will_paginate @feeds
 

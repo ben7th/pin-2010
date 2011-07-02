@@ -1,6 +1,0 @@
-.margint5
-  %ul#mplist_mindmaps.mplist.mindmaps
-    -@mindmaps.each do |mindmap|
-      %li{:id=>"mindmap_#{mindmap.id}",:class=>"grid mindmap"}
-        = render :partial=>"/mindmaps/list/info_mindmap_grid",:locals=>{:mindmap=>mindmap}
-

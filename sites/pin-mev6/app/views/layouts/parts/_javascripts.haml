@@ -10,4 +10,5 @@
   pie.session_value = encodeURIComponent('#{u cookies[session_key]}')
   pie.current_user_id = '#{logged_in? ? current_user.id : ''}'
 
+= yield :javascript
 = yield :javascripts

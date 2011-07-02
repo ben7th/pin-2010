@@ -1,9 +1,0 @@
-  .v09_up_content{font-size: 13px;}
-  .v09_up {
-    background:url(/images/v09_up.png) no-repeat 0px 0px;width:120px;height:44px;display:block;margin-top:5px;
-  }
-  .mail{font-size: 18px;color:#FF0000;font-weight: bold;margin: 10px 0;}
-  .tips{color:#FF6E1E;}
-  .opt{line-height: 25px;display: none;}
-  .opt span{line-height: 20px;}
-  .checkbox{position: relative;top:2px;}

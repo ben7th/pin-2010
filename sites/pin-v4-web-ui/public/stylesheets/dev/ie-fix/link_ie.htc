@@ -1,6 +1,0 @@
-<public:attach event="onfocus" onevent="quit()" />
-<script language="javascript">
-function quit(){
-this.blur();
-}
-</script>

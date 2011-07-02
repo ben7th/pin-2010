@@ -1,4 +1,0 @@
-%div= "#{@ws_domain} 的网站资料"
-%div= web_site_introduction_info(@web_site)
--if @web_site
-  =link_to "查看详细",web_site_introductions_path(:web_site_id=>@web_site.id),:target=>"_blank"

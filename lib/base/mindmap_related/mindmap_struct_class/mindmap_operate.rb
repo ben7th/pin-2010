@@ -208,7 +208,7 @@ class MindmapOperate
         puts ex.backtrace.join("\n")
         raise MindmapOperate::MindmapNotSaveError,"mindmap 数据库记录保存出错"
       end
-
+      @mindmap.refresh_thumb_image
       HistoryRecord.record_operation(@mindmap,
         :kind=>operation_kind,
         :params_hash=>params_hash,

@@ -17,14 +17,22 @@ jQuery(function(){
     });
   });
 
-
+  window.WEB_SOCKET_SWF_LOCATION = "http://dev.www.mindpin.com/flash/WebSocketMain.swf"
   var jug = new Juggernaut;
+
+  jug.on("connect", function(){
+    //alert("connect")
+  });
+
+  jug.on("disconnect", function(){
+    //alert("disconnect")
+  });
+
   jug.subscribe("chat", function(data){
     //  data.user.name
     //  data.user.homepage
     //  data.user.avatar
     //  data.message
-    console.log(data)
     var message = data.user.name + " : " + data.message
 
     var chat = jQuery("#chat")

@@ -1,6 +1,0 @@
--form_remote_tag :url=>"/mindmaps/#{mindmap.id}/snapshots" do
-  .field
-    %label 快照简要描述
-    =text_field_tag 'snapshot[message]',qdatetime_s(Time.now.localtime),:class=>'text inline',:style=>'width:300px !important;',:onclick=>'this.select();'
-  .actions
-    =submit_tag '确定，保存'

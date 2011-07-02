@@ -5,10 +5,6 @@ module PieUi
       stylesheet_link_tag UiService.css_files
     end
 
-    def require_theme_css
-      stylesheet_link_tag UiService.theme_css_file(@mindpin_layout.theme)
-    end
-
     def require_lib_js
       javascript_include_tag UiService.js_lib_files
     end

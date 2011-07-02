@@ -1,0 +1,405 @@
+@mixin preview-misc{
+  overflow:hidden;
+  margin:0 0 6px 0;
+  .preview{
+    width:124px;
+    @include border-radius(5px);
+    font-size:0px;
+    line-height:0px;
+    float:left;
+    margin: 0 10px 0 0;
+    img{
+      border:solid 2px #A3A3A3;
+      @include border-radius(3px);
+      &:hover{
+        cursor:url("/images/big.cur"), auto;
+      }
+    }
+  }
+  .rank{
+    float:left;
+    width:32px;
+    height:32px;
+    @include border-radius(5px);
+    background:#0077DD;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
+    line-height:32px;
+  }
+}
+
+.page-user-mindmaps{
+  overflow:hidden;
+  width:720px;
+
+  .listl, .listm, .listr{
+    float:left;
+    margin-right:10px;
+    width:230px;
+  }
+
+  .empty{
+    padding:10px;
+    font-size:14px;
+  }
+
+  .mindmap{
+    @include border-radius(8px);
+    background:white;
+    border:2px solid #E5E5E5;
+    padding:10px;
+    margin:0 0 10px 0;
+  }
+
+  .mindmap-m{
+    margin-right:10px;
+    float:left;
+    width:230px;
+
+    .m{
+      @include border-radius(8px);
+      background:white;
+      border:2px solid #E5E5E5;
+      padding:10px;
+      position:relative;
+      margin-bottom:40px;
+
+      .title{
+        font-size:14px;font-weight:bold;
+        @include tfont;
+        margin:0 0 10px 0;
+        a{
+          color:#426389;
+          &:hover{
+            text-decoration:none;
+            border-bottom:dotted 1px #666;
+          }
+        }
+      }
+
+      .thumb{
+        overflow:hidden;
+        a{
+          width:120px;height:120px;
+          float:left;
+          position:relative;
+        }
+      }
+
+      .foot-misc{
+        .time{
+          margin:0 0 6px 0;
+        }
+        .ops{
+          .toggle{
+            position:relative;
+            margin-left:18px;
+            .icon{
+              width:16px;height:16px;
+              position:absolute;
+              left:-18px;
+            }
+            &.public{
+              .icon{@include allicon(-34px,-100px);}
+              .p1{font-weight:bold;}
+            }
+            &.private{
+              .icon{@include allicon(-17px,-100px);}
+              .p2{font-weight:bold;}
+            }
+          }
+        }
+        .creator{
+          border: 3px solid #F1F1F1;
+          @include border-radius(5px);
+          position: absolute;
+          right: 10px;
+          bottom: -27px;
+        }
+      }
+    }
+  }
+}
+
+
+.searched-mindmaps{
+  .search-result{
+    margin-bottom:20px;
+    overflow:hidden;
+    .meta{
+      padding:5px;
+      @include border-radius(5px);
+      overflow:hidden;
+      .avatar{
+        float:left;
+        margin-right:10px;
+        img{width:32px;height:32px;}
+      }
+      .c{
+        float:left;width:550px;
+        .title{
+          font-size:14px;
+          margin-bottom:5px;
+        }
+        .loud{color:#FBB300 !important;}
+      }
+    }
+    .score,.time{
+      @include border-radius(5px);
+      float:left;
+      margin:2px 0 0 45px;
+      padding:0 4px;
+      line-height:14px;
+    }
+    .time{
+      margin-left:5px;
+    }
+  }
+}
+
+
+.feed-form-mev6{
+  padding:60px 0 45px 10px;
+  margin:0 0 10px 0;
+  background:url(/images/icons/mindmap-form-bg.png) no-repeat 0 0;
+  @include border-radius(6px);
+  border:solid 1px #ddd;
+  width:520px;
+
+  .btns{
+    width:500px;
+    overflow:hidden;
+    .import-mindmap,.create-mindmap,.edit-mindmap,.send{
+      width:32px;
+      height:32px;
+      @include border-radius(4px);
+      float:left;
+      margin:5px 5px 5px 0;
+      cursor:pointer;
+      color:white;
+      @include gradient(#84A2D4,#2A4072);
+      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      border:solid 1px #6CD4F6;
+      &:hover{
+        @include gradient(#89C3EB,#4C6DB4);
+        color:white;
+        text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+      }
+    }
+    .import-mindmap{
+      /*@include gradient(#BBC9E6,#BCBCDE);*/
+      @include gradient(#94E4FD,#3FC3EF);
+      .icon{
+        background:url(/images/icons/all.png) no-repeat 0 -117px;
+        width:24px;
+        height:24px;
+        margin:3px 0 0 3px;
+      }
+      &:hover{
+        @include gradient(#B3ECFC,#6AD6F4);
+      }
+    }
+    .create-mindmap,.edit-mindmap{
+      width:70px;
+      margin:5px 0 5px;
+      font-size:14px;
+      font-weight:bold;
+      line-height:32px;
+      padding:0 0 0 10px;
+      border:solid 1px #556FA1;
+    }
+    .feed-content{
+      width:320px;
+      height:22px;
+      float:left;
+      margin:5px 5px 5px 0;
+      background:#F7FCFF;
+    }
+    .import-loading,.import-loading-tips{display:none;}
+    &.loading{
+      .import-mindmap{display:none;}
+      .import-loading{
+        display:block;float:left;
+        width:32px;height:32px;
+        background:url(/images/icons/progress-dots.gif) 1px 1px no-repeat;
+        margin:5px 5px 5px 0;
+      }
+      input.feed-content{display:none;}
+      .create-mindmap{display:none;}
+      .import-loading-tips{
+        display:block;
+        float:left;
+        font-size:14px;
+        margin-top:4px;
+        border:solid 1px #A3A3A3;
+        background:white;
+        padding:0 5px;
+        height:32px;line-height:32px;
+        @include border-radius(4px);
+      }
+    }
+  }
+  .import-mindmap-image{
+    background:#F6F8EE;
+    border:solid 1px #A3A3A3;
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    .close-import-mindmap-image {
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+    .image{
+      width:125px;
+      height:125px;
+      margin-top:16px;
+      img{
+        border:solid 2px #A3A3A3;
+        @include border-radius(3px);
+      }
+    }
+  }
+  .import-mindmap-form{
+    padding:5px;
+    top:41px;
+    z-index:999;
+    position:absolute;
+    @include border-radius(4px);
+    width:360px;
+    border:solid 3px #D9D9D7;
+    text-align:center;
+    #file-upload-btn{
+      height:32px;
+    }
+    .close{
+      position:absolute;
+      right:3px;
+      top:3px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+  }
+  .import-error{
+    background:#323546;
+    @include border-radius(4px);
+    border:solid 1px #111;
+    width:300px;
+    padding:5px;
+    position:absolute;
+    top:41px;
+    color:#FFB49C;
+    .close{
+      position:absolute;
+      right:3px;
+      top:6px;
+      width:16px;
+      height:16px;
+      background:url(/images/icons/all.png) 0 -100px no-repeat;
+      cursor:pointer;
+      font-size:0;
+      line-height:0;
+      text-indent:-999px;
+    }
+  }
+}
+
+.mindmap-paginate{
+  overflow:hidden;
+  .pagination{
+    float:right;
+    @include border-radius(8px);
+
+    padding:5px;
+  }
+}
+
+.page-side-mindmaps-stat{
+  padding:0 10px;
+
+  .ranks{
+    padding:0 10px;
+    margin-bottom:10px;
+    .chart{
+      margin:0 0 10px 22px;
+      height:31px;
+      s{
+        display:inline-block;
+        width:10px;
+        &.odd{background:#8ABFE6;border-bottom:solid 1px #84ADCD;}
+        &.even{background:#A6D0EF;border-bottom:solid 1px #9ABDD6;}
+        
+      }
+    }
+  }
+
+  .words{
+    padding:0 10px;
+    margin-bottom:10px;
+    overflow:hidden;
+    .keywords{
+      overflow:hidden;
+      a.word{
+        float:left;
+        margin:0 6px 6px 0;
+        background:#616A70;
+        padding:3px 10px;
+        height:15px;line-height:15px;
+        @include border-radius(3px);
+        color:white;
+        &:hover{
+          text-decoration:none !important;
+          color:white;
+        }
+      }
+    }
+  }
+}
+
+.page-mindmaps-manage-bar{
+  background:white;
+  border:solid 2px #E5E5E5;
+  @include border-radius(8px);
+  height:40px;
+  padding:10px;
+  margin-bottom:10px;
+  .new{
+    width:32px;height:32px;
+    font-size:18px;
+    margin-right:10px;
+  }
+}
+
+.page-new-mindmap-form{
+  padding:10px;
+  h2.main-title{
+    font-size:20px;font-weight:bold;
+    margin:0 0 20px 0;
+  }
+  .field label{
+    font-size:14px;
+  }
+  .field.title{
+    input.text{width:670px;}
+  }
+  .field.description{
+    textarea.text{width:670px;padding:5px 7px;height:80px;}
+  }
+}

@@ -8,7 +8,7 @@
   = javascript_include_tag "views/mindmap_title_inplace_edit"
   = javascript_include_tag "views/feed_operation"
 
-.grid_17.alpha
+.main.grid_18
   =render 'index/homepage/feeds/feed_form_mev6'
 
   .homepage-see-others.bold
@@ -19,7 +19,7 @@
   .mindmap-paginate.padding5
     = will_paginate @mindmaps
 
-.grid_6.omega.fright
+.mside.grid_6
   =render 'users/homepage/avatar',:user=>@user
   =render 'mindmaps/parts/mindmap_links'
   .margint30

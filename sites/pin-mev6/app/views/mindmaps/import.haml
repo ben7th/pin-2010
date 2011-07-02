@@ -1,0 +1,38 @@
+.main.white.grid_18
+  .padding10
+    =flash_info
+    .import
+      =minibutton '上传导图','javascript:;'
+      上传导图 mindmap[import_file]
+
+    -mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+      = f.text_field :title
+      = f.text_area :description
+      .field
+        = f.check_box :private
+        %span 设置这个导图为私有
+      .form_actions
+        =f.submit "好了，确定创建"
+        %span.marginl10=link_to '算了，取消','/'
+
+.mside.grid_6
+  .padding10
+    %h5 支持以下导图软件格式：
+    .import_formats.margint10
+      %dl
+        %dt MMAP
+        %dd MindManager
+      %dl
+        %dt MM
+        %dd FreeMind
+      %dl
+        %dt XMIND
+        %dd XMind
+      %dl
+        %dt IMM
+        %dd Buzan's iMindMap
+    %p.margint10
+      选择文件并确定上传后，系统需要少许时间进行处理和转换，请耐心等待。
+    %p
+      我们能够确保基本导图结构的完好。<br/>
+      但是由于MindPin导图编辑器仍需进一步完善，一些导图软件中的特定格式，如文字颜色，内嵌图片，导入后会有不同程度的丢失。

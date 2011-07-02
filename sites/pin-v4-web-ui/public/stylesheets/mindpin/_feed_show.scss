@@ -1,0 +1,548 @@
+@mixin editlink{
+  overflow:hidden;
+  margin:0 0 10px 0;
+  a.edit{
+    overflow:hidden;
+    float:left;
+    @include border-radius(4px);
+    padding:0 3px;
+    .icon{
+      width:10px;height:10px;
+      float:left;
+      @include allicon(-229px,-87px);
+      margin:0 3px 0 0;
+      position:relative;top:3px;
+      display:inline-block;
+    }
+  }
+}
+
+@mixin commentlink{
+  overflow:hidden;
+  a.echo{
+    overflow:hidden;
+    @include border-radius(4px);
+    padding:0 3px;
+    text-decoration:none;
+    .icon{
+      width:10px;height:10px;
+      @include allicon(-253px,-87px);
+      margin:0 3px 0 0;
+      position:relative;top:1px;
+      display:inline-block;
+    }
+    &:hover{
+      span{
+        text-decoration:underline;
+      }
+    }
+  }
+}
+
+@mixin markdown_content{
+  font-size:14px;
+  margin:0 0 10px 0;
+  code{
+    background:#F8F8FF;
+  }
+  pre{
+    background:#F8F8FF;
+    padding:5px;
+    border:solid 1px #DEDEDE;
+    @include border-radius(4px);
+    overflow-x:auto;
+  }
+  img{
+    border:solid 1px #DFDFDF;
+    padding:1px;
+  }
+  h1{font-size:18px;font-weight:bold;
+    @include tfont;}
+  h2{font-size:16px;margin:0 0 0.5em 0;}
+  h3,h4,h5,h6{font-size:14px;line-height:18px;margin:0 0 0.5em 0;}
+  ul{
+    margin-left:1.5em;
+    margin-bottom:1.5em;
+    list-style-type:circle;
+    li{
+      p{margin:0;}
+    }
+    ul{
+      list-style-type:square;
+      margin-bottom:1em;
+    }
+  }
+  ol{
+    margin-left:1.5em;
+  }
+  blockquote{
+    font-style:normal;
+    margin:1.5em 0 1.5em 1.5em;
+    background:#FFFADA;
+    border-left:3px solid #FFE965;
+    padding:5px;
+    p{margin:0;}
+  }
+}
+
+@mixin feed-show-comments{
+  border-top:1px dotted #DFDFDF;
+  .comment{
+    overflow:hidden;
+    padding:5px;
+    background:#FAFAFA;
+    .avatar{
+      float:left;margin-right:10px;
+      img{width:16px;height:16px;}
+    }
+  }
+}
+
+.feed-show-page-head{
+  .ftag{
+    .feed-tags{
+      @include tags;
+      float:none;
+      margin:0 0 10px 0;
+      .edit-tags{
+        @include editlink;
+        display:inline-block;
+        font-size:12px;font-weight:normal;
+        position:relative;top:2px;
+        .icon{top:4px !important;}
+      }
+    }
+    .feed-tags-edit-form{
+      margin:0 0 10px 0;
+      input{
+        width:400px !important;
+      }
+      .btns{
+        @include submitbtns;
+      }
+    }
+  }
+
+  .ftitle{
+    .feed-title{
+      font-size:20px;font-weight:bold;
+      .edit-feed-title{
+        @include editlink;
+        display:inline-block;
+        font-size:12px;font-weight:normal;
+        position:relative;top:11px;
+      }
+    }
+    .feed-title-edit-form{
+      textarea{height:32px;}
+      .btns{
+        @include submitbtns;
+      }
+    }
+  }
+}
+
+.feedback-closed{
+  overflow:hidden;
+  font-size:14px;font-weight:bold;
+  border:solid 2px #DFDFDF;
+  background:#F5F5F5;
+  @include border-radius(5px);
+  margin: 0 0 12px 0;
+  padding:10px;
+}
+
+.feed-is-locked,.feed-is-hidden-by-useless{
+  overflow:hidden;
+  font-size:14px;font-weight:bold;
+  border:solid 2px #DFDFDF;
+  background:#F5F5F5;
+  @include border-radius(5px);
+  margin: 0 0 12px 0;
+  padding:10px;
+  .icon{
+    width:24px;height:24px;
+    @include allicon(-275px,-142px);
+    float:left;
+    margin-right:10px;
+  }
+  .desc{
+    height:24px;line-height:24px;
+    float:left;
+    color:#666;
+  }
+}
+
+.feed-is-hidden-by-useless{
+  .icon{
+    @include allicon(-300px,-142px);
+  }
+}
+
+
+.page-feed-show{
+  padding:5px;
+  margin-bottom:30px;
+  overflow:hidden;
+
+  .main{
+    margin:0 0 10px 0;
+    .feed-detail-edit-form{
+      margin:0 0 10px 0;
+      .btns{
+        @include submitbtns;
+      }
+      .detail-inputer{
+        width:600px;
+        height:168px;
+        font-size:12px;
+      }
+    }
+    .detail-data{
+      .data{
+        @include markdown_content;
+      }
+      .edit-detail{
+        @include editlink;
+      }
+    }
+  }
+
+  .footmisc{
+    @include footmisc;
+    margin-bottom:20px;
+  }
+
+  .comments{
+    margin:0 0 10px 0;
+    @include feed-show-comments;
+  }
+
+  .add-comment{
+    @include commentlink;
+  }
+
+  .comment-form{
+    .inputer{
+      width:500px;
+    }
+    .btns{
+      @include submitbtns;
+    }
+  }
+
+}
+
+.page-feed-viewpoints-title{
+  font-size:14px;
+  font-weight:bold;
+  padding:5px;
+}
+
+.page-feed-viewpoints{
+  margin:0 0 20px;
+  border-top:solid 1px #DFDFDF;
+
+  .viewpoint{
+    overflow:hidden;
+    padding:20px 5px 20px;
+    border-bottom:solid 1px #DFDFDF;
+    .vote-ops{
+      float:left;
+      @include border-radius(4px);
+      padding:0 5px 0 0;
+      width:20px;
+      .vote-up{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        @include allicon(-229px,-33px);
+        background-color:#FEF4A6;
+        cursor:pointer;
+        margin:0 0 4px 0;
+        &:hover{
+          @include allicon(-229px,-51px);
+          background-color:#A8500E;
+        }
+      }
+      .vote-down{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        @include allicon(-250px,-33px);
+        background-color:#FEF4A6;
+        cursor:pointer;
+        margin:0 0 4px 0;
+        &:hover{
+          @include allicon(-250px,-51px);
+          background-color:#A8500E;
+        }
+      }
+      .vote-score{
+        font-size:16px;
+        font-weight:bold;
+        text-align:center;
+        margin:0 0 4px 0;
+        padding:2px 0 0 0;
+        line-height:18px;
+        @include border-radius(3px);
+        &.show{
+          color:white;
+          background:#53BCFE;
+        }
+      }
+      .voted-up{@include allicon(-229px,-51px);}
+      .voted-down{@include allicon(-250px,-51px);}
+      .voted-up,.voted-down{
+        @include border-radius(3px);
+        width:20px;height:17px;
+        background-color:#E2B38F;
+        cursor:pointer;
+        margin:0 0 4px 0;
+      }
+    }
+
+    .main{
+      margin:0 0 10px 40px;
+      .content{
+        @include markdown_content;
+      }
+      .supporters{margin:0 0 10px 0;}
+    }
+
+    .footmisc{
+      @include footmisc;
+      margin:0 0 20px 40px;
+      width:620px;
+      .ops{
+        float:left;
+        padding:5px 0;
+        .edit-vp{
+          @include editlink;
+        }
+      }
+    }
+
+    .comments{
+      margin:0 0 10px 40px;
+      @include feed-show-comments;
+    }
+    .add-comment{
+      margin:0 0 0 40px;
+      @include commentlink;
+    }
+    .comment-form{
+      margin:0 0 0 40px;
+      .inputer{
+        width:500px;
+      }
+      .btns{
+        @include submitbtns;
+      }
+    }
+
+    .viewpoint-edit-form{
+      margin:0 0 10px 40px;
+      .btns{
+        @include submitbtns;
+      }
+      .inputer{
+        width:600px;
+        height:168px;
+        font-size:12px;
+      }
+    }
+  }
+}
+
+.page-show-add-viewpoint{
+  padding:5px;
+    .point-form{
+      .title{
+        font-size:14px;
+        font-weight:bold;
+        margin:0 0 6px 0;
+      }
+      .add-viewpoint-inputer{
+        textarea{
+          width:600px;
+          height:84px;
+          font-size:12px;
+        }
+      }
+      .subm{
+        @include submitbtns;
+      }
+    }
+    .point-added{
+      padding:5px 8px;
+      @include border-radius(4px);
+      display:none;
+    }
+  &.vp-added{
+    .point-form{display:none;}
+    .point-added{display:block;}
+  }
+}
+
+@mixin side-users-list{
+  .user{
+    padding:4px 0;
+    margin:0 0 0 0;
+    overflow:hidden;
+    .avatar{
+      float:left;
+      img{width:20px;height:20px;}
+    }
+    .name{margin-left:30px;line-height:24px;}
+    .delete{
+      float:right;
+      width:12px;height:12px;
+      @include allicon(-240px,-87px);
+      position:relative;
+      top:5px;
+      cursor:pointer;
+      background-color:#BED4E8;
+      @include border-radius(2px);
+      &:hover{background-color:#3173B4;}
+    }
+  }
+}
+
+.page-show-side-invite{
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  .show-page-invite{
+    margin:0 0 5px;
+    .tip{
+      padding:3px;
+    }
+    .ipt{
+      input{width:175px !important;}
+    }
+    .btns{
+      @include submitbtns;
+    }
+  }
+  .show-page-be-invited-users{
+    margin:0 0 20px 0;
+    @include side-users-list;
+  }
+
+  .invite-share{
+    overflow:hidden;
+    margin:0 0 12px 0;
+    .show-page-invite-email{
+      float:left;margin:0 10px 0 0;
+      .send-invite-email{
+        .icon{
+          width:16px;height:16px;
+          float:left;
+          @include allicon(-315px,-100px);
+          margin:0 3px 0 0;
+        }
+      }
+    }
+    .show-page-invite-link-share{
+      float:left;margin:0 10px 0 0;
+      .send-invite-link-share{
+        .icon{
+          width:16px;height:16px;
+          float:left;
+          @include allicon(-332px,-100px);
+          margin:0 0px 0 0;
+        }
+      }
+    }
+  }
+
+  .show-page-share-tsina{
+    margin:0 0 12px;
+    .icon{
+      width:16px;height:16px;
+      float:left;
+      @include allicon(0px,-167px);
+      margin:0 3px 0 0;
+    }
+  }
+
+}
+
+.page-show-who-recommend{
+  margin:0 0 20px 0;
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  @include side-users-list;
+  .user{
+    .invite{float:right;}
+  }
+}
+
+.page-show-side-status{
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  .show-page-memoed-users{
+    margin:0 0 12px;
+    .avatar{margin:0 4px 4px 0;}
+  }
+}
+
+.page-show-related-feeds{
+  padding:5px;
+  .title{
+    font-weight:bold;
+    margin:0 0 10px;
+  }
+  overflow:hidden;
+  .f{
+    padding:5px 0;
+  }
+}
+
+.show-page-feed-share-form,.show-page-feed-link-share-form{
+  width:400px;
+  .field{
+    margin:0 0 6px 0;
+    label{
+      display:block;padding:3px;
+    }
+    input.text.email{width:200px !important;}
+    input.text.title{width:300px !important;}
+    .cont{
+      padding:5px;
+      margin:0 0 6px 0;
+    }
+    .postscript{
+      font-size:12px;
+      height:32px;
+    }
+  }
+  .btns{
+    @include submitbtns;
+  }
+}
+
+.show-page-ops{
+  padding:5px;
+  overflow:hidden;
+  .fav{
+    @include followbtn;
+  }
+  .unfav{
+    @include unfollowbtn;
+  }
+}
+
+.show-page-lock{
+  padding:5px;
+  .unlock{
+    font-size:14px;font-weight:bold;
+  }
+}

@@ -3,6 +3,7 @@ RAILS_ROOT ||= ENV["RAILS_ROOT"]
 namespace :bundle do
   task :all => [ :js, :css ]
 
+  # javascript 打包
   task :js do
     closure_path = RAILS_ROOT + '/lib/closure_compiler.jar'
     paths = get_top_level_directories('/public/javascripts')
@@ -21,27 +22,14 @@ namespace :bundle do
     puts "=> bundled js at #{target}"
   end
 
+  # css 打包
   task :css do
     yuipath = RAILS_ROOT + '/lib/yuicompressor-2.4.2.jar'
     paths = get_top_level_directories('/public/stylesheets')
-    all_files = []
 
-    paths.each do |bundle_directory|
-      bundle_name = bundle_directory.gsub(RAILS_ROOT + '/public/stylesheets/', "")
-      files = recursive_file_list(bundle_directory, ".css")
-      next if files.empty? || ['dev','themes','help'].include?(bundle_name)
+    rawpath = RAILS_ROOT + "/public/stylesheets/all.css"
+    target = RAILS_ROOT + "/public/stylesheets/all_packed.css"
 
-      all_files += files
-    end
-
-    bundle = ''
-    all_files.each do |file_path|
-      bundle << File.read(file_path) << "\n"
-    end
-
-    target = RAILS_ROOT + "/public/stylesheets/bundle_base.css"
-    rawpath = "/tmp/bundle_raw.css"
-    File.open(rawpath, 'w') { |f| f.write(bundle) }
     `java -jar #{yuipath} --line-break 0 #{rawpath} -o #{target}`
 
     puts "=> bundled css at #{target}"

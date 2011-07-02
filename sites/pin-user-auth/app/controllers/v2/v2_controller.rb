@@ -11,7 +11,7 @@ class V2::V2Controller < ApplicationController
   end
 
   def layout_v2
-    render :layout=>'v2/layouts/v2'
+    #render :layout=>'v2/layouts/v2'
   end
 
 end

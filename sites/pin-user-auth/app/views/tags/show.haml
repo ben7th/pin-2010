@@ -5,6 +5,7 @@
 
 -content_for :javascripts do
   = javascript_include_tag "views/tag_show_operation"
+  = javascript_include_tag "views/feed_operation"
 
 =render 'auth/no_auth/welcome_to_signup'
 
@@ -22,15 +23,22 @@
       %a.unfav{:href=>'javascript:;',:style=>faved ? '':'display:none;'}> 　取消关注　
 
 .hrr
-.grid_18.alpha
+.main.grid_18
   .tag-page-feeds
     .newsfeed
-      =render 'feeds/lists/feeds_stat',:feeds=>@feeds
+      .list.feeds
+        .feed
+          .tag-page-logo{:style=>'background:#E2EDFA;margin:0 0 10px 0;'}
+            =logo @tag,:medium
+
+        -@feeds.each do |feed|
+          =render :partial=>'feeds/infos/feed_info',:locals=>{:feed=>feed}
+
     .padding5
       =will_paginate @feeds
 
 
-.grid_5.omega.fright
+.mside.grid_6
   .tag-related-feed-count
     .count
       =# 只显示非隐藏的

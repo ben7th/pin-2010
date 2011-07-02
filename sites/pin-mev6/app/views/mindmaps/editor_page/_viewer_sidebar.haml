@@ -4,12 +4,11 @@
 
 -page_url = pin_url_for('pin-mindmap-editor',"/mindmaps/#{@mindmap.id}")
 -page_title = "MindPin思维导图：#{@mindmap.title}"
+-newest_pic_url = pin_url_for('pin-user-auth',"/mindmaps/#{@mindmap.id}/newest.png")
 
 .share.padding5
-  -if current_user && current_user.tsina_connect_user
-    =link_to_remote '分享到新浪微博',:url=>share_mindmap_path(@mindmap,:site=>ConnectUser::TSINA_CONNECT_TYPE),:method=>:post,:html=>{:class=>'share_to tsina'}
-  -else
-    =link_to '分享到新浪微博',"http://www.jiathis.com/send/?webid=tsina&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to tsina'
+  -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
+  =link_to '分享到新浪微博',"javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:target=>'_blank',:class=>'share_to tsina',:tip=>'分享到新浪微博'
   =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren'
   =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban'
 

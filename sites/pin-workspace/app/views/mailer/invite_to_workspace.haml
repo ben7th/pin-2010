@@ -1,5 +1,0 @@
-%div
-  来自#{@workspace.user.name}的空间的邀请信件
-  =@message
-  -join_link = File.join(pin_url_for("pin-workspace"),"workspaces/#{@workspace.id}/memberships/join?code=#{@membership.uuid_code}")
-  =link_to join_link,join_link

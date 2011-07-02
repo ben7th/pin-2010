@@ -272,7 +272,6 @@ ActionController::Routing::Routes.draw do |map|
       :do_clone=>:put,
       :do_private=>:put,
       :info=>:get,
-      :share=>:post,
       :fav=>:post,
       :unfav=>:delete,
       :comments=>:post,

@@ -1,2 +1,3 @@
--mplist newsfeeds,:for=>Feed do |feed|
-  =render :partial=>'feeds/infos/feed_info',:locals=>{:feed=>feed}
+.list.feeds
+  -feeds.each do |feed|
+    =render :partial=>'feeds/infos/feed_info',:locals=>{:feed=>feed}

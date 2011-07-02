@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include ApplicationMethods
   helper :all
 
   protect_from_forgery
@@ -18,12 +19,5 @@ class ApplicationController < ActionController::Base
     else
       return render_status_page(503,tsina_error.message)
     end
-  end
-
-  def to_logged_in_page
-    if current_user && current_user.need_change_name?
-      return redirect_to "/account/change_name"
-    end
-    redirect_back_or_default(root_url)
   end
 end

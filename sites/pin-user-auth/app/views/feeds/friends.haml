@@ -1,5 +1,3 @@
--require_css 'views/users',true
-
 -content_for :title do
   我的首页
 
@@ -7,11 +5,20 @@
   = javascript_include_tag "views/feed_operation"
 
 .main.grid_18
-  .feeds
-    .newsfeed
-      =render 'feeds/lists/feeds_stat',:feeds=>@feeds
-    .paginate.padding5
-      = will_paginate @feeds
+  =#render 'index/index_parts/getting_started'
+  =render 'index/index_parts/new_feature_tips'
+
+  .newsfeed
+    = render 'feeds/lists/feeds'
+
+  .paginate.padding5
+    = will_paginate @feeds
 
 .mside.grid_6
+  .page-side-user-info
+    .avatar
+      =avatar current_user,:mini
+    .name
+      =usersign current_user,false
+  .hrr
   =show_sub_menu

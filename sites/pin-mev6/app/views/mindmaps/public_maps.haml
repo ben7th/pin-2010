@@ -1,0 +1,16 @@
+-content_for :title do
+  大家的思维导图
+
+.main.grid_18
+  =render "mindmaps/homepage/mindmaps_others",:mindmaps=>@mindmaps
+
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps
+
+.mside.grid_6
+  .page-side-user-info
+    .avatar
+      =avatar current_user,:mini
+    .name
+      =usersign current_user,false
+  =show_sub_menu

@@ -1,0 +1,20 @@
+-content_for :title do
+  思维导图首页
+
+.main.grid_18
+  =render 'mindmaps/homepage/manage_bar'
+
+  =render 'mindmaps/homepage/mindmaps_management',:mindmaps=>@mindmaps
+
+  .mindmap-paginate
+    = will_paginate @mindmaps
+
+.mside.grid_6
+  .page-side-user-info
+    .avatar
+      =avatar current_user,:mini
+    .name
+      =usersign current_user,false
+  =show_sub_menu
+
+  =render 'mindmaps/homepage/stats',:user=>@user

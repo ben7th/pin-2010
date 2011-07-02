@@ -1,16 +1,18 @@
 class XmindParser < MapFileParser
 
   # 导入
-  def self.import(mindmap,file_from_params)
-    xmind_xml = get_content_xml(file_from_params)
+  def self.import(mindmap,file_form_param)
+    mindmap.struct = self.struct_of_import(file_form_param)
+    mindmap.save
+  end
+
+  def self.struct_of_import(file_form_param)
+    xmind_xml = get_content_xml(file_form_param)
     # 将这个声明清空，否则无法转换
     xmind_xml.gsub!("urn:xmind:xmap:xmlns:content:2.0","")
     # 将content.xml 用xslt 转成 mindmap 的struct
     struct = xslt_transform_form_xml(xmind_xml,MapFileParser.xslt_file_path("xmind_import.xslt"))
-    struct = process_note_id_to_randstr(struct)
-    
-    mindmap.struct = struct
-    mindmap.save
+    process_note_id_to_randstr(struct)
   end
 
   # 得到xmind文件中的content.xml

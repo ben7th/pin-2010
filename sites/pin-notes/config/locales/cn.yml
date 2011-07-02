@@ -1,5 +1,0 @@
-cn:
-  activerecord:
-    attributes:
-      comment:
-        content: 增加评论

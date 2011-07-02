@@ -15,7 +15,8 @@ module ProjectLinkModule
       "pin-macro"               =>  "http://macro.mindpin.com/",
       "pin-website"             =>  "http://website.mindpin.com/",
       "pin-notes"               =>  "http://notes.mindpin.com/",
-      "pin-mev6"               =>  "http://mev6.mindpin.com/"
+      "pin-mev6"               =>  "http://mev6.mindpin.com/",
+      "pin-daotu"               =>  "http://www.mindtu.com/"
     },
     "development"=>{
       "user_auth"               =>  "http://dev.www.mindpin.com/",
@@ -32,7 +33,8 @@ module ProjectLinkModule
       "pin-macro"               =>  "http://dev.macro.mindpin.com/",
       "pin-website"             =>  "http://dev.website.mindpin.com/",
       "pin-notes"               =>  "http://dev.notes.mindpin.com/",
-      "pin-mev6"               =>  "http://dev.mev6.mindpin.com/"
+      "pin-mev6"               =>  "http://dev.mev6.mindpin.com/",
+      "pin-daotu"               =>  "http://dev.www.mindtu.com/"
     },
     "test"=>{
       "user_auth"=>"http://dev.2010.mindpin.com/",

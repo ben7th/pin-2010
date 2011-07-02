@@ -1,0 +1,33 @@
+.stat
+  .chart
+    =open_flash_chart_object('100%',130, pin_url_for("pin-user-auth","users/#{user.id}/mindmaps/pie_links"))
+
+%div
+  %dl
+    %dt 最常用关键词
+    %dd
+      -Mindmap.major_words_of_user(user,10).each do |word|
+        =link_to word,search_path(:q=>word)
+
+    %dt 导图平均节点数
+    %dd=Mindmap.average_node_count_of_user(user)
+
+    %dt 导图平均RANK值
+    %dd=Mindmap.average_rank_of_user(user)
+
+    %dt 0分导图数目
+    %dd=Mindmap.of_user_id(user.id).is_zero_weight?(true).count
+
+    %dt 与他人共同编辑的导图数目
+    %dd=Mindmap.cooperate_edit_of_user(user).count
+
+    %dt 与他人共同查看的导图数目
+    %dd=Mindmap.cooperate_view_of_user(user).count
+
+    %dt 私有导图数目
+    %dd=Mindmap.of_user_id(user.id).privacy.count
+
+
+%div 可能与你最相关的导图
+-Mindmap.similar_mindmaps_of_user(user,10).each do |mindmap|
+  %div=link_to mindmap.title,mindmap_path(mindmap),:target=>'_blank'

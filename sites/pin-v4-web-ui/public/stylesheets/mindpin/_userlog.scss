@@ -1,0 +1,32 @@
+.index-userlogs{
+  margin:0 0 20px 0;
+  .log{
+    padding:5px 5px 30px 5px;
+    margin:0 0 10px 0;
+    .overflow:hidden;
+    .avatar{float:left;}
+    .ct{
+      font-size:14px;
+      margin-left:40px;
+      margin-bottom:6px;
+      a.bold{font-weight:normal !important;}
+    }
+    .footmisc{
+      margin-left:40px;
+      overflow:hidden;
+      .time{
+        float:left;
+        margin:0 40px 0 0;
+      }
+      .viewpoint{
+        @include viewpoint-in-list;
+        float:left;
+        .data{
+          max-width:400px;
+          min-width:80px;
+          p{margin:0;}
+        }
+      }
+    }
+  }
+}

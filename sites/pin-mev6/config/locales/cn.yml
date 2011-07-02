@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    attributes:
+      mindmap:
+        title: 标题
+        logo: 导图图示（可选）
+        description: 描述

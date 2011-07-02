@@ -11,14 +11,19 @@
         =sub_menu_li '<div class="icon"></div>思维导图','/mindmaps',:class=>'mindmaps'
 
     -when 'feeds'
-      %h1 主题浏览
       %ul.feeds
         =sub_menu_li '好友的','/feeds/friends' if logged_in?
+        .hrr
         =sub_menu_li '所有人的','/feeds/newest'
+        .hrr
         =sub_menu_li '推荐给我的','/feeds/recommend' if logged_in?
+        .hrr
         =sub_menu_li '参与过的','/feeds/joined' if logged_in?
+        .hrr
         =sub_menu_li '我关注的','/feeds/favs' if logged_in?
+        .hrr
         =sub_menu_li '被隐藏的','/feeds/hidden' if logged_in?
+        .hrr
         =sub_menu_li '零回复的','/feeds/no_reply'
     -when 'user_logs'
       %h1 大家的活动

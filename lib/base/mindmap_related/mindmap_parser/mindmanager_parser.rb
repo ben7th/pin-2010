@@ -2,7 +2,12 @@ class MindmanagerParser < MapFileParser
 
   # 导入mindmanager格式的导图文件
   def self.import(mindmap,file_form_param)
-    
+    mindmap.struct = self.struct_of_import(file_form_param)
+    mindmap.save
+  end
+
+  def self.struct_of_import(file_form_param)
+   
     unzip_dir = "#{Dir::tmpdir}/mindmap_uploadtemp/#{UUIDTools::UUID.random_create.to_s}"
 
     path="#{Dir::tmpdir}/#{UUIDTools::UUID.random_create.to_s}"
@@ -21,12 +26,11 @@ class MindmanagerParser < MapFileParser
     end
     struct = xslt_transform("#{unzip_dir}/Document.xml",MapFileParser.xslt_file_path("mindmanager_to_mindpin.xslt"))
     struct = process_note_id_to_randstr(struct)
-    mindmap.struct = struct
 
     File.delete(path)
     FileUtils.rmtree(unzip_dir)
 
-    mindmap.save
+    struct
   end
 
   # 导出mindmanager格式的导图文件

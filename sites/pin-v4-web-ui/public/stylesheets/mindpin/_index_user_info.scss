@@ -1,0 +1,139 @@
+/*首页的用户信息*/
+.index-user-info{
+  margin:0 0 25px 0;
+  .base{
+    overflow:hidden;
+    margin:0 0 20px 0;
+    @include border-radius(5px 5px);
+    .avatar{
+      padding:5px;
+      font-size:0;
+      line-height:0;
+    }
+    .name{
+      font-size:14px;
+      font-weight:bold;
+      padding:5px;
+      overflow:hidden;
+      text-align:center;
+      a{
+        float:left;width:100px;overflow:hidden;
+        color:black;
+      }
+    }
+  }
+
+  .base-no-avatar{
+    margin:0 0 20px 0;
+    overflow:hidden;
+    background:#FFFADA;
+    @include border-radius(5px);
+    padding:5px;
+    .desc .tan{
+      color:white;
+      background:#FB4A00;
+      @include border-radius(6px);
+      padding:0 4px;
+      font-weight:bold;
+      margin:0 3px 0 0;
+    }
+  }
+
+  .scount{
+    margin:0 0 20px 0;
+    overflow:hidden;
+    padding:5px;
+    .num{
+      overflow:hidden;
+      float:left;
+      margin:0 3px 6px 0;
+      a{
+        display:block;
+        font-weight:bold;
+        @include border-radius(10px);
+        padding:0 6px;
+        height:14px;
+        line-height:14px;
+      }
+    }
+    .text{
+      @include border-radius(5px 5px 0 0);
+      margin:0 0 6px 0;
+      float:left;
+      overflow:hidden;
+      a{
+        display:block;
+        font-weight:bold;
+        @include border-radius(10px);
+        height:14px;
+        line-height:14px;
+      }
+    }
+    .meta{
+      clear:both;
+      @include border-radius(5px 5px 5px 5px);
+      overflow:hidden;
+      @include chs-ch;
+      .icons{
+        img{width:24px;height:24px;}
+      }
+    }
+  }
+  .follows{
+    padding:5px;
+    .count{
+      margin:0 0 5px 0;
+    }
+  }
+  .avatars a{
+    text-decoration:none;
+    img.mini{
+      height:24px;
+      width:24px;
+    }
+  }
+}
+
+.index-no-feeds{
+  padding:5px;
+  @include border-radius(4px);
+  font-size:14px;
+  margin: 0 0 10px 0;
+}
+
+.index-newbie-welcome{
+  padding:5px;
+  @include border-radius(4px);
+  font-size:14px;
+  .title{
+    font-weight:bold;
+    font-size:14px;
+    margin:0 0 12px 0;
+  }
+  .feeds-for-newbie{
+    margin:0 0 20px 0;
+    .feed{
+      overflow:hidden;
+      padding:0 0 5px 0;
+      margin:0 0 5px 0;
+      .vcount{
+        float:left;
+        background-color:#686B72;
+        @include border-radius(4px);
+        color:white;
+        width:20px;
+        text-align:center;
+        font-weight:bold;
+        @include tfont;
+      }
+      .t{
+        margin-left:30px;
+      }
+    }
+  }
+  .users{
+    margin:0 0 20px 0;
+    overflow:hidden;
+    .avatar{margin:0 4px 4px 0;}
+  }
+}

@@ -33,15 +33,9 @@ class UiService
   
   class << self
     def css_files
-      ['base'].map{|x| css_path(x)}
-    end
-
-    def css_path(bundle_name)
-      File.join site,"stylesheets/bundle_#{bundle_name}.css?#{env_asset_id}"
-    end
-
-    def theme_css_file(theme_name)
-      File.join site,"stylesheets/themes/#{theme_name}/theme.css?#{env_asset_id}"
+      [
+        File.join site,"stylesheets/all.css?#{env_asset_id}"
+      ]
     end
   end
 
@@ -49,7 +43,7 @@ class UiService
     def js_lib_files
       [
         File.join(site,"javascripts/dev/prototype/protoaculous.1.8.3.min.js?#{env_asset_id}"),
-        File.join(site,"javascripts/dev/jquery/jquery-1.4.2.min.noconflict.js?#{env_asset_id}")
+        File.join(site,"javascripts/dev/jquery/jquery-1.6.1.min.noconflict.js?#{env_asset_id}")
       ]
     end
 

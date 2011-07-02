@@ -1,8 +1,0 @@
-<% introduction.paragraphs.each_with_index do |parag,index| %>
-  <div style="padding-bottom:30px;">
-    <%= parag.markdown_to_html %>
-    <%if logged_in?%>
-      <%= link_to "编辑本段",polymorphic_path([:edit,introduction.introductable,introduction],:section=>index) %>
-    <%end%>
-  </div>
-<% end %>

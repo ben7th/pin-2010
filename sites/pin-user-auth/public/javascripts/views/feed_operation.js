@@ -514,21 +514,39 @@ pie.load(function(){
   var top_l = 0;
   var top_r = 0;
 
-  jQuery('.newsfeed ul.feeds li.feed').each(function(){
+//  jQuery('.newsfeed .list.feeds .feed').each(function(){
+//    var feed_elm = jQuery(this);
+//    feed_elm.css('position','absolute');
+//    if(top_l <= top_r){
+//      //排布在左边
+//      feed_elm.css('top',top_l);
+//      feed_elm.css('left',0);
+//      top_l += (feed_elm.height());
+//    }else{
+//      //排布在右边
+//      feed_elm.css('top',top_r);
+//      feed_elm.css('left',355);
+//      top_r += (feed_elm.height());
+//    }
+//  })
+//
+//  jQuery('.newsfeed .list.feeds').css('height',[top_l,top_r].max()).append('<div class="clearfix"></div>');
+
+    jQuery('.newsfeed .list.feeds').append('<div class="listl"></div><div class="listr"></div>');
+
+  jQuery('.newsfeed .list.feeds .feed').each(function(){
     var feed_elm = jQuery(this);
-    feed_elm.css('position','absolute');
+    var listl = jQuery('.newsfeed .list.feeds .listl');
+    var listr = jQuery('.newsfeed .list.feeds .listr');
+
     if(top_l <= top_r){
       //排布在左边
-      feed_elm.css('top',top_l);
-      feed_elm.css('left',0);
+      listl.append(feed_elm);
       top_l += (feed_elm.height());
     }else{
       //排布在右边
-      feed_elm.css('top',top_r);
-      feed_elm.css('left',355);
+      listr.append(feed_elm);
       top_r += (feed_elm.height());
     }
   })
-
-  jQuery('.newsfeed ul.feeds').css('height',[top_l,top_r].max()).append('<div class="clearfix"></div>');
 })

@@ -1,0 +1,100 @@
+.mside{
+  h5{
+    font-size:12px;
+    font-weight:normal;
+    color:#666;
+  }
+
+  .page-side-user-info{
+    padding:10px 10px 0;
+    margin-bottom:10px;
+    overflow:hidden;
+    .avatar{
+      float:left;
+      margin-right:10px;
+      img{width:20px;height:20px;}
+    }
+    .name{
+      height:20px;
+      line-height:20px;
+      float:left;
+      font-size:14px;
+    }
+  }
+
+  .page-submenu{
+    overflow:hidden;
+    margin-bottom:10px;
+    ul{
+      padding-top:2px;
+      overflow:hidden;
+      li{
+        padding:0 7px;
+        margin:0 3px;
+        a{
+          display:block;
+          font-size:14px;
+          height:22px;
+          line-height:22px;
+          padding:3px 0;
+          color:#666;
+          overflow:hidden;
+          &:hover{
+            color:black;
+          }
+          span{
+            float:left;
+            padding-left:30px;
+          }
+        }
+        &.i-am-here{
+          position:relative;
+          top:-2px;
+          hr.split{display:none;}
+
+          @include gradient(#888,#444);
+          @include border-radius(5px);
+          border:solid 1px #444444;
+
+          a{
+            color:white;
+            text-decoration:none;
+            height:22px;
+            line-height:22px;
+            background-image:url(/images/sites.png);
+            background-position:0px -106px;
+            background-repeat:no-repeat;
+            span{
+              float:left;
+              padding-left:29px;
+            }
+          }
+        }
+
+
+        &.with-count{
+          a{
+            span{
+              margin-right:3px;
+            }
+            .count{
+              float:left;
+              @include gradient(#FF3D00,#D3293D);
+              color:white;
+              font-weight:bold;
+              font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+              @include border-radius(4px);
+              padding:0 4px;
+              height:15px;
+              line-height:15px;
+
+              position:relative;
+              top:3px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

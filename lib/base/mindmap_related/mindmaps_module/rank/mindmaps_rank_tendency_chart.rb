@@ -51,7 +51,7 @@ class MindmapsRankTendencyChart
 
   # 判断某个mindmap的rank值所在的值区间
   def hash_key_of(mindmap)
-    rank_value = mindmap.rank.to_f
+    rank_value = mindmap.rank
     case rank_value
     when 0 then return "0"
     when 0.1..1 then return "0~1"

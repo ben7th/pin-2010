@@ -1,6 +1,0 @@
--require_css 'notes'
-
-.notes-list
-  -current_user.notes.each do |note|
-    .note{:class=>note.private? ? 'private':''}
-      =link_to "#{note.nid}号资料","/notes/#{note.nid}"

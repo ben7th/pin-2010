@@ -9,5 +9,5 @@
       .desc=feed_detail_short(feed)
 
     .link
-      %a.close{:href=>'javascript:;'} <span>×</span> 隐藏功能更新通知
-      %a.show-more{:href=>'/tags/系统:功能更新'} 查看全部 <span class='count'>#{count}</span> 条功能更新
+      =minibutton '我知道了','javascript:;',:class=>'close blue'
+      =minibutton '查看全部','/tags/系统:功能更新',:class=>'show-more gray'

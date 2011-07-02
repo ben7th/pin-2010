@@ -1,0 +1,96 @@
+.user-page-top-info{
+  overflow:hidden;
+  .base-info{
+    padding:5px;
+    margin:0 0 10px 0;
+    .name{font-size:18px;font-weight:bold;margin:0 0 6px 0;}
+  }
+  .user-page-ops{
+    padding:5px;
+    .follow{
+      @include followbtn;
+    }
+    .unfollow{
+      @include unfollowbtn;
+    }
+  }
+
+  .tabs{
+    padding:5px;
+    .tab{
+      @include border-radius(4px);
+      padding:6px 12px;
+      font-weight:bold;
+      margin:0 40px 0 0;
+      color:#333333;
+      position:relative;
+      &:hover{color:#333;text-decoration:none;}
+      &.selected{
+        background:#686B72;
+        color:#fff;
+        &:hover{color:#fff;}
+      }
+
+      .t{display:inline;font-size:14px;}
+      .count{
+        position:absolute;
+        @include border-radius(3px);
+        background:#FFFADA;
+        color:black;
+        top:-8px;
+        left:47px;
+        padding:3px 6px;
+        @include tfont;
+        font-size:12px;line-height:12px;
+        font-weight:bold;
+      }
+    }
+  }
+}
+
+.user-page-followings,.user-page-fans{
+  padding:5px;
+  margin:0 0 20px 0;
+  .title{
+    margin:0 0 10px 0;font-weight:bold;
+  }
+  .avatars{
+    @include miniavatar;
+  }
+}
+
+.user-page-recent-top-viewpoints{
+  padding:5px;
+  padding:5px;
+  margin:0 0 20px 0;
+  .title{
+    margin:0 0 10px 0;font-weight:bold;
+  }
+  .viewpoints{
+    .viewpoint{
+      margin:0 0 10px 0;
+      .vote-score{
+        font-size:18px;
+        line-height:30px;
+        width:30px;
+        height:30px;
+        font-weight:bold;
+        @include border-radius(4px);
+        background:#53BCFE;
+        color:white;
+        @include tfont;
+        float:left;
+        text-align:center;
+        cursor:default;
+      }
+      .feed-ct,.vp-ct{
+        margin:0 0 0 40px;
+        .memo-content{
+          word-wrap:break-word;
+          word-break:break-all;
+          overflow:hidden;
+        }
+      }
+    }
+  }
+}

@@ -40,8 +40,45 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   #  map.connect ':controller/:action/:id'
   #  map.connect ':controller/:action/:id.:format'
-  map.resources :mindmaps,:member=>{:share=>:post,:export=>:get,:fav=>:post,:unfav=>:delete} do |mindmap|
 
+
+  map.root :controller => "index"
+
+  #################### 用户登录
+  map.login '/login',:controller=>'sessions',:action=>'new'
+  map.logout '/logout',:controller=>'sessions',:action=>'destroy'
+  map.resource :session
+
+  ################### 用户设置
+  # 基本信息
+  map.user_base_info "/account",:controller=>"account",:action=>"base",:conditions=>{:method=>:get}
+  map.user_base_info_submit "/account",:controller=>"account",:action=>"base_submit",:conditions=>{:method=>:put}
+  # 头像设置
+  map.user_avatared_info "/account/avatared",:controller=>"account",:action=>"avatared",:conditions=>{:method=>:get}
+  map.user_avatared_info_submit "/account/avatared",:controller=>"account",:action=>"avatared_submit",:conditions=>{:method=>:put}
+
+
+  map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
+  map.user_mindmaps "/mindmaps/users/:user_id",:controller=>"mindmaps",:action=>"user_mindmaps"
+
+  map.resources :mindmaps,:collection=>{
+    :import_file=>:post,
+    :aj_words=>:get,
+    :cooperates=>:get,
+    :search=>:get,
+    :import=>:get
+  },:member=>{
+    :export=>:get,
+    :change_title=>:put,
+    :clone_form=>:get,
+    :do_clone=>:put,
+    :do_private=>:put,
+    :info=>:get,
+    :fav=>:post,
+    :unfav=>:delete,
+    :comments=>:post,
+    :newest=>:get
+  } do |mindmap|
     mindmap.files                   "files",:controller=>"files",:action=>"index",:conditions=>{:method=>:get}
     mindmap.search_image            "files/search_image",:controller=>"files",:action=>"search_image",:conditions=>{:method=>:get}
     mindmap.show_image_editor       "files/i_editor",:controller=>'files',:action=>'show_image_editor',:conditions=>{:method=>:get}
@@ -56,4 +93,6 @@ ActionController::Routing::Routes.draw do |map|
     mindmap.delete_upload_file      "files/*path",:controller=>"files",:action=>"destroy",:conditions=>{:method=>:delete}
     mindmap.resources :comments,:controller=>"comments"
   end
+
+  map.resources :users
 end

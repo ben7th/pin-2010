@@ -1,8 +1,0 @@
--title = (browse_history.title.blank? ? browse_history.url : browse_history.title)
--web_site = browse_history.web_site
--if web_site && web_site.domain
-  %img{:src=>"#{web_site.logo.url}"}
-  =link_to title,browse_history.url,:target=>"_blank"
-  =link_to '<span>发送</span>','javascript:void(0)',:class=>'minibutton send_url'
--else
-  "历史记录保存时出现异常"

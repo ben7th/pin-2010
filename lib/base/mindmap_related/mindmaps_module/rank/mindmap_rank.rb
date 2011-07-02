@@ -45,7 +45,11 @@ class MindmapRank
 
   # 计算rank值
   def rank_value
-    format('%.1f',(Math.log(@mindmap.weight+1)/Math.log(MindmapRank.map_max_weight+1))*10).to_f
+    self.class.rank_value(@mindmap.weight)
+  end
+
+  def self.rank_value(weight)
+    format('%.1f',(Math.log(weight+1)/Math.log(MindmapRank.map_max_weight+1))*10).to_f
   end
 
   # 获取 map_max_weight

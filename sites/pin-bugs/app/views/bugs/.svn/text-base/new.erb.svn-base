@@ -1,2 +1,0 @@
-<%= render :partial=>"/bugs/form_bug",:locals=>{:bug=>@bug} %>
-<a href="#" onclick="window.close();return false;">关闭该窗口</a>

@@ -11,6 +11,22 @@ class SessionsController < ApplicationController
     render :template=>'auth/login'
   end
 
+  def create
+    _login
+  end
+
+  def _login
+    self.current_user=User.authenticate(params[:email],params[:password])
+    if logged_in?
+      after_logged_in()
+      return to_logged_in_page
+    else
+      flash[:error]="邮箱/密码不正确"
+      redirect_to login_url
+    end
+  end
+
+
   def new_ajax
     if request.xhr?
       session[:return_to] = params[:return_url] if params[:return_url]
@@ -52,21 +68,6 @@ class SessionsController < ApplicationController
     end
   end
   
-  def create
-    _login
-  end
-
-  def _login
-    self.current_user=User.authenticate(params[:email],params[:password])
-    if logged_in?
-      after_logged_in()
-      return to_logged_in_page
-    else
-      flash[:error]="邮箱/密码不正确"
-      redirect_to login_url
-    end
-  end
-
   def destroy
     user=current_user
     if user
