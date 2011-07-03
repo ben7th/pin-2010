@@ -33,10 +33,8 @@ pie.mindmap.BasicMapPaper = Class.create({
       el:$(this.paper.el.parentNode)
     };
 
-    this.loader.mindmap = this;
-
     //logger
-    this.log=function(str){};
+    this.log = pie.log;
 
     //params
     this.pausePeriod=500; //毫秒
@@ -73,9 +71,60 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.nodes = new Hash();
 
     this.after_load       = options.after_load;
+
+    this.bind_mindmap_live_event();
   },
+
+  bind_mindmap_live_event:function(){
+    var canvas_id = '#mindmap-canvas'
+
+    //鼠标滑过节点
+    jQuery(canvas_id + ' .mindmap-container .root')
+      .live('mouseenter',function(){
+        jQuery(this).addClass('root_over');
+      })
+      .live('mouseleave',function(){
+        jQuery(this).removeClass('root_over');
+      });
+      
+    jQuery(canvas_id + ' .mindmap-container .node')
+      .live('mouseenter',function(){
+        jQuery(this).addClass('node_over');
+      })
+      .live('mouseleave',function(){
+        jQuery(this).removeClass('node_over');
+      });
+
+    //节点折叠锚点
+    jQuery(canvas_id + ' .foldhandler_minus, '+canvas_id + ' .foldhandler_plus')
+      .live('mouseenter',function(){
+        jQuery(this).addClass('foldhandler_over');
+      })
+      .live('mouseleave',function(){
+        jQuery(this).removeClass('foldhandler_over').removeClass('foldhandler_down');
+      })
+      .live("click",function(){
+        var node_id = jQuery(this).prev().attr('id');
+        var node = mindmap.nodes.get(node_id);
+        node.toggle();
+      });
+  },
+
   load:function(){
-    this.loader.load();
+
+    jQuery.ajax({
+      url : this.data_url,
+      type : 'GET',
+      dataType : 'json',
+      success : function(data){
+        this.root = new pie.mindmap.Node(data,this);
+        this._load();
+      }.bind(this),
+      error : function(){
+        jQuery.facebox('思维导图数据异常，载入失败。');
+      }
+    })
+
     return this;
   },
   _load:function(){
@@ -85,14 +134,15 @@ pie.mindmap.BasicMapPaper = Class.create({
     var root     = this.root;
 
     //生成HTML并缓存节点宽高
-    paper.el.update(this._getEl());
+    var paper_elm = jQuery(paper.el);
+
+    paper_elm.html(this._getEl());
     root._cacheDimensions();
 
     //初始化，计算坐标
     //获取paper的宽高，并折半
-    var dim    = paper.el.getDimensions();
-    paper.xoff = dim.width/2;
-    paper.yoff = dim.height/2;
+    paper.xoff = paper_elm.width() / 2;
+    paper.yoff = paper_elm.height() / 2;
     
     //定位编辑区
     this.recenter();
@@ -100,8 +150,10 @@ pie.mindmap.BasicMapPaper = Class.create({
     //定位根结点
     root.posX = (0 - root.width)/2 + paper.xoff;
     root.posY = (0 - root.height)/2 + paper.yoff;
-    root.container.el.style.left = root.posX+"px";
-    root.container.el.style.top = root.posY+"px";
+    
+    jQuery(root.container.el)
+      .css('left',root.posX)
+      .css('top',root.posY);
 
     this.reRank();
 
@@ -154,7 +206,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     this.setRootCoord(this.root);
     var end = new Date();
-    this.log("排列.." + (end - start) + "ms");
+    pie.log("排列.." + (end - start) + "ms");
 
     //2.为每个sub节点准备canvas画布
     start = new Date();

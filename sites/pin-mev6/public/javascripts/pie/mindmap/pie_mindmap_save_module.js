@@ -117,8 +117,6 @@ pie.mindmap_save_module = {
   },
 
   __on_mindmap_not_save:function(){
-    //var map = pie.MindmapPageLoader.reload_map();
-    //先不自动重新载入啦
     new pie.mindmap.InfoLabel(this).error('导图数据保存失败').pulsate();
 
     //第二步 白板遮盖锁定

@@ -31,9 +31,50 @@
   }
 }
 
+.page-mindmaps-manage-bar{
+  background:#888;
+  border:solid 2px #ccc;
+  @include border-radius(8px);
+  padding:10px;
+  margin-bottom:10px;
+  overflow:hidden;
+  .avatar{
+    float:left;
+    margin-right:10px;
+  }
+  .data{
+    float:left;
+    width:140px;
+    color:white;
+    a{color:white;&:hover{color:white;}}
+    .name{font-size:14px;}
+  }
+  .ops{
+    float:right;
+    .op{
+      float:left;
+      margin-left:10px;
+      @include border-radius(5px);
+      @include gradient(#fff,#f1f1f1);
+      border-right:solid 1px #777;
+      border-bottom:solid 1px #777;
+      .new{
+        width:48px;height:48px;
+        line-height:22em;
+      }
+      .create{
+        background:url(/images/alltu.png) -35px -1px no-repeat;
+      }
+      .import{
+        background:url(/images/alltu.png) -84px -1px no-repeat;
+      }
+    }
+  }
+}
+
 .page-user-mindmaps{
   overflow:hidden;
-  width:720px;
+  width:0px;
 
   .listl, .listm, .listr{
     float:left;
@@ -47,17 +88,9 @@
   }
 
   .mindmap{
-    @include border-radius(8px);
-    background:white;
-    border:2px solid #E5E5E5;
-    padding:10px;
-    margin:0 0 10px 0;
-  }
-
-  .mindmap-m{
     margin-right:10px;
     float:left;
-    width:230px;
+    width:350px;
 
     .m{
       @include border-radius(8px);
@@ -90,27 +123,36 @@
       }
 
       .foot-misc{
-        .time{
-          margin:0 0 6px 0;
-        }
         .ops{
-          .toggle{
-            position:relative;
-            margin-left:18px;
-            .icon{
-              width:16px;height:16px;
-              position:absolute;
-              left:-18px;
-            }
-            &.public{
-              .icon{@include allicon(-34px,-100px);}
-              .p1{font-weight:bold;}
-            }
-            &.private{
-              .icon{@include allicon(-17px,-100px);}
-              .p2{font-weight:bold;}
-            }
+          position: absolute;
+          bottom:-24px;
+          right:99px;
+          height:20px;
+          line-height:20px;
+          background-color:#eee;
+          padding:0 3px;
+          @include border-radius(3px);
+          overflow:hidden;
+          a{
+            float:left;
+            margin-left:4px;
+            color:#666;
+            &:hover{color:#666;};
           }
+        }
+        .rank{
+          position: absolute;
+          bottom:-24px;
+          right:65px;
+          height:20px;
+          line-height:20px;
+          width:30px;
+          background-color:#53BCFE;
+          @include border-radius(3px);
+          @include tfont;
+          color:white;
+          font-weight:bold;
+          text-align:center;
         }
         .creator{
           border: 3px solid #F1F1F1;
@@ -336,7 +378,7 @@
 
   .ranks{
     padding:0 10px;
-    margin-bottom:10px;
+    margin:10px 0;
     .chart{
       margin:0 0 10px 22px;
       height:31px;
@@ -367,23 +409,10 @@
         &:hover{
           text-decoration:none !important;
           color:white;
+          background-color:#717A80;
         }
       }
     }
-  }
-}
-
-.page-mindmaps-manage-bar{
-  background:white;
-  border:solid 2px #E5E5E5;
-  @include border-radius(8px);
-  height:40px;
-  padding:10px;
-  margin-bottom:10px;
-  .new{
-    width:32px;height:32px;
-    font-size:18px;
-    margin-right:10px;
   }
 }
 

@@ -25,17 +25,20 @@
   .page-submenu{
     overflow:hidden;
     margin-bottom:10px;
+    background-color:#f7f7f7;
+    @include border-radius(5px);
     ul{
       padding-top:2px;
       overflow:hidden;
+      margin-top:3px;
       li{
         padding:0 7px;
         margin:0 3px;
         a{
           display:block;
           font-size:14px;
-          height:22px;
-          line-height:22px;
+          height:26px;
+          line-height:26px;
           padding:3px 0;
           color:#666;
           overflow:hidden;
@@ -47,6 +50,7 @@
             padding-left:30px;
           }
         }
+        
         &.i-am-here{
           position:relative;
           top:-2px;
@@ -55,6 +59,94 @@
           @include gradient(#888,#444);
           @include border-radius(5px);
           border:solid 1px #444444;
+
+          a{
+            color:white;
+            text-decoration:none;
+            background-image:url(/images/sites.png);
+            background-position:0px -104px;
+            background-repeat:no-repeat;
+            span{
+              float:left;
+              padding-left:29px;
+            }
+          }
+        }
+
+        &.with-count{
+          a{
+            span{
+              margin-right:3px;
+            }
+            .count{
+              float:left;
+              @include gradient(#FF3D00,#D3293D);
+              color:white;
+              font-weight:bold;
+              font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+              @include border-radius(4px);
+              padding:0 4px;
+              height:15px;
+              line-height:15px;
+
+              position:relative;
+              top:3px;
+            }
+          }
+        }
+        
+        &.s{
+          padding:0 7px;
+          &.last{
+            margin-bottom:5px;
+          }
+          a{
+            display:block;
+            font-size:12px;
+            height:18px;
+            line-height:18px;
+            color:#666;
+            overflow:hidden;
+            &:hover{
+              color:black;
+            }
+            span{
+              float:left;
+              padding-left:30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .page-smallmenu{
+    overflow:hidden;
+    margin-bottom:10px;
+    margin-top:3px;
+    padding:0 10px;
+    ul{
+      overflow:hidden;
+      margin-bottom:10px;
+      hr.split{display:none;}
+      li{
+        padding:0 7px;
+        margin:0 3px;
+        a{
+          display:block;
+          font-size:12px;
+          padding:2px 0;
+          color:#666;
+          overflow:hidden;
+          &:hover{color:black;}
+          span{
+            float:left;
+            padding-left:20px;
+          }
+        }
+        &.i-am-here{
+          position:relative;
+          
 
           a{
             color:white;
@@ -96,5 +188,4 @@
       }
     }
   }
-
 }

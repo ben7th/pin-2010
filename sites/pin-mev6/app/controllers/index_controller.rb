@@ -1,12 +1,10 @@
 class IndexController < ApplicationController
-
   def index
-    if !logged_in?
-      render :layout=>'no_auth_index'
+    if logged_in?
+      @mindmaps = current_user.in_mindmaps_paginate(:page=>params[:page]||1,:per_page=>20)
       return
     end
 
-    redirect_to '/mindmaps'
+    render :layout=>'anonymous',:template=>'index/login'
   end
-  
 end

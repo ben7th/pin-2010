@@ -1,121 +1,66 @@
-pie.MindmapPageLoader = {
-  _init:function(){
-    $("mindmap-canvas").update('');
-    this.sidebar = $('mindmap-sidebar');
-    this.toggle_sidebar_button = $$('a.toggle-sidebar')[0];
+pie.reload_mindmap = function(){
+  var old_map = window.mindmap;
+  var mindmap_id = old_map.id;
+  var editmode = old_map.editmode;
+  jQuery("#mindmap-canvas").html('');
 
-    jQuery('a.mindmap-recenter')
-      .live("mousedown",function(){jQuery(this).addClass("mousedown")})
-      .live("mouseup mouseleave",function(){jQuery(this).removeClass("mousedown")});
-  },
+  window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
+    id : mindmap_id,
+    data_url : '/mindmaps/' + mindmap_id + '.js',
+    editmode : editmode,
+    after_load:function(){
+      mindmap.root.select();
+    }
+  }).load();
 
-  //重新载入当前导图，先这么写，观察一下看看会不会有其他问题
-  //可能还要考虑内存问题
-  reload_map:function(){
-    var old_map = window.mindmap;
-    var mindmap_id = old_map.id;
-    var editmode = old_map.editmode;
-    $('mindmap-canvas').update('');
+  delete old_map;
 
-    window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
-      id:mindmap_id,
-      loader: new pie.mindmap.JSONLoader({url:'/mindmaps/' + mindmap_id}),
-      editmode: editmode,
-      after_load:function(){
-        mindmap.root.select();
-      }.bind(this)
-    }).load();
+  return window.mindmap;
+};
 
-    delete old_map;
+pie.load(function(){
 
-    return window.mindmap;
-  },
+  jQuery("#mindmap-canvas").html('');
 
-  _load_map:function(mindmap_id,editmode){
-    window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
-      id:mindmap_id,
-      loader: new pie.mindmap.JSONLoader({url:'/mindmaps/' + mindmap_id}),
-      editmode: editmode,
-      after_load:function(){
-        mindmap.root.select();
-        if(editmode){
-          this.pull(mindmap_id);
-        }
-      }.bind(this)
-    }).load();
-  },
+  var mindmap_id = jQuery('#mindmap-main').attr('data-id');
+  var editmode = jQuery('#mindmap-main').is('.editor');
 
-  _after_init:function(){
-    this.mindmap_resize();
-    Event.observe(window,"resize",this.mindmap_resize.bind(this));
-    return this;
-  },
+  window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
+    id : mindmap_id,
+    data_url : '/mindmaps/' + mindmap_id + '.js',
+    editmode : editmode,
+    after_load:function(){
+      mindmap.root.select();
+    }
+  }).load();
 
-  load_editor_page:function(mindmap_id){
-    this._init();
-    this._load_map(mindmap_id,true);
-    this._after_init();
+  document_resize();
+  jQuery(window).resize(document_resize);
 
-    return this;
-  },
+  //导图重新居中
+  jQuery('a.mindmap-recenter')
+    .live("mousedown",function(){jQuery(this).addClass("mousedown")})
+    .live("mouseup mouseleave",function(){jQuery(this).removeClass("mousedown")});
 
-  load_viewer_page:function(mindmap_id){
-    this._init();
-    this._load_map(mindmap_id,false);
-    return this._after_init();
-  },
+  //侧边栏显示/隐藏切换
+  jQuery('a.toggle-sidebar').live('click',function(){
+    jQuery('#mindmap-sidebar').toggle();
+    jQuery(this).toggleClass('open');
+    document_resize();
+  });
 
-  mindmap_resize:function(){
-    var height = document.viewport.getHeight() - 40 - 30;
-    var sidebar_width = this.sidebar.visible() ? this.sidebar.getWidth():0;
-    var width = $('mindmap-status-bar').getWidth() - sidebar_width;
-    $('mindmap-main').setStyle({
-      'height':height + 'px'
-    });
-    $('mindmap-resizer').setStyle({
-      'height':height + 'px',
-      'width':width + 'px'
-    });
-  },
-  show_comments:function(mindmap_id){
-    new Ajax.Updater("comments-list","/mindmaps/"+mindmap_id+"/comments",{
-      method:'GET',
-      onCreate:function(){
-        $("comments-list").update('<div class="loading"></div>');
-      }
-    });
-  },
+  function document_resize(){
+    var sidebar_elm = jQuery('#mindmap-sidebar');
+    var sidebar_width = sidebar_elm.is(':visible') ? sidebar_elm.width():0;
 
-  toggle_sidebar:function(){
-    Element.toggle(this.sidebar);
-    Element.toggleClassName(this.toggle_sidebar_button,'open')
-    this.mindmap_resize();
-    return this;
+    var height = jQuery(window).height() - 40 - 30;
+    var width = jQuery(window).width() - sidebar_width;
+
+    jQuery('#mindmap-main')
+      .css('height',height);
+    jQuery('#mindmap-resizer')
+      .css('height',height)
+      .css('width',width);
   }
-}
 
-TimeKeeper = Class.create({
-  initialize : function(url){
-    this.url = url;
-    this.frequence = 0;
-    this.ave_time = 0;
-    this.total_time = 0;
-    this.request_per_half_minute();
-  },
-  request_per_half_minute : function(){
-    new PeriodicalExecuter(function() {
-      var begin_time = new Date();
-      new Ajax.Request(this.url,{
-        method: 'get',
-        onSuccess:function(response){
-          var respond_time = (new Date()-begin_time);
-          this.total_time = this.total_time + respond_time;
-          this.frequence = this.frequence + 1;
-          this.ave_time = this.total_time/this.frequence;
-          $$("#net_condition .last_respond span.time")[0].update(respond_time)
-          $$("#net_condition .average_respond span.time")[0].update(Math.round(this.ave_time))
-        }.bind(this)
-      })
-    }.bind(this), 30);
-  }
 });

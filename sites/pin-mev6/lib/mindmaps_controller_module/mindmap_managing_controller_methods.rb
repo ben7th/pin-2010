@@ -80,9 +80,7 @@ module MindmapManagingControllerMethods
 
   def index
     if logged_in?
-      @user = current_user
-      @mindmaps = @user.in_mindmaps_paginate(:page=>params[:page]||1,:per_page=>20)
-      @current_channel = 'mindmaps'
+
     else
       @mindmaps = Mindmap.publics.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>12})
       render :template=>'mindmaps/no_auth/no_auth_mindmaps'

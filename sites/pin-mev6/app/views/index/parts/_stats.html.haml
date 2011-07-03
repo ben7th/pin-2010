@@ -2,7 +2,7 @@
   .ranks
     %h5 导图分数统计
     .chart
-      -c_arr = user.mindmaps_chart_arr
+      -c_arr = current_user.mindmaps_chart_arr
       -max = c_arr.max
       -i = 1
       -c_arr.each do |c|
@@ -14,6 +14,6 @@
   .words
     %h5 最常用的词语
     .keywords
-      -user.mindmaps_major_words.each do |word|
+      -current_user.mindmaps_major_words.each do |word|
         .w
           =link_to word,search_mindmaps_path(:q=>word),:class=>'word'

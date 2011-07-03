@@ -1,10 +1,8 @@
-- @mindpin_layout.theme = '2011'
 - @mindpin_layout.grid = 'auto'
-- @mindpin_layout.hide_nav = true
-- @mindpin_layout.hide_footer = true
-- @mindpin_layout.put_js_in_head = false
 
 !!! Strict
 %html{:xmlns=>"http://www.w3.org/1999/xhtml"}
   =render 'layouts/parts/htmlhead'
-  =render 'layouts/parts/htmlbody'
+  %body.echo
+    =yield
+    =render 'layouts/parts/javascripts'

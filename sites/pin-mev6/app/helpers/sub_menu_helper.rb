@@ -92,6 +92,21 @@ module SubMenuHelper
 
   #########################
 
+  def sub_menu_small_li(name, path, options={})
+    link_str = link_to "<span>#{name}</span>",path
+    o_klass=options[:class] || ''
+
+    if _sub_menu_li_i_am_here?(name, path)
+      klass = ["i-am-here","s",o_klass]*' '
+    else
+      klass = ["s",o_klass]*' '
+    end
+
+    return "<li class='#{klass}'>#{link_str}</li>"
+  end
+
+  ###########################
+
   def feed_menu_li(name,path,tab,options={})
     is_here = (tab == sub_menu_name) || (tab == 'welcome' && sub_menu_name.blank?)
 

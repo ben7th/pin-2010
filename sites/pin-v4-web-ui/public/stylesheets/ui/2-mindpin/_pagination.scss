@@ -31,6 +31,7 @@ div.pagination{
   span{
     &.current {
       background-color:#3E6D8E;
+      @include gradient(#1E5D8F,#103657);
       color:white;
     }
     &.disabled {display:none;}

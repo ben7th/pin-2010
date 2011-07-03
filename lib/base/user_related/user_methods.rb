@@ -92,7 +92,7 @@ module UserMethods
   # 创建cookies登录令牌
   def create_cookies_token(expire)
     value=self.email+':'+expire.to_s+':'+User.hashed_token_string(self.email,self.hashed_password)
-    {:value=>value,:expires=>expire.days.from_now,:domain=>'mindpin.com'}
+    {:value=>value,:expires=>expire.days.from_now,:domain=>ActionController::Base.session_options[:domain]}
   end
 
   def password

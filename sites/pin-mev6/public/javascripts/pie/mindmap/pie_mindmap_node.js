@@ -2,8 +2,7 @@ pie.mindmap.Node = Class.create({
   initialize: function(options,parent){
     //options check
     options = options || {};
-
-    Object.extend(this,options);
+    Object.extend(this, options);
 
     if(this.revision != null){
       //初始化导图的 revision 值
@@ -28,22 +27,23 @@ pie.mindmap.Node = Class.create({
 
     //递归地生成子节点对象
     var _children=[];
-    this.children.each(function(cld,index){
-      var cldnode=new pie.mindmap.Node(cld,this);
-      if(index>0){
-        cldnode.prev=_children[index-1];
-        _children[index-1].next=cldnode;
+    this.children.each(function(child,index){
+      var child_node = new pie.mindmap.Node(child,this);
+      if(index > 0){
+        child_node.prev = _children[index-1];
+        _children[index-1].next = child_node;
       }
-      cldnode.index=index;
-      _children.push(cldnode);
+      child_node.index = index;
+      _children.push(child_node);
     }.bind(this));
-    this.children=_children;
+    this.children = _children;
 
-    this.dirty=true;
+    this.dirty = true;
     try{
       this.map.nodes.set(this.id,this);
     }catch(e){alert(e)}
   },
+  
   _build_container_dom:function(){
     try{
       if (this.el == null) {
@@ -160,31 +160,19 @@ pie.mindmap.Node = Class.create({
     //令节点不可选择
     this.el.makeUnselectable();
 
-    //绑定鼠标滑过事件，可以将事件上提，改成mousemove事件以优化——jerry
-    this.el.observe("mouseover",function(){
-      this.el.addClassName(this==this.root ? 'root_over':'node_over');
-    }.bind(this))
-    .observe("mouseout",function(){
-      this.el.removeClassName('root_over').removeClassName('node_over');
-    }.bind(this));
+    var node = this;
 
     //绑定折叠点相关事件，同样可以上提以优化
     var fel=this.folder.el;
-    fel.observe("mouseover",function(){
-      fel.addClassName('foldhandler_over');
-    }.bind(this))
-    .observe("mouseout",function(){
-      fel.removeClassName('foldhandler_over').removeClassName('foldhandler_down');
-    }.bind(this))
-    .observe("mouseup",function(){
-      fel.removeClassName('foldhandler_down');
-    }.bind(this))
-    .observe("mousedown",function(evt){
-      evt.stop();
-      if(this.map.pause){return false;}
-      fel.addClassName('foldhandler_down');
-    }.bindAsEventListener(this))
-    .observe("click",this.toggle.bind(this));
+    fel
+      .observe("mousedown",function(evt){
+        evt.stop();
+        if(this.map.pause){return false;}
+        fel.addClassName('foldhandler_down');
+      }.bindAsEventListener(this))
+      .observe("mouseup",function(){
+        fel.removeClassName('foldhandler_down');
+      }.bind(this));
 
     //绑定节点单击选定事件
     this.el.observe("click",function(evt){

@@ -1,5 +1,5 @@
 body.mindtu-no-auth-index{
-  @include gradient(#FCFDFF,#dddddd);
+  @include gradient(#FCFDFF,#D9E3EA);
 
   .login-wrapper{
     position:absolute;
@@ -31,6 +31,12 @@ body.mindtu-no-auth-index{
           height:33px;
           width:80px;
           font-size:14px;
+          @include gradient(#4D90FE,#4787ED);
+          border:solid 1px #3079ED;
+          &:hover{
+            @include gradient(#4D90FE,#357AE8);
+            border:solid 1px #2F5BB7;
+          }
         }
         .remember-me{
           padding:3px;
@@ -43,9 +49,11 @@ body.mindtu-no-auth-index{
     }
 
     .flash-error{
-      margin:0 5px;
+      margin:3px 0 0 0;
       background:#777;
       border:solid 1px #666;
+      @include border-radius(3px);
+      span{height:30px;line-height:30px;}
     }
   }
 
@@ -53,6 +61,7 @@ body.mindtu-no-auth-index{
     background:none;
     color:#666;
     .bold{font-weight:normal;}
+    .pf{border:none;}
   }
 
 }

@@ -18,7 +18,7 @@
   :javascript
     pie.load(function(){
       current_user_id = #{current_user.id};
-      window.page_loader = pie.MindmapPageLoader.load_editor_page('#{@mindmap.id}');
+
       window.uploadify_options = {
         uploader     : '/uploadify/uploadify.swf',
         script       : '/mindmaps/#{@mindmap.id}/upload_file',
@@ -79,7 +79,7 @@
   .map-close
     =link_to '关闭，返回',pin_url_for("pin-user-auth","/mindmaps/#{@mindmap.id}/info")
   
-#mindmap-main.editor
+#mindmap-main.editor{:'data-id'=>@mindmap.id}
   #mindmap-sidebar
     =render :partial=>'mindmaps/editor_page/editor_sidebar'
 
@@ -95,5 +95,5 @@
   .buttons
     %a.mindmap-recenter{:title=>'导图重新居中',:href=>'javascript:;',:onclick=>'mindmap.recenter();'}
       %span 导图重新居中
-    %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;',:onclick=>'page_loader.toggle_sidebar();'}
+    %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;'}
       %span 隐藏/显示侧边栏

@@ -77,23 +77,19 @@ class MindmapOperate
     node_id = @params.node_id
     closed = @params.closed
 
-    old_struct = @mindmap.struct.clone
+    _change_struct do |doc|
+      node = doc.node(node_id)
 
-    doc = MindmapDocument.new(@mindmap)
-    node = doc.node(node_id)
+      if closed.nil?
+        node.closed = !node.closed
+      else
+        node.closed = closed
+      end
 
-    if closed.nil?
-      node.closed = !node.closed
-    else
-      node.closed = closed
+      node.modified = @operator
+
+      {:params_hash=>@params.hash,:operation_kind=>"do_toggle",:operator=>@operator}
     end
-
-    @mindmap.struct = doc.struct
-
-    if @mindmap.struct!=old_struct
-      @mindmap.save!
-    end
-    return true
   end
 
   # 插入一个图片

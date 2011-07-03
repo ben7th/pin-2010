@@ -1,0 +1,12 @@
+.page-mindmaps-manage-bar
+  -link_to current_user do
+    .avatar
+      =avatar(current_user)
+  .data
+    .name=usersign current_user,false
+    .sign=h(truncate_u(current_user.sign,16))
+  .ops
+    -link_to '/mindmaps/new',:class=>'op' do
+      .new.create 新建
+    -link_to '/mindmaps/import',:class=>'op' do
+      .new.import 导入
