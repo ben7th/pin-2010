@@ -74,6 +74,7 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
 		this.map = options.map;
 	},
   data_insert:function(other_coop, new_index, parent, new_node_id){
+
     // modify data
     if(parent.closed) parent.toggle(true); //先展开，否则宽高计算不准确
     var child = parent._newChild(new_index,new_node_id);

@@ -219,11 +219,15 @@ pie.mindmap_save_module = {
   },
 
   lock_mindmap:function(){
-    if(!this.lock_whiteboard){
-      this.lock_whiteboard = new pie.mindmap.LockWhiteBoard(this);
-    }
-    //第二步 白板遮盖
-    this.lock_whiteboard.show();
+    var paper_jq = this.paper.jq;
+
+    var jq = jQuery("<div class='lock-white-board'></div>")
+      .css('opacity',0.6)
+      .css('width',paper_jq.width())
+      .css('height',paper_jq.height())
+      .css('position','absolute');
+
+    paper_jq.append(jq);
   }
 }
 
@@ -273,26 +277,6 @@ pie.mindmap.InfoLabel = Class.create({
     return this;
   }
   
-});
-
-//******************
-//锁定导图时的遮蔽DOM
-pie.mindmap.LockWhiteBoard=Class.create({
-  initialize:function(mindmap){
-    try{
-      this.map = mindmap;
-      this._build_dom();
-    }catch(e){alert(e)}
-  },
-  _build_dom:function(){
-    this.el = Builder.node('div',{'class':'lock-white-board','style':'display:none;'});
-    $(this.el).setStyle({opacity:0.6});
-    
-    Element.insert(this.map.paper.el,this.el);
-  },
-  show:function(){
-    $(this.el).clonePosition(this.map.paper.el,{setLeft:false,setTop:false}).show();
-  }
 });
 
 

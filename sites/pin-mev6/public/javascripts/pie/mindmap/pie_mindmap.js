@@ -18,7 +18,7 @@
 pie.mindmap = pie.mindmap || {};
 
 pie.mindmap.BasicMapPaper = Class.create({
-  initialize: function(paper_id, options){
+  initialize: function(paper_id,options){
     //options check
     options = options || {};
     Object.extend(this,options);
@@ -71,10 +71,10 @@ pie.mindmap.BasicMapPaper = Class.create({
 
   _init_paper:function(paper_id){
     var elm = jQuery(paper_id);
+
     this.paper = {
-      jq  : elm,
-      dom : elm[0],
-      el  : $(elm[0].id)
+      jq : elm,
+      el : $(elm[0])
     };
   },
 

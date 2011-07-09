@@ -88,7 +88,7 @@ pie.mindmap_node_modifying_methods = {
 pie.mindmap_node_new_child_methods = {
   //创建新节点（数据和DOM）
   _newChild:function(new_index,node_id){
-    var child = this.__build_child_hash(node_id)
+    var child = this.__build_child_hash(node_id);
     this.__add_to_children(child, new_index);
     this.__add_to_html_dom(child);
     if(!this.is_root()) this.folder.el.show();
@@ -98,7 +98,7 @@ pie.mindmap_node_new_child_methods = {
   },
   __build_child_hash:function(node_id){
     var child_hash = {
-      "image"     : {"url":null, "width":null, "height":null},
+      "image"     : null,
       "closed"    : false,
       "note"      : "",
       "children"  : [],
