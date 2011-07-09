@@ -3,16 +3,6 @@ module MindmapManagingControllerMethods
     @mindmap = Mindmap.new
   end
 
-  def import
-    @mindmap = Mindmap.new
-  end
-
-  def import_file
-#    qid = ImportMindmapQueue.new.add_task(params[:Filename],params[:file],current_user)
-    qid = MindmapImportQueueInputWorker.async_import_mindmap_input(params[:Filename],params[:file],current_user)
-    render :json=>{:qid=>qid}.to_json
-  end
-
   def create
     @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
     unless @mindmap.id.blank?

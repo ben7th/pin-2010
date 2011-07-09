@@ -13,6 +13,10 @@ module MindmapsHelper
     "<img alt='#{h mindmap.title}' src='#{src}' />"
   end
 
+  def mindmap_thumb_url_for_share(mindmap)
+    pin_url_for("pin-mindmap-image-cache","#{mindmap.id}.500x500.png?#{mindmap.updated_at.to_i}")
+  end
+
   def escape_title(mindmap,size = nil)
     if size.nil?
       return CGI.escapeHTML(mindmap.title)

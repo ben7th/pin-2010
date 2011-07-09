@@ -1,13 +1,11 @@
 class Feed < UserAuthAbstract
-  set_readonly false
+  SAY_OPERATE = 'say'
 
+  belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
   validates_presence_of :content
   validates_presence_of :creator
   validates_presence_of :event
 
-  belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
-
-  SAY_OPERATE = 'say'
 
   named_scope :news_feeds_of_user,lambda {|user|
     {
@@ -18,9 +16,7 @@ class Feed < UserAuthAbstract
 
   named_scope :normal,:conditions=>"hidden is not true",:order=>"feeds.id desc"
   named_scope :unhidden,:conditions=>"hidden is not true",:order=>"feeds.id desc"
-
   named_scope :hidden,:conditions=>"hidden is true",:order=>"feeds.id desc"
-
   named_scope :no_reply,:conditions=>"viewpoints.feed_id is null and feeds.hidden is not true",
     :joins=>"left join viewpoints on viewpoints.feed_id = feeds.id",
     :order=>"id desc"
@@ -28,6 +24,22 @@ class Feed < UserAuthAbstract
   after_create :creator_to_fav_feed_on_create
   def creator_to_fav_feed_on_create
     self.creator.add_fav_feed(self)
+  end
+
+  def public?
+    channels_db.blank?
+  end
+
+  def view_right?(user)
+    return true if public?
+    return false if user.blank?
+
+    channels_db.each do |channel|
+      if channel.is_include_users_or_creator?(user)
+        return true
+      end
+    end
+    return false
   end
 
   # 20110604 songliang 改为有tag的主题
@@ -52,13 +64,11 @@ class Feed < UserAuthAbstract
 
   def validate_on_create
     validate_content_length
-    channels = self.creator.belongs_to_channels_db + self.creator.channels
-    self.channels_db.each do |channel|
-      next if channel.kind == Channel::KIND_INTERVIEW
-      if !channels.include?(channel)
-        errors.add(:base,"您没有向 #{channel.name} 频道发送内容的权限")
-        break
-      end
+    channel_ids = self.creator.channel_ids
+    cs = self.channels_db_ids-channel_ids
+
+    unless cs.blank?
+      errors.add(:base,"频道 #{cs*" "} 不是你的,你不能发送主题到别人的频道")
     end
   end
 
@@ -327,8 +337,17 @@ class Feed < UserAuthAbstract
     def send_todolist_feed(title,options={})
     end
 
-    def out_feeds_db
-      Feed.news_feeds_of_user(self).unhidden
+    def out_feeds_db(limit=nil)
+      limit_sql_str = ""
+      limit_sql_str = "limit #{limit}" unless limit.nil?
+      Feed.find_by_sql(%`
+        select feeds.* from feeds
+        left join feed_channels on feed_channels.feed_id = feeds.id
+        where feed_channels.id is null and feeds.creator_id = #{self.id}
+          and feeds.hidden is not true
+          order by feeds.id desc
+          #{limit_sql_str}
+        `)
     end
 
     def all_feeds_count
@@ -336,11 +355,17 @@ class Feed < UserAuthAbstract
     end
 
     def in_feeds_db
-      _id_list = self.followings_and_self_by_db.map{|user|
-        user.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+      _id_list_public = self.followings_and_self.map{|user|
+        user.out_feeds_db(100).map{|x| x.id}
       }.flatten
+
+      _id_list_channels = self.belongs_to_channels.map do |channel|
+        channel.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+      end.flatten
+
+      _id_list = _id_list_public + _id_list_channels
       # 排序，大的就是新的，排在前面
-      _id_list = _id_list.compact.sort{|x,y| y<=>x}[0..99]
+      _id_list = _id_list.compact.sort{|x,y| y<=>x}[0..199]
       _id_list.map{|id|Feed.find_by_id(id)}.compact.uniq
     end
 

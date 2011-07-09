@@ -117,3 +117,42 @@
   color:#333333;
   font-weight:bold;
 }
+
+.page-overlay{
+  position: absolute;
+  left:0;top:0;
+  background-color: #000;
+  z-index:9999;
+}
+
+.jq-confirm-dialog{
+  @include border-radius(4px);
+  width:200px;
+  position:absolute;
+  @include box-shadow(0 0 6px black);
+  z-index:10002;
+  .d{
+    padding:13px;
+    overflow:hidden;
+    .data{
+      line-height:20px;
+      font-size:12px;
+      margin:0 0 10px 0;
+      .icon{
+        display:inline;
+        font-size:18px;
+        height:20px;
+        line-height:20px;
+        font-weight:bold;
+        color:#2DA7EE;
+        margin:0 12px 0 0;
+      }
+    }
+    .btns{
+      @include submitbtns;
+      position:relative;
+      left:40px;
+      .button{margin-right:12px !important;}
+    }
+  }
+}

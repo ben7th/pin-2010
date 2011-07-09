@@ -6,30 +6,42 @@
         %span.fontcolor
           #666666
         .colors
-          -#h = ['ff','e5','cc','b2','99','7f','66','4c','33','19','00'];
-          -h = ['FF','CC','99','66','33','00'];
-          -0.upto 5 do |r|
+          :ruby
+            colors = [
+              ['#7E0000,1','#802D00,1','#844D00,1','#8A7E00,1','#486A00,1','#005E13,1',
+               '#00561E,1','#005852,1','#005882,1','#003266,1','#001A58,1','#01004C,1',
+               '#30004A,1','#500043,1','#660144,1','#700138,1','#535353,1'],
+
+              ['#A40000,1','#A83F00,1','#AC6900,1','#B6A700,0','#638C0B,1','#0C7D24,1',
+               '#007230,1','#00746D,1','#0074AA,1','#004886,1','#002E74,1','#110B64,1',
+               '#430063,1','#6A005C,1','#A40054,1','#A40032,1','#7C7C7C,1'],
+
+              ['#E6000A,1','#EB5E00,1','#F49500,0','#FFF001,0','#8EC21F,1','#23AC39,1',
+               '#009A44,1','#009E94,1','#009FEA,1','#0067B8,1','#00469E,1','#1D1F88,1',
+               '#5E1986,1','#94077E,1','#E40076,1','#E6004B,1','#959595,1'],
+
+              ['#EC6941,0','#F19048,0','#F7B250,0','#FFF15B,0','#B3D465,0','#7EC269,0',
+               '#31B06D,1','#11B4AE,1','#00B3EE,1','#4C8EFB,1','#556DB4,1','#5E529F,1',
+               '#8957A0,1','#AD5C9F,1','#EA679F,1','#EB6975,1','#A0A0A0,1'],
+
+              ['#F29B75,0','#F5B180,0','#F9CB8A,0','#FFF699,0','#CBE198,0','#ACD598,0',
+               '#88C998,0','#85CCC8,0','#7DCBF4,0','#89ABDA,1','#8D97CA,1','#8E82BB,1',
+               '#AA89BC,1','#C490BD,0','#F19EBF,0','#F19C9C,0','#C9C9C9,0'],
+
+              ['#FFD9B3,0','#FFEFBE,0','#FFFFC8,0','#FFFFD7,0','#FFFFD6,0','#EAFFD6,0',
+               '#C6FFD6,0','#C3FFFF,0','#BBFFFF,0','#C7E9FF,0','#CBD5FF,0','#CCC0F9,0',
+               '#E8C7FA,0','#FFCEFB,0','#FFDCFD,0','#000000,1','#ffffff,0']
+            ]
+
+          -colors.each do |line|
             .line
-              -0.upto 5 do |g|
-                -0.upto 5 do |b|
-                  -color = "##{h[r]}#{h[g]}#{h[b]}"
-                  .color{:style=>"background-color:#{color};",:'data-color'=>color}
+              -line.each do |ct|
+                -color,t_color = ct.split(',')
+                -t_color = {'0'=>'black','1'=>'white'}[t_color]
+                .color{:style=>"background-color:#{color};",:'data-bg-color'=>color,:'data-text-color'=>t_color}
         .p
           .current
-            目前的颜色和字号：
-            %span.cc>
-            ，
-            %span.cs>
-          .sizes
-            选择字号：
-            %select
-              %option 12
-              %option 14
-              %option 16
-              %option 18
-              %option 24
-              %option 36
-              %option 48
+            我们每天在进步~
 
       .field.clearfix
-        =link_to '<span>确定</span>','javascript:;',:class=>'accept minibutton'
+        =minibutton '确定','javascript:;',:class=>'accept'

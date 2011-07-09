@@ -1,199 +1,186 @@
 pie.mindmap.NodeImageEditor = Class.create({
 	initialize: function(mindmap){
     this.map = mindmap;
-    jQuery('#facebox .image-upload .image-list li').live('click',function(){
-      var url = jQuery(this).attr('data-url');
-      jQuery('#facebox .mindmap-image-editor input.url').val(url);
-    })
+
+    this.upload_enlabed = false;
+
+    //选择图片
+    jQuery(document).delegate('.page-mindmap-image-editor .image-list li .ic','click',function(){
+      jQuery('.page-mindmap-image-editor .image-upload .image-list li').removeClass('selected');
+      jQuery(this).closest('li').addClass('selected');
+    });
+
+    //删除图片
+    jQuery(document).delegate('.page-mindmap-image-editor a.delete','click',function(){
+      var elm = jQuery(this);
+      var li_elm = elm.closest('li');
+      var id = li_elm.attr('data-id');
+      elm.confirm_dialog('确定要删除吗？',function(){
+        // delete /image_attachments/:id
+        jQuery.ajax({
+          url : '/image_attachments/'+id,
+          type : 'delete',
+          success : function(){
+            li_elm.fadeOut(200,function(){
+              li_elm.remove();
+            });
+          }
+        })
+      });
+    });
+
+    var func = this;
+
+    //取消
+    jQuery(document).delegate('.page-mindmap-image-editor .cancel','click',function(){
+      func.close();
+    });
+
+    //确定
+    jQuery(document).delegate('.page-mindmap-image-editor .accept','click',function(){
+      var node = func.node;
+
+      var selected_li = jQuery('.page-mindmap-image-editor .image-list li.selected');
+      
+      if(selected_li.length == 0){
+        var info_elm = jQuery('.page-mindmap-image-editor span.info');
+        info_elm.html('请先选择图片').css('padding-left',20).fadeOut(2000,function(){
+          info_elm.html('').fadeIn(1);
+        });
+      }else{
+        var img_attach_id = selected_li.attr('data-id');
+        var img_attach_url = selected_li.attr('data-url');
+        var img_attach_width = selected_li.attr('data-width');
+        var img_attach_height = selected_li.attr('data-height');
+
+        if(node.image){
+          if (node.image.el) {node.image.el.remove();}
+        }
+
+        node.image = {
+          "attach_id" : img_attach_id,
+          "url"       : img_attach_url,
+          "width"     : img_attach_width,
+          "height"    : img_attach_height
+        };
+
+        node.image.el = $(Builder.node("img",{
+          'src'     : img_attach_url,
+          "width"   : img_attach_width,
+          "height"  : img_attach_height
+        }));
+
+        node.nodeimg = {
+          el: $(Builder.node("div", {"class": "nodeimg"},node.image.el))
+        };
+
+        Event.observe(node.image.el,'load',function(){
+          Object.extend(node,node.el.getDimensions());
+          node.do_dirty();
+          node.map.reRank();
+        });
+
+        node.nodebody.el.insert({before: node.nodeimg.el});
+
+        func.close();
+        
+        var record = func.map.opFactory.getImageInstance(node);
+        func.map._save(record);
+
+      }
+    });
 	},
+
+  // 被菜单调用的方法
 	do_edit_image:function(mindmap_node){
     this.node = mindmap_node;
 		this.node.select();
 
+    //显示图片上传对话框
     this._show_selector_box();
+    if(!this.upload_enabled){
+      this._enable_upload_btn();
+    }
 	},
+  
+  close:function(){
+    jQuery('.page-mindmap-image-editor').hide();
+    jQuery('.page-overlay').remove();
+  },
+
   _show_selector_box:function(){
-    new Ajax.Request('/mindmaps/'+this.map.id+'/files/i_editor',{
-      method:'GET'
-      //回调在controller里
-    })
-  },
-
-  _rails_controller_callback:function(){
-    //这样不太dry，CV层逻辑有些混，暂时先如此
-    this.i_url        = $$('#facebox .mindmap-image-editor input.url')[0];
-    this.i_width      = $$('#facebox .mindmap-image-editor input.width')[0];
-    this.i_height     = $$('#facebox .mindmap-image-editor input.height')[0];
-    this.i_preview    = $$('#facebox .mindmap-image-editor div.preview')[0];
-    this.b_load       = $$('#facebox .mindmap-image-editor a.load')[0];
-    this.b_accept     = $$('#facebox .mindmap-image-editor a.accept')[0];
-
-    this.image_upload = $$('#facebox .mindmap-image-editor div.image-upload')[0];
-
-    this.page = 1;
-
-    //2011.01.04
-    //uploadify初始化某元素时，页面上不能有相同ID的元素，否则无法上传的。
-    //这里动态创建
-    var uploader = Builder.node('input',{
-      'id'   : 'upload_mindmap_image',
-      'type' : 'file',
-      'name' : 'flle'
-    });
-    this.image_upload.down('.uploader').insert(uploader);
-    jQuery('#facebox #upload_mindmap_image').uploadify(uploadify_options);
-
-    this.preview_image(this.node.image);
-    this._bind_button_event();
-  },
-
-  preview_image:function(img){
-		if(img && img.url){
-			this.i_url.value    = img.url;
-			this.i_width.value  = img.width;
-			this.i_height.value = img.height;
-			this.i_preview.update(this._build_image(img));
-		}else{
-			this.i_url.value    = '';
-			this.i_width.value  = '';
-			this.i_height.value = '';
-			this.i_preview.update('');
-		}
-  },
-
-  clear_preview:function(){
-    this.i_width.value  = '';
-    this.i_height.value = '';
-    this.i_preview.update('');
-  },
-
-  _build_image:function(img){
-    return $(Builder.node("img",{
-      'src':img.url,
-      'height':img.height,
-      'width':img.width
-    }))
-  },
-
-  _bind_button_event:function(){
-    this.b_accept.observe("click",this._do_accept.bind(this));
-    new Form.Element.Observer(this.i_url,0.2,this._do_load.bind(this));
-  },
-
-  _do_load:function(){
-    var url = this.i_url.value;
-    if(url.blank()){
-      this.clear_preview();
-      return;
-    }
-    //载入外部图片url
-    var img = Builder.node("img",{'src':url});
-    Event.observe(img,'load',function(){
-      this.i_width.value  = img.width;
-      this.i_height.value = img.height;
-    }.bind(this));
-    this.i_preview.update(img);
-  },
-
-  _do_accept:function(){
-    var node = this.node;
-
-    if (node.image.el) {node.image.el.remove();}
+    var overlay_elm = jQuery('<div class="page-overlay"></div>');
     
-    node.image = {
-      "url"   : this.i_url.value,
-      "width" : this.i_width.value,
-      "height": this.i_height.value
+    var height = jQuery(window).height();
+    var width = jQuery(window).width();
+    var e_elm = jQuery('.page-mindmap-image-editor');
+
+    overlay_elm
+      .css('opacity',0.4)
+      .css('height',height).css('width',width);
+    jQuery('body').append(overlay_elm)
+
+    e_elm.show()
+      .css('left', (width - e_elm.outerWidth())/2 )
+      .css('top', (height - e_elm.outerHeight())/2 )
+  },
+
+  _enable_upload_btn:function(){
+    this.upload_enabled = true;
+
+    var scriptData = {
+      'authenticity_token':pie.auth_token
     }
+    scriptData[pie.session_key] = pie.session_value;
 
-    node.image.el = this._build_image(node.image)
-    
-    node.nodeimg = {
-      el: $(Builder.node("div", {"class": "nodeimg"},node.image.el))
-    }
+    jQuery('.page-mindmap-image-editor #page-upload-mindmap-img').uploadify({
+        'uploader'     : '/uploadify/uploadify.swf',
+        'script'       : '/image_attachments',
+        'cancelImg'    : '/uploadify/cancel.png',
+        'buttonImg'    : '/uploadify/upload_mindmap_image.png',
+        'width'        : 66,
+        'height'       : 21,
+        'wmode'        : 'transparent',
+        'auto'         : true,
+        'multi'        : false,
+        'fileDataName' : 'file',
+        'fileDesc'     : '图片文件 png,gif,jpg',
+        'fileExt'      : '*.png;*.gif;*.jpg;*.jpeg;',
+        'sizeLimit'    : 4194304,// 4.megabytes
+        'scriptData'   : scriptData,
+        'queueID'      : 'page-mindmap-upload-queue',
 
-    Event.observe(node.image.el,'load',function(){
-      Object.extend(node,node.el.getDimensions());
-      node.do_dirty();
-      this.map.reRank();
-    }.bind(this));
-
-    node.nodebody.el.insert({before: node.nodeimg.el});
-    var record = this.map.opFactory.getImageInstance(node);
-    this.map._save(record);
-
-    jQuery.facebox.close();
+        'onComplete'   : function(event, ID, fileObj, response, data){
+          var li_elm = jQuery(response).find('.image-list li');
+          jQuery('.page-mindmap-image-editor .image-list').prepend(li_elm).scrollTop(0);
+          li_elm.hide().fadeIn();
+        },
+        'onError'     : function (event, ID, fileObj, errorObj) {
+          setTimeout(function(){
+            jQuery('.uploadifyError .percentage').html(' - 上传出错');
+          },1);
+        }
+      }
+    );
   },
 
 	do_remove_image:function(node){
     try{
       //这个方法其实最好应该放在node上作为对象方法
-      if (node.image.el) {node.image.el.remove();}
-      node.image={
-        "url":null,
-        "width":null,
-        "height":null
+      if(node.image){
+        if (node.image.el) {node.image.el.remove();}
       }
+
+      node.image = null
+
       Object.extend(node,node.el.getDimensions());
       var record = this.map.opFactory.getRemoveImageInstance(node);
       this.map._save(record);
+
       node.do_dirty();
       this.map.reRank();
     }catch(e){alert(e)}
-	},
-
-  next_page:function(){
-    var _p = this.page + 1;
-    new Ajax.Request('/mindmaps/'+this.map.id+'/files',{
-      parameters:'page='+_p,
-      method:'GET',
-      onSuccess:function(trans){
-        var html = trans.responseText;
-        this.image_upload.down('.image-page').update(html);
-        this.page = _p;
-      }.bind(this)
-    })
-  },
-  prev_page:function(){
-    if(this.page == 1) return;
-    var _p = this.page - 1;
-    new Ajax.Request('/mindmaps/'+this.map.id+'/files',{
-      parameters:'page='+_p,
-      method:'GET',
-      onSuccess:function(trans){
-        var html = trans.responseText;
-        this.image_upload.down('.image-page').update(html);
-        this.page = _p;
-      }.bind(this)
-    })
-  }
-
-//  _get_google_search_images:function(){
-//    this.image_search = new google.search.ImageSearch();
-//    this.image_search.setSearchCompleteCallback(this,this._build_google_search_images_dom);
-//    this.image_search.execute(this.node.title);
-//  },
-//  _build_google_search_images_dom:function(){
-//    this.image_search.results.each(function(hash){
-//      //var url = hash.tbUrl.gsub('images.google.com','images.google.com.hk');
-//      var li = $(Builder.node('li',{},
-//        Builder.node('img',{
-//          'src':hash.url
-//        })
-//      ));
-//      this.glist.appendChild(li);
-//    }.bind(this));
-//  },
-//  _init_google_search:function(){
-//    this.glist     = $$('#facebox #imgselector ul.google-image-list')[0];
-//    this.glist.update();
-//    this._get_google_search_images();
-//    setTimeout(function(){
-//      if(!this.resizer){
-//        this.resizer = new pie.Resizable(this.i_preview, {scale:"fixed",proxy:"dashed"});
-//      }
-//    }.bind(this),1)
-//  }
+	}
 })
 
 

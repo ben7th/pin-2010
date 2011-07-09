@@ -18,16 +18,12 @@
 pie.mindmap = pie.mindmap || {};
 
 pie.mindmap.BasicMapPaper = Class.create({
-  initialize: function(paper,options){
+  initialize: function(paper_id, options){
     //options check
     options = options || {};
-
     Object.extend(this,options);
 
-    this.paper = {
-      id:paper,
-      el:$(paper)
-    };
+    this._init_paper(paper_id);
 
     this.observer={
       el:$(this.paper.el.parentNode)
@@ -37,7 +33,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.log = pie.log;
 
     //params
-    this.pausePeriod=500; //毫秒
+    this.pause_period = 500; //毫秒
 
     this.fw  = 11;  //folder图片的宽度
     this.cr  = 6;  //canvas层的偏移增量
@@ -66,78 +62,48 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.opFactory        = new pie.mindmap.OperationRecordFactory({map:this});
     this.mr_factory       = new pie.mindmap.ModifyingResponseFactory({map:this});
     this.opQueue          = [];
-    this.ready_to_request = true;
 
     this.nodes = new Hash();
 
-    this.after_load       = options.after_load;
-
-    this.bind_mindmap_live_event();
+    //初始化右键菜单
+    this._createMenu();
   },
 
-  bind_mindmap_live_event:function(){
-    var canvas_id = '#mindmap-canvas'
-
-    //鼠标滑过节点
-    jQuery(canvas_id + ' .mindmap-container .root')
-      .live('mouseenter',function(){
-        jQuery(this).addClass('root_over');
-      })
-      .live('mouseleave',function(){
-        jQuery(this).removeClass('root_over');
-      });
-      
-    jQuery(canvas_id + ' .mindmap-container .node')
-      .live('mouseenter',function(){
-        jQuery(this).addClass('node_over');
-      })
-      .live('mouseleave',function(){
-        jQuery(this).removeClass('node_over');
-      });
-
-    //节点折叠锚点
-    jQuery(canvas_id + ' .foldhandler_minus, '+canvas_id + ' .foldhandler_plus')
-      .live('mouseenter',function(){
-        jQuery(this).addClass('foldhandler_over');
-      })
-      .live('mouseleave',function(){
-        jQuery(this).removeClass('foldhandler_over').removeClass('foldhandler_down');
-      })
-      .live("click",function(){
-        var node_id = jQuery(this).prev().attr('id');
-        var node = mindmap.nodes.get(node_id);
-        node.toggle();
-      });
+  _init_paper:function(paper_id){
+    var elm = jQuery(paper_id);
+    this.paper = {
+      jq  : elm,
+      dom : elm[0],
+      el  : $(elm[0].id)
+    };
   },
 
   load:function(){
-
     jQuery.ajax({
       url : this.data_url,
       type : 'GET',
       dataType : 'json',
       success : function(data){
         this.root = new pie.mindmap.Node(data,this);
-        this._load();
+        this.initial_data();
       }.bind(this),
       error : function(){
         jQuery.facebox('思维导图数据异常，载入失败。');
       }
     })
-
     return this;
   },
-  _load:function(){
-    //初始化右键菜单
-    this._createMenu();
+  initial_data:function(){
     var paper    = this.paper;
     var root     = this.root;
 
     //生成HTML并缓存节点宽高
     var paper_elm = jQuery(paper.el);
 
-    paper_elm.html(this._getEl());
-    root._cacheDimensions();
+    this.el = root.container.el;
+    paper_elm.html(this.el);
+    root.cache_dimensions();
+
 
     //初始化，计算坐标
     //获取paper的宽高，并折半
@@ -148,12 +114,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.recenter();
 
     //定位根结点
-    root.posX = (0 - root.width)/2 + paper.xoff;
-    root.posY = (0 - root.height)/2 + paper.yoff;
-    
-    jQuery(root.container.el)
-      .css('left',root.posX)
-      .css('top',root.posY);
+    this._set_root_position();
 
     this.reRank();
 
@@ -162,7 +123,9 @@ pie.mindmap.BasicMapPaper = Class.create({
       this.stop_edit_focus_title();
     }.bind(this)});
   
-    this.after_load();
+    this._bindHotkeyDispatcher();
+    
+    this.root.select();
   },
   
   recenter:function(){
@@ -178,19 +141,19 @@ pie.mindmap.BasicMapPaper = Class.create({
     }
   },
 
-  _getEl:function(){
-    if(this.el==null){
-      this.el = this.root._build_container_dom();
-      this._bindGlobalCommonEvents();
-      if (this.editmode) {
-        this._bindGlobalEditEvents();
-      }else{
-        this._bindGlobalShowEvents();
-      }
-      this._bindHotkeyDispatcher();
-    }
-    return this.el;
+  _set_root_position:function(){
+    var paper = this.paper;
+    var root  = this.root;
+
+    root.posX = (0 - root.width)/2 + paper.xoff;
+    root.posY = (0 - root.height)/2 + paper.yoff;
+
+    jQuery(root.container.el)
+      .css('left',root.posX)
+      .css('top',root.posY);
+    root.container.el.style.top = root.posY+"px";
   },
+
   __prepare_canvas_for_ie:function(){
     //prepare for IE 6+
     if(typeof G_vmlCanvasManager != 'undefined') G_vmlCanvasManager.init_(document);
@@ -546,18 +509,6 @@ pie.mindmap.BasicMapPaper = Class.create({
 		});
 		this.paper.el.appendChild(this.posbox);
 	},
-  _bindGlobalCommonEvents:function(){
-    //全局公用事件
-  },
-  _bindGlobalShowEvents:function(){
-    //浏览状态特定事件
-    this.paper.el.observe("mousedown",function(){
-      //nothing
-    })
-  },
-  _bindGlobalEditEvents:function(){
-    //编辑状态特定事件
-  },
   _bindHotkeyDispatcher:function(){
     //绑定快捷键
     document.stopObserving("keydown",window._hotkeyDispatcher);
@@ -747,13 +698,13 @@ pie.mindmap.BasicMapPaper = Class.create({
       }
     }
   },
-  _pause:function(pausePeriod){
-    if(this.pause==true){
+  _pause:function(pause_period){
+    if(this.pause == true){
       return true;
     }else{
-      this.pause=true;
-      pausePeriod=pausePeriod||this.pausePeriod;
-      setTimeout(function(){this.pause=false}.bind(this),pausePeriod);
+      this.pause = true;
+      pause_period = pause_period || this.pause_period;
+      setTimeout(function(){this.pause = false}.bind(this), pause_period);
       return false;
     }
   }

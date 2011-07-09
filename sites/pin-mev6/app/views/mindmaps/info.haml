@@ -17,7 +17,7 @@
         .prev.disabled
           =link_to "上一个",'javascript:;'
       .show{:tip=>'在编辑器中详细查看'}
-        =link_to '<span>详细查看</span>',pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}"),:target=>'_blank'
+        =link_to '<span>详细查看</span>',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
       -if !!next_mindmap
         .next{:tip=>'查看下一个导图'}
           =link_to "下一个",info_mindmap_path(next_mindmap)
@@ -27,7 +27,7 @@
 
   .map-info
     .preview.darkbg
-      -link_to pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}"),:target=>'_blank' do
+      -link_to "/mindmaps/#{@mindmap.id}",:target=>'_blank' do
         =mindmap_image(@mindmap,"500x500")
     -title_mode = @mindmap.has_edit_rights?(current_user) ? "edit" : "view"
     -if logged_in? && @mindmap.user == current_user
@@ -42,7 +42,7 @@
     %span.split.quiet> -
     %span>="#{@mindmap.cooperate_users.count}个协同编辑者"
     %span.split.quiet> -
-    %span>=link_to '在编辑器中查看',pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}"),:target=>'_blank'
+    %span>=link_to '在编辑器中查看',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
 
   -if logged_in?
     .map-action
@@ -52,7 +52,7 @@
             %a.toggle{:href=>'javascript:;',:'data-map-id'=>@mindmap.id,:class=>(@mindmap.private ? 'private':'public'),:'tipr'=>'切换公开/私有'}
             .desc 切换公开/私有
           .o
-            =link_to '编辑',pin_url_for('pin-mev6',"mindmaps/#{@mindmap.id}/edit"),:target=>'_blank'
+            =link_to '编辑',"/mindmaps/#{@mindmap.id}/edit",:target=>'_blank'
 
             %span.split.quiet> -
             =link_to '删除',"/mindmaps/#{@mindmap.id}",:method=>:delete,:confirm=>"你确定删除这个导图么？"
@@ -87,9 +87,9 @@
       %h3 数据导出
       =render :partial=>"mindmaps/parts/export",:locals=>{:mindmap=>@mindmap}
 
-      -page_url = pin_url_for('pin-mev6',"/mindmaps/#{@mindmap.id}")
+      -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
       -page_title = "MindPin思维导图：#{@mindmap.title}"
-      -newest_pic_url = pin_url_for('pin-user-auth',"/mindmaps/#{@mindmap.id}/newest.png")
+      -newest_pic_url = mindmap_thumb_url_for_share(@mindmap)
 
     .share
       %h3 快速分享

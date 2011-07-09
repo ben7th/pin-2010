@@ -16,43 +16,6 @@
 
 
   :javascript
-    pie.load(function(){
-      current_user_id = #{current_user.id};
-
-      window.uploadify_options = {
-        uploader     : '/uploadify/uploadify.swf',
-        script       : '/mindmaps/#{@mindmap.id}/upload_file',
-        fileDataName : 'file',
-        cancelImg    : '/uploadify/cancel.png',
-        fileDesc     : '图片文件 png, jpg, gif',
-        fileExt      : '*.png;*.jpg;*.jpeg;*.gif',
-        auto         : true,
-        multi        : true,
-        sizeLimit    : #{4.megabytes},
-        width        : 78,
-        height       : 27,
-        wmode        : 'transparent',
-        buttonImg    : '/images/actions/upload_button.png',
-
-        scriptData   : {
-          '#{session_key = ActionController::Base.session_options[:key]}':encodeURIComponent('#{u cookies[session_key]}'),
-          'authenticity_token':encodeURIComponent('#{u form_authenticity_token if protect_against_forgery?}')
-        },
-
-        onComplete   : function(event, ID, fileObj, response, data){
-          var li_html = response;
-          var ul = $$('#facebox .image-upload .image-list')[0];
-          if(ul.select('li').length == 12){
-            ul.select('li').last().remove();
-          }
-          $(ul).insert({top:li_html});
-          var ic = $(ul).select('li')[0]
-          ic.hide();
-          ic.appear();
-        }
-      }
-    });
-
     function remove_img_li(id){
       try{
         $$('#facebox #'+id)[0].dropOut();
@@ -97,3 +60,5 @@
       %span 导图重新居中
     %a.toggle-sidebar.open{:title=>'隐藏/显示侧边栏',:href=>'javascript:;'}
       %span 隐藏/显示侧边栏
+
+=render 'mindmaps/editor_page/module/image_editor',:image_attachments=>current_user.image_attachments

@@ -47,13 +47,12 @@ module UserMethods
       :group=>"users.id",:order=>"count(*) desc"
 
     base.send(:include,Fav::UserMethods)
-    base.send(:include,FeedChannel::UserMethods)
     base.send(:include,Feed::UserMethods)
     base.send(:include,Viewpoint::UserMethods)
     base.send(:include,UserCooperationMethods)
     base.send(:include,Channel::UserMethods)
     base.send(:include,Contact::UserMethods)
-    base.send(:include,ChannelUser::UserMethods)
+    base.send(:include,ChannelContact::UserMethods)
     base.send(:include,ConnectUser::UserMethods)
     base.send(:include,Tsina::UserMethods)
     base.send(:include,MindmapFav::UserMethods)

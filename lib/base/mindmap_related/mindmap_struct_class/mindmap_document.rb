@@ -77,15 +77,14 @@ class MindmapDocument
       :children=>root.struct_hash,
       :title=>root.title,
       :revision=>revision,
-      :image=>{
-        :url=>root.image.url,
-        :height=>root.image.height,
-        :width=>root.image.width
-      },
+      :image=>root.image.to_hash,
+      :bgcolor=>root.bgcolor,
+      :textcolor=>root.textcolor,
       :note=>get_note_from(root.id),
       :modified_email=>root.modified_email,
-      :modified_time=>root.modified_time
+      :modified_time=>root.modified_time,
     }
+
     shash
   end
 

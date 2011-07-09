@@ -36,13 +36,6 @@ class MindmapNode
     MindmapNodeImage.new(@nokogiri_node)
   end
 
-  def image=(image_hash)
-    mni = MindmapNodeImage.new(@nokogiri_node)
-    mni.url = image_hash[:url]
-    mni.width = image_hash[:width]
-    mni.height = image_hash[:height]
-  end
-
   def note
     MindmapNodeNote.new(@mindmap_document,self)
   end
@@ -104,21 +97,19 @@ class MindmapNode
 
   def struct_hash
     re=[]
-    children.each do |n|
+    children.each do |node|
       hn={
-        :id=>n.id,
-        :title=>n.title,
-        :closed=>n.closed,
-        :pos=>n.pos,
-        :children=>n.struct_hash,
-        :image=>{
-          :url=>n.image.url,
-          :width=>n.image.width,
-          :height=>n.image.height
-        },
-        :note=>@mindmap_document.get_note_from(n.id),
-        :modified_email=>n.modified_email,
-        :modified_time=>n.modified_time
+        :id=>node.id,
+        :title=>node.title,
+        :closed=>node.closed,
+        :pos=>node.pos,
+        :image=>node.image.to_hash,
+        :bgcolor=>node.bgcolor,
+        :textcolor=>node.textcolor,
+        :children=>node.struct_hash,
+        :note=>@mindmap_document.get_note_from(node.id),
+        :modified_email=>node.modified_email,
+        :modified_time=>node.modified_time
       }
       re<<hn
     end
@@ -141,6 +132,22 @@ class MindmapNode
 
   def parent
     MindmapNode.new(@mindmap_document,@nokogiri_node.parent)
+  end
+
+  def bgcolor
+    @nokogiri_node["bgcolor"]
+  end
+
+  def bgcolor=(bgcolor)
+    @nokogiri_node["bgcolor"] = bgcolor
+  end
+
+  def textcolor
+    @nokogiri_node["textcolor"]
+  end
+
+  def textcolor=(textcolor)
+    @nokogiri_node["textcolor"] = textcolor
   end
 
   private

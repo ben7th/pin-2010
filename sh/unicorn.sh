@@ -4,9 +4,6 @@ pin_2010_dir=`dirname $0`/..
 user_auth_dir=$pin_2010_dir/sites/pin-user-auth
 user_auth_pid=/web/2010/pids/unicorn-user-auth.pid
 
-mindmap_image_cache_dir=$pin_2010_dir/apps/app-mindmap-image-cache
-mindmap_image_cache_pid=/web/2010/pids/unicorn-mindmap-image-cache.pid
-
 mev6_dir=$pin_2010_dir/sites/pin-mev6
 mev6_pid=/web/2010/pids/unicorn-mev6.pid
 
@@ -21,11 +18,6 @@ rails_env=$(get_rails_env)
      pid=$user_auth_pid
      echo "user_auth_dir"
     ;;
-    mindmap_image_cache)
-     cd $mindmap_image_cache_dir
-     pid=$mindmap_image_cache_pid
-     echo "mindmap_image_cache"
-    ;;
     mev6)
      cd $mev6_dir
      pid=$mev6_pid
@@ -33,7 +25,7 @@ rails_env=$(get_rails_env)
     ;;
     *)
     echo "$1"
-    echo "tip:(user|mindmap_image_cache|mev6)"
+    echo "tip:(user|mev6)"
     exit 5
     ;;
   esac

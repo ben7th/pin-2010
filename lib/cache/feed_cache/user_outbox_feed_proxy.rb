@@ -5,7 +5,7 @@ class UserOutboxFeedProxy < RedisBaseProxy
   end
 
   def xxxs_ids_db
-    @user.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+    @user.out_feeds_db(100).map{|x| x.id}
   end
 
   def self.remove_feed_cache(feed)
@@ -15,12 +15,16 @@ class UserOutboxFeedProxy < RedisBaseProxy
   end
 
   def self.add_feed_cache(feed)
+    return unless feed.channels_db.blank?
+
     uofp = UserOutboxFeedProxy.new(feed.creator)
     ids = uofp.xxxs_ids
-    ids.unshift(feed.id)
-    ids.uniq!
-    ids = ids[0..99] if ids.length > 100
-    uofp.send(:xxxs_ids_rediscache_save,ids)
+    unless ids.include?(feed.id)
+      ids.unshift(feed.id)
+      ids.uniq!
+      ids = ids[0..99] if ids.length > 100
+      uofp.send(:xxxs_ids_rediscache_save,ids)
+    end
   end
 
   def self.rules

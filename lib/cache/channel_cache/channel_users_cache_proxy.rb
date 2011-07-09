@@ -10,16 +10,16 @@ class ChannelUsersCacheProxy < RedisBaseProxy
 
   def self.rules
     {
-      :class=>ChannelUser,
-      :after_create=>Proc.new{|channel_user|
-        user = channel_user.user
-        channel = channel_user.channel
+      :class=>ChannelContact,
+      :after_create=>Proc.new{|channel_contact|
+        user = channel_contact.contact.follow_user
+        channel = channel_contact.channel
         next if channel.blank? || user.blank?
         ChannelUsersCacheProxy.new(channel).add_to_cache(user.id)
       },
-      :after_destroy=>Proc.new{|channel_user|
-        user = channel_user.user
-        channel = channel_user.channel
+      :after_destroy=>Proc.new{|channel_contact|
+        user = channel_contact.contact.follow_user
+        channel = channel_contact.channel
         next if channel.blank? || user.blank?
         ChannelUsersCacheProxy.new(channel).remove_from_cache(user.id)
       }

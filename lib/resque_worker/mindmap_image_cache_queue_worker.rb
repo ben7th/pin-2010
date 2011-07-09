@@ -14,11 +14,10 @@ class MindmapImageCacheQueueWorker
   def self.perform(mindmap_id, time)
     return true if mindmap_id == "wake_up"
     mindmap = Mindmap.find(mindmap_id)
-    updated_at = Time.at(time.to_f)
-    return if updated_at < mindmap.updated_at
+    mus = mindmap.updated_at.to_f.to_s
 
-    MindmapImageCache.new(mindmap).refresh_cache_file("120x120")
-    MindmapImageCache.new(mindmap).refresh_cache_file("500x500")
+    return if time != mus
+    MindmapImageCache.new(mindmap).refresh_all_cache_file
   end
 
 end

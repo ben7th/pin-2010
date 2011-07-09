@@ -4,5 +4,6 @@
 %html{:xmlns=>"http://www.w3.org/1999/xhtml"}
   =render 'layouts/parts/htmlhead'
   %body.echo
-    =yield
+    .page-content
+      =yield
     =render 'layouts/parts/javascripts'

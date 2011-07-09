@@ -91,12 +91,12 @@ class Tsina
     end
 
     def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
-      image = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
+      image = MindmapImageCache.new(mindmap).thumb_500_img_path
       send_tsina_image_status(image,content)
     end
 
     def share_mindmap_to_tsina_in_queue(mindmap)
-      image_path = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
+      image_path = MindmapImageCache.new(mindmap).thumb_500_img_path
       SendTsinaStatusQueueWorker.async_send_tsina_status({
           :user_id=>self.id,:content=>"分享导图 #{mindmap.title}",:image_path=>image_path})
     end

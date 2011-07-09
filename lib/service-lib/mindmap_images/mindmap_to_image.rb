@@ -23,7 +23,6 @@ class MindmapToImage
 
     @map_hash = get_nodes_hash(mindmap.struct)
 
-
     if param.include?('x')
       @fixed_width , @fixed_height = param.split('x').map{|x| x.to_i}
       return write_to_file(export_fixed)
@@ -31,6 +30,25 @@ class MindmapToImage
 
     @zoom = param.to_f
     return write_to_file(export_zoom)
+  end
+
+  def create_thumb
+    @map_hash = get_nodes_hash_thumb(mindmap.struct)
+
+    img = export_zoom(false)
+
+    w_500_scale = 500.to_f / img.columns
+    h_500_scale = 500.to_f / img.rows
+    scale_500 = [w_500_scale, h_500_scale, 1].min
+
+    w_120_scale = 120.to_f / img.columns
+    h_120_scale = 120.to_f / img.rows
+    scale_120 = [w_120_scale, h_120_scale, 1].min
+
+    return {
+      :s500=>write_to_file(img.resize(scale_500)),
+      :s120=>write_to_file(img.resize(scale_120))
+    }
   end
 
   # 尝试导出指定尺寸图片
@@ -53,17 +71,27 @@ class MindmapToImage
 
   # 尝试导出放大缩小的图片
   def export_zoom(with_sign = true)
+    t1 = Time.now
 
     image_width = _width_of_image(with_sign)
     image_height = _height_of_image
 
-    img = Magick::Image.new(image_width, image_height, Magick::HatchFill.new('white','white'))
 
-    paint_nodes(img)
+    gc = get_paint_nodes_gc
+
+    img = Magick::Image.new(image_width, image_height){
+      self.background_color = "white"
+      self.depth = 8
+      self.format = 'PNG'
+    }
+    gc.draw(img)
     if with_sign
-      paint_sign(img, image_width, image_height)
+      gc1 = paint_sign(image_width, image_height)
+      gc1.draw(img)
     end
 
+    t2 = Time.now
+    p t2-t1
     return img
   end
 
@@ -91,9 +119,9 @@ class MindmapToImage
   end
 
   def _width_of_sign
-    get_text_size(mindmap.title).width +
+    get_text_size(mindmap.title)[:width] +
     width_margin +
-    get_text_size(_author_name).width
+    get_text_size(_author_name)[:width]
   end
 
   def _author_name

@@ -6,9 +6,6 @@ module MindmapEditorControllerMethods
   end
 
   def edit
-    if !ResqueQueueWorkerManagement.start?("mindmap_input_resque_queue")
-      return render_status_page(406,"编辑处理服务没有启动")
-    end
     if has_edit_rights?(@mindmap,current_user)
       return render :layout=>"mindmap",:template=>'mindmaps/editor_page/editor'
     end
@@ -94,9 +91,8 @@ module MindmapEditorControllerMethods
       return render :file=>File.join(RAILS_ROOT,"public/images/private_mindmap.png"),:status=>403
     end
     zoom = params[:zoom].blank? ? 1 : params[:zoom].to_f
-    file_path = MindmapImageCache.new(@mindmap).get_img_path_by(zoom.to_s)
-    if stale?(:last_modified => @mindmap.updated_at,:etag =>@mindmap.updated_at)
-      send_file file_path,:type=>"image/#{format}",:disposition=>'inline'
-    end
+    file_path = MindmapImageCache.new(@mindmap).export(zoom.to_s)
+    
+    send_file file_path,:type=>"image/#{format}",:disposition=>'inline'
   end
 end

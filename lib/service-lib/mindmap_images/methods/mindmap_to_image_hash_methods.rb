@@ -6,6 +6,7 @@ module MindmapToImageHashMethods
     get_nodes_locations(_build_node_hash(node))
   end
 
+  # 组织节点数据，导出用
   def _build_node_hash(node)
     re = _build_hash_include_id_title_width_height(node)
     re.merge!(_get_extra_hash(node))
@@ -13,16 +14,75 @@ module MindmapToImageHashMethods
     re
   end
 
+  def get_nodes_hash_thumb(xmlstr)
+    doc = Nokogiri::XML xmlstr
+    node = doc.at('mindmap>node')
+    get_nodes_locations(_build_node_hash_thumb(node,0))
+  end
+
+  # 组织节点数据，生成缩略图用
+  def _build_node_hash_thumb(node,depth)
+      re = _build_hash_include_id_title_width_height(node)
+      re.merge!(_get_extra_hash(node))
+      depth = depth + 1
+      if depth < 4
+        re.merge! :children=>node.xpath("./node").map {|child| _build_node_hash_thumb(child,depth)}
+      else
+        count = node.css("node").length
+        if count > 0
+          dim = get_text_size(count.to_s)
+          re.merge! :children=>[
+            {
+              :title  => count.to_s,
+              :width  => dim[:width],
+              :height => dim[:height],
+              :putright=> _get_extra_hash(node),
+              :children => []
+            }
+          ]
+          re.merge! :has_thumb=>true
+        else
+          re.merge! :children=>[]
+        end
+      end
+      return re
+  end
+
   def _build_hash_include_id_title_width_height(node)
     title   = node["title"]
-    metrics = get_text_size(title)
+    dim = get_text_size(title)
     
-    {
-      :id     => node["id"],
-      :title  => title,
-      :width  => metrics.width,
-      :height => metrics.height
-    }
+    if has_uploaded_img?(node)
+      image = MindmapNodeImage.new(node)
+
+      imgw = image.width
+      imgh = image.height
+      img_file_path = image.path
+
+      return {
+        :id     => node["id"],
+        :title  => title,
+        :width  => [dim[:width],imgw].max,
+        :height => dim[:height]+imgh,
+        :bgcolor => node[:bgcolor],
+        :textcolor => node[:textcolor],
+        :inner_img_filepath => img_file_path,
+        :text_height => dim[:height]
+      }
+    else
+      return {
+        :id     => node["id"],
+        :title  => title,
+        :width  => dim[:width],
+        :height => dim[:height],
+        :bgcolor => node[:bgcolor],
+        :textcolor => node[:textcolor]
+      }
+    end
+  end
+
+  def has_uploaded_img?(node)
+    node[:img_attach_id]
   end
 
   def _get_extra_hash(node)
@@ -96,7 +156,7 @@ module MindmapToImageHashMethods
 
     subtree_height = 0
 
-    if children_total_height >= self_height
+    if children_total_height > self_height
       node[:cy_off] = 0
       node[:y_off] = (children_total_height - self_height) / 2
       node[:y_off] -= v_padding / 2 if children.length > 1

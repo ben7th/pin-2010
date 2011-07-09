@@ -1,8 +1,28 @@
 class MindmapImageCache
-  ATTACHED_FILE_PATH_ROOT = "/web/2010/cache_images"
+  if RAILS_ENV == "development"
+    ATTACHED_FILE_PATH_ROOT = "/web1/2010/cache_images"
+  else
+    ATTACHED_FILE_PATH_ROOT = "/web/2010/cache_images"
+  end
+
+  THUMB_500 = "500x500"
+  THUMB_120 = "120x120"
+
   attr_reader :mindmap
   def initialize(mindmap)
     @mindmap = mindmap
+  end
+
+  def refresh_all_cache_file
+    refresh_cache_file
+  end
+
+  def thumb_500_img_path
+    img_path(THUMB_500)
+  end
+
+  def thumb_120_img_path
+    img_path(THUMB_120)
   end
 
   # 导图图片的硬盘缓存文件 的存放路径
@@ -10,34 +30,51 @@ class MindmapImageCache
     File.join(ATTACHED_FILE_PATH_ROOT,"mindmap_cache_images",@mindmap.id.to_s,"#{size_param}.png")
   end
 
-  # 根据导图内容生成 导图图片的硬盘缓存文件
-  def refresh_cache_file(size_param)
-    cache_path = self.img_path(size_param)
+  def export(zoom = 1)
     begin
-      tmp_image_path = MindmapToImage.new(@mindmap).export(size_param)
+      return MindmapToImage.new(@mindmap).export(zoom)
     rescue Exception => ex
       puts ex.backtrace*"\n"
       puts ex.message
       # 如果图片生成错误，那么 把一个导图生成错误的提示图片放到 导图图片的硬盘缓存文件
-      tmp_image_path = "#{File.dirname(__FILE__)}/images/data_error.png"
+      return "#{File.dirname(__FILE__)}/images/data_error.png"
     end
-    dirname = File.dirname(cache_path)
-    FileUtils.mkdir_p(dirname) if !File.exist?(dirname)
-    FileUtils.rm(cache_path) if File.exist?(cache_path)
-    FileUtils.cp(tmp_image_path,cache_path)
   end
 
-  # 导图图片的硬盘缓存文件 是否有效 （存在并且没有过期）
-  def cache_valid?(size_param)
-    cache_path = self.img_path(size_param)
-    return false if !File.exist?(cache_path)
-    File.mtime(cache_path) > @mindmap.updated_at
-  end
+  # 根据导图内容生成 导图图片的硬盘缓存文件
+  def refresh_cache_file
+    s500_cache_path = self.img_path(THUMB_500)
+    s120_cache_path = self.img_path(THUMB_120)
 
-  # 取到导图图片的硬盘缓存文件地址（如果缓存文件无效就生成一下缓存文件）
-  def get_img_path_by(size_param)
-    refresh_cache_file(size_param) if !cache_valid?(size_param)
-    img_path(size_param)
+    use_error_image = false
+    
+    begin
+      thumb_path_info = MindmapToImage.new(@mindmap).create_thumb
+      s500_path = thumb_path_info[:s500]
+      s120_path = thumb_path_info[:s120]
+    rescue Exception => ex
+      puts ex.backtrace*"\n"
+      puts ex.message
+      # 如果图片生成错误，那么 把一个导图生成错误的提示图片放到 导图图片的硬盘缓存文件
+      error_image_path = "#{File.dirname(__FILE__)}/images/data_error.png"
+      use_error_image = true
+      s500_path = error_image_path
+      s120_path = error_image_path
+    end
+
+    # 500
+    s500_dirname = File.dirname(s500_cache_path)
+    FileUtils.mkdir_p(s500_dirname) if !File.exist?(s500_dirname)
+    FileUtils.rm(s500_cache_path) if File.exist?(s500_cache_path)
+    FileUtils.cp(s500_path,s500_cache_path)
+    FileUtils.rm(s500_path) if !use_error_image
+
+    # 120
+    s120_dirname = File.dirname(s120_cache_path)
+    FileUtils.mkdir_p(s120_dirname) if !File.exist?(s120_dirname)
+    FileUtils.rm(s120_cache_path) if File.exist?(s120_cache_path)
+    FileUtils.cp(s120_path,s120_cache_path)
+    FileUtils.rm(s120_path) if !use_error_image
   end
 
 end

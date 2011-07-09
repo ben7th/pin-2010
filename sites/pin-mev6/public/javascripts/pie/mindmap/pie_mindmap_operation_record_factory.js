@@ -46,11 +46,23 @@ pie.mindmap.OperationRecordFactory = Class.create({
 		return {
       "op":"do_image",
       "params":{
-        "node_id":node.id,
-        "image":node.image
+        "node_id" : node.id,
+        "img_attach_id" : node.image['attach_id']
       }
     }
 	},
+
+	getNodeColorInstance: function(node){
+		return {
+      "op":"do_nodecolor",
+      "params":{
+        "node_id":node.id,
+        "bgcolor":node.bgcolor,
+        "textcolor":node.textcolor
+      }
+    }
+	},
+
   getRemoveImageInstance: function(node){
     return {
       "op":"do_rm_image",

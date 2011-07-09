@@ -10,7 +10,7 @@ class ConnectUsersController < ApplicationController
   def send_tsina_mindmap
     mindmap = Mindmap.find_by_id(params[:mindmap_id])
     return(reder :status=>500,:text=>"导图不存在") if mindmap.blank?
-    image_path = MindmapImageCache.new(mindmap).get_img_path_by("500x500")
+    image_path = MindmapImageCache.new(mindmap).thumb_500_img_path
     SendTsinaStatusQueueWorker.async_send_tsina_status({:user_id=>current_user.id,:content=>params[:content],:image_path=>image_path})
     render :status=>200,:text=>"success"
   end

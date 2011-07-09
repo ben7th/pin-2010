@@ -68,7 +68,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 
 		var x = this.newX + observer_el.scrollLeft - this.scrolleroffset.left;
 		var y = this.newY + observer_el.scrollTop - this.scrolleroffset.top - 10;
-    // 解释下 10 = .node_selected's (border + padding)*2
+    // 解释下 10 = selected node's (border + padding)*2
 
     this.__clear_droptarget();
 

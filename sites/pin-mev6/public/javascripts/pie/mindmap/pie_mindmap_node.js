@@ -39,98 +39,12 @@ pie.mindmap.Node = Class.create({
     this.children = _children;
 
     this.dirty = true;
+
     try{
       this.map.nodes.set(this.id,this);
     }catch(e){alert(e)}
-  },
-  
-  _build_container_dom:function(){
-    try{
-      if (this.el == null) {
-        this.nodeimg={};
-        if (this.image.url) { //这个判断方式不靠谱，需要修改JSON
-          this.image.el = $(Builder.node("img",{
-            'src':this.image.url,
-            'height':this.image.height,
-            'width':this.image.width
-          }))
-          this.nodeimg = {
-            el: $(Builder.node("div", {
-              "class": "nodeimg"
-            },this.image.el))
-          }
-        }
 
-        this.noteicon={};
-        if(this.note!=""&&this.note!='<br>'){
-          this.noteicon={
-            el:$(Builder.node("div",{
-              "class":"noteicon"
-            }))
-          }
-        }
-
-        this.nodetitle={
-          el:$(Builder.node("div",{
-            "class":"nodetitle"
-          }))
-        }
-        Element.update(this.nodetitle.el, this.formated_title());
-
-        this.nodebody={
-          el:$(Builder.node("div",{
-            "class":"nodebody"
-          },[this.nodetitle.el,this.noteicon.el||[]]))
-        };
-
-        this.el = $(Builder.node("div", {
-          id:this.id,
-          "class": (this.root==this ? "root" : "node"),
-          "style":"position:absolute"
-        },[this.nodeimg.el||[],this.nodebody.el]));
-
-        this.folder={
-          id:"f_"+this.id,
-          el:$(Builder.node("div", {
-            "class": this.closed ? "foldhandler_plus" : "foldhandler_minus",
-            "style":"position:absolute;"+(this.children.length==0?"display:none;":"")
-          }))
-        };
-
-        this.content={
-          id:"children_"+this.id,
-          top:0,
-          el:$(Builder.node("div", {
-            "class": "mindmap-children",
-            "style":"position:absolute"
-          }))
-        };
-
-        this.children.each(function(child){
-          this.content.el.insert(child._build_container_dom());
-        }.bind(this));
-
-        this.container={
-          id:"c_"+this.id,
-          top:0,
-          el:$(Builder.node("div", {
-            "class": "mindmap-container",
-            "style":"position:absolute"
-          }, this.maxid!=null ? [this.el, this.content.el] : [this.el, this.folder.el, this.content.el]))
-        };
-
-        this._bindCommonEvents();
-        if (this.map.editmode) {
-          this._bindEditEvents();
-        }else{
-          this._bindShowEvents();
-        }
-
-      }
-    }catch(e){
-      alert(e)
-    }
-    return this.container.el;
+    this._build_container_dom();
   },
 
   simple_format:function(titlestr){
@@ -148,31 +62,38 @@ pie.mindmap.Node = Class.create({
   formated_title:function(){
     return this.simple_format(this.title);
   },
-  _cacheDimensions:function(){
-    if(this.width==null){
-      Object.extend(this,this.el.getDimensions());
+
+  //递归地缓存节点尺寸信息
+  cache_dimensions:function(){
+    if(this.width == null){
+      Object.extend(this, this.el.getDimensions());
       this.children.each(function(cld){
-        cld._cacheDimensions();
+        cld.cache_dimensions();
       }.bind(this));
     }
   },
+
   _bindCommonEvents:function(){
     //令节点不可选择
     this.el.makeUnselectable();
 
-    var node = this;
+    //绑定鼠标滑过事件，可以将事件上提，改成mousemove事件以优化——jerry
+    this.el.observe("mouseover",function(){
+      this.el.addClassName('over');
+    }.bind(this))
+    .observe("mouseout",function(){
+      this.el.removeClassName('over');
+    }.bind(this));
 
     //绑定折叠点相关事件，同样可以上提以优化
     var fel=this.folder.el;
-    fel
-      .observe("mousedown",function(evt){
-        evt.stop();
-        if(this.map.pause){return false;}
-        fel.addClassName('foldhandler_down');
-      }.bindAsEventListener(this))
-      .observe("mouseup",function(){
-        fel.removeClassName('foldhandler_down');
-      }.bind(this));
+    fel.observe("mouseover",function(){
+      fel.addClassName('over');
+    }.bind(this))
+    .observe("mouseout",function(){
+      fel.removeClassName('over');
+    }.bind(this))
+    .observe("click",this.toggle.bind(this));
 
     //绑定节点单击选定事件
     this.el.observe("click",function(evt){
@@ -224,19 +145,15 @@ pie.mindmap.Node = Class.create({
     if(this.is_being_edit) return false;
     if(map.focus){
       map.stop_edit_focus_title();
-      map.focus.el.removeClassName('node_selected');
-      map.focus.el.removeClassName('root_selected');
+      map.focus.el.removeClassName('selected');
       //如果切换节点时正处于note编辑状态，则终止note编辑，并提交
       if(map.focus!=this && map.is_on_note_edit_status){
         map._node_note_editor.onNoteEditEnd();
       }
     }
     map.focus=this;
-    if (this.root == this) {
-      this.el.addClassName('root_selected');
-    } else {
-      this.el.addClassName('node_selected');
-    }
+    this.el.addClassName('selected');
+
     if(!keep) map.__scrollto(this);
     map.nodeMenu.unload();
 
@@ -325,6 +242,7 @@ pie.mindmap.Node = Class.create({
 
     this.sub.dirty = true;
   },
+  
   //节点高亮
   hilight:function(colorstr){
     this.nodebody.el.setStyle({backgroundColor:colorstr})
@@ -340,24 +258,132 @@ pie.mindmap.Node = Class.create({
     return this.pos == 'right' || this.pos == null
   },
   is_selected:function(){
-    return this.el.hasClassName('node_selected') || this.el.hasClassName('root_selected');
+    return this.el.hasClassName('selected');
   },
-  get_fontsize:function(){
-    var fs = this.fontsize;
-    if(fs) return fs;
-    return this.is_root() ? 14:12;
+
+  get_bgcolor:function(){
+    return this.bgcolor;
   },
-  set_fontsize:function(fontsize){
-    this.fontsize = fontsize;
-    jQuery(this.nodetitle.el).css('font-size',fontsize + 'px')
+  get_textcolor:function(){
+    return this.textcolor;
   },
-  get_fontcolor:function(){
-    var fc = this.fontcolor;
-    if(fc) return fc;
-    return this.is_root() ? '#000000':'#000000';
-  },
-  set_fontcolor:function(fontcolor){
-    this.fontcolor = fontcolor;
-    jQuery(this.nodetitle.el).css('color',fontcolor);
+  set_bgcolor:function(bgcolor,textcolor){
+    this.bgcolor = bgcolor;
+    this.textcolor = textcolor;
+    jQuery(this.el).css('background-color',bgcolor);
+    jQuery(this.nodetitle.el).css('color',textcolor);
   }
 });
+
+
+pie.mindmap_node_build_dom_module = {
+  _build_container_dom:function(){
+    try{
+      if (this.el == null) {
+
+        this.__build_nodeimg();
+        this.__build_noteicon();
+        this.__build_nodetitle();
+        this.__build_nodebody();
+
+        this.el = $(Builder.node("div", {
+          id:this.id,
+          "class": (this.root==this ? "root" : "node"),
+          "style":"position:absolute;background-color:"+this.bgcolor+";color:"+this.textcolor+";"
+        },[this.nodeimg.el||[],this.nodebody.el]));
+
+        this.folder={
+          id:"f_"+this.id,
+          el:$(Builder.node("div", {
+            "class": this.closed ? "foldhandler plus" : "foldhandler minus",
+            "style":"position:absolute;"+(this.children.length==0?"display:none;":"")
+          }))
+        };
+
+        this.content={
+          id:"children_"+this.id,
+          top:0,
+          el:$(Builder.node("div", {
+            "class": "mindmap-children",
+            "style":"position:absolute"
+          }))
+        };
+
+        this.children.each(function(child){
+          this.content.el.insert(child.container.el);
+        }.bind(this));
+
+        this.container={
+          id:"c_"+this.id,
+          top:0,
+          el:$(Builder.node("div", {
+            "class": "mindmap-container",
+            "style":"position:absolute"
+          }, this.maxid!=null ? [this.el, this.content.el] : [this.el, this.folder.el, this.content.el]))
+        };
+
+        this._bindCommonEvents();
+        if (this.map.editmode) {
+          this._bindEditEvents();
+        }else{
+          this._bindShowEvents();
+        }
+
+      }
+    }catch(e){
+      alert(e)
+    }
+    return this.container.el;
+  },
+
+  __build_nodeimg:function(){
+    this.nodeimg={};
+    
+    if (this.image) { //这个判断方式不靠谱，需要修改JSON
+      this.image.el = $(Builder.node("img",{
+        'src'    : this.image.url,
+        'height' : this.image.height,
+        'width'  : this.image.width
+      }))
+      this.nodeimg = {
+        el: $(Builder.node("div", {
+          "class": "nodeimg"
+        },this.image.el))
+      }
+    }
+  },
+
+  __build_noteicon:function(){
+    this.noteicon={};
+    
+    if(this.note!="" && this.note!='<br>' && this.note!='<br/>'){
+      this.noteicon={
+        el:$(Builder.node("div",{
+          "class":"noteicon"
+        }))
+      }
+    }
+  },
+
+  __build_nodetitle:function(){
+    this.nodetitle={
+      el:$(Builder.node("div",{
+        "class":"nodetitle"
+      }))
+    }
+    jQuery(this.nodetitle.el).html(this.formated_title());
+  },
+
+  __build_nodebody:function(){
+    this.nodebody={
+      el:$(Builder.node("div",{
+        "class":"nodebody"
+      },[this.nodetitle.el,this.noteicon.el||[]]))
+    };
+  }
+
+}
+
+
+pie.mindmap.Node
+  .addMethods(pie.mindmap_node_build_dom_module);

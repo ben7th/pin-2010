@@ -98,8 +98,8 @@ class MindpinLogicManagement
     # feed 缓存
     MindpinLogicManagement.load_redis_proxy(UserOutboxFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserNoChannelFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(ChannelFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserChannelOutboxFeedProxy)
+    
     MindpinLogicManagement.load_redis_proxy(UserBeingQuotedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserBeInvitedFeedsProxy)

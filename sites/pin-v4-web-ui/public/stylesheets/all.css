@@ -887,6 +887,70 @@ body {
   color: #333333;
   font-weight: bold; }
 
+.page-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #000;
+  z-index: 9999; }
+
+.jq-confirm-dialog {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  width: 200px;
+  position: absolute;
+  box-shadow: 0 0 6px black;
+  -moz-box-shadow: 0 0 6px black;
+  -webkit-box-shadow: 0 0 6px black;
+  z-index: 10002; }
+  .jq-confirm-dialog .d {
+    padding: 13px;
+    overflow: hidden; }
+    .jq-confirm-dialog .d .data {
+      line-height: 20px;
+      font-size: 12px;
+      margin: 0 0 10px 0; }
+      .jq-confirm-dialog .d .data .icon {
+        display: inline;
+        font-size: 18px;
+        height: 20px;
+        line-height: 20px;
+        font-weight: bold;
+        color: #2DA7EE;
+        margin: 0 12px 0 0; }
+    .jq-confirm-dialog .d .btns {
+      overflow: hidden;
+      position: relative;
+      left: 40px; }
+      .jq-confirm-dialog .d .btns button, .jq-confirm-dialog .d .btns a.button {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border: none 0px;
+        margin: 4px 5px 0 0;
+        padding: 2px 7px;
+        float: left;
+        text-decoration: none; }
+        .jq-confirm-dialog .d .btns button.editable-submit, .jq-confirm-dialog .d .btns a.button.editable-submit {
+          cursor: pointer;
+          color: white;
+          background: #0063DC; }
+          .jq-confirm-dialog .d .btns button.editable-submit:hover, .jq-confirm-dialog .d .btns a.button.editable-submit:hover {
+            background: #0054BD; }
+        .jq-confirm-dialog .d .btns button.editable-cancel, .jq-confirm-dialog .d .btns a.button.editable-cancel {
+          cursor: pointer;
+          color: #616D7D;
+          background: #C4DFFF; }
+          .jq-confirm-dialog .d .btns button.editable-cancel:hover, .jq-confirm-dialog .d .btns a.button.editable-cancel:hover {
+            background: #B4CFFF; }
+        .jq-confirm-dialog .d .btns button.mousedown, .jq-confirm-dialog .d .btns a.button.mousedown {
+          position: relative;
+          top: 1px;
+          left: 1px; }
+      .jq-confirm-dialog .d .btns .button {
+        margin-right: 12px !important; }
+
 .clear {
   clear: both;
   display: block;
@@ -1537,7 +1601,7 @@ body {
   letter-spacing: 4px;
   text-align: center;
   margin: -10px -10px 10px -10px;
-  background: #0063DC;
+  background: #444;
   color: white; }
 #facebox form .text, #facebox form textarea {
   background-color: #eee; }
@@ -1811,6 +1875,10 @@ input.text, textarea, select {
   margin: 0;
   font-size: 14px;
   resize: none; }
+  input.text.disabled, textarea.disabled, select.disabled {
+    background: #f7f7f7;
+    border: solid 1px #ddd;
+    box-shadow: none !important; }
 
 input.text {
   width: 200px;
@@ -1827,8 +1895,8 @@ select {
 
 textarea {
   width: 390px;
-  height: 54px;
-  padding: 4px 2px; }
+  height: 80px;
+  padding: 5px 7px; }
 
 input.text, textarea {
   border-radius: 3px;
@@ -1883,7 +1951,8 @@ a.button.classy {
   a.button.classy.disabled {
     background: #F0F0F0 !important;
     color: #999 !important;
-    border: solid 1px #CFCFCF !important; }
+    border: solid 1px #CFCFCF !important;
+    text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3); }
     form .submit.disabled:hover, form input[type="submit"].disabled:hover,
     .form .submit.disabled:hover, .form input[type="submit"].disabled:hover,
     a.button.classy.disabled:hover {
@@ -2022,18 +2091,18 @@ input.inline-button, input.inline-button.submit {
   top: -1px !important; }
 
 /*minibotton from github*/
-.page-content input[type="text"] + .minibutton, .page-head input[type="text"] + .minibutton {
+.page-content input[type="text"] + .minibutton, .page-head input[type="text"] + .minibutton, #facebox input[type="text"] + .minibutton {
   margin-left: 5px; }
-.page-content button.minibutton::-moz-focus-inner, .page-head button.minibutton::-moz-focus-inner {
+.page-content button.minibutton::-moz-focus-inner, .page-head button.minibutton::-moz-focus-inner, #facebox button.minibutton::-moz-focus-inner {
   margin: -1px -3px; }
-.page-content button.minibutton, .page-head button.minibutton {
+.page-content button.minibutton, .page-head button.minibutton, #facebox button.minibutton {
   height: 23px;
   outline: none; }
-  .page-content button.minibutton::-moz-focus-inner, .page-head button.minibutton::-moz-focus-inner {
+  .page-content button.minibutton::-moz-focus-inner, .page-head button.minibutton::-moz-focus-inner, #facebox button.minibutton::-moz-focus-inner {
     border: none; }
-.page-content input.minibutton, .page-head input.minibutton {
+.page-content input.minibutton, .page-head input.minibutton, #facebox input.minibutton {
   height: 23px; }
-.page-content .minibutton, .page-head .minibutton {
+.page-content .minibutton, .page-head .minibutton, #facebox .minibutton {
   font-size: 12px;
   font-weight: bold;
   height: 21px;
@@ -2041,12 +2110,12 @@ input.inline-button, input.inline-button.submit {
   box-shadow: 1px 1px 2px #eeeeee;
   -moz-box-shadow: 1px 1px 2px #eeeeee;
   -webkit-box-shadow: 1px 1px 2px #eeeeee; }
-  .page-content .minibutton span, .page-head .minibutton span {
+  .page-content .minibutton span, .page-head .minibutton span, #facebox .minibutton span {
     display: block;
     height: 21px;
     line-height: 21px;
     padding: 0 10px 0 7px; }
-  .page-content .minibutton:hover, .page-head .minibutton:hover {
+  .page-content .minibutton:hover, .page-head .minibutton:hover, #facebox .minibutton:hover {
     background: -moz-linear-gradient(-90deg, #3b94ff, #006aed);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3b94ff), to(#006aed));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3b94ff',endColorstr='#006aed');
@@ -2054,99 +2123,99 @@ input.inline-button, input.inline-button.submit {
     color: #FFFFFF;
     text-decoration: none;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-  .page-content .minibutton.mousedown, .page-head .minibutton.mousedown {
+  .page-content .minibutton.mousedown, .page-head .minibutton.mousedown, #facebox .minibutton.mousedown {
     background: -moz-linear-gradient(-90deg, #006aed, #3b94ff);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#006aed), to(#3b94ff));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#006aed',endColorstr='#3b94ff');
     border-color: #00698D; }
-  .page-content .minibutton.selected, .page-head .minibutton.selected {
+  .page-content .minibutton.selected, .page-head .minibutton.selected, #facebox .minibutton.selected {
     background: -moz-linear-gradient(-90deg, #767676, #9e9e9e);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#767676), to(#9e9e9e));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#767676',endColorstr='#9e9e9e');
     border-color: #686868;
     color: #FFFFFF;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5); }
-  .page-content .minibutton.disabled, .page-content .minibutton.disabled:hover, .page-head .minibutton.disabled, .page-head .minibutton.disabled:hover {
+  .page-content .minibutton.disabled, .page-content .minibutton.disabled:hover, .page-head .minibutton.disabled, .page-head .minibutton.disabled:hover, #facebox .minibutton.disabled, #facebox .minibutton.disabled:hover {
     cursor: default;
     opacity: 0.5;
     filter: alpha(opacity=50); }
-  .page-content .minibutton.lighter, .page-content .minibutton.disabled.lighter:hover, .page-head .minibutton.lighter, .page-head .minibutton.disabled.lighter:hover {
+  .page-content .minibutton.lighter, .page-content .minibutton.disabled.lighter:hover, .page-head .minibutton.lighter, .page-head .minibutton.disabled.lighter:hover, #facebox .minibutton.lighter, #facebox .minibutton.disabled.lighter:hover {
     background: -moz-linear-gradient(-90deg, #fafafa, #dddddd);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fafafa), to(#dddddd));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fafafa',endColorstr='#dddddd');
     border: none;
     color: #333333;
     text-shadow: 1px 1px 0 #FFFFFF; }
-  .page-content .minibutton.green, .page-content .minibutton.disabled.green:hover, .page-head .minibutton.green, .page-head .minibutton.disabled.green:hover {
+  .page-content .minibutton.green, .page-content .minibutton.disabled.green:hover, .page-head .minibutton.green, .page-head .minibutton.disabled.green:hover, #facebox .minibutton.green, #facebox .minibutton.disabled.green:hover {
     background: -moz-linear-gradient(-90deg, #36b825, #28881b);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#36b825), to(#28881b));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#36b825',endColorstr='#28881b');
     border-color: #4A993E;
     color: #FFFFFF;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-    .page-content .minibutton.green.mousedown, .page-content .minibutton.disabled.green:hover.mousedown, .page-head .minibutton.green.mousedown, .page-head .minibutton.disabled.green:hover.mousedown {
+    .page-content .minibutton.green.mousedown, .page-content .minibutton.disabled.green:hover.mousedown, .page-head .minibutton.green.mousedown, .page-head .minibutton.disabled.green:hover.mousedown, #facebox .minibutton.green.mousedown, #facebox .minibutton.disabled.green:hover.mousedown {
       background: -moz-linear-gradient(-90deg, #28881b, #36b825);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#28881b), to(#36b825));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#28881b',endColorstr='#36b825'); }
-  .page-content .minibutton.blue, .page-content .minibutton.disabled.blue:hover, .page-head .minibutton.blue, .page-head .minibutton.disabled.blue:hover {
+  .page-content .minibutton.blue, .page-content .minibutton.disabled.blue:hover, .page-head .minibutton.blue, .page-head .minibutton.disabled.blue:hover, #facebox .minibutton.blue, #facebox .minibutton.disabled.blue:hover {
     background: -moz-linear-gradient(-90deg, #5d99e1, #3570b8);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#5d99e1), to(#3570b8));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5d99e1',endColorstr='#3570b8');
     border-color: #275666;
     color: #FFFFFF;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-    .page-content .minibutton.blue:hover, .page-content .minibutton.disabled.blue:hover:hover, .page-head .minibutton.blue:hover, .page-head .minibutton.disabled.blue:hover:hover {
+    .page-content .minibutton.blue:hover, .page-content .minibutton.disabled.blue:hover:hover, .page-head .minibutton.blue:hover, .page-head .minibutton.disabled.blue:hover:hover, #facebox .minibutton.blue:hover, #facebox .minibutton.disabled.blue:hover:hover {
       background: -moz-linear-gradient(-90deg, #3b94ff, #006aed);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3b94ff), to(#006aed));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3b94ff',endColorstr='#006aed');
       border-color: #00698D; }
-    .page-content .minibutton.blue.mousedown, .page-content .minibutton.disabled.blue:hover.mousedown, .page-head .minibutton.blue.mousedown, .page-head .minibutton.disabled.blue:hover.mousedown {
+    .page-content .minibutton.blue.mousedown, .page-content .minibutton.disabled.blue:hover.mousedown, .page-head .minibutton.blue.mousedown, .page-head .minibutton.disabled.blue:hover.mousedown, #facebox .minibutton.blue.mousedown, #facebox .minibutton.disabled.blue:hover.mousedown {
       background: -moz-linear-gradient(-90deg, #006aed, #3b94ff);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#006aed), to(#3b94ff));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#006aed',endColorstr='#3b94ff');
       border-color: #00698D; }
-  .page-content .minibutton.red, .page-content .minibutton.disabled.red:hover, .page-head .minibutton.red, .page-head .minibutton.disabled.red:hover {
+  .page-content .minibutton.red, .page-content .minibutton.disabled.red:hover, .page-head .minibutton.red, .page-head .minibutton.disabled.red:hover, #facebox .minibutton.red, #facebox .minibutton.disabled.red:hover {
     background: -moz-linear-gradient(-90deg, #dc5f59, #b33630);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dc5f59), to(#b33630));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dc5f59',endColorstr='#b33630');
     border-color: #C65651 #C65651 #A0302A;
     color: #FFFFFF;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-  .page-content .minibutton.gray, .page-content .minibutton.disabled.gray:hover, .page-head .minibutton.gray, .page-head .minibutton.disabled.gray:hover {
+  .page-content .minibutton.gray, .page-content .minibutton.disabled.gray:hover, .page-head .minibutton.gray, .page-head .minibutton.disabled.gray:hover, #facebox .minibutton.gray, #facebox .minibutton.disabled.gray:hover {
     background: -moz-linear-gradient(-90deg, #f0f0f0, #dcdcdc);
     background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f0f0f0), to(#dcdcdc));
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f0f0f0',endColorstr='#dcdcdc');
     border-color: #d4d4d4;
     color: #333333;
     text-shadow: 1px 1px 0 #eee; }
-    .page-content .minibutton.gray:hover, .page-content .minibutton.disabled.gray:hover:hover, .page-head .minibutton.gray:hover, .page-head .minibutton.disabled.gray:hover:hover {
+    .page-content .minibutton.gray:hover, .page-content .minibutton.disabled.gray:hover:hover, .page-head .minibutton.gray:hover, .page-head .minibutton.disabled.gray:hover:hover, #facebox .minibutton.gray:hover, #facebox .minibutton.disabled.gray:hover:hover {
       background: -moz-linear-gradient(-90deg, #f0f0f0, #dcdcdc);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f0f0f0), to(#dcdcdc));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f0f0f0',endColorstr='#dcdcdc'); }
-    .page-content .minibutton.gray.mousedown, .page-content .minibutton.disabled.gray:hover.mousedown, .page-head .minibutton.gray.mousedown, .page-head .minibutton.disabled.gray:hover.mousedown {
+    .page-content .minibutton.gray.mousedown, .page-content .minibutton.disabled.gray:hover.mousedown, .page-head .minibutton.gray.mousedown, .page-head .minibutton.disabled.gray:hover.mousedown, #facebox .minibutton.gray.mousedown, #facebox .minibutton.disabled.gray:hover.mousedown {
       background: -moz-linear-gradient(-90deg, #dcdcdc, #f0f0f0);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dcdcdc), to(#f0f0f0));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dcdcdc',endColorstr='#f0f0f0'); }
-  .page-content .minibutton.danger, .page-head .minibutton.danger {
+  .page-content .minibutton.danger, .page-head .minibutton.danger, #facebox .minibutton.danger {
     color: #990000; }
-    .page-content .minibutton.danger:hover, .page-head .minibutton.danger:hover {
+    .page-content .minibutton.danger:hover, .page-head .minibutton.danger:hover, #facebox .minibutton.danger:hover {
       color: #FFFFFF;
       background: -moz-linear-gradient(-90deg, #dc5f59, #b33630);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dc5f59), to(#b33630));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dc5f59',endColorstr='#b33630');
       border-color: #C65651 #C65651 #A0302A; }
-    .page-content .minibutton.danger.mousedown, .page-head .minibutton.danger.mousedown {
+    .page-content .minibutton.danger.mousedown, .page-head .minibutton.danger.mousedown, #facebox .minibutton.danger.mousedown {
       background: -moz-linear-gradient(-90deg, #b33630, #dc5f59);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b33630), to(#dc5f59));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b33630',endColorstr='#dc5f59');
       border-color: #A0302A #A0302A #C65651; }
-    .page-content .minibutton.danger.disabled:hover, .page-head .minibutton.danger.disabled:hover {
+    .page-content .minibutton.danger.disabled:hover, .page-head .minibutton.danger.disabled:hover, #facebox .minibutton.danger.disabled:hover {
       background: -moz-linear-gradient(-90deg, #f4f4f4, #ececec);
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f4f4f4), to(#ececec));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f4f4f4',endColorstr='#ececec');
       border-color: #D4D4D4;
       color: #990000; }
-.page-content .minibutton, .page-content .minibutton.disabled:hover, .page-head .minibutton, .page-head .minibutton.disabled:hover {
+.page-content .minibutton, .page-content .minibutton.disabled:hover, .page-head .minibutton, .page-head .minibutton.disabled:hover, #facebox .minibutton, #facebox .minibutton.disabled:hover {
   background: -moz-linear-gradient(-90deg, #f4f4f4, #ececec);
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f4f4f4), to(#ececec));
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#f4f4f4',endColorstr='#ececec');
@@ -7313,66 +7382,50 @@ body.mindtu-no-auth-index {
       background: white;
       border: 2px solid #E5E5E5;
       padding: 10px;
-      position: relative;
-      margin-bottom: 40px; }
-      .page-user-mindmaps .mindmap .m .title {
-        font-size: 14px;
-        font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        margin: 0 0 10px 0; }
-        .page-user-mindmaps .mindmap .m .title a {
-          color: #426389; }
-          .page-user-mindmaps .mindmap .m .title a:hover {
-            text-decoration: none;
-            border-bottom: dotted 1px #666; }
-      .page-user-mindmaps .mindmap .m .thumb {
-        overflow: hidden; }
-        .page-user-mindmaps .mindmap .m .thumb a {
-          width: 120px;
-          height: 120px;
-          float: left;
-          position: relative; }
-      .page-user-mindmaps .mindmap .m .foot-misc .ops {
-        position: absolute;
-        bottom: -24px;
-        right: 99px;
-        height: 20px;
-        line-height: 20px;
-        background-color: #eee;
-        padding: 0 3px;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        overflow: hidden; }
-        .page-user-mindmaps .mindmap .m .foot-misc .ops a {
-          float: left;
-          margin-left: 4px;
-          color: #666; }
-          .page-user-mindmaps .mindmap .m .foot-misc .ops a:hover {
+      margin-bottom: 10px;
+      overflow: hidden; }
+      .page-user-mindmaps .mindmap .m .data {
+        float: left; }
+        .page-user-mindmaps .mindmap .m .data .title {
+          font-size: 14px;
+          font-weight: bold;
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          margin: 0 0 10px 0; }
+          .page-user-mindmaps .mindmap .m .data .title a {
+            color: #426389; }
+            .page-user-mindmaps .mindmap .m .data .title a:hover {
+              text-decoration: none;
+              border-bottom: dotted 1px #666; }
+        .page-user-mindmaps .mindmap .m .data .thumb {
+          overflow: hidden; }
+          .page-user-mindmaps .mindmap .m .data .thumb a {
+            width: 120px;
+            height: 120px;
+            float: left;
+            position: relative; }
+      .page-user-mindmaps .mindmap .m .footmisc {
+        float: right; }
+        .page-user-mindmaps .mindmap .m .footmisc .ops .o {
+          text-align: center; }
+          .page-user-mindmaps .mindmap .m .footmisc .ops .o a {
             color: #666; }
-      .page-user-mindmaps .mindmap .m .foot-misc .rank {
-        position: absolute;
-        bottom: -24px;
-        right: 65px;
-        height: 20px;
-        line-height: 20px;
-        width: 30px;
-        background-color: #53BCFE;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        color: white;
-        font-weight: bold;
-        text-align: center; }
-      .page-user-mindmaps .mindmap .m .foot-misc .creator {
-        border: 3px solid #F1F1F1;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        position: absolute;
-        right: 10px;
-        bottom: -27px; }
+            .page-user-mindmaps .mindmap .m .footmisc .ops .o a:hover {
+              color: #666; }
+        .page-user-mindmaps .mindmap .m .footmisc .rank {
+          height: 20px;
+          line-height: 20px;
+          width: 32px;
+          margin-bottom: 10px;
+          background-color: #53BCFE;
+          border-radius: 3px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          color: white;
+          font-weight: bold;
+          text-align: center; }
+        .page-user-mindmaps .mindmap .m .footmisc .creator {
+          margin-bottom: 10px; }
 
 .searched-mindmaps .search-result {
   margin-bottom: 20px;
@@ -7631,8 +7684,109 @@ body.mindtu-no-auth-index {
   .page-new-mindmap-form .field label {
     font-size: 14px; }
   .page-new-mindmap-form .field.title input.text {
-    width: 670px; }
+    width: 670px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
   .page-new-mindmap-form .field.description textarea.text {
     width: 670px;
     padding: 5px 7px;
-    height: 80px; }
+    height: 80px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+  .page-new-mindmap-form .field.private span.disabled {
+    color: #777; }
+
+.page-upload-mindmap {
+  padding: 10px; }
+  .page-upload-mindmap h2.main-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 0 20px 0; }
+  .page-upload-mindmap .field label {
+    font-size: 14px; }
+  .page-upload-mindmap .field.title input.text {
+    width: 670px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+  .page-upload-mindmap .field.description textarea.text {
+    width: 670px;
+    padding: 5px 7px;
+    height: 80px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+  .page-upload-mindmap .field.private span.disabled {
+    color: #777; }
+  .page-upload-mindmap .page-upload-mindmap-result {
+    background: #FFF9DC;
+    border: solid 2px #EFEACE;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin: 0 0 10px 0;
+    padding: 10px;
+    overflow: hidden;
+    position: relative; }
+    .page-upload-mindmap .page-upload-mindmap-result .thumb {
+      float: left;
+      width: 120px;
+      height: 120px; }
+    .page-upload-mindmap .page-upload-mindmap-result .data {
+      margin-left: 140px; }
+      .page-upload-mindmap .page-upload-mindmap-result .data h3 {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 0 10px 0; }
+      .page-upload-mindmap .page-upload-mindmap-result .data .type, .page-upload-mindmap .page-upload-mindmap-result .data .filename, .page-upload-mindmap .page-upload-mindmap-result .data .nodes-count {
+        overflow: hidden;
+        font-size: 14px; }
+        .page-upload-mindmap .page-upload-mindmap-result .data .type .l, .page-upload-mindmap .page-upload-mindmap-result .data .filename .l, .page-upload-mindmap .page-upload-mindmap-result .data .nodes-count .l {
+          float: left;
+          width: 100px; }
+        .page-upload-mindmap .page-upload-mindmap-result .data .type .t, .page-upload-mindmap .page-upload-mindmap-result .data .filename .t, .page-upload-mindmap .page-upload-mindmap-result .data .nodes-count .t {
+          float: left;
+          font-weight: bold; }
+    .page-upload-mindmap .page-upload-mindmap-result .close {
+      width: 16px;
+      height: 16px;
+      background: url(/images/icons/cancel.png);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer; }
+  .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem {
+    background: #FFF9DC;
+    border: solid 2px #EFEACE;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin: 0 0 10px 0;
+    padding: 10px;
+    width: auto;
+    color: #666; }
+    .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem .uploadifyProgress {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      background-color: #EFEACE; }
+      .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem .uploadifyProgress .uploadifyProgressBar {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        height: 12px;
+        background-color: #4C8EFF; }
+  .page-upload-mindmap .upload {
+    overflow: hidden;
+    background: #FFF9DC;
+    border: solid 2px #EFEACE;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px; }
+    .page-upload-mindmap .upload .btn {
+      float: left;
+      width: 93px;
+      height: 21px;
+      overflow: hidden;
+      margin-right: 10px; }
+    .page-upload-mindmap .upload .desc {
+      float: left;
+      color: #666;
+      height: 21px;
+      line-height: 21px; }

@@ -26,6 +26,8 @@ class MindmapOperate
       _do_note
     when 'do_move' then
       _do_move
+    when 'do_nodecolor' then
+      _do_nodecolor
     end
   end
 
@@ -95,15 +97,11 @@ class MindmapOperate
   # 插入一个图片
   def _do_image
     node_id = @params.node_id
-    url = @params.image.url
-    width = @params.image.width
-    height = @params.image.height
+    img_attach_id = @params.img_attach_id
 
     _change_struct do |doc|
       node = doc.node(node_id)
-      node.image.url = url
-      node.image.width = width
-      node.image.height = height
+      node.image.img_attach_id = img_attach_id
       node.modified = @operator
       {:params_hash=>@params.hash,:operation_kind=>"do_image",:operator=>@operator}
     end
@@ -150,6 +148,21 @@ class MindmapOperate
       node.modified = @operator
 
       {:params_hash=>@params.hash,:operation_kind=>"do_move",:operator=>@operator}
+    end
+  end
+
+  def _do_nodecolor
+    node_id = @params.node_id
+    bgcolor = @params.bgcolor
+    textcolor = @params.textcolor
+
+    _change_struct do |doc|
+      node = doc.node(node_id)
+
+      node.bgcolor = bgcolor
+      node.textcolor = textcolor
+
+      {:params_hash=>@params.hash,:operation_kind=>"do_nodecolor",:operator=>@operator}
     end
   end
 
@@ -204,7 +217,7 @@ class MindmapOperate
         puts ex.backtrace.join("\n")
         raise MindmapOperate::MindmapNotSaveError,"mindmap 数据库记录保存出错"
       end
-      @mindmap.refresh_thumb_image
+      @mindmap.refresh_thumb_image_in_queue
       HistoryRecord.record_operation(@mindmap,
         :kind=>operation_kind,
         :params_hash=>params_hash,

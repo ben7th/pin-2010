@@ -4,13 +4,10 @@ pie.reload_mindmap = function(){
   var editmode = old_map.editmode;
   jQuery("#mindmap-canvas").html('');
 
-  window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
+  window.mindmap = new pie.mindmap.BasicMapPaper("#mindmap-canvas",{
     id : mindmap_id,
     data_url : '/mindmaps/' + mindmap_id + '.js',
-    editmode : editmode,
-    after_load:function(){
-      mindmap.root.select();
-    }
+    editmode : editmode
   }).load();
 
   delete old_map;
@@ -25,13 +22,10 @@ pie.load(function(){
   var mindmap_id = jQuery('#mindmap-main').attr('data-id');
   var editmode = jQuery('#mindmap-main').is('.editor');
 
-  window.mindmap = new pie.mindmap.BasicMapPaper("mindmap-canvas",{
+  window.mindmap = new pie.mindmap.BasicMapPaper("#mindmap-canvas",{
     id : mindmap_id,
     data_url : '/mindmaps/' + mindmap_id + '.js',
-    editmode : editmode,
-    after_load:function(){
-      mindmap.root.select();
-    }
+    editmode : editmode
   }).load();
 
   document_resize();

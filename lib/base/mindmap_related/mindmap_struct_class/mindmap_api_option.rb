@@ -80,9 +80,26 @@ class MindmapApiOption
       return _closed
     end
 
-    def image
-      _image = MapParamsImage.new(@params["image"])
-      return _image
+    def img_attach_id
+      _img_attach_id = @params["img_attach_id"]
+      raise '图片附件ID 未指定' if _img_attach_id.blank?
+      
+      image_attachment = ImageAttachment.find_by_id(_img_attach_id.to_i)
+      raise '没有找到图片附件对象' if image_attachment.blank?
+      
+      return _img_attach_id
+    end
+
+    def bgcolor
+      _bgcolor = @params["bgcolor"]
+      raise '节点背景色 未指定' if _bgcolor.blank?
+      return _bgcolor
+    end
+
+    def textcolor
+      _textcolor = @params["textcolor"]
+      raise '文字颜色 未指定' if _textcolor.blank?
+      return _textcolor
     end
 
     def note
@@ -100,28 +117,28 @@ class MindmapApiOption
       return _pos
     end
 
-    class MapParamsImage
-      def initialize(image_hash)
-        @image = image_hash
-      end
-
-      def url
-        _url = @image['url']
-        raise '图片URL 未指定' if _url.blank?
-        return _url
-      end
-
-      def width
-        _width = @image["width"]
-        _width = nil if _width.blank?
-        return _width
-      end
-
-      def height
-        _height = @image["height"]
-        _height = nil if _height.blank?
-        return _height
-      end
-    end
+#    class MapParamsImage
+#      def initialize(image_hash)
+#        @image = image_hash
+#      end
+#
+#      def url
+#        _url = @image['url']
+#        raise '图片URL 未指定' if _url.blank?
+#        return _url
+#      end
+#
+#      def width
+#        _width = @image["width"]
+#        _width = nil if _width.blank?
+#        return _width
+#      end
+#
+#      def height
+#        _height = @image["height"]
+#        _height = nil if _height.blank?
+#        return _height
+#      end
+#    end
   end
 end

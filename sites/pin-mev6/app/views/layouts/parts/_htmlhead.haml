@@ -6,6 +6,9 @@
   %meta{:content=>"MindTu,思维导图,导图,心智图,脑图,社区",:name=>"keywords"}
 
   -tstring = (yield :title) || ''
-  %title=["#{tstring.gsub("\n",'')}", "MindTu在线思维导图"]*' - '
+  -if tstring.blank?
+    %title="MindTu在线思维导图"
+  -else
+    %title=["#{tstring.gsub("\n",'')}", "MindTu在线思维导图"]*' - '
 
   =render 'layouts/parts/css'

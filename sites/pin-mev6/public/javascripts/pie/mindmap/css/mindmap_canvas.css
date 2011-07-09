@@ -7,8 +7,8 @@
   line-height: 21px;
   border: 2px solid #77AAFF;
   padding: 3px 5px;
-  color: #333;
-  background-color: #E9F0FF;
+  color: #fff;
+  background-color: #4C8EFB;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px; }
@@ -16,12 +16,10 @@
     border: solid 2px #F56F00 !important;
     padding: 3px 5px;
     margin: 0; }
-
-.root_over {
-  background-color: #d2e0ff; }
-
-.root_selected {
-  border-color: #113B8F; }
+  .root.over {
+    background-color: #5c9eff; }
+  .root.selected {
+    border-color: #113B8F; }
 
 .node {
   font-size: 12px;
@@ -36,16 +34,14 @@
     border: solid 3px #F56F00 !important;
     padding: 2px 0;
     margin: 0; }
-
-.node_over {
-  border: solid 3px #ffed80;
-  padding: 2px 0;
-  margin: 0; }
-
-.node_selected {
-  border: solid 3px #113B8F;
-  padding: 2px 0;
-  margin: 0; }
+  .node.over {
+    border: solid 3px #ffed80;
+    padding: 2px 0;
+    margin: 0; }
+  .node.selected {
+    border: solid 3px #113B8F;
+    padding: 2px 0;
+    margin: 0; }
 
 .nodeimg img {
   margin: 0 3px; }
@@ -67,27 +63,19 @@
   zoom: 1; }
 
 /*折叠展开控制图标*/
-.foldhandler_plus {
+.foldhandler {
   width: 11px;
   height: 11px;
   padding: 0;
   font-size: 0;
-  line-height: 0px;
-  background-image: url("../img/icon_plus.gif"); }
-
-.foldhandler_minus {
-  width: 11px;
-  height: 11px;
-  padding: 0;
-  font-size: 0;
-  line-height: 0px;
-  background-image: url("../img/icon_minus.gif"); }
-
-.foldhandler_over {
-  background-position: 0 -30px; }
-
-.foldhandler_down {
-  background-position: 0 -60px; }
+  line-height: 0;
+  cursor: pointer; }
+  .foldhandler.plus {
+    background-image: url("../img/icon_plus.png"); }
+  .foldhandler.minus {
+    background-image: url("../img/icon_minus.png"); }
+  .foldhandler.over {
+    background-position: 0 -30px; }
 
 /*节点标题编辑*/
 .title_input_div {
@@ -115,78 +103,76 @@
     *padding: 1px 3px; }
 
 /*图像选择器*/
-.mindmap-image-editor {
-  clear: both;
-  text-align: left; }
-  .mindmap-image-editor .image-sel {
-    float: left;
-    width: 380px; }
-    .mindmap-image-editor .image-sel label {
-      width: 50px;
-      display: inline-block;
-      text-align: right;
-      margin-right: 4px; }
-    .mindmap-image-editor .image-sel input {
-      height: 23px !important; }
-      .mindmap-image-editor .image-sel input.url {
-        width: 240px !important; }
-      .mindmap-image-editor .image-sel input.width, .mindmap-image-editor .image-sel input.height {
-        width: 60px !important; }
-    .mindmap-image-editor .image-sel .preview {
-      margin-bottom: 20px;
-      overflow: auto;
-      width: 342px;
-      height: 200px;
-      padding: 4px;
-      border: solid 2px #74747A;
-      background: url(/images/actions/preview_bg.png); }
-      .mindmap-image-editor .image-sel .preview img {
-        border: solid 1px !important; }
-  .mindmap-image-editor .image-upload {
-    float: left; }
-    .mindmap-image-editor .image-upload ul.image-list {
-      overflow: hidden;
-      width: 400px;
-      height: 265px;
-      background: #161625;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      padding: 2px;
+.page-mindmap-image-editor {
+  overflow: hidden;
+  position: absolute;
+  background-color: #F7F7F7;
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -webkit-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  z-index: 10000; }
+  .page-mindmap-image-editor h3 {
+    text-shadow: 1px 1px 0 #333;
+    background: #444;
+    color: white;
+    padding: 0 10px; }
+  .page-mindmap-image-editor .upl {
+    padding: 10px;
+    overflow: hidden; }
+    .page-mindmap-image-editor .upl .image-upload ul.image-list {
+      overflow-y: scroll;
+      width: 420px;
+      height: 300px;
+      background: #e5e5e5;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 10px;
       margin-bottom: 5px; }
-      .mindmap-image-editor .image-upload ul.image-list li {
+      .page-mindmap-image-editor .upl .image-upload ul.image-list li {
         float: left;
+        width: 98px;
         margin-right: 2px;
+        height: 98px;
         margin-bottom: 2px; }
-        .mindmap-image-editor .image-upload ul.image-list li .ic {
+        .page-mindmap-image-editor .upl .image-upload ul.image-list li .ic {
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
-          background-color: #323546;
-          border: solid 1px #333;
+          background-color: #ccc;
+          border: solid 1px #bbb;
           padding: 3px;
-          cursor: pointer; }
-          .mindmap-image-editor .image-upload ul.image-list li .ic:hover {
-            background-color: #45495b; }
-          .mindmap-image-editor .image-upload ul.image-list li .ic .img {
+          cursor: pointer;
+          margin-bottom: 4px; }
+          .page-mindmap-image-editor .upl .image-upload ul.image-list li .ic:hover {
+            background-color: #b5b5b5; }
+          .page-mindmap-image-editor .upl .image-upload ul.image-list li .ic .img {
             width: 90px;
             height: 60px; }
-        .mindmap-image-editor .image-upload ul.image-list li .actions {
+        .page-mindmap-image-editor .upl .image-upload ul.image-list li .actions {
           text-align: center; }
-    .mindmap-image-editor .image-upload .pagination {
-      margin-bottom: 20px; }
-    .mindmap-image-editor .image-upload .used {
-      margin-bottom: 3px; }
-    .mindmap-image-editor .image-upload .uploader {
-      height: 34px; }
-      .mindmap-image-editor .image-upload .uploader .uploadifyQueue {
-        float: right; }
-        .mindmap-image-editor .image-upload .uploader .uploadifyQueue .uploadifyQueueItem {
-          padding: 0;
-          margin: 0;
-          width: 290px;
-          padding: 3px;
-          color: #222; }
+        .page-mindmap-image-editor .upl .image-upload ul.image-list li.selected .ic {
+          border: solid 2px #444;
+          padding: 2px;
+          background-color: #666; }
+    .page-mindmap-image-editor .upl .headmisc {
+      overflow: hidden;
+      margin-bottom: 10px; }
+      .page-mindmap-image-editor .upl .headmisc .pagination {
+        float: left; }
+      .page-mindmap-image-editor .upl .headmisc .upload {
+        float: right;
+        width: 66px;
+        height: 21px; }
+        .page-mindmap-image-editor .upl .headmisc .upload .btn {
+          width: 66px;
+          height: 21px; }
+    .page-mindmap-image-editor .upl .ops {
+      margin-top: 30px; }
 
 /*字号颜色选择器*/
 .mindmap-font-editor label {

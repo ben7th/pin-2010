@@ -20,43 +20,35 @@ pie.mindmap.NodeFontEditor = Class.create({
     //这样不太dry，CV层逻辑有些混，暂时先如此
     this.colors       = $$('#facebox .mindmap-font-editor .colors')[0];
     this.current      = $$('#facebox .mindmap-font-editor .current')[0];
-    this.sizes_select = $$('#facebox .mindmap-font-editor .sizes select')[0];
 
-    this.fontsize  = this.node.get_fontsize();
-    this.fontcolor = this.node.get_fontcolor();
+    this.bgcolor = this.node.get_bgcolor();
+    this.textcolor = this.node.get_textcolor();
 
-    jQuery(this.current).css('font-size',this.fontsize).css('color',this.fontcolor);
-    jQuery(this.sizes_select).val(this.fontsize);
-    
-    jQuery(this.current).find('span.cc').html(this.fontcolor);
-    jQuery(this.current).find('span.cs').html(this.fontsize);
+    jQuery(this.current)
+      .css('background-color',this.bgcolor)
+      .css('color',this.textcolor);
 
     var current = this.current;
     var e = this;
+    
     jQuery(this.colors).find('.color').bind('click',function(evt){
-      var color = jQuery(this).attr('data-color');
-      pie.log(color)
-      jQuery(current).css('color',color);
-      jQuery(current).find('span.cc').html(color);
-      e.fontcolor = color;
+      var bg_color = jQuery(this).attr('data-bg-color');
+      var text_color = jQuery(this).attr('data-text-color');
+      pie.log(bg_color,text_color)
+      jQuery(current).css('background-color',bg_color).css('color',text_color);
+      e.bgcolor = bg_color;
+      e.textcolor = text_color;
     });
-
-    jQuery(this.sizes_select).bind('change',function(){
-      var elm = jQuery(this);
-      var size = elm.val();
-      jQuery(current).css('font-size',size + 'px');
-      e.fontsize = size;
-    })
 
     jQuery('#facebox .mindmap-font-editor .accept').bind('click',function(evt){
       var node = e.node;
-      node.set_fontsize(e.fontsize);
-      node.set_fontcolor(e.fontcolor);
-      jQuery.facebox.close();
+      node.set_bgcolor(e.bgcolor,e.textcolor);
 
-      Object.extend(node,node.el.getDimensions());
-      node.do_dirty();
-      node.map.reRank();
+      var record = e.map.opFactory.getNodeColorInstance(node);
+      pie.log(record);
+      e.map._save(record);
+
+      jQuery.facebox.close();
     });
   }
 

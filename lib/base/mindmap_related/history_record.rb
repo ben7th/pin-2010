@@ -13,10 +13,12 @@ class HistoryRecord < Mev6Abstract
   DO_CHANGE_FONT_SIZE = "do_change_font_size"
   DO_SET_FONT_BOLD = "do_set_font_bold"
   DO_SET_FONT_ITALIC = "do_set_font_italic"
+  DO_NODECOLOR = "do_nodecolor"
 
   OPERATIONS = [DO_INSERT,DO_DELETE,DO_TITLE,DO_TOGGLE,
     DO_IMAGE,DO_RM_IMAGE,DO_MOVE,DO_NOTE,DO_ADD_LINK,DO_CHANGE_COLOR,
-    DO_CHANGE_FONT_SIZE,DO_SET_FONT_BOLD,DO_SET_FONT_ITALIC
+    DO_CHANGE_FONT_SIZE,DO_SET_FONT_BOLD,DO_SET_FONT_ITALIC,
+    DO_NODECOLOR
     ]
   
   belongs_to :mindmap

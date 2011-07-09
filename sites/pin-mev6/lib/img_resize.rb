@@ -1,7 +1,7 @@
 require 'RMagick'
 
 class ImgResize
-  CACHE_PATH = '/root/image_resize_cache'
+  CACHE_PATH = '/tmp'
 
   def initialize(image_file_path)
     @image_file_path = image_file_path

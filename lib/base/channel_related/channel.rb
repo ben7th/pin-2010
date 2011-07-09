@@ -1,25 +1,5 @@
 class Channel < UserAuthAbstract
-  has_many :channel_users,:dependent=>:destroy
-  has_many :include_users_db,:through=>:channel_users,:source=>:user,:order=>"channel_users.id desc"
-
-  KIND_CHAT = "chat"                               # 闲聊
-  KIND_BLOG = "blog"                               # 信息发布
-  KIND_INTERVIEW = "interview"                     # 问答访谈
-  KIND_MINDMAP_MANAGER = "mindmap"                 # 导图管理
-  KIND_TODOLIST = "todolist"
-
-  KIND_SHOW_NAME = Hash.new('聊天').merge({
-    KIND_CHAT => '聊天',
-    KIND_BLOG => '博客',
-    KIND_INTERVIEW => '问答',
-    KIND_MINDMAP_MANAGER => '导图',
-    KIND_TODOLIST => '任务'
-  })
-
-  def kind_name
-    KIND_SHOW_NAME[self.kind]
-  end
-
+  has_many :channel_contacts
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
 
   validates_presence_of :name
@@ -29,21 +9,35 @@ class Channel < UserAuthAbstract
   index :creator_id
   index [:creator_id,:id]
 
+  def include_users_db
+    User.find_by_sql(%`
+      SELECT users.* FROM users
+      INNER JOIN contacts ON contacts.follow_user_id = users.id
+      INNER JOIN channel_contacts ON channel_contacts.contact_id = contacts.id
+      WHERE channel_contacts.channel_id = #{self.id}
+      `)
+  end
+
   def has_user_db?(user)
     include_users_db.include?(user)
   end
 
-  def get_channel_user_obj_of(user)
-    self.channel_users.find_by_user_id(user.id)
+  def get_channel_contact_obj_of(contact)
+    self.channel_contacts.find_by_contact_id(contact.id)
   end
 
   # 给频道增加一个联系人
   # 增加成功返回 true
   # 增加失败返回 false
   def add_user(user)
-    channel_user = get_channel_user_obj_of(user)
-    return if !channel_user.blank?
-    ChannelUser.create(:user=>user,:channel=>self)
+    contact = self.creator.get_contact_obj_of(user)
+    return false if contact.blank?
+
+    channel_contact = get_channel_contact_obj_of(contact)
+    return true if !channel_contact.blank?
+
+    ChannelContact.create(:contact=>contact,:channel=>self)
+    return true
   end
 
   # 那一群人加到一个频道
@@ -54,16 +48,18 @@ class Channel < UserAuthAbstract
   end
 
   # 把 user 从 频道去除
-  # 去除成功返回 true
-  # 失败或者 user 原本就不在频道 返回 false
   def remove_user(user)
-    channel_user = get_channel_user_obj_of(user)
-    channel_user.destroy if channel_user
+    contact = self.creator.get_contact_obj_of(user)
+    return false if contact.blank?
+
+    channel_contact = get_channel_contact_obj_of(contact)
+    channel_contact.destroy unless channel_contact.blank?
+    return true
   end
 
   module UserMethods
     def self.included(base)
-      base.has_many :channels,:foreign_key=>:creator_id, :order => "position"
+      base.has_many :channels,:foreign_key=>:creator_id
     end
 
     def channels_count
@@ -103,20 +99,6 @@ class Channel < UserAuthAbstract
     end
   end
 
-  module MindmapMethods
-    # 待修改修改
-#    def self.included(base)
-#      base.extend ClassMethods
-#    end
-#    module ClassMethods
-#      def channel_mindmaps(channel)
-#        channel.contact_users.map do |user|
-#          user.mindmaps.publics
-#        end.compact.flatten.sort{|a,b|b.updated_at<=>a.updated_at}
-#      end
-#
-#    end
-  end
   include FeedChannel::ChannelMethods
   include PositionMethods
   include CooperationChannel::ChannelMethods

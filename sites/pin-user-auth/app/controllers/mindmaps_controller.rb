@@ -37,7 +37,7 @@ class MindmapsController < ApplicationController
   end
 
   def newest
-    file_path = MindmapImageCache.new(@mindmap).get_img_path_by("120x120")
+    file_path = MindmapImageCache.new(@mindmap).thumb_120_img_path
     send_file file_path,:type=>"image/png",:disposition=>'inline'
   end
 

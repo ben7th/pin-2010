@@ -3,8 +3,6 @@ resque_queues:
   - feed_operation_resque_queue
   - follow_operation_resque_queue
   - mindmap_image_cache_resque_queue
-  - mindmap_import_resque_queue
-  - mindmap_input_resque_queue
   - send_tsina_status_resque_queue
   - user_tip_resque_queue
   - user_joined_feeds_change_tip_resque_queue

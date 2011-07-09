@@ -134,7 +134,7 @@ pie.mindmap_node_new_child_methods = {
     }.bind(this));
   },
   __add_to_html_dom:function(child){
-    var container_dom = child._build_container_dom();
+    var container_dom = child.container.el;
     var target_dom;
 
     if(child.prev){
@@ -145,7 +145,7 @@ pie.mindmap_node_new_child_methods = {
       target_dom.insert({bottom: container_dom});
     }
 
-    child._cacheDimensions();
+    child.cache_dimensions();
   }
 }
 
@@ -198,7 +198,7 @@ pie.mindmap_node_toggle_methods = {
     this.content.el.toggle();
   },
   _expand:function(){
-    this.folder.el.className = "foldhandler_minus";
+    this.folder.el.className = "foldhandler minus";
     this.closed = false;
   },
   _collapse:function(){
@@ -212,7 +212,7 @@ pie.mindmap_node_toggle_methods = {
       }
       p=p.parent;
     }
-    this.folder.el.className = "foldhandler_plus";
+    this.folder.el.className = "foldhandler plus";
     this.closed = true;
   }
 }

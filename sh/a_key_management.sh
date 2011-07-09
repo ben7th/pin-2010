@@ -11,9 +11,7 @@ case "$1" in
 
     ./worker_sh/resque_queue_workers_all.rb start
     ./worker_sh/wake_up_resque_worker.sh start
-    ./worker_sh/mindmap_import_queue_worker.sh start
 
-    ./unicorn.sh mindmap_image_cache start
     ./unicorn.sh mev6 start
     ./unicorn.sh user start
   ;;
@@ -21,11 +19,9 @@ case "$1" in
     echo "a_key stop"
     ./unicorn.sh user stop
     ./unicorn.sh mev6 stop
-    ./unicorn.sh mindmap_image_cache stop
 
     ./worker_sh/wake_up_resque_worker.sh stop
     ./worker_sh/resque_queue_workers_all.rb stop 
-    ./worker_sh/mindmap_import_queue_worker.sh stop
 
     ./service_sh/feeds_lucene_service.sh stop
     ./service_sh/mindmaps_lucene_service.sh stop

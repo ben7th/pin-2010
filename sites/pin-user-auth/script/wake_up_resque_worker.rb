@@ -6,8 +6,6 @@ loop do
     Resque.enqueue(FeedOperationQueueWorker, "wake_up", "")
     Resque.enqueue(FollowOperationQueueWorker, "wake_up", "", "")
     Resque.enqueue(MindmapImageCacheQueueWorker, "wake_up", "")
-    Resque.enqueue(MindmapImportQueueInputWorker, "wake_up")
-    Resque.enqueue(MindmapInputQueueResqueWorker, "wake_up")
     Resque.enqueue(SendTsinaStatusQueueWorker,"wake_up")
   rescue Errno::ECONNREFUSED => ex
     puts ex.backtrace*"\n"

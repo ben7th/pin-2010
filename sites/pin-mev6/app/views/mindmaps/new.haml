@@ -1,21 +1,23 @@
+-content_for :title do
+  创建思维导图
+
 .main.white.grid_18
   .page-new-mindmap-form
     %h2.main-title 创建思维导图
     =flash_info
-    .grid_7.alpha
-      - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
-        .field.title
-          %label 标题
-          = text_field_tag :'mindmap[title]','',:class=>'text'
-        .field.description
-          %label 描述 <span class='quiet font12'>(选填)</span>
-          = text_area_tag :'mindmap[description]','',:class=>'text'
-        .field
-          = f.check_box :private
-          %span 设置这个导图为私有
-        .field
-          =f.submit "好了，确定创建",:class=>'submit'
-          %span.marginl10=link_to '算了，取消','/'
+    - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+      .field.title
+        %label 标题
+        = text_field_tag :'mindmap[title]','',:class=>'text'
+      .field.description
+        %label 描述 <span class='quiet font12'>(选填)</span>
+        = text_area_tag :'mindmap[description]','',:class=>'text'
+      .field
+        = f.check_box :private,:class=>'checkbox'
+        %span 这个导图只有我自己能看到
+      .field
+        =f.submit "好了，确定创建",:class=>'submit'
+        %span.marginl10=link_to '算了，取消','/'
 
 .mside.grid_6
   .padding10

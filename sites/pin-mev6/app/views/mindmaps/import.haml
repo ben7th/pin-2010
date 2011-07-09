@@ -1,18 +1,48 @@
-.main.white.grid_18
-  .padding10
-    =flash_info
-    .import
-      =minibutton '上传导图','javascript:;'
-      上传导图 mindmap[import_file]
+-content_for :title do
+  导入思维导图
 
-    -mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
-      = f.text_field :title
-      = f.text_area :description
+-content_for :javascript do
+  =javascript_include_tag '/uploadify/upload_mindmap'
+
+.main.white.grid_18
+  .page-upload-mindmap
+    %h2.main-title 导入思维导图
+    .page-upload-mindmap-result{:style=>'display:none;'}
+      .thumb
+      .data
+        %h3
+          上传文件分析结果
+        .type
+          .l 格式
+          .t
+        .filename
+          .l 文件标题
+          .t
+        .nodes-count
+          .l 有效节点数
+          .t
+      .close
+
+    #page-mindmap-upload-queue
+    .upload
+      .btn
+        #page-mindmap-import-btn
+      .desc
+        选择要上传的导图文件，不超过4MB。支持 .mmap, .mm, .xmind, .imm
+
+    -mindpin_form_for(@mindmap,:url=>'/mindmaps/do_import',:html=>{:multipart=>true}) do |f|
+      =hidden_field_tag 'upload_temp_id',''
+      .field.title
+        %label 标题
+        = text_field_tag :'mindmap[title]','',:class=>'text disabled',:disabled=>'disabled'
+      .field.description
+        %label 描述 <span class='quiet font12'>(选填)</span>
+        = text_area_tag :'mindmap[description]','',:class=>'text disabled',:disabled=>'disabled'
+      .field.private
+        = f.check_box :private,:class=>'checkbox disabled',:disabled=>'disabled'
+        %span.disabled 这个导图只有我自己能看到
       .field
-        = f.check_box :private
-        %span 设置这个导图为私有
-      .form_actions
-        =f.submit "好了，确定创建"
+        =f.submit "好了，确定创建",:class=>'submit disabled',:disabled=>'disabled'
         %span.marginl10=link_to '算了，取消','/'
 
 .mside.grid_6

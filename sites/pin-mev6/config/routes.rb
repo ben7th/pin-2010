@@ -19,11 +19,12 @@ ActionController::Routing::Routes.draw do |map|
   map.user_mindmaps "/mindmaps/users/:user_id",:controller=>"mindmaps",:action=>"user_mindmaps"
 
   map.resources :mindmaps,:collection=>{
-    :import_file=>:post,
     :aj_words=>:get,
     :cooperates=>:get,
     :search=>:get,
-    :import=>:get
+    :import=>:get,
+    :do_import=>:post,
+    :upload_import_file=>:post
   },:member=>{
     :export=>:get,
     :change_title=>:put,
@@ -41,15 +42,12 @@ ActionController::Routing::Routes.draw do |map|
     mindmap.show_image_editor       "files/i_editor",:controller=>'files',:action=>'show_image_editor',:conditions=>{:method=>:get}
     mindmap.show_font_editor        "files/f_editor",:controller=>'files',:action=>'show_font_editor',:conditions=>{:method=>:get}
 
-    mindmap.upload_web_file         "upload_web_file",:controller=>"files",:action=>"upload_web_file",:conditions=>{:method=>:post}
-    mindmap.upload_file             "upload_file",:controller=>"files",:action=>"upload_file",:conditions=>{:method=>:post}
-
-    mindmap.show_upload_file        "files/*path",:controller=>"files",:action=>"show_upload_file",:conditions=>{:method=>:get}
-    mindmap.show_upload_file_thumb  "thumb/*path",:controller=>"files",:action=>"show_upload_file_thumb",:conditions=>{:method=>:get}
-
-    mindmap.delete_upload_file      "files/*path",:controller=>"files",:action=>"destroy",:conditions=>{:method=>:delete}
     mindmap.resources :comments,:controller=>"comments"
   end
 
+  map.connect "/mindmaps/import_file_thumb/:upload_temp_id/thumb.png",
+    :controller=>"mindmaps",:action=>"import_file_thumb"
+
   map.resources :users
+  map.resources :image_attachments
 end

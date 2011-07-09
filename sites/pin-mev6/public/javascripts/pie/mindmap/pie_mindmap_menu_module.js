@@ -36,11 +36,11 @@ pie.mindmap_menu_module = {
           this._node_image_editor.do_remove_image(this.focus);
         }.bind(this),
         flag:function(){
-          return this.focus.image.url;
+          return this.focus.image;
         }.bind(this)
       });
 
-      //this.nodeMenu.addItem("字号颜色",{handler:this.edit_focus_font.bind(this)});
+      this.nodeMenu.addItem("节点颜色",{handler:this.edit_focus_font.bind(this)});
 
       this.nodeMenu.addItem("编辑备注",{
         handler:function(){

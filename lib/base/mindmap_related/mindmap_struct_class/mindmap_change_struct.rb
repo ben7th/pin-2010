@@ -10,6 +10,7 @@ class MindmapChangeStruct
     doc = Nokogiri::XML(@mindmap.struct)
     root = doc.css("Nodes")[0]
     return if root.blank?
+    p "mindmap #{@mindmap.id} change struct ..."
     if root
       root.name = "mindmap"
       root["ver"] = "0.5"
@@ -41,7 +42,7 @@ class MindmapChangeStruct
     @mindmap.old_struct = old_struct
     # 临时用来跳过 创建 索引
     @mindmap.instance_variable_set(:@skip_index_lucene,"skip")
-    @mindmap.save
+    @mindmap.save_without_timestamping
   rescue Exception=>ex
     File.open(File.join(RAILS_ROOT,"/log/change_mindmap_log.log"),"a") do |file|
       file << "#{@mindmap.id} 出错啦"

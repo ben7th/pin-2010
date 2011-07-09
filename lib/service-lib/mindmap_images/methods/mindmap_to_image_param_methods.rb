@@ -36,11 +36,11 @@ module MindmapToImageParamMethods
   end
 
   def width_margin
-    40 * zoom
+    25 * zoom
   end
 
   def join_point_offset
-    12 * zoom
+    5 * zoom
   end
 
   def join_point_top_offset
@@ -48,7 +48,7 @@ module MindmapToImageParamMethods
   end
 
   def joint_point_radius
-    4 * zoom
+    3 * zoom
   end
 
   def root_join_point_offset
@@ -88,10 +88,37 @@ module MindmapToImageParamMethods
   end
 
   # 获取一段文字段落的宽高信息
+  # 2011年7月4日 因为性能问题，不再采用gc上的方法计算文字宽高
+  # 而是自己计算
+  # 大概可节约时间 0.5秒 - 1秒
+  # 规则：在zoom 1之下：
+  # 高度 = (\n 的数量 - 1) * 19
+  # 每行宽度 = linestr.split('').map{|x| {1=>8,3=>14}[x.length]}.sum
+  # 总宽度 = 最大行宽度
   def get_text_size(text)
-    img ||= Magick::Image.new(1,1,Magick::HatchFill.new('blue','blue'))
-    metrics = default_gc.get_multiline_type_metrics(img, text)
-    return metrics
+    begin
+      t = text
+
+      if(t.blank? || t=='')
+        t = ' '
+      end
+
+      lines = t.split("\n")
+      height = lines.length * 19 * zoom
+      width = lines.map{|linestr|
+        linestr.split('').map{|x| {1=>8,2=>14,3=>14}[x.length]}.sum
+      }.max * zoom
+
+      return {:width=>width,:height=>height}
+    rescue Exception => ex
+      p t
+      p t.split("\n")
+      p t.split("\n").map{|linestr|
+        linestr.split('').map{|x| x.length}
+      }
+      raise ex
+    end
+
   end
 
 end

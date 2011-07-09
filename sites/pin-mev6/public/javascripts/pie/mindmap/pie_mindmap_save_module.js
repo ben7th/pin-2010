@@ -288,12 +288,10 @@ pie.mindmap.LockWhiteBoard=Class.create({
     this.el = Builder.node('div',{'class':'lock-white-board','style':'display:none;'});
     $(this.el).setStyle({opacity:0.6});
     
-    var paper_dom = this.map.paper.el;
-    Element.insert(paper_dom,this.el);
+    Element.insert(this.map.paper.el,this.el);
   },
   show:function(){
-    var paper_dom = this.map.paper.el;
-    $(this.el).clonePosition(paper_dom,{setLeft:false,setTop:false}).show();
+    $(this.el).clonePosition(this.map.paper.el,{setLeft:false,setTop:false}).show();
   }
 });
 

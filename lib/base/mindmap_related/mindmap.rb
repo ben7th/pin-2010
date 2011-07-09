@@ -57,35 +57,29 @@ class Mindmap < Mev6Abstract
 
   after_create :refresh_thumb_image
   def refresh_thumb_image
+     MindmapImageCache.new(self).refresh_all_cache_file
+  end
+
+
+  def refresh_thumb_image_in_queue
     MindmapImageCacheQueueWorker.async_mindmap_image_cache(self)
     return true
   end
 
   def thumb_image_true_size
-    path = MindmapImageCache.new(self).img_path("120x120")
+    path = MindmapImageCache.new(self).thumb_120_img_path
     image = Magick::Image::read(File.new(path)).first
     {:height=>image.rows,:width=>image.columns}
   rescue Exception => ex
     {:height=>0,:width=>0}
   end
 
-  def self.import(user,file_name,file)
-    self.verify_active_connections!
-    name_splits = file_name.split(".")
-    type = name_splits.pop
-    title = name_splits*""
-
-    mindmap = Mindmap.new
-    mindmap.user_id = user.id
-    mindmap.title = title
-
-    case type
-    when 'mmap' then MindmanagerParser.import(mindmap,file)
-    when 'mm' then FreemindParser.import(mindmap,file)
-    when 'xmind' then XmindParser.import(mindmap,file)
-    when 'imm' then ImindmapParser.import(mindmap,file)
-    else
-      raise "错误的导图格式"
+  def self.import(user,attrs,struct)
+    mindmap = Mindmap.new(attrs)
+    mindmap.user = user
+    mindmap.struct = struct
+    if mindmap.valid?
+      mindmap.save
     end
     mindmap
   end
@@ -166,23 +160,7 @@ class Mindmap < Mev6Abstract
 
     # 已用空间大小
     def space_capacity
-      path = File.join(MINDMAP_IMAGE_BASE_PATH,"users",self.id.to_s)
-      `du -b #{path} | awk '{print $1}'`.to_i
-    end
-
-    # 用户空间是否满
-    def space_is_full?
-      space_capacity > 50 * 1024 * 1024
-    end
-
-    # 剩余空间
-    def left_space
-      50 * 1024 * 1024 - space_capacity
-    end
-
-    #　再加一个文件，用户空间的大小是否 满
-    def space_is_full_after_add_file?(file)
-      space_capacity + file.size >  50 * 1024 * 1024
+      self.image_attachments.map{|ia|ia.image.size}.sum
     end
 
     def mindmaps_chart_arr
@@ -206,6 +184,5 @@ class Mindmap < Mev6Abstract
   include MindmapComment::MindmapMethods
   include MindmapFav::MindmapMethods
 
-  include Channel::MindmapMethods
   include FeedMindmap::MindmapMethods
 end
