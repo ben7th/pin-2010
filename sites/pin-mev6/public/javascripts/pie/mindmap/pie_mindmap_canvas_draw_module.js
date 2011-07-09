@@ -32,10 +32,10 @@ pie.mindmap_canvas_draw_module = {
     var left,right;
     if(node.sub.put_on_right()){
       left = node.left;
-      right = left + node.width + this.fw/2;
+      right = left + node.width + this.foldhandler_width/2;
     }else{
       left = node.right;
-      right = left + node.width + this.fw/2;
+      right = left + node.width + this.foldhandler_width/2;
     }
     if(node.sub!=node){
       var pct=node.parent.content;
@@ -109,7 +109,7 @@ pie.mindmap.RootBranchCanvasBase = Class.create({
     this.lw = 5;  //线最粗的地方的横向宽度
     this.p2 = Math.PI*2;
     this.rr = 2;  //一级子节点的连接点半径
-    this.cr = this.map.cr;
+    this.canvas_overflow = this.map.canvas_overflow;
     
     if(node.sub.put_on_right()){
       this.qcoff = this.branch.width/3;
@@ -153,10 +153,10 @@ pie.mindmap.RootBranchCanvasRUP=Class.create(pie.mindmap.RootBranchCanvasBase,{
     this.x1 = 0;
     this.x2 = this.lw;
 
-    this.y1 = this.branch.height + this.cr;
+    this.y1 = this.branch.height + this.canvas_overflow;
 
     this.xn = this.branch.width - this.rr;
-    this.yn = this.cr;
+    this.yn = this.canvas_overflow;
   }
 });
 
@@ -174,10 +174,10 @@ pie.mindmap.RootBranchCanvasRDOWN=Class.create(pie.mindmap.RootBranchCanvasBase,
     this.x1 = 0;
     this.x2 = this.lw;
 
-    this.y1 = this.cr;
+    this.y1 = this.canvas_overflow;
 
     this.xn = this.branch.width - this.rr;
-    this.yn = this.branch.height + this.cr;
+    this.yn = this.branch.height + this.canvas_overflow;
   }
 });
 
@@ -195,10 +195,10 @@ pie.mindmap.RootBranchCanvasLUP=Class.create(pie.mindmap.RootBranchCanvasBase,{
     this.x1 = this.branch.width;
     this.x2 = this.branch.width - this.lw;
 
-    this.y1 = this.branch.height + this.cr;
+    this.y1 = this.branch.height + this.canvas_overflow;
 
     this.xn = this.rr;
-    this.yn = this.cr;
+    this.yn = this.canvas_overflow;
   }
 });
 
@@ -207,10 +207,10 @@ pie.mindmap.RootBranchCanvasLDOWN=Class.create(pie.mindmap.RootBranchCanvasBase,
     this.x1 = this.branch.width;
     this.x2 = this.branch.width - this.lw;
 
-    this.y1 = this.cr;
+    this.y1 = this.canvas_overflow;
 
     this.xn = this.rr;
-    this.yn = this.branch.height + this.cr;
+    this.yn = this.branch.height + this.canvas_overflow;
   }
 });
 

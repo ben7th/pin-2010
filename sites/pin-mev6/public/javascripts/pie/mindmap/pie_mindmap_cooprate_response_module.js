@@ -107,7 +107,7 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
 		node.el.show();
 
 		//先去掉节点上的“被选择”样式，然后再计算宽高，才不会有错误
-		node.el.removeClassName('node_selected').removeClassName('root_selected');
+		node.el.removeClassName('selected');
 		Object.extend(node,node.el.getDimensions());
 
 		if(node.title == node._oldtitle) return;
@@ -115,6 +115,33 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
     node.do_dirty();
     this.map.reRank();
     
+    if(other_coop){
+      new Effect.Highlight(node.el,{startcolor: '#FF6666'});
+    }
+  },
+  data_image:function(other_coop, node, image){
+    if(node.image){
+      if (node.image.jq) {node.image.jq.remove();}
+    }
+    node.image = image;
+    node.__build_nodeimage();
+
+    jQuery(node.nodebody.el).before(node.image.jq);
+    
+    node.re_rank();
+
+    if(other_coop){
+      new Effect.Highlight(node.el,{startcolor: '#FF6666'});
+    }
+  },
+  data_remove_image:function(other_coop, node){
+    if(node.image){
+      if (node.image.jq) {node.image.jq.remove();}
+    }
+    node.image = null;
+
+    node.re_rank();
+
     if(other_coop){
       new Effect.Highlight(node.el,{startcolor: '#FF6666'});
     }

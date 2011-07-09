@@ -67,8 +67,8 @@ pie.mindmap.Node = Class.create({
   cache_dimensions:function(){
     if(this.width == null){
       Object.extend(this, this.el.getDimensions());
-      this.children.each(function(cld){
-        cld.cache_dimensions();
+      this.children.each(function(child){
+        child.cache_dimensions();
       }.bind(this));
     }
   },
@@ -272,6 +272,12 @@ pie.mindmap.Node = Class.create({
     this.textcolor = textcolor;
     jQuery(this.el).css('background-color',bgcolor);
     jQuery(this.nodetitle.el).css('color',textcolor);
+  },
+
+  re_rank:function(){
+    Object.extend(this,this.el.getDimensions());
+    this.do_dirty();
+    this.map.reRank();
   }
 });
 
@@ -281,7 +287,7 @@ pie.mindmap_node_build_dom_module = {
     try{
       if (this.el == null) {
 
-        this.__build_nodeimg();
+        this.__build_nodeimage();
         this.__build_noteicon();
         this.__build_nodetitle();
         this.__build_nodebody();
@@ -290,7 +296,7 @@ pie.mindmap_node_build_dom_module = {
           id:this.id,
           "class": (this.root==this ? "root" : "node"),
           "style":"position:absolute;background-color:"+this.bgcolor+";color:"+this.textcolor+";"
-        },[this.nodeimg.el||[],this.nodebody.el]));
+        },[(this.image ? this.image.jq[0] : []),this.nodebody.el]));
 
         this.folder={
           id:"f_"+this.id,
@@ -336,20 +342,14 @@ pie.mindmap_node_build_dom_module = {
     return this.container.el;
   },
 
-  __build_nodeimg:function(){
-    this.nodeimg={};
-    
+  __build_nodeimage:function(){
     if (this.image) { //这个判断方式不靠谱，需要修改JSON
-      this.image.el = $(Builder.node("img",{
-        'src'    : this.image.url,
-        'height' : this.image.height,
-        'width'  : this.image.width
-      }))
-      this.nodeimg = {
-        el: $(Builder.node("div", {
-          "class": "nodeimg"
-        },this.image.el))
-      }
+      var jq = jQuery("<div class='node-image'></div>")
+        .css('background-image',"url('"+this.image.url+"')")
+        .css('height',this.image.height)
+        .css('width',this.image.width);
+
+      this.image.jq = jq;
     }
   },
 

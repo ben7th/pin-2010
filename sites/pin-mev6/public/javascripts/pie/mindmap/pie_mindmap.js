@@ -22,43 +22,12 @@ pie.mindmap.BasicMapPaper = Class.create({
     //options check
     options = options || {};
     Object.extend(this,options);
+    this.editmode = (options.editmode == true);
 
     this._init_paper(paper_id);
     this._init_scroller();
 
-    //logger
-    this.log = pie.log;
-
-    //params
-    this.pause_period = 500; //毫秒
-
-    this.fw  = 11;  //folder图片的宽度
-    this.cr  = 6;  //canvas层的偏移增量
-    this.mr  = 3;  //子节点的margin值
-    this.mr2 = this.mr * 2;
-
-    this.lineColor = options.lineColor||"#5c5c5c";
-
-    this.editmode = options.editmode||false;
-    if(this.editmode){
-      this.node_title_editor  = new pie.mindmap.NodeTitleEditor(this);
-      this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
-      this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
-      this._node_font_editor  = new pie.mindmap.NodeFontEditor(this);
-    }
-
-    //Designated Canvas function
-    this.connect = this._connectWithCanvas;
-
-    //runtime
-    this.root  = null;
-    this.el    = null;
-    this.focus = null;
-
-    //operation record factory
-    this.opFactory        = new pie.mindmap.OperationRecordFactory({map:this});
-    this.mr_factory       = new pie.mindmap.ModifyingResponseFactory({map:this});
-    this.opQueue          = [];
+    this._init_const();
 
     this.nodes = new Hash();
 
@@ -76,6 +45,33 @@ pie.mindmap.BasicMapPaper = Class.create({
       jq : this.paper.jq.parent()
     }
   },
+  _init_const:function(){
+    //logger
+    this.log = pie.log;
+
+    //params
+    this.pause_period = 500; //毫秒
+
+    this.foldhandler_width  = 11;  //folder图片的宽高值
+    this.canvas_overflow    = 6;  //canvas层的边缘溢出量
+
+    this.lineColor = "#5c5c5c";
+
+    if(this.editmode){
+      this.node_title_editor  = new pie.mindmap.NodeTitleEditor(this);
+      this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
+      this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
+      this._node_font_editor  = new pie.mindmap.NodeFontEditor(this);
+    }
+
+    //Designated Canvas function
+    this.connect = this._connectWithCanvas;
+
+    //operation record factory
+    this.opFactory  = new pie.mindmap.OperationRecordFactory({map:this});
+    this.mr_factory = new pie.mindmap.ModifyingResponseFactory({map:this});
+  },
+
 
 
   load:function(){
@@ -197,7 +193,7 @@ pie.mindmap.BasicMapPaper = Class.create({
   },
   //精确到像素的节点排列递归函数
   setCoord: function(node){
-    var fw = this.fw;//折叠点的宽度
+    var foldhandler_width = this.foldhandler_width;//折叠点的宽度
     var padding = 10;//节点的纵向间距
 
     var children_h = 0;
@@ -258,7 +254,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     //左右排列
     if(node.sub.put_on_right()){
-      content.left = label_w + fw;
+      content.left = label_w + foldhandler_width;
       folder.left = label_w;
 
       content.el.style.left = content.left + "px";
@@ -269,7 +265,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       node.el.style.right = "";
       container.el.style.right = "";
     }else{
-      content.right = label_w + fw;
+      content.right = label_w + foldhandler_width;
       folder.right = label_w;
       node.right = 0;
       container.right = 0;
@@ -283,9 +279,9 @@ pie.mindmap.BasicMapPaper = Class.create({
       folder.el.style.left = "";
     }
 
-    folder.top = label_h - fw / 2 + node.top;
+    folder.top = label_h - foldhandler_width / 2 + node.top;
     container.height = h;
-    container.width = label_w + fw + node.content.width;
+    container.width = label_w + foldhandler_width + node.content.width;
 
     var p= node.prev;
 
@@ -395,7 +391,7 @@ pie.mindmap.BasicMapPaper = Class.create({
   }
 
   node.canvas.width = node.container.width;
-  node.canvas.height = node.container.height+this.cr;
+  node.canvas.height = node.container.height+this.canvas_overflow;
 
       canvas.setAttribute("width", node.canvas.width);
       canvas.setAttribute("height", node.canvas.height);
@@ -426,10 +422,10 @@ pie.mindmap.BasicMapPaper = Class.create({
       node.container.el.insert({after: branch});
     }
     branch.setAttribute("width", node.branch.width);
-    branch.setAttribute("height", node.branch.height+this.cr*2);
+    branch.setAttribute("height", node.branch.height+this.canvas_overflow*2);
     branch.setStyle({
       left:node.branch.left+"px",
-      top:node.branch.top-this.cr*2+"px"
+      top:node.branch.top-this.canvas_overflow*2+"px"
     });
   },
   
@@ -452,7 +448,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       node.branch.type = 1;
     }
 
-    node.branch.top += this.cr;
+    node.branch.top += this.canvas_overflow;
   },
 
   //更新坐标缓存

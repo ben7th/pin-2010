@@ -77,11 +77,41 @@ pie.mindmap_node_modifying_methods = {
   },
 
   set_image_and_save:function(image){
+    try{
       //get ready
+      var map = this.map;
+
       // modify data
       // show animation effect
+      map.mr_factory.data_image(false, this, image);
+
       // after operation
+      this.select();
+
       // post data
+      var record = map.opFactory.getImageInstance(this);
+      map._save(record);
+      
+    }catch(e){alert(e)}
+  },
+
+  remove_image_and_save:function(){
+    try{
+      //get ready
+      var map = this.map;
+      
+      // modify data
+      // show animation effect
+      map.mr_factory.data_remove_image(false, this);
+
+      // after operation
+      this.select();
+
+      // post data
+      var record = map.opFactory.getRemoveImageInstance(this);
+      map._save(record);
+
+    }catch(e){alert(e)}
   }
 }
 

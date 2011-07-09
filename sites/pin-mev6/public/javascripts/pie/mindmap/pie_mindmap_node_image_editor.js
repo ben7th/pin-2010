@@ -53,40 +53,16 @@ pie.mindmap.NodeImageEditor = Class.create({
         var img_attach_width = selected_li.attr('data-width');
         var img_attach_height = selected_li.attr('data-height');
 
-        if(node.image){
-          if (node.image.el) {node.image.el.remove();}
-        }
 
-        node.image = {
+        var image = {
           "attach_id" : img_attach_id,
           "url"       : img_attach_url,
           "width"     : img_attach_width,
           "height"    : img_attach_height
         };
 
-        node.image.el = $(Builder.node("img",{
-          'src'     : img_attach_url,
-          "width"   : img_attach_width,
-          "height"  : img_attach_height
-        }));
-
-        node.nodeimg = {
-          el: $(Builder.node("div", {"class": "nodeimg"},node.image.el))
-        };
-
-        Event.observe(node.image.el,'load',function(){
-          Object.extend(node,node.el.getDimensions());
-          node.do_dirty();
-          node.map.reRank();
-        });
-
-        node.nodebody.el.insert({before: node.nodeimg.el});
-
+        node.set_image_and_save(image);
         func.close();
-        
-        var record = func.map.opFactory.getImageInstance(node);
-        func.map._save(record);
-
       }
     });
 	},
@@ -102,7 +78,12 @@ pie.mindmap.NodeImageEditor = Class.create({
       this._enable_upload_btn();
     }
 	},
-  
+
+  // 被菜单调用的方法
+	do_remove_image:function(node){
+    node.remove_image_and_save();
+	},
+
   close:function(){
     jQuery('.page-mindmap-image-editor').hide();
     jQuery('.page-overlay').remove();
@@ -162,25 +143,7 @@ pie.mindmap.NodeImageEditor = Class.create({
         }
       }
     );
-  },
-
-	do_remove_image:function(node){
-    try{
-      //这个方法其实最好应该放在node上作为对象方法
-      if(node.image){
-        if (node.image.el) {node.image.el.remove();}
-      }
-
-      node.image = null
-
-      Object.extend(node,node.el.getDimensions());
-      var record = this.map.opFactory.getRemoveImageInstance(node);
-      this.map._save(record);
-
-      node.do_dirty();
-      this.map.reRank();
-    }catch(e){alert(e)}
-	}
+  }
 })
 
 

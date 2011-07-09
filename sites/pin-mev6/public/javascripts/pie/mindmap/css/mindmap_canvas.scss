@@ -1,68 +1,69 @@
 @import "misc";
 
-.root,.node{
-  font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
-  cursor:pointer;
-}
-
 .root{
-  font-size:14px;
-  line-height:21px;
-  border:2px solid #77AAFF;
-  padding:3px 5px;
+  font-size:14px;line-height:20px;
+  border:3px solid #77AAFF;
+  padding:5px;
   color:#fff;
   background-color:#4C8EFB;
   @include border-radius(5px);
+
   &.dropon{
-    border:solid 2px #F56F00 !important;
+    border:solid 3px #F56F00 !important;
     padding:3px 5px;margin:0;
   }
   &.over{
+    border:solid 3px #ffed80;
     background-color:#5c9eff;
   }
   &.selected{
-    border-color:#113B8F;
+    border:3px solid #113B8F;
   }
 }
 
 .node{
-  font-size:12px;
-  color:#333;line-height:16px;
-  padding:2px 3px 3px 3px;
-  margin:3px 0;
+  font-size:12px;line-height:16px;
+  border:none;
+  padding:3px;
+  color:#333;
   @include border-radius(4px);
+
   &.dropon{
     border:solid 3px #F56F00 !important;
-    padding:2px 0;margin:0;
+    padding:0;
   }
   &.over{
     border:solid 3px #ffed80;
-    padding:2px 0;margin:0;
+    padding:0;
   }
   &.selected{
     border:solid 3px #113B8F;
-    padding:2px 0;margin:0;
+    padding:0;
   }
 }
 
-.nodeimg{
-  img{margin:0 3px;}
+.root,.node{
+  font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+  cursor:pointer;
+  .node-image{
+    font-size:0;line-height:0;
+    @include border-radius(2px);
+  }
+
 }
 
 .nodebody{
+  /*这里不能用float，需要用inline-block，否则排版不正确*/
   .nodetitle{
-    margin:0 3px;
     display:inline-block;
     *display:inline;
     zoom:1;
   }
   .noteicon{
-    width:10px;
-    height:9px;
-    background-image:url("../img/status_icons.gif");
-    background-repeat:no-repeat;
-    background-position:30% 0px;
+    width:16px;height:16px;
+    background:url("/images/noteicon.png") no-repeat;
     vertical-align:top;
+    margin-left:3px;
     display:inline-block;
     *display:inline;
     zoom:1;
