@@ -18,9 +18,9 @@ pie.mindmap.NodeTitleEditor = Class.create({
 
     this.title_inputer.value = node.title;
 
-    map.paper.el.appendChild(this.title_resizer);
+    map.paper.jq.append(this.title_resizer);
     this._init_resizer(node);
-    map.paper.el.appendChild(this.title_input_div);
+    map.paper.jq.append(this.title_input_div);
 
     Position.clone(node.el,this.title_input_div,{
       setWidth:false,setHeight:false

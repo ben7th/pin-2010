@@ -18,7 +18,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
     var dragproxy = this.__init_dragproxy();
 
 		//拖拽代理作为paper的直接子节点
-		this.map.paper.el.appendChild(dragproxy);
+		this.map.paper.jq.append(dragproxy);
 		this.map.ondrag = this.node;
 
 		this.ileft = parseInt(dragproxy.style.left||0);
@@ -42,8 +42,9 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
   },
 
   __set_drag_proxy_style:function(){
-    this.scrolleroffset = this.map.paper.el.up().cumulativeOffset();
-		var off2=this.el.cumulativeOffset();
+    this.scrolleroffset = this.map.observer.el.cumulativeOffset();
+		var off2 = this.el.cumulativeOffset();
+
 		this.dragproxy.setStyle({
 			left:(off2.left - this.scrolleroffset.left)+'px',
 			top:(off2.top - this.scrolleroffset.top)+'px',
@@ -481,8 +482,8 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 				position: "absolute",
 				border: "solid 0px"
 			});
-			map.paper.el.appendChild(this.dropbox);
-			map.paper.el.appendChild(this.dropcanvas);
+			map.paper.jq.append(this.dropbox);
+			map.paper.jq.append(this.dropcanvas);
 		}
 	},
 	__put_dropbox:function(left,top){

@@ -26,7 +26,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     this._init_paper(paper_id);
 
     this.observer={
-      el:$(this.paper.el.parentNode)
+      el:$(this.paper.jq.parent()[0])
     };
 
     //logger
@@ -70,11 +70,8 @@ pie.mindmap.BasicMapPaper = Class.create({
   },
 
   _init_paper:function(paper_id){
-    var elm = jQuery(paper_id);
-
     this.paper = {
-      jq : elm,
-      el : $(elm[0])
+      jq : jQuery(paper_id)
     };
   },
 
@@ -98,17 +95,17 @@ pie.mindmap.BasicMapPaper = Class.create({
     var root     = this.root;
 
     //生成HTML并缓存节点宽高
-    var paper_elm = jQuery(paper.el);
+    var paper_jq = paper.jq;
 
     this.el = root.container.el;
-    paper_elm.html(this.el);
+    paper_jq.html(this.el);
     root.cache_dimensions();
 
 
     //初始化，计算坐标
     //获取paper的宽高，并折半
-    paper.xoff = paper_elm.width() / 2;
-    paper.yoff = paper_elm.height() / 2;
+    paper.xoff = paper_jq.width() / 2;
+    paper.yoff = paper_jq.height() / 2;
     
     //定位编辑区
     this.recenter();
@@ -118,7 +115,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     this.reRank();
 
-    new pie.drag.Page(paper.el,{beforeDrag:function(){
+    new pie.drag.Page(paper.jq[0],{beforeDrag:function(){
       this.nodeMenu.unload();
       this.stop_edit_focus_title();
     }.bind(this)});
@@ -500,14 +497,14 @@ pie.mindmap.BasicMapPaper = Class.create({
 			'style':"position:absolute; background-color:#E8641B;border-top:solid 5px #DF0024;border-bottom:solid 5px #DF0024;"
 		});
 		Element.setStyle(this.posbox,{
-			left:l+'px',
-			top:t+'px',
-			width:w+"px",
-			height:h+"px",
-			opacity:0.3,
-			zIndex:103
+			left    : l+'px',
+			top     : t+'px',
+			width   : w+"px",
+			height  : h+"px",
+			opacity : 0.3,
+			zIndex  : 103
 		});
-		this.paper.el.appendChild(this.posbox);
+		this.paper.jq.append(this.posbox);
 	},
   _bindHotkeyDispatcher:function(){
     //绑定快捷键

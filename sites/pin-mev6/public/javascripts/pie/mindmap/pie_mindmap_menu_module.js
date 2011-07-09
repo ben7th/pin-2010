@@ -2,7 +2,7 @@ pie.mindmap_menu_module = {
   _createMenu:function(){
     try{
       this.nodeMenu=new pie.mindmap.Menu({
-        observer:this.paper.el,
+        observer : $(this.paper.jq[0]),
         afterload:function(){
           this.__scrollto(this.nodeMenu);
         }.bind(this)
