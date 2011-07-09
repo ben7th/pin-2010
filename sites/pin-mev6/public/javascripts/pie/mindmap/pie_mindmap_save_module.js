@@ -236,18 +236,16 @@ pie.mindmap_save_module = {
 pie.mindmap.InfoLabel = Class.create({
   initialize:function(mindmap){
     this.map = mindmap;
-    this._remove_all_label_dom();
     this.el = this._build_dom();
   },
-  _remove_all_label_dom:function(){
-    var parent_dom_id = this.map.observer.el.parentNode.id;
-    jQuery('#'+parent_dom_id+' .info-label').remove();
-  },
-
+  
   _build_dom:function(){
-    var parent_dom = this.map.observer.el.parentNode;
     var el = Builder.node('div',{'class':'info-label','style':'display:none;'},'');
-    Element.insert(parent_dom, el);
+
+    var parent_jq = this.map.scroller.jq.parent()
+    parent_jq.find('.info-label').remove();
+    parent_jq.append(el);
+    
     return el;
   },
 

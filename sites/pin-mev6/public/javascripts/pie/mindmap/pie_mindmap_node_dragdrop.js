@@ -42,7 +42,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
   },
 
   __set_drag_proxy_style:function(){
-    this.scrolleroffset = this.map.observer.el.cumulativeOffset();
+    this.scrolleroffset = this.map.scroller.jq.offset();
 		var off2 = this.el.cumulativeOffset();
 
 		this.dragproxy.setStyle({
@@ -65,10 +65,10 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 		$(this.node.nodetitle.el).addClassName('quiet')
 
 		var map = this.map;
-		var observer_el = map.observer.el;
+		var scroller_jq = map.scroller.jq;
 
-		var x = this.newX + observer_el.scrollLeft - this.scrolleroffset.left;
-		var y = this.newY + observer_el.scrollTop - this.scrolleroffset.top - 10;
+		var x = this.newX + scroller_jq.scrollLeft() - this.scrolleroffset.left;
+		var y = this.newY + scroller_jq.scrollTop() - this.scrolleroffset.top - 10;
     // 解释下 10 = selected node's (border + padding)*2
 
     this.__clear_droptarget();

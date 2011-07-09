@@ -24,10 +24,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     Object.extend(this,options);
 
     this._init_paper(paper_id);
-
-    this.observer={
-      el:$(this.paper.jq.parent()[0])
-    };
+    this._init_scroller();
 
     //logger
     this.log = pie.log;
@@ -74,6 +71,16 @@ pie.mindmap.BasicMapPaper = Class.create({
       jq : jQuery(paper_id)
     };
   },
+  _init_scroller:function(){
+    this.observer={
+      el:$(this.paper.jq.parent()[0])
+    };
+
+    this.scroller = {
+      jq : this.paper.jq.parent()
+    }
+  },
+
 
   load:function(){
     jQuery.ajax({
