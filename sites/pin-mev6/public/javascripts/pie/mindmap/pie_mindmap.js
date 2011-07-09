@@ -72,10 +72,6 @@ pie.mindmap.BasicMapPaper = Class.create({
     };
   },
   _init_scroller:function(){
-    this.observer={
-      el:$(this.paper.jq.parent()[0])
-    };
-
     this.scroller = {
       jq : this.paper.jq.parent()
     }
@@ -134,12 +130,9 @@ pie.mindmap.BasicMapPaper = Class.create({
   
   recenter:function(){
     try{
-      var observer = this.observer;
-      //获取observer的宽高
-      Object.extend(observer,observer.el.getDimensions());
-
-      observer.el.scrollLeft = this.paper.xoff - observer.width/2;
-      observer.el.scrollTop  = this.paper.yoff - observer.height/2;
+      var scroller_jq = this.scroller.jq;
+      scroller_jq.scrollLeft(this.paper.xoff - scroller_jq.width()/2);
+      scroller_jq.scrollTop(this.paper.yoff - scroller_jq.height()/2);
     }catch(e){
       alert(e)
     }
@@ -660,48 +653,56 @@ pie.mindmap.BasicMapPaper = Class.create({
    * 选择节点如果节点不在观察窗内时平滑滚动的函数
    */
   __scrollto:function(node){
+
     if(!node.el.visible()){
-      return false;
+      return;
     }
-    Object.extend(this.observer,this.observer.el.getDimensions());
-    var left,top,toleft,totop;
 
-    var oel=this.observer.el;
+    var scrollbar_width = 20;
 
-    var off1=oel.cumulativeOffset();
-    var off2=node.el.cumulativeOffset();
+    var scroller_jq     = this.scroller.jq
+    var scroller_width  = scroller_jq.width();
+    var scroller_height = scroller_jq.height();
+    var scroller_offset = scroller_jq.offset();
+    
+    var node_offset = jQuery(node.el).offset();
 
-    left=oel.scrollLeft;
-    top=oel.scrollTop;
 
-    //scrollbar width
-    var sw=22;
 
-    var leftoff=off2[0]-left-off1[0];
-    var topoff=off2[1]-top-off1[1];
-
-    if(leftoff<0){
-      toleft=off2[0]-off1[0];
-      new Effect.Tween(oel, left, toleft,{duration:0.4},"scrollLeft");
+    var xdiff = 0;
+    //左边出界了
+    if(node_offset.left < scroller_offset.left){
+      xdiff = (node_offset.left - scroller_offset.left);
     }else{
-      leftoff+=node.width-this.observer.width+sw;
-      if(leftoff>0){
-        toleft=off2[0]-off1[0]-this.observer.width+node.width+sw;
-        new Effect.Tween(oel, left, toleft,{duration:0.4},"scrollLeft");
+      //右边出界了
+      var node_right = node_offset.left + node.width;
+      var scroller_right = scroller_offset.left + scroller_width - scrollbar_width;
+      if(node_right > scroller_right){
+        xdiff = node_right - scroller_right;
       }
     }
 
-    if(topoff<0){
-      totop=off2[1]-off1[1];
-      new Effect.Tween(oel, top, totop,{duration:0.4},"scrollTop");
+    var ydiff = 0;
+    //上边出界了
+    if(node_offset.top < scroller_offset.top){
+      ydiff = (node_offset.top - scroller_offset.top);
     }else{
-      topoff+=node.height-this.observer.height+sw;
-      if(topoff>0){
-        totop=off2[1]-off1[1]-this.observer.height+node.height+sw;
-        new Effect.Tween(oel, top, totop,{duration:0.4},"scrollTop");
+      //右边出界了
+      var node_bottom = node_offset.top + node.height;
+      var scroller_bottom = scroller_offset.top + scroller_height - scrollbar_width;
+      if(node_bottom > scroller_bottom){
+        ydiff = node_bottom - scroller_bottom;
       }
+    }
+
+    if((xdiff!=0)||(ydiff!=0)){
+      scroller_jq.animate({
+        'scrollLeft':'+='+xdiff,
+        'scrollTop':'+='+ydiff
+      },400);
     }
   },
+
   _pause:function(pause_period){
     if(this.pause == true){
       return true;
