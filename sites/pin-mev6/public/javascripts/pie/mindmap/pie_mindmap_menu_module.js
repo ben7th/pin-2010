@@ -42,11 +42,7 @@ pie.mindmap_menu_module = {
 
       this.nodeMenu.addItem("节点颜色",{handler:this.edit_focus_font.bind(this)});
 
-      this.nodeMenu.addItem("编辑备注",{
-        handler:function(){
-          this._node_note_editor.dom.focus()
-        }.bind(this)
-      });
+      this.nodeMenu.addItem("编辑备注",{handler:this.edit_focus_note.bind(this)});
     
     }catch(e){alert(e)}
   }

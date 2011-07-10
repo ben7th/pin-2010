@@ -109,36 +109,28 @@ body{
     float:right;
     overflow:hidden;
     height:100%;
-    color:white;
-    background-color:$bgc !important;
+    background-color:#F7F7F7 !important;
     .mpaccordion-bar{
       .mpaccordion-toggler{
-        color:#ccc !important;
-        text-shadow:1px 1px 0 #333333;
-        background-color:#17384A !important;
-        border-top:solid 1px #274C5D;
-        border-bottom:solid 1px #0C2332;
-        &.open{
-        }
-        &.close{
-        }
+        border-top:solid 1px #444;
+        border-bottom:solid 1px #444;
+        @include gradient(#888888, #444444);
+        color:white;
       }
       .mpaccordion-content{
-        background-color:$bgc !important;
+
       }
     }
-    .note_editor{
-      .editor_box{
-        background-color:#FEFCD7;color:#222;
-        width:200px;
-        #mindmap-note-edit{
-          width:194px !important;
-          height:121px !important;
-          background-color:#FBF3CA;
-          border:none;
-          box-shadow:none;
-          @include border-radius(0px);
-        }
+    .mindmap-note-sidebar{
+      padding:5px;
+      /*210x133 200x123*/
+      .blank-text,.text{
+        padding:5px;
+        width:190px !important;
+        height:113px !important;
+        background-color:#f1f1f1;
+        margin:0 0 5px 0;
+        overflow:auto;
       }
     }
     .snapshots-list{
@@ -260,20 +252,213 @@ body{
   }
 }
 
-#facebox{z-index:100000;}
-#facebox_overlay{z-index:9999;}
+.root{
+  font-size:14px;line-height:20px;
+  border:3px solid #77AAFF;
+  padding:5px;
+  color:#fff;
+  background-color:#4C8EFB;
+  @include border-radius(5px);
 
-#colorzone ul{
-  line-height:10px;
-  height:10px;
+  &.dropon{
+    border:solid 3px #F56F00 !important;
+    padding:3px 5px;margin:0;
+  }
+  &.over{
+    border:solid 3px #ffed80;
+    background-color:#5c9eff;
+  }
+  &.selected{
+    border:3px solid #113B8F;
+  }
 }
 
-#colorzone li{
-  display:inline-block;
-  line-height:10px;
-  height:10px;
-}
-#colorzone a{height:10px;width:10px;display:inline-block;}
+.node{
+  font-size:12px;line-height:16px;
+  border:none;
+  padding:3px;
+  color:#333;
+  @include border-radius(4px);
 
-.root_selected{opacity:1.0;}
+  &.dropon{
+    border:solid 3px #F56F00 !important;
+    padding:0;
+  }
+  &.over{
+    border:solid 3px #ffed80;
+    padding:0;
+  }
+  &.selected{
+    border:solid 3px #113B8F;
+    padding:0;
+  }
+}
+
+.root,.node{
+  font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+  cursor:pointer;
+  .node-image{
+    font-size:0;line-height:0;
+    @include border-radius(2px);
+  }
+
+}
+
+.nodebody{
+  /*这里不能用float，需要用inline-block，否则排版不正确*/
+  .nodetitle{
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+  }
+  .note-icon{
+    width:16px;height:16px;
+    background:url("/images/noteicon.png") no-repeat;
+    vertical-align:top;
+    margin-left:3px;
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+  }
+}
+
+/*折叠展开控制图标*/
+.foldhandler{
+  width:11px;height:11px;
+  padding:0;font-size:0;line-height:0;
+  cursor:pointer;
+  &.plus{
+    background-image:url("../img/icon_plus.png");
+  }
+  &.minus{
+    background-image:url("../img/icon_minus.png");
+  }
+  &.over{
+    background-position:0 -30px;
+  }
+}
+
+/*节点标题编辑*/
+.title_input_div{
+  border:solid 3px #7f7ff7;
+  background-color:white;
+  position:absolute;
+  z-index:103;
+  overflow:hidden;
+  @include border-radius(4px);
+
+  .title_inputer,.title_inputer_root{
+    font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+    border:none !important;
+    color:#333;
+  }
+  .title_inputer{
+    font-size:12px;
+    line-height:16px;
+    padding:2px 2px;
+    *padding:1px 2px;
+  }
+  .title_inputer_root{
+    font-size:14px;
+    line-height:21px;
+    padding:2px 6px;
+    *padding:1px 3px;
+  }
+
+}
+
+/*字号颜色选择器*/
+.mindmap-font-editor{
+  label{
+    color:white;
+  }
+  .colors{
+    width:540px;
+    height:90px;
+    padding:5px;
+    @include border-radius(4px);
+    margin:10px 0;
+    background:white;
+    .line{
+      overflow:hidden;
+      .color{
+        width:12px;
+        height:12px;
+        border:solid 1px #111;
+        margin:0 1px 1px 0;
+        float:left;
+        @include border-radius(2px);
+        cursor:pointer;
+      }
+    }
+  }
+  .p{
+    overflow:hidden;
+    .current{
+      @include border-radius(4px);
+      background:white;
+      padding:4px 10px;
+      width:300px;
+      float:left;
+      overflow:hidden;
+    }
+    .sizes{
+      float:right;
+    }
+  }
+}
+
+#mindmap-scroller{
+  position:absolute;
+  border:none;
+  overflow:scroll;
+  height:100%;
+  width:100%;
+  #mindmap-canvas{
+    border:solid 1px white;
+    position:relative;
+    width:6000px;
+    height:3000px;
+    background-color:#FFFFFF;
+    background-image:url("../img/paper_bg.png");
+    div{white-space:nowrap;}
+  }
+}
+
+.info-label{
+  position:absolute;
+  top:10px;
+  left:10px;
+  height:24px;
+  background:black;
+  @include border-radius(4px);
+  padding:10px 30px 10px 10px;
+  z-index:99999;
+  &.notice{
+    background:#F9E675;
+    color:#472509;
+    font-weight:bold;
+  }
+  &.success{
+    background:#D8F1C4;
+    color:#111;
+    font-weight:bold;
+  }
+  &.error{
+    background:#C6001A;
+    color:white;
+    font-weight:bold;
+  }
+}
+
+.lock-white-board{
+  position:absolute;
+  background-color:#999;
+  z-index:999;
+}
+
+@import 'mindmap_page_editor_boxes';
+
+
+
 

@@ -1,14 +1,18 @@
 -accordion_bar do
   -accordion_item '数据导出和下载' do
     .mindmap-export.padding5
-      =render :partial=>'mindmaps/edit/export'
-  -accordion_item '节点备注编辑' do
-    .note_editor.padding5
-      .editor_box
-        %textarea#mindmap-note-edit
-  -accordion_item '相似导图..' do
+      =render 'mindmaps/edit/export'
+
+  -accordion_item '节点备注显示' do
+    .mindmap-note-sidebar
+      .blank-text.quiet 没有备注信息
+      .text{:style=>'display:none;'}
+      .ops
+        =minibutton '编辑备注','javascript:;',:class=>'edit'
+
+  -accordion_item '相关导图' do
     .padding5
-      =render :partial=>'mindmaps/editor_page/module/similar_mindmaps'
+      =render 'mindmaps/editor_page/module/similar_mindmaps'
 
 -#  暂时还用不上喔
 -#  -accordion_item '快照',:bgc=>"#98BC48",:open=>true do

@@ -112,6 +112,22 @@ pie.mindmap_node_modifying_methods = {
       map._save(record);
 
     }catch(e){alert(e)}
+  },
+
+  set_note_and_save:function(note){
+      //get ready
+      var map = this.map;
+
+      // modify data
+      // show animation effect
+      map.mr_factory.data_note(false, this, note);
+
+      // after operation
+      this.select();
+
+      // post data
+      var record = map.opFactory.getNoteInstance(this);
+      map._save(record);
   }
 }
 

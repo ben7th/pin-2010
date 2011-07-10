@@ -717,6 +717,11 @@ pie.mindmap_focus_methods = {
       this._node_image_editor.do_edit_image(this.focus);
     }
   },
+  edit_focus_note:function(){
+    if(this._can_edit_focus()){
+      this._node_note_editor.do_edit_note(this.focus);
+    }
+  },
   edit_focus_font:function(){
     if(this._can_edit_focus()){
       this._node_font_editor.do_edit_font(this.focus);

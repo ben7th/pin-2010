@@ -145,5 +145,23 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
     if(other_coop){
       new Effect.Highlight(node.el,{startcolor: '#FF6666'});
     }
+  },
+  data_note:function(other_coop, node, note){
+    if(node.noteicon){
+      if(node.noteicon.jq) {node.noteicon.jq.remove();}
+    }
+    
+    node.note = note;
+    node.__build_noteicon();
+
+    if(node.noteicon.jq){
+      jQuery(node.nodetitle.el).after(node.noteicon.jq);
+    }
+
+    node.re_rank();
+
+    if(other_coop){
+      new Effect.Highlight(node.el,{startcolor: '#FF6666'});
+    }
   }
 })

@@ -89,29 +89,24 @@ body {
     float: right;
     overflow: hidden;
     height: 100%;
-    color: white;
-    background-color: #0f2b3e !important; }
+    background-color: #F7F7F7 !important; }
     #mindmap-main #mindmap-sidebar .mpaccordion-bar .mpaccordion-toggler {
-      color: #ccc !important;
-      text-shadow: 1px 1px 0 #333333;
-      background-color: #17384A !important;
-      border-top: solid 1px #274C5D;
-      border-bottom: solid 1px #0C2332; }
-    #mindmap-main #mindmap-sidebar .mpaccordion-bar .mpaccordion-content {
-      background-color: #0f2b3e !important; }
-    #mindmap-main #mindmap-sidebar .note_editor .editor_box {
-      background-color: #FEFCD7;
-      color: #222;
-      width: 200px; }
-      #mindmap-main #mindmap-sidebar .note_editor .editor_box #mindmap-note-edit {
-        width: 194px !important;
-        height: 121px !important;
-        background-color: #FBF3CA;
-        border: none;
-        box-shadow: none;
-        border-radius: 0px;
-        -moz-border-radius: 0px;
-        -webkit-border-radius: 0px; }
+      border-top: solid 1px #444;
+      border-bottom: solid 1px #444;
+      background: -moz-linear-gradient(-90deg, #888888, #444444);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#888888), to(#444444));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#888888',endColorstr='#444444');
+      color: white; }
+    #mindmap-main #mindmap-sidebar .mindmap-note-sidebar {
+      padding: 5px;
+      /*210x133 200x123*/ }
+      #mindmap-main #mindmap-sidebar .mindmap-note-sidebar .blank-text, #mindmap-main #mindmap-sidebar .mindmap-note-sidebar .text {
+        padding: 5px;
+        width: 190px !important;
+        height: 113px !important;
+        background-color: #f1f1f1;
+        margin: 0 0 5px 0;
+        overflow: auto; }
     #mindmap-main #mindmap-sidebar .snapshots-list {
       margin-bottom: 5px; }
     #mindmap-main #mindmap-sidebar .chat-box .chat-list {
@@ -215,25 +210,285 @@ body {
         #mindmap-status-bar .buttons a.toggle-sidebar.open {
           background: url("/images/bg_footer_toolbarbutton.gif") no-repeat right -48px; }
 
-#facebox {
-  z-index: 100000; }
+.root {
+  font-size: 14px;
+  line-height: 20px;
+  border: 3px solid #77AAFF;
+  padding: 5px;
+  color: #fff;
+  background-color: #4C8EFB;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px; }
+  .root.dropon {
+    border: solid 3px #F56F00 !important;
+    padding: 3px 5px;
+    margin: 0; }
+  .root.over {
+    border: solid 3px #ffed80;
+    background-color: #5c9eff; }
+  .root.selected {
+    border: 3px solid #113B8F; }
 
-#facebox_overlay {
-  z-index: 9999; }
+.node {
+  font-size: 12px;
+  line-height: 16px;
+  border: none;
+  padding: 3px;
+  color: #333;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
+  .node.dropon {
+    border: solid 3px #F56F00 !important;
+    padding: 0; }
+  .node.over {
+    border: solid 3px #ffed80;
+    padding: 0; }
+  .node.selected {
+    border: solid 3px #113B8F;
+    padding: 0; }
 
-#colorzone ul {
-  line-height: 10px;
-  height: 10px; }
+.root, .node {
+  font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+  cursor: pointer; }
+  .root .node-image, .node .node-image {
+    font-size: 0;
+    line-height: 0;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px; }
 
-#colorzone li {
-  display: inline-block;
-  line-height: 10px;
-  height: 10px; }
+.nodebody {
+  /*这里不能用float，需要用inline-block，否则排版不正确*/ }
+  .nodebody .nodetitle {
+    display: inline-block;
+    *display: inline;
+    zoom: 1; }
+  .nodebody .note-icon {
+    width: 16px;
+    height: 16px;
+    background: url("/images/noteicon.png") no-repeat;
+    vertical-align: top;
+    margin-left: 3px;
+    display: inline-block;
+    *display: inline;
+    zoom: 1; }
 
-#colorzone a {
-  height: 10px;
-  width: 10px;
-  display: inline-block; }
+/*折叠展开控制图标*/
+.foldhandler {
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  cursor: pointer; }
+  .foldhandler.plus {
+    background-image: url("../img/icon_plus.png"); }
+  .foldhandler.minus {
+    background-image: url("../img/icon_minus.png"); }
+  .foldhandler.over {
+    background-position: 0 -30px; }
 
-.root_selected {
-  opacity: 1.0; }
+/*节点标题编辑*/
+.title_input_div {
+  border: solid 3px #7f7ff7;
+  background-color: white;
+  position: absolute;
+  z-index: 103;
+  overflow: hidden;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
+  .title_input_div .title_inputer, .title_input_div .title_inputer_root {
+    font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+    border: none !important;
+    color: #333; }
+  .title_input_div .title_inputer {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 2px 2px;
+    *padding: 1px 2px; }
+  .title_input_div .title_inputer_root {
+    font-size: 14px;
+    line-height: 21px;
+    padding: 2px 6px;
+    *padding: 1px 3px; }
+
+/*字号颜色选择器*/
+.mindmap-font-editor label {
+  color: white; }
+.mindmap-font-editor .colors {
+  width: 540px;
+  height: 90px;
+  padding: 5px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin: 10px 0;
+  background: white; }
+  .mindmap-font-editor .colors .line {
+    overflow: hidden; }
+    .mindmap-font-editor .colors .line .color {
+      width: 12px;
+      height: 12px;
+      border: solid 1px #111;
+      margin: 0 1px 1px 0;
+      float: left;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      cursor: pointer; }
+.mindmap-font-editor .p {
+  overflow: hidden; }
+  .mindmap-font-editor .p .current {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: white;
+    padding: 4px 10px;
+    width: 300px;
+    float: left;
+    overflow: hidden; }
+  .mindmap-font-editor .p .sizes {
+    float: right; }
+
+#mindmap-scroller {
+  position: absolute;
+  border: none;
+  overflow: scroll;
+  height: 100%;
+  width: 100%; }
+  #mindmap-scroller #mindmap-canvas {
+    border: solid 1px white;
+    position: relative;
+    width: 6000px;
+    height: 3000px;
+    background-color: #FFFFFF;
+    background-image: url("../img/paper_bg.png"); }
+    #mindmap-scroller #mindmap-canvas div {
+      white-space: nowrap; }
+
+.info-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 24px;
+  background: black;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 10px 30px 10px 10px;
+  z-index: 99999; }
+  .info-label.notice {
+    background: #F9E675;
+    color: #472509;
+    font-weight: bold; }
+  .info-label.success {
+    background: #D8F1C4;
+    color: #111;
+    font-weight: bold; }
+  .info-label.error {
+    background: #C6001A;
+    color: white;
+    font-weight: bold; }
+
+.lock-white-board {
+  position: absolute;
+  background-color: #999;
+  z-index: 999; }
+
+/*ͼ��ѡ����*/
+.page-mindmap-image-editor {
+  overflow: hidden;
+  position: absolute;
+  background-color: #F7F7F7;
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -webkit-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  z-index: 10000; }
+  .page-mindmap-image-editor h3 {
+    text-shadow: 1px 1px 0 #333;
+    background: #444;
+    color: white;
+    padding: 0 10px; }
+  .page-mindmap-image-editor .ebody {
+    padding: 10px;
+    overflow: hidden; }
+    .page-mindmap-image-editor .ebody .ops {
+      margin-top: 30px; }
+  .page-mindmap-image-editor .ebody .image-upload ul.image-list {
+    overflow-y: scroll;
+    width: 420px;
+    height: 300px;
+    background: #e5e5e5;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 5px; }
+    .page-mindmap-image-editor .ebody .image-upload ul.image-list li {
+      float: left;
+      width: 98px;
+      margin-right: 2px;
+      height: 98px;
+      margin-bottom: 2px; }
+      .page-mindmap-image-editor .ebody .image-upload ul.image-list li .ic {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        background-color: #ccc;
+        border: solid 1px #bbb;
+        padding: 3px;
+        cursor: pointer;
+        margin-bottom: 4px; }
+        .page-mindmap-image-editor .ebody .image-upload ul.image-list li .ic:hover {
+          background-color: #b5b5b5; }
+        .page-mindmap-image-editor .ebody .image-upload ul.image-list li .ic .img {
+          width: 90px;
+          height: 60px; }
+      .page-mindmap-image-editor .ebody .image-upload ul.image-list li .actions {
+        text-align: center; }
+      .page-mindmap-image-editor .ebody .image-upload ul.image-list li.selected .ic {
+        border: solid 2px #444;
+        padding: 2px;
+        background-color: #666; }
+  .page-mindmap-image-editor .ebody .headmisc {
+    overflow: hidden;
+    margin-bottom: 10px; }
+    .page-mindmap-image-editor .ebody .headmisc .pagination {
+      float: left; }
+    .page-mindmap-image-editor .ebody .headmisc .upload {
+      float: right;
+      width: 66px;
+      height: 21px; }
+      .page-mindmap-image-editor .ebody .headmisc .upload .btn {
+        width: 66px;
+        height: 21px; }
+
+.page-mindmap-note-editor {
+  overflow: hidden;
+  position: absolute;
+  background-color: #F7F7F7;
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -webkit-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  z-index: 10000; }
+  .page-mindmap-note-editor h3 {
+    text-shadow: 1px 1px 0 #333;
+    background: #444;
+    color: white;
+    padding: 0 10px; }
+  .page-mindmap-note-editor .ebody {
+    padding: 10px;
+    overflow: hidden; }
+    .page-mindmap-note-editor .ebody .ops {
+      margin-top: 30px; }

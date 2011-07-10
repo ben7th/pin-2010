@@ -80,8 +80,8 @@ pie.mindmap.NodeImageEditor = Class.create({
 	},
 
   // 被菜单调用的方法
-	do_remove_image:function(node){
-    node.remove_image_and_save();
+	do_remove_image:function(mindmap_node){
+    mindmap_node.remove_image_and_save();
 	},
 
   close:function(){
@@ -90,20 +90,18 @@ pie.mindmap.NodeImageEditor = Class.create({
   },
 
   _show_selector_box:function(){
-    var overlay_elm = jQuery('<div class="page-overlay"></div>');
-    
     var height = jQuery(window).height();
     var width = jQuery(window).width();
     var e_elm = jQuery('.page-mindmap-image-editor');
 
-    overlay_elm
-      .css('opacity',0.4)
-      .css('height',height).css('width',width);
-    jQuery('body').append(overlay_elm)
-
     e_elm.show()
       .css('left', (width - e_elm.outerWidth())/2 )
       .css('top', (height - e_elm.outerHeight())/2 )
+
+    var overlay_elm = jQuery('<div class="page-overlay"></div>')
+      .css('opacity',0.4)
+      .css('height',height).css('width',width);
+    jQuery('body').append(overlay_elm);
   },
 
   _enable_upload_btn:function(){

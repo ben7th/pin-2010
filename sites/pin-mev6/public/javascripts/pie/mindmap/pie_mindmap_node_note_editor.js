@@ -1,80 +1,73 @@
 pie.mindmap.NodeNoteEditor = Class.create({
 	initialize: function(mindmap){
     this.map = mindmap;
-    this._build_editor_dom();
+    this.sidebar_jq = jQuery('.mindmap-note-sidebar');
+
+    this.blank_text_jq = this.sidebar_jq.find('.blank-text');
+    this.text_jq = this.sidebar_jq.find('.text');
+    this.ops_jq = this.sidebar_jq.find('.ops');
+
+
+    var func = this;
+
+    jQuery(document).delegate('.mindmap-note-sidebar .ops a.edit','click',function(){
+      func.map.edit_focus_note();
+    });
+
+    //取消
+    jQuery(document).delegate('.page-mindmap-note-editor .cancel','click',function(){
+      func.close();
+    });
+
+    //确定
+    jQuery(document).delegate('.page-mindmap-note-editor .accept','click',function(){
+      var node = func.node;
+      var new_note = jQuery('.page-mindmap-note-editor').find('textarea').val();
+
+      node.set_note_and_save(new_note);
+      func.close();
+    });
+
 	},
 
-  _build_editor_dom:function(){
-    // mindmap-note-edit
-    this.dom = $('mindmap-note-edit');
+  show_note:function(node){
+    var note = node.note;
+    if(node.is_note_blank()){
+      this.text_jq.html('').hide();
+      this.blank_text_jq.show();
+    }else{
+      this.text_jq.html(note).show();
+      this.blank_text_jq.hide();
+    }
   },
 
-  value:function(){
-    return this.dom.value;
+  //被菜单调用的方法
+  do_edit_note:function(mindmap_node){
+    this.node = mindmap_node;
+		this.node.select();
+
+    this._show_box();
+
+    jQuery('.page-mindmap-note-editor').find('textarea').val(this.node.note);
   },
 
-  set_value:function(note_text){
-    this.dom.value = note_text || '';
+  _show_box:function(){
+    var height = jQuery(window).height();
+    var width = jQuery(window).width();
+    var e_elm = jQuery('.page-mindmap-note-editor');
+
+    e_elm.show()
+      .css('left', (width - e_elm.outerWidth())/2 )
+      .css('top', (height - e_elm.outerHeight())/2 )
+
+    var overlay_elm = jQuery('<div class="page-overlay"></div>')
+      .css('opacity',0.4)
+      .css('height',height).css('width',width);
+    jQuery('body').append(overlay_elm);
   },
 
-	onNoteEditBegin:function(){
-		var map = this.map
-		if(this._can_edit_node()){
-			map.is_on_note_edit_status = true;
-			if(this.peee) this.peee.stop();
-			this.peee = new PeriodicalExecuter(this.onNoteChange.bind(this), 5);
-			map.focus.notecache = this.value();
-		}
-	},
-	onNoteEditEnd:function(){
-		var map = this.map;
-		this.onNoteChange();
-		this.peee.stop();
-		map.is_on_note_edit_status=false;
-		this.dom.blur();
-		if(!pie.isIE()){
-			window.focus();
-		}
-	},
-	onNoteChange:function(){
-		var map = this.map;
-		if(map.editmode && map.focus){
-			var node=map.focus;
-			var note=this.value();
-			if(note==node.notecache) return false;
-			node.notecache = note;
-			if(map.id){
-				node.note = note;
-				var record = map.opFactory.getNoteInstance(node);
-				map._save(record);
-			}
-			if(note!=""&&note!='<br>'){
-				if (!node.noteicon.el) {
-					node.noteicon={
-						el:$(Builder.node("div",{
-							"class":"noteicon"
-						}))
-					}
-					node.nodetitle.el.insert({After:node.noteicon.el});
-					node.width += 10;
-					node.sub.dirty = true;
-					node.map.reRank();
-				}
-			}else{
-				if(node.note==""||node.note=="<br>"){
-					if(node.noteicon.el){
-						Element.remove(node.noteicon.el);
-						node.noteicon={};
-					}
-				}
-				node.width -= 10;
-				node.sub.dirty=true;
-				node.map.reRank();
-			}
-		}
-	},
-
-  _can_edit_node:function(){
-    return this.map.editmode && this.map.focus;
+  close:function(){
+    jQuery('.page-mindmap-note-editor').hide();
+    jQuery('.page-overlay').remove();
   }
 });

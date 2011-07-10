@@ -1,0 +1,11 @@
+.page-mindmap-note-editor{:style=>'display:none;'}
+  %h3 编辑节点备注
+  .ebody
+    .form
+      =text_area_tag 'node-note'
+
+    .ops
+      =minibutton '确定','javascript:;',:class=>'accept blue'
+      =minibutton '取消','javascript:;',:class=>'cancel'
+      %span.info
+

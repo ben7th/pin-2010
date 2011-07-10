@@ -113,13 +113,6 @@ pie.mindmap.Node = Class.create({
     }
 
     if(this.map.editmode){
-      //note编辑器
-      //safari在这里的事件绑定有问题，待修改
-      try{
-        Element.observe($(this.map._node_note_editor.dom),"focus",function(){
-          this.map._node_note_editor.onNoteEditBegin(this)
-        }.bind(this));
-      }catch(e){}
       if (this != this.root) {
         new pie.drag.PinNode(this);
       }
@@ -140,29 +133,24 @@ pie.mindmap.Node = Class.create({
     this.map.nodeMenu.bind(this.el,"bottom",this);
   },
 
-  select:function(keep){
+  select:function(keep_scrollpos){
     var map=this.map;
     if(this.is_being_edit) return false;
+
     if(map.focus){
       map.stop_edit_focus_title();
       map.focus.el.removeClassName('selected');
-      //如果切换节点时正处于note编辑状态，则终止note编辑，并提交
-      if(map.focus!=this && map.is_on_note_edit_status){
-        map._node_note_editor.onNoteEditEnd();
-      }
     }
-    map.focus=this;
+
+    map.focus = this;
     this.el.addClassName('selected');
 
-    if(!keep) map.__scrollto(this);
+    if(!keep_scrollpos) map.__scrollto(this);
+
     map.nodeMenu.unload();
 
     if(map.editmode) {
-      if(this.note==''||this.note=='<br>'){
-        map._node_note_editor.set_value('');
-      }else{
-        map._node_note_editor.set_value(this.note);
-      }
+      map._node_note_editor.show_note(this);
     }
 
     return this;
@@ -260,6 +248,9 @@ pie.mindmap.Node = Class.create({
   is_selected:function(){
     return this.el.hasClassName('selected');
   },
+  is_note_blank:function(){
+    return this.note=="" || this.note=="<br>" || this.note=="<br/>" || this.note=="<br />"
+  },
 
   get_bgcolor:function(){
     return this.bgcolor;
@@ -356,11 +347,12 @@ pie.mindmap_node_build_dom_module = {
   __build_noteicon:function(){
     this.noteicon={};
     
-    if(this.note!="" && this.note!='<br>' && this.note!='<br/>'){
+    if(!this.is_note_blank()){
+      var jq = jQuery("<div class='note-icon'></div>")
+
       this.noteicon={
-        el:$(Builder.node("div",{
-          "class":"noteicon"
-        }))
+        jq : jq,
+        el : $(jq[0])
       }
     }
   },
@@ -375,11 +367,14 @@ pie.mindmap_node_build_dom_module = {
   },
 
   __build_nodebody:function(){
+    var jq = jQuery("<div class='nodebody'></div>")
+      .append(this.nodetitle.el)
+      .append(this.noteicon.jq);
+    
     this.nodebody={
-      el:$(Builder.node("div",{
-        "class":"nodebody"
-      },[this.nodetitle.el,this.noteicon.el||[]]))
-    };
+      jq : jq,
+      el : $(jq[0])
+    }
   }
 
 }
