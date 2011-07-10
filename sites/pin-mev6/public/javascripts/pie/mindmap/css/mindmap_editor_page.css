@@ -221,9 +221,7 @@ body {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px; }
   .root.dropon {
-    border: solid 3px #F56F00 !important;
-    padding: 3px 5px;
-    margin: 0; }
+    border: solid 3px #F56F00 !important; }
   .root.over {
     border: solid 3px #ffed80;
     background-color: #5c9eff; }

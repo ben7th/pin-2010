@@ -54,7 +54,8 @@ pie.mindmap.Node = Class.create({
   set_title:function(titlestr){
     var i_title = (titlestr == '' ? ' ' : titlestr)
 
-    Element.update(this.nodetitle.el, this.simple_format(i_title));
+    this.nodetitle.jq.html(this.simple_format(i_title));
+    
     //2009-1-19 某些浏览器，如IE下，textarea.value赋值时，\n会自动被替换为\r\n，这里需要替换回来
     //否则每次提交都会导致新增一行
     this.title = i_title.replace(/\r\n/g,"\n");
@@ -262,7 +263,7 @@ pie.mindmap.Node = Class.create({
     this.bgcolor = bgcolor;
     this.textcolor = textcolor;
     jQuery(this.el).css('background-color',bgcolor);
-    jQuery(this.nodetitle.el).css('color',textcolor);
+    this.nodetitle.jq.css('color',textcolor);
   },
 
   re_rank:function(){
@@ -351,17 +352,17 @@ pie.mindmap_node_build_dom_module = {
   },
 
   __build_nodetitle:function(){
+    var jq = jQuery("<div class='nodetitle'></div>")
+      .html(this.formated_title());
+
     this.nodetitle={
-      el:$(Builder.node("div",{
-        "class":"nodetitle"
-      }))
+      jq : jq
     }
-    jQuery(this.nodetitle.el).html(this.formated_title());
   },
 
   __build_nodebody:function(){
     var jq = jQuery("<div class='nodebody'></div>")
-      .append(this.nodetitle.el)
+      .append(this.nodetitle.jq)
       .append(this.noteicon.jq);
     
     this.nodebody={

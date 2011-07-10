@@ -28,7 +28,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
   __init_dragproxy:function(){
     this.__build_dragproxy();
     this.__set_drag_proxy_style();
-    this.dragproxy.update(this.node.nodetitle.el.innerHTML);
+    this.dragproxy.update(this.node.nodetitle.jq.html());
     return this.dragproxy;
   },
 
@@ -62,7 +62,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 
     this.__update_dragproxy_pos();
 
-		$(this.node.nodetitle.el).addClassName('quiet')
+		this.node.nodetitle.jq.addClass('quiet')
 
 		var map = this.map;
 		var scroller_jq = map.scroller.jq;
@@ -252,7 +252,7 @@ pie.drag.PinNode=Class.create(pie.drag.Base,{
 
 		this.dragproxy.remove();
 
-		$(this.node.nodetitle.el).removeClassName('quiet')
+		this.node.nodetitle.jq.removeClass('quiet')
 	},
   
 	droponNode:function(){

@@ -155,7 +155,7 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
     node.__build_noteicon();
 
     if(node.noteicon.jq){
-      jQuery(node.nodetitle.el).after(node.noteicon.jq);
+      node.nodetitle.jq.after(node.noteicon.jq);
     }
 
     node.re_rank();
