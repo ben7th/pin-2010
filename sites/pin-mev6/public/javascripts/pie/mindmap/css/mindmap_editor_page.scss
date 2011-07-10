@@ -297,6 +297,7 @@ body{
 .root,.node{
   font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
   cursor:pointer;
+  position:absolute;
   .node-image{
     font-size:0;line-height:0;
     @include border-radius(2px);
@@ -314,7 +315,7 @@ body{
   .note-icon{
     width:16px;height:16px;
     background:url("/images/noteicon.png") no-repeat;
-    vertical-align:top;
+    vertical-align:bottom;
     margin-left:3px;
     display:inline-block;
     *display:inline;

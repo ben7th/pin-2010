@@ -251,7 +251,8 @@ body {
 
 .root, .node {
   font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
-  cursor: pointer; }
+  cursor: pointer;
+  position: absolute; }
   .root .node-image, .node .node-image {
     font-size: 0;
     line-height: 0;
@@ -269,7 +270,7 @@ body {
     width: 16px;
     height: 16px;
     background: url("/images/noteicon.png") no-repeat;
-    vertical-align: top;
+    vertical-align: bottom;
     margin-left: 3px;
     display: inline-block;
     *display: inline;

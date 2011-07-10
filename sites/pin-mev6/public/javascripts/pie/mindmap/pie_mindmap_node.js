@@ -233,7 +233,7 @@ pie.mindmap.Node = Class.create({
   
   //节点高亮
   hilight:function(colorstr){
-    this.nodebody.el.setStyle({backgroundColor:colorstr})
+    this.nodebody.jq.css('background-color',colorstr)
   },
   do_dirty:function(){
     if(this.is_root()) return;
@@ -283,11 +283,7 @@ pie.mindmap_node_build_dom_module = {
         this.__build_nodetitle();
         this.__build_nodebody();
 
-        this.el = $(Builder.node("div", {
-          id:this.id,
-          "class": (this.root==this ? "root" : "node"),
-          "style":"position:absolute;background-color:"+this.bgcolor+";color:"+this.textcolor+";"
-        },[(this.image ? this.image.jq[0] : []),this.nodebody.el]));
+        this.__build_node();
 
         this.folder={
           id:"f_"+this.id,
@@ -350,10 +346,7 @@ pie.mindmap_node_build_dom_module = {
     if(!this.is_note_blank()){
       var jq = jQuery("<div class='note-icon'></div>")
 
-      this.noteicon={
-        jq : jq,
-        el : $(jq[0])
-      }
+      this.noteicon.jq = jq;
     }
   },
 
@@ -372,9 +365,24 @@ pie.mindmap_node_build_dom_module = {
       .append(this.noteicon.jq);
     
     this.nodebody={
-      jq : jq,
-      el : $(jq[0])
+      jq : jq
     }
+  },
+
+  __build_node:function(){
+    var jq = jQuery('<div></div>')
+      .addClass( this.is_root() ? "root" : "node")
+      .css('background-color',this.bgcolor)
+      .css('color',this.textcolor)
+
+    if(this.image){
+      jq.append(this.image.jq)
+    }
+    
+    jq.append(this.nodebody.jq)
+
+    this.jq = jq;
+    this.el = $(jq[0]);
   }
 
 }
