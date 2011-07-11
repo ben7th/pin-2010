@@ -252,121 +252,6 @@ body{
   }
 }
 
-.root{
-  font-size:14px;line-height:20px;
-  border:3px solid #77AAFF;
-  padding:5px;
-  color:#fff;
-  background-color:#4C8EFB;
-  @include border-radius(5px);
-
-  &.dropon{
-    border:solid 3px #F56F00 !important;
-  }
-  &.over{
-    border:solid 3px #ffed80;
-    background-color:#5c9eff;
-  }
-  &.selected{
-    border:3px solid #113B8F;
-  }
-}
-
-.node{
-  font-size:12px;line-height:16px;
-  border:none;
-  padding:3px;
-  color:#333;
-  @include border-radius(4px);
-
-  &.dropon{
-    border:solid 3px #F56F00 !important;
-    padding:0;
-  }
-  &.over{
-    border:solid 3px #ffed80;
-    padding:0;
-  }
-  &.selected{
-    border:solid 3px #113B8F;
-    padding:0;
-  }
-}
-
-.root,.node{
-  font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
-  cursor:pointer;
-  position:absolute;
-  .node-image{
-    font-size:0;line-height:0;
-    @include border-radius(2px);
-  }
-
-}
-
-.nodebody{
-  /*这里不能用float，需要用inline-block，否则排版不正确*/
-  .nodetitle{
-    display:inline-block;
-    *display:inline;
-    zoom:1;
-  }
-  .note-icon{
-    width:16px;height:16px;
-    background:url("/images/noteicon.png") no-repeat;
-    vertical-align:bottom;
-    margin-left:3px;
-    display:inline-block;
-    *display:inline;
-    zoom:1;
-  }
-}
-
-/*折叠展开控制图标*/
-.foldhandler{
-  width:11px;height:11px;
-  padding:0;font-size:0;line-height:0;
-  cursor:pointer;
-  &.plus{
-    background-image:url("../img/icon_plus.png");
-  }
-  &.minus{
-    background-image:url("../img/icon_minus.png");
-  }
-  &.over{
-    background-position:0 -30px;
-  }
-}
-
-/*节点标题编辑*/
-.title_input_div{
-  border:solid 3px #7f7ff7;
-  background-color:white;
-  position:absolute;
-  z-index:103;
-  overflow:hidden;
-  @include border-radius(4px);
-
-  .title_inputer,.title_inputer_root{
-    font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
-    border:none !important;
-    color:#333;
-  }
-  .title_inputer{
-    font-size:12px;
-    line-height:16px;
-    padding:2px 2px;
-    *padding:1px 2px;
-  }
-  .title_inputer_root{
-    font-size:14px;
-    line-height:21px;
-    padding:2px 6px;
-    *padding:1px 3px;
-  }
-
-}
-
 /*字号颜色选择器*/
 .mindmap-font-editor{
   label{
@@ -422,6 +307,122 @@ body{
     background-color:#FFFFFF;
     background-image:url("../img/paper_bg.png");
     div{white-space:nowrap;}
+    textarea{white-space:nowrap;}
+    .root{
+      font-size:14px;line-height:20px;
+      border:3px solid #77AAFF;
+      padding:5px;
+      color:#fff;
+      background-color:#4C8EFB;
+      @include border-radius(5px);
+    
+      &.dropon{
+        border:solid 3px #F56F00 !important;
+      }
+      &.over{
+        border:solid 3px #ffed80;
+        background-color:#5c9eff;
+      }
+      &.selected{
+        border:3px solid #113B8F;
+      }
+    }
+    
+    .node{
+      font-size:12px;line-height:16px;
+      border:none;
+      padding:3px;
+      color:#333;
+      @include border-radius(4px);
+    
+      &.dropon{
+        border:solid 3px #F56F00 !important;
+        padding:0;
+      }
+      &.over{
+        border:solid 3px #ffed80;
+        padding:0;
+      }
+      &.selected{
+        border:solid 3px #113B8F;
+        padding:0;
+      }
+    }
+    
+    .root,.node{
+      font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+      cursor:pointer;
+      position:absolute;
+      .node-image{
+        font-size:0;line-height:0;
+        @include border-radius(2px);
+      }
+      .nodebody{
+        /*这里不能用float，需要用inline-block，否则排版不正确*/
+        .nodetitle{
+          display:inline-block;
+          *display:inline;
+          zoom:1;
+        }
+        .note-icon{
+          width:16px;height:16px;
+          background:url("/images/noteicon.png") no-repeat;
+          vertical-align:bottom;
+          margin-left:3px;
+          display:inline-block;
+          *display:inline;
+          zoom:1;
+        }
+      }
+    }
+    
+    /*折叠展开控制图标*/
+    .foldhandler{
+      width:11px;height:11px;
+      padding:0;font-size:0;line-height:0;
+      cursor:pointer;
+      &.plus{
+        background-image:url("../img/icon_plus.png");
+      }
+      &.minus{
+        background-image:url("../img/icon_minus.png");
+      }
+      &.over{
+        background-position:0 -30px;
+      }
+    }
+    
+    /*节点标题编辑*/
+    .title-input-div{
+      border:solid 3px #7f7ff7;
+      background-color:white;
+      position:absolute;
+      z-index:103;
+      overflow:hidden;
+      @include border-radius(4px);
+      line-height:0;font-size:0;
+      
+      .title-inputer{
+        font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+        border:none !important;
+        padding:0 !important;
+        margin:0 !important;
+        color:#333;
+        overflow:hidden;
+        
+        &.inode{
+          font-size:12px;
+          line-height:16px;
+          padding:0;
+        }
+        &.iroot{
+          font-size:14px;
+          line-height:20px;
+          padding:5px;
+        }
+      }
+    }
+    
   }
 }
 

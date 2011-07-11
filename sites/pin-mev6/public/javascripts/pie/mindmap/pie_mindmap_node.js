@@ -120,7 +120,7 @@ pie.mindmap.Node = Class.create({
     }
   },
   _bindShowEvents:function(){
-    if(this.note!=""){
+    if(!this.is_note_blank()){
       jQuery(this.el).tipsy({
         gravity:jQuery.fn.tipsy.autoWE,
         title:function(){
@@ -372,6 +372,7 @@ pie.mindmap_node_build_dom_module = {
 
   __build_node:function(){
     var jq = jQuery('<div></div>')
+      .attr('id',this.id)
       .addClass( this.is_root() ? "root" : "node")
       .css('background-color',this.bgcolor)
       .css('color',this.textcolor)

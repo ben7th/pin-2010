@@ -58,7 +58,7 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.lineColor = "#5c5c5c";
 
     if(this.editmode){
-      this.node_title_editor  = new pie.mindmap.NodeTitleEditor(this);
+      this._node_title_editor = new pie.mindmap.NodeTitleEditor(this);
       this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
       this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
       this._node_font_editor  = new pie.mindmap.NodeFontEditor(this);
@@ -729,12 +729,12 @@ pie.mindmap_focus_methods = {
   },
   edit_focus_title:function(){
     if(this._can_edit_focus()){
-      this.node_title_editor.do_edit(this.focus);
+      this._node_title_editor.do_edit(this.focus);
     }
   },
   stop_edit_focus_title:function(){
     if(this.focus && this.focus.is_being_edit){
-      this.node_title_editor.stop_edit();
+      this._node_title_editor.stop_edit();
     }
   },
   _can_edit_focus:function(){

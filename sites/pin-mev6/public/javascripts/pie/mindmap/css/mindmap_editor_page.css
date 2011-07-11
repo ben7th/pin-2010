@@ -210,110 +210,6 @@ body {
         #mindmap-status-bar .buttons a.toggle-sidebar.open {
           background: url("/images/bg_footer_toolbarbutton.gif") no-repeat right -48px; }
 
-.root {
-  font-size: 14px;
-  line-height: 20px;
-  border: 3px solid #77AAFF;
-  padding: 5px;
-  color: #fff;
-  background-color: #4C8EFB;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-  .root.dropon {
-    border: solid 3px #F56F00 !important; }
-  .root.over {
-    border: solid 3px #ffed80;
-    background-color: #5c9eff; }
-  .root.selected {
-    border: 3px solid #113B8F; }
-
-.node {
-  font-size: 12px;
-  line-height: 16px;
-  border: none;
-  padding: 3px;
-  color: #333;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px; }
-  .node.dropon {
-    border: solid 3px #F56F00 !important;
-    padding: 0; }
-  .node.over {
-    border: solid 3px #ffed80;
-    padding: 0; }
-  .node.selected {
-    border: solid 3px #113B8F;
-    padding: 0; }
-
-.root, .node {
-  font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
-  cursor: pointer;
-  position: absolute; }
-  .root .node-image, .node .node-image {
-    font-size: 0;
-    line-height: 0;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px; }
-
-.nodebody {
-  /*这里不能用float，需要用inline-block，否则排版不正确*/ }
-  .nodebody .nodetitle {
-    display: inline-block;
-    *display: inline;
-    zoom: 1; }
-  .nodebody .note-icon {
-    width: 16px;
-    height: 16px;
-    background: url("/images/noteicon.png") no-repeat;
-    vertical-align: bottom;
-    margin-left: 3px;
-    display: inline-block;
-    *display: inline;
-    zoom: 1; }
-
-/*折叠展开控制图标*/
-.foldhandler {
-  width: 11px;
-  height: 11px;
-  padding: 0;
-  font-size: 0;
-  line-height: 0;
-  cursor: pointer; }
-  .foldhandler.plus {
-    background-image: url("../img/icon_plus.png"); }
-  .foldhandler.minus {
-    background-image: url("../img/icon_minus.png"); }
-  .foldhandler.over {
-    background-position: 0 -30px; }
-
-/*节点标题编辑*/
-.title_input_div {
-  border: solid 3px #7f7ff7;
-  background-color: white;
-  position: absolute;
-  z-index: 103;
-  overflow: hidden;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px; }
-  .title_input_div .title_inputer, .title_input_div .title_inputer_root {
-    font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
-    border: none !important;
-    color: #333; }
-  .title_input_div .title_inputer {
-    font-size: 12px;
-    line-height: 16px;
-    padding: 2px 2px;
-    *padding: 1px 2px; }
-  .title_input_div .title_inputer_root {
-    font-size: 14px;
-    line-height: 21px;
-    padding: 2px 6px;
-    *padding: 1px 3px; }
-
 /*字号颜色选择器*/
 .mindmap-font-editor label {
   color: white; }
@@ -364,9 +260,112 @@ body {
     width: 6000px;
     height: 3000px;
     background-color: #FFFFFF;
-    background-image: url("../img/paper_bg.png"); }
+    background-image: url("../img/paper_bg.png");
+    /*折叠展开控制图标*/
+    /*节点标题编辑*/ }
     #mindmap-scroller #mindmap-canvas div {
       white-space: nowrap; }
+    #mindmap-scroller #mindmap-canvas textarea {
+      white-space: nowrap; }
+    #mindmap-scroller #mindmap-canvas .root {
+      font-size: 14px;
+      line-height: 20px;
+      border: 3px solid #77AAFF;
+      padding: 5px;
+      color: #fff;
+      background-color: #4C8EFB;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px; }
+      #mindmap-scroller #mindmap-canvas .root.dropon {
+        border: solid 3px #F56F00 !important; }
+      #mindmap-scroller #mindmap-canvas .root.over {
+        border: solid 3px #ffed80;
+        background-color: #5c9eff; }
+      #mindmap-scroller #mindmap-canvas .root.selected {
+        border: 3px solid #113B8F; }
+    #mindmap-scroller #mindmap-canvas .node {
+      font-size: 12px;
+      line-height: 16px;
+      border: none;
+      padding: 3px;
+      color: #333;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px; }
+      #mindmap-scroller #mindmap-canvas .node.dropon {
+        border: solid 3px #F56F00 !important;
+        padding: 0; }
+      #mindmap-scroller #mindmap-canvas .node.over {
+        border: solid 3px #ffed80;
+        padding: 0; }
+      #mindmap-scroller #mindmap-canvas .node.selected {
+        border: solid 3px #113B8F;
+        padding: 0; }
+    #mindmap-scroller #mindmap-canvas .root, #mindmap-scroller #mindmap-canvas .node {
+      font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+      cursor: pointer;
+      position: absolute; }
+      #mindmap-scroller #mindmap-canvas .root .node-image, #mindmap-scroller #mindmap-canvas .node .node-image {
+        font-size: 0;
+        line-height: 0;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px; }
+      #mindmap-scroller #mindmap-canvas .root .nodebody, #mindmap-scroller #mindmap-canvas .node .nodebody {
+        /*这里不能用float，需要用inline-block，否则排版不正确*/ }
+        #mindmap-scroller #mindmap-canvas .root .nodebody .nodetitle, #mindmap-scroller #mindmap-canvas .node .nodebody .nodetitle {
+          display: inline-block;
+          *display: inline;
+          zoom: 1; }
+        #mindmap-scroller #mindmap-canvas .root .nodebody .note-icon, #mindmap-scroller #mindmap-canvas .node .nodebody .note-icon {
+          width: 16px;
+          height: 16px;
+          background: url("/images/noteicon.png") no-repeat;
+          vertical-align: bottom;
+          margin-left: 3px;
+          display: inline-block;
+          *display: inline;
+          zoom: 1; }
+    #mindmap-scroller #mindmap-canvas .foldhandler {
+      width: 11px;
+      height: 11px;
+      padding: 0;
+      font-size: 0;
+      line-height: 0;
+      cursor: pointer; }
+      #mindmap-scroller #mindmap-canvas .foldhandler.plus {
+        background-image: url("../img/icon_plus.png"); }
+      #mindmap-scroller #mindmap-canvas .foldhandler.minus {
+        background-image: url("../img/icon_minus.png"); }
+      #mindmap-scroller #mindmap-canvas .foldhandler.over {
+        background-position: 0 -30px; }
+    #mindmap-scroller #mindmap-canvas .title-input-div {
+      border: solid 3px #7f7ff7;
+      background-color: white;
+      position: absolute;
+      z-index: 103;
+      overflow: hidden;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      line-height: 0;
+      font-size: 0; }
+      #mindmap-scroller #mindmap-canvas .title-input-div .title-inputer {
+        font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: #333;
+        overflow: hidden; }
+        #mindmap-scroller #mindmap-canvas .title-input-div .title-inputer.inode {
+          font-size: 12px;
+          line-height: 16px;
+          padding: 0; }
+        #mindmap-scroller #mindmap-canvas .title-input-div .title-inputer.iroot {
+          font-size: 14px;
+          line-height: 20px;
+          padding: 5px; }
 
 .info-label {
   position: absolute;
