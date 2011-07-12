@@ -12,7 +12,8 @@ pie.mindmap.OperationRecordFactory = Class.create({
       "params":{
         "parent_id":node.parent.id,
         "index":node.index,
-        "new_node_id":node.id
+        "new_node_id":node.id,
+        "pos":node.sub.pos
       }
     }
 	},

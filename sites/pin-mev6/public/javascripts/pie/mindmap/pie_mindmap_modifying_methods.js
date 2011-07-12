@@ -155,8 +155,14 @@ pie.mindmap_node_new_child_methods = {
 
     if(this.is_root()){
       var focus = this.map.focus;
-      if(focus.parent == this){
-        child_hash.pos = focus.pos;
+      var children = this.children;
+      var left_children_length = $A(children).select(function(child){
+        return child.sub.pos == 'left';
+      }).length;
+      var right_children_length = children.length - left_children_length;
+      pie.log(right_children_length , left_children_length)
+      if(right_children_length > left_children_length + 1){
+        child_hash.pos = 'left';
       }
     }
 

@@ -126,7 +126,7 @@ pie.mindmap.ModifyingResponseFactory = Class.create({
     node.image = image;
     node.__build_nodeimage();
 
-    jQuery(node.nodebody.el).before(node.image.jq);
+    node.nodebody.jq.before(node.image.jq);
     
     node.re_rank();
 

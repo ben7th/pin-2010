@@ -26,8 +26,20 @@ pie.mindmap.NodeColorEditor = Class.create({
 
     //确定
     jQuery(document).delegate('.page-mindmap-color-editor .accept','click',function(){
+      if(func.bgcolor == null){
+        func.close();
+        return;
+      }
+
+
       var node = func.node;
       var map = func.map;
+
+      if(func.bgcolor == node.bgcolor){
+        //没有修改
+        func.close();
+        return;
+      }
 
       node.set_bgcolor(func.bgcolor,func.textcolor);
 
@@ -47,7 +59,9 @@ pie.mindmap.NodeColorEditor = Class.create({
     this.textcolor = this.node.get_textcolor();
 
     this.current
-      .css('background-color',this.bgcolor)
+      .css('background','none')
+      .css('background',this.bgcolor)
+      .css('color','#333333')
       .css('color',this.textcolor);
 
     //显示对话框
