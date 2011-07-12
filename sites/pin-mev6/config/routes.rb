@@ -50,4 +50,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.resources :image_attachments
+
+  map.signup '/signup',:controller=>'users',:action=>'new'
 end

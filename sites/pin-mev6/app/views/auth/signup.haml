@@ -1,0 +1,29 @@
+.grid_14.alpha
+  = flash_info
+
+  .font14.padding5
+    %p
+      MindPin 使用电子邮件地址进行用户登录验证。
+    %p
+      完成注册后，
+      %span.loud> 一封包含激活信息的欢迎邮件将会发送到您的邮箱。
+      <br/>
+      为了正常使用网站的所有服务，您应当使用有效的邮箱注册。
+    %p
+      为了保持社区内容质量，注册时请您使用
+      %span.loud> 纯中文或者纯英文数字
+      的用户名。
+      <br/>
+      用户名以后可以随时修改。
+
+  .hrr
+  .font14.padding5
+    %p
+      已经注册了账号的话，请#{link_to '直接登录',login_path}
+
+.grid_8.omega.fright
+  .grid-title
+    MindPin 用户注册
+    %span.font12.normal 或 #{link_to '登录',login_path}
+  .padding5
+    = render :partial=>'auth/parts/signup_form'

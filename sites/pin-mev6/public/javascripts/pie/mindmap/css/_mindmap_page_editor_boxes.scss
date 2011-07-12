@@ -84,3 +84,39 @@
 .page-mindmap-note-editor{
   @include editor_base;
 }
+
+/*×ÖºÅÑÕÉ«Ñ¡ÔñÆ÷*/
+.page-mindmap-color-editor{
+  @include editor_base;
+  .panel{
+    .desc{
+      margin:0 0 5px 0;
+    }
+    .colors{
+      background:#222;
+      padding:2px 1px 1px 2px;
+      margin:0 0 10px 0;
+      .line{
+        overflow:hidden;
+        .color{
+          width:20px;
+          height:20px;
+          margin:0 1px 1px 0;
+          float:left;
+          cursor:pointer;
+          &.selected{
+            border:solid 2px #fff;
+            width:16px;
+            height:16px;
+          }
+        }
+      }
+    }
+    .current{
+      padding:5px;
+      @include border-radius(4px);
+      width:300px;
+      overflow:hidden;
+    }
+  }
+}

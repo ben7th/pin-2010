@@ -210,44 +210,6 @@ body {
         #mindmap-status-bar .buttons a.toggle-sidebar.open {
           background: url("/images/bg_footer_toolbarbutton.gif") no-repeat right -48px; }
 
-/*Â≠óÂè∑È¢úËâ≤ÈÄâÊã©Âô®*/
-.mindmap-font-editor label {
-  color: white; }
-.mindmap-font-editor .colors {
-  width: 540px;
-  height: 90px;
-  padding: 5px;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  margin: 10px 0;
-  background: white; }
-  .mindmap-font-editor .colors .line {
-    overflow: hidden; }
-    .mindmap-font-editor .colors .line .color {
-      width: 12px;
-      height: 12px;
-      border: solid 1px #111;
-      margin: 0 1px 1px 0;
-      float: left;
-      border-radius: 2px;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      cursor: pointer; }
-.mindmap-font-editor .p {
-  overflow: hidden; }
-  .mindmap-font-editor .p .current {
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    background: white;
-    padding: 4px 10px;
-    width: 300px;
-    float: left;
-    overflow: hidden; }
-  .mindmap-font-editor .p .sizes {
-    float: right; }
-
 #mindmap-scroller {
   position: absolute;
   border: none;
@@ -270,7 +232,7 @@ body {
     #mindmap-scroller #mindmap-canvas .root {
       font-size: 14px;
       line-height: 20px;
-      border: 3px solid #77AAFF;
+      border: 3px solid #003266;
       padding: 5px;
       color: #fff;
       background-color: #4C8EFB;
@@ -490,3 +452,52 @@ body {
     overflow: hidden; }
     .page-mindmap-note-editor .ebody .ops {
       margin-top: 30px; }
+
+/*◊÷∫≈—’…´—°‘Ò∆˜*/
+.page-mindmap-color-editor {
+  overflow: hidden;
+  position: absolute;
+  background-color: #F7F7F7;
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  -webkit-box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+  z-index: 10000; }
+  .page-mindmap-color-editor h3 {
+    text-shadow: 1px 1px 0 #333;
+    background: #444;
+    color: white;
+    padding: 0 10px; }
+  .page-mindmap-color-editor .ebody {
+    padding: 10px;
+    overflow: hidden; }
+    .page-mindmap-color-editor .ebody .ops {
+      margin-top: 30px; }
+  .page-mindmap-color-editor .panel .desc {
+    margin: 0 0 5px 0; }
+  .page-mindmap-color-editor .panel .colors {
+    background: #222;
+    padding: 2px 1px 1px 2px;
+    margin: 0 0 10px 0; }
+    .page-mindmap-color-editor .panel .colors .line {
+      overflow: hidden; }
+      .page-mindmap-color-editor .panel .colors .line .color {
+        width: 20px;
+        height: 20px;
+        margin: 0 1px 1px 0;
+        float: left;
+        cursor: pointer; }
+        .page-mindmap-color-editor .panel .colors .line .color.selected {
+          border: solid 2px #fff;
+          width: 16px;
+          height: 16px; }
+  .page-mindmap-color-editor .panel .current {
+    padding: 5px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    width: 300px;
+    overflow: hidden; }

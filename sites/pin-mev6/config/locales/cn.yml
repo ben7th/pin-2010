@@ -5,3 +5,32 @@ cn:
         title: 标题
         logo: 导图图示（可选）
         description: 描述
+      user:
+        name: 用户名
+        email: 电子邮箱
+        password: 密码
+        password_confirmation: 密码确认
+        logo: 头像
+        sign: 签名档
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: 需要填写用户名
+              invalid: 用户名不符合命名规范
+              too_short: 用户名的长度应该大于{{count}}个字符（字符可以是中文或者英文数字）
+              too_long: 用户名的长度应该小于{{count}}个字符（字符可以是中文或者英文数字）
+              taken: 指定的用户名已经被其他人使用了，请尝试换用其他用户名
+            email:
+              blank: 请填写邮箱地址
+              invalid: 邮箱地址不符规范
+              taken: 邮箱地址已经被使用过了
+            password:
+              blank: 密码不能为空
+              too_short: 密码过短(不能少于{{count}}个字符)
+              confirmation: 两次输入的密码不同
+            password_confirmation:
+              blank: 确认密码不能为空
+
+
