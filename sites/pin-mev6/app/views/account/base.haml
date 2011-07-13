@@ -1,11 +1,11 @@
 -content_for :title do
   基本信息设置
 
-.main
-  .grid-title
-    你可以在这里设置你平常使用的用户昵称以及签名档
+.main.white
+  .padding10
+    %h2.main-title
+      你可以在这里设置你平常使用的用户昵称以及签名档
 
-  .padding5
     = flash_info
     - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
       .field

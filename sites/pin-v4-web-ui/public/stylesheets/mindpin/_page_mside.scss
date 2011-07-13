@@ -95,6 +95,10 @@
           }
         }
         
+        &.last{
+          hr.split{display:none;}
+        }
+        
         &.s{
           padding:0 7px;
           &.last{

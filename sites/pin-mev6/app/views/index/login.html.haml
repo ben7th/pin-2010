@@ -15,3 +15,9 @@
       .remember-me
         %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
         %span 记住我
+
+  .footmisc
+    .desc
+      请记住我们的新域名 http://www.mindtu.com
+    .signup
+      =minibutton '注册','/signup',:class=>'green'

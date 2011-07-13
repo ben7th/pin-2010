@@ -238,8 +238,10 @@ pie.mindmap_node_toggle_methods = {
     map.reRank();
 
     // post data
-    var record = map.opFactory.getToggleInstance(this);
-    map._save(record);
+    if(map.editmode){
+      var record = map.opFactory.getToggleInstance(this);
+      map._save(record);
+    }
   },
   _toggle:function(){
     if(this.closed){

@@ -1,13 +1,7 @@
 .page-submenu.clearfix
   %ul
-    =sub_menu_li "我关注的 #{current_user.followings.count} 个人的导图",'/',:class=>'first'
-    =sub_menu_small_li "调整我的关注",'/followings'
-    =sub_menu_small_li "查看 #{current_user.fans.count} 个关注我的人",'/fans',:class=>'last'
-
-.page-submenu.clearfix
-  %ul
-    =sub_menu_li "我创作的 #{current_user.mindmaps.count} 个导图",'/mindmaps/mine',:class=>'first'
-    =sub_menu_li "我发起的协作",'/cooperates'
-    =sub_menu_small_li "我参与的协作",'/fans',:class=>'last'
+    =sub_menu_li "我创作的导图",'/',:class=>'first'
+    =sub_menu_li "我参与的协作",'/mindmaps/cooperates'
+    =sub_menu_li "浏览公开导图",'/mindmaps/public',:class=>'last'
 
     

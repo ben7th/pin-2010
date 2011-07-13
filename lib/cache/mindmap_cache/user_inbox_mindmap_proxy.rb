@@ -12,8 +12,9 @@ class UserInboxMindmapProxy < RedisBaseProxy
     _id_list = @user.followings_and_self.map{|user|
       UserOutboxMindmapProxy.new(user).xxxs_ids
     }.flatten
+    _id_private = @user.private_mindmap_ids
     # 排序，大的就是新的，排在前面
-    ids = _id_list.sort{|x,y| y<=>x}
+    ids = (_id_list+_id_private).sort{|x,y| y<=>x}
 
     if !newest_id.nil?
       ids = ids.compact.select{|x| x > newest_id}

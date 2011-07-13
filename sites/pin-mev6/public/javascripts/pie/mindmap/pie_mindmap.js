@@ -31,8 +31,10 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     this.nodes = new Hash();
 
-    //初始化右键菜单
-    this._createMenu();
+    if(this.editmode){
+      //初始化右键菜单
+      this._createMenu();
+    }
   },
 
   _init_paper:function(paper_id){
@@ -62,14 +64,14 @@ pie.mindmap.BasicMapPaper = Class.create({
       this._node_image_editor = new pie.mindmap.NodeImageEditor(this);
       this._node_note_editor  = new pie.mindmap.NodeNoteEditor(this);
       this._node_color_editor  = new pie.mindmap.NodeColorEditor(this);
+
+      //operation record factory
+      this.opFactory  = new pie.mindmap.OperationRecordFactory({map:this});
+      this.mr_factory = new pie.mindmap.ModifyingResponseFactory({map:this});
     }
 
     //Designated Canvas function
     this.connect = this._connectWithCanvas;
-
-    //operation record factory
-    this.opFactory  = new pie.mindmap.OperationRecordFactory({map:this});
-    this.mr_factory = new pie.mindmap.ModifyingResponseFactory({map:this});
   },
 
 
@@ -115,8 +117,10 @@ pie.mindmap.BasicMapPaper = Class.create({
     this.reRank();
 
     new pie.drag.Page(paper.jq[0],{beforeDrag:function(){
-      this.nodeMenu.unload();
-      this.stop_edit_focus_title();
+      if(this.editmode){
+        this.nodeMenu.unload();
+        this.stop_edit_focus_title();
+      }
     }.bind(this)});
   
     this._bindHotkeyDispatcher();

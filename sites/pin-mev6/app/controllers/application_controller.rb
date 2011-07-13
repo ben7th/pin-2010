@@ -9,13 +9,4 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
 
-  before_filter :fix_ie_accept
-  # 修正IE浏览器请求头问题
-  def fix_ie_accept
-    if /MSIE/.match(request.user_agent) && request.env["HTTP_ACCEPT"]!='*/*'
-      if !/.*\.gif/.match(request.url)
-        request.env["HTTP_ACCEPT"] = '*/*'
-      end
-    end
-  end
 end

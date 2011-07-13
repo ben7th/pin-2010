@@ -156,3 +156,25 @@
     }
   }
 }
+
+.ajax-loading-bar{
+  @include border-radius(0 4px 4px 0);
+  padding:6px 10px;
+  background-color:#5C5E4E;
+  color:#F3F8DB;
+  position:fixed;
+  width:100px;
+  top:150px;
+  left:0px;
+  height:auto;
+  line-height:20px;
+  .icon{
+    float:left;
+    width:18px;
+    height:4px;
+    position:relative;
+    top:8px;
+    margin-right:8px;
+    background:url(/images/icons/progress-dots.gif) no-repeat;
+  }
+}

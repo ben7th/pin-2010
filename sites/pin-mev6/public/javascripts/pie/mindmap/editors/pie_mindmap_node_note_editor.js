@@ -31,7 +31,7 @@ pie.mindmap.NodeNoteEditor = Class.create({
 	},
 
   show_note:function(node){
-    var note = jQuery.string(node.note).escapeHTML().str;
+    var note = node.escaped_note();
     if(node.is_note_blank()){
       this.text_jq.html('').hide();
       this.blank_text_jq.show();

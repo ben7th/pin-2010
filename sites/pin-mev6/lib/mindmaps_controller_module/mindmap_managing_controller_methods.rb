@@ -51,14 +51,14 @@ module MindmapManagingControllerMethods
     end
   end
 
-  def do_private
+  def toggle_private
     if(@mindmap.user_id != current_user.id)
       return render :status=>503,:text=>"修改失败"
     end
 
     @mindmap.private = @mindmap.private? ? false : true
     if @mindmap.save_without_timestamping
-      return render :status=>200,:text=>"修改成功"
+      return render :status=>200,:text=>@mindmap.private? ? 'private':'public'
     end
     return render :status=>503,:text=>"修改失败"
   end

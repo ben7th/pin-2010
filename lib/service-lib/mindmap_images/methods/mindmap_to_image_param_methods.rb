@@ -3,30 +3,84 @@ module MindmapToImageParamMethods
     @zoom || 1
   end
 
-  def v_padding
-    15 * zoom
+  #################
+
+  def node_padding_x
+    3 * zoom
   end
 
+  def node_padding_y
+    3 * zoom
+  end
+
+  def node_radius
+    4 * zoom
+  end
+
+  def node_border_width
+    1 * zoom
+  end
+
+  #################
+
+  # 根节点的padding x方向
+  def root_padding_x
+    5 * zoom
+  end
+
+  # 根节点的padding y方向
+  def root_padding_y
+    5 * zoom
+  end
+
+  # 根节点的圆角半径
+  def root_radius
+    5 * zoom
+  end
+
+  # 根节点的边线宽度
+  def root_border_width
+    3 * zoom
+  end
+  
+  #######################
+
+  # 同级节点上下间距
+  def v_padding
+    20 * zoom
+  end
+
+  # 字体大小
   def pointsize
     14 * zoom
   end
 
+  # 左边距
   def left_padding
-    80 * zoom
+    30 * zoom
   end
 
+  # 顶部边距
   def top_padding
-    70 * zoom
+    40 * zoom
   end
 
+  # 底边距？
   def height_padding
-    100 * zoom
+    2 * top_padding
   end
 
+  # 右边距？
   def width_padding
-    160 * zoom
+    2 * left_padding
   end
 
+  # 左右子树和根节点的间距
+  def subtree_root_margin
+    30 * zoom
+  end
+
+  # 线条宽度
   def line_width
     1 * zoom
   end
@@ -39,8 +93,12 @@ module MindmapToImageParamMethods
     25 * zoom
   end
 
-  def join_point_offset
-    5 * zoom
+  def node_join_point_offset_x
+    joint_point_radius*2 + node_padding_x + zoom
+  end
+
+  def node_join_point_offset_y
+    root_join_point_offset_y
   end
 
   def join_point_top_offset
@@ -51,12 +109,19 @@ module MindmapToImageParamMethods
     3 * zoom
   end
 
-  def root_join_point_offset
-    8 * zoom
+  # 根节点到一级子节点连线的连接点相对于一级子节点的横向偏移量
+  def root_join_point_offset_x
+    node_padding_x + root_join_point_radius*2 + zoom
   end
 
-  def root_join_point_top_offset
-    10 * zoom
+  # 根节点到一级子节点连线的连接点相对于一级子节点的纵向偏移量
+  def root_join_point_offset_y
+    node_padding_y + root_join_point_radius + zoom
+  end
+
+  # 根节点到一级子节点连线的连接线宽度
+  def root_join_line_width
+    5 * zoom
   end
 
   def root_join_point_radius
@@ -69,22 +134,6 @@ module MindmapToImageParamMethods
 
   def bezier_x_offset_right
     10 * zoom
-  end
-
-  def node_inner_x_padding
-    4 * zoom
-  end
-
-  def node_inner_y_padding
-    2 * zoom
-  end
-
-  def root_inner_x_padding
-    8 * zoom
-  end
-
-  def root_inner_y_padding
-    6 * zoom
   end
 
   # 获取一段文字段落的宽高信息

@@ -21,8 +21,11 @@ module UserMethods
     base.validates_presence_of :email
     base.validates_uniqueness_of :email,:case_sensitive=>false,:on=>:create
     base.validates_format_of :email,:with=>/^([A-Za-z0-9_]+)([\.\-\+][A-Za-z0-9_]+)*(\@[A-Za-z0-9_]+)([\.\-][A-Za-z0-9_]+)*(\.[A-Za-z0-9_]+)$/
-
-    base.validates_format_of :name,:with=>/^([A-Za-z0-9]{1}[A-Za-z0-9_]+)$|^([一-龥]+)$/
+    # 用户名
+    # 从可以是纯中文或纯英文的限制
+    # 改为可以是中英文混写
+    #base.validates_format_of :name,:with=>/^([A-Za-z0-9]{1}[A-Za-z0-9_]+)$|^([一-龥]+)$/
+    base.validates_format_of :name,:with=>/^([A-Za-z0-9一-龥]+)$/
     base.validates_length_of :name, :in => 2..20
     base.validates_uniqueness_of :name,:case_sensitive=>false
 
@@ -85,6 +88,20 @@ module UserMethods
   def need_change_name?
     valid?
     errors.invalid?(:name)
+  end
+
+  # 判断该用户在系统中是否有同名
+  # 如果有就在名字后加 1 ，如果依然同名 加 2 依次类推
+  def change_name_when_need!
+    return unless self.need_change_name?
+
+    old_name = self.name
+    i = 1
+    while self.need_change_name?
+      self.name = "#{old_name}#{i}"
+      i += 1
+    end
+    self.save!
   end
 
   ###

@@ -1,107 +1,107 @@
 -content_for :title do
-  信息页 - #{@mindmap.title}
+  概要 - #{@mindmap.title}
 
 -content_for :javascripts do
   = javascript_include_tag "views/mindmap_info"
   = javascript_include_tag "views/cooperations/mindmap_choose_cooperator"
 
-.grid_14.alpha
-  .map-explore
-    -prev_mindmap = @mindmap.prev(current_user)
-    -next_mindmap = @mindmap.next(current_user)
-    .btns
-      -if !!prev_mindmap
-        .prev{:tip=>'查看上一个导图'}
-          =link_to "上一个",info_mindmap_path(prev_mindmap)
+.main.grid_18.white
+  .padding10
+    .map-explore
+      -prev_mindmap = @mindmap.prev(current_user)
+      -next_mindmap = @mindmap.next(current_user)
+      .btns
+        -if !!prev_mindmap
+          .prev{:tip=>'查看上一个导图'}
+            =link_to "上一个",info_mindmap_path(prev_mindmap)
+        -else
+          .prev.disabled
+            =link_to "上一个",'javascript:;'
+        .show{:tip=>'在编辑器中详细查看'}
+          =link_to '<span>详细查看</span>',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
+        -if !!next_mindmap
+          .next{:tip=>'查看下一个导图'}
+            =link_to "下一个",info_mindmap_path(next_mindmap)
+        -else
+          .next.disabled
+            =link_to "下一个",'javascript:;'
+
+    .map-info
+      .preview
+        -link_to "/mindmaps/#{@mindmap.id}",:target=>'_blank' do
+          =mindmap_image(@mindmap,"500x500")
+      -title_mode = @mindmap.has_edit_rights?(current_user) ? "edit" : "view"
+      -if logged_in? && @mindmap.user == current_user
+        .title.csshov{"data-map-id"=>@mindmap.id,"data-mode"=>title_mode,:'tipr'=>'点击修改标题'}=@mindmap.title
       -else
-        .prev.disabled
-          =link_to "上一个",'javascript:;'
-      .show{:tip=>'在编辑器中详细查看'}
-        =link_to '<span>详细查看</span>',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
-      -if !!next_mindmap
-        .next{:tip=>'查看下一个导图'}
-          =link_to "下一个",info_mindmap_path(next_mindmap)
-      -else
-        .next.disabled
-          =link_to "下一个",'javascript:;'
+        .title=@mindmap.title
 
-  .map-info
-    .preview.darkbg
-      -link_to "/mindmaps/#{@mindmap.id}",:target=>'_blank' do
-        =mindmap_image(@mindmap,"500x500")
-    -title_mode = @mindmap.has_edit_rights?(current_user) ? "edit" : "view"
-    -if logged_in? && @mindmap.user == current_user
-      .title.csshov{"data-map-id"=>@mindmap.id,"data-mode"=>title_mode,:'tipr'=>'点击修改标题'}=@mindmap.title
-    -else
-      .title=@mindmap.title
+    .map-misc
+      =jtime(@mindmap.updated_at)
+      %span.split.quiet> -
+      %span> 被修改#{@mindmap.modified_times}次
+      %span.split.quiet> -
+      %span>="#{@mindmap.cooperate_users.count}个协同编辑者"
+      %span.split.quiet> -
+      %span>=link_to '在编辑器中查看',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
 
-  .map-misc
-    =jtime(@mindmap.updated_at)
-    %span.split.quiet> -
-    %span> 被修改#{@mindmap.modified_times}次
-    %span.split.quiet> -
-    %span>="#{@mindmap.cooperate_users.count}个协同编辑者"
-    %span.split.quiet> -
-    %span>=link_to '在编辑器中查看',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
+    -if logged_in?
+      .map-action
+        -if @mindmap.has_edit_rights?(current_user)
+          .ac
+            .pt
+              %a.toggle{:href=>'javascript:;',:'data-map-id'=>@mindmap.id,:class=>(@mindmap.private ? 'private':'public'),:'tipr'=>'切换公开/私有'}
+              .desc 切换公开/私有
+            .o
+              =link_to '编辑',"/mindmaps/#{@mindmap.id}/edit",:target=>'_blank'
 
-  -if logged_in?
-    .map-action
-      -if @mindmap.has_edit_rights?(current_user)
-        .ac
-          .pt
-            %a.toggle{:href=>'javascript:;',:'data-map-id'=>@mindmap.id,:class=>(@mindmap.private ? 'private':'public'),:'tipr'=>'切换公开/私有'}
-            .desc 切换公开/私有
-          .o
-            =link_to '编辑',"/mindmaps/#{@mindmap.id}/edit",:target=>'_blank'
+              %span.split.quiet> -
+              =link_to '删除',"/mindmaps/#{@mindmap.id}",:method=>:delete,:confirm=>"你确定删除这个导图么？"
 
-            %span.split.quiet> -
-            =link_to '删除',"/mindmaps/#{@mindmap.id}",:method=>:delete,:confirm=>"你确定删除这个导图么？"
+              %span.split.quiet> -
+              =link_to_remote "复制",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
 
-            %span.split.quiet> -
-            =link_to_remote "复制",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
+              %a.fav.hide{:"data-m-id"=>@mindmap.id,:href=>'javascript:;',:class=>@mindmap.fav_by?(current_user) ? 'on':'off'}
+                .t.t1 收藏
+                .t.t2 取消收藏
+        -else
+          .ac
+            =link_to_remote "复制导图",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
 
-            %a.fav.hide{:"data-m-id"=>@mindmap.id,:href=>'javascript:;',:class=>@mindmap.fav_by?(current_user) ? 'on':'off'}
-              .t.t1 收藏
-              .t.t2 取消收藏
-      -else
-        .ac
-          =link_to_remote "复制导图",:url=>"/mindmaps/#{@mindmap.id}/clone_form",:method=>:get
+    .grid-title
+      导图评论
+    .map-comment
+      =render "mindmaps/info_parts/comments",:mindmap=>@mindmap
 
-  .grid-title
-    导图评论
-  .map-comment
-    =render "mindmaps/info_parts/comments",:mindmap=>@mindmap
+.mside.grid_6
+  .sidepart.padding10
+    .map-meta
+      =render 'mindmaps/info_parts/creator_info',:mindmap=>@mindmap
 
-.grid_8.omega.fright
-  .map-meta
-    =render 'mindmaps/info_parts/creator_info',:mindmap=>@mindmap
+      .back-to-list.bold
+        =link_to '&gt;&gt; 返回他的导图列表页',"/mindmaps/users/#{@mindmap.user.id}"
 
-    .back-to-list.bold
-      =link_to '&gt;&gt; 返回他的导图列表页',"/mindmaps/users/#{@mindmap.user.id}"
+      =render 'mindmaps/info_parts/coop',:mindmap=>@mindmap
 
-    .hrr
-    =render 'mindmaps/info_parts/coop',:mindmap=>@mindmap
+      .export
+        %h3 数据导出
+        =render :partial=>"mindmaps/parts/export",:locals=>{:mindmap=>@mindmap}
 
-    .hrr
-    .export
-      %h3 数据导出
-      =render :partial=>"mindmaps/parts/export",:locals=>{:mindmap=>@mindmap}
+        -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
+        -page_title = "MindPin思维导图：#{@mindmap.title}"
+        -newest_pic_url = mindmap_thumb_url_for_share(@mindmap)
 
-      -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
-      -page_title = "MindPin思维导图：#{@mindmap.title}"
-      -newest_pic_url = mindmap_thumb_url_for_share(@mindmap)
+      .share
+        %h3 快速分享
+        -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
+        =link_to '分享到新浪微博',"javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:target=>'_blank',:class=>'share_to tsina',:tip=>'分享到新浪微博'
+        =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren',:tip=>'分享到人人网'
+        =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban',:tip=>'分享到豆瓣'
 
-    .share
-      %h3 快速分享
-      -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
-      =link_to '分享到新浪微博',"javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:target=>'_blank',:class=>'share_to tsina',:tip=>'分享到新浪微博'
-      =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren',:tip=>'分享到人人网'
-      =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban',:tip=>'分享到豆瓣'
-
-    .similar-maps
-      %h3 内容相关导图..<span class='font12 normal quiet'>(由系统自动计算)</span>
-      .padding5
-        =render :partial=>'mindmaps/parts/similar_mindmaps'
+      .similar-maps
+        %h3 内容相关导图..<span class='font12 normal quiet'>(由系统自动计算)</span>
+        .padding5
+          =render :partial=>'mindmaps/parts/similar_mindmaps'
 
 
 

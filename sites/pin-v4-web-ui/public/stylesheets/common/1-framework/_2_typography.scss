@@ -2,7 +2,12 @@
 
 /*基础字体设置*/
 html {font-size:100.01%;}
-body {font-size:75%;background:#fff;color:#222;font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;}
+body {
+  font-size:75%;
+  background:#fff;color:#222;
+  font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;
+  /*font-family:"Microsoft Yahei","微软雅黑","Helvetica Neue",Arial,Helvetica,sans-serif;*/
+}
 
 /*各级标题*/
 h1,h2,h3,h4,h5,h6{font-weight:normal;}

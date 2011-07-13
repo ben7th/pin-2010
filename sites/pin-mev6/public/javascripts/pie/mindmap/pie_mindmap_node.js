@@ -1,3 +1,5 @@
+pie.mindmap = pie.mindmap || {};
+
 pie.mindmap.Node = Class.create({
   initialize: function(options,parent){
     //options check
@@ -63,6 +65,9 @@ pie.mindmap.Node = Class.create({
   formated_title:function(){
     return this.simple_format(this.title);
   },
+  escaped_note:function(){
+    return jQuery.string(this.note).escapeHTML().str.gsub("\n","<br/>");
+  },
 
   //递归地缓存节点尺寸信息
   cache_dimensions:function(){
@@ -122,16 +127,19 @@ pie.mindmap.Node = Class.create({
   _bindShowEvents:function(){
     if(!this.is_note_blank()){
       jQuery(this.el).tipsy({
-        gravity:jQuery.fn.tipsy.autoWE,
+        html:true,
+        gravity:jQuery.fn.tipsy.autoS,
         title:function(){
-          return this.note
+          return this.escaped_note();
         }.bind(this)
       })
     }
   },
   _bindEditEvents:function(){
     //右键菜单
-    this.map.nodeMenu.bind(this.el,"bottom",this);
+    if(this.map.editmode && this.map.nodeMenu){
+      this.map.nodeMenu.bind(this.el,"bottom",this);
+    }
   },
 
   select:function(keep_scrollpos){
@@ -148,9 +156,8 @@ pie.mindmap.Node = Class.create({
 
     if(!keep_scrollpos) map.__scrollto(this);
 
-    map.nodeMenu.unload();
-
     if(map.editmode) {
+      map.nodeMenu.unload();
       map._node_note_editor.show_note(this);
     }
 
@@ -318,6 +325,7 @@ pie.mindmap_node_build_dom_module = {
 
         this._bindCommonEvents();
         if (this.map.editmode) {
+          pie.log(this.map.editmode)
           this._bindEditEvents();
         }else{
           this._bindShowEvents();

@@ -1,13 +1,12 @@
-- require_css 'views/users'
+-content_for :title do
+  搜索结果
 
-.grid_18.alpha
-  .grid-title
-    关于
-    %span.loud>#{@query}
-    ，找到 #{@result.total_count} 条结果
-
-  .hrr
-  .searched-mindmaps.padding5
+.main.white.grid_18
+  .searched-mindmaps
+    %h2.main-title
+      关于
+      %span.loud>#{@query}
+      ，找到 #{@result.total_count} 条结果
     -@result.items.each do |item|
       -mindmap = item.mindmap
       -unless mindmap.blank?
@@ -21,9 +20,9 @@
                   -if mindmap.user.blank?
                     ='[已删除用户]'
                   -else
-                    =link_to mindmap.user.name,pin_url_for('pin-user-auth',"users/#{mindmap.user.id}")
+                    =link_to mindmap.user.name,mindmap.user
                   的
-                  =link_to item.title,pin_url_for('pin-mev6',"mindmaps/#{mindmap.id}")
+                  =link_to item.title,pin_url_for('pin-daotu',"mindmaps/#{mindmap.id}")
                 .data
                   =item.content
               -else
@@ -36,8 +35,10 @@
             导图编辑时间
             =jtime(mindmap.updated_at)
 
-  =will_paginate @result
+  .mindmap-paginate.padding5
+    =will_paginate @result
 
-.grid_5.fright.omega
-  .padding5
-    =minibutton '返回导图首页',pin_url_for('user_auth','mindmaps')
+.mside.grid_6
+  .sidepart
+    .padding10
+      =minibutton '返回导图首页',pin_url_for('user_auth','mindmaps')

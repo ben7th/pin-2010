@@ -120,6 +120,7 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(UserMindmapsMajorWordsProxy)
     MindpinLogicManagement.load_redis_proxy(UserOutboxMindmapProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxMindmapProxy)
+    MindpinLogicManagement.load_redis_proxy(UserPrivateMindmapProxy)
 
   # tip
     MindpinLogicManagement.load_tip_proxy(UserTipProxy)

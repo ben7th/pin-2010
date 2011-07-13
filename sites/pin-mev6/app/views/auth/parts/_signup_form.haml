@@ -1,7 +1,0 @@
-- mindpin_form_for @user do |f|
-  = f.text_field :email,:maxlength=>50,:desc=>'必填，用于登录'
-  = f.text_field :name,:maxlength=>50,:desc=>'显示的名称，必填，以后可以修改'
-  = f.password_field :password,:value=>'',:maxlength=>32
-  = f.password_field :password_confirmation,:value=>'',:maxlength=>32
-  .form_actions
-    = f.submit "确认注册"

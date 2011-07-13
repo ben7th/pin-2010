@@ -67,7 +67,20 @@ class Mindmap < Mev6Abstract
   end
 
   def thumb_image_true_size
-    path = MindmapImageCache.new(self).thumb_120_img_path
+    _thumb_image_true_size(120)
+  end
+
+  def large_thumb_image_true_size
+    _thumb_image_true_size(500)
+  end
+
+  def _thumb_image_true_size(size)
+    if size == 120
+      path = MindmapImageCache.new(self).thumb_120_img_path
+    else
+      path = MindmapImageCache.new(self).thumb_500_img_path
+    end
+    
     image = Magick::Image::read(File.new(path)).first
     {:height=>image.rows,:width=>image.columns}
   rescue Exception => ex

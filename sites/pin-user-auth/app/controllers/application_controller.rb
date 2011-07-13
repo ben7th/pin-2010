@@ -7,9 +7,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  # 通过插件开启gzip压缩
-  after_filter OutputCompressionFilter
-
   around_filter :catch_oauth_exception
   def catch_oauth_exception
     yield
@@ -20,4 +17,5 @@ class ApplicationController < ActionController::Base
       return render_status_page(503,tsina_error.message)
     end
   end
+
 end

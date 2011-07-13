@@ -21,15 +21,15 @@ class MindmapToImage
   def export(size_param)
     param = size_param.to_s
 
-    @map_hash = get_nodes_hash(mindmap.struct)
-
     if param.include?('x')
+      @map_hash = get_nodes_hash(mindmap.struct)
       @fixed_width , @fixed_height = param.split('x').map{|x| x.to_i}
       return write_to_file(export_fixed)
+    else
+      @zoom = param.to_f # 要在生成hash之前对zoom先赋值
+      @map_hash = get_nodes_hash(mindmap.struct)
+      return write_to_file(export_zoom)
     end
-
-    @zoom = param.to_f
-    return write_to_file(export_zoom)
   end
 
   def create_thumb
@@ -105,23 +105,17 @@ class MindmapToImage
 
   def _width_of_image(with_sign = true)
     if with_sign
-      return [_width_of_mindmap, _width_min, _width_of_sign].max.round
+      return [_width_of_mindmap, _width_of_sign].max.round
     end
-    return [_width_of_mindmap, _width_min].max.round
+    return [_width_of_mindmap].max.round
   end
 
   def _width_of_mindmap
-    map_hash[:left_subtree_width] + map_hash[:width] + map_hash[:right_subtree_width] + width_padding
-  end
-
-  def _width_min
-    200 + 50 + 120
+    map_hash[:left_subtree_width] + map_hash[:width] + map_hash[:right_subtree_width] + width_padding + subtree_root_margin*2
   end
 
   def _width_of_sign
-    get_text_size(mindmap.title)[:width] +
-    width_margin +
-    get_text_size(_author_name)[:width]
+    [get_text_size(sign_title)[:width], 120].max * zoom + width_margin
   end
 
   def _author_name

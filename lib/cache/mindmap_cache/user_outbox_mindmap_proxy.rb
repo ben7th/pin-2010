@@ -29,6 +29,7 @@ class UserOutboxMindmapProxy < RedisBaseProxy
     {
       :class => Mindmap ,
       :after_create => Proc.new {|mindmap|
+        next if mindmap.private?
         UserOutboxMindmapProxy.add_mindmap_cache(mindmap)
       },
       :after_update => Proc.new {|mindmap|

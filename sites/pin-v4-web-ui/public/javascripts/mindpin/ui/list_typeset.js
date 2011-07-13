@@ -4,8 +4,8 @@
 
 
 pie.mindmaps_typeset = function(){
-  var top_l = 0;
-  var top_r = 0;
+//  var top_l = 0;
+//  var top_r = 0;
 
 //  jQuery('.page-user-mindmaps').append('<div class="listl"></div><div class="listm"></div><div class="listr"></div>');
 //
@@ -32,30 +32,30 @@ pie.mindmaps_typeset = function(){
 //    }
 //  })
 
-  jQuery('.page-user-mindmaps').css('position','relative');
-
-  jQuery('.page-user-mindmaps .mindmap').each(function(){
-    var mindmap_elm = jQuery(this);
-    mindmap_elm.css('position','absolute');
-
-    var min = [top_l, top_r].min();
-
-    mindmap_elm.css('top',min);
-
-    if(min == top_l){
-      //左边
-      mindmap_elm.css('left',0);
-      top_l += (mindmap_elm.height());
-    }else{
-      //右边
-      mindmap_elm.css('left',360);
-      top_r += (mindmap_elm.height());
-    }
-  });
-
-  jQuery('.page-user-mindmaps')
-    .css('height',[top_l, top_r].max())
-    .css('width',720);
+//  jQuery('.page-user-mindmaps').css('position','relative');
+//
+//  jQuery('.page-user-mindmaps .mindmap').each(function(){
+//    var mindmap_elm = jQuery(this);
+//    mindmap_elm.css('position','absolute');
+//
+//    var min = [top_l, top_r].min();
+//
+//    mindmap_elm.css('top',min);
+//
+//    if(min == top_l){
+//      //左边
+//      mindmap_elm.css('left',0);
+//      top_l += (mindmap_elm.height());
+//    }else{
+//      //右边
+//      mindmap_elm.css('left',360);
+//      top_r += (mindmap_elm.height());
+//    }
+//  });
+//
+//  jQuery('.page-user-mindmaps')
+//    .css('height',[top_l, top_r].max())
+//    .css('width',720);
 };
 
 pie.load(pie.mindmaps_typeset);

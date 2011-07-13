@@ -67,7 +67,7 @@ module TsinaControllerMethods
     if !cu.blank?
       cu.update_tsina_info(@tsina_user_info,atoken,asecret)
       self.current_user = cu.user
-      return to_logged_in_page
+      return redirect_back_or_default(root_url)
     end
     render :template=>"/connect_users/connect_tsina_confirm"
   end
@@ -83,7 +83,7 @@ module TsinaControllerMethods
       atoken,asecret)
     self.current_user = connect_user.user
     clear_session_connect_info
-    return to_logged_in_page
+    return redirect_back_or_default(root_url)
   end
 
   def tsina_bind_mindpin_typical_account

@@ -1,0 +1,14 @@
+-content_for :title, " 导图编辑器 v0.6 浏览模式 - #{escape_title(@mindmap)}"
+
+-content_for :head do
+  = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
+  = stylesheet_link_tag '/javascripts/prototip/css/prototip'
+
+-content_for :javascripts do
+  = javascript_include_tag 'mindmap_viewer_packed'
+  = javascript_include_tag 'excanvas/excanvas.compiled'
+  = javascript_include_tag 'views/mindmap_page_load'
+
+=render 'mindmap_editor/mindmap_toolbar'
+=render 'mindmap_editor/mindmap_main',:mode=>'viewer'
+=render 'mindmap_editor/status_bar'

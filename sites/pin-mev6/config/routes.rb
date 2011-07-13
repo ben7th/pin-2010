@@ -1,10 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
+  
   map.root :controller=>"index",:action=>'index'
 
   #################### 用户登录
   map.login '/login',:controller=>'sessions',:action=>'new'
   map.logout '/logout',:controller=>'sessions',:action=>'destroy'
   map.resource :session
+
+  ################### 用户注册
+  map.signup '/signup',:controller=>'users',:action=>'new'
 
   ################### 用户设置
   # 基本信息
@@ -30,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
     :change_title=>:put,
     :clone_form=>:get,
     :do_clone=>:put,
-    :do_private=>:put,
+    :toggle_private=>:put,
     :info=>:get,
     :fav=>:post,
     :unfav=>:delete,
@@ -50,6 +54,4 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.resources :image_attachments
-
-  map.signup '/signup',:controller=>'users',:action=>'new'
 end

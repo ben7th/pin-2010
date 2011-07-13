@@ -252,6 +252,11 @@ body{
   }
 }
 
+@mixin nodefont{
+  /*font-family:"Microsoft Yahei","微软雅黑","Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;*/
+  font-family:"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+}
+
 #mindmap-scroller{
   position:absolute;
   border:none;
@@ -269,10 +274,10 @@ body{
     textarea{white-space:nowrap;}
     .root{
       font-size:14px;line-height:20px;
-      border:3px solid #003266;
+      border:3px solid #99BFFF;
       padding:5px;
-      color:#fff;
-      background-color:#003266;
+      color:#000;
+      background-color:#E9F0FF;
       @include border-radius(5px);
     
       &.dropon{
@@ -280,7 +285,6 @@ body{
       }
       &.over{
         border:solid 3px #ffed80;
-        background-color:#5c9eff;
       }
       &.selected{
         border:3px solid #113B8F;
@@ -309,7 +313,7 @@ body{
     }
     
     .root,.node{
-      font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+      @include nodefont;
       cursor:pointer;
       position:absolute;
       .node-image{
@@ -362,7 +366,7 @@ body{
       line-height:0;font-size:0;
       
       .title-inputer{
-        font-family:Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+        @include nodefont;
         border:none !important;
         padding:0 !important;
         margin:0 !important;

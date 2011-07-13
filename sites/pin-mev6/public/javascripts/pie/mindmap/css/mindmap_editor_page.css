@@ -232,18 +232,17 @@ body {
     #mindmap-scroller #mindmap-canvas .root {
       font-size: 14px;
       line-height: 20px;
-      border: 3px solid #003266;
+      border: 3px solid #99BFFF;
       padding: 5px;
-      color: #fff;
-      background-color: #003266;
+      color: #000;
+      background-color: #E9F0FF;
       border-radius: 5px;
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px; }
       #mindmap-scroller #mindmap-canvas .root.dropon {
         border: solid 3px #F56F00 !important; }
       #mindmap-scroller #mindmap-canvas .root.over {
-        border: solid 3px #ffed80;
-        background-color: #5c9eff; }
+        border: solid 3px #ffed80; }
       #mindmap-scroller #mindmap-canvas .root.selected {
         border: 3px solid #113B8F; }
     #mindmap-scroller #mindmap-canvas .node {
@@ -265,7 +264,8 @@ body {
         border: solid 3px #113B8F;
         padding: 0; }
     #mindmap-scroller #mindmap-canvas .root, #mindmap-scroller #mindmap-canvas .node {
-      font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+      /*font-family:"Microsoft Yahei","微软雅黑","Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;*/
+      font-family: "Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
       cursor: pointer;
       position: absolute; }
       #mindmap-scroller #mindmap-canvas .root .node-image, #mindmap-scroller #mindmap-canvas .node .node-image {
@@ -314,7 +314,8 @@ body {
       line-height: 0;
       font-size: 0; }
       #mindmap-scroller #mindmap-canvas .title-input-div .title-inputer {
-        font-family: Consolas,"Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
+        /*font-family:"Microsoft Yahei","微软雅黑","Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;*/
+        font-family: "Lucida Grande",Verdana,Tahoma,Arial,Helvetica,Sans;
         border: none !important;
         padding: 0 !important;
         margin: 0 !important;

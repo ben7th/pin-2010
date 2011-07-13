@@ -1,0 +1,18 @@
+.signup-wrapper
+  .desc
+    .logo
+
+    .to-login
+      如果你已经注册过了，请#{link_to '直接登录',login_path}
+
+    = flash_info
+
+  .form
+    %h2 注册新用户
+    - mindpin_form_for @user do |f|
+      = f.text_field :email,:maxlength=>50,:desc=>'必填，以后用来登录'
+      = f.text_field :name,:maxlength=>50,:desc=>'显示的名称，必填，以后可以修改'
+      = f.password_field :password,:value=>'',:maxlength=>32
+      = f.password_field :password_confirmation,:value=>'',:maxlength=>32
+      .field
+        = f.submit "确认注册",:class=>'submit'

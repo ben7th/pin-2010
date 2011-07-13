@@ -10,6 +10,6 @@ module MindmapCloneControllerMethods
   # 克隆
   def do_clone
     clone_m = @mindmap.mindmap_clone(current_user,params[:mindmap])
-    redirect_to pin_url_for("pin-mev6","/mindmaps/#{clone_m.id}/edit")
+    redirect_to pin_url_for("pin-daotu","/mindmaps/#{clone_m.id}/edit")
   end
 end

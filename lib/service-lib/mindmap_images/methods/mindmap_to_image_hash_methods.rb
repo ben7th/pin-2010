@@ -55,8 +55,8 @@ module MindmapToImageHashMethods
     if has_uploaded_img?(node)
       image = MindmapNodeImage.new(node)
 
-      imgw = image.width
-      imgh = image.height
+      imgw = image.width * zoom
+      imgh = image.height * zoom
       img_file_path = image.path
 
       return {
@@ -67,6 +67,8 @@ module MindmapToImageHashMethods
         :bgcolor => node[:bgcolor],
         :textcolor => node[:textcolor],
         :inner_img_filepath => img_file_path,
+        :imgw => imgw,
+        :imgh => imgh,
         :text_height => dim[:height]
       }
     else
@@ -131,8 +133,11 @@ module MindmapToImageHashMethods
 
     max_height = [left_subtrees_total_height, right_subtrees_total_height, root_height].max
 
-    root[:left_c_top_off] = (max_height - left_subtrees_total_height) / 2
-    root[:right_c_top_off] = (max_height - right_subtrees_total_height) / 2
+    # 左侧所有节点的顶坐标
+    root[:left_children_top]  = (max_height - left_subtrees_total_height) / 2
+    # 右侧所有节点的顶坐标
+    root[:right_children_top] = (max_height - right_subtrees_total_height) / 2
+
     root[:y_off]=(max_height - root_height)/2
 
     root[:x] = 0
@@ -144,37 +149,60 @@ module MindmapToImageHashMethods
   end
 
   def locations_recursion(parent,node)
-
-    children = node[:children]
-
     children_total_height = _get_children_total_height_of_node(node)
+    
     subtree_width = _get_subtree_width_of_node(node)
-
     node[:subtree_width] = subtree_width
 
     self_height = node[:height]
 
     subtree_height = 0
 
-    if children_total_height > self_height
+    # 节点和节点下级节点的对齐方式
+    # 2011-7-12 改成和导图编辑器一样的对齐方式
+    children = node[:children]
+    if children.length == 0
       node[:cy_off] = 0
-      node[:y_off] = (children_total_height - self_height) / 2
-      node[:y_off] -= v_padding / 2 if children.length > 1
-      subtree_height = children_total_height + v_padding
-    else
-      node[:cy_off] = (self_height - children_total_height) / 2
       node[:y_off] = 0
-      subtree_height = self_height
-      subtree_height += v_padding if parent[:children].length > 1
+      subtree_height = self_height + v_padding
+    else
+      first_child = children[0]
+      last_child = children[-1]
+
+      first_child_baseline_yoff = first_child[:y_off] + first_child[:height]
+      last_child_baseline_bottom_off = last_child[:subtree_height] - (last_child[:y_off] + last_child[:height])
+      last_child_baseline_yoff = children_total_height - last_child_baseline_bottom_off
+
+      baseline_diff = last_child_baseline_yoff - first_child_baseline_yoff
+
+      ref_height = baseline_diff / 2 + first_child_baseline_yoff
+      others_height = baseline_diff / 2 + last_child_baseline_bottom_off
+
+      if ref_height > self_height
+        node[:cy_off] = 0 # children y offset
+        node[:y_off] = ref_height - self_height
+        subtree_height = ref_height + [others_height, v_padding].max
+      else
+        node[:cy_off] = self_height - ref_height
+        node[:y_off] = 0
+        subtree_height = self_height + [others_height, v_padding].max
+      end
     end
 
     node[:subtree_height] = subtree_height
+
+    if(parent[:is_root])
+      node[:cy_off] = node[:cy_off] - parent[:height]/2
+      node[:y_off] = node[:y_off] - parent[:height]/2
+    end
 
     return subtree_height
   end
 
   def _get_children_total_height_of_node(node)
-    node[:children].map { |child|
+    children = node[:children]
+
+    children.map { |child|
       locations_recursion(node,child)
     }.sum
   end

@@ -2,12 +2,12 @@ module MindmapEditorControllerMethods
   
   # 导出向导页面
   def export
-    render_ui.fbox :show,:title=>"导出导图",:partial=>'mindmaps/edit/box_export',:locals=>{:mindmap=>@mindmap}
+    render_ui.fbox :show,:title=>"导出导图",:partial=>'mindmap_editor/module/box_export',:locals=>{:mindmap=>@mindmap}
   end
 
   def edit
     if has_edit_rights?(@mindmap,current_user)
-      return render :layout=>"mindmap",:template=>'mindmaps/editor_page/editor'
+      return render :layout=>"mindmap",:template=>'mindmap_editor/editor'
     end
     return render_status_page(403,"当前用户对该导图没有编辑权限。<a href='/mindmaps/#{@mindmap.id}'>点击这里进入查看页</a>")
   end
@@ -37,7 +37,7 @@ module MindmapEditorControllerMethods
       return render_status_page(403,'当前用户对该导图没有查看权限')
     end
     
-    return (render :layout=>"mindmap",:template=>'mindmaps/editor_page/viewer')
+    return (render :layout=>"mindmap",:template=>'mindmap_editor/viewer')
   end
 
   def _build_xml

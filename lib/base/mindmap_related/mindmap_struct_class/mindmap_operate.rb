@@ -41,11 +41,13 @@ class MindmapOperate
     index = @params.index
     new_node_id = @params.new_node_id
     title = @params.title
+    pos = @params.pos
 
     _change_struct do |doc|
       parent = doc.node(parent_id)
       node = doc.create_node(new_node_id,title)
       parent.insert_node(node,index)
+      node.pos = pos
       node.modified = @operator
 
       {:params_hash=>@params.hash,:operation_kind=>"do_insert",:operator=>@operator}

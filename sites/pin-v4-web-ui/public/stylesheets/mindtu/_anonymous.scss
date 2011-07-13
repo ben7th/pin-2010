@@ -1,59 +1,118 @@
+@mixin mindtu-no-auth-logo{
+  .logo{
+    width:425px;
+    height:75px;
+    background:url(/images/mindtu.png);
+    margin-bottom:20px;
+  }
+}
+
+@mixin mindtu-no-auth-form{
+  form{
+    overflow:hidden;
+    margin-left:80px;
+    margin-bottom:30px;
+    .field{
+      float:left;
+      margin-right:10px;
+      label{display:block;}
+      input.text{
+        border:solid 1px #666;
+        box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+        font-weight:bold;
+        @include tfont;
+      }
+      .submit{
+        margin-top:25px;
+        height:33px;
+        width:80px;
+        font-size:14px;
+        @include gradient(#4D90FE,#4787ED);
+        border:solid 1px #3079ED;
+        &:hover{
+          @include gradient(#4D90FE,#357AE8);
+          border:solid 1px #2F5BB7;
+        }
+      }
+      .remember-me{
+        padding:3px;
+      }
+      .forget-password{
+        padding:3px;
+        a{color:#666;&:hover{color:#666;}}
+      }
+    }
+  }
+}
+
 body.mindtu-no-auth-index{
-  @include gradient(#FCFDFF,#D9E3EA);
+  @include gradient(#FFFFFF,#F7F7F7);
 
   .login-wrapper{
     position:absolute;
     top:50%;
     left:50%;
-    margin-top:-150px;
-    margin-left:-300px;
-    .logo{
-      width:350px;
-      height:75px;
-      background:url(/images/mindtu.png);
-      margin-bottom:20px;
-    }
-    form{
-      overflow:hidden;
-      margin-left:5px;
-      .field{
-        float:left;
-        margin-right:10px;
-        label{display:block;}
-        input.text{
-          border:solid 1px #666;
-          box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-          font-weight:bold;
-          @include tfont;
-        }
-        .submit{
-          margin-top:25px;
-          height:33px;
-          width:80px;
-          font-size:14px;
-          @include gradient(#4D90FE,#4787ED);
-          border:solid 1px #3079ED;
-          &:hover{
-            @include gradient(#4D90FE,#357AE8);
-            border:solid 1px #2F5BB7;
-          }
-        }
-        .remember-me{
-          padding:3px;
-        }
-        .forget-password{
-          padding:3px;
-          a{color:#666;&:hover{color:#666;}}
-        }
-      }
-    }
-
+    margin-top:-180px;
+    margin-left:-360px;
+    @include mindtu-no-auth-logo;
+    @include mindtu-no-auth-form;
+    
     .flash-error{
       margin:3px 0 0 0;
       background:#777;
       border:solid 1px #666;
       @include border-radius(3px);
       span{height:30px;line-height:30px;}
+    }
+    
+    .footmisc{
+      overflow:hidden;
+      .desc{
+        float:left;
+        margin-left:80px;
+        font-size:14px;font-weight:bold;
+      }
+      .signup{
+        overflow:hidden;
+        margin-left:532px;
+        a{
+          float:left;
+        }
+      }
+    }
+  }
+
+  .signup-wrapper{
+    position:absolute;
+    top:0;
+    left:50%;
+    margin-top:100px;
+    margin-left:-380px;
+    overflow:hidden;
+    .desc{
+      float:left;
+      @include mindtu-no-auth-logo;
+      .logo{
+        margin-top:30px;
+      }
+      .to-login{font-size:14px;margin-left:10px;margin-bottom:30px;}
+      .flash-error{margin-left:10px;}
+    }
+    .form{
+      margin-left:470px;
+      h2{
+        font-size:14px;line-height:20px;
+        margin-bottom:10px;
+      }
+      @include mindtu-no-auth-form;
+      form{
+        margin:0;
+        .field{
+          float:none;
+          .submit{margin:0;}
+          .fielderror{display:none;}
+        }
+      }
     }
   }
 

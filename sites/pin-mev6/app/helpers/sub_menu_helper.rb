@@ -54,7 +54,7 @@ module SubMenuHelper
       tab = arr[-1]
     end
 
-    return current_page?(path) || tab == cookies["menu_#{menu}_tab".to_sym]
+    return current_page?(path) #|| tab == cookies["menu_#{menu}_tab".to_sym]
   end
 
   ######################

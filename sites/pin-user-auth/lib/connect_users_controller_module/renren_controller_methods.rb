@@ -58,7 +58,7 @@ module RenrenControllerMethods
     if !cu.blank?
       cu.update_renren_info(@renren_user_info,atoken)
       self.current_user = cu.user
-      return to_logged_in_page
+      return redirect_back_or_default(root_url)
     end
     render :template=>"/connect_users/connect_renren_confirm"
   end
@@ -73,7 +73,7 @@ module RenrenControllerMethods
       atoken)
     self.current_user = connect_user.user
     clear_session_connect_info
-    return to_logged_in_page
+    return redirect_back_or_default(root_url)
   end
 
   def renren_bind_mindpin_typical_account
