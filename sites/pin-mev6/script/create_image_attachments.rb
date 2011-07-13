@@ -20,6 +20,8 @@ image_file_paths.each_with_index do |path,index|
       ia.save!
     end
   rescue Exception => ex
+    puts ex.backtrace.join("\n")
+    puts ex.message
     p "#{path} 生成缩略图失败"
   end
 
