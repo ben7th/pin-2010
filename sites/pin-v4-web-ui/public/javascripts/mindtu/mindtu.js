@@ -100,7 +100,9 @@ pie.load(function(){
     var elm = jQuery(this);
     var mindmap_elm = elm.closest('.mindmap');
     var comments_elm = mindmap_elm.find('.comments');
-    comments_elm.after(comment_form_str);
+    if(mindmap_elm.find('.comment-form').length == 0){
+      comments_elm.after(comment_form_str);
+    }
   });
 
   //取消
