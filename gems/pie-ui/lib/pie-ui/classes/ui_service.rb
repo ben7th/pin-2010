@@ -33,9 +33,13 @@ class UiService
   
   class << self
     def css_files
-      [
-        File.join site,"stylesheets/all.css?#{env_asset_id}"
-      ]
+      case RAILS_ENV
+      when 'development'
+        return [File.join site,"stylesheets/all.css?#{env_asset_id}"]
+      when 'production'
+        return [File.join site,"stylesheets/all_packed.css?#{env_asset_id}"]
+      end
+      
     end
   end
 
