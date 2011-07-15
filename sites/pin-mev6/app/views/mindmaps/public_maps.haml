@@ -1,11 +1,11 @@
 -content_for :title do
   浏览公开思维导图
 
-.main.grid_18
+.mside.grid_5
+  =show_sub_menu
+
+.main.grid_19.ll
   =render 'mindmaps/lists/management',:mindmaps=>@mindmaps
 
   .mindmap-paginate.padding5
     = will_paginate @mindmaps
-
-.mside.grid_6
-  =show_sub_menu

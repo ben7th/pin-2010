@@ -1,0 +1,14 @@
+- @mindpin_layout.grid = 24
+
+!!! Strict
+%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
+  =render 'layouts/parts/htmlhead'
+
+  %body.mindpin-anonymous
+    .page-wrap
+      .page-container
+        .page-content
+          =yield
+
+    =render 'layouts/parts/footer'
+    =render 'layouts/parts/javascripts'

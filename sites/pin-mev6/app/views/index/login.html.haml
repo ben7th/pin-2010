@@ -1,6 +1,6 @@
 .login-wrapper
   .logo
-  -form_tag({:controller=>'sessions',:action=>'create'},{:class=>'login-form'}) do
+  -form_tag(pin_url_for('pin-user-auth','/session?service=tu'),{:class=>'login-form'}) do
     .field
       %label 电子邮箱
       =text_field_tag :email,params[:email],:class=>'text',:tabindex=>'1'
@@ -9,15 +9,12 @@
       %label 密码
       =password_field_tag :password,params[:password],:class=>'text',:tabindex=>'2'
       .forget-password
-        =link_to '忘记密码了…',pin_url_for('pin-user-auth','/forgot_password_form')
+        =link_to '忘记密码了…',pin_url_for('pin-user-auth','/forgot_password_form?service=tu')
     .field
-      =submit_tag '登　录',:class=>'submit'
+      =link_to '登　录','javascript:;',:class=>'login-submit'
       .remember-me
         %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
         %span 记住我
-
-  .footmisc
-    .desc
-      请记住我们的新域名 http://www.mindtu.com
-    .signup
-      =minibutton '注册','/signup',:class=>'green'
+    .field
+      =link_to '注　册',pin_url_for('pin-user-auth','/signup?service=tu'),:class=>'signup'
+  

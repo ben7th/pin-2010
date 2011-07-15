@@ -1,13 +1,14 @@
 -content_for :title do
   绑定新浪微博账号失败 - 重复绑定
 
--require_css 'views/users'
+.mside.grid_5
+  =render :partial=>'account/parts/account_links'
 
-.grid_14.alpha
-  .grid-title
-    尝试绑定新浪微博账号，但是绑定失败。
+.main.grid_19.ll
+  .paddingl20
+    .main-title
+      尝试绑定新浪微博账号，但是绑定失败。
 
-  .padding5
     -user = @connect_user.user
     .bind-failure-desc.darkbg
       .p
@@ -49,7 +50,3 @@
 
     .padding5
       =minibutton '知道了，返回','/account/bind_tsina'
-
-
-.grid_4.omega.fright
-  =render :partial=>'account/parts/account_links'

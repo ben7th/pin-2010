@@ -31,6 +31,12 @@ class UserFavMindmapsProxy < RedisBaseProxy
       :class  => User ,
       :fav_mindmaps => Proc.new {|user|
         UserFavMindmapsProxy.new(user).get_models(Mindmap)
+      },
+      :fav_mindmaps_paginate => Proc.new {|user,options|
+        ids = UserFavMindmapsProxy.new(user).xxxs_ids.paginate(options)
+        mindmaps = ids.map{|id|Mindmap.find_by_id(id)}.compact
+        ids.replace(mindmaps)
+        ids
       }
     }
   end

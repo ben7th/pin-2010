@@ -70,9 +70,9 @@ module SubMenuHelper
     end
     
     if(options[:first])
-      link_str = "<hr class='split'/>#{link_str}<hr class='split'/>"
+      link_str = "#{link_str}"
     else
-      link_str = "#{link_str}<hr class='split'/>"
+      link_str = "#{link_str}"
     end
 
     return "<li class='#{klass}'>#{link_str}</li>"

@@ -1,55 +1,12 @@
-.module-links.account.lightbg.boxs2
-  .link.base.btb
-    .icon
-    =tabs_link_to "基本信息","/account"
-  .link.avatared.btb
-    .icon
-    =tabs_link_to "修改头像","/account/avatared"
-  .link.message
-    .icon
-    =tabs_link_to "站内信设置","/account/message"
-
 -binded_tsina = current_user.has_binded_sina?
--binded_renren = current_user.has_binded_renren?
 
--if current_user.is_mindpin_typical_account?
-  .module-links.account.lightbg.boxs2
-    .link.password.btb
-      .icon
-      =tabs_link_to "修改密码","/account/password"
-    .link.email.btb
-      .icon
-      =tabs_link_to "邮箱激活","/account/email"
-    .link.bind-tsina{:class=>binded_tsina ? 'binded':''}
-      .new
-      .icon
-      =tabs_link_to "绑定新浪微博","/account/bind_tsina"
-    .link.bind-renren{:class=>binded_renren ? 'binded':''}
-      .new
-      .icon
-      =tabs_link_to "绑定人人网","/account/bind_renren"
+.module-links.account
+  =account_setting_link "基本信息","/account","base"
+  =account_setting_link "修改头像","/account/avatared","avatared"
+  =account_setting_link "关联新浪微博","/account/bind_tsina","bind-tsina"
 
--if current_user.is_quick_connect_account?
-  -if binded_tsina
-    .module-links.account.lightbg
-      .tsina-quick-account.darkbg.btb
-        .icon
-        新浪微博<br/>快速连接账号
-      .link.bind-tsina.btb
-        .icon
-        =tabs_link_to "连接信息","/account/bind_tsina"
-      .link.complete_reg_info
-        .icon
-        =tabs_link_to "补全注册信息","/account/complete_reg_info"
-
-  -if binded_renren
-    .module-links.account.lightbg
-      .renren-quick-account.darkbg.btb
-        .icon
-        人人网<br/>快速连接账号
-      .link.bind-renren.btb
-        .icon
-        =tabs_link_to "连接信息","/account/bind_renren"
-      .link.complete_reg_info
-        .icon
-        =tabs_link_to "补全注册信息","/account/complete_reg_info"
+  .exit-account-setting
+    -if session[:account_setting_from_site_flag] == 'tu'
+      =minibutton '离开用户设置',pin_url_for('pin-daotu')
+    -else
+      =minibutton '离开用户设置',pin_url_for('pin-user-auth')

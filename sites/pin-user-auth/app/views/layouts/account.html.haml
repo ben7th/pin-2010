@@ -1,0 +1,21 @@
+- @mindpin_layout.grid = 24
+
+!!! Strict
+%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
+  =render 'layouts/parts/htmlhead'
+
+  %body.echo
+    .page-wrap
+      .page-container
+        =render 'layouts/parts/account_nav'
+        .page-content{:class=>container_classname}
+          .cell.clearfix
+            =yield
+
+    =render 'layouts/parts/footer'
+
+    #page-hide.hide
+      =yield :hide
+      %iframe{:name=>"upload_frame",:style=>"width:1px;height:1px;border:0px;",:src=>"about:blank"}
+
+    =render 'layouts/parts/javascripts'

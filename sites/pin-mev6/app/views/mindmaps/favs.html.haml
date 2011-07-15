@@ -1,0 +1,11 @@
+-content_for :title do
+  我收藏的导图
+
+.mside.grid_5
+  =show_sub_menu
+
+.main.grid_19.ll
+  =render 'mindmaps/lists/management',:mindmaps=>@mindmaps
+
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps

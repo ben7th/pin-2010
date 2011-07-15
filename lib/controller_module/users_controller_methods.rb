@@ -1,8 +1,7 @@
 module UsersControllerMethods
   def new
-    online_key = session[:online_key]
-    reset_session
-    session[:online_key] = online_key
+    return _create_redirect_by_service if logged_in?
+
     @user=User.new
     render :layout=>'anonymous',:template=>'index/signup'
   end
@@ -13,17 +12,22 @@ module UsersControllerMethods
     @user=User.new(params[:user])
     if @user.save
       # flash[:success]="注册成功，请使用新帐号登陆"
-      login_after_create(@user)
+      self.current_user=@user
+      after_logged_in()
+      _create_redirect_by_service
     else
-      flash.now[:error]=get_flash_error(@user)
-      render :layout=>'anonymous',:template=>'index/signup'
+      flash[:error]=get_flash_error(@user)
+      redirect_to "/signup?service=#{params[:service]}"
     end
   end
 
 
-  def login_after_create(user)
-    self.current_user=user
-    after_logged_in()
-    redirect_to '/'
+  private
+  def _create_redirect_by_service
+    if params[:service] == "tu"
+      redirect_to(pin_url_for("pin-daotu"))
+    else
+      redirect_to(root_url)
+    end
   end
 end

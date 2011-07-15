@@ -1,8 +1,8 @@
 class AccountController <  ApplicationController
-  before_filter :login_required,:except=>[:activate]
+  layout "account"
+  before_filter :login_required
 
-  before_filter :must_is_mindpin_account,:only=>[:password,:do_password,
-    :email,:do_unbind]
+  before_filter :must_is_mindpin_account,:only=>[:do_unbind]
   def must_is_mindpin_account
     if !current_user.is_mindpin_typical_account?
       return render_status_page(503,"非法操作")
@@ -17,31 +17,55 @@ class AccountController <  ApplicationController
   end
 
   # 基本信息
-  def base;end
-  # 头像
-  def avatared;end
+  def base
+    if !params[:service].blank?
+      session[:account_setting_from_site_flag] = params[:service]
+    end
+  end
 
-  # 邮箱
-  def email;end
-
-  # 修改基本信息
+    # 修改基本信息
   def base_submit
     @user= current_user
-    s1=params[:user]
-    @user.update_attributes(s1)
+
+      if !params[:old_password].blank? && @user.is_mindpin_typical_account?
+        return redirect_error_info("请输入新密码") if params[:new_password].blank?
+
+        if (params[:new_password_confirmation] != params[:new_password])
+          return redirect_error_info("新密码和确认新密码输入不相同")
+        end
+
+        u = User.authenticate(current_user.email,params[:old_password])
+        if u.blank? || u != @user
+          return redirect_error_info("旧密码输入错误")
+        end
+
+        @user.password=params[:new_password]
+        @user.password_confirmation=params[:new_password_confirmation]
+      end
+
+    @user.sign=params[:sign]
+    @user.name=params[:name]
     if @user.save
       flash[:success]="用户 #{@user.email}（#{@user.name}）的信息已经成功修改"
     else
-    flash[:error] = get_flash_error(@user)
+      flash[:error] = get_flash_error(@user)
     end
+    return redirect_to :action=>:base
+  end
+
+  def redirect_error_info(error)
+    flash[:error] = error
     redirect_to :action=>:base
   end
+
+
+  # 头像
+  def avatared;end
 
   # 修改头像
   def avatared_submit
     if !params[:copper]
       if params[:user].blank?
-        set_cellhead_tail(:avatared)
         flash.now[:error] = "头像保存失败，请选择头像图片并上传"
         return render :action=>:avatared
       end
@@ -52,34 +76,17 @@ class AccountController <  ApplicationController
   end
 
   def _save_avatar
-    current_user.update_attributes({:logo=>params[:user][:logo]})
-    set_cellhead_tail('copper_avatared')
+    @image_file_name = UserAvatarAdpater.create_by_upload_file(params[:user][:logo])
+    @image_url = UserAvatarAdpater.url_by_image_file_name(@image_file_name)
+
     return render :template=>"account/copper_avatared"
   end
 
   def _copper
-    current_user.copper_logo(params)
+    @image_file_path = UserAvatarAdpater.path_by_image_file_name(params[:image_file_name])
+    current_user.copper_logo(@image_file_path,params)
+    FileUtils.rm(@image_file_path)
     redirect_to :action=>:avatared
-  end
-
-  # 发送激活邮件
-  def send_activation_mail
-    if !current_user.activated?
-      current_user.send_activation_mail
-      flash[:success]="激活邮件已发送，请注意查收"
-      return redirect_to :action=>:email
-    end
-    render_status_page(422,'当前邮箱已经激活，不能重复激活')
-  end
-
-  # 用户激活
-  def activate
-    @user = User.find_by_activation_code(params[:activation_code])
-    if @user
-      @user.activate
-    else
-      @failure = true
-    end
   end
 
   def do_setting_email
@@ -116,36 +123,6 @@ class AccountController <  ApplicationController
     if current_user.renren_connect_user
       return redirect_to :action=>:bind_renren
     end
-  end
-
-  def message
-    @is_all_users = current_user.preference.messages_set == Preference::ALL_USERS
-    @is_only_contacts = current_user.preference.messages_set == Preference::ONLY_CONTACTS
-    if !@is_all_users && !@is_only_contacts
-      @is_only_contacts = true
-    end
-  end
-  
-  def do_message
-    set = params[:set]
-    if [Preference::ALL_USERS,Preference::ONLY_CONTACTS].include?(set)
-      current_user.preference.update_attributes(:messages_set=>set)
-    end
-    flash[:success] = "设置成功"
-    redirect_to :action=>:message
-  end
-
-  def password;end
-
-  def do_password
-    begin
-      current_user.change_password(params[:old_password],params[:new_password],params[:new_password_confirmation])
-    rescue Exception => ex
-      flash[:error] = ex.message
-      return redirect_to :action=>:password
-    end
-    flash[:success] = "密码修改成功"
-    redirect_to :action=>:password
   end
 
   def complete_reg_info

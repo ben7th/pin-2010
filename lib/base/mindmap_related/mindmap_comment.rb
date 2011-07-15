@@ -12,14 +12,6 @@ class MindmapComment < Mev6Abstract
       base.has_many :comments,:class_name=>"MindmapComment",:foreign_key=>"creator_id"
     end
 
-    def create_comment(mindmap,content,create_feed=false)
-      mc = MindmapComment.create(:creator=>self,:mindmap=>mindmap,:content=>content)
-      if !mc.new_record? && create_feed
-        feed = self.send_say_feed(content)
-        FeedMindmap.create(:feed=>feed,:mindmap=>mindmap)
-      end
-      return mc
-    end
   end
 
   module MindmapMethods

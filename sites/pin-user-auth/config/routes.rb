@@ -105,15 +105,9 @@ ActionController::Routing::Routes.draw do |map|
   map.user_base_info "/account",:controller=>"account",:action=>"base",:conditions=>{:method=>:get}
   map.user_base_info_submit "/account",:controller=>"account",:action=>"base_submit",:conditions=>{:method=>:put}
 
-  map.account_password "/account/password",:controller=>"account",:action=>"password"
-  map.account_do_password "/account/do_password",:controller=>"account",:action=>"do_password",:conditions=>{:method=>:put}
   # 头像设置
   map.user_avatared_info "/account/avatared",:controller=>"account",:action=>"avatared",:conditions=>{:method=>:get}
   map.user_avatared_info_submit "/account/avatared",:controller=>"account",:action=>"avatared_submit",:conditions=>{:method=>:put}
-
-  # 邮件
-  map.user_email_info "/account/email",:controller=>"account",:action=>"email"
-  map.send_activation_mail "/account/email/send_activation_mail",:controller=>"account",:action=>"send_activation_mail"
 
   # 团队
   map.contacts_setting_organizations "contacts_setting/organizations",:controller=>"contacts_setting",:action=>"organizations"
@@ -171,8 +165,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.invitation_do_register "/i/do_reg",:controller=>"users",:action=>"do_reg"
   map.invitation_register "/i/:user_id",:controller=>"invitations",:action=>"reg"
-  # 激活用户
-  map.activate '/activate/:activation_code',:controller=>'account',:action=>'activate'
 
   # --杂项
   map.contact '/contact',:controller=>'misc',:action=>'contact'
@@ -257,8 +249,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :messages
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
-  map.account_message "/account/message",:controller=>"account",:action=>"message"
-  map.account_do_message "/account/do_message",:controller=>"account",:action=>"do_message",:conditions=>{:method=>:put}
 
   map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
   map.resources :mindmaps,:collection=>{

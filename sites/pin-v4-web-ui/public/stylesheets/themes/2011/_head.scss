@@ -22,16 +22,30 @@
   color:$head-text-color;
   padding-bottom:10px;
   border-bottom:solid 3px #666;
+  &.account{
+    padding-bottom:2px;
+    .page-head{
+      .site-logo{
+        padding-top:5px;
+        .logo.account{
+          width:260px;height:30px;
+          background:url(/images/alltu.png) -133px -50px;
+        }
+      }
+    }
+  }
+  
+  
   .page-head{
     overflow:hidden;
 
     .site-logo{
       float:left;
-      padding-top:15px;
+      padding-top:11px;
       padding-left:5px;
       .logo{
-        width:240px;
-        height:40px;
+        width:260px;
+        height:48px;
         display:block;
         overflow:hidden;
         font-size:0px;
@@ -40,7 +54,7 @@
           background:url(/images/sites.png) 0px -25px;
         }
         &.mindmaps{
-          background:url(/images/sites.png) 0px -66px;
+          background:url(/images/alltu.png) -133px -1px;
         }
       }
     }
@@ -169,37 +183,4 @@
   }
 }
 
-.page-content .cell{
-  padding:10px 0 60px;
-  margin:0; /*这样正好剩余960px，24个grid*/
-  .main.white{
-    background:white;
-    @include border-radius(8px);
-  }
-
-  .mside{
-    .sidepart{
-      background-color:#F7F7F7;
-      @include border-radius(8px);
-      overflow:hidden;
-      margin-bottom:10px;
-    }
-    .hrr{
-      margin:0 10px;
-      height:0px;line-height:0px;
-      font-size:0px;
-      border-top:solid 1px red;
-      border-bottom:solid 1px red;
-    }
-    hr.split{
-      height:0;font-size:0;line-height:0;
-      border-top:solid 1px #DBDDDB;
-      border-bottom:solid 1px #FDFFFD;
-      margin:0;
-      padding:0;
-      &.mb10{
-        margin-bottom:10px;
-      }
-    }
-  }
-}
+@import "main_and_side"

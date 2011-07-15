@@ -85,6 +85,7 @@
 .avatar{font-size:0px;line-height:0px;}
 .avatar img,.avatars img,.icons img{
   @include border-radius(5px);
+  padding:1px;
 }
 
 

@@ -46,8 +46,9 @@ module TsinaControllerMethods
     @connect_user = ConnectUser.find_by_id(session[:connect_user_id])
     session[:connect_user_id] = nil
     if @connect_user.nil?
-      redirect_to "/account/bind_tsina"
+      return redirect_to "/account/bind_tsina"
     end
+    render :layout=>"account"
   end
 
   def update_bind_tsina_info

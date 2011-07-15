@@ -163,8 +163,11 @@ module UserMethods
   end
 
   public
-  def copper_logo(params)
-    img = Magick::Image::read(File.new(self.logo.path(:raw))).first
+  def copper_logo(image_file_path, params)
+    file = File.new(image_file_path)
+    self.update_attributes(:logo=>file)
+    file = File.new(image_file_path)
+    img = Magick::Image::read(file).first
     img.crop!(params[:x1].to_i, params[:y1].to_i,params[:width].to_i, params[:height].to_i,true)
     _resize(img)
   end

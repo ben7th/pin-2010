@@ -36,7 +36,6 @@ pie.load(function(){
 })
 
 pie.show_loading_bar = function(){
-  pie.log('111')
   var elm = jQuery('<div class="ajax-loading-bar"><div class="icon"></div>正在加载…</div>');
   jQuery('body').append(elm);
   return elm;

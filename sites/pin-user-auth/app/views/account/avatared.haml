@@ -1,23 +1,24 @@
 -content_for :title do
   头像设置 上传头像
 
--require_css 'views/users'
-
-.grid_14.alpha
-  .grid-title
-    上传一张图片，然后选择要裁切的部分，系统会自动替您裁好！~
-
-  .padding5
-    = flash_info
-    .clearfix
-      = logo current_user,:medium
-      = logo current_user,:normal
-      = logo current_user,:tiny
-      = logo current_user,:mini
-
-    - mindpin_form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
-      = f.file_field(:logo)
-      = f.submit "上传图片",:class=>'marginb3em'
-
-.grid_4.omega.fright
+.mside.grid_5
   =render :partial=>'account/parts/account_links'
+
+.main.grid_19.ll
+  .paddingl20
+    .main-title
+      上传一张图片，然后选择要裁切的部分，系统会自动替您裁好！~
+
+    = flash_info
+
+    .page-account-base-form.aj-submit-form
+      .clearfix
+        = logo current_user,:medium
+        = logo current_user,:normal
+        = logo current_user,:tiny
+        = logo current_user,:mini
+
+      - mindpin_form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
+        = f.file_field(:logo)
+        .field
+          = link_to '上传图片','javascript:;',:class=>'account-submit a-link-submit'

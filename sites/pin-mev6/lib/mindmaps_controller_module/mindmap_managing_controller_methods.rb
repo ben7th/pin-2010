@@ -58,7 +58,7 @@ module MindmapManagingControllerMethods
 
     @mindmap.private = @mindmap.private? ? false : true
     if @mindmap.save_without_timestamping
-      return render :status=>200,:text=>@mindmap.private? ? 'private':'public'
+      return render :partial=>'mindmaps/lists/management',:locals=>{:mindmaps=>[@mindmap]}
     end
     return render :status=>503,:text=>"修改失败"
   end

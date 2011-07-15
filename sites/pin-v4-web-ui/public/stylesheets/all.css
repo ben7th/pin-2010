@@ -860,7 +860,8 @@ body {
 .avatar img, .avatars img, .icons img {
   border-radius: 5px;
   -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
+  -webkit-border-radius: 5px;
+  padding: 1px; }
 
 .topl {
   overflow: hidden;
@@ -2844,15 +2845,23 @@ Release Date: November 8, 2010
   color: #eeeeee;
   padding-bottom: 10px;
   border-bottom: solid 3px #666; }
+  .ph.account {
+    padding-bottom: 2px; }
+    .ph.account .page-head .site-logo {
+      padding-top: 5px; }
+      .ph.account .page-head .site-logo .logo.account {
+        width: 260px;
+        height: 30px;
+        background: url(/images/alltu.png) -133px -50px; }
   .ph .page-head {
     overflow: hidden; }
     .ph .page-head .site-logo {
       float: left;
-      padding-top: 15px;
+      padding-top: 11px;
       padding-left: 5px; }
       .ph .page-head .site-logo .logo {
-        width: 240px;
-        height: 40px;
+        width: 260px;
+        height: 48px;
         display: block;
         overflow: hidden;
         font-size: 0px;
@@ -2860,7 +2869,7 @@ Release Date: November 8, 2010
         .ph .page-head .site-logo .logo.feeds {
           background: url(/images/sites.png) 0px -25px; }
         .ph .page-head .site-logo .logo.mindmaps {
-          background: url(/images/sites.png) 0px -66px; }
+          background: url(/images/alltu.png) -133px -1px; }
     .ph .page-head .menu {
       float: left;
       padding-top: 30px; }
@@ -2971,53 +2980,213 @@ Release Date: November 8, 2010
             -webkit-box-shadow: none; }
 
 .page-content .cell {
-  padding: 10px 0 60px;
-  margin: 0;
-  /*这样正好剩余960px，24个grid*/ }
-  .page-content .cell .main.white {
-    background: white;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px; }
-  .page-content .cell .mside .sidepart {
-    background-color: #F7F7F7;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
+  margin: 0 0 60px;
+  border-bottom: solid 1px #eee; }
+  .page-content .cell .main-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 20px 0; }
+  .page-content .cell .main {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-right: solid 1px #eee; }
+    .page-content .cell .main.nl {
+      border: none; }
+    .page-content .cell .main.ll {
+      border-right: none;
+      border-left: solid 1px #eee; }
+  .page-content .cell .mside {
+    padding-top: 20px; }
+    .page-content .cell .mside.grid_5 {
+      width: 189px !important; }
+    .page-content .cell .mside .sidepart {
+      background-color: #F7F7F7;
+      border-radius: 8px;
+      -moz-border-radius: 8px;
+      -webkit-border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 10px; }
+    .page-content .cell .mside .hrr {
+      margin: 0 10px;
+      height: 0px;
+      line-height: 0px;
+      font-size: 0px;
+      border-top: solid 1px red;
+      border-bottom: solid 1px red; }
+    .page-content .cell .mside hr.split {
+      height: 0;
+      font-size: 0;
+      line-height: 0;
+      border-top: solid 1px #DBDDDB;
+      border-bottom: solid 1px #FDFFFD;
+      margin: 0;
+      padding: 0; }
+      .page-content .cell .mside hr.split.mb10 {
+        margin-bottom: 10px; }
+
+.mside h5 {
+  font-size: 12px;
+  font-weight: normal;
+  color: #666; }
+.mside .page-side-user-info {
+  padding: 10px 10px 0;
+  margin-bottom: 10px;
+  overflow: hidden; }
+  .mside .page-side-user-info .avatar {
+    float: left;
+    margin-right: 10px; }
+    .mside .page-side-user-info .avatar img {
+      width: 20px;
+      height: 20px; }
+  .mside .page-side-user-info .name {
+    height: 20px;
+    line-height: 20px;
+    float: left;
+    font-size: 14px; }
+.mside .page-submenu {
+  overflow: hidden;
+  margin-bottom: 10px; }
+  .mside .page-submenu ul {
+    padding-top: 2px;
+    overflow: hidden; }
+    .mside .page-submenu ul li a {
+      display: block;
+      font-size: 14px;
+      height: 26px;
+      line-height: 26px;
+      padding: 3px 0 3px 7px;
+      color: #666;
+      overflow: hidden; }
+      .mside .page-submenu ul li a:hover {
+        color: black; }
+      .mside .page-submenu ul li a span {
+        float: left;
+        padding-left: 30px; }
+    .mside .page-submenu ul li.i-am-here {
+      position: relative;
+      top: -2px;
+      background: #666;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border: solid 1px #444444; }
+      .mside .page-submenu ul li.i-am-here hr.split {
+        display: none; }
+      .mside .page-submenu ul li.i-am-here a {
+        color: white;
+        text-decoration: none;
+        background-image: url(/images/sites.png);
+        background-position: 0px -104px;
+        background-repeat: no-repeat; }
+        .mside .page-submenu ul li.i-am-here a span {
+          float: left;
+          padding-left: 29px; }
+    .mside .page-submenu ul li.with-count a span {
+      margin-right: 3px; }
+    .mside .page-submenu ul li.with-count a .count {
+      float: left;
+      background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
+      color: white;
+      font-weight: bold;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 0 4px;
+      height: 15px;
+      line-height: 15px;
+      position: relative;
+      top: 3px; }
+    .mside .page-submenu ul li.last hr.split {
+      display: none; }
+    .mside .page-submenu ul li.s {
+      padding: 0 7px; }
+      .mside .page-submenu ul li.s.last {
+        margin-bottom: 5px; }
+      .mside .page-submenu ul li.s a {
+        display: block;
+        font-size: 12px;
+        height: 18px;
+        line-height: 18px;
+        color: #666;
+        overflow: hidden; }
+        .mside .page-submenu ul li.s a:hover {
+          color: black; }
+        .mside .page-submenu ul li.s a span {
+          float: left;
+          padding-left: 30px; }
+.mside .page-smallmenu {
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-top: 3px;
+  padding: 0 10px; }
+  .mside .page-smallmenu ul {
     overflow: hidden;
     margin-bottom: 10px; }
-  .page-content .cell .mside .hrr {
-    margin: 0 10px;
-    height: 0px;
-    line-height: 0px;
-    font-size: 0px;
-    border-top: solid 1px red;
-    border-bottom: solid 1px red; }
-  .page-content .cell .mside hr.split {
-    height: 0;
-    font-size: 0;
-    line-height: 0;
-    border-top: solid 1px #DBDDDB;
-    border-bottom: solid 1px #FDFFFD;
-    margin: 0;
-    padding: 0; }
-    .page-content .cell .mside hr.split.mb10 {
-      margin-bottom: 10px; }
+    .mside .page-smallmenu ul hr.split {
+      display: none; }
+    .mside .page-smallmenu ul li {
+      padding: 0 7px;
+      margin: 0 3px; }
+      .mside .page-smallmenu ul li a {
+        display: block;
+        font-size: 12px;
+        padding: 2px 0;
+        color: #666;
+        overflow: hidden; }
+        .mside .page-smallmenu ul li a:hover {
+          color: black; }
+        .mside .page-smallmenu ul li a span {
+          float: left;
+          padding-left: 20px; }
+      .mside .page-smallmenu ul li.i-am-here {
+        position: relative; }
+        .mside .page-smallmenu ul li.i-am-here a {
+          color: white;
+          text-decoration: none;
+          height: 22px;
+          line-height: 22px;
+          background-image: url(/images/sites.png);
+          background-position: 0px -106px;
+          background-repeat: no-repeat; }
+          .mside .page-smallmenu ul li.i-am-here a span {
+            float: left;
+            padding-left: 29px; }
+      .mside .page-smallmenu ul li.with-count a span {
+        margin-right: 3px; }
+      .mside .page-smallmenu ul li.with-count a .count {
+        float: left;
+        background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
+        color: white;
+        font-weight: bold;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 0 4px;
+        height: 15px;
+        line-height: 15px;
+        position: relative;
+        top: 3px; }
 
 /*页脚*/
 /*页脚背景*/
 /*页脚顶边*/
 .page-footer {
-  background-color: #e6e6e6; }
+  background-color: #F7F7F7; }
   .page-footer .pf {
-    border-top: solid 2px #dddddd; }
+    border-top: solid 2px #e6e6e6; }
   .page-footer a {
     color: #eeeeee; }
     .page-footer a:hover {
       color: white; }
 
 body {
-  background-color: #f1f1f1; }
+  background-color: #ffffff; }
 
 /*一般文字*/
 /*一般文字颜色*/
@@ -5353,27 +5522,36 @@ a.send-button {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  position: relative;
+  left: 11px; }
   .module-links .link {
-    padding: 5px 10px;
     font-size: 14px;
-    height: 24px;
-    line-height: 24px;
-    position: relative; }
-    .module-links .link a.selected {
-      font-weight: bold; }
+    position: relative;
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px; }
+    .module-links .link:hover {
+      background-color: #eee; }
+    .module-links .link.selected {
+      background-color: #666666; }
+      .module-links .link.selected a {
+        color: white; }
+        .module-links .link.selected a:hover {
+          color: white; }
+    .module-links .link a {
+      padding: 4px 8px;
+      display: block;
+      height: 24px;
+      line-height: 24px;
+      color: #555; }
+      .module-links .link a:hover {
+        color: #555; }
     .module-links .link .icon {
       float: left;
       width: 24px;
       height: 24px;
       margin-right: 8px; }
-    .module-links .link .new {
-      width: 32px;
-      height: 32px;
-      background: url(/images/icons/all.png) no-repeat -196px -33px;
-      position: absolute;
-      top: 2px;
-      left: -22px; }
     .module-links .link .count {
       display: inline;
       color: white;
@@ -5384,12 +5562,31 @@ a.send-button {
       font-size: 14px;
       font-weight: bold;
       padding: 0 4px; }
-    .module-links .link.binded .new {
-      background: url(/images/icons/all.png) no-repeat -196px -66px; }
+    .module-links .link span.ok {
+      display: none; }
+    .module-links .link.binded span.ok {
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      background-color: #46A800;
+      color: white;
+      font-weight: bold;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      padding: 0 6px;
+      display: inline;
+      font-size: 12px;
+      height: 16px;
+      line-height: 16px;
+      position: relative;
+      top: -1px; }
   .module-links.account .base .icon {
-    background: url(/images/icons_account/account_all.png) no-repeat -75px 0px; }
+    background: url(/images/alltu.png) no-repeat -60px -50px; }
+  .module-links.account .base.selected .icon {
+    background: url(/images/alltu.png) no-repeat -60px -75px; }
   .module-links.account .avatared .icon {
-    background: url(/images/icons_account/account_all.png) no-repeat -25px 0px; }
+    background: url(/images/alltu.png) no-repeat -35px -50px; }
+  .module-links.account .avatared.selected .icon {
+    background: url(/images/alltu.png) no-repeat -35px -75px; }
   .module-links.account .message .icon {
     background: url(/images/icons_account/account_all.png) no-repeat -100px 0px; }
   .module-links.account .password .icon {
@@ -5397,11 +5594,14 @@ a.send-button {
   .module-links.account .email .icon {
     background: url(/images/icons_account/account_all.png) no-repeat -50px 0px; }
   .module-links.account .bind-tsina .icon {
-    background: url(/images/icons_account/account_all.png) no-repeat -125px 0px; }
+    background: url(/images/alltu.png) no-repeat -85px -50px; }
   .module-links.account .bind-renren .icon {
     background: url(/images/icons_account/account_all.png) no-repeat -175px 0px; }
   .module-links.account .complete_reg_info .icon {
     background: url(/images/icons_account/account_all.png) no-repeat -150px 0px; }
+  .module-links.account .exit-account-setting {
+    margin-top: 20px;
+    padding-left: 10px; }
   .module-links .tsina-quick-account, .module-links .renren-quick-account {
     border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
@@ -5474,9 +5674,6 @@ a.send-button {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  /*@include gradient(#EB3200,#48A902);
-  @include box-shadow(0px 0px 4px #DF1600);
-  border:solid 1px #F54E00;*/
   background: -moz-linear-gradient(-90deg, #a4e563, #48a902);
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#a4e563), to(#48a902));
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#a4e563',endColorstr='#48a902');
@@ -5489,8 +5686,7 @@ a.send-button {
   line-height: 50px;
   text-align: center;
   text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.9);
-  margin-bottom: 10px;
-  margin-left: 10px; }
+  margin-bottom: 10px; }
   .bind-3rd-site-btn a:hover {
     text-decoration: none;
     /*@include gradient(#FB4200,#D91800);*/
@@ -5506,9 +5702,9 @@ a.send-button {
     color: white; }
 
 .binded-account .binded-account-info {
-  box-shadow: 0px 0px 2px black;
-  -moz-box-shadow: 0px 0px 2px black;
-  -webkit-box-shadow: 0px 0px 2px black;
+  box-shadow: 0px 0px 2px #aaaaaa;
+  -moz-box-shadow: 0px 0px 2px #aaaaaa;
+  -webkit-box-shadow: 0px 0px 2px #aaaaaa;
   margin: 0 0 20px 0;
   position: relative; }
   .binded-account .binded-account-info .bind-icon {
@@ -5654,7 +5850,6 @@ a.send-button {
     top: 6px; }
 
 .bind-intro {
-  padding: 5px 10px;
   margin-bottom: 10px; }
   .bind-intro .p {
     margin-bottom: 10px; }
@@ -5822,6 +6017,62 @@ a.send-button {
     .page-usage-select .feeds .choose, .page-usage-select .mindmaps .choose {
       float: left;
       margin-right: 10px; }
+
+.page-account-base-form .field {
+  overflow: hidden; }
+  .page-account-base-form .field a.account-submit {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    display: block;
+    padding: 0;
+    height: 31px;
+    line-height: 31px;
+    text-align: center;
+    width: 80px;
+    font-size: 14px;
+    background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+    border: solid 1px #3079ED;
+    color: white;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    float: left;
+    margin-right: 10px; }
+    .page-account-base-form .field a.account-submit:hover {
+      color: white;
+      text-decoration: none;
+      background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+      border: solid 1px #2F5BB7; }
+  .page-account-base-form .field a.account-cancel {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    display: block;
+    padding: 0;
+    height: 31px;
+    line-height: 31px;
+    text-align: center;
+    width: 80px;
+    font-size: 14px;
+    background: -moz-linear-gradient(-90deg, #e7e7e7, #e3e3e3);
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e7e7e7), to(#e3e3e3));
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');
+    border: solid 1px #aaa;
+    color: #555;
+    font-weight: bold;
+    text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
+    float: left; }
+    .page-account-base-form .field a.account-cancel:hover {
+      color: #555;
+      text-decoration: none;
+      background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
+      border: solid 1px #848484; }
 
 .new-feed-tip {
   background-color: #FFFDDD;
@@ -7114,338 +7365,400 @@ a.send-button {
       .page-users-rank-list .user-info .data .sign .u-name {
         display: none; }
 
-.mside h5 {
-  font-size: 12px;
-  font-weight: normal;
-  color: #666; }
-.mside .page-side-user-info {
-  padding: 10px 10px 0;
-  margin-bottom: 10px;
-  overflow: hidden; }
-  .mside .page-side-user-info .avatar {
-    float: left;
-    margin-right: 10px; }
-    .mside .page-side-user-info .avatar img {
-      width: 20px;
-      height: 20px; }
-  .mside .page-side-user-info .name {
-    height: 20px;
-    line-height: 20px;
-    float: left;
-    font-size: 14px; }
-.mside .page-submenu {
-  overflow: hidden;
-  margin-bottom: 10px;
-  background-color: #f7f7f7;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px; }
-  .mside .page-submenu ul {
-    padding-top: 2px;
-    overflow: hidden;
-    margin-top: 3px; }
-    .mside .page-submenu ul li {
-      padding: 0 7px;
-      margin: 0 3px; }
-      .mside .page-submenu ul li a {
-        display: block;
-        font-size: 14px;
-        height: 26px;
-        line-height: 26px;
-        padding: 3px 0;
-        color: #666;
-        overflow: hidden; }
-        .mside .page-submenu ul li a:hover {
-          color: black; }
-        .mside .page-submenu ul li a span {
-          float: left;
-          padding-left: 30px; }
-      .mside .page-submenu ul li.i-am-here {
-        position: relative;
-        top: -2px;
-        background: -moz-linear-gradient(-90deg, #888888, #444444);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#888888), to(#444444));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#888888',endColorstr='#444444');
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border: solid 1px #444444; }
-        .mside .page-submenu ul li.i-am-here hr.split {
-          display: none; }
-        .mside .page-submenu ul li.i-am-here a {
-          color: white;
-          text-decoration: none;
-          background-image: url(/images/sites.png);
-          background-position: 0px -104px;
-          background-repeat: no-repeat; }
-          .mside .page-submenu ul li.i-am-here a span {
-            float: left;
-            padding-left: 29px; }
-      .mside .page-submenu ul li.with-count a span {
-        margin-right: 3px; }
-      .mside .page-submenu ul li.with-count a .count {
-        float: left;
-        background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
-        color: white;
-        font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        padding: 0 4px;
-        height: 15px;
-        line-height: 15px;
-        position: relative;
-        top: 3px; }
-      .mside .page-submenu ul li.last hr.split {
-        display: none; }
-      .mside .page-submenu ul li.s {
-        padding: 0 7px; }
-        .mside .page-submenu ul li.s.last {
-          margin-bottom: 5px; }
-        .mside .page-submenu ul li.s a {
-          display: block;
-          font-size: 12px;
-          height: 18px;
-          line-height: 18px;
-          color: #666;
-          overflow: hidden; }
-          .mside .page-submenu ul li.s a:hover {
-            color: black; }
-          .mside .page-submenu ul li.s a span {
-            float: left;
-            padding-left: 30px; }
-.mside .page-smallmenu {
-  overflow: hidden;
-  margin-bottom: 10px;
-  margin-top: 3px;
-  padding: 0 10px; }
-  .mside .page-smallmenu ul {
-    overflow: hidden;
-    margin-bottom: 10px; }
-    .mside .page-smallmenu ul hr.split {
-      display: none; }
-    .mside .page-smallmenu ul li {
-      padding: 0 7px;
-      margin: 0 3px; }
-      .mside .page-smallmenu ul li a {
-        display: block;
-        font-size: 12px;
-        padding: 2px 0;
-        color: #666;
-        overflow: hidden; }
-        .mside .page-smallmenu ul li a:hover {
-          color: black; }
-        .mside .page-smallmenu ul li a span {
-          float: left;
-          padding-left: 20px; }
-      .mside .page-smallmenu ul li.i-am-here {
-        position: relative; }
-        .mside .page-smallmenu ul li.i-am-here a {
-          color: white;
-          text-decoration: none;
-          height: 22px;
-          line-height: 22px;
-          background-image: url(/images/sites.png);
-          background-position: 0px -106px;
-          background-repeat: no-repeat; }
-          .mside .page-smallmenu ul li.i-am-here a span {
-            float: left;
-            padding-left: 29px; }
-      .mside .page-smallmenu ul li.with-count a span {
-        margin-right: 3px; }
-      .mside .page-smallmenu ul li.with-count a .count {
-        float: left;
-        background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
-        color: white;
-        font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        padding: 0 4px;
-        height: 15px;
-        line-height: 15px;
-        position: relative;
-        top: 3px; }
-
-/*mindtu*/
-body.mindtu-no-auth-index {
+body.mindpin-anonymous, body.tu-mindpin-anonymous {
   background: -moz-linear-gradient(-90deg, white, #f7f7f7);
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#f7f7f7));
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='white',endColorstr='#f7f7f7'); }
-  body.mindtu-no-auth-index .login-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -180px;
-    margin-left: -360px; }
-    body.mindtu-no-auth-index .login-wrapper .logo {
-      width: 425px;
+  body.mindpin-anonymous .page-footer, body.tu-mindpin-anonymous .page-footer {
+    background: none;
+    color: #666; }
+    body.mindpin-anonymous .page-footer .bold, body.tu-mindpin-anonymous .page-footer .bold {
+      font-weight: normal; }
+    body.mindpin-anonymous .page-footer .pf, body.tu-mindpin-anonymous .page-footer .pf {
+      border: none; }
+
+body.tu-mindpin-anonymous .login-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -180px;
+  margin-left: -400px; }
+  body.tu-mindpin-anonymous .login-wrapper .logo {
+    width: 420px;
+    height: 75px;
+    background: url(/images/tu-logo.png);
+    margin-bottom: 20px; }
+  body.tu-mindpin-anonymous .login-wrapper form {
+    overflow: hidden;
+    margin-left: 80px;
+    margin-bottom: 30px; }
+    body.tu-mindpin-anonymous .login-wrapper form .field {
+      float: left;
+      margin-right: 10px; }
+      body.tu-mindpin-anonymous .login-wrapper form .field label {
+        display: block; }
+      body.tu-mindpin-anonymous .login-wrapper form .field input.text {
+        border: solid 1px #ccc;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+        font-weight: bold;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+      body.tu-mindpin-anonymous .login-wrapper form .field a.login-submit {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        margin-top: 24px; }
+        body.tu-mindpin-anonymous .login-wrapper form .field a.login-submit:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+      body.tu-mindpin-anonymous .login-wrapper form .field a.signup {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        margin-top: 24px;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #38b927, #35b624);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
+        border: solid 1px #4A993E;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+        body.tu-mindpin-anonymous .login-wrapper form .field a.signup:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #35b624, #32b321);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
+          border: solid 1px #4A993E; }
+      body.tu-mindpin-anonymous .login-wrapper form .field .remember-me {
+        padding: 3px; }
+      body.tu-mindpin-anonymous .login-wrapper form .field .forget-password {
+        padding: 3px; }
+        body.tu-mindpin-anonymous .login-wrapper form .field .forget-password a {
+          color: #666; }
+          body.tu-mindpin-anonymous .login-wrapper form .field .forget-password a:hover {
+            color: #666; }
+  body.tu-mindpin-anonymous .login-wrapper .flash-error {
+    margin: 3px 0 0 0;
+    background: #777;
+    border: solid 1px #666;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px; }
+    body.tu-mindpin-anonymous .login-wrapper .flash-error span {
+      height: 30px;
+      line-height: 30px; }
+  body.tu-mindpin-anonymous .login-wrapper .footmisc {
+    overflow: hidden; }
+    body.tu-mindpin-anonymous .login-wrapper .footmisc .desc {
+      float: left;
+      margin-left: 80px;
+      font-size: 14px;
+      font-weight: bold; }
+    body.tu-mindpin-anonymous .login-wrapper .footmisc .signup {
+      overflow: hidden;
+      margin-left: 532px; }
+      body.tu-mindpin-anonymous .login-wrapper .footmisc .signup a {
+        float: left; }
+
+body.mindpin-anonymous .signup-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-top: 100px;
+  margin-left: -380px;
+  overflow: hidden; }
+  body.mindpin-anonymous .signup-wrapper .desc {
+    float: left; }
+    body.mindpin-anonymous .signup-wrapper .desc .logo {
+      width: 420px;
       height: 75px;
-      background: url(/images/mindtu.png);
+      background: url(/images/logo.png);
       margin-bottom: 20px; }
-    body.mindtu-no-auth-index .login-wrapper form {
+    body.mindpin-anonymous .signup-wrapper .desc .logo {
+      margin-top: 30px; }
+    body.mindpin-anonymous .signup-wrapper .desc .to-login {
+      font-size: 14px;
+      margin-left: 10px;
+      margin-bottom: 30px; }
+    body.mindpin-anonymous .signup-wrapper .desc .flash-error {
+      margin-left: 10px; }
+  body.mindpin-anonymous .signup-wrapper .signup-form {
+    margin-left: 470px; }
+    body.mindpin-anonymous .signup-wrapper .signup-form h2 {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 10px; }
+    body.mindpin-anonymous .signup-wrapper .signup-form form {
       overflow: hidden;
       margin-left: 80px;
       margin-bottom: 30px; }
-      body.mindtu-no-auth-index .login-wrapper form .field {
+      body.mindpin-anonymous .signup-wrapper .signup-form form .field {
         float: left;
         margin-right: 10px; }
-        body.mindtu-no-auth-index .login-wrapper form .field label {
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field label {
           display: block; }
-        body.mindtu-no-auth-index .login-wrapper form .field input.text {
-          border: solid 1px #666;
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field input.text {
+          border: solid 1px #ccc;
           box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
           font-weight: bold;
           font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
-        body.mindtu-no-auth-index .login-wrapper form .field .submit {
-          margin-top: 25px;
-          height: 33px;
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field a.login-submit {
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          display: block;
+          padding: 0;
+          height: 31px;
+          line-height: 31px;
+          text-align: center;
           width: 80px;
           font-size: 14px;
           background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
-          border: solid 1px #3079ED; }
-          body.mindtu-no-auth-index .login-wrapper form .field .submit:hover {
+          border: solid 1px #3079ED;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+          margin-top: 24px; }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.login-submit:hover {
+            color: white;
+            text-decoration: none;
             background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
             border: solid 1px #2F5BB7; }
-        body.mindtu-no-auth-index .login-wrapper form .field .remember-me {
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup {
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          display: block;
+          margin-top: 24px;
+          padding: 0;
+          height: 31px;
+          line-height: 31px;
+          text-align: center;
+          width: 80px;
+          font-size: 14px;
+          background: -moz-linear-gradient(-90deg, #38b927, #35b624);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
+          border: solid 1px #4A993E;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup:hover {
+            color: white;
+            text-decoration: none;
+            background: -moz-linear-gradient(-90deg, #35b624, #32b321);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
+            border: solid 1px #4A993E; }
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field .remember-me {
           padding: 3px; }
-        body.mindtu-no-auth-index .login-wrapper form .field .forget-password {
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field .forget-password {
           padding: 3px; }
-          body.mindtu-no-auth-index .login-wrapper form .field .forget-password a {
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field .forget-password a {
             color: #666; }
-            body.mindtu-no-auth-index .login-wrapper form .field .forget-password a:hover {
+            body.mindpin-anonymous .signup-wrapper .signup-form form .field .forget-password a:hover {
               color: #666; }
-    body.mindtu-no-auth-index .login-wrapper .flash-error {
-      margin: 3px 0 0 0;
-      background: #777;
-      border: solid 1px #666;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px; }
-      body.mindtu-no-auth-index .login-wrapper .flash-error span {
-        height: 30px;
-        line-height: 30px; }
-    body.mindtu-no-auth-index .login-wrapper .footmisc {
-      overflow: hidden; }
-      body.mindtu-no-auth-index .login-wrapper .footmisc .desc {
+    body.mindpin-anonymous .signup-wrapper .signup-form form {
+      margin: 0; }
+      body.mindpin-anonymous .signup-wrapper .signup-form form .field {
+        float: none; }
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field .submit {
+          margin: 0; }
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field .fielderror {
+          display: none; }
+        body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup-submit {
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          display: block;
+          padding: 0;
+          height: 31px;
+          line-height: 31px;
+          text-align: center;
+          width: 80px;
+          font-size: 14px;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+          border: solid 1px #3079ED;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup-submit:hover {
+            color: white;
+            text-decoration: none;
+            background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+            border: solid 1px #2F5BB7; }
+body.mindpin-anonymous .reset-password-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-top: 170px;
+  margin-left: -220px;
+  overflow: hidden; }
+  body.mindpin-anonymous .reset-password-wrapper .logo {
+    width: 420px;
+    height: 75px;
+    background: url(/images/logo.png);
+    margin-bottom: 20px; }
+  body.mindpin-anonymous .reset-password-wrapper .form {
+    padding-left: 10px; }
+    body.mindpin-anonymous .reset-password-wrapper .form form {
+      overflow: hidden;
+      margin-left: 80px;
+      margin-bottom: 30px; }
+      body.mindpin-anonymous .reset-password-wrapper .form form .field {
         float: left;
-        margin-left: 80px;
-        font-size: 14px;
-        font-weight: bold; }
-      body.mindtu-no-auth-index .login-wrapper .footmisc .signup {
-        overflow: hidden;
-        margin-left: 532px; }
-        body.mindtu-no-auth-index .login-wrapper .footmisc .signup a {
-          float: left; }
-  body.mindtu-no-auth-index .signup-wrapper {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    margin-top: 100px;
-    margin-left: -380px;
-    overflow: hidden; }
-    body.mindtu-no-auth-index .signup-wrapper .desc {
-      float: left; }
-      body.mindtu-no-auth-index .signup-wrapper .desc .logo {
-        width: 425px;
-        height: 75px;
-        background: url(/images/mindtu.png);
-        margin-bottom: 20px; }
-      body.mindtu-no-auth-index .signup-wrapper .desc .logo {
-        margin-top: 30px; }
-      body.mindtu-no-auth-index .signup-wrapper .desc .to-login {
-        font-size: 14px;
-        margin-left: 10px;
-        margin-bottom: 30px; }
-      body.mindtu-no-auth-index .signup-wrapper .desc .flash-error {
-        margin-left: 10px; }
-    body.mindtu-no-auth-index .signup-wrapper .form {
-      margin-left: 470px; }
-      body.mindtu-no-auth-index .signup-wrapper .form h2 {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 10px; }
-      body.mindtu-no-auth-index .signup-wrapper .form form {
-        overflow: hidden;
-        margin-left: 80px;
-        margin-bottom: 30px; }
-        body.mindtu-no-auth-index .signup-wrapper .form form .field {
-          float: left;
-          margin-right: 10px; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field label {
-            display: block; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field input.text {
-            border: solid 1px #666;
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-            font-weight: bold;
-            font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field .submit {
-            margin-top: 25px;
-            height: 33px;
-            width: 80px;
-            font-size: 14px;
-            background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
-            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
-            border: solid 1px #3079ED; }
-            body.mindtu-no-auth-index .signup-wrapper .form form .field .submit:hover {
-              background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
-              background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
-              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
-              border: solid 1px #2F5BB7; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field .remember-me {
-            padding: 3px; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field .forget-password {
-            padding: 3px; }
-            body.mindtu-no-auth-index .signup-wrapper .form form .field .forget-password a {
+        margin-right: 10px; }
+        body.mindpin-anonymous .reset-password-wrapper .form form .field label {
+          display: block; }
+        body.mindpin-anonymous .reset-password-wrapper .form form .field input.text {
+          border: solid 1px #ccc;
+          box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+          font-weight: bold;
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+        body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit {
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          display: block;
+          padding: 0;
+          height: 31px;
+          line-height: 31px;
+          text-align: center;
+          width: 80px;
+          font-size: 14px;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+          border: solid 1px #3079ED;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+          margin-top: 24px; }
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit:hover {
+            color: white;
+            text-decoration: none;
+            background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+            border: solid 1px #2F5BB7; }
+        body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup {
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          display: block;
+          margin-top: 24px;
+          padding: 0;
+          height: 31px;
+          line-height: 31px;
+          text-align: center;
+          width: 80px;
+          font-size: 14px;
+          background: -moz-linear-gradient(-90deg, #38b927, #35b624);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
+          border: solid 1px #4A993E;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover {
+            color: white;
+            text-decoration: none;
+            background: -moz-linear-gradient(-90deg, #35b624, #32b321);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
+            border: solid 1px #4A993E; }
+        body.mindpin-anonymous .reset-password-wrapper .form form .field .remember-me {
+          padding: 3px; }
+        body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password {
+          padding: 3px; }
+          body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password a {
+            color: #666; }
+            body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password a:hover {
               color: #666; }
-              body.mindtu-no-auth-index .signup-wrapper .form form .field .forget-password a:hover {
-                color: #666; }
-      body.mindtu-no-auth-index .signup-wrapper .form form {
-        margin: 0; }
-        body.mindtu-no-auth-index .signup-wrapper .form form .field {
-          float: none; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field .submit {
-            margin: 0; }
-          body.mindtu-no-auth-index .signup-wrapper .form form .field .fielderror {
-            display: none; }
-  body.mindtu-no-auth-index .page-footer {
-    background: none;
-    color: #666; }
-    body.mindtu-no-auth-index .page-footer .bold {
-      font-weight: normal; }
-    body.mindtu-no-auth-index .page-footer .pf {
-      border: none; }
+    body.mindpin-anonymous .reset-password-wrapper .form form {
+      margin: 0; }
+      body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        margin-top: 24px; }
+        body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+  body.mindpin-anonymous .reset-password-wrapper.no1 {
+    margin-left: -320px; }
 
 .page-mindmaps-manage-bar {
-  background: #888;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  overflow: hidden; }
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-bottom: solid 1px #eee;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 20px;
+  background: #FAFAFA;
+  padding-top: 10px;
+  border-top: solid 1px #eee; }
   .page-mindmaps-manage-bar .avatar {
     float: left;
     margin-right: 10px; }
   .page-mindmaps-manage-bar .data {
     float: left;
-    width: 140px;
-    color: white; }
+    width: 200px;
+    margin-right: 10px; }
     .page-mindmaps-manage-bar .data a {
-      color: white; }
+      color: #222; }
       .page-mindmaps-manage-bar .data a:hover {
-        color: white; }
+        color: #222; }
     .page-mindmaps-manage-bar .data .name {
       font-size: 14px; }
   .page-mindmaps-manage-bar .ops {
@@ -7456,11 +7769,10 @@ body.mindtu-no-auth-index {
       border-radius: 5px;
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
-      background: -moz-linear-gradient(-90deg, white, #f1f1f1);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#f1f1f1));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='white',endColorstr='#f1f1f1');
-      border-right: solid 1px #777;
-      border-bottom: solid 1px #777; }
+      background-color: #F0F0F0;
+      border: solid 1px #ddd; }
+      .page-mindmaps-manage-bar .ops .op:hover {
+        background-color: #e9e9e9; }
       .page-mindmaps-manage-bar .ops .op .new {
         width: 48px;
         height: 48px;
@@ -7470,24 +7782,116 @@ body.mindtu-no-auth-index {
       .page-mindmaps-manage-bar .ops .op .import {
         background: url(/images/alltu.png) -84px -1px no-repeat; }
 
+.page-mindmaps-info-bar {
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-bottom: solid 1px #eee;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 20px;
+  background: #FAFAFA;
+  padding-top: 10px;
+  border-top: solid 1px #eee; }
+  .page-mindmaps-info-bar .avatar {
+    float: left;
+    margin-right: 10px; }
+  .page-mindmaps-info-bar .data {
+    float: left;
+    width: 200px;
+    margin-right: 10px; }
+    .page-mindmaps-info-bar .data a {
+      color: #222; }
+      .page-mindmaps-info-bar .data a:hover {
+        color: #222; }
+    .page-mindmaps-info-bar .data .name {
+      font-size: 14px; }
+  .page-mindmaps-info-bar .explore {
+    overflow: hidden;
+    margin: 0 0 15px 0;
+    padding: 5px; }
+    .page-mindmaps-info-bar .explore .btns {
+      float: right; }
+      .page-mindmaps-info-bar .explore .btns .prev, .page-mindmaps-info-bar .explore .btns .next, .page-mindmaps-info-bar .explore .btns .show {
+        float: left;
+        height: 25px;
+        line-height: 25px; }
+        .page-mindmaps-info-bar .explore .btns .prev a, .page-mindmaps-info-bar .explore .btns .next a, .page-mindmaps-info-bar .explore .btns .show a {
+          border: solid 1px #DDDDDD;
+          background-color: #f0f0f0;
+          border-radius: 4px;
+          -moz-border-radius: 4px;
+          -webkit-border-radius: 4px;
+          padding: 4px 7px;
+          color: #444444;
+          display: block;
+          height: 17px;
+          line-height: 17px;
+          margin-left: 5px; }
+          .page-mindmaps-info-bar .explore .btns .prev a:hover, .page-mindmaps-info-bar .explore .btns .next a:hover, .page-mindmaps-info-bar .explore .btns .show a:hover {
+            text-decoration: none;
+            background-color: #e9e9e9; }
+        .page-mindmaps-info-bar .explore .btns .prev.disabled a, .page-mindmaps-info-bar .explore .btns .next.disabled a, .page-mindmaps-info-bar .explore .btns .show.disabled a {
+          cursor: default !important;
+          color: #BBBBBB !important;
+          background-color: #f7f7f7;
+          border: solid 1px #eee; }
+          .page-mindmaps-info-bar .explore .btns .prev.disabled a:hover, .page-mindmaps-info-bar .explore .btns .next.disabled a:hover, .page-mindmaps-info-bar .explore .btns .show.disabled a:hover {
+            text-decoration: none;
+            background-color: #f7f7f7; }
+      .page-mindmaps-info-bar .explore .btns .show {
+        cursor: pointer; }
+        .page-mindmaps-info-bar .explore .btns .show a {
+          width: 15px;
+          height: 17px; }
+          .page-mindmaps-info-bar .explore .btns .show a span {
+            font-size: 0;
+            line-height: 33em;
+            overflow: hidden;
+            width: 15px;
+            height: 17px;
+            display: block;
+            background: url(/images/icons/info-explore.png) no-repeat -11px -9px; }
+          .page-mindmaps-info-bar .explore .btns .show a:hover span {
+            background: url(/images/icons/info-explore.png) no-repeat -11px -49px; }
+
+.page-tu-mindmap-user-info-bar {
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-bottom: solid 1px #eee;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 20px;
+  background: #FAFAFA;
+  padding-top: 10px;
+  border-top: solid 1px #eee; }
+  .page-tu-mindmap-user-info-bar .avatar {
+    float: left;
+    margin-right: 10px; }
+  .page-tu-mindmap-user-info-bar .data {
+    float: left;
+    width: 200px;
+    margin-right: 10px; }
+    .page-tu-mindmap-user-info-bar .data a {
+      color: #222; }
+      .page-tu-mindmap-user-info-bar .data a:hover {
+        color: #222; }
+    .page-tu-mindmap-user-info-bar .data .name {
+      font-size: 14px; }
+
 .page-user-mindmaps {
   overflow: hidden; }
   .page-user-mindmaps .empty {
     padding: 10px;
-    font-size: 14px; }
+    font-size: 14px;
+    height: 300px;
+    border: none !important; }
   .page-user-mindmaps .mindmap {
-    overflow: hidden; }
+    overflow: hidden;
+    border-bottom: solid 1px #eee;
+    padding: 0 20px 10px 20px;
+    margin-bottom: 20px; }
     .page-user-mindmaps .mindmap .lside {
-      float: left; }
-      .page-user-mindmaps .mindmap .lside .avatar {
-        padding: 0 10px; }
+      float: left;
+      margin-right: 10px; }
     .page-user-mindmaps .mindmap .m {
-      border-radius: 8px;
-      -moz-border-radius: 8px;
-      -webkit-border-radius: 8px;
-      background: white;
-      padding: 10px;
-      margin-bottom: 10px;
       overflow: hidden; }
       .page-user-mindmaps .mindmap .m .data {
         margin-bottom: 10px; }
@@ -7506,20 +7910,85 @@ body.mindtu-no-auth-index {
             display: block;
             font-size: 0;
             line-height: 0; }
-      .page-user-mindmaps .mindmap .m .coop-users {
-        margin: 0 0 10px 0;
-        border-top: #DEDEDE dotted 1px;
-        border-bottom: #DEDEDE dotted 1px;
-        background: #FAFAFA;
-        padding: 5px;
-        overflow: hidden; }
-        .page-user-mindmaps .mindmap .m .coop-users .desc {
-          margin: 0 0 5px 0; }
-        .page-user-mindmaps .mindmap .m .coop-users .avatar {
-          float: left;
-          margin-right: 5px; }
+      .page-user-mindmaps .mindmap .m .status {
+        margin: 0 0 10px 0; }
+        .page-user-mindmaps .mindmap .m .status .is-private {
+          margin-top: -1px;
+          border-top: solid 1px #EEEEEE;
+          border-bottom: solid 1px #EEEEEE;
+          padding: 5px;
+          color: #888; }
+        .page-user-mindmaps .mindmap .m .status .faved-by {
+          margin-top: -1px;
+          border-top: solid 1px #EEEEEE;
+          border-bottom: solid 1px #EEEEEE;
+          padding: 5px;
+          color: #888; }
+        .page-user-mindmaps .mindmap .m .status .coop-users {
+          margin-top: -1px;
+          border-top: solid 1px #EEEEEE;
+          border-bottom: solid 1px #EEEEEE;
+          background: #FAFAFA;
+          padding: 5px;
+          overflow: hidden; }
+          .page-user-mindmaps .mindmap .m .status .coop-users .desc {
+            margin: 0 0 5px 0;
+            color: #888; }
+          .page-user-mindmaps .mindmap .m .status .coop-users .avatar {
+            width: 26px;
+            height: 26px;
+            float: left;
+            margin-right: 5px; }
+        .page-user-mindmaps .mindmap .m .status .comments {
+          margin-top: -1px;
+          border-top: solid 1px #EEEEEE; }
+          .page-user-mindmaps .mindmap .m .status .comments .comment {
+            overflow: hidden;
+            padding: 5px;
+            background: #FAFAFA; }
+            .page-user-mindmaps .mindmap .m .status .comments .comment .avatar {
+              float: left;
+              margin-right: 10px; }
+              .page-user-mindmaps .mindmap .m .status .comments .comment .avatar img {
+                width: 24px;
+                height: 24px; }
+        .page-user-mindmaps .mindmap .m .status .comment-form {
+          padding: 5px;
+          margin-top: -1px;
+          border-top: solid 1px #EEEEEE; }
+          .page-user-mindmaps .mindmap .m .status .comment-form .inputer {
+            width: 500px;
+            height: 16px; }
+          .page-user-mindmaps .mindmap .m .status .comment-form .btns {
+            overflow: hidden; }
+            .page-user-mindmaps .mindmap .m .status .comment-form .btns button, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button {
+              border-radius: 3px;
+              -moz-border-radius: 3px;
+              -webkit-border-radius: 3px;
+              border: none 0px;
+              margin: 4px 5px 0 0;
+              padding: 2px 7px;
+              float: left;
+              text-decoration: none; }
+              .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-submit, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-submit {
+                cursor: pointer;
+                color: white;
+                background: #0063DC; }
+                .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-submit:hover, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-submit:hover {
+                  background: #0054BD; }
+              .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-cancel, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-cancel {
+                cursor: pointer;
+                color: #616D7D;
+                background: #C4DFFF; }
+                .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-cancel:hover, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-cancel:hover {
+                  background: #B4CFFF; }
+              .page-user-mindmaps .mindmap .m .status .comment-form .btns button.mousedown, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.mousedown {
+                position: relative;
+                top: 1px;
+                left: 1px; }
       .page-user-mindmaps .mindmap .m .footmisc {
-        overflow: hidden; }
+        overflow: hidden;
+        margin-bottom: 10px; }
         .page-user-mindmaps .mindmap .m .footmisc .rank {
           height: 20px;
           line-height: 20px;
@@ -7537,19 +8006,43 @@ body.mindtu-no-auth-index {
         .page-user-mindmaps .mindmap .m .footmisc .time {
           height: 20px;
           line-height: 20px;
-          float: left; }
+          float: left;
+          margin-right: 10px; }
+        .page-user-mindmaps .mindmap .m .footmisc .share {
+          height: 20px;
+          line-height: 20px;
+          float: left;
+          overflow: hidden; }
+          .page-user-mindmaps .mindmap .m .footmisc .share a.share_to {
+            float: left;
+            width: 18px;
+            height: 18px;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            margin-right: 5px;
+            font-size: 0;
+            line-htight: 33em;
+            overflow: hidden;
+            background-color: white;
+            background-repeat: no-repeat;
+            background-position: 1px 1px; }
+            .page-user-mindmaps .mindmap .m .footmisc .share a.share_to.tsina {
+              background-image: url(/images/share/tsina.png); }
+            .page-user-mindmaps .mindmap .m .footmisc .share a.share_to.renren {
+              background-image: url(/images/share/renren.png); }
+            .page-user-mindmaps .mindmap .m .footmisc .share a.share_to.douban {
+              background-image: url(/images/share/douban.png); }
         .page-user-mindmaps .mindmap .m .footmisc .ops {
           height: 20px;
           line-height: 20px;
-          float: right; }
+          float: right;
+          overflow: hidden; }
           .page-user-mindmaps .mindmap .m .footmisc .ops .o {
             margin-left: 10px;
             float: left; }
             .page-user-mindmaps .mindmap .m .footmisc .ops .o a {
-              font-size: 12px;
-              color: #666; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a:hover {
-                color: #666; }
+              font-size: 12px; }
               .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-private .icon {
                 position: relative;
                 top: 2px;
@@ -7561,6 +8054,17 @@ body.mindtu-no-auth-index {
                 background: url(/images/alltu.png) no-repeat -18px -35px; }
               .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-private.private .icon {
                 background: url(/images/alltu.png) no-repeat -1px -35px; }
+              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-fav .icon {
+                position: relative;
+                top: 2px;
+                float: left;
+                width: 16px;
+                height: 16px;
+                margin: 0 2px 0 0; }
+              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-fav.unfav .icon {
+                background: url(/images/alltu.png) no-repeat -18px -52px; }
+              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-fav.fav .icon {
+                background: url(/images/alltu.png) no-repeat -1px -52px; }
 
 .searched-mindmaps {
   background: white;
@@ -7785,7 +8289,7 @@ body.mindtu-no-auth-index {
     padding: 0 10px;
     margin: 10px 0; }
     .page-side-mindmaps-stat .ranks .chart {
-      margin: 0 0 10px 22px;
+      margin: 0 0 10px 0;
       height: 31px; }
       .page-side-mindmaps-stat .ranks .chart s {
         display: inline-block;
@@ -7934,198 +8438,19 @@ body.mindtu-no-auth-index {
       height: 21px;
       line-height: 21px; }
 
-@import url(../misc.css);
-.map-explore {
-  overflow: hidden;
-  margin: 0 0 15px 0;
-  padding: 5px; }
-  .map-explore .btns {
-    float: right; }
-    .map-explore .btns .prev, .map-explore .btns .next, .map-explore .btns .show {
-      float: left;
-      height: 25px;
-      line-height: 25px; }
-      .map-explore .btns .prev a, .map-explore .btns .next a, .map-explore .btns .show a {
-        background: -moz-linear-gradient(-90deg, #fbfbfb, #f4f4f4);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fbfbfb), to(#f4f4f4));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fbfbfb',endColorstr='#f4f4f4');
-        padding: 4px 7px;
-        color: #444444;
-        text-shadow: 1px 1px 0 #FFFFFF;
-        display: block;
-        height: 17px;
-        line-height: 17px;
-        /*#F0F0F0 #E2E2E2 #E4E4E4 #F0F0F0*/ }
-        .map-explore .btns .prev a:hover, .map-explore .btns .next a:hover, .map-explore .btns .show a:hover {
-          text-decoration: none;
-          background: -moz-linear-gradient(-90deg, #fbfbfb, #ebebeb);
-          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fbfbfb), to(#ebebeb));
-          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fbfbfb',endColorstr='#ebebeb'); }
-      .map-explore .btns .prev.disabled a, .map-explore .btns .next.disabled a, .map-explore .btns .show.disabled a {
-        cursor: default;
-        color: #BBBBBB !important; }
-        .map-explore .btns .prev.disabled a:hover, .map-explore .btns .next.disabled a:hover, .map-explore .btns .show.disabled a:hover {
-          text-decoration: none;
-          background: -moz-linear-gradient(-90deg, #fbfbfb, #f4f4f4);
-          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#fbfbfb), to(#f4f4f4));
-          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fbfbfb',endColorstr='#f4f4f4'); }
-    .map-explore .btns .prev a {
-      border-right: solid 1px #f0f0f0;
-      border-radius: 6px 0 0 6px;
-      -moz-border-radius: 6px 0 0 6px;
-      -webkit-border-radius: 6px 0 0 6px; }
-    .map-explore .btns .show {
-      cursor: pointer; }
-      .map-explore .btns .show a {
-        width: 15px;
-        height: 17px;
-        border-left: solid 1px #fff;
-        border-right: solid 1px #f0f0f0; }
-        .map-explore .btns .show a span {
-          text-indent: -999px;
-          font-size: 0;
-          line-height: 0;
-          display: block;
-          background: url(/images/icons/info-explore.png) no-repeat -11px -9px;
-          width: 15px;
-          height: 17px; }
-        .map-explore .btns .show a:hover span {
-          background: url(/images/icons/info-explore.png) no-repeat -11px -49px; }
-    .map-explore .btns .next a {
-      border-left: solid 1px #fff;
-      border-radius: 0 6px 6px 0;
-      -moz-border-radius: 0 6px 6px 0;
-      -webkit-border-radius: 0 6px 6px 0; }
+.page-mindmap-info-view .page-user-mindmaps .lside {
+  display: none; }
 
-.map-info {
-  overflow: hidden;
-  margin: 0 0 20px 0;
-  padding: 5px; }
-  .map-info .preview {
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 5px 0;
-    font-size: 0;
-    line-height: 0;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px; }
-    .map-info .preview img {
-      border: solid 2px #A3A3A3;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      cursor: url("/images/big.cur"), auto; }
-  .map-info .title {
-    font-size: 18px;
-    font-weight: bold; }
-    .map-info .title form {
-      position: absolute;
-      width: 172px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      background: #E0EBAF;
-      border: solid 2px #323546;
-      padding: 2px; }
-      .map-info .title form input {
-        background: #F7FCFF;
-        border: none;
-        padding: 0 2px;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border: solid 1px #111; }
-      .map-info .title form button {
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border: none 0px;
-        margin: 2px 5px 0 0;
-        border: solid 1px #666; }
-        .map-info .title form button.editable-submit {
-          color: white;
-          background: #0063DC; }
-          .map-info .title form button.editable-submit:hover {
-            background: #0054BD; }
-        .map-info .title form button.editable-cancel {
-          color: #666666;
-          background: #ddd; }
-          .map-info .title form button.editable-cancel:hover {
-            background: #CFCFCF; }
-    .map-info .title form {
-      position: relative;
-      background: none;
-      border: none; }
-
-.map-misc {
-  padding: 5px;
-  margin: 0 0 20px 0;
-  font-size: 14px; }
-  .map-misc .split {
-    padding: 0 4px;
-    font-family: "Helvetica Neue","Luxi Sans","DejaVu Sans",Tahoma,"Hiragino Sans GB",STHeiti !important; }
-
-.map-action {
-  margin: 0 0 20px 0;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 5px;
-  padding: 5px;
-  font-size: 14px; }
-  .map-action .title {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 10px; }
-  .map-action .ac {
-    overflow: hidden; }
-    .map-action .ac .pt {
-      overflow: hidden;
-      margin-bottom: 10px; }
-      .map-action .ac .pt a {
-        float: left;
-        font-size: 0px;
-        line-height: 0px;
-        text-indent: -999px;
-        width: 24px;
-        height: 24px;
-        margin-right: 10px;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px; }
-        .map-action .ac .pt a.public {
-          background: url(/images/icons/all.png) -50px -117px no-repeat !important; }
-        .map-action .ac .pt a.private {
-          background: url(/images/icons/all.png) -25px -117px no-repeat !important; }
-        .map-action .ac .pt a.loading {
-          background: url(/images/icons/toggle-loading-12.gif) no-repeat 6px 6px !important; }
-      .map-action .ac .pt .desc {
-        font-size: 12px;
-        line-height: 24px; }
-
-.map-meta .creator {
-  overflow: hidden;
-  margin: 40px 0 0 0;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  padding: 5px;
-  margin: 0 0 10px 0; }
-  .map-meta .creator .avatar {
-    float: left;
-    margin: 0 10px 0 0; }
-.map-meta .back-to-list {
-  font-size: 14px;
-  margin: 0 0 20px 0;
-  padding: 5px; }
 .map-meta .coop {
-  padding: 5px;
-  margin: 0 0 20px 0; }
+  border-bottom: solid 1px #eee;
+  padding: 0 0 10px 0;
+  margin-bottom: 10px; }
   .map-meta .coop .avatars {
     overflow: hidden; }
     .map-meta .coop .avatars .avatar {
       float: left;
+      width: 26px;
+      height: 26px;
       margin: 0 4px 4px 0; }
     .map-meta .coop .avatars .cooperator-config {
       border-radius: 3px;
@@ -8142,42 +8467,13 @@ body.mindtu-no-auth-index {
         position: relative;
         top: 2px;
         left: 2px; }
-.map-meta .export, .map-meta .share, .map-meta .similar-maps {
-  padding: 5px;
-  margin: 0 0 20px 0;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px; }
-.map-meta .share {
-  overflow: hidden; }
-  .map-meta .share a.share_to {
-    margin: 3px;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    font-size: 0;
-    line-htight: 0;
-    text-indent: -999px;
-    width: 18px;
-    height: 18px;
-    float: left;
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: 1px 1px; }
-    .map-meta .share a.share_to.tsina {
-      background-image: url(/images/share/tsina.png); }
-    .map-meta .share a.share_to.renren {
-      background-image: url(/images/share/renren.png); }
-    .map-meta .share a.share_to.douban {
-      background-image: url(/images/share/douban.png); }
+.map-meta .export, .map-meta .similar-maps {
+  border-bottom: solid 1px #eee;
+  padding: 0 0 10px 0;
+  margin-bottom: 10px; }
 
-.map-comment {
-  padding: 5px; }
-  .map-comment .form {
-    margin: 0 0 20px 0; }
-  .map-comment .mindmap-comment-list .comment {
-    padding: 5px; }
-    .map-comment .mindmap-comment-list .comment .avatar {
-      float: left; }
-    .map-comment .mindmap-comment-list .comment .data {
-      margin: 0 0 0 40px; }
+.page-tu-mindpin-mside-user-info {
+  overflow: hidden; }
+  .page-tu-mindpin-mside-user-info .avatar {
+    float: right;
+    text-align: right; }

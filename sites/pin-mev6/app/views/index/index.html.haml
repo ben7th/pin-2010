@@ -1,14 +1,14 @@
 -content_for :title do
   思维导图首页
 
-.main.grid_18
+.mside.grid_5
+  =show_sub_menu
+  .sidepart
+    =render 'index/parts/stats'
+
+.main.grid_19.ll
   =render 'index/parts/manage_bar'
   =render 'mindmaps/lists/management',:mindmaps=>@mindmaps
 
   .mindmap-paginate
     = will_paginate @mindmaps
-
-.mside.grid_6
-  =show_sub_menu
-  .sidepart
-    =render 'index/parts/stats'

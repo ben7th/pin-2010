@@ -1,51 +1,24 @@
 .ph
   .page-head.container_24
     .site-logo
-      -if sub_menu_name != 'mindmaps'
-        =link_to '主题协作','/',:class=>'logo feeds'
-      -else
-        =link_to '思维导图','/mindmaps',:class=>'logo mindmaps'
-
-    .menu
-      -if show_feed_menu?
-        %ul
-          -if !logged_in?
-            =feed_menu_li '欢迎页','/','welcome',:class=>'first'
-            =feed_menu_li '主题','/feeds','feeds'
-            =feed_menu_li '动态','/user_logs','user_logs'
-            =feed_menu_li '用户网络','/users','users'
-            =feed_menu_li '关键词','/tags','tags'
-          -if logged_in?
-            =feed_menu_li '首页','/feeds','feeds',:class=>'first'
-            =feed_menu_li '动态','/user_logs','user_logs'
-            =feed_menu_li '用户网络','/users','users'
-            =feed_menu_li '关键词','/tags','tags'
-
-            -notice_count = UserTipProxy.new(current_user).tips_count
-            -invite_count = current_user.feed_invites.count
-            =feed_menu_li_with_count '通知','/notices','notices', notice_count + invite_count
+      =link_to '思维导图','/',:class=>'logo mindmaps'
 
     .nav
       .topbar
-        .sp.feeds=link_to '主题协作','/feeds'
-        .sp.mindmaps=link_to '思维导图','/mindmaps'
+        .sp.feeds=link_to '主题协作',pin_url_for('pin-user-auth')
+        .sp.mindmaps=link_to '思维导图',pin_url_for('pin-daotu')
         -if logged_in?
           .sp=link_to "用户设置",'/account'
-          .sp=link_to "退出",'/logout'
+          .sp=link_to "退出",pin_url_for('pin-user-auth','/logout?service=tu')
 
         -else
           .sp=link_to '用户注册','/signup'
-          .sp=link_to '登录','/login'
+          .sp=link_to '登录','/login?service=tu'
 
       .search-form>
-        -if sub_menu_name != 'mindmaps'
-          %form{:action=>"/feeds/search",:method=>"get"}>
-            %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索主题'}>
-            =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
-        -else
-          %form{:action=>"/mindmaps/search",:method=>"get"}>
-            %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
-            =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
+        %form{:action=>"/mindmaps/search",:method=>"get"}>
+          %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
+          =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
 
 
 

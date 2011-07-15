@@ -6,7 +6,7 @@
       %span=word
   -s_maps = mindmap.similar_mindmaps
   -s_maps.each do |m|
-    %div=link_to m.title,pin_url_for("pin-user-auth","/mindmaps/#{m.id}/info")
+    %div=link_to m.title,"/mindmaps/#{m.id}/info"
   -if s_maps.blank?
     %div 没有找到相似的导图
 -else

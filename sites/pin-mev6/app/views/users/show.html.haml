@@ -1,0 +1,19 @@
+-content_for :title do
+  #{@user.name}的思维导图
+
+.mside.grid_5
+  .page-tu-mindpin-mside-user-info
+    .avatar
+      -link_to @user do
+        =avatar @user,:medium
+
+.main.grid_19.ll
+  .page-tu-mindmap-user-info-bar
+    .data
+      .name=usersign @user,false
+      .sign=h(@user.sign)
+
+  =render 'mindmaps/lists/management',:mindmaps=>@mindmaps
+
+  .mindmap-paginate.padding5
+    = will_paginate @mindmaps

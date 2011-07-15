@@ -1,34 +1,33 @@
 -content_for :title do
   基本信息设置
 
--require_css 'views/users'
-
-.grid_14.alpha
-  .grid-title
-    你可以在这里设置你平常使用的用户昵称以及签名档
-
-  .padding5
-    = flash_info
-    - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
-      = f.text_field(:name)
-      = f.text_area(:sign)
-      .field
-        %label
-          注册时间 #{created_at current_user}
-
-      .field
-        %label
-          %span.marginr5
-            -if current_user.use_feed?
-              主要网站用途：<b>主题协作</b>
-            -elsif current_user.use_mindmap?
-              主要网站用途：<b>思维导图</b>
-            -else
-              主要网站用途：<b>未确定</b>
-
-          =minibutton '修改','/account/usage_setting'
-
-      = f.submit '保存更改',:class=>'marginb3em'
-
-.grid_4.omega.fright
+.mside.grid_5
   =render :partial=>'account/parts/account_links'
+
+.main.grid_19.ll
+  .paddingl20
+    .main-title
+      你可以在这里设置你平常使用的用户昵称以及签名档
+
+    = flash_info
+    .page-account-base-form.aj-submit-form
+      - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
+        .field
+          %label 用户名
+          = text_field_tag :name,current_user.name,:class=>'text'
+        .field
+          %label 签名档
+          = text_area_tag :sign,current_user.sign,:class=>'text'
+        -if !current_user.is_quick_connect_account?
+          .field
+            %label 旧密码
+            = password_field_tag :old_password,'',:class=>'text'
+          .field
+            %label 新密码
+            = password_field_tag :new_password,'',:class=>'text'
+          .field
+            %label 确认新密码
+            = password_field_tag :new_password_confirmation,'',:class=>'text'
+
+        .field
+          = link_to '保存更改','javascript:;',:class=>'account-submit a-link-submit'

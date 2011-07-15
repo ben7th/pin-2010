@@ -12,16 +12,16 @@ class MindmapFav < Mev6Abstract
       base.has_many :mindmap_favs
       base.has_many :fav_mindmaps_db,:through=>:mindmap_favs,:source=>:mindmap,:order=>"mindmap_favs.id desc"
     end
-    
-    def add_fav_mindmap(mindmap)
-      MindmapFav.find_or_create_by_mindmap_id_and_user_id(mindmap.id,self.id)
-      return true
-    end
 
-    def remove_fav_mindmap(mindmap)
-      mindmap_favs = MindmapFav.find_all_by_mindmap_id_and_user_id(mindmap.id,self.id)
-      mindmap_favs.each{|mindmap_fav|mindmap_fav.destroy}
+    def toggle_fav_mindmap(mindmap)
+      mfs = MindmapFav.find_all_by_mindmap_id_and_user_id(mindmap.id,self.id)
+      if mfs.blank?
+        MindmapFav.create(:mindmap=>mindmap,:user=>self)
+      else
+        mfs.each{|mindmap_fav|mindmap_fav.destroy}
+      end
     end
+    
   end
 
   module MindmapMethods
@@ -29,7 +29,7 @@ class MindmapFav < Mev6Abstract
       base.has_many :mindmap_favs
     end
 
-    def fav_by?(user)
+    def faved_by?(user)
       self.fav_users.include?(user)
     end
 

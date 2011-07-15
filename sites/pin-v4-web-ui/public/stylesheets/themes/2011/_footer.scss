@@ -1,14 +1,14 @@
 /*页脚*/
   /*页脚背景*/
-    $foot-bg-color   : #F1F1F1;
-    $foot-bg-color-1 : #F1F1F1;
+    $foot-bg-color   : #F7F7F7;
+    $foot-bg-color-1 : #F7F7F7;
   /*页脚顶边*/
     $foot-border-top-color : #DDDDDD;
 
 .page-footer{
-  background-color:#e6e6e6;
+  background-color:#F7F7F7;
   .pf{
-    border-top:solid 2px $foot-border-top-color;
+    border-top:solid 2px #e6e6e6;
   }
   a{
     color:$head-userbox-a-color;

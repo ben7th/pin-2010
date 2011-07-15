@@ -6,7 +6,7 @@ module ProjectLinkModule
       "ui"                      =>  "http://ui.mindpin.com/",
       "pin-mindmap-editor"      =>  "http://mindmap-editor.mindpin.com/",
       "pin-mindmap-image-cache" =>  "http://mindmap-image-cache.mindpin.com/",
-      "pin-daotu"               =>  "http://www.mindtu.com/"
+      "pin-daotu"               =>  "http://tu.mindpin.com/"
     },
     "development"=>{
       "user_auth"               =>  "http://dev.www.mindpin.com/",
@@ -14,7 +14,7 @@ module ProjectLinkModule
       "ui"                      =>  "http://dev.ui.mindpin.com/",
       "pin-mindmap-editor"      =>  "http://dev.mindmap-editor.mindpin.com/",
       "pin-mindmap-image-cache" =>  "http://dev.mindmap-image-cache.mindpin.com/",
-      "pin-daotu"               =>  "http://dev.www.mindtu.com/"
+      "pin-daotu"               =>  "http://dev.tu.mindpin.com/"
     },
     "test"=>{
       "user_auth"=>"http://dev.2010.mindpin.com/",
@@ -22,7 +22,7 @@ module ProjectLinkModule
       "ui"=>"http://dev.ui.mindpin.com/",
       "pin-mindmap-editor"=>"http://dev.mindmap-editor.2010.mindpin.com/",
       "pin-mindmap-image-cache"=>"http://dev.mindmap-image-cache.2010.mindpin.com/",
-      "pin-daotu"               =>  "http://dev.www.mindtu.com/"
+      "pin-daotu"               =>  "http://dev.tu.mindpin.com/"
     }
   }
   

@@ -1,33 +1,35 @@
 -content_for :title do
   头像设置 裁剪头像
 
--require_css 'views/users'
-
 - content_for :javascripts do
   = javascript_include_tag 'jsCropperUi/cropper'
   = javascript_include_tag 'views/account/image_cut'
 
-.grid_14.alpha
-  .grid-title
-    请在下面选择要裁剪的范围
+.mside.grid_5
+  =render :partial=>'account/parts/account_links'
 
-  .padding5
+.main.grid_19.ll
+  .paddingl20
+    .main-title
+      请在下面选择要裁剪的范围
+
     .old-img.darkbg.padding5.rc5.marginb10.shadow
       .title.font14.bold 原始图片
-      %img#img_with_preview{:src=>current_user.logo.url(:raw)}
+      %img#img_with_preview{:src=>@image_url}
     .cutted-img.darkbg.padding5.rc5.shadow{:style=>'width:100px;'}
       .title.font14.bold 裁剪后的效果
-      #preview_wrap
+      #preview_wrap{:style=>'width:48px;height:48px;'}
     .margint10
-      - form_tag "/account/avatared",:method=>:put,:id=>"copper_form" do
-        = hidden_field_tag :copper,"copper"
-        = hidden_field_tag :x1,100
-        = hidden_field_tag :y1,100
-        = hidden_field_tag :width,200
-        = hidden_field_tag :height,200
-        = submit_tag "好了，可以保存了"
-
-.grid_4.omega.fright
-  =render :partial=>'account/parts/account_links'
+      .page-account-base-form.aj-submit-form
+        - form_tag "/account/avatared",:method=>:put,:id=>"copper_form" do
+          = hidden_field_tag :copper,"copper"
+          = hidden_field_tag :x1,100
+          = hidden_field_tag :y1,100
+          = hidden_field_tag :width,200
+          = hidden_field_tag :height,200
+          = hidden_field_tag :image_file_name,@image_file_name
+          .field
+            = link_to '保存更改','javascript:;',:class=>'account-submit a-link-submit'
+            = link_to '取消',pin_url_for('pin-user-auth','/account/avatared'),:class=>'account-cancel'
 
   

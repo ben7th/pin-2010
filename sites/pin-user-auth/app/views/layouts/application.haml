@@ -1,8 +1,21 @@
-- @mindpin_layout.theme = '2011'
 - @mindpin_layout.grid = 24
-- @mindpin_layout.yield_partial = 'application'
 
 !!! Strict
 %html{:xmlns=>"http://www.w3.org/1999/xhtml"}
   =render 'layouts/parts/htmlhead'
-  =render 'layouts/parts/htmlbody'
+
+  %body.echo
+    .page-wrap
+      .page-container
+        =render 'layouts/parts/nav'
+        .page-content{:class=>container_classname}
+          .cell.clearfix
+            =yield
+
+    =render 'layouts/parts/footer'
+
+    #page-hide.hide
+      =yield :hide
+      %iframe{:name=>"upload_frame",:style=>"width:1px;height:1px;border:0px;",:src=>"about:blank"}
+
+    =render 'layouts/parts/javascripts'

@@ -44,7 +44,6 @@ class AccountController <  ApplicationController
   def avatared_submit
     if !params[:copper]
       if params[:user].blank?
-        set_cellhead_tail(:avatared)
         flash.now[:error] = "头像保存失败，请选择头像图片并上传"
         return render :action=>:avatared
       end
@@ -55,13 +54,15 @@ class AccountController <  ApplicationController
   end
 
   def _save_avatar
-    current_user.update_attributes({:logo=>params[:user][:logo]})
-    set_cellhead_tail('copper_avatared')
+    @image_file_name = UserAvatarAdpater.create_by_upload_file(params[:user][:logo])
+    @image_url = UserAvatarAdpater.url_by_image_file_name(@image_file_name)
+
     return render :template=>"account/copper_avatared"
   end
 
   def _copper
-    current_user.copper_logo(params)
+    @image_file_path = UserAvatarAdpater.path_by_image_file_name(params[:image_file_name])
+    current_user.copper_logo(@image_file_path,params)
     redirect_to :action=>:avatared
   end
 

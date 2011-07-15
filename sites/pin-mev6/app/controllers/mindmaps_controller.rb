@@ -6,14 +6,13 @@ class MindmapsController < ApplicationController
     @mindmap = Mindmap.find(params[:id]) if params[:id]
   end
 
-  def fav
-    current_user.add_fav_mindmap(@mindmap)
-    render :stats=>200,:text=>"收藏成功"
+  def favs
+    @mindmaps = current_user.fav_mindmaps_paginate(:page=>params[:page]||1,:per_page=>20)
   end
 
-  def unfav
-    current_user.remove_fav_mindmap(@mindmap)
-    render :stats=>200,:text=>"取消收藏成功"
+  def toggle_fav
+    current_user.toggle_fav_mindmap(@mindmap)
+    render :partial=>'mindmaps/lists/management',:locals=>{:mindmaps=>[@mindmap]}
   end
 
   ############### user-auth

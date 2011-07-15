@@ -1,14 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   
   map.root :controller=>"index",:action=>'index'
-
-  #################### 用户登录
-  map.login '/login',:controller=>'sessions',:action=>'new'
-  map.logout '/logout',:controller=>'sessions',:action=>'destroy'
-  map.resource :session
-
-  ################### 用户注册
-  map.signup '/signup',:controller=>'users',:action=>'new'
+  map.login '/login',:controller=>"index",:action=>'index'
 
   ################### 用户设置
   # 基本信息
@@ -28,7 +21,8 @@ ActionController::Routing::Routes.draw do |map|
     :search=>:get,
     :import=>:get,
     :do_import=>:post,
-    :upload_import_file=>:post
+    :upload_import_file=>:post,
+    :favs=>:get
   },:member=>{
     :export=>:get,
     :change_title=>:put,
@@ -36,8 +30,7 @@ ActionController::Routing::Routes.draw do |map|
     :do_clone=>:put,
     :toggle_private=>:put,
     :info=>:get,
-    :fav=>:post,
-    :unfav=>:delete,
+    :toggle_fav=>:put,
     :comments=>:post,
     :newest=>:get
   } do |mindmap|
@@ -48,10 +41,20 @@ ActionController::Routing::Routes.draw do |map|
 
     mindmap.resources :comments,:controller=>"comments"
   end
+  map.resources :comments,:controller=>"comments"
+
+  # 导图协同
+  map.add_cooperator "/cooperate/:mindmap_id/add_cooperator",
+    :controller=>"cooperations",:action=>"add_cooperator",
+    :conditions=>{:method=>:post}
+  map.remove_cooperator "/cooperate/:mindmap_id/remove_cooperator",
+    :controller=>"cooperations",:action=>"remove_cooperator",
+    :conditions=>{:method=>:delete}
 
   map.connect "/mindmaps/import_file_thumb/:upload_temp_id/thumb.png",
     :controller=>"mindmaps",:action=>"import_file_thumb"
 
   map.resources :users
   map.resources :image_attachments
+  map.resources :atmes
 end

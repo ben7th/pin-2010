@@ -1,7 +1,11 @@
 -content_for :title do
   搜索结果
 
-.main.white.grid_18
+.mside.grid_5
+  .padding10
+    =minibutton '返回首页',"/"
+
+.main.grid_19.ll
   .searched-mindmaps
     %h2.main-title
       关于
@@ -22,7 +26,7 @@
                   -else
                     =link_to mindmap.user.name,mindmap.user
                   的
-                  =link_to item.title,pin_url_for('pin-daotu',"mindmaps/#{mindmap.id}")
+                  =link_to item.title,"/mindmaps/#{mindmap.id}"
                 .data
                   =item.content
               -else
@@ -37,8 +41,3 @@
 
   .mindmap-paginate.padding5
     =will_paginate @result
-
-.mside.grid_6
-  .sidepart
-    .padding10
-      =minibutton '返回导图首页',pin_url_for('user_auth','mindmaps')

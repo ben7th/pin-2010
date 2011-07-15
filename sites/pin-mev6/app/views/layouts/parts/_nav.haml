@@ -4,16 +4,15 @@
       =link_to '思维导图','/',:class=>'logo mindmaps'
 
     .nav
-      .topbar
-        .sp.feeds=link_to '主题协作',pin_url_for('pin-user-auth')
-        .sp.mindmaps=link_to '思维导图',pin_url_for('pin-daotu')
-        -if logged_in?
-          .sp=link_to "用户设置",'/account'
-          .sp=link_to "退出",'/logout'
+      .topbar.clearfix
+        .fright
+          -if logged_in?
+            .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account?service=tu')
+            .sp=link_to "退出",pin_url_for('pin-user-auth','/logout?service=tu')
 
-        -else
-          .sp=link_to '用户注册','/signup'
-          .sp=link_to '登录','/login'
+          -else
+            .sp=link_to '用户注册','/signup'
+            .sp=link_to '登录','/login?service=tu'
 
       .search-form>
         %form{:action=>"/mindmaps/search",:method=>"get"}>

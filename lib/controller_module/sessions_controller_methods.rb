@@ -13,17 +13,16 @@ module SessionsControllerMethods
     render :layout=>'anonymous',:template=>'index/login'
   end
 
-  # 创建session
   def create
     self.current_user = User.authenticate(params[:email],params[:password])
 
     if logged_in?
       after_logged_in()
-      return redirect_back_or_default(root_url)
     else
       flash[:error]="邮箱/密码不正确"
-      redirect_to "/"
     end
+    
+    _redirect_by_service
   end
 
   # 登出
@@ -36,7 +35,17 @@ module SessionsControllerMethods
       destroy_remember_me_cookie_token()
       destroy_online_record(user)
     end
-    
-    redirect_to root_url
+
+    _redirect_by_service
   end
+
+  private
+  def _redirect_by_service
+    if params[:service] == "tu"
+      return redirect_back_or_default(pin_url_for("pin-daotu"))
+    else
+      return redirect_back_or_default(root_url)
+    end
+  end
+
 end

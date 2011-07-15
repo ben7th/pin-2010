@@ -9,14 +9,12 @@ class CommentsController < ApplicationController
   end
 
   def create
-    create_feed = params[:create_feed] == "true" ? true : false
-    if current_user.create_comment(@mindmap,params[:content],create_feed)
-      return render :status=>200,:text=>"success"
-    end
-    return render :action=>:new
+    comment = @mindmap.comments.create(:creator=>current_user ,:content=>params[:content])
+    render :partial=>'mindmaps/lists/comments',:locals=>{:comments=>[comment]}
   end
 
   def destroy
+    @mindmap = @mindmap_comment.mindmap
     if current_user == @mindmap.user || current_user == @mindmap_comment.creator
       @mindmap_comment.destroy
       return render :status=>200,:text=>"success"

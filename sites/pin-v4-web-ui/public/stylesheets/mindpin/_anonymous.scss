@@ -1,0 +1,174 @@
+@mixin tu-mindpin-auth-logo{
+  .logo{
+    width:420px;
+    height:75px;
+    background:url(/images/tu-logo.png);
+    margin-bottom:20px;
+  }
+}
+
+@mixin mindpin-auth-logo{
+  .logo{
+    width:420px;
+    height:75px;
+    background:url(/images/logo.png);
+    margin-bottom:20px;
+  }
+}
+
+@mixin mindtu-no-auth-form{
+  form{
+    overflow:hidden;
+    margin-left:80px;
+    margin-bottom:30px;
+    .field{
+      float:left;
+      margin-right:10px;
+      label{display:block;}
+      input.text{
+        border:solid 1px #ccc;
+        box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+        font-weight:bold;
+        @include tfont;
+      }
+      a.login-submit{
+        @include form-a-link-submit;
+        margin-top:24px;
+      }
+      a.signup{
+        @include border-radius(4px);
+        display:block;
+        margin-top:24px;padding:0;
+        height:31px;line-height:31px;
+        text-align:center;
+        width:80px;
+        font-size:14px;
+        @include gradient(#38B927,#35B624);
+        border:solid 1px #4A993E;
+        color:white;
+        font-weight:bold;
+        text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
+        &:hover{
+          color:white;
+          text-decoration:none;
+          @include gradient(#35B624,#32B321);
+          border:solid 1px #4A993E;
+        }
+      }
+      .remember-me{
+        padding:3px;
+      }
+      .forget-password{
+        padding:3px;
+        a{color:#666;&:hover{color:#666;}}
+      }
+    }
+  }
+}
+
+body{
+  &.mindpin-anonymous,&.tu-mindpin-anonymous{
+    @include gradient(#FFFFFF,#F7F7F7);
+    .page-footer{
+      background:none;
+      color:#666;
+      .bold{font-weight:normal;}
+      .pf{border:none;}
+    }
+  }
+}
+
+body.tu-mindpin-anonymous{
+  .login-wrapper{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-180px;
+    margin-left:-400px;
+    @include tu-mindpin-auth-logo;
+    @include mindtu-no-auth-form;
+    
+    .flash-error{
+      margin:3px 0 0 0;
+      background:#777;
+      border:solid 1px #666;
+      @include border-radius(3px);
+      span{height:30px;line-height:30px;}
+    }
+    
+    .footmisc{
+      overflow:hidden;
+      .desc{
+        float:left;
+        margin-left:80px;
+        font-size:14px;font-weight:bold;
+      }
+      .signup{
+        overflow:hidden;
+        margin-left:532px;
+        a{
+          float:left;
+        }
+      }
+    }
+  }
+}
+
+body.mindpin-anonymous{
+  .signup-wrapper{
+    position:absolute;
+    top:0;
+    left:50%;
+    margin-top:100px;
+    margin-left:-380px;
+    overflow:hidden;
+    .desc{
+      float:left;
+      @include mindpin-auth-logo;
+      .logo{
+        margin-top:30px;
+      }
+      .to-login{font-size:14px;margin-left:10px;margin-bottom:30px;}
+      .flash-error{margin-left:10px;}
+    }
+    .signup-form{
+      margin-left:470px;
+      h2{
+        font-size:14px;line-height:20px;
+        margin-bottom:10px;
+      }
+      @include mindtu-no-auth-form;
+      form{
+        margin:0;
+        .field{
+          float:none;
+          .submit{margin:0;}
+          .fielderror{display:none;}
+          a.signup-submit{
+            @include form-a-link-submit;
+          }
+        }
+      }
+    }
+  }
+  .reset-password-wrapper{
+    position:absolute;
+    top:0;
+    left:50%;
+    margin-top:170px;
+    margin-left:-220px;
+    overflow:hidden;
+    @include mindpin-auth-logo;
+    .form{
+      padding-left:10px;
+      @include mindtu-no-auth-form;
+      form{
+        margin:0;
+        a.reset-password-submit{@include form-a-link-submit;margin-top:24px;}
+      }
+    }
+    &.no1{
+      margin-left:-320px;
+    }
+  }
+}
