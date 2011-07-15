@@ -2999,6 +2999,8 @@ Release Date: November 8, 2010
     padding-top: 20px; }
     .page-content .cell .mside.grid_5 {
       width: 189px !important; }
+    .page-content .cell .mside.grid_6 {
+      width: 229px !important; }
     .page-content .cell .mside .sidepart {
       background-color: #F7F7F7;
       border-radius: 8px;
