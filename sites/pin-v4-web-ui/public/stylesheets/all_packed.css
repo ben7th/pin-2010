@@ -772,6 +772,7 @@ div.pagination .next_page{background:none;border:none;padding:5px 9px;}
 .page-content .cell .main.ll{border-right:none;border-left:solid 1px #eee;}
 .page-content .cell .mside{padding-top:20px;}
 .page-content .cell .mside.grid_5{width:189px!important;}
+.page-content .cell .mside.grid_6{width:229px!important;}
 .page-content .cell .mside .sidepart{background-color:#F7F7F7;border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;overflow:hidden;margin-bottom:10px;}
 .page-content .cell .mside .hrr{margin:0 10px;height:0;line-height:0;font-size:0;border-top:solid 1px red;border-bottom:solid 1px red;}
 .page-content .cell .mside hr.split{height:0;font-size:0;line-height:0;border-top:solid 1px #DBDDDB;border-bottom:solid 1px #FDFFFD;margin:0;padding:0;}
