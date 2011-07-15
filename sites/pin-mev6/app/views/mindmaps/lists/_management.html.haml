@@ -46,6 +46,8 @@
                   .o=link_to '评论','javascript:;',:class=>'add-comment'
                   .o=link_to '概要',"/mindmaps/#{mindmap.id}/info",:class=>'info'
                   .o=link_to '查看',"/mindmaps/#{mindmap.id}",:class=>'view'
+                  -if mindmap.cooperate_users.include? current_user
+                    .o=link_to '编辑',"/mindmaps/#{mindmap.id}/edit",:target=>'_blank',:class=>'edit'
                   .o=link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
 
           .status
