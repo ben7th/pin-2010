@@ -8,7 +8,8 @@
       -i = 1
       -c_arr.each do |c|
         -klass = (i.odd?) ? 'odd':'even'
-        %s{:class=>klass,:style=>"height:#{c*30/max}px;"}
+        -height = c*30/max
+        %s{:class=>klass,:style=>"height:#{height}px;top:#{30-height}px;"}
         -i = i+1
 
   %hr.split.mb10

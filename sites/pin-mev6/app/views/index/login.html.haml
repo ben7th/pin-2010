@@ -11,10 +11,10 @@
       .forget-password
         =link_to '忘记密码了…',pin_url_for('pin-user-auth','/forgot_password_form?service=tu')
     .field
-      =link_to '登　录','javascript:;',:class=>'login-submit'
+      =link_to '<span>登　录</span>','javascript:;',:class=>'login-submit'
       .remember-me
         %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
         %span 记住我
     .field
-      =link_to '注　册',pin_url_for('pin-user-auth','/signup?service=tu'),:class=>'signup'
+      =link_to '<span>注　册</span>',pin_url_for('pin-user-auth','/signup?service=tu'),:class=>'signup'
   

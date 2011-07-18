@@ -556,8 +556,11 @@
       margin:0 0 10px 0;
       height:31px;
       s{
-        display:inline-block;
+        zoom:1;
+        float:left;
         width:10px;
+        margin-right:2px;
+        position:relative;
         &.odd{background:#8ABFE6;border-bottom:solid 1px #84ADCD;}
         &.even{background:#A6D0EF;border-bottom:solid 1px #9ABDD6;}
         

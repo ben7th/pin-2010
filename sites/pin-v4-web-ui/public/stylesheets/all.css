@@ -855,7 +855,8 @@ body {
 
 .avatar {
   font-size: 0px;
-  line-height: 0px; }
+  line-height: 0px;
+  overflow: hidden; }
 
 .avatar img, .avatars img, .icons img {
   border-radius: 5px;
@@ -3051,74 +3052,77 @@ Release Date: November 8, 2010
   .mside .page-submenu ul {
     padding-top: 2px;
     overflow: hidden; }
-    .mside .page-submenu ul li a {
-      display: block;
-      font-size: 14px;
-      height: 26px;
-      line-height: 26px;
-      padding: 3px 0 3px 7px;
-      color: #666;
-      overflow: hidden; }
-      .mside .page-submenu ul li a:hover {
-        color: black; }
-      .mside .page-submenu ul li a span {
-        float: left;
-        padding-left: 30px; }
-    .mside .page-submenu ul li.i-am-here {
-      position: relative;
-      top: -2px;
-      background: #666;
-      border-radius: 5px;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
-      border: solid 1px #444444; }
-      .mside .page-submenu ul li.i-am-here hr.split {
-        display: none; }
-      .mside .page-submenu ul li.i-am-here a {
-        color: white;
-        text-decoration: none;
-        background-image: url(/images/sites.png);
-        background-position: 0px -104px;
-        background-repeat: no-repeat; }
-        .mside .page-submenu ul li.i-am-here a span {
-          float: left;
-          padding-left: 29px; }
-    .mside .page-submenu ul li.with-count a span {
-      margin-right: 3px; }
-    .mside .page-submenu ul li.with-count a .count {
-      float: left;
-      background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
-      color: white;
-      font-weight: bold;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      padding: 0 4px;
-      height: 15px;
-      line-height: 15px;
-      position: relative;
-      top: 3px; }
-    .mside .page-submenu ul li.last hr.split {
-      display: none; }
-    .mside .page-submenu ul li.s {
-      padding: 0 7px; }
-      .mside .page-submenu ul li.s.last {
-        margin-bottom: 5px; }
-      .mside .page-submenu ul li.s a {
+    .mside .page-submenu ul li {
+      line-height: 0;
+      font-size: 0; }
+      .mside .page-submenu ul li a {
         display: block;
-        font-size: 12px;
-        height: 18px;
-        line-height: 18px;
+        font-size: 14px;
+        height: 26px;
+        line-height: 26px;
+        padding: 3px 0 3px 7px;
         color: #666;
         overflow: hidden; }
-        .mside .page-submenu ul li.s a:hover {
+        .mside .page-submenu ul li a:hover {
           color: black; }
-        .mside .page-submenu ul li.s a span {
+        .mside .page-submenu ul li a span {
           float: left;
           padding-left: 30px; }
+      .mside .page-submenu ul li.i-am-here {
+        position: relative;
+        top: -2px;
+        background: #666;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border: solid 1px #444444; }
+        .mside .page-submenu ul li.i-am-here hr.split {
+          display: none; }
+        .mside .page-submenu ul li.i-am-here a {
+          color: white;
+          text-decoration: none;
+          background-image: url(/images/sites.png);
+          background-position: 0px -104px;
+          background-repeat: no-repeat; }
+          .mside .page-submenu ul li.i-am-here a span {
+            float: left;
+            padding-left: 29px; }
+      .mside .page-submenu ul li.with-count a span {
+        margin-right: 3px; }
+      .mside .page-submenu ul li.with-count a .count {
+        float: left;
+        background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
+        color: white;
+        font-weight: bold;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 0 4px;
+        height: 15px;
+        line-height: 15px;
+        position: relative;
+        top: 3px; }
+      .mside .page-submenu ul li.last hr.split {
+        display: none; }
+      .mside .page-submenu ul li.s {
+        padding: 0 7px; }
+        .mside .page-submenu ul li.s.last {
+          margin-bottom: 5px; }
+        .mside .page-submenu ul li.s a {
+          display: block;
+          font-size: 12px;
+          height: 18px;
+          line-height: 18px;
+          color: #666;
+          overflow: hidden; }
+          .mside .page-submenu ul li.s a:hover {
+            color: black; }
+          .mside .page-submenu ul li.s a span {
+            float: left;
+            padding-left: 30px; }
 .mside .page-smallmenu {
   overflow: hidden;
   margin-bottom: 10px;
@@ -6049,6 +6053,8 @@ a.send-button {
       background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
       border: solid 1px #2F5BB7; }
+    .page-account-base-form .field a.account-submit span {
+      display: block; }
   .page-account-base-form .field a.account-cancel {
     border-radius: 4px;
     -moz-border-radius: 4px;
@@ -7422,7 +7428,8 @@ body.tu-mindpin-anonymous .login-wrapper {
         color: white;
         font-weight: bold;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-        margin-top: 24px; }
+        margin-top: 24px;
+        *margin-top: 25px; }
         body.tu-mindpin-anonymous .login-wrapper form .field a.login-submit:hover {
           color: white;
           text-decoration: none;
@@ -7430,28 +7437,42 @@ body.tu-mindpin-anonymous .login-wrapper {
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
           border: solid 1px #2F5BB7; }
+        body.tu-mindpin-anonymous .login-wrapper form .field a.login-submit span {
+          display: block; }
       body.tu-mindpin-anonymous .login-wrapper form .field a.signup {
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
         display: block;
-        margin-top: 24px;
         padding: 0;
         height: 31px;
         line-height: 31px;
         text-align: center;
         width: 80px;
         font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        margin-top: 24px;
+        *margin-top: 25px;
         background: -moz-linear-gradient(-90deg, #38b927, #35b624);
         background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
-        border: solid 1px #4A993E;
-        color: white;
-        font-weight: bold;
-        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+        border: solid 1px #4A993E; }
         body.tu-mindpin-anonymous .login-wrapper form .field a.signup:hover {
           color: white;
           text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+        body.tu-mindpin-anonymous .login-wrapper form .field a.signup span {
+          display: block; }
+        body.tu-mindpin-anonymous .login-wrapper form .field a.signup:hover {
           background: -moz-linear-gradient(-90deg, #35b624, #32b321);
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
@@ -7547,7 +7568,8 @@ body.mindpin-anonymous .signup-wrapper {
           color: white;
           font-weight: bold;
           text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-          margin-top: 24px; }
+          margin-top: 24px;
+          *margin-top: 25px; }
           body.mindpin-anonymous .signup-wrapper .signup-form form .field a.login-submit:hover {
             color: white;
             text-decoration: none;
@@ -7555,28 +7577,42 @@ body.mindpin-anonymous .signup-wrapper {
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
             border: solid 1px #2F5BB7; }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.login-submit span {
+            display: block; }
         body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup {
           border-radius: 4px;
           -moz-border-radius: 4px;
           -webkit-border-radius: 4px;
           display: block;
-          margin-top: 24px;
           padding: 0;
           height: 31px;
           line-height: 31px;
           text-align: center;
           width: 80px;
           font-size: 14px;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+          border: solid 1px #3079ED;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+          margin-top: 24px;
+          *margin-top: 25px;
           background: -moz-linear-gradient(-90deg, #38b927, #35b624);
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
-          border: solid 1px #4A993E;
-          color: white;
-          font-weight: bold;
-          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+          border: solid 1px #4A993E; }
           body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup:hover {
             color: white;
             text-decoration: none;
+            background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+            border: solid 1px #2F5BB7; }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup span {
+            display: block; }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup:hover {
             background: -moz-linear-gradient(-90deg, #35b624, #32b321);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
@@ -7622,6 +7658,8 @@ body.mindpin-anonymous .signup-wrapper {
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
             border: solid 1px #2F5BB7; }
+          body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup-submit span {
+            display: block; }
 body.mindpin-anonymous .reset-password-wrapper {
   position: absolute;
   top: 0;
@@ -7668,7 +7706,8 @@ body.mindpin-anonymous .reset-password-wrapper {
           color: white;
           font-weight: bold;
           text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-          margin-top: 24px; }
+          margin-top: 24px;
+          *margin-top: 25px; }
           body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit:hover {
             color: white;
             text-decoration: none;
@@ -7676,28 +7715,42 @@ body.mindpin-anonymous .reset-password-wrapper {
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
             border: solid 1px #2F5BB7; }
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit span {
+            display: block; }
         body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup {
           border-radius: 4px;
           -moz-border-radius: 4px;
           -webkit-border-radius: 4px;
           display: block;
-          margin-top: 24px;
           padding: 0;
           height: 31px;
           line-height: 31px;
           text-align: center;
           width: 80px;
           font-size: 14px;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+          border: solid 1px #3079ED;
+          color: white;
+          font-weight: bold;
+          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+          margin-top: 24px;
+          *margin-top: 25px;
           background: -moz-linear-gradient(-90deg, #38b927, #35b624);
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
-          border: solid 1px #4A993E;
-          color: white;
-          font-weight: bold;
-          text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+          border: solid 1px #4A993E; }
           body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover {
             color: white;
             text-decoration: none;
+            background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+            border: solid 1px #2F5BB7; }
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup span {
+            display: block; }
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover {
             background: -moz-linear-gradient(-90deg, #35b624, #32b321);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
@@ -7738,6 +7791,8 @@ body.mindpin-anonymous .reset-password-wrapper {
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
           border: solid 1px #2F5BB7; }
+        body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit span {
+          display: block; }
   body.mindpin-anonymous .reset-password-wrapper.no1 {
     margin-left: -320px; }
 
@@ -8294,8 +8349,11 @@ body.mindpin-anonymous .reset-password-wrapper {
       margin: 0 0 10px 0;
       height: 31px; }
       .page-side-mindmaps-stat .ranks .chart s {
-        display: inline-block;
-        width: 10px; }
+        zoom: 1;
+        float: left;
+        width: 10px;
+        margin-right: 2px;
+        position: relative; }
         .page-side-mindmaps-stat .ranks .chart s.odd {
           background: #8ABFE6;
           border-bottom: solid 1px #84ADCD; }

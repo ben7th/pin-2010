@@ -12,7 +12,7 @@ class ImageAttachmentsController < ApplicationController
 
   def create
     image_attachment = current_user.image_attachments.create!(:image=>params[:file])
-    render :partial=>'mindmaps/editor_page/module/image_editor',:locals=>{:image_attachments=>[image_attachment]}
+    render :partial=>'mindmap_editor/module/image_editor',:locals=>{:image_attachments=>[image_attachment]}
   end
 
 end

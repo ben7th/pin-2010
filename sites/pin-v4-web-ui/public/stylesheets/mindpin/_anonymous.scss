@@ -33,24 +33,14 @@
       }
       a.login-submit{
         @include form-a-link-submit;
-        margin-top:24px;
+        margin-top:24px;*margin-top:25px;
       }
       a.signup{
-        @include border-radius(4px);
-        display:block;
-        margin-top:24px;padding:0;
-        height:31px;line-height:31px;
-        text-align:center;
-        width:80px;
-        font-size:14px;
+        @include form-a-link-submit;
+        margin-top:24px;*margin-top:25px;
         @include gradient(#38B927,#35B624);
         border:solid 1px #4A993E;
-        color:white;
-        font-weight:bold;
-        text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.3);
         &:hover{
-          color:white;
-          text-decoration:none;
           @include gradient(#35B624,#32B321);
           border:solid 1px #4A993E;
         }

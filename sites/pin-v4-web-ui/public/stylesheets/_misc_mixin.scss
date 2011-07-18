@@ -392,6 +392,7 @@
     @include gradient(#4D90FE,#357AE8);
     border:solid 1px #2F5BB7;
   }
+  span{display:block;}
 }
 
 @mixin form-a-link-cancel{
