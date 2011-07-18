@@ -3,6 +3,8 @@
 -content_for :head do
   = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
   = stylesheet_link_tag '/javascripts/prototip/css/prototip'
+  :css
+    .ajax-loading-bar{display:block !important;}
 
 -content_for :javascripts do
   = javascript_include_tag 'mindmap_viewer_packed'
@@ -12,4 +14,7 @@
 #mindmap-main{:class=>'widget',:'data-id'=>@mindmap.id}
   #mindmap-resizer
     #mindmap-scroller{:style=>'overflow:hidden;'}
-      #mindmap-canvas{:style=>'background:white;'}
+      #mindmap-canvas{:style=>'background:white;cursor:move;'}
+
+.page-mindmap-widget-btns{:style=>'display:none;'}
+  =link_to '居中','javascript:;',:class=>'mindmap-recenter',:onclick=>'try{mindmap.recenter();}catch(e){};',:title=>'按此将思维导图重新居中'

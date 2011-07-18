@@ -13,9 +13,9 @@ module MindmapEditorControllerMethods
   end
 
   def widget
-    if !has_view_rights?(@mindmap,current_user)
+    if @mindmap.private?
       # 私有导图检查权限
-      return render_status_page(403,'当前用户对该导图没有查看权限')
+      return render :text=>'当前导图是私人可见，无法以组件模式查看',:status=>403
     end
 
     return (render :layout=>"mindmap",:template=>'mindmap_editor/widget')

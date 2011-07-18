@@ -21,6 +21,7 @@ pie.load(function(){
 
   var mindmap_id = jQuery('#mindmap-main').attr('data-id');
   var editmode = jQuery('#mindmap-main').is('.editor');
+  var is_widgetmode = jQuery('#mindmap-main').is('.widget');
 
   window.mindmap = new pie.mindmap.BasicMapPaper("#mindmap-canvas",{
     id : mindmap_id,
@@ -43,9 +44,12 @@ pie.load(function(){
     document_resize();
   });
 
-  function document_resize(){
-    var is_widgetmode = jQuery('#mindmap-main').is('.widget');
+  //widget模式
+  if(is_widgetmode){
+    jQuery('.page-mindmap-widget-btns').show();
+  }
 
+  function document_resize(){
     var sidebar_elm = jQuery('#mindmap-sidebar');
     var sidebar_width = sidebar_elm.is(':visible') ? sidebar_elm.width():0;
 

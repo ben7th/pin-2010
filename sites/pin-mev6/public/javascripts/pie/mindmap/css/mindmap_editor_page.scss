@@ -1,10 +1,7 @@
 @import "misc";
 
-$bgc:#0F2B3E;
-
 body{
   overflow:hidden;
-  background:$bgc !important;
   .page-container{padding:0;}
   .rc5{
     display:none;
@@ -423,6 +420,23 @@ body{
 
 .ajax-loading-bar{
   display:none;
+}
+
+.page-mindmap-widget-btns{
+  position:absolute;
+  z-index:10000;
+  bottom:0px;left:0px;
+  width:24px;height:24px;
+  background:#F7F7F7;
+  @include border-radius(3px);
+  padding:5px;
+  .mindmap-recenter{
+    display:block;
+    float:left;
+    width:24px;height:24px;
+    background:url(/images/widget-btns.png) no-repeat -1px -1px;
+    overflow:hidden;line-height:22em;
+  }
 }
 
 @import 'mindmap_page_editor_boxes';
