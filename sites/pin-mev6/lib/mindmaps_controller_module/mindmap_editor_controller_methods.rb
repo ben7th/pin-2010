@@ -12,6 +12,15 @@ module MindmapEditorControllerMethods
     return render_status_page(403,"当前用户对该导图没有编辑权限。<a href='/mindmaps/#{@mindmap.id}'>点击这里进入查看页</a>")
   end
 
+  def widget
+    if !has_view_rights?(@mindmap,current_user)
+      # 私有导图检查权限
+      return render_status_page(403,'当前用户对该导图没有查看权限')
+    end
+
+    return (render :layout=>"mindmap",:template=>'mindmap_editor/widget')
+  end
+
   def show
     respond_to do |format|
       format.html {_show_html_page}

@@ -44,10 +44,17 @@ pie.load(function(){
   });
 
   function document_resize(){
+    var is_widgetmode = jQuery('#mindmap-main').is('.widget');
+
     var sidebar_elm = jQuery('#mindmap-sidebar');
     var sidebar_width = sidebar_elm.is(':visible') ? sidebar_elm.width():0;
 
-    var height = jQuery(window).height() - 40 - 30;
+    var height;
+    if(is_widgetmode){
+      height = jQuery(window).height();
+    }else{
+      height = jQuery(window).height() - 40 - 30;
+    }
     var width = jQuery(window).width() - sidebar_width;
 
     jQuery('#mindmap-main')

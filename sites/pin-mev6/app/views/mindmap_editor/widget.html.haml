@@ -1,0 +1,15 @@
+-content_for :title, " 导图编辑器 v0.6 组件模式 - #{escape_title(@mindmap)}"
+
+-content_for :head do
+  = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
+  = stylesheet_link_tag '/javascripts/prototip/css/prototip'
+
+-content_for :javascripts do
+  = javascript_include_tag 'mindmap_viewer_packed'
+  = javascript_include_tag 'excanvas/excanvas.compiled'
+  = javascript_include_tag 'views/mindmap_page_load'
+
+#mindmap-main{:class=>'widget',:'data-id'=>@mindmap.id}
+  #mindmap-resizer
+    #mindmap-scroller{:style=>'overflow:hidden;'}
+      #mindmap-canvas{:style=>'background:white;'}

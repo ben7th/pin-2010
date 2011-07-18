@@ -359,6 +359,9 @@ body {
   background-color: #999;
   z-index: 999; }
 
+.ajax-loading-bar {
+  display: none; }
+
 /*Í¼ÏñÑ¡ÔñÆ÷*/
 .page-mindmap-image-editor {
   overflow: hidden;

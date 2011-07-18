@@ -32,7 +32,8 @@ ActionController::Routing::Routes.draw do |map|
     :info=>:get,
     :toggle_fav=>:put,
     :comments=>:post,
-    :newest=>:get
+    :newest=>:get,
+    :widget=>:get
   } do |mindmap|
     mindmap.files                   "files",:controller=>"files",:action=>"index",:conditions=>{:method=>:get}
     mindmap.search_image            "files/search_image",:controller=>"files",:action=>"search_image",:conditions=>{:method=>:get}
