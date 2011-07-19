@@ -5,6 +5,7 @@ class Contact < UserAuthAbstract
   
   validates_presence_of :user
   validates_presence_of :follow_user
+  validates_uniqueness_of :follow_user_id,:scope=>"user_id"
 
   index :user_id
 
@@ -53,9 +54,17 @@ class Contact < UserAuthAbstract
     end
 
     def add_contact_user(follow_user)
+      contact = get_contact_obj_of(follow_user)
+      return contact unless contact.blank?
+      
       contact = Contact.new(:user=>self,:follow_user=>follow_user)
       contact.save
       contact
+    end
+
+    def remove_contact_user(follow_user)
+      contacts = self.contacts.find_all_by_follow_user_id(follow_user.id)
+      contacts.each{|contact|contact.destroy}
     end
   end
 

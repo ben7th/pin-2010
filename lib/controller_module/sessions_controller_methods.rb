@@ -44,7 +44,7 @@ module SessionsControllerMethods
     if params[:service] == "tu"
       return redirect_back_or_default(pin_url_for("pin-daotu"))
     else
-      return redirect_back_or_default(root_url)
+      return redirect_back_or_default('/login')
     end
   end
 

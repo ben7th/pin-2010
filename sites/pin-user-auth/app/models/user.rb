@@ -51,6 +51,7 @@ class User < UserBase
   include UserAutoCompeleteCache
   include Mindmap::UserMethods
   include Listening::UserMethods
+  include ActivationCode::UserMethods
 
   include UserBaseEvent
 end

@@ -7394,7 +7394,7 @@ body.tu-mindpin-anonymous .login-wrapper {
   body.tu-mindpin-anonymous .login-wrapper .logo {
     width: 420px;
     height: 75px;
-    background: url(/images/tu-logo.png);
+    background: url(/images/tu-logo.png) no-repeat;
     margin-bottom: 20px; }
   body.tu-mindpin-anonymous .login-wrapper form {
     overflow: hidden;
@@ -7508,6 +7508,220 @@ body.tu-mindpin-anonymous .login-wrapper {
       body.tu-mindpin-anonymous .login-wrapper .footmisc .signup a {
         float: left; }
 
+body.mindpin-anonymous .login-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -180px;
+  margin-left: -300px; }
+  body.mindpin-anonymous .login-wrapper .logo {
+    width: 320px;
+    height: 75px;
+    background: url(/images/logo.png) no-repeat;
+    margin-bottom: 20px; }
+  body.mindpin-anonymous .login-wrapper form {
+    overflow: hidden;
+    margin-left: 80px;
+    margin-bottom: 30px; }
+    body.mindpin-anonymous .login-wrapper form .field {
+      float: left;
+      margin-right: 10px; }
+      body.mindpin-anonymous .login-wrapper form .field label {
+        display: block; }
+      body.mindpin-anonymous .login-wrapper form .field input.text {
+        border: solid 1px #ccc;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+        font-weight: bold;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+      body.mindpin-anonymous .login-wrapper form .field a.login-submit {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        margin-top: 24px;
+        *margin-top: 25px; }
+        body.mindpin-anonymous .login-wrapper form .field a.login-submit:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+        body.mindpin-anonymous .login-wrapper form .field a.login-submit span {
+          display: block; }
+      body.mindpin-anonymous .login-wrapper form .field a.signup {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        margin-top: 24px;
+        *margin-top: 25px;
+        background: -moz-linear-gradient(-90deg, #38b927, #35b624);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
+        border: solid 1px #4A993E; }
+        body.mindpin-anonymous .login-wrapper form .field a.signup:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+        body.mindpin-anonymous .login-wrapper form .field a.signup span {
+          display: block; }
+        body.mindpin-anonymous .login-wrapper form .field a.signup:hover {
+          background: -moz-linear-gradient(-90deg, #35b624, #32b321);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
+          border: solid 1px #4A993E; }
+      body.mindpin-anonymous .login-wrapper form .field .remember-me {
+        padding: 3px; }
+      body.mindpin-anonymous .login-wrapper form .field .forget-password {
+        padding: 3px; }
+        body.mindpin-anonymous .login-wrapper form .field .forget-password a {
+          color: #666; }
+          body.mindpin-anonymous .login-wrapper form .field .forget-password a:hover {
+            color: #666; }
+  body.mindpin-anonymous .login-wrapper .login-form {
+    margin-left: 8px; }
+  body.mindpin-anonymous .login-wrapper .flash-error {
+    margin: 3px 0 0 0;
+    background: #777;
+    border: solid 1px #666;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px; }
+    body.mindpin-anonymous .login-wrapper .flash-error span {
+      height: 30px;
+      line-height: 30px; }
+  body.mindpin-anonymous .login-wrapper .footmisc {
+    overflow: hidden; }
+    body.mindpin-anonymous .login-wrapper .footmisc .desc {
+      float: left;
+      margin-left: 80px;
+      font-size: 14px;
+      font-weight: bold; }
+    body.mindpin-anonymous .login-wrapper .footmisc .signup {
+      overflow: hidden;
+      margin-left: 532px; }
+      body.mindpin-anonymous .login-wrapper .footmisc .signup a {
+        float: left; }
+  body.mindpin-anonymous .login-wrapper .activation {
+    position: absolute;
+    top: 0;
+    left: 320px; }
+    body.mindpin-anonymous .login-wrapper .activation .btn {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      display: block;
+      padding: 0;
+      height: 31px;
+      line-height: 31px;
+      text-align: center;
+      width: 80px;
+      font-size: 14px;
+      background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+      border: solid 1px #3079ED;
+      color: white;
+      font-weight: bold;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+      width: 130px;
+      margin-top: 24px;
+      *margin-top: 25px;
+      background: -moz-linear-gradient(-90deg, #d25449, #d25449);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d25449), to(#d25449));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d25449',endColorstr='#d25449');
+      border: solid 1px #830300;
+      margin-top: 10px; }
+      body.mindpin-anonymous .login-wrapper .activation .btn:hover {
+        color: white;
+        text-decoration: none;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+        border: solid 1px #2F5BB7; }
+      body.mindpin-anonymous .login-wrapper .activation .btn span {
+        display: block; }
+      body.mindpin-anonymous .login-wrapper .activation .btn:hover {
+        background: -moz-linear-gradient(-90deg, #d25449, #d25449);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d25449), to(#d25449));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d25449',endColorstr='#d25449');
+        border: solid 1px #830300; }
+  body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn {
+    position: absolute;
+    top: 0px;
+    left: 470px; }
+    body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn .btn {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      display: block;
+      padding: 0;
+      height: 31px;
+      line-height: 31px;
+      text-align: center;
+      width: 80px;
+      font-size: 14px;
+      background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+      border: solid 1px #3079ED;
+      color: white;
+      font-weight: bold;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+      width: 130px;
+      margin-top: 24px;
+      *margin-top: 25px;
+      margin-top: 10px; }
+      body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn .btn:hover {
+        color: white;
+        text-decoration: none;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+        border: solid 1px #2F5BB7; }
+      body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn .btn span {
+        display: block; }
+  body.mindpin-anonymous .login-wrapper .to-tu-mindpin {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    margin-left: 8px;
+    margin-top: 30px; }
+    body.mindpin-anonymous .login-wrapper .to-tu-mindpin a.new-site {
+      color: #3079ED;
+      font-size: 18px; }
+      body.mindpin-anonymous .login-wrapper .to-tu-mindpin a.new-site span {
+        color: #7AADED; }
 body.mindpin-anonymous .signup-wrapper {
   position: absolute;
   top: 0;
@@ -7518,9 +7732,9 @@ body.mindpin-anonymous .signup-wrapper {
   body.mindpin-anonymous .signup-wrapper .desc {
     float: left; }
     body.mindpin-anonymous .signup-wrapper .desc .logo {
-      width: 420px;
+      width: 320px;
       height: 75px;
-      background: url(/images/logo.png);
+      background: url(/images/logo.png) no-repeat;
       margin-bottom: 20px; }
     body.mindpin-anonymous .signup-wrapper .desc .logo {
       margin-top: 30px; }
@@ -7660,35 +7874,35 @@ body.mindpin-anonymous .signup-wrapper {
             border: solid 1px #2F5BB7; }
           body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup-submit span {
             display: block; }
-body.mindpin-anonymous .reset-password-wrapper {
+body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activation-wrapper {
   position: absolute;
   top: 0;
   left: 50%;
   margin-top: 170px;
   margin-left: -220px;
   overflow: hidden; }
-  body.mindpin-anonymous .reset-password-wrapper .logo {
-    width: 420px;
+  body.mindpin-anonymous .reset-password-wrapper .logo, body.mindpin-anonymous .activation-wrapper .logo {
+    width: 320px;
     height: 75px;
-    background: url(/images/logo.png);
+    background: url(/images/logo.png) no-repeat;
     margin-bottom: 20px; }
-  body.mindpin-anonymous .reset-password-wrapper .form {
+  body.mindpin-anonymous .reset-password-wrapper .form, body.mindpin-anonymous .activation-wrapper .form {
     padding-left: 10px; }
-    body.mindpin-anonymous .reset-password-wrapper .form form {
+    body.mindpin-anonymous .reset-password-wrapper .form form, body.mindpin-anonymous .activation-wrapper .form form {
       overflow: hidden;
       margin-left: 80px;
       margin-bottom: 30px; }
-      body.mindpin-anonymous .reset-password-wrapper .form form .field {
+      body.mindpin-anonymous .reset-password-wrapper .form form .field, body.mindpin-anonymous .activation-wrapper .form form .field {
         float: left;
         margin-right: 10px; }
-        body.mindpin-anonymous .reset-password-wrapper .form form .field label {
+        body.mindpin-anonymous .reset-password-wrapper .form form .field label, body.mindpin-anonymous .activation-wrapper .form form .field label {
           display: block; }
-        body.mindpin-anonymous .reset-password-wrapper .form form .field input.text {
+        body.mindpin-anonymous .reset-password-wrapper .form form .field input.text, body.mindpin-anonymous .activation-wrapper .form form .field input.text {
           border: solid 1px #ccc;
           box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
           font-weight: bold;
           font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
-        body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit {
+        body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit, body.mindpin-anonymous .activation-wrapper .form form .field a.login-submit {
           border-radius: 4px;
           -moz-border-radius: 4px;
           -webkit-border-radius: 4px;
@@ -7708,16 +7922,16 @@ body.mindpin-anonymous .reset-password-wrapper {
           text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
           margin-top: 24px;
           *margin-top: 25px; }
-          body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit:hover {
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit:hover, body.mindpin-anonymous .activation-wrapper .form form .field a.login-submit:hover {
             color: white;
             text-decoration: none;
             background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
             border: solid 1px #2F5BB7; }
-          body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit span {
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit span, body.mindpin-anonymous .activation-wrapper .form form .field a.login-submit span {
             display: block; }
-        body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup {
+        body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup, body.mindpin-anonymous .activation-wrapper .form form .field a.signup {
           border-radius: 4px;
           -moz-border-radius: 4px;
           -webkit-border-radius: 4px;
@@ -7741,31 +7955,31 @@ body.mindpin-anonymous .reset-password-wrapper {
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#38b927), to(#35b624));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#38b927',endColorstr='#35b624');
           border: solid 1px #4A993E; }
-          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover {
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover, body.mindpin-anonymous .activation-wrapper .form form .field a.signup:hover {
             color: white;
             text-decoration: none;
             background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
             border: solid 1px #2F5BB7; }
-          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup span {
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup span, body.mindpin-anonymous .activation-wrapper .form form .field a.signup span {
             display: block; }
-          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover {
+          body.mindpin-anonymous .reset-password-wrapper .form form .field a.signup:hover, body.mindpin-anonymous .activation-wrapper .form form .field a.signup:hover {
             background: -moz-linear-gradient(-90deg, #35b624, #32b321);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#35b624), to(#32b321));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#35b624',endColorstr='#32b321');
             border: solid 1px #4A993E; }
-        body.mindpin-anonymous .reset-password-wrapper .form form .field .remember-me {
+        body.mindpin-anonymous .reset-password-wrapper .form form .field .remember-me, body.mindpin-anonymous .activation-wrapper .form form .field .remember-me {
           padding: 3px; }
-        body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password {
+        body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password, body.mindpin-anonymous .activation-wrapper .form form .field .forget-password {
           padding: 3px; }
-          body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password a {
+          body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password a, body.mindpin-anonymous .activation-wrapper .form form .field .forget-password a {
             color: #666; }
-            body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password a:hover {
+            body.mindpin-anonymous .reset-password-wrapper .form form .field .forget-password a:hover, body.mindpin-anonymous .activation-wrapper .form form .field .forget-password a:hover {
               color: #666; }
-    body.mindpin-anonymous .reset-password-wrapper .form form {
+    body.mindpin-anonymous .reset-password-wrapper .form form, body.mindpin-anonymous .activation-wrapper .form form {
       margin: 0; }
-      body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit {
+      body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit, body.mindpin-anonymous .activation-wrapper .form form a.reset-password-submit {
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
@@ -7784,16 +7998,44 @@ body.mindpin-anonymous .reset-password-wrapper {
         font-weight: bold;
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
         margin-top: 24px; }
-        body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit:hover {
+        body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit:hover, body.mindpin-anonymous .activation-wrapper .form form a.reset-password-submit:hover {
           color: white;
           text-decoration: none;
           background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
           border: solid 1px #2F5BB7; }
-        body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit span {
+        body.mindpin-anonymous .reset-password-wrapper .form form a.reset-password-submit span, body.mindpin-anonymous .activation-wrapper .form form a.reset-password-submit span {
           display: block; }
-  body.mindpin-anonymous .reset-password-wrapper.no1 {
+      body.mindpin-anonymous .reset-password-wrapper .form form a.active-submit, body.mindpin-anonymous .activation-wrapper .form form a.active-submit {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        margin-top: 24px; }
+        body.mindpin-anonymous .reset-password-wrapper .form form a.active-submit:hover, body.mindpin-anonymous .activation-wrapper .form form a.active-submit:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+        body.mindpin-anonymous .reset-password-wrapper .form form a.active-submit span, body.mindpin-anonymous .activation-wrapper .form form a.active-submit span {
+          display: block; }
+  body.mindpin-anonymous .reset-password-wrapper.no1, body.mindpin-anonymous .activation-wrapper.no1 {
     margin-left: -320px; }
 
 .page-mindmaps-manage-bar {
@@ -8078,8 +8320,8 @@ body.mindpin-anonymous .reset-password-wrapper {
             -moz-border-radius: 2px;
             -webkit-border-radius: 2px;
             margin-right: 5px;
+            line-height: 33em;
             font-size: 0;
-            line-htight: 33em;
             overflow: hidden;
             background-color: white;
             background-repeat: no-repeat;

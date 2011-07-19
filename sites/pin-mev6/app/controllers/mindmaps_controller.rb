@@ -16,7 +16,7 @@ class MindmapsController < ApplicationController
   end
 
   ############### user-auth
-  before_filter :login_required,:only=>[:do_clone]
+  before_filter :login_required,:only=>[:do_clone,:import,:new]
 
   # 常用关键词
   def aj_words

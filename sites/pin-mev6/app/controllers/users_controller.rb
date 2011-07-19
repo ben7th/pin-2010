@@ -9,4 +9,5 @@ class UsersController < ApplicationController
       publics.find(:all,:order=>"id desc").
       paginate(:per_page=>20,:page=>params[:page]||1)
   end
+
 end

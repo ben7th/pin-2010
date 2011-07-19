@@ -1,0 +1,19 @@
+-if logged_in?
+  .login-wrapper
+    .logo
+    .activation
+      =link_to '<span>激活社区服务</span>','/activation',:class=>'btn'
+    .to-tu-mindmap-btn
+      =link_to '<span>访问导图服务</span>',pin_url_for('pin-daotu'),:class=>'btn'
+    .to-tu-mindpin
+      %span> 老用户请访问并记住思维导图站的新域名：
+      =link_to '<span>http://</span>tu.mindpin.com',pin_url_for('pin-daotu'),:class=>'new-site'
+      %span.marginl5> 更多新鲜功能，体验更好~
+-else
+  .login-wrapper
+    .logo
+    .to-tu-mindpin
+      %span> 老用户请访问并记住思维导图站的新域名：
+      =link_to '<span>http://</span>tu.mindpin.com',pin_url_for('pin-daotu'),:class=>'new-site'
+      %span.marginl5> 更多新鲜功能，体验更好~
+  

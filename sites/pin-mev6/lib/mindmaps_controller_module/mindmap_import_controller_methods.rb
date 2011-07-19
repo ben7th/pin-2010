@@ -1,4 +1,8 @@
 module MindmapImportControllerMethods
+  def self.included(base)
+    base.skip_before_filter :verify_authenticity_token,:only=>[:upload_import_file]
+  end
+
   def import
     @mindmap = Mindmap.new
   end
@@ -12,7 +16,6 @@ module MindmapImportControllerMethods
 
 
         struct = MindmapImportAdpater.struct_by_upload_temp_id(upload_temp_id)
-    mup_ap struct
 
     render :json=>{:upload_temp_id=>upload_temp_id,:thumb_src=>url,
       :type=>type,:nodes_count=>nodes_count,:filename=>filename}

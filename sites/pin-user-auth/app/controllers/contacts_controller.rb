@@ -105,19 +105,28 @@ class ContactsController < ApplicationController
   end
 
   def follow
+#          user.add_contact_user(contact_user)
+#      user.remove_contact_user(contact_user)
+#    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::FOLLOW_OPERATION,current_user,contact_user)
+#      return render :status=>200,:text=>"关注成功"
+#    end
+#    render :status=>500,:text=>"关注失败"
     contact_user = User.find(params[:user_id])
-    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::FOLLOW_OPERATION,current_user,contact_user)
+    contact = current_user.add_contact_user(contact_user)
+    unless contact.id.blank?
       return render :status=>200,:text=>"关注成功"
     end
     render :status=>500,:text=>"关注失败"
   end
 
   def unfollow
+#    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::UNFOLLOW_OPERATION,current_user,contact_user)
+#      return render :status=>200,:text=>"取消关注成功"
+#    end
+#    render :status=>500,:text=>"取消关注失败"
     contact_user = User.find(params[:user_id])
-    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::UNFOLLOW_OPERATION,current_user,contact_user)
-      return render :status=>200,:text=>"取消关注成功"
-    end
-    render :status=>500,:text=>"取消关注失败"
+    current_user.remove_contact_user(contact_user)
+    render :status=>200,:text=>"取消关注成功"
   end
 
 end

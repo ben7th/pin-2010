@@ -28,4 +28,10 @@ class ActivationCode < ActiveRecord::Base
     return true
   end
 
+  module UserMethods
+    def is_v2_activation_user?
+      ActivationCode.is_v2_activation_user?(self)
+    end
+  end
+
 end

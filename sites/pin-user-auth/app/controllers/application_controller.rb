@@ -18,8 +18,9 @@ class ApplicationController < ActionController::Base
   end
 
 
-  UN_UPLOADING_PAGE = {
-    "sessions"=>["create","destroy"],
+  UN_UPDATING_PAGE = {
+    "index"=>["index"],
+    "sessions"=>["new","create","destroy"],
     "users"=>["new","create",
       "forgot_password_form","forgot_password",
       "reset_password","change_password"
@@ -31,20 +32,36 @@ class ApplicationController < ActionController::Base
     "connect_users"=>["update_bind_tsina_info",
       "bind_tsina","bind_tsina_callback",
       "bind_tsina_failure"
+      ],
+    "contacts"=>["follow","unfollow",
+      "followings","fans","create"
+    ],
+    "activation"=>["services",
+      "apply","do_apply",
+      "activation","do_activation"
       ]
   }
-  before_filter :redirect_updating_page
-  def redirect_updating_page
+  before_filter :redirect_services_page
+  def redirect_services_page
     controller = params[:controller]
     action = params[:action]
 
-    as = UN_UPLOADING_PAGE[controller]
-    if as.nil? || !as.include?(action)
-      return to_updating_page
+    as = UN_UPDATING_PAGE[controller]
+    return true if !!as && as.include?(action) #指定action，放行PASS
+
+    if logged_in?
+      if current_user.is_v2_activation_user?
+        return true #放行PASS
+      end
+      return redirect_to "/services"
     end
+
+    redirect_to "/"
   end
 
   def to_updating_page
     redirect_to pin_url_for("ui","updating.html")
   end
+
+
 end

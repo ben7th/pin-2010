@@ -4,6 +4,14 @@ ActionController::Routing::Routes.draw do |map|
   map.welcome '/welcome',:controller=>'index',:action=>'welcome'
   map.connect "/in_feeds_more",:controller=>"index",:action=>"in_feeds_more"
   map.connect "/feedback",:controller=>"index",:action=>"feedback"
+  
+  map.connect "/services",:controller=>"activation",:action=>"services"
+  map.connect "/activation",:controller=>"activation",:action=>"activation"
+  map.connect "/do_activation",:controller=>"activation",:action=>"do_activation",
+    :conditions=>{:method=>:post}
+  map.connect "/apply",:controller=>"activation",:action=>"apply"
+  map.connect "/do_apply",:controller=>"activation",:action=>"do_apply",
+    :conditions=>{:method=>:post}
 
   # ---------------- 管理员后门 -------------
   map.connect '/zhi_ma_kai_men',

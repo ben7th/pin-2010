@@ -16,8 +16,7 @@ class FollowOperationQueueWorker
     when FOLLOW_OPERATION
       user.add_contact_user(contact_user)
     when UNFOLLOW_OPERATION
-      contact = user.get_contact_obj_of(contact_user)
-      contact.destroy if !!contact
+      user.remove_contact_user(contact_user)
     end
   end
 

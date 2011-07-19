@@ -1,11 +1,11 @@
 pie.load(function(){
-  var scriptData = {
-    'authenticity_token':pie.auth_token
-  }
-  scriptData[pie.session_key] = pie.session_value;
+//  var scriptData = {
+//    'authenticity_token':pie.auth_token
+//  }
+//  scriptData[pie.session_key] = pie.session_value;
 
   jQuery('#page-mindmap-import-btn').uploadify({
-    'uploader'     : '/uploadify/uploadify.swf',
+    'uploader'     : '/uploadify/uploadify.swf?'+pie.randstr(),
     'script'       : '/mindmaps/upload_import_file',
     'cancelImg'    : '/uploadify/cancel.png',
     'buttonImg'    : '/uploadify/upload_mindmap_1.png',
@@ -18,7 +18,7 @@ pie.load(function(){
     'fileDesc'     : '导图文件 mm, mmap, xmind',
     'fileExt'      : '*.mm;*.mmap;*.xmind;',
     'sizeLimit'    : 4194304,// 4.megabytes
-    'scriptData'   : scriptData,
+    //'scriptData'   : scriptData,
     'queueID'      : 'page-mindmap-upload-queue',
 
     'onComplete'  : function(event, ID, fileObj, response, data) {
@@ -44,8 +44,14 @@ pie.load(function(){
       jQuery('form input.submit').attr("disabled",false).removeClass('disabled');
     },
     'onError'     : function (event, ID, fileObj, errorObj) {
+      var str = ''
+      if(errorObj.info == 422){
+        str = '用户身份验证错误，如果该错误反复出现，请尝试退出并重新登录。'
+      }else{
+        str = '上传出错';
+      }
       setTimeout(function(){
-        jQuery('.uploadifyError .percentage').html(' - 上传出错');
+        jQuery('.uploadifyError .percentage').html(' - '+str);
       },1);
     }
   });
