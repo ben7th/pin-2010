@@ -44,11 +44,18 @@ pie.load(function(){
       jQuery('form input.submit').attr("disabled",false).removeClass('disabled');
     },
     'onError'     : function (event, ID, fileObj, errorObj) {
+      pie.log(errorObj)
       var str = ''
       if(errorObj.info == 422){
         str = '用户身份验证错误，如果该错误反复出现，请尝试退出并重新登录。'
+      }else if(errorObj.info == 510){
+        str = '不支持导入此文件格式。';
+      }else if(errorObj.info == 511){
+        str = '导图文件解析出错，可能文件已损坏，或不支持导入此版本软件保存的文件。';
+      }else if(errorObj.info == 512){
+        str = '导图文件解析过程中，缩略图生成失败。'
       }else{
-        str = '上传出错';
+        str = '导图文件上传导入出错。'
       }
       setTimeout(function(){
         jQuery('.uploadifyError .percentage').html(' - '+str);

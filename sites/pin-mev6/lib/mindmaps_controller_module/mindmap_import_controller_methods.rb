@@ -19,6 +19,15 @@ module MindmapImportControllerMethods
 
     render :json=>{:upload_temp_id=>upload_temp_id,:thumb_src=>url,
       :type=>type,:nodes_count=>nodes_count,:filename=>filename}
+  rescue Exception => ex
+    case ex
+    when MindmapImportAdpater::UnSupportFormatError
+      render :status=>510,:text=>"不支持的导图格式"
+    when MindmapImportAdpater::StructError
+      render :status=>511,:text=>"解析文件出错"
+    when MindmapImportAdpater::CreateThumbError
+      render :status=>512,:text=>"导图缩略图生成失败"
+    end
   end
 
   def import_file_thumb

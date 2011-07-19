@@ -1,4 +1,8 @@
 class MindmapImportAdpater
+  class UnSupportFormatError<StandardError;end
+  class StructError<StandardError;end
+  class CreateThumbError<StandardError;end
+
   if RAILS_ENV == "development"
     ATTACHED_FILE_PATH_ROOT = "/web1/2010/cache_images"
   else
@@ -29,7 +33,7 @@ class MindmapImportAdpater
     when 'xmind' then "Xmind"
     when 'imm' then "Imindmap"
     else
-      raise "错误的导图格式"
+      raise UnSupportFormatError,"不支持的导图格式"
     end
     str
   end
@@ -66,7 +70,7 @@ class MindmapImportAdpater
     begin
       tmp_image_path = MindmapToImage.new(mindmap).export("120x120")
     rescue Exception => ex
-      raise "生成缩略图失败"
+      raise CreateThumbError,"生成导图缩略图出错"
     end
     FileUtils.cp(tmp_image_path,thumb_file_path)
 
@@ -84,10 +88,16 @@ class MindmapImportAdpater
     when 'xmind' then XmindParser.struct_of_import(file)
     when 'imm' then ImindmapParser.struct_of_import(file)
     else
-      raise "错误的导图格式"
+      raise UnSupportFormatError,"不支持的导图格式"
     end
     
     struct
+  rescue Exception => ex
+    if ex.class == UnSupportFormatError
+      raise ex
+    else
+      raise StructError,"解析导图结构出现错误"
+    end
   end
 
   def self.dir_path(upload_temp_id)
