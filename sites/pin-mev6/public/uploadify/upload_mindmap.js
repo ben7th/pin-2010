@@ -54,6 +54,8 @@ pie.load(function(){
         str = '导图文件解析出错，可能文件已损坏，或不支持导入此版本软件保存的文件。';
       }else if(errorObj.info == 512){
         str = '导图文件解析过程中，缩略图生成失败。'
+      }else if(errorObj.info == 413){
+        str = '文件体积过大。'
       }else{
         str = '导图文件上传导入出错。'
       }
