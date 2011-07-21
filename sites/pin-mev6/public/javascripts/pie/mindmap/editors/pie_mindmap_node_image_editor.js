@@ -4,14 +4,18 @@ pie.mindmap.NodeImageEditor = Class.create({
 
     this.upload_enlabed = false;
 
+    //先解除此前可能已经过期的绑定 2011-7-21
+    //导图某些情况下 如操作前进后退时 可能重新加载，必须如此处理
+    jQuery(document).undelegate('.mindmap_node_image_editor');
+
     //选择图片
-    jQuery(document).delegate('.page-mindmap-image-editor .image-list li .ic','click',function(){
+    jQuery(document).delegate('.page-mindmap-image-editor .image-list li .ic','click.mindmap_node_image_editor',function(){
       jQuery('.page-mindmap-image-editor .image-upload .image-list li').removeClass('selected');
       jQuery(this).closest('li').addClass('selected');
     });
 
     //删除图片
-    jQuery(document).delegate('.page-mindmap-image-editor a.delete','click',function(){
+    jQuery(document).delegate('.page-mindmap-image-editor a.delete','click.mindmap_node_image_editor',function(){
       var elm = jQuery(this);
       var li_elm = elm.closest('li');
       var id = li_elm.attr('data-id');
@@ -32,12 +36,12 @@ pie.mindmap.NodeImageEditor = Class.create({
     var func = this;
 
     //取消
-    jQuery(document).delegate('.page-mindmap-image-editor .cancel','click',function(){
+    jQuery(document).delegate('.page-mindmap-image-editor .cancel','click.mindmap_node_image_editor',function(){
       func.close();
     });
 
     //确定
-    jQuery(document).delegate('.page-mindmap-image-editor .accept','click',function(){
+    jQuery(document).delegate('.page-mindmap-image-editor .accept','click.mindmap_node_image_editor',function(){
       var node = func.node;
 
       var selected_li = jQuery('.page-mindmap-image-editor .image-list li.selected');

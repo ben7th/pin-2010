@@ -167,7 +167,7 @@ class MindmapOperate
       {:params_hash=>@params.hash,:operation_kind=>"do_nodecolor",:operator=>@operator}
     end
   end
-
+  
   # 修改一个节点的颜色
   def do_change_color
     # TODO
@@ -220,10 +220,12 @@ class MindmapOperate
         raise MindmapOperate::MindmapNotSaveError,"mindmap 数据库记录保存出错"
       end
       @mindmap.refresh_thumb_image_in_queue
+
+      # 修改历史记录
       HistoryRecord.record_operation(@mindmap,
         :kind=>operation_kind,
         :params_hash=>params_hash,
-        :operator=>operator)
+        :operator=>operator,:old_struct=>old_struct)
     end
     return true
   end

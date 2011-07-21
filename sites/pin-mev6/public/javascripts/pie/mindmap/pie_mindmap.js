@@ -26,7 +26,7 @@ pie.mindmap.BasicMapPaper = Class.create({
 
     this._init_paper(paper_id);
     this._init_scroller();
-
+    this._init_toolbar();
     this._init_const();
 
     this.nodes = new Hash();
@@ -45,6 +45,16 @@ pie.mindmap.BasicMapPaper = Class.create({
   _init_scroller:function(){
     this.scroller = {
       jq : this.paper.jq.parent()
+    }
+  },
+  _init_toolbar:function(){
+    if(this.editmode){
+      var toolbar_jq = jQuery('.mindmap-paper-toolbar')
+      this.toolbar = {
+        jq : toolbar_jq,
+        undo_jq : toolbar_jq.find('.mindmap-ops .mindmap-undo'),
+        redo_jq : toolbar_jq.find('.mindmap-ops .mindmap-redo')
+      }
     }
   },
   _init_const:function(){
@@ -83,7 +93,7 @@ pie.mindmap.BasicMapPaper = Class.create({
       dataType : 'json',
       success : function(data){
         this.root = new pie.mindmap.Node(data,this);
-        this.initial_data();
+        this.initial_data({'recenter':true});
       }.bind(this),
       error : function(){
         jQuery.facebox('思维导图数据异常，载入失败。');
@@ -91,7 +101,53 @@ pie.mindmap.BasicMapPaper = Class.create({
     })
     return this;
   },
-  initial_data:function(){
+
+  //undo之后重新加载
+  undo_load:function(){
+    return this._undo_or_redo_load('undo');
+  },
+
+  //redo之后重新加载
+  redo_load:function(){
+    return this._undo_or_redo_load('redo');
+  },
+
+  _undo_or_redo_load:function(flag){
+    var url = '';
+    if(flag == 'undo') url = '/mindmaps/'+this.id+'/undo';
+    if(flag == 'redo') url = '/mindmaps/'+this.id+'/redo';
+    if(url == '') return this;
+
+    var map = this;
+    jQuery.ajax({
+      url : url,
+      type : 'PUT',
+      dataType : 'json',
+      beforeSend:function(){
+        jQuery('.ajax-loading-bar').css('display','block');
+        map.toolbar.undo_jq.addClass('lock');
+        map.toolbar.redo_jq.addClass('lock');
+      },
+      success : function(data){
+        pie.log(data);
+        var map_data = data.map;
+        this.root = new pie.mindmap.Node(map_data,this);
+        this.initial_data({'recenter':false});
+
+        if(data.can_undo){this.toolbar.undo_jq.removeClass('lock');}
+        if(data.can_redo){this.toolbar.redo_jq.removeClass('lock');}
+      }.bind(this),
+      error : function(){
+        jQuery.facebox('思维导图数据异常，载入失败。');
+      },
+      complete:function(){
+        jQuery('.ajax-loading-bar').css('display','none');
+      }
+    })
+    return this;
+  },
+
+  initial_data:function(config){
     var paper    = this.paper;
     var root     = this.root;
 
@@ -109,7 +165,9 @@ pie.mindmap.BasicMapPaper = Class.create({
     paper.yoff = paper_jq.height() / 2;
     
     //定位编辑区
-    this.recenter();
+    if(config.recenter == true){
+      this.recenter();
+    }
 
     //定位根结点
     this._set_root_position();

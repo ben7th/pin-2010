@@ -5,6 +5,12 @@
   =show_sub_menu
   .sidepart
     =render 'index/parts/stats'
+  %div{:style=>'padding:10px;'}
+    .data.clearfix
+      .avatar.fleft
+        %img{:src=>'http://tp2.sinaimg.cn/2255854945/50/5605944310/1'}
+      .title{:style=>'margin-left:60px;'} 官方新浪微博
+      .name{:style=>'margin-left:60px;'}=link_to 'mindpin思维导图','http://weibo.com/2255854945',:target=>'_blank'
 
 .main.grid_19.ll
   =render 'index/parts/manage_bar'

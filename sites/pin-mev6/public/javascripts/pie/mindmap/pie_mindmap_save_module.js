@@ -55,10 +55,18 @@ pie.mindmap_save_module = {
       beforeSend : function(){
         info_label = new pie.mindmap.InfoLabel(mindmap).notice('正在自动保存...');
         mindmap.on_ajax_save = true;
+        
+        //保存过程中都不能点
+        mindmap.toolbar.undo_jq.addClass('lock');
+        mindmap.toolbar.redo_jq.addClass('lock');
       },
       success : function(res){
         info_label.close();
         mindmap.revision.remote = res.revision;
+        //进行了任何操作以后，点亮undo按钮
+        mindmap.toolbar.undo_jq.removeClass('lock');
+        //进行了任何操作以后，锁定redo按钮
+        mindmap.toolbar.redo_jq.addClass('lock');
       },
       error : function(res){
         var code = res.responseText.evalJSON().code;

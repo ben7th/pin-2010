@@ -325,7 +325,6 @@ pie.mindmap_node_build_dom_module = {
 
         this._bindCommonEvents();
         if (this.map.editmode) {
-          pie.log(this.map.editmode)
           this._bindEditEvents();
         }else{
           this._bindShowEvents();

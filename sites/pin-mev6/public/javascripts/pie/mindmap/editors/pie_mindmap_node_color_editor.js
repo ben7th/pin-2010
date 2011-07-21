@@ -6,8 +6,13 @@ pie.mindmap.NodeColorEditor = Class.create({
 
     var func = this;
 
+
+    //先解除此前可能已经过期的绑定 2011-7-21
+    //导图某些情况下 如操作前进后退时 可能重新加载，必须如此处理
+    jQuery(document).undelegate('.mindmap_node_color_editor');
+
     //选择颜色
-    jQuery(document).delegate('.page-mindmap-color-editor .colors .color','click',function(){
+    jQuery(document).delegate('.page-mindmap-color-editor .colors .color','click.mindmap_node_color_editor',function(){
       jQuery('.page-mindmap-color-editor .colors .color').removeClass('selected');
       var elm = jQuery(this);
       elm.addClass('selected');
@@ -20,17 +25,16 @@ pie.mindmap.NodeColorEditor = Class.create({
     });
 
     //取消
-    jQuery(document).delegate('.page-mindmap-color-editor .cancel','click',function(){
+    jQuery(document).delegate('.page-mindmap-color-editor .cancel','click.mindmap_node_color_editor',function(){
       func.close();
     });
 
     //确定
-    jQuery(document).delegate('.page-mindmap-color-editor .accept','click',function(){
+    jQuery(document).delegate('.page-mindmap-color-editor .accept','click.mindmap_node_color_editor',function(){
       if(func.bgcolor == null){
         func.close();
         return;
       }
-
 
       var node = func.node;
       var map = func.map;
@@ -52,7 +56,7 @@ pie.mindmap.NodeColorEditor = Class.create({
 
   //被菜单调用的方法
   do_edit_font:function(mindmap_node){
-    this.node = mindmap_node;
+    this.node = mindmap_node;pie.log(mindmap_node)
 		this.node.select();
 
     this.bgcolor = this.node.get_bgcolor();

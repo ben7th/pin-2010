@@ -58,5 +58,6 @@ class MindmapsController < ApplicationController
   include MindmapManagingControllerMethods
   # clone_form do_clone
   include MindmapCloneControllerMethods
-
+  # 查看操作记录，前进，后退操作
+  include MindmapHistoryRecordsControllerMethods
 end

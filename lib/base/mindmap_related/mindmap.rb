@@ -127,6 +127,10 @@ class Mindmap < Mev6Abstract
     MindmapDocument.new(self)
   end
   
+  # 取得思维导图json
+  def struct_hash
+    document.struct_hash
+  end
 
   # 取得思维导图json
   def struct_json
@@ -198,4 +202,6 @@ class Mindmap < Mev6Abstract
   include MindmapFav::MindmapMethods
 
   include FeedMindmap::MindmapMethods
+
+  include HistoryRecord::MindmapMethods
 end

@@ -7,20 +7,23 @@ pie.mindmap.NodeNoteEditor = Class.create({
     this.text_jq = this.sidebar_jq.find('.text');
     this.ops_jq = this.sidebar_jq.find('.ops');
 
+    //先解除此前可能已经过期的绑定 2011-7-21
+    //导图某些情况下 如操作前进后退时 可能重新加载，必须如此处理
+    jQuery(document).undelegate('.mindmap_node_note_editor');
 
     var func = this;
 
-    jQuery(document).delegate('.mindmap-note-sidebar .ops a.edit','click',function(){
+    jQuery(document).delegate('.mindmap-note-sidebar .ops a.edit','click.mindmap_node_note_editor',function(){
       func.map.edit_focus_note();
     });
 
     //取消
-    jQuery(document).delegate('.page-mindmap-note-editor .cancel','click',function(){
+    jQuery(document).delegate('.page-mindmap-note-editor .cancel','click.mindmap_node_note_editor',function(){
       func.close();
     });
 
     //确定
-    jQuery(document).delegate('.page-mindmap-note-editor .accept','click',function(){
+    jQuery(document).delegate('.page-mindmap-note-editor .accept','click.mindmap_node_note_editor',function(){
       var node = func.node;
       var new_note = jQuery('.page-mindmap-note-editor').find('textarea').val();
 

@@ -1,4 +1,4 @@
--content_for :title, " 导图编辑器 v0.6 浏览模式 - #{escape_title(@mindmap)}"
+-content_for :title, " 导图编辑器 v0.8 浏览模式 - #{escape_title(@mindmap)}"
 
 -content_for :head do
   = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
@@ -11,4 +11,3 @@
 
 =render 'mindmap_editor/mindmap_toolbar'
 =render 'mindmap_editor/mindmap_main',:mode=>'viewer'
-=render 'mindmap_editor/status_bar'
