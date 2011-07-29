@@ -1,0 +1,53 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: users
+#
+#  id                :integer(4)      not null, primary key
+#  login             :string(255)     default(""), not null
+#  name              :string(255)     default(""), not null
+#  hashed_password   :string(255)     default(""), not null
+#  salt              :string(255)     default(""), not null
+#  email             :string(255)     default(""), not null
+#  sign              :string(255)     
+#  active_code       :string(255)     
+#  activated         :boolean(1)      not null
+#  logo_file_name    :string(255)     
+#  logo_content_type :string(255)     
+#  logo_file_size    :integer(4)      
+#  logo_updated_at   :datetime        
+#  created_at        :datetime        
+#  updated_at        :datetime        
+
+#  A chanel_ac,chanel_ad
+channel_ac:
+  name: channel_ac
+  creator: a
+
+channel_ad:
+  name: channel_ad
+  creator: a
+#  B channel_bd,channel_ba
+channel_bd:
+  name: channel_bd
+  creator: b
+
+channel_ba:
+  name: channel_ba
+  creator: b
+#  C channel_ca,channel_cb
+channel_ca:
+  name: channel_ca
+  creator: c
+
+channel_cb:
+  name: channel_cb
+  creator: c
+#  D channel_db,channel_dc
+channel_db:
+  name: channel_db
+  creator: d
+
+channel_dc:
+  name: channel_dc
+  creator: d

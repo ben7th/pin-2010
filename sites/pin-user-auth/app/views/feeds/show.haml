@@ -1,5 +1,3 @@
--require_css 'views/users',true
-
 -content_for :title do
   =truncate_u(@feed.content,12)
 
@@ -22,17 +20,26 @@
 
 -useless = @feed.hidden? && @feed.hidden_by_useless?
 
--if !useless || params[:show] == 'force'
+-if true
+
+  .mside.grid_5
+
+  .main.grid_19.ll
+    .padding10
+      主题讨论ALPHA测试页面正在进行施工，尚未发布:)
+
+-elsif !useless || params[:show] == 'force'
 
   =render 'feeds/show_parts/show_page_head',:feed=>@feed
 
   .hrr
-  .grid_17.alpha
+
+  .mside.grid_5
+    =render 'feeds/show_parts/side',:feed=>@feed
+
+  .main.grid_19.ll
     =render 'feeds/show_parts/feed_show',:feed=>@feed
     =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
-
-  .grid_5.omega.fright
-    =render 'feeds/show_parts/side',:feed=>@feed
 
 -else
 

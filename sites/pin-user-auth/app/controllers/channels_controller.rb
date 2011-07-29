@@ -16,7 +16,7 @@ class ChannelsController < ApplicationController
 
   def show
     @current_channel = @channel
-    @feeds = @channel.feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    @feeds = @channel.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   def none
@@ -49,13 +49,16 @@ class ChannelsController < ApplicationController
   end
 
   def add
-    ChannelUserWorker.async_channel_user_operate(ChannelUserWorker::ADD_OPERATION,@channel.id,params[:user_id])
+    user = User.find(params[:user_id])
+    @channel.add_user(user)
     return render :status=>200,:text=>"操作完成"
   end
 
   def remove
-    ChannelUserWorker.async_channel_user_operate(ChannelUserWorker::REMOVE_OPERATION,@channel.id,params[:user_id])
-    return render :status=>200,:text=>"操作完成"
+    user = User.find(params[:user_id])
+    channels = @channel.remove_user(user)
+    ids = channels.map{|channel|channel.id}
+    render :json=>ids
   end
 
   def fb_orderlist
@@ -84,8 +87,8 @@ class ChannelsController < ApplicationController
     users = params[:user_ids].split(",").map do |user_id|
       User.find_by_id(user_id)
     end.compact
-    @channel.add_users_on_queue(users)
-    render :partial=>'channels/index_parts/aj_channel_avatars',:locals=>{:users=>users}
+    @channel.add_users(users)
+    render :partial=>'contacts/parts/channel_set_info',:locals=>{:channel=>@channel}
   end
 
   def newest_feed_ids

@@ -39,6 +39,12 @@ class FollowingsProxy < RedisBaseProxy
       },
       :following_user_ids=>Proc.new{|user|
         FollowingsProxy.new(user).xxxs_ids
+      },
+      :mutual_followings=>Proc.new{|user|
+        fans_ids = FansProxy.new(user).xxxs_ids
+        followings_ids = FollowingsProxy.new(user).xxxs_ids
+        ids = (fans_ids & followings_ids)
+        ids.map{|id|User.find_by_id(id)}.compact
       }
     }
   end

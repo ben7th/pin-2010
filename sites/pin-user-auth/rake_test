@@ -1,0 +1,2 @@
+#! /usr/bin/env sh
+rake test:units RAILS_ENV=test

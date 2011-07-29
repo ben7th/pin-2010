@@ -1,52 +1,59 @@
--require_css 'views/users',true
-
 -content_for :title do
   创建新主题
 
--content_for :javascripts do
-  = javascript_include_tag "views/feed_operation"
-
-.clearfix
-  .grid-title
-    创建新主题：提出你的问题、想法或计划，一起来讨论吧
-
-.hrr
-.grid_16.alpha
-  .loud.font14.bold.padding5
-    请尊重他人，发有意义的主题，不要进行无谓的灌水和测试。
-
-  -form_tag "/feeds",:class=>'page-new-feed-form common_form' do
+.main.grid_17
+  .page-new-feed-form
+    %h2.main-title 创建主题
     =flash_info
-    .field
-      %label.font14.bold 标题（必须有）
-      =text_area_tag "content",'',:class=>"text content-ipter"
-    .field
-      %label.font14.bold 正文
-      =text_area_tag "detail",'',:class=>"text detail-ipter"
-    .field
-      %label.font14.bold 关键词
-      =text_field_tag "tags",'',:class=>"text tags-ipter"
-    .subm
-      =submit_tag '写好了，确定',:class=>'submit'
-      =link_to '取消返回','/feeds',:class=>'go-back'
-      %span.quiet.submit-desc （标题、正文、关键词都可以在写好后再修改）
+    -form_tag "/feeds",:class=>'common_form' do
+      .field.title
+        %label 标题
+        =text_area_tag "content",'',:class=>"text content-ipter"
+      .field.detail
+        %label 正文 <span class='quiet font12'>(选填)</span>
+        =text_area_tag "detail",'',:class=>"text detail-ipter"
+      .field.tags
+        %label 关键词 <span class='quiet font12'>(选填)</span>
+        =text_field_tag "tags",'',:class=>"text tags-ipter"
+
+      .field.sendto
+        %label 发送范围...
+        =hidden_field_tag "sendto",'all-public',:class=>'sendto-hid'
+        .sendto-ipter
+          .sendtos
+            .ch.all-public>
+              %span.icon>
+              %span> 完全公开
+              %span.close> x
+
+          =link_to '＋选择发送范围','javascript:;',:class=>'add'
+
+        .sendto-selector{:style=>'display:none;'}
+          .desc.quiet
+            在这里选择要把主题发送给哪些频道，以控制主题的可见范围。
+          .groups
+            .it.all-public.lock 完全公开
+            .it.all-followings 所有联系人 <span class='quiet'>(#{current_user.followings.count})</span>
+          .channels
+            -current_user.channels.each do |channel|
+              .it.ch{:'data-id'=>channel.id,:'data-name'=>channel.name}>
+                ="#{channel.name} <span class='quiet'>(#{channel.include_users.count})</span>"
+
+      .field
+        %span.quiet.submit-desc (标题、正文、关键词都可以在写好后再修改)
+      .field.subm
+        =link_to "好了，确定创建",'javascript:;',:class=>'create-submit'
+        =link_to '算了，取消','/',:class=>'create-cancel'
 
 
-.grid_7.omega.fright
+.mside.grid_7
   .page-new-feed-tips
     .tip.what-is-it.darkbg
-      .title.btb 我应该创建怎样的主题？
-      %p.bold
-        一个好的主题，或者是可以被讨论的话题；或者是能够获得确切答案的问题。
-      %p
-        这里既不是微博，也不是个人空间。<br/>这里不欢迎任何形式的“流水账”。<br/>
-        不要发“冷笑话”，也不要写“心情日记”
-      %p
-        =":)"
-      %p
-        简单的小问题，请善用搜索引擎。
-      .alignright
-        <a href='http://www.mindpin.com/feeds/2770' target='_blank'>具体请参考这里»</a>
+      .title.btb 频道简述
+      %ul
+        %li 当选择“完全公开”时，无法选择其他任何频道
+        %li 当选择“所有联系人”时，无法选择其他任何频道
+        %li 不选择“完全公开”或“所有联系人”时，可以选择一个到多个频道
 
     .tip.format-help.darkbg{:style=>'display:none;'}
       .title.btb 简明格式帮助

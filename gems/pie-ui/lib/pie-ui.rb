@@ -153,7 +153,13 @@ if defined? ActiveRecord::Base
       }
     }
     config = memcached_config[RAILS_ENV.to_sym]
-    $memcache = MemCache.new(config)
+
+    if RAILS_ENV == "test"
+      $memcache = Cash::Mock.new
+      p "当前为测试环境，memcache = Cash::Mock.new"
+    else
+      $memcache = MemCache.new(config)
+    end
     $memcache.servers = config[:servers]
 
     $local = Cash::Local.new($memcache)

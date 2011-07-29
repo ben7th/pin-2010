@@ -9,6 +9,18 @@ class ChannelContact < UserAuthAbstract
   index :contact_id
   index [:contact_id,:channel_id]
 
+  module ChannelMethods
+    def self.included(base)
+      base.has_many :channel_contacts,:dependent=>:destroy
+    end
+  end
+
+  module ContactMethods
+    def self.included(base)
+      base.has_many :channel_contacts,:dependent=>:destroy
+    end
+  end
+
   module UserMethods
     def belongs_to_channels_db
       Channel.find_by_sql(%`

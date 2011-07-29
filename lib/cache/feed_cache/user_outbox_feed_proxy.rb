@@ -15,7 +15,7 @@ class UserOutboxFeedProxy < RedisBaseProxy
   end
 
   def self.add_feed_cache(feed)
-    return unless feed.channels_db.blank?
+    return unless feed.public?
 
     uofp = UserOutboxFeedProxy.new(feed.creator)
     ids = uofp.xxxs_ids

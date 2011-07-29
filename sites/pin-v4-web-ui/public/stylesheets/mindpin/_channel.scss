@@ -291,3 +291,185 @@
     .chs{border-bottom:1px dashed #424556;}
   }
 }
+
+/*频道设置*/
+.page-channels-set{
+  padding:10px 0;
+  .channel{
+    border:solid 1px #DDDDDD;
+    @include border-radius(5px);
+    color:white;
+    margin-bottom:10px;
+    padding:2px;
+    background:#F7F7F7;
+    position:relative;
+    height:60px;  
+    .meta{
+      padding:5px;
+      background:#666;
+      overflow:hidden;
+      cursor:default;
+      @include border-radius(4px);
+      line-height:20px;
+      height:50px;
+      .name{
+        color:white;
+        font-size:14px;
+        float:left;
+      } 
+      .ucount{
+        @include tfont;
+        font-weight:bold;color:#ccc;
+        float:right;
+        font-size:20px;
+      }
+    }
+    .users{
+      @include border-radius(0 0 4px 4px);
+      overflow:hidden;
+      padding:3px;
+      position:absolute;
+      bottom:0px;
+      .avatar{
+        width:26px;height:26px;
+        margin-right:4px;
+        float:left;
+        cursor:move;
+        position:relative;
+        overflow:visible;
+        img{width:24px;height:24px;}
+        &:hover{
+          img{
+            width:30px;height:30px;
+            box-shadow:0px 0px 4px #bbb;
+            position:absolute;
+            left:-3px;top:-3px;
+          }
+        }
+      }
+      .overlay{
+        position:absolute;
+        width:32px;height:32px;
+        left:-3px;top:-3px;
+      }
+    }
+    &.following-hover{
+      box-shadow:0px 0px 5px #3B94FF;
+    }
+    &.dd-hover{
+      background:#F3F6F9;
+      border-color:#D0DCE6;
+      box-shadow:0px 0px 6px #3B94FF;
+      .meta{background:#466583;
+        .ucount{color:#BACBD9;}
+      }
+    }
+    &.avatar-moveout{
+      box-shadow:0px 0px 6px #FF1111;
+      border-color:red;
+    }
+  }
+}
+
+@mixin following-set-dom{
+  @include gradient(#fff,#f4f4f4);
+  border:solid 1px #ddd;
+  overflow:hidden;
+  float:left;
+  padding:5px;
+  width:140px;
+  margin-right:10px;
+  margin-bottom:10px;
+  @include border-radius(2px);
+  cursor:move;
+  &:hover{
+    border:solid 1px #bbb;
+    box-shadow:0px 0px 6px #bbb;
+  }
+  .avatar{
+    width:34px;height:34px;      
+    float:left;margin-right:10px;
+    .img{
+      margin:1px 0 0 1px;
+      width:32px;height:32px;
+      @include border-radius(5px);
+    }
+  }
+  .avatar-s{
+    display:none;
+  }
+  &.selected{
+    @include gradient(#666,#333);
+    color:white;
+    border:solid 1px #444;
+    box-shadow:0px 0px 6px #bbb;
+  }
+}
+
+.page-followings-set{
+  padding:10px 0;
+  overflow:hidden;
+  .following{
+    @include following-set-dom;
+  }
+}
+
+.page-following-dd{
+  @include following-set-dom;
+  position:absolute;
+}
+.page-dragdrop-user-count{
+  position:absolute;
+  color:white;
+  @include border-radius(3px);
+  @include gradient(#3B94FF,#006AED);
+  padding:3px;
+  width:50px;
+  z-index:101;
+  text-align:center;
+  box-shadow:0px 0px 4px #bbb;
+  font-weight:bold;
+  cursor:move;
+}
+
+.page-channel-avatar-dd{
+  position:absolute;
+  overflow:visible;
+  .icon{
+    display:none;
+    width:24px;height:24px;line-height:22em;overflow:hidden;
+    color:white;
+    top:10px;left:30px;
+    position:absolute;
+  }
+  &.will-remove{
+    .icon{
+      display:block;
+      background:url(/images/flashinfo/error.png) no-repeat;
+    }
+  }
+  &.will-putin{
+    .icon{
+      display:block;
+      background:url(/images/flashinfo/success.png) no-repeat;
+    }
+  }
+}
+
+.page-followings-set-desc{
+  @include bdb2010;
+  margin-top:10px;
+  font-size:14px;
+}
+
+.page-ucount-aj{
+  @include border-radius(3px);
+  position:absolute;
+  font-size:40px;font-weight:bold;
+  &.delete{
+    color:red;
+  }
+  &.add{
+    color:#67AD3E;
+  }
+}

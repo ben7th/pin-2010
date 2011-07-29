@@ -105,8 +105,8 @@
   overflow:hidden;
   .avatar{
     float:left;
-    width:28px;height:28px;
-    margin:0 4px 4px 0;
+    width:26px;height:26px;
+    margin:0 3px 3px 0;
     img{width:24px;height:24px;}
     text-decoration:none !important;
   }
@@ -195,6 +195,7 @@
 
 @mixin footmisc{
   overflow:hidden;
+  height:50px;
   .time{
     display:inline;
   }
@@ -226,46 +227,8 @@
   }
   .creator{
     float:right;
-    width:200px;
-    padding:5px;
-    overflow:hidden;
-    .avatar{float:left;}
-    .name{margin-left:46px;}
-    &.feed-creator{
-      background:#FFFADA;
-    }
-    .time{margin:0 0 6px 0;display:block;}
-  }
-  .creator-in-list{
-    border:solid 3px #F1F1F1;
-    @include border-radius(5px);
-    background-color:white;
-    position:absolute;
-    right:20px;
-
     .avatar{
       float:left;
-    }
-    .name{
-      margin-left:55px;
-      .bold{font-weight:normal;}
-    }
-    .rep{
-      margin-left:55px;
-      overflow:hidden;
-      .score{
-        @include tfont;
-        font-weight:bold;
-        font-size:18px;
-        float:left;
-        margin:0 5px 0 0;
-        color:#666;
-      }
-      .t{
-        float:left;
-        position:relative;
-        top:6px;
-      }
     }
   }
 }
@@ -413,5 +376,15 @@
     text-decoration:none;
     @include gradient(#d7d7d7,#d3d3d3);
     border:solid 1px #848484;
+  }
+}
+
+@mixin new_object_form{
+  h2.main-title{
+    font-size:20px;font-weight:bold;
+    margin:0 0 20px 0;
+  }
+  .field label{
+    font-size:14px;
   }
 }

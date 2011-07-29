@@ -15,8 +15,18 @@ class UserInboxFeedProxy < RedisBaseProxy
     _id_list_channels = @user.belongs_to_followings_channels.map{|channel|
       UserChannelOutboxFeedProxy.new(channel).xxxs_ids
     }.flatten
+    _id_list_created_channels = @user.channels.map{|channel|
+      UserChannelOutboxFeedProxy.new(channel).xxxs_ids
+    }.flatten
+    _id_list_to_followings = (@user.mutual_followings+[@user]).map{|user|
+      UserToFollowingsOutboxFeedProxy.new(user).xxxs_ids
+    }.flatten
+    _id_list_to_personal_in = UserToPersonalInboxFeedProxy.new(@user).xxxs_ids
+    _id_list_to_personal_out = UserToPersonalOutboxFeedProxy.new(@user).xxxs_ids
 
-    _id_list = _id_list_channels + _id_list_public
+    _id_list = _id_list_channels + _id_list_public + 
+      _id_list_created_channels + _id_list_to_followings +
+      _id_list_to_personal_in + _id_list_to_personal_out
     # 排序，大的就是新的，排在前面
     ids = _id_list.sort{|x,y| y<=>x}
 

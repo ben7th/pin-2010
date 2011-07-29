@@ -1,0 +1,22 @@
+-content_for :title do
+  外部主题
+
+-content_for :javascripts do
+  = javascript_include_tag "views/feed_operation"
+
+.mside.grid_5
+  =show_sub_menu
+  .index-page-followings.sidepart
+    %h5 我的联系人
+    .followings
+      -current_user.followings.paginate(:per_page=>12,:page=>1).each do |u|
+        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+          =avatar u,:mini
+    .see-more
+      =link_to '查看全部','/followings'
+
+.main.grid_19.ll
+  .newsfeed
+    =render 'feeds/lists/feeds',:feeds=>@feeds
+  .feed-paginate.padding5
+    = will_paginate @feeds

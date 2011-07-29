@@ -5,6 +5,9 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id]) if params[:id]
   end
 
+  def index
+  end
+
   def create
     email = params[:contact][:email].strip()
     return _render_error_message("请填写你要增加的联系人的用户邮箱") if email.blank?
@@ -22,25 +25,6 @@ class ContactsController < ApplicationController
     render :text=>message,:status=>503
   end
 
-  def create_for_plugin
-    email = params[:email].strip()
-    @contact = current_user.add_contact_user(User.find_by_email(email))
-    if @contact.valid?
-      user = @contact.contact_user
-      data = !!user ? [{:id=>user.id,:name=>user.name,:email=>user.email,:avatar=>user.logo.url()},{:id=>@contact.id,:email=>@contact.email}] : [{},{:id=>@contact.id,:email=>@contact.email}]
-      return render :status=>200,:json=>data.to_json
-    end
-    render :status=>:unprocessable_entity,:text=>@contact.errors.first[1]
-  end
-
-  def destroy_for_plugin
-    @contact = Contact.find(params[:id])
-    if @contact.destroy
-      return render :status=>200,:text=>"删除成功"
-    end
-    return render :status=>400,:text=>"删除失败"
-  end
-
   def destroy
     if @contact.destroy
       render_ui do |ui|
@@ -50,23 +34,6 @@ class ContactsController < ApplicationController
           }
         ~
         ui.mplist :remove,@contact
-      end
-    end
-  end
-
-  def index
-    respond_to do |format|
-      format.html{}
-      format.json do
-        contacts_arr = current_user.contacts.map do |c|
-          user = c.contact_user
-          if user
-            [{:id=>user.id,:name=>user.name,:email=>user.email,:avatar=>user.logo.url()},{:id=>c.id,:email=>c.email}]
-          else
-            [{},{:id=>c.id,:email=>c.email}]
-          end
-        end
-        render :json=> contacts_arr.to_json
       end
     end
   end
@@ -105,12 +72,6 @@ class ContactsController < ApplicationController
   end
 
   def follow
-#          user.add_contact_user(contact_user)
-#      user.remove_contact_user(contact_user)
-#    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::FOLLOW_OPERATION,current_user,contact_user)
-#      return render :status=>200,:text=>"关注成功"
-#    end
-#    render :status=>500,:text=>"关注失败"
     contact_user = User.find(params[:user_id])
     contact = current_user.add_contact_user(contact_user)
     unless contact.id.blank?
@@ -120,10 +81,6 @@ class ContactsController < ApplicationController
   end
 
   def unfollow
-#    if FollowOperationQueueWorker.async_follow_operate(FollowOperationQueueWorker::UNFOLLOW_OPERATION,current_user,contact_user)
-#      return render :status=>200,:text=>"取消关注成功"
-#    end
-#    render :status=>500,:text=>"取消关注失败"
     contact_user = User.find(params[:user_id])
     current_user.remove_contact_user(contact_user)
     render :status=>200,:text=>"取消关注成功"

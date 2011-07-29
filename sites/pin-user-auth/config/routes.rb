@@ -178,10 +178,6 @@ ActionController::Routing::Routes.draw do |map|
   map.contact '/contact',:controller=>'misc',:action=>'contact'
   map.plugins '/plugins',:controller=>'misc',:action=>'plugins'
 
-  # --旧版重定向
-  map.old_map_redirect '/app/mindmap_editor/mindmaps/:id',:controller=>'misc',:action=>'old_map_redirect'
-
-
   map.connect_login "/connect_login",:controller=>"connect_users",:action=>"index"
 
   map.connect_tsina "/connect_tsina",:controller=>"connect_users",:action=>"connect_tsina"
@@ -220,7 +216,8 @@ ActionController::Routing::Routes.draw do |map|
     :friends=>:get,:newest=>:get,
     :recommend=>:get,:joined=>:get,
     :favs=>:get,:hidden=>:get,:no_reply=>:get,
-    :reply_to=>:post,:search=>:get
+    :reply_to=>:post,:search=>:get,
+    :incoming=>:get
     } do |feed|
       feed.resources :feed_revisions,:as=>"revisions"
     end
@@ -257,33 +254,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :messages
   map.user_messages "/messages/user/:user_id",:controller=>"messages",:action=>"user_messages"
-
-  map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
-  map.resources :mindmaps,:collection=>{
-      :import_file=>:post,
-      :aj_words=>:get,
-      :cooperates=>:get,
-      :search=>:get
-    },:member=>{
-      :change_title=>:put,
-      :clone_form=>:get,
-      :do_clone=>:put,
-      :do_private=>:put,
-      :info=>:get,
-      :fav=>:post,
-      :unfav=>:delete,
-      :comments=>:post,
-      :newest=>:get
-    }
-  map.user_mindmaps "/mindmaps/users/:user_id",:controller=>"mindmaps",:action=>"user_mindmaps"
-
-  #cooperations_controller
-  map.add_cooperator "/cooperate/:mindmap_id/add_cooperator",
-    :controller=>"cooperations",:action=>"add_cooperator",
-    :conditions=>{:method=>:post}
-  map.remove_cooperator "/cooperate/:mindmap_id/remove_cooperator",
-    :controller=>"cooperations",:action=>"remove_cooperator",
-    :conditions=>{:method=>:delete}
 
   map.resources :channels,:collection=>{
       :fb_orderlist=>:get,
@@ -323,11 +293,7 @@ ActionController::Routing::Routes.draw do |map|
   # 主题邀请，提示
   map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
 
-
   map.namespace :v2 do |v2|
-    v2.root :controller=>'index'
-    v2.connect "/do_activate",:controller=>"index",:action=>"do_activate",
-      :conditions=>{:method=>:post}
     v2.connect "/chat",:controller=>"index",:action=>"chat"
     v2.connect "/chat_say",:controller=>"index",:action=>"chat_say",
       :conditions=>{:method=>:post}

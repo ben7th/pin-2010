@@ -14,6 +14,10 @@ class Feed < UserAuthAbstract
     }
   }
 
+  named_scope :limited,lambda {|count|
+    {:limit=>count}
+  }
+
   named_scope :normal,:conditions=>"hidden is not true",:order=>"feeds.id desc"
   named_scope :unhidden,:conditions=>"hidden is not true",:order=>"feeds.id desc"
   named_scope :hidden,:conditions=>"hidden is true",:order=>"feeds.id desc"
@@ -24,10 +28,6 @@ class Feed < UserAuthAbstract
   after_create :creator_to_fav_feed_on_create
   def creator_to_fav_feed_on_create
     self.creator.add_fav_feed(self)
-  end
-
-  def public?
-    channels_db.blank?
   end
 
   def view_right?(user)
@@ -64,8 +64,9 @@ class Feed < UserAuthAbstract
 
   def validate_on_create
     validate_content_length
-    channel_ids = self.creator.channel_ids
-    cs = self.channels_db_ids-channel_ids
+    channel_ids = self.creator.channels_db_ids
+    sent_c_ids = self.sent_channels.map{|c|c.id}
+    cs = sent_c_ids-channel_ids
 
     unless cs.blank?
       errors.add(:base,"频道 #{cs*" "} 不是你的,你不能发送主题到别人的频道")
@@ -300,12 +301,12 @@ class Feed < UserAuthAbstract
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
     end
 
-    def send_say_feed(content,options={})
-      channel_ids = options[:channel_ids] || []
-      channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
+    def send_feed(content,options={})
       event = options[:event] || Feed::SAY_OPERATE
+      sendto = options[:sendto] || ""
+      send_scopes = SendScope.build_list_form_string(sendto)
       
-      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:channels_db=>channels)
+      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes)
       return feed if !feed.valid?
       feed.save!
       feed.create_detail_content(options[:detail]) if !options[:detail].blank?
@@ -337,47 +338,74 @@ class Feed < UserAuthAbstract
     def send_todolist_feed(title,options={})
     end
 
-    def out_feeds_db(limit=nil)
-      limit_sql_str = ""
-      limit_sql_str = "limit #{limit}" unless limit.nil?
-      Feed.find_by_sql(%`
-        select feeds.* from feeds
-        left join feed_channels on feed_channels.feed_id = feeds.id
-        where feed_channels.id is null and feeds.creator_id = #{self.id}
-          and feeds.hidden is not true
-          order by feeds.id desc
-          #{limit_sql_str}
-        `)
-    end
-
     def all_feeds_count
       Feed.news_feeds_of_user(self).unhidden.count
     end
 
-    def in_feeds_db
-      _id_list_public = self.followings_and_self.map{|user|
-        user.out_feeds_db(100).map{|x| x.id}
-      }.flatten
-
-      _id_list_channels = self.belongs_to_channels.map do |channel|
-        channel.out_feeds_db.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
-      end.flatten
-
-      _id_list = _id_list_public + _id_list_channels
-      # 排序，大的就是新的，排在前面
-      _id_list = _id_list.compact.sort{|x,y| y<=>x}[0..199]
-      _id_list.map{|id|Feed.find_by_id(id)}.compact.uniq
+    def sent_feeds_db
+      Feed.news_feeds_of_user(self).normal
     end
 
     def hidden_feeds
       Feed.news_feeds_of_user(self).hidden
     end
 
+    def out_feeds_db(limited_count = nil)
+      conditions=%`
+        feeds.creator_id = #{self.id}
+          and feeds.hidden is not true
+      `
+      joins=%`
+        inner join send_scopes on send_scopes.feed_id = feeds.id
+          and send_scopes.param = '#{SendScope::ALL_PUBLIC}'
+      `
+      find_hash = {
+        :conditions=>conditions,:joins=>joins,
+        :order=>"feeds.id desc"
+      }
+      find_hash[:limit]=limited_count unless limited_count.nil?
+      Feed.find(:all,find_hash)
+    end
+
+    def to_followings_out_feeds_db(limited_count = nil)
+      conditions=%`
+        feeds.creator_id = #{self.id}
+          and feeds.hidden is not true
+      `
+      joins=%`
+        inner join send_scopes on send_scopes.feed_id = feeds.id
+          and send_scopes.param = '#{SendScope::ALL_FOLLOWINGS}'
+      `
+      find_hash = {
+        :conditions=>conditions,:joins=>joins,
+        :order=>"feeds.id desc"
+      }
+      find_hash[:limit]=limited_count unless limited_count.nil?
+      Feed.find(:all,find_hash)
+    end
+
+    def to_personal_out_feeds_db(limited_count = nil)
+      conditions=%`
+        feeds.creator_id = #{self.id}
+          and feeds.hidden is not true
+      `
+      joins=%`
+        inner join send_scopes on send_scopes.feed_id = feeds.id
+          and send_scopes.scope_type = 'User'
+      `
+      find_hash = {
+        :conditions=>conditions,:joins=>joins,
+        :order=>"feeds.id desc",
+        :group=>"feeds.id"
+      }
+      find_hash[:limit]=limited_count unless limited_count.nil?
+      Feed.find(:all,find_hash)
+    end
+
   end
 
   include FeedMindmap::FeedMethods
   include Fav::FeedMethods
-  include FeedChannel::FeedMethods
   include HtmlDocument::FeedMethods
   include FeedComment::FeedMethods
   include FeedLucene::FeedMethods
@@ -394,4 +422,6 @@ class Feed < UserAuthAbstract
   include FeedVote::FeedMethods
   include FeedViewing::FeedMethods
   include Atme::AtableMethods
+
+  include SendScope::FeedMethods
 end

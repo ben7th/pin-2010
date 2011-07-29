@@ -67,8 +67,8 @@ module UserMethods
     base.send(:include,TagsMapOfUserMemoedFeedsProxy::UserMethods)
     base.send(:include,Atme::UserMethods)
     base.send(:include,ReputationLog::UserMethods)
+    base.send(:include,SendScope::UserMethods)
   end
-
 
   def validate_on_create
     if !self.email.gsub("@mindpin.com").to_a.blank?

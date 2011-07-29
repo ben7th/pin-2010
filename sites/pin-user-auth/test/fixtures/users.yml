@@ -24,141 +24,34 @@ songliang:
   name: songliang
   salt: 267256200.649032
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: ben7th@sina.com
+  email: songliang@mindpin.com
 
 lifei:
   name: lifei
   salt: 267256200.649032
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: fushang318@163.com
+  email: lifei@mindpin.com
 
-chengliwen:
-  name: chengliwen
+a:
+  name: usera
   salt: 267256200.649032
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: qdclw1986@163.com
+  email: a@test.com
 
-hanmeimei:
-  name: hanmeimei
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-  email: hmm@163.com
-
-xiaolifeidao:
-  name: xiaolifeidao
-  email: xiaolifeidao@163.com
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-
-admin:
-  name: admin
-  email: admin@163.com
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-  
-teacher_1:
-  name: teacher_1
-  email: teacher_1@163.com
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-
-teacher_cheng:
-  name: teacher_cheng
-  email: teacher_cheng@163.com
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-
-teacher_song:
-  name: teacher_song
-  email: teacher_song@163.com
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-
-teacher_li:
-  name: teacher_li
-  email: teacher_li@163.com
-  salt: 465645645.767567
-  hashed_password: <%=User.encrypted_password('123456','465645645.767567')%>
-
-chinacheng:
-  name: chinacheng
+b:
+  name: userb
   salt: 267256200.649032
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: qdclw1986@163.com
+  email: b@test.com
 
-lucy:
-  name: 路西
+c:
+  name: userc
   salt: 267256200.649032
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: lucy@gmail.com
+  email: c@test.com
 
-dave:
-  name: dave
+d:
+  name: userd
   salt: 267256200.649032
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: dave@gmail.com
-
-jim:
-  name: jim
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: jim@gmail.com
-  
-jone:
-  name: jone
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: jone@gmail.com
-
-tom:
-  name: tom
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: tom@gmail.com
-
-creator:
-  name: creator
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: creator@gmail.com
-
-assign_student_li:
-  name: assign_student_li
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: assign_student_li@gmail.com
-
-assign_student_song:
-  name: assign_student_song
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: assign_student_song@gmail.com
-
-assign_student_cheng:
-  name: assign_student_cheng
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: assign_student_cheng@gmail.com
-
-assign_student_tom:
-  name: assign_student_tom
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: assign_student_tom@gmail.com
-
-assign_student_jim:
-  name: assign_student_jim
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: assign_student_jim@gmail.com
-
-assign_student_sam:
-  name: assign_student_sam
-  salt: 267256200.649032
-  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
-  email: assign_student_sam@gmail.com
-
-repo_lifei:
-  id: 2147483000
-  name: lifei
-  email: fushang318@repo.com
+  email: d@test.com

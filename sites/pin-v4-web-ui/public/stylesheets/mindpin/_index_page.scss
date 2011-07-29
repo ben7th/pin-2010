@@ -26,3 +26,22 @@
     }
   }
 }
+
+.index-page-channel-name{
+  @include bdb2010;
+  color:white;
+  background-color:#444;
+  margin-bottom:0;
+  border:none;
+  font-weight:bold;
+  padding-top:3px;
+  padding-bottom:3px;
+}
+
+.index-page-followings{
+  padding:10px;
+  .followings{
+    @include miniavatar;
+    margin-bottom:10px;
+  }
+}

@@ -1,12 +1,4 @@
-class V2::IndexController < V2::V2Controller
-
-  def index
-  end
-
-  def do_activate
-    ActivationCode.acitvate_user(params[:code],current_user)
-    redirect_to :action=>:index
-  end
+class V2::IndexController < ApplicationController
 
   def chat
   end

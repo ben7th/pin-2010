@@ -20,6 +20,8 @@ class AccountController <  ApplicationController
   def base
     if !params[:service].blank?
       session[:account_setting_from_site_flag] = params[:service]
+    else
+      session[:account_setting_from_site_flag] = ''
     end
   end
 

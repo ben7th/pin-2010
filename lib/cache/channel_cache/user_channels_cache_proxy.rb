@@ -22,6 +22,8 @@ class UserChannelsCacheProxy < RedisBaseProxy
         UserChannelsCacheProxy.new(user).add_to_cache(channel.id)
       },
       :after_destroy=>Proc.new{|channel_contact|
+        next if channel_contact.contact.blank?
+
         user = channel_contact.contact.follow_user
         channel = channel_contact.channel
         next if channel.blank? || user.blank?
@@ -40,7 +42,10 @@ class UserChannelsCacheProxy < RedisBaseProxy
         UserChannelsCacheProxy.new(user).get_models(Channel)
       },
       :belongs_to_followings_channels=>Proc.new{|user|
-        user.belongs_to_channels.select{|channel|user.followings.include?(channel.creator)}
+        user.belongs_to_channels.select{|channel|user.following_user_ids.include?(channel.creator_id)}
+      },
+      :belongs_to_no_followings_channels=>Proc.new{|user|
+        user.belongs_to_channels.select{|channel|!user.following_user_ids.include?(channel.creator_id)}
       }
     }
   end

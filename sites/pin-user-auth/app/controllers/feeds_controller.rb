@@ -7,14 +7,17 @@ class FeedsController < ApplicationController
     @feed = Feed.find(params[:id]) if params[:id]
   end
 
+  def incoming
+    @feeds = current_user.incoming_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+  end
+
   def new
     # 创建主题的页面，do nothing here.
     @feed = Feed.new
   end
 
   def create
-    # songliang 2011.5.23 暂时先不考虑频道的情况
-    feed = current_user.send_say_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags])
+    feed = current_user.send_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags],:sendto=>params[:sendto])
     if feed.id.blank?
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'

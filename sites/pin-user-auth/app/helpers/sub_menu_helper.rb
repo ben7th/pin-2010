@@ -54,7 +54,7 @@ module SubMenuHelper
       tab = arr[-1]
     end
 
-    return current_page?(path) || tab == cookies["menu_#{menu}_tab".to_sym]
+    return current_page?(path) #|| tab == cookies["menu_#{menu}_tab".to_sym]
   end
 
   ######################
@@ -65,18 +65,24 @@ module SubMenuHelper
 
     if _sub_menu_li_i_am_here?(name, path)
       klass = ["i-am-here",o_klass]*' '
-      return "<li class='#{klass}'>#{link_str}</li>"
     else
       klass = [o_klass]*' '
-      return "<li class='#{klass}'>#{link_str}</li>"
     end
+
+    if(options[:first])
+      link_str = "#{link_str}"
+    else
+      link_str = "#{link_str}"
+    end
+
+    return "<li class='#{klass}'>#{link_str}</li>"
   end
 
   def sub_menu_li_with_count(name, path, count)
     count_str = (count == 0) ? '':"<div class='count'>#{count}</div>"
 
     link_str = link_to "<span>#{name}</span>#{count_str}",path
-      
+
     if _sub_menu_li_i_am_here?(name, path)
       return "<li class='with-count i-am-here'>#{link_str}</li>"
     else
@@ -85,6 +91,21 @@ module SubMenuHelper
   end
 
   #########################
+
+  def sub_menu_small_li(name, path, options={})
+    link_str = link_to "<span>#{name}</span>",path
+    o_klass=options[:class] || ''
+
+    if _sub_menu_li_i_am_here?(name, path)
+      klass = ["i-am-here","s",o_klass]*' '
+    else
+      klass = ["s",o_klass]*' '
+    end
+
+    return "<li class='#{klass}'>#{link_str}</li>"
+  end
+
+  ###########################
 
   def feed_menu_li(name,path,tab,options={})
     is_here = (tab == sub_menu_name) || (tab == 'welcome' && sub_menu_name.blank?)

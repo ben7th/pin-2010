@@ -15,6 +15,7 @@ class Channel < UserAuthAbstract
       INNER JOIN contacts ON contacts.follow_user_id = users.id
       INNER JOIN channel_contacts ON channel_contacts.contact_id = contacts.id
       WHERE channel_contacts.channel_id = #{self.id}
+      ORDER BY channel_contacts.id desc
       `)
   end
 
@@ -30,6 +31,7 @@ class Channel < UserAuthAbstract
   # 增加成功返回 true
   # 增加失败返回 false
   def add_user(user)
+    return false if self.creator == user
     contact = self.creator.get_contact_obj_of(user)
     return false if contact.blank?
 
@@ -41,25 +43,30 @@ class Channel < UserAuthAbstract
   end
 
   # 那一群人加到一个频道
-  def add_users_on_queue(users)
+  def add_users(users)
     users.each do |user|
-      ChannelUserWorker.async_channel_user_operate(ChannelUserWorker::ADD_OPERATION,self.id,user.id);
+      self.add_user(user)
     end
   end
 
   # 把 user 从 频道去除
   def remove_user(user)
     contact = self.creator.get_contact_obj_of(user)
-    return false if contact.blank?
+    return [] if contact.blank?
 
     channel_contact = get_channel_contact_obj_of(contact)
     channel_contact.destroy unless channel_contact.blank?
-    return true
+
+    channels = self.creator.channels_of_user_db(user)
+    if channels.blank?
+      self.creator.remove_contact_user(user)
+    end
+    channels
   end
 
   module UserMethods
     def self.included(base)
-      base.has_many :channels,:foreign_key=>:creator_id
+      base.has_many :channels_db,:class_name=>"Channel",:foreign_key=>:creator_id
     end
 
     def channels_count
@@ -78,7 +85,7 @@ class Channel < UserAuthAbstract
 
     # self 是channel的拥有者 user是被查的人
     def channels_of_user_db(user)
-      self_channels = self.channels
+      self_channels = self.channels_db
       user.belongs_to_channels_db.select do |channel|
         self_channels.include?(channel)
       end
@@ -99,7 +106,8 @@ class Channel < UserAuthAbstract
     end
   end
 
-  include FeedChannel::ChannelMethods
   include PositionMethods
   include CooperationChannel::ChannelMethods
+  include SendScope::ChannelMethods
+  include ChannelContact::ChannelMethods
 end

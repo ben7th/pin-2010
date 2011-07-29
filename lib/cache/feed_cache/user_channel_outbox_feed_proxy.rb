@@ -9,14 +9,14 @@ class UserChannelOutboxFeedProxy < RedisBaseProxy
   end
 
   def self.add_feed_cache(feed)
-    channels = feed.channels_db
+    channels = feed.sent_channels
     channels.each do |channel|
       UserChannelOutboxFeedProxy.new(channel).add_to_cache(feed.id)
     end
   end
 
   def self.remove_feed_cache(feed)
-    channels = feed.channels_db
+    channels = feed.sent_channels
     channels.each do |channel|
       UserChannelOutboxFeedProxy.new(channel).remove_from_cache(feed.id)
     end

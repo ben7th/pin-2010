@@ -19,6 +19,8 @@ class BlongsChannelsOfUserProxy < RedisBaseProxy
         BlongsChannelsOfUserProxy.new(user,channel.creator).add_to_cache(channel.id)
       },
       :after_destroy=>Proc.new{|channel_contact|
+        next if channel_contact.contact.blank?
+
         user = channel_contact.contact.follow_user
         channel = channel_contact.channel
         next if channel.blank? || user.blank?

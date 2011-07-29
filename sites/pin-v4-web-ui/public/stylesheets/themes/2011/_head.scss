@@ -50,8 +50,8 @@
         overflow:hidden;
         font-size:0px;
         line-height:22em;
-        &.feeds{
-          background:url(/images/sites.png) 0px -25px;
+        &.mindpin{
+          background:url(/images/alltu.png) -394px -1px;
         }
         &.mindmaps{
           background:url(/images/alltu.png) -133px -1px;
@@ -62,6 +62,7 @@
     .menu{
       float:left;
       padding-top:30px;
+      padding-left:30px;
       ul{
         overflow:hidden;
 
@@ -79,9 +80,8 @@
             color:#fff;
             overflow:hidden;
             &:hover{
-              color:#444;
               text-decoration:none;
-              background:#e0e7eF;
+              background:#777;
             }
             span{
               float:left;
@@ -90,9 +90,8 @@
 
           &.i-am-here{
             a{
-              color:#444;
               text-decoration:none;
-              background:#e0e7eF;
+              background:#777;
             }
           }
 
@@ -116,6 +115,14 @@
                 position:relative;
                 top:4px;
               }
+            }
+          }
+          
+          &.lock{
+            a{
+              text-decoration:none;
+              color:#777;
+              background:none !important;
             }
           }
 

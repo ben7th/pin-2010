@@ -1,0 +1,28 @@
+-content_for :title do
+  人际关系管理
+
+-content_for :javascripts do
+  = javascript_include_tag "views/channels/channels"
+
+.grid_17
+  .page-followings-set-desc
+    这里显示你的所有联系人，你可以通过鼠标拖放来调整联系人所属的频道<br/>
+    左键单击可以选中多个联系人，并同时进行拖放操作<br/>
+    目前的拖放体验，排版布局，特定情况下的动画效果上可能还存在一些问题或bug。
+    如果发现用户体验上存在的问题或者有其他建议，请告知ben7th。
+
+  .page-followings-set
+    -current_user.followings.each do |fo|
+      -channel_ids = current_user.channels_of_user(fo).map{|c| c.id}*','
+      .following{:'data-channel-ids'=>channel_ids,:'data-id'=>fo.id}
+        .avatar
+          .img{:style=>"background:url(#{fo.logo.url(:tiny)}) 0 0 no-repeat"}
+        .name=fo.name
+        .avatar-s{:'data-id'=>fo.id,:tip=>fo.name}
+          =avatar fo,:tiny
+          .overlay
+
+.grid_7
+  .page-channels-set
+    -current_user.channels.each do |channel|
+      =render 'contacts/parts/channel_set_info',:channel=>channel

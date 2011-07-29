@@ -8,7 +8,10 @@ class ActivationController < ApplicationController
   end
 
   def do_activation
-    flash[:error] = "激活码不对噢~"
+    ActivationCode.acitvate_user(params[:code],current_user)
+    redirect_to "/"
+  rescue Exception => ex
+    flash[:error] = ex.message
     redirect_to "/activation"
   end
 

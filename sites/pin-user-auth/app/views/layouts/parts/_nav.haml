@@ -1,24 +1,27 @@
 .ph
   .page-head.container_24
     .site-logo
-      =link_to '思维导图','/',:class=>'logo mindmaps'
+      =link_to 'mindpin','/',:class=>'logo mindpin'
 
     .nav
-      .topbar
-        .sp.feeds=link_to '主题协作',pin_url_for('pin-user-auth')
-        .sp.mindmaps=link_to '思维导图',pin_url_for('pin-daotu')
-        -if logged_in?
-          .sp=link_to "用户设置",'/account'
-          .sp=link_to "退出",pin_url_for('pin-user-auth','/logout?service=tu')
+      .topbar.clearfix
+        .fright
+          -if logged_in?
+            .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account')
+            .sp=link_to "退出",pin_url_for('pin-user-auth','/logout')
 
-        -else
-          .sp=link_to '用户注册','/signup'
-          .sp=link_to '登录','/login?service=tu'
+          -else
+            .sp=link_to '用户注册','/signup'
+            .sp=link_to '登录','/login'
 
       .search-form>
-        %form{:action=>"/mindmaps/search",:method=>"get"}>
-          %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
+        %form{:action=>"/feeds/search",:method=>"get"}>
+          %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索'}>
           =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
 
-
-
+    .menu
+      %ul
+        %li=link_to '<span class="icon"></span><span>主题</span>','/'
+        %li=link_to '<span class="icon"></span><span>人际关系</span>','/contacts'
+        %li.lock=link_to '<span class="icon"></span><span>聚合</span>','javascript:;',:tip=>'alpha测试期间，功能暂未开放'
+        %li.lock=link_to '<span class="icon"></span><span>共享资源</span>','javascript:;',:tip=>'alpha测试期间，功能暂未开放'

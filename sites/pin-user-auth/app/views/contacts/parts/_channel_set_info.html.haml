@@ -1,0 +1,9 @@
+.channel{:'data-id'=>channel.id}
+  .meta
+    .name=channel.name
+    .ucount=channel.include_users.count
+  .users{:style=>'display:none;'}
+    -channel.include_users.each do |iu|
+      .avatar{:'data-id'=>iu.id,:tip=>iu.name}
+        =avatar iu,:tiny
+        .overlay

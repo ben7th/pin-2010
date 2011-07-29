@@ -4,12 +4,18 @@ class ActivationCode < ActiveRecord::Base
   validates_presence_of :code
   validates_uniqueness_of :code,:case_sensitive=>false
 
+  named_scope :unused,:conditions=>"user_id is null"
+
+  def self.unused_codes
+    self.unused.map{|ac|ac.code}
+  end
+
   def self.generate(count=10)
     1.upto(count){self.generate_one_code}
   end
 
   def self.generate_one_code
-    code = randstr.downcase
+    code = randstr(16).downcase
     if self.find_by_code(code).blank?
       self.create(:code=>code)
     else
@@ -22,10 +28,11 @@ class ActivationCode < ActiveRecord::Base
   end
 
   def self.acitvate_user(code,user)
+    raise "请先登录" if user.blank?
     ac = ActivationCode.find_by_code(code)
-    return false if ac.blank?
+    raise "激活码不对哦~" if ac.blank?
+    raise "激活码已经被使用过了" unless ac.user_id.blank?
     ac.update_attributes(:user_id=>user.id)
-    return true
   end
 
   module UserMethods

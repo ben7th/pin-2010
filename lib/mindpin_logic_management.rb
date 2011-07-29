@@ -83,6 +83,8 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy UserChannelsCacheProxy
     MindpinLogicManagement.load_redis_proxy ChannelUsersCacheProxy
     MindpinLogicManagement.load_redis_proxy BlongsChannelsOfUserProxy
+    MindpinLogicManagement.load_redis_proxy UserCreatedChannelsCacheProxy
+
 
     # 协同导图缓存
     MindpinLogicManagement.load_redis_proxy UserCooperateMindmapsProxy
@@ -96,9 +98,16 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy UserBeingRepliedCommentsProxy
 
     # feed 缓存
+    MindpinLogicManagement.load_redis_proxy(UserSentFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserOutboxFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserChannelOutboxFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserChannelInboxFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserToFollowingsOutboxFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserToPersonalOutboxFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserToPersonalInboxFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserIncomingToPersonalInboxFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserIncomingFeedProxy)
     
     MindpinLogicManagement.load_redis_proxy(UserBeingQuotedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)
