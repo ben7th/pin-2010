@@ -14,10 +14,18 @@ begin
       user = User.find_by_id(id)
       next if user.blank?
 
+      names = ["好朋友","工作伙伴","感兴趣的陌生人","旧版关注对象"]
+      user.channels_db.each do |channel|
+        next if names.include?(channel.name)
+
+        channel.destroy
+      end
+
       user.create_default_channels
 
       contacts = user.contacts
       next if contacts.blank?
+
 
       channel = Channel.find_or_create_by_creator_id_and_name(user.id,"旧版关注对象")
       
