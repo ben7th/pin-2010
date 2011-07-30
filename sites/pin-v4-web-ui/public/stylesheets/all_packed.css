@@ -1364,8 +1364,8 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-channels-set .channel .meta{padding:5px;background:#666;overflow:hidden;cursor:default;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;line-height:20px;height:50px;}
 .page-channels-set .channel .meta .name{color:white;font-size:14px;float:left;}
 .page-channels-set .channel .meta .ucount{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-weight:bold;color:#ccc;float:right;font-size:20px;}
-.page-channels-set .channel .users{border-radius:0 0 4px 4px;-moz-border-radius:0 0 4px 4px;-webkit-border-radius:0 0 4px 4px;overflow:hidden;padding:3px;width:240px;height:26px;position:absolute;bottom:0;}
-.page-channels-set .channel .users .avatar{width:26px;height:26px;margin-right:4px;float:left;cursor:move;position:relative;overflow:visible;}
+.page-channels-set .channel .users{border-radius:0 0 4px 4px;-moz-border-radius:0 0 4px 4px;-webkit-border-radius:0 0 4px 4px;overflow:hidden;padding:3px;width:240px;height:30px;position:absolute;bottom:-4px;}
+.page-channels-set .channel .users .avatar{width:26px;height:26px;margin-right:4px;margin-bottom:4px;float:left;cursor:move;position:relative;overflow:visible;}
 .page-channels-set .channel .users .avatar img{width:24px;height:24px;}
 .page-channels-set .channel .users .avatar:hover img{width:30px;height:30px;box-shadow:0 0 4px #bbb;position:absolute;left:-3px;top:-3px;}
 .page-channels-set .channel .users .overlay{position:absolute;width:32px;height:32px;left:-3px;top:-3px;}

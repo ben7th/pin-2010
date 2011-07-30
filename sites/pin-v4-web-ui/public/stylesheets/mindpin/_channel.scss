@@ -329,12 +329,13 @@
       overflow:hidden;
       padding:3px;
       width:240px;
-      height:26px;
+      height:30px;
       position:absolute;
-      bottom:0px;
+      bottom:-4px;
       .avatar{
         width:26px;height:26px;
         margin-right:4px;
+        margin-bottom:4px;
         float:left;
         cursor:move;
         position:relative;
