@@ -22,7 +22,7 @@ class FeedsController < ApplicationController
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'
     end
-    redirect_to feed
+    redirect_to '/'
   end
 
   def do_say

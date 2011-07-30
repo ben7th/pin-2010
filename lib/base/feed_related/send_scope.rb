@@ -19,7 +19,8 @@ class SendScope < UserAuthAbstract
         param == ALL_FOLLOWINGS ||
         !!(param =~ /ch-(\d+)/)
     end
-    raise SendScope::FormatError,"发送范围 参数格式错误" if arr.count > 1
+    # raise SendScope::FormatError,"发送范围 参数格式错误" if arr.count > 1
+    # TODO 此处可能写错了
 
     params_arr.each do |param|
       case param
@@ -41,7 +42,7 @@ class SendScope < UserAuthAbstract
         raise SendScope::FormatError,"发送范围 参数格式错误"
       end
     end
-    raise SendScope::UnSpecifiedError,"必须制定发送范围" if list.blank?
+    raise SendScope::UnSpecifiedError,"必须指定发送范围" if list.blank?
     list
   end
 
