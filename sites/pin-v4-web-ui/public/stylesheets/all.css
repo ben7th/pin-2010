@@ -5582,9 +5582,9 @@ a.send-button {
       overflow: hidden;
       padding: 3px;
       width: 240px;
-      height: 30px;
+      height: 26px;
       position: absolute;
-      bottom: -4px; }
+      bottom: 0px; }
       .page-channels-set .channel .users .avatar {
         width: 26px;
         height: 26px;
