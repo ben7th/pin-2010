@@ -1,0 +1,37 @@
+.mindmap-paper-toolbar
+  .clearfix
+    -if mode == 'tsina_app'
+      .tsina-app-logo
+        =link_to 'tu.mindpin.com','http://tu.mindpin.com',:target=>'_blank'
+    -if mode == 'editor' || mode == 'tsina_app'
+      .mindmap-ops
+        -undo_str = @mindmap.can_undo? ? '':'lock'
+        -undo_klass = ['mindmap-undo',undo_str]*' '
+        -redo_str = @mindmap.can_redo? ? '':'lock'
+        -redo_klass = ['mindmap-redo',redo_str]*' '
+        =link_to '取消上一步编辑','javascript:;',:class=>undo_klass,:title=>'取消上一步编辑'
+        =link_to '重做上一步编辑','javascript:;',:class=>redo_klass,:title=>'重做上一步编辑'
+    -if mode == 'editor'
+      .editor-control
+        =link_to '居中','javascript:;',:class=>'recenter',:onclick=>'try{mindmap.recenter();}catch(e){};',:title=>'按此将思维导图重新居中'
+        =link_to '侧边栏','javascript:;',:class=>'toggle-sidebar open',:title=>'显示/隐藏侧边栏'
+    -if mode == 'tsina_app'
+      .editor-control.tsina-app
+        =link_to '居中','javascript:;',:class=>'recenter',:onclick=>'try{mindmap.recenter();}catch(e){};',:title=>'按此将思维导图重新居中'
+        =link_to '关闭返回','/tsina_app/mindmaps',:class=>'app-close',:title=>'返回列表'
+
+  -if mode == 'editor' || mode == 'tsina_app'
+    .ops-intro{:class=>mode == 'tsina_app' ? 'open':'close'}
+      %h5 简明操作指南
+      =link_to '[隐藏]','javascript:;',:class=>'hide-it',:title=>'隐藏'
+      =link_to '[显示]','javascript:;',:class=>'show-it',:title=>'显示'
+      .oo <b>单击</b>选定节点
+      .oo <b>双击节点</b>以编辑
+      .oo <b>拖拽节点</b>以改变位置
+      .oo <b>鼠标右键</b>节点菜单
+      %hr
+      .oo <b>Insert</b> 新增子节点
+      .oo <b>回车</b> 新增同级节点
+      .oo <b>空格</b> 编辑节点
+      .oo <b>DELETE</b> 删除节点
+      .oo <b>方向键</b> 选择邻近节点

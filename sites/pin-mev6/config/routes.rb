@@ -62,4 +62,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :image_attachments
   map.resources :atmes
+
+  # 新浪微博 app
+  map.connect "/tsina_app",:controller=>"tsina_app",:action=>"index"
+  map.connect "/tsina_app/connect",:controller=>"tsina_app",:action=>"connect"
+  map.connect "/tsina_app/connect_callback",:controller=>"tsina_app",:action=>"connect_callback"
+  map.connect "/tsina_app/create_mindmap",:controller=>"tsina_app",
+    :action=>"create_mindmap",:conditions=>{:method=>:post}
+  map.connect "/tsina_app/mindmaps",:controller=>"tsina_app",:action=>"mindmaps"
+  map.connect "/tsina_app/mindmaps/:id/edit",:controller=>"tsina_app",:action=>"edit"
 end

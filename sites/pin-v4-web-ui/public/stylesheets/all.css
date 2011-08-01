@@ -9046,3 +9046,170 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-tu-mindpin-mside-user-info .avatar {
     float: right;
     text-align: right; }
+
+.page-tsina-app-tu {
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 20px; }
+  .page-tsina-app-tu .box {
+    background: white;
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 0 0 6px #eee; }
+    .page-tsina-app-tu .box .loud1 {
+      color: #31A6D2; }
+    .page-tsina-app-tu .box .loud2 {
+      color: #444; }
+    .page-tsina-app-tu .box .logo {
+      width: 420px;
+      height: 75px;
+      background: url(/images/tu-tsina-app-logo.png) no-repeat;
+      margin-top: 20px;
+      margin-left: 190px;
+      margin-bottom: 20px; }
+    .page-tsina-app-tu .box .title {
+      font-size: 16px;
+      background: #eee;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      color: #333;
+      background-color: #eee; }
+    .page-tsina-app-tu .box .desc {
+      padding: 30px 0; }
+      .page-tsina-app-tu .box .desc .p {
+        margin-left: 180px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #777; }
+    .page-tsina-app-tu .box .tsina-login-btn {
+      width: 239px;
+      height: 48px;
+      background: url(/images/tsina_app_login.png) no-repeat;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      margin-left: 280px;
+      display: block; }
+  .page-tsina-app-tu .box1 {
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 0 0 6px #eee;
+    margin-bottom: 20px;
+    background: white; }
+    .page-tsina-app-tu .box1 .head {
+      overflow: hidden;
+      padding: 10px; }
+      .page-tsina-app-tu .box1 .head .avatar {
+        padding: 3px;
+        border: solid 1px #eee;
+        float: left;
+        margin-right: 30px; }
+      .page-tsina-app-tu .box1 .head .logo-s {
+        width: 320px;
+        height: 57px;
+        background: url(/images/tu-sina-app-logo-s.png) no-repeat;
+        float: left; }
+    .page-tsina-app-tu .box1 .title {
+      font-size: 16px;
+      background: #eee;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      color: #333;
+      background-color: #eee; }
+    .page-tsina-app-tu .box1 .new-form {
+      padding: 20px; }
+      .page-tsina-app-tu .box1 .new-form .new_mindmap {
+        overflow: hidden; }
+        .page-tsina-app-tu .box1 .new-form .new_mindmap .field {
+          float: left;
+          overflow: hidden;
+          margin: 0; }
+          .page-tsina-app-tu .box1 .new-form .new_mindmap .field label {
+            font-size: 14px;
+            font-weight: bold;
+            float: left;
+            line-height: 33px;
+            height: 33px;
+            padding: 0;
+            margin-right: 20px; }
+          .page-tsina-app-tu .box1 .new-form .new_mindmap .field .mindmap-title {
+            width: 500px;
+            margin-right: 20px; }
+          .page-tsina-app-tu .box1 .new-form .new_mindmap .field .create-submit {
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            display: block;
+            padding: 0;
+            height: 31px;
+            line-height: 31px;
+            text-align: center;
+            width: 80px;
+            font-size: 14px;
+            background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+            border: solid 1px #3079ED;
+            color: white;
+            font-weight: bold;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
+            .page-tsina-app-tu .box1 .new-form .new_mindmap .field .create-submit:hover {
+              color: white;
+              text-decoration: none;
+              background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+              background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+              filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+              border: solid 1px #2F5BB7; }
+            .page-tsina-app-tu .box1 .new-form .new_mindmap .field .create-submit span {
+              display: block; }
+    .page-tsina-app-tu .box1 .paginate {
+      padding: 10px; }
+  .page-tsina-app-tu .mindmaps {
+    width: 840px;
+    overflow: hidden; }
+    .page-tsina-app-tu .mindmaps .mindmap {
+      border: solid 1px #ddd;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      box-shadow: 0 0 6px #eee;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      background: white;
+      float: left;
+      width: 163px;
+      padding: 10px;
+      position: relative; }
+      .page-tsina-app-tu .mindmaps .mindmap .t {
+        font-weight: bold;
+        margin-bottom: 5px; }
+        .page-tsina-app-tu .mindmaps .mindmap .t a {
+          color: #555; }
+      .page-tsina-app-tu .mindmaps .mindmap .del {
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        color: red;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        font-weight: bold;
+        font-size: 18px; }
+      .page-tsina-app-tu .mindmaps .mindmap .img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 5px; }
+      .page-tsina-app-tu .mindmaps .mindmap .post-to a.minibutton {
+        float: left; }
+      .page-tsina-app-tu .mindmaps .mindmap .post-to a.share {
+        float: right;
+        width: 98px;
+        height: 22px;
+        background: url(/images/post-to-tsina.png);
+        overflow: hidden;
+        line-height: 22em;
+        position: relative;
+        top: 1px; }

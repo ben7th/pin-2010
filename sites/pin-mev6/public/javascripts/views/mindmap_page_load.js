@@ -113,7 +113,7 @@ pie.load(function(){
     var sidebar_width = sidebar_elm.is(':visible') ? sidebar_elm.width():0;
 
     var height;
-    if(is_widgetmode){
+    if(is_widgetmode || jQuery('#mindmap-toolbar').length == 0){
       height = jQuery(window).height();
     }else{
       height = jQuery(window).height() - 30;

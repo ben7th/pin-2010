@@ -5,6 +5,7 @@ class Tsina
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
   CALLBACK_URL = SETTINGS["tsina_callback_url"]
   BIND_CALLBACK_URL = SETTINGS["tsina_bind_callback_url"]
+  MINDMAP_APP_CALLBACK_URL = SETTINGS["tsina_mindmap_app_callback_url"]
   API_KEY = SETTINGS["tsina_api_key"]
   API_SECRET = SETTINGS["tsina_api_secret"]
   API_SITE = "http://api.t.sina.com.cn"
@@ -19,6 +20,10 @@ class Tsina
 
   def bind_authorize_url
     @request_token.authorize_url({:oauth_callback=>Tsina::BIND_CALLBACK_URL})
+  end
+
+  def mindmap_app_authorize_url
+    @request_token.authorize_url({:oauth_callback=>Tsina::MINDMAP_APP_CALLBACK_URL})
   end
 
   def request_token
