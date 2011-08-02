@@ -96,6 +96,7 @@ module UserMethods
     return unless self.need_change_name?
 
     old_name = self.name
+    old_name.gsub!(/_|-/,"")
     i = 1
     while self.need_change_name?
       self.name = "#{old_name}#{i}"

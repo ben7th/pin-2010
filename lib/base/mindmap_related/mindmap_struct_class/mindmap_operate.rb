@@ -210,7 +210,14 @@ class MindmapOperate
 
     if @mindmap.struct!=old_struct
       begin
-        @mindmap.save!
+      # 修改历史记录
+      hr = HistoryRecord.record_operation(@mindmap,
+        :kind=>operation_kind,
+        :params_hash=>params_hash,
+        :operator=>operator,
+        :old_struct=>old_struct)
+      @mindmap.current_history_record_id = hr.id
+      @mindmap.save!
       rescue Exception => ex
         p "~~~mindmap.save error~~~~~"
         p ex.class
@@ -220,12 +227,6 @@ class MindmapOperate
         raise MindmapOperate::MindmapNotSaveError,"mindmap 数据库记录保存出错"
       end
       @mindmap.refresh_thumb_image_in_queue
-
-      # 修改历史记录
-      HistoryRecord.record_operation(@mindmap,
-        :kind=>operation_kind,
-        :params_hash=>params_hash,
-        :operator=>operator,:old_struct=>old_struct)
     end
     return true
   end

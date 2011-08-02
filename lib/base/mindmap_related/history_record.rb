@@ -46,11 +46,7 @@ class HistoryRecord < Mev6Abstract
     mindmap.clear_useless_history_records
 
     params_json = params_hash.to_json
-    hr = HistoryRecord.create!(:struct=>struct,:params_json=>params_json,:mindmap_id=>mindmap.id,:kind=>kind,:email=>operator.email)
-
-    cid = mindmap.current_history_record_id
-    mindmap.current_history_record_id = hr.id
-    mindmap.save
+    HistoryRecord.create!(:struct=>struct,:params_json=>params_json,:mindmap_id=>mindmap.id,:kind=>kind,:email=>operator.email)
   end
 
   module MindmapMethods
