@@ -101,14 +101,21 @@ class UserLog < UserAuthAbstract
     end
   end
 
-  module ContactMethods
+  module ChannelUserMethods
     def self.included(base)
       base.after_create :add_add_contact_user_log
     end
 
     def add_add_contact_user_log
-      return true if self.user.last_add_contact_user == self.follow_user
-      self.user.create_add_contact_user_log(self.follow_user)
+      user = self.user
+      channel = self.channel
+
+      channels = channel.creator.channels_of_user(user)
+      return true if (channels-[channel]).count != 0
+
+      return true if channel.creator.last_add_contact_user == user
+
+      channel.creator.create_add_contact_user_log(user)
       return true
     rescue Exception => ex
       p ex

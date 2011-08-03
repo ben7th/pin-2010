@@ -12,15 +12,17 @@ class SendScope < UserAuthAbstract
   validates_presence_of :param
 
   def self.build_list_form_string(params_string)
-    params_arr = params_string.split(",")
+    params_arr = params_string.split(",").uniq
     list = []
     arr = params_arr.select do |param|
       param == ALL_PUBLIC ||
-        param == ALL_FOLLOWINGS ||
-        !!(param =~ /ch-(\d+)/)
+        param == ALL_FOLLOWINGS 
     end
-    # raise SendScope::FormatError,"发送范围 参数格式错误" if arr.count > 1
-    # TODO 此处可能写错了
+    raise SendScope::FormatError,"发送范围 参数格式错误" if arr.count > 1
+    ch_arr = params_arr.select do |param|
+      !!(param =~ /ch-(\d+)/)
+    end
+    raise SendScope::FormatError,"发送范围 参数格式错误" if ch_arr.count > 0 && arr.count > 0
 
     params_arr.each do |param|
       case param

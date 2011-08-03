@@ -6582,7 +6582,7 @@ a.send-button {
             margin: 0; }
 
 .user-page-top-info {
-  overflow: hidden; }
+  overflow: visible; }
   .user-page-top-info .base-info {
     padding: 5px;
     margin: 0 0 10px 0; }
@@ -6590,67 +6590,29 @@ a.send-button {
       font-size: 18px;
       font-weight: bold;
       margin: 0 0 6px 0; }
-  .user-page-top-info .user-page-ops {
-    padding: 5px; }
-    .user-page-top-info .user-page-ops .follow {
-      float: left;
-      padding: 5px 10px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      background: -moz-linear-gradient(-90deg, #b3d34c, #97bc3d);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b3d34c), to(#97bc3d));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b3d34c',endColorstr='#97bc3d');
-      border: solid 1px #97af4d;
-      color: white !important;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
-      zoom: 1;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px; }
-      .user-page-top-info .user-page-ops .follow:hover {
-        background: -moz-linear-gradient(-90deg, #9bc238, #8bad37);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#9bc238), to(#8bad37));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#9bc238',endColorstr='#8bad37');
-        text-decoration: none; }
-      .user-page-top-info .user-page-ops .follow.mousedown {
-        background: -moz-linear-gradient(-90deg, #8bad37, #9bc238);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#8bad37), to(#9bc238));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#8bad37',endColorstr='#9bc238');
-        text-decoration: none; }
-    .user-page-top-info .user-page-ops .unfollow {
-      float: left;
-      padding: 5px 10px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      background: -moz-linear-gradient(-90deg, #dddddd, #dddddd);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dddddd), to(#dddddd));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dddddd',endColorstr='#dddddd');
-      border: solid 1px #dddddd;
-      color: #666666 !important;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25);
-      zoom: 1;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
-      text-shadow: 0 0 #f0f0f0; }
-      .user-page-top-info .user-page-ops .unfollow:hover {
-        background: -moz-linear-gradient(-90deg, #dddddd, #dddddd);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dddddd), to(#dddddd));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dddddd',endColorstr='#dddddd');
-        text-decoration: none; }
-      .user-page-top-info .user-page-ops .unfollow.mousedown {
-        background: -moz-linear-gradient(-90deg, #dddddd, #dddddd);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#dddddd), to(#dddddd));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dddddd',endColorstr='#dddddd');
-        text-decoration: none; }
+  .user-page-top-info .user-follow-op {
+    position: relative; }
+    .user-page-top-info .user-follow-op .channel-selector {
+      position: absolute;
+      top: 24px;
+      left: 0px;
+      width: 240px;
+      border: solid 1px #CCCCCC;
+      background-color: #fff; }
+      .user-page-top-info .user-follow-op .channel-selector .channels {
+        padding: 4px 0; }
+        .user-page-top-info .user-follow-op .channel-selector .channels .it {
+          padding: 4px 10px;
+          cursor: pointer; }
+          .user-page-top-info .user-follow-op .channel-selector .channels .it:hover {
+            background: #eee; }
+          .user-page-top-info .user-follow-op .channel-selector .channels .it.lock {
+            color: #ccc;
+            cursor: default; }
+            .user-page-top-info .user-follow-op .channel-selector .channels .it.lock .quiet {
+              color: #ccc !important; }
+            .user-page-top-info .user-follow-op .channel-selector .channels .it.lock:hover {
+              background: none; }
   .user-page-top-info .tabs {
     padding: 5px; }
     .user-page-top-info .tabs .tab {

@@ -1,5 +1,4 @@
 class Channel < UserAuthAbstract
-  has_many :channel_contacts
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
 
   validates_presence_of :name
@@ -9,59 +8,25 @@ class Channel < UserAuthAbstract
   index :creator_id
   index [:creator_id,:id]
 
-  def include_users_db
-    User.find_by_sql(%`
-      SELECT users.* FROM users
-      INNER JOIN contacts ON contacts.follow_user_id = users.id
-      INNER JOIN channel_contacts ON channel_contacts.contact_id = contacts.id
-      WHERE channel_contacts.channel_id = #{self.id}
-      ORDER BY channel_contacts.id desc
-      `)
-  end
-
-  def has_user_db?(user)
-    include_users_db.include?(user)
-  end
-
-  def get_channel_contact_obj_of(contact)
-    self.channel_contacts.find_by_contact_id(contact.id)
-  end
-
   # 给频道增加一个联系人
   # 增加成功返回 true
   # 增加失败返回 false
   def add_user(user)
-    return false if self.creator == user
-    contact = self.creator.get_contact_obj_of(user)
-    return false if contact.blank?
-
-    channel_contact = get_channel_contact_obj_of(contact)
-    return true if !channel_contact.blank?
-
-    ChannelContact.create(:contact=>contact,:channel=>self)
-    return true
+    return if user.blank? || self.creator == user
+    cu = ChannelUser.find_by_channel_id_and_user_id(self.id,user.id)
+    cu = ChannelUser.create(:channel=>self,:user=>user) if cu.blank?
+    return cu
   end
 
   # 那一群人加到一个频道
   def add_users(users)
-    users.each do |user|
-      self.add_user(user)
-    end
+    users.each{|user| self.add_user(user)}
   end
 
   # 把 user 从 频道去除
   def remove_user(user)
-    contact = self.creator.get_contact_obj_of(user)
-    return [] if contact.blank?
-
-    channel_contact = get_channel_contact_obj_of(contact)
-    channel_contact.destroy unless channel_contact.blank?
-
-    channels = self.creator.channels_of_user_db(user)
-    if channels.blank?
-      self.creator.remove_contact_user(user)
-    end
-    channels
+    cus = ChannelUser.find_all_by_channel_id_and_user_id(self.id,user.id)
+    cus.each{|cu|cu.destroy}
   end
 
   module UserMethods
@@ -73,22 +38,9 @@ class Channel < UserAuthAbstract
       channels.count
     end
 
-    # user 是否在 self 的 任意 channels 内
-    def channels_has_user?(user)
-      self.channels.each do |channel|
-        if channel.has_user_db?(user)
-          return true
-        end
-      end
-      return false
-    end
-
     # self 是channel的拥有者 user是被查的人
     def channels_of_user_db(user)
-      self_channels = self.channels_db
-      user.belongs_to_channels_db.select do |channel|
-        self_channels.include?(channel)
-      end
+      user.belongs_to_channels_db & self.channels_db
     end
 
     def to_sort_channels_by_ids(ids)
@@ -109,5 +61,5 @@ class Channel < UserAuthAbstract
   include PositionMethods
   include CooperationChannel::ChannelMethods
   include SendScope::ChannelMethods
-  include ChannelContact::ChannelMethods
+  include ChannelUser::ChannelMethods
 end

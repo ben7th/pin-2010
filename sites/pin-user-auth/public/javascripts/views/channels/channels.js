@@ -97,6 +97,18 @@ pie.do_channel_dd_hover = function(channel_elm){
     },200);
   }
 }
+pie.clear_channel_dd_hover = function(channel_elm){
+  if(channel_elm.hasClass('dd-hover')){
+    channel_elm.removeClass('dd-hover');
+    
+    channel_elm.find('.users').fadeOut(300);
+    channel_elm.find('.meta').animate({
+      'height':50
+    },200,function(){
+      channel_elm.find('.meta').css('height','');
+    });
+  }
+}
 pie.clear_channel_dd_hover_except = function(except_channel_id){
   jQuery('.page-channels-set .channel.dd-hover').each(function(){
     var elm = jQuery(this);
@@ -385,197 +397,131 @@ pie.move_a_user_to_channel = function(channel_elm, user_avatar_elm){
 pie.load(function(){
   Element.makeUnselectable($$('.cell')[0]);
 
-  //following拖拽
-  jQuery(document).delegate('.page-followings-set .following','mousedown',function(evt){
-    var elm = jQuery(this);
-    
-    //初始坐标
-    var cX = evt.pageX;
-    var cY = evt.pageY;
+  var ddelms;
+  var droped = false;
+  jQuery('.page-followings-set .following')
+    .drag('start',function(evt,dd){
+      droped = false;
 
-    //过程坐标
-    var newX = cX;
-    var newY = cY;
+      var elm = jQuery(this).addClass('selected');
+      ddelms = jQuery('.page-followings-set .following.selected').css('opacity',.5);
 
-    //移动距离
-    var distanceX = 0;
-    var distanceY = 0;
-    var sqrd = 0;
+      var dd_proxy = jQuery('<div style="position:absolute;"></div>');
 
-    //放置拖拽过程dom的dom
-    var dd_pad_elm = jQuery('<div></div>')
-      .css('position','absolute')
-      .css('left',0).css('top',0);
-    var drag_target_elms;
+      //复制若干dom
+      ddelms.each(function(){
+        var ielm = jQuery(this);
+        var offset = ielm.offset();
+        var ileft = offset.left - dd.originalX;
+        var itop = offset.top - dd.originalY;
 
-    window.is_dragging = true;
+        var is_current_elm = ielm.attr('data-id') == elm.attr('data-id')
 
-    var movefunc = function(evt){
-      newX = evt.pageX;
-      newY = evt.pageY;
+        var ddelm = ielm.clone();
+        var rotate = is_current_elm ? 0 : 6-12*Math.random();
+        var loff = is_current_elm ? 0 : 4-8*Math.random();
+        var toff = is_current_elm ? 0 : 4-8*Math.random();
 
-			distanceX = newX - cX;
-      distanceY = newY - cY;
-      sqrd = distanceX*distanceX + distanceY*distanceY;
+        if(is_current_elm) ddelm.css('z-index',100);
 
-      if(jQuery('.page-following-dd').length == 0){
-        if(sqrd > 25){
-          //选中拖拽原始定位对象
-          elm.addClass('selected').css('z-index','100');
+        ddelm
+          .addClass('page-following-dd').addClass('selected')
+          .attr('data-ileft',ileft).attr('data-itop',itop)
+          .css('left',ileft).css('top',itop)
+          .css('opacity',0.8)
+          .appendTo(dd_proxy)
+          .delay(100)
+          .animate({
+            'left':loff,
+            'top':toff,
+            'rotate':rotate
+          },300)
+      })
 
-          //获得拖拽原始对象dom
-          drag_target_elms = jQuery('.page-followings-set .following.selected');
-
-          //原始拖拽对象定位坐标
-          var ori_offset = elm.offset();
-          var ori_left = ori_offset.left;
-          var ori_top = ori_offset.top;
-
-          //计数dom
-          var length = drag_target_elms.length;
-          var count_elm;
-          if(length > 1){
-            count_elm = jQuery('<div class="page-dragdrop-user-count">'+length+'个人</div>');
-            count_elm.css('left',ori_left+90).css('top',ori_top+5).hide();
-            dd_pad_elm.append(count_elm);
-            count_elm.fadeIn(300);
-          }
-
-          //复制若干dom
-          drag_target_elms.each(function(index){
-            var ielm = jQuery(this);
-            var offset = ielm.offset();
-            var ileft = offset.left;
-            var itop = offset.top;
-
-            var dd_elm = ielm.clone();
-            var rotate = ielm.attr('data-id') == elm.attr('data-id') ? 0 : 6-12*Math.random();
-            var loff = ielm.attr('data-id') == elm.attr('data-id') ? 0 : 4-8*Math.random();
-            var toff = ielm.attr('data-id') == elm.attr('data-id') ? 0 : 4-8*Math.random();
-            dd_elm
-              .attr('data-ileft',ileft).attr('data-itop',itop)
-              .addClass('page-following-dd').addClass('selected')
-              .css('left',ileft).css('top',itop).css('opacity',0.8)
-              .delay(200)
-              .animate({
-                'left':ori_left + loff,
-                'top':ori_top + toff,
-                'rotate': rotate
-              },300)
-            dd_pad_elm.append(dd_elm);
-          })
-          
-          drag_target_elms.css('opacity',0.5);
-          jQuery('body').append(dd_pad_elm);
-        }
-      }else{
-        dd_pad_elm.css('left',distanceX).css('top',distanceY);
-
-        //判断是否在范围内
-        var scope_elm = pie.is_XY_in_scopes(newX, newY);
-
-        if(scope_elm){
-          //拖拽到了某个频道目标上
-          //首先，清理所有的覆盖效果
-          pie.clear_channel_dd_hover_except(scope_elm.attr('data-id'));
-
-          pie.do_channel_dd_hover(scope_elm);
-          dd_pad_elm.find('.page-channel-avatar-dd').addClass('will-putin');
-        }else{
-          //未拖拽到任何频道目标上
-          //清理所有覆盖效果
-          pie.clear_channel_dd_hover_except(null);
-        }
-      }
-    }
-
-    //拖拽过程函数
-    jQuery(document).bind('mousemove.dragdrop1',movefunc);
-
-    //拖拽中止
-    jQuery(document).bind('mouseup.dragdrop2',function(){
-      //清除事件绑定
-      jQuery(document).unbind('.dragdrop1');
-      jQuery(document).unbind('.dragdrop2');
-
-      var done = false;
-
-      //触发请求事件
-      var dd_hover_elm = jQuery('.page-channels-set .channel.dd-hover');
-      if(dd_hover_elm.length == 1){
-        done = true;
-        
-        var channel_id = dd_hover_elm.attr('data-id');
-        var user_ids = []
-        dd_pad_elm.find('.page-following-dd').each(function(){
-          user_ids.push(jQuery(this).attr('data-id'));
-        })
-
-        var add_count = 0;
-        user_ids.each(function(user_id){
-          if(!pie.is_following_in_channel(user_id,channel_id)){
-            pie.following_ids_add_to_channel(user_id,channel_id);
-            var avatar_elm = pie.get_following(user_id).find('.avatar-s').clone().removeClass('avatar-s').addClass('avatar');
-            dd_hover_elm.find('.users').prepend(avatar_elm.hide().fadeIn());
-            add_count += 1;
-          }
-        })
-
-        if(add_count>0){
-          var ucount_elm = dd_hover_elm.find('.ucount');
-          ucount_elm.html(parseInt(ucount_elm.html())+add_count);
-
-          var offset = ucount_elm.offset();
-
-          var ucount_aj = jQuery('<div class="page-ucount-aj add">+'+add_count+'</div>');
-          jQuery('body').append(ucount_aj);
-          ucount_aj.css('top',offset.top).css('left',offset.left)
-            .delay(100).animate({'top':'-=30px'}).fadeOut(200,function(){
-              ucount_aj.remove();
-            })
-        }
-
-        jQuery('.page-dragdrop-user-count').remove();
-        dd_pad_elm.remove();
-        jQuery('.page-followings-set .following').removeClass('selected');
-
-        setTimeout(function(){
-          pie.clear_channel_dd_hover_except(null);
-        },400);
-
-        //post /channels/:id/add_users
-        //params[:user_ids] = "1,2,3,4,5"
-        jQuery.ajax({
-          url : '/channels/'+ channel_id + '/add_users',
-          data : 'user_ids='+user_ids,
-          type : 'POST'
-        })
-
-
-      }else{
-        //将dom移动回原位并隐藏dom
-        jQuery('.page-dragdrop-user-count').remove();
-        dd_pad_elm.find('.page-following-dd').each(function(){
-          var dd_elm = jQuery(this);
-          var ileft = parseInt(dd_elm.attr('data-ileft'));
-          var itop =parseInt(dd_elm.attr('data-itop'));
-          dd_elm.delay(100).animate({
-            'left':ileft - distanceX,
-            'top':itop - distanceY,
-            'rotate': 0
-          },300,function(){
-            dd_pad_elm.remove();
-          })
-        });
-      }
-
-      if(!done) jQuery('.page-channels-set .channel').removeClass('dd-hover');
-      
-      if(drag_target_elms){
-        drag_target_elms.css('opacity',1).css('z-index','1');
-      }
-
-      window.is_dragging = false;
+			return dd_proxy.appendTo(document.body);
+    },{distance:10})
+    .drag(function(evt,dd){
+			jQuery(dd.proxy).css({
+				top: dd.offsetY,
+				left: dd.offsetX
+			});
     })
-  })
+		.drag("end",function(evt,dd){
+      if(droped == false){
+        jQuery(dd.proxy).delay(100).animate({
+          top: dd.originalY,
+          left: dd.originalX
+        },300,function(){
+          jQuery(dd.proxy).remove();
+          ddelms.css('opacity',1);
+        });
+
+        jQuery('.page-following-dd').each(function(){
+          var ddelm = jQuery(this);
+          var ileft = parseInt(ddelm.attr('data-ileft'));
+          var itop = parseInt(ddelm.attr('data-itop'));
+          ddelm.delay(100).animate({
+            'left':ileft,
+            'top':itop,
+            'rotate':0
+          },300)
+        });
+      }else{
+        jQuery(dd.proxy).remove();
+        ddelms.css('opacity',1);
+      }
+		});
+
+  jQuery('.page-channels-set .channel')
+		.drop("start",function(){
+			pie.do_channel_dd_hover(jQuery(this));
+		})
+		.drop(function(evt,dd){
+      droped = true;
+      var dd_hover_elm = jQuery(this);
+
+      var channel_id = dd_hover_elm.attr('data-id');
+      var user_ids = []
+      jQuery('.page-following-dd').each(function(){
+        user_ids.push(jQuery(this).attr('data-id'));
+      });
+
+      var add_count = 0;
+      user_ids.each(function(user_id){
+        if(!pie.is_following_in_channel(user_id,channel_id)){
+          pie.following_ids_add_to_channel(user_id,channel_id);
+          var avatar_elm = pie.get_following(user_id).find('.avatar-s').clone().removeClass('avatar-s').addClass('avatar');
+          dd_hover_elm.find('.users').prepend(avatar_elm.hide().fadeIn());
+          add_count += 1;
+        }
+      });
+
+      if(add_count>0){
+        var ucount_elm = dd_hover_elm.find('.ucount');
+        ucount_elm.html(parseInt(ucount_elm.html())+add_count);
+
+        var offset = ucount_elm.offset();
+
+        var ucount_aj = jQuery('<div class="page-ucount-aj add">+'+add_count+'</div>');
+        jQuery('body').append(ucount_aj);
+        ucount_aj.css('top',offset.top).css('left',offset.left)
+          .delay(100).animate({'top':'-=30px'}).fadeOut(200,function(){
+            ucount_aj.remove();
+          })
+      }
+
+      //post /channels/:id/add_users
+      //params[:user_ids] = "1,2,3,4,5"
+      jQuery.ajax({
+        url : '/channels/'+ channel_id + '/add_users',
+        data : 'user_ids='+user_ids,
+        type : 'POST'
+      })
+
+		})
+		.drop("end",function(){
+			pie.clear_channel_dd_hover(jQuery(this));
+		});
+
+  jQuery.drop({mode:true})
 })

@@ -4,7 +4,6 @@ loop do
     sleep 300
     Resque.enqueue(ChannelUserWorker, "wake_up", "", "")
     Resque.enqueue(FeedOperationQueueWorker, "wake_up", "")
-    Resque.enqueue(FollowOperationQueueWorker, "wake_up", "", "")
     Resque.enqueue(MindmapImageCacheQueueWorker, "wake_up", "")
     Resque.enqueue(SendTsinaStatusQueueWorker,"wake_up")
   rescue Errno::ECONNREFUSED => ex

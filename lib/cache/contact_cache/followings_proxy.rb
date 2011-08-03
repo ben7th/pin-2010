@@ -5,21 +5,37 @@ class FollowingsProxy < RedisBaseProxy
   end
 
   def xxxs_ids_db
-    Contact.find(
-      :all,
-      :conditions=>"user_id = #{@user.id}",
-      :order=>"id desc"
-    ).map{|c| c.follow_user_id} # 读数据库
+    @user.followings_db.map{|user|user.id}
+  end
+
+  def self.change_cache_when_create(channel_user)
+    user = channel_user.user
+    channel = channel_user.channel
+
+    channels = channel.creator.channels_of_user(user)
+    return if (channels-[channel]).count != 0
+    
+    FollowingsProxy.new(channel.creator).add_to_cache(user.id)
+  end
+
+  def self.change_cache_when_destroy(channel_user)
+    user = channel_user.user
+    channel = channel_user.channel
+
+    channels = channel.creator.channels_of_user(user)
+    return if (channels-[channel]).count != 0
+    
+    FollowingsProxy.new(channel.creator).remove_from_cache(user.id)
   end
 
   def self.rules
     {
-      :class=>Contact,
-      :after_create=>Proc.new{|contact|
-        FollowingsProxy.new(contact.user).add_to_cache(contact.follow_user_id)
+      :class=>ChannelUser,
+      :after_create=>Proc.new{|channel_user|
+        FollowingsProxy.change_cache_when_create(channel_user)
       },
-      :after_destroy=>Proc.new{|contact|
-        FollowingsProxy.new(contact.user).remove_from_cache(contact.follow_user_id)
+      :after_destroy=>Proc.new{|channel_user|
+        FollowingsProxy.change_cache_when_destroy(channel_user)
       }
     }
   end

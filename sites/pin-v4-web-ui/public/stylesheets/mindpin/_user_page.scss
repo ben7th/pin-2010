@@ -1,17 +1,38 @@
 .user-page-top-info{
-  overflow:hidden;
+  overflow:visible;
   .base-info{
     padding:5px;
     margin:0 0 10px 0;
     .name{font-size:18px;font-weight:bold;margin:0 0 6px 0;}
   }
-  .user-page-ops{
-    padding:5px;
+  .user-follow-op{
+    position:relative;
     .follow{
-      @include followbtn;
+      
     }
     .unfollow{
-      @include unfollowbtn;
+      
+    }
+    .channel-selector{
+      position:absolute;
+      top:24px;left:0px;
+      width:240px;
+      border:solid 1px #CCCCCC;
+      background-color:#fff;
+      .channels{
+        padding:4px 0;
+        .it{
+          padding:4px 10px;
+          cursor:pointer;
+          &:hover{background:#eee;};
+          &.lock{
+            color:#ccc;
+            cursor:default;
+            .quiet{color:#ccc !important;}
+            &:hover{background:none;};
+          };
+        }
+      }
     }
   }
 

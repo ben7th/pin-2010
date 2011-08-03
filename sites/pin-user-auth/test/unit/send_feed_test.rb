@@ -488,6 +488,7 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [],channel_cb.in_feeds
 
     channel_ac.remove_user(c)
+    channel_ac.reload
     assert_equal [],channel_ac.include_users
     assert_equal [],channel_ac.include_users_db
 
@@ -554,10 +555,11 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [],channel_ba.in_feeds
 
     channel_ac.add_user(d)
+    channel_ac.reload
     assert_equal true,channel_ac.include_users.include?(d)
     assert_equal true,channel_ac.include_users_db.include?(d)
-    a.add_contact_user(b)
     channel_ac.add_user(b)
+    channel_ac.reload
     assert_equal true,channel_ac.include_users.include?(b)
     assert_equal true,channel_ac.include_users_db.include?(b)
 
@@ -738,10 +740,10 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
 
-    d.add_contact_user(a)
     channel_db = channels(:channel_db)
     channel_db.add_user(a)
     d.reload
+    channel_db.reload
     assert_equal [feed_1,feed],d.in_feeds
     assert_equal [feed_1,feed],d.to_personal_in_feeds
     assert_equal [feed_1,feed],d.to_personal_in_feeds_db
@@ -749,8 +751,9 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [],d.incoming_to_personal_in_feeds_db
     assert_equal [],d.incoming_feeds
     assert_equal [feed_1,feed],channel_db.in_feeds
-    d.remove_contact_user(a)
+    channel_db.remove_user(a)
     d.reload
+    channel_db.reload
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
     assert_equal [],d.to_personal_in_feeds_db
@@ -846,8 +849,8 @@ class SendFeedTest < ActiveSupport::TestCase
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
 
-    c.remove_contact_user(a)
-    c.reload
+    channel_ca.remove_user(a)
+    channel_ca.reload
     assert_equal [],c.in_feeds
     assert_equal [],c.to_personal_in_feeds
     assert_equal [],c.to_personal_in_feeds_db
@@ -855,16 +858,15 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [feed_1,feed],c.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],c.incoming_feeds
     assert_equal [],channel_ca.in_feeds
-    c.add_contact_user(a)
+    channel_ca.add_user(a)
     c.reload
+    channel_ca.reload
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
     assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
-    assert_equal [],channel_ca.in_feeds
-    channel_ca.add_user(a)
     assert_equal [feed_1,feed],channel_ca.in_feeds
   end
 
@@ -1408,6 +1410,7 @@ class SendFeedTest < ActiveSupport::TestCase
     init_users_and_contacts
     a = users(:a)
     channel_ac = channels(:channel_ac)
+    channel_ad = channels(:channel_ad)
     assert_raise(SendScope::UnSpecifiedError) do
       a.send_feed("我是标题",:detail=>"我是正文",:sendto=>"")
     end
@@ -1427,29 +1430,80 @@ class SendFeedTest < ActiveSupport::TestCase
         a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
       end
     end
+
+    sendto = "ch-#{channel_ad.id},ch-#{channel_ac.id}"
+    a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
   end
 
   def init_users_and_contacts
     # 清空 redis 缓存
     RedisCache.instance.flushdb
+    # 清空 memcache Cash::Mock
+    $memcache.flush_all
     a = users(:a)
     b = users(:b)
     c = users(:c)
     d = users(:d)
     
-    #    a 被 b c 关注
-    b.add_contact_user(a)
-    c.add_contact_user(a)
-    #    b 被 c d 关注
-    c.add_contact_user(b)
-    d.add_contact_user(b)
-    #    c 被 d a 关注
-    d.add_contact_user(c)
-    a.add_contact_user(c)
-    #    d 被 a b 关注
-    a.add_contact_user(d)
-    b.add_contact_user(d)
+    #  A channel_ac,channel_ad
+    channel_ac = channels(:channel_ac)
+    channel_ad = channels(:channel_ad)
+    channels_a = a.channels
+    assert_equal 2,channels_a.count
+    assert_equal true,channels_a.include?(channel_ac)
+    assert_equal true,channels_a.include?(channel_ad)
+    channel_ac.add_user(c)
+    assert_equal [c], channel_ac.include_users_db
+    assert_equal [c], channel_ac.include_users
+    channel_ad.add_user(d)
+    assert_equal [d], channel_ad.include_users_db
+    assert_equal [d], channel_ad.include_users
+    #  B channel_bd,channel_ba
+    channel_bd = channels(:channel_bd)
+    channel_ba = channels(:channel_ba)
+    channels_b = b.channels
+    assert_equal 2,channels_b.count
+    assert_equal true,channels_b.include?(channel_bd)
+    assert_equal true,channels_b.include?(channel_ba)
+    channel_bd.add_user(d)
+    assert_equal [d], channel_bd.include_users_db
+    assert_equal [d], channel_bd.include_users
+    channel_ba.add_user(a)
+    assert_equal [a], channel_ba.include_users_db
+    assert_equal [a], channel_ba.include_users
 
+    #  C channel_ca,channel_cb
+    channel_ca = channels(:channel_ca)
+    channel_cb = channels(:channel_cb)
+    channels_c = c.channels
+    assert_equal 2,channels_c.count
+    assert_equal true,channels_c.include?(channel_ca)
+    assert_equal true,channels_c.include?(channel_cb)
+    channel_ca.add_user(a)
+    assert_equal [a], channel_ca.include_users_db
+    assert_equal [a], channel_ca.include_users
+    channel_cb.add_user(b)
+    assert_equal [b], channel_cb.include_users_db
+    assert_equal [b], channel_cb.include_users
+
+    #  D channel_db,channel_dc
+    channel_db = channels(:channel_db)
+    channel_dc = channels(:channel_dc)
+    channels_d = d.channels
+    assert_equal 2, channels_d.count
+    assert_equal true,channels_d.include?(channel_db)
+    assert_equal true,channels_d.include?(channel_dc)
+    channel_db.add_user(b)
+    assert_equal [b], channel_db.include_users_db
+    assert_equal [b], channel_db.include_users
+    channel_dc.add_user(c)
+    assert_equal [c], channel_dc.include_users_db
+    assert_equal [c], channel_dc.include_users
+
+    #    a 被 b c 关注
+    #    b 被 c d 关注
+    #    c 被 d a 关注
+    #    d 被 a b 关注
     # 验证 a 的关系
     followings_a = a.followings
     assert_equal 2,followings_a.count
@@ -1497,62 +1551,6 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal true,fans_d.include?(b)
 
     assert_equal [b],d.mutual_followings
-
-    #  A channel_ac,channel_ad
-    channel_ac = channels(:channel_ac)
-    channel_ad = channels(:channel_ad)
-    channels_a = a.channels
-    assert_equal 2,channels_a.count
-    assert_equal true,channels_a.include?(channel_ac)
-    assert_equal true,channels_a.include?(channel_ad)
-    channel_ac.add_user(c)
-    assert_equal [c], channel_ac.include_users_db
-    assert_equal [c], channel_ac.include_users
-    channel_ad.add_user(d)
-    assert_equal [d], channel_ad.include_users_db
-    assert_equal [d], channel_ad.include_users
-
-    #  B channel_bd,channel_ba
-    channel_bd = channels(:channel_bd)
-    channel_ba = channels(:channel_ba)
-    channels_b = b.channels
-    assert_equal 2,channels_b.count
-    assert_equal true,channels_b.include?(channel_bd)
-    assert_equal true,channels_b.include?(channel_ba)
-    channel_bd.add_user(d)
-    assert_equal [d], channel_bd.include_users_db
-    assert_equal [d], channel_bd.include_users
-    channel_ba.add_user(a)
-    assert_equal [a], channel_ba.include_users_db
-    assert_equal [a], channel_ba.include_users
-    
-    #  C channel_ca,channel_cb
-    channel_ca = channels(:channel_ca)
-    channel_cb = channels(:channel_cb)
-    channels_c = c.channels
-    assert_equal 2,channels_c.count
-    assert_equal true,channels_c.include?(channel_ca)
-    assert_equal true,channels_c.include?(channel_cb)
-    channel_ca.add_user(a)
-    assert_equal [a], channel_ca.include_users_db
-    assert_equal [a], channel_ca.include_users
-    channel_cb.add_user(b)
-    assert_equal [b], channel_cb.include_users_db
-    assert_equal [b], channel_cb.include_users
-    
-    #  D channel_db,channel_dc
-    channel_db = channels(:channel_db)
-    channel_dc = channels(:channel_dc)
-    channels_d = d.channels
-    assert_equal 2, channels_d.count
-    assert_equal true,channels_d.include?(channel_db)
-    assert_equal true,channels_d.include?(channel_dc)
-    channel_db.add_user(b)
-    assert_equal [b], channel_db.include_users_db
-    assert_equal [b], channel_db.include_users
-    channel_dc.add_user(c)
-    assert_equal [c], channel_dc.include_users_db
-    assert_equal [c], channel_dc.include_users
   end
 
 end

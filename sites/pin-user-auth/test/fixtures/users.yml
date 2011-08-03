@@ -32,6 +32,24 @@ lifei:
   hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
   email: lifei@mindpin.com
 
+zhang:
+  name: zhang
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: zhang@mindpin.com
+
+wang:
+  name: wang
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: wang@mindpin.com
+
+zhao:
+  name: zhao
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: zhao@mindpin.com
+
 a:
   name: usera
   salt: 267256200.649032

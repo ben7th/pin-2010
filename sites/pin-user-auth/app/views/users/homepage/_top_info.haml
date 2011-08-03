@@ -1,5 +1,5 @@
 .user-page-top-info
-  .grid_18.alpha
+  .grid_14.alpha
     .base-info
       .name=@user.name
       .sign=@user.sign
@@ -16,7 +16,14 @@
 
   .grid_5.omega.fright
     -if logged_in? && @user != current_user
-      .user-page-ops
+      .user-follow-op{:'data-id'=>@user.id}
         - followed = current_user.following?(@user)
-        %a.follow.shadow.button{:'data-id'=>@user.id,:href=>'javascript:;',:style=>followed ? 'display:none;':''} 关注这位朋友
-        %a.unfollow{:'data-id'=>@user.id,:href=>'javascript:;',:style=>followed ? '':'display:none;'} 　取消关注　
+        %a.minibutton.follow{:href=>'javascript:;',:style=>followed ? 'display:none;':''} <span>添加为联系人</span>
+        %a.minibutton.unfollow{:href=>'javascript:;',:style=>followed ? '':'display:none;'} <span>移除此联系人</span>
+        .channel-selector{:style=>'display:none;'}
+          .channels
+            -current_user.channels.each do |channel|
+              .it.ch{:'data-id'=>channel.id,:'data-name'=>channel.name}>
+                ="#{channel.name} <span class='quiet'>(#{channel.include_users.count})</span>"
+
+  .clearfix

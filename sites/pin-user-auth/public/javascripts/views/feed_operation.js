@@ -452,49 +452,6 @@ pie.load(function(){
   })
 })
 
-pie.load(function(){
-  jQuery('.user-page-ops a.follow').live('click',function(){
-    var user_id = jQuery(this).attr('data-id');
-
-    jQuery.ajax({
-      type    : 'POST',
-      url     : '/contacts/follow',
-      data    : 'user_id='+user_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        jQuery('.user-page-ops a.follow').hide();
-        jQuery('.user-page-ops a.unfollow').show();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  })
-
-  jQuery('.user-page-ops a.unfollow').live('click',function(){
-    var user_id = jQuery(this).attr('data-id');
-
-    jQuery.ajax({
-      type    : 'DELETE',
-      url     : '/contacts/unfollow',
-      data    : 'user_id='+user_id,
-      beforeSend : function(){
-        pie.show_loading_bar();
-      },
-      success : function(res){
-        jQuery('.user-page-ops a.follow').show();
-        jQuery('.user-page-ops a.unfollow').hide();
-      },
-      complete : function(){
-        pie.hide_loading_bar();
-      }
-    })
-  })
-
-})
-
 //隐藏新功能通知
 pie.load(function(){
   // put /account/hide_startup

@@ -72,17 +72,24 @@ class ContactsController < ApplicationController
   end
 
   def follow
-    contact_user = User.find(params[:user_id])
-    contact = current_user.add_contact_user(contact_user)
-    unless contact.id.blank?
-      return render :status=>200,:text=>"关注成功"
+    if params[:user_id].blank? || params[:channel_ids].blank?
+      return render :status=>402,:text=>"参数错误"
     end
-    render :status=>500,:text=>"关注失败"
+    user = User.find(params[:user_id])
+    channels = params[:channel_ids].split(",").uniq.
+      map{|id|Channel.find_by_id(id)}.compact.
+      select{|channel|channel.creator == current_user}
+    channels.each{|channel|channel.add_user(user)}
+    render :status=>200,:text=>"关注成功"
   end
 
   def unfollow
-    contact_user = User.find(params[:user_id])
-    current_user.remove_contact_user(contact_user)
+    if params[:user_id].blank?
+      return render :status=>402,:text=>"参数错误"
+    end
+    user = User.find(params[:user_id])
+    channels = current_user.channels_of_user_db(user)
+    channels.each{|channel|channel.remove_user(user)}
     render :status=>200,:text=>"取消关注成功"
   end
 

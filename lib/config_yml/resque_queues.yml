@@ -1,7 +1,6 @@
 resque_queues:
   - channel_user_operate_resque_queue
   - feed_operation_resque_queue
-  - follow_operation_resque_queue
   - mindmap_image_cache_resque_queue
   - send_tsina_status_resque_queue
   - user_tip_resque_queue

@@ -36,12 +36,15 @@ class UserToPersonalInboxFeedProxy < RedisBaseProxy
     end
   end
 
-  def self.syn_cache_when_create_contact(contact)
-    fu = contact.follow_user
-    u = contact.user
-    feed_ids = follow_user_to_user_feed_ids(fu,u)
+  def self.syn_cache_when_create_channel_user(channel_user)
+    user = channel_user.user
+    channel = channel_user.channel
+    channels = channel.creator.channels_of_user(user)
+    return if (channels-[channel]).count != 0
 
-    proxy = UserToPersonalInboxFeedProxy.new(u)
+    feed_ids = follow_user_to_user_feed_ids(user,channel.creator)
+
+    proxy = UserToPersonalInboxFeedProxy.new(channel.creator)
     ids = proxy.xxxs_ids
     all_ids = feed_ids + ids
     # 排序，大的就是新的，排在前面
@@ -50,12 +53,15 @@ class UserToPersonalInboxFeedProxy < RedisBaseProxy
     proxy.send(:xxxs_ids_rediscache_save,all_ids)
   end
 
-  def self.syn_cache_when_destroy_contact(contact)
-    fu = contact.follow_user
-    u = contact.user
-    feed_ids = follow_user_to_user_feed_ids(fu,u)
+  def self.syn_cache_when_destroy_channel_user(channel_user)
+    user = channel_user.user
+    channel = channel_user.channel
+    channels = channel.creator.channels_of_user(user)
+    return if (channels-[channel]).count != 0
 
-    proxy = UserToPersonalInboxFeedProxy.new(u)
+    feed_ids = follow_user_to_user_feed_ids(user,channel.creator)
+
+    proxy = UserToPersonalInboxFeedProxy.new(channel.creator)
     ids = proxy.xxxs_ids
     new_ids = ids - feed_ids
     # 排序，大的就是新的，排在前面
@@ -83,12 +89,12 @@ class UserToPersonalInboxFeedProxy < RedisBaseProxy
         }
       },
       {
-        :class => Contact,
-        :after_create => Proc.new {|contact|
-          UserToPersonalInboxFeedProxy.syn_cache_when_create_contact(contact)
+        :class => ChannelUser,
+        :after_create => Proc.new {|channel_user|
+          UserToPersonalInboxFeedProxy.syn_cache_when_create_channel_user(channel_user)
         },
-        :after_destroy => Proc.new {|contact|
-          UserToPersonalInboxFeedProxy.syn_cache_when_destroy_contact(contact)
+        :after_destroy => Proc.new {|channel_user|
+          UserToPersonalInboxFeedProxy.syn_cache_when_destroy_channel_user(channel_user)
         }
       }
     ]
