@@ -19,8 +19,15 @@
       border-right:none;
       border-left:solid 1px #eee;
     }
+    &.dl{
+      border-right:solid 1px #eee;
+      border-left:solid 1px #eee;
+    }
   }
   .mside{
+    &.grid_4{
+      width:149px !important;
+    }
     &.grid_5{
       width:189px !important;
     }

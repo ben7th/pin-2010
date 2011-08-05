@@ -1,0 +1,7 @@
+.page-collections
+  -collections.each do |collection|
+    .collection
+      .title
+        =collection.title
+      .avatar
+        =avatar collection.creator,:mini

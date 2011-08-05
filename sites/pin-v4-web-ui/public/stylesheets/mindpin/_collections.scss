@@ -1,0 +1,81 @@
+.page-new-collection-op{
+  position:relative;
+  margin-bottom:10px;
+  .btn{
+    @include border-radius(4px);
+    text-align:center;
+    padding:15px;
+    border:dashed 2px #999;
+    color:#999;
+    cursor:pointer;
+    &:hover{
+      background-color:#f4fff4;
+      color:#669966;
+    }
+  }
+  .form{
+    position:absolute;
+    border:solid 1px #999;
+    @include border-radius(4px);
+    top:0;right:0;
+    background-color:white;
+    z-index:1;
+    box-shadow:0 0 4px #bbb;
+    .ct{
+      padding:10px;
+      .title{
+        background-color:#FAFAFA;
+        padding:10px;
+        @include border-radius(3px);
+        color:#A5A5A5;
+        margin-bottom:10px;
+      }
+      form{
+        .field{
+          .ipt-title{width:260px;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+          .ipt-description{width:260px;height:48px;box-shadow:1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+          a.create-submit{
+            @include form-a-link-submit;
+            float:left;margin-right:10px;
+          }
+          a.create-cancel{
+            @include form-a-link-cancel;
+            float:left;
+          }
+        }
+        .field.sendto-select-widget{
+          .sendto-ipter{width:260px;}
+        }
+      }
+    }
+  }
+}
+
+.page-collections{
+  .aj-loading{
+    border:solid 2px #EEEEEE;
+    height:30px;
+    @include border-radius(4px);
+    margin-bottom:10px;
+    background-position:10px 10px;
+    &.error{
+      background:#FFEBEB;
+      border-color:#FFcccc;
+    }
+  }
+  .collection{
+    position:relative;
+    @include border-radius(4px);
+    text-align:center;
+    padding:20px;
+    border:solid 2px #EEEEEE;
+    cursor:pointer;
+    margin-bottom:10px;
+    background-color:#FAFAFA;
+    color:#666;
+    .avatar{
+      position:absolute;
+      right:2px;bottom:2px;
+    }
+  }
+}

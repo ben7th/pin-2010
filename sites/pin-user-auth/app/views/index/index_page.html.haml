@@ -4,7 +4,7 @@
 -content_for :javascripts do
   = javascript_include_tag "views/feed_operation"
 
-.mside.grid_5
+.mside.grid_4
   =show_sub_menu
   .index-page-followings.sidepart
     %h5 我的联系人
@@ -15,9 +15,7 @@
     .see-more
       =link_to '查看全部','/contacts'
 
-.main.grid_19.ll
-  .index-page-channel-name
-    公共主题列　ALPHA测试
+.main.grid_15.dl
   .page-feeds-manage-bar
     -link_to current_user do
       .avatar
@@ -33,3 +31,7 @@
     =render 'feeds/lists/feeds',:feeds=>@feeds
   .feed-paginate.padding5
     = will_paginate @feeds
+
+.mside.grid_5
+  =render 'modules/page_new_collection_op'
+  =render 'modules/page_collections',:collections=>@collections

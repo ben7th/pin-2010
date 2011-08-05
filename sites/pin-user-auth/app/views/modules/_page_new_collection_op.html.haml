@@ -1,0 +1,19 @@
+-# 需要js支持
+
+.page-new-collection-op
+  .btn 创建新聚合点
+  .form{:style=>'display:none;'}
+    .ct{:style=>'display:none;'}
+      .title 创建新的聚合点，以对内容进行自定义分类
+      %form
+        .field
+          %label 标题
+          =text_field_tag 'title','',:class=>'text ipt-title need'
+        .field
+          %label 简单描述
+          =text_area_tag 'description','',:class=>'text ipt-description need'
+        =render 'modules/field_sendto_selector'
+        .field
+          %a.create-submit{:href=>'javascript:;'} 确定
+          %a.create-cancel{:href=>'javascript:;'} 取消
+          .clearfix

@@ -1,0 +1,22 @@
+.field.sendto-select-widget
+  %label 分发范围...
+  =hidden_field_tag "sendto",'all-public',:class=>'sendto-hid'
+  .sendto-ipter
+    .sendtos
+      .ch.all-public>
+        %span.icon>
+        %span> 完全公开
+        %span.close> x
+
+    =link_to '＋选择发送范围','javascript:;',:class=>'add'
+
+  .sendto-selector{:style=>'display:none;'}
+    .desc.quiet
+      在这里选择要把主题发送给哪些频道，以控制主题的可见范围。
+    .groups
+      .it.all-public.lock 完全公开
+      .it.all-followings 所有联系人 <span class='quiet'>(#{current_user.followings.count})</span>
+    .channels
+      -current_user.channels.each do |channel|
+        .it.ch{:'data-id'=>channel.id,:'data-name'=>channel.name}>
+          ="#{channel.name} <span class='quiet'>(#{channel.include_users.count})</span>"

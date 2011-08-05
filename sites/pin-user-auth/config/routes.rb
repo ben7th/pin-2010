@@ -289,6 +289,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :atmes
 
+  map.resources :collections
+
 
   # 主题邀请，提示
   map.resources :notices,:collection=>{:common=>:get,:invites=>:get}

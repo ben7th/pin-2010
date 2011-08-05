@@ -313,6 +313,10 @@ class Feed < UserAuthAbstract
 
       tags = options[:tags]
       tags = Tag::DEFAULT if tags.blank?
+
+      if !!options[:collection]
+        options[:collection].add_feed(feed,self)
+      end
       
       feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)

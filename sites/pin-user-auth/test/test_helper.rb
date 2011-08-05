@@ -35,4 +35,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def clear_redis_cache_and_memcache_cache
+    # 清空 redis 缓存
+    RedisCache.instance.flushdb
+    # 清空 memcache Cash::Mock
+    $memcache.flush_all
+  end
 end

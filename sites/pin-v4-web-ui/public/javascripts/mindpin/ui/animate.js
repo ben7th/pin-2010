@@ -1,21 +1,10 @@
-pie.inputflash = function(input_dom){
-  var elm = jQuery(input_dom)
-  var current = elm.attr('data-current-bg-color');
-  if(!current){
-    current =  elm.css('background-color');
-    elm.attr('data-current-bg-color',current);
-  }
-  
-  elm
-    .animate({'backgroundColor': '#FFB49C'}, 200)
-    .animate({'backgroundColor': current}, 200)
-    .animate({'backgroundColor': '#FFB49C'}, 200)
-    .animate({'backgroundColor': current}, {
-      duration:200,
-      complete:function(){
-        elm.css('backgroundColor',current);
-      }
-    });
+pie.inputflash = function(input_elm){
+  input_elm
+    .stop()
+    .animate({'background-color': '#ffeeee'},100)
+    .animate({'background-color': '#ffffff'},100)
+    .animate({'background-color': '#ffeeee'},100)
+    .animate({'background-color': '#ffffff'},100);
 }
 
 pie.load(function(){
