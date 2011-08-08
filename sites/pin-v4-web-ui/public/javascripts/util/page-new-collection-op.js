@@ -1,5 +1,7 @@
 pie.load(function(){
   var op_elm = jQuery('.page-new-collection-op');
+  if(!op_elm[0]) return;
+  
   var btn_elm = jQuery('.page-new-collection-op .btn');
   var form_elm = jQuery('.page-new-collection-op .form');
   var data_form_elm = jQuery('.page-new-collection-op form');
@@ -7,6 +9,7 @@ pie.load(function(){
   var form_submit_elm = jQuery('.page-new-collection-op .form .create-submit');
   var form_cancel_elm = jQuery('.page-new-collection-op .form .create-cancel');
   var collections_elm = jQuery('.page-collections');
+
 
   btn_elm.live('click',function(){
     var width = btn_elm.outerWidth();

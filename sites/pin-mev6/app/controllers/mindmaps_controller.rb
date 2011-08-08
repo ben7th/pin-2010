@@ -53,6 +53,11 @@ class MindmapsController < ApplicationController
     end
   end
 
+  def share_original
+    MindmapImageCache.new(@mindmap).create_zoom_1_cache_file
+    render :status=>200,:text=>"生成图片成功"
+  end
+
   include MindmapImportControllerMethods
   # new import create paramsedit update delete import_base64 create_base64
   include MindmapManagingControllerMethods

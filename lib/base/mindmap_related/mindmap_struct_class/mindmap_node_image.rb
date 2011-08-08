@@ -3,12 +3,22 @@ class MindmapNodeImage
     @nokogiri_node = nokogiri_node
   end
 
-  def img_attach_id=(img_attach_id)
-    @nokogiri_node['img_attach_id'] = img_attach_id
+  def set_img_attach_id(img_attach_id,img_size="thumb")
+    str = "#{img_attach_id},#{img_size}"
+    @nokogiri_node['img_attach_id'] = str
   end
 
   def img_attach_id
-    @nokogiri_node['img_attach_id']
+    str = @nokogiri_node['img_attach_id']
+    return str if str.blank?
+    str.split(",").first
+  end
+
+  def img_size
+    str = @nokogiri_node['img_attach_id']
+    strs = str.split(",")
+    return "thumb" if strs.length == 1
+    return strs.last
   end
 
   def remove
@@ -18,13 +28,15 @@ class MindmapNodeImage
   def url
     return if img_attach_id.blank?
     return defalut_image_url if image_attachment.blank?
-    image_attachment.image.url(:thumb)
+    return image_attachment.image.url(:thumb) if img_size == "thumb"
+    image_attachment.image.url
   end
 
   def path
     return if img_attach_id.blank?
     return defalut_image_path if image_attachment.blank?
-    image_attachment.image.path(:thumb)
+    return image_attachment.image.path(:thumb) if img_size == "thumb"
+    image_attachment.image.path
   end
 
   def width
@@ -59,7 +71,8 @@ class MindmapNodeImage
     @size||=begin
       return {} if img_attach_id.blank?
       return {:height=>23,:width=>75} if image_attachment.blank?
-      image_attachment.image_size(:thumb)
+      return image_attachment.image_size(:thumb) if img_size == "thumb"
+      image_attachment.image_size
     end
   end
 

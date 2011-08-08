@@ -37,7 +37,8 @@ ActionController::Routing::Routes.draw do |map|
     :undo=>:put,
     :redo=>:put,
     :rollback_history_record=>:put,
-    :history_records=>:get
+    :history_records=>:get,
+    :share_original=>:get
   } do |mindmap|
     mindmap.files                   "files",:controller=>"files",:action=>"index",:conditions=>{:method=>:get}
     mindmap.search_image            "files/search_image",:controller=>"files",:action=>"search_image",:conditions=>{:method=>:get}

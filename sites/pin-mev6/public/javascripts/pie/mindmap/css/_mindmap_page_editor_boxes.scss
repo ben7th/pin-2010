@@ -14,7 +14,7 @@
     color:white;
     padding:0 10px;
   }
-  
+
   .ebody{
     padding:10px;
     overflow:hidden;
@@ -24,7 +24,7 @@
   }
 }
 
-/*Í¼ÏñÑ¡ÔñÆ÷*/
+/*å›¾åƒé€‰æ‹©å™¨*/
 .page-mindmap-image-editor{
   @include editor_base;
   .ebody{
@@ -67,6 +67,14 @@
           }
         }
       }
+      .image-size{
+        background:#e5e5e5;
+        @include border-radius(4px);
+        padding:10px;
+        overflow:hidden;
+        label{float:left;line-height:18px;margin-right:10px;}
+        input{float:left;line-height:18px;position:relative;top:2px;margin-right:2px;}
+      }
     }
 
     .headmisc{
@@ -85,7 +93,7 @@
   @include editor_base;
 }
 
-/*×ÖºÅÑÕÉ«Ñ¡ÔñÆ÷*/
+/*å­—å·é¢œè‰²é€‰æ‹©å™¨*/
 .page-mindmap-color-editor{
   @include editor_base;
   .panel{

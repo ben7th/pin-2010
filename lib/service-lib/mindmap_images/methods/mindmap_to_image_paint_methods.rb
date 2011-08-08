@@ -293,10 +293,10 @@ module MindmapToImagePaintMethods
   def paint_sign(w,h)
     gc = new_gc
 
-    logo_tail_path = "#{File.dirname(__FILE__)}/../images/logo_tail_1.png"
+    logo_tail_path = "#{File.dirname(__FILE__)}/../images/tu-logo.png"
     logo = Magick::ImageList.new(logo_tail_path)
 
-    gc.composite(w-120*zoom,h-30*zoom,120*zoom,30*zoom,logo)
+    gc.composite(w-168*zoom,h-30*zoom,168*zoom,30*zoom,logo)
 
     gc.stroke('transparent')
     gc.fill('#C8171F')

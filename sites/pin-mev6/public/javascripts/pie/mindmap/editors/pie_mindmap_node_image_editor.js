@@ -52,20 +52,32 @@ pie.mindmap.NodeImageEditor = Class.create({
           info_elm.html('').fadeIn(1);
         });
       }else{
-        var img_attach_id = selected_li.attr('data-id');
-        var img_attach_url = selected_li.attr('data-url');
-        var img_attach_width = selected_li.attr('data-width');
-        var img_attach_height = selected_li.attr('data-height');
+        var size = jQuery('.page-mindmap-image-editor .image-size :checked').val();
 
+        var img_attach_id = selected_li.attr('data-id');;
+        var img_attach_url;
+        var img_attach_width;
+        var img_attach_height;
+
+        if(size == 'full'){
+          img_attach_url = selected_li.attr('data-url-full');
+          img_attach_width = selected_li.attr('data-width-full');
+          img_attach_height = selected_li.attr('data-height-full');
+        }else{
+          img_attach_url = selected_li.attr('data-url-thumb');
+          img_attach_width = selected_li.attr('data-width-thumb');
+          img_attach_height = selected_li.attr('data-height-thumb');
+        }
 
         var image = {
           "attach_id" : img_attach_id,
           "url"       : img_attach_url,
           "width"     : img_attach_width,
-          "height"    : img_attach_height
+          "height"    : img_attach_height,
+          "size"      : size
         };
 
-        node.set_image_and_save(image);
+        node.set_image_and_save(image,size);
         func.close();
       }
     });

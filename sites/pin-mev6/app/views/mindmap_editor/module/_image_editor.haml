@@ -12,13 +12,20 @@
       %ul.image-list
         -image_attachments.each do |image_attachment|
           -thumb_url = image_attachment.image.url(:thumb)
-          -size = image_attachment.image_size(:thumb)
-          %li{:'data-id'=>image_attachment.id,:'data-url'=>thumb_url,:'data-width'=>size[:width],:'data-height'=>size[:height]}
+          -thumb_size = image_attachment.image_size(:thumb)
+          -full_url = image_attachment.image.url
+          -full_size = image_attachment.image_size
+          %li{:'data-id'=>image_attachment.id,:'data-url-thumb'=>thumb_url,:'data-width-thumb'=>thumb_size[:width],:'data-height-thumb'=>thumb_size[:height],:'data-url-full'=>full_url,:'data-width-full'=>full_size[:width],:'data-height-full'=>full_size[:height]}
             .ic
               .img{:style=>"background:url('#{thumb_url}') no-repeat center center;"}
             .actions
               =minibutton '删除','javascript:;',:class=>'delete'
-
+      .image-size
+        %label.t 图片尺寸
+        %input{:type=>'radio',:name=>'size',:checked=>true,:value=>'thumb',:class=>'thumb'}
+        %label 缩略
+        %input{:type=>'radio',:name=>'size',:value=>'full',:class=>'full'}
+        %label 完整
     .ops
       =minibutton '确定','javascript:;',:class=>'accept blue'
       =minibutton '取消','javascript:;',:class=>'cancel'

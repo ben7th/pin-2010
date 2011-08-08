@@ -7,6 +7,7 @@ class MindmapImageCache
 
   THUMB_500 = "500x500"
   THUMB_120 = "120x120"
+  ZOOM_1 = "1"
 
   attr_reader :mindmap
   def initialize(mindmap)
@@ -75,6 +76,26 @@ class MindmapImageCache
     FileUtils.rm(s120_cache_path) if File.exist?(s120_cache_path)
     FileUtils.cp(s120_path,s120_cache_path)
     FileUtils.rm(s120_path) if !use_error_image
+  end
+
+
+  def create_zoom_1_cache_file
+    save_path = self.img_path(ZOOM_1)
+
+    file_path = ""
+    use_error_image = false
+    begin
+      file_path = MindmapToImage.new(@mindmap).export(1)
+    rescue Exception => ex
+      use_error_image = true
+      file_path = "#{File.dirname(__FILE__)}/images/data_error.png"
+    end
+
+    dirname = File.dirname(save_path)
+    FileUtils.mkdir_p(dirname) if !File.exist?(dirname)
+    FileUtils.rm(save_path) if File.exist?(save_path)
+    FileUtils.cp(file_path,save_path)
+    FileUtils.rm(file_path) if !use_error_image
   end
 
 end

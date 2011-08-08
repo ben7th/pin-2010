@@ -1,3 +1,4 @@
+require 'RMagick'
 class ImageAttachment < Mev6Abstract
   belongs_to :user
   validates_presence_of :user

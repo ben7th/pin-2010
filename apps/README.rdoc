@@ -1,5 +1,0 @@
-# ben7th/pin-mindmap-editor
-思维导图编辑器
-
-# ben7th/pin-mindmap-image-cache
-思维导图缩略图缓存

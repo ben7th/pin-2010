@@ -100,10 +100,11 @@ class MindmapOperate
   def _do_image
     node_id = @params.node_id
     img_attach_id = @params.img_attach_id
+    img_size = @params.img_size
 
     _change_struct do |doc|
       node = doc.node(node_id)
-      node.image.img_attach_id = img_attach_id
+      node.image.set_img_attach_id(img_attach_id,img_size)
       node.modified = @operator
       {:params_hash=>@params.hash,:operation_kind=>"do_image",:operator=>@operator}
     end

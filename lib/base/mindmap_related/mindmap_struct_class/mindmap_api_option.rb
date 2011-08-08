@@ -90,6 +90,14 @@ class MindmapApiOption
       return _img_attach_id
     end
 
+    def img_size
+      _img_size = @params["img_size"]
+      if _img_size!='full' && _img_size!='thumb'
+        _img_size = ''
+      end
+      return _img_size
+    end
+
     def bgcolor
       _bgcolor = @params["bgcolor"]
       raise '节点背景色 未指定' if _bgcolor.blank?

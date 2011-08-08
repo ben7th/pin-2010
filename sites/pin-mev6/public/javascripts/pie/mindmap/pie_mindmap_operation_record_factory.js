@@ -48,7 +48,8 @@ pie.mindmap.OperationRecordFactory = Class.create({
       "op":"do_image",
       "params":{
         "node_id" : node.id,
-        "img_attach_id" : node.image['attach_id']
+        "img_attach_id" : node.image['attach_id'],
+        "img_size" : node.image['size']
       }
     }
 	},

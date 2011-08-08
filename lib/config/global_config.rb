@@ -21,11 +21,6 @@ class GlobalConfig
     project_path_config[project_name] = File.join(pin_2010_path,"sites",project_name)
   end
   
-  # apps
-  app_project_paths = Dir.entries(File.join(pin_2010_path,"apps")).select{|fname|!!fname.match(/^app/)}
-  app_project_paths.each do |project_name|
-    project_path_config[project_name] = File.join(pin_2010_path,"apps",project_name)
-  end
   PROJECT_PATH_CONFIG = project_path_config
 
 end
