@@ -3575,8 +3575,12 @@ a.send-button {
     overflow: hidden;
     border-bottom: solid 1px #eee;
     padding: 0 20px 10px 20px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    padding: 0 10px 20px 10px; }
+    .newsfeed .list.feeds .feed .lside {
+      float: left; }
     .newsfeed .list.feeds .feed .f {
+      margin-left: 44px;
       position: relative; }
       .newsfeed .list.feeds .feed .f .footmisc {
         overflow: hidden;
@@ -3692,7 +3696,7 @@ a.send-button {
   padding: 0 20px 10px 20px;
   margin-bottom: 20px;
   background: #FAFAFA;
-  padding-top: 10px;
+  padding: 10px;
   border-top: solid 1px #eee; }
   .page-feeds-manage-bar .avatar {
     float: left;
@@ -9321,7 +9325,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   -webkit-border-radius: 4px;
   text-align: center;
   padding: 20px;
-  border: solid 2px #EEEEEE;
+  border: solid 1px #EEEEEE;
   cursor: pointer;
   margin-bottom: 10px;
   background-color: #FAFAFA;

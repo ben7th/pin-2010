@@ -20,15 +20,7 @@
 
 -useless = @feed.hidden? && @feed.hidden_by_useless?
 
--if true
-
-  .mside.grid_5
-
-  .main.grid_19.ll
-    .padding10
-      主题讨论ALPHA测试页面正在进行施工，尚未发布:)
-
--elsif !useless || params[:show] == 'force'
+-if !useless || params[:show] == 'force'
 
   =render 'feeds/show_parts/show_page_head',:feed=>@feed
 

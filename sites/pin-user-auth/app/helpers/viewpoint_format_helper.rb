@@ -26,7 +26,7 @@ module ViewpointFormatHelper
   def feed_detail_short(feed)
     content = feed.detail_content || ''
     text_str = MindpinTextFormat.new(content).to_text
-    find_and_preserve "#{h(truncate_u(text_str,128))}"
+    find_and_preserve "#{h(truncate_u(text_str,256))}"
   end
 
   

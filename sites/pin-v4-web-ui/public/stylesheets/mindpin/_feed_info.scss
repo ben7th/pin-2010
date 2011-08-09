@@ -98,7 +98,12 @@
   .feed{
     overflow:hidden;
     @include bdb2010;
+    padding:0 10px 20px 10px;
+    .lside{
+      float:left;
+    }
     .f{
+      margin-left:44px;
       position:relative;
 
       .footmisc{
@@ -152,7 +157,7 @@
   overflow:hidden;
   @include bdb2010;
   background:#FAFAFA;
-  padding-top:10px;
+  padding:10px;
   border-top:solid 1px #eee;
   
   .avatar{

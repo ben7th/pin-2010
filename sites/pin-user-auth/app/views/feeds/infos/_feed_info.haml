@@ -1,5 +1,7 @@
 .feed
+  .lside
+    .avatar
+      =avatar feed.creator,:tiny
   .f{:'data-id'=>"#{feed.id}",:class=>'with-stats'}
     =render 'feeds/info_parts/info_current_feed',:feed=>feed
     =render 'feeds/info_parts/info_time_and_ops',:feed=>feed
-    =render 'feeds/info_parts/info_viewpoint',:feed=>feed

@@ -1,8 +1,4 @@
-.footmisc
-  .creator
-    .avatar
-      =avatar feed.creator,:tiny
-
+.footmisc.hide
   .tags
     -feed.tags.each do |tag|
       =tag_label(tag)
