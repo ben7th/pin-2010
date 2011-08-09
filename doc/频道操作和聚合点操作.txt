@@ -1,0 +1,43 @@
+频道操作
+==========
+  1 创建频道
+    post /channels
+    params[:name]
+  2 删除频道
+    delete /channels/:id
+  3 频道改名
+    put /channels/:id
+    params[:name]
+  4 把人加入频道
+    put /channels/:id/add
+    params[:user_id]
+  5 把人移除频道
+    put /channels/:id/remove
+    params[:user_id]
+  6 增加联系人
+    post /contacts/follow
+    params[:user_id]
+    params[:channel_ids] # "1,2,3"
+  7 删除联系人
+    delete /contacts/unfollow
+    params[:user_id]
+    
+聚合点操作
+============
+  1 创建聚合点
+    post /collections
+    params[:title]
+    params[:description]
+    params[:sendto] # 和主题发送范围相同的格式
+  2 删除聚合点
+    delete /collections/:id
+  3 聚合点改名
+    put /collections/:id/change_name
+    params[:title]
+  4 修改聚合点范围
+    put /collections/:id/change_sendto
+    params[:sendto]
+  5 让聚合点增加主题
+    put /collections/:id/add_feed
+    params[:feed_id]
+    

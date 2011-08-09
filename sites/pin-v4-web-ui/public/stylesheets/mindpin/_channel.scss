@@ -1,3 +1,25 @@
+.page-new-channel-op{
+  @include page-new-xx-op;
+  margin-top:20px;
+}
+
+.page-channel-meta-title{
+  @include bdb2010;
+  background-color:#FAFAFA;
+  margin-top:20px;
+  border-top:1px solid #EEEEEE;
+  padding:10px 20px;
+  overflow:hidden;
+  .title{
+    font-size:14px;
+    font-weight:bold;
+    float:left;
+  }
+  .op{
+    float:right;
+  }
+}
+
 .index-channels, .index-belongs-to-channels{
   @include border-radius(4px);
   margin:0 0 30px 0;
@@ -316,6 +338,7 @@
         color:white;
         font-size:14px;
         float:left;
+        a{color:white;&:hover{color:white;}}
       } 
       .ucount{
         @include tfont;

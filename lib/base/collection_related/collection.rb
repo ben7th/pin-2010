@@ -3,6 +3,7 @@ class Collection < UserAuthAbstract
   validates_presence_of :title
   validates_presence_of :description
   validates_presence_of :creator
+  validates_uniqueness_of :title,:scope=>"creator_id"
 
   def validate
     channel_ids = self.creator.channels_db_ids
@@ -11,6 +12,16 @@ class Collection < UserAuthAbstract
 
     unless cs.blank?
       errors.add(:base,"频道 #{cs*" "} 不是你的")
+    end
+  end
+
+  def change_sendto(scope)
+    self.collection_scopes.each{|cs|cs.destroy}
+
+    collection_scopes = CollectionScope.build_list_form_string(scope)
+    collection_scopes.each do |cs|
+      cs.collection = self
+      cs.save
     end
   end
 

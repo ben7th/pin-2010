@@ -1,0 +1,18 @@
+-content_for :title do
+  频道 - #{@channel.name}
+
+.grid_24
+  .page-channel-meta-title
+    .title=@channel.name
+    .op=minibutton '删除这个频道','javascript:;',:class=>'red delete',:method=>'delete',:'data-id'=>@channel.id,:'data-to-href'=>'/contacts'
+
+  .page-followings-set
+    -@channel.include_users.each do |fo|
+      -channel_ids = current_user.channels_of_user(fo).map{|c| c.id}*','
+      .following{:'data-channel-ids'=>channel_ids,:'data-id'=>fo.id}
+        .avatar
+          .img{:style=>"background:url(#{fo.logo.url(:tiny)}) 0 0 no-repeat"}
+        .name=fo.name
+        .avatar-s{:'data-id'=>fo.id,:tip=>fo.name}
+          =avatar fo,:tiny
+          .overlay

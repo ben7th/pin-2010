@@ -1,6 +1,6 @@
 .channel{:'data-id'=>channel.id}
   .meta
-    .name=channel.name
+    .name=link_to channel.name,"/channels/#{channel.id}/edit"
     .ucount=channel.include_users.count
   .users{:style=>'display:none;'}
     -channel.include_users.each do |iu|

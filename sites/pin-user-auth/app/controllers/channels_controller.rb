@@ -29,17 +29,21 @@ class ChannelsController < ApplicationController
   def create
     channel = Channel.new(:name=>params[:name],:creator=>current_user)
     if channel.save
-      return render :json=>channel.to_json
+      return render :partial=>'contacts/parts/channel_set_info',:locals=>{:channel=>channel}
     end
     render :status=>403, :json=>{:error=>get_flash_error(channel)}
   end
 
   def destroy
-    # 调用Contact类，memcache缓存，在做此操作的时候，会因找不到contact这个类 出错
-    Contact
-    if @channel.destroy
-      return redirect_to "/#{current_user.id}/followings"
+    @channel.destroy
+    if request.xhr?
+      render :status=>200,:text=>"删除成功"
+    else
+      redirect_to "/contacts"
     end
+  end
+
+  def edit
   end
 
   def update

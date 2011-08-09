@@ -187,4 +187,44 @@ class CollectionTest < ActiveSupport::TestCase
     end
   end
 
+
+  test "删除 collection" do
+    clear_redis_cache_and_memcache_cache
+    a = users(:a)
+    scope = "all-public"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题","我是描述",scope)
+    end
+    coll = Collection.last
+    assert_equal 1, coll.collection_scopes.count
+    assert_equal a, coll.creator
+    assert_equal true, coll.public?
+    assert_difference(['Collection.count','CollectionScope.count'], -1) do
+      coll.destroy
+    end
+  end
+
+  test "修改 collection sendto 范围" do
+    clear_redis_cache_and_memcache_cache
+    a = users(:a)
+    scope = "all-public"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题","我是描述",scope)
+    end
+    coll = Collection.last
+    assert_equal 1, coll.collection_scopes.count
+    assert_equal a, coll.creator
+    assert_equal true, coll.public?
+
+    scope = "all-followings"
+    assert_difference(['Collection.count','CollectionScope.count'], 0) do
+      coll.change_sendto(scope)
+    end
+    coll = Collection.last
+    assert_equal 1, coll.collection_scopes.count
+    assert_equal a, coll.creator
+    assert_equal false, coll.public?
+    assert_equal true, coll.sent_all_followings?
+  end
+
 end

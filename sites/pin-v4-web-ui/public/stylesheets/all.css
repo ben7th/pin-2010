@@ -5143,6 +5143,115 @@ a.send-button {
     .index-newbie-welcome .users .avatar {
       margin: 0 4px 4px 0; }
 
+.page-new-channel-op {
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 20px; }
+  .page-new-channel-op .btn {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    text-align: center;
+    padding: 15px;
+    border: dashed 2px #999;
+    color: #999;
+    cursor: pointer; }
+    .page-new-channel-op .btn:hover {
+      background-color: #f4fff4;
+      color: #669966; }
+  .page-new-channel-op .form {
+    position: absolute;
+    border: solid 1px #999;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    top: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1;
+    box-shadow: 0 0 4px #bbb; }
+    .page-new-channel-op .form .ct {
+      padding: 10px; }
+      .page-new-channel-op .form .ct .title {
+        background-color: #FAFAFA;
+        padding: 10px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        color: #A5A5A5;
+        margin-bottom: 10px; }
+      .page-new-channel-op .form .ct form .field a.create-submit {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed');
+        border: solid 1px #3079ED;
+        color: white;
+        font-weight: bold;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        float: left;
+        margin-right: 10px; }
+        .page-new-channel-op .form .ct form .field a.create-submit:hover {
+          color: white;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8');
+          border: solid 1px #2F5BB7; }
+        .page-new-channel-op .form .ct form .field a.create-submit span {
+          display: block; }
+      .page-new-channel-op .form .ct form .field a.create-cancel {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #e7e7e7, #e3e3e3);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e7e7e7), to(#e3e3e3));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');
+        border: solid 1px #aaa;
+        color: #555;
+        font-weight: bold;
+        text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
+        float: left; }
+        .page-new-channel-op .form .ct form .field a.create-cancel:hover {
+          color: #555;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
+          border: solid 1px #848484; }
+
+.page-channel-meta-title {
+  border-bottom: solid 1px #eee;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 20px;
+  background-color: #FAFAFA;
+  margin-top: 20px;
+  border-top: 1px solid #EEEEEE;
+  padding: 10px 20px;
+  overflow: hidden; }
+  .page-channel-meta-title .title {
+    font-size: 14px;
+    font-weight: bold;
+    float: left; }
+  .page-channel-meta-title .op {
+    float: right; }
+
 .index-channels, .index-belongs-to-channels {
   border-radius: 4px;
   -moz-border-radius: 4px;
@@ -5482,6 +5591,10 @@ a.send-button {
         color: white;
         font-size: 14px;
         float: left; }
+        .page-channels-set .channel .meta .name a {
+          color: white; }
+          .page-channels-set .channel .meta .name a:hover {
+            color: white; }
       .page-channels-set .channel .meta .ucount {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
         font-weight: bold;
@@ -9125,13 +9238,6 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         -webkit-border-radius: 3px;
         color: #A5A5A5;
         margin-bottom: 10px; }
-      .page-new-collection-op .form .ct form .field .ipt-title {
-        width: 260px;
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
-      .page-new-collection-op .form .ct form .field .ipt-description {
-        width: 260px;
-        height: 48px;
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
       .page-new-collection-op .form .ct form .field a.create-submit {
         border-radius: 4px;
         -moz-border-radius: 4px;
@@ -9187,8 +9293,15 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
           border: solid 1px #848484; }
-      .page-new-collection-op .form .ct form .field.sendto-select-widget .sendto-ipter {
-        width: 260px; }
+  .page-new-collection-op .form .ct form .field .ipt-title {
+    width: 260px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+  .page-new-collection-op .form .ct form .field .ipt-description {
+    width: 260px;
+    height: 48px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+  .page-new-collection-op .form .ct form .field.sendto-select-widget .sendto-ipter {
+    width: 260px; }
 
 .page-collections .aj-loading {
   border: solid 2px #EEEEEE;

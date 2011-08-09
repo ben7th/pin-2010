@@ -23,6 +23,7 @@
           .overlay
 
 .grid_7
+  =render 'modules/page_new_channel_op'
   .page-channels-set
     -current_user.channels.each do |channel|
       =render 'contacts/parts/channel_set_info',:channel=>channel

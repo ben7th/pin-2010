@@ -289,8 +289,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :atmes
 
-  map.resources :collections
-
+  map.resources :collections,:member=>{
+    :change_name=>:put,
+    :change_sendto=>:put,
+    :add_feed=>:put
+  }
 
   # 主题邀请，提示
   map.resources :notices,:collection=>{:common=>:get,:invites=>:get}

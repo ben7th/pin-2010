@@ -48,7 +48,7 @@ class CollectionScope < UserAuthAbstract
 
   module CollectionMethods
     def self.included(base)
-      base.has_many :collection_scopes
+      base.has_many :collection_scopes,:dependent=>:destroy
     end
 
     def public?
