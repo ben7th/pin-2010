@@ -54,8 +54,17 @@ class MindmapsController < ApplicationController
   end
 
   def share_original
-    MindmapImageCache.new(@mindmap).create_zoom_1_cache_file
+    image_path = MindmapImageCache.new(@mindmap).create_zoom_1_cache_file
+    current_user.send_tsina_image_status(image_path,params[:content])
     render :status=>200,:text=>"生成图片成功"
+  rescue Tsina::RepeatSendError => ex
+    render :status=>500,:json=>{:code=>3,:message=>ex.message}
+  rescue Tsina::ContentLengthError => ex
+    render :status=>500,:json=>{:code=>2,:message=>ex.message}
+  rescue Tsina::OauthFailureError => ex
+    render :status=>500,:json=>{:code=>1,:message=>ex.message}
+  rescue Exception => ex
+    render :status=>500,:json=>{:code=>0,:message=>ex.message}
   end
 
   include MindmapImportControllerMethods

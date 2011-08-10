@@ -96,6 +96,7 @@ class MindmapImageCache
     FileUtils.rm(save_path) if File.exist?(save_path)
     FileUtils.cp(file_path,save_path)
     FileUtils.rm(file_path) if !use_error_image
+    return save_path
   end
 
 end

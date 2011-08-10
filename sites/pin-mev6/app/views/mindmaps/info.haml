@@ -7,13 +7,20 @@
     pie.load(function(){
       jQuery('.page-mindmap-others .share-full-img').live('click',function(){
         var elm = jQuery(this).hide();
+        jQuery('.share-full-img-content').hide();
+
         jQuery('.page-mindmap-others .aj-loading').show();
+        var content = jQuery('.share-full-img-content textarea').val();
         jQuery.ajax({
           url:'/mindmaps/'+elm.attr('data-id')+'/share_original',
-          type:'get',
+          type:'PUT',
+          data:'content='+encodeURIComponent(content),
           success:function(){
             jQuery('.page-mindmap-others .aj-loading').hide();
             jQuery('.page-mindmap-others .do-share').show();
+          },
+          error:function(){
+            
           }
         })
       })
@@ -64,12 +71,15 @@
   .page-mindmap-info-view
     =render 'mindmaps/lists/management',:mindmaps=>[@mindmap]
 
-  .page-mindmap-others{:style=>'margin:0 20px 10px 20px;'}
-    =minibutton '(beta)分享大图到新浪微博','javascript:;',:class=>'share-full-img',:'data-id'=>@mindmap.id
-    .aj-loading.quiet{:style=>'padding-left:22px;background-position:0 8px;display:none;height:23px;line-height:23px;'} 正在生成完整图片..请稍候
+  -if current_user.has_binded_sina?
+    .page-mindmap-others{:style=>'margin:0 20px 10px 20px;'}
+      =minibutton '(beta)分享大图到新浪微博','javascript:;',:class=>'share-full-img',:'data-id'=>@mindmap.id
+      .share-full-img-content{:style=>'margin:5px 0 0 0;'}
+        =text_area_tag 'content',"分享mindpin的思维导图：#{@mindmap.title}。点击查看大图，看完整图片。网站链接：#{pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}")}",:class=>'text'
+      .aj-loading.quiet{:style=>'padding-left:22px;background-position:0 8px;display:none;height:23px;line-height:23px;'} 正在向微博传输数据..请稍候
 
-    -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
-    -page_title = "分享mindpin的思维导图：#{@mindmap.title}。点击查看大图，看完整图片。"
-    -newest_pic_url = pin_url_for("pin-mindmap-image-cache","#{@mindmap.id}.1.png?#{@mindmap.updated_at.to_i}")
-    -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
-    =minibutton '图片准备完毕，确认分享',"javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:class=>'blue do-share',:style=>'display:none;'
+      -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
+      -page_title = "分享mindpin的思维导图：#{@mindmap.title}。点击查看大图，看完整图片。"
+      -newest_pic_url = pin_url_for("pin-mindmap-image-cache","#{@mindmap.id}.1.png?#{@mindmap.updated_at.to_i}")
+      -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
+      .do-share{:style=>'display:none;'} 分享完毕

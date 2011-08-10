@@ -1,6 +1,8 @@
 require "weibo"
 class Tsina
   class OauthFailureError<StandardError;end
+  class ContentLengthError<StandardError;end
+  class RepeatSendError<StandardError;end
 
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
   CALLBACK_URL = SETTINGS["tsina_callback_url"]
@@ -88,11 +90,16 @@ class Tsina
       File.open(image,"r") do |f|
         wb.upload(content,f)
       end
-      return true
-    rescue Exception=>ex
+    rescue Weibo::RateLimitExceeded=>ex
       p ex.message
       puts ex.backtrace*"\n"
-      return false
+      if !!ex.message.match("内容长度")
+        raise Tsina::ContentLengthError
+      elsif !!ex.message.match("accessor was revoked")
+        raise Tsina::OauthFailureError
+      elsif !!ex.message.match("不要太贪心哦")
+        raise Tsina::RepeatSendError
+      end
     end
 
     def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
