@@ -4,4 +4,9 @@
       =avatar feed.creator,:tiny
   .f{:'data-id'=>"#{feed.id}",:class=>'with-stats'}
     =render 'feeds/info_parts/info_current_feed',:feed=>feed
+    -if !feed.photos.blank?
+      .photos
+        -feed.photos.each do |photo|
+          .photo{:'data-id'=>photo.id}
+            %img{:src=>photo.image.url(:r300)}
     =render 'feeds/info_parts/info_time_and_ops',:feed=>feed

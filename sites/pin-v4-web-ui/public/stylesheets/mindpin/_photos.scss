@@ -1,0 +1,20 @@
+.page-photos{
+  padding:10px;
+  overflow:hidden;
+  width:750px;
+  .photo{
+    border:solid 1px #EEEEEE;
+    background-color:#fafafa;
+    @include border-radius(2px);
+    padding:3px;
+    float:left;
+    width:170px;
+    height:170px;
+    margin-right:7px;
+    margin-bottom:7px;
+    box-shadow:1px 1px 0px #ccc;
+    img{
+      width:170px;height:170px;
+    }
+  }
+}

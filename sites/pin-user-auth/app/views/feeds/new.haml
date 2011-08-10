@@ -1,17 +1,28 @@
--content_for :title do
-  创建新主题
+-htitle '创建新主题'
+
+-content_for :javascript do
+  =javascript_include_tag '/uploadify/upload_feed_photo'
 
 .main.grid_17
+  .page-title-bar
+    .meta
+      %h2 创建主题
+    .ops
+      #page-upload-photo-btn.upload.create 上传图片
+
+  #page-upload-queue
+
   .page-new-feed-form
-    %h2.main-title 创建主题
     =flash_info
     -form_tag "/feeds",:class=>'common_form' do
       .field.title
         %label 标题
-        =text_area_tag "content",'',:class=>"text content-ipter"
+        =text_field_tag "content",'',:class=>"text content-ipter need"
       .field.detail
         %label 正文 <span class='quiet font12'>(选填)</span>
         =text_area_tag "detail",'',:class=>"text detail-ipter"
+      .field.photos
+        =hidden_field_tag "photo_ids",'',:class=>'photos-ipter'
       .field.tags
         %label 关键词 <span class='quiet font12'>(选填)</span>
         =text_field_tag "tags",'',:class=>"text tags-ipter"

@@ -295,7 +295,11 @@ ActionController::Routing::Routes.draw do |map|
     :add_feed=>:put
   }
 
+  map.resources :photos,:collection=>{:feed_upload=>:post}
+  map.resources :entries,:collection=>{:photos=>:get}
+
   # 主题邀请，提示
+
   map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
 
   map.namespace :v2 do |v2|

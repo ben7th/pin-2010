@@ -305,8 +305,10 @@ class Feed < UserAuthAbstract
       event = options[:event] || Feed::SAY_OPERATE
       sendto = options[:sendto] || ""
       send_scopes = SendScope.build_list_form_string(sendto)
+
+      photo_ids = (options[:photo_ids]||"").split(",")
       
-      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes)
+      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes,:photo_ids=>photo_ids)
       return feed if !feed.valid?
       feed.save!
       feed.create_detail_content(options[:detail]) if !options[:detail].blank?
@@ -428,4 +430,5 @@ class Feed < UserAuthAbstract
   include Atme::AtableMethods
 
   include SendScope::FeedMethods
+  include FeedPhoto::FeedMethods
 end

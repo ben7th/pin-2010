@@ -45,3 +45,37 @@
     margin-bottom:10px;
   }
 }
+
+/*页面标准元件，标题栏*/
+.page-title-bar{
+  margin-bottom:20px;
+  overflow:hidden;
+  @include bdb2010;
+  background:#FAFAFA;
+  padding:10px;
+  border-top:solid 1px #eee;
+  overflow:hidden;
+  .meta{
+    float:left;
+    h2{
+      font-size:14px;font-weight:bold;
+    }
+    .desc{
+      color:#777;
+    }
+  }
+  .ops{
+    float:right;
+    .create{
+      background-color:#F0F0F0;
+      border:solid 1px #DDDDDD;
+      @include border-radius(2px);
+      padding:10px 20px;
+      cursor:pointer;
+      &:hover{
+        border-color:#d0d0d0;
+        box-shadow:0px 1px 1px #eeeeee;
+      }
+    }
+  }
+}

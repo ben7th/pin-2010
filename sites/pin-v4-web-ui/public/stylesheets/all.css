@@ -3473,15 +3473,14 @@ a.send-button {
     margin: 0 0 20px 0; }
   .page-new-feed-form .field label {
     font-size: 14px; }
-  .page-new-feed-form .field.title textarea.text {
+  .page-new-feed-form .field.title input.text {
     width: 630px;
     padding: 5px 7px;
-    height: 32px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
   .page-new-feed-form .field.detail textarea.text {
     width: 630px;
     padding: 5px 7px;
-    height: 80px;
+    height: 160px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
   .page-new-feed-form .field.tags input.text {
     width: 630px;
@@ -3545,6 +3544,22 @@ a.send-button {
         background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
         border: solid 1px #848484; }
+  .page-new-feed-form .field.photos {
+    overflow: hidden;
+    margin: 0; }
+    .page-new-feed-form .field.photos .photo {
+      width: 50px;
+      height: 50px;
+      border: solid 1px #eee;
+      box-shadow: 1px 1px 0px #ccc;
+      background-color: #fafafa;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      padding: 3px;
+      float: left;
+      margin-right: 5px;
+      margin-bottom: 5px; }
 
 .page-new-feed-tips .tip {
   border-radius: 4px;
@@ -7365,6 +7380,38 @@ a.send-button {
         width: 24px;
         height: 24px; }
 
+/*页面标准元件，标题栏*/
+.page-title-bar {
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-bottom: solid 1px #eee;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 20px;
+  background: #FAFAFA;
+  padding: 10px;
+  border-top: solid 1px #eee;
+  overflow: hidden; }
+  .page-title-bar .meta {
+    float: left; }
+    .page-title-bar .meta h2 {
+      font-size: 14px;
+      font-weight: bold; }
+    .page-title-bar .meta .desc {
+      color: #777; }
+  .page-title-bar .ops {
+    float: right; }
+    .page-title-bar .ops .create {
+      background-color: #F0F0F0;
+      border: solid 1px #DDDDDD;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      padding: 10px 20px;
+      cursor: pointer; }
+      .page-title-bar .ops .create:hover {
+        border-color: #d0d0d0;
+        box-shadow: 0px 1px 1px #eeeeee; }
+
 .help-page-text h2 {
   font-size: 14px;
   font-weight: bold;
@@ -9205,6 +9252,27 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         line-height: 22em;
         position: relative;
         top: 1px; }
+
+.page-photos {
+  padding: 10px;
+  overflow: hidden;
+  width: 750px; }
+  .page-photos .photo {
+    border: solid 1px #EEEEEE;
+    background-color: #fafafa;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    padding: 3px;
+    float: left;
+    width: 170px;
+    height: 170px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    box-shadow: 1px 1px 0px #ccc; }
+    .page-photos .photo img {
+      width: 170px;
+      height: 170px; }
 
 .page-new-collection-op {
   position: relative;
