@@ -1,8 +1,31 @@
+.page-file-upload{
+  position:relative;
+  .upload-btn{
+    color:white;
+    background-color:#4C8FFD;
+    @include border-radius(2px);
+    border:solid 1px #3079ED;
+    text-align:center;
+    width:100px;
+    height:30px;line-height:30px;
+    cursor:pointer;
+    &:hover{
+      border-color:#2069cD;
+      box-shadow:0px 1px 0px #ccc;
+    }
+  }
+  .input-div{
+    /*写在html里了*/
+    input{
+    }
+  }
+}
+
 .page-photos{
   padding:10px;
   overflow:hidden;
   width:750px;
-  .photo{
+  .photo,.uploading-photo{
     border:solid 1px #EEEEEE;
     background-color:#fafafa;
     @include border-radius(2px);
@@ -16,5 +39,41 @@
     img{
       width:170px;height:170px;
     }
+  }
+  .uploading-photo{
+    position:relative;
+    background-color:#f4f4f4;
+    background-position:10px 10px;
+    &.error{
+      color:white;
+      border-color:#B0281A;
+      background-color:#DC4A38;
+      .process{display:none;}
+      .error-close{
+        display:inline;
+        margin-left:6px;
+        color:white;
+        &:hover{color:white;}
+      }
+    }
+    .meta{
+      @include tfont;
+      margin:20px 6px 10px;
+      overflow:hidden;
+    }
+    .process{
+      position:absolute;
+      width:164px;height:12px;
+      @include border-radius(2px);
+      background:#ddd;
+      bottom:6px;
+      left:6px;
+      .p{
+        height:12px;
+        background:#666;
+        @include border-radius(2px);
+      }
+    }
+    .error-close{display:none;}
   }
 }

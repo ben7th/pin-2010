@@ -1,7 +1,8 @@
 -htitle '共享资源'
 
 -content_for :javascript do
-  =javascript_include_tag '/uploadify/upload_photo'
+  -#javascript_include_tag '/uploadify/upload_photo'
+  =javascript_include_tag '/html5_upload/upload_photo'
 
 .mside.grid_5
   =render 'modules/sub_links/entries_links'
@@ -12,12 +13,14 @@
       %h2 照片和图片
       .desc 这里汇集了你上传的照片和图片
     .ops
-      #page-upload-photo-btn.upload.create 上传图片
+      .page-file-upload
+        .upload-btn 选择并上传图片
+        .input-div{:style=>'position:absolute;width:102px;height:32px;left:0;top:0;overflow:hidden;'}
+          %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:32px;font-size:30px;opacity:0;',:multiple=>""}
 
-  #page-upload-queue
 
   .page-photos
-    -@photos.each do |photo|
-      .photo
-        %img{:src=>photo.image.url(:s200)}
-    
+    =render 'modules/photos/photo_manage',:photos=>@photos
+
+  .page-paginate
+    =will_paginate @photos

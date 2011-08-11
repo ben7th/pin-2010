@@ -9253,11 +9253,31 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         position: relative;
         top: 1px; }
 
+.page-file-upload {
+  position: relative; }
+  .page-file-upload .upload-btn {
+    color: white;
+    background-color: #4C8FFD;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: solid 1px #3079ED;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer; }
+    .page-file-upload .upload-btn:hover {
+      border-color: #2069cD;
+      box-shadow: 0px 1px 0px #ccc; }
+  .page-file-upload .input-div {
+    /*写在html里了*/ }
+
 .page-photos {
   padding: 10px;
   overflow: hidden;
   width: 750px; }
-  .page-photos .photo {
+  .page-photos .photo, .page-photos .uploading-photo {
     border: solid 1px #EEEEEE;
     background-color: #fafafa;
     border-radius: 2px;
@@ -9270,9 +9290,47 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
     margin-right: 7px;
     margin-bottom: 7px;
     box-shadow: 1px 1px 0px #ccc; }
-    .page-photos .photo img {
+    .page-photos .photo img, .page-photos .uploading-photo img {
       width: 170px;
       height: 170px; }
+  .page-photos .uploading-photo {
+    position: relative;
+    background-color: #f4f4f4;
+    background-position: 10px 10px; }
+    .page-photos .uploading-photo.error {
+      color: white;
+      border-color: #B0281A;
+      background-color: #DC4A38; }
+      .page-photos .uploading-photo.error .process {
+        display: none; }
+      .page-photos .uploading-photo.error .error-close {
+        display: inline;
+        margin-left: 6px;
+        color: white; }
+        .page-photos .uploading-photo.error .error-close:hover {
+          color: white; }
+    .page-photos .uploading-photo .meta {
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      margin: 20px 6px 10px;
+      overflow: hidden; }
+    .page-photos .uploading-photo .process {
+      position: absolute;
+      width: 164px;
+      height: 12px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      background: #ddd;
+      bottom: 6px;
+      left: 6px; }
+      .page-photos .uploading-photo .process .p {
+        height: 12px;
+        background: #666;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px; }
+    .page-photos .uploading-photo .error-close {
+      display: none; }
 
 .page-new-collection-op {
   position: relative;
