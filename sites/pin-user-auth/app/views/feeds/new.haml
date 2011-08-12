@@ -1,7 +1,59 @@
 -htitle '创建新主题'
 
+-content_for :css do
+  =stylesheet_link_tag '/ueditor/themes/default/ueditor.css'
+
 -content_for :javascript do
   =javascript_include_tag '/uploadify/upload_feed_photo'
+
+  -# 编辑器核心代码
+  =javascript_include_tag '/ueditor/editor_config.js'
+
+  =javascript_include_tag '/ueditor/editor.js'
+  =javascript_include_tag '/ueditor/core/browser.js'
+  =javascript_include_tag '/ueditor/core/utils.js'
+  =javascript_include_tag '/ueditor/core/EventBase.js'
+
+  =javascript_include_tag '/ueditor/core/dom/dom.js'
+  =javascript_include_tag '/ueditor/core/dom/dtd.js'
+  =javascript_include_tag '/ueditor/core/dom/domUtils.js'
+  =javascript_include_tag '/ueditor/core/dom/Range.js'
+  =javascript_include_tag '/ueditor/core/dom/Selection.js'
+
+  =javascript_include_tag '/ueditor/core/Editor.js'
+
+  -# 编辑器命令代码
+
+  -# 加粗，加斜，删除线，上标，下标
+  =javascript_include_tag '/ueditor/commands/basestyle.js'
+  =javascript_include_tag '/ueditor/commands/font.js'
+  =javascript_include_tag '/ueditor/commands/elementpath.js'
+  -# 引用块
+  =javascript_include_tag '/ueditor/commands/blockquote.js'
+  -# 有序列表
+  =javascript_include_tag '/ueditor/commands/list.js'
+
+  -# 编辑器插件
+  -# 自动增高
+  =javascript_include_tag '/ueditor/plugins/autoheight/autoheight.js'
+  =javascript_include_tag '/ueditor/plugins/serialize/serialize.js'
+
+  -# 编辑器UI
+  =javascript_include_tag '/ueditor/ui/ui.js'
+  =javascript_include_tag '/ueditor/ui/uiutils.js'
+  =javascript_include_tag '/ueditor/ui/uibase.js'
+  =javascript_include_tag '/ueditor/ui/mask.js'
+  =javascript_include_tag '/ueditor/ui/popup.js'
+  =javascript_include_tag '/ueditor/ui/stateful.js'
+  =javascript_include_tag '/ueditor/ui/button.js'
+  =javascript_include_tag '/ueditor/ui/splitbutton.js'
+  =javascript_include_tag '/ueditor/ui/toolbar.js'
+  =javascript_include_tag '/ueditor/ui/menu.js'
+  =javascript_include_tag '/ueditor/ui/dialog.js'
+  =javascript_include_tag '/ueditor/ui/menubutton.js'
+  =javascript_include_tag '/ueditor/ui/editorui.js'
+  =javascript_include_tag '/ueditor/ui/editor.js'
+  =javascript_include_tag '/ueditor/ui/multiMenu.js'
 
 .main.grid_17
   .page-title-bar
@@ -20,7 +72,8 @@
         =text_field_tag "content",'',:class=>"text content-ipter need"
       .field.detail
         %label 正文 <span class='quiet font12'>(选填)</span>
-        =text_area_tag "detail",'',:class=>"text detail-ipter"
+        =text_area_tag "detail",'',:class=>"text detail-ipter",:style=>'display:none;'
+        #page-feed-detail-ipter
       .field.photos
         =hidden_field_tag "photo_ids",'',:class=>'photos-ipter'
       .field.tags

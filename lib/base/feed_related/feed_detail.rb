@@ -1,4 +1,6 @@
 class FeedDetail < UserAuthAbstract
+  HTML_FORMAT = "html"
+
   belongs_to :feed
   validates_presence_of :feed
   validates_presence_of :content
@@ -10,7 +12,7 @@ class FeedDetail < UserAuthAbstract
 
     def create_or_update_detail(content)
       fd = self.feed_detail
-      return FeedDetail.create(:feed=>self,:content=>content) if fd.blank?
+      return FeedDetail.create(:feed=>self,:content=>content,:format=>FeedDetail::HTML_FORMAT) if fd.blank?
       fd.update_attribute(:content,content)
     end
   end

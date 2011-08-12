@@ -1,9 +1,31 @@
 pie.load(function(){
   var data_form_elm = jQuery('.page-new-feed-form');
 
+  if(data_form_elm.length == 0) return;
+  
+  var rich_editor = new baidu.editor.ui.Editor({
+    minFrameHeight: 160,
+    autoHeightEnabled: true,
+    /**/
+    ui: {
+      toolbars: [
+        [
+          'Bold', 'Underline','StrikeThrough',
+          'InsertOrderedList',"BlockQuote","lifei"
+        ]
+      ]
+    }
+  });
+  rich_editor.render("page-feed-detail-ipter");
+
+  jQuery('#edui1_bottombar').hide();
+
   jQuery(document).delegate('.page-new-feed-form .create-submit','click',function(){
     var elm = jQuery(this);
     var data_form_elm = elm.closest('form');
+
+    //富文本编辑器给textarea赋值
+    data_form_elm.find('.detail-ipter').val(rich_editor.getContent());
 
     //参数检查
     var can_submit = true;

@@ -49,6 +49,7 @@ pie.load(function(){
     var uploading_elm = uploading_photo_elm.clone();
     uploading_elm.find('.file-name').html(file.name);
     uploading_elm.find('.file-size').html(get_file_size_str(file));
+    uploading_elm.find('.p').css('width',0)
     uploading_elm.hide().fadeIn().prependTo(photos_elm);
     return uploading_elm;
   }
@@ -63,14 +64,12 @@ pie.load(function(){
     
     var xhr = new XMLHttpRequest();
 
-
-
     xhr.upload.addEventListener("progress", function(evt){
       pie.log('pregress');
 
       if (evt.lengthComputable) {
         var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-        uploading_elm.find('.p').css('width',percentComplete+'%')
+        uploading_elm.find('.p').animate({'width':percentComplete+'%'})
       }
       else {
         pie.log('unComputable')
@@ -86,8 +85,10 @@ pie.load(function(){
         var res = xhr.responseText;
         var new_photo_elm = jQuery(res);
         
-        uploading_elm.after(new_photo_elm).remove();
-        new_photo_elm.hide().fadeIn();
+        uploading_elm.find('.p').animate({'width':'100%'},function(){
+          uploading_elm.after(new_photo_elm).remove();
+          new_photo_elm.hide().fadeIn();
+        })
 
       }else{
         //上传失败
