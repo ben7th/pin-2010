@@ -11,6 +11,10 @@ class Photo < UserAuthAbstract
     IMAGE_URL = "http://mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
   end
 
+  validates_attachment_content_type :image,
+    :content_type => ['image/gif', 'image/png', 'image/jpeg'],
+    :message=>"只能上传图片"
+  validates_attachment_presence :image
   # image
   has_attached_file :image,
     :styles => {
@@ -28,7 +32,6 @@ class Photo < UserAuthAbstract
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
     :default_style => :original
-  validates_attachment_presence :image
 
   def image_size(size = :original)
     path = self.image.path(size)

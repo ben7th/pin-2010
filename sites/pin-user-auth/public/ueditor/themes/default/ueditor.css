@@ -22,12 +22,6 @@ div.edui-box { position: relative; display: -moz-inline-box; display: inline-blo
 .edui-dialog-modalmask, .edui-dialog-dragmask { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .edui-toolbar { position: relative; }
 
-/*--reset--*/
-html,body,div,h1,h2,h3,h4,h5,h6,p,table,td,tr,ul,ol,li,dl,dd,dt,img,form{margin:0;padding:0;}
-ol,ul,li{list-style:none}
-
-body{margin:8px;}
-
 /*
  * default theme
  */

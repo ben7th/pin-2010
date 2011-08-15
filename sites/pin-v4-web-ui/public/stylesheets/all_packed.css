@@ -887,7 +887,17 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-new-feed-form .field.subm .create-cancel{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;display:block;padding:0;height:30px;line-height:30px;text-align:center;width:80px;font-size:14px;background:-moz-linear-gradient(-90deg,#e7e7e7,#e3e3e3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#e7e7e7),to(#e3e3e3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');border:solid 1px #aaa;color:#555;font-weight:bold;text-shadow:0 0 0 rgba(0,0,0,0.3);width:100px;float:left;}
 .page-new-feed-form .field.subm .create-cancel:hover{color:#555;text-decoration:none;background:-moz-linear-gradient(-90deg,#d7d7d7,#d3d3d3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d7d7d7),to(#d3d3d3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');border:solid 1px #848484;}
 .page-new-feed-form .field.photos{overflow:hidden;margin:0;}
-.page-new-feed-form .field.photos .photo{width:50px;height:50px;border:solid 1px #eee;box-shadow:1px 1px 0 #ccc;background-color:#fafafa;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;padding:3px;float:left;margin-right:5px;margin-bottom:5px;}
+.page-new-feed-form .field.photos .photo,.page-new-feed-form .field.photos .uploading-photo{width:50px;height:50px;border:solid 1px #eee;box-shadow:1px 1px 0 #ccc;background-color:#fafafa;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;padding:3px;float:left;margin-right:5px;margin-bottom:5px;}
+.page-new-feed-form .field.photos .uploading-photo{position:relative;background-color:#f4f4f4;background-position:5px 5px;}
+.page-new-feed-form .field.photos .uploading-photo.error{color:white;border-color:#B0281A;background-color:#DC4A38;}
+.page-new-feed-form .field.photos .uploading-photo.error .process{display:none;}
+.page-new-feed-form .field.photos .uploading-photo.error .error-close{display:inline;margin-left:3px;color:white;}
+.page-new-feed-form .field.photos .uploading-photo.error .error-close:hover{color:white;}
+.page-new-feed-form .field.photos .uploading-photo .meta{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;margin:5px 3px 5px;overflow:hidden;}
+.page-new-feed-form .field.photos .uploading-photo .meta .file-name{width:44px;height:18px;overflow:hidden;}
+.page-new-feed-form .field.photos .uploading-photo .process{position:absolute;width:50px;height:6px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;background:#ddd;bottom:3px;left:3px;}
+.page-new-feed-form .field.photos .uploading-photo .process .p{height:6px;background:#666;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
+.page-new-feed-form .field.photos .uploading-photo .error-close{display:none;}
 .page-new-feed-tips .tip{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:10px;font-size:14px;margin:0 0 20px 0;font-family:Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;}
 .page-new-feed-tips .tip .title{font-size:16px;font-weight:bold;margin:0 0 10px 0;padding:0 0 10px 0;}
 .page-new-feed-tips .tip ul{list-style-type:none;margin:0 0 0 1.5em;}

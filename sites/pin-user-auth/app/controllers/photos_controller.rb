@@ -9,7 +9,8 @@ class PhotosController < ApplicationController
     unless photo.id.blank?
       return render :partial=>'modules/photos/photo_manage',:locals=>{:photos=>[photo]}
     end
-    render :text=>"上传失败",:status=>402
+    p photo.errors.first[1]
+    render :json=>{:message=>photo.errors.first[1]},:status=>402
   end
 
   def feed_upload
