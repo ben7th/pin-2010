@@ -31,7 +31,7 @@ class ChannelUser < UserAuthAbstract
     end
 
     def fans_db
-      ActiveRecord::Base.connection.select_rows(%`
+      UserAuthAbstract.connection.select_rows(%`
           select users.id from users
             inner join channels on channels.creator_id = users.id
             inner join channel_users on channel_users.channel_id = channels.id
@@ -41,7 +41,7 @@ class ChannelUser < UserAuthAbstract
     end
 
     def followings_db
-      ActiveRecord::Base.connection.select_rows(%`
+      UserAuthAbstract.connection.select_rows(%`
           select users.id from users
             inner join channel_users on users.id = channel_users.user_id
             inner join channels on channel_users.channel_id = channels.id
