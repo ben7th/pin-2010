@@ -11,7 +11,7 @@ pie.load(function(){
       toolbars: [
         [
           'Bold', 'Underline','StrikeThrough',
-          'InsertOrderedList',"BlockQuote","lifei"
+          'InsertOrderedList',"BlockQuote"
         ]
       ]
     }

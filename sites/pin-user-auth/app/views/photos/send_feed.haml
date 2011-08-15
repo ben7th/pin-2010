@@ -1,0 +1,5 @@
+=flash_info
+-form_tag "/photos/#{@photo.id}/create_feed" do
+  %label 标题
+  =text_field_tag "content"
+  =submit_tag "提交"

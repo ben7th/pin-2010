@@ -4,7 +4,7 @@
   =stylesheet_link_tag '/ueditor/themes/default/ueditor.css'
 
 -content_for :javascript do
-  =javascript_include_tag '/uploadify/upload_feed_photo'
+  =javascript_include_tag '/html5_upload/upload_feed_photo'
 
   -# 编辑器核心代码
   =javascript_include_tag '/ueditor/editor_config.js'
@@ -53,14 +53,16 @@
   =javascript_include_tag '/ueditor/ui/menubutton.js'
   =javascript_include_tag '/ueditor/ui/editorui.js'
   =javascript_include_tag '/ueditor/ui/editor.js'
-  =javascript_include_tag '/ueditor/ui/multiMenu.js'
 
 .main.grid_17
   .page-title-bar
     .meta
       %h2 创建主题
     .ops
-      #page-upload-photo-btn.upload.create 上传图片
+      .page-file-upload
+        .upload-btn 选择并上传图片
+        .input-div{:style=>'position:absolute;width:102px;height:32px;left:0;top:0;overflow:hidden;'}
+          %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:32px;font-size:30px;opacity:0;',:multiple=>""}
 
   #page-upload-queue
 

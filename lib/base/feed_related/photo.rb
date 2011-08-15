@@ -45,4 +45,5 @@ class Photo < UserAuthAbstract
   end
 
   include FeedPhoto::PhotoMethods
+  include PhotoComment::PhotoMethods
 end

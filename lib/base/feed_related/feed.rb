@@ -325,22 +325,6 @@ class Feed < UserAuthAbstract
       feed
     end
 
-    # option :channel_ids
-    def send_html_document_feed(title,html,options={})
-      channel_ids = options[:channel_ids] || []
-      channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-      Feed.transaction do
-        feed = Feed.new(
-        :creator=>self,:event=>Feed::SAY_OPERATE,
-        :content=>title,:channels_db=>channels)
-        hd = HtmlDocument.new(:feed=>feed,:html=>html,:creator=>self)
-        return false if !hd.valid? || !feed.valid?
-        feed.save!
-        hd.save!
-        return feed
-      end
-    end
-
     def send_todolist_feed(title,options={})
     end
 

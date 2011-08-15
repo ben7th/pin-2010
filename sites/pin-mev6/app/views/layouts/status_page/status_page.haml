@@ -1,11 +1,13 @@
-:css
-  .cellhead{display:none;}
+-code = flash[:status_code]
+-text = flash[:status_text]
 
-.grid_11.alpha
-  .loud{:style=>'font-size:18px;'} HTTP #{@status_code}
-  %div
-    =show_status_code(@status_code)
-  - if !@status_text.blank?
-    .quiet.margint10=@status_text
-  .margint10
-    =link_to '返回上一页','javascript:history.go(-1)'
+.main.nl
+  .page-title-bar
+    .bold{:style=>'font-size:24px;'} HTTP #{code}
+    .p=show_status_code(code)
+
+  .paddingl10
+    - if !text.blank?
+      .quiet.margint10=text
+    .margint10
+      =minibutton '返回首页','/'

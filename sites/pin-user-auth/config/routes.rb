@@ -269,9 +269,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.fans "/:user_id/channels",:controller=>"channels",:action=>"user_index"
 
-  map.create_html_document_feeds "/html_document_feeds",:controller=>"create_feeds",:action=>"html_document_feed",:conditions=>{:method=>:post}
-  map.create_mindmap_feeds "/mindmap_feeds",:controller=>"create_feeds",:action=>"mindmap_feed",:conditions=>{:method=>:post}
-
   map.short_url "/short_url/:code",:controller=>"short_urls",:action=>"show"
 
 
@@ -295,7 +292,10 @@ ActionController::Routing::Routes.draw do |map|
     :add_feed=>:put
   }
 
-  map.resources :photos,:collection=>{:feed_upload=>:post}
+  map.resources :photos,:collection=>{:feed_upload=>:post},:member=>{
+    :comments=>:post,:add_description=>:put,
+    :send_feed=>:get,:create_feed=>:post
+  }
   map.resources :entries,:collection=>{:photos=>:get}
 
   # 主题邀请，提示

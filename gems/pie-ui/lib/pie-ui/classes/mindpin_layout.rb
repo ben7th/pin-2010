@@ -35,10 +35,8 @@ class MindpinLayout
       end
 
       def render_status_page(code,text='')
-        set_cellhead_tail false
-        set_tabs_path false
-        @status_text = text
-        @status_code = code
+        flash.now[:status_text] = text
+        flash.now[:status_code] = code
         render "layouts/status_page/status_page",:status=>code
       end
 
