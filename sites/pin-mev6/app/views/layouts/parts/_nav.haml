@@ -1,20 +1,20 @@
-.ph
-  .page-head.container_24
-    .site-logo
-      =link_to '思维导图','/',:class=>'logo mindmaps'
+.page-header
+  .menu
+    .container_24
+      .topbar
+        -if logged_in?
+          .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account?service=tu')
+          .sp=link_to "退出",pin_url_for('pin-user-auth','/logout?service=tu')
 
-    .nav
-      .topbar.clearfix
-        .fright
-          -if logged_in?
-            .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account?service=tu')
-            .sp=link_to "退出",pin_url_for('pin-user-auth','/logout?service=tu')
+        -else
+          .sp=link_to '用户注册','/signup'
+          .sp=link_to '登录','/login?service=tu'
 
-          -else
-            .sp=link_to '用户注册','/signup'
-            .sp=link_to '登录','/login?service=tu'
-
-      .search-form>
+  .nav
+    .container_24
+      .site-logo
+        =link_to '思维导图','/',:class=>'logo mindmaps'
+      .mindmap-search-form>
         %form{:action=>"/mindmaps/search",:method=>"get"}>
           %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
           =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'

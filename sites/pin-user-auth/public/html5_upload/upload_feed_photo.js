@@ -33,6 +33,24 @@ pie.load(function(){
     })
   })
 
+  jQuery('.field.photos .photo .close').live('click',function(){
+    var elm = jQuery(this);
+    var photo_elm = elm.closest('.photo');
+    photo_elm.fadeOut(function(){
+      photo_elm.remove();
+      set_param();
+    })
+  })
+
+  var set_param = function(){
+    var photo_names = [];
+    photos_elm.find('.photo').each(function(){
+      photo_names.push(jQuery(this).domdata('name'));
+    })
+
+    form_photos_ipter_elm.val(photo_names);
+  }
+
   var get_file_size_str = function(file){
     var file_size_str = '0KB';
     var file_size = file.size;
@@ -87,14 +105,7 @@ pie.load(function(){
         uploading_elm.find('.p').animate({'width':'100%'},function(){
           uploading_elm.after(new_photo_elm).remove();
           new_photo_elm.hide().fadeIn();
-
-          var photo_ids = [];
-          photos_elm.find('.photo').each(function(){
-            photo_ids.push(jQuery(this).domdata('id'));
-          })
-
-          form_photos_ipter_elm.val(photo_ids);
-
+          set_param();
         });
 
       }else{
@@ -110,9 +121,9 @@ pie.load(function(){
   };
 
   file_input_elm.bind('change',function(){
-    var file = file_input_elm[0].files[0];
-    if(file){
+    var files = file_input_elm[0].files;
+    jQuery.each(files,function(i,file){
       do_upload_file(file);
-    }
+    })
   })
 })

@@ -101,4 +101,57 @@
   }
 }
 
+.page-account-header{
+  background:#444;
+  color:$head-text-color;
+  overflow:hidden;
+  height:30px;
+  .site-logo{
+    float:left;
+    .logo.account{
+      display:block;
+      width:260px;height:30px;
+      font-size:0px;
+      line-height:22em;
+      background:url(/images/alltu.png) -133px -50px;
+    }
+  }
+}
+
+.mindmap-search-form{
+  margin:0 0 0 0;
+  padding-top:16px;
+  overflow:hidden;
+  form{
+    float:right;
+    input{
+      height:22px !important;line-height:22px !important;
+      @include border-radius(4px 0 0 4px);
+      float:left;
+      @include box-shadow(none);
+      border-color:#ddd;
+      border-right:#ddd solid 1px;
+      padding-left:7px !important;
+      width:172px !important;
+    }
+    .do-search{
+      overflow:hidden;
+      float:left;
+      @include border-radius(0 4px 4px 0);
+      border:solid 1px #ddd;
+      border-left:none;
+      height:22px;
+      width:22px;
+      line-height:22em;
+      text-align:center;
+      color:#666;
+      font-weight:bold;
+      background-image:url(/images/sites.png);
+      background-repeat:no-repeat;
+      background-position:-50px -1px;
+      @include box-shadow(none);
+    }
+  }
+}
+
 @import "main_and_side"

@@ -1,15 +1,22 @@
 -#use 主题列表项
 -#see 登录后的首页->中间栏的主题列表
 
-.feed
+.feed{:'data-id'=>"#{feed.id}"}
   .lside
     .avatar
       =avatar feed.creator,:tiny
-  .f{:'data-id'=>"#{feed.id}",:class=>'with-stats'}
+  .f
     =render 'feeds/info_parts/info_current_feed',:feed=>feed
-    -if !feed.photos.blank?
-      .photos
-        -feed.photos.each do |photo|
-          .photo{:'data-id'=>photo.id}
-            %img{:src=>photo.image.url(:r300)}
-    =render 'feeds/info_parts/info_time_and_ops',:feed=>feed
+
+    .tags.hide
+      -feed.tags.each do |tag|
+        =tag_label(tag)
+
+    .footmisc
+      .ops
+        .o=link_to '评论','javascript:;',:class=>'add-comment'
+
+    .status
+      -comments_count = feed.comments.count
+      .comments.page-comments-list{:style=>(comments_count>0) ? '':'display:none'}
+        =render 'feeds/lists/comments',:comments=>feed.comments

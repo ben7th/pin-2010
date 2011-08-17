@@ -6,7 +6,9 @@ class Tag < UserAuthAbstract
   # logo
   @logo_path = "#{UserBase::LOGO_PATH_ROOT}:class/:attachment/:id/:style/:basename.:extension"
   @logo_url = "#{UserBase::LOGO_URL_ROOT}:class/:attachment/:id/:style/:basename.:extension"
-  has_attached_file :logo,:styles => {:raw=>'500x500>',:medium=>"96x96#",:normal=>"48x48#",:tiny=>'32x32#',:mini=>'24x24#' },
+  has_attached_file :logo,:styles =>
+    {:raw=>'500x500>',:medium=>"96x96#",
+    :normal=>"48x48#",:tiny=>'32x32#',:mini=>'24x24#',:s16=>'16x16#' },
     :path => @logo_path,
     :url => @logo_url,
     :default_url => "/images/logo/default_:class_:style.png",

@@ -1,0 +1,6 @@
+.page-wrap
+  .page-container
+    =render 'layouts/parts/nav'
+    .page-content{:class=>container_classname}
+      .cell.clearfix
+        =yield

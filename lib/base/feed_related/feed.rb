@@ -79,37 +79,6 @@ class Feed < UserAuthAbstract
     end
   end
 
-  def self.reply_to_feed(user,content,create_new_feed,host_feed,channel_ids=[])
-    if create_new_feed == "true"
-      self._create_comment_and_new_feed(user,content,host_feed,channel_ids)
-    else
-      self._create_comment(user,content,host_feed)
-    end
-  end
-
-  def self._create_comment(user,content,host_feed)
-    fc = FeedComment.new(:feed_id=>host_feed.id,:content=>content,:user_id=>user.id)
-    return false if !fc.valid?
-    fc.save!
-    fc
-  end
-
-  def self._create_comment_and_new_feed(user,content,host_feed,channel_ids)
-    channel_ids = [] if channel_ids.blank?
-    channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-    host_feed_id = host_feed.id
-    Feed.transaction do
-      fc = FeedComment.new(:feed_id=>host_feed_id,:content=>content,:user_id=>user.id)
-      feed = Feed.new(:creator=>user,:event=>SAY_OPERATE,:content=>content,:channels_db=>channels,:reply_to=>host_feed_id)
-      return false if !fc.valid?
-      return false if !feed.valid?
-      fc.save!
-      feed.save!
-      return fc
-    end
-  end
-
-  #
   def self.to_quote_feed(user,content,quote_feed,options={})
     channel_ids = options[:channel_ids] || []
     channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
@@ -306,9 +275,7 @@ class Feed < UserAuthAbstract
       sendto = options[:sendto] || ""
       send_scopes = SendScope.build_list_form_string(sendto)
 
-      photo_ids = (options[:photo_ids]||"").split(",")
-      
-      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes,:photo_ids=>photo_ids)
+      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes)
       return feed if !feed.valid?
       feed.save!
       feed.create_detail_content(options[:detail]) if !options[:detail].blank?
@@ -318,6 +285,13 @@ class Feed < UserAuthAbstract
 
       if !!options[:collection]
         options[:collection].add_feed(feed,self)
+      end
+      
+      if !!options[:photo_names]
+        (options[:photo_names]||"").split(",").each do |name|
+          photo = PhotoAdpater.create_photo_by_file_name(name,self)
+          feed.feed_photos.create(:photo=>photo)
+        end
       end
       
       feed.add_tags_without_record_editer(tags,self)

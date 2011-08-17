@@ -17,7 +17,7 @@ class FeedsController < ApplicationController
   end
 
   def create
-    feed = current_user.send_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags],:sendto=>params[:sendto],:photo_ids=>params[:photo_ids])
+    feed = current_user.send_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags],:sendto=>params[:sendto],:photo_names=>params[:photo_names])
     if feed.id.blank?
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'
@@ -56,16 +56,13 @@ class FeedsController < ApplicationController
     render :stats=>200,:text=>"取消收藏成功"
   end
 
-  def reply_to
-    @host_feed = Feed.find_by_id(params[:reply_to])
-    channel_param = params[:channel_id].blank? ? [] : [params[:channel_id]]
-    comment = Feed.reply_to_feed(current_user,params[:content],params[:send_new_feed],@host_feed,channel_param)
-    if comment
-      render :partial=>"feeds/show_parts/comments",
+  def comments
+    comment = @feed.comments.create(:content=>params[:content],:user=>current_user)
+    unless comment.id.blank?
+      return render :partial=>'feeds/lists/comments',
         :locals=>{:comments=>[comment]}
-      return
     end
-    return render :status=>403,:text=>"主题评论创建失败"
+    render :status=>403,:text=>"主题评论创建失败"
   end
 
   def aj_comments

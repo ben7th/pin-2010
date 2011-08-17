@@ -123,6 +123,19 @@
       padding:3px;
       float:left;
       margin-right:5px;margin-bottom:5px;
+      position:relative;
+      .close{
+        width:12px;height:12px;
+        position:absolute;top:1px;right:1px;
+        background:url(/images/alltu.png) -133px -81px no-repeat #999;
+        @include border-radius(2px);
+        border:solid 1px #666;
+        cursor:pointer;
+        &:hover{
+          background-color:#aaa;
+          border:solid 1px #555;
+        };
+      }
     }
     .uploading-photo{
       position:relative;

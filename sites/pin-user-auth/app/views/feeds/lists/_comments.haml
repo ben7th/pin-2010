@@ -1,0 +1,18 @@
+-comments.each do |comment|
+  -creator = comment.user
+  .comment.btb{:'data-id'=>comment.id,:'data-creator-name'=>creator.name}
+    .avatar
+      -link_to creator do
+        =avatar creator,:mini
+    .content
+      %span.name=link_to creator.name,creator
+      %span.quiet :
+      =comment_content comment
+      %span.quiet -
+      %span.quiet=jtime(comment.created_at)
+      -if logged_in?
+        %span.quiet -
+        -if creator == current_user
+          =link_to '删除','javascript:;',:class=>'delete'
+        -else
+          =link_to '回复','javascript:;',:class=>'reply'

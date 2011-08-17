@@ -43,3 +43,30 @@
     }
   }
 }
+
+/*页面标准元件，评论*/
+.page-comments-list{
+  margin-top:-1px;
+  border-top:solid 1px #EEEEEE;
+  .comment{
+    overflow:hidden;
+    padding:5px;
+    background:#FAFAFA;
+    .avatar{
+      float:left;margin-right:10px;
+      img{width:24px;height:24px;}
+    }
+  }
+}
+.page-comment-form{
+  padding:5px;
+  margin-top:-1px;
+  border-top:solid 1px #EEEEEE;
+  .inputer{
+    width:500px;
+    height:16px;
+  }
+  .btns{
+    @include submitbtns;
+  }
+}

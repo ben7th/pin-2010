@@ -93,7 +93,7 @@
 }
 
 /*feeds*/
-.newsfeed .list.feeds{
+.page-feeds{
   overflow:hidden;
   .feed{
     overflow:hidden;
@@ -105,25 +105,10 @@
     .f{
       margin-left:44px;
       position:relative;
-
-      .footmisc{
-        overflow:hidden;
-        height:34px;
-        .tags{
-          @include tags;
-          margin-top:14px;
-        }
-       .creator{
-          float:right;
-          .avatar{
-            float:left;
-          }
-        }
-      }
-
+    
       .current-feed{
         overflow:hidden;
-        margin:0 0 10px 0;
+        margin:0 0 12px 0;
         .f-title{
           font-size:14px;font-weight:bold;
           @include tfont;
@@ -138,6 +123,25 @@
         }
         .detail{
         }
+        .photos{
+          overflow:hidden;
+          .photo{float:left;margin:0 4px 4px 0;}
+        }
+      }
+      
+      .tags{
+        @include tags;
+        margin:0 0 12px 0;
+        overflow:hidden;
+        float:none;
+      }
+
+      .footmisc{
+        margin-bottom:10px;
+        overflow:hidden;
+        .ops{
+          float:right;
+        }
       }
 
       .viewpoint{
@@ -148,47 +152,6 @@
         }
       }
 
-    }
-  }
-}
-
-.page-feeds-manage-bar{
-  margin-bottom:20px;
-  overflow:hidden;
-  @include bdb2010;
-  background:#FAFAFA;
-  padding:10px;
-  border-top:solid 1px #eee;
-  
-  .avatar{
-    float:left;
-    margin-right:10px;
-  }
-  .data{
-    float:left;
-    width:200px;
-    margin-right:10px;
-    a{color:#222;&:hover{color:#222;}}
-    .name{font-size:14px;}
-  }
-  .ops{
-    float:right;
-    .op{
-      float:left;
-      margin-left:10px;
-      @include border-radius(5px);
-      background-color:#F0F0F0;
-      border:solid 1px #ddd;
-      &:hover{
-        background-color:#e9e9e9;
-      };
-      .new{
-        width:48px;height:48px;
-        line-height:22em;
-      }
-      .create{
-        background:url(/images/alltu.png) -35px -1px no-repeat;
-      }
     }
   }
 }
