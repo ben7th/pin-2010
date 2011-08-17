@@ -7,9 +7,5 @@
   %body.echo
     =render 'layouts/parts/wrap'
     =render 'layouts/parts/footer'
-
-    #page-hide.hide
-      =yield :hide
-      %iframe{:name=>"upload_frame",:style=>"width:1px;height:1px;border:0px;",:src=>"about:blank"}
-
+    =render 'layouts/parts/phide'
     =render 'layouts/parts/javascripts'

@@ -19,16 +19,12 @@
       =link_to '查看全部','/contacts'
 
 .main.grid_15.dl
-  .page-feeds-manage-bar
-    -link_to current_user do
-      .avatar
-        =avatar(current_user)
-    .data
-      .name=usersign current_user,false
-      .sign=h(truncate_u(current_user.sign,16))
+  .page-title-bar
+    .meta
+      %h2 公共主题
+      .desc 用于讨论问题或共享有用信息
     .ops
-      -link_to '/feeds/new',:class=>'op' do
-        .new.create 新建
+      =link_to '<span class="icon"></span><span>新建</span>','/feeds/new',:class=>'create'
     
   .newsfeed
     =render 'feeds/lists/feeds',:feeds=>@feeds

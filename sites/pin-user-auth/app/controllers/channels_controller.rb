@@ -6,24 +6,9 @@ class ChannelsController < ApplicationController
     @channel = Channel.find(params[:id]) if params[:id] && params[:id] != "none"
   end
 
-  def index
-    @channels = Channel.all.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def user_index
-    @user = User.find(params[:user_id])
-  end
-
   def show
     @current_channel = @channel
     @feeds = @channel.in_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
-  end
-
-  def none
-    @current_channel = "none"
-    @feeds = current_user.no_channel_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
-    set_cellhead_path('index/cellhead')
-    return render(:template=>'index/index')
   end
 
   def create
@@ -65,29 +50,12 @@ class ChannelsController < ApplicationController
     render :json=>ids
   end
 
-  def fb_orderlist
-    render_ui do |ui|
-      ui.fbox :show,:title=>'调整频道顺序',:partial=>'channels/fb_orderlist'
-    end
-  end
-
-  def sort
-    ids = params[:ids].split(/,|，/)
-    current_user.to_sort_channels_by_ids(ids)
-    render :status=>200,:text=>"操作成功"
-  end
-
   def add_users
     users = params[:user_ids].split(",").map do |user_id|
       User.find_by_id(user_id)
     end.compact
     @channel.add_users(users)
     render :partial=>'contacts/parts/channel_set_info',:locals=>{:channel=>@channel}
-  end
-
-  def newest_feed_ids
-    newest_feeds_ids = ChannelUserFeedProxy.new(current_user,@channel).newest_feeds_ids
-    render :status=>200,:json=>{:newest_feeds_ids_count=>newest_feeds_ids.size}.to_json
   end
 
 end

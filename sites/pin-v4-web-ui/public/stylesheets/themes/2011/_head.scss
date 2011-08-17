@@ -84,6 +84,13 @@
         }
         &.lock{opacity:0.2}
         
+        &.homepage{
+          padding:0;
+          border:0 none;
+          width:32px;height:32px;margin-right:5px;
+          .avatar{width:32px;height:32px;img{padding:0;}}
+        }
+        
         .icon{width:24px;height:24px;position:relative;top:3px;left:8px;}
         &.feeds{.icon{background:url(/images/alltu.png) -394px -50px;}}
         &.contacts{.icon{background:url(/images/alltu.png) -419px -50px;}}

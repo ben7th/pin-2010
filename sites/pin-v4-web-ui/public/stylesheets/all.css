@@ -2914,6 +2914,17 @@ Release Date: November 8, 2010
         border-color: #aaa; }
       .page-header .nav .nav-menu a.lock {
         opacity: 0.2; }
+      .page-header .nav .nav-menu a.homepage {
+        padding: 0;
+        border: 0 none;
+        width: 32px;
+        height: 32px;
+        margin-right: 5px; }
+        .page-header .nav .nav-menu a.homepage .avatar {
+          width: 32px;
+          height: 32px; }
+          .page-header .nav .nav-menu a.homepage .avatar img {
+            padding: 0; }
       .page-header .nav .nav-menu a .icon {
         width: 24px;
         height: 24px;
@@ -3259,6 +3270,54 @@ a.send-button {
     background-color: #f0f0f0; }
 
 /*mindpin*/
+/*页面标准元件，标题栏*/
+.page-title-bar {
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-bottom: solid 1px #eee;
+  padding: 0 20px 10px 20px;
+  margin-bottom: 20px;
+  background: #FAFAFA;
+  padding: 10px;
+  border-top: solid 1px #eee;
+  overflow: hidden; }
+  .page-title-bar .meta {
+    float: left; }
+    .page-title-bar .meta h2 {
+      font-size: 14px;
+      font-weight: bold; }
+    .page-title-bar .meta .desc {
+      color: #777; }
+  .page-title-bar .ops {
+    float: right; }
+    .page-title-bar .ops .create {
+      display: block;
+      background-color: #4C8FFD;
+      border: 1px solid #3079ED;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 7px 0 3px;
+      cursor: pointer;
+      color: white;
+      overflow: hidden; }
+      .page-title-bar .ops .create:hover {
+        border-color: #2069dD;
+        text-decoration: none;
+        color: white;
+        box-shadow: 0px 1px 2px #ccc; }
+      .page-title-bar .ops .create span {
+        float: left; }
+      .page-title-bar .ops .create .icon {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        top: 3px;
+        margin-right: 3px;
+        background: url(/images/alltu.png) -84px -75px; }
+
 .feed-form-container {
   padding: 45px 0 20px 50px;
   margin: 0 0 12px 0;
@@ -7363,38 +7422,6 @@ a.send-button {
       .index-page-followings .followings .avatar img {
         width: 24px;
         height: 24px; }
-
-/*椤甸潰鏍囧噯鍏冧欢锛屾爣棰樻爮*/
-.page-title-bar {
-  margin-bottom: 20px;
-  overflow: hidden;
-  border-bottom: solid 1px #eee;
-  padding: 0 20px 10px 20px;
-  margin-bottom: 20px;
-  background: #FAFAFA;
-  padding: 10px;
-  border-top: solid 1px #eee;
-  overflow: hidden; }
-  .page-title-bar .meta {
-    float: left; }
-    .page-title-bar .meta h2 {
-      font-size: 14px;
-      font-weight: bold; }
-    .page-title-bar .meta .desc {
-      color: #777; }
-  .page-title-bar .ops {
-    float: right; }
-    .page-title-bar .ops .create {
-      background-color: #F0F0F0;
-      border: solid 1px #DDDDDD;
-      border-radius: 2px;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      padding: 10px 20px;
-      cursor: pointer; }
-      .page-title-bar .ops .create:hover {
-        border-color: #d0d0d0;
-        box-shadow: 0px 1px 1px #eeeeee; }
 
 .help-page-text h2 {
   font-size: 14px;

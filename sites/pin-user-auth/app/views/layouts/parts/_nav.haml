@@ -15,6 +15,8 @@
       .site-logo
         =link_to 'mindpin','/',:class=>'logo mindpin'
       .nav-menu
+        -link_to "/users/#{current_user.id}",:class=>'homepage',:tip=>'个人页' do
+          .avatar=avatar current_user,:tiny
         =link_to '<div class="icon"></div><span>主题</span>','/',:class=>'feeds first current',:tip=>'主题'
         =link_to '<div class="icon"></div><span>人际关系</span>','/contacts',:class=>'contacts',:tip=>'人际关系'
         =link_to '<div class="icon"></div><span>聚合</span>','javascript:;',:class=>'collections lock',:tip=>'alpha测试期间，功能暂未开放'
