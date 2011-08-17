@@ -25,54 +25,6 @@ class FeedsController < ApplicationController
     redirect_to '/'
   end
 
-  def do_say
-    return _do_say_in_channel if params[:channel_id]
-    _do_say_no_channel
-  end
-  
-  def _do_say_no_channel
-    feed = current_user.send_say_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags])
-    if feed.id.blank?
-      return render :text=>get_flash_error(feed),:status=>403
-    end
-    str = @template.render :partial=>'feeds/lists/feeds_stat',:locals=>{:feeds=>[feed]}
-    return render :text=>str
-  end
-
-  def _do_say_in_channel
-    channel_id = params[:channel_id]
-    channel = Channel.find_by_id(channel_id)
-    return render :text=>"频道不存在",:status=>404 if channel.blank?
-    feed = _send_feed_by_channel_kind(channel)
-    return render :text=>"发送失败",:status=>403 if feed.blank?
-    _render_content_by_channel_kind(channel,feed)
-  end
-
-  def _send_feed_by_channel_kind(channel)
-    case channel.kind
-    when Channel::KIND_INTERVIEW
-      current_user.send_say_feed(params[:content],:channel_ids=>[channel.id])
-    when Channel::KIND_TODOLIST
-      current_user.send_todolist_feed(params[:content],:channel_ids=>[channel.id])
-    else
-      current_user.send_say_feed(params[:content],:channel_ids=>[channel.id])
-    end
-  end
-
-  def _render_content_by_channel_kind(channel,feed)
-    case channel.kind
-    when Channel::KIND_INTERVIEW
-      render_text = @template.render :partial=>'channels/channel_interview',:locals=>{:feeds=>[feed],:channel=>channel}
-      render :text=>render_text
-    when Channel::KIND_TODOLIST
-      render_text = @template.render :partial=>'channels/channel_todolist',:locals=>{:feeds=>[feed],:channel=>channel}
-      render :text=>render_text
-    else
-      render_text = @template.render :partial=>'index/homepage/feeds/new_feeds',:locals=>{:newsfeeds=>[feed]}
-      render :text=>render_text
-    end
-  end
-
   def destroy
     @feed = Feed.find_by_id(params[:id])
     if current_user == @feed.creator

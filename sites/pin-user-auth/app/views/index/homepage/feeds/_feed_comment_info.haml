@@ -1,9 +1,0 @@
-%li.comment.btb{:'data-comment-id'=>comment.id}
-  .avatar
-    =avatar(comment.user,:mini)
-  .content
-    =link_to comment.user.name,comment.user
-    =comment.content
-    %span.quiet (#{jtime(comment.created_at)})
-    -if logged_in? && current_user == comment.user
-      =link_to '删除','javascript:;',:class=>'delete'

@@ -12,180 +12,84 @@
     $head-userbox-bg-color-2   : #E4EE6F;
   /*顶端用户导航边线*/
     $head-userbox-border-color : #ABBE2E;
-  /*顶端用户导航链接色*/
-    $head-userbox-a-color      : #eee;
-    $head-userbox-a-color-hover: #fff;
 
 /*顶部*/
-.ph{
-  background:#444;
-  color:$head-text-color;
-  padding-bottom:10px;
-  border-bottom:solid 3px #666;
-  &.account{
-    padding-bottom:2px;
-    .page-head{
-      .site-logo{
-        padding-top:5px;
-        .logo.account{
-          width:260px;height:30px;
-          background:url(/images/alltu.png) -133px -50px;
-        }
+.page-header{
+  .menu{
+    background:#444;
+    color:$head-text-color;
+    overflow:hidden;
+    
+    a{color:#eee;&:hover{color:#fff;}}
+
+    .topbar{
+      margin-right:5px;
+      float:right;
+      overflow:hidden;
+      .sp{
+        float:left;
+        line-height:30px;
+        margin-left:15px;
+        &.feeds{a{color:#E2EDFA;}}
+        &.mindmaps{a{color:#FBF3CA;}}
       }
     }
   }
   
-  
-  .page-head{
+  .nav{
+    background:#f7f7f7;
+    border-bottom:solid 1px #ddd;
     overflow:hidden;
-
+    
     .site-logo{
       float:left;
-      padding-top:11px;
-      padding-left:5px;
+      height:70px;
       .logo{
-        width:260px;
-        height:48px;
+        position:relative;
+        width:260px;height:48px;top:11px;
         display:block;
         overflow:hidden;
         font-size:0px;
         line-height:22em;
-        &.mindpin{
-          background:url(/images/alltu.png) -394px -1px;
-        }
-        &.mindmaps{
-          background:url(/images/alltu.png) -133px -1px;
-        }
+        &.mindpin{background:url(/images/alltu.png) -394px -1px;}
+        &.mindmaps{background:url(/images/alltu.png) -133px -1px;}
       }
     }
-
-    .menu{
-      float:left;
-      padding-top:30px;
-      padding-left:30px;
-      ul{
-        overflow:hidden;
-
-        li{
-          float:left;
-          margin-left:10px;
-          &.first{margin-left:0px;}
-          a{
-            font-size:16px;
-            height:24px;line-height:24px;
-            @include border-radius(4px);
-            display:block;
-            padding:0 5px;
-            font-weight:bold;
-            color:#fff;
-            overflow:hidden;
-            &:hover{
-              text-decoration:none;
-              background:#777;
-            }
-            span{
-              float:left;
-            }
-          }
-
-          &.i-am-here{
-            a{
-              text-decoration:none;
-              background:#777;
-            }
-          }
-
-          &.with-count{
-            a{
-              span{
-                margin-right:3px;
-              }
-              .count{
-                float:left;
-                font-size:14px;
-                @include gradient(#FF3D00,#D3293D);
-                color:white;
-                font-weight:bold;
-                font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-                @include border-radius(3px);
-                padding:0px 4px 2px;
-                height:14px;
-                line-height:14px;
-
-                position:relative;
-                top:4px;
-              }
-            }
-          }
-          
-          &.lock{
-            a{
-              text-decoration:none;
-              color:#777;
-              background:none !important;
-            }
-          }
-
-        }
-      }
-    }
-
-    .nav{
+    
+    .nav-menu{
       float:right;
-      padding-right:5px;
+      position:relative;top:19px;
+      margin-left:60px;
+      margin-right:5px;
       a{
-        color:$head-userbox-a-color;
-        &:hover{color:$head-userbox-a-color-hover;}
-      }
-
-      .topbar{
-        padding-top:5px;
-        overflow:hidden;
+        display:inline-block;
+        float:left;
+        border:solid 1px #ddd;
+        font-size:0;line-height:30em;
+        height:30px;width:40px;
+        background:#fafafa;
+        padding:0 5px;
+        margin-right:1px;
+        &:hover{
+          text-decoration:none;
+          background:#fff;
+        }
         
-        .sp{
-          float:left;
-          line-height:20px;
-          margin-left:15px;
-          &.feeds{a{color:#E2EDFA;}}
-          &.mindmaps{a{color:#FBF3CA;}}
+        &.first{@include border-radius(3px 0 0 3px);}
+        &.last{@include border-radius(0 3px 3px 0);}
+        &.current{
+          background:#eee;
+          box-shadow:inset 0 1px 5px #bbb;
+          border-color:#aaa;
         }
+        &.lock{opacity:0.2}
+        
+        .icon{width:24px;height:24px;position:relative;top:3px;left:8px;}
+        &.feeds{.icon{background:url(/images/alltu.png) -394px -50px;}}
+        &.contacts{.icon{background:url(/images/alltu.png) -419px -50px;}}
+        &.collections{.icon{background:url(/images/alltu.png) -394px -75px;}}
+        &.entries{.icon{background:url(/images/alltu.png) -419px -75px;}}
       }
-
-      .search-form{
-        margin:5px 0 0 0;
-        overflow:hidden;
-        form{
-          float:right;
-          input{
-            height:22px !important;line-height:22px !important;
-            @include border-radius(4px 0 0 4px);
-            float:left;
-            @include box-shadow(none);
-            border-color:#555;
-            border-right:#999 solid 1px;
-            padding-left:7px !important;
-            width:172px !important;
-          }
-          .do-search{
-            overflow:hidden;
-            float:left;
-            @include border-radius(0 4px 4px 0);
-            border:solid 1px #555;
-            border-left:none;
-            height:22px;
-            width:22px;
-            line-height:22em;
-            text-align:center;
-            color:#666;
-            font-weight:bold;
-            background-image:url(/images/sites.png);
-            background-repeat:no-repeat;
-            background-position:-50px -1px;
-            @include box-shadow(none);
-          }
-        }
-      }
-
     }
   }
 }

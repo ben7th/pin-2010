@@ -1,3 +1,6 @@
+-#use 观点的修改表单
+-#see 主题show页
+
 -if logged_in?
   -has_vp = feed.viewpoint_by?(current_user)
   .page-show-add-viewpoint{:'data-feed-id'=>feed.id, :class=>has_vp ? 'vp-added':''}

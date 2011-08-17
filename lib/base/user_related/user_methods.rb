@@ -125,25 +125,6 @@ module UserMethods
     self.hashed_password=User.encrypted_password(self.password,self.salt)
   end
 
-  # 创建注册激活码
-  def create_activation_code
-    self.activation_code = UUIDTools::UUID.random_create.to_s
-  end
-
-  # 发送激活邮件
-  def send_activation_mail
-    self.create_activation_code if self.reload.activation_code.blank?
-    self.save(false)
-    UserObserver.instance.send_activation_mail(self)
-  end
-
-  # 激活
-  def activate
-    self.activation_code = nil
-    self.activated_at = Time.now
-    self.save(false)
-  end
-
   # 密码重设，并发送邮件
   def forgot_password
     @forgotten_password = true

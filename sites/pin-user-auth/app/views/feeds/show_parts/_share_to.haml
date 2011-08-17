@@ -1,3 +1,6 @@
+-#use 分享主题
+-#see 主题show页
+
 .show-page-share-tsina
   -url = pin_url_for('pin-user-auth',"feeds/#{feed.id}")
   -cnt = truncate_u(feed.content,50).gsub("\n",' ')

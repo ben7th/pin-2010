@@ -1,8 +1,0 @@
-.page-recommend-feeds
-  -mplist feeds,:for=>Feed do |feed|
-    .feed.btb
-      =render 'feeds/info_parts/info_stats',:feed=>feed
-      .data
-        .title=link_to feed.content,feed
-        .detail=feed_detail_short(feed)
-      =render 'feeds/info_parts/info_time_and_ops',:feed=>feed

@@ -1,17 +1,11 @@
 - @mindpin_layout.grid = 24
 
-!!! Strict
-%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
-  =render 'layouts/parts/htmlhead'
+!!! 5
+%html{:lang=>"zh"}
+  =render 'layouts/parts/head'
 
   %body.echo
-    .page-wrap
-      .page-container
-        =render 'layouts/parts/nav'
-        .page-content{:class=>container_classname}
-          .cell.clearfix
-            =yield
-
+    =render 'layouts/parts/wrap'
     =render 'layouts/parts/footer'
 
     #page-hide.hide

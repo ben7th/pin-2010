@@ -1,27 +1,21 @@
-.ph
-  .page-head.container_24
-    .site-logo
-      =link_to 'mindpin','/',:class=>'logo mindpin'
+.page-header
+  .menu
+    .container_24
+      .topbar
+        -if logged_in?
+          .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account')
+          .sp=link_to "退出",pin_url_for('pin-user-auth','/logout')
 
-    .nav
-      .topbar.clearfix
-        .fright
-          -if logged_in?
-            .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account')
-            .sp=link_to "退出",pin_url_for('pin-user-auth','/logout')
+        -else
+          .sp=link_to '用户注册','/signup'
+          .sp=link_to '登录','/login'
 
-          -else
-            .sp=link_to '用户注册','/signup'
-            .sp=link_to '登录','/login'
-
-      .search-form>
-        %form{:action=>"/feeds/search",:method=>"get"}>
-          %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索'}>
-          =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
-
-    .menu
-      %ul
-        %li=link_to '<span class="icon"></span><span>主题</span>','/'
-        %li=link_to '<span class="icon"></span><span>人际关系</span>','/contacts'
-        %li.lock=link_to '<span class="icon"></span><span>聚合</span>','javascript:;',:tip=>'alpha测试期间，功能暂未开放'
-        %li=link_to '<span class="icon"></span><span>共享资源</span>','/entries'
+  .nav
+    .container_24
+      .site-logo
+        =link_to 'mindpin','/',:class=>'logo mindpin'
+      .nav-menu
+        =link_to '<div class="icon"></div><span>主题</span>','/',:class=>'feeds first current',:tip=>'主题'
+        =link_to '<div class="icon"></div><span>人际关系</span>','/contacts',:class=>'contacts',:tip=>'人际关系'
+        =link_to '<div class="icon"></div><span>聚合</span>','javascript:;',:class=>'collections lock',:tip=>'alpha测试期间，功能暂未开放'
+        =link_to '<div class="icon"></div><span>共享资源</span>','/entries',:class=>'entries last',:tip=>'共享资源'

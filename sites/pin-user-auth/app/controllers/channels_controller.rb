@@ -77,16 +77,6 @@ class ChannelsController < ApplicationController
     render :status=>200,:text=>"操作成功"
   end
 
-  # 博客频道发新帖子
-  def new_blog_post
-    if @channel.kind != Channel::KIND_BLOG || !@channel.is_include_users_or_creator?(current_user)
-      redirect_to @channel
-      return
-    end
-
-    render :template=>'channels/new_templates/new_blog_post.haml'
-  end
-
   def add_users
     users = params[:user_ids].split(",").map do |user_id|
       User.find_by_id(user_id)

@@ -2839,149 +2839,95 @@ Release Date: November 8, 2010
 /*页眉底边*/
 /*顶端用户导航背景*/
 /*顶端用户导航边线*/
-/*顶端用户导航链接色*/
 /*顶部*/
-.ph {
+.page-header .menu {
   background: #444;
   color: #eeeeee;
-  padding-bottom: 10px;
-  border-bottom: solid 3px #666; }
-  .ph.account {
-    padding-bottom: 2px; }
-    .ph.account .page-head .site-logo {
-      padding-top: 5px; }
-      .ph.account .page-head .site-logo .logo.account {
-        width: 260px;
-        height: 30px;
-        background: url(/images/alltu.png) -133px -50px; }
-  .ph .page-head {
+  overflow: hidden; }
+  .page-header .menu a {
+    color: #eee; }
+    .page-header .menu a:hover {
+      color: #fff; }
+  .page-header .menu .topbar {
+    margin-right: 5px;
+    float: right;
     overflow: hidden; }
-    .ph .page-head .site-logo {
+    .page-header .menu .topbar .sp {
       float: left;
-      padding-top: 11px;
-      padding-left: 5px; }
-      .ph .page-head .site-logo .logo {
-        width: 260px;
-        height: 48px;
-        display: block;
-        overflow: hidden;
-        font-size: 0px;
-        line-height: 22em; }
-        .ph .page-head .site-logo .logo.mindpin {
-          background: url(/images/alltu.png) -394px -1px; }
-        .ph .page-head .site-logo .logo.mindmaps {
-          background: url(/images/alltu.png) -133px -1px; }
-    .ph .page-head .menu {
+      line-height: 30px;
+      margin-left: 15px; }
+      .page-header .menu .topbar .sp.feeds a {
+        color: #E2EDFA; }
+      .page-header .menu .topbar .sp.mindmaps a {
+        color: #FBF3CA; }
+.page-header .nav {
+  background: #f7f7f7;
+  border-bottom: solid 1px #ddd;
+  overflow: hidden; }
+  .page-header .nav .site-logo {
+    float: left;
+    height: 70px; }
+    .page-header .nav .site-logo .logo {
+      position: relative;
+      width: 260px;
+      height: 48px;
+      top: 11px;
+      display: block;
+      overflow: hidden;
+      font-size: 0px;
+      line-height: 22em; }
+      .page-header .nav .site-logo .logo.mindpin {
+        background: url(/images/alltu.png) -394px -1px; }
+      .page-header .nav .site-logo .logo.mindmaps {
+        background: url(/images/alltu.png) -133px -1px; }
+  .page-header .nav .nav-menu {
+    float: right;
+    position: relative;
+    top: 19px;
+    margin-left: 60px;
+    margin-right: 5px; }
+    .page-header .nav .nav-menu a {
+      display: inline-block;
       float: left;
-      padding-top: 30px;
-      padding-left: 30px; }
-      .ph .page-head .menu ul {
-        overflow: hidden; }
-        .ph .page-head .menu ul li {
-          float: left;
-          margin-left: 10px; }
-          .ph .page-head .menu ul li.first {
-            margin-left: 0px; }
-          .ph .page-head .menu ul li a {
-            font-size: 16px;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 4px;
-            -moz-border-radius: 4px;
-            -webkit-border-radius: 4px;
-            display: block;
-            padding: 0 5px;
-            font-weight: bold;
-            color: #fff;
-            overflow: hidden; }
-            .ph .page-head .menu ul li a:hover {
-              text-decoration: none;
-              background: #777; }
-            .ph .page-head .menu ul li a span {
-              float: left; }
-          .ph .page-head .menu ul li.i-am-here a {
-            text-decoration: none;
-            background: #777; }
-          .ph .page-head .menu ul li.with-count a span {
-            margin-right: 3px; }
-          .ph .page-head .menu ul li.with-count a .count {
-            float: left;
-            font-size: 14px;
-            background: -moz-linear-gradient(-90deg, #ff3d00, #d3293d);
-            background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff3d00), to(#d3293d));
-            filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');
-            color: white;
-            font-weight: bold;
-            font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-            border-radius: 3px;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-            padding: 0px 4px 2px;
-            height: 14px;
-            line-height: 14px;
-            position: relative;
-            top: 4px; }
-          .ph .page-head .menu ul li.lock a {
-            text-decoration: none;
-            color: #777;
-            background: none !important; }
-    .ph .page-head .nav {
-      float: right;
-      padding-right: 5px; }
-      .ph .page-head .nav a {
-        color: #eeeeee; }
-        .ph .page-head .nav a:hover {
-          color: white; }
-      .ph .page-head .nav .topbar {
-        padding-top: 5px;
-        overflow: hidden; }
-        .ph .page-head .nav .topbar .sp {
-          float: left;
-          line-height: 20px;
-          margin-left: 15px; }
-          .ph .page-head .nav .topbar .sp.feeds a {
-            color: #E2EDFA; }
-          .ph .page-head .nav .topbar .sp.mindmaps a {
-            color: #FBF3CA; }
-      .ph .page-head .nav .search-form {
-        margin: 5px 0 0 0;
-        overflow: hidden; }
-        .ph .page-head .nav .search-form form {
-          float: right; }
-          .ph .page-head .nav .search-form form input {
-            height: 22px !important;
-            line-height: 22px !important;
-            border-radius: 4px 0 0 4px;
-            -moz-border-radius: 4px 0 0 4px;
-            -webkit-border-radius: 4px 0 0 4px;
-            float: left;
-            box-shadow: none;
-            -moz-box-shadow: none;
-            -webkit-box-shadow: none;
-            border-color: #555;
-            border-right: #999 solid 1px;
-            padding-left: 7px !important;
-            width: 172px !important; }
-          .ph .page-head .nav .search-form form .do-search {
-            overflow: hidden;
-            float: left;
-            border-radius: 0 4px 4px 0;
-            -moz-border-radius: 0 4px 4px 0;
-            -webkit-border-radius: 0 4px 4px 0;
-            border: solid 1px #555;
-            border-left: none;
-            height: 22px;
-            width: 22px;
-            line-height: 22em;
-            text-align: center;
-            color: #666;
-            font-weight: bold;
-            background-image: url(/images/sites.png);
-            background-repeat: no-repeat;
-            background-position: -50px -1px;
-            box-shadow: none;
-            -moz-box-shadow: none;
-            -webkit-box-shadow: none; }
+      border: solid 1px #ddd;
+      font-size: 0;
+      line-height: 30em;
+      height: 30px;
+      width: 40px;
+      background: #fafafa;
+      padding: 0 5px;
+      margin-right: 1px; }
+      .page-header .nav .nav-menu a:hover {
+        text-decoration: none;
+        background: #fff; }
+      .page-header .nav .nav-menu a.first {
+        border-radius: 3px 0 0 3px;
+        -moz-border-radius: 3px 0 0 3px;
+        -webkit-border-radius: 3px 0 0 3px; }
+      .page-header .nav .nav-menu a.last {
+        border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0; }
+      .page-header .nav .nav-menu a.current {
+        background: #eee;
+        box-shadow: inset 0 1px 5px #bbb;
+        border-color: #aaa; }
+      .page-header .nav .nav-menu a.lock {
+        opacity: 0.2; }
+      .page-header .nav .nav-menu a .icon {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        top: 3px;
+        left: 8px; }
+      .page-header .nav .nav-menu a.feeds .icon {
+        background: url(/images/alltu.png) -394px -50px; }
+      .page-header .nav .nav-menu a.contacts .icon {
+        background: url(/images/alltu.png) -419px -50px; }
+      .page-header .nav .nav-menu a.collections .icon {
+        background: url(/images/alltu.png) -394px -75px; }
+      .page-header .nav .nav-menu a.entries .icon {
+        background: url(/images/alltu.png) -419px -75px; }
 
 .page-content .cell {
   margin: 0 0 60px;
@@ -3197,10 +3143,6 @@ Release Date: November 8, 2010
   background-color: #F7F7F7; }
   .page-footer .pf {
     border-top: solid 2px #e6e6e6; }
-  .page-footer a {
-    color: #eeeeee; }
-    .page-footer a:hover {
-      color: white; }
 
 body {
   background-color: #ffffff; }

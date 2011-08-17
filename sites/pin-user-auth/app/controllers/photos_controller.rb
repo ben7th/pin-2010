@@ -9,7 +9,6 @@ class PhotosController < ApplicationController
     unless photo.id.blank?
       return render :partial=>'modules/photos/photo_manage',:locals=>{:photos=>[photo]}
     end
-    p photo.errors.first[1]
     render :json=>{:message=>photo.errors.first[1]},:status=>402
   end
 
