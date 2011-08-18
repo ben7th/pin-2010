@@ -1,0 +1,20 @@
+-#use 通知提示
+-#see 顶部导航->通知
+
+-htitle '通知与提醒'
+
+.mside.grid_5
+  =render 'modules/sub_links/notices_links'
+
+.main.grid_19.ll
+
+  .page-title-bar
+    .meta
+      %h2 通知与提醒
+      .desc 这里显示所有对你的通知，alpha版本中，不同类型的通知是逐渐启用的
+    .ops
+
+  .page-notices
+    -current_user.tips.each do |notice|
+      .notice{:style=>'padding:10px;'}
+        =notice.kind

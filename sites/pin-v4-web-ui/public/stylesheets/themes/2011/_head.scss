@@ -61,7 +61,7 @@
       position:relative;top:19px;
       margin-left:60px;
       margin-right:5px;
-      a{
+      a.li{
         display:inline-block;
         float:left;
         border:solid 1px #ddd;
@@ -96,6 +96,25 @@
         &.contacts{.icon{background:url(/images/alltu.png) -419px -50px;}}
         &.collections{.icon{background:url(/images/alltu.png) -394px -75px;}}
         &.entries{.icon{background:url(/images/alltu.png) -419px -75px;}}
+        
+        &.notices{
+          margin-left:5px;
+          width:30px;line-height:30px;font-size:14px;
+          @include tfont;font-weight:bold;
+          @include border-radius(3px);
+          padding:0;text-align:center;
+          color:#444;
+        }
+      }
+      .user-meta{
+        float:left;
+        text-align:right;
+        margin-right:6px;
+        line-height:16px;
+        .title{
+          color:#999;
+        }
+        .name{a{color:#444;&:hover{color:#444;}}}
       }
     }
   }

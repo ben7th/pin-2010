@@ -38,6 +38,10 @@ module QueueMethods
       atme = Atme.find_by_id(args.first)
       return if atme.blank?
       self.create_atme_tip(atme)
+    when UserTipProxy::BE_FOLLOWED
+      channel_user = ChannelUser.find_by_id(args.first)
+      return if channel_user.blank?
+      self.create_be_followed_tip(channel_user)
     end
   end
 

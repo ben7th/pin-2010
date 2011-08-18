@@ -2886,7 +2886,7 @@ Release Date: November 8, 2010
     top: 19px;
     margin-left: 60px;
     margin-right: 5px; }
-    .page-header .nav .nav-menu a {
+    .page-header .nav .nav-menu a.li {
       display: inline-block;
       float: left;
       border: solid 1px #ddd;
@@ -2897,48 +2897,72 @@ Release Date: November 8, 2010
       background: #fafafa;
       padding: 0 5px;
       margin-right: 1px; }
-      .page-header .nav .nav-menu a:hover {
+      .page-header .nav .nav-menu a.li:hover {
         text-decoration: none;
         background: #fff; }
-      .page-header .nav .nav-menu a.first {
+      .page-header .nav .nav-menu a.li.first {
         border-radius: 3px 0 0 3px;
         -moz-border-radius: 3px 0 0 3px;
         -webkit-border-radius: 3px 0 0 3px; }
-      .page-header .nav .nav-menu a.last {
+      .page-header .nav .nav-menu a.li.last {
         border-radius: 0 3px 3px 0;
         -moz-border-radius: 0 3px 3px 0;
         -webkit-border-radius: 0 3px 3px 0; }
-      .page-header .nav .nav-menu a.current {
+      .page-header .nav .nav-menu a.li.current {
         background: #eee;
         box-shadow: inset 0 1px 5px #bbb;
         border-color: #aaa; }
-      .page-header .nav .nav-menu a.lock {
+      .page-header .nav .nav-menu a.li.lock {
         opacity: 0.2; }
-      .page-header .nav .nav-menu a.homepage {
+      .page-header .nav .nav-menu a.li.homepage {
         padding: 0;
         border: 0 none;
         width: 32px;
         height: 32px;
         margin-right: 5px; }
-        .page-header .nav .nav-menu a.homepage .avatar {
+        .page-header .nav .nav-menu a.li.homepage .avatar {
           width: 32px;
           height: 32px; }
-          .page-header .nav .nav-menu a.homepage .avatar img {
+          .page-header .nav .nav-menu a.li.homepage .avatar img {
             padding: 0; }
-      .page-header .nav .nav-menu a .icon {
+      .page-header .nav .nav-menu a.li .icon {
         width: 24px;
         height: 24px;
         position: relative;
         top: 3px;
         left: 8px; }
-      .page-header .nav .nav-menu a.feeds .icon {
+      .page-header .nav .nav-menu a.li.feeds .icon {
         background: url(/images/alltu.png) -394px -50px; }
-      .page-header .nav .nav-menu a.contacts .icon {
+      .page-header .nav .nav-menu a.li.contacts .icon {
         background: url(/images/alltu.png) -419px -50px; }
-      .page-header .nav .nav-menu a.collections .icon {
+      .page-header .nav .nav-menu a.li.collections .icon {
         background: url(/images/alltu.png) -394px -75px; }
-      .page-header .nav .nav-menu a.entries .icon {
+      .page-header .nav .nav-menu a.li.entries .icon {
         background: url(/images/alltu.png) -419px -75px; }
+      .page-header .nav .nav-menu a.li.notices {
+        margin-left: 5px;
+        width: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        font-weight: bold;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        padding: 0;
+        text-align: center;
+        color: #444; }
+    .page-header .nav .nav-menu .user-meta {
+      float: left;
+      text-align: right;
+      margin-right: 6px;
+      line-height: 16px; }
+      .page-header .nav .nav-menu .user-meta .title {
+        color: #999; }
+      .page-header .nav .nav-menu .user-meta .name a {
+        color: #444; }
+        .page-header .nav .nav-menu .user-meta .name a:hover {
+          color: #444; }
 
 .page-account-header {
   background: #444;
