@@ -9,9 +9,16 @@
   -content.gsub!(query,"<span class='loud'>#{query}</span>")
 
 .current-feed
+  .headmeta
+    %span.creator-name=qlink creator
+    %span -
+    %span.create-time=jtime feed.created_at
+    %span -
+    %span.scope=link_to '完全公开','javascript:;'
+
   .f-title
     =link_to truncate_u(content,64),"/feeds/#{feed.id}"
-  .detail=feed_detail_short(feed)
+  .detail=feed_detail(feed)
   -if !feed.photos.blank?
     .photos
       -feed.photos.each do |photo|

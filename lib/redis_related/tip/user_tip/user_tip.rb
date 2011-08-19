@@ -48,9 +48,9 @@ class UserTip
     tip_hash = case tip_hash["kind"]
     when FAVS_EDIT_FEED_CONTENT
       build_favs_tip(tip_id,tip_hash)
-    when FAVS_ADD_VIEWPOINT
+    when FAVS_ADD_POST
       build_favs_tip(tip_id,tip_hash)
-    when FAVS_EDIT_VIEWPOINT
+    when FAVS_EDIT_POST
       build_favs_tip(tip_id,tip_hash)
     when FEED_INVITE
       feed = Feed.find_by_id(tip_hash["feed_id"])
@@ -58,33 +58,33 @@ class UserTip
       kind = tip_hash["kind"]
       time = Time.at(tip_hash["time"].to_f)
       {:id=>tip_id,:feed=>feed,:creator=>creator,:kind=>kind,:time=>time}
-    when VIEWPOINT_VOTE_UP
-      viewpoint = Viewpoint.find_by_id(tip_hash["viewpoint_id"])
+    when POST_VOTE_UP
+      post = post.find_by_id(tip_hash["post_id"])
       voters_ids = tip_hash["voter_id"].to_s.split(",").uniq
       voters = voters_ids.map{|id|User.find_by_id(id)}.compact
       kind = tip_hash["kind"]
       time = Time.at(tip_hash["time"].to_f)
-      {:id=>tip_id,:viewpoint=>viewpoint,:voters=>voters,:kind=>kind,:time=>time}
-    when VIEWPOINT_SPAM_MARK_EFFECT
-      viewpoint = Viewpoint.find_by_id(tip_hash["viewpoint_id"])
+      {:id=>tip_id,:post=>post,:voters=>voters,:kind=>kind,:time=>time}
+    when POST_SPAM_MARK_EFFECT
+      post = post.find_by_id(tip_hash["post_id"])
       feed = Feed.find_by_id(tip_hash["feed_id"])
       kind = tip_hash["kind"]
       time = Time.at(tip_hash["time"].to_f)
-      {:id=>tip_id,:viewpoint=>viewpoint,:feed=>feed,:kind=>kind,:time=>time}
+      {:id=>tip_id,:post=>post,:feed=>feed,:kind=>kind,:time=>time}
     when FEED_SPAM_MARK_EFFECT
       feed = Feed.find_by_id(tip_hash["feed_id"])
       kind = tip_hash["kind"]
       time = Time.at(tip_hash["time"].to_f)
       {:id=>tip_id,:feed=>feed,:kind=>kind,:time=>time}
-    when VIEWPOINT_COMMENT
+    when POST_COMMENT
       feed = Feed.find_by_id(tip_hash["feed_id"])
-      viewpoint = Viewpoint.find_by_id(tip_hash["viewpoint_id"])
-      viewpoint_comment = ViewpointComment.find_by_id(tip_hash["viewpoint_comment_id"])
+      post = post.find_by_id(tip_hash["post_id"])
+      post_comment = postComment.find_by_id(tip_hash["post_comment_id"])
       user = User.find_by_id(tip_hash["user_id"])
       kind = tip_hash["kind"]
       time = Time.at(tip_hash["time"].to_f)
-      {:id=>tip_id,:feed=>feed,:viewpoint=>viewpoint,
-        :viewpoint_comment=>viewpoint_comment,:user=>user,:kind=>kind,:time=>time}
+      {:id=>tip_id,:feed=>feed,:post=>post,
+        :post_comment=>post_comment,:user=>user,:kind=>kind,:time=>time}
     when ATME
       atme = Atme.find_by_id(tip_hash["atme_id"])
       next if atme.blank?

@@ -2,10 +2,10 @@
 -#see 主题show页
 
 .page-feed-viewpoints-title
-  #{feed.viewpoints.count}个观点
+  #{feed.posts.count}个观点
 
 .page-feed-viewpoints
-  -feed.memoed_viewpoints.each do |viewpoint|
-    =render 'feeds/show_parts/info_feed_viewpoint_show',:viewpoint=>viewpoint
+  -feed.posts.each do |post|
+    =render 'feeds/show_parts/info_feed_viewpoint_show',:post=>post
 
 =render 'feeds/show_parts/feed_show_viewpoint_form',:feed=>feed

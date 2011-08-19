@@ -94,9 +94,6 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy UserFavMindmapsProxy
     MindpinLogicManagement.load_redis_proxy MindmapFavUsersProxy
 
-    # feed_comment 缓存
-    MindpinLogicManagement.load_redis_proxy UserBeingRepliedCommentsProxy
-
     # feed 缓存
     MindpinLogicManagement.load_redis_proxy(UserSentFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserOutboxFeedProxy)
@@ -129,8 +126,8 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(UserOutboxLogProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxLogProxy)
 
-    # viewpoint 缓存
-    MindpinLogicManagement.load_redis_proxy(UserHotViewpointsProxy)
+    # post 缓存
+    MindpinLogicManagement.load_redis_proxy(UserHotPostsProxy)
 
     # tag 缓存
     MindpinLogicManagement.load_redis_proxy(UserFavTagsProxy)
@@ -147,6 +144,6 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_tip_proxy(UserJoinedFeedsChangeTipProxy)
 
   # reputation
-    MindpinLogicManagement.load_reputation_proxy ViewpointVoteReputationProxy
+    MindpinLogicManagement.load_reputation_proxy PostVoteReputationProxy
     MindpinLogicManagement.load_reputation_proxy FeedVoteReputationProxy
 end

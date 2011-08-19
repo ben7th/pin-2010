@@ -29,20 +29,20 @@ class UserJoinedFeedsChangeTipProxy
   def self.rules
     [
       {
-        :class => Viewpoint,
-        :after_create => Proc.new{|viewpoint|
-          feed = viewpoint.feed
+        :class => Post,
+        :after_create => Proc.new{|post|
+          feed = post.feed
           users = feed.joined_users_and_creator
-          users = users-[viewpoint.user]
+          users = users-[post.user]
           next if users.blank?
           user_ids = users.map{|user|user.id}
 
           UserJoinedFeedsChangeTipResqueQueueWorker.async_tip(feed.id,user_ids)
         },
-        :after_update => Proc.new{|viewpoint|
-          feed = viewpoint.feed
+        :after_update => Proc.new{|post|
+          feed = post.feed
           users = feed.joined_users_and_creator
-          users = users-[viewpoint.user]
+          users = users-[post.user]
           next if users.blank?
           user_ids = users.map{|user|user.id}
 

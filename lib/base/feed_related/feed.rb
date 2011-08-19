@@ -21,8 +21,8 @@ class Feed < UserAuthAbstract
   named_scope :normal,:conditions=>"hidden is not true",:order=>"feeds.id desc"
   named_scope :unhidden,:conditions=>"hidden is not true",:order=>"feeds.id desc"
   named_scope :hidden,:conditions=>"hidden is true",:order=>"feeds.id desc"
-  named_scope :no_reply,:conditions=>"viewpoints.feed_id is null and feeds.hidden is not true",
-    :joins=>"left join viewpoints on viewpoints.feed_id = feeds.id",
+  named_scope :no_reply,:conditions=>"posts.feed_id is null and feeds.hidden is not true",
+    :joins=>"left join posts on posts.feed_id = feeds.id",
     :order=>"id desc"
 
   after_create :creator_to_fav_feed_on_create
@@ -54,14 +54,6 @@ class Feed < UserAuthAbstract
       :conditions=>['feeds.hidden = ?',false]).paginate(paginate_options)
   end
 
-  def replied_feed
-    Feed.find_by_id(reply_to)
-  end
-
-  def quoted_feed
-    Feed.find_by_id(quote_of)
-  end
-
   def validate_on_create
     validate_content_length
     channel_ids = self.creator.channels_db_ids
@@ -79,49 +71,14 @@ class Feed < UserAuthAbstract
     end
   end
 
-  def self.to_quote_feed(user,content,quote_feed,options={})
-    channel_ids = options[:channel_ids] || []
-    channels = channel_ids.map{|id|Channel.find_by_id(id)}.compact
-    Feed.transaction do
-      feed = Feed.new(:creator=>user,:event=>Feed::SAY_OPERATE,:content=>content,:channels_db=>channels,:quote_of=>quote_feed.id)
-      return false if !feed.valid?
-      feed.save!
-      return feed
-    end
-  end
-
-  def reply_feeds
-    Feed.find_all_by_reply_to(self.id)
-  end
-
-  def reply_feeds_of(users)
-    reply_feeds.select do |feed|
-      users.include?(feed.creator)
-    end
-  end
-  
-  def reply_comments_of(users)
-    FeedComment.find_all_by_feed_id(self.id).select do |feed_comment|
-      users.include?(feed_comment.user)
-    end
-  end
-
   def send_by_main_user?(channel)
     channel.main_users.include?(self.creator)
   end
 
-  def quotes
-    Feed.find_all_by_quote_of(self.id)
-  end
-
-  def quotes_count
-    quotes.length
-  end
-
   def detail_content
-    fd = self.feed_detail
-    return "" if fd.blank?
-    fd.content||""
+    post = self.main_post
+    return "" if post.blank?
+    post.memo||""
   end
 
   def update_attrs_and_record_editor(editor,options)
@@ -146,7 +103,7 @@ class Feed < UserAuthAbstract
 
     # 更新 feed 详细内容
     if con2
-      self.create_or_update_detail(detail_content)
+      self.create_or_update_main_post(detail_content)
     end
 
     # 更新 tags 详细内容
@@ -158,11 +115,6 @@ class Feed < UserAuthAbstract
       self.record_editer(editor,mesage)
     end
 
-  end
-
-  # 创建 feed detail_content
-  def create_detail_content(detail_content)
-    self.create_or_update_detail(detail_content)
   end
 
   # 更新 feed content
@@ -265,6 +217,10 @@ class Feed < UserAuthAbstract
     return iusers[0..count-1]
   end
 
+  def comments
+    self.main_post.comments
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
@@ -278,7 +234,8 @@ class Feed < UserAuthAbstract
       feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes)
       return feed if !feed.valid?
       feed.save!
-      feed.create_detail_content(options[:detail]) if !options[:detail].blank?
+
+      feed.create_main_post(options[:detail]||"")
 
       tags = options[:tags]
       tags = Tag::DEFAULT if tags.blank?
@@ -371,18 +328,16 @@ class Feed < UserAuthAbstract
   include FeedMindmap::FeedMethods
   include Fav::FeedMethods
   include HtmlDocument::FeedMethods
-  include FeedComment::FeedMethods
   include FeedLucene::FeedMethods
   include ShortUrl::FeedMethods
   include FeedRevision::FeedMethods
-  include Viewpoint::FeedMethods
+  include Post::FeedMethods
   include FeedInvite::FeedMethods
-  include ViewpointDraft::FeedMethods
+  include PostDraft::FeedMethods
   include SpamMark::FeedMethods
   include FeedTag::FeedMethods
   include UserLog::FeedMethods
   include FeedTag::FeedMethods
-  include FeedDetail::FeedMethods
   include FeedVote::FeedMethods
   include FeedViewing::FeedMethods
   include Atme::AtableMethods

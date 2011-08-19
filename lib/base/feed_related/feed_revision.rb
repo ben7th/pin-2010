@@ -53,7 +53,7 @@ class FeedRevision < UserAuthAbstract
     # 回滚标题和标签
     feed.update_attributes(:content=>content,:tag_ids=>tag_ids)
     # 回滚正文
-    feed.create_or_update_detail(detail_content)
+    feed.create_or_update_main_post(detail_content)
     # 建立新 revision
 
     feed.record_editer(editor,"回滚到 版本#{revision_count}")

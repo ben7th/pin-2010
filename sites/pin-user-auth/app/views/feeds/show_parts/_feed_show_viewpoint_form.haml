@@ -2,12 +2,12 @@
 -#see 主题show页
 
 -if logged_in?
-  -has_vp = feed.viewpoint_by?(current_user)
+  -has_vp = feed.post_by?(current_user)
   .page-show-add-viewpoint{:'data-feed-id'=>feed.id, :class=>has_vp ? 'vp-added':''}
     .point-form
       .title 发表观点
       .add-viewpoint-inputer
-        -value = has_vp ? feed.viewpoint_of(current_user).memo : ''
+        -value = has_vp ? feed.post_of(current_user).memo : ''
         =text_area_tag :inputer,value,:class=>'inputer text'
       .subm
         %button.editable-submit 发送

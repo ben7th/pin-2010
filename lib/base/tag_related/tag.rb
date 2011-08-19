@@ -210,9 +210,9 @@ class Tag < UserAuthAbstract
   def _users_items_of_memoed_feeds
     ActiveRecord::Base.connection.select_all(%`
           select users.id,users.email,count(*) count from users
-          inner join viewpoints on viewpoints.user_id = users.id
-          inner join feed_tags on viewpoints.feed_id = feed_tags.feed_id
-          inner join feeds on feeds.id = viewpoints.feed_id
+          inner join posts on posts.user_id = users.id
+          inner join feed_tags on posts.feed_id = feed_tags.feed_id
+          inner join feeds on feeds.id = posts.feed_id
           where feed_tags.tag_id = #{self.id} and feeds.hidden = false
           group by users.id
           order by count desc

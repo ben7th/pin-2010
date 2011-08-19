@@ -20,6 +20,9 @@
 
 =render 'auth/no_auth/welcome_to_signup'
 
+.warnning.font14{:style=>"padding:10px;border-radius(5px);color:white;background:#555;"}
+  本页交互正在调整，目前仅供浏览，请暂时不要操作
+
 -useless = @feed.hidden? && @feed.hidden_by_useless?
 
 -if !useless || params[:show] == 'force'
@@ -33,7 +36,7 @@
 
   .main.grid_19.ll
     =render 'feeds/show_parts/feed_show',:feed=>@feed
-    =render 'feeds/show_parts/feed_show_viewpoints',:feed=>@feed
+    =render 'feeds/show_parts/feed_show_posts',:feed=>@feed
 
 -else
 

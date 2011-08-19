@@ -46,12 +46,12 @@ module UserMethods
       :joins=>"inner join feeds on feeds.creator_id = users.id",
       :group=>"users.id",:order=>"count(*) desc"
 
-    base.named_scope :viewpoints_rank,:joins=>"inner join viewpoints on viewpoints.user_id = users.id",
+    base.named_scope :posts_rank,:joins=>"inner join posts on posts.user_id = users.id",
       :group=>"users.id",:order=>"count(*) desc"
 
     base.send(:include,Fav::UserMethods)
     base.send(:include,Feed::UserMethods)
-    base.send(:include,Viewpoint::UserMethods)
+    base.send(:include,Post::UserMethods)
     base.send(:include,UserCooperationMethods)
     base.send(:include,Channel::UserMethods)
     base.send(:include,ChannelUser::UserMethods)

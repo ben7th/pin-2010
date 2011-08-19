@@ -18,9 +18,9 @@ class TagsMapOfUserMemoedFeedsProxy
     ab = ActiveRecord::Base.connection.select_all(%`
         select tags.name,tags.namespace,count(*) count from tags
         inner join feed_tags on tags.id = feed_tags.tag_id
-        inner join viewpoints on feed_tags.feed_id = viewpoints.feed_id
-        inner join feeds on viewpoints.feed_id = feeds.id
-        where viewpoints.user_id = #{@user.id} and feeds.hidden = false
+        inner join posts on feed_tags.feed_id = posts.feed_id
+        inner join feeds on posts.feed_id = feeds.id
+        where posts.user_id = #{@user.id} and feeds.hidden = false
           and tags.name <> "#{Tag::DEFAULT}"
         group by tags.id
       `)
@@ -73,7 +73,7 @@ class TagsMapOfUserMemoedFeedsProxy
     end
   end
 
-  module ViewpointMethods
+  module PostMethods
     def self.included(base)
       base.after_create :change_tags_map_of_memoed_feeds_cache_on_create
     end
@@ -112,7 +112,7 @@ class TagsMapOfUserMemoedFeedsProxy
 
       recommend_feeds = tags_of_memoed_feeds.map do |tag|
         tag.feeds.normal - except_feeds
-      end.flatten.sort{|x,y|x.viewpoints.count<=>y.viewpoints.count}
+      end.flatten.sort{|x,y|x.posts.count<=>y.posts.count}
 
       return recommend_feeds if count.blank?
       return recommend_feeds[0..count-1]
@@ -125,9 +125,9 @@ class TagsMapOfUserMemoedFeedsProxy
       ActiveRecord::Base.connection.select_all(%`
         select tags.name,tags.namespace,count(*) count from tags
         inner join feed_tags on tags.id = feed_tags.tag_id
-        inner join viewpoints on feed_tags.feed_id = viewpoints.feed_id
-        inner join feeds on viewpoints.feed_id = feeds.id
-        where viewpoints.user_id = #{self.id} and feeds.hidden = false
+        inner join posts on feed_tags.feed_id = posts.feed_id
+        inner join feeds on posts.feed_id = feeds.id
+        where posts.user_id = #{self.id} and feeds.hidden = false
           and tags.name <> "#{Tag::DEFAULT}"
         group by tags.id
         order by count desc

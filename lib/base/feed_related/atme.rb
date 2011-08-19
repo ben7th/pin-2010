@@ -68,7 +68,7 @@ class Atme < UserAuthAbstract
     end
   end
 
-  module ViewpointMethods
+  module PostMethods
     def self.included(base)
       base.after_create :add_atmes_by_memo_on_create
       base.after_update :add_atmes_by_memo_on_update
@@ -85,22 +85,7 @@ class Atme < UserAuthAbstract
     end
   end
 
-  module FeedCommentMethods
-    def self.included(base)
-      base.after_create :add_atmes_by_content
-      base.after_destroy :destroy_related_atmes
-    end
-
-    def add_atmes_by_content
-      Atme.add_atmes_by_atable(self,self.content,self.user)
-    end
-
-    def destroy_related_atmes
-      self.atmes.each{|a|a.destroy}
-    end
-  end
-
-  module ViewpointCommentMethods
+  module PostCommentMethods
     def self.included(base)
       base.after_create :add_atmes_by_content
       base.after_destroy :destroy_related_atmes

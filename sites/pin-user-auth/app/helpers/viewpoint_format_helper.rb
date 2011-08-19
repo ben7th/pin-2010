@@ -20,7 +20,16 @@ module ViewpointFormatHelper
 
   def feed_detail(feed)
     content = feed.detail_content || ''
-    find_and_preserve MindpinTextFormat.new(content).to_html
+    main_post = feed.main_post
+
+    html = case main_post.format
+    when Post::FORMAT_HTML
+      content
+    when Post::FORMAT_MARKDOWN
+      MindpinTextFormat.new(content).to_html
+    end
+
+    find_and_preserve html
   end
 
   def feed_detail_short(feed)

@@ -1,13 +1,13 @@
 class UserTipProxy
   FAVS_EDIT_FEED_CONTENT = "favs_edit_feed_content"
-  FAVS_ADD_VIEWPOINT = "favs_add_viewpoint"
-  FAVS_EDIT_VIEWPOINT = "favs_edit_viewpoint"
+  FAVS_ADD_POST = "favs_add_post"
+  FAVS_EDIT_POST = "favs_edit_post"
   FEED_INVITE = "feed_invite"
-  VIEWPOINT_VOTE_UP = "viewpoint_vote_up"
-  VIEWPOINT_SPAM_MARK_EFFECT = "viewpoint_spam_mark_effect"
+  POST_VOTE_UP = "post_vote_up"
+  POST_SPAM_MARK_EFFECT = "post_spam_mark_effect"
 
   FEED_SPAM_MARK_EFFECT = "feed_spam_mark_effect"
-  VIEWPOINT_COMMENT = "viewpoint_comment"
+  POST_COMMENT = "post_comment"
   ATME = "atme"
   BE_FOLLOWED = "be_followed"
 
@@ -119,11 +119,11 @@ class UserTipProxy
 
   include BeFollowedMethods
   #include FavsEditFeedContentMethods
-  #include FavsAddViewpointMethods
-  #include FavsEditViewpointMethods
+  #include FavsAddPostMethods
+  #include FavsEditPostMethods
 #  include FeedInviteMethods 2011.5.31 由于邀请已在导航中单独显示，不再激活此通知
-  #include ViewpointVoteUpMethods
-  #include ViewpointSpamMarkEffectMethods
+  #include PostVoteUpMethods
+  #include PostSpamMarkEffectMethods
   #include FeedSpamMarkEffectMethods
-  #include ViewpointCommentMethods
+  #include PostCommentMethods
 end

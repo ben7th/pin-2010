@@ -1,16 +1,16 @@
-class ViewpointSpamMark < UserAuthAbstract
-  belongs_to :viewpoint
+class PostSpamMark < UserAuthAbstract
+  belongs_to :post
   belongs_to :user
-  validates_presence_of :viewpoint
+  validates_presence_of :post
   validates_presence_of :user
-  validates_uniqueness_of :viewpoint_id, :scope => :user_id
+  validates_uniqueness_of :post_id, :scope => :user_id
 
   EFFECT_COUNT = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)["spam_mark_effect_count"]
 
-  module ViewpointMethods
+  module PostMethods
     def self.included(base)
-      base.has_many :spam_marks,:class_name=>"ViewpointSpamMark",
-        :foreign_key=>:viewpoint_id
+      base.has_many :spam_marks,:class_name=>"PostSpamMark",
+        :foreign_key=>:post_id
     end
 
     def spam_mark_score
@@ -18,7 +18,7 @@ class ViewpointSpamMark < UserAuthAbstract
     end
 
     def spam_mark_effect?
-      spam_mark_score >= ViewpointSpamMark::EFFECT_COUNT
+      spam_mark_score >= PostSpamMark::EFFECT_COUNT
     end
 
     def spam_mark_of(user)
@@ -32,8 +32,8 @@ class ViewpointSpamMark < UserAuthAbstract
     def add_spam_mark(user)
       return true if user.blank? || is_spam_marked_by?(user)
       count = 1
-      count = ViewpointSpamMark::EFFECT_COUNT if user.is_admin_user?
-      ViewpointSpamMark.create(:viewpoint=>self,:user=>user,:count=>count)
+      count = PostSpamMark::EFFECT_COUNT if user.is_admin_user?
+      PostSpamMark.create(:post=>self,:user=>user,:count=>count)
     end
 
   end
