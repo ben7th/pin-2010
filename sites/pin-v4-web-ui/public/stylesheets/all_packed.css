@@ -1987,9 +1987,16 @@ body.mindpin-anonymous .reset-password-wrapper.no1,body.mindpin-anonymous .activ
 .page-user-mindmaps .mindmap{overflow:hidden;border-bottom:solid 1px #eee;padding:0 20px 10px 20px;margin-bottom:20px;}
 .page-user-mindmaps .mindmap .lside{float:left;margin-right:10px;}
 .page-user-mindmaps .mindmap .m{overflow:hidden;}
+.page-user-mindmaps .mindmap .m .headmeta{margin:0 0 12px 0;}
+.page-user-mindmaps .mindmap .m .headmeta span{color:#aaa;}
+.page-user-mindmaps .mindmap .m .headmeta .creator-name a{font-weight:normal;color:#aaa;}
+.page-user-mindmaps .mindmap .m .headmeta .creator-name a:hover{color:#aaa;}
+.page-user-mindmaps .mindmap .m .headmeta .create-time .jtime{color:#aaa;}
+.page-user-mindmaps .mindmap .m .headmeta .scope a{color:#aaa;}
+.page-user-mindmaps .mindmap .m .headmeta .scope a:hover{color:#aaa;}
 .page-user-mindmaps .mindmap .m .data{margin-bottom:10px;}
-.page-user-mindmaps .mindmap .m .data .title{font-size:14px;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
-.page-user-mindmaps .mindmap .m .data .title a{color:#426389;}
+.page-user-mindmaps .mindmap .m .data .title{font-size:14px;font-weight:bold;margin:0 0 12px 0;}
+.page-user-mindmaps .mindmap .m .data .title a{color:#555;}
 .page-user-mindmaps .mindmap .m .data .title a:hover{text-decoration:none;border-bottom:dotted 1px #666;}
 .page-user-mindmaps .mindmap .m .data .thumb{overflow:hidden;}
 .page-user-mindmaps .mindmap .m .data .thumb a{display:block;font-size:0;line-height:0;}
