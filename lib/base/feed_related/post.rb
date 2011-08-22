@@ -37,6 +37,15 @@ class Post < UserAuthAbstract
     return true
   end
 
+  def memo_sections
+    if FORMAT_MARKDOWN == self.attributes["format"]
+      self.memo.split("\n\n").map{|section|section.gsub("\n","")}
+    else
+      text = self.memo.gsub(/<\/?(span|font|br|li|strong|blockquote|b)[^>]*>/,"")
+      text.gsub(/<(p|ol)[^>]*>[^<]+<\/\1>/).to_a.map{|str|str.gsub(/<\/?[^>]*>/,"")}
+    end
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :posts,:order=>"posts.updated_at desc"

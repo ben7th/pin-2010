@@ -10,7 +10,6 @@
   =link_to "查看日志",resque_queue_worker_log_path(:queue_name=>queue_name)
   -if ResqueQueueWorkerManagement.start?(queue_name)
     =link_to "停止",operate_resque_queue_worker_path(:operate=>"stop",:queue=>queue_name),:method=>"post"
-    =link_to "暂停",operate_resque_queue_worker_path(:operate=>"pause",:queue=>queue_name),:method=>"post"
   -elsif ResqueQueueWorkerManagement.pause?(queue_name)
     =link_to "继续",operate_resque_queue_worker_path(:operate=>"cont",:queue=>queue_name),:method=>"post"
   -else

@@ -221,6 +221,36 @@ class Feed < UserAuthAbstract
     self.main_post.comments
   end
 
+  def content_sections
+    sections = []
+    sections.push self.content
+    post = self.main_post
+    unless post.blank?
+      sections+=post.memo_sections
+    end
+    sections
+  end
+
+  def weibo_sections
+    result = []
+    tmp = ""
+    sections = self.content_sections
+    sections.each do |section|
+      tmp+=section
+      if tmp.mb_chars.length >=130
+        tmp=tmp.mb_chars[0...130].to_s
+        result.push(tmp.clone)
+        tmp = ""
+      end
+    end
+    result.push tmp unless tmp.blank?
+    result
+  end
+
+  def send_section_to_weibo(user)
+    SendFeedSectionsQueueWorker.async_send_tsina_status(:feed_id=>self.id,:user_id=>user.id)
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id

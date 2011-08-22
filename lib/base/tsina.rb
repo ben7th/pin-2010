@@ -77,8 +77,18 @@ class Tsina
 
     def send_message_to_tsina_weibo(content)
       wb = self.tsina_weibo
-      wb.update(content)
-      return true
+      res = wb.update(content)
+      res["id"]
+    rescue Exception=>ex
+      p ex.message
+      puts ex.backtrace*"\n"
+      return false
+    end
+
+    def repost_message_to_tsina_weibo(id,content)
+      wb = self.tsina_weibo
+      res = wb.repost(id,:status=>content)
+      res["id"]
     rescue Exception=>ex
       p ex.message
       puts ex.backtrace*"\n"
@@ -87,9 +97,11 @@ class Tsina
 
     def send_tsina_image_status(image,content)
       wb = self.tsina_weibo
+      res = ""
       File.open(image,"r") do |f|
-        wb.upload(content,f)
+        res = wb.upload(content,f)
       end
+      res["id"]
     rescue Weibo::RateLimitExceeded=>ex
       p ex.message
       puts ex.backtrace*"\n"

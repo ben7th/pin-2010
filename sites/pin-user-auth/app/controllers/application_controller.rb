@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     "sessions"=>["new","create","destroy"],
     "users"=>["new","create",
       "forgot_password_form","forgot_password",
-      "reset_password","change_password"
+      "reset_password","change_password","show"
       ],
     "account"=>["base","base_submit",
       "avatared","avatared_submit",
@@ -39,7 +39,8 @@ class ApplicationController < ActionController::Base
     "activation"=>["services",
       "apply","do_apply",
       "activation","do_activation"
-      ]
+      ],
+    "feeds"=>["show"]
   }
   before_filter :redirect_services_page
   def redirect_services_page

@@ -78,6 +78,22 @@ class SendScope < UserAuthAbstract
       end
       users
     end
+    
+    def sent_scope_users
+      users = []
+      self.send_scopes.each do |ss|
+        case ss
+        when User
+          users << ss.scope
+        when Channel
+          users += ss.scope.include_users_and_creator
+        when SendScope::ALL_FOLLOWINGS
+          users += self.creator.followings
+        end
+      end
+      users.uniq
+    end
+
   end
 
   module UserMethods

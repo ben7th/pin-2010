@@ -9,6 +9,11 @@
             -link_to mindmap.user do
               =avatar mindmap.user
         .m
+          .headmeta
+            %span.creator-name=qlink mindmap.user
+            %span -
+            %span.create-time=jtime mindmap.created_at
+
           .data
             .title=link_to mindmap.title,"/mindmaps/#{mindmap.id}/info"
             -size = mindmap.large_thumb_image_true_size

@@ -5,3 +5,4 @@ resque_queues:
   - send_tsina_status_resque_queue
   - user_tip_resque_queue
   - user_joined_feeds_change_tip_resque_queue
+  - send_feed_sections_resque_queue

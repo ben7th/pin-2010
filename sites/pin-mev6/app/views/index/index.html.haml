@@ -6,11 +6,12 @@
   .sidepart
     =render 'index/parts/stats'
   .sidepart{:style=>'padding:10px;'}
-    .data.clearfix
+    .data.clearfix{:style=>'margin:0 0 10px 0;'}
       .avatar.fleft
-        %img{:src=>'http://tp2.sinaimg.cn/2255854945/50/5605944310/1'}
-      .title{:style=>'margin-left:60px;'} 官方新浪微博
-      .name{:style=>'margin-left:60px;'}=link_to 'mindpin思维导图','http://weibo.com/2255854945',:target=>'_blank'
+        %img{:src=>'http://tp2.sinaimg.cn/2255854945/30/5605944310/1'}
+      .title{:style=>'margin-left:40px;line-height:16px;'} 官方新浪微博
+      .name{:style=>'margin-left:40px;line-height:16px;'}=link_to 'mindpin思维导图','http://weibo.com/2255854945',:target=>'_blank'
+    <iframe width="136" height="24" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0" scrolling="no" frameborder="No" border="0" src="http://widget.weibo.com/relationship/followbutton.php?width=136&height=24&uid=2255854945&style=2&btn=light&dpc=1"></iframe>
 
 .main.grid_19.ll
   =render 'index/parts/manage_bar'

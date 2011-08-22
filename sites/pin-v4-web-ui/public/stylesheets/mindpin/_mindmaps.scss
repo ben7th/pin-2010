@@ -163,13 +163,33 @@
     }
     .m{
       overflow:hidden;
+      
+      .headmeta{
+        margin:0 0 12px 0;
+        span{color:#aaa;}
+        .creator-name{
+          a{
+            font-weight:normal;
+            color:#aaa;&:hover{color:#aaa;}
+          }
+        }
+        .create-time{.jtime{color:#aaa;}}
+        .scope{
+          a{
+            color:#aaa;&:hover{color:#aaa;}
+          }
+        }
+      }
+      
       .data{
         margin-bottom:10px;
         .title{
-          font-size:14px;font-weight:bold;
-          @include tfont;
+          font-size:14px;
+          font-weight:bold;
+          
+          margin:0 0 12px 0;
           a{
-            color:#426389;
+            color:#555;
             &:hover{
               text-decoration:none;
               border-bottom:dotted 1px #666;
