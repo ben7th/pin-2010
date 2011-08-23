@@ -555,22 +555,13 @@
   }
 }
 
-.mindmap-paginate{
-  overflow:hidden;
-  .pagination{
-    float:right;
-    @include border-radius(8px);
-
-    padding:5px;
-  }
-}
-
+/*思维导图，侧边统计栏*/
 .page-side-mindmaps-stat{
-  padding:0 10px;
-
+  @include sidepart;
   .ranks{
     padding:0 10px;
     margin:10px 0;
+    border-bottom:solid 1px #eee;
     .chart{
       margin:0 0 10px 0;
       height:31px;
@@ -586,7 +577,6 @@
       }
     }
   }
-
   .words{
     padding:0 10px;
     margin-bottom:10px;
@@ -596,7 +586,7 @@
       a.word{
         float:left;
         margin:0 6px 6px 0;
-        background:#616A70;
+        background:#6a6a6a;
         padding:3px 10px;
         height:15px;line-height:15px;
         @include border-radius(3px);
@@ -604,13 +594,24 @@
         &:hover{
           text-decoration:none !important;
           color:white;
-          background-color:#717A80;
+          background-color:#7a7a7a;
         }
       }
     }
   }
 }
 
+/*思维导图，侧边微博栏*/
+.page-tu-weibo{
+  @include sidepart;
+  .data{
+    overflow:hidden;
+    margin:0 0 10px 0;
+    .avatar{float:left;}
+    .title,.name{margin-left:40px;line-height:16px;}
+  }
+  .ops{height:24px;overflow:hidden;}
+}
 
 
 @mixin new_mindmap_form{

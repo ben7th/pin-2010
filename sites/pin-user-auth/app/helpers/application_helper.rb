@@ -16,10 +16,4 @@ module ApplicationHelper
     link_to(options, html_options, &block)
   end
 
-  def htitle(title)
-    content_for :title do
-      title
-    end
-  end
-
 end

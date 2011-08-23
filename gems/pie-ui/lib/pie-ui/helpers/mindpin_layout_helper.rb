@@ -59,5 +59,11 @@ module PieUi
       tips[num]
     end
 
+    def htitle(title)
+      content_for :title do
+        title
+      end
+    end
+
   end
 end

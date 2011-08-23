@@ -336,6 +336,14 @@
   margin-bottom:10px;
 }
 
+@mixin sidepart{
+  padding:10px;
+  background-color:#FAFAFA;
+  border:solid 1px #EEEEEE;
+  margin-bottom:10px;
+  @include border-radius(3px);
+}
+
 @mixin form-a-link-submit{
   @include border-radius(4px);
   display:block;

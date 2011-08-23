@@ -24,8 +24,6 @@
           .footmisc
             .rank
               =mindmap.rank_value
-            .time
-              =jtime mindmap.created_at
             .share
               -page_url = pin_url_for('pin-daotu',"/mindmaps/#{mindmap.id}/info")
               -page_title = "分享mindpin的思维导图：#{mindmap.title}"
