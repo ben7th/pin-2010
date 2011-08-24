@@ -105,6 +105,7 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(UserToPersonalInboxFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserIncomingToPersonalInboxFeedProxy)
     MindpinLogicManagement.load_redis_proxy(UserIncomingFeedProxy)
+    MindpinLogicManagement.load_redis_proxy(UserPrivateFeedProxy)
     
     MindpinLogicManagement.load_redis_proxy(UserBeingQuotedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)

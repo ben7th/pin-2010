@@ -5,31 +5,39 @@ class SendScope < UserAuthAbstract
   belongs_to :feed
   belongs_to :scope, :polymorphic => true
 
-  ALL_PUBLIC = "all-public"
-  ALL_FOLLOWINGS = "all-followings"
+#  ALL_PUBLIC = "all-public"
+#  ALL_FOLLOWINGS = "all-followings"
+#  PRIVATE = "private"
 
 
   validates_presence_of :param
 
-  def self.build_list_form_string(params_string)
-    params_arr = params_string.split(",").uniq
-    list = []
-    arr = params_arr.select do |param|
-      param == ALL_PUBLIC ||
-        param == ALL_FOLLOWINGS 
-    end
-    raise SendScope::FormatError,"发送范围 参数格式错误" if arr.count > 1
-    ch_arr = params_arr.select do |param|
-      !!(param =~ /ch-(\d+)/)
-    end
-    raise SendScope::FormatError,"发送范围 参数格式错误" if ch_arr.count > 0 && arr.count > 0
+  def self.set_send_scope_by_string(feed,sendto)
+    params_arr = sendto.split(",").uniq
 
+    # 设置 status
+    statuses = params_arr.select{|param|Feed::SEND_STATUSES.include?(param)}
+    raise SendScope::FormatError,"发送范围 参数格式错误" if statuses.count > 1
+    status = statuses.first
+    feed.send_status = (status || Feed::SendStatus::SCOPED)
+    params_arr.delete status
+
+    case feed.send_status
+    when Feed::SendStatus::PRIVATE
+      raise SendScope::FormatError,"发送范围 参数格式错误" if params_arr.count != 0
+    when Feed::SendStatus::FOLLOWINGS
+      ch_arr = params_arr.select do |param|
+        !!(param =~ /ch-(\d+)/)
+      end
+      raise SendScope::FormatError,"发送范围 参数格式错误" if ch_arr.count !=0
+    when Feed::SendStatus::SCOPED
+      raise SendScope::UnSpecifiedError,"必须指定发送范围" if params_arr.blank?
+    end
+
+    # 设置 send_scopes
+    list = []
     params_arr.each do |param|
       case param
-      when ALL_PUBLIC
-        list << self.new(:param=>ALL_PUBLIC)
-      when ALL_FOLLOWINGS
-        list << self.new(:param=>ALL_FOLLOWINGS)
       when /ch-(\d+)/
         id = param.gsub("ch-","").to_i
         channel = Channel.find_by_id(id)
@@ -44,23 +52,12 @@ class SendScope < UserAuthAbstract
         raise SendScope::FormatError,"发送范围 参数格式错误"
       end
     end
-    raise SendScope::UnSpecifiedError,"必须指定发送范围" if list.blank?
-    list
+    feed.send_scopes = list
   end
 
   module FeedMethods
     def self.included(base)
       base.has_many :send_scopes
-    end
-
-    def public?
-      scopes = self.send_scopes.select{|ss|ss.param == SendScope::ALL_PUBLIC}
-      scopes.count != 0
-    end
-
-    def sent_all_followings?
-      scopes = self.send_scopes.select{|ss|ss.param == SendScope::ALL_FOLLOWINGS}
-      scopes.count != 0
     end
 
     def sent_channels
@@ -87,9 +84,10 @@ class SendScope < UserAuthAbstract
           users << ss.scope
         when Channel
           users += ss.scope.include_users_and_creator
-        when SendScope::ALL_FOLLOWINGS
-          users += self.creator.followings
         end
+      end
+      if self.send_status == Feed::SendStatus::FOLLOWINGS
+        users += self.creator.followings
       end
       users.uniq
     end

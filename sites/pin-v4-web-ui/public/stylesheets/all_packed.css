@@ -826,6 +826,7 @@ div.pagination .prev_page:hover,div.pagination .next_page:hover{text-decoration:
 .mside .page-smallmenu ul li.i-am-here a span{float:left;padding-left:29px;}
 .mside .page-smallmenu ul li.with-count a span{margin-right:3px;}
 .mside .page-smallmenu ul li.with-count a .count{float:left;background:-moz-linear-gradient(-90deg,#ff3d00,#d3293d);background:-webkit-gradient(linear,0% 0,0% 100%,from(#ff3d00),to(#d3293d));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff3d00',endColorstr='#d3293d');color:white;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:0 4px;height:15px;line-height:15px;position:relative;top:3px;}
+.mside .page-sidepart{padding:10px;background-color:#FAFAFA;border:solid 1px #EEE;margin-bottom:10px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .page-footer{background-color:#F7F7F7;}
 .page-footer .pf{border-top:solid 2px #e6e6e6;}
 body{background-color:#fff;}
@@ -864,10 +865,19 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-title-bar .meta h2{font-size:14px;font-weight:bold;}
 .page-title-bar .meta .desc{color:#777;}
 .page-title-bar .ops{float:right;}
-.page-title-bar .ops .create{display:block;background-color:#4C8FFD;border:1px solid #3079ED;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;height:30px;line-height:30px;padding:0 7px 0 3px;cursor:pointer;color:white;overflow:hidden;}
-.page-title-bar .ops .create:hover{border-color:#2069dD;text-decoration:none;color:white;box-shadow:0 1px 2px #ccc;}
+.page-title-bar .ops .create{float:left;display:block;margin-left:10px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;height:30px;line-height:30px;padding:0 7px 0 3px;cursor:pointer;color:white;overflow:hidden;text-shadow:0 0 2px #444;font-weight:bold;font-size:14px;background-color:#4C8FFD;border:1px solid #3079ED;}
+.page-title-bar .ops .create:hover{color:white;text-decoration:none;box-shadow:0 1px 2px #ccc;}
 .page-title-bar .ops .create span{float:left;}
-.page-title-bar .ops .create .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;background:url(/images/alltu.png) -84px -75px;}
+.page-title-bar .ops .create .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
+.page-title-bar .ops .create:hover{border-color:#2069DD;}
+.page-title-bar .ops .create .icon{background:url(/images/alltu.png) -85px -75px;}
+.page-title-bar .ops .create.mindmap .icon{background:url(/images/alltu.png) -85px -100px;}
+.page-title-bar .ops .import{float:left;display:block;margin-left:10px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;height:30px;line-height:30px;padding:0 7px 0 3px;cursor:pointer;color:white;overflow:hidden;text-shadow:0 0 2px #444;font-weight:bold;font-size:14px;background-color:#4CBBFD;border:1px solid #30A8ED;}
+.page-title-bar .ops .import:hover{color:white;text-decoration:none;box-shadow:0 1px 2px #ccc;}
+.page-title-bar .ops .import span{float:left;}
+.page-title-bar .ops .import .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
+.page-title-bar .ops .import:hover{border-color:#2098DD;}
+.page-title-bar .ops .import .icon{background:url(/images/alltu.png) -85px -125px;}
 .page-comments-list{margin-top:-1px;border-top:solid 1px #EEE;}
 .page-comments-list .comment{overflow:hidden;padding:5px;background:#FAFAFA;}
 .page-comments-list .comment .avatar{float:left;margin-right:10px;}
@@ -1986,9 +1996,9 @@ body.mindpin-anonymous .reset-password-wrapper.no1,body.mindpin-anonymous .activ
 .page-tu-mindmap-user-info-bar .data .name{font-size:14px;}
 .page-user-mindmaps{overflow:hidden;}
 .page-user-mindmaps .empty{padding:10px;font-size:14px;height:300px;border:none!important;}
-.page-user-mindmaps .mindmap{overflow:hidden;border-bottom:solid 1px #eee;padding:0 20px 10px 20px;margin-bottom:20px;}
-.page-user-mindmaps .mindmap .lside{float:left;margin-right:10px;}
-.page-user-mindmaps .mindmap .m{overflow:hidden;}
+.page-user-mindmaps .mindmap{overflow:hidden;border-bottom:solid 1px #eee;padding:0 20px 10px 20px;margin-bottom:20px;padding:0 10px 20px;}
+.page-user-mindmaps .mindmap .lside{float:left;}
+.page-user-mindmaps .mindmap .m{margin-left:44px;overflow:hidden;}
 .page-user-mindmaps .mindmap .m .headmeta{margin:0 0 12px 0;}
 .page-user-mindmaps .mindmap .m .headmeta span{color:#aaa;}
 .page-user-mindmaps .mindmap .m .headmeta .creator-name a{font-weight:normal;color:#aaa;}
@@ -2022,7 +2032,7 @@ body.mindpin-anonymous .reset-password-wrapper.no1,body.mindpin-anonymous .activ
 .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-cancel:hover,.page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-cancel:hover{background:#B4CFFF;}
 .page-user-mindmaps .mindmap .m .status .comment-form .btns button.mousedown,.page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.mousedown{position:relative;top:1px;left:1px;}
 .page-user-mindmaps .mindmap .m .footmisc{overflow:hidden;margin-bottom:10px;}
-.page-user-mindmaps .mindmap .m .footmisc .rank{height:20px;line-height:20px;float:left;width:32px;background-color:#53BCFE;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:white;font-weight:bold;text-align:center;margin-right:10px;}
+.page-user-mindmaps .mindmap .m .footmisc .rank{height:18px;line-height:18px;float:left;width:30px;background-color:#8ABFE6;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:white;font-weight:bold;text-align:center;margin-right:10px;}
 .page-user-mindmaps .mindmap .m .footmisc .time{height:20px;line-height:20px;float:left;margin-right:10px;}
 .page-user-mindmaps .mindmap .m .footmisc .share{height:20px;line-height:20px;float:left;overflow:hidden;}
 .page-user-mindmaps .mindmap .m .footmisc .share a.share_to{float:left;width:18px;height:18px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;margin-right:5px;line-height:33em;font-size:0;overflow:hidden;background-color:white;background-repeat:no-repeat;background-position:1px 1px;}

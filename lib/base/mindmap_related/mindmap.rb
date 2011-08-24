@@ -17,18 +17,26 @@
 require 'uuidtools'
 
 class Mindmap < Mev6Abstract
+  class SendStatus
+    PUBLIC = "public"
+    PRIVATE = "private"
+  end
+  SEND_STATUSES = [
+    Mindmap::SendStatus::PUBLIC,
+    Mindmap::SendStatus::PRIVATE
+  ]
   MINDMAP_IMAGE_BASE_PATH = CoreService.find_setting_by_project_name(CoreService::MEV6)["mindmap_image_base_path"]
   belongs_to :user
   
   index :user_id
-  index [:private,:user_id]
   index [:weight,:user_id]
   
   has_one :visit_counter, :as=>:resource
 
   # name_scopes
-  named_scope :publics,:conditions => ["private <> TRUE or private is null"]
-  named_scope :privacy,:conditions => ["private = TRUE"]
+  named_scope :publics,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PUBLIC}'"
+  named_scope :privacy,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PRIVATE}'"
+
   named_scope :valueable,:conditions => ["weight > 0"]
   named_scope :of_user_id, lambda {|user_id|
     {:conditions=>['user_id = ?',user_id]}
@@ -116,9 +124,10 @@ class Mindmap < Mev6Abstract
   # 切换导图的 私有/公开 属性
   def toggle_private
     if self.private?
-      return self.update_attributes(:private=>false)
+      self.update_attribute(:send_status,Mindmap::SendStatus::PUBLIC)
+    else
+      self.update_attribute(:send_status,Mindmap::SendStatus::PRIVATE)
     end
-    self.update_attributes(:private=>true)
   end
 
   # 解析XML并转换为Hash对象
@@ -144,7 +153,7 @@ class Mindmap < Mev6Abstract
     if current_user == user
       mindmap_ids = user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     else
-      mindmap_ids = user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+      mindmap_ids = user.out_mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     end
     index = mindmap_ids.index(self.id)
     return if index == 0 || index.blank?
@@ -158,17 +167,32 @@ class Mindmap < Mev6Abstract
     if current_user == user
       mindmap_ids = user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     else
-      mindmap_ids = user.mindmaps.publics.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
+      mindmap_ids = user.out_mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
     end
     index = mindmap_ids.index(self.id)
     return if index == (mindmap_ids.count-1) || index.blank?
     Mindmap.find(mindmap_ids[index+1])
   end
 
+  def private=(param)
+    if param == "1" || param == 1 || !param
+      self.send_status = Mindmap::SendStatus::PRIVATE
+    else
+      self.send_status = Mindmap::SendStatus::PUBLIC
+    end
+  end
   
+  def public?
+    self.send_status == Mindmap::SendStatus::PUBLIC
+  end
+  
+  def private?
+    self.send_status == Mindmap::SendStatus::PRIVATE
+  end
+
   module UserMethods
     def self.included(base)
-      base.has_many :mindmaps,:order=>"updated_at desc"
+      base.has_many :mindmaps,:order=>"mindmaps.updated_at desc"
     end
 
     def mindmaps_count
@@ -181,7 +205,7 @@ class Mindmap < Mev6Abstract
     end
 
     def mindmaps_chart_arr
-      mindmaps = Mindmap.find(:all,:conditions=>"user_id = #{self.id}",:select=>"weight")
+      mindmaps = self.out_mindmaps
       MindmapsRankTendencyChart.new(mindmaps).values
     end
   end

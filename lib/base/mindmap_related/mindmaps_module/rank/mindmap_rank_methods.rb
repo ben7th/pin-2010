@@ -22,6 +22,8 @@ module MindmapRankMethods
   end
   
   def update_rank_value
+    return true if self.instance_variable_get(:@skip_hook) == "skip"
+    
     self.weight = MindmapRank.new(self).weight_value
     mmw = MindmapRank.map_max_weight
     if mmw < self.weight

@@ -14,6 +14,12 @@
     .container_24
       .site-logo
         =link_to '思维导图','/',:class=>'logo mindmaps'
+      .nav-menu
+        .user-meta
+          .title 初学者
+          .name=qlink current_user
+        -link_to "/users/#{current_user.id}",:class=>'li homepage',:tip=>'个人页' do
+          .avatar=avatar current_user,:tiny
       .mindmap-search-form>
         %form{:action=>"/mindmaps/search",:method=>"get"}>
           %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>

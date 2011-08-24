@@ -56,8 +56,7 @@ module MindmapManagingControllerMethods
       return render :status=>503,:text=>"修改失败"
     end
 
-    @mindmap.private = @mindmap.private? ? false : true
-    if @mindmap.save_without_timestamping
+    if @mindmap.toggle_private
       return render :partial=>'mindmaps/lists/management',:locals=>{:mindmaps=>[@mindmap]}
     end
     return render :status=>503,:text=>"修改失败"
@@ -83,8 +82,12 @@ module MindmapManagingControllerMethods
       redirect_to '/mindmaps'
     end
     
-    @mindmaps = @user.mindmaps.publics.paginate(:page=>params[:page]||1,:per_page=>12)
+    @mindmaps = @user.out_mindmaps_paginate(:page=>params[:page]||1,:per_page=>12)
     @current_channel = 'mindmaps'
+  end
+
+  def mine_private
+    @mindmaps = current_user.private_mindmaps_paginate(:page=>params[:page]||1,:per_page=>12)
   end
 
 end

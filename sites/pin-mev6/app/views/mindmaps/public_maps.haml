@@ -1,11 +1,10 @@
--content_for :title do
-  浏览公开思维导图
+-htitle "浏览公开思维导图"
 
 .mside.grid_5
-  =show_sub_menu
+  =render 'index/sub_menu'
+  =render 'index/parts/weibo'
 
 .main.grid_19.ll
   =render 'mindmaps/lists/management',:mindmaps=>@mindmaps
 
-  .mindmap-paginate.padding5
-    = will_paginate @mindmaps
+  .page-paginate=will_paginate @mindmaps

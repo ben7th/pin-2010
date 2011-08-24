@@ -32,6 +32,7 @@ class UserMindmapsMajorWordsProxy
       },
       :after_update => Proc.new {|mindmap|
         next if mindmap.changes["content"].blank?
+        next if mindmap.user.blank?
         
         UserMindmapsMajorWordsProxy.refresh_cache(mindmap.user)
       },

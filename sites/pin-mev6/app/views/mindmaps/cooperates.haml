@@ -1,11 +1,10 @@
--content_for :title do
-  我参与的协作
+-htitle "我参与的协作"
 
 .mside.grid_5
-  =show_sub_menu
+  =render 'index/sub_menu'
+  =render 'index/parts/weibo'
 
 .main.grid_18.ll
   =render "mindmaps/lists/management",:mindmaps=>@mindmaps
 
-  .mindmap-paginate.padding5
-    = will_paginate @mindmaps
+  .page-paginate=will_paginate @mindmaps

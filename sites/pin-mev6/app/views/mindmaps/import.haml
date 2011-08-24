@@ -1,12 +1,13 @@
--content_for :title do
-  导入思维导图
+-htitle "导入思维导图"
 
 -content_for :javascript do
   =javascript_include_tag '/uploadify/upload_mindmap'
 
 .main.white.grid_18
+  .page-title-bar
+    .meta
+      %h2 从文件导入思维导图
   .page-upload-mindmap
-    %h2.main-title 导入思维导图
     .page-upload-mindmap-result{:style=>'display:none;'}
       .thumb
       .data
@@ -46,24 +47,22 @@
         %span.marginl10=link_to '算了，取消','/'
 
 .mside.grid_6
-  .sidepart
-    .padding10
-      %h5 支持以下导图软件格式：
-      .import_formats.margint10
-        %dl
-          %dt MMAP
-          %dd MindManager
-        %dl
-          %dt MM
-          %dd FreeMind
-        %dl
-          %dt XMIND
-          %dd XMind
-        %dl
-          %dt IMM
-          %dd Buzan's iMindMap
-      %p.margint10
-        选择文件并确定上传后，系统需要少许时间进行处理和转换，请耐心等待。
-      %p
-        我们能够确保基本导图结构的完好。<br/>
-        但是由于MindPin导图编辑器仍需进一步完善，一些导图软件中的特定格式，如文字颜色，内嵌图片，导入后会有不同程度的丢失。
+  .page-sidepart
+    %p 我们支持以下导图软件格式：
+    %p
+      %span.bold MMAP
+      %span - MindManager
+    %p
+      %span.bold MM
+      %span - FreeMind
+    %p
+      %span.bold XMIND
+      %span - XMind
+    %p
+      %span.bold IMM
+      %span - Buzan's iMindMap
+    %p.margint10
+      选择文件并确定上传后，系统需要少许时间进行处理和转换，请耐心等待。
+    %p
+      我们能够确保基本导图结构的完好。<br/>
+      但是由于MindPin导图编辑器仍需进一步完善，一些导图软件中的特定格式，如文字颜色，内嵌图片，导入后会有不同程度的丢失。

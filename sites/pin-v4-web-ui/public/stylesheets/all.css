@@ -3228,6 +3228,14 @@ Release Date: November 8, 2010
         line-height: 15px;
         position: relative;
         top: 3px; }
+.mside .page-sidepart {
+  padding: 10px;
+  background-color: #FAFAFA;
+  border: solid 1px #EEEEEE;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px; }
 
 /*椤佃剼*/
 /*椤佃剼鑳屾櫙*/
@@ -3352,6 +3360,7 @@ a.send-button {
     background-color: #f0f0f0; }
 
 /*mindpin*/
+/*页面标题栏ops按钮*/
 /*页面标准元件，标题栏*/
 .page-title-bar {
   margin-bottom: 20px;
@@ -3373,9 +3382,9 @@ a.send-button {
   .page-title-bar .ops {
     float: right; }
     .page-title-bar .ops .create {
+      float: left;
       display: block;
-      background-color: #4C8FFD;
-      border: 1px solid #3079ED;
+      margin-left: 10px;
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
@@ -3384,11 +3393,15 @@ a.send-button {
       padding: 0 7px 0 3px;
       cursor: pointer;
       color: white;
-      overflow: hidden; }
+      overflow: hidden;
+      text-shadow: 0px 0px 2px #444;
+      font-weight: bold;
+      font-size: 14px;
+      background-color: #4C8FFD;
+      border: 1px solid #3079ED; }
       .page-title-bar .ops .create:hover {
-        border-color: #2069dD;
-        text-decoration: none;
         color: white;
+        text-decoration: none;
         box-shadow: 0px 1px 2px #ccc; }
       .page-title-bar .ops .create span {
         float: left; }
@@ -3397,8 +3410,47 @@ a.send-button {
         height: 24px;
         position: relative;
         top: 3px;
-        margin-right: 3px;
-        background: url(/images/alltu.png) -84px -75px; }
+        margin-right: 3px; }
+      .page-title-bar .ops .create:hover {
+        border-color: #2069DD; }
+      .page-title-bar .ops .create .icon {
+        background: url(/images/alltu.png) -85px -75px; }
+      .page-title-bar .ops .create.mindmap .icon {
+        background: url(/images/alltu.png) -85px -100px; }
+    .page-title-bar .ops .import {
+      float: left;
+      display: block;
+      margin-left: 10px;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 7px 0 3px;
+      cursor: pointer;
+      color: white;
+      overflow: hidden;
+      text-shadow: 0px 0px 2px #444;
+      font-weight: bold;
+      font-size: 14px;
+      background-color: #4CBBFD;
+      border: 1px solid #30A8ED; }
+      .page-title-bar .ops .import:hover {
+        color: white;
+        text-decoration: none;
+        box-shadow: 0px 1px 2px #ccc; }
+      .page-title-bar .ops .import span {
+        float: left; }
+      .page-title-bar .ops .import .icon {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        top: 3px;
+        margin-right: 3px; }
+      .page-title-bar .ops .import:hover {
+        border-color: #2098DD; }
+      .page-title-bar .ops .import .icon {
+        background: url(/images/alltu.png) -85px -125px; }
 
 /*页面标准元件，评论*/
 .page-comments-list {
@@ -8635,11 +8687,12 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
     overflow: hidden;
     border-bottom: solid 1px #eee;
     padding: 0 20px 10px 20px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    padding: 0 10px 20px; }
     .page-user-mindmaps .mindmap .lside {
-      float: left;
-      margin-right: 10px; }
+      float: left; }
     .page-user-mindmaps .mindmap .m {
+      margin-left: 44px;
       overflow: hidden; }
       .page-user-mindmaps .mindmap .m .headmeta {
         margin: 0 0 12px 0; }
@@ -8753,11 +8806,11 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         overflow: hidden;
         margin-bottom: 10px; }
         .page-user-mindmaps .mindmap .m .footmisc .rank {
-          height: 20px;
-          line-height: 20px;
+          height: 18px;
+          line-height: 18px;
           float: left;
-          width: 32px;
-          background-color: #53BCFE;
+          width: 30px;
+          background-color: #8ABFE6;
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
@@ -9108,6 +9161,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
     height: 24px;
     overflow: hidden; }
 
+/*鏂板缓鎬濈淮瀵煎浘琛ㄥ崟*/
 .page-new-mindmap-form {
   padding: 10px; }
   .page-new-mindmap-form h2.main-title {
@@ -9127,6 +9181,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-new-mindmap-form .field.private span.disabled {
     color: #777; }
 
+/*瀵煎叆鎬濈淮瀵煎浘琛ㄥ崟*/
 .page-upload-mindmap {
   padding: 10px; }
   .page-upload-mindmap h2.main-title {

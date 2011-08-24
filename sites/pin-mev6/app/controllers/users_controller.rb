@@ -5,9 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @mindmaps = Mindmap.of_user_id(@user.id).
-      publics.find(:all,:order=>"id desc").
-      paginate(:per_page=>20,:page=>params[:page]||1)
+    @mindmaps = @user.out_mindmaps_paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
 end

@@ -1,12 +1,7 @@
-.page-mindmaps-manage-bar
-  -link_to current_user do
-    .avatar
-      =avatar(current_user)
-  .data
-    .name=usersign current_user,false
-    .sign=h(truncate_u(current_user.sign,16))
+.page-title-bar
+  .meta
+    %h2 思维导图
+    .desc 创作和管理个人的思维导图
   .ops
-    -link_to '/mindmaps/new',:class=>'op' do
-      .new.create 新建
-    -link_to '/mindmaps/import',:class=>'op' do
-      .new.import 导入
+    =link_to '<span class="icon"></span><span>新建</span>','/mindmaps/new',:class=>'create mindmap'
+    =link_to '<span class="icon"></span><span>导入</span>','/mindmaps/import',:class=>'import mindmap'

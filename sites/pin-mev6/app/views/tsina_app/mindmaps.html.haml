@@ -53,7 +53,7 @@
           = text_field_tag :'mindmap[title]','',:class=>'text mindmap-title'
         .field
           = link_to '<span>开始编辑</span>','javascript:;',:class=>'create-submit',:onclick=>'create_submit(this)'
-  -mindmaps = current_user.mindmaps.publics.paginate(:page=>params[:page]||1,:per_page=>8)
+  -mindmaps = current_user.out_mindmaps_paginate(:page=>params[:page]||1,:per_page=>8)
   .mindmaps
     -i = 0
     -mindmaps.each do |mindmap|

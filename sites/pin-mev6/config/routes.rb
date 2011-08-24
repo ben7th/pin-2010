@@ -22,7 +22,8 @@ ActionController::Routing::Routes.draw do |map|
     :import=>:get,
     :do_import=>:post,
     :upload_import_file=>:post,
-    :favs=>:get
+    :favs=>:get,
+    :mine_private=>:get
   },:member=>{
     :export=>:get,
     :change_title=>:put,

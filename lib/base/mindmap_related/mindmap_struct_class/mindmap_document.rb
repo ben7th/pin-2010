@@ -2,8 +2,10 @@ class MindmapDocument
   attr_reader :mindmap
   def initialize(mindmap)
     @mindmap = mindmap
-    @nokogiri_document = Nokogiri::XML(@mindmap.struct) if !@mindmap.struct.blank?
-    MindmapChangeStruct.new(mindmap).change_struct_to_new
+    if !@mindmap.struct.blank?
+      MindmapChangeStruct.new(@mindmap).change_struct_to_new
+      @nokogiri_document = Nokogiri::XML(@mindmap.struct)
+    end
   end
 
   def struct

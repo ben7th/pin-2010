@@ -6,7 +6,7 @@ class UserOutboxMindmapProxy < RedisBaseProxy
   end
 
   def xxxs_ids_db
-    Mindmap.of_user_id(@user.id).publics.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+    @user.mindmaps.publics.find(:all,:order=>'mindmaps.id desc').map{|x| x.id}
   end
 
   def self.remove_mindmap_cache(mindmap)
@@ -16,20 +16,16 @@ class UserOutboxMindmapProxy < RedisBaseProxy
   end
 
   def self.add_mindmap_cache(mindmap)
-    uomp = UserOutboxMindmapProxy.new(mindmap.user)
-    ids = uomp.xxxs_ids
-    unless ids.include?(mindmap.id)
-      ids.unshift(mindmap.id)
-      ids = ids[0..99] if ids.length > 100
-      uomp.send(:xxxs_ids_rediscache_save,ids)
-    end
+    return if mindmap.private?
+    return if mindmap.user.blank?
+    
+    UserOutboxMindmapProxy.new(mindmap.user).add_to_cache(mindmap.id)
   end
 
   def self.rules
     {
       :class => Mindmap ,
       :after_create => Proc.new {|mindmap|
-        next if mindmap.private?
         UserOutboxMindmapProxy.add_mindmap_cache(mindmap)
       },
       :after_update => Proc.new {|mindmap|
@@ -51,6 +47,13 @@ class UserOutboxMindmapProxy < RedisBaseProxy
       :class => User ,
       :out_mindmaps => Proc.new{|user|
         UserOutboxMindmapProxy.new(user).get_models(Mindmap)
+      },
+      :out_mindmaps_paginate => Proc.new {|user,options|
+        ids = UserOutboxMindmapProxy.new(user).xxxs_ids.paginate(options)
+
+        mindmaps = ids.map{|id|Mindmap.find_by_id(id)}.compact
+        ids.replace(mindmaps)
+        ids
       }
     }
   end

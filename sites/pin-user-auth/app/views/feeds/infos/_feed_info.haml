@@ -4,7 +4,8 @@
 .feed{:'data-id'=>"#{feed.id}"}
   .lside
     .avatar
-      =avatar feed.creator,:tiny
+      -link_to feed.creator do
+        =avatar feed.creator,:tiny
   .f
     =render 'feeds/info_parts/info_current_feed',:feed=>feed
 

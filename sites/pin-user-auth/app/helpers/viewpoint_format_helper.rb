@@ -22,7 +22,7 @@ module ViewpointFormatHelper
     content = feed.detail_content || ''
     main_post = feed.main_post
 
-    html = case main_post.format
+    html = case main_post.text_format
     when Post::FORMAT_HTML
       content
     when Post::FORMAT_MARKDOWN

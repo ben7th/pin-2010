@@ -23,7 +23,7 @@ module MindmapSearchMethods
   end
 
   def save_lucene_index
-    if self.instance_variable_get(:@skip_index_lucene) != "skip"
+    if self.instance_variable_get(:@skip_hook) != "skip"
       MindmapLucene.index_one_mindmap(self.id)
     end
   end
@@ -33,7 +33,7 @@ module MindmapSearchMethods
   end
 
   def set_content
-    if self.instance_variable_get(:@skip_index_lucene) != "skip"
+    if self.instance_variable_get(:@skip_hook) != "skip"
       self.content = MindmapDocument.new(self).content
     end
     return true
@@ -41,7 +41,7 @@ module MindmapSearchMethods
 
   module ClassMethods
     def major_words_of_user(user,words_count=5)
-      content = user.mindmaps.map{|m|m.content}*" "
+      content = user.out_mindmaps.map{|m|m.content}*" "
       KeywordsAnalyzer.new(content).major_words(words_count)
     rescue Exception => ex
       p ex

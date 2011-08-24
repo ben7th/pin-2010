@@ -38,7 +38,7 @@ class Post < UserAuthAbstract
   end
 
   def memo_sections
-    if FORMAT_MARKDOWN == self.attributes["format"]
+    if FORMAT_MARKDOWN == self.text_format
       self.memo.split("\n\n").map{|section|section.gsub("\n","")}
     else
       text = self.memo.gsub(/<\/?(span|font|br|li|strong|blockquote|b)[^>]*>/,"")
@@ -133,7 +133,7 @@ class Post < UserAuthAbstract
 
     def create_main_post(content)
       self.posts.create(:user=>self.creator,
-        :memo=>content,:kind=>Post::KIND_MAIN,:format=>Post::FORMAT_HTML)
+        :memo=>content,:kind=>Post::KIND_MAIN,:text_format=>Post::FORMAT_HTML)
     end
 
     def create_or_update_main_post(content)

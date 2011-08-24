@@ -1,3 +1,25 @@
+/*页面标题栏ops按钮*/
+@mixin ops-op-btn{
+  float:left;
+  display:block;
+  margin-left:10px;
+  @include border-radius(3px);
+  height:30px;line-height:30px;
+  padding:0 7px 0 3px;
+  cursor:pointer;
+  color:white;
+  overflow:hidden;
+  text-shadow:0px 0px 2px #444;
+  font-weight:bold;font-size:14px;
+  &:hover{
+    color:white;
+    text-decoration:none;
+    box-shadow:0px 1px 2px #ccc;
+  };
+  span{float:left;}
+  .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
+}
+
 /*页面标准元件，标题栏*/
 .page-title-bar{
   margin-bottom:20px;
@@ -18,29 +40,24 @@
   }
   .ops{
     float:right;
+    
     .create{
-      display:block;
+      @include ops-op-btn;
       background-color:#4C8FFD;
       border:1px solid #3079ED;
-      @include border-radius(3px);
-      height:30px;line-height:30px;
-      padding:0 7px 0 3px;
-      cursor:pointer;
-      color:white;
-      overflow:hidden;
-      &:hover{
-        border-color:#2069dD;
-        text-decoration:none;
-        color:white;
-        box-shadow:0px 1px 2px #ccc;
-      }
-      span{float:left;}
-      .icon{
-        width:24px;height:24px;position:relative;top:3px;
-        margin-right:3px;
-        background:url(/images/alltu.png) -84px -75px;
-      }
+      &:hover{border-color:#2069DD;}
+      .icon{background:url(/images/alltu.png) -85px -75px;}
+      &.mindmap{.icon{background:url(/images/alltu.png) -85px -100px;}}
     }
+   
+    .import{
+      @include ops-op-btn;
+      background-color:#4CBBFD;
+      border:1px solid #30A8ED;
+      &:hover{border-color:#2098DD;}
+      .icon{background:url(/images/alltu.png) -85px -125px;}
+      &.mindmap{}
+    } 
   }
 }
 

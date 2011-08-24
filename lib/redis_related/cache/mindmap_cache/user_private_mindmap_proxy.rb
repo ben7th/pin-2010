@@ -6,7 +6,7 @@ class UserPrivateMindmapProxy < RedisBaseProxy
   end
 
   def xxxs_ids_db
-    Mindmap.of_user_id(@user.id).privacy.find(:all,:limit=>100,:order=>'id desc').map{|x| x.id}
+    @user.mindmaps.privacy.find(:all,:order=>'mindmaps.id desc').map{|x| x.id}
   end
 
   def self.remove_mindmap_cache(mindmap)
@@ -16,20 +16,15 @@ class UserPrivateMindmapProxy < RedisBaseProxy
   end
 
   def self.add_mindmap_cache(mindmap)
-    upmp = UserPrivateMindmapProxy.new(mindmap.user)
-    ids = upmp.xxxs_ids
-    unless ids.include?(mindmap.id)
-      ids.unshift(mindmap.id)
-      ids = ids[0..99] if ids.length > 100
-      upmp.send(:xxxs_ids_rediscache_save,ids)
-    end
+    return unless mindmap.private?
+
+    UserPrivateMindmapProxy.new(mindmap.user).add_to_cache(mindmap.id)
   end
 
   def self.rules
     {
       :class => Mindmap ,
       :after_create => Proc.new {|mindmap|
-        next unless mindmap.private?
         UserPrivateMindmapProxy.add_mindmap_cache(mindmap)
       },
       :after_update => Proc.new {|mindmap|
@@ -54,6 +49,13 @@ class UserPrivateMindmapProxy < RedisBaseProxy
       },
       :private_mindmap_ids => Proc.new{|user|
         UserPrivateMindmapProxy.new(user).xxxs_ids
+      },
+      :private_mindmaps_paginate => Proc.new {|user,options|
+        ids = UserPrivateMindmapProxy.new(user).xxxs_ids.paginate(options)
+
+        mindmaps = ids.map{|id|Mindmap.find_by_id(id)}.compact
+        ids.replace(mindmaps)
+        ids
       }
     }
   end

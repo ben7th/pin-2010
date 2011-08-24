@@ -6,6 +6,18 @@ class Feed < UserAuthAbstract
   validates_presence_of :creator
   validates_presence_of :event
 
+  class SendStatus
+    PUBLIC = "public"
+    FOLLOWINGS = "followings"
+    PRIVATE = "private"
+    SCOPED = "scoped"
+  end
+  SEND_STATUSES = [
+    Feed::SendStatus::PUBLIC,
+    Feed::SendStatus::FOLLOWINGS,
+    Feed::SendStatus::PRIVATE,
+    Feed::SendStatus::SCOPED
+  ]
 
   named_scope :news_feeds_of_user,lambda {|user|
     {
@@ -69,6 +81,22 @@ class Feed < UserAuthAbstract
     if self.content.split(//u).length > 255
       errors.add(:content,"内容长度不能超过 255 个字符")
     end
+  end
+
+  def public?
+    self.send_status == Feed::SendStatus::PUBLIC
+  end
+
+  def private?
+    self.send_status == Feed::SendStatus::PRIVATE
+  end
+
+  def sent_scoped?
+    self.send_status == Feed::SendStatus::SCOPED
+  end
+
+  def sent_all_followings?
+    self.send_status == Feed::SendStatus::FOLLOWINGS
   end
 
   def send_by_main_user?(channel)
@@ -259,9 +287,8 @@ class Feed < UserAuthAbstract
     def send_feed(content,options={})
       event = options[:event] || Feed::SAY_OPERATE
       sendto = options[:sendto] || ""
-      send_scopes = SendScope.build_list_form_string(sendto)
-
-      feed = Feed.new(:creator=>self,:event=>event,:content=>content,:send_scopes=>send_scopes)
+      feed = Feed.new(:creator=>self,:event=>event,:content=>content)
+      SendScope.set_send_scope_by_string(feed,sendto)
       return feed if !feed.valid?
       feed.save!
 
@@ -301,18 +328,27 @@ class Feed < UserAuthAbstract
       Feed.news_feeds_of_user(self).hidden
     end
 
+    def private_feeds_db(limited_count = nil)
+      conditions=%`
+        feeds.creator_id = #{self.id}
+          and feeds.hidden is not true
+          and feeds.send_status = '#{Feed::SendStatus::PRIVATE}'
+      `
+      find_hash = {
+        :conditions=>conditions,:order=>"feeds.id desc"
+      }
+      find_hash[:limit]=limited_count unless limited_count.nil?
+      Feed.find(:all,find_hash)
+    end
+
     def out_feeds_db(limited_count = nil)
       conditions=%`
         feeds.creator_id = #{self.id}
           and feeds.hidden is not true
-      `
-      joins=%`
-        inner join send_scopes on send_scopes.feed_id = feeds.id
-          and send_scopes.param = '#{SendScope::ALL_PUBLIC}'
+          and feeds.send_status = '#{Feed::SendStatus::PUBLIC}'
       `
       find_hash = {
-        :conditions=>conditions,:joins=>joins,
-        :order=>"feeds.id desc"
+        :conditions=>conditions,:order=>"feeds.id desc"
       }
       find_hash[:limit]=limited_count unless limited_count.nil?
       Feed.find(:all,find_hash)
@@ -322,14 +358,10 @@ class Feed < UserAuthAbstract
       conditions=%`
         feeds.creator_id = #{self.id}
           and feeds.hidden is not true
-      `
-      joins=%`
-        inner join send_scopes on send_scopes.feed_id = feeds.id
-          and send_scopes.param = '#{SendScope::ALL_FOLLOWINGS}'
+          and feeds.send_status = '#{Feed::SendStatus::FOLLOWINGS}'
       `
       find_hash = {
-        :conditions=>conditions,:joins=>joins,
-        :order=>"feeds.id desc"
+        :conditions=>conditions,:order=>"feeds.id desc"
       }
       find_hash[:limit]=limited_count unless limited_count.nil?
       Feed.find(:all,find_hash)
