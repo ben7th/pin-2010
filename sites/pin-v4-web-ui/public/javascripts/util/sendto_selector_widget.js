@@ -9,7 +9,10 @@ pie.load(function(){
   if(selector_elm.length > 0 && sendtos_elm.length > 0 && sendto_hid_elm.length > 0){
 
     sendto_add_elm.live('click',function(){
-      selector_elm.fadeIn(200);
+      var ipter_elm = jQuery(this).closest('.sendto-ipter');
+      var offset = ipter_elm.offset();
+      var height = ipter_elm.outerHeight();
+      selector_elm.css('left',offset.left).css('top',offset.top + height - 1).fadeIn(200);
     })
 
     jQuery(document).bind('click.sendto_selector',function(evt){
@@ -45,8 +48,8 @@ pie.load(function(){
       var valstr = [];
       sendtos_elm.find('.ch').each(function(){
         var elm = jQuery(this);
-        if(elm.hasClass('all-public')){ valstr.push('all-public') }
-        if(elm.hasClass('all-followings')){ valstr.push('all-followings') }
+        if(elm.hasClass('all-public')){ valstr.push('public') }
+        if(elm.hasClass('all-followings')){ valstr.push('followings') }
         if(elm.hasClass('a-ch')){ valstr.push('ch-'+elm.attr('data-id')) }
       })
 

@@ -2,7 +2,6 @@ class Feed < UserAuthAbstract
   SAY_OPERATE = 'say'
 
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
-  validates_presence_of :content
   validates_presence_of :creator
   validates_presence_of :event
 

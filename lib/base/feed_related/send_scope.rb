@@ -13,7 +13,12 @@ class SendScope < UserAuthAbstract
   validates_presence_of :param
 
   def self.set_send_scope_by_string(feed,sendto)
-    params_arr = sendto.split(",").uniq
+    params_arr = sendto.strip.split(",").uniq
+
+    if params_arr.count == 0
+      feed.send_status = Feed::SendStatus::PUBLIC
+      return
+    end
 
     # 设置 status
     statuses = params_arr.select{|param|Feed::SEND_STATUSES.include?(param)}

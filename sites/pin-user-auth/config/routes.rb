@@ -306,4 +306,6 @@ ActionController::Routing::Routes.draw do |map|
     v2.connect "/chat_say",:controller=>"index",:action=>"chat_say",
       :conditions=>{:method=>:post}
   end
+
+  map.resources :feed_drafts
 end

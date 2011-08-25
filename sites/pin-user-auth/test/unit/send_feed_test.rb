@@ -1477,12 +1477,12 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ac = channels(:channel_ac)
     channel_ad = channels(:channel_ad)
-    assert_raise(SendScope::UnSpecifiedError) do
-      a.send_feed("我是标题",:detail=>"我是正文",:sendto=>"")
-    end
-    assert_raise(SendScope::UnSpecifiedError) do
-      a.send_feed("我是标题",:detail=>"我是正文")
-    end
+    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>"   ")
+    assert_equal false,feed.id.blank?
+    assert_equal true,feed.public?
+    feed = a.send_feed("我是标题",:detail=>"我是正文")
+    assert_equal false,feed.id.blank?
+    assert_equal true,feed.public?
 
     error_sendto_list = [
       "#{Feed::SendStatus::PUBLIC},#{Feed::SendStatus::FOLLOWINGS}",

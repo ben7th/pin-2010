@@ -1,110 +1,53 @@
-.feed-form-container{
-  padding:45px 0 20px 50px;
-  margin:0 0 12px 0;
-  @include border-radius(6px);
-  background:url(/images/icons/feed-form-bg.png) no-repeat 0 0;
-  background-color:#E4EE70;
-  border:solid 1px #ddd;
-}
-
-.feed-form{
-  margin:0px 0 0 0px;
-  overflow:hidden;
-  width:500px;
-  position:relative;
-  .ipter{
-    overflow:hidden;
-    margin:0 0 6px 0;
-    .tip{
-      font-size:14px;
-    }
-    .ipts{
-      float:left;
-      padding:0 10px 0 0;
-      font-size:0px;
-      line-height:0px;
-      .feed-content{
-        width:430px;
-        height:32px;
-        overflow:hidden;
-        position:relative;
-        border:solid 2px #293100;
-        *top:-1px;
-      }
-    }
-  }
-  .detail-ipter{
-    overflow:hidden;
-    margin:0 0 6px 0;
-    .feed-detail{
-      width:430px;
-      height:96px;
-      overflow:hidden;
-      position:relative;
-      border:solid 2px #293100;
-      *top:-1px;
-    }
-  }
-  .subm{
-    width:404px;
-    clear:both;
-    overflow:hidden;
-    .subbtn{
-      float:left;
-      @include border-radius(4px);
-      padding:4px 20px 4px;
-      margin:0 6px 0 0;
-      font-size:14px;
-      font-weight:bold;
-      @include btn-color(#5C98E0, #3671B9, #2E63A5, #ffffff, #6CA8F0, #4681C9);
-      /*@include btn-color(#879A1F, #576810, #7F9132, #ffffff, #A7BA3F, #778830);*/
-      &:hover{text-decoration:none;}
-      &.mousedown{}
-    }
-    .show-detail-ipt,.hide-detail-ipt{
-      float:left;
-      @include border-radius(4px);
-      margin:0 10px 0 0;
-      font-size:14px;
-      font-weight:bold;
-      cursor:pointer;
-      height:29px;
-      width:29px;
-
-      &:hover{
-        text-decoration:none;
-      }
-      &.mousedown{}
-    }
-    .show-detail-ipt{
-      @include btn-color(#F54F00,#CA0700,#DF1600,#ffffff,#FB5506,#D00C06);
-      .icon{
-        width:19px;height:19px;
-        @include allicon(-256px,-13px);
-        position:relative;top:5px;left:5px;
-      }
-    }
-    .hide-detail-ipt{
-      @include btn-color(#A8684B,#8B413E,#9A4D45,#ffffff,#B8785B,#9B514E);
-      .icon{
-        width:19px;height:19px;
-        @include allicon(-276px,-13px);
-        position:relative;top:5px;left:5px;
-      }
-    }
-  }
-}
-
-@mixin new_feed_form{
+/*创建主题的表单*/
+.page-new-feed-form{
   @include new_object_form;
-  .field.title{
-    input.text{width:634px;padding:5px 7px;box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+  .form-meta{
+    background-color:#FAFAFA;
+    border-top:solid 1px #eee;
+    border-bottom:solid 1px #eee;
+    padding:10px;
   }
+  
+  .field.title{
+    margin-bottom:10px;
+    label{float:left;width:50px;margin-right:10px;text-align:right;padding:0;height:32px;line-height:32px;font-size:12px;}
+    input.text{width:658px;@include border-radius(1px);box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1) inset;}
+  }
+  .field.sendto-select-widget{
+    margin-bottom:10px;
+    label{float:left;width:50px;margin-right:10px;text-align:right;padding:0;height:32px;line-height:32px;font-size:12px;}
+    .sendto-ipter{width:658px;}
+  }
+  
+  .page-file-upload{
+    margin-bottom:10px;
+    margin-left:60px;
+    .upload-btn{
+      width:80px;height:20px;line-height:20px;
+    }
+  }
+  
   .field.detail{
-    textarea.text{width:634px;padding:5px 7px;height:160px;box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+    margin-bottom:10px;
+    textarea.text{width:634px;padding:5px 7px;height:300px;}
+    .edui-editor{
+      border:none;
+      .edui-editor-toolbarboxouter{
+        background:#fafafa;
+        border:none;
+      }
+      .edui-editor-iframeholder{
+        border:solid 1px #ccc;
+        @include border-radius(1px);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1) inset;
+        background:white;
+      }
+    }
   }
   .field.tags{
-    input.text{width:634px;box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+    margin-bottom:0;
+    label{float:left;width:50px;margin-right:10px;text-align:right;padding:0;height:32px;line-height:32px;font-size:12px;}
+    input.text{width:658px;box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1) inset;}
   }
   .field.subm{
     overflow:hidden;
@@ -113,7 +56,7 @@
   }
   .field.photos{
     overflow:hidden;
-    margin:0;
+    margin:0 0 0 60px;
     .photo,.uploading-photo{
       width:50px;height:50px;
       border:solid 1px #eee;
@@ -175,11 +118,6 @@
       .error-close{display:none;}
     }
   }
-}
-
-.page-new-feed-form{
-  padding:10px;
-  @include new_feed_form;
 }
 
 .page-new-feed-tips{

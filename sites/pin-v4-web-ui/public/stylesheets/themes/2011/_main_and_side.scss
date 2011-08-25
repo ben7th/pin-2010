@@ -1,6 +1,19 @@
 .page-content .cell{
   margin:0 0 60px;
   border-bottom:solid 1px #eee;
+  
+  &.layout-auto{
+    margin:0;border-bottom:none 0;
+    overflow:hidden;
+    .layout-main{
+      overflow:hidden;
+      &.ll{border-left:solid 1px #eee};
+      .layout-main-inside{
+        padding-top:20px;
+      }
+    }
+  }
+  
   .main-title{
     font-size:16px;
     font-weight:bold;

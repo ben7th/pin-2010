@@ -4,8 +4,8 @@ pie.load(function(){
   if(data_form_elm.length == 0) return;
   
   var rich_editor = new baidu.editor.ui.Editor({
-    minFrameHeight: 160,
-    autoHeightEnabled: true,
+    minFrameHeight: 300,
+    autoHeightEnabled: false,
     /**/
     ui: {
       toolbars: [
@@ -50,4 +50,15 @@ pie.load(function(){
       data_form_elm.submit();
     }
   })
+})
+
+pie.load(function(){
+  var document_resize = function(){
+    var height = jQuery(window).height() - 131;
+    jQuery('.cell').css('height',height);
+    jQuery('.layout-main').css('height',height);
+  }
+
+  document_resize();
+  jQuery(window).resize(document_resize);
 })

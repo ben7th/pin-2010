@@ -2,7 +2,7 @@
 -#see 登录首页->中间栏->新建
 
 .field.sendto-select-widget
-  %label 分发范围...
+  %label 发送给
   =hidden_field_tag "sendto",'all-public',:class=>'sendto-hid'
   .sendto-ipter
     .sendtos
@@ -11,7 +11,7 @@
         %span> 完全公开
         %span.close> x
 
-    =link_to '＋选择发送范围','javascript:;',:class=>'add'
+    =link_to '＋选择范围','javascript:;',:class=>'add'
 
   .sendto-selector{:style=>'display:none;'}
     .desc.quiet

@@ -14,6 +14,7 @@ class FeedsController < ApplicationController
   def new
     # 创建主题的页面，do nothing here.
     @feed = Feed.new
+    render :layout=>'create_form'
   end
 
   def create
