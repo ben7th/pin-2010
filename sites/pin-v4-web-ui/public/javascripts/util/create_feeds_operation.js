@@ -53,12 +53,14 @@ pie.load(function(){
 })
 
 pie.load(function(){
-  var document_resize = function(){
-    var height = jQuery(window).height() - 131;
-    jQuery('.cell').css('height',height);
-    jQuery('.layout-main').css('height',height);
-  }
+  if(jQuery('.cell.layout-auto').length > 0){
+    var document_resize = function(){
+      var height = jQuery(window).height() - 131;
+      jQuery('.cell').css('height',height);
+      jQuery('.layout-main').css('height',height);
+    }
 
-  document_resize();
-  jQuery(window).resize(document_resize);
+    document_resize();
+    jQuery(window).resize(document_resize);
+  }
 })

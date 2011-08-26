@@ -29,16 +29,6 @@ class MindmapsController < ApplicationController
     @mindmaps = current_user.cooperate_mindmaps.paginate(:page=>params[:page]||1,:per_page=>12)
   end
 
-  def comments
-    create_feed = false
-    create_feed = true if params[:create_feed] == "true"
-
-    mc = current_user.create_comment(@mindmap,params[:content],create_feed)
-    if !!mc.id
-      redirect_to "/mindmaps/#{@mindmap.id}/info"
-    end
-  end
-
   def newest
     file_path = MindmapImageCache.new(@mindmap).thumb_120_img_path
     send_file file_path,:type=>"image/png",:disposition=>'inline'

@@ -75,10 +75,6 @@ module MindmapImageMethods
     thumb_path = ImgResize.new(absolute_file_path).dump_max_of(90,60)
     thumb_absolute_file_path = upload_file_thumb_absolute_path(file_name)
     FileUtils.copy_file(thumb_path,thumb_absolute_file_path)
-    mup_ap tmp_file_path
-    mup_ap absolute_file_path
-    mup_ap thumb_absolute_file_path
-    mup_ap thumb_path
     FileUtils.rm_r(thumb_path)
   end
 

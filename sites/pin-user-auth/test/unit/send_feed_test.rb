@@ -651,7 +651,7 @@ class SendFeedTest < ActiveSupport::TestCase
     init_users_and_contacts
 
     a = users(:a)
-    sendto = Feed::SendStatus::FOLLOWINGS
+    sendto = SendScope::FOLLOWINGS
     feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
@@ -1147,7 +1147,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b = users(:b)
     c = users(:c)
     d = users(:d)
-    sendto = "#{Feed::SendStatus::FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
+    sendto = "#{SendScope::FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
     feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
@@ -1219,8 +1219,8 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds_db
-    assert_equal [feed_1,feed],a.to_followings_out_feeds
     assert_equal [feed_1,feed],a.to_followings_out_feeds_db
+    assert_equal [feed_1,feed],a.to_followings_out_feeds
     #b
     assert_equal [feed_1,feed],b.in_feeds
     assert_equal [feed_1,feed],b.to_personal_in_feeds
@@ -1485,10 +1485,10 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal true,feed.public?
 
     error_sendto_list = [
-      "#{Feed::SendStatus::PUBLIC},#{Feed::SendStatus::FOLLOWINGS}",
-      "#{Feed::SendStatus::FOLLOWINGS},ch-#{channel_ac.id}",
+      "#{Feed::SendStatus::PUBLIC},#{SendScope::PRIVATE}",
+      "#{SendScope::FOLLOWINGS},ch-#{channel_ac.id}",
       "#{Feed::SendStatus::PRIVATE},ch-#{channel_ac.id}",
-      "#{Feed::SendStatus::FOLLOWINGS},abc",
+      "#{SendScope::FOLLOWINGS},abc",
       "aef1"
     ]
     error_sendto_list.each do |sendto|

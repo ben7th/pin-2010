@@ -37,7 +37,6 @@ module MindmapImportControllerMethods
 
   def do_import
     struct = MindmapImportAdpater.struct_by_upload_temp_id(params[:upload_temp_id])
-    mup_ap struct
     mindmap = Mindmap.import(current_user,params[:mindmap],struct)
     MindmapImportAdpater.remove_file_by_upload_temp_id(params[:upload_temp_id])
     

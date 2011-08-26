@@ -8,13 +8,14 @@ class SendScope < UserAuthAbstract
 #  ALL_PUBLIC = "all-public"
 #  ALL_FOLLOWINGS = "all-followings"
 #  PRIVATE = "private"
+  FOLLOWINGS = "followings"
 
 
   validates_presence_of :param
 
   def self.set_send_scope_by_string(feed,sendto)
     params_arr = sendto.strip.split(",").uniq
-
+    # 默认设置为公开
     if params_arr.count == 0
       feed.send_status = Feed::SendStatus::PUBLIC
       return
@@ -30,14 +31,13 @@ class SendScope < UserAuthAbstract
     case feed.send_status
     when Feed::SendStatus::PRIVATE
       raise SendScope::FormatError,"发送范围 参数格式错误" if params_arr.count != 0
-    when Feed::SendStatus::FOLLOWINGS
-      ch_arr = params_arr.select do |param|
-        !!(param =~ /ch-(\d+)/)
-      end
-      raise SendScope::FormatError,"发送范围 参数格式错误" if ch_arr.count !=0
     when Feed::SendStatus::SCOPED
       raise SendScope::UnSpecifiedError,"必须指定发送范围" if params_arr.blank?
     end
+
+    channel_arr = params_arr.select{|param|!!(param =~ /ch-(\d+)/)}
+    followings_arr = params_arr.select{|param|param == SendScope::FOLLOWINGS}
+    raise SendScope::FormatError,"发送范围 参数格式错误" if channel_arr.count > 0 && followings_arr.count > 0
 
     # 设置 send_scopes
     list = []
@@ -53,6 +53,8 @@ class SendScope < UserAuthAbstract
         user = User.find_by_id(id)
         next if user.blank?
         list << self.new(:param=>param,:scope_id=>user.id,:scope_type=>user.class.to_s)
+      when SendScope::FOLLOWINGS
+        list << self.new(:param=>SendScope::FOLLOWINGS)
       else
         raise SendScope::FormatError,"发送范围 参数格式错误"
       end
@@ -84,15 +86,14 @@ class SendScope < UserAuthAbstract
     def sent_scope_users
       users = []
       self.send_scopes.each do |ss|
-        case ss
+        case ss.scope
         when User
           users << ss.scope
         when Channel
           users += ss.scope.include_users_and_creator
+        else
+          users += self.creator.followings if ss.param == SendScope::FOLLOWINGS
         end
-      end
-      if self.send_status == Feed::SendStatus::FOLLOWINGS
-        users += self.creator.followings
       end
       users.uniq
     end

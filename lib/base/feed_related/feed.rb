@@ -7,13 +7,12 @@ class Feed < UserAuthAbstract
 
   class SendStatus
     PUBLIC = "public"
-    FOLLOWINGS = "followings"
     PRIVATE = "private"
     SCOPED = "scoped"
   end
+  #Feed::SendStatus::FOLLOWINGS
   SEND_STATUSES = [
     Feed::SendStatus::PUBLIC,
-    Feed::SendStatus::FOLLOWINGS,
     Feed::SendStatus::PRIVATE,
     Feed::SendStatus::SCOPED
   ]
@@ -95,7 +94,8 @@ class Feed < UserAuthAbstract
   end
 
   def sent_all_followings?
-    self.send_status == Feed::SendStatus::FOLLOWINGS
+    ss = self.send_scopes.select{|s|s.param == SendScope::FOLLOWINGS}
+    !ss.blank?
   end
 
   def send_by_main_user?(channel)
@@ -357,10 +357,14 @@ class Feed < UserAuthAbstract
       conditions=%`
         feeds.creator_id = #{self.id}
           and feeds.hidden is not true
-          and feeds.send_status = '#{Feed::SendStatus::FOLLOWINGS}'
+      `
+      joins=%`
+        inner join send_scopes on send_scopes.param = '#{SendScope::FOLLOWINGS}'
+        and send_scopes.feed_id = feeds.id
       `
       find_hash = {
-        :conditions=>conditions,:order=>"feeds.id desc"
+        :conditions=>conditions,:joins=>joins,
+        :order=>"feeds.id desc"
       }
       find_hash[:limit]=limited_count unless limited_count.nil?
       Feed.find(:all,find_hash)

@@ -19,7 +19,6 @@ module MindmapSearchMethods
     base.before_save :set_content
     base.after_save :save_lucene_index
     base.after_destroy :delete_lucene_index
-    base.extend(ClassMethods)
   end
 
   def save_lucene_index
@@ -37,23 +36,6 @@ module MindmapSearchMethods
       self.content = MindmapDocument.new(self).content
     end
     return true
-  end
-
-  module ClassMethods
-    def major_words_of_user(user,words_count=5)
-      content = user.out_mindmaps.map{|m|m.content}*" "
-      KeywordsAnalyzer.new(content).major_words(words_count)
-    rescue Exception => ex
-      p ex
-      []
-    end
-
-    def similar_mindmaps_of_user(user,maps_count=5)
-      MindmapLucene.similar_mindmaps_of_user(user,maps_count)
-    rescue Exception => ex
-      p ex
-      return []
-    end
   end
 
   def relative_content

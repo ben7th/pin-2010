@@ -135,7 +135,6 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(TagFavUsersProxy)
 
     # mindmap 缓存
-    MindpinLogicManagement.load_redis_proxy(UserMindmapsMajorWordsProxy)
     MindpinLogicManagement.load_redis_proxy(UserOutboxMindmapProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxMindmapProxy)
     MindpinLogicManagement.load_redis_proxy(UserPrivateMindmapProxy)

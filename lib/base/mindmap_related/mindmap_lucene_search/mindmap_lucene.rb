@@ -156,20 +156,6 @@ class MindmapLucene
     end
   end
 
-  def self.similar_mindmaps_of_user(user,maps_count=5)
-    begin
-      this_user_mindmaps_count = user.mindmaps.count
-      query_str = Mindmap.major_words_of_user(user,20)*" "
-      result = Searcher.new(query_str).search_result(maps_count + this_user_mindmaps_count)
-
-      user_id = user.id
-      maps = result.items.map{|i|i.mindmap}.compact
-      maps = maps.select{|map|map.user_id != user_id}[0...maps_count]
-    rescue Exception => ex
-      raise MindmapSearchFailureError,"搜索服务不可用。#{ex}"
-    end
-  end
-
   def self.split_words(text)
     begin
       Client.connection do |client|

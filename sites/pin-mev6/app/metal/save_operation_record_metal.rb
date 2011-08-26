@@ -12,10 +12,6 @@ class SaveOperationRecordMetal < BaseMetal
     opers = ActiveSupport::JSON.decode(params["operations"])
     revision = ActiveSupport::JSON.decode(params["revision"])
     local_revision = revision["local"].to_i
-    mup_ap "~~~~ts~~~~~~"
-    mup_ap "params[:local_revision] : #{local_revision}  "
-    mup_ap "mindmap_revision : #{mindmap.revision}"
-    mup_ap "~~~~ts~~~~~~"
 
     if !mindmap.has_edit_rights?(current_user)
       return [403,{"Content-Type" => "text/xml"}, [{:code=>MindmapOperate::ErrorCode::ACCESS_NOT_VALID}.to_json]]

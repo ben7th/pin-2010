@@ -91,7 +91,6 @@ class MindmapToImage
     end
 
     t2 = Time.now
-    p t2-t1
     return img
   end
 

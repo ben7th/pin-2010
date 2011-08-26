@@ -32,7 +32,6 @@ ActionController::Routing::Routes.draw do |map|
     :toggle_private=>:put,
     :info=>:get,
     :toggle_fav=>:put,
-    :comments=>:post,
     :newest=>:get,
     :widget=>:get,
     :undo=>:put,
@@ -46,9 +45,7 @@ ActionController::Routing::Routes.draw do |map|
     mindmap.show_image_editor       "files/i_editor",:controller=>'files',:action=>'show_image_editor',:conditions=>{:method=>:get}
     mindmap.show_font_editor        "files/f_editor",:controller=>'files',:action=>'show_font_editor',:conditions=>{:method=>:get}
 
-    mindmap.resources :comments,:controller=>"comments"
   end
-  map.resources :comments,:controller=>"comments"
 
   # 导图协同
   map.add_cooperator "/cooperate/:mindmap_id/add_cooperator",

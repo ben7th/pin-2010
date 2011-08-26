@@ -22,8 +22,6 @@
                 =mindmap_image(mindmap,"500x500")
 
           .footmisc
-            .rank
-              =mindmap.rank_value
             .share
               -page_url = pin_url_for('pin-daotu',"/mindmaps/#{mindmap.id}/info")
               -page_title = "分享mindpin的思维导图：#{mindmap.title}"
@@ -40,13 +38,11 @@
                 -if mindmap.user==current_user
                   .o=link_to '<div class="icon"></div>',"javascript:;",:class=>"toggle-fav #{mindmap.faved_by?(current_user) ? 'fav':'unfav'}",:title=>'加星/取消加星'
                   .o=link_to '<div class="icon"></div>',"javascript:;",:class=>"toggle-private #{mindmap.private? ? 'private':'public'}",:title=>'切换公开/私人可见'
-                  .o=link_to '评论','javascript:;',:class=>'add-comment'
                   .o=link_to '概要',"/mindmaps/#{mindmap.id}/info",:class=>'info'
                   .o=link_to '编辑',"/mindmaps/#{mindmap.id}/edit",:target=>'_blank',:class=>'edit'
                   .o=link_to '删除','javascript:;',:class=>'delete'
                 -else
                   .o=link_to '<div class="icon"></div>',"javascript:;",:class=>"toggle-fav #{mindmap.faved_by?(current_user) ? 'fav':'unfav'}",:title=>'加星/取消加星'
-                  .o=link_to '评论','javascript:;',:class=>'add-comment'
                   .o=link_to '概要',"/mindmaps/#{mindmap.id}/info",:class=>'info'
                   .o=link_to '查看',"/mindmaps/#{mindmap.id}",:class=>'view'
                   -if mindmap.cooperate_users.include? current_user
@@ -64,8 +60,5 @@
                   %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
                     =avatar u,:mini
 
-            -comments_count = mindmap.comments.count
-            .comments{:style=>(comments_count>0) ? '':'display:none'}
-              =render 'mindmaps/lists/comments',:comments=>mindmap.comments
 
 

@@ -117,10 +117,6 @@ class Mindmap < Mev6Abstract
     mindmap
   end
 
-  def rank_value
-    rank
-  end
-
   # 切换导图的 私有/公开 属性
   def toggle_private
     if self.private?
@@ -190,6 +186,10 @@ class Mindmap < Mev6Abstract
     self.send_status == Mindmap::SendStatus::PRIVATE
   end
 
+  def low_value?
+    self.document.nodes.length <= 3
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :mindmaps,:order=>"mindmaps.updated_at desc"
@@ -204,16 +204,11 @@ class Mindmap < Mev6Abstract
       self.image_attachments.map{|ia|ia.image.size}.sum
     end
 
-    def mindmaps_chart_arr
-      mindmaps = self.out_mindmaps
-      MindmapsRankTendencyChart.new(mindmaps).values
-    end
   end
 
 
   include MindmapCloneMethods
   include MindmapExportAndImportMethods
-  include MindmapRankMethods
   include MindmapSearchMethods
   include MindmapRevisionMethods
   include MindmapNoteMethods
@@ -222,7 +217,6 @@ class Mindmap < Mev6Abstract
   include MindmapRightsMethods
 
   include MindmapCooperationMethods
-  include MindmapComment::MindmapMethods
   include MindmapFav::MindmapMethods
 
   include FeedMindmap::MindmapMethods
