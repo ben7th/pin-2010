@@ -119,15 +119,7 @@
   font-weight:bold;
 }
 
-.page-overlay{
-  position: absolute;
-  left:0;top:0;
-  background-color: #000;
-  z-index:9999;
-}
-
 .jq-confirm-dialog{
-  @include border-radius(4px);
   width:200px;
   position:absolute;
   @include box-shadow(0 0 6px black);
@@ -150,10 +142,19 @@
       }
     }
     .btns{
-      @include submitbtns;
       position:relative;
-      left:40px;
-      .button{margin-right:12px !important;}
+      left:30px;
+      overflow:hidden;
+      a.editable-submit{
+        @include pop-form-a-link-submit;
+        float:left;margin-right:10px;
+        width:50px;
+      }
+      a.editable-cancel{
+        @include pop-form-a-link-cancel;
+        float:left;
+        width:50px;
+      }
     }
   }
 }

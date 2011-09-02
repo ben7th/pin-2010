@@ -306,6 +306,13 @@ class Feed < UserAuthAbstract
           feed.feed_photos.create(:photo=>photo)
         end
       end
+
+      if !!options[:photos]
+        options[:photos].each do |file|
+          photo = feed.creator.photos.create(:image=>file)
+          feed.feed_photos.create(:photo=>photo)
+        end
+      end
       
       feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)

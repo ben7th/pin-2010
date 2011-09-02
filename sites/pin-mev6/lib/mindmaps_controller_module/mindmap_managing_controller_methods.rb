@@ -64,7 +64,7 @@ module MindmapManagingControllerMethods
 
   def public_maps
     set_cellhead_path('/index/cellhead')
-    @mindmaps = Mindmap.publics.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>25})
+    @mindmaps = Mindmap.publics.paginate({:order=>"id desc",:page=>params[:page],:per_page=>25})
   end
 
   def index

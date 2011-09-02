@@ -1,15 +1,4 @@
 .page-header
-  .menu
-    .container_24
-      .topbar
-        -if logged_in?
-          .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account')
-          .sp=link_to "退出",pin_url_for('pin-user-auth','/logout')
-
-        -else
-          .sp=link_to '用户注册','/signup'
-          .sp=link_to '登录','/login'
-
   .nav
     .container_24
       .site-logo
@@ -22,6 +11,8 @@
           .avatar=avatar current_user,:tiny
         =link_to '<div class="icon"></div><span>主题</span>','/',:class=>'li feeds first current',:tip=>'主题'
         =link_to '<div class="icon"></div><span>人际关系</span>','/contacts',:class=>'li contacts',:tip=>'人际关系'
-        =link_to '<div class="icon"></div><span>聚合</span>','javascript:;',:class=>'li collections lock',:tip=>'alpha测试期间，功能暂未开放'
-        =link_to '<div class="icon"></div><span>共享资源</span>','/entries',:class=>'li entries last',:tip=>'共享资源'
-        =link_to current_user.tips_count,'/notices',:class=>'li notices'
+        =link_to '<div class="icon"></div><span>任务</span>','/tasks',:class=>'li tasks',:tip=>'任务'
+        =link_to '<div class="icon"></div><span>资源</span>','/entries',:class=>'li entries last',:tip=>'资源'
+        =link_to current_user.tips_count,'/notices',:class=>'li notices',:tip=>'通知'
+        =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account'),:class=>'li setting',:tip=>'设置'
+        =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout'),:class=>'li logout',:tip=>'退出'

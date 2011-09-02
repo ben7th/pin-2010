@@ -1,42 +1,63 @@
-.user-page-top-info{
-  overflow:visible;
-  .base-info{
-    padding:5px;
-    margin:0 0 10px 0;
-    .name{font-size:18px;font-weight:bold;margin:0 0 6px 0;}
+/*用户个人页页顶*/
+.page-user-top-info{
+  border-bottom:solid 1px #eee;
+  padding:20px 0;
+  background-color:#444;
+
+  .avatar{
+    width:98px;height:98px;
+    float:left;
   }
-  .user-follow-op{
-    position:relative;
-    .follow{
-      
+  
+  .base-info{
+    float:left;
+    margin-left:20px;
+    .name{
+      font-size:28px;line-height:24px;@include tfont;font-weight:bold;
+      margin-bottom:20px;
+      color:white;
     }
-    .unfollow{
-      
+    .sign{
+      font-size:14px;color:#aaa;margin-left:3px;
     }
-    .channel-selector{
-      position:absolute;
-      top:24px;left:0px;
-      width:240px;
-      border:solid 1px #CCCCCC;
-      background-color:#fff;
-      .channels{
-        padding:4px 0;
-        .it{
-          padding:4px 10px;
-          cursor:pointer;
-          &:hover{background:#eee;};
-          &.lock{
-            color:#ccc;
-            cursor:default;
-            .quiet{color:#ccc !important;}
-            &:hover{background:none;};
-          };
+  }
+  
+  .ops{
+    float:right;
+
+    .user-follow-op{
+      .follow{
+        
+      }
+      .unfollow{
+        
+      }
+      .channel-selector{
+        position:absolute;
+        top:24px;left:0px;
+        width:240px;
+        border:solid 1px #CCCCCC;
+        background-color:#fff;
+        .channels{
+          padding:4px 0;
+          .it{
+            padding:4px 10px;
+            cursor:pointer;
+            &:hover{background:#eee;};
+            &.lock{
+              color:#ccc;
+              cursor:default;
+              .quiet{color:#ccc !important;}
+              &:hover{background:none;};
+            };
+          }
         }
       }
     }
   }
 
   .tabs{
+    margin-top:20px;
     padding:5px;
     .tab{
       @include border-radius(4px);

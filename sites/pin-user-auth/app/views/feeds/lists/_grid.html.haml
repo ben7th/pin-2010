@@ -1,0 +1,6 @@
+-#use 主题列表
+-#see 登录后的首页->中间栏的主题列表
+
+.grids.feeds
+  -feeds.each do |feed|
+    =render :partial=>'feeds/infos/feed_grid_info',:locals=>{:feed=>feed}

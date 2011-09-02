@@ -35,6 +35,22 @@ pie.load(function(){
   }
 })
 
+pie.show_page_overlay = function(){
+  var overlay_elm = jQuery('<div class="page-overlay"></div>');
+  overlay_elm
+    .css('height',jQuery(document).height())
+    .css('width',jQuery(document).width())
+    .css('opacity',0.1)
+    .hide().fadeIn(200)
+    .appendTo(jQuery(document.body))
+}
+
+pie.hide_page_overlay = function(){
+  jQuery('.page-overlay').fadeOut(200,function(){
+    jQuery('.page-overlay').remove();
+  })
+}
+
 pie.show_loading_bar = function(){
   var elm = jQuery('<div class="ajax-loading-bar"><div class="icon"></div>正在加载…</div>');
   jQuery('body').append(elm);
@@ -94,17 +110,20 @@ pie.load(function(){
     dialog_elm.css('left',off.left - 100 + elm.outerWidth()/2).css('top',off.top - 83);
     jQuery('body').append(dialog_elm);
 
-    dialog_elm.hide().fadeIn();
+    dialog_elm.hide().fadeIn(200);
+    pie.show_page_overlay();
 
     jQuery('.jq-confirm-dialog .editable-submit').unbind();
     jQuery('.jq-confirm-dialog .editable-submit').bind('click',function(){
       jQuery('.jq-confirm-dialog').remove();
+      pie.hide_page_overlay();
       func();
     });
   }
 
   jQuery('.jq-confirm-dialog .editable-cancel').live('click',function(){
     jQuery('.jq-confirm-dialog').remove();
+    pie.hide_page_overlay();
   })
 });
 

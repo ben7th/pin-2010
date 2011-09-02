@@ -6,5 +6,5 @@
     =sub_menu_li "公共主题列",'/',:class=>'first'
     -if logged_in?
       -current_user.channels.each do |c|
-        =sub_menu_li "<div class='font12 marginl10'>#{c.name}</div>","/channels/#{c.id}"
+        =sub_menu_li "#{c.name}","/channels/#{c.id}"
     =sub_menu_li "外部主题","/feeds/incoming"

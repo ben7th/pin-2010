@@ -5,15 +5,7 @@
   大家最近的主题
 
 .mside.grid_4
-  =show_sub_menu
-  .index-page-followings.sidepart
-    %h5 我的联系人
-    .followings
-      -current_user.followings.paginate(:per_page=>12,:page=>1).each do |u|
-        %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
-          =avatar u,:mini
-    .see-more
-      =link_to '查看全部','/contacts'
+  =render 'index/sub_menu'
 
 .main.grid_15.dl
   .page-title-bar
@@ -29,5 +21,5 @@
     = will_paginate @feeds
 
 .mside.grid_5
-  =render 'modules/page_new_collection_op'
-  =render 'modules/page_collections',:collections=>@collections
+  .hide
+    =render 'modules/page_collections',:collections=>@collections

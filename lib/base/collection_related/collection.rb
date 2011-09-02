@@ -1,7 +1,6 @@
 class Collection < UserAuthAbstract
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
   validates_presence_of :title
-  validates_presence_of :description
   validates_presence_of :creator
   validates_uniqueness_of :title,:scope=>"creator_id"
 
@@ -30,11 +29,12 @@ class Collection < UserAuthAbstract
       base.has_many :created_collections_db,:class_name=>"Collection",:foreign_key=>:creator_id
     end
 
-    def create_collection_by_params(title,description,scope)
-      collection_scopes = CollectionScope.build_list_form_string(scope)
+    def create_collection_by_params(title)
+      collection_scopes = CollectionScope.build_list_form_string('all-public')
       Collection.create(:creator=>self,
-        :title=>title,:description=>description,
-        :collection_scopes=>collection_scopes)
+        :title=>title,
+        :collection_scopes=>collection_scopes
+      )
     end
 
     def out_collections_db

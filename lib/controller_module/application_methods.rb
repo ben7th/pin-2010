@@ -34,4 +34,8 @@ module ApplicationMethods
     end
   end
 
+  def is_android_client?
+    request.headers["User-Agent"] == "android"
+  end
+
 end

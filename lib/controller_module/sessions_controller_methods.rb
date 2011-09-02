@@ -15,14 +15,8 @@ module SessionsControllerMethods
 
   def create
     self.current_user = User.authenticate(params[:email],params[:password])
-
-    if logged_in?
-      after_logged_in()
-    else
-      flash[:error]="邮箱/密码不正确"
-    end
-    
-    _redirect_by_service
+    return _create_android if is_android_client?
+    _create_web
   end
 
   # 登出
@@ -40,6 +34,25 @@ module SessionsControllerMethods
   end
 
   private
+  def _create_android
+    if logged_in?
+      after_logged_in()
+      render :status=>200,:text=>200
+    else
+      render :status=>401,:text=>401
+    end
+  end
+
+  def _create_web
+    if logged_in?
+      after_logged_in()
+    else
+      flash[:error]="邮箱/密码不正确"
+    end
+
+    _redirect_by_service
+  end
+
   def _redirect_by_service
     if params[:service] == "tu"
       return redirect_back_or_default(pin_url_for("pin-daotu"))

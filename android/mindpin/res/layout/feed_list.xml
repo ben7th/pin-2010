@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+	android:id="@+id/main"
+    >
+   	<ListView
+		android:id="@+id/feed_list"
+		android:layout_height="fill_parent" 
+		android:layout_width="wrap_content"
+   	>
+    </ListView>
+   	<LinearLayout 
+   		android:id="@+id/feed_bar"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:layout_marginLeft="5.0dip" 
+		android:layout_marginRight="5.0dip"
+		android:layout_alignParentBottom="true" 
+		android:layout_weight="1.0">
+		<Button 
+			android:id="@+id/new_photo_feed"
+			android:text="拍照创建"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+</RelativeLayout>

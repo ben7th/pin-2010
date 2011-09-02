@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	>
+	<RelativeLayout
+		android:id="@+id/login_titleBar"
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="48dip"
+		android:background="@drawable/title_bar"
+		android:layout_alignParentTop="true"
+	>
+		<TextView
+			android:textSize="25sp"
+			android:text="@string/login_titleBar"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:gravity="center"
+		/>
+	</RelativeLayout>
+	
+	<LinearLayout 
+		android:orientation="vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_margin="10dip" 
+		android:layout_below="@+id/login_titleBar">
+		<TextView 
+			android:id="@+id/email" 
+			android:text="@string/email"
+			android:layout_height="wrap_content" 
+			android:layout_width="wrap_content"
+			></TextView>
+		<EditText 
+			android:id="@+id/email_et"
+			android:inputType="textEmailAddress" 
+			android:imeOptions="actionDone"
+			android:layout_height="wrap_content" 
+			android:layout_width="fill_parent"
+			></EditText>
+		<TextView 
+			android:id="@+id/password" 
+			android:text="@string/password"
+			android:layout_height="wrap_content" 
+			android:layout_width="wrap_content"
+			></TextView>
+		<EditText 
+			android:id="@+id/password_et"
+			android:inputType="textPassword" 
+			android:imeOptions="actionDone"
+			android:layout_height="wrap_content" 
+			android:layout_width="fill_parent"
+			></EditText>
+		<Button 
+			android:layout_height="45dp" 
+			android:layout_width="100dp" 
+			android:background="@drawable/bn_login" 
+			android:id="@+id/login_bn" 
+			android:text="@string/login"
+			android:layout_gravity="right"
+			></Button>
+	</LinearLayout>
+</RelativeLayout>
+
+
+
+
+
+
+

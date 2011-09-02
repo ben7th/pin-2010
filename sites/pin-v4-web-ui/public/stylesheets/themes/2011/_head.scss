@@ -87,24 +87,30 @@
         &.homepage{
           padding:0;
           border:0 none;
-          width:32px;height:32px;margin-right:5px;
+          width:32px;height:32px;margin-right:10px;
           .avatar{width:32px;height:32px;img{padding:0;}}
         }
         
         .icon{width:24px;height:24px;position:relative;top:3px;left:8px;}
-        &.feeds{.icon{background:url(/images/alltu.png) -394px -50px;}}
-        &.contacts{.icon{background:url(/images/alltu.png) -419px -50px;}}
-        &.collections{.icon{background:url(/images/alltu.png) -394px -75px;}}
-        &.entries{.icon{background:url(/images/alltu.png) -419px -75px;}}
+        &.feeds{.icon{@include allimg(-394px,-50px);}}
+        &.contacts{.icon{@include allimg(-419px,-50px);}}
+        &.tasks{.icon{@include allimg(-394px,-75px);}}
+        &.entries{.icon{@include allimg(-419px,-75px);}}
         
-        &.notices{
-          margin-left:5px;
-          width:30px;line-height:30px;font-size:14px;
-          @include tfont;font-weight:bold;
+        &.notices,&.setting,&.logout{
+          width:30px;padding:0;
           @include border-radius(3px);
-          padding:0;text-align:center;
+        }
+        &.notices{
+          margin-left:10px;
+          line-height:30px;
+          font-size:14px;@include tfont;
+          text-align:center;
+          font-weight:bold;
           color:#444;
         }
+        &.setting{margin-left:10px;.icon{@include allimg(-444px,-50px);left:3px;}}
+        &.logout{.icon{@include allimg(-444px,-75px);left:3px;}}
       }
       .user-meta{
         float:left;

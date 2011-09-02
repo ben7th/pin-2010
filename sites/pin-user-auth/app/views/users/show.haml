@@ -1,0 +1,10 @@
+-#use 个人主题
+-#see 个人页->主题
+
+-htitle "#{@user.name}的主题"
+
+.page-feeds-grid
+  -if @feeds.blank?
+    .blank.darkbg.font14.padding5.rc5 这位朋友现在还没有任何主题~
+  -else
+    =render :partial=>'feeds/lists/grid',:locals=>{:feeds=>@feeds}

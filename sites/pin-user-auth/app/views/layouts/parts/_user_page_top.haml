@@ -1,0 +1,23 @@
+.page-user-top-info
+  .container_24.clearfix
+    .grid_20
+      .avatar
+        =avatar @user,:medium
+      .base-info
+        .name=@user.name
+        .sign=@user.sign
+
+    .grid_4
+      .ops
+        -if logged_in? && @user != current_user
+          - followed = current_user.following?(@user)
+
+          .user-follow-op{:'data-id'=>@user.id}
+            %a.follow{:href=>'javascript:;',:style=>followed ? 'display:none;':''} <span>添加为联系人</span>
+            %a.unfollow{:href=>'javascript:;',:style=>followed ? '':'display:none;'} <span>移除此联系人</span>
+
+            .channel-selector{:style=>'display:none;'}
+              .channels
+                -current_user.channels.each do |channel|
+                  .it.ch{:'data-id'=>channel.id,:'data-name'=>channel.name}>
+                    ="#{channel.name} <span class='quiet'>(#{channel.include_users.count})</span>"

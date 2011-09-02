@@ -1,0 +1,16 @@
+-#use 登录用户的频道列表
+-#see 登录后的首页->左侧导航
+
+.page-submenu.clearfix
+  %ul
+    =sub_menu_li "未整理的",'/tasks/i/inbox'
+    -#
+    =#sub_menu_li "当前的",'/tasks/i/now'
+    =#sub_menu_li "接下来的",'/tasks/i/next_step'
+    =#sub_menu_li "日程上的",'/tasks/i/scheduled'
+    =#sub_menu_li "将来的",'/tasks/i/someday'
+    -#
+    =#sub_menu_li "项目",'/tasks/projects'
+    -#
+    =#sub_menu_li "以前的记录",'/tasks/logs'
+    =#sub_menu_li "公众任务",'/tasks/system'

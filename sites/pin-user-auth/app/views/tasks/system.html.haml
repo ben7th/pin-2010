@@ -1,0 +1,17 @@
+-#use 任务列表页
+-#see 顶部导航栏，任务
+
+-htitle '公众任务'
+
+.mside.grid_5
+  =morender 'sub_menus','tasks'
+
+.main.grid_19.ll
+  .page-title-bar.nomb.ov
+    .meta
+      .desc 由mindpin主题协作社区系统发布的公众任务
+    .clearfix
+
+  -@tasks = []
+  .page-olist.tasks
+    =prender 'list',:tasks=>@tasks

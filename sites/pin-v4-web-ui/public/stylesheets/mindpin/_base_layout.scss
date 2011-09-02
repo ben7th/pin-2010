@@ -1,3 +1,11 @@
+/*页面标准元件，渲染出错*/
+.render-error{
+  background-color:red;
+  color:white;
+  @include border-radius(2px);
+  padding:5px;
+}
+
 /*页面标题栏ops按钮*/
 @mixin ops-op-btn{
   float:left;
@@ -25,10 +33,11 @@
   margin-bottom:20px;
   overflow:hidden;
   @include bdb2010;
-  background:#FAFAFA;
-  padding:10px;
-  border-top:solid 1px #eee;
+  padding:0 10px 10px;
   overflow:hidden;
+  &.nomb{margin-bottom:0;}
+  &.ov{overflow:visible;}
+  
   .meta{
     float:left;
     h2{
@@ -46,7 +55,7 @@
       background-color:#4C8FFD;
       border:1px solid #3079ED;
       &:hover{border-color:#2069DD;}
-      .icon{background:url(/images/alltu.png) -85px -75px;}
+      .icon{background:url(/images/alltu.png) -85px -100px;}
       &.mindmap{.icon{background:url(/images/alltu.png) -85px -100px;}}
     }
    
@@ -86,4 +95,23 @@
   .btns{
     @include submitbtns;
   }
+}
+
+/*物件列表*/
+.page-olist{
+  .list-blank{
+    padding:20px;font-size:13px;
+    margin:10px;
+    border:solid 1px #EEEEEE;
+    @include border-radius(3px);
+    background-color:#FAFAFA;
+  }
+}
+
+/*浮动窗体遮罩*/
+.page-overlay{
+  position: absolute;
+  left:0;top:0;
+  background-color: #000;
+  z-index:99;
 }

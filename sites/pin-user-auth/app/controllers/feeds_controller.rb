@@ -1,6 +1,12 @@
 class FeedsController < ApplicationController
   before_filter :login_required,:except=>[:index,:no_reply,:newest,:search,:show,:aj_comments]
   before_filter :pre_load
+  skip_before_filter :verify_authenticity_token,:only=>[:create]
+  before_filter :verify_authenticity_token_by_client,:only=>[:create]
+  def verify_authenticity_token_by_client
+    verify_authenticity_token unless is_android_client?
+  end
+
   include FeedsControllerNavigationMethods
   include FeedsControllerInviteMethods
   def pre_load
@@ -18,12 +24,28 @@ class FeedsController < ApplicationController
   end
 
   def create
+    return _create_android_client if is_android_client?
+    return _create_web
+  end
+
+  def _create_web
     feed = current_user.send_feed(params[:content],:detail=>params[:detail],:tags=>params[:tags],:sendto=>params[:sendto],:photo_names=>params[:photo_names])
     if feed.id.blank?
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'
     end
     redirect_to '/'
+  end
+
+  def _create_android_client
+    content = params[:content].read
+    detail = params[:detail].read
+
+    feed = current_user.send_feed(content,:detail=>detail,:tags=>params[:tags],:sendto=>params[:sendto],:photos=>params[:photos])
+    if feed.id.blank?
+      return render :status=>402,:text=>402
+    end
+    return render :json=>feed
   end
 
   def destroy

@@ -1,0 +1,9 @@
+-tasks.each do |task|
+  .task{:'data-id'=>task.id}
+    .headmeta
+      .t-title=link_to task.title,"/tasks/#{task.id}"
+    .ops
+      -if task.creator == current_user
+        %a.edit{:href=>'javascript:;'} 修改
+        %span -
+        %a.delete{:href=>'javascript:;'} 删除

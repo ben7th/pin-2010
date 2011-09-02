@@ -1,0 +1,17 @@
+- @mindpin_layout.grid = 'auto'
+
+!!! 5
+%html{:lang=>"zh"}
+  =render 'layouts/parts/head'
+
+  %body.echo
+    .page-wrap
+      .page-container
+        =render 'layouts/parts/nav'
+        =render 'layouts/parts/user_page_top'
+        .page-content{:class=>container_classname}
+          .cell.clearfix
+            =yield
+    =render 'layouts/parts/footer'
+    =render 'layouts/parts/phide'
+    =render 'layouts/parts/javascripts'

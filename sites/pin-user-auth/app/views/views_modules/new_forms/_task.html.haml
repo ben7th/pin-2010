@@ -1,0 +1,17 @@
+-#use 新建聚合点
+-#see 登录后的首页->右侧列表
+-# 需要js支持
+
+.page-new-task-op
+  =link_to '<span class="icon"></span><span>新建</span>','javascript:;',:class=>'create'
+  .pop-box{:style=>'display:none;'}
+    .form-placeholder{:style=>'display:none;'}
+      .title 创建新任务
+      %form
+        .field
+          %label 标题
+          =text_field_tag 'title','',:class=>'text ipt-title need'
+      .ops-btns
+        %a.create-submit{:href=>'javascript:;'} 确定
+        %a.create-cancel{:href=>'javascript:;'} 取消
+        .clearfix

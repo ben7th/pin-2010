@@ -1,0 +1,12 @@
+.page-new-task-op{
+  @include page-new-xx-op;
+  .pop-box{
+    .form-placeholder{
+      form{
+        .field{
+          .ipt-title{width:268px;}
+        }
+      }
+    }
+  }
+}

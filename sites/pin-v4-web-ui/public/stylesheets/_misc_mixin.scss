@@ -193,6 +193,10 @@
   background:url(/images/icons/all.png) no-repeat $x $y;
 }
 
+@mixin allimg($x,$y){
+  background:url(/images/alltu.png) no-repeat $x $y;
+}
+
 @mixin footmisc{
   overflow:hidden;
   height:50px;
@@ -387,6 +391,20 @@
   }
 }
 
+@mixin pop-form-a-link-submit{
+  @include form-a-link-submit;
+  height:24px;line-height:24px;
+  width:60px;
+  font-size:12px;
+}
+
+@mixin pop-form-a-link-cancel{
+  @include form-a-link-cancel;
+  height:24px;line-height:24px;
+  width:60px;
+  font-size:12px;
+}
+
 @mixin new_object_form{
   h2.main-title{
     font-size:20px;font-weight:bold;
@@ -412,22 +430,23 @@
       color:#669966;
     }
   }
-  .form{
+  .form,.pop-box{
     position:absolute;
-    border:solid 1px #999;
-    @include border-radius(4px);
+    border:solid 1px #aaa;
+    @include border-radius(3px);
     top:0;right:0;
     background-color:white;
-    z-index:1;
-    box-shadow:0 0 4px #bbb;
-    .ct{
+    z-index:100;
+    box-shadow:0 0 5px #bbb;
+    .form-placeholder{
       padding:10px;
       .title{
         background-color:#FAFAFA;
         padding:10px;
-        @include border-radius(3px);
-        color:#A5A5A5;
-        margin-bottom:10px;
+        @include border-radius(2px);
+        color:#777;
+        margin:-10px -10px 10px;
+        border-bottom:solid 1px #EEEEEE;
       }
       form{
         .field{
@@ -439,6 +458,23 @@
             @include form-a-link-cancel;
             float:left;
           }
+        }
+      }
+      .ops-btns{
+        background-color:#FAFAFA;
+        padding:6px 10px;
+        @include border-radius(2px);
+        color:#777;
+        margin:0 -10px -10px;
+        border-top:solid 1px #EEEEEE;
+        
+        a.create-submit{
+          @include pop-form-a-link-submit;
+          float:left;margin-right:10px;
+        }
+        a.create-cancel{
+          @include pop-form-a-link-cancel;
+          float:left;
         }
       }
     }
