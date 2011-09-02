@@ -71,7 +71,7 @@ module MindmapManagingControllerMethods
     if logged_in?
 
     else
-      @mindmaps = Mindmap.publics.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>12})
+      @mindmaps = Mindmap.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>12})
       render :template=>'mindmaps/no_auth/no_auth_mindmaps'
     end
   end
