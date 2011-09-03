@@ -66,7 +66,7 @@ class MindpinLogicManagement
     REDIS_LOGIC=>[],
     REPUTATION_LOGIC=>[],
     TIP_LOGIC=>[]
-    }
+  }
 
   @@funcs = []
 
