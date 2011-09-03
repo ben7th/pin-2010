@@ -1,3 +1,4 @@
+# 缓存，队列等一些模块的逻辑规则的调用
 module MindpinLogicRule
   def self.included(base)
     base.after_create   :run_mindpin_logic_after_create

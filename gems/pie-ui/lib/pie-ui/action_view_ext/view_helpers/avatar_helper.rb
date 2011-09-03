@@ -1,7 +1,13 @@
 module PieUi
-  module LogoHelper
-    def guest_logo
-      "<img alt='guest' class='logo guest' src='/images/logo/default_unknown_tiny.png'/>"
+  module AvatarHelper
+
+    def get_visable_name(model)
+      return t("NULLDATA") if model.blank?
+      begin
+        model.name
+      rescue NoMethodError
+        model.title
+      end
     end
 
     def logo(model, style=nil, id=nil)
@@ -16,15 +22,6 @@ module PieUi
       else
         src = pin_url_for('pin-user-auth',"/images/logo/default_unknown_#{style}.png")
         "<img alt='#{alt}' class='logo #{style}' src='#{src}'/>"
-      end
-    end
-
-    def get_visable_name(model)
-      return t("NULLDATA") if model.blank?
-      begin
-        model.name
-      rescue NoMethodError
-        model.title
       end
     end
 
@@ -43,6 +40,5 @@ module PieUi
       user = User.find_by_email(email)
       logo(user,style)
     end
-
   end
 end

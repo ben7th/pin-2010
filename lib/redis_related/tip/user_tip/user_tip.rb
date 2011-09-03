@@ -1,5 +1,5 @@
 class UserTip
-  BE_FOLLOWED               = "be_followed"
+  BE_FOLLOWED = "be_followed"
 
   def initialize(user,attrs_hash)
     @user = user

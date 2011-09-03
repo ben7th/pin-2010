@@ -896,7 +896,7 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-comment-form .btns button.editable-cancel:hover,.page-comment-form .btns a.button.editable-cancel:hover{background:#B4CFFF;}
 .page-comment-form .btns button.mousedown,.page-comment-form .btns a.button.mousedown{position:relative;top:1px;left:1px;}
 .page-olist .list-blank{padding:20px;font-size:13px;margin:10px;border:solid 1px #EEE;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FAFAFA;}
-.page-overlay{position:absolute;left:0;top:0;background-color:#000;z-index:99;}
+.page-overlay{position:absolute;left:0;top:0;background-color:#fff;z-index:99;}
 .page-new-feed-form h2.main-title{font-size:20px;font-weight:bold;margin:0 0 20px 0;}
 .page-new-feed-form .field label{font-size:14px;}
 .page-new-feed-form .form-meta{background-color:#FAFAFA;border-top:solid 1px #eee;border-bottom:solid 1px #eee;padding:10px;}
@@ -1654,11 +1654,11 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .index-userlogs .log .footmisc .viewpoint .data .memo-content p{margin:0;}
 .index-userlogs .log .footmisc .viewpoint .data{max-width:400px;min-width:80px;}
 .index-userlogs .log .footmisc .viewpoint .data p{margin:0;}
-.page-user-top-info{border-bottom:solid 1px #eee;padding:20px 0;background-color:#444;}
+.page-user-top-info{border-bottom:solid 1px #eee;padding:20px 0;background-color:#fff;}
 .page-user-top-info .avatar{width:98px;height:98px;float:left;}
 .page-user-top-info .base-info{float:left;margin-left:20px;}
-.page-user-top-info .base-info .name{font-size:28px;line-height:24px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-weight:bold;margin-bottom:20px;color:white;}
-.page-user-top-info .base-info .sign{font-size:14px;color:#aaa;margin-left:3px;}
+.page-user-top-info .base-info .name{font-size:28px;line-height:24px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-weight:bold;margin-bottom:20px;color:#444;}
+.page-user-top-info .base-info .sign{font-size:14px;color:#999;margin-left:3px;}
 .page-user-top-info .ops{float:right;}
 .page-user-top-info .ops .user-follow-op .channel-selector{position:absolute;top:24px;left:0;width:240px;border:solid 1px #CCC;background-color:#fff;}
 .page-user-top-info .ops .user-follow-op .channel-selector .channels{padding:4px 0;}

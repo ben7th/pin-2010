@@ -2,7 +2,7 @@
 .page-user-top-info{
   border-bottom:solid 1px #eee;
   padding:20px 0;
-  background-color:#444;
+  background-color:#fff;
 
   .avatar{
     width:98px;height:98px;
@@ -15,10 +15,10 @@
     .name{
       font-size:28px;line-height:24px;@include tfont;font-weight:bold;
       margin-bottom:20px;
-      color:white;
+      color:#444;
     }
     .sign{
-      font-size:14px;color:#aaa;margin-left:3px;
+      font-size:14px;color:#999;margin-left:3px;
     }
   }
   

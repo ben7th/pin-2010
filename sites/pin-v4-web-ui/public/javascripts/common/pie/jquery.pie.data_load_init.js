@@ -40,7 +40,7 @@ pie.show_page_overlay = function(){
   overlay_elm
     .css('height',jQuery(document).height())
     .css('width',jQuery(document).width())
-    .css('opacity',0.1)
+    .css('opacity',0.6)
     .hide().fadeIn(200)
     .appendTo(jQuery(document.body))
 }

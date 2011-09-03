@@ -1,3 +1,4 @@
+# 给字符串对象添加的一些实用方法
 class String
   def get_url_params_hash
     tmp = self.split('?')
@@ -71,7 +72,7 @@ class String
     return results
   end
 
-  # 允许字符创中下面的标签出现
+  # 允许字符串中下面的标签出现
   def sanitize_clean
     rule = {
       :elements => [

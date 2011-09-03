@@ -1,7 +1,6 @@
 require "grit"
 
 module RepoInit
-
   def self.included(base)
     base.class_eval do
       # 运行Repo.log(path),Repo.add(path),Repo.remove(path)
@@ -63,7 +62,6 @@ module RepoInit
       
     end
   end
-
 end
 
 # 修正 commit.diffs 获得的 diff 对象数组中
@@ -87,7 +85,6 @@ module DiffInit
 end
 
 module Grit
-
   class Git
     def run_with_args_flatten(prefix, cmd, postfix, options, args, &block)
       run_without_args_flatten(prefix, cmd, postfix, options, args.flatten, &block)

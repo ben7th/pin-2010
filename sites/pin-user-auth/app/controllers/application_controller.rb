@@ -2,9 +2,12 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include AuthenticatedSystem
   include ApplicationMethods
   helper :all
   protect_from_forgery
+
+  #--------------------------------------------------
 
   around_filter :catch_oauth_exception
   def catch_oauth_exception

@@ -112,23 +112,20 @@ class UserTipProxy
         UserTipProxy.new(user)
       },
       :tips=>Proc.new{|user|
-        tip_proxy.tips
+        user.tip_proxy.tips
       },
       :contacts_tips=>Proc.new{|user|
-        tip_proxy.contacts_tips
+        user.tip_proxy.contacts_tips
       },
       :tips_count=>Proc.new{|user|
-        tip_proxy.tips_count
+        user.tip_proxy.tips_count
       },
       :get_tip_by_id=>Proc.new{|user,tip_id|
-        tip_proxy.get_tip_by_id(tip_id)
+        user.tip_proxy.get_tip_by_id(tip_id)
       }
     }
   end
 
-  
-  extend QueueMethods
-
   # 加载通知规则
-  include BeFollowedMethods
+  include UserTipBeFollowedMethods
 end
