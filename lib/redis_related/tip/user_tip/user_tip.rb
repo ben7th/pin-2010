@@ -1,14 +1,4 @@
 class UserTip
-  FAVS_EDIT_FEED_CONTENT    = "favs_edit_feed_content"
-  FAVS_ADD_POST             = "favs_add_post"
-  FAVS_EDIT_POST            = "favs_edit_post"
-  FEED_INVITE               = "feed_invite"
-  POST_VOTE_UP              = "post_vote_up"
-  POST_SPAM_MARK_EFFECT     = "post_spam_mark_effect"
-
-  FEED_SPAM_MARK_EFFECT     = "feed_spam_mark_effect"
-  POST_COMMENT              = "post_comment"
-  ATME                      = "atme"
   BE_FOLLOWED               = "be_followed"
 
   def initialize(user,attrs_hash)

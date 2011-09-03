@@ -17,8 +17,8 @@ class UserTipProxy
 
   # 获得通知总数
   def tips_count
-    clear_disabled_kind_tips
-    @redis_cache.all.keys.count
+    clear_tips_of_disabled_kinds
+    @redis_cache.count
   end
 
   # 这里只组织数据，不删除任何失效条目。
@@ -29,17 +29,16 @@ class UserTipProxy
   #
   # 获得所有通知的UserTip对象数组，按时间顺序倒序排序
   def tips
-    clear_disabled_kind_tips
-    tips = @redis_cache.all.map do |tip_id,tip_hash|
-      UserTip.build_by_tip_id_and_tip_hash(@user,tip_id,tip_hash)
-    end
-    tips.compact.sort{|a,b|b.time<=>a.time}
+    clear_tips_of_disabled_kinds
+    
+    @redis_cache.all.map {|tip_id, tip_data|
+      UserTip.build(@user, tip_id, tip_data)
+    }.compact.sort{|a,b|b.time<=>a.time}
   end
 
   # 获得人际关系相关的tips数组
   def contacts_tips
-    tips = tips
-    kinds = [BE_FOLLOWED]
+    kinds = [UserTip::BE_FOLLOWED]
     tips.select{|tip|kinds.include?(tip.kind)}
   end
 
@@ -47,31 +46,22 @@ class UserTipProxy
   #--------------------------------
   #-------获取UserTip对象的相关方法-----------------
 
-  def get_tip_by_id(input_tip_id)
-    tip_hash = @redis_cache.get input_tip_id
-    return nil if tip_hash.blank?
-    UserTip.build_by_tip_id_and_tip_hash(@user,input_tip_id,tip_hash)
-  end
-
-  def get_tip_by_hash(input_tip_hash)
-    @redis_cache.all.each do |tip_id,tip_hash|
-      if tip_hash.merge(input_tip_hash) == tip_hash
-        return UserTip.build_by_tip_id_and_tip_hash(@user,tip_id,tip_hash)
-      end
-    end
-    return nil
+  def get_tip_by_id(tip_id)
+    tip_data = @redis_cache.get tip_id
+    return nil if tip_data.blank?
+    UserTip.build(@user, tip_id, tip_data)
   end
 
   #---------------------------
   #----通知类型相关方法
 
   # 清理已经关闭的类型的通知
-  def clear_disabled_kind_tips
+  def clear_tips_of_disabled_kinds
     will_be_removed_ids = []
     enabled_kinds = UserTipProxy.enabled_kinds
-    @redis_cache.all.each do |tip_id,tip_hash|
-      unless enabled_kinds.include?(tip_hash["kind"])
-        will_be_removed_ids.push(tip_id)
+    @redis_cache.all.each do |tip_id, tip_data|
+      if !enabled_kinds.include?(tip_data["kind"])
+        will_be_removed_ids << tip_id
       end
     end
     will_be_removed_ids.each{|id|@redis_cache.remove(id)}
@@ -90,7 +80,7 @@ class UserTipProxy
 
   # 清除所有通知
   def remove_all_tips
-    @redis_cache.del
+    @redis_cache.remove_all
   end
 
   #-----------------------
@@ -134,6 +124,7 @@ class UserTipProxy
 
   
   extend QueueMethods
-  
+
+  # 加载通知规则
   include BeFollowedMethods
 end

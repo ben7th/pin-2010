@@ -6,14 +6,14 @@ class UserTipRedisCache
     @cache_key = cache_key
   end
 
-  def set(hkey,hvalue)
-    @redis_tip.hset(@cache_key, hkey, hvalue.to_json)
+  def set(hkey, raw_hvalue)
+    @redis_tip.hset(@cache_key, hkey, raw_hvalue.to_json)
   end
 
   def get(hkey)
-    hvalue = @redis_tip.hget(@cache_key, hkey)
-    return nil if hvalue.blank?
-    ActiveSupport::JSON.decode(hvalue)
+    encoded_hvalue = @redis_tip.hget(@cache_key, hkey)
+    return nil if encoded_hvalue.blank?
+    ActiveSupport::JSON.decode(encoded_hvalue)
   end
 
   def remove(hkey)
@@ -26,10 +26,14 @@ class UserTipRedisCache
     cache_hash = @redis_tip.hgetall(@cache_key)
     
     _hash = {}
-    cache_hash.each do |hkey, hvalue|
-      _hash[hkey] = ActiveSupport::JSON.decode(hvalue)
+    cache_hash.each do |hkey, encoded_hvalue|
+      _hash[hkey] = ActiveSupport::JSON.decode(encoded_hvalue)
     end
     _hash
+  end
+
+  def count
+    @redis_tip.hgetall(@cache_key).count
   end
 
   def remove_all
