@@ -1,6 +1,6 @@
 module BeFollowedMethods
   def self.included(base)
-    base.add_enable_kinds(UserTipProxy::BE_FOLLOWED)
+    base.add_enabled_kinds(UserTipProxy::BE_FOLLOWED)
     base.extend ClassMethods
     base.add_rules({
         :class => ChannelUser,

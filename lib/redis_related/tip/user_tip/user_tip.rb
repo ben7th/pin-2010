@@ -18,16 +18,12 @@ class UserTip
     UserTipProxy.new(@user).rh.remove(id)
   end
 
-  def self.build_by_tip_id(user,tip_id)
-    tip_hash = UserTipProxy.new(user).find_tip_hash_by_id(tip_id)
-    self.build_by_tip_id_and_tip_hash(tip_id,tip_hash)
-  end
-
   def self.build_by_tip_id_and_tip_hash(user,tip_id,tip_hash)
     attrs_hash = case tip_hash["kind"]
-    when UserTipProxy::BE_FOLLOWED
-      self.build_be_followed_tip(tip_id,tip_hash)
-    end
+      when UserTipProxy::BE_FOLLOWED
+        self.build_be_followed_tip(tip_id,tip_hash)
+      end
+      
     return if attrs_hash.blank?
     self.new(user,attrs_hash)
   end
