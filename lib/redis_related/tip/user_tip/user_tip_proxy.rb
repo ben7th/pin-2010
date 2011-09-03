@@ -52,6 +52,10 @@ class UserTipProxy
     UserTip.build(@user, tip_id, tip_data)
   end
 
+  def remove_tip_by_id(tip_id)
+    @redis_cache.remove(tip_id)
+  end
+
   #---------------------------
   #----通知类型相关方法
 
