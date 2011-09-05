@@ -1450,6 +1450,8 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-account-base-form .field a.account-submit span{display:block;}
 .page-account-base-form .field a.account-cancel{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;display:block;padding:0;height:30px;line-height:30px;text-align:center;width:80px;font-size:14px;background:-moz-linear-gradient(-90deg,#e7e7e7,#e3e3e3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#e7e7e7),to(#e3e3e3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');border:solid 1px #aaa;color:#555;font-weight:bold;text-shadow:0 0 0 rgba(0,0,0,0.3);float:left;}
 .page-account-base-form .field a.account-cancel:hover{color:#555;text-decoration:none;background:-moz-linear-gradient(-90deg,#d7d7d7,#d3d3d3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d7d7d7),to(#d3d3d3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');border:solid 1px #848484;}
+.page-copper-avatar .old-img,.page-copper-avatar .cutted-img{background-color:#Fafafa;padding:5px;border:solid 1px #eee;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;margin-bottom:10px;}
+.page-copper-avatar .cutted-img{width:100px;margin:0;}
 .new-feed-tip{background-color:#FFFDDD;color:#BB861C;border:solid 1px #C5B270;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:8px 10px;margin-bottom:13px;text-align:right;}
 .new-feed-tip a{color:#BB861C;}
 .new-feed-tip .loading-tip{display:none;}

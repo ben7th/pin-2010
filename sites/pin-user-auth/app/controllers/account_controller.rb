@@ -80,7 +80,9 @@ class AccountController <  ApplicationController
   def _save_avatar
     @image_file_name = UserAvatarAdpater.create_by_upload_file(params[:user][:logo])
     @image_url = UserAvatarAdpater.url_by_image_file_name(@image_file_name)
-
+    image_path = UserAvatarAdpater.path_by_image_file_name(@image_file_name)
+    image = Magick::Image::read(File.new(image_path)).first
+    @image_size = {:height=>image.rows,:width=>image.columns}
     return render :template=>"account/copper_avatared"
   end
 

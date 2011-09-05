@@ -43,29 +43,27 @@ def get_flash_error(record)
   rescue Exception => ex
     "数据验证错误"
   end
+end
 
-
-  # 性能检测函数
-  # 用法：
-  # benchmark do
-  #   ...
-  # end
-  def benchmark(&block)
-    bm = Benchmark.realtime do
-      yield block
-    end
-    p bm
+# 性能检测函数
+# 用法：
+# benchmark do
+#   ...
+# end
+def benchmark(&block)
+  bm = Benchmark.realtime do
+    yield block
   end
+  p bm
+end
 
-  # 获取某个目录下的所有子目录
-  def get_all_dir(basedir)
-    dirs = []
-    Find.find(basedir) do |path|
-      if FileTest.directory?(path)
-        dirs << path
-      end
+# 获取某个目录下的所有子目录
+def get_all_dir(basedir)
+  dirs = []
+  Find.find(basedir) do |path|
+    if FileTest.directory?(path)
+      dirs << path
     end
-    dirs
   end
-
+  dirs
 end

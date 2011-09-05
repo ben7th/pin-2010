@@ -350,3 +350,17 @@
     }
   }
 }
+
+.page-copper-avatar{
+  .old-img,.cutted-img{
+    background-color:#Fafafa;
+    padding:5px;
+    border:solid 1px #eee;
+    @include border-radius(3px);
+    margin-bottom:10px;
+  }
+  .cutted-img{
+    width:100px;
+    margin:0;
+  }
+}

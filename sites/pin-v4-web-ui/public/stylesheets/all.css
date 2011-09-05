@@ -6092,6 +6092,18 @@ a.send-button {
       filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
       border: solid 1px #848484; }
 
+.page-copper-avatar .old-img, .page-copper-avatar .cutted-img {
+  background-color: #Fafafa;
+  padding: 5px;
+  border: solid 1px #eee;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  margin-bottom: 10px; }
+.page-copper-avatar .cutted-img {
+  width: 100px;
+  margin: 0; }
+
 .new-feed-tip {
   background-color: #FFFDDD;
   color: #BB861C;
