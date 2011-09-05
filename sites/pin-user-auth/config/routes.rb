@@ -139,6 +139,7 @@ ActionController::Routing::Routes.draw do |map|
       :create_for_plugin=>:post,
       :destroy_for_plugin=>:delete,
       :follow=>:post,
+      :follow_by_daotu=>:post,
       :unfollow=>:delete
   }
 

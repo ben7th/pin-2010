@@ -50,28 +50,14 @@
       .sign=h(truncate_u(mindmap_user.sign,16))
 
     .explore
-      -prev_mindmap = @mindmap.prev(current_user)
-      -next_mindmap = @mindmap.next(current_user)
       .btns
-        -if !!prev_mindmap
-          .prev{:tip=>'查看上一个导图'}
-            =link_to "上一个",info_mindmap_path(prev_mindmap)
-        -else
-          .prev.disabled
-            =link_to "上一个",'javascript:;'
         .show{:tip=>'在编辑器中详细查看'}
           =link_to '<span>详细查看</span>',"/mindmaps/#{@mindmap.id}",:target=>'_blank'
-        -if !!next_mindmap
-          .next{:tip=>'查看下一个导图'}
-            =link_to "下一个",info_mindmap_path(next_mindmap)
-        -else
-          .next.disabled
-            =link_to "下一个",'javascript:;'
 
   .page-mindmap-info-view
     =render 'mindmaps/list/list',:mindmaps=>[@mindmap]
 
-  -if current_user.has_binded_sina?
+  -if logged_in? && current_user.has_binded_sina?
     .page-mindmap-others{:style=>'margin:0 20px 10px 20px;'}
       =minibutton '(beta)分享大图到新浪微博','javascript:;',:class=>'share-full-img',:'data-id'=>@mindmap.id
       .share-full-img-content{:style=>'margin:5px 0 0 0;'}

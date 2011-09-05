@@ -34,6 +34,14 @@ class Channel < UserAuthAbstract
       base.has_many :channels_db,:class_name=>"Channel",:foreign_key=>:creator_id
     end
 
+    def daotu_channel
+      channel = self.channels_db.find_by_name("思维导图群组")
+      if channel.blank?
+        channel = self.channels_db.create(:name=>"思维导图群组")
+      end
+      channel
+    end
+
     def channels_count
       channels.count
     end

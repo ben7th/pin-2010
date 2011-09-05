@@ -1,5 +1,4 @@
--content_for :title do
-  #{@user.name}的思维导图
+-htitle "#{@user.name}的思维导图"
 
 .mside.grid_5
   .page-tu-mindpin-mside-user-info
@@ -13,7 +12,7 @@
       .name=usersign @user,false
       .sign=h(@user.sign)
 
-  =render 'mindmaps/lists/management',:mindmaps=>@mindmaps
+  =render 'mindmaps/list/list',:mindmaps=>@mindmaps
 
   .mindmap-paginate.padding5
     = will_paginate @mindmaps

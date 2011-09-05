@@ -8053,14 +8053,14 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-mindmaps-info-bar .explore {
     overflow: hidden;
     margin: 0 0 15px 0;
-    padding: 5px; }
+    padding: 5px 0; }
     .page-mindmaps-info-bar .explore .btns {
       float: right; }
-      .page-mindmaps-info-bar .explore .btns .prev, .page-mindmaps-info-bar .explore .btns .next, .page-mindmaps-info-bar .explore .btns .show {
+      .page-mindmaps-info-bar .explore .btns .show {
         float: left;
         height: 25px;
         line-height: 25px; }
-        .page-mindmaps-info-bar .explore .btns .prev a, .page-mindmaps-info-bar .explore .btns .next a, .page-mindmaps-info-bar .explore .btns .show a {
+        .page-mindmaps-info-bar .explore .btns .show a {
           border: solid 1px #DDDDDD;
           background-color: #f0f0f0;
           border-radius: 4px;
@@ -8072,17 +8072,9 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
           height: 17px;
           line-height: 17px;
           margin-left: 5px; }
-          .page-mindmaps-info-bar .explore .btns .prev a:hover, .page-mindmaps-info-bar .explore .btns .next a:hover, .page-mindmaps-info-bar .explore .btns .show a:hover {
+          .page-mindmaps-info-bar .explore .btns .show a:hover {
             text-decoration: none;
             background-color: #e9e9e9; }
-        .page-mindmaps-info-bar .explore .btns .prev.disabled a, .page-mindmaps-info-bar .explore .btns .next.disabled a, .page-mindmaps-info-bar .explore .btns .show.disabled a {
-          cursor: default !important;
-          color: #BBBBBB !important;
-          background-color: #f7f7f7;
-          border: solid 1px #eee; }
-          .page-mindmaps-info-bar .explore .btns .prev.disabled a:hover, .page-mindmaps-info-bar .explore .btns .next.disabled a:hover, .page-mindmaps-info-bar .explore .btns .show.disabled a:hover {
-            text-decoration: none;
-            background-color: #f7f7f7; }
       .page-mindmaps-info-bar .explore .btns .show {
         cursor: pointer; }
         .page-mindmaps-info-bar .explore .btns .show a {

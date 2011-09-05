@@ -6,7 +6,7 @@ class ContactsController < ApplicationController
 
   def follow
     if params[:user_id].blank? || params[:channel_ids].blank?
-      return render :status=>402,:text=>"参数错误"
+      return render :status=>422,:text=>"参数错误"
     end
     user = User.find(params[:user_id])
     channels = params[:channel_ids].split(",").uniq.
@@ -14,6 +14,17 @@ class ContactsController < ApplicationController
       select{|channel|channel.creator == current_user}
     channels.each{|channel|channel.add_user(user)}
     render :status=>200,:text=>"关注成功"
+  end
+
+  def follow_by_daotu
+    if params[:user_id].blank?
+      return render :status=>422,:text=>"参数错误"
+    end
+    user = User.find(params[:user_id])
+    unless current_user.following?(user)
+      current_user.daotu_channel.add_user(user)
+    end
+    render :text=>200,:status=>200
   end
 
   def unfollow

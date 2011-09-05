@@ -1,5 +1,4 @@
 #mindmap-toolbar
-  .map-logo
   .map-title
     =link_to escape_title(@mindmap,10),pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info"),:target=>'_blank'
   .map-creator
@@ -12,7 +11,7 @@
     %span 创建于
     %span.loud=jtime @mindmap.created_at
   .map-export
-    =minibutton_remote "导出为..",:url=>"/mindmaps/#{@mindmap.id}/export",:method=>:get
+    =link_to_remote "<span>导出为..</span>",:url=>"/mindmaps/#{@mindmap.id}/export",:method=>:get,:html=>{:class=>'minibutton'}
     %span.ex=link_to 'PNG图片',"/mindmaps/#{@mindmap.id}.png",:target=>'_blank'
     %span.ex=link_to 'WORD文档',"/mindmaps/#{@mindmap.id}.doc"
   .map-close

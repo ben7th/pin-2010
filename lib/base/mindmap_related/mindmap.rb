@@ -68,7 +68,6 @@ class Mindmap < Mev6Abstract
      MindmapImageCache.new(self).refresh_all_cache_file
   end
 
-
   def refresh_thumb_image_in_queue
     MindmapImageCacheQueueWorker.async_mindmap_image_cache(self)
     return true
@@ -140,34 +139,6 @@ class Mindmap < Mev6Abstract
   # 取得思维导图json
   def struct_json
     document.struct_hash.to_json
-  end
-
-  def prev(current_user)
-    user = self.user
-    return nil if user.blank?
-
-    if current_user == user
-      mindmap_ids = user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
-    else
-      mindmap_ids = user.out_mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
-    end
-    index = mindmap_ids.index(self.id)
-    return if index == 0 || index.blank?
-    Mindmap.find(mindmap_ids[index-1])
-  end
-
-  def next(current_user)
-    user = self.user
-    return nil if user.blank?
-
-    if current_user == user
-      mindmap_ids = user.mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
-    else
-      mindmap_ids = user.out_mindmaps.sort{|a,b|b.updated_at <=> a.updated_at}.map{|mindmap|mindmap.id}
-    end
-    index = mindmap_ids.index(self.id)
-    return if index == (mindmap_ids.count-1) || index.blank?
-    Mindmap.find(mindmap_ids[index+1])
   end
 
   def private=(param)
