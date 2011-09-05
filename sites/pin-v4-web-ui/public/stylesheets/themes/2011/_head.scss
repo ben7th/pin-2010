@@ -127,10 +127,11 @@
 }
 
 .page-account-header{
-  background:#444;
-  color:$head-text-color;
+  background:#F7F7F7;
+  border-bottom:solid 1px #ddd;
   overflow:hidden;
   height:30px;
+  padding:5px 0;
   .site-logo{
     float:left;
     .logo.account{

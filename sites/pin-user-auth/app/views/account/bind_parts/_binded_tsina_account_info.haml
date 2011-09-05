@@ -1,7 +1,7 @@
 -#use 显示新浪微博绑定信息
 -#see 用户设置 -> 关联新浪微博
 
-.binded-account-info.tsina.darkbg.rc5
+.binded-account-info.tsina
   .bind-icon
   .title.btb 已经和下面的新浪微博账号绑定啦
   -bindinfo = current_user.tsina_account_info
@@ -9,7 +9,7 @@
     .meta.btb
       .avatar
         %img.logo{:src=>bindinfo["profile_image_url"]}
-      .name.loud
+      .name
         =bindinfo["user_name"]
       .counts
         .friends
@@ -31,4 +31,4 @@
     .updating.aj-loading
       正在更新…
     .update
-      =link_to '更新信息','javascript:;',:method=>:post
+      =minibutton '更新信息','javascript:;',:method=>:post

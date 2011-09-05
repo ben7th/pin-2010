@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import com.mindpin.utils.BaseUtils;
 
 public class Http { 
-	private static final String SITE = "http://dev.www.mindpin.com";
+	private static final String SITE = "http://www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
 
 	public static boolean user_authenticate(String email, String password)

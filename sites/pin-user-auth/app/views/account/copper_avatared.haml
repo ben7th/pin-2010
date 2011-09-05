@@ -1,21 +1,21 @@
 -#use 裁切上传的用户头像
 -#see 用户设置->修改头像
 
--content_for :title do
-  头像设置 裁剪头像
+-htitle "头像设置 裁剪头像"
 
 - content_for :javascripts do
   = javascript_include_tag 'jsCropperUi/cropper'
   = javascript_include_tag 'views/account/image_cut'
 
 .mside.grid_5
-  =render :partial=>'account/parts/account_links'
+  =render 'account/parts/account_links'
 
 .main.grid_19.ll
-  .paddingl20
-    .main-title
-      请在下面选择要裁剪的范围
+  .page-title-bar
+    .meta
+      %h2 请在下面选择要裁剪的范围
 
+  .paddingl20
     .old-img.darkbg.padding5.rc5.marginb10.shadow
       .title.font14.bold 原始图片
       %img#img_with_preview{:src=>@image_url}

@@ -1,26 +1,26 @@
 -#use 用户基本信息设置
 -#see 用户设置->基本信息
 
--content_for :title do
-  基本信息设置
+-htitle "基本信息设置"
 
 .mside.grid_5
-  =render :partial=>'account/parts/account_links'
+  =render 'account/parts/account_links'
 
 .main.grid_19.ll
-  .paddingl20
-    .main-title
-      你可以在这里设置你平常使用的用户昵称以及签名档
+  .page-title-bar
+    .meta
+      %h2 你可以在这里设置你平常使用的用户昵称以及签名档
 
+  .paddingl20
     = flash_info
     .page-account-base-form.aj-submit-form
-      - mindpin_form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
+      - form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
         .field
           %label 用户名
           = text_field_tag :name,current_user.name,:class=>'text'
         .field
           %label 签名档
-          = text_area_tag :sign,current_user.sign,:class=>'text'
+          = text_area_tag :sign,current_user.sign,:class=>'text',:style=>'width:200px;'
         -if !current_user.is_quick_connect_account?
           .field
             %label 旧密码

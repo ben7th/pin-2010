@@ -1,19 +1,18 @@
 -#use 上传用户头像
 -#see 用户设置->修改头像
 
--content_for :title do
-  头像设置 上传头像
+-htitle "头像设置 上传头像"
 
 .mside.grid_5
-  =render :partial=>'account/parts/account_links'
+  =render 'account/parts/account_links'
 
 .main.grid_19.ll
+  .page-title-bar
+    .meta
+      %h2 上传一张图片，然后选择要裁切的部分，系统会自动替您裁好！~
+
   .paddingl20
-    .main-title
-      上传一张图片，然后选择要裁切的部分，系统会自动替您裁好！~
-
     = flash_info
-
     .page-account-base-form.aj-submit-form
       .clearfix
         = logo current_user,:medium
@@ -21,7 +20,9 @@
         = logo current_user,:tiny
         = logo current_user,:mini
 
-      - mindpin_form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
-        = f.file_field(:logo)
+      - form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
+        .field
+          %label 选择一张图片并上传
+          = f.file_field(:logo)
         .field
           = link_to '上传图片','javascript:;',:class=>'account-submit a-link-submit'

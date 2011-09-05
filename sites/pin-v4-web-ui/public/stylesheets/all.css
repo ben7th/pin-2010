@@ -2352,10 +2352,11 @@ Release Date: November 8, 2010
           color: #444; }
 
 .page-account-header {
-  background: #444;
-  color: #eeeeee;
+  background: #F7F7F7;
+  border-bottom: solid 1px #ddd;
   overflow: hidden;
-  height: 30px; }
+  height: 30px;
+  padding: 5px 0; }
   .page-account-header .site-logo {
     float: left; }
     .page-account-header .site-logo .logo.account {
@@ -5717,9 +5718,11 @@ a.send-button {
     color: white; }
 
 .binded-account .binded-account-info {
-  box-shadow: 0px 0px 2px #aaaaaa;
-  -moz-box-shadow: 0px 0px 2px #aaaaaa;
-  -webkit-box-shadow: 0px 0px 2px #aaaaaa;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #FAFAFA;
+  border: solid 1px #eee;
   margin: 0 0 20px 0;
   position: relative; }
   .binded-account .binded-account-info .bind-icon {
@@ -5732,6 +5735,7 @@ a.send-button {
   .binded-account .binded-account-info .title {
     padding: 5px; }
   .binded-account .binded-account-info .meta {
+    background-color: #fff;
     padding: 5px;
     overflow: hidden; }
     .binded-account .binded-account-info .meta .avatar {
@@ -5746,14 +5750,15 @@ a.send-button {
     .binded-account .binded-account-info .misc .time {
       padding: 0 6px;
       float: left;
-      margin-right: 20px; }
+      margin-right: 20px;
+      line-height: 24px; }
     .binded-account .binded-account-info .misc .updating {
       padding: 0 6px 0 20px;
       float: left;
       margin-right: 20px;
       display: none;
-      height: 18px;
-      line-height: 18px; }
+      height: 24px;
+      line-height: 24px; }
     .binded-account .binded-account-info .misc.up .time, .binded-account .binded-account-info .misc.up .update {
       display: none; }
     .binded-account .binded-account-info .misc.up .updating {
@@ -9052,6 +9057,6 @@ form .field.sendto-select-widget .sendto-selector {
     text-decoration: none;
     background-color: #E9E9E9;
     color: #444 !important;
-    box-shadow: 0 1px 2px #ccc; }
+    box-shadow: 0 1px 2px #eee; }
   .minibutton span {
     display: block; }

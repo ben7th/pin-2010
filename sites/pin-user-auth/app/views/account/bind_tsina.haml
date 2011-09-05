@@ -1,20 +1,20 @@
 -#use 关联新浪微博
 -#see 用户设置->关联新浪微博
 
--content_for :title do
-  关联新浪微博账号
+-htitle "关联新浪微博账号"
 
 -content_for :javascripts do
   = javascript_include_tag "views/account/binded_tsina"
 
 .mside.grid_5
-  =render :partial=>'account/parts/account_links'
+  =render 'account/parts/account_links'
 
 .main.grid_19.ll
-  .paddingl20
-    .main-title
-      关联新浪微博账号，分享更方便~
+  .page-title-bar
+    .meta
+      %h2 关联新浪微博账号，分享更方便~
 
+  .paddingl20
     =flash_info
     -if !(current_user.tsina_connect_user)
       .bind-intro.tsina

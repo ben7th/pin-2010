@@ -52,7 +52,9 @@
 
 .binded-account{
   .binded-account-info{
-    @include box-shadow(0px 0px 2px #aaa);
+    @include border-radius(3px);
+    background-color:#FAFAFA;
+    border:solid 1px #eee;
     margin:0 0 20px 0;
     position:relative;
     .bind-icon{
@@ -66,6 +68,7 @@
       padding:5px;
     }
     .meta{
+      background-color:#fff;
       padding:5px;
       overflow:hidden;
       .avatar{
@@ -77,8 +80,8 @@
     .misc{
       padding:5px;
       overflow:hidden;
-      .time{padding:0 6px;float:left;margin-right:20px;}
-      .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:18px;line-height:18px;}
+      .time{padding:0 6px;float:left;margin-right:20px;line-height:24px;}
+      .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:24px;line-height:24px;}
       &.up{
         .time,.update{display:none;}
         .updating{display:block;}
