@@ -32,7 +32,7 @@ module ResetPasswordMethods
   # 重置密码
   def change_password
     @user = User.find_by_reset_password_code(params[:pw_code])
-    return render :text=>"error",:status=>401 if @user.blank?
+    return render_status_page(422,"重设密码请求已经作废，请重新进行操作。") if @user.blank?
 
     user_param = params[:user]
 

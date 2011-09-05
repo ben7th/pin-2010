@@ -1,0 +1,59 @@
+.page-olist.mindmaps
+  -if mindmaps.blank?
+    .list-blank 目前还没有思维导图
+  -else
+    -mindmaps.each do |mindmap|
+      .mindmap{:'data-id'=>mindmap.id}
+        .creator
+          .avatar
+            -link_to mindmap.user do
+              =avatar mindmap.user,:tiny
+          .name=usersign mindmap.user
+          .time=jtime mindmap.created_at
+
+        .title=link_to mindmap.title,"/mindmaps/#{mindmap.id}/info"
+
+        .data
+          -size = mindmap.large_thumb_image_true_size
+          .thumb{:style=>"width:#{size[:width]}px;height:#{size[:height]}px;"}
+            -link_to "/mindmaps/#{mindmap.id}/info" do
+              =mindmap_image(mindmap,"500x500")
+
+        .footmisc
+          .share
+            -page_url = pin_url_for('pin-daotu',"/mindmaps/#{mindmap.id}/info")
+            -page_title = "分享mindpin的思维导图：#{mindmap.title}"
+            -newest_pic_url = mindmap_thumb_url_for_share(mindmap)
+            -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
+            =link_to '分享到新浪微博',"javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:class=>'share_to tsina',:tip=>'分享到新浪微博'
+            =link_to '分享到人人网',"http://www.jiathis.com/send/?webid=renren&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to renren',:tip=>'分享到人人网'
+            =link_to '分享到豆瓣',"http://www.jiathis.com/send/?webid=douban&url=#{page_url}&title=#{page_title}",:target=>'_blank',:class=>'share_to douban',:tip=>'分享到豆瓣'
+          .ops
+            -if !logged_in?
+              .o=link_to '查看概要',"/mindmaps/#{mindmap.id}/info",:class=>'info'
+              .o=link_to '在编辑器中查看',"/mindmaps/#{mindmap.id}",:class=>'view'
+            -else
+              -if mindmap.user==current_user
+                .o=link_to '<div class="icon"></div>',"javascript:;",:class=>"toggle-fav #{mindmap.faved_by?(current_user) ? 'fav':'unfav'}",:title=>'加星/取消加星'
+                .o=link_to '<div class="icon"></div>',"javascript:;",:class=>"toggle-private #{mindmap.private? ? 'private':'public'}",:title=>'切换公开/私人可见'
+                .o=link_to '概要',"/mindmaps/#{mindmap.id}/info",:class=>'info'
+                .o=link_to '编辑',"/mindmaps/#{mindmap.id}/edit",:target=>'_blank',:class=>'edit'
+                .o=link_to '删除','javascript:;',:class=>'delete'
+              -else
+                .o=link_to '<div class="icon"></div>',"javascript:;",:class=>"toggle-fav #{mindmap.faved_by?(current_user) ? 'fav':'unfav'}",:title=>'加星/取消加星'
+                .o=link_to '概要',"/mindmaps/#{mindmap.id}/info",:class=>'info'
+                .o=link_to '查看',"/mindmaps/#{mindmap.id}",:class=>'view'
+                -if mindmap.cooperate_users.include? current_user
+                  .o=link_to '编辑',"/mindmaps/#{mindmap.id}/edit",:target=>'_blank',:class=>'edit'
+                .o=link_to_remote "复制",:url=>"/mindmaps/#{mindmap.id}/clone_form",:method=>:get
+
+        .status
+          .is-private{:style=>mindmap.private? ? '':'display:none'} 目前只有私人可见
+          -fav_count = mindmap.fav_users.count
+          .faved-by{:style=>(fav_count>0) ? '':'display:none'} 被#{fav_count}人加星
+          -if mindmap.cooperate_users.count > 0
+            .coop-users
+              .desc 由以下用户参与协作编辑：
+              -mindmap.cooperate_users.each do |u|
+                %a.avatar{:href=>"/users/#{u.id}",:tip=>u.name}
+                  =avatar u,:mini

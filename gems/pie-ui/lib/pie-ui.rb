@@ -18,42 +18,40 @@ module PieUi
         require 'pie-ui/active_record_ext/save_without_timestamping'
         ActiveRecord::Base.send :include, PieUi::SaveWithoutTimestamping
       end
-
-      if defined? ActionView::Base
-        require "pie-ui/action_view_ext/project_link_helper"
-        ActionView::Base.send :include, PieUi::ProjectLinkHelper
-      end
       
       if defined? ActionView::Base
-        require 'pie-ui/action_view_ext/view_helpers/xml_format_helper'
+        require 'pie-ui/action_view_ext/xml_format_helper'
         ActionView::Base.send :include, PieUi::XmlFormatHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/bundle_helper'
+        require 'pie-ui/action_view_ext/bundle_helper'
         ActionView::Base.send :include, PieUi::BundleHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/mindpin_layout_helper'
+        require 'pie-ui/action_view_ext/mindpin_layout_helper'
         ActionView::Base.send :include, PieUi::MindpinLayoutHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/avatar_helper'
+        require 'pie-ui/action_view_ext/avatar_helper'
         ActionView::Base.send :include, PieUi::AvatarHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/datetime_helper'
+        require 'pie-ui/action_view_ext/datetime_helper'
         ActionView::Base.send :include, PieUi::DatetimeHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/dom_util_helper'
+        require 'pie-ui/action_view_ext/dom_util_helper'
         ActionView::Base.send :include, PieUi::DomUtilHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/button_helper'
+        require 'pie-ui/action_view_ext/button_helper'
         ActionView::Base.send :include, PieUi::ButtonHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/status_page_helper'
+        require 'pie-ui/action_view_ext/status_page_helper'
         ActionView::Base.send :include, PieUi::StatusPageHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/git_commit_helper'
+        require 'pie-ui/action_view_ext/git_commit_helper'
         ActionView::Base.send :include, PieUi::GitCommitHelper
 
-        require 'pie-ui/action_view_ext/view_helpers/auto_link_helper'
+        require 'pie-ui/action_view_ext/auto_link_helper'
         ActionView::Base.send :include, PieUi::AutoLinkHelper
+
+        require 'pie-ui/action_view_ext/link_helper'
+        ActionView::Base.send :include, PieUi::LinkHelper
       end
     end
 
@@ -151,6 +149,10 @@ if defined? ActiveRecord::Base
     p "#{ex.message}，mindpin_logic 配置加载失败"
   end
 end
+
+# pin_url_for 等方法
+require "pie-ui/project_link_module"
+include PieUi::ProjectLinkModule
 
 # 字符串扩展
 require 'pie-ui/string_util'

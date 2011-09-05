@@ -1,0 +1,179 @@
+.page-olist.mindmaps{
+  padding:0 20px;
+  .list-blank{
+    margin:0 0 200px 0;
+  }
+  
+  .mindmap{
+    border:solid 1px #eee;
+    padding:10px;
+    margin-bottom:20px;
+
+    .creator{
+      margin:-10px -10px 10px;
+      background-color:#fafafa;
+      border-bottom:solid 1px #eee;
+      padding:10px;
+      overflow:hidden;
+      
+      .avatar{
+        float:left;
+      }
+      .name{
+        margin-left:44px;
+        font-weight:bold;
+        line-height:16px;
+        a{color:#999;}
+      }
+      .time{
+        margin-left:44px;
+        line-height:16px;
+      }
+    }
+    
+    .title{
+      margin:-10px -10px 10px;
+      background-color:#fafafa;
+      border-bottom:solid 1px #eee;
+      padding:10px;
+      
+      font-size:14px;font-weight:bold;
+      
+      a{
+        color:#555;
+        &:hover{
+          text-decoration:none;
+          border-bottom:dotted 1px #666;
+        }
+      }
+    }
+    
+    .data{
+      margin-bottom:10px;
+      .thumb{
+        overflow:hidden;
+        a{
+          display:block;font-size:0;line-height:0;
+        }
+      }
+    }
+    
+    .status{
+      margin:0 0 10px 0;
+      .is-private{
+        margin-top:-1px;
+        border-top:solid 1px #EEEEEE;
+        border-bottom:solid 1px #EEEEEE;
+        padding:5px;
+        color:#888;
+      }
+      .faved-by{
+        margin-top:-1px;
+        border-top:solid 1px #EEEEEE;
+        border-bottom:solid 1px #EEEEEE;
+        padding:5px;
+        color:#888;
+      }
+      .coop-users{
+        margin-top:-1px;
+        border-top:solid 1px #EEEEEE;
+        border-bottom:solid 1px #EEEEEE;
+        background:#FAFAFA;
+        padding:5px;
+        overflow:hidden;
+        .desc{
+          margin:0 0 5px 0;
+          color:#888;
+        }
+        .avatar{
+          width:26px;height:26px;
+          float:left;margin-right:5px;
+        }
+      }
+    }
+
+    .footmisc{
+      overflow:hidden;
+      margin-bottom:10px;
+      .rank{
+        height:18px;line-height:18px;
+        float:left;
+        width:30px;
+        background-color:#8ABFE6;
+        @include border-radius(3px);
+        @include tfont;
+        color:white;
+        font-weight:bold;
+        text-align:center;
+        margin-right:10px;
+      }
+      .time{
+        height:20px;
+        line-height:20px;
+        float:left;
+        margin-right:10px;
+      }
+      .share{
+        height:20px;
+        line-height:20px;
+        float:left;
+        overflow:hidden;
+        a.share_to {
+          float:left;
+          width:18px;height:18px;
+          @include border-radius(2px);
+          margin-right:5px;
+          line-height:33em;font-size:0;
+          overflow:hidden;
+          background-color:white;
+          background-repeat:no-repeat;
+          background-position:1px 1px;
+          &.tsina {
+            background-image:url(/images/share/tsina.png);
+          }
+          &.renren {
+            background-image: url(/images/share/renren.png);
+          }
+          &.douban {
+            background-image: url(/images/share/douban.png);
+          }
+        }
+      }
+      .ops{
+        height:20px;
+        line-height:20px;
+        float:right;
+        overflow:hidden;
+        .o{
+          margin-left:10px;
+          float:left;
+          a{
+            font-size:12px;
+            &.toggle-private{
+              .icon{
+                position:relative;
+                top:2px;
+                float:left;
+                width:16px;height:16px;
+                margin:0 2px 0 0;
+              }
+              &.public{.icon{background:url(/images/alltu.png) no-repeat -18px -35px;}}
+              &.private{.icon{background:url(/images/alltu.png) no-repeat -1px -35px;}}
+            }
+            &.toggle-fav{
+              .icon{
+                position:relative;
+                top:2px;
+                float:left;
+                width:16px;height:16px;
+                margin:0 2px 0 0;
+              }
+              &.unfav{.icon{background:url(/images/alltu.png) no-repeat -18px -52px;}}
+              &.fav{.icon{background:url(/images/alltu.png) no-repeat -1px -52px;}}
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,8 @@
 package com.mindpin.Logic;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,17 +13,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.mime.FormBodyPart;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.DefaultedHttpParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +27,7 @@ import org.json.JSONObject;
 import com.mindpin.utils.BaseUtils;
 
 public class Http { 
-	private static final String SITE = "http://www.mindpin.com";
+	private static final String SITE = "http://dev.www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
 
 	public static boolean user_authenticate(String email, String password)
@@ -48,10 +41,9 @@ public class Http {
 		httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
 		HttpResponse response = httpclient.execute(httpost);
-
-		String sl = response.getStatusLine().toString();
-		System.out.println(sl);
-		if ("HTTP/1.1 200 OK".equals(sl)) {
+		response.getEntity().getContent().close();
+		String res = response.getStatusLine().toString();
+		if ("HTTP/1.1 200 OK".equals(res)) {
 			return true;
 		} else {
 			return false;
@@ -91,22 +83,26 @@ public class Http {
 			httpost.setHeader("User-Agent", "android");
 			MultipartEntity me = new MultipartEntity();
 			
-			StringBody content_body = new StringBody(title);
-			StringBody detail_body = new StringBody(content);
-			
+			StringBody content_body = new StringBody(title, Charset.forName(HTTP.UTF_8));
+			StringBody detail_body = new StringBody(content,Charset.forName(HTTP.UTF_8));
 			me.addPart("content",content_body);
 			me.addPart("detail",detail_body);
 			
 			for (int i = 0; i < images.size(); i++) {
 				String image = images.get(i);
 				File file = new File(image);
-				FileBody bin = new FileBody(file,"image/jpg");
+				FileBody bin = new FileBody(file,"image/jpeg");
 				me.addPart("photos[]",bin);
 			}
 			httpost.setEntity(me);
 			HttpResponse response = httpclient.execute(httpost);
 			response.getEntity().getContent().close();
-			System.out.println(1);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			return false;
@@ -114,6 +110,5 @@ public class Http {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 }

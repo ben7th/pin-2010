@@ -110,211 +110,6 @@
   @include mindmaps-bar;
 }
 
-.page-user-mindmaps{
-  overflow:hidden;
-
-  .empty{
-    padding:10px;
-    font-size:14px;
-    height:300px;
-    border:none !important;
-  }
-
-  .mindmap{
-    overflow:hidden;
-    @include bdb2010;
-    padding:0 10px 20px;
-    .lside{float:left;}
-    .m{
-      margin-left:44px;
-      overflow:hidden;
-      .headmeta{
-        margin:0 0 12px 0;
-        span{color:#aaa;}
-        .creator-name{
-          a{
-            font-weight:normal;
-            color:#aaa;&:hover{color:#aaa;}
-          }
-        }
-        .create-time{.jtime{color:#aaa;}}
-        .scope{
-          a{
-            color:#aaa;&:hover{color:#aaa;}
-          }
-        }
-      }
-      
-      .data{
-        margin-bottom:10px;
-        .title{
-          font-size:14px;
-          font-weight:bold;
-          
-          margin:0 0 12px 0;
-          a{
-            color:#555;
-            &:hover{
-              text-decoration:none;
-              border-bottom:dotted 1px #666;
-            }
-          }
-        }
-  
-        .thumb{
-          overflow:hidden;
-          a{
-            display:block;font-size:0;line-height:0;
-          }
-        }
-      }
-      
-      .status{
-        margin:0 0 10px 0;
-        .is-private{
-          margin-top:-1px;
-          border-top:solid 1px #EEEEEE;
-          border-bottom:solid 1px #EEEEEE;
-          padding:5px;
-          color:#888;
-        }
-        .faved-by{
-          margin-top:-1px;
-          border-top:solid 1px #EEEEEE;
-          border-bottom:solid 1px #EEEEEE;
-          padding:5px;
-          color:#888;
-        }
-        .coop-users{
-          margin-top:-1px;
-          border-top:solid 1px #EEEEEE;
-          border-bottom:solid 1px #EEEEEE;
-          background:#FAFAFA;
-          padding:5px;
-          overflow:hidden;
-          .desc{
-            margin:0 0 5px 0;
-            color:#888;
-          }
-          .avatar{
-            width:26px;height:26px;
-            float:left;margin-right:5px;
-          }
-        }
-        .comments{
-          margin-top:-1px;
-          border-top:solid 1px #EEEEEE;
-          .comment{
-            overflow:hidden;
-            padding:5px;
-            background:#FAFAFA;
-            .avatar{
-              float:left;margin-right:10px;
-              img{width:24px;height:24px;}
-            }
-          }
-        }
-        .comment-form{
-          padding:5px;
-          margin-top:-1px;
-          border-top:solid 1px #EEEEEE;
-          .inputer{
-            width:500px;
-            height:16px;
-          }
-          .btns{
-            @include submitbtns;
-          }
-        }
-      }
-
-      .footmisc{
-        overflow:hidden;
-        margin-bottom:10px;
-        .rank{
-          height:18px;line-height:18px;
-          float:left;
-          width:30px;
-          background-color:#8ABFE6;
-          @include border-radius(3px);
-          @include tfont;
-          color:white;
-          font-weight:bold;
-          text-align:center;
-          margin-right:10px;
-        }
-        .time{
-          height:20px;
-          line-height:20px;
-          float:left;
-          margin-right:10px;
-        }
-        .share{
-          height:20px;
-          line-height:20px;
-          float:left;
-          overflow:hidden;
-          a.share_to {
-            float:left;
-            width:18px;height:18px;
-            @include border-radius(2px);
-            margin-right:5px;
-            line-height:33em;font-size:0;
-            overflow:hidden;
-            background-color:white;
-            background-repeat:no-repeat;
-            background-position:1px 1px;
-            &.tsina {
-              background-image:url(/images/share/tsina.png);
-            }
-            &.renren {
-              background-image: url(/images/share/renren.png);
-            }
-            &.douban {
-              background-image: url(/images/share/douban.png);
-            }
-          }
-        }
-        .ops{
-          height:20px;
-          line-height:20px;
-          float:right;
-          overflow:hidden;
-          .o{
-            margin-left:10px;
-            float:left;
-            a{
-              font-size:12px;
-              &.toggle-private{
-                .icon{
-                  position:relative;
-                  top:2px;
-                  float:left;
-                  width:16px;height:16px;
-                  margin:0 2px 0 0;
-                }
-                &.public{.icon{background:url(/images/alltu.png) no-repeat -18px -35px;}}
-                &.private{.icon{background:url(/images/alltu.png) no-repeat -1px -35px;}}
-              }
-              &.toggle-fav{
-                .icon{
-                  position:relative;
-                  top:2px;
-                  float:left;
-                  width:16px;height:16px;
-                  margin:0 2px 0 0;
-                }
-                &.unfav{.icon{background:url(/images/alltu.png) no-repeat -18px -52px;}}
-                &.fav{.icon{background:url(/images/alltu.png) no-repeat -1px -52px;}}
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 
 .searched-mindmaps{
   background:white;
@@ -357,213 +152,6 @@
   }
 }
 
-
-.feed-form-mev6{
-  padding:60px 0 45px 10px;
-  margin:0 0 10px 0;
-  background:url(/images/icons/mindmap-form-bg.png) no-repeat 0 0;
-  @include border-radius(6px);
-  border:solid 1px #ddd;
-  width:520px;
-
-  .btns{
-    width:500px;
-    overflow:hidden;
-    .import-mindmap,.create-mindmap,.edit-mindmap,.send{
-      width:32px;
-      height:32px;
-      @include border-radius(4px);
-      float:left;
-      margin:5px 5px 5px 0;
-      cursor:pointer;
-      color:white;
-      @include gradient(#84A2D4,#2A4072);
-      text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-      border:solid 1px #6CD4F6;
-      &:hover{
-        @include gradient(#89C3EB,#4C6DB4);
-        color:white;
-        text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
-      }
-    }
-    .import-mindmap{
-      /*@include gradient(#BBC9E6,#BCBCDE);*/
-      @include gradient(#94E4FD,#3FC3EF);
-      .icon{
-        background:url(/images/icons/all.png) no-repeat 0 -117px;
-        width:24px;
-        height:24px;
-        margin:3px 0 0 3px;
-      }
-      &:hover{
-        @include gradient(#B3ECFC,#6AD6F4);
-      }
-    }
-    .create-mindmap,.edit-mindmap{
-      width:70px;
-      margin:5px 0 5px;
-      font-size:14px;
-      font-weight:bold;
-      line-height:32px;
-      padding:0 0 0 10px;
-      border:solid 1px #556FA1;
-    }
-    .feed-content{
-      width:320px;
-      height:22px;
-      float:left;
-      margin:5px 5px 5px 0;
-      background:#F7FCFF;
-    }
-    .import-loading,.import-loading-tips{display:none;}
-    &.loading{
-      .import-mindmap{display:none;}
-      .import-loading{
-        display:block;float:left;
-        width:32px;height:32px;
-        background:url(/images/icons/progress-dots.gif) 1px 1px no-repeat;
-        margin:5px 5px 5px 0;
-      }
-      input.feed-content{display:none;}
-      .create-mindmap{display:none;}
-      .import-loading-tips{
-        display:block;
-        float:left;
-        font-size:14px;
-        margin-top:4px;
-        border:solid 1px #A3A3A3;
-        background:white;
-        padding:0 5px;
-        height:32px;line-height:32px;
-        @include border-radius(4px);
-      }
-    }
-  }
-  .import-mindmap-image{
-    background:#F6F8EE;
-    border:solid 1px #A3A3A3;
-    padding:5px;
-    top:41px;
-    z-index:999;
-    position:absolute;
-    @include border-radius(4px);
-    .close-import-mindmap-image {
-      position:absolute;
-      right:3px;
-      top:3px;
-      width:16px;
-      height:16px;
-      background:url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor:pointer;
-      font-size:0;
-      line-height:0;
-      text-indent:-999px;
-    }
-    .image{
-      width:125px;
-      height:125px;
-      margin-top:16px;
-      img{
-        border:solid 2px #A3A3A3;
-        @include border-radius(3px);
-      }
-    }
-  }
-  .import-mindmap-form{
-    padding:5px;
-    top:41px;
-    z-index:999;
-    position:absolute;
-    @include border-radius(4px);
-    width:360px;
-    border:solid 3px #D9D9D7;
-    text-align:center;
-    #file-upload-btn{
-      height:32px;
-    }
-    .close{
-      position:absolute;
-      right:3px;
-      top:3px;
-      width:16px;
-      height:16px;
-      background:url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor:pointer;
-      font-size:0;
-      line-height:0;
-      text-indent:-999px;
-    }
-  }
-  .import-error{
-    background:#323546;
-    @include border-radius(4px);
-    border:solid 1px #111;
-    width:300px;
-    padding:5px;
-    position:absolute;
-    top:41px;
-    color:#FFB49C;
-    .close{
-      position:absolute;
-      right:3px;
-      top:6px;
-      width:16px;
-      height:16px;
-      background:url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor:pointer;
-      font-size:0;
-      line-height:0;
-      text-indent:-999px;
-    }
-  }
-}
-
-/*思维导图，侧边统计栏*/
-.page-side-mindmaps-stat{
-  @include sidepart;
-  .ranks{
-    padding:0 10px;
-    margin:10px 0;
-    border-bottom:solid 1px #eee;
-    .chart{
-      margin:0 0 10px 0;
-      height:31px;
-      s{
-        zoom:1;
-        float:left;
-        width:10px;
-        margin-right:2px;
-        position:relative;
-        &.odd{background:#8ABFE6;border-bottom:solid 1px #84ADCD;}
-        &.even{background:#A6D0EF;border-bottom:solid 1px #9ABDD6;}
-        
-      }
-    }
-  }
-  .words{
-    padding:0 10px;
-    margin-bottom:10px;
-    overflow:hidden;
-    .keywords{
-      overflow:hidden;
-      a.word{
-        float:left;
-        margin:0 6px 6px 0;
-        background:#6a6a6a;
-        padding:3px 10px;
-        height:15px;line-height:15px;
-        @include border-radius(3px);
-        color:white;
-        &:hover{
-          text-decoration:none !important;
-          color:white;
-          background-color:#7a7a7a;
-        }
-      }
-    }
-  }
-}
-
 /*思维导图，侧边微博栏*/
 .page-tu-weibo{
   @include sidepart;
@@ -580,10 +168,10 @@
 @mixin new_mindmap_form{
   @include new_object_form;
   .field.title{
-    input.text{width:670px;box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+    input.text{width:678px;}
   }
   .field.description{
-    textarea.text{width:670px;padding:5px 7px;height:80px;box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset;}
+    textarea.text{width:678px;height:80px;}
   }
   .field.private{
     span{
@@ -603,7 +191,7 @@
   @include new_mindmap_form;
   .page-upload-mindmap-result{
     background:#FFF9DC;
-    border:solid 2px #EFEACE;
+    border:solid 1px #EFEACE;
     @include border-radius(5px);
     margin:0 0 10px 0;
     padding:10px;
@@ -641,7 +229,7 @@
   #page-mindmap-upload-queue{
     .uploadifyQueueItem{
       background:#FFF9DC;
-      border:solid 2px #EFEACE;
+      border:solid 1px #EFEACE;
       @include border-radius(5px);
       margin:0 0 10px 0;
       padding:10px;
@@ -661,7 +249,7 @@
   .upload{
     overflow:hidden;
     background:#FFF9DC;
-    border:solid 2px #EFEACE;
+    border:solid 1px #EFEACE;
     @include border-radius(5px);
     padding:10px;
     margin-bottom:10px;

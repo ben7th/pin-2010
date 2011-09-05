@@ -2750,7 +2750,7 @@ a.send-button {
   border: 1px solid #AAAAAA; }
 
 /*mindpin*/
-/*“≥√Ê±Í◊º‘™º˛£¨‰÷»æ≥ˆ¥Ì*/
+/*È°µÈù¢Ê†áÂáÜÂÖÉ‰ª∂ÔºåÊ∏≤ÊüìÂá∫Èîô*/
 .render-error {
   background-color: red;
   color: white;
@@ -2759,8 +2759,8 @@ a.send-button {
   -webkit-border-radius: 2px;
   padding: 5px; }
 
-/*“≥√Ê±ÍÃ‚¿∏ops∞¥≈•*/
-/*“≥√Ê±Í◊º‘™º˛£¨±ÍÃ‚¿∏*/
+/*È°µÈù¢Ê†áÈ¢òÊ†èopsÊåâÈíÆ*/
+/*È°µÈù¢Ê†áÂáÜÂÖÉ‰ª∂ÔºåÊ†áÈ¢òÊ†è*/
 .page-title-bar {
   margin-bottom: 20px;
   overflow: hidden;
@@ -2853,7 +2853,7 @@ a.send-button {
       .page-title-bar .ops .import .icon {
         background: url(/images/alltu.png) -85px -125px; }
 
-/*“≥√Ê±Í◊º‘™º˛£¨∆¿¬€*/
+/*È°µÈù¢Ê†áÂáÜÂÖÉ‰ª∂ÔºåËØÑËÆ∫*/
 .page-comments-list {
   margin-top: -1px;
   border-top: solid 1px #EEEEEE; }
@@ -2903,7 +2903,7 @@ a.send-button {
         top: 1px;
         left: 1px; }
 
-/*ŒÔº˛¡–±Ì*/
+/*Áâ©‰ª∂ÂàóË°®*/
 .page-olist .list-blank {
   padding: 20px;
   font-size: 13px;
@@ -2914,7 +2914,7 @@ a.send-button {
   -webkit-border-radius: 3px;
   background-color: #FAFAFA; }
 
-/*∏°∂Ø¥∞ÃÂ’⁄’÷*/
+/*ÊµÆÂä®Á™ó‰ΩìÈÅÆÁΩ©*/
 .page-overlay {
   position: absolute;
   left: 0;
@@ -8117,212 +8117,6 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
     .page-tu-mindmap-user-info-bar .data .name {
       font-size: 14px; }
 
-.page-user-mindmaps {
-  overflow: hidden; }
-  .page-user-mindmaps .empty {
-    padding: 10px;
-    font-size: 14px;
-    height: 300px;
-    border: none !important; }
-  .page-user-mindmaps .mindmap {
-    overflow: hidden;
-    border-bottom: solid 1px #eee;
-    padding: 0 20px 10px 20px;
-    margin-bottom: 20px;
-    padding: 0 10px 20px; }
-    .page-user-mindmaps .mindmap .lside {
-      float: left; }
-    .page-user-mindmaps .mindmap .m {
-      margin-left: 44px;
-      overflow: hidden; }
-      .page-user-mindmaps .mindmap .m .headmeta {
-        margin: 0 0 12px 0; }
-        .page-user-mindmaps .mindmap .m .headmeta span {
-          color: #aaa; }
-        .page-user-mindmaps .mindmap .m .headmeta .creator-name a {
-          font-weight: normal;
-          color: #aaa; }
-          .page-user-mindmaps .mindmap .m .headmeta .creator-name a:hover {
-            color: #aaa; }
-        .page-user-mindmaps .mindmap .m .headmeta .create-time .jtime {
-          color: #aaa; }
-        .page-user-mindmaps .mindmap .m .headmeta .scope a {
-          color: #aaa; }
-          .page-user-mindmaps .mindmap .m .headmeta .scope a:hover {
-            color: #aaa; }
-      .page-user-mindmaps .mindmap .m .data {
-        margin-bottom: 10px; }
-        .page-user-mindmaps .mindmap .m .data .title {
-          font-size: 14px;
-          font-weight: bold;
-          margin: 0 0 12px 0; }
-          .page-user-mindmaps .mindmap .m .data .title a {
-            color: #555; }
-            .page-user-mindmaps .mindmap .m .data .title a:hover {
-              text-decoration: none;
-              border-bottom: dotted 1px #666; }
-        .page-user-mindmaps .mindmap .m .data .thumb {
-          overflow: hidden; }
-          .page-user-mindmaps .mindmap .m .data .thumb a {
-            display: block;
-            font-size: 0;
-            line-height: 0; }
-      .page-user-mindmaps .mindmap .m .status {
-        margin: 0 0 10px 0; }
-        .page-user-mindmaps .mindmap .m .status .is-private {
-          margin-top: -1px;
-          border-top: solid 1px #EEEEEE;
-          border-bottom: solid 1px #EEEEEE;
-          padding: 5px;
-          color: #888; }
-        .page-user-mindmaps .mindmap .m .status .faved-by {
-          margin-top: -1px;
-          border-top: solid 1px #EEEEEE;
-          border-bottom: solid 1px #EEEEEE;
-          padding: 5px;
-          color: #888; }
-        .page-user-mindmaps .mindmap .m .status .coop-users {
-          margin-top: -1px;
-          border-top: solid 1px #EEEEEE;
-          border-bottom: solid 1px #EEEEEE;
-          background: #FAFAFA;
-          padding: 5px;
-          overflow: hidden; }
-          .page-user-mindmaps .mindmap .m .status .coop-users .desc {
-            margin: 0 0 5px 0;
-            color: #888; }
-          .page-user-mindmaps .mindmap .m .status .coop-users .avatar {
-            width: 26px;
-            height: 26px;
-            float: left;
-            margin-right: 5px; }
-        .page-user-mindmaps .mindmap .m .status .comments {
-          margin-top: -1px;
-          border-top: solid 1px #EEEEEE; }
-          .page-user-mindmaps .mindmap .m .status .comments .comment {
-            overflow: hidden;
-            padding: 5px;
-            background: #FAFAFA; }
-            .page-user-mindmaps .mindmap .m .status .comments .comment .avatar {
-              float: left;
-              margin-right: 10px; }
-              .page-user-mindmaps .mindmap .m .status .comments .comment .avatar img {
-                width: 24px;
-                height: 24px; }
-        .page-user-mindmaps .mindmap .m .status .comment-form {
-          padding: 5px;
-          margin-top: -1px;
-          border-top: solid 1px #EEEEEE; }
-          .page-user-mindmaps .mindmap .m .status .comment-form .inputer {
-            width: 500px;
-            height: 16px; }
-          .page-user-mindmaps .mindmap .m .status .comment-form .btns {
-            overflow: hidden; }
-            .page-user-mindmaps .mindmap .m .status .comment-form .btns button, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button {
-              border-radius: 3px;
-              -moz-border-radius: 3px;
-              -webkit-border-radius: 3px;
-              border: none 0px;
-              margin: 4px 5px 0 0;
-              padding: 2px 7px;
-              float: left;
-              text-decoration: none; }
-              .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-submit, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-submit {
-                cursor: pointer;
-                color: white;
-                background: #0063DC; }
-                .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-submit:hover, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-submit:hover {
-                  background: #0054BD; }
-              .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-cancel, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-cancel {
-                cursor: pointer;
-                color: #616D7D;
-                background: #C4DFFF; }
-                .page-user-mindmaps .mindmap .m .status .comment-form .btns button.editable-cancel:hover, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.editable-cancel:hover {
-                  background: #B4CFFF; }
-              .page-user-mindmaps .mindmap .m .status .comment-form .btns button.mousedown, .page-user-mindmaps .mindmap .m .status .comment-form .btns a.button.mousedown {
-                position: relative;
-                top: 1px;
-                left: 1px; }
-      .page-user-mindmaps .mindmap .m .footmisc {
-        overflow: hidden;
-        margin-bottom: 10px; }
-        .page-user-mindmaps .mindmap .m .footmisc .rank {
-          height: 18px;
-          line-height: 18px;
-          float: left;
-          width: 30px;
-          background-color: #8ABFE6;
-          border-radius: 3px;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px;
-          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-          color: white;
-          font-weight: bold;
-          text-align: center;
-          margin-right: 10px; }
-        .page-user-mindmaps .mindmap .m .footmisc .time {
-          height: 20px;
-          line-height: 20px;
-          float: left;
-          margin-right: 10px; }
-        .page-user-mindmaps .mindmap .m .footmisc .share {
-          height: 20px;
-          line-height: 20px;
-          float: left;
-          overflow: hidden; }
-          .page-user-mindmaps .mindmap .m .footmisc .share a.share_to {
-            float: left;
-            width: 18px;
-            height: 18px;
-            border-radius: 2px;
-            -moz-border-radius: 2px;
-            -webkit-border-radius: 2px;
-            margin-right: 5px;
-            line-height: 33em;
-            font-size: 0;
-            overflow: hidden;
-            background-color: white;
-            background-repeat: no-repeat;
-            background-position: 1px 1px; }
-            .page-user-mindmaps .mindmap .m .footmisc .share a.share_to.tsina {
-              background-image: url(/images/share/tsina.png); }
-            .page-user-mindmaps .mindmap .m .footmisc .share a.share_to.renren {
-              background-image: url(/images/share/renren.png); }
-            .page-user-mindmaps .mindmap .m .footmisc .share a.share_to.douban {
-              background-image: url(/images/share/douban.png); }
-        .page-user-mindmaps .mindmap .m .footmisc .ops {
-          height: 20px;
-          line-height: 20px;
-          float: right;
-          overflow: hidden; }
-          .page-user-mindmaps .mindmap .m .footmisc .ops .o {
-            margin-left: 10px;
-            float: left; }
-            .page-user-mindmaps .mindmap .m .footmisc .ops .o a {
-              font-size: 12px; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-private .icon {
-                position: relative;
-                top: 2px;
-                float: left;
-                width: 16px;
-                height: 16px;
-                margin: 0 2px 0 0; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-private.public .icon {
-                background: url(/images/alltu.png) no-repeat -18px -35px; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-private.private .icon {
-                background: url(/images/alltu.png) no-repeat -1px -35px; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-fav .icon {
-                position: relative;
-                top: 2px;
-                float: left;
-                width: 16px;
-                height: 16px;
-                margin: 0 2px 0 0; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-fav.unfav .icon {
-                background: url(/images/alltu.png) no-repeat -18px -52px; }
-              .page-user-mindmaps .mindmap .m .footmisc .ops .o a.toggle-fav.fav .icon {
-                background: url(/images/alltu.png) no-repeat -1px -52px; }
-
 .searched-mindmaps {
   background: white;
   padding: 10px;
@@ -8365,222 +8159,6 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
     .searched-mindmaps .search-result .time {
       margin-left: 5px; }
 
-.feed-form-mev6 {
-  padding: 60px 0 45px 10px;
-  margin: 0 0 10px 0;
-  background: url(/images/icons/mindmap-form-bg.png) no-repeat 0 0;
-  border-radius: 6px;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border: solid 1px #ddd;
-  width: 520px; }
-  .feed-form-mev6 .btns {
-    width: 500px;
-    overflow: hidden; }
-    .feed-form-mev6 .btns .import-mindmap, .feed-form-mev6 .btns .create-mindmap, .feed-form-mev6 .btns .edit-mindmap, .feed-form-mev6 .btns .send {
-      width: 32px;
-      height: 32px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      float: left;
-      margin: 5px 5px 5px 0;
-      cursor: pointer;
-      color: white;
-      background: -moz-linear-gradient(-90deg, #84a2d4, #2a4072);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#84a2d4), to(#2a4072));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#84a2d4',endColorstr='#2a4072');
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-      border: solid 1px #6CD4F6; }
-      .feed-form-mev6 .btns .import-mindmap:hover, .feed-form-mev6 .btns .create-mindmap:hover, .feed-form-mev6 .btns .edit-mindmap:hover, .feed-form-mev6 .btns .send:hover {
-        background: -moz-linear-gradient(-90deg, #89c3eb, #4c6db4);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#89c3eb), to(#4c6db4));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#89c3eb',endColorstr='#4c6db4');
-        color: white;
-        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3); }
-    .feed-form-mev6 .btns .import-mindmap {
-      /*@include gradient(#BBC9E6,#BCBCDE);*/
-      background: -moz-linear-gradient(-90deg, #94e4fd, #3fc3ef);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#94e4fd), to(#3fc3ef));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#94e4fd',endColorstr='#3fc3ef'); }
-      .feed-form-mev6 .btns .import-mindmap .icon {
-        background: url(/images/icons/all.png) no-repeat 0 -117px;
-        width: 24px;
-        height: 24px;
-        margin: 3px 0 0 3px; }
-      .feed-form-mev6 .btns .import-mindmap:hover {
-        background: -moz-linear-gradient(-90deg, #b3ecfc, #6ad6f4);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#b3ecfc), to(#6ad6f4));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#b3ecfc',endColorstr='#6ad6f4'); }
-    .feed-form-mev6 .btns .create-mindmap, .feed-form-mev6 .btns .edit-mindmap {
-      width: 70px;
-      margin: 5px 0 5px;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: 32px;
-      padding: 0 0 0 10px;
-      border: solid 1px #556FA1; }
-    .feed-form-mev6 .btns .feed-content {
-      width: 320px;
-      height: 22px;
-      float: left;
-      margin: 5px 5px 5px 0;
-      background: #F7FCFF; }
-    .feed-form-mev6 .btns .import-loading, .feed-form-mev6 .btns .import-loading-tips {
-      display: none; }
-    .feed-form-mev6 .btns.loading .import-mindmap {
-      display: none; }
-    .feed-form-mev6 .btns.loading .import-loading {
-      display: block;
-      float: left;
-      width: 32px;
-      height: 32px;
-      background: url(/images/icons/progress-dots.gif) 1px 1px no-repeat;
-      margin: 5px 5px 5px 0; }
-    .feed-form-mev6 .btns.loading input.feed-content {
-      display: none; }
-    .feed-form-mev6 .btns.loading .create-mindmap {
-      display: none; }
-    .feed-form-mev6 .btns.loading .import-loading-tips {
-      display: block;
-      float: left;
-      font-size: 14px;
-      margin-top: 4px;
-      border: solid 1px #A3A3A3;
-      background: white;
-      padding: 0 5px;
-      height: 32px;
-      line-height: 32px;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px; }
-  .feed-form-mev6 .import-mindmap-image {
-    background: #F6F8EE;
-    border: solid 1px #A3A3A3;
-    padding: 5px;
-    top: 41px;
-    z-index: 999;
-    position: absolute;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px; }
-    .feed-form-mev6 .import-mindmap-image .close-import-mindmap-image {
-      position: absolute;
-      right: 3px;
-      top: 3px;
-      width: 16px;
-      height: 16px;
-      background: url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor: pointer;
-      font-size: 0;
-      line-height: 0;
-      text-indent: -999px; }
-    .feed-form-mev6 .import-mindmap-image .image {
-      width: 125px;
-      height: 125px;
-      margin-top: 16px; }
-      .feed-form-mev6 .import-mindmap-image .image img {
-        border: solid 2px #A3A3A3;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px; }
-  .feed-form-mev6 .import-mindmap-form {
-    padding: 5px;
-    top: 41px;
-    z-index: 999;
-    position: absolute;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    width: 360px;
-    border: solid 3px #D9D9D7;
-    text-align: center; }
-    .feed-form-mev6 .import-mindmap-form #file-upload-btn {
-      height: 32px; }
-    .feed-form-mev6 .import-mindmap-form .close {
-      position: absolute;
-      right: 3px;
-      top: 3px;
-      width: 16px;
-      height: 16px;
-      background: url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor: pointer;
-      font-size: 0;
-      line-height: 0;
-      text-indent: -999px; }
-  .feed-form-mev6 .import-error {
-    background: #323546;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border: solid 1px #111;
-    width: 300px;
-    padding: 5px;
-    position: absolute;
-    top: 41px;
-    color: #FFB49C; }
-    .feed-form-mev6 .import-error .close {
-      position: absolute;
-      right: 3px;
-      top: 6px;
-      width: 16px;
-      height: 16px;
-      background: url(/images/icons/all.png) 0 -100px no-repeat;
-      cursor: pointer;
-      font-size: 0;
-      line-height: 0;
-      text-indent: -999px; }
-
-/*ÊÄùÁª¥ÂØºÂõæÔºå‰æßËæπÁªüËÆ°Ê†è*/
-.page-side-mindmaps-stat {
-  padding: 10px;
-  background-color: #FAFAFA;
-  border: solid 1px #EEEEEE;
-  margin-bottom: 10px;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px; }
-  .page-side-mindmaps-stat .ranks {
-    padding: 0 10px;
-    margin: 10px 0;
-    border-bottom: solid 1px #eee; }
-    .page-side-mindmaps-stat .ranks .chart {
-      margin: 0 0 10px 0;
-      height: 31px; }
-      .page-side-mindmaps-stat .ranks .chart s {
-        zoom: 1;
-        float: left;
-        width: 10px;
-        margin-right: 2px;
-        position: relative; }
-        .page-side-mindmaps-stat .ranks .chart s.odd {
-          background: #8ABFE6;
-          border-bottom: solid 1px #84ADCD; }
-        .page-side-mindmaps-stat .ranks .chart s.even {
-          background: #A6D0EF;
-          border-bottom: solid 1px #9ABDD6; }
-  .page-side-mindmaps-stat .words {
-    padding: 0 10px;
-    margin-bottom: 10px;
-    overflow: hidden; }
-    .page-side-mindmaps-stat .words .keywords {
-      overflow: hidden; }
-      .page-side-mindmaps-stat .words .keywords a.word {
-        float: left;
-        margin: 0 6px 6px 0;
-        background: #6a6a6a;
-        padding: 3px 10px;
-        height: 15px;
-        line-height: 15px;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        color: white; }
-        .page-side-mindmaps-stat .words .keywords a.word:hover {
-          text-decoration: none !important;
-          color: white;
-          background-color: #7a7a7a; }
-
 /*ÊÄùÁª¥ÂØºÂõæÔºå‰æßËæπÂæÆÂçöÊ†è*/
 .page-tu-weibo {
   padding: 10px;
@@ -8612,13 +8190,10 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-new-mindmap-form .field label {
     font-size: 14px; }
   .page-new-mindmap-form .field.title input.text {
-    width: 670px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+    width: 678px; }
   .page-new-mindmap-form .field.description textarea.text {
-    width: 670px;
-    padding: 5px 7px;
-    height: 80px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+    width: 678px;
+    height: 80px; }
   .page-new-mindmap-form .field.private span.disabled {
     color: #777; }
 
@@ -8632,18 +8207,15 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-upload-mindmap .field label {
     font-size: 14px; }
   .page-upload-mindmap .field.title input.text {
-    width: 670px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+    width: 678px; }
   .page-upload-mindmap .field.description textarea.text {
-    width: 670px;
-    padding: 5px 7px;
-    height: 80px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) inset; }
+    width: 678px;
+    height: 80px; }
   .page-upload-mindmap .field.private span.disabled {
     color: #777; }
   .page-upload-mindmap .page-upload-mindmap-result {
     background: #FFF9DC;
-    border: solid 2px #EFEACE;
+    border: solid 1px #EFEACE;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -8680,7 +8252,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
       cursor: pointer; }
   .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem {
     background: #FFF9DC;
-    border: solid 2px #EFEACE;
+    border: solid 1px #EFEACE;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -8702,7 +8274,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-upload-mindmap .upload {
     overflow: hidden;
     background: #FFF9DC;
-    border: solid 2px #EFEACE;
+    border: solid 1px #EFEACE;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -9306,3 +8878,180 @@ form .field.sendto-select-widget .sendto-selector {
         text-decoration: none; }
   .page-olist.tasks .task .ops {
     padding: 0 10px 5px; }
+
+.page-olist.mindmaps {
+  padding: 0 20px; }
+  .page-olist.mindmaps .list-blank {
+    margin: 0 0 200px 0; }
+  .page-olist.mindmaps .mindmap {
+    border: solid 1px #eee;
+    padding: 10px;
+    margin-bottom: 20px; }
+    .page-olist.mindmaps .mindmap .creator {
+      margin: -10px -10px 10px;
+      background-color: #fafafa;
+      border-bottom: solid 1px #eee;
+      padding: 10px;
+      overflow: hidden; }
+      .page-olist.mindmaps .mindmap .creator .avatar {
+        float: left; }
+      .page-olist.mindmaps .mindmap .creator .name {
+        margin-left: 44px;
+        font-weight: bold;
+        line-height: 16px; }
+        .page-olist.mindmaps .mindmap .creator .name a {
+          color: #999; }
+      .page-olist.mindmaps .mindmap .creator .time {
+        margin-left: 44px;
+        line-height: 16px; }
+    .page-olist.mindmaps .mindmap .title {
+      margin: -10px -10px 10px;
+      background-color: #fafafa;
+      border-bottom: solid 1px #eee;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold; }
+      .page-olist.mindmaps .mindmap .title a {
+        color: #555; }
+        .page-olist.mindmaps .mindmap .title a:hover {
+          text-decoration: none;
+          border-bottom: dotted 1px #666; }
+    .page-olist.mindmaps .mindmap .data {
+      margin-bottom: 10px; }
+      .page-olist.mindmaps .mindmap .data .thumb {
+        overflow: hidden; }
+        .page-olist.mindmaps .mindmap .data .thumb a {
+          display: block;
+          font-size: 0;
+          line-height: 0; }
+    .page-olist.mindmaps .mindmap .status {
+      margin: 0 0 10px 0; }
+      .page-olist.mindmaps .mindmap .status .is-private {
+        margin-top: -1px;
+        border-top: solid 1px #EEEEEE;
+        border-bottom: solid 1px #EEEEEE;
+        padding: 5px;
+        color: #888; }
+      .page-olist.mindmaps .mindmap .status .faved-by {
+        margin-top: -1px;
+        border-top: solid 1px #EEEEEE;
+        border-bottom: solid 1px #EEEEEE;
+        padding: 5px;
+        color: #888; }
+      .page-olist.mindmaps .mindmap .status .coop-users {
+        margin-top: -1px;
+        border-top: solid 1px #EEEEEE;
+        border-bottom: solid 1px #EEEEEE;
+        background: #FAFAFA;
+        padding: 5px;
+        overflow: hidden; }
+        .page-olist.mindmaps .mindmap .status .coop-users .desc {
+          margin: 0 0 5px 0;
+          color: #888; }
+        .page-olist.mindmaps .mindmap .status .coop-users .avatar {
+          width: 26px;
+          height: 26px;
+          float: left;
+          margin-right: 5px; }
+    .page-olist.mindmaps .mindmap .footmisc {
+      overflow: hidden;
+      margin-bottom: 10px; }
+      .page-olist.mindmaps .mindmap .footmisc .rank {
+        height: 18px;
+        line-height: 18px;
+        float: left;
+        width: 30px;
+        background-color: #8ABFE6;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        margin-right: 10px; }
+      .page-olist.mindmaps .mindmap .footmisc .time {
+        height: 20px;
+        line-height: 20px;
+        float: left;
+        margin-right: 10px; }
+      .page-olist.mindmaps .mindmap .footmisc .share {
+        height: 20px;
+        line-height: 20px;
+        float: left;
+        overflow: hidden; }
+        .page-olist.mindmaps .mindmap .footmisc .share a.share_to {
+          float: left;
+          width: 18px;
+          height: 18px;
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          margin-right: 5px;
+          line-height: 33em;
+          font-size: 0;
+          overflow: hidden;
+          background-color: white;
+          background-repeat: no-repeat;
+          background-position: 1px 1px; }
+          .page-olist.mindmaps .mindmap .footmisc .share a.share_to.tsina {
+            background-image: url(/images/share/tsina.png); }
+          .page-olist.mindmaps .mindmap .footmisc .share a.share_to.renren {
+            background-image: url(/images/share/renren.png); }
+          .page-olist.mindmaps .mindmap .footmisc .share a.share_to.douban {
+            background-image: url(/images/share/douban.png); }
+      .page-olist.mindmaps .mindmap .footmisc .ops {
+        height: 20px;
+        line-height: 20px;
+        float: right;
+        overflow: hidden; }
+        .page-olist.mindmaps .mindmap .footmisc .ops .o {
+          margin-left: 10px;
+          float: left; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a {
+            font-size: 12px; }
+            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private .icon {
+              position: relative;
+              top: 2px;
+              float: left;
+              width: 16px;
+              height: 16px;
+              margin: 0 2px 0 0; }
+            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private.public .icon {
+              background: url(/images/alltu.png) no-repeat -18px -35px; }
+            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private.private .icon {
+              background: url(/images/alltu.png) no-repeat -1px -35px; }
+            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav .icon {
+              position: relative;
+              top: 2px;
+              float: left;
+              width: 16px;
+              height: 16px;
+              margin: 0 2px 0 0; }
+            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.unfav .icon {
+              background: url(/images/alltu.png) no-repeat -18px -52px; }
+            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.fav .icon {
+              background: url(/images/alltu.png) no-repeat -1px -52px; }
+
+.minibutton {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  display: block;
+  padding: 0;
+  text-align: center;
+  background-color: #F0F0F0;
+  border: solid 1px #ddd;
+  font-weight: bold;
+  color: #444 !important;
+  display: inline-block;
+  height: 22px;
+  line-height: 22px;
+  padding: 0 5px; }
+  .minibutton:hover {
+    text-decoration: none;
+    background-color: #E9E9E9;
+    color: #444 !important;
+    box-shadow: 0 1px 2px #ccc; }
+  .minibutton span {
+    display: block; }

@@ -31,7 +31,7 @@
       .desc
         选择要上传的导图文件，不超过4MB。支持 .mmap, .mm, .xmind, .imm
 
-    -mindpin_form_for(@mindmap,:url=>'/mindmaps/do_import',:html=>{:multipart=>true}) do |f|
+    -form_for(@mindmap,:url=>'/mindmaps/do_import',:html=>{:multipart=>true}) do |f|
       =hidden_field_tag 'upload_temp_id',''
       .field.title
         %label 标题

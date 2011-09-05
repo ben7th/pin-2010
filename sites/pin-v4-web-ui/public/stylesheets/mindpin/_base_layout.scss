@@ -1,4 +1,4 @@
-/*Ò³Ãæ±ê×¼Ôª¼ş£¬äÖÈ¾³ö´í*/
+/*é¡µé¢æ ‡å‡†å…ƒä»¶ï¼Œæ¸²æŸ“å‡ºé”™*/
 .render-error{
   background-color:red;
   color:white;
@@ -6,7 +6,7 @@
   padding:5px;
 }
 
-/*Ò³Ãæ±êÌâÀ¸ops°´Å¥*/
+/*é¡µé¢æ ‡é¢˜æ opsæŒ‰é’®*/
 @mixin ops-op-btn{
   float:left;
   display:block;
@@ -28,7 +28,7 @@
   .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
 }
 
-/*Ò³Ãæ±ê×¼Ôª¼ş£¬±êÌâÀ¸*/
+/*é¡µé¢æ ‡å‡†å…ƒä»¶ï¼Œæ ‡é¢˜æ */
 .page-title-bar{
   margin-bottom:20px;
   overflow:hidden;
@@ -37,7 +37,7 @@
   overflow:hidden;
   &.nomb{margin-bottom:0;}
   &.ov{overflow:visible;}
-  
+
   .meta{
     float:left;
     h2{
@@ -49,7 +49,7 @@
   }
   .ops{
     float:right;
-    
+
     .create{
       @include ops-op-btn;
       background-color:#4C8FFD;
@@ -58,7 +58,7 @@
       .icon{background:url(/images/alltu.png) -85px -100px;}
       &.mindmap{.icon{background:url(/images/alltu.png) -85px -100px;}}
     }
-   
+
     .import{
       @include ops-op-btn;
       background-color:#4CBBFD;
@@ -66,11 +66,11 @@
       &:hover{border-color:#2098DD;}
       .icon{background:url(/images/alltu.png) -85px -125px;}
       &.mindmap{}
-    } 
+    }
   }
 }
 
-/*Ò³Ãæ±ê×¼Ôª¼ş£¬ÆÀÂÛ*/
+/*é¡µé¢æ ‡å‡†å…ƒä»¶ï¼Œè¯„è®º*/
 .page-comments-list{
   margin-top:-1px;
   border-top:solid 1px #EEEEEE;
@@ -97,7 +97,7 @@
   }
 }
 
-/*Îï¼şÁĞ±í*/
+/*ç‰©ä»¶åˆ—è¡¨*/
 .page-olist{
   .list-blank{
     padding:20px;font-size:13px;
@@ -108,7 +108,7 @@
   }
 }
 
-/*¸¡¶¯´°ÌåÕÚÕÖ*/
+/*æµ®åŠ¨çª—ä½“é®ç½©*/
 .page-overlay{
   position: absolute;
   left:0;top:0;

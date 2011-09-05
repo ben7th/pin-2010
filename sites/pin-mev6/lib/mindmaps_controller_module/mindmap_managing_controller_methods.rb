@@ -45,7 +45,6 @@ module MindmapManagingControllerMethods
 
 
   def info
-    set_cellhead_path('/index/cellhead')
     if !has_view_rights?(@mindmap,current_user)
       return render_status_page(403,'当前用户对这个思维导图没有编辑权限')
     end
@@ -63,17 +62,7 @@ module MindmapManagingControllerMethods
   end
 
   def public_maps
-    set_cellhead_path('/index/cellhead')
     @mindmaps = Mindmap.publics.paginate({:order=>"id desc",:page=>params[:page],:per_page=>25})
-  end
-
-  def index
-    if logged_in?
-
-    else
-      @mindmaps = Mindmap.valueable.paginate({:order=>"id desc",:page=>params[:page],:per_page=>12})
-      render :template=>'mindmaps/no_auth/no_auth_mindmaps'
-    end
   end
 
   def user_mindmaps

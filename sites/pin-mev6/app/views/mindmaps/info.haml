@@ -69,7 +69,7 @@
             =link_to "下一个",'javascript:;'
 
   .page-mindmap-info-view
-    =render 'mindmaps/lists/management',:mindmaps=>[@mindmap]
+    =render 'mindmaps/list/list',:mindmaps=>[@mindmap]
 
   -if current_user.has_binded_sina?
     .page-mindmap-others{:style=>'margin:0 20px 10px 20px;'}

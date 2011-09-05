@@ -40,7 +40,6 @@ class FeedsController < ApplicationController
   def _create_android_client
     content = params[:content].read
     detail = params[:detail].read
-
     feed = current_user.send_feed(content,:detail=>detail,:tags=>params[:tags],:sendto=>params[:sendto],:photos=>params[:photos])
     if feed.id.blank?
       return render :status=>402,:text=>402

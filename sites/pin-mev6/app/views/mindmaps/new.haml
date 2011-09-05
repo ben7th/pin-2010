@@ -7,7 +7,7 @@
 
   .page-new-mindmap-form
     =flash_info
-    - mindpin_form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+    - form_for(@mindmap,:html=>{:multipart=>true}) do |f|
       .field.title
         %label 标题
         = text_field_tag :'mindmap[title]','',:class=>'text'

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import com.mindpin.R;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.Http;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,6 +24,7 @@ import android.widget.LinearLayout.LayoutParams;
 public class NewFeedActivity extends Activity implements Runnable {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
 	protected static final int MESSAGE_SEND_SUCCESS = 0;
+	protected static final int MESSAGE_SEND_FAIL = 1;
 	LinearLayout feed_captures;
 	private ArrayList<String> capture_paths = new ArrayList<String>();
 	
@@ -39,10 +38,15 @@ public class NewFeedActivity extends Activity implements Runnable {
 	private ProgressDialog progress_dialog;
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
+			progress_dialog.dismiss();
 			switch (msg.what) {
 			case MESSAGE_SEND_SUCCESS:
-				progress_dialog.dismiss();
-				System.out.println("发送成功");
+				Toast.makeText(getApplicationContext(),"发送成功",
+						Toast.LENGTH_SHORT).show();
+				break;
+			case MESSAGE_SEND_FAIL:
+				Toast.makeText(getApplicationContext(),"发送失败",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		};
@@ -158,7 +162,11 @@ public class NewFeedActivity extends Activity implements Runnable {
 	}
 
 	public void run() {
-		Http.send_feed(feed_title, feed_content, capture_paths);
-		mhandler.sendEmptyMessage(MESSAGE_SEND_SUCCESS);
+		boolean bol = Http.send_feed(feed_title, feed_content, capture_paths);
+		if(bol){
+			mhandler.sendEmptyMessage(MESSAGE_SEND_SUCCESS);
+		}else{
+			mhandler.sendEmptyMessage(MESSAGE_SEND_FAIL);
+		}
 	}
 }

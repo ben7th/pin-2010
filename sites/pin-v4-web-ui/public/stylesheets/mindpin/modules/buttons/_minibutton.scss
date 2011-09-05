@@ -1,0 +1,6 @@
+.minibutton{
+  @include button-gray;
+  display:inline-block;
+  height:22px;line-height:22px;
+  padding:0 5px;
+}

@@ -1,15 +1,4 @@
 .page-header
-  .menu
-    .container_24
-      .topbar
-        -if logged_in?
-          .sp=link_to "用户设置",pin_url_for('pin-user-auth','/account?service=tu')
-          .sp=link_to "退出",pin_url_for('pin-user-auth','/logout?service=tu')
-
-        -else
-          .sp=link_to '用户注册','/signup'
-          .sp=link_to '登录','/login?service=tu'
-
   .nav
     .container_24
       .site-logo
@@ -17,13 +6,17 @@
       .nav-menu
         .user-meta
           .title 初学者
-          .name=qlink current_user
+          .name=usersign current_user
         -link_to "/users/#{current_user.id}",:class=>'li homepage',:tip=>'个人页' do
           .avatar=avatar current_user,:tiny
+        =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account?service=tu'),:class=>'li setting',:tip=>'设置'
+        =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout?service=tu'),:class=>'li logout',:tip=>'退出'
+
       .mindmap-search-form>
         %form{:action=>"/mindmaps/search",:method=>"get"}>
           %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
           =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
+
 
 
 

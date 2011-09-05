@@ -30,7 +30,9 @@ class UiService
       pin_url_for('ui')
     end
   end
-  
+
+  #-------------------------------------------
+
   class << self
     def css_files
       case RAILS_ENV

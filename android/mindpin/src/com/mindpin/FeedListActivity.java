@@ -4,22 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
 import com.mindpin.Logic.Http;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -31,15 +25,8 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class FeedListActivity extends Activity {
-	private final int GROUP_DEFAULT = 0;
-	private final int MENU_ABOUT = 1;
-	private final int MENU_LOGOUT = 2;
-	
 	private final int MESSAGE_FEED_LIST_LOAD_OK=0;
-	
 	private final int REQUEST_CAPTURE = 0;
-	
-	
 	private List<HashMap<String, Object>> feed_list;
 	private ProgressDialog progressDialog;
 	private Handler mhandler = new Handler(){
@@ -83,28 +70,6 @@ public class FeedListActivity extends Activity {
 		thread.start();
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(GROUP_DEFAULT, MENU_ABOUT, 0, R.string.about);
-		menu.add(GROUP_DEFAULT, MENU_LOGOUT, 0, R.string.logout);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case MENU_ABOUT:
-			startActivity(new Intent(this, AboutActivity.class));
-			break;
-		case MENU_LOGOUT:
-			remove_user_info();
-			startActivity(new Intent(this, LoginActivity.class));
-			this.finish();
-			break;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -151,15 +116,5 @@ public class FeedListActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-	}
-	
-
-	private void remove_user_info() {
-		SharedPreferences pre = getSharedPreferences(
-				LoadingActivity.PREFERENCES_NAME, MODE_PRIVATE);
-		Editor pre_edit = pre.edit();
-		pre_edit.remove("email");
-		pre_edit.remove("password");
-		pre_edit.commit();
 	}
 }
