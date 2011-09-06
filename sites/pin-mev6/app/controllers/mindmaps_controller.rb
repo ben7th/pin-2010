@@ -12,7 +12,7 @@ class MindmapsController < ApplicationController
 
   def toggle_fav
     current_user.toggle_fav_mindmap(@mindmap)
-    render :partial=>'mindmaps/lists/management',:locals=>{:mindmaps=>[@mindmap]}
+    render :partial=>'mindmaps/list/list',:locals=>{:mindmaps=>[@mindmap]}
   end
 
   ############### user-auth

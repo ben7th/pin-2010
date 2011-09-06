@@ -23,24 +23,11 @@ module MindmapManagingControllerMethods
 
   # DELETE /mindmaps/1
   def destroy
-    @redirect_mindmap = @mindmap.next(current_user)
-    @redirect_mindmap = @mindmap.prev(current_user) if @redirect_mindmap.nil?
     if(@mindmap.user_id != current_user.id)
       return render_status_page(503,'当前用户并非导图作者，不能删除导图')
     end
     @mindmap.destroy
-    if request.xhr?
-      return render_ui.mplist :remove,@mindmap
-    end
-    respond_to do |format|
-      format.html do
-        return redirect_to info_mindmap_path(@redirect_mindmap) if !!@redirect_mindmap
-        return redirect_to "/mindmaps/users/#{current_user.id}"
-      end
-      format.xml do
-        head :ok
-      end
-    end
+    render :text=>'ok'
   end
 
 
@@ -56,7 +43,7 @@ module MindmapManagingControllerMethods
     end
 
     if @mindmap.toggle_private
-      return render :partial=>'mindmaps/lists/management',:locals=>{:mindmaps=>[@mindmap]}
+      return render :partial=>'mindmaps/list/list',:locals=>{:mindmaps=>[@mindmap]}
     end
     return render :status=>503,:text=>"修改失败"
   end
