@@ -1,0 +1,18 @@
+-#use collection列表页
+-#see 顶部导航栏 collections
+
+-htitle '我的收集册'
+
+.mside.grid_6.no-line
+  =morender 'mside_module','avatar',:user=>current_user
+
+.main.grid_18.no-line
+  .page-title-bar.grid.ov
+    .meta
+      %h2 收集册
+      .desc 对你的讨论主题、文章、照片进行分类管理和分享
+    .ops
+      =morender 'new_forms','collection'
+    .clearfix
+
+  =prender 'grid',:collections=>@collections

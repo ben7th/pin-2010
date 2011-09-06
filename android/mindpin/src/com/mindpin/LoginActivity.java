@@ -2,13 +2,11 @@ package com.mindpin;
 
 import java.io.IOException;
 
+import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.Http;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +32,7 @@ public class LoginActivity extends Activity {
 			progressDialog.dismiss();
 			switch (msg.what) {
 			case AUTH_SUCCESS:
-				save_user_info(email, password);
+				AccountManager.save_user_info(LoginActivity.this,email, password);
 				startActivity(new Intent(LoginActivity.this,
 						MainActivity.class));
 				LoginActivity.this.finish();
@@ -109,14 +107,5 @@ public class LoginActivity extends Activity {
 			mhandler.sendMessage(msg);
 			e.printStackTrace();
 		}
-	}
-
-	private void save_user_info(String email, String password) {
-		SharedPreferences pre = getSharedPreferences(LoadingActivity.PREFERENCES_NAME,
-				MODE_PRIVATE);
-		Editor pre_edit = pre.edit();
-		pre_edit.putString("email", email);
-		pre_edit.putString("password", password);
-		pre_edit.commit();
 	}
 }

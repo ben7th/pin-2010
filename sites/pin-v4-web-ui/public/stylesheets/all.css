@@ -2313,7 +2313,7 @@ Release Date: November 8, 2010
         background: url(/images/alltu.png) no-repeat -394px -50px; }
       .page-header .nav .nav-menu a.li.contacts .icon {
         background: url(/images/alltu.png) no-repeat -419px -50px; }
-      .page-header .nav .nav-menu a.li.tasks .icon {
+      .page-header .nav .nav-menu a.li.collections .icon {
         background: url(/images/alltu.png) no-repeat -394px -75px; }
       .page-header .nav .nav-menu a.li.entries .icon {
         background: url(/images/alltu.png) no-repeat -419px -75px; }
@@ -2429,7 +2429,7 @@ Release Date: November 8, 2010
     padding-top: 20px;
     padding-bottom: 20px;
     border-right: solid 1px #eee; }
-    .page-content .cell .main.nl {
+    .page-content .cell .main.nl, .page-content .cell .main.no-line {
       border: none; }
     .page-content .cell .main.ll {
       border-right: none;
@@ -2447,6 +2447,14 @@ Release Date: November 8, 2010
       width: 229px !important; }
     .page-content .cell .mside.grid_7 {
       width: 269px !important; }
+    .page-content .cell .mside.no-line.grid_4 {
+      width: 150px !important; }
+    .page-content .cell .mside.no-line.grid_5 {
+      width: 190px !important; }
+    .page-content .cell .mside.no-line.grid_6 {
+      width: 230px !important; }
+    .page-content .cell .mside.no-line.grid_7 {
+      width: 270px !important; }
     .page-content .cell .mside .sidepart {
       background-color: #F7F7F7;
       border-radius: 8px;
@@ -2774,6 +2782,10 @@ a.send-button {
     margin-bottom: 0; }
   .page-title-bar.ov {
     overflow: visible; }
+  .page-title-bar.grid {
+    border: solid 1px #eee;
+    padding: 9px;
+    margin-bottom: 10px; }
   .page-title-bar .meta {
     float: left; }
     .page-title-bar .meta h2 {
@@ -2909,6 +2921,15 @@ a.send-button {
   padding: 20px;
   font-size: 13px;
   margin: 10px;
+  border: solid 1px #EEEEEE;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-color: #FAFAFA; }
+
+.page-ogrid .list-blank {
+  padding: 9px;
+  font-size: 13px;
   border: solid 1px #EEEEEE;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -8711,10 +8732,29 @@ form .field.sendto-select-widget .sendto-selector {
         background: none; }
 
 /*modules*/
-.page-new-task-op {
+.page-mside-avatar {
+  border: solid 1px #eee;
+  padding: 9px;
+  margin-bottom: 20px; }
+  .page-mside-avatar .name {
+    font-size: 14px;
+    font-weight: bold; }
+    .page-mside-avatar .name a {
+      color: #444; }
+      .page-mside-avatar .name a:hover {
+        color: #444; }
+  .page-mside-avatar .avatar {
+    width: 210px;
+    height: 210px; }
+    .page-mside-avatar .avatar img {
+      position: relative;
+      top: 56px;
+      left: 56px; }
+
+.page-new-collection-op {
   position: relative;
   margin-bottom: 10px; }
-  .page-new-task-op .btn {
+  .page-new-collection-op .btn {
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -8723,10 +8763,10 @@ form .field.sendto-select-widget .sendto-selector {
     border: dashed 2px #999;
     color: #999;
     cursor: pointer; }
-    .page-new-task-op .btn:hover {
+    .page-new-collection-op .btn:hover {
       background-color: #f4fff4;
       color: #669966; }
-  .page-new-task-op .form, .page-new-task-op .pop-box {
+  .page-new-collection-op .form, .page-new-collection-op .pop-box {
     position: absolute;
     border: solid 1px #aaa;
     border-radius: 3px;
@@ -8737,9 +8777,9 @@ form .field.sendto-select-widget .sendto-selector {
     background-color: white;
     z-index: 100;
     box-shadow: 0 0 5px #bbb; }
-    .page-new-task-op .form .form-placeholder, .page-new-task-op .pop-box .form-placeholder {
+    .page-new-collection-op .form .form-placeholder, .page-new-collection-op .pop-box .form-placeholder {
       padding: 10px; }
-      .page-new-task-op .form .form-placeholder .title, .page-new-task-op .pop-box .form-placeholder .title {
+      .page-new-collection-op .form .form-placeholder .title, .page-new-collection-op .pop-box .form-placeholder .title {
         background-color: #FAFAFA;
         padding: 10px;
         border-radius: 2px;
@@ -8748,7 +8788,7 @@ form .field.sendto-select-widget .sendto-selector {
         color: #777;
         margin: -10px -10px 10px;
         border-bottom: solid 1px #EEEEEE; }
-      .page-new-task-op .form .form-placeholder form .field a.create-submit, .page-new-task-op .pop-box .form-placeholder form .field a.create-submit {
+      .page-new-collection-op .form .form-placeholder form .field a.create-submit, .page-new-collection-op .pop-box .form-placeholder form .field a.create-submit {
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -8766,14 +8806,14 @@ form .field.sendto-select-widget .sendto-selector {
         font-size: 14px;
         float: left;
         margin-right: 10px; }
-        .page-new-task-op .form .form-placeholder form .field a.create-submit:hover, .page-new-task-op .pop-box .form-placeholder form .field a.create-submit:hover {
+        .page-new-collection-op .form .form-placeholder form .field a.create-submit:hover, .page-new-collection-op .pop-box .form-placeholder form .field a.create-submit:hover {
           color: white;
           text-decoration: none;
           border: solid 1px #0069dd;
           box-shadow: 0 1px 2px #ccc; }
-        .page-new-task-op .form .form-placeholder form .field a.create-submit span, .page-new-task-op .pop-box .form-placeholder form .field a.create-submit span {
+        .page-new-collection-op .form .form-placeholder form .field a.create-submit span, .page-new-collection-op .pop-box .form-placeholder form .field a.create-submit span {
           display: block; }
-      .page-new-task-op .form .form-placeholder form .field a.create-cancel, .page-new-task-op .pop-box .form-placeholder form .field a.create-cancel {
+      .page-new-collection-op .form .form-placeholder form .field a.create-cancel, .page-new-collection-op .pop-box .form-placeholder form .field a.create-cancel {
         border-radius: 4px;
         -moz-border-radius: 4px;
         -webkit-border-radius: 4px;
@@ -8792,14 +8832,14 @@ form .field.sendto-select-widget .sendto-selector {
         font-weight: bold;
         text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
         float: left; }
-        .page-new-task-op .form .form-placeholder form .field a.create-cancel:hover, .page-new-task-op .pop-box .form-placeholder form .field a.create-cancel:hover {
+        .page-new-collection-op .form .form-placeholder form .field a.create-cancel:hover, .page-new-collection-op .pop-box .form-placeholder form .field a.create-cancel:hover {
           color: #555;
           text-decoration: none;
           background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
           background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
           filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
           border: solid 1px #848484; }
-      .page-new-task-op .form .form-placeholder .ops-btns, .page-new-task-op .pop-box .form-placeholder .ops-btns {
+      .page-new-collection-op .form .form-placeholder .ops-btns, .page-new-collection-op .pop-box .form-placeholder .ops-btns {
         background-color: #FAFAFA;
         padding: 6px 10px;
         border-radius: 2px;
@@ -8808,7 +8848,7 @@ form .field.sendto-select-widget .sendto-selector {
         color: #777;
         margin: 0 -10px -10px;
         border-top: solid 1px #EEEEEE; }
-        .page-new-task-op .form .form-placeholder .ops-btns a.create-submit, .page-new-task-op .pop-box .form-placeholder .ops-btns a.create-submit {
+        .page-new-collection-op .form .form-placeholder .ops-btns a.create-submit, .page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-submit {
           border-radius: 3px;
           -moz-border-radius: 3px;
           -webkit-border-radius: 3px;
@@ -8830,14 +8870,14 @@ form .field.sendto-select-widget .sendto-selector {
           font-size: 12px;
           float: left;
           margin-right: 10px; }
-          .page-new-task-op .form .form-placeholder .ops-btns a.create-submit:hover, .page-new-task-op .pop-box .form-placeholder .ops-btns a.create-submit:hover {
+          .page-new-collection-op .form .form-placeholder .ops-btns a.create-submit:hover, .page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-submit:hover {
             color: white;
             text-decoration: none;
             border: solid 1px #0069dd;
             box-shadow: 0 1px 2px #ccc; }
-          .page-new-task-op .form .form-placeholder .ops-btns a.create-submit span, .page-new-task-op .pop-box .form-placeholder .ops-btns a.create-submit span {
+          .page-new-collection-op .form .form-placeholder .ops-btns a.create-submit span, .page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-submit span {
             display: block; }
-        .page-new-task-op .form .form-placeholder .ops-btns a.create-cancel, .page-new-task-op .pop-box .form-placeholder .ops-btns a.create-cancel {
+        .page-new-collection-op .form .form-placeholder .ops-btns a.create-cancel, .page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-cancel {
           border-radius: 4px;
           -moz-border-radius: 4px;
           -webkit-border-radius: 4px;
@@ -8860,33 +8900,56 @@ form .field.sendto-select-widget .sendto-selector {
           width: 60px;
           font-size: 12px;
           float: left; }
-          .page-new-task-op .form .form-placeholder .ops-btns a.create-cancel:hover, .page-new-task-op .pop-box .form-placeholder .ops-btns a.create-cancel:hover {
+          .page-new-collection-op .form .form-placeholder .ops-btns a.create-cancel:hover, .page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-cancel:hover {
             color: #555;
             text-decoration: none;
             background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
             background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
             filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
             border: solid 1px #848484; }
-  .page-new-task-op .pop-box .form-placeholder form .field .ipt-title {
+  .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title {
     width: 268px; }
 
-.page-olist.tasks .task {
-  border-bottom: solid 1px #eee;
-  position: relative; }
-  .page-olist.tasks .task .headmeta {
-    padding: 10px; }
-    .page-olist.tasks .task .headmeta .t-title a {
-      font-size: 14px;
-      font-weight: bold;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-      line-height: 22px;
-      color: #426389; }
-      .page-olist.tasks .task .headmeta .t-title a:hover {
-        color: #426389;
-        border-bottom: dotted 1px #999;
-        text-decoration: none; }
-  .page-olist.tasks .task .ops {
-    padding: 0 10px 5px; }
+.page-ogrid.collections {
+  width: 720px; }
+  .page-ogrid.collections .collection {
+    border: solid 1px #eee;
+    padding: 9px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    float: left;
+    width: 210px;
+    background-color: #fff; }
+    .page-ogrid.collections .collection .headmeta {
+      margin: -9px -9px 0;
+      padding: 4px 9px;
+      border-bottom: solid 1px #eee;
+      background-color: #fafafa; }
+      .page-ogrid.collections .collection .headmeta .t-title a {
+        font-size: 14px;
+        font-weight: bold;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        line-height: 22px;
+        color: #999; }
+        .page-ogrid.collections .collection .headmeta .t-title a:hover {
+          color: #999;
+          border-bottom: dotted 1px #999;
+          text-decoration: none; }
+    .page-ogrid.collections .collection .data {
+      overflow: hidden;
+      padding: 9px 0 6px;
+      width: 220px; }
+      .page-ogrid.collections .collection .data .p {
+        border: solid 1px #f4f4f4;
+        width: 66px;
+        height: 66px;
+        margin: 0 3px 3px 0;
+        float: left; }
+    .page-ogrid.collections .collection .ops .minibutton {
+      display: block;
+      line-height: 30px;
+      height: 30px;
+      font-size: 14px; }
 
 .page-olist.mindmaps {
   padding: 0 20px; }

@@ -37,6 +37,11 @@
   overflow:hidden;
   &.nomb{margin-bottom:0;}
   &.ov{overflow:visible;}
+  &.grid{
+    border:solid 1px #eee;
+    padding:9px;
+    margin-bottom:10px;
+  }
 
   .meta{
     float:left;
@@ -102,6 +107,15 @@
   .list-blank{
     padding:20px;font-size:13px;
     margin:10px;
+    border:solid 1px #EEEEEE;
+    @include border-radius(3px);
+    background-color:#FAFAFA;
+  }
+}
+
+.page-ogrid{
+  .list-blank{
+    padding:9px;font-size:13px;
     border:solid 1px #EEEEEE;
     @include border-radius(3px);
     background-color:#FAFAFA;

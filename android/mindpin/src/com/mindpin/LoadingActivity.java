@@ -2,11 +2,9 @@ package com.mindpin;
 
 import java.io.IOException;
 
-import com.mindpin.Logic.Http;
-
+import com.mindpin.Logic.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +12,6 @@ import android.view.Window;
 import android.widget.Toast;
 
 public class LoadingActivity extends Activity implements Runnable {
-	public static final String PREFERENCES_NAME = "Mindpin";
 	private static final int MESSAGE_LOGGED = 0;
 	private static final int MESSAGE_UNLOGGED = 1;
 	private static final int MESSAGE_INTENT_FAIL = 2;
@@ -50,11 +47,11 @@ public class LoadingActivity extends Activity implements Runnable {
 	}
 
 	public void run() {
-		String email = get_email();
-		String password = get_password();
+		String email = AccountManager.get_email(this);
+		String password = AccountManager.get_password(this);
 		try {
 			if (!"".equals(email) && !"".equals(password)
-					&& user_authenticate(email, password)) {
+					&& AccountManager.user_authenticate(email, password)) {
 				// œ‘ æƒ⁄»›
 				Message msg = mhandler.obtainMessage();
 				msg.what = MESSAGE_LOGGED;
@@ -72,23 +69,4 @@ public class LoadingActivity extends Activity implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
-	private String get_email() {
-		SharedPreferences pre = getSharedPreferences(PREFERENCES_NAME,
-				MODE_PRIVATE);
-		return pre.getString("email", "");
-	}
-
-	private String get_password() {
-		SharedPreferences pre = getSharedPreferences(PREFERENCES_NAME,
-				MODE_PRIVATE);
-		return pre.getString("password", "");
-	}
-
-	private boolean user_authenticate(String email, String password) throws IOException {
-		boolean auth = false;
-		auth = Http.user_authenticate(email, password);
-		return auth;
-	}
-
 }

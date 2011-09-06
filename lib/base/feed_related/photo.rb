@@ -5,17 +5,19 @@ class Photo < UserAuthAbstract
   validates_presence_of :user
 
   if RAILS_ENV == "development"
-    IMAGE_PATH = "/web1/2010/:class/:attachment/:id/:style/:basename.:extension"
+    IMAGE_BASE_PATH = "/web1/2010/photos/images"
+    IMAGE_PATH = "#{IMAGE_BASE_PATH}/:id/:style/:basename.:extension"
     IMAGE_URL = "http://dev.mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
   else
-    IMAGE_PATH = "/web/2010/:class/:attachment/:id/:style/:basename.:extension"
+    IMAGE_BASE_PATH = "/web/2010/photos/images"
+    IMAGE_PATH = "#{IMAGE_BASE_PATH}/:id/:style/:basename.:extension"
     IMAGE_URL = "http://mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
   end
 
   validates_attachment_content_type :image,
     :content_type => ['image/gif', 'image/png', 'image/jpeg'],
-    :message=>"只能上传图片"
-  validates_attachment_presence :image
+    :message=>"只能上传图片",:if=>Proc.new{|photo|!photo.skip_resize_image}
+  validates_attachment_presence :image,:if=>Proc.new{|photo|!photo.skip_resize_image}
   # image
   has_attached_file :image,
     :styles => {
@@ -32,7 +34,8 @@ class Photo < UserAuthAbstract
   },
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
-    :default_style => :original
+    :default_style => :original,
+    :if=>Proc.new{|photo|!photo.skip_resize_image}
 
   before_create :set_md5
   def set_md5
@@ -46,6 +49,18 @@ class Photo < UserAuthAbstract
     {:height=>image.rows,:width=>image.columns}
   rescue Exception => ex
     {:height=>0,:width=>0}
+  end
+
+  def image_base_path
+    File.join(IMAGE_BASE_PATH,self.id.to_s)
+  end
+
+  def skip_resize_image
+    @skip_resize_image
+  end
+
+  def skip_resize_image=(skip_resize_image)
+    @skip_resize_image=skip_resize_image
   end
 
   module UserMethods

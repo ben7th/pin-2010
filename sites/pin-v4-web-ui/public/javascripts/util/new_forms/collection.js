@@ -1,5 +1,5 @@
 pie.load(function(){
-  var op_elm = jQuery('.page-new-task-op');
+  var op_elm = jQuery('.page-new-collection-op');
   if(!op_elm[0]) return; //页面无对应元素则不加载事件
   
   var btn_elm = op_elm.find('.create');
@@ -10,7 +10,7 @@ pie.load(function(){
   var form_cancel_elm = op_elm.find('a.create-cancel');
   var form_title_ipter_elm = op_elm.find('input.ipt-title');
 
-  var tasks_list_elm = jQuery('.page-olist.tasks');
+  var collections_grid_elm = jQuery('.page-ogrid.collections');
 
 
   //点击按钮弹出表单
@@ -48,7 +48,7 @@ pie.load(function(){
   }
 
   //点击界面任何位置，关闭表单
-  jQuery(document).bind('click.page-new-task-op',function(evt){
+  jQuery(document).bind('click.page-new-collection-op',function(evt){
     var target = evt.target;
     var op_dom = op_elm[0];
 
@@ -93,16 +93,16 @@ pie.load(function(){
 
       //var loading_elm = jQuery('<div class="aj-loading"></div>')
       jQuery.ajax({
-        url : '/tasks',
+        url : '/collections',
         type : 'post',
         data : param,
         beforeSend : function(){
           hide_op_form();
-          //tasks_list_elm.prepend(loading_elm)
+          //collections_grid_elm.prepend(loading_elm)
         },
         success : function(res){
           var new_elm = jQuery(res);
-          tasks_list_elm.prepend(new_elm.hide().fadeIn());
+          collections_grid_elm.prepend(new_elm.hide().fadeIn());
           //loading_elm.remove();
         },
         error : function(){

@@ -1,8 +1,8 @@
 module ViewsModulesHelper
 
-  def morender(kind,name)
+  def morender(kind,name,params={})
     begin
-      render "views_modules/#{kind.pluralize}/#{name}"
+      render "views_modules/#{kind.pluralize}/#{name}",params
     rescue Exception => ex
       "<div class='render-error'>错误：#{ex}</div>"
     end

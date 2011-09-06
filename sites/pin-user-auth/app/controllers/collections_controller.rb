@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class CollectionsController < ApplicationController
   before_filter :login_required
   before_filter :per_load
   def per_load
@@ -6,28 +6,13 @@ class TasksController < ApplicationController
   end
 
   def index
-    redirect_to '/tasks/i/inbox'
+    @collections = current_user.out_collections
   end
-
-  def tasks_of
-    @group_name = params[:group_name]
-    return render_status_page(404,'任务列表不存在') if !['inbox','now','next_step','scheduled','someday'].include? @group_name
-    @tasks = current_user.out_collections
-  end
-
-  def projects
-    
-  end
-
-  def system
-    
-  end
-
 
   def create
-    task = current_user.create_collection_by_params(params[:title])
-    unless task.id.blank?
-      return render :partial=>'tasks/parts/list',:locals=>{:tasks=>[task]}
+    collection = current_user.create_collection_by_params(params[:title])
+    unless collection.id.blank?
+      return render :partial=>'collections/parts/grid',:locals=>{:collections=>[collection]}
     end
     render :text=>"创建失败",:status=>402
   end

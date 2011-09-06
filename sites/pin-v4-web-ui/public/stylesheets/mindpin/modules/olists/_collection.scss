@@ -1,0 +1,48 @@
+.page-ogrid.collections{
+  width:720px;
+  
+  .collection{
+    border:solid 1px #eee;
+    padding:9px;
+    margin-bottom:10px;
+    margin-right:10px;
+    float:left;
+    width:210px;
+    background-color:#fff;
+    
+    .headmeta{
+      margin:-9px -9px 0;
+      padding:4px 9px;
+      border-bottom:solid 1px #eee;
+      background-color:#fafafa;
+      .t-title{
+        a{
+          font-size:14px;font-weight:bold;
+          @include tfont;
+          line-height:22px;
+          color:#999;
+          &:hover{
+            color:#999;
+            border-bottom:dotted 1px #999;
+            text-decoration:none;
+          };
+        }
+      }
+    }
+    .data{
+      overflow:hidden;
+      padding:9px 0 6px;
+      width:220px;
+      .p{
+        border:solid 1px #f4f4f4;
+        width:66px;height:66px;
+        margin:0 3px 3px 0;
+        float:left;
+      }
+    }
+    .ops{
+      .minibutton{display:block;
+        line-height:30px;height:30px;font-size:14px;}
+    }
+  }
+}

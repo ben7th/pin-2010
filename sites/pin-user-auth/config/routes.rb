@@ -286,17 +286,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :atmes
 
-  map.resources :tasks,
-    :collection=>{
-      :projects=>:get,
-      :system=>:get
-    },
+  map.resources :collections,
     :member=>{
       :change_name=>:put,
       :change_sendto=>:put,
       :add_feed=>:put
     }
-  map.tasks_of "/tasks/i/:group_name",:controller=>"tasks",:action=>"tasks_of"
 
 
   map.resources :photos,:collection=>{:feed_upload=>:post},:member=>{

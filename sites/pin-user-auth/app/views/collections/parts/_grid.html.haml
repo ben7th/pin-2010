@@ -1,0 +1,22 @@
+.page-ogrid.collections
+  -if collections.blank?
+    .list-blank
+      你还没有任何收集册，你可以点击<b>新建</b>来创建。
+  -else
+    -collections.each do |collection|
+      .collection{:'data-id'=>collection.id}
+        .headmeta
+          .t-title=link_to collection.title,"/collections/#{collection.id}"
+        .data
+          .p
+          .p
+          .p
+          .p
+          .p
+          .p
+          .p
+          .p
+          .p
+        .ops
+          -if collection.creator == current_user
+            %a.minibutton.edit{:href=>'javascript:;'} <span>修　改</span>

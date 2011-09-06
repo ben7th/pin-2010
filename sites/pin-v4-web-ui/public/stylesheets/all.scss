@@ -57,9 +57,11 @@
 @import 'mindpin/sendto_selector';
 
 /*modules*/
-@import 'mindpin/modules/new_forms/task';
+@import 'mindpin/modules/msides/mside_avatar';
 
-@import 'mindpin/modules/olists/task';
-@import 'mindpin/modules/olists/mindmaps';
+@import 'mindpin/modules/new_forms/collection';
+
+@import 'mindpin/modules/olists/collection';
+@import 'mindpin/modules/olists/mindmap';
 
 @import 'mindpin/modules/buttons/minibutton';

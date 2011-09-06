@@ -620,7 +620,7 @@ div.pagination .prev_page:hover,div.pagination .next_page:hover{text-decoration:
 .page-header .nav .nav-menu a.li .icon{width:24px;height:24px;position:relative;top:3px;left:8px;}
 .page-header .nav .nav-menu a.li.feeds .icon{background:url(/images/alltu.png) no-repeat -394px -50px;}
 .page-header .nav .nav-menu a.li.contacts .icon{background:url(/images/alltu.png) no-repeat -419px -50px;}
-.page-header .nav .nav-menu a.li.tasks .icon{background:url(/images/alltu.png) no-repeat -394px -75px;}
+.page-header .nav .nav-menu a.li.collections .icon{background:url(/images/alltu.png) no-repeat -394px -75px;}
 .page-header .nav .nav-menu a.li.entries .icon{background:url(/images/alltu.png) no-repeat -419px -75px;}
 .page-header .nav .nav-menu a.li.notices,.page-header .nav .nav-menu a.li.setting,.page-header .nav .nav-menu a.li.logout{width:30px;padding:0;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .page-header .nav .nav-menu a.li.notices{margin-left:10px;line-height:30px;font-size:14px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;text-align:center;font-weight:bold;color:#444;}
@@ -645,7 +645,7 @@ div.pagination .prev_page:hover,div.pagination .next_page:hover{text-decoration:
 .page-content .cell.layout-auto .layout-main .layout-main-inside{padding-top:20px;}
 .page-content .cell .main-title{font-size:16px;font-weight:bold;margin:0 0 20px 0;}
 .page-content .cell .main{padding-top:20px;padding-bottom:20px;border-right:solid 1px #eee;}
-.page-content .cell .main.nl{border:none;}
+.page-content .cell .main.nl,.page-content .cell .main.no-line{border:none;}
 .page-content .cell .main.ll{border-right:none;border-left:solid 1px #eee;}
 .page-content .cell .main.dl{border-right:solid 1px #eee;border-left:solid 1px #eee;}
 .page-content .cell .mside{padding-top:20px;}
@@ -653,6 +653,10 @@ div.pagination .prev_page:hover,div.pagination .next_page:hover{text-decoration:
 .page-content .cell .mside.grid_5{width:189px!important;}
 .page-content .cell .mside.grid_6{width:229px!important;}
 .page-content .cell .mside.grid_7{width:269px!important;}
+.page-content .cell .mside.no-line.grid_4{width:150px!important;}
+.page-content .cell .mside.no-line.grid_5{width:190px!important;}
+.page-content .cell .mside.no-line.grid_6{width:230px!important;}
+.page-content .cell .mside.no-line.grid_7{width:270px!important;}
 .page-content .cell .mside .sidepart{background-color:#F7F7F7;border-radius:8px;-moz-border-radius:8px;-webkit-border-radius:8px;overflow:hidden;margin-bottom:10px;}
 .page-content .cell .mside .hrr{margin:0 10px;height:0;line-height:0;font-size:0;border-top:solid 1px red;border-bottom:solid 1px red;}
 .page-content .cell .mside hr.split{height:0;font-size:0;line-height:0;border-top:solid 1px #DBDDDB;border-bottom:solid 1px #FDFFFD;margin:0;padding:0;}
@@ -727,6 +731,7 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-title-bar{margin-bottom:20px;overflow:hidden;border-bottom:solid 1px #eee;padding:0 20px 10px 20px;margin-bottom:20px;padding:0 10px 10px;overflow:hidden;}
 .page-title-bar.nomb{margin-bottom:0;}
 .page-title-bar.ov{overflow:visible;}
+.page-title-bar.grid{border:solid 1px #eee;padding:9px;margin-bottom:10px;}
 .page-title-bar .meta{float:left;}
 .page-title-bar .meta h2{font-size:14px;font-weight:bold;}
 .page-title-bar .meta .desc{color:#777;}
@@ -758,6 +763,7 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-comment-form .btns button.editable-cancel:hover,.page-comment-form .btns a.button.editable-cancel:hover{background:#B4CFFF;}
 .page-comment-form .btns button.mousedown,.page-comment-form .btns a.button.mousedown{position:relative;top:1px;left:1px;}
 .page-olist .list-blank{padding:20px;font-size:13px;margin:10px;border:solid 1px #EEE;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FAFAFA;}
+.page-ogrid .list-blank{padding:9px;font-size:13px;border:solid 1px #EEE;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FAFAFA;}
 .page-overlay{position:absolute;left:0;top:0;background-color:#fff;z-index:99;}
 .page-new-feed-form h2.main-title{font-size:20px;font-weight:bold;margin:0 0 20px 0;}
 .page-new-feed-form .field label{font-size:14px;}
@@ -2007,6 +2013,12 @@ form .field.sendto-select-widget .sendto-selector .groups .it:hover,form .field.
 form .field.sendto-select-widget .sendto-selector .groups .it.lock,form .field.sendto-select-widget .sendto-selector .channels .it.lock{color:#ccc;cursor:default;}
 form .field.sendto-select-widget .sendto-selector .groups .it.lock .quiet,form .field.sendto-select-widget .sendto-selector .channels .it.lock .quiet{color:#ccc!important;}
 form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .field.sendto-select-widget .sendto-selector .channels .it.lock:hover{background:none;}
+.page-mside-avatar{border:solid 1px #eee;padding:9px;margin-bottom:20px;}
+.page-mside-avatar .name{font-size:14px;font-weight:bold;}
+.page-mside-avatar .name a{color:#444;}
+.page-mside-avatar .name a:hover{color:#444;}
+.page-mside-avatar .avatar{width:210px;height:210px;}
+.page-mside-avatar .avatar img{position:relative;top:56px;left:56px;}
 .page-new-task-op{position:relative;margin-bottom:10px;}
 .page-new-task-op .btn{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;text-align:center;padding:15px;border:dashed 2px #999;color:#999;cursor:pointer;}
 .page-new-task-op .btn:hover{background-color:#f4fff4;color:#696;}

@@ -86,10 +86,24 @@
 			android:background="@android:color/black" 
 		/>
 		<Button
+			android:id="@+id/album_bn"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="2.2"
+			android:text="@string/album_bn"
+			android:background="@drawable/album_bn"
+		/>
+		<TextView
+			android:layout_height="fill_parent"
+			android:layout_width="wrap_content"
+			android:layout_weight="0.1"
+			android:background="@android:color/black" 
+		/>
+		<Button
 			android:id="@+id/send_bn"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
-			android:layout_weight="8.9"
+			android:layout_weight="6.6"
 			android:text="@string/send_bn"
 			android:background="@drawable/send_bn"
 		/>

@@ -94,7 +94,7 @@
         .icon{width:24px;height:24px;position:relative;top:3px;left:8px;}
         &.feeds{.icon{@include allimg(-394px,-50px);}}
         &.contacts{.icon{@include allimg(-419px,-50px);}}
-        &.tasks{.icon{@include allimg(-394px,-75px);}}
+        &.collections{.icon{@include allimg(-394px,-75px);}}
         &.entries{.icon{@include allimg(-419px,-75px);}}
         
         &.notices,&.setting,&.logout{

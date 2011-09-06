@@ -1,0 +1,13 @@
+.page-mside-avatar{
+  border:solid 1px #eee;
+  padding:9px;
+  margin-bottom:20px;
+  .name{
+    font-size:14px;font-weight:bold;
+    a{color:#444;&:hover{color:#444;}};
+  }
+  .avatar{
+    width:210px;height:210px;
+    img{position:relative;top:56px;left:56px;}
+  }
+}

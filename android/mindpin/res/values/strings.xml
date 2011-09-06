@@ -18,6 +18,7 @@
     <string name="new_feed_title_et">主题标题</string>
     <string name="new_feed_content_et">主题内容</string>
     <string name="send_bn">发送</string>
+    <string name="album_bn">相册</string>
     <string name="feed_title_valid_blank">请输入主题标题</string>
     <!-- 显示照片页面 -->
     <string name="show_capture_image_back">返回</string>

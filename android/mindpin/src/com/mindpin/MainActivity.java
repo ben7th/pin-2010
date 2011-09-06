@@ -1,11 +1,10 @@
 package com.mindpin;
 
 
+import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,7 +66,7 @@ public class MainActivity extends Activity {
 			startActivity(new Intent(this, AboutActivity.class));
 			break;
 		case MENU_LOGOUT:
-			remove_user_info();
+			AccountManager.remove_user_info(this);
 			startActivity(new Intent(this, LoginActivity.class));
 			this.finish();
 			break;
@@ -90,14 +89,5 @@ public class MainActivity extends Activity {
 			break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
-	}
-	
-	private void remove_user_info() {
-		SharedPreferences pre = getSharedPreferences(
-				LoadingActivity.PREFERENCES_NAME, MODE_PRIVATE);
-		Editor pre_edit = pre.edit();
-		pre_edit.remove("email");
-		pre_edit.remove("password");
-		pre_edit.commit();
 	}
 }

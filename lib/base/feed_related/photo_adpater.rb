@@ -7,60 +7,38 @@ class PhotoAdpater
 
   # 返回 image_file_name
   def self.create_by_upload_file(file)
-    upload_temp_id = randstr
-
-    file_name = file.original_filename
-    # 存储上传的文件
-    image_file_name = "#{upload_temp_id}.#{self.file_type_by_filename(file_name)}"
-    save_path = self.path_by_image_file_name(image_file_name)
-
-    basedir = File.dirname(save_path)
-    FileUtils.mkdir_p(basedir) unless File.exist?(basedir)
-
-    FileUtils.cp(file.path,save_path)
-    File.chmod(0777,save_path)
-
-    # 生成缩略图
-    thumb_save_path = self.thumb_path_by_image_file_name(image_file_name)
-    thumb_basedir = File.dirname(thumb_save_path)
-    FileUtils.mkdir_p(thumb_basedir) unless File.exist?(thumb_basedir)
-
-    file = File.new(save_path)
-    img = Magick::Image::read(file).first
-    img_type = img.resize_to_fill(50,50)
-    img_type.write thumb_save_path
-
-    image_file_name
+    pt = PhotoTmp.create!(:image=>file)
+    pt.id
   end
 
   def self.url_by_image_file_name(image_file_name)
-    pin_url_for("ui","upload_photo_tempfile/#{image_file_name}")
+    PhotoTmp.find(image_file_name).image.url
   end
 
   def self.thumb_url_by_image_file_name(image_file_name)
-    pin_url_for("ui","upload_photo_tempfile/thumb/#{image_file_name}")
+    PhotoTmp.find(image_file_name).image.url(:s50)
   end
 
   def self.path_by_image_file_name(image_file_name)
-    File.join(ATTACHED_FILE_PATH_ROOT,image_file_name)
+    PhotoTmp.find(image_file_name).image.path
   end
 
   def self.thumb_path_by_image_file_name(image_file_name)
-    File.join(ATTACHED_FILE_PATH_ROOT,"thumb",image_file_name)
+    PhotoTmp.find(image_file_name).image.path(:s50)
   end
 
   def self.create_photo_by_file_name(image_file_name,user)
-    file_path = self.path_by_image_file_name(image_file_name)
-    thumb_path = self.thumb_path_by_image_file_name(image_file_name)
-    photo = user.create_photo_or_find_by_file_md5(File.new(file_path))
-    FileUtils.rm(file_path)
-    FileUtils.rm(thumb_path)
-    photo
-  end
-
-  def self.file_type_by_filename(filename)
-    name_splits = filename.split(".")
-    name_splits.pop || "jpg"
+    photo_tmp = PhotoTmp.find(image_file_name)
+    photo = Photo.new(:user=>user,:skip_resize_image=>true)
+    photo.send(:create_without_callbacks)
+    photo.md5 = photo_tmp.md5
+    photo.image_content_type = photo_tmp.image_content_type
+    photo.image_file_size = photo_tmp.image_file_size
+    photo.image_updated_at = photo_tmp.image_updated_at
+    photo.image_file_name = photo_tmp.image_file_name
+    photo.send(:update_without_callbacks)
+    FileUtils.cp_r(photo_tmp.image_base_path,photo.image_base_path)
+    Photo.find(photo.id)
   end
 
 end
