@@ -47,7 +47,7 @@
       .logo-s
     .title 欢迎你，#{name}
     .new-form
-      - mindpin_form_for(Mindmap.new,:url=>'/tsina_app/create_mindmap',:html=>{:multipart=>true}) do |f|
+      - form_for(Mindmap.new,:url=>'/tsina_app/create_mindmap',:html=>{:multipart=>true}) do |f|
         .field
           %label 导图标题
           = text_field_tag :'mindmap[title]','',:class=>'text mindmap-title'
