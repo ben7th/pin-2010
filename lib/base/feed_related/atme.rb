@@ -26,8 +26,8 @@ class Atme < UserAuthAbstract
     end
   end
 
-  def self.change_atmes_by_atable(atable,content,creator)
-    users = Atme.parse_at_users(content)
+  def self.change_atmes_by_atable(atable,detail,creator)
+    users = Atme.parse_at_users(detail)
     old_users = atable.atmes.map{|a|a.user}
 
     # 增加没有的
@@ -61,9 +61,9 @@ class Atme < UserAuthAbstract
 
     def add_or_change_atmes_by_content
       feed = self.feed
-      content = feed.detail_content
+      detail = feed.detail
       user = self.user
-      Atme.change_atmes_by_atable(feed,content,user)
+      Atme.change_atmes_by_atable(feed,detail,user)
       return true
     end
   end
@@ -75,12 +75,12 @@ class Atme < UserAuthAbstract
     end
 
     def add_atmes_by_memo_on_create
-      Atme.add_atmes_by_atable(self,self.memo,self.user)
+      Atme.add_atmes_by_atable(self,self.detail,self.user)
       return true
     end
 
     def add_atmes_by_memo_on_update
-      Atme.change_atmes_by_atable(self,self.memo,self.user)
+      Atme.change_atmes_by_atable(self,self.detail,self.user)
       return true
     end
   end

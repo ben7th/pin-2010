@@ -53,7 +53,7 @@ class FeedRevision < UserAuthAbstract
     # 回滚标题和标签
     feed.update_attributes(:content=>content,:tag_ids=>tag_ids)
     # 回滚正文
-    feed.create_or_update_main_post(detail_content)
+    feed.update_detail_without_record_editor(detail_content)
     # 建立新 revision
 
     feed.record_editer(editor,"回滚到 版本#{revision_count}")
@@ -81,7 +81,7 @@ class FeedRevision < UserAuthAbstract
     def record_editer(editer,message="")
       self.reload
       FeedRevision.create(:feed=>self,:user=>editer,:tag_ids_json=>self.tag_ids.to_json,
-        :title=>self.content,:detail=>self.detail_content,:message=>message)
+        :title=>self.title,:detail=>self.detail,:message=>message)
     end
   end
 

@@ -1,12 +1,27 @@
 class CollectionsController < ApplicationController
   before_filter :login_required
   before_filter :per_load
+  skip_before_filter :verify_authenticity_token,:only=>[:index]
+  before_filter :verify_authenticity_token_by_client,:only=>[:index]
+  def verify_authenticity_token_by_client
+    verify_authenticity_token unless is_android_client?
+  end
+  
   def per_load
     @collection = Collection.find(params[:id]) if params[:id]
   end
 
   def index
-    @collections = current_user.out_collections
+    @collections = current_user.created_collections_db
+    if is_android_client?
+      render :json=>@collections
+    else
+      render :layout=>'collection'
+    end
+  end
+
+  def show
+    render :layout=>'collection'
   end
 
   def create

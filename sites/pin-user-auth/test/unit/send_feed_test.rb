@@ -20,7 +20,7 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     sendto = Feed::SendStatus::PRIVATE
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 是否发送成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -41,7 +41,7 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
 
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 是否发送成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -68,7 +68,7 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     sendto = Feed::SendStatus::PUBLIC
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 是否发送成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -138,7 +138,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 是否发送成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -211,7 +211,7 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ac = channels(:channel_ac)
     sendto="ch-#{channel_ac.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 是否发送成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -284,7 +284,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 是否发送成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -360,7 +360,7 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ad = channels(:channel_ad)
     sendto = "ch-#{channel_ad.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -435,7 +435,7 @@ class SendFeedTest < ActiveSupport::TestCase
     d.reload
     channel_ad.reload
 
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -511,7 +511,7 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ac = channels(:channel_ac)
     sendto = "ch-#{channel_ac.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed.id.blank?
     assert_equal false, feed.public?
     assert_equal true,feed.sent_scoped?
@@ -567,7 +567,7 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ac = channels(:channel_ac)
     sendto = "ch-#{channel_ac.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed.id.blank?
     assert_equal false, feed.public?
     assert_equal true,feed.sent_scoped?
@@ -652,7 +652,7 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     sendto = SendScope::FOLLOWINGS
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -686,7 +686,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed_1.id.blank?
     assert_equal false, feed_1.public?
     assert_equal true,feed_1.sent_all_followings?
@@ -720,7 +720,7 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     d = users(:d)
     sendto = "u-#{d.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed.id.blank?
     assert_equal true,feed.sent_scoped?
     assert_equal false,feed.public?
@@ -761,7 +761,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed_1.id.blank?
     assert_equal false, feed_1.public?
     assert_equal true,feed_1.sent_scoped?
@@ -827,7 +827,7 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     c = users(:c)
     sendto = "u-#{c.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed.id.blank?
     assert_equal true,feed.sent_scoped?
     assert_equal false,feed.public?
@@ -870,7 +870,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     assert_equal false, feed_1.id.blank?
     assert_equal true,feed_1.sent_scoped?
     assert_equal false, feed_1.public?
@@ -938,7 +938,7 @@ class SendFeedTest < ActiveSupport::TestCase
     c = users(:c)
     d = users(:d)
     sendto = "u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -988,7 +988,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -1044,7 +1044,7 @@ class SendFeedTest < ActiveSupport::TestCase
     c = users(:c)
     d = users(:d)
     sendto = "#{Feed::SendStatus::PUBLIC},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -1093,7 +1093,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed.reload
@@ -1148,7 +1148,7 @@ class SendFeedTest < ActiveSupport::TestCase
     c = users(:c)
     d = users(:d)
     sendto = "#{SendScope::FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -1199,7 +1199,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -1257,7 +1257,7 @@ class SendFeedTest < ActiveSupport::TestCase
     d = users(:d)
     channel_ac = channels(:channel_ac)
     sendto = "ch-#{channel_ac.id},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -1310,7 +1310,7 @@ class SendFeedTest < ActiveSupport::TestCase
     c.reload
     d.reload
     channel_ac.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -1369,7 +1369,7 @@ class SendFeedTest < ActiveSupport::TestCase
     d = users(:d)
     channel_ad = channels(:channel_ad)
     sendto = "ch-#{channel_ad.id},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
@@ -1422,7 +1422,7 @@ class SendFeedTest < ActiveSupport::TestCase
     c.reload
     d.reload
     channel_ad.reload
-    feed_1 = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
@@ -1477,10 +1477,10 @@ class SendFeedTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ac = channels(:channel_ac)
     channel_ad = channels(:channel_ad)
-    feed = a.send_feed("我是标题",:detail=>"我是正文",:sendto=>"   ")
+    feed = a.send_feed("我是标题", "我是正文",:sendto=>"   ")
     assert_equal false,feed.id.blank?
     assert_equal true,feed.public?
-    feed = a.send_feed("我是标题",:detail=>"我是正文")
+    feed = a.send_feed("我是标题", "我是正文")
     assert_equal false,feed.id.blank?
     assert_equal true,feed.public?
 
@@ -1493,17 +1493,17 @@ class SendFeedTest < ActiveSupport::TestCase
     ]
     error_sendto_list.each do |sendto|
       assert_raise(SendScope::FormatError) do
-        a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+        a.send_feed("我是标题", "我是正文",:sendto=>sendto)
       end
     end
 
     assert_raise(SendScope::UnSpecifiedError) do
       sendto = Feed::SendStatus::SCOPED
-      a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+      a.send_feed("我是标题", "我是正文",:sendto=>sendto)
     end
 
     sendto = "ch-#{channel_ad.id},ch-#{channel_ac.id}"
-    a.send_feed("我是标题",:detail=>"我是正文",:sendto=>sendto)
+    a.send_feed("我是标题", "我是正文",:sendto=>sendto)
   end
 
   def init_users_and_contacts

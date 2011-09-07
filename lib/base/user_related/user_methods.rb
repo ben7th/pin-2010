@@ -156,7 +156,13 @@ module UserMethods
   end
 
   def _resize(img)
-    #    {:raw=>'500x500>',:medium=>"96x96#",:normal=>"48x48#",:tiny=>'32x32#',:mini=>'24x24#' }
+#      :raw=>'500x500>',
+#      :s200=>"200x200#",
+#      :medium=>"96x96#",
+#      :normal=>"48x48#",
+#      :tiny=>'32x32#',
+#      :mini=>'24x24#'
+    _resize_logo(img,"s200",200,200)
     _resize_logo(img,"medium",96,96)
     _resize_logo(img,"normal",48,48)
     _resize_logo(img,"tiny",32,32)

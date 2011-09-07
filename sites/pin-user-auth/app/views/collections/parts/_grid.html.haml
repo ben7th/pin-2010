@@ -19,4 +19,4 @@
           .p
         .ops
           -if collection.creator == current_user
-            %a.minibutton.edit{:href=>'javascript:;'} <span>修　改</span>
+            %a.minibutton.edit{:href=>"/collections/#{@collection}/edit"} <span>修改</span>

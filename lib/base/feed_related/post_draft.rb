@@ -47,7 +47,7 @@ class PostDraft < UserAuthAbstract
     end
 
     def remove_post_draft_on_update
-      return true if self.changes["memo"].blank?
+      return true if self.changes["detail"].blank?
       remove_post_draft
     end
   end

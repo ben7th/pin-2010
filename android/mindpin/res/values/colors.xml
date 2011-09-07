@@ -5,8 +5,12 @@
      	<item name="android:windowContentOverlay">@null</item>
      	<item name="android:textColor">#000</item>
     </style>
-    <drawable name="title_bar">#6699ff</drawable>
-    <drawable name="bottom_bar">#6699ff</drawable>
+    <color name="app_background_color">#ffffff</color><drawable name="title_bar_background_color">#444444</drawable>
+    <color name="title_bar_text_color">#ffffff</color><color name="login_button_text_color">#ffffff</color><drawable name="bottom_bar">#6699ff</drawable>
     <drawable name="main_bn_pressed">#6699ff</drawable>
     <drawable name="feed_bn_pressed">#ff9933</drawable>
+    
+    
+    
+    
 </resources>

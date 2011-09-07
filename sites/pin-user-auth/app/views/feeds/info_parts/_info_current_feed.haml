@@ -3,7 +3,7 @@
 
 -creator = feed.creator
 
--content = feed_content(feed)
+-title = feed_title(feed)
 -query ||= nil
 -if !!query
   -content.gsub!(query,"<span class='loud'>#{query}</span>")
@@ -17,7 +17,7 @@
     %span.scope=link_to '完全公开','javascript:;'
 
   .f-title
-    =link_to truncate_u(content,64),"/feeds/#{feed.id}"
+    =link_to truncate_u(title,64),"/feeds/#{feed.id}"
   .detail=feed_detail(feed)
   -if !feed.photos.blank?
     .photos

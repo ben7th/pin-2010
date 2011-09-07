@@ -3,7 +3,6 @@ class Feed < UserAuthAbstract
 
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
   validates_presence_of :creator
-  validates_presence_of :event
 
   class SendStatus
     PUBLIC = "public"
@@ -76,8 +75,8 @@ class Feed < UserAuthAbstract
   end
 
   def validate_content_length
-    if self.content.split(//u).length > 255
-      errors.add(:content,"内容长度不能超过 255 个字符")
+    if self.detail.split(//u).length > 255
+      errors.add(:base,"内容长度不能超过 255 个字符")
     end
   end
 
@@ -102,35 +101,29 @@ class Feed < UserAuthAbstract
     channel.main_users.include?(self.creator)
   end
 
-  def detail_content
-    post = self.main_post
-    return "" if post.blank?
-    post.memo||""
-  end
-
   def update_attrs_and_record_editor(editor,options)
-    options.assert_valid_keys(:content,:detail_content,:tag_names_string,:message)
+    options.assert_valid_keys(:title,:detail,:tag_names_string,:message)
     return if self.locked? && !editor.is_admin_user?
     return if editor.blank?
     
-    content = options[:content]
-    detail_content = options[:detail_content]
+    title = options[:title]
+    detail = options[:detail]
     tag_names_string = options[:tag_names_string]
     tag_names_string = Tag::DEFAULT if tag_names_string == ""
     mesage = options[:message]|| ""
 
-    con1 = (!content.blank? && content !=self.content)
-    con2 = (!detail_content.blank? && detail_content !=self.detail_content)
+    con1 = (!title.blank? && title !=self.title)
+    con2 = (!detail.blank? && detail !=self.detail)
     con3 = (!tag_names_string.nil?) && self.tag_has_change?(tag_names_string,editor)
 
     # 更新 feed 标题
     if con1
-      self.update_attributes(:content=>content)
+      self.update_title_without_record_editor(title)
     end
 
     # 更新 feed 详细内容
     if con2
-      self.create_or_update_main_post(detail_content)
+      self.update_detail_without_record_editor(detail)
     end
 
     # 更新 tags 详细内容
@@ -145,18 +138,18 @@ class Feed < UserAuthAbstract
   end
 
   # 更新 feed content
-  def update_content(content,editor)
-    update_attrs_and_record_editor(editor,:content=>content,:message=>"修改标题")
+  def update_title(title,editor)
+    update_attrs_and_record_editor(editor,:title=>title,:message=>"修改标题")
   end
   
   # 更新 feed detail_content
-  def update_detail_content(detail_content,editor)
-    update_attrs_and_record_editor(editor,:detail_content=>detail_content,:message=>"修改正文")
+  def update_detail(detail,editor)
+    update_attrs_and_record_editor(editor,:detail=>detail,:message=>"修改正文")
   end
 
-  def update_all_attr(content, tags, detail_content, editor)
-    update_attrs_and_record_editor(editor,:content=>content,
-      :detail_content=>detail_content,:tag_names_string=>tags
+  def update_all_attr(title, tags, detail, editor)
+    update_attrs_and_record_editor(editor,:title=>title,
+      :detail=>detail,:tag_names_string=>tags
     )
   end
 
@@ -250,10 +243,10 @@ class Feed < UserAuthAbstract
 
   def content_sections
     sections = []
-    sections.push self.content
+    sections.push self.title
     post = self.main_post
     unless post.blank?
-      sections+=post.memo_sections
+      sections+=post.detail_sections
     end
     sections
   end
@@ -278,41 +271,57 @@ class Feed < UserAuthAbstract
     SendFeedSectionsQueueWorker.async_send_tsina_status(:feed_id=>self.id,:user_id=>user.id)
   end
 
+  def title
+    post = self.main_post
+    return "" if post.blank?
+    post.title||""
+  end
+
+  def detail
+    post = self.main_post
+    return "" if post.blank?
+    post.detail||""
+  end
+
+  def photos
+    self.main_post.photos
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
     end
 
-    def send_feed(content,options={})
-      event = options[:event] || Feed::SAY_OPERATE
+    def send_feed(title,detail,options={})
       sendto = options[:sendto] || ""
-      feed = Feed.new(:creator=>self,:event=>event,:content=>content)
+      feed = Feed.new(:creator=>self)
       SendScope.set_send_scope_by_string(feed,sendto)
       return feed if !feed.valid?
       feed.save!
 
-      feed.create_main_post(options[:detail]||"")
+      feed.create_main_post(title,detail)
 
       tags = options[:tags]
       tags = Tag::DEFAULT if tags.blank?
 
-      if !!options[:collection]
-        options[:collection].add_feed(feed,self)
+      if !!options[:collection_ids]
+        (options[:collection_ids]||"").split(",").each do |collection_id|
+          collection = Collection.find(collection_id)
+          fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
+          FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
+        end
       end
       
       if !!options[:photo_names]
         (options[:photo_names]||"").split(",").each do |name|
           photo = PhotoAdpater.create_photo_by_file_name(name,self)
-          feed.feed_photos.create(:photo=>photo)
+          feed.main_post.post_photos.create(:photo=>photo)
         end
       end
 
       feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)
       feed
-    end
-
-    def send_todolist_feed(title,options={})
     end
 
     def all_feeds_count
@@ -408,5 +417,4 @@ class Feed < UserAuthAbstract
   include Atme::AtableMethods
 
   include SendScope::FeedMethods
-  include FeedPhoto::FeedMethods
 end

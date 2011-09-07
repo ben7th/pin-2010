@@ -11,14 +11,14 @@ module FeedHelper
   def user_last_feed(user)
     feed = user.out_newest_feed
     return if feed.nil?
-    feed_content(feed)
+    feed_title(feed)
   end
 
   def channel_last_feed(channel)
     feed = channel.newest_feed
     return if feed.nil?
     user = feed.creator
-    "#{link_to user.name,user} #{feed_content(feed)}"
+    "#{link_to user.name,user} #{feed_title(feed)}"
   end
 
   def feed_preview(feed)

@@ -65,7 +65,7 @@ class UserHotPostsProxy < RedisBaseProxy
     {
       :class => Post,
       :after_update => Proc.new {|post|
-        if !post.changes["memo"].blank?
+        if !post.changes["detail"].blank?
           UserHotPostsProxy.refresh_cache_on_edit_post(post)
         elsif !post.changes["vote_score"].blank?
           UserHotPostsProxy.refresh_cache_on_post_vote(post)

@@ -52,6 +52,20 @@ body{
   }
 }
 
+body{
+  &.gray{
+    background-color:#F4F4F4;
+  }
+}
+
+.cell{
+  &.no-line{
+    border-bottom:none;
+    margin:0;
+    padding-bottom:60px;
+  }
+}
+
 .quotebg{
   border-left:solid 3px #FFE965;
   background-color:#FFFADA;

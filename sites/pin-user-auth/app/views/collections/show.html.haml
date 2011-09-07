@@ -1,0 +1,65 @@
+-#use collection列表页
+-#see 顶部导航栏 collections
+
+-htitle "#{@collection.title}"
+
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      var col_count = 4;
+      var col_array = [0, 0, 0, 0];
+
+      jQuery('.page-ogrid.collection-feeds .feed').each(function(){
+        var feed_elm = jQuery(this);
+        var min_height_col = jQuery.inArray(Math.min.apply(Math,col_array),col_array);
+        var min_height = col_array[min_height_col];
+
+        feed_elm.css('top',min_height).css('left', min_height_col*240);
+        feed_elm.domdata('col', min_height_col);
+
+        col_array[min_height_col] = min_height + feed_elm.outerHeight() + 10;
+      });
+
+      jQuery('.page-ogrid.collection-feeds').css('height',Math.max.apply(Math,col_array));
+      jQuery('.page-ogrid.collection-feeds').animate({'opacity':1},300)
+    })
+
+.main.grid_24.no-line
+  .page-collection-top
+    .meta
+      .title=@collection.title
+      .ops
+        %a.create{:href=>"/feeds/new?collection=#{@collection.id}"} <span class='icon'></span><span>添加条目</span>
+        %a.minibutton.edit{:href=>"/collections/#{@collection}/edit"} <span>修改</span>
+    .foot
+      .creator
+        .avatar=avatar @collection.creator,:tiny
+        .desc 由
+        .name=usersign @collection.creator
+        .desc 创建
+      .f-count
+        共 #{@collection.feeds.count} 个条目
+
+  .page-ogrid.collection-feeds{:style=>'opacity:0;'}
+    -feeds = @collection.creator.out_feeds
+    -if feeds.blank?
+      .list-blank 这里还没有条目
+    -else
+      -feeds.each do |feed|
+        .feed
+          .title=feed_title_short(feed,15)
+
+          -photos = feed.photos
+          -if !photos.blank?
+            -photo = photos.first
+            .photo{:'data-id'=>photo.id}>
+              %img{:src=>photo.image.url(:w200),:style=>"display:block;height:#{photo.w200_height}px"}
+              -if photos.length > 1
+                .photo-count
+                  #{photos.length} 张图片
+          -detail = feed_detail(feed)
+
+          -if !detail.blank?
+            .detail=detail
+            
+

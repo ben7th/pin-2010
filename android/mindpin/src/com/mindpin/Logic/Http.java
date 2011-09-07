@@ -2,9 +2,12 @@ package com.mindpin.Logic;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -21,10 +24,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mindpin.cache.AccountInfoCache;
+import com.mindpin.cache.CollectionsCache;
 import com.mindpin.utils.BaseUtils;
 
 public class Http {
-	private static final String SITE = "http://www.mindpin.com";
+	private static final String SITE = "http://dev.www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
 
 	public static boolean user_authenticate(String email, String password)
@@ -38,9 +43,10 @@ public class Http {
 		httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
 		HttpResponse response = httpclient.execute(httpost);
-		response.getEntity().getContent().close();
 		String res = response.getStatusLine().toString();
 		if ("HTTP/1.1 200 OK".equals(res)) {
+			String info = IOUtils.toString(response.getEntity().getContent());
+			AccountInfoCache.save(info);
 			return true;
 		} else {
 			return false;
@@ -120,10 +126,10 @@ public class Http {
 				HttpResponse response = httpclient.execute(httpost);
 				String res = response.getStatusLine().toString();
 				if ("HTTP/1.1 200 OK".equals(res)) {
-					String photo_name = BaseUtils.convert_stream_to_string(response
-							.getEntity().getContent());
+					String photo_name = IOUtils.toString(response.getEntity()
+							.getContent());
 					photo_names += photo_name;
-					if(i+1 != images.size()){
+					if (i + 1 != images.size()) {
 						photo_names += ",";
 					}
 				}
@@ -134,5 +140,43 @@ public class Http {
 			}
 		}
 		return photo_names;
+	}
+
+	public static InputStream download_logo(String logo_url) {
+		try {
+			HttpGet httpget = new HttpGet(logo_url);
+			httpget.setHeader("User-Agent", "android");
+			HttpResponse response = httpclient.execute(httpget);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				return response.getEntity().getContent();
+			} else {
+				return null;
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static void get_collections() {
+		try {
+			HttpGet httpget = new HttpGet(SITE + "/collections");
+			httpget.setHeader("User-Agent", "android");
+			HttpResponse response = httpclient.execute(httpget);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String collections = IOUtils.toString(response.getEntity()
+						.getContent());
+				CollectionsCache.save(collections);
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

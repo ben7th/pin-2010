@@ -10,31 +10,31 @@ module ViewpointFormatHelper
   # 主题
   #-----------------
 
-  def feed_content(feed)
-    "#{h(feed.content)}"
+  def feed_title(feed)
+    "#{h(feed.title)}"
   end
 
-  def feed_content_short(feed,length=16)
-    "#{h(truncate_u(feed.content,length))}"
+  def feed_title_short(feed,length=16)
+    "#{h(truncate_u(feed.title,length))}"
   end
 
   def feed_detail(feed)
-    content = feed.detail_content || ''
+    detail = feed.detail || ''
     main_post = feed.main_post
 
     html = case main_post.text_format
     when Post::FORMAT_HTML
-      content
+      detail
     when Post::FORMAT_MARKDOWN
-      MindpinTextFormat.new(content).to_html
+      MindpinTextFormat.new(detail).to_html
     end
 
     find_and_preserve html
   end
 
   def feed_detail_short(feed)
-    content = feed.detail_content || ''
-    text_str = MindpinTextFormat.new(content).to_text
+    detail = feed.detail || ''
+    text_str = MindpinTextFormat.new(detail).to_text
     find_and_preserve "#{h(truncate_u(text_str,256))}"
   end
 

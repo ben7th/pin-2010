@@ -11,6 +11,57 @@ class FeedCollection < UserAuthAbstract
       base.has_many :feeds_db,:through=>:feed_collections,:source=>:feed
     end
 
+    def only_text_feeds
+      Feed.find_by_sql(%`
+        select * from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        left join post_photos on post_photos.post_id = posts.id
+        where feed_collections.collection_id = #{self.id} 
+          and post_photos.post_id is null
+        order by feeds.id desc
+        `).uniq
+    end
+
+    def only_photo_feeds
+      Feed.find_by_sql(%`
+        select * from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        inner join post_photos on post_photos.post_id = posts.id
+        where feed_collections.collection_id = #{self.id}
+          and posts.detail = ''
+        order by feeds.id desc
+        `).uniq
+    end
+
+    def with_photo_feeds
+      Feed.find_by_sql(%`
+        select * from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        inner join post_photos on post_photos.post_id = posts.id
+        where feed_collections.collection_id = #{self.id}
+        order by feeds.id desc
+        `).uniq
+    end
+
+    def mixed_feeds
+      Feed.find_by_sql(%`
+        select * from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        inner join post_photos on post_photos.post_id = posts.id
+        where feed_collections.collection_id = #{self.id}
+          and posts.detail != ''
+        order by feeds.id desc
+        `).uniq
+    end
+
     def feeds_for(user)
       self.feeds & user.in_feeds
     end

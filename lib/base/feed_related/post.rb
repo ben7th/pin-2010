@@ -18,14 +18,6 @@ class Post < UserAuthAbstract
   named_scope :normal,:conditions=>"kind = '#{KIND_NORMAL}'",
     :order=>"id asc"
 
-  def add_memo(memo)
-    self.update_attributes(:memo=>memo)
-  end
-
-  def has_memo?
-    !self.memo.blank?
-  end
-
   after_create :remove_feed_invite
   after_update :remove_feed_invite
   def remove_feed_invite
@@ -37,11 +29,11 @@ class Post < UserAuthAbstract
     return true
   end
 
-  def memo_sections
+  def detail_sections
     if FORMAT_MARKDOWN == self.text_format
-      self.memo.split("\n\n").map{|section|section.gsub("\n","")}
+      self.detail.split("\n\n").map{|section|section.gsub("\n","")}
     else
-      text = self.memo.gsub(/<\/?(span|font|br|li|strong|blockquote|b)[^>]*>/,"")
+      text = self.detail.gsub(/<\/?(span|font|br|li|strong|blockquote|b)[^>]*>/,"")
       text.gsub(/<(p|ol)[^>]*>[^<]+<\/\1>/).to_a.map{|str|str.gsub(/<\/?[^>]*>/,"")}
     end
   end
@@ -76,7 +68,6 @@ class Post < UserAuthAbstract
   module FeedMethods
     def self.included(base)
       base.has_many :posts
-      base.has_many :memoed_posts,:class_name=>"Post",:conditions=>"posts.memo is not null",:order=>'vote_score desc'
       base.has_many :memoed_users_db,:through=>:posts,:source=>:user,
         :order=>"posts.vote_score desc"
     end
@@ -127,24 +118,24 @@ class Post < UserAuthAbstract
       end.compact
     end
 
+    def create_main_post(title,detail)
+      self.posts.create(:title=>title,:detail=>detail,
+        :user=>self.creator,:kind=>Post::KIND_MAIN,:text_format=>Post::FORMAT_HTML)
+    end
+
+    def update_title_without_record_editor(title)
+      post = self.main_post
+      post.update_attribute(:title,title)
+    end
+
+    def update_detail_without_record_editor(detail)
+      post = self.main_post
+      post.update_attribute(:detail,detail)
+    end
+
     def main_post
       self.posts.find_by_kind(Post::KIND_MAIN)
     end
-
-    def create_main_post(content)
-      self.posts.create(:user=>self.creator,
-        :memo=>content,:kind=>Post::KIND_MAIN,:text_format=>Post::FORMAT_HTML)
-    end
-
-    def create_or_update_main_post(content)
-      post = self.main_post
-      if post.blank?
-        create_main_post(content)
-      else
-        post.update_attribute(:memo,content)
-      end
-    end
-
   end
 
   include PostComment::PostMethods
@@ -155,4 +146,5 @@ class Post < UserAuthAbstract
   include Atme::AtableMethods
   include Atme::PostMethods
   include PostRevision::PostMethods
+  include PostPhoto::PostMethods
 end

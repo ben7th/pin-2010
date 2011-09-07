@@ -26,7 +26,7 @@ class PostRevision < UserAuthAbstract
     return if post.post_revisions.first == self
 
     revision_count = post.post_revisions.reverse.index(self) + 1
-    post.add_memo(self.content)
+    post.update_detail_without_record_editor(self.content)
     post.record_editer(editor,"回滚到 版本#{revision_count}")
     post
   end

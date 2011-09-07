@@ -14,7 +14,7 @@ class UserMemoedFeedsProxy < RedisBaseProxy
       :after_create => Proc.new {|post|
         user = post.user
         feed = post.feed
-        unless post.memo.nil?
+        unless post.detail.nil?
           UserMemoedFeedsProxy.new(user).add_to_cache(feed.id)
         end
       },
@@ -23,7 +23,7 @@ class UserMemoedFeedsProxy < RedisBaseProxy
         feed = post.feed
         next if feed.blank? || user.blank?
         UserMemoedFeedsProxy.new(user).remove_from_cache(feed.id)
-        unless post.memo.nil?
+        unless post.detail.nil?
           UserMemoedFeedsProxy.new(user).add_to_cache(feed.id)
         end
       },

@@ -3,7 +3,7 @@
     <string name="app_name">Mindpin</string>
     <string name="intent_fail">网络连接异常</string>
     <!-- 登录页面 -->
-    <string name="login_titleBar">Mindpin 登录</string>
+    <string name="login_title_bar">登录 mindpin</string>
     <string name="email">用户邮箱</string>
     <string name="password">密码</string>
     <string name="login">登录</string>

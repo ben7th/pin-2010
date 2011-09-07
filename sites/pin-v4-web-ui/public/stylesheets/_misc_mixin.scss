@@ -497,3 +497,9 @@
     }
   }
 }
+
+@mixin gray-box{
+  border:solid 1px #eee;
+  background-color:#FFF;
+  padding:9px;
+}

@@ -2255,7 +2255,8 @@ Release Date: November 8, 2010
       font-size: 0px;
       line-height: 22em; }
       .page-header .nav .site-logo .logo.mindpin {
-        background: url(/images/alltu.png) -394px -1px; }
+        background: url(/images/alltu.png) -394px -1px;
+        width: 295px; }
       .page-header .nav .site-logo .logo.mindmaps {
         background: url(/images/alltu.png) -133px -1px; }
   .page-header .nav .nav-menu {
@@ -2689,6 +2690,14 @@ body {
         background-color: #5193d4;
         text-decoration: none; }
 
+body.gray {
+  background-color: #F4F4F4; }
+
+.cell.no-line {
+  border-bottom: none;
+  margin: 0;
+  padding-bottom: 60px; }
+
 .quotebg {
   border-left: solid 3px #FFE965;
   background-color: #FFFADA; }
@@ -2785,7 +2794,8 @@ a.send-button {
   .page-title-bar.grid {
     border: solid 1px #eee;
     padding: 9px;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    background-color: #FFF; }
   .page-title-bar .meta {
     float: left; }
     .page-title-bar .meta h2 {
@@ -8734,22 +8744,27 @@ form .field.sendto-select-widget .sendto-selector {
 /*modules*/
 .page-mside-avatar {
   border: solid 1px #eee;
-  padding: 9px;
-  margin-bottom: 20px; }
+  padding: 9px 14px;
+  margin-bottom: 20px;
+  background-color: #FFF; }
   .page-mside-avatar .name {
     font-size: 14px;
-    font-weight: bold; }
+    font-weight: bold;
+    margin-bottom: 9px; }
     .page-mside-avatar .name a {
       color: #444; }
       .page-mside-avatar .name a:hover {
         color: #444; }
   .page-mside-avatar .avatar {
-    width: 210px;
-    height: 210px; }
+    width: 200px;
+    height: 200px; }
     .page-mside-avatar .avatar img {
-      position: relative;
-      top: 56px;
-      left: 56px; }
+      width: 200px;
+      height: 200px;
+      border-radius: 0;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      padding: 0; }
 
 .page-new-collection-op {
   position: relative;
@@ -8910,6 +8925,57 @@ form .field.sendto-select-widget .sendto-selector {
   .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title {
     width: 268px; }
 
+.page-ogrid.collection-feeds {
+  width: 960px;
+  position: relative; }
+  .page-ogrid.collection-feeds .feed {
+    position: absolute;
+    border: solid 1px #eee;
+    background-color: #FFF;
+    padding: 9px;
+    width: 210px;
+    margin-bottom: 10px;
+    margin-right: 10px; }
+    .page-ogrid.collection-feeds .feed .title {
+      margin: -9px -9px 0;
+      padding: 9px 14px;
+      border-bottom: solid 1px #eee;
+      background-color: #fafafa; }
+    .page-ogrid.collection-feeds .feed .photo {
+      margin: 0 -9px -9px;
+      padding: 14px;
+      position: relative;
+      line-height: 0;
+      font-size: 0; }
+      .page-ogrid.collection-feeds .feed .photo .photo-count {
+        opacity: 0.7;
+        background-color: #000;
+        color: white;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 7px;
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+      .page-ogrid.collection-feeds .feed .photo:hover {
+        cursor: pointer; }
+        .page-ogrid.collection-feeds .feed .photo:hover img {
+          opacity: 0.9; }
+        .page-ogrid.collection-feeds .feed .photo:hover .photo-count {
+          opacity: 0.8; }
+    .page-ogrid.collection-feeds .feed .detail {
+      margin: 0 -9px -9px;
+      padding: 9px 14px; }
+      .page-ogrid.collection-feeds .feed .detail p {
+        margin: 0; }
+
 .page-ogrid.collections {
   width: 720px; }
   .page-ogrid.collections .collection {
@@ -8950,6 +9016,99 @@ form .field.sendto-select-widget .sendto-selector {
       line-height: 30px;
       height: 30px;
       font-size: 14px; }
+
+/*collection show页面顶端栏*/
+.page-collection-top {
+  border: solid 1px #eee;
+  background-color: #FFF;
+  padding: 9px;
+  margin-bottom: 10px; }
+  .page-collection-top .meta {
+    overflow: hidden;
+    margin-bottom: 9px; }
+    .page-collection-top .meta .title {
+      font-size: 16px;
+      font-weight: bold;
+      float: left;
+      height: 32px;
+      line-height: 32px; }
+    .page-collection-top .meta .ops {
+      float: right; }
+      .page-collection-top .meta .ops .create {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #4C8FFD;
+        border: solid 1px #10698D;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 2px #444444;
+        float: left;
+        margin-right: 9px;
+        padding: 0 7px 0 3px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px; }
+        .page-collection-top .meta .ops .create:hover {
+          color: white;
+          text-decoration: none;
+          border: solid 1px #0069dd;
+          box-shadow: 0 1px 2px #ccc; }
+        .page-collection-top .meta .ops .create span {
+          display: block; }
+        .page-collection-top .meta .ops .create span {
+          float: left; }
+        .page-collection-top .meta .ops .create .icon {
+          width: 24px;
+          height: 24px;
+          position: relative;
+          top: 3px;
+          margin-right: 3px; }
+        .page-collection-top .meta .ops .create .icon {
+          background: url(/images/alltu.png) -85px -100px; }
+      .page-collection-top .meta .ops .minibutton.edit {
+        float: left;
+        font-size: 14px;
+        padding: 0 7px;
+        height: 30px;
+        line-height: 30px; }
+  .page-collection-top .foot {
+    border-top: solid 1px #eee;
+    background-color: #fafafa;
+    margin: 0 -9px -9px;
+    padding: 9px;
+    overflow: hidden; }
+    .page-collection-top .foot .creator {
+      float: left;
+      overflow: hidden; }
+      .page-collection-top .foot .creator .avatar {
+        float: left;
+        margin-right: 9px; }
+        .page-collection-top .foot .creator .avatar img {
+          width: 32px;
+          height: 32px;
+          padding: 0; }
+      .page-collection-top .foot .creator .name {
+        float: left;
+        height: 32px;
+        line-height: 32px;
+        margin-right: 6px;
+        font-size: 14px; }
+      .page-collection-top .foot .creator .desc {
+        float: left;
+        height: 32px;
+        line-height: 32px;
+        margin-right: 6px;
+        font-size: 14px; }
+    .page-collection-top .foot .f-count {
+      float: right;
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      font-weight: bold; }
 
 .page-olist.mindmaps {
   padding: 0 20px; }

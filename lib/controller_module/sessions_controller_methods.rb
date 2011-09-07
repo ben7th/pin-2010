@@ -37,7 +37,8 @@ module SessionsControllerMethods
   def _create_android
     if logged_in?
       after_logged_in()
-      render :status=>200,:text=>200
+      render :json=>{:name=>current_user.name,
+        :logo=>current_user.logo.url,:sign=>current_user.sign}
     else
       render :status=>401,:text=>401
     end

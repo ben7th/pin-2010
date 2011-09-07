@@ -7,7 +7,7 @@ class IndexController < ApplicationController
       if is_android_client?
         return render :json=>@feeds
       else
-        return render :template=>'index/index_page'
+        return render :template=>'index/index_page',:layout=>'collection'
       end
     end
 

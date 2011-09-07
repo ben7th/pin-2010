@@ -1,25 +1,12 @@
 module UserNoticeHelper
-
-#  UserTipProxy::FEED_INVITE
-#
-#  UserTipProxy::FAVS_EDIT_FEED_CONTENT
-#  UserTipProxy::FAVS_ADD_VIEWPOINT
-#  UserTipProxy::FAVS_EDIT_VIEWPOINT
-#  
-#  UserTipProxy::VIEWPOINT_VOTE_UP
-#  UserTipProxy::VIEWPOINT_SPAM_MARK_EFFECT
-#
-#  UserTipProxy::FEED_SPAM_MARK_EFFECT  :id,:feed,:kind,:time
-#  UserTipProxy::VIEWPOINT_COMMENT :id,:feed,:viewpoint,:viewpoint_comment,:user
-
   def user_tip_str(tip)
     re = case tip.kind
 
     when UserTipProxy::FEED_INVITE
       be_invited_tip_str(tip)
 
-    when UserTipProxy::FAVS_EDIT_FEED_CONTENT
-      fav_edit_feed_content_str(tip)
+    when UserTipProxy::FAVS_EDIT_FEED_TITLE
+      fav_edit_feed_title_str(tip)
 
     when UserTipProxy::FAVS_ADD_VIEWPOINT
       fav_add_viewpoint_str(tip)
@@ -65,7 +52,7 @@ module UserNoticeHelper
     re << link_to(h(truncate_u(feed.content,16)),feed)
   end
 
-  def fav_edit_feed_content_str(fav_change_tip)
+  def fav_edit_feed_title_str(fav_change_tip)
     # :tip_id,:feed,:user,:kind,:time
 
     user = fav_change_tip.user

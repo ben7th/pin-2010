@@ -83,7 +83,7 @@ class ShortUrl < UserAuthAbstract
     end
 
     def replace_url_to_short_url
-      self.content.gsub!(ShortUrl::URL_REGEX) do
+      self.detail.gsub!(ShortUrl::URL_REGEX) do
         ShortUrl.get_short_url($&)
       end
     end
