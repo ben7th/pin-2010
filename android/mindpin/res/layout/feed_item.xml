@@ -16,7 +16,7 @@
     android:layout_height="wrap_content"   
     android:textSize="20dip"   
     android:layout_width="fill_parent"   
-    android:id="@+id/feed_content"
+    android:id="@+id/feed_title"
     android:layout_below="@+id/feed_id"  
     />  
 </RelativeLayout>  

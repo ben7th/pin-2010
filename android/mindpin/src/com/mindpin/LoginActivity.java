@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case INTENT_CONNECTION_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.intent_fail,
+				Toast.makeText(getApplicationContext(), R.string.intent_connection_fail,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}

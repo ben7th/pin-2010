@@ -28,7 +28,7 @@ public class LoadingActivity extends Activity implements Runnable {
 				LoadingActivity.this.finish();
 				break;
 			case MESSAGE_INTENT_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.intent_fail,
+				Toast.makeText(getApplicationContext(), R.string.intent_connection_fail,
 						Toast.LENGTH_SHORT).show();
 				break;
 			}

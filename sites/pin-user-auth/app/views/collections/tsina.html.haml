@@ -1,0 +1,33 @@
+-#use collection列表页
+-#see 顶部导航栏 collections
+
+-htitle "新浪微博"
+
+.main.grid_24.no-line
+  .page-collection-top
+    .meta
+      .title 新浪微博
+      .ops
+        %a.create{:href=>"javascript:;"} <span class='icon'></span><span>发微博</span>
+        %a.minibutton.edit{:href=>"javascript:;"} <span>修改</span>
+
+  .page-ogrid.collection-feeds
+    -tsina_feeds = current_user.tsina_weibo.home_timeline
+    -tsina_feeds.each do |tsina_feed|
+      .feed
+        -photo_url = tsina_feed.bmiddle_pic
+        -if !photo_url.blank?
+          .photo
+            .box{:style=>'height:120px;overflow:hidden;'}
+              %img{:src=>photo_url,:style=>"display:block;width:200px;"}
+        .detail=tsina_feed.text
+        .creator
+          -creator = tsina_feed.user
+          .avatar
+            %img{:src=>creator.profile_image_url}
+          .name
+            =link_to creator.name,"http://weibo.com/#{creator.domain}",:target=>'_blank'
+            发布在
+            =link_to '新浪微博','/collections/tsina'
+            
+

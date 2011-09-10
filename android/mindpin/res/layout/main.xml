@@ -10,12 +10,20 @@
 		android:layout_height="42dp"
 		android:background="@drawable/title_bar_background_color"
 	>
+		<ImageView
+			android:layout_gravity="center"
+			android:id="@+id/account_logo"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:adjustViewBounds="true"
+		/>
 		<TextView
-			android:text="@string/app_name"
-			android:textSize="18dp"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:gravity="center"
+			android:layout_marginLeft="10dip"
+			android:layout_gravity="center"
+			android:id="@+id/account_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
 		/>
 	</LinearLayout>
 	<TableLayout
@@ -82,14 +90,23 @@
 					android:text="@string/main_bn_feeds"/>
 			</LinearLayout>
 			<LinearLayout
+				android:id="@+id/main_bn_collections"
+				android:clickable="true"
+				android:background="@drawable/main_bn_collections"
 				android:layout_weight="1" 
 				android:orientation="vertical">
-				</LinearLayout>
+				<ImageView
+					android:src="@drawable/collections" 
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent"
+					android:layout_weight="2"
+					/>
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="fill_parent"
+					android:gravity="center"
+					android:text="@string/main_bn_collections"/>
+			</LinearLayout>
 		</TableRow>
 	</TableLayout>
-	
-	
-	
-
-			
 </LinearLayout>

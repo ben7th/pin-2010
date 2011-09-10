@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mindpin</string>
-    <string name="intent_fail">网络连接异常</string>
+    <string name="intent_connection_fail">网络连接异常</string>
     <!-- 登录页面 -->
     <string name="login_title_bar">登录 mindpin</string>
     <string name="email">用户邮箱</string>
@@ -14,6 +14,7 @@
     <string name="main_bn_new_feed">新建主题</string>
     <string name="main_bn_camera">拍照</string>
     <string name="main_bn_feeds">浏览主题</string>
+    <string name="main_bn_collections">收集册</string>
     <!-- 新建主题页面 -->
     <string name="new_feed_title_et">主题标题</string>
     <string name="new_feed_content_et">主题内容</string>

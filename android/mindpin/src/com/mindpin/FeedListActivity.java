@@ -90,7 +90,7 @@ public class FeedListActivity extends Activity {
 		try {
 			feed_list = Http.get_feed_timeline();
 		} catch (IOException e) {
-			Toast.makeText(getApplicationContext(), "Õ¯¬Á¡¨Ω”“Ï≥£",
+			Toast.makeText(getApplicationContext(), R.string.intent_connection_fail,
 					Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
 		}
@@ -103,7 +103,7 @@ public class FeedListActivity extends Activity {
 		ListView fl = (ListView) findViewById(R.id.feed_list);
 		SimpleAdapter adapter = new SimpleAdapter(this, feed_list,
 				R.layout.feed_item, new String[] { "id", "content" },
-				new int[] { R.id.feed_id, R.id.feed_content });
+				new int[] { R.id.feed_id, R.id.feed_title });
 		fl.setAdapter(adapter);
 		fl.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

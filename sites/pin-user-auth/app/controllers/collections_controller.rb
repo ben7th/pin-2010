@@ -1,8 +1,8 @@
 class CollectionsController < ApplicationController
   before_filter :login_required
   before_filter :per_load
-  skip_before_filter :verify_authenticity_token,:only=>[:index]
-  before_filter :verify_authenticity_token_by_client,:only=>[:index]
+  skip_before_filter :verify_authenticity_token,:only=>[:index,:create,:destroy]
+  before_filter :verify_authenticity_token_by_client,:only=>[:index,:create,:destroy]
   def verify_authenticity_token_by_client
     verify_authenticity_token unless is_android_client?
   end
@@ -20,21 +20,51 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def show
+  def tsina
     render :layout=>'collection'
   end
 
-  def create
-    collection = current_user.create_collection_by_params(params[:title])
-    unless collection.id.blank?
-      return render :partial=>'collections/parts/grid',:locals=>{:collections=>[collection]}
+  def show
+    if is_android_client?
+      feeds = @collection.creator.out_feeds
+      render :json=>feeds.map{|feed|{:id=>feed.id,:title=>feed.title}}
+    else
+      render :layout=>'collection'
     end
-    render :text=>"创建失败",:status=>402
+  end
+
+  def create
+    @collection = current_user.create_collection_by_params(params[:title])
+    if is_android_client?
+      _create_android_render
+    else
+      _create_web_render
+    end
+  end
+
+  def _create_web_render
+    unless @collection.id.blank?
+      render :partial=>'collections/parts/grid',:locals=>{:collections=>[@collection]}
+    else
+      render :text=>"创建失败",:status=>422
+    end
+  end
+
+  def _create_android_render
+    unless @collection.id.blank?
+      render :json=>current_user.created_collections_db
+    else
+      render :text=>"创建失败",:status=>422
+    end
   end
 
   def destroy
     @collection.destroy
-    render :text=>"删除成功",:status=>200
+    if is_android_client?
+      render :json=>current_user.created_collections_db
+    else
+      render :text=>"删除成功",:status=>200
+    end
   end
 
   def change_name

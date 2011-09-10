@@ -18,23 +18,20 @@ module ViewpointFormatHelper
     "#{h(truncate_u(feed.title,length))}"
   end
 
+  # 获得feed正文，根据格式是html还是markdown来调用不同的解析器
   def feed_detail(feed)
     detail = feed.detail || ''
     main_post = feed.main_post
-
-    html = case main_post.text_format
-    when Post::FORMAT_HTML
-      detail
-    when Post::FORMAT_MARKDOWN
-      MindpinTextFormat.new(detail).to_html
-    end
-
-    find_and_preserve html
+    
+    html_str = MindpinTextFormat.new(detail, main_post.text_format).to_html
+    find_and_preserve html_str
   end
 
   def feed_detail_short(feed)
     detail = feed.detail || ''
-    text_str = MindpinTextFormat.new(detail).to_text
+    main_post = feed.main_post
+
+    text_str = MindpinTextFormat.new(detail, main_post.text_format).to_text
     find_and_preserve "#{h(truncate_u(text_str,256))}"
   end
 

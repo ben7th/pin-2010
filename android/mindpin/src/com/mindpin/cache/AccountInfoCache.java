@@ -1,9 +1,12 @@
 package com.mindpin.cache;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.os.Environment;
@@ -43,4 +46,27 @@ public class AccountInfoCache {
 		}
 		return new File(cache_dir,"info.json");
 	}
+
+	public static String get_name() {
+		try {
+			File lf = get_info_file();
+			String json_str = IOUtils.toString(new FileInputStream(lf));
+			JSONObject json = new JSONObject(json_str);
+			return (String)json.get("name");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return "";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+
+	public static String get_logo_path() {
+		return get_logo_file().getPath();
+	}
+
 }

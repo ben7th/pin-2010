@@ -190,7 +190,7 @@ body{margin:0;}
 .aj-loading{height:16px;background:url(/images/progress-dots.gif) no-repeat;}
 .dev-note-float{width:32px;height:32px;background-image:url(/images/icons/development.png);background-color:#3681D5;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;position:absolute;}
 .avatar{font-size:0;line-height:0;overflow:hidden;}
-.avatar img,.avatars img,.icons img{border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;padding:1px;}
+.avatar img,.avatars img,.icons img{border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;padding:1px;}
 .topl{overflow:hidden;border-top:solid 1px #242438;}
 .topl .grid_11{padding-top:15px;}
 .topl .grid_11.omega{border-left:solid 1px #242438;padding-left:25px;}
@@ -2040,15 +2040,22 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-new-collection-op .form .form-placeholder .ops-btns a.create-cancel:hover,.page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-cancel:hover{color:#555;text-decoration:none;background:-moz-linear-gradient(-90deg,#d7d7d7,#d3d3d3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d7d7d7),to(#d3d3d3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');border:solid 1px #848484;}
 .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title{width:268px;}
 .page-ogrid.collection-feeds{width:960px;position:relative;}
-.page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;width:210px;margin-bottom:10px;margin-right:10px;}
-.page-ogrid.collection-feeds .feed .title{margin:-9px -9px 0;padding:9px 14px;border-bottom:solid 1px #eee;background-color:#fafafa;}
-.page-ogrid.collection-feeds .feed .photo{margin:0 -9px -9px;padding:14px;position:relative;line-height:0;font-size:0;}
+.page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:228px;margin-bottom:10px;margin-right:10px;}
+.page-ogrid.collection-feeds .feed .title{margin:0;padding:9px 14px;background-color:#fafafa;}
+.page-ogrid.collection-feeds .feed .photo{margin:0;padding:14px;position:relative;line-height:0;font-size:0;}
 .page-ogrid.collection-feeds .feed .photo .photo-count{opacity:.7;background-color:#000;color:white;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-size:14px;font-weight:bold;text-align:center;height:32px;line-height:32px;padding:0 7px;position:absolute;top:24px;left:24px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .page-ogrid.collection-feeds .feed .photo:hover{cursor:pointer;}
 .page-ogrid.collection-feeds .feed .photo:hover img{opacity:.9;}
 .page-ogrid.collection-feeds .feed .photo:hover .photo-count{opacity:.8;}
-.page-ogrid.collection-feeds .feed .detail{margin:0 -9px -9px;padding:9px 14px;}
+.page-ogrid.collection-feeds .feed .detail{margin:0;padding:9px 14px;}
 .page-ogrid.collection-feeds .feed .detail p{margin:0;}
+.page-ogrid.collection-feeds .feed .detail blockquote{font-style:normal;margin:0;padding:5px 9px 5px 25px;background:url(/images/alltu.png) no-repeat -691px -1px;background-color:#fafafa;}
+.page-ogrid.collection-feeds .feed .creator{margin:0;padding:9px 14px;background-color:#fafafa;border-bottom:solid 1px #eee;overflow:hidden;}
+.page-ogrid.collection-feeds .feed .creator .avatar{float:left;}
+.page-ogrid.collection-feeds .feed .creator .avatar img{width:32px;height:32px;padding:0;}
+.page-ogrid.collection-feeds .feed .creator .name{margin-left:40px;color:#666;line-height:16px;}
+.page-ogrid.collection-feeds .feed .creator .name a{color:#999;font-weight:bold;}
+.page-ogrid.collection-feeds .feed .creator .name a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
 .page-ogrid.collections{width:720px;}
 .page-ogrid.collections .collection{border:solid 1px #eee;padding:9px;margin-bottom:10px;margin-right:10px;float:left;width:210px;background-color:#fff;}
 .page-ogrid.collections .collection .headmeta{margin:-9px -9px 0;padding:4px 9px;border-bottom:solid 1px #eee;background-color:#fafafa;}

@@ -6,13 +6,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -23,10 +23,8 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
-import com.mindpin.utils.BaseUtils;
 
 public class Http {
 	private static final String SITE = "http://www.mindpin.com";
@@ -64,8 +62,7 @@ public class Http {
 		}
 		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		try {
-			String json_str = BaseUtils.convert_stream_to_string(entity
-					.getContent());
+			String json_str = IOUtils.toString(entity.getContent());
 			JSONArray feed_json_arr = new JSONArray(json_str);
 			for (int i = 0; i < feed_json_arr.length(); i++) {
 				JSONObject feed_json = feed_json_arr.getJSONObject(i);
@@ -162,7 +159,8 @@ public class Http {
 		}
 	}
 
-	public static void get_collections() {
+	public static List<HashMap<String, Object>> get_collections() throws IntentException {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		try {
 			HttpGet httpget = new HttpGet(SITE + "/collections");
 			httpget.setHeader("User-Agent", "android");
@@ -172,11 +170,104 @@ public class Http {
 				String collections = IOUtils.toString(response.getEntity()
 						.getContent());
 				CollectionsCache.save(collections);
+				list = CollectionsCache.build_list_by_json(collections);
+			}
+			return list;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}
+	}
+
+	public static boolean create_collection(String title) throws IntentException {
+		try {
+			HttpPost httpost = new HttpPost(SITE + "/collections");
+			httpost.setHeader("User-Agent", "android");
+			
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair("title", title));
+			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+
+			HttpResponse response = httpclient.execute(httpost);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String collections = IOUtils.toString(response.getEntity()
+						.getContent());
+				CollectionsCache.save(collections);
+				return true;
+			}else{
+				return false;
+			}
+		}catch (ClientProtocolException e) {
+				e.printStackTrace();
+				throw new IntentException();
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new IntentException();
+			}
+	}
+
+	public static List<HashMap<String, Object>> get_collection_feeds(int id) throws IntentException {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		try {
+			HttpGet httpget = new HttpGet(SITE + "/collections/" + id);
+			httpget.setHeader("User-Agent", "android");
+			HttpResponse response = httpclient.execute(httpget);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String json_str = IOUtils.toString(response.getEntity()
+						.getContent());
+				JSONArray feed_json_arr = new JSONArray(json_str);
+				for (int i = 0; i < feed_json_arr.length(); i++) {
+					JSONObject feed_json = feed_json_arr.getJSONObject(i);
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put("id", feed_json.get("id"));
+					map.put("title", feed_json.get("title"));
+					list.add(map);
+				}
+			}
+			return list;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}catch (JSONException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}
+	}
+	
+	public static boolean destroy_collection(int id) throws IntentException{
+		try {
+			HttpDelete httpdelete = new HttpDelete(SITE + "/collections/" + id);
+			httpdelete.setHeader("User-Agent", "android");
+			HttpResponse response;
+			response = httpclient.execute(httpdelete);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String collections = IOUtils.toString(response.getEntity()
+						.getContent());
+				CollectionsCache.save(collections);
+				return true;
+			} else {
+				return false;
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
+			throw new IntentException();
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new IntentException();
 		}
+	}
+	
+	
+	public static class IntentException extends Exception{
+		private static final long serialVersionUID = -4969746083422993611L;
 	}
 }
