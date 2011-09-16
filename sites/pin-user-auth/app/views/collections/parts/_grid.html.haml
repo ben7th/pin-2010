@@ -6,17 +6,16 @@
     -collections.each do |collection|
       .collection{:'data-id'=>collection.id}
         .headmeta
-          .t-title=link_to collection.title,"/collections/#{collection.id}"
+          %span.t-title=link_to "#{collection.title}(#{collection.feeds.count})","/collections/#{collection.id}"
         .data
-          .p
-          .p
-          .p
-          .p
-          .p
-          .p
-          .p
-          .p
-          .p
+          -with_photo_feeds = collection.with_photo_feeds[0..9]
+          -with_photo_feeds_count = with_photo_feeds.length
+          -with_photo_feeds.each do |f|
+            .p
+              -photo = f.photos[0]
+              %img{:src=>photo.image.url(:s100),:style=>'width:66px;height:66px;'}
+          -1.upto (9-with_photo_feeds_count) do
+            .p
         .ops
           -if collection.creator == current_user
             %a.minibutton.edit{:href=>"/collections/#{@collection}/edit"} <span>修改</span>

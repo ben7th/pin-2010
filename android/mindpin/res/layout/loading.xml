@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
+<LinearLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    >
+    style="@style/body"
+>
     <TextView 
-    	android:text="正在载入..."
-    	android:textSize="45sp"
-    	android:layout_height="wrap_content" 
-    	android:layout_width="wrap_content"
-    	android:layout_centerInParent="true" 
-    	></TextView>
+    	android:text="@string/now_loading"
+    	style="@style/loading_layout_text"
+   	></TextView>
     	
-</RelativeLayout>
+</LinearLayout>

@@ -16,3 +16,11 @@
     .clearfix
 
   =prender 'grid',:collections=>@collections
+  -if current_user.has_binded_tsina?
+    .clearfix
+    .page-ogrid.collections-binded
+      .collection.tsina
+        .headmeta
+          %span.t-title=link_to "新浪微博","/collections/tsina"
+        .data{:style=>'padding-bottom:0;'}
+          .tsina-img sina weibo

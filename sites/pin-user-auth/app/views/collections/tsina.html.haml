@@ -12,9 +12,12 @@
         %a.minibutton.edit{:href=>"javascript:;"} <span>修改</span>
 
   .page-ogrid.collection-feeds
-    -tsina_feeds = current_user.tsina_weibo.home_timeline
+    -weibo = current_user.tsina_weibo
+
+    -tsina_feeds = weibo.home_timeline
     -tsina_feeds.each do |tsina_feed|
-      .feed
+      -id = tsina_feed.id
+      .feed{:'data-tsina-feed-id'=>id}
         -photo_url = tsina_feed.bmiddle_pic
         -if !photo_url.blank?
           .photo
@@ -26,8 +29,20 @@
           .avatar
             %img{:src=>creator.profile_image_url}
           .name
-            =link_to creator.name,"http://weibo.com/#{creator.domain}",:target=>'_blank'
+            =link_to creator.name,"http://weibo.com/#{creator.id}",:target=>'_blank'
             发布在
-            =link_to '新浪微博','/collections/tsina'
+            =link_to '新浪微博','http://www.weibo.com'
+        .comments
+          -comments =[] # weibo.comments(:id=>id,:count=>3)
+          -comments.each do |comment|
+            .comment
+              .c-creator
+                -c_creator = comment.user
+                .avatar
+                  %img{:src=>c_creator.profile_image_url}
+                .name
+                  =link_to c_creator.name,"http://weibo.com/#{c_creator.id}",:target=>'_blank'
+                  =comment.text
+
             
 

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.FeedHoldManager;
+import com.mindpin.application.MindpinApplication;
+import com.mindpin.thread.SendFeedHoldThread;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -29,15 +31,16 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
-public class NewFeedActivity extends Activity implements Runnable {
+public class NewFeedActivity extends Activity {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
 	public static final int REQUEST_SHOW_IMAGE_ALBUM = 2;
+	protected static final int REQUEST_SELECT_COLLECTIONS = 3;
+	protected static final int REQUEST_SELECT_COLLECTIONS_AND_SEND = 4;
 	
-	protected static final int MESSAGE_SEND_SUCCESS = 0;
-	protected static final int MESSAGE_SEND_FAIL = 1;
-	protected static final int MESSAGE_LOGGED = 2;
-	protected static final int MESSAGE_UNLOGGED = 3;
-	protected static final int MESSAGE_INTENT_FAIL = 4;
+	private static final int MESSAGE_SAVE_FEED_HOLD_SUCCESS = 0;
+	protected static final int MESSAGE_LOGGED = 1;
+	protected static final int MESSAGE_UNLOGGED = 2;
+	protected static final int MESSAGE_INTENT_FAIL = 3;
 	LinearLayout feed_captures;
 	private ArrayList<String> capture_paths = new ArrayList<String>();
 	
@@ -45,22 +48,23 @@ public class NewFeedActivity extends Activity implements Runnable {
 	private EditText feed_content_et;
 	private String feed_title;
 	private String feed_content;
+	private ArrayList<Integer> select_collection_ids;
 	
 	private ImageButton capture_bn;
 	private Button send_bn;
 	private Button album_bn;
+	private Button select_collections_bn;
+	
 	private ProgressDialog progress_dialog;
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			progress_dialog.dismiss();
 			switch (msg.what) {
-			case MESSAGE_SEND_SUCCESS:
-				Toast.makeText(getApplicationContext(),"发送成功",
+			case MESSAGE_SAVE_FEED_HOLD_SUCCESS:
+				Toast.makeText(getApplicationContext(),"保存主题成功",
 						Toast.LENGTH_SHORT).show();
-				break;
-			case MESSAGE_SEND_FAIL:
-				Toast.makeText(getApplicationContext(),"发送失败",
-						Toast.LENGTH_SHORT).show();
+				MindpinApplication app = (MindpinApplication)getApplication();
+				app.send_feed_hold_handler.sendEmptyMessage(SendFeedHoldThread.MESSAGE_SEND_FEED_HOLD);
 				break;
 			case MESSAGE_LOGGED:
 				break;
@@ -100,10 +104,41 @@ public class NewFeedActivity extends Activity implements Runnable {
 			Uri uri = data.getData();
 			String path = get_absolute_imagePath(uri);
 			add_image_to_feed_captures(path);
+			break;
+		case REQUEST_SELECT_COLLECTIONS:
+			selected_collections(data);
+			break;
+		case REQUEST_SELECT_COLLECTIONS_AND_SEND:
+			selected_collections_and_send(data);
+			break;
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
+	private void selected_collections_and_send(Intent data) {
+		ArrayList<Integer> ids = data.getIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS);
+		if(ids!=null && ids.size()!=0){
+			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
+			select_collection_ids = ids;
+			progress_dialog = ProgressDialog.show(NewFeedActivity.this,
+					"","正在发送...");
+			Thread thread = new Thread(new SaveFeedHoldRunnable());
+			thread.setDaemon(true);
+			thread.start();
+		}
+	}
+
+	private void selected_collections(Intent data) {
+		ArrayList<Integer> ids = data.getIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS);
+		if(ids!=null && ids.size()!=0){
+			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
+			select_collection_ids = ids;
+		}else{
+			select_collections_bn.setText(R.string.feed_select_collections);
+			select_collection_ids = null;
+		}
+	}
+
 	private void set_listener() {
 		capture_bn = (ImageButton)findViewById(R.id.capture_bn);
 		capture_bn.setOnClickListener(new OnClickListener() {
@@ -114,6 +149,7 @@ public class NewFeedActivity extends Activity implements Runnable {
 		send_bn = (Button) findViewById(R.id.send_bn);
 		send_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+
 				feed_title = feed_title_et.getText().toString();
 				feed_content = feed_content_et.getText().toString();
 				if(feed_title == null || "".equals(feed_title)){
@@ -122,11 +158,18 @@ public class NewFeedActivity extends Activity implements Runnable {
 					return;
 				}
 				
-				progress_dialog = ProgressDialog.show(NewFeedActivity.this,
-						"","正在发送...");
-				Thread thread = new Thread(NewFeedActivity.this);
-				thread.setDaemon(true);
-				thread.start();
+				if(select_collection_ids == null){
+					Intent intent = new Intent(NewFeedActivity.this,SelectCollectionListActivity.class);
+					intent.putExtra(SelectCollectionListActivity.EXTRA_NAME_KIND, 
+							SelectCollectionListActivity.EXTRA_VALUE_SELECT_FOR_SEND);
+					startActivityForResult(intent,REQUEST_SELECT_COLLECTIONS_AND_SEND);
+				}else{
+					progress_dialog = ProgressDialog.show(NewFeedActivity.this,
+							"","正在发送...");
+					Thread thread = new Thread(new SaveFeedHoldRunnable());
+					thread.setDaemon(true);
+					thread.start();
+				}
 			}
 		});
 		
@@ -139,6 +182,21 @@ public class NewFeedActivity extends Activity implements Runnable {
 				startActivityForResult(intent, REQUEST_SHOW_IMAGE_ALBUM);
 			}
 		});
+		
+		select_collections_bn = (Button) findViewById(R.id.select_collections_bn);
+		select_collections_bn.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(NewFeedActivity.this,SelectCollectionListActivity.class);
+				intent.putExtra(SelectCollectionListActivity.EXTRA_NAME_KIND, 
+						SelectCollectionListActivity.EXTRA_VALUE_SELECT_FOR_RESULT);
+				if(select_collection_ids != null && select_collection_ids.size() != 0){
+					intent.putIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS, 
+							select_collection_ids);
+				}
+				startActivityForResult(intent,REQUEST_SELECT_COLLECTIONS);
+			}
+		});
+		
 	}
 	
 	private void find_views() {
@@ -221,15 +279,6 @@ public class NewFeedActivity extends Activity implements Runnable {
 		feed_captures.addView(img);
 	}
 
-	public void run() {
-		boolean bol = Http.send_feed(feed_title, feed_content, capture_paths);
-		if(bol){
-			mhandler.sendEmptyMessage(MESSAGE_SEND_SUCCESS);
-		}else{
-			mhandler.sendEmptyMessage(MESSAGE_SEND_FAIL);
-		}
-	}
-	
 	private String get_absolute_imagePath(Uri uri) 
 	   {
 	       String [] proj={MediaStore.Images.Media.DATA};
@@ -276,4 +325,13 @@ public class NewFeedActivity extends Activity implements Runnable {
 			}
 		}
 	}
+	
+	public class SaveFeedHoldRunnable implements Runnable{
+		public void run() {
+			FeedHoldManager.save_feed_hold(NewFeedActivity.this, feed_title, feed_content,
+					capture_paths, select_collection_ids);
+			mhandler.sendEmptyMessage(MESSAGE_SAVE_FEED_HOLD_SUCCESS);
+		}
+	};
+	
 }

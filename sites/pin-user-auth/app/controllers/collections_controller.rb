@@ -1,8 +1,10 @@
 class CollectionsController < ApplicationController
   before_filter :login_required
   before_filter :per_load
-  skip_before_filter :verify_authenticity_token,:only=>[:index,:create,:destroy]
-  before_filter :verify_authenticity_token_by_client,:only=>[:index,:create,:destroy]
+  skip_before_filter :verify_authenticity_token,
+    :only=>[:index,:create,:destroy,:change_name]
+  before_filter :verify_authenticity_token_by_client,
+    :only=>[:index,:create,:destroy,:change_name]
   def verify_authenticity_token_by_client
     verify_authenticity_token unless is_android_client?
   end
@@ -69,7 +71,11 @@ class CollectionsController < ApplicationController
 
   def change_name
     if @collection.update_attributes(:title=>params[:title])
-      return render :status=>200, :text=>"修改成功"
+        if is_android_client?
+          return render :json=>current_user.created_collections_db
+        else
+          return render :status=>200, :text=>"修改成功"
+        end
     end
     return render :status=>402, :text=>"修改失败"
   end

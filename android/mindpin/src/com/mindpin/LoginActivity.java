@@ -1,9 +1,8 @@
 package com.mindpin;
 
-import java.io.IOException;
-
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.Http;
+import com.mindpin.Logic.Http.IntentException;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -101,7 +100,7 @@ public class LoginActivity extends Activity {
 				msg.what = AUTH_FAIL;
 				mhandler.sendMessage(msg);
 			}
-		} catch (IOException e) {
+		} catch (IntentException e) {
 			Message msg = mhandler.obtainMessage();
 			msg.what = INTENT_CONNECTION_FAIL;
 			mhandler.sendMessage(msg);

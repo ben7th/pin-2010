@@ -22,7 +22,7 @@
         .title.font14.bold 原始图片
         -width = @image_size[:width]
         -height = @image_size[:height]
-        %img#img_with_preview{:src=>@image_url,:style=>"width:{width}px;height:{height}px;"}
+        %img#img_with_preview{:src=>@image_url,:style=>"width:#{width}px;height:#{height}px;"}
 
       .cutted-img
         .title.font14.bold 裁剪后的图片

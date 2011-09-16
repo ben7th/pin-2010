@@ -20,12 +20,12 @@
         共 #{@collection.feeds.count} 个条目
 
   .page-ogrid.collection-feeds{:style=>'opacity:0;'}
-    -feeds = @collection.creator.out_feeds
+    -feeds = @collection.feeds
     -if feeds.blank?
       .list-blank 这里还没有条目
     -else
       -feeds.each do |feed|
-        .feed
+        .feed{:'data-id'=>feed.id}
           .title=feed_title_short(feed,15)
 
           -photos = feed.photos

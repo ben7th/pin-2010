@@ -209,6 +209,10 @@ class ConnectUser < UserAuthAbstract
       !!tsina_connect_user
     end
 
+    def has_binded_tsina?
+      has_binded_sina?
+    end
+
     # 是否绑定了人人网？（不管账号是什么类型）
     def has_binded_renren?
       !!renren_connect_user

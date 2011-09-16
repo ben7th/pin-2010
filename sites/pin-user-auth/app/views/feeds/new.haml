@@ -57,36 +57,33 @@
   =javascript_include_tag '/ueditor/ui/editorui.js'
   =javascript_include_tag '/ueditor/ui/editor.js'
 
-.mside.grid_5.layout-side
-  =minibutton '返回首页','/'
+.main.grid_24.no-line
+  -form_tag "/feeds",:class=>'common_form create-form' do
+    .page-new-feed-form
 
-.layout-main.ll.grid_19
-  .layout-main-inside
-    -form_tag "/feeds",:class=>'common_form create-form' do
-      .page-new-feed-form
+      .form-meta
+        .field.title
+          %label 标题
+          =text_field_tag "content",'',:class=>"text content-ipter need"
+        =#render 'modules/field_sendto_selector'
 
-        .form-meta
-          .field.title
-            %label 标题
-            =text_field_tag "content",'',:class=>"text content-ipter need"
-          =render 'modules/field_sendto_selector'
+        .page-file-upload
+          .upload-btn 上传图片
+          .input-div{:style=>'position:absolute;width:82px;height:22px;left:0;top:0;overflow:hidden;'}
+            %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:22px;font-size:30px;opacity:0;',:multiple=>""}
+        .field.photos
+          =hidden_field_tag "photo_names",'',:class=>'photos-ipter'
 
-          .page-file-upload
-            .upload-btn 上传图片
-            .input-div{:style=>'position:absolute;width:82px;height:22px;left:0;top:0;overflow:hidden;'}
-              %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:22px;font-size:30px;opacity:0;',:multiple=>""}
-          .field.photos
-            =hidden_field_tag "photo_names",'',:class=>'photos-ipter'
+        .field.detail
+          %label.hide 正文 <span class='quiet font12'>(选填)</span>
+          =text_area_tag "detail",'',:class=>"text detail-ipter",:style=>'display:none;'
+          #page-feed-detail-ipter
 
-          .field.detail
-            %label.hide 正文 <span class='quiet font12'>(选填)</span>
-            =text_area_tag "detail",'',:class=>"text detail-ipter",:style=>'display:none;'
-            #page-feed-detail-ipter
+        .field.collections.hide
+          -current_user.created_collections_db.each do |c|
+            .c
+              .name=c.title
 
-          .field.tags
-            %label 关键词
-            =text_field_tag "tags",'',:class=>"text tags-ipter"
-
-        .field.subm.padding10
-          =link_to "好了，确定创建",'javascript:;',:class=>'create-submit'
-          =link_to '算了，取消','/',:class=>'create-cancel'
+      .field.subm.padding10
+        =link_to "好了，确定创建",'javascript:;',:class=>'create-submit'
+        =link_to '算了，取消','/',:class=>'create-cancel'

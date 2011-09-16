@@ -20,7 +20,7 @@ class FeedsController < ApplicationController
   def new
     # 创建主题的页面，do nothing here.
     @feed = Feed.new
-    render :layout=>'create_form'
+    render :layout=>'collection'
   end
 
   def create
@@ -41,7 +41,11 @@ class FeedsController < ApplicationController
   end
 
   def _create_android_client
-    feed = current_user.send_feed(params[:content],params[:detail],:tags=>params[:tags],:sendto=>params[:sendto],:photo_names=>params[:photo_names])
+    feed = current_user.send_feed(
+      params[:content],params[:detail],
+      :tags=>params[:tags],:sendto=>params[:sendto],
+      :photo_names=>params[:photo_names],
+      :collection_ids=>params[:collection_ids])
     if feed.id.blank?
       return render :status=>422,:text=>422
     end

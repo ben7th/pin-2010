@@ -3,6 +3,7 @@ package com.mindpin.Logic;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -25,29 +27,43 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
+import com.mindpin.utils.BaseUtils;
 
 public class Http {
-	private static final String SITE = "http://www.mindpin.com";
+	private static final String SITE = "http://dev.www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
 
-	public static boolean user_authenticate(String email, String password)
-			throws IOException {
-		HttpPost httpost = new HttpPost(SITE + "/session");
-		httpost.setHeader("User-Agent", "android");
+	public static boolean user_authenticate(String email, String password) throws IntentException {
+		try {
+			HttpPost httpost = new HttpPost(SITE + "/session");
+			httpost.setHeader("User-Agent", "android");
 
-		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-		nvps.add(new BasicNameValuePair("email", email));
-		nvps.add(new BasicNameValuePair("password", password));
-		httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair("email", email));
+			nvps.add(new BasicNameValuePair("password", password));
+			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
-		HttpResponse response = httpclient.execute(httpost);
-		String res = response.getStatusLine().toString();
-		if ("HTTP/1.1 200 OK".equals(res)) {
-			String info = IOUtils.toString(response.getEntity().getContent());
-			AccountInfoCache.save(info);
-			return true;
-		} else {
+			HttpResponse response = httpclient.execute(httpost);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String info = IOUtils.toString(response.getEntity().getContent());
+				AccountInfoCache.save(info);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 			return false;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
 		}
 	}
 
@@ -79,8 +95,10 @@ public class Http {
 	}
 
 	public static boolean send_feed(String title, String content,
-			ArrayList<String> images) {
+			ArrayList<String> images, ArrayList<Integer> select_collection_ids) throws IntentException {
 		try {
+			String select_collection_ids_str = 
+					BaseUtils.integer_list_to_string(select_collection_ids);
 			String photo_string = upload_photos(images);
 			HttpPost httpost = new HttpPost(SITE + "/feeds");
 			httpost.setHeader("User-Agent", "android");
@@ -89,6 +107,7 @@ public class Http {
 			nvps.add(new BasicNameValuePair("content", title));
 			nvps.add(new BasicNameValuePair("detail", content));
 			nvps.add(new BasicNameValuePair("photo_names", photo_string));
+			nvps.add(new BasicNameValuePair("collection_ids", select_collection_ids_str));
 			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
 			HttpResponse response = httpclient.execute(httpost);
@@ -101,14 +120,17 @@ public class Http {
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
-			return false;
+			throw new IntentException();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			throw new IntentException();
+		}catch(IntentException e){
+			e.printStackTrace();
+			throw new IntentException();
 		}
 	}
 
-	private static String upload_photos(ArrayList<String> images) {
+	private static String upload_photos(ArrayList<String> images) throws IntentException {
 		String photo_names = "";
 		for (int i = 0; i < images.size(); i++) {
 			try {
@@ -132,8 +154,10 @@ public class Http {
 				}
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
+				throw new IntentException();
 			} catch (IOException e) {
 				e.printStackTrace();
+				throw new IntentException();
 			}
 		}
 		return photo_names;
@@ -248,6 +272,34 @@ public class Http {
 			httpdelete.setHeader("User-Agent", "android");
 			HttpResponse response;
 			response = httpclient.execute(httpdelete);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String collections = IOUtils.toString(response.getEntity()
+						.getContent());
+				CollectionsCache.save(collections);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}
+	}
+	
+	public static boolean change_collection_name(int id, String title) throws IntentException{
+		try {
+			HttpPut httpput = new HttpPut(SITE + "/collections/" + id + "/change_name");
+			httpput.setHeader("User-Agent", "android");
+			
+			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+			nvps.add(new BasicNameValuePair("title", title));
+			httpput.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+			
+			HttpResponse response = httpclient.execute(httpput);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				String collections = IOUtils.toString(response.getEntity()

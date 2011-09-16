@@ -29,6 +29,13 @@ public class AccountInfoCache {
 		}
 	}
 	
+	public static void destroy(){
+		File logo_file = get_logo_file();
+		File info_file = get_info_file();
+		logo_file.delete();
+		info_file.delete();
+	}
+	
 	private static File get_logo_file(){
 		File cache_dir = new File(Environment.getExternalStorageDirectory()
 				.getPath() + "/mindpin/cache/");

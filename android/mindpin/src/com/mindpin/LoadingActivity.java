@@ -1,7 +1,6 @@
 package com.mindpin;
 
 import java.io.IOException;
-
 import com.mindpin.Logic.AccountManager;
 import android.app.Activity;
 import android.content.Intent;

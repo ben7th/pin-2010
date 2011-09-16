@@ -9,8 +9,61 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 
 public class BaseUtils {
+	
+	// [1,2,3,4] -> "1,2,3,4"
+	public static String integer_list_to_string(ArrayList<Integer> ids){
+		String res = "";
+		if(ids !=null){
+			for (Integer s : ids){
+				if("".equals(res)){
+					res = res + s;
+				}else{
+					res = res + "," + s;
+				}
+			}
+		}
+		return res;
+	}
+	
+	// ["1","2","3","4"] -> "1,2,3,4"
+	public static String string_list_to_string(ArrayList<String> strs){
+		String res="";
+		if(strs !=null){
+			for (String s : strs){
+				if("".equals(res)){
+					res = res + s;
+				}else{
+					res = res + "," + s;
+				}
+			}
+		}
+		return res;
+	}
+	
+	public static ArrayList<String> string_to_string_list(String string){
+		ArrayList<String> list = new ArrayList<String>();
+		String[] arr = string.split(",");
+		for (String str : arr) {
+			if(!"".equals(str)){
+				list.add(str);
+			}
+		}
+		return list;
+	}
+	
+	public static ArrayList<Integer> string_to_integer_list(String string){
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		String[] arr = string.split(",");
+		for (String str : arr) {
+			if(!"".equals(str)){
+				list.add(Integer.parseInt(str));
+			}
+		}
+		return list;		
+	}
 
 	// 把字节流转换成字符串
 	public static String convert_stream_to_string(InputStream is) {

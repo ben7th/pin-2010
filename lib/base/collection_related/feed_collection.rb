@@ -5,15 +5,23 @@ class FeedCollection < UserAuthAbstract
   validates_presence_of :collection
   validates_uniqueness_of :feed_id, :scope => :collection_id
 
+  module FeedMethods
+    def self.included(base)
+      base.has_many :feed_collections
+      base.has_many :collections,:through=>:feed_collections,:source=>:collection
+    end
+  end
+
   module CollectionMethods
     def self.included(base)
       base.has_many :feed_collections
-      base.has_many :feeds_db,:through=>:feed_collections,:source=>:feed
+      base.has_many :feeds_db,:through=>:feed_collections,:source=>:feed,
+        :order=>"feeds.id desc"
     end
 
     def only_text_feeds
       Feed.find_by_sql(%`
-        select * from feeds
+        select feeds.* from feeds
         inner join feed_collections on feed_collections.feed_id = feeds.id
         inner join posts on posts.feed_id = feeds.id
           and posts.kind = '#{Post::KIND_MAIN}'
@@ -26,7 +34,7 @@ class FeedCollection < UserAuthAbstract
 
     def only_photo_feeds
       Feed.find_by_sql(%`
-        select * from feeds
+        select feeds.* from feeds
         inner join feed_collections on feed_collections.feed_id = feeds.id
         inner join posts on posts.feed_id = feeds.id
           and posts.kind = '#{Post::KIND_MAIN}'
@@ -39,7 +47,7 @@ class FeedCollection < UserAuthAbstract
 
     def with_photo_feeds
       Feed.find_by_sql(%`
-        select * from feeds
+        select feeds.* from feeds
         inner join feed_collections on feed_collections.feed_id = feeds.id
         inner join posts on posts.feed_id = feeds.id
           and posts.kind = '#{Post::KIND_MAIN}'
@@ -51,7 +59,7 @@ class FeedCollection < UserAuthAbstract
 
     def mixed_feeds
       Feed.find_by_sql(%`
-        select * from feeds
+        select feeds.* from feeds
         inner join feed_collections on feed_collections.feed_id = feeds.id
         inner join posts on posts.feed_id = feeds.id
           and posts.kind = '#{Post::KIND_MAIN}'
@@ -66,11 +74,9 @@ class FeedCollection < UserAuthAbstract
       self.feeds & user.in_feeds
     end
 
-    def add_feed(feed,user)
+    def add_feed(feed)
       fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,self.id)
       return unless fc.blank?
-      return unless user.in_collections.include?(self)
-
       FeedCollection.create(:feed=>feed,:collection=>self)
     end
   end

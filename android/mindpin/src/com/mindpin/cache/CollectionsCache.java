@@ -24,6 +24,11 @@ public class CollectionsCache {
 		}
 	}
 	
+	public static void destroy(){
+		File file = get_collections_file();
+		file.delete();
+	}
+	
 	public static ArrayList<HashMap<String, Object>> get_collection_list(){
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		try {

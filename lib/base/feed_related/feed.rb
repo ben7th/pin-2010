@@ -65,6 +65,7 @@ class Feed < UserAuthAbstract
 
   def validate_on_create
     validate_content_length
+    validate_repost_feed_id
     channel_ids = self.creator.channels_db_ids
     sent_c_ids = self.sent_channels.map{|c|c.id}
     cs = sent_c_ids-channel_ids
@@ -77,6 +78,16 @@ class Feed < UserAuthAbstract
   def validate_content_length
     if self.detail.split(//u).length > 255
       errors.add(:base,"内容长度不能超过 255 个字符")
+    end
+  end
+
+  def validate_repost_feed_id
+    unless self.repost_feed_id.blank?
+      fid = self.repost_feed_id
+      feed = Feed.find_by_id(fid)
+      if feed.blank? || !feed.repost_feed_id.blank?
+        errors.add(:base,"不能嵌套转发")
+      end
     end
   end
 
@@ -292,9 +303,24 @@ class Feed < UserAuthAbstract
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
     end
 
-    def send_feed(title,detail,options={})
-      sendto = options[:sendto] || ""
+    def repost(repost_feed_id,title,detail,options={})
       feed = Feed.new(:creator=>self)
+      rfeed = Feed.find(repost_feed_id)
+      if rfeed.repost_feed_id.blank?
+        feed.repost_feed_id = rfeed.id
+      else
+        feed.repost_feed_id = rfeed.repost_feed_id
+      end
+      _send_feed(feed,title,detail,options)
+    end
+
+    def send_feed(title,detail,options={})
+      feed = Feed.new(:creator=>self)
+      _send_feed(feed,title,detail,options)
+    end
+
+    def _send_feed(feed,title,detail,options={})
+      sendto = options[:sendto] || ""
       SendScope.set_send_scope_by_string(feed,sendto)
       return feed if !feed.valid?
       feed.save!
@@ -311,7 +337,7 @@ class Feed < UserAuthAbstract
           FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
         end
       end
-      
+
       if !!options[:photo_names]
         (options[:photo_names]||"").split(",").each do |name|
           photo = PhotoAdpater.create_photo_by_file_name(name,self)
@@ -417,4 +443,5 @@ class Feed < UserAuthAbstract
   include Atme::AtableMethods
 
   include SendScope::FeedMethods
+  include FeedCollection::FeedMethods
 end
