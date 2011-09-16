@@ -2041,7 +2041,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title{width:268px;}
 .page-ogrid.collection-feeds{width:960px;position:relative;}
 .page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:228px;margin-bottom:10px;margin-right:10px;}
-.page-ogrid.collection-feeds .feed .title{margin:0;padding:9px 14px;background-color:#fafafa;}
+.page-ogrid.collection-feeds .feed .title{margin:0;padding:9px 14px;background-color:#fafafa;color:#999;font-weight:bold;}
 .page-ogrid.collection-feeds .feed .photo{margin:0;padding:14px;position:relative;line-height:0;font-size:0;}
 .page-ogrid.collection-feeds .feed .photo .photo-count{opacity:.7;background-color:#000;color:white;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-size:14px;font-weight:bold;text-align:center;height:32px;line-height:32px;padding:0 7px;position:absolute;top:24px;left:24px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .page-ogrid.collection-feeds .feed .photo:hover{cursor:pointer;}
@@ -2050,20 +2050,27 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.collection-feeds .feed .detail{margin:0;padding:9px 14px;}
 .page-ogrid.collection-feeds .feed .detail p{margin:0;}
 .page-ogrid.collection-feeds .feed .detail blockquote{font-style:normal;margin:0;padding:5px 9px 5px 25px;background:url(/images/alltu.png) no-repeat -691px -1px;background-color:#fafafa;}
-.page-ogrid.collection-feeds .feed .creator{margin:0;padding:9px 14px;background-color:#fafafa;border-bottom:solid 1px #eee;overflow:hidden;}
+.page-ogrid.collection-feeds .feed .creator{margin:0;padding:14px;background-color:#fafafa;border-bottom:solid 1px #eee;overflow:hidden;}
 .page-ogrid.collection-feeds .feed .creator .avatar{float:left;}
 .page-ogrid.collection-feeds .feed .creator .avatar img{width:32px;height:32px;padding:0;}
 .page-ogrid.collection-feeds .feed .creator .name{margin-left:40px;color:#666;line-height:16px;}
 .page-ogrid.collection-feeds .feed .creator .name a{color:#999;font-weight:bold;}
 .page-ogrid.collection-feeds .feed .creator .name a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
-.page-ogrid.collections{width:720px;}
-.page-ogrid.collections .collection{border:solid 1px #eee;padding:9px;margin-bottom:10px;margin-right:10px;float:left;width:210px;background-color:#fff;}
-.page-ogrid.collections .collection .headmeta{margin:-9px -9px 0;padding:4px 9px;border-bottom:solid 1px #eee;background-color:#fafafa;}
-.page-ogrid.collections .collection .headmeta .t-title a{font-size:14px;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;line-height:22px;color:#999;}
-.page-ogrid.collections .collection .headmeta .t-title a:hover{color:#999;border-bottom:dotted 1px #999;text-decoration:none;}
-.page-ogrid.collections .collection .data{overflow:hidden;padding:9px 0 6px;width:220px;}
-.page-ogrid.collections .collection .data .p{border:solid 1px #f4f4f4;width:66px;height:66px;margin:0 3px 3px 0;float:left;}
-.page-ogrid.collections .collection .ops .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
+.page-ogrid.collection-feeds .feed .comments .comment{margin:0;padding:9px 14px;background-color:#fafafa;border-bottom:solid 1px #eee;overflow:hidden;}
+.page-ogrid.collection-feeds .feed .comments .comment .avatar{float:left;}
+.page-ogrid.collection-feeds .feed .comments .comment .avatar img{width:32px;height:32px;padding:0;}
+.page-ogrid.collection-feeds .feed .comments .comment .name{margin-left:40px;color:#666;line-height:16px;}
+.page-ogrid.collection-feeds .feed .comments .comment .name a{color:#999;font-weight:bold;}
+.page-ogrid.collection-feeds .feed .comments .comment .name a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
+.page-ogrid.collections,.page-ogrid.collections-binded{width:720px;}
+.page-ogrid.collections .collection,.page-ogrid.collections-binded .collection{border:solid 1px #eee;padding:9px;margin-bottom:10px;margin-right:10px;float:left;width:210px;background-color:#fff;}
+.page-ogrid.collections .collection .headmeta,.page-ogrid.collections-binded .collection .headmeta{margin:-9px -9px 0;padding:4px 9px;border-bottom:solid 1px #eee;background-color:#fafafa;}
+.page-ogrid.collections .collection .headmeta .t-title a,.page-ogrid.collections-binded .collection .headmeta .t-title a{font-size:14px;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;line-height:22px;color:#999;}
+.page-ogrid.collections .collection .headmeta .t-title a:hover,.page-ogrid.collections-binded .collection .headmeta .t-title a:hover{color:#999;border-bottom:dotted 1px #999;text-decoration:none;}
+.page-ogrid.collections .collection .data,.page-ogrid.collections-binded .collection .data{overflow:hidden;padding:9px 0 6px;width:220px;}
+.page-ogrid.collections .collection .data .p,.page-ogrid.collections-binded .collection .data .p{border:solid 1px #f4f4f4;width:66px;height:66px;margin:0 3px 3px 0;float:left;}
+.page-ogrid.collections .collection .data .tsina-img,.page-ogrid.collections-binded .collection .data .tsina-img{border:solid 1px #f4f4f4;width:208px;height:208px;font-size:32px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#E32529;background-color:#ffffea;text-align:center;}
+.page-ogrid.collections .collection .ops .minibutton,.page-ogrid.collections-binded .collection .ops .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
 .page-collection-top{border:solid 1px #eee;background-color:#FFF;padding:9px;margin-bottom:10px;}
 .page-collection-top .meta{overflow:hidden;margin-bottom:9px;}
 .page-collection-top .meta .title{font-size:16px;font-weight:bold;float:left;height:32px;line-height:32px;}
