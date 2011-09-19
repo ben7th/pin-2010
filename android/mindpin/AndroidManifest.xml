@@ -29,9 +29,14 @@
 		</activity>
 		<activity android:name=".SelectCollectionListActivity">
 		</activity>
-		<activity android:name=".NewFeedActivity">
+		<activity android:name=".NewFeedActivity" android:windowSoftInputMode="adjustResize" >
 			<intent-filter>
 				<action android:name="android.intent.action.SEND" />
+				<data android:mimeType="image/*" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.SEND_MULTIPLE" />
 				<data android:mimeType="image/*" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
@@ -42,4 +47,5 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

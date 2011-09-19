@@ -7,15 +7,13 @@
   =morender 'mside_module','avatar',:user=>current_user
 
 .main.grid_18.no-line
-  .page-title-bar.grid.ov
-    .meta
-      %h2 收集册
-      .desc 对你的讨论主题、文章、照片进行分类管理和分享
-    .ops
-      =morender 'new_forms','collection'
+  .page-collection-top
+    .meta{:style=>'overflow:visible;'}
+      %h2="#{@collections.count}个收集册"
+      .ops=morender 'new_forms','collection'
     .clearfix
 
-  =prender 'grid',:collections=>@collections
+  =prender 'collection','grid',:collections=>@collections
   -if current_user.has_binded_tsina?
     .clearfix
     .page-ogrid.collections-binded

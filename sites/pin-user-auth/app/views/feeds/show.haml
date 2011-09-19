@@ -1,52 +1,33 @@
 -#use 显示主题
 
--content_for :title do
-  =truncate_u(@feed.content,12)
+-title_short = feed_title_short(@feed,15)
+-creator = @feed.creator
+-collection = @feed.collections.first
+-feed_id = @feed.id
+-photos = @feed.photos
+-detail = feed_detail(@feed)
 
--content_for :javascripts do
-  = javascript_include_tag "views/feed_operation"
-  = javascript_include_tag "views/feed_show_operation"
+-htitle title_short
 
-  = javascript_include_tag 'views/member_auto_complete_load'
-  :javascript
-    pie.load(function(){
-      var cac = new pie.FeedInviteComplete('.show-page-invite #contact_email',{
-        feed_id:#{@feed.id}
-      });
-      jQuery('.show-page-invite .editable-submit').live('click',function(){
-        cac.result();
-      });
-    });
+.mside.grid_6.no-line
+  =prender 'collection','grid',:collections=>[collection]
 
-=render 'auth/no_auth/welcome_to_signup'
+.main.grid_18.no-line
+  .page-feed-show
+    .f-head
+      .avatar=avatar creator
+      .c-meta
+        .name=usersign creator
+        .data
+    .f-main
+      .title=link_to title_short,"/feeds/#{feed_id}"
 
-.warnning.font14{:style=>"padding:10px;border-radius(5px);color:white;background:#555;"}
-  本页交互正在调整，目前仅供浏览，请暂时不要操作
+      -if !photos.blank?
+        .photos>
+          -photos.each do |photo|
+            -img_src = photo.image.url
+            .photo>
+              %img{:src=>img_src}>
 
--useless = @feed.hidden? && @feed.hidden_by_useless?
-
--if !useless || params[:show] == 'force'
-
-  =render 'feeds/show_parts/show_page_head',:feed=>@feed
-
-  .hrr
-
-  .mside.grid_5
-    =render 'feeds/show_parts/side',:feed=>@feed
-
-  .main.grid_19.ll
-    <iframe width="100%" height="300"  frameborder="0" scrolling="no" src="http://widget.weibo.com/distribution/comments.php?width=0&height=300&skin=1&dpc=1&url=#{pin_url_for('pin-user-auth',"/feeds/#{@feed.id}")}&titlebar=1&border=1&appkey=1135452362&colordiy=1&color=EEEEEE,F7F7F7,444444,4984CC,ffffff,F9F9F9"></iframe>
-
-    =render 'feeds/show_parts/feed_show',:feed=>@feed
-    =render 'feeds/show_parts/feed_show_posts',:feed=>@feed
-
--else
-
-  .padding5
-    .feed-is-hidden-by-useless
-      .icon
-      .desc 此主题被认为讨论目的/方向不明确，或无意义/无价值，或不值得讨论，已被隐藏。
-
-  .padding5
-    =minibutton '我仍然想查看',"/feeds/#{@feed.id}?show=force",:style=>'margin-right:10px;'
-    =link_to '算了，回首页吧',"/"
+      -if !detail.blank?
+        .detail=detail

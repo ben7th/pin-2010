@@ -503,3 +503,17 @@
   background-color:#FFF;
   padding:9px;
 }
+
+@mixin feed-detail-format{
+  ol{
+    margin-left:1.5em;
+  }
+  p{margin:0;}
+  blockquote{
+    font-style:normal;
+    margin:0;
+    padding:5px 9px 5px 25px;
+    @include allimg(-691px,-1px);
+    background-color:#fafafa;
+  }
+}

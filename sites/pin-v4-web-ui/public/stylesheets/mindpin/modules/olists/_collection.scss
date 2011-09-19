@@ -1,6 +1,6 @@
 .page-ogrid.collection-feeds{
-  width:960px;
   position:relative;
+  overflow:visible;
   .feed{
     position:absolute;
     @include gray-box;
@@ -12,9 +12,9 @@
     .title{
       margin:0;
       padding:9px 14px;
-      background-color:#fafafa;
-      color:#999;
       font-weight:bold;
+      font-size:14px;
+      a{color:#444 !important;}
     }
     .photo{
       margin:0;
@@ -43,20 +43,14 @@
     .detail{
       margin:0;
       padding:9px 14px;
-      p{margin:0;}
-      blockquote{
-        font-style:normal;
-        margin:0;
-        padding:5px 9px 5px 25px;
-        @include allimg(-691px,-1px);
-        background-color:#fafafa;
-      }
+      font-size:14px;
+      @include feed-detail-format;
     }
     .creator{
       margin:0;
       padding:14px;
       background-color:#fafafa;
-      border-bottom:solid 1px #eee;
+      border-top:solid 1px #eee;
       overflow:hidden;
       .avatar{float:left;img{width:32px;height:32px;padding:0;}}
       .name{
@@ -133,8 +127,10 @@
     }
     .data{
       overflow:hidden;
-      padding:9px 0 6px;
-      width:220px;
+      display:block;
+      padding:9px 0 6px 9px;
+      width:219px;
+      margin-left:-9px;
       .p{
         border:solid 1px #f4f4f4;
         width:66px;height:66px;
@@ -150,8 +146,7 @@
       }
     }
     .ops{
-      .minibutton{display:block;
-        line-height:30px;height:30px;font-size:14px;}
+      .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
     }
   }
 }
@@ -160,16 +155,15 @@
 .page-collection-top{
   @include gray-box;
   margin-bottom:10px;
+  border-bottom:solid 3px #eee;
   .meta{
     overflow:hidden;
-    margin-bottom:9px;
-    .title{font-size:16px;font-weight:bold;float:left;height:32px;line-height:32px;}
+    h2{font-size:16px;font-weight:bold;float:left;height:32px;line-height:32px;}
     .ops{
       float:right;
       .create{
         @include button-blue;
         float:left;
-        margin-right:9px;
         padding:0 7px 0 3px;
         height:30px;line-height:30px;
         font-size:14px;
@@ -177,13 +171,13 @@
         .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
         .icon{background:url(/images/alltu.png) -85px -100px;}
       }
-      .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;}
+      .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;margin-left:9px;}
     }
   }
   .foot{
     border-top:solid 1px #eee;
     background-color:#fafafa;
-    margin:0 -9px -9px;
+    margin:9px -9px -9px;
     padding:9px;
     overflow:hidden;
     .creator{

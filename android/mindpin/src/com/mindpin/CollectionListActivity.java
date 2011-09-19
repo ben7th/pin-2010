@@ -3,6 +3,8 @@ package com.mindpin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.cache.CollectionsCache;
@@ -29,6 +31,7 @@ public class CollectionListActivity extends Activity {
 	protected static final int MESSAGE_CREATE_COLLECTION_SUCCESS = 1;
 	protected static final int MESSAGE_CREATE_COLLECTION_FAIL = 2;
 	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 3;
+	public static final int MESSAGE_AUTH_FAIL = 4;
 	private ProgressDialog progress_dialog;
 	private List<HashMap<String, Object>> collections;
 	private ListView collection_list_lv;
@@ -51,6 +54,12 @@ public class CollectionListActivity extends Activity {
 			case MESSAGE_CREATE_COLLECTION_FAIL:
 				Toast.makeText(getApplicationContext(), "´´½¨Ê§°Ü",
 						Toast.LENGTH_SHORT).show();
+				break;
+			case MESSAGE_AUTH_FAIL:
+				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+						Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(CollectionListActivity.this,LoginActivity.class));
+				CollectionListActivity.this.finish();
 				break;
 			}
 			progress_dialog.dismiss();
@@ -171,6 +180,8 @@ public class CollectionListActivity extends Activity {
 				}
 			} catch (IntentException e) {
 				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
+			} catch (AuthenticateException e) {
+				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
 			}
 		}
 	}

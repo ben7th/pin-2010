@@ -115,6 +115,7 @@ class FeedsController < ApplicationController
   def show
     @feed = Feed.find(params[:id])
     @feed.view_by(current_user) if @feed && current_user
+    render :layout=>'collection'
   end
 
   def viewpoint

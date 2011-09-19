@@ -7,9 +7,10 @@
       .collection{:'data-id'=>collection.id}
         .headmeta
           %span.t-title=link_to "#{collection.title}(#{collection.feeds.count})","/collections/#{collection.id}"
-        .data
-          -with_photo_feeds = collection.with_photo_feeds[0..9]
+        %a.data{:href=>"/collections/#{collection.id}"}
+          -with_photo_feeds = collection.with_photo_feeds[0..8]
           -with_photo_feeds_count = with_photo_feeds.length
+
           -with_photo_feeds.each do |f|
             .p
               -photo = f.photos[0]
@@ -18,4 +19,6 @@
             .p
         .ops
           -if collection.creator == current_user
-            %a.minibutton.edit{:href=>"/collections/#{@collection}/edit"} <span>修改</span>
+            %a.minibutton.edit{:href=>"/collections/#{collection.id}/edit"} <span>修改</span>
+          -else
+            %a.minibutton.show{:href=>"/collections/#{collection.id}"} <span>查看</span>

@@ -8,9 +8,9 @@ module ViewsModulesHelper
     end
   end
 
-  def prender(name,params={})
+  def prender(kind,name,params={})
     begin
-      render "#{controller.controller_name}/parts/#{name}",params
+      render "#{kind.pluralize}/parts/#{name}",params
     rescue Exception => ex
       "<div class='render-error'>错误：#{ex}</div>"
     end

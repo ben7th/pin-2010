@@ -14,7 +14,8 @@
 		    android:id="@+id/collection_id"  
 		    android:layout_height="wrap_content"   
 		    android:layout_width="wrap_content"   
-		    android:textSize="20dip"   
+		    android:textSize="20dip"
+		    android:visibility="gone"
 		    />
 		<TextView
 			android:id="@+id/collection_title"   

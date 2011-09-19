@@ -1,13 +1,13 @@
 package com.mindpin;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
+import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.CameraLogic;
-import com.mindpin.Logic.FeedHoldManager;
-import com.mindpin.application.MindpinApplication;
-import com.mindpin.thread.SendFeedHoldThread;
+import com.mindpin.Logic.FeedDraftManager;
+import com.mindpin.Logic.Http;
+import com.mindpin.Logic.Http.IntentException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -20,7 +20,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -37,10 +39,13 @@ public class NewFeedActivity extends Activity {
 	protected static final int REQUEST_SELECT_COLLECTIONS = 3;
 	protected static final int REQUEST_SELECT_COLLECTIONS_AND_SEND = 4;
 	
-	private static final int MESSAGE_SAVE_FEED_HOLD_SUCCESS = 0;
 	protected static final int MESSAGE_LOGGED = 1;
 	protected static final int MESSAGE_UNLOGGED = 2;
 	protected static final int MESSAGE_INTENT_FAIL = 3;
+	public static final int MESSAGE_AUTH_FAIL = 4;
+	public static final int MESSAGE_SENDING_FEED = 5;
+	public static final int MESSAGE_SEND_FEED_SUCCESS = 6;
+	public static final int MESSAGE_SAVE_FEED_DRAFT = 7;
 	LinearLayout feed_captures;
 	private ArrayList<String> capture_paths = new ArrayList<String>();
 	
@@ -54,25 +59,43 @@ public class NewFeedActivity extends Activity {
 	private Button send_bn;
 	private Button album_bn;
 	private Button select_collections_bn;
+	private int feed_draft_id = 0;
 	
 	private ProgressDialog progress_dialog;
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
-			progress_dialog.dismiss();
 			switch (msg.what) {
-			case MESSAGE_SAVE_FEED_HOLD_SUCCESS:
-				Toast.makeText(getApplicationContext(),"保存主题成功",
-						Toast.LENGTH_SHORT).show();
-				MindpinApplication app = (MindpinApplication)getApplication();
-				app.send_feed_hold_handler.sendEmptyMessage(SendFeedHoldThread.MESSAGE_SEND_FEED_HOLD);
-				break;
 			case MESSAGE_LOGGED:
+				progress_dialog.dismiss();
 				break;
 			case MESSAGE_UNLOGGED:
+				progress_dialog.dismiss();
 				alert("登录失败，请重新登录");
 				break;
 			case MESSAGE_INTENT_FAIL:
+				progress_dialog.dismiss();
 				alert("网络不可用");
+				break;
+			case MESSAGE_AUTH_FAIL:
+				progress_dialog.dismiss();
+				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+						Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(NewFeedActivity.this,LoginActivity.class));
+				NewFeedActivity.this.finish();
+				break;
+			case MESSAGE_SENDING_FEED:
+				progress_dialog.setProgress(msg.arg1);
+				break;
+			case MESSAGE_SEND_FEED_SUCCESS:
+				progress_dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "发送成功",
+						Toast.LENGTH_SHORT).show();
+				NewFeedActivity.this.finish();
+				break;
+			case MESSAGE_SAVE_FEED_DRAFT:
+				progress_dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "保存草稿",
+						Toast.LENGTH_SHORT).show();
 				break;
 			}
 		};
@@ -115,17 +138,69 @@ public class NewFeedActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
+	
+	@Override  
+	public boolean onKeyDown(int keyCode, KeyEvent event) {  
+	    if(keyCode == KeyEvent.KEYCODE_BACK){
+			feed_title = feed_title_et.getText().toString();
+			feed_content = feed_content_et.getText().toString();
+			if(!"".equals(feed_title) 
+					|| !"".equals(feed_content)
+					|| capture_paths.size() != 0
+					|| (select_collection_ids != null && select_collection_ids.size() != 0)
+					){
+				return save_feed_draft_dialog();
+			}
+	    }  
+	    return super.onKeyDown(keyCode, event);  
+	} 
+	
+	private boolean save_feed_draft_dialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("主题尚未发送，是否保存？");
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				if(feed_draft_id != 0){
+					FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
+							feed_title,feed_content, capture_paths, select_collection_ids);
+				}else{
+					FeedDraftManager.save_feed_draft(NewFeedActivity.this, 
+							feed_title,feed_content, capture_paths, select_collection_ids);
+				}
+				NewFeedActivity.this.finish();
+			}
+		});
+		builder.setNegativeButton("取消",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				NewFeedActivity.this.finish();
+			}
+		});
+		
+		builder.show();
+		
+		
+		return true;
+	}
+
 	private void selected_collections_and_send(Intent data) {
 		ArrayList<Integer> ids = data.getIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS);
 		if(ids!=null && ids.size()!=0){
 			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
 			select_collection_ids = ids;
-			progress_dialog = ProgressDialog.show(NewFeedActivity.this,
-					"","正在发送...");
-			Thread thread = new Thread(new SaveFeedHoldRunnable());
-			thread.setDaemon(true);
-			thread.start();
+			send_feed();
 		}
+	}
+	
+	private void send_feed(){
+		progress_dialog = new ProgressDialog(this);
+		progress_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		progress_dialog.setMessage("正在发送...");
+		progress_dialog.setProgress(1);
+		progress_dialog.show();
+		
+		Thread thread = new Thread(new SendFeedRunnable());
+		thread.setDaemon(true);
+		thread.start();
 	}
 
 	private void selected_collections(Intent data) {
@@ -152,11 +227,6 @@ public class NewFeedActivity extends Activity {
 
 				feed_title = feed_title_et.getText().toString();
 				feed_content = feed_content_et.getText().toString();
-				if(feed_title == null || "".equals(feed_title)){
-					Toast.makeText(getApplicationContext(), R.string.feed_title_valid_blank,
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
 				
 				if(select_collection_ids == null){
 					Intent intent = new Intent(NewFeedActivity.this,SelectCollectionListActivity.class);
@@ -164,11 +234,7 @@ public class NewFeedActivity extends Activity {
 							SelectCollectionListActivity.EXTRA_VALUE_SELECT_FOR_SEND);
 					startActivityForResult(intent,REQUEST_SELECT_COLLECTIONS_AND_SEND);
 				}else{
-					progress_dialog = ProgressDialog.show(NewFeedActivity.this,
-							"","正在发送...");
-					Thread thread = new Thread(new SaveFeedHoldRunnable());
-					thread.setDaemon(true);
-					thread.start();
+					send_feed();
 				}
 			}
 		});
@@ -215,14 +281,29 @@ public class NewFeedActivity extends Activity {
 	}
 	
 	private void process_share(){
+		boolean has_share = false;
 		Intent it = getIntent();
 		if (Intent.ACTION_SEND.equals(it.getAction())) {
 			Bundle extras = it.getExtras();
+			has_share = true;
 			if (extras.containsKey("android.intent.extra.STREAM")) {
 				Uri uri = (Uri) extras.get("android.intent.extra.STREAM");
 				String path = get_absolute_imagePath(uri);
 				add_image_to_feed_captures(path);
 			}
+		}
+		
+		if (Intent.ACTION_SEND_MULTIPLE.equals(it.getAction())) {
+			has_share = true;
+			ArrayList<Parcelable> uris = it.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+			for (Parcelable parcelable : uris) {
+				Uri uri = (Uri)parcelable;
+				String path = get_absolute_imagePath(uri);
+				add_image_to_feed_captures(path);
+			}
+		}
+		
+		if(has_share){
 			progress_dialog = ProgressDialog.show(NewFeedActivity.this, "",
 					"正在登录...");
 			LoginRunnable lr = new LoginRunnable();
@@ -317,7 +398,7 @@ public class NewFeedActivity extends Activity {
 					msg.what = MESSAGE_UNLOGGED;
 					mhandler.sendMessage(msg);
 				}
-			} catch (IOException e) {
+			} catch (IntentException e) {
 				Message msg = mhandler.obtainMessage();
 				msg.what = MESSAGE_INTENT_FAIL;
 				mhandler.sendMessage(msg);
@@ -326,11 +407,28 @@ public class NewFeedActivity extends Activity {
 		}
 	}
 	
-	public class SaveFeedHoldRunnable implements Runnable{
+	public class SendFeedRunnable implements Runnable{
 		public void run() {
-			FeedHoldManager.save_feed_hold(NewFeedActivity.this, feed_title, feed_content,
-					capture_paths, select_collection_ids);
-			mhandler.sendEmptyMessage(MESSAGE_SAVE_FEED_HOLD_SUCCESS);
+			int request_count = capture_paths.size()+1;
+			int step = 100/request_count;
+			ArrayList<String> photo_names = new ArrayList<String>();
+			try {
+				for (int i = 0; i < capture_paths.size(); i++) {
+					String capture_path = capture_paths.get(i);
+					photo_names.add(Http.upload_photo(capture_path));
+					int count = step*(i+1);
+					Message msg = mhandler.obtainMessage(MESSAGE_SENDING_FEED,count,0);
+					mhandler.sendMessage(msg);
+				}
+				Http.send_feed(feed_title, feed_content, photo_names, select_collection_ids);
+				mhandler.sendEmptyMessage(MESSAGE_SEND_FEED_SUCCESS);
+			} catch (IntentException e) {
+				FeedDraftManager.save_feed_draft(NewFeedActivity.this, feed_title, feed_content,
+						capture_paths, select_collection_ids);
+				mhandler.sendEmptyMessage(MESSAGE_SAVE_FEED_DRAFT);
+			} catch (AuthenticateException e) {
+				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+			}
 		}
 	};
 	

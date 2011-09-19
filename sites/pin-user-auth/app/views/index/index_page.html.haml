@@ -9,32 +9,8 @@
 .main.grid_24.no-line
   .page-collection-top
     .meta
-      .title 公共主题
+      %h2 来自联系人的主题
       .ops
-        %a.create{:href=>"/feeds/new"} <span class='icon'></span><span>添加条目</span>
+        %a.create{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
 
-  .page-ogrid.collection-feeds{:style=>'opacity:0;'}
-    -feeds = @feeds
-    -if feeds.blank?
-      .list-blank 这里还没有条目
-    -else
-      -feeds.each do |feed|
-        .feed
-          .title=feed_title_short(feed,15)
-
-          -photos = feed.photos
-          -if !photos.blank?
-            -photo = photos.first
-            .photo{:'data-id'=>photo.id}>
-              %img{:src=>photo.image.url(:w200),:style=>"display:block;height:#{photo.w200_height}px"}
-              -if photos.length > 1
-                .photo-count
-                  #{photos.length} 张图片
-
-          -detail = feed_detail_short(feed)
-          -if !detail.blank?
-            .detail=detail
-
-          .creator
-            .avatar=avatar(feed.creator,:tiny)
-            .name=usersign(feed.creator)
+  =prender 'feed','grid',:feeds=>@feeds

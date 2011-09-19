@@ -25,6 +25,10 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Context;
+
+import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.utils.BaseUtils;
@@ -32,6 +36,33 @@ import com.mindpin.utils.BaseUtils;
 public class Http {
 	private static final String SITE = "http://dev.www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
+	private static boolean logged = false;
+	
+	public static boolean is_logged_in(){
+		return logged;
+	}
+	
+	public static void set_login(){
+		logged = true;
+	}
+	
+	public static void set_logout(){
+		logged = false;
+	}
+	
+	public static void ensure_user_authenticate() throws IntentException, AuthenticateException{
+		if(is_logged_in()) return;
+		
+		Context context = Global.application_context; 
+		
+		String email = AccountManager.get_email(context);
+		String password = AccountManager.get_password(context);
+		if(!AccountManager.has_user_info(context) 
+				|| !AccountManager.user_authenticate(email, password)){
+			AccountManager.logout(context);
+			throw new AuthenticateException();
+		}
+	}
 
 	public static boolean user_authenticate(String email, String password) throws IntentException {
 		try {
@@ -48,6 +79,7 @@ public class Http {
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				String info = IOUtils.toString(response.getEntity().getContent());
 				AccountInfoCache.save(info);
+				set_login();
 				return true;
 			} else {
 				return false;
@@ -95,11 +127,12 @@ public class Http {
 	}
 
 	public static boolean send_feed(String title, String content,
-			ArrayList<String> images, ArrayList<Integer> select_collection_ids) throws IntentException {
+			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids) throws IntentException, AuthenticateException {
 		try {
+			ensure_user_authenticate();
 			String select_collection_ids_str = 
 					BaseUtils.integer_list_to_string(select_collection_ids);
-			String photo_string = upload_photos(images);
+			String photo_string = BaseUtils.string_list_to_string(photo_names); 
 			HttpPost httpost = new HttpPost(SITE + "/feeds");
 			httpost.setHeader("User-Agent", "android");
 			// …Ë÷√ params
@@ -129,38 +162,34 @@ public class Http {
 			throw new IntentException();
 		}
 	}
-
-	private static String upload_photos(ArrayList<String> images) throws IntentException {
-		String photo_names = "";
-		for (int i = 0; i < images.size(); i++) {
-			try {
-				HttpPost httpost = new HttpPost(SITE + "/photos/feed_upload");
-				httpost.setHeader("User-Agent", "android");
-				MultipartEntity me = new MultipartEntity();
-				String image = images.get(i);
-				File file = new File(image);
-				FileBody bin = new FileBody(file, "image/jpeg");
-				me.addPart("file", bin);
-				httpost.setEntity(me);
-				HttpResponse response = httpclient.execute(httpost);
-				String res = response.getStatusLine().toString();
-				if ("HTTP/1.1 200 OK".equals(res)) {
-					String photo_name = IOUtils.toString(response.getEntity()
-							.getContent());
-					photo_names += photo_name;
-					if (i + 1 != images.size()) {
-						photo_names += ",";
-					}
-				}
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-				throw new IntentException();
-			} catch (IOException e) {
-				e.printStackTrace();
-				throw new IntentException();
+	
+	public static String upload_photo(String image_path) throws IntentException, AuthenticateException{
+		String photo_name = "";
+		
+		try {
+			ensure_user_authenticate();
+			HttpPost httpost = new HttpPost(SITE + "/photos/feed_upload");
+			httpost.setHeader("User-Agent", "android");
+			MultipartEntity me = new MultipartEntity();
+			File file = new File(image_path);
+			FileBody bin = new FileBody(file, "image/jpeg");
+			me.addPart("file", bin);
+			httpost.setEntity(me);
+			HttpResponse response = httpclient.execute(httpost);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				photo_name = IOUtils.toString(response.getEntity()
+						.getContent());
 			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
 		}
-		return photo_names;
+		
+		return photo_name;
 	}
 
 	public static InputStream download_logo(String logo_url) {
@@ -183,9 +212,10 @@ public class Http {
 		}
 	}
 
-	public static List<HashMap<String, Object>> get_collections() throws IntentException {
+	public static List<HashMap<String, Object>> get_collections() throws IntentException, AuthenticateException {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		try {
+			ensure_user_authenticate();
 			HttpGet httpget = new HttpGet(SITE + "/collections");
 			httpget.setHeader("User-Agent", "android");
 			HttpResponse response = httpclient.execute(httpget);
@@ -206,8 +236,9 @@ public class Http {
 		}
 	}
 
-	public static boolean create_collection(String title) throws IntentException {
+	public static boolean create_collection(String title) throws IntentException, AuthenticateException {
 		try {
+			ensure_user_authenticate();
 			HttpPost httpost = new HttpPost(SITE + "/collections");
 			httpost.setHeader("User-Agent", "android");
 			
@@ -234,9 +265,10 @@ public class Http {
 			}
 	}
 
-	public static List<HashMap<String, Object>> get_collection_feeds(int id) throws IntentException {
+	public static List<HashMap<String, Object>> get_collection_feeds(int id) throws IntentException, AuthenticateException {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		try {
+			ensure_user_authenticate();
 			HttpGet httpget = new HttpGet(SITE + "/collections/" + id);
 			httpget.setHeader("User-Agent", "android");
 			HttpResponse response = httpclient.execute(httpget);
@@ -266,8 +298,9 @@ public class Http {
 		}
 	}
 	
-	public static boolean destroy_collection(int id) throws IntentException{
+	public static boolean destroy_collection(int id) throws IntentException, AuthenticateException{
 		try {
+			ensure_user_authenticate();
 			HttpDelete httpdelete = new HttpDelete(SITE + "/collections/" + id);
 			httpdelete.setHeader("User-Agent", "android");
 			HttpResponse response;
@@ -290,8 +323,9 @@ public class Http {
 		}
 	}
 	
-	public static boolean change_collection_name(int id, String title) throws IntentException{
+	public static boolean change_collection_name(int id, String title) throws IntentException, AuthenticateException{
 		try {
+			ensure_user_authenticate();
 			HttpPut httpput = new HttpPut(SITE + "/collections/" + id + "/change_name");
 			httpput.setHeader("User-Agent", "android");
 			

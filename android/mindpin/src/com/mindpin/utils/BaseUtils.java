@@ -11,7 +11,30 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 public class BaseUtils {
+	
+	
+	public static boolean is_wifi_active(Context context) {
+		Context acontext = context.getApplicationContext();
+		ConnectivityManager connectivity = (ConnectivityManager) acontext
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (connectivity != null) {
+			NetworkInfo[] info = connectivity.getAllNetworkInfo();
+			if (info != null) {
+				for (int i = 0; i < info.length; i++) {
+					if (info[i].getTypeName().equals("WIFI")
+							&& info[i].isConnected()) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
 	// [1,2,3,4] -> "1,2,3,4"
 	public static String integer_list_to_string(ArrayList<Integer> ids){

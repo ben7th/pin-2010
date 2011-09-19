@@ -3,19 +3,14 @@ package com.mindpin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.mindpin.Logic.AccountManager;
+import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.CameraLogic;
-import com.mindpin.Logic.FeedHoldManager;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
-import com.mindpin.application.MindpinApplication;
 import com.mindpin.cache.AccountInfoCache;
-import com.mindpin.cache.CollectionsCache;
-import com.mindpin.database.FeedHold;
-import com.mindpin.thread.SendFeedHoldThread;
+import com.mindpin.utils.BaseUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -37,11 +32,9 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	public static final int MESSAGE_SYN_COLLECTIONS_SUCCESS = 0;
-	public static final int MESSAGE_SEND_FEED_HOLDS_SUCCESS = 1;
 	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 2;
 	public static final int MESSAGE_UPDATE_NOTICE = 3;
 	
-	private Timer send_feed_hold_timer;
 	private Intent to_new_feed;
 	private Intent to_collection_list;
 	private LinearLayout bn_new_feed;
@@ -59,22 +52,16 @@ public class MainActivity extends Activity {
 				notice_bar.setProgress(100);
 				notice_bar.setVisibility(View.GONE);
 				break;
-			case MESSAGE_SEND_FEED_HOLDS_SUCCESS:
-				notice_tv.setText("同步离线主题完成");
-				notice_bar.setProgress(80);
-				notice_bar.setVisibility(View.VISIBLE);
-				break;
 			case MESSAGE_SYN_COLLECTIONS_SUCCESS:
 				notice_tv.setText("同步收集册列表完成");
 				notice_bar.setProgress(50);
 				notice_bar.setVisibility(View.VISIBLE);
 			case MESSAGE_UPDATE_NOTICE:
-				int count = FeedHold.get_count(getApplicationContext());
 				long time = AccountManager.last_syn_time(getApplicationContext());
 				SimpleDateFormat sdf = new SimpleDateFormat();
 				sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
 				String str = sdf.format(new Date(time));
-				notice_tv.setText(count + "离线主题，"+"上次同步于 "+str);
+				notice_tv.setText("上次同步于 "+str);
 				notice_bar.setProgress(100);
 				notice_bar.setVisibility(View.GONE);
 			}
@@ -130,26 +117,16 @@ public class MainActivity extends Activity {
 	private void start_syn() {
 		notice_tv = (TextView)findViewById(R.id.main_notice);		
 		notice_bar = (ProgressBar) findViewById(R.id.main_notice_bar);
+		if(!BaseUtils.is_wifi_active(this) || !Http.is_logged_in()){
+			mhandler.sendEmptyMessage(MESSAGE_UPDATE_NOTICE);
+			return;
+		}
 		notice_tv.setText("正在同步...");
 		notice_bar.setProgress(20);
 		notice_bar.setVisibility(View.VISIBLE);
 		Thread thread = new Thread(new SynDataRunnable());
 		thread.setDaemon(true);
 		thread.start();
-		
-		MindpinApplication app = (MindpinApplication)getApplication();
-		SendFeedHoldThread sf_thread = new SendFeedHoldThread(app);
-		sf_thread.setDaemon(true);
-		sf_thread.start();
-		
-		send_feed_hold_timer = new Timer();
-		TimerTask task = new TimerTask() {
-			public void run() {
-				MindpinApplication app = (MindpinApplication)getApplication();
-				app.send_feed_hold_handler.sendEmptyMessage(SendFeedHoldThread.MESSAGE_SEND_FEED_HOLD);
-			}
-		};
-		send_feed_hold_timer.schedule(task, 30000, 30000);
 	}
 
 	@Override
@@ -203,23 +180,12 @@ public class MainActivity extends Activity {
 		super.onResume();
 	}
 	
-	@Override
-	protected void onDestroy() {
-	    if (send_feed_hold_timer != null) {
-	    	send_feed_hold_timer.cancel();
-	    }
-		super.onDestroy();
-	}
-	
 	private void logout_dialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("退出登录会清除个人缓存以及个人的推迟发送的主题，确定退出么？");
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				AccountManager.remove_user_info(MainActivity.this);
-				AccountInfoCache.destroy();
-				CollectionsCache.destroy();
-				FeedHold.destroy_all(getApplicationContext());
+				AccountManager.logout(MainActivity.this);
 				startActivity(new Intent(MainActivity.this, LoginActivity.class));
 				MainActivity.this.finish();
 			}
@@ -233,12 +199,10 @@ public class MainActivity extends Activity {
 			try {
 				Http.get_collections();
 				mhandler.sendEmptyMessage(MESSAGE_SYN_COLLECTIONS_SUCCESS);
-				if(FeedHold.get_count(getApplicationContext()) != 0){
-					FeedHoldManager.send_feed_holds(getApplicationContext());
-				}
-				mhandler.sendEmptyMessage(MESSAGE_SEND_FEED_HOLDS_SUCCESS);
 			} catch (IntentException e) {
 				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
+			} catch (AuthenticateException e) {
+				e.printStackTrace();
 			}
 			AccountManager.touch_last_syn_time(getApplicationContext());
 			try {

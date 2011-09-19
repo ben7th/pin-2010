@@ -3,12 +3,14 @@ package com.mindpin;
 import java.util.HashMap;
 import java.util.List;
 
+import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ public class CollectionFeedListActivity extends Activity {
 	public static final int MESSAGE_DESTROY_COLLECTION_FAIL = 3;
 	public static final int MESSAGE_CHANGE_COLLECTION_NAME_SUCCESS = 4;
 	public static final int MESSAGE_CHANGE_COLLECTION_NAME_FAIL = 5;
+	public static final int MESSAGE_AUTH_FAIL = 6;
 	
 	private int collection_id;
 	private String collection_title;
@@ -68,6 +71,12 @@ public class CollectionFeedListActivity extends Activity {
 			case MESSAGE_CHANGE_COLLECTION_NAME_FAIL:
 				Toast.makeText(getApplicationContext(),"²Ù×÷Ê§°Ü",
 						Toast.LENGTH_SHORT).show();
+				break;
+			case MESSAGE_AUTH_FAIL:
+				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+						Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(CollectionFeedListActivity.this,LoginActivity.class));
+				CollectionFeedListActivity.this.finish();
 				break;
 			}
 			progress_dialog.dismiss();
@@ -160,6 +169,9 @@ public class CollectionFeedListActivity extends Activity {
 				mhandler.sendEmptyMessage(MESSAGE_READ_FEED_LIST_SUCCESS);
 			} catch (IntentException e) {
 				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
+			} catch (AuthenticateException e) {
+				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -181,8 +193,9 @@ public class CollectionFeedListActivity extends Activity {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (IntentException e) {
-				e.printStackTrace();
 				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
+			} catch (AuthenticateException e) {
+				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
 			}
 		}
 	}
@@ -210,6 +223,9 @@ public class CollectionFeedListActivity extends Activity {
 			} catch (IntentException e) {
 				e.printStackTrace();
 				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
+			} catch (AuthenticateException e) {
+				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+				e.printStackTrace();
 			}
 		}
 		

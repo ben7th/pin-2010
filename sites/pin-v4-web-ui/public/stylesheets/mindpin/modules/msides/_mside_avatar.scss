@@ -10,6 +10,12 @@
   }
   .avatar{
     width:200px;height:200px;
+    margin-bottom:14px;
     img{width:200px;height:200px;@include border-radius(0);padding:0;}
+  }
+  .ops{
+    margin-bottom:5px;
+    .minibutton{display:block;
+      line-height:30px;height:30px;font-size:14px;}
   }
 }

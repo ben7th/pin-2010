@@ -111,46 +111,47 @@ public final class R {
         public static final int main=0x7f070001;
     }
     public static final class string {
-        public static final int about=0x7f05000e;
-        public static final int album_bn=0x7f050013;
+        public static final int about=0x7f05000f;
+        public static final int album_bn=0x7f050014;
         public static final int app_name=0x7f050000;
-        public static final int auth_fail=0x7f050009;
-        public static final int cancel_bn=0x7f050019;
-        public static final int email=0x7f050004;
-        public static final int email_valid_blank=0x7f050007;
-        public static final int feed_select_collections=0x7f050015;
-        public static final int feed_title_valid_blank=0x7f050014;
+        public static final int auth_fail=0x7f05000a;
+        public static final int auth_fail_tip=0x7f050003;
+        public static final int cancel_bn=0x7f05001a;
+        public static final int email=0x7f050005;
+        public static final int email_valid_blank=0x7f050008;
+        public static final int feed_select_collections=0x7f050016;
+        public static final int feed_title_valid_blank=0x7f050015;
         public static final int intent_connection_fail=0x7f050001;
-        public static final int login=0x7f050006;
+        public static final int login=0x7f050007;
         /**  登录页面 
          */
-        public static final int login_title_bar=0x7f050003;
-        public static final int logout=0x7f05000f;
-        public static final int main_bn_camera=0x7f05000b;
-        public static final int main_bn_collections=0x7f05000d;
-        public static final int main_bn_feeds=0x7f05000c;
+        public static final int login_title_bar=0x7f050004;
+        public static final int logout=0x7f050010;
+        public static final int main_bn_camera=0x7f05000c;
+        public static final int main_bn_collections=0x7f05000e;
+        public static final int main_bn_feeds=0x7f05000d;
         /**  登陆成功后的主页面 
          */
-        public static final int main_bn_new_feed=0x7f05000a;
-        public static final int menu_change_collection_name=0x7f05001b;
+        public static final int main_bn_new_feed=0x7f05000b;
+        public static final int menu_change_collection_name=0x7f05001c;
         /**  收集册主题列表页面 
          */
-        public static final int menu_delete_collection=0x7f05001a;
-        public static final int new_feed_content_et=0x7f050011;
+        public static final int menu_delete_collection=0x7f05001b;
+        public static final int new_feed_content_et=0x7f050012;
         /**  新建主题页面 
          */
-        public static final int new_feed_title_et=0x7f050010;
+        public static final int new_feed_title_et=0x7f050011;
         public static final int now_loading=0x7f050002;
-        public static final int password=0x7f050005;
-        public static final int password_valid_blank=0x7f050008;
-        public static final int send_bn=0x7f050012;
+        public static final int password=0x7f050006;
+        public static final int password_valid_blank=0x7f050009;
+        public static final int send_bn=0x7f050013;
         /**  显示照片页面 
          */
-        public static final int show_capture_image_back=0x7f050016;
-        public static final int show_capture_image_delete=0x7f050017;
+        public static final int show_capture_image_back=0x7f050017;
+        public static final int show_capture_image_delete=0x7f050018;
         /**  选择收集册页面 
          */
-        public static final int submit_bn=0x7f050018;
+        public static final int submit_bn=0x7f050019;
     }
     public static final class style {
         public static final int body=0x7f060001;

@@ -3,6 +3,7 @@
     <string name="app_name">mindpin</string>
     <string name="intent_connection_fail">网络连接异常</string>
     <string name="now_loading">正在载入…</string>
+    <string name="auth_fail_tip">用户名密码错误，请重新登录</string>
     <!-- 登录页面 -->
     <string name="login_title_bar">登录 - Android工程评估版 0.03</string>
     <string name="email">用户邮箱</string>

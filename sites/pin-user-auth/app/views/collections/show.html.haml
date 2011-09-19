@@ -3,42 +3,28 @@
 
 -htitle "#{@collection.title}"
 
+-creator = @collection.creator
+-is_current_user = (creator == current_user)
+-title = @collection.title
+-feeds = @collection.feeds
+
 .main.grid_24.no-line
   .page-collection-top
     .meta
-      .title=@collection.title
+      %h2=title
       .ops
-        %a.create{:href=>"/feeds/new?collection=#{@collection.id}"} <span class='icon'></span><span>添加条目</span>
-        %a.minibutton.edit{:href=>"/collections/#{@collection}/edit"} <span>修改</span>
+        -if is_current_user
+          %a.create{:href=>"/feeds/new?collection=#{@collection.id}"} <span class='icon'></span><span>创建主题</span>
+          %a.minibutton.edit{:href=>"/collections/#{@collection.id}/edit"} <span>修改</span>
     .foot
       .creator
-        .avatar=avatar @collection.creator,:tiny
+        .avatar=avatar creator,:tiny
         .desc 由
-        .name=usersign @collection.creator
+        .name=usersign creator
         .desc 创建
       .f-count
-        共 #{@collection.feeds.count} 个条目
+        共 #{feeds.length} 个主题
 
-  .page-ogrid.collection-feeds{:style=>'opacity:0;'}
-    -feeds = @collection.feeds
-    -if feeds.blank?
-      .list-blank 这里还没有条目
-    -else
-      -feeds.each do |feed|
-        .feed{:'data-id'=>feed.id}
-          .title=feed_title_short(feed,15)
-
-          -photos = feed.photos
-          -if !photos.blank?
-            -photo = photos.first
-            .photo{:'data-id'=>photo.id}>
-              %img{:src=>photo.image.url(:w200),:style=>"display:block;height:#{photo.w200_height}px"}
-              -if photos.length > 1
-                .photo-count
-                  #{photos.length} 张图片
-          -detail = feed_detail(feed)
-
-          -if !detail.blank?
-            .detail=detail
+  =prender 'feed','grid',:feeds=>feeds,:hide_creator=>true
             
 

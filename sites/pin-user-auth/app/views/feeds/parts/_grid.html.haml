@@ -1,0 +1,37 @@
+-#use 主题列表
+-#see 登录后的首页->中间栏的主题列表
+
+-hide_creator ||= false
+
+.page-ogrid.collection-feeds{:style=>'opacity:0;'}
+  -if feeds.blank?
+    .list-blank 这里还没有主题
+  -else
+    -feeds.each do |feed|
+      -feed_id = feed.id
+      -title_short = feed_title_short(feed,15)
+      -photos = feed.photos
+      -detail = feed_detail_short(feed)
+
+      .feed{:'data-id'=>feed_id}
+        .title=link_to title_short,"/feeds/#{feed_id}"
+
+        -if !photos.blank?
+          -photo = photos.first
+          -img_src = photo.image.url(:w200)
+          -css_height = photo.w200_height
+          -has_many_photos = photos.length > 1
+
+          .photo>
+            %a{:href=>"/feeds/#{feed_id}"}>
+              %img{:src=>img_src,:style=>"display:block;height:#{css_height}px"}
+              -if has_many_photos
+                .photo-count="#{photos.length} 张图片"
+
+        -if !detail.blank?
+          .detail=detail
+
+        -if !hide_creator
+          .creator
+            .avatar=avatar(feed.creator,:tiny)
+            .name=usersign(feed.creator)

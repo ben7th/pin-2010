@@ -179,60 +179,6 @@
   }
 }
 
-
-.page-feed-show{
-  padding:5px;
-  margin-bottom:30px;
-  overflow:hidden;
-
-  .main{
-    margin:0 0 10px 0;
-    .feed-detail-edit-form{
-      margin:0 0 10px 0;
-      .btns{
-        @include submitbtns;
-      }
-      .detail-inputer{
-        width:600px;
-        height:168px;
-        font-size:12px;
-      }
-    }
-    .detail-data{
-      .data{
-        @include markdown_content;
-      }
-      .edit-detail{
-        @include editlink;
-      }
-    }
-  }
-
-  .footmisc{
-    @include footmisc;
-    margin-bottom:20px;
-  }
-
-  .comments{
-    margin:0 0 10px 0;
-    @include feed-show-comments;
-  }
-
-  .add-comment{
-    @include commentlink;
-  }
-
-  .comment-form{
-    .inputer{
-      width:500px;
-    }
-    .btns{
-      @include submitbtns;
-    }
-  }
-
-}
-
 .page-feed-viewpoints-title{
   font-size:14px;
   font-weight:bold;
@@ -544,5 +490,44 @@
   padding:5px;
   .unlock{
     font-size:14px;font-weight:bold;
+  }
+}
+
+
+
+/** 主题呈现 **/
+.page-feed-show{
+  border:solid 1px #eee;
+  background-color:#FFF;
+  .f-head{
+    padding:14px;
+    background-color:#fafafa;
+    border-bottom:solid 1px #eee;
+    overflow:hidden;
+    .avatar{float:left;}
+    .c-meta{
+      margin-left:60px;
+      .name{
+        font-size:16px;line-height:32px;
+        font-weight:bold;@include tfont;
+        a{color:#444 !important;}
+      }
+    }
+  }
+  .f-main{
+    .title{
+      padding:14px;font-weight:bold;
+      font-size:14px;@include tfont;
+      a{color:#444 !important;}
+    }
+    .detail{
+      padding:14px;
+      font-size:14px;
+      @include feed-detail-format;
+    }
+    .photos{
+      padding:14px;
+      .photo{font-size:0;line-height:0;}
+    }
   }
 }

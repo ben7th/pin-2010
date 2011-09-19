@@ -31,8 +31,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @feeds = @user.out_feeds_limit(20)
-    render :layout=>'user_page'
+    render :layout=>'collection'
   end
 
   def favs

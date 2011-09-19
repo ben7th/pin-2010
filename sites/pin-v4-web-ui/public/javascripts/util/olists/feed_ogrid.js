@@ -1,9 +1,11 @@
+//主题的垂直浮动布局排版
+
 pie.load(function(){
   if(jQuery('.page-ogrid.collection-feeds').length == 0) return;
 
   var col_height_array = [0, 0, 0, 0];
   var col_width = 240;
-  var padding_bottom = 10;
+  var padding_bottom = 14;
 
   jQuery('.page-ogrid.collection-feeds .feed').each(function(){
     var feed_elm = jQuery(this);
