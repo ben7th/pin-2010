@@ -2034,24 +2034,26 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.collections .collection .data .p,.page-ogrid.collections-binded .collection .data .p{border:solid 1px #f4f4f4;width:66px;height:66px;margin:0 3px 3px 0;float:left;}
 .page-ogrid.collections .collection .data .tsina-img,.page-ogrid.collections-binded .collection .data .tsina-img{border:solid 1px #f4f4f4;width:208px;height:208px;font-size:32px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#E32529;background-color:#ffffea;text-align:center;}
 .page-ogrid.collections .collection .ops .minibutton,.page-ogrid.collections-binded .collection .ops .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
-.page-collection-top{border:solid 1px #eee;background-color:#FFF;padding:9px;margin-bottom:10px;border-bottom:solid 3px #eee;}
-.page-collection-top .meta{overflow:hidden;}
-.page-collection-top .meta h2{font-size:16px;font-weight:bold;float:left;height:32px;line-height:32px;}
-.page-collection-top .meta .ops{float:right;}
-.page-collection-top .meta .ops .create{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;float:left;padding:0 7px 0 3px;height:30px;line-height:30px;font-size:14px;}
-.page-collection-top .meta .ops .create:hover{color:white;text-decoration:none;border:solid 1px #0069dd;box-shadow:0 1px 2px #ccc;}
-.page-collection-top .meta .ops .create span{display:block;}
-.page-collection-top .meta .ops .create span{float:left;}
-.page-collection-top .meta .ops .create .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
-.page-collection-top .meta .ops .create .icon{background:url(/images/alltu.png) -85px -100px;}
-.page-collection-top .meta .ops .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;margin-left:9px;}
-.page-collection-top .foot{border-top:solid 1px #eee;background-color:#fafafa;margin:9px -9px -9px;padding:9px;overflow:hidden;}
-.page-collection-top .foot .creator{float:left;overflow:hidden;}
-.page-collection-top .foot .creator .avatar{float:left;margin-right:9px;}
-.page-collection-top .foot .creator .avatar img{width:32px;height:32px;padding:0;}
-.page-collection-top .foot .creator .name{float:left;height:32px;line-height:32px;margin-right:6px;font-size:14px;}
-.page-collection-top .foot .creator .desc{float:left;height:32px;line-height:32px;margin-right:6px;font-size:14px;}
-.page-collection-top .foot .f-count{float:right;height:32px;line-height:32px;font-size:14px;font-weight:bold;}
+.page-collection-top,.page-info-top{border:solid 1px #eee;background-color:#FFF;padding:9px;margin-bottom:10px;border-bottom:solid 3px #eee;}
+.page-collection-top .meta,.page-info-top .meta{overflow:hidden;}
+.page-collection-top .meta h2,.page-collection-top .meta .item,.page-info-top .meta h2,.page-info-top .meta .item{font-size:16px;font-weight:bold;float:left;height:32px;line-height:32px;}
+.page-collection-top .meta .item,.page-info-top .meta .item{margin:-9px 9px -9px -9px;padding:9px;}
+.page-collection-top .meta .item.selected,.page-info-top .meta .item.selected{background-color:#fafafa;border-left:solid 1px #eee;border-right:solid 1px #eee;}
+.page-collection-top .meta .ops,.page-info-top .meta .ops{float:right;}
+.page-collection-top .meta .ops .create,.page-info-top .meta .ops .create{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;float:left;padding:0 7px 0 3px;height:30px;line-height:30px;font-size:14px;}
+.page-collection-top .meta .ops .create:hover,.page-info-top .meta .ops .create:hover{color:white;text-decoration:none;border:solid 1px #0069dd;box-shadow:0 1px 2px #ccc;}
+.page-collection-top .meta .ops .create span,.page-info-top .meta .ops .create span{display:block;}
+.page-collection-top .meta .ops .create span,.page-info-top .meta .ops .create span{float:left;}
+.page-collection-top .meta .ops .create .icon,.page-info-top .meta .ops .create .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
+.page-collection-top .meta .ops .create .icon,.page-info-top .meta .ops .create .icon{background:url(/images/alltu.png) -85px -100px;}
+.page-collection-top .meta .ops .minibutton.edit,.page-info-top .meta .ops .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;margin-left:9px;}
+.page-collection-top .foot,.page-info-top .foot{border-top:solid 1px #eee;background-color:#fafafa;margin:9px -9px -9px;padding:9px;overflow:hidden;}
+.page-collection-top .foot .creator,.page-info-top .foot .creator{float:left;overflow:hidden;}
+.page-collection-top .foot .creator .avatar,.page-info-top .foot .creator .avatar{float:left;margin-right:9px;}
+.page-collection-top .foot .creator .avatar img,.page-info-top .foot .creator .avatar img{width:32px;height:32px;padding:0;}
+.page-collection-top .foot .creator .name,.page-info-top .foot .creator .name{float:left;height:32px;line-height:32px;margin-right:6px;font-size:14px;}
+.page-collection-top .foot .creator .desc,.page-info-top .foot .creator .desc{float:left;height:32px;line-height:32px;margin-right:6px;font-size:14px;}
+.page-collection-top .foot .f-count,.page-info-top .foot .f-count{float:right;height:32px;line-height:32px;font-size:14px;font-weight:bold;}
 .page-olist.mindmaps{padding:0 20px;}
 .page-olist.mindmaps .list-blank{margin:0 0 200px 0;}
 .page-olist.mindmaps .mindmap{border:solid 1px #eee;padding:10px;margin-bottom:20px;}
@@ -2089,6 +2091,15 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav .icon{position:relative;top:2px;float:left;width:16px;height:16px;margin:0 2px 0 0;}
 .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.unfav .icon{background:url(/images/alltu.png) no-repeat -18px -52px;}
 .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.fav .icon{background:url(/images/alltu.png) no-repeat -1px -52px;}
+.page-olist.followings .list-blank{margin:0 0 200px 0;}
+.page-olist.followings .following{border:solid 1px #eee;background-color:#fff;padding:9px;margin-bottom:4px;overflow:hidden;}
+.page-olist.followings .following .avatar{float:left;}
+.page-olist.followings .following .avatar a:hover{opacity:.9;}
+.page-olist.followings .following .avatar img{width:32px;height:32px;}
+.page-olist.followings .following .data{float:left;margin-left:10px;line-height:17px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;width:430px;}
+.page-olist.followings .following .data .name a{color:#444!important;}
+.page-olist.followings .following .ops{float:right;overflow:hidden;margin:-9px;}
+.page-olist.followings .following .ops .mindpin-user{border-left:solid 1px #eee;border-bottom:solid 1px #eee;background-color:#fafafa;float:right;padding:4px 9px;}
 .minibutton{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;display:inline-block;height:22px;line-height:22px;padding:0 5px;}
 .minibutton:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
 .minibutton span{display:block;}

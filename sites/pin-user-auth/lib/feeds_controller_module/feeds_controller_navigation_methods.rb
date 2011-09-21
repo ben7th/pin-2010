@@ -61,6 +61,11 @@ module FeedsControllerNavigationMethods
     render :template=>"feeds/no_reply"
   end
 
+  def all
+    @feeds = Feed.publics.paginate(:per_page=>20,:page=>params[:page]||1)
+    render :layout=>'collection'
+  end
+
   private
   def set_cookies_menu_feeds_tab(name)
     cookies[:menu_feeds_tab] = name

@@ -1,0 +1,45 @@
+-#use 新浪微博的人际关系（关注）
+-#see 顶部导航->人际关系->新浪微博
+
+-htitle '我的新浪微博关注对象'
+
+-has_binded_tsina = current_user.has_binded_tsina?
+
+.main.grid_24.no-line
+  .page-info-top
+    .meta{:style=>'overflow:visible;'}
+      .item=link_to '我的联系人','/contacts'
+      .item.selected 新浪微博联系人
+    .clearfix
+
+  .page-olist.followings
+    -if !has_binded_tsina
+      .list-blank
+        你还没有关联新浪微博账号。
+        =minibutton '在这里关联','/account/bind_tsina'
+    -else
+      -weibo = current_user.tsina_weibo
+      -friends = weibo.friends :count=>200
+
+      -friends.each do |tsina_friend|
+        -uid = tsina_friend.id
+        -name = tsina_friend.name
+        -url = "http://weibo.com/#{uid}"
+        -imgsrc = tsina_friend.profile_image_url
+        -description = tsina_friend.description
+
+        -mindpin_user = ConnectUser.get_user_from_tsina_id(uid)
+        -is_mindpin_user = !mindpin_user.blank?
+
+        .following{:'data-tsina-uid'=>uid}
+          .avatar
+            -link_to url,:target=>'_blank' do
+              %img{:src=>imgsrc,:alt=>name}
+          .data
+            .name=link_to name,url
+            .sign.quiet=description
+          .ops
+            -if is_mindpin_user
+              .mindpin-user 
+                mindpin用户
+                =usersign mindpin_user

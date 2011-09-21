@@ -4,12 +4,11 @@ class CollectionTest < ActiveSupport::TestCase
   test "创建一个公开的 collection" do
     clear_redis_cache_and_memcache_cache
     a = users(:a)
-    scope = "all-public"
+    scope = Collection::SendStatus::PUBLIC
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
-    assert_equal 1, coll.collection_scopes.count
     assert_equal a, coll.creator
     assert_equal true, coll.public?
   end
@@ -18,12 +17,12 @@ class CollectionTest < ActiveSupport::TestCase
     clear_redis_cache_and_memcache_cache
     a = users(:a)
     b = users(:b)
-    scope = "all-public,u-#{b.id}"
+    scope = "#{Collection::SendStatus::PUBLIC},u-#{b.id}"
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
-    assert_equal 2, coll.collection_scopes.count
+    assert_equal 1, coll.collection_scopes.count
     assert_equal a, coll.creator
     assert_equal true, coll.public?
     assert_equal [b], coll.sent_users
@@ -32,7 +31,7 @@ class CollectionTest < ActiveSupport::TestCase
   test "创建一个对所有好友的 collection" do
     clear_redis_cache_and_memcache_cache
     a = users(:a)
-    scope = "all-followings"
+    scope = CollectionScope::FOLLOWINGS
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
@@ -46,7 +45,7 @@ class CollectionTest < ActiveSupport::TestCase
     clear_redis_cache_and_memcache_cache
     a = users(:a)
     b = users(:b)
-    scope = "all-followings,u-#{b.id}"
+    scope = "#{CollectionScope::FOLLOWINGS},u-#{b.id}"
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
@@ -169,15 +168,12 @@ class CollectionTest < ActiveSupport::TestCase
     a = users(:a)
     channel_ac = channels(:channel_ac)
     channel_ad = channels(:channel_ad)
-    assert_raise(CollectionScope::UnSpecifiedError) do
-      a.create_collection_by_params("我是标题","")
-    end
 
     error_scope_list = [
-      "all-public,all-followings",
-      "all-public,ch-#{channel_ac.id}",
-      "all-followings,ch-#{channel_ac.id}",
-      "all-public,abc",
+      "#{Collection::SendStatus::PRIVATE},#{CollectionScope::FOLLOWINGS}",
+      "#{Collection::SendStatus::PRIVATE},ch-#{channel_ac.id}",
+      "#{CollectionScope::FOLLOWINGS},ch-#{channel_ac.id}",
+      "#{Collection::SendStatus::PUBLIC},abc",
       "aef1"
     ]
     error_scope_list.each do |scope|
@@ -185,21 +181,25 @@ class CollectionTest < ActiveSupport::TestCase
         a.create_collection_by_params("我是标题",scope)
       end
     end
+
+    assert_raise(CollectionScope::UnSpecifiedError) do
+      a.create_collection_by_params("我是标题", "#{Collection::SendStatus::SCOPED}")
+    end
   end
 
 
   test "删除 collection" do
     clear_redis_cache_and_memcache_cache
     a = users(:a)
-    scope = "all-public"
+    scope = Collection::SendStatus::PUBLIC
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
-    assert_equal 1, coll.collection_scopes.count
+    assert_equal 0, coll.collection_scopes.count
     assert_equal a, coll.creator
     assert_equal true, coll.public?
-    assert_difference(['Collection.count','CollectionScope.count'], -1) do
+    assert_difference(['Collection.count'], -1) do
       coll.destroy
     end
   end
@@ -207,19 +207,16 @@ class CollectionTest < ActiveSupport::TestCase
   test "修改 collection sendto 范围" do
     clear_redis_cache_and_memcache_cache
     a = users(:a)
-    scope = "all-public"
+    scope = Collection::SendStatus::PUBLIC
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
-    assert_equal 1, coll.collection_scopes.count
     assert_equal a, coll.creator
     assert_equal true, coll.public?
 
-    scope = "all-followings"
-    assert_difference(['Collection.count','CollectionScope.count'], 0) do
-      coll.change_sendto(scope)
-    end
+    scope = CollectionScope::FOLLOWINGS
+    coll.change_sendto(scope)
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count
     assert_equal a, coll.creator

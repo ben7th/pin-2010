@@ -8921,23 +8921,30 @@ form .field.sendto-select-widget .sendto-selector {
       font-size: 14px; }
 
 /*collection show页面顶端栏*/
-.page-collection-top {
+.page-collection-top, .page-info-top {
   border: solid 1px #eee;
   background-color: #FFF;
   padding: 9px;
   margin-bottom: 10px;
   border-bottom: solid 3px #eee; }
-  .page-collection-top .meta {
+  .page-collection-top .meta, .page-info-top .meta {
     overflow: hidden; }
-    .page-collection-top .meta h2 {
+    .page-collection-top .meta h2, .page-collection-top .meta .item, .page-info-top .meta h2, .page-info-top .meta .item {
       font-size: 16px;
       font-weight: bold;
       float: left;
       height: 32px;
       line-height: 32px; }
-    .page-collection-top .meta .ops {
+    .page-collection-top .meta .item, .page-info-top .meta .item {
+      margin: -9px 9px -9px -9px;
+      padding: 9px; }
+      .page-collection-top .meta .item.selected, .page-info-top .meta .item.selected {
+        background-color: #fafafa;
+        border-left: solid 1px #eee;
+        border-right: solid 1px #eee; }
+    .page-collection-top .meta .ops, .page-info-top .meta .ops {
       float: right; }
-      .page-collection-top .meta .ops .create {
+      .page-collection-top .meta .ops .create, .page-info-top .meta .ops .create {
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -8954,59 +8961,59 @@ form .field.sendto-select-widget .sendto-selector {
         height: 30px;
         line-height: 30px;
         font-size: 14px; }
-        .page-collection-top .meta .ops .create:hover {
+        .page-collection-top .meta .ops .create:hover, .page-info-top .meta .ops .create:hover {
           color: white;
           text-decoration: none;
           border: solid 1px #0069dd;
           box-shadow: 0 1px 2px #ccc; }
-        .page-collection-top .meta .ops .create span {
+        .page-collection-top .meta .ops .create span, .page-info-top .meta .ops .create span {
           display: block; }
-        .page-collection-top .meta .ops .create span {
+        .page-collection-top .meta .ops .create span, .page-info-top .meta .ops .create span {
           float: left; }
-        .page-collection-top .meta .ops .create .icon {
+        .page-collection-top .meta .ops .create .icon, .page-info-top .meta .ops .create .icon {
           width: 24px;
           height: 24px;
           position: relative;
           top: 3px;
           margin-right: 3px; }
-        .page-collection-top .meta .ops .create .icon {
+        .page-collection-top .meta .ops .create .icon, .page-info-top .meta .ops .create .icon {
           background: url(/images/alltu.png) -85px -100px; }
-      .page-collection-top .meta .ops .minibutton.edit {
+      .page-collection-top .meta .ops .minibutton.edit, .page-info-top .meta .ops .minibutton.edit {
         float: left;
         font-size: 14px;
         padding: 0 7px;
         height: 30px;
         line-height: 30px;
         margin-left: 9px; }
-  .page-collection-top .foot {
+  .page-collection-top .foot, .page-info-top .foot {
     border-top: solid 1px #eee;
     background-color: #fafafa;
     margin: 9px -9px -9px;
     padding: 9px;
     overflow: hidden; }
-    .page-collection-top .foot .creator {
+    .page-collection-top .foot .creator, .page-info-top .foot .creator {
       float: left;
       overflow: hidden; }
-      .page-collection-top .foot .creator .avatar {
+      .page-collection-top .foot .creator .avatar, .page-info-top .foot .creator .avatar {
         float: left;
         margin-right: 9px; }
-        .page-collection-top .foot .creator .avatar img {
+        .page-collection-top .foot .creator .avatar img, .page-info-top .foot .creator .avatar img {
           width: 32px;
           height: 32px;
           padding: 0; }
-      .page-collection-top .foot .creator .name {
+      .page-collection-top .foot .creator .name, .page-info-top .foot .creator .name {
         float: left;
         height: 32px;
         line-height: 32px;
         margin-right: 6px;
         font-size: 14px; }
-      .page-collection-top .foot .creator .desc {
+      .page-collection-top .foot .creator .desc, .page-info-top .foot .creator .desc {
         float: left;
         height: 32px;
         line-height: 32px;
         margin-right: 6px;
         font-size: 14px; }
-    .page-collection-top .foot .f-count {
+    .page-collection-top .foot .f-count, .page-info-top .foot .f-count {
       float: right;
       height: 32px;
       line-height: 32px;
@@ -9166,6 +9173,40 @@ form .field.sendto-select-widget .sendto-selector {
               background: url(/images/alltu.png) no-repeat -18px -52px; }
             .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.fav .icon {
               background: url(/images/alltu.png) no-repeat -1px -52px; }
+
+.page-olist.followings .list-blank {
+  margin: 0 0 200px 0; }
+.page-olist.followings .following {
+  border: solid 1px #eee;
+  background-color: #fff;
+  padding: 9px;
+  margin-bottom: 4px;
+  overflow: hidden; }
+  .page-olist.followings .following .avatar {
+    float: left; }
+    .page-olist.followings .following .avatar a:hover {
+      opacity: 0.9; }
+    .page-olist.followings .following .avatar img {
+      width: 32px;
+      height: 32px; }
+  .page-olist.followings .following .data {
+    float: left;
+    margin-left: 10px;
+    line-height: 17px;
+    font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    width: 430px; }
+    .page-olist.followings .following .data .name a {
+      color: #444 !important; }
+  .page-olist.followings .following .ops {
+    float: right;
+    overflow: hidden;
+    margin: -9px; }
+    .page-olist.followings .following .ops .mindpin-user {
+      border-left: solid 1px #eee;
+      border-bottom: solid 1px #eee;
+      background-color: #fafafa;
+      float: right;
+      padding: 4px 9px; }
 
 .minibutton {
   border-radius: 3px;

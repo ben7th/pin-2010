@@ -3,6 +3,19 @@ class Collection < UserAuthAbstract
   validates_presence_of :title
   validates_presence_of :creator
   validates_uniqueness_of :title,:scope=>"creator_id"
+  
+  class SendStatus
+    PUBLIC = "public"
+    PRIVATE = "private"
+    SCOPED = "scoped"
+  end
+  SEND_STATUSES = [
+    Collection::SendStatus::PUBLIC,
+    Collection::SendStatus::PRIVATE,
+    Collection::SendStatus::SCOPED
+  ]
+
+  named_scope :publics,:conditions=>"send_status ='#{Collection::SendStatus::PUBLIC}'"
 
   def validate
     channel_ids = self.creator.channels_db_ids
@@ -16,12 +29,8 @@ class Collection < UserAuthAbstract
 
   def change_sendto(scope)
     self.collection_scopes.each{|cs|cs.destroy}
-
-    collection_scopes = CollectionScope.build_list_form_string(scope)
-    collection_scopes.each do |cs|
-      cs.collection = self
-      cs.save
-    end
+    CollectionScope.build_list_form_string(self,scope)
+    self.save
   end
 
   module UserMethods
@@ -29,30 +38,30 @@ class Collection < UserAuthAbstract
       base.has_many :created_collections_db,:class_name=>"Collection",:foreign_key=>:creator_id
     end
 
-    def create_collection_by_params(title,scope = 'all-public')
-      collection_scopes = CollectionScope.build_list_form_string(scope)
-      Collection.create(:creator=>self,
-        :title=>title,
-        :collection_scopes=>collection_scopes
-      )
+    def create_collection_by_params(title,scope = 'public')
+      collection = Collection.new(:creator=>self,:title=>title)
+      CollectionScope.build_list_form_string(collection,scope)
+      collection.save
     end
 
     def out_collections_db
-      joins=%`
-        inner join collection_scopes on collection_scopes.collection_id = collections.id
-          and collection_scopes.param = '#{CollectionScope::ALL_PUBLIC}'
-      `
-      Collection.find(:all,:conditions=>"collections.creator_id = #{self.id}",
-        :joins=>joins,:order=>"collections.id desc"
+      Collection.find(:all,:conditions=>"collections.creator_id = #{self.id} and collections.send_status = '#{Collection::SendStatus::PUBLIC}'",
+        :order=>"collections.id desc"
+      )
+    end
+
+    def private_collections_db
+      Collection.find(:all,:conditions=>"collections.creator_id = #{self.id} and collections.send_status = '#{Collection::SendStatus::PRIVATE}'",
+        :order=>"collections.id desc"
       )
     end
 
     def to_followings_out_collections_db
       joins=%`
         inner join collection_scopes on collection_scopes.collection_id = collections.id
-          and collection_scopes.param = '#{CollectionScope::ALL_FOLLOWINGS}'
+          and collection_scopes.param = '#{CollectionScope::FOLLOWINGS}'
       `
-      Collection.find(:all,:conditions=>"collections.creator_id = #{self.id}",
+      Collection.find(:all,:conditions=>"collections.creator_id = #{self.id} and collections.send_status = '#{Collection::SendStatus::SCOPED}'",
         :joins=>joins,:order=>"collections.id desc"
       )
     end

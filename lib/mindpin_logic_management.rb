@@ -114,6 +114,7 @@ class MindpinLogicManagement
 
     MindpinLogicManagement.load_redis_proxy(UserIncomingToPersonalInCollectionProxy)
     MindpinLogicManagement.load_redis_proxy(UserIncomingCollectionProxy)
+    MindpinLogicManagement.load_redis_proxy(UserPrivateCollectionProxy)
     # log 缓存
     MindpinLogicManagement.load_redis_proxy(UserOutboxLogProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxLogProxy)

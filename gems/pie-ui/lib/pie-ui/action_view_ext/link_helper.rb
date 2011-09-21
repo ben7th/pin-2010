@@ -1,5 +1,6 @@
 module PieUi
   module LinkHelper
+
     def usersign(user, sign=false, length=24)
       re = []
       if user.blank?
@@ -10,7 +11,16 @@ module PieUi
           re << "<span class='quiet u-sign'>，#{h truncate_u(user.sign,length)}</span>"
         end
       end
-      return re
+      return re*''
     end
+
+    def usersign_only(user,length=24)
+      re = []
+      if !user.blank? && !user.sign.blank?
+        re << "<span class='quiet u-sign'>#{h truncate_u(user.sign,length)}</span>"
+      end
+      return re*''
+    end
+
   end
 end

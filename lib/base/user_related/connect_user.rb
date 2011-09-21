@@ -134,6 +134,13 @@ class ConnectUser < UserAuthAbstract
     self.update_attributes(:last_syn_message_id=>message_id)
   end
 
+  def self.get_user_from_tsina_id(id)
+    user = nil
+    cu = ConnectUser.find_by_connect_type_and_connect_id(TSINA_CONNECT_TYPE,id)
+    user = cu.user unless cu.blank?
+    user
+  end
+
   module UserMethods
     # ---- 以上是微博相关，代码写得不好，重复地方太多。改一个字段名的话，照这种代码改起来会累死。重构
     # SONGLIANG

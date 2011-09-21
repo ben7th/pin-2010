@@ -1,13 +1,13 @@
--#use 登录后的首页
--#see 登录后的首页
+-#use 所有公开主题
+-#see 所有公开主题
 
--htitle "大家最近的主题"
+-htitle "所有公开主题"
 
 .main.grid_24.no-line
   .page-info-top
     .meta{:style=>'overflow:visible;'}
-      .item.selected 来自联系人的主题
-      .item=link_to '所有公开主题','/feeds/all'
+      .item=link_to '来自联系人的主题','/'
+      .item.selected 所有公开主题
       .ops
         %a.create{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
     .clearfix

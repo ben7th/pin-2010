@@ -1,0 +1,43 @@
+.page-olist.followings{
+  .list-blank{
+    margin:0 0 200px 0;
+  }
+  
+  .following{
+    border:solid 1px #eee;
+    background-color:#fff;
+    padding:9px;margin-bottom:4px;
+    overflow:hidden;
+    .avatar{
+      float:left;
+      a:hover{
+        opacity:0.9;
+      };
+      img{width:32px;height:32px;}
+    }
+    .data{
+      float:left;
+      margin-left:10px;
+      line-height:17px;
+      @include tfont;
+      width:430px;
+      .name{
+        a{color:#444 !important;}
+      }
+      .sign{
+        
+      }
+    }
+    .ops{
+      float:right;overflow:hidden;
+      margin:-9px;
+      .mindpin-user{
+        border-left:solid 1px #eee;
+        border-bottom:solid 1px #eee;
+        background-color:#fafafa;
+        float:right;
+        padding:4px 9px;
+      }
+    }
+  }
+}

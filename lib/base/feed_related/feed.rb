@@ -25,6 +25,10 @@ class Feed < UserAuthAbstract
     :joins=>"left join posts on posts.feed_id = feeds.id",
     :order=>"id desc"
 
+  def self.publics
+    Feed.mix_from_collections(Collection.publics)
+  end
+
   after_create :creator_to_fav_feed_on_create
   def creator_to_fav_feed_on_create
     self.creator.add_fav_feed(self)
@@ -271,6 +275,12 @@ class Feed < UserAuthAbstract
       end.flatten.uniq.sort{|x,y| y<=>x}.map{|fid|Feed.find_by_id(fid)}.compact
   end
 
+  def self.mix_ids_from_collections(collections)
+      collections.map do |collection|
+        collection.feed_ids
+      end.flatten.uniq.sort{|x,y| y<=>x}
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
@@ -339,6 +349,10 @@ class Feed < UserAuthAbstract
     def out_feeds
       Feed.mix_from_collections(self.out_collections)
     end
+    
+    def private_feeds
+      Feed.mix_from_collections(self.private_collections)
+    end
 
     def in_feeds
       Feed.mix_from_collections(self.in_collections)
@@ -364,6 +378,13 @@ class Feed < UserAuthAbstract
       Feed.mix_from_collections(self.incoming_to_personal_in_collections)
     end
 
+    def newest_feed(user)
+      if user.blank?
+        self.out_feeds.first
+      else
+        (self.sent_feeds && user.in_feeds).first
+      end
+    end
   end
 
   module ChannelMethods

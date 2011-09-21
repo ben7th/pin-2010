@@ -9,19 +9,15 @@ class UserToFollowingsOutCollectionProxy < RedisBaseProxy
     @user.to_followings_out_collections_db.map{|x| x.id}
   end
 
-  def self.remove_collection_cache(collection_scope)
-    return if collection_scope.param != CollectionScope::ALL_FOLLOWINGS
-
-    collection = collection_scope.collection
+  def self.remove_collection_cache(collection)
     creator = collection.creator
     return if creator.blank?
     UserToFollowingsOutCollectionProxy.new(creator).remove_from_cache(collection.id)
   end
 
-  def self.add_collection_cache(collection_scope)
-    return if collection_scope.param != CollectionScope::ALL_FOLLOWINGS
+  def self.add_collection_cache(collection)
+    return unless collection.sent_all_followings?
 
-    collection = collection_scope.collection
     creator = collection.creator
     return if creator.blank?
 
@@ -34,12 +30,19 @@ class UserToFollowingsOutCollectionProxy < RedisBaseProxy
 
   def self.rules
     {
-      :class => CollectionScope ,
-      :after_create => Proc.new {|collection_scope|
-        UserToFollowingsOutCollectionProxy.add_collection_cache(collection_scope)
+      :class => Collection ,
+      :after_create => Proc.new {|collection|
+        UserToFollowingsOutCollectionProxy.add_collection_cache(collection)
       },
-      :after_destroy => Proc.new {|collection_scope|
-        UserToFollowingsOutCollectionProxy.remove_collection_cache(collection_scope)
+      :after_update => Proc.new{|collection|
+        if collection.sent_all_followings?
+          UserToFollowingsOutCollectionProxy.add_collection_cache(collection)
+        else
+          UserToFollowingsOutCollectionProxy.remove_collection_cache(collection)
+        end
+      },
+      :after_destroy => Proc.new {|collection|
+        UserToFollowingsOutCollectionProxy.remove_collection_cache(collection)
       }
     }
   end

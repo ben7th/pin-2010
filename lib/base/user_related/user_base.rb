@@ -37,14 +37,6 @@ class UserBase < UserAuthAbstract
     return true
   end
 
-  after_create :create_default_channels
-  def create_default_channels
-    Channel.find_or_create_by_creator_id_and_name(self.id,"好朋友")
-    Channel.find_or_create_by_creator_id_and_name(self.id,"工作伙伴")
-    Channel.find_or_create_by_creator_id_and_name(self.id,"感兴趣的陌生人")
-    return true
-  end
-  
   def preference
     pref = Preference.find_by_user_id(self.id)
     pref = Preference.create(:user_id=>self.id) if pref.blank?

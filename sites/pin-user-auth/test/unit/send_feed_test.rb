@@ -15,59 +15,47 @@ class SendFeedTest < ActiveSupport::TestCase
     init_users_and_contacts
   end
 
-#  test "a 发送 私有信息" do
-#    init_users_and_contacts
-#
-#    a = users(:a)
-#    sendto = Feed::SendStatus::PRIVATE
-#    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
-#    # 是否发送成功
-#    assert_equal false, feed.id.blank?
-#    feed.reload
-#    # 发送范围
-#    assert_equal true,feed.private?
-#    assert_equal false,feed.public?
-#    assert_equal false,feed.sent_all_followings?
-#    assert_equal [],feed.sent_channels
-#    assert_equal [],feed.sent_users
-#    # 各种发件箱和自己的收件箱
-#    assert_equal [feed],a.private_feeds_db
-#    assert_equal [feed],a.private_feeds
-#    assert_equal [feed],a.sent_feeds_db
-#    assert_equal [feed],a.sent_feeds
-#    assert_equal [],a.out_feeds_db
-#    assert_equal [],a.out_feeds
-#    assert_equal [],a.in_feeds
-#    assert_equal [],a.to_followings_out_feeds_db
-#    assert_equal [],a.to_followings_out_feeds
-#
-#    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
-#    # 是否发送成功
-#    assert_equal false, feed_1.id.blank?
-#    feed_1.reload
-#    # 发送范围
-#    assert_equal true,feed_1.private?
-#    assert_equal false,feed_1.public?
-#    assert_equal false,feed_1.sent_all_followings?
-#    assert_equal [],feed_1.sent_channels
-#    assert_equal [],feed_1.sent_users
-#    # 各种发件箱和自己的收件箱
-#    assert_equal [feed_1,feed],a.private_feeds_db
-#    assert_equal [feed_1,feed],a.private_feeds
-#    assert_equal [feed_1,feed],a.sent_feeds_db
-#    assert_equal [feed_1,feed],a.sent_feeds
-#    assert_equal [],a.out_feeds_db
-#    assert_equal [],a.out_feeds
-#    assert_equal [],a.in_feeds
-#    assert_equal [],a.to_followings_out_feeds_db
-#    assert_equal [],a.to_followings_out_feeds
-#  end
+  test "a 发送 私有信息" do
+    init_users_and_contacts
+
+    a = users(:a)
+    scope = Collection::SendStatus::PRIVATE
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+
+    feed = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
+    # 是否发送成功
+    assert_equal false, feed.id.blank?
+    feed.reload
+    # 各种发件箱和自己的收件箱
+    assert_equal [feed],a.private_feeds
+    assert_equal [feed],a.sent_feeds_db
+    assert_equal [feed],a.sent_feeds
+    assert_equal [],a.out_feeds
+    assert_equal [feed],a.in_feeds
+    assert_equal [],a.to_followings_out_feeds
+
+    feed_1 = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
+    # 是否发送成功
+    assert_equal false, feed_1.id.blank?
+    feed_1.reload
+    # 各种发件箱和自己的收件箱
+    assert_equal [feed_1,feed],a.private_feeds
+    assert_equal [feed_1,feed],a.sent_feeds_db
+    assert_equal [feed_1,feed],a.sent_feeds
+    assert_equal [],a.out_feeds
+    assert_equal [feed_1,feed],a.in_feeds
+    assert_equal [],a.to_followings_out_feeds
+  end
 
   test "a 发送 公开信息" do
     init_users_and_contacts
 
     a = users(:a)
-    scope = "all-public"
+    scope = Collection::SendStatus::PUBLIC
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
@@ -531,7 +519,7 @@ class SendFeedTest < ActiveSupport::TestCase
     init_users_and_contacts
 
     a = users(:a)
-    scope = CollectionScope::ALL_FOLLOWINGS
+    scope = CollectionScope::FOLLOWINGS
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
@@ -838,7 +826,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b = users(:b)
     c = users(:c)
     d = users(:d)
-    scope = "#{CollectionScope::ALL_PUBLIC},u-#{b.id},u-#{c.id},u-#{d.id}"
+    scope = "#{Collection::SendStatus::PUBLIC},u-#{b.id},u-#{c.id},u-#{d.id}"
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end
@@ -915,7 +903,7 @@ class SendFeedTest < ActiveSupport::TestCase
     b = users(:b)
     c = users(:c)
     d = users(:d)
-    scope = "#{CollectionScope::ALL_FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
+    scope = "#{CollectionScope::FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
     assert_difference('Collection.count', 1) do
       a.create_collection_by_params("我是标题",scope)
     end

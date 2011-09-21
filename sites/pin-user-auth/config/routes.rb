@@ -139,8 +139,10 @@ ActionController::Routing::Routes.draw do |map|
       :create_for_plugin=>:post,
       :destroy_for_plugin=>:delete,
       :follow=>:post,
+      :follow_mindpin=>:post,
       :follow_by_daotu=>:post,
-      :unfollow=>:delete
+      :unfollow=>:delete,
+      :tsina=>:get
   }
 
   # 快速连接账号 设置邮箱，密码 变成 mindpin正式账号
@@ -217,7 +219,7 @@ ActionController::Routing::Routes.draw do |map|
     :friends=>:get,:newest=>:get,
     :recommend=>:get,:joined=>:get,
     :favs=>:get,:hidden=>:get,:no_reply=>:get,:search=>:get,
-    :incoming=>:get
+    :incoming=>:get,:all=>:get
     } do |feed|
       feed.resources :feed_revisions,:as=>"revisions"
     end

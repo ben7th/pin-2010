@@ -1,0 +1,13 @@
+.page-olist.followings
+  -if followings.blank?
+    .list-blank
+      你还没有任何联系人
+  -else
+    -followings.each do |fo_user|
+      .following{:'data-id'=>fo_user.id}
+        .avatar
+          -link_to "users/#{fo_user.id}" do
+            =avatar fo_user,:tiny
+        .data
+          .name=usersign fo_user
+          .sign=usersign_only fo_user

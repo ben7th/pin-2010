@@ -18,6 +18,7 @@ class UserCreatedChannelsCacheProxy < RedisBaseProxy
       },
       :after_destroy=>Proc.new{|channel|
         creator = channel.creator
+        next if creator.blank?
         UserCreatedChannelsCacheProxy.new(creator).remove_from_cache(channel.id)
       }
     }
