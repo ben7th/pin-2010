@@ -68,7 +68,7 @@ class Channel < UserAuthAbstract
 
   include PositionMethods
   include CooperationChannel::ChannelMethods
-  include SendScope::ChannelMethods
   include ChannelUser::ChannelMethods
   include CollectionScope::ChannelMethods
+  include Feed::ChannelMethods
 end

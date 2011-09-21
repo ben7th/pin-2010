@@ -96,18 +96,7 @@ class MindpinLogicManagement
 
     # feed 缓存
     MindpinLogicManagement.load_redis_proxy(UserSentFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserOutboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserInboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserChannelOutboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserChannelInboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserToFollowingsOutboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserToPersonalOutboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserToPersonalInboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserIncomingToPersonalInboxFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserIncomingFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(UserPrivateFeedProxy)
     
-    MindpinLogicManagement.load_redis_proxy(UserBeingQuotedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserBeInvitedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserFavTagFeedsProxy)
@@ -123,6 +112,8 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(UserChannelInCollectionProxy)
     MindpinLogicManagement.load_redis_proxy(CollectionFeedsProxy)
 
+    MindpinLogicManagement.load_redis_proxy(UserIncomingToPersonalInCollectionProxy)
+    MindpinLogicManagement.load_redis_proxy(UserIncomingCollectionProxy)
     # log 缓存
     MindpinLogicManagement.load_redis_proxy(UserOutboxLogProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxLogProxy)

@@ -29,8 +29,8 @@ class Collection < UserAuthAbstract
       base.has_many :created_collections_db,:class_name=>"Collection",:foreign_key=>:creator_id
     end
 
-    def create_collection_by_params(title)
-      collection_scopes = CollectionScope.build_list_form_string('all-public')
+    def create_collection_by_params(title,scope = 'all-public')
+      collection_scopes = CollectionScope.build_list_form_string(scope)
       Collection.create(:creator=>self,
         :title=>title,
         :collection_scopes=>collection_scopes
@@ -86,6 +86,14 @@ class Collection < UserAuthAbstract
       users = self.followings
       collections.select do |collection|
         users.include?(collection.creator)
+      end
+    end
+
+    def incoming_to_personal_in_collections_db
+      collections = self.all_to_personal_in_collection_db
+      users = self.followings
+      collections.select do |collection|
+        !users.include?(collection.creator)
       end
     end
 

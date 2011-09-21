@@ -500,7 +500,7 @@
   border:solid 1px #eee;
   background-color:#FFF;
   .f-head{
-    padding:14px;
+    padding:14px 24px;
     background-color:#fafafa;
     border-bottom:solid 1px #eee;
     overflow:hidden;
@@ -516,17 +516,17 @@
   }
   .f-main{
     .title{
-      padding:14px;font-weight:bold;
+      padding:14px 24px;font-weight:bold;
       font-size:14px;@include tfont;
       a{color:#444 !important;}
     }
     .detail{
-      padding:14px;
+      padding:14px 24px;
       font-size:14px;
       @include feed-detail-format;
     }
     .photos{
-      padding:14px;
+      padding:14px 24px;
       .photo{font-size:0;line-height:0;}
     }
   }

@@ -15,122 +15,109 @@ class SendFeedTest < ActiveSupport::TestCase
     init_users_and_contacts
   end
 
-  test "a 发送 私有信息" do
-    init_users_and_contacts
-
-    a = users(:a)
-    sendto = Feed::SendStatus::PRIVATE
-    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
-    # 是否发送成功
-    assert_equal false, feed.id.blank?
-    feed.reload
-    # 发送范围
-    assert_equal true,feed.private?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal [],feed.sent_users
-    # 各种发件箱和自己的收件箱
-    assert_equal [feed],a.private_feeds_db
-    assert_equal [feed],a.private_feeds
-    assert_equal [feed],a.sent_feeds_db
-    assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
-    assert_equal [],a.out_feeds
-    assert_equal [],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
-    assert_equal [],a.to_followings_out_feeds
-
-    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
-    # 是否发送成功
-    assert_equal false, feed_1.id.blank?
-    feed_1.reload
-    # 发送范围
-    assert_equal true,feed_1.private?
-    assert_equal false,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal [],feed_1.sent_users
-    # 各种发件箱和自己的收件箱
-    assert_equal [feed_1,feed],a.private_feeds_db
-    assert_equal [feed_1,feed],a.private_feeds
-    assert_equal [feed_1,feed],a.sent_feeds_db
-    assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
-    assert_equal [],a.out_feeds
-    assert_equal [],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
-    assert_equal [],a.to_followings_out_feeds
-  end
+#  test "a 发送 私有信息" do
+#    init_users_and_contacts
+#
+#    a = users(:a)
+#    sendto = Feed::SendStatus::PRIVATE
+#    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+#    # 是否发送成功
+#    assert_equal false, feed.id.blank?
+#    feed.reload
+#    # 发送范围
+#    assert_equal true,feed.private?
+#    assert_equal false,feed.public?
+#    assert_equal false,feed.sent_all_followings?
+#    assert_equal [],feed.sent_channels
+#    assert_equal [],feed.sent_users
+#    # 各种发件箱和自己的收件箱
+#    assert_equal [feed],a.private_feeds_db
+#    assert_equal [feed],a.private_feeds
+#    assert_equal [feed],a.sent_feeds_db
+#    assert_equal [feed],a.sent_feeds
+#    assert_equal [],a.out_feeds_db
+#    assert_equal [],a.out_feeds
+#    assert_equal [],a.in_feeds
+#    assert_equal [],a.to_followings_out_feeds_db
+#    assert_equal [],a.to_followings_out_feeds
+#
+#    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+#    # 是否发送成功
+#    assert_equal false, feed_1.id.blank?
+#    feed_1.reload
+#    # 发送范围
+#    assert_equal true,feed_1.private?
+#    assert_equal false,feed_1.public?
+#    assert_equal false,feed_1.sent_all_followings?
+#    assert_equal [],feed_1.sent_channels
+#    assert_equal [],feed_1.sent_users
+#    # 各种发件箱和自己的收件箱
+#    assert_equal [feed_1,feed],a.private_feeds_db
+#    assert_equal [feed_1,feed],a.private_feeds
+#    assert_equal [feed_1,feed],a.sent_feeds_db
+#    assert_equal [feed_1,feed],a.sent_feeds
+#    assert_equal [],a.out_feeds_db
+#    assert_equal [],a.out_feeds
+#    assert_equal [],a.in_feeds
+#    assert_equal [],a.to_followings_out_feeds_db
+#    assert_equal [],a.to_followings_out_feeds
+#  end
 
   test "a 发送 公开信息" do
     init_users_and_contacts
 
     a = users(:a)
-    sendto = Feed::SendStatus::PUBLIC
-    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+    scope = "all-public"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
     # 是否发送成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal [],feed.sent_users
     # 各种发件箱和自己的收件箱
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [feed],a.out_feeds_db
     assert_equal [feed],a.out_feeds
     assert_equal [feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
     # 自己的频道
     channel_ac = channels(:channel_ac)
-    assert_equal [],channel_ac.out_feeds_db
     assert_equal [],channel_ac.out_feeds
     assert_equal [],channel_ac.in_feeds
     channel_ad = channels(:channel_ad)
-    assert_equal [],channel_ad.out_feeds_db
     assert_equal [],channel_ad.out_feeds
     assert_equal [],channel_ad.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [feed],b.in_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [feed],channel_ba.in_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [feed],c.in_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [feed],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
     
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
 
@@ -138,69 +125,51 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
     # 是否发送成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal true,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal [],feed_1.sent_users
     # 各种发件箱和自己的收件箱
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [feed_1,feed],a.out_feeds_db
     assert_equal [feed_1,feed],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
     # 自己的频道
     channel_ac = channels(:channel_ac)
-    assert_equal [],channel_ac.out_feeds_db
     assert_equal [],channel_ac.out_feeds
     assert_equal [],channel_ac.in_feeds
     channel_ad = channels(:channel_ad)
-    assert_equal [],channel_ad.out_feeds_db
     assert_equal [],channel_ad.out_feeds
     assert_equal [],channel_ad.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [feed_1,feed],b.in_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [feed_1,feed],channel_ba.in_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [feed_1,feed],c.in_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [feed_1,feed],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
   end
@@ -210,73 +179,59 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     channel_ac = channels(:channel_ac)
-    sendto="ch-#{channel_ac.id}"
-    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+    scope ="ch-#{channel_ac.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
     # 是否发送成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal [channel_ac],feed.sent_channels
-    assert_equal [],feed.sent_users
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal true,feed.sent_scoped?
     # 发件箱和自己的收件箱
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
 
-    assert_equal [feed],channel_ac.out_feeds_db
     assert_equal [feed],channel_ac.out_feeds
     assert_equal [feed],channel_ac.in_feeds
     channel_ad = channels(:channel_ad)
-    assert_equal [],channel_ad.out_feeds_db
     assert_equal [],channel_ad.out_feeds
     assert_equal [],channel_ad.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [],b.in_feeds
     assert_equal [],b.incoming_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [],channel_ba.in_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [feed],c.in_feeds
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [feed],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     assert_equal [],d.incoming_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
 
@@ -284,72 +239,53 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
     # 是否发送成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal [channel_ac],feed_1.sent_channels
-    assert_equal [],feed_1.sent_users
-    assert_equal false,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal true,feed_1.sent_scoped?
     # 发件箱和自己的收件箱
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
     channel_ac.reload
-    assert_equal [feed_1,feed],channel_ac.out_feeds_db
     assert_equal [feed_1,feed],channel_ac.out_feeds
     assert_equal [feed_1,feed],channel_ac.in_feeds
     channel_ad = channels(:channel_ad)
-    assert_equal [],channel_ad.out_feeds_db
     assert_equal [],channel_ad.out_feeds
     assert_equal [],channel_ad.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [],b.in_feeds
     assert_equal [],b.incoming_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [],channel_ba.in_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [feed_1,feed],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     assert_equal [],d.incoming_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
   end
@@ -359,73 +295,59 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     channel_ad = channels(:channel_ad)
-    sendto = "ch-#{channel_ad.id}"
-    feed = a.send_feed("我是标题","我是正文",:sendto=>sendto)
+    scope = "ch-#{channel_ad.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题","我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed.sent_scoped?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [channel_ad],feed.sent_channels
-    assert_equal [],feed.sent_users
     # 发件箱和自己的收件箱
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
     
-    assert_equal [feed],channel_ad.out_feeds_db
     assert_equal [feed],channel_ad.out_feeds
     assert_equal [feed],channel_ad.in_feeds
     channel_ac = channels(:channel_ac)
-    assert_equal [],channel_ac.out_feeds_db
     assert_equal [],channel_ac.out_feeds
     assert_equal [],channel_ac.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [],b.in_feeds
     assert_equal [],b.incoming_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [],channel_ba.in_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [],c.in_feeds
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     assert_equal [feed],d.incoming_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
 
@@ -435,72 +357,53 @@ class SendFeedTest < ActiveSupport::TestCase
     d.reload
     channel_ad.reload
 
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal false,feed_1.public?
-    assert_equal true,feed_1.sent_scoped?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [channel_ad],feed_1.sent_channels
-    assert_equal [],feed_1.sent_users
     # 发件箱和自己的收件箱
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
 
-    assert_equal [feed_1,feed],channel_ad.out_feeds_db
     assert_equal [feed_1,feed],channel_ad.out_feeds
     assert_equal [feed_1,feed],channel_ad.in_feeds
     channel_ac = channels(:channel_ac)
-    assert_equal [],channel_ac.out_feeds_db
     assert_equal [],channel_ac.out_feeds
     assert_equal [],channel_ac.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [],b.in_feeds
     assert_equal [],b.incoming_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [],channel_ba.in_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [],c.in_feeds
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     assert_equal [feed_1,feed],d.incoming_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
   end
@@ -510,34 +413,29 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     channel_ac = channels(:channel_ac)
-    sendto = "ch-#{channel_ac.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
-    assert_equal false, feed.id.blank?
-    assert_equal false, feed.public?
-    assert_equal true,feed.sent_scoped?
-    assert_equal false, feed.sent_all_followings?
-    assert_equal [channel_ac],feed.sent_channels
-    assert_equal [],feed.sent_users
+    scope = "ch-#{channel_ac.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [feed],c.in_feeds
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [feed],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
 
@@ -547,16 +445,13 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal [],channel_ac.include_users_db
 
     c = users(:c)
-    assert_equal [],c.out_feeds_db
     assert_equal [],c.out_feeds
     assert_equal [],c.in_feeds
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
-    assert_equal [],channel_ca.out_feeds_db
     assert_equal [],channel_ca.out_feeds
     assert_equal [],channel_ca.in_feeds
     channel_cb = channels(:channel_cb)
-    assert_equal [],channel_cb.out_feeds_db
     assert_equal [],channel_cb.out_feeds
     assert_equal [],channel_cb.in_feeds
   end
@@ -566,46 +461,37 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     channel_ac = channels(:channel_ac)
-    sendto = "ch-#{channel_ac.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
-    assert_equal false, feed.id.blank?
-    assert_equal false, feed.public?
-    assert_equal true,feed.sent_scoped?
-    assert_equal false, feed.sent_all_followings?
-    assert_equal [channel_ac],feed.sent_channels
-    assert_equal [],feed.sent_users
+    scope = "ch-#{channel_ac.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
-    assert_equal [],a.to_followings_out_feeds_db
     assert_equal [],a.to_followings_out_feeds
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [],b.in_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [],channel_ba.in_feeds
 
@@ -619,30 +505,24 @@ class SendFeedTest < ActiveSupport::TestCase
     assert_equal true,channel_ac.include_users_db.include?(b)
 
     d = users(:d)
-    assert_equal [],d.out_feeds_db
     assert_equal [],d.out_feeds
     assert_equal [],d.in_feeds
     assert_equal [feed],d.incoming_feeds
     channel_db = channels(:channel_db)
-    assert_equal [],channel_db.out_feeds_db
     assert_equal [],channel_db.out_feeds
     assert_equal [],channel_db.in_feeds
     channel_dc = channels(:channel_dc)
-    assert_equal [],channel_dc.out_feeds_db
     assert_equal [],channel_dc.out_feeds
     assert_equal [],channel_dc.in_feeds
 
     b = users(:b)
-    assert_equal [],b.out_feeds_db
     assert_equal [],b.out_feeds
     assert_equal [feed],b.in_feeds
     assert_equal [],b.incoming_feeds
     channel_bd = channels(:channel_bd)
-    assert_equal [],channel_bd.out_feeds_db
     assert_equal [],channel_bd.out_feeds
     assert_equal [],channel_bd.in_feeds
     channel_ba = channels(:channel_ba)
-    assert_equal [],channel_ba.out_feeds_db
     assert_equal [],channel_ba.out_feeds
     assert_equal [feed],channel_ba.in_feeds
   end
@@ -651,23 +531,21 @@ class SendFeedTest < ActiveSupport::TestCase
     init_users_and_contacts
 
     a = users(:a)
-    sendto = SendScope::FOLLOWINGS
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = CollectionScope::ALL_FOLLOWINGS
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal false,feed.public?
-    assert_equal true,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal [],feed.sent_users
     # 发件箱 和 自己的收件箱
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
-    assert_equal [feed],a.to_followings_out_feeds_db
     assert_equal [feed],a.to_followings_out_feeds
 
     b = users(:b)
@@ -686,19 +564,12 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
-    assert_equal false, feed_1.id.blank?
-    assert_equal false, feed_1.public?
-    assert_equal true,feed_1.sent_all_followings?
-    assert_equal [], feed_1.sent_channels
-    assert_equal [], feed_1.sent_users
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
-    assert_equal [feed_1,feed],a.to_followings_out_feeds_db
     assert_equal [feed_1,feed],a.to_followings_out_feeds
 
     b = users(:b)
@@ -719,83 +590,63 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     d = users(:d)
-    sendto = "u-#{d.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "u-#{d.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     assert_equal false, feed.id.blank?
-    assert_equal true,feed.sent_scoped?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal [d],feed.sent_users
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
 
     b = users(:b)
     assert_equal [],b.in_feeds
     assert_equal [],b.to_personal_in_feeds
-    assert_equal [],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     c = users(:c)
     assert_equal [],c.in_feeds
     assert_equal [],c.to_personal_in_feeds
-    assert_equal [],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed],d.incoming_feeds
 
     a.reload
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     assert_equal false, feed_1.id.blank?
-    assert_equal false, feed_1.public?
-    assert_equal true,feed_1.sent_scoped?
-    assert_equal false, feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal [d],feed_1.sent_users
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
 
     b = users(:b)
     assert_equal [],b.in_feeds
     assert_equal [],b.to_personal_in_feeds
-    assert_equal [],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     c = users(:c)
     assert_equal [],c.in_feeds
     assert_equal [],c.to_personal_in_feeds
-    assert_equal [],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
 
     channel_db = channels(:channel_db)
@@ -804,9 +655,7 @@ class SendFeedTest < ActiveSupport::TestCase
     channel_db.reload
     assert_equal [feed_1,feed],d.in_feeds
     assert_equal [feed_1,feed],d.to_personal_in_feeds
-    assert_equal [feed_1,feed],d.to_personal_in_feeds_db
     assert_equal [],d.incoming_to_personal_in_feeds
-    assert_equal [],d.incoming_to_personal_in_feeds_db
     assert_equal [],d.incoming_feeds
     assert_equal [feed_1,feed],channel_db.in_feeds
     channel_db.remove_user(a)
@@ -814,9 +663,7 @@ class SendFeedTest < ActiveSupport::TestCase
     channel_db.reload
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
     assert_equal [],channel_db.in_feeds
   end
@@ -826,42 +673,35 @@ class SendFeedTest < ActiveSupport::TestCase
 
     a = users(:a)
     c = users(:c)
-    sendto = "u-#{c.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "u-#{c.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     assert_equal false, feed.id.blank?
-    assert_equal true,feed.sent_scoped?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal [c],feed.sent_users
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
 
     b = users(:b)
     assert_equal [],b.in_feeds
     assert_equal [],b.to_personal_in_feeds
-    assert_equal [],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     d = users(:d)
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [],d.incoming_to_personal_in_feeds
-    assert_equal [],d.incoming_to_personal_in_feeds_db
     assert_equal [],d.incoming_feeds
     assert_equal [feed],c.in_feeds
     assert_equal [feed],c.to_personal_in_feeds
-    assert_equal [feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed],channel_ca.in_feeds
@@ -870,41 +710,28 @@ class SendFeedTest < ActiveSupport::TestCase
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     assert_equal false, feed_1.id.blank?
-    assert_equal true,feed_1.sent_scoped?
-    assert_equal false, feed_1.public?
-    assert_equal false, feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal [c],feed_1.sent_users
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
 
     b = users(:b)
     assert_equal [],b.in_feeds
     assert_equal [],b.to_personal_in_feeds
-    assert_equal [],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     d = users(:d)
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [],d.incoming_to_personal_in_feeds
-    assert_equal [],d.incoming_to_personal_in_feeds_db
     assert_equal [],d.incoming_feeds
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
@@ -913,9 +740,7 @@ class SendFeedTest < ActiveSupport::TestCase
     channel_ca.reload
     assert_equal [],c.in_feeds
     assert_equal [],c.to_personal_in_feeds
-    assert_equal [],c.to_personal_in_feeds_db
     assert_equal [feed_1,feed],c.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],c.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],c.incoming_feeds
     assert_equal [],channel_ca.in_feeds
     channel_ca.add_user(a)
@@ -923,9 +748,7 @@ class SendFeedTest < ActiveSupport::TestCase
     channel_ca.reload
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     assert_equal [feed_1,feed],channel_ca.in_feeds
   end
@@ -937,102 +760,74 @@ class SendFeedTest < ActiveSupport::TestCase
     b = users(:b)
     c = users(:c)
     d = users(:d)
-    sendto = "u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "u-#{b.id},u-#{c.id},u-#{d.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed.sent_scoped?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal 3,feed.sent_users.count
-    assert feed.sent_users.include?(b)
-    assert feed.sent_users.include?(c)
-    assert feed.sent_users.include?(d)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
     #b
     assert_equal [feed],b.in_feeds
     assert_equal [feed],b.to_personal_in_feeds
-    assert_equal [feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed],channel_ba.in_feeds
     #c
     assert_equal [feed],c.in_feeds
     assert_equal [feed],c.to_personal_in_feeds
-    assert_equal [feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed],d.incoming_feeds
     a.reload
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal true,feed_1.sent_scoped?
-    assert_equal false,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal 3,feed_1.sent_users.count
-    assert feed_1.sent_users.include?(b)
-    assert feed_1.sent_users.include?(c)
-    assert feed_1.sent_users.include?(d)
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
     #b
     assert_equal [feed_1,feed],b.in_feeds
     assert_equal [feed_1,feed],b.to_personal_in_feeds
-    assert_equal [feed_1,feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed_1,feed],channel_ba.in_feeds
     #c
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
   end
 
@@ -1043,100 +838,73 @@ class SendFeedTest < ActiveSupport::TestCase
     b = users(:b)
     c = users(:c)
     d = users(:d)
-    sendto = "#{Feed::SendStatus::PUBLIC},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "#{CollectionScope::ALL_PUBLIC},u-#{b.id},u-#{c.id},u-#{d.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal 3,feed.sent_users.count
-    assert feed.sent_users.include?(b)
-    assert feed.sent_users.include?(c)
-    assert feed.sent_users.include?(d)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [feed],a.out_feeds_db
     assert_equal [feed],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
     #b
     assert_equal [feed],b.in_feeds
     assert_equal [feed],b.to_personal_in_feeds
-    assert_equal [feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed],channel_ba.in_feeds
     #c
     assert_equal [feed],c.in_feeds
     assert_equal [feed],c.to_personal_in_feeds
-    assert_equal [feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed],d.incoming_feeds
     a.reload
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal 3,feed_1.sent_users.count
-    assert feed_1.sent_users.include?(b)
-    assert feed_1.sent_users.include?(c)
-    assert feed_1.sent_users.include?(d)
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [feed_1,feed],a.out_feeds_db
     assert_equal [feed_1,feed],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
     #b
     assert_equal [feed_1,feed],b.in_feeds
     assert_equal [feed_1,feed],b.to_personal_in_feeds
-    assert_equal [feed_1,feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed_1,feed],channel_ba.in_feeds
     #c
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
   end
 
@@ -1147,104 +915,75 @@ class SendFeedTest < ActiveSupport::TestCase
     b = users(:b)
     c = users(:c)
     d = users(:d)
-    sendto = "#{SendScope::FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "#{CollectionScope::ALL_FOLLOWINGS},u-#{b.id},u-#{c.id},u-#{d.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal false,feed.public?
-    assert_equal true,feed.sent_all_followings?
-    assert_equal [],feed.sent_channels
-    assert_equal 3,feed.sent_users.count
-    assert feed.sent_users.include?(b)
-    assert feed.sent_users.include?(c)
-    assert feed.sent_users.include?(d)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
     assert_equal [feed],a.to_followings_out_feeds
-    assert_equal [feed],a.to_followings_out_feeds_db
     #b
     assert_equal [feed],b.in_feeds
     assert_equal [feed],b.to_personal_in_feeds
-    assert_equal [feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed],channel_ba.in_feeds
     #c
     assert_equal [feed],c.in_feeds
     assert_equal [feed],c.to_personal_in_feeds
-    assert_equal [feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed],d.incoming_feeds
     a.reload
     b.reload
     c.reload
     d.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal false,feed_1.public?
-    assert_equal true,feed_1.sent_all_followings?
-    assert_equal [],feed_1.sent_channels
-    assert_equal 3,feed_1.sent_users.count
-    assert feed_1.sent_users.include?(b)
-    assert feed_1.sent_users.include?(c)
-    assert feed_1.sent_users.include?(d)
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
-    assert_equal [feed_1,feed],a.to_followings_out_feeds_db
     assert_equal [feed_1,feed],a.to_followings_out_feeds
     #b
     assert_equal [feed_1,feed],b.in_feeds
     assert_equal [feed_1,feed],b.to_personal_in_feeds
-    assert_equal [feed_1,feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed_1,feed],channel_ba.in_feeds
     #c
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
   end
 
@@ -1256,107 +995,76 @@ class SendFeedTest < ActiveSupport::TestCase
     c = users(:c)
     d = users(:d)
     channel_ac = channels(:channel_ac)
-    sendto = "ch-#{channel_ac.id},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "ch-#{channel_ac.id},u-#{b.id},u-#{c.id},u-#{d.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed.sent_scoped?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [channel_ac],feed.sent_channels
-    assert_equal 3,feed.sent_users.count
-    assert feed.sent_users.include?(b)
-    assert feed.sent_users.include?(c)
-    assert feed.sent_users.include?(d)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
     assert_equal [feed],channel_ac.out_feeds
-    assert_equal [feed],channel_ac.out_feeds_db
     #b
     assert_equal [feed],b.in_feeds
     assert_equal [feed],b.to_personal_in_feeds
-    assert_equal [feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed],channel_ba.in_feeds
     #c
     assert_equal [feed],c.in_feeds
     assert_equal [feed],c.to_personal_in_feeds
-    assert_equal [feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed],d.incoming_feeds
     a.reload
     b.reload
     c.reload
     d.reload
     channel_ac.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal true,feed_1.sent_scoped?
-    assert_equal false,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [channel_ac],feed_1.sent_channels
-    assert_equal 3,feed_1.sent_users.count
-    assert feed_1.sent_users.include?(b)
-    assert feed_1.sent_users.include?(c)
-    assert feed_1.sent_users.include?(d)
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
     assert_equal [feed_1,feed],channel_ac.out_feeds
-    assert_equal [feed_1,feed],channel_ac.out_feeds_db
     #b
     assert_equal [feed_1,feed],b.in_feeds
     assert_equal [feed_1,feed],b.to_personal_in_feeds
-    assert_equal [feed_1,feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed_1,feed],channel_ba.in_feeds
     #c
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
   end
 
@@ -1368,142 +1076,86 @@ class SendFeedTest < ActiveSupport::TestCase
     c = users(:c)
     d = users(:d)
     channel_ad = channels(:channel_ad)
-    sendto = "ch-#{channel_ad.id},u-#{b.id},u-#{c.id},u-#{d.id}"
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    scope = "ch-#{channel_ad.id},u-#{b.id},u-#{c.id},u-#{d.id}"
+    assert_difference('Collection.count', 1) do
+      a.create_collection_by_params("我是标题",scope)
+    end
+    collection = Collection.last
+    collection_ids = "#{collection.id}"
+    feed = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed.id.blank?
     feed.reload
-    # 发送范围
-    assert_equal true,feed.sent_scoped?
-    assert_equal false,feed.public?
-    assert_equal false,feed.sent_all_followings?
-    assert_equal [channel_ad],feed.sent_channels
-    assert_equal 3,feed.sent_users.count
-    assert feed.sent_users.include?(b)
-    assert feed.sent_users.include?(c)
-    assert feed.sent_users.include?(d)
 
     assert_equal [feed],a.sent_feeds_db
     assert_equal [feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed],a.in_feeds
     assert_equal [feed],a.to_personal_out_feeds
-    assert_equal [feed],a.to_personal_out_feeds_db
     assert_equal [feed],channel_ad.out_feeds
-    assert_equal [feed],channel_ad.out_feeds_db
     #b
     assert_equal [feed],b.in_feeds
     assert_equal [feed],b.to_personal_in_feeds
-    assert_equal [feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed],channel_ba.in_feeds
     #c
     assert_equal [feed],c.in_feeds
     assert_equal [feed],c.to_personal_in_feeds
-    assert_equal [feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed],d.incoming_feeds
     a.reload
     b.reload
     c.reload
     d.reload
     channel_ad.reload
-    feed_1 = a.send_feed("我是标题", "我是正文",:sendto=>sendto)
+    feed_1 = a.send_feed("我是标题", "我是正文",:collection_ids=>collection_ids)
     # 发送是否成功
     assert_equal false, feed_1.id.blank?
     feed_1.reload
-    # 发送范围
-    assert_equal true,feed_1.sent_scoped?
-    assert_equal false,feed_1.public?
-    assert_equal false,feed_1.sent_all_followings?
-    assert_equal [channel_ad],feed_1.sent_channels
-    assert_equal 3,feed_1.sent_users.count
-    assert feed_1.sent_users.include?(b)
-    assert feed_1.sent_users.include?(c)
-    assert feed_1.sent_users.include?(d)
 
     assert_equal [feed_1,feed],a.sent_feeds_db
     assert_equal [feed_1,feed],a.sent_feeds
-    assert_equal [],a.out_feeds_db
     assert_equal [],a.out_feeds
     assert_equal [feed_1,feed],a.in_feeds
     assert_equal [feed_1,feed],a.to_personal_out_feeds
-    assert_equal [feed_1,feed],a.to_personal_out_feeds_db
     assert_equal [feed_1,feed],channel_ad.out_feeds
-    assert_equal [feed_1,feed],channel_ad.out_feeds_db
     #b
     assert_equal [feed_1,feed],b.in_feeds
     assert_equal [feed_1,feed],b.to_personal_in_feeds
-    assert_equal [feed_1,feed],b.to_personal_in_feeds_db
     assert_equal [],b.incoming_to_personal_in_feeds
-    assert_equal [],b.incoming_to_personal_in_feeds_db
     assert_equal [],b.incoming_feeds
     channel_ba = channels(:channel_ba)
     assert_equal [feed_1,feed],channel_ba.in_feeds
     #c
     assert_equal [feed_1,feed],c.in_feeds
     assert_equal [feed_1,feed],c.to_personal_in_feeds
-    assert_equal [feed_1,feed],c.to_personal_in_feeds_db
     assert_equal [],c.incoming_to_personal_in_feeds
-    assert_equal [],c.incoming_to_personal_in_feeds_db
     assert_equal [],c.incoming_feeds
     channel_ca = channels(:channel_ca)
     assert_equal [feed_1,feed],channel_ca.in_feeds
     #d
     assert_equal [],d.in_feeds
     assert_equal [],d.to_personal_in_feeds
-    assert_equal [],d.to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds
-    assert_equal [feed_1,feed],d.incoming_to_personal_in_feeds_db
     assert_equal [feed_1,feed],d.incoming_feeds
   end
 
   test "各种发送范围不正确" do
     init_users_and_contacts
     a = users(:a)
-    channel_ac = channels(:channel_ac)
-    channel_ad = channels(:channel_ad)
-    feed = a.send_feed("我是标题", "我是正文",:sendto=>"   ")
-    assert_equal false,feed.id.blank?
-    assert_equal true,feed.public?
-    feed = a.send_feed("我是标题", "我是正文")
-    assert_equal false,feed.id.blank?
-    assert_equal true,feed.public?
 
-    error_sendto_list = [
-      "#{Feed::SendStatus::PUBLIC},#{SendScope::PRIVATE}",
-      "#{SendScope::FOLLOWINGS},ch-#{channel_ac.id}",
-      "#{Feed::SendStatus::PRIVATE},ch-#{channel_ac.id}",
-      "#{SendScope::FOLLOWINGS},abc",
-      "aef1"
-    ]
-    error_sendto_list.each do |sendto|
-      assert_raise(SendScope::FormatError) do
-        a.send_feed("我是标题", "我是正文",:sendto=>sendto)
-      end
+    assert_raise(RuntimeError) do
+      a.send_feed("我是标题", "我是正文")
     end
-
-    assert_raise(SendScope::UnSpecifiedError) do
-      sendto = Feed::SendStatus::SCOPED
-      a.send_feed("我是标题", "我是正文",:sendto=>sendto)
-    end
-
-    sendto = "ch-#{channel_ad.id},ch-#{channel_ac.id}"
-    a.send_feed("我是标题", "我是正文",:sendto=>sendto)
   end
 
   def init_users_and_contacts

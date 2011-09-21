@@ -1,20 +1,11 @@
 class Feed < UserAuthAbstract
-  SAY_OPERATE = 'say'
+  FROM_WEB = "web"
+  FROM_ANDROID = "android"
+  FROMS = [FROM_WEB,FROM_ANDROID]
 
   belongs_to :creator,:class_name=>"User",:foreign_key=>:creator_id
   validates_presence_of :creator
-
-  class SendStatus
-    PUBLIC = "public"
-    PRIVATE = "private"
-    SCOPED = "scoped"
-  end
-  #Feed::SendStatus::FOLLOWINGS
-  SEND_STATUSES = [
-    Feed::SendStatus::PUBLIC,
-    Feed::SendStatus::PRIVATE,
-    Feed::SendStatus::SCOPED
-  ]
+  validates_inclusion_of :from, :in =>FROMS
 
   named_scope :news_feeds_of_user,lambda {|user|
     {
@@ -66,13 +57,6 @@ class Feed < UserAuthAbstract
   def validate_on_create
     validate_content_length
     validate_repost_feed_id
-    channel_ids = self.creator.channels_db_ids
-    sent_c_ids = self.sent_channels.map{|c|c.id}
-    cs = sent_c_ids-channel_ids
-
-    unless cs.blank?
-      errors.add(:base,"频道 #{cs*" "} 不是你的,你不能发送主题到别人的频道")
-    end
   end
 
   def validate_content_length
@@ -89,23 +73,6 @@ class Feed < UserAuthAbstract
         errors.add(:base,"不能嵌套转发")
       end
     end
-  end
-
-  def public?
-    self.send_status == Feed::SendStatus::PUBLIC
-  end
-
-  def private?
-    self.send_status == Feed::SendStatus::PRIVATE
-  end
-
-  def sent_scoped?
-    self.send_status == Feed::SendStatus::SCOPED
-  end
-
-  def sent_all_followings?
-    ss = self.send_scopes.select{|s|s.param == SendScope::FOLLOWINGS}
-    !ss.blank?
   end
 
   def send_by_main_user?(channel)
@@ -298,6 +265,12 @@ class Feed < UserAuthAbstract
     self.main_post.photos
   end
 
+  def self.mix_from_collections(collections)
+      collections.map do |collection|
+        collection.feed_ids
+      end.flatten.uniq.sort{|x,y| y<=>x}.map{|fid|Feed.find_by_id(fid)}.compact
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
@@ -320,8 +293,8 @@ class Feed < UserAuthAbstract
     end
 
     def _send_feed(feed,title,detail,options={})
-      sendto = options[:sendto] || ""
-      SendScope.set_send_scope_by_string(feed,sendto)
+      from = (options[:from]||FROM_WEB)
+      feed.from = from
       return feed if !feed.valid?
       feed.save!
 
@@ -330,12 +303,12 @@ class Feed < UserAuthAbstract
       tags = options[:tags]
       tags = Tag::DEFAULT if tags.blank?
 
-      if !!options[:collection_ids]
-        (options[:collection_ids]||"").split(",").each do |collection_id|
-          collection = Collection.find(collection_id)
-          fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
-          FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
-        end
+      cids = (options[:collection_ids]||"").split(",")
+      raise "最少指定一个收集册" if cids.blank?
+      cids.each do |collection_id|
+        collection = Collection.find(collection_id)
+        fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
+        FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
       end
 
       if !!options[:photo_names]
@@ -362,67 +335,45 @@ class Feed < UserAuthAbstract
       Feed.news_feeds_of_user(self).hidden
     end
 
-    def private_feeds_db(limited_count = nil)
-      conditions=%`
-        feeds.creator_id = #{self.id}
-          and feeds.hidden is not true
-          and feeds.send_status = '#{Feed::SendStatus::PRIVATE}'
-      `
-      find_hash = {
-        :conditions=>conditions,:order=>"feeds.id desc"
-      }
-      find_hash[:limit]=limited_count unless limited_count.nil?
-      Feed.find(:all,find_hash)
+    #############
+    def out_feeds
+      Feed.mix_from_collections(self.out_collections)
     end
 
-    def out_feeds_db(limited_count = nil)
-      conditions=%`
-        feeds.creator_id = #{self.id}
-          and feeds.hidden is not true
-          and feeds.send_status = '#{Feed::SendStatus::PUBLIC}'
-      `
-      find_hash = {
-        :conditions=>conditions,:order=>"feeds.id desc"
-      }
-      find_hash[:limit]=limited_count unless limited_count.nil?
-      Feed.find(:all,find_hash)
+    def in_feeds
+      Feed.mix_from_collections(self.in_collections)
     end
 
-    def to_followings_out_feeds_db(limited_count = nil)
-      conditions=%`
-        feeds.creator_id = #{self.id}
-          and feeds.hidden is not true
-      `
-      joins=%`
-        inner join send_scopes on send_scopes.param = '#{SendScope::FOLLOWINGS}'
-        and send_scopes.feed_id = feeds.id
-      `
-      find_hash = {
-        :conditions=>conditions,:joins=>joins,
-        :order=>"feeds.id desc"
-      }
-      find_hash[:limit]=limited_count unless limited_count.nil?
-      Feed.find(:all,find_hash)
+    def to_followings_out_feeds
+      Feed.mix_from_collections(self.to_followings_out_collections)
     end
 
-    def to_personal_out_feeds_db(limited_count = nil)
-      conditions=%`
-        feeds.creator_id = #{self.id}
-          and feeds.hidden is not true
-      `
-      joins=%`
-        inner join send_scopes on send_scopes.feed_id = feeds.id
-          and send_scopes.scope_type = 'User'
-      `
-      find_hash = {
-        :conditions=>conditions,:joins=>joins,
-        :order=>"feeds.id desc",
-        :group=>"feeds.id"
-      }
-      find_hash[:limit]=limited_count unless limited_count.nil?
-      Feed.find(:all,find_hash)
+    def incoming_feeds
+      Feed.mix_from_collections(self.incoming_collections)
     end
 
+    def to_personal_out_feeds
+      Feed.mix_from_collections(self.to_personal_out_collections)
+    end
+
+    def to_personal_in_feeds
+      Feed.mix_from_collections(self.to_personal_in_collections)
+    end
+
+    def incoming_to_personal_in_feeds
+      Feed.mix_from_collections(self.incoming_to_personal_in_collections)
+    end
+
+  end
+
+  module ChannelMethods
+    def out_feeds
+      Feed.mix_from_collections(self.out_collections)
+    end
+
+    def in_feeds
+      Feed.mix_from_collections(self.in_collections)
+    end
   end
 
   include FeedMindmap::FeedMethods
@@ -442,6 +393,5 @@ class Feed < UserAuthAbstract
   include FeedViewing::FeedMethods
   include Atme::AtableMethods
 
-  include SendScope::FeedMethods
   include FeedCollection::FeedMethods
 end

@@ -65,7 +65,6 @@ module UserMethods
     base.send(:include,TagsMapOfUserMemoedFeedsProxy::UserMethods)
     base.send(:include,Atme::UserMethods)
     base.send(:include,ReputationLog::UserMethods)
-    base.send(:include,SendScope::UserMethods)
     base.send(:include,Collection::UserMethods)
     base.send(:include,Photo::UserMethods)
   end

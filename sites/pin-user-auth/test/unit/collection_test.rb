@@ -6,7 +6,7 @@ class CollectionTest < ActiveSupport::TestCase
     a = users(:a)
     scope = "all-public"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count
@@ -20,7 +20,7 @@ class CollectionTest < ActiveSupport::TestCase
     b = users(:b)
     scope = "all-public,u-#{b.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 2, coll.collection_scopes.count
@@ -34,7 +34,7 @@ class CollectionTest < ActiveSupport::TestCase
     a = users(:a)
     scope = "all-followings"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count
@@ -48,7 +48,7 @@ class CollectionTest < ActiveSupport::TestCase
     b = users(:b)
     scope = "all-followings,u-#{b.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 2, coll.collection_scopes.count
@@ -63,7 +63,7 @@ class CollectionTest < ActiveSupport::TestCase
     channel_ac = channels(:channel_ac)
     scope = "ch-#{channel_ac.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count
@@ -78,7 +78,7 @@ class CollectionTest < ActiveSupport::TestCase
     channel_ac = channels(:channel_ac)
     scope = "ch-#{channel_ac.id},u-#{b.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 2, coll.collection_scopes.count
@@ -93,7 +93,7 @@ class CollectionTest < ActiveSupport::TestCase
     b = users(:b)
     scope = "u-#{b.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count
@@ -108,7 +108,7 @@ class CollectionTest < ActiveSupport::TestCase
     c = users(:c)
     scope = "u-#{b.id},u-#{c.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 2, coll.collection_scopes.count
@@ -125,7 +125,7 @@ class CollectionTest < ActiveSupport::TestCase
     channel_ad = channels(:channel_ad)
     scope = "ch-#{channel_ac.id},ch-#{channel_ad.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 2, coll.collection_scopes.count
@@ -143,7 +143,7 @@ class CollectionTest < ActiveSupport::TestCase
     channel_ad = channels(:channel_ad)
     scope = "ch-#{channel_ac.id},ch-#{channel_ad.id},u-#{b.id}"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 3, coll.collection_scopes.count
@@ -160,7 +160,7 @@ class CollectionTest < ActiveSupport::TestCase
     channel_bd = channels(:channel_bd)
     scope = "ch-#{channel_bd.id}"
     assert_difference('Collection.count', 0) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
   end
 
@@ -170,7 +170,7 @@ class CollectionTest < ActiveSupport::TestCase
     channel_ac = channels(:channel_ac)
     channel_ad = channels(:channel_ad)
     assert_raise(CollectionScope::UnSpecifiedError) do
-      a.create_collection_by_params("我是标题","我是描述","")
+      a.create_collection_by_params("我是标题","")
     end
 
     error_scope_list = [
@@ -182,7 +182,7 @@ class CollectionTest < ActiveSupport::TestCase
     ]
     error_scope_list.each do |scope|
       assert_raise(CollectionScope::FormatError) do
-        a.create_collection_by_params("我是标题","我是描述",scope)
+        a.create_collection_by_params("我是标题",scope)
       end
     end
   end
@@ -193,7 +193,7 @@ class CollectionTest < ActiveSupport::TestCase
     a = users(:a)
     scope = "all-public"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count
@@ -209,7 +209,7 @@ class CollectionTest < ActiveSupport::TestCase
     a = users(:a)
     scope = "all-public"
     assert_difference('Collection.count', 1) do
-      a.create_collection_by_params("我是标题","我是描述",scope)
+      a.create_collection_by_params("我是标题",scope)
     end
     coll = Collection.last
     assert_equal 1, coll.collection_scopes.count

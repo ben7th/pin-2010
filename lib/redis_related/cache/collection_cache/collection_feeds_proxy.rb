@@ -29,6 +29,9 @@ class CollectionFeedsProxy < RedisBaseProxy
       :class=>Collection,
       :feeds=>Proc.new{|collection|
         CollectionFeedsProxy.new(collection).get_models(Feed)
+      },
+      :feed_ids=>Proc.new{|collection|
+        CollectionFeedsProxy.new(collection).xxxs_ids
       }
     }
   end

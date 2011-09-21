@@ -380,6 +380,27 @@
   span{display:block;}
 }
 
+@mixin button-darkred{
+  @include border-radius(3px);
+  display:block;
+  padding:0;
+  text-align:center;
+  background-color:#DD4B39;
+  border:solid 1px #D14836;
+  font-weight:bold;
+  color:white;
+  text-shadow:0 0 2px #444444;
+  &:hover{
+    color:white;
+    text-decoration:none;
+    background-color:#CF402F;
+    @include gradient(#DD4B39,#C53727);
+    border:solid 1px #B0281A;
+    box-shadow:0 1px 2px #eee;
+  }
+  span{display:block;}
+}
+
 @mixin form-a-link-submit{
   @include button-blue;
   height:30px;line-height:30px;

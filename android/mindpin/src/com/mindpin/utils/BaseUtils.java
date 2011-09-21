@@ -9,14 +9,20 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class BaseUtils {
 	
+	public static String date_string(long time){
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(new Date(time));
+	}
 	
 	public static boolean is_wifi_active(Context context) {
 		Context acontext = context.getApplicationContext();

@@ -14,12 +14,14 @@ public class FeedDraft {
 	public String select_collection_ids;
 	public long time;
 
-	public FeedDraft(String title, String content, String image_paths,
+	public FeedDraft(int id,String title, String content, String image_paths,
 			String select_collection_ids,long time) {
+		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.image_paths = image_paths;
-		this.select_collection_ids = select_collection_ids;  
+		this.select_collection_ids = select_collection_ids;
+		this.time = time;
 	}
 	
 	public static int get_count(Context context){
@@ -28,6 +30,34 @@ public class FeedDraft {
 		int count = cursor.getCount();
 		db.close();
 		return count;
+	}
+	
+	public static FeedDraft find(Context context,int fid){
+		SQLiteDatabase db = get_read_db(context);
+		Cursor cursor = db.query(Constants.TABLE_FEED_DRAFTS,
+				new String[]{
+								Constants.KEY_ID,
+								Constants.TABLE_FEED_DRAFTS__TITLE,
+								Constants.TABLE_FEED_DRAFTS__CONTENT,
+								Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS,
+								Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS,
+								Constants.TABLE_FEED_DRAFTS__TIME
+							}, 
+							Constants.KEY_ID + " = "+fid, null, null, null,null);
+		boolean has = cursor.moveToFirst();
+		db.close();
+		if(has){
+			int id = cursor.getInt(0);
+			String title = cursor.getString(1);
+			String content = cursor.getString(2);
+			String image_paths = cursor.getString(3);
+			String select_collection_ids = cursor.getString(4);
+			long time = cursor.getLong(5);
+			FeedDraft fh = new FeedDraft(id,title, content, image_paths, select_collection_ids,time);
+			return fh;
+		}else{
+			return null;
+		}
 	}
 	
 	public static ArrayList<FeedDraft> get_feed_drafts(Context context){
@@ -44,13 +74,13 @@ public class FeedDraft {
 				null, null, null, null,Constants.KEY_ID+ " asc");
 		ArrayList<FeedDraft> fhs = new ArrayList<FeedDraft>();
 		while(cursor.moveToNext()){
+			int id = cursor.getInt(0);
 			String title = cursor.getString(1);
 			String content = cursor.getString(2);
 			String image_paths = cursor.getString(3);
 			String select_collection_ids = cursor.getString(4);
 			long time = cursor.getLong(5);
-			FeedDraft fh = new FeedDraft(title, content, image_paths, select_collection_ids,time);
-			fh.id = cursor.getInt(0);
+			FeedDraft fh = new FeedDraft(id,title, content, image_paths, select_collection_ids,time);
 			fhs.add(fh);
 		}
 		db.close();
@@ -107,7 +137,6 @@ public class FeedDraft {
 		values.put(Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS,images_str);
 		values.put(Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS,select_collection_ids_str);
 		values.put(Constants.TABLE_FEED_DRAFTS__TIME,System.currentTimeMillis());
-		
 		db.insert(Constants.TABLE_FEED_DRAFTS,null, values);
 		db.close();
 	}

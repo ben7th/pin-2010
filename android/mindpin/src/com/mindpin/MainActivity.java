@@ -1,8 +1,6 @@
 package com.mindpin;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.CameraLogic;
@@ -10,7 +8,6 @@ import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.utils.BaseUtils;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -58,9 +55,7 @@ public class MainActivity extends Activity {
 				notice_bar.setVisibility(View.VISIBLE);
 			case MESSAGE_UPDATE_NOTICE:
 				long time = AccountManager.last_syn_time(getApplicationContext());
-				SimpleDateFormat sdf = new SimpleDateFormat();
-				sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
-				String str = sdf.format(new Date(time));
+				String str = BaseUtils.date_string(time);
 				notice_tv.setText("上次同步于 "+str);
 				notice_bar.setProgress(100);
 				notice_bar.setVisibility(View.GONE);

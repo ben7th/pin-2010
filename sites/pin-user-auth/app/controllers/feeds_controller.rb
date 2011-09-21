@@ -29,10 +29,11 @@ class FeedsController < ApplicationController
   end
 
   def _create_web
-    feed = current_user.send_feed(params[:content],
+    feed = current_user.send_feed(params[:title],
       params[:detail],:tags=>params[:tags],
-      :sendto=>params[:sendto],:photo_names=>params[:photo_names],
-      :collection_ids=>params[:collection_ids])
+      :photo_names=>params[:photo_names],
+      :collection_ids=>params[:collection_ids],
+      :from=>Feed::FROM_WEB)
     if feed.id.blank?
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'
@@ -43,9 +44,10 @@ class FeedsController < ApplicationController
   def _create_android_client
     feed = current_user.send_feed(
       params[:content],params[:detail],
-      :tags=>params[:tags],:sendto=>params[:sendto],
+      :tags=>params[:tags],
       :photo_names=>params[:photo_names],
-      :collection_ids=>params[:collection_ids])
+      :collection_ids=>params[:collection_ids],
+      :from=>Feed::FROM_ANDROID)
     if feed.id.blank?
       return render :status=>422,:text=>422
     end

@@ -3,87 +3,47 @@
 
 -htitle '创建新主题'
 
--content_for :css do
-  =stylesheet_link_tag '/ueditor/themes/default/ueditor.css'
+-hjavascript '/html5_upload/upload_feed_photo'
 
--content_for :javascript do
-  =javascript_include_tag '/html5_upload/upload_feed_photo'
+-form_tag "/feeds",:class=>'page-new-feed-form' do
+  .main.grid_18.no-line
+    .form-main
+      .field.title
+        %label 标题
+        =text_field_tag "title",'',:class=>"text title-ipter"
 
-  -# 编辑器核心代码
-  =javascript_include_tag '/ueditor/editor_config.js'
+      .page-file-upload
+        -btn_width = 82
+        -btn_height = 28
+        .relative
+          .input-div{:style=>"position:absolute;width:#{btn_width}px;height:#{btn_height}px;left:0;top:0;overflow:hidden;"}
+            %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:#{btn_height}px;font-size:30px;opacity:0;',:multiple=>""}
+        .upload-btn 上传图片
 
-  =javascript_include_tag '/ueditor/editor.js'
-  =javascript_include_tag '/ueditor/core/browser.js'
-  =javascript_include_tag '/ueditor/core/utils.js'
-  =javascript_include_tag '/ueditor/core/EventBase.js'
 
-  =javascript_include_tag '/ueditor/core/dom/dom.js'
-  =javascript_include_tag '/ueditor/core/dom/dtd.js'
-  =javascript_include_tag '/ueditor/core/dom/domUtils.js'
-  =javascript_include_tag '/ueditor/core/dom/Range.js'
-  =javascript_include_tag '/ueditor/core/dom/Selection.js'
+      .field.photos
+        =hidden_field_tag "photo_names",'',:class=>'photos-ipter'
 
-  =javascript_include_tag '/ueditor/core/Editor.js'
+      .field.detail
+        =text_area_tag "detail",'',:class=>"text detail-ipter"
 
-  -# 编辑器命令代码
-
-  -# 加粗，加斜，删除线，上标，下标
-  =javascript_include_tag '/ueditor/commands/basestyle.js'
-  =javascript_include_tag '/ueditor/commands/font.js'
-  =javascript_include_tag '/ueditor/commands/elementpath.js'
-  -# 引用块
-  =javascript_include_tag '/ueditor/commands/blockquote.js'
-  -# 有序列表
-  =javascript_include_tag '/ueditor/commands/list.js'
-
-  -# 编辑器插件
-  -# 自动增高
-  =javascript_include_tag '/ueditor/plugins/autoheight/autoheight.js'
-  =javascript_include_tag '/ueditor/plugins/serialize/serialize.js'
-
-  -# 编辑器UI
-  =javascript_include_tag '/ueditor/ui/ui.js'
-  =javascript_include_tag '/ueditor/ui/uiutils.js'
-  =javascript_include_tag '/ueditor/ui/uibase.js'
-  =javascript_include_tag '/ueditor/ui/mask.js'
-  =javascript_include_tag '/ueditor/ui/popup.js'
-  =javascript_include_tag '/ueditor/ui/stateful.js'
-  =javascript_include_tag '/ueditor/ui/button.js'
-  =javascript_include_tag '/ueditor/ui/splitbutton.js'
-  =javascript_include_tag '/ueditor/ui/toolbar.js'
-  =javascript_include_tag '/ueditor/ui/menu.js'
-  =javascript_include_tag '/ueditor/ui/dialog.js'
-  =javascript_include_tag '/ueditor/ui/menubutton.js'
-  =javascript_include_tag '/ueditor/ui/editorui.js'
-  =javascript_include_tag '/ueditor/ui/editor.js'
-
-.main.grid_24.no-line
-  -form_tag "/feeds",:class=>'common_form create-form' do
-    .page-new-feed-form
-
-      .form-meta
-        .field.title
-          %label 标题
-          =text_field_tag "content",'',:class=>"text content-ipter need"
-        =#render 'modules/field_sendto_selector'
-
-        .page-file-upload
-          .upload-btn 上传图片
-          .input-div{:style=>'position:absolute;width:82px;height:22px;left:0;top:0;overflow:hidden;'}
-            %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:22px;font-size:30px;opacity:0;',:multiple=>""}
-        .field.photos
-          =hidden_field_tag "photo_names",'',:class=>'photos-ipter'
-
-        .field.detail
-          %label.hide 正文 <span class='quiet font12'>(选填)</span>
-          =text_area_tag "detail",'',:class=>"text detail-ipter",:style=>'display:none;'
-          #page-feed-detail-ipter
-
-        .field.collections.hide
-          -current_user.created_collections_db.each do |c|
-            .c
-              .name=c.title
-
-      .field.subm.padding10
+    .form-submit
+      .field.subm
         =link_to "好了，确定创建",'javascript:;',:class=>'create-submit'
         =link_to '算了，取消','/',:class=>'create-cancel'
+
+  .mside.grid_6.no-line
+    .form-collection-select
+      %h3 选择发送范围
+      =hidden_field_tag "collection_ids","",:class=>'collections-ipter'
+      .field.collections
+        -current_user.created_collections_db.each do |c|
+          -checked_id = params[:collection]
+          -if c.id.to_s == checked_id
+            .c.checked{:'data-id'=>c.id}
+              .cb=check_box 'collections','aaa',:class=>'checkbox',:checked=>true
+              .name=c.title
+          -else
+            .c{:'data-id'=>c.id}
+              .cb=check_box 'collections','aaa',:class=>'checkbox',:checked=>false
+              .name=c.title

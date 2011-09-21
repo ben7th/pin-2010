@@ -18,5 +18,17 @@ module PieUi
         title
       end
     end
+
+    def hjavascript(path)
+      content_for :javascript do
+        javascript_include_tag path
+      end
+    end
+
+    def hcss(path)
+      content_for :css do
+        stylesheet_link_tag path
+      end
+    end
   end
 end

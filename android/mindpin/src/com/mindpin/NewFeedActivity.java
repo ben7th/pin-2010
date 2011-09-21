@@ -8,6 +8,8 @@ import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.FeedDraftManager;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
+import com.mindpin.database.FeedDraft;
+import com.mindpin.utils.BaseUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -23,6 +25,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -30,6 +33,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -94,8 +100,9 @@ public class NewFeedActivity extends Activity {
 				break;
 			case MESSAGE_SAVE_FEED_DRAFT:
 				progress_dialog.dismiss();
-				Toast.makeText(getApplicationContext(), "保存草稿",
+				Toast.makeText(getApplicationContext(), "网络不可用，已保存草稿",
 						Toast.LENGTH_SHORT).show();
+				NewFeedActivity.this.finish();
 				break;
 			}
 		};
@@ -109,8 +116,15 @@ public class NewFeedActivity extends Activity {
 		set_listener();
 		process_extra();
 		process_share();
+		process_feed_draft();
 	}
 	
+	private void process_feed_draft() {
+		if(FeedDraftManager.has_feed_draft(getApplicationContext())){
+			show_feed_draft_list_dialog();
+		}
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode != Activity.RESULT_OK){
@@ -144,18 +158,30 @@ public class NewFeedActivity extends Activity {
 	    if(keyCode == KeyEvent.KEYCODE_BACK){
 			feed_title = feed_title_et.getText().toString();
 			feed_content = feed_content_et.getText().toString();
-			if(!"".equals(feed_title) 
-					|| !"".equals(feed_content)
-					|| capture_paths.size() != 0
-					|| (select_collection_ids != null && select_collection_ids.size() != 0)
-					){
-				return save_feed_draft_dialog();
+			boolean is_blank = (
+					("".equals(feed_title)) &&
+					"".equals(feed_content) &&
+					(capture_paths.size() == 0) &&
+					(select_collection_ids == null || select_collection_ids.size() == 0)
+					);
+			if(feed_draft_id!=0){
+				boolean has_change = FeedDraftManager.has_change(getApplicationContext(),
+						feed_draft_id,feed_title,feed_content,capture_paths,select_collection_ids);
+				if(!is_blank && has_change){
+					save_feed_draft_dialog();
+					return true;				
+				}
+			}else{
+				if(!is_blank){
+					save_feed_draft_dialog();
+					return true;				
+				}
 			}
 	    }  
 	    return super.onKeyDown(keyCode, event);  
 	} 
 	
-	private boolean save_feed_draft_dialog() {
+	private void save_feed_draft_dialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("主题尚未发送，是否保存？");
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -177,9 +203,7 @@ public class NewFeedActivity extends Activity {
 		});
 		
 		builder.show();
-		
-		
-		return true;
+		return;
 	}
 
 	private void selected_collections_and_send(Intent data) {
@@ -381,6 +405,80 @@ public class NewFeedActivity extends Activity {
 		builder.show();
 	}
 	
+	private void show_feed_draft_list_dialog() {
+		LayoutInflater factory = LayoutInflater
+				.from(this);
+		final View view = factory.inflate(R.layout.feed_draft_list_dialog, null);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("打开草稿");
+		builder.setView(view);
+		builder.setPositiveButton("打开", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				Integer id = (Integer)view.getTag();
+				if(id == null) return;
+				open_feed_draft(id);
+			}
+		});
+		builder.setNeutralButton("删除", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				Integer id = (Integer)view.getTag();
+				if(id == null) return;
+				
+				FeedDraft.destroy(getApplicationContext(), id);
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		final AlertDialog dialog = builder.create();
+		
+		RadioGroup feed_drafts_rg = (RadioGroup)view.findViewById(R.id.feed_drafts_rg);
+		ArrayList<FeedDraft> feed_drafts = FeedDraftManager.get_feed_drafts(getApplicationContext());
+		for (FeedDraft feedDraft : feed_drafts) {
+			RadioButton rb = new RadioButton(view.getContext());
+			String title = feedDraft.title;
+			if(title == null || "".equals(title)) title = "无标题";
+			String time_str = BaseUtils.date_string(feedDraft.time);
+			title = title + "(" + time_str +")";
+			rb.setTag(feedDraft.id);
+			rb.setText(title);
+			feed_drafts_rg.addView(rb);
+		}
+		feed_drafts_rg.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				RadioButton rb = (RadioButton)view.findViewById(checkedId);
+				Integer id = (Integer)rb.getTag();
+				view.setTag(id);
+				dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+				dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setEnabled(true);				
+			}
+		});
+		dialog.show();
+		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+		dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setEnabled(false);
+	}
+	
+	private void open_feed_draft(Integer id) {
+		feed_draft_id = id;
+		FeedDraft fd = FeedDraft.find(getApplicationContext(), id);
+		if(fd == null)return;
+		
+		feed_title_et.setText(fd.title);
+		feed_content_et.setText(fd.content);
+		
+		ArrayList<String> paths = BaseUtils.string_to_string_list(fd.image_paths);
+		for (String path : paths) {
+			add_image_to_feed_captures(path);
+		}
+		
+		ArrayList<Integer> ids = BaseUtils.string_to_integer_list(fd.select_collection_ids);
+		if(ids!=null && ids.size()!=0){
+			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
+			select_collection_ids = ids;
+		}
+	}
+	
 	class LoginRunnable implements Runnable{
 		public void run() {
 			String email = AccountManager.get_email(NewFeedActivity.this);
@@ -421,10 +519,19 @@ public class NewFeedActivity extends Activity {
 					mhandler.sendMessage(msg);
 				}
 				Http.send_feed(feed_title, feed_content, photo_names, select_collection_ids);
+				if(feed_draft_id!=0){
+					FeedDraft.destroy(getApplicationContext(), feed_draft_id);
+					feed_draft_id=0;
+				}
 				mhandler.sendEmptyMessage(MESSAGE_SEND_FEED_SUCCESS);
 			} catch (IntentException e) {
-				FeedDraftManager.save_feed_draft(NewFeedActivity.this, feed_title, feed_content,
-						capture_paths, select_collection_ids);
+				if(feed_draft_id != 0){
+					FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
+							feed_title,feed_content, capture_paths, select_collection_ids);
+				}else{
+					FeedDraftManager.save_feed_draft(NewFeedActivity.this, 
+							feed_title,feed_content, capture_paths, select_collection_ids);
+				}
 				mhandler.sendEmptyMessage(MESSAGE_SAVE_FEED_DRAFT);
 			} catch (AuthenticateException e) {
 				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
