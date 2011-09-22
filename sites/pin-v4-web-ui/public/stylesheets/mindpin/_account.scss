@@ -50,112 +50,64 @@
   }
 }
 
-.binded-account{
-  .binded-account-info{
-    @include border-radius(3px);
-    background-color:#FAFAFA;
-    border:solid 1px #eee;
-    margin:0 0 20px 0;
-    position:relative;
-    .bind-icon{
-      position:absolute;
-      width:64px;height:64px;
-      background:url(/images/icons_account/account_all.png) no-repeat 0px -25px;
-      top:-20px;
-      right:-20px;
-    }
-    .title{
-      padding:5px;
-    }
-    .meta{
-      background-color:#fff;
-      padding:5px;
-      overflow:hidden;
-      .avatar{
-        float:left;
-        margin:0 10px 0 0;
-      }
-      .name{font-size:14px;font-weight:bold;}
-    }
-    .misc{
-      padding:5px;
-      overflow:hidden;
-      .time{padding:0 6px;float:left;margin-right:20px;line-height:24px;}
-      .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:24px;line-height:24px;}
-      &.up{
-        .time,.update{display:none;}
-        .updating{display:block;}
-      }
-    }
-    &.tsina{
-      width:300px;
-      .counts{
-        overflow:hidden;
-        .friends,.followers,.statuses{
-          height:40px;
-          margin-top:10px;
-          margin-right:10px;
-          float:left;
-          .count{font-size:18px;font-weight:bold;line-height:20px;}
-          .n{}
-        }
-      }
-    }
-    &.renren{
-      width:300px;
+/*新浪微博账号信息*/
+/*用于使用新浪微博账号登录页*/
+/*用于绑定信息设置页*/
+.page-binded-account-info{
+  @include border-radius(3px);
+  background-color:#FAFAFA;
+  border:solid 1px #eee;
+  margin:0 0 20px 0;
+  position:relative;
+  /*绑定成功的标识，绿色圆形图标*/
+  .bind-icon{
+    position:absolute;
+    width:64px;height:64px;
+    background:url(/images/icons_account/account_all.png) no-repeat 0px -25px;
+    top:-20px;
+    right:-20px;
+  }
+  
+  .title{padding:9px;font-size:14px;}
+  .meta{
+    background-color:#fff;
+    padding:9px;
+    overflow:hidden;
+    .avatar{float:left;margin:0 10px 0 0;img{width:50px;height:50px;}}
+    .name{font-size:14px;font-weight:bold;a{color:#444 !important;}}
+  }
+  .misc{
+    padding:5px;
+    overflow:hidden;
+    .time{padding:0 6px;float:left;margin-right:20px;line-height:24px;}
+    .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:24px;line-height:24px;}
+    &.up{
+      .time,.update{display:none;}
+      .updating{display:block;}
     }
   }
-
-  .tsina-share-mindpin.darkbg{
-    @include box-shadow(0px 0px 2px #000000);
-    width:455px;
-    margin:0 0 20px 0;
-    .title{margin:0 0 6px 0;}
-    .ipt{
+  
+  &.tsina{
+    width:310px;
+    .counts{
       overflow:hidden;
-      textarea{
+      .friends,.followers,.statuses{
+        height:40px;
+        margin-top:10px;
+        margin-right:10px;
         float:left;
-      }
-      .mplogo{
-        width:48px;
-        height:48px;
-        background:url(/images/icons_account/mindpin_logo_s.png) no-repeat 1px 1px;
-        background-color:white;
-        float:left;
-        margin-left:5px;
-        @include border-radius(2px);
-        border:1px solid #666666;
-        padding:1px;
-      }
-    }
-    @include submitbtns;
-    .btn{
-      .sending{
-        padding:0 0 0 20px;display:none;
-        height:18px;line-height:18px;
-        margin:5px 0 0 0;
-      }
-      &.se{
-        .sending{display:block;}
-        button{display:none;}
-      }
-      .success{
-        height:18px;line-height:18px;
-        margin:5px 0 0 0;
-        display:inline;
-      }
-      .failure{
-        height:18px;line-height:18px;
-        margin:5px 0 0 0;
-        display:inline;
-        color:#ff8844;
+        .count{font-size:18px;font-weight:bold;line-height:20px;}
+        .n{}
       }
     }
   }
+  
 }
 
 .bind-failure-desc{
-  @include border-radius(5px);
+  @include border-radius(2px);
+  @include gray-box;
+  background-color:#fafafa;
   margin-bottom:10px;
   position:relative;
   .p{
@@ -169,8 +121,8 @@
     position:absolute;
     width:48px;height:48px;
     background:url(/images/icons_account/account_all.png) no-repeat -65px -25px;
-    right:8px;
-    top:6px;
+    right:9px;
+    top:10px;
   }
 }
 
@@ -218,71 +170,104 @@
   }
 }
 
-.index-3rd-connect-operation{
-  height:350px;
-  .connect-confirm-btns{
-    overflow:hidden;
-    .connect-create-new-user a{
-      display:block;
-      font-size:16px;
-      font-weight:bold;
-      color:white;
-      @include border-radius(4px);
-      /*@include gradient(#EB3200,#48A902);
-      @include box-shadow(0px 0px 4px #DF1600);
-      border:solid 1px #F54E00;*/
-      @include gradient(#A4E563,#48A902);
-      @include box-shadow(0px 0px 4px #89D346);
-      border:solid 1px #75C631;
-      width:200px;
-      height:50px;
-      line-height:50px;
-      text-align:center;
-      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
-      margin-bottom:30px;
-      &:hover{
-        text-decoration:none;
-        /*@include gradient(#FB4200,#D91800);*/
-        @include gradient(#B9FA78,#58B912);
+/*使用其他网站账号登录，账号选择（新账号，老账号）*/
+.page-login-from-other-connect-operation{
+  h3{margin-bottom:10px;font-size:12px;font-weight:normal;}
+  .back{}
+  .f{
+    margin-bottom:10px;    
+    .connect-confirm-btns{
+      overflow:hidden;
+      .connect-create-new-user,.connect-has-reged{
+        float:left;margin:0 30px 20px 0;
       }
-      &.mousedown{
-        /*@include gradient(#D91800,#FB4200);*/
-        @include gradient(#58B912,#B9FA78);
+      .connect-create-new-user a,.connect-has-reged a{
+        display:block;
+        font-size:14px;font-weight:bold;
+        color:white;
+        @include border-radius(3px);
+        width:130px;
+        height:40px;line-height:40px;
+        text-align:center;
+        text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+      }
+      
+      .connect-create-new-user a{
+        background-color:#A4E563;
+        border:solid 1px #75C631;
+        &:hover{text-decoration:none;background-color:#94D553;}
+      }
+  
+      .connect-has-reged a{
+        background-color:#E57463;
+        border:solid 1px #C64C31;
+        &:hover{text-decoration:none;background-color:#D56453;}
       }
     }
-
-    .connect-has-reged a{
-      display:block;
-      font-size:16px;
-      font-weight:bold;
-      color:white;
-      @include border-radius(4px);
-      @include gradient(#EB3200,#C90800);
-      @include box-shadow(0px 0px 4px #DF1600);
-      border:solid 1px #F54E00;
-      width:200px;
-      height:50px;
-      line-height:50px;
-      text-align:center;
-      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
-      margin-bottom:20px;
-      &:hover{
-        text-decoration:none;
-        @include gradient(#FB4200,#D91800);
+  
+    .connect-link-form{
+      .select-mode{
+        overflow:hidden;
+        .sel{
+          width:355px;float:left;
+          .desc{
+            padding:14px;
+            font-size:12px;@include tfont;
+            color:#888;
+            b{color:#444;font-size:14px;}
+          }
+          
+          &.selected{
+            width:353px;
+            background-color:#fafafa;
+            border:solid 1px #eee;
+            border-bottom:solid 1px #fafafa;
+          }
+          
+          &.unselect{
+            cursor:pointer;
+            background-color:#fff;
+            border-bottom:solid 1px #eee;
+            .desc{background-color:#eee;}
+            
+            &.mode1{
+              .desc{margin:0 4px 4px 0;padding:14px 14px 11px 14px;}
+            }
+            &.mode2{
+              .desc{margin:0 0 4px 4px;padding:14px 14px 11px 14px;}
+            }
+          }
+        }
       }
-      &.mousedown{
-        @include gradient(#D91800,#FB4200);
+      .connect-link-form-form{
+        height:200px;
+        background-color:#fafafa;
+        border:solid 1px #eee;
+        border-top:none;
+        padding:14px 14px 14px 50px;
+        .field{
+          margin-bottom:9px;
+          label{
+            padding:0;
+            width:50px;margin-right:10px;text-align:right;
+            float:left;height:32px;line-height:32px;
+          }
+        }
+        .field.subm{
+          margin:0;overflow:hidden;
+          .create-submit{@include form-a-link-submit;padding:0 14px;width:auto;float:left;margin-left:60px;}
+        }
       }
     }
   }
+}
 
-  .connect-link-form{
-    .a-suanle{margin-left:10px;}
-    .connect-link-form-form{
-      padding:5px;
-      @include box-shadow(0 0 2px black);
-      width:290px;
-    }
+/*补全登录信息的表单*/
+.page-complete-account-info-form{
+  .field{margin-bottom:9px;}
+  .field.subm{
+    margin:0;overflow:hidden;
+    .create-submit{@include form-a-link-submit;padding:0 14px;width:auto;float:left;}
   }
 }
 

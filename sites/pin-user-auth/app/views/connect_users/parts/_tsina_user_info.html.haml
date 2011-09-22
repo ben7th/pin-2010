@@ -1,0 +1,28 @@
+.page-binded-account-info.tsina
+  .title.btb 正在使用下面的新浪微博账号登录
+  -if !!bindinfo
+    -image_url = bindinfo["profile_image_url"]
+    -user_name = bindinfo["user_name"]
+    -page_url = "http://weibo.com/#{bindinfo["connect_id"]}"
+    -friends_count = bindinfo["friends_count"]
+    -followers_count = bindinfo["followers_count"]
+    -statuses_count = bindinfo["statuses_count"]
+
+    .meta
+      .avatar
+        %img.logo{:src=>image_url,:alt=>user_name}
+      .name.bold
+        =link_to user_name,page_url,:target=>'_blank'
+      .counts
+        .friends
+          .count=friends_count
+          .n 关注
+        .followers
+          .count=followers_count
+          .n 粉丝
+        .statuses
+          .count=statuses_count
+          .n 微博
+  -else
+    .meta
+      绑定信息不完整

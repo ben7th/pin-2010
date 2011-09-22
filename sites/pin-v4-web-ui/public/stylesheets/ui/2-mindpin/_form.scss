@@ -9,6 +9,10 @@ input.text, textarea, select {
     border:solid 1px #ddd;
     box-shadow:none !important;
   }
+  &.bold{
+    font-weight:bold;
+    @include tfont;
+  }
 }
 
 input.text {width:200px;height:20px;line-height:20px;padding:5px;overflow:hidden;}

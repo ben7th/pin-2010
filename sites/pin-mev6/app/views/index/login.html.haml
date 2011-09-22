@@ -1,5 +1,6 @@
 .login-wrapper
   .logo
+
   -form_tag(pin_url_for('pin-user-auth','/session?service=tu'),{:class=>'login-form'}) do
     .field
       %label 电子邮箱
@@ -17,4 +18,9 @@
         %span 记住我
     .field
       =link_to '<span>注　册</span>',pin_url_for('pin-user-auth','/signup?service=tu'),:class=>'signup'
-  
+
+  .connects
+    .desc 其他网站账号登录
+    %a.connect.tsina-weibo{:href=>pin_url_for('pin-daotu','/connect_tsina'),:title=>'使用新浪微博账号登陆'}
+      .icon
+      .name 新浪微博

@@ -70,4 +70,7 @@ ActionController::Routing::Routes.draw do |map|
     :action=>"create_mindmap",:conditions=>{:method=>:post}
   map.connect "/tsina_app/mindmaps",:controller=>"tsina_app",:action=>"mindmaps"
   map.connect "/tsina_app/mindmaps/:id/edit",:controller=>"tsina_app",:action=>"edit"
+
+  # 新浪微博快速登录
+  map.connect "/connect_tsina",:controller=>"connect_users",:action=>"connect_tsina"
 end

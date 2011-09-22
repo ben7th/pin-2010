@@ -1,8 +1,7 @@
 -#use 关联新浪微博账号失败的提示页
 -#see 用户设置->关联新浪微博
 
--content_for :title do
-  绑定新浪微博账号失败 - 重复绑定
+-htitle '关联新浪微博账号失败 - 重复关联'
 
 .mside.grid_5
   =render :partial=>'account/parts/account_links'
@@ -10,46 +9,46 @@
 .main.grid_19.ll
   .paddingl20
     .main-title
-      尝试绑定新浪微博账号，但是绑定失败。
+      尝试关联新浪微博账号，但是关联失败。
 
     -user = @connect_user.user
-    .bind-failure-desc.darkbg
+    .bind-failure-desc
       .p
-        你目前登录的新浪微博账号，在此之前已经和另一个MindPin账号绑定了。
-        .acc.loud>
+        你目前登录的新浪微博账号，在此之前已经和另一个mindpin账号关联了。
+        .acc.bold>
           #{user.name}(#{user.email})
       .error-icon
 
-    .bind-failure-desc.darkbg
+    .bind-failure-desc
       .p
-        一个新浪微博账号只能绑定一个MindPin账号。
+        一个新浪微博账号只能关联一个mindpin账号。
       .p.btb
-        如果想改变绑定关系，请按照以下步骤，顺序操作：
+        如果想改变关联关系，请按照以下步骤，顺序操作：
       .help
         -if user.is_mindpin_typical_account?
           .p
-            1. 退出当前登录的MindPin账号；
+            1. 退出当前登录的mindpin账号；
           .p
-            2. 使用 <span class='loud'>用微博账号登录</span> 登录MindPin；
+            2. 使用 <span class='bold'>用微博账号登录</span> 登录mindpin；
           .p
-            3. 进入 <span class='loud'>用户设置 > 绑定新浪微博</span> 进行“解除绑定”操作；
+            3. 进入 <span class='bold'>用户设置 > 关联新浪微博</span> 进行“解除关联”操作；
           .p
-            4. 换回当前账号登录MindPin，重新尝试绑定新浪微博。
+            4. 换回当前账号登录mindpin，重新尝试关联新浪微博。
           .p
-            或者，尝试绑定其他的新浪微博账号。
+            或者，尝试关联其他的新浪微博账号。
         -else
           .p
-            1. 退出当前登录的MindPin账号；
+            1. 退出当前登录的mindpin账号；
           .p
-            2. 使用 <span class='loud'>用微博账号登录</span> 登录MindPin；
+            2. 使用 <span class='bold'>用微博账号登录</span> 登录mindpin；
           .p
-            3. 进入 <span class='loud'>用户设置 &gt; 补全注册信息</span> 对账号信息进行补全；
+            3. 进入 <span class='bold'>用户设置 &gt; 补全注册信息</span> 对账号信息进行补全；
           .p
-            4. 进入 <span class='loud'>用户设置 > 绑定新浪微博</span> 进行“解除绑定”操作；
+            4. 进入 <span class='bold'>用户设置 > 关联新浪微博</span> 进行“解除关联”操作；
           .p
-            5. 换回当前账号登录MindPin，重新尝试绑定新浪微博。
+            5. 换回当前账号登录mindpin，重新尝试关联新浪微博。
           .p
-            或者，尝试绑定其他的新浪微博账号。
+            或者，尝试关联其他的新浪微博账号。
 
     .padding5
       =minibutton '知道了，返回','/account/bind_tsina'

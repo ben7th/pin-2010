@@ -525,6 +525,10 @@
   padding:9px;
 }
 
+.gray-box{
+  @include gray-box;
+}
+
 @mixin feed-detail-format{
   ol{
     margin-left:1.5em;

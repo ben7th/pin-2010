@@ -1,7 +1,4 @@
 class ConnectUsersController < ApplicationController
-  def index
-  end
-
   def send_tsina_status
     SendTsinaStatusQueueWorker.async_send_tsina_status(:user_id=>current_user.id,:content=>params[:content])
     render :status=>200,:text=>"success"
@@ -21,39 +18,6 @@ class ConnectUsersController < ApplicationController
     render :status=>200,:text=>"success"
   end
 
-  def connect_confirm
-    case session[:connect_confirm]
-    when "tsina"
-      connect_tsina_confirm
-    when "renren"
-      connect_renren_confirm
-    else
-      raise "未定义的连接类型"
-    end
-  end
-
-  def create_quick_connect_account
-    case session[:connect_confirm]
-    when "tsina"
-      create_tsina_quick_connect_account
-    when "renren"
-      create_renren_quick_connect_account
-    else
-      raise "未定义的连接类型"
-    end
-  end
-
-  def bind_mindpin_typical_account
-    case session[:connect_confirm]
-    when "tsina"
-      tsina_bind_mindpin_typical_account
-    when "renren"
-      renren_bind_mindpin_typical_account
-    else
-      raise "未定义的连接类型"
-    end
-  end
-
   private
   def opener_window_redirect_to(url)
     render :text=>%`
@@ -71,6 +35,14 @@ class ConnectUsersController < ApplicationController
     session[:connect_confirm] = nil
   end
 
-  include RenrenControllerMethods
-  include TsinaControllerMethods
+  def set_tsina_token_to_session_by_request_token_of_session
+    request_token = session[:request_token]
+    session[:request_token] = nil
+    access_token = Tsina.get_access_token_by_request_token_and_oauth_verifier(request_token,params[:oauth_verifier])
+    session[:tsina_atoken] = access_token.token
+    session[:tsina_asecret] = access_token.secret
+  end
+
+  include BindTsinaControllerMethods
+  include ConnectTsinaControllerMethods
 end

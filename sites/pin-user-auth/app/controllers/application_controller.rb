@@ -34,7 +34,11 @@ class ApplicationController < ActionController::Base
     ],
     "connect_users"=>["update_bind_tsina_info",
       "bind_tsina","bind_tsina_callback",
-      "bind_tsina_failure"
+      "bind_tsina_failure",
+      "connect_tsina","connect_tsina_callback",
+      "connect_tsina_confirm",
+      "complete_account_info","do_complete_account_info",
+      "bind","create"
       ],
     "contacts"=>["follow","unfollow",
       "followings","fans","create"

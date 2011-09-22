@@ -19,17 +19,17 @@
       = hidden_field_tag :service,params[:service]
       .field
         %label 电子邮箱
-        = f.text_field :email,:maxlength=>50
+        = f.text_field :email,:maxlength=>50,:class=>'text'
         .quiet 必填，以后用来登录
       .field
         %label 用户名
-        = f.text_field :name,:maxlength=>50
+        = f.text_field :name,:maxlength=>50,:class=>'text'
         .quiet 显示的名称，必填，以后可以修改
       .field
         %label 密码
-        = f.password_field :password,:value=>'',:maxlength=>32
+        = f.password_field :password,:value=>'',:maxlength=>32,:class=>'text'
       .field
         %label 确认密码
-        = f.password_field :password_confirmation,:value=>'',:maxlength=>32
-      .field
+        = f.password_field :password_confirmation,:value=>'',:maxlength=>32,:class=>'text'
+      .field.subm
         =link_to '<span>确认注册</span>','javascript:;',:class=>'signup-submit'

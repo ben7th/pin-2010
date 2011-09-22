@@ -21,9 +21,10 @@
     overflow:hidden;
     margin-left:80px;
     margin-bottom:30px;
+    &.login-form{height:100px;}
     .field{
       float:left;
-      margin-right:10px;
+      margin-right:10px;margin-bottom:9px;
       label{display:block;}
       input.text{
         border:solid 1px #ccc;
@@ -56,6 +57,30 @@
   }
 }
 
+@mixin connect-other-sites{
+  /*连接各种网站*/
+  .connects{
+    overflow:hidden;
+    .desc{
+      font-size:14px;color:#999;
+      float:left;
+      height:32px;line-height:32px;
+      font-weight:bold;
+      margin-right:20px;
+    }
+    .connect{
+      @include button-gray;
+      @include border-radius(3px);
+      float:left;
+      .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
+      .name{float:left;font-size:14px;height:30px;line-height:30px;padding: 0 9px;}
+      &.tsina-weibo{
+        .icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}
+      }
+    }
+  }
+}
+
 body{
   &.mindpin-anonymous,&.tu-mindpin-anonymous{
     @include gradient(#FFFFFF,#F7F7F7);
@@ -68,12 +93,13 @@ body{
   }
 }
 
+
+
 body.tu-mindpin-anonymous{
   .login-wrapper{
     position:absolute;
-    top:50%;
-    left:50%;
-    margin-top:-180px;
+    top:50%;left:50%;
+    margin-top:-200px;
     margin-left:-400px;
     @include tu-mindpin-auth-logo;
     @include mindtu-no-auth-form;
@@ -86,21 +112,7 @@ body.tu-mindpin-anonymous{
       span{height:30px;line-height:30px;}
     }
     
-    .footmisc{
-      overflow:hidden;
-      .desc{
-        float:left;
-        margin-left:80px;
-        font-size:14px;font-weight:bold;
-      }
-      .signup{
-        overflow:hidden;
-        margin-left:532px;
-        a{
-          float:left;
-        }
-      }
-    }
+    @include connect-other-sites;
   }
 }
 
@@ -125,6 +137,8 @@ body.mindpin-anonymous{
       @include border-radius(3px);
       span{height:30px;line-height:30px;}
     }
+    
+    @include connect-other-sites;
     
     .footmisc{
       overflow:hidden;

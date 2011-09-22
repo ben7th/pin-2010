@@ -100,6 +100,7 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserBeInvitedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserFavTagFeedsProxy)
+    MindpinLogicManagement.load_redis_proxy(AllPublicFeedsProxy)
 
     # collection 缓存
     MindpinLogicManagement.load_redis_proxy(UserChannelOutCollectionProxy)

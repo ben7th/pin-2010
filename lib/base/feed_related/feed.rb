@@ -25,8 +25,19 @@ class Feed < UserAuthAbstract
     :joins=>"left join posts on posts.feed_id = feeds.id",
     :order=>"id desc"
 
-  def self.publics
+  def self.publics_db
     Feed.mix_from_collections(Collection.publics)
+  end
+
+  def self.publics
+    AllPublicFeedsProxy.new.get_models(Feed)
+  end
+
+  def self.publics_paginate(options)
+    ids = AllPublicFeedsProxy.new.xxxs_ids.paginate(options)
+    feeds = ids.map{|id|Feed.find_by_id(id)}.compact
+    ids.replace(feeds)
+    ids
   end
 
   after_create :creator_to_fav_feed_on_create
@@ -303,6 +314,9 @@ class Feed < UserAuthAbstract
     end
 
     def _send_feed(feed,title,detail,options={})
+      cids = (options[:collection_ids]||"").split(",")
+      raise "最少指定一个收集册" if cids.blank?
+      
       from = (options[:from]||FROM_WEB)
       feed.from = from
       return feed if !feed.valid?
@@ -313,8 +327,6 @@ class Feed < UserAuthAbstract
       tags = options[:tags]
       tags = Tag::DEFAULT if tags.blank?
 
-      cids = (options[:collection_ids]||"").split(",")
-      raise "最少指定一个收集册" if cids.blank?
       cids.each do |collection_id|
         collection = Collection.find(collection_id)
         fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)

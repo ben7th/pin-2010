@@ -4,7 +4,9 @@ pie.inputflash = function(input_elm){
     .animate({'background-color': '#ffeeee'},100)
     .animate({'background-color': '#ffffff'},100)
     .animate({'background-color': '#ffeeee'},100)
-    .animate({'background-color': '#ffffff'},100);
+    .animate({'background-color': '#ffffff'},100,function(){
+      input_elm.css('background-color','');
+    });
 }
 
 pie.load(function(){

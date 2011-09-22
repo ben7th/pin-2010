@@ -1,0 +1,51 @@
+-htitle '补全新浪微博关联账号信息'
+
+-content_for :css do
+  :css
+    .nav-menu{display:none};
+
+.main.grid_18.no-line
+  .page-binded-account-info.tsina
+    .title.btb 目前关联的新浪微博账号
+    -bindinfo = current_user.tsina_account_info
+    -if !!bindinfo
+      .meta
+        .avatar
+          %img.logo{:src=>bindinfo["profile_image_url"]}
+        .name
+          =bindinfo["user_name"]
+        .counts
+          .friends
+            .count=bindinfo["friends_count"]
+            .n 关注
+          .followers
+            .count=bindinfo["followers_count"]
+            .n 粉丝
+          .statuses
+            .count=bindinfo["statuses_count"]
+            .n 微博
+    -else
+      .meta
+        绑定信息不完整
+
+  .padding5
+    .p.font14
+      您目前登陆的账号是新浪微博关联账号。
+    .p.font14.marginb30
+      补充邮箱地址和登录密码来转为mindpin正式账号。之后可以从网站首页登录。
+
+    .page-complete-account-info-form
+      = flash_info
+      - form_for current_user,:url=>"/connect_tsina/do_complete_account_info",:html=>{:method=>:post} do |f|
+        = hidden_field_tag :service,params[:service]
+        .field
+          %label 邮箱地址
+          = text_field :user,:email,:value=>'',:maxlength=>32,:class=>'text bold'
+        .field
+          %label 密码
+          = password_field :user,:password,:value=>'',:maxlength=>32,:class=>'text bold'
+        .field
+          %label 确认密码
+          = password_field :user,:password_confirmation,:value=>'',:maxlength=>32,:class=>'text bold'
+        .field.subm
+          %a.create-submit{:href=>"javascript:;",:onclick=>"jQuery(this).closest('form').submit();"} <span>补充完毕</span>

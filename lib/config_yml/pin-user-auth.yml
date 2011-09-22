@@ -8,6 +8,7 @@ development:
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
   tsina_callback_url: http://dev.www.mindpin.com/connect_tsina_callback
   tsina_bind_callback_url: http://dev.www.mindpin.com/bind_other_site/tsina_callback
+  tsina_tu_callback_url: http://dev.www.mindpin.com/connect_tsina_callback?service=tu
   tsina_mindmap_app_callback_url: http://dev.tu.mindpin.com/tsina_app/connect_callback
   tsina_api_key: 1526151944
   tsina_api_secret: a00a7048df478244376d69b14bb7ae07
@@ -38,6 +39,7 @@ production:
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
   tsina_callback_url: http://www.mindpin.com/connect_tsina_callback
   tsina_bind_callback_url: http://www.mindpin.com/bind_other_site/tsina_callback
+  tsina_tu_callback_url: http://www.mindpin.com/connect_tsina_callback?service=tu
   tsina_mindmap_app_callback_url: http://tu.mindpin.com/tsina_app/connect_callback
   tsina_api_key: 1526151944
   tsina_api_secret: a00a7048df478244376d69b14bb7ae07

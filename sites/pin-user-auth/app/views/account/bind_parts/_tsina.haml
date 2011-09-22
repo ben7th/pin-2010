@@ -1,15 +1,14 @@
 -#use 关于关联新浪微博的一些操作
 -#see 用户设置->关联新浪微博
 
-.binded-account.clearfix
-  =render 'account/bind_parts/binded_tsina_account_info'
+=render 'account/bind_parts/binded_tsina_account_info'
 
 -if !current_user.is_quick_connect_account?
-  =minibutton "解除新浪微博账号绑定","/account/do_unbind?type=tsina",:method=>:post,:confirm=>'确定要解除绑定吗？',:class=>'red'
+  =minibutton "解除新浪微博账号关联","/account/do_unbind?type=tsina",:method=>:post,:confirm=>'确定要解除关联吗？',:class=>'red'
 -else
   .font14.loud.marginb10
     %span> 该账号目前是快速连接账号，可以通过
     =link_to '补全账号信息','/account/complete_reg_info'
     %span> 转为正式账号。
   .font14.loud
-    快速连接账号不能解除绑定（否则将无法登录）。
+    快速连接账号不能解除关联（否则将无法登录）。
