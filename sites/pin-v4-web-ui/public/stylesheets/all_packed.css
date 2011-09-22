@@ -541,6 +541,7 @@ legend{font-weight:bold;font-size:1.2em;}
 form label{display:block;}
 input.text,textarea,select{margin:0;font-size:14px;resize:none;}
 input.text.disabled,textarea.disabled,select.disabled{background:#f7f7f7;border:solid 1px #ddd;box-shadow:none!important;}
+input.text.bold,textarea.bold,select.bold{font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 input.text{width:200px;height:20px;line-height:20px;padding:5px;overflow:hidden;}
 input.checkbox{position:relative;top:2px;}
 select{padding:1px;}
@@ -1397,9 +1398,14 @@ form.page-new-feed-form .form-collection-select .field.collections .c .name{floa
 .page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field{margin-bottom:9px;}
 .page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field label{padding:0;width:50px;margin-right:10px;text-align:right;float:left;height:32px;line-height:32px;}
 .page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field.subm{margin:0;overflow:hidden;}
-.page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field.subm .create-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;width:100px;float:left;margin-left:60px;}
+.page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field.subm .create-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;padding:0 14px;width:auto;float:left;margin-left:60px;}
 .page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field.subm .create-submit:hover{color:white;text-decoration:none;border:solid 1px #0069dd;box-shadow:0 1px 2px #ccc;}
 .page-login-from-other-connect-operation .f .connect-link-form .connect-link-form-form .field.subm .create-submit span{display:block;}
+.page-complete-account-info-form .field{margin-bottom:9px;}
+.page-complete-account-info-form .field.subm{margin:0;overflow:hidden;}
+.page-complete-account-info-form .field.subm .create-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;padding:0 14px;width:auto;float:left;}
+.page-complete-account-info-form .field.subm .create-submit:hover{color:white;text-decoration:none;border:solid 1px #0069dd;box-shadow:0 1px 2px #ccc;}
+.page-complete-account-info-form .field.subm .create-submit span{display:block;}
 .page-usage-select{overflow:hidden;margin:0 0 40px 0;padding:30px 0;border-top:dotted 1px #DFDFDF;border-bottom:dotted 1px #DFDFDF;}
 .page-usage-select .feeds{margin-right:80px;}
 .page-usage-select .feeds .icon{width:180px;height:140px;background:url(/images/icons/usage-feed.png);border:solid 2px #DFDFDF;margin:0 0 10px 0;cursor:pointer;}
@@ -1704,8 +1710,9 @@ body.mindpin-anonymous .page-footer .bold,body.tu-mindpin-anonymous .page-footer
 body.mindpin-anonymous .page-footer .pf,body.tu-mindpin-anonymous .page-footer .pf{border:none;}
 body.tu-mindpin-anonymous .login-wrapper{position:absolute;top:50%;left:50%;margin-top:-200px;margin-left:-400px;}
 body.tu-mindpin-anonymous .login-wrapper .logo{width:420px;height:75px;background:url(/images/tu-logo.png) no-repeat;margin-bottom:20px;}
-body.tu-mindpin-anonymous .login-wrapper form{overflow:hidden;margin-left:80px;margin-bottom:30px;height:100px;}
-body.tu-mindpin-anonymous .login-wrapper form .field{float:left;margin-right:10px;margin-bottom:0;}
+body.tu-mindpin-anonymous .login-wrapper form{overflow:hidden;margin-left:80px;margin-bottom:30px;}
+body.tu-mindpin-anonymous .login-wrapper form.login-form{height:100px;}
+body.tu-mindpin-anonymous .login-wrapper form .field{float:left;margin-right:10px;margin-bottom:9px;}
 body.tu-mindpin-anonymous .login-wrapper form .field label{display:block;}
 body.tu-mindpin-anonymous .login-wrapper form .field input.text{border:solid 1px #ccc;box-shadow:1px 1px 2px rgba(0,0,0,0.2) inset;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 body.tu-mindpin-anonymous .login-wrapper form .field a.login-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;margin-top:24px;*margin-top:25px;}
@@ -1731,8 +1738,9 @@ body.tu-mindpin-anonymous .login-wrapper .connects .connect .name{float:left;fon
 body.tu-mindpin-anonymous .login-wrapper .connects .connect.tsina-weibo .icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}
 body.mindpin-anonymous .login-wrapper{position:absolute;top:50%;left:50%;margin-top:-180px;margin-left:-300px;}
 body.mindpin-anonymous .login-wrapper .logo{width:320px;height:75px;background:url(/images/logo.png) no-repeat;margin-bottom:20px;}
-body.mindpin-anonymous .login-wrapper form{overflow:hidden;margin-left:80px;margin-bottom:30px;height:100px;}
-body.mindpin-anonymous .login-wrapper form .field{float:left;margin-right:10px;margin-bottom:0;}
+body.mindpin-anonymous .login-wrapper form{overflow:hidden;margin-left:80px;margin-bottom:30px;}
+body.mindpin-anonymous .login-wrapper form.login-form{height:100px;}
+body.mindpin-anonymous .login-wrapper form .field{float:left;margin-right:10px;margin-bottom:9px;}
 body.mindpin-anonymous .login-wrapper form .field label{display:block;}
 body.mindpin-anonymous .login-wrapper form .field input.text{border:solid 1px #ccc;box-shadow:1px 1px 2px rgba(0,0,0,0.2) inset;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 body.mindpin-anonymous .login-wrapper form .field a.login-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;margin-top:24px;*margin-top:25px;}
@@ -1749,6 +1757,14 @@ body.mindpin-anonymous .login-wrapper form .field .forget-password a:hover{color
 body.mindpin-anonymous .login-wrapper .login-form{margin-left:8px;}
 body.mindpin-anonymous .login-wrapper .flash-error{margin:3px 0 0 0;background:#777;border:solid 1px #666;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 body.mindpin-anonymous .login-wrapper .flash-error span{height:30px;line-height:30px;}
+body.mindpin-anonymous .login-wrapper .connects{overflow:hidden;}
+body.mindpin-anonymous .login-wrapper .connects .desc{font-size:14px;color:#999;float:left;height:32px;line-height:32px;font-weight:bold;margin-right:20px;}
+body.mindpin-anonymous .login-wrapper .connects .connect{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;float:left;}
+body.mindpin-anonymous .login-wrapper .connects .connect:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
+body.mindpin-anonymous .login-wrapper .connects .connect span{display:block;}
+body.mindpin-anonymous .login-wrapper .connects .connect .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
+body.mindpin-anonymous .login-wrapper .connects .connect .name{float:left;font-size:14px;height:30px;line-height:30px;padding:0 9px;}
+body.mindpin-anonymous .login-wrapper .connects .connect.tsina-weibo .icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}
 body.mindpin-anonymous .login-wrapper .footmisc{overflow:hidden;}
 body.mindpin-anonymous .login-wrapper .footmisc .desc{float:left;margin-left:80px;font-size:14px;font-weight:bold;}
 body.mindpin-anonymous .login-wrapper .footmisc .signup{overflow:hidden;margin-left:532px;}
@@ -1773,8 +1789,9 @@ body.mindpin-anonymous .signup-wrapper .desc .to-login{font-size:14px;margin-lef
 body.mindpin-anonymous .signup-wrapper .desc .flash-error{margin-left:10px;}
 body.mindpin-anonymous .signup-wrapper .signup-form{margin-left:470px;}
 body.mindpin-anonymous .signup-wrapper .signup-form h2{font-size:14px;line-height:20px;margin-bottom:10px;}
-body.mindpin-anonymous .signup-wrapper .signup-form form{overflow:hidden;margin-left:80px;margin-bottom:30px;height:100px;}
-body.mindpin-anonymous .signup-wrapper .signup-form form .field{float:left;margin-right:10px;margin-bottom:0;}
+body.mindpin-anonymous .signup-wrapper .signup-form form{overflow:hidden;margin-left:80px;margin-bottom:30px;}
+body.mindpin-anonymous .signup-wrapper .signup-form form.login-form{height:100px;}
+body.mindpin-anonymous .signup-wrapper .signup-form form .field{float:left;margin-right:10px;margin-bottom:9px;}
 body.mindpin-anonymous .signup-wrapper .signup-form form .field label{display:block;}
 body.mindpin-anonymous .signup-wrapper .signup-form form .field input.text{border:solid 1px #ccc;box-shadow:1px 1px 2px rgba(0,0,0,0.2) inset;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 body.mindpin-anonymous .signup-wrapper .signup-form form .field a.login-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;margin-top:24px;*margin-top:25px;}
@@ -1798,8 +1815,9 @@ body.mindpin-anonymous .signup-wrapper .signup-form form .field a.signup-submit 
 body.mindpin-anonymous .reset-password-wrapper,body.mindpin-anonymous .activation-wrapper{position:absolute;top:0;left:50%;margin-top:170px;margin-left:-220px;overflow:hidden;}
 body.mindpin-anonymous .reset-password-wrapper .logo,body.mindpin-anonymous .activation-wrapper .logo{width:320px;height:75px;background:url(/images/logo.png) no-repeat;margin-bottom:20px;}
 body.mindpin-anonymous .reset-password-wrapper .form,body.mindpin-anonymous .activation-wrapper .form{padding-left:10px;}
-body.mindpin-anonymous .reset-password-wrapper .form form,body.mindpin-anonymous .activation-wrapper .form form{overflow:hidden;margin-left:80px;margin-bottom:30px;height:100px;}
-body.mindpin-anonymous .reset-password-wrapper .form form .field,body.mindpin-anonymous .activation-wrapper .form form .field{float:left;margin-right:10px;margin-bottom:0;}
+body.mindpin-anonymous .reset-password-wrapper .form form,body.mindpin-anonymous .activation-wrapper .form form{overflow:hidden;margin-left:80px;margin-bottom:30px;}
+body.mindpin-anonymous .reset-password-wrapper .form form.login-form,body.mindpin-anonymous .activation-wrapper .form form.login-form{height:100px;}
+body.mindpin-anonymous .reset-password-wrapper .form form .field,body.mindpin-anonymous .activation-wrapper .form form .field{float:left;margin-right:10px;margin-bottom:9px;}
 body.mindpin-anonymous .reset-password-wrapper .form form .field label,body.mindpin-anonymous .activation-wrapper .form form .field label{display:block;}
 body.mindpin-anonymous .reset-password-wrapper .form form .field input.text,body.mindpin-anonymous .activation-wrapper .form form .field input.text{border:solid 1px #ccc;box-shadow:1px 1px 2px rgba(0,0,0,0.2) inset;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit,body.mindpin-anonymous .activation-wrapper .form form .field a.login-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;height:30px;line-height:30px;width:80px;font-size:14px;margin-top:24px;*margin-top:25px;}
