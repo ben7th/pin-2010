@@ -2,13 +2,6 @@ class AccountController <  ApplicationController
   layout "account"
   before_filter :login_required
 
-  before_filter :must_is_mindpin_account,:only=>[:do_unbind]
-  def must_is_mindpin_account
-    if !current_user.is_mindpin_typical_account?
-      return render_status_page(503,"非法操作")
-    end
-  end
-
   before_filter :complete_reg_info_filter,:only=>[:do_setting_email,:complete_reg_info]
   def complete_reg_info_filter
     if !current_user.is_quick_connect_account?
@@ -136,16 +129,6 @@ class AccountController <  ApplicationController
   end
 
   def bind_renren
-  end
-
-  def do_unbind
-    if params[:type] == "tsina"
-      current_user.unbind_tsina_account
-      return redirect_to :action=>:bind_tsina
-    elsif params[:type] == "renren"
-      current_user.unbind_renren_account
-      return redirect_to :action=>:bind_renren
-    end
   end
 
   def change_name

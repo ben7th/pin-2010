@@ -72,5 +72,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/tsina_app/mindmaps/:id/edit",:controller=>"tsina_app",:action=>"edit"
 
   # 新浪微博快速登录
-  map.connect "/connect_tsina",:controller=>"connect_users",:action=>"connect_tsina"
+  map.connect "/connect_tsina",
+    :controller=>"connect_tsina",:action=>"index"
 end

@@ -22,34 +22,6 @@
   span.dc{font-size:14px;}
 }
 
-.bind-3rd-site-btn a{
-  display:block;
-  font-size:16px;
-  font-weight:bold;
-  color:white;
-  @include border-radius(4px);
-  @include gradient(#A4E563,#48A902);
-  @include box-shadow(0px 0px 4px #89D346);
-  border:solid 1px #75C631;
-  width:200px;
-  height:50px;
-  line-height:50px;
-  text-align:center;
-  text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
-  margin-bottom:10px;
-  &:hover{
-    text-decoration:none;
-    /*@include gradient(#FB4200,#D91800);*/
-    @include gradient(#B9FA78,#58B912);
-    color:white;
-  }
-  &.mousedown{
-    /*@include gradient(#D91800,#FB4200);*/
-    @include gradient(#58B912,#B9FA78);
-    color:white;
-  }
-}
-
 /*新浪微博账号信息*/
 /*用于使用新浪微博账号登录页*/
 /*用于绑定信息设置页*/
@@ -59,6 +31,7 @@
   border:solid 1px #eee;
   margin:0 0 20px 0;
   position:relative;
+  
   /*绑定成功的标识，绿色圆形图标*/
   .bind-icon{
     position:absolute;
@@ -81,6 +54,7 @@
     overflow:hidden;
     .time{padding:0 6px;float:left;margin-right:20px;line-height:24px;}
     .updating{padding:0 6px 0 20px;float:left;margin-right:20px;display:none;height:24px;line-height:24px;}
+    .update a{float:right;}
     &.up{
       .time,.update{display:none;}
       .updating{display:block;}
@@ -126,48 +100,41 @@
   }
 }
 
-.bind-intro{
-  margin-bottom:10px;
-  .p{
+/*用户设置页，关联新浪微博*/
+.page-account-bind-tsina{
+  padding:0 20px;
+  overflow:visible;
+  
+  .img-intro{
+    width:316px;height:293px;
+    background:url(/images/share/connect_tsina.png) no-repeat;
+    margin-bottom:20px;
+  }
+  .desc{
+    font-size:14px;margin-bottom:20px;
+  }
+  
+  a.bind-btn{
+    display:block;
+    font-size:14px;font-weight:bold;
+    color:white;
+    @include border-radius(3px);
+    background-color:#ED3800;
+    border:solid 1px #D31900;
+    width:160px;
+    height:40px;line-height:40px;
+    text-align:center;
+    text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
     margin-bottom:10px;
-  }
-  .imgs{
-    overflow:hidden;
-    .tsina-img{
-      width:300px;height:134px;
-      background-image:url(/images/icons_account/bind-tsina-2.png);
-      background-color:white;
-      border:solid 2px #eee;
-      margin-bottom:20px;
-      float:left;
-      margin-right:10px;
-    }
-    .tsina-openwin-img{
-      width:166px;height:134px;
-      background-image:url(/images/icons_account/bind-tsina-3.png);
-      background-color:white;
-      border:solid 2px #eee;
-      margin-bottom:20px;
-      float:left;
-    }
-    .renren-img{
-      width:203px;height:134px;
-      background-image:url(/images/icons_account/renren-1.png);
-      background-color:white;
-      border:solid 2px #eee;
-      margin-bottom:20px;
-      float:left;
-      margin-right:10px;
-    }
-    .renren-openwin-img{
-      width:205px;height:134px;
-      background-image:url(/images/icons_account/renren-2.png);
-      background-color:white;
-      border:solid 2px #eee;
-      margin-bottom:20px;
-      float:left;
+    &:hover{
+      text-decoration:none;
+      background-color:#EF3A02;
+      color:white;
+      border:solid 1px #C30900;
+      box-shadow:0 1px 2px #ccc;
     }
   }
+  
 }
 
 /*使用其他网站账号登录，账号选择（新账号，老账号）*/

@@ -151,7 +151,7 @@ ActionController::Routing::Routes.draw do |map|
   # mindpin正式账号 绑定 外站账号
   map.account_bind_tsina "account/bind_tsina",:controller=>"account",:action=>"bind_tsina"
   map.account_bind_renren "account/bind_renren",:controller=>"account",:action=>"bind_renren"
-  map.account_do_account_unbind "account/do_unbind",:controller=>"account",:action=>"do_unbind",:conditions=>{:method=>:post}
+
   map.account_do_tsina_syn_setting "account/do_tsina_connect_setting",
     :controller=>"account",:action=>"do_tsina_connect_setting",
     :conditions=>{:method=>:put}
@@ -182,21 +182,36 @@ ActionController::Routing::Routes.draw do |map|
   map.plugins '/plugins',:controller=>'misc',:action=>'plugins'
 
   # -- 关联 绑定 新浪微博
-  map.connect "/connect_tsina",:controller=>"connect_users",:action=>"connect_tsina"
-  map.connect "/connect_tsina_callback",:controller=>"connect_users",:action=>"connect_tsina_callback"
-  map.connect "/connect_tsina_confirm",:controller=>"connect_users",:action=>"connect_tsina_confirm"
-  map.connect "/connect_tsina/complete_account_info",:controller=>"connect_users",:action=>"complete_account_info"
-  map.connect "/connect_tsina/do_complete_account_info",:controller=>"connect_users",
-    :action=>"do_complete_account_info",:conditions=>{:method=>:post}
-  map.connect "/connect_tsina/bind",:controller=>"connect_users",
+  map.connect "/connect_tsina",
+    :controller=>"connect_tsina",:action=>"index"
+  map.connect "/connect_tsina/callback",
+    :controller=>"connect_tsina",:action=>"callback"
+  map.connect "/connect_tsina/confirm",
+    :controller=>"connect_tsina",:action=>"confirm"
+  map.connect "/connect_tsina/complete_account_info",
+    :controller=>"connect_tsina",:action=>"complete_account_info"
+  map.connect "/connect_tsina/do_complete_account_info",
+    :controller=>"connect_tsina",:action=>"do_complete_account_info",
+    :conditions=>{:method=>:post}
+  map.connect "/connect_tsina/bind",:controller=>"connect_tsina",
     :action=>"bind",:conditions=>{:method=>:post}
-  map.connect "/connect_tsina/create",:controller=>"connect_users",
+  map.connect "/connect_tsina/create",:controller=>"connect_tsina",
     :action=>"create",:conditions=>{:method=>:post}
 
-  map.bind_other_site_tsina "/bind_other_site/tsina",:controller=>"connect_users",:action=>"bind_tsina"
-  map.bind_other_site_tsina_callback "/bind_other_site/tsina_callback",:controller=>"connect_users",:action=>"bind_tsina_callback"
-  map.update_bind_tsina_info "/bind_other_site/update_bind_tsina_info",:controller=>"connect_users",:action=>"update_bind_tsina_info",:conditions=>{:method=>:post}
-  map.bind_other_site_tsina_failure "/bind_other_site/tsina_failure",:controller=>"connect_users",:action=>"bind_tsina_failure"
+
+  map.connect "/connect_tsina/account_bind",
+    :controller=>"connect_tsina",:action=>"account_bind"
+  map.connect "/connect_tsina/account_bind_callback",
+    :controller=>"connect_tsina",:action=>"account_bind_callback"
+  map.connect "/connect_tsina/account_bind_failure",
+    :controller=>"connect_tsina",:action=>"account_bind_failure"
+  map.connect "/connect_tsina/account_bind_update_info",
+    :controller=>"connect_tsina",
+    :action=>"account_bind_update_info",:conditions=>{:method=>:post}
+  map.connect "/connect_tsina/account_bind_unbind",
+    :controller=>"connect_tsina",:action=>"account_bind_unbind",
+    :conditions=>{:method=>:post}
+
 
   map.send_tsina_status "/connect_users/send_tsina_status",:controller=>"connect_users",:action=>"send_tsina_status",:conditions=>{:method=>:post}
   map.send_tsina_mindmap_thumb "/connect_users/send_tsina_mindmap",:controller=>"connect_users",:action=>"send_tsina_mindmap",:conditions=>{:method=>:post}

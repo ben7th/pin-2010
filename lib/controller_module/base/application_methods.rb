@@ -84,7 +84,7 @@ module ApplicationMethods
     controller = params[:controller]
     action = params[:action]
     skip = (
-            (controller == "connect_users" &&
+            (controller == "connect_tsina" &&
             (
               action == "complete_account_info" ||
                 action == "do_complete_account_info"

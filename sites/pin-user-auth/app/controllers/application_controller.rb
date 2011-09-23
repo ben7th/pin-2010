@@ -30,16 +30,16 @@ class ApplicationController < ActionController::Base
       ],
     "account"=>["base","base_submit",
       "avatared","avatared_submit",
-      "bind_tsina","do_unbind","do_tsina_connect_setting"
+      "bind_tsina","do_tsina_connect_setting"
     ],
-    "connect_users"=>["update_bind_tsina_info",
-      "bind_tsina","bind_tsina_callback",
-      "bind_tsina_failure",
-      "connect_tsina","connect_tsina_callback",
-      "connect_tsina_confirm",
+    "connect_tsina"=>[
+      "index","callback","confirm",
       "complete_account_info","do_complete_account_info",
-      "bind","create"
-      ],
+      "bind","create",
+      "account_bind","account_bind_callback",
+      "account_bind_failure","account_bind_update_info",
+      "account_bind_unbind"
+    ],
     "contacts"=>["follow","unfollow",
       "followings","fans","create"
     ],

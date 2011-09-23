@@ -19,15 +19,6 @@ class ConnectUsersController < ApplicationController
   end
 
   private
-  def opener_window_redirect_to(url)
-    render :text=>%`
-      <script>
-        window.opener.location = "#{url}";
-        window.close();
-      </script>
-    `
-  end
-
   def clear_session_connect_info
     session[:renren_atoken] = nil
     session[:tsina_atoken] = nil
@@ -43,6 +34,4 @@ class ConnectUsersController < ApplicationController
     session[:tsina_asecret] = access_token.secret
   end
 
-  include BindTsinaControllerMethods
-  include ConnectTsinaControllerMethods
 end

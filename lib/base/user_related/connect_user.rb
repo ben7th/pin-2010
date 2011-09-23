@@ -164,15 +164,14 @@ class ConnectUser < UserAuthAbstract
 
     # 该账号是否是一个 MindPin正式账号
     def is_mindpin_typical_account?
-      !self.hashed_password.blank? &&
-        EmailActor.get_mindpin_email(self) != self.email
+      !is_quick_connect_account?
     end
 
     # 该账号是否是一个快速连接账号（不论连接的是什么）
     # 由于不再考虑“账号关联”这个逻辑，代码中关于 old_user_id 的部分删除了。
     def is_quick_connect_account?
-      self.hashed_password.blank? &&
-        EmailActor.get_mindpin_email(self) == self.email
+      connect_user = ConnectUser.find_by_user_id(self.id)
+      !!connect_user && self.hashed_password.blank?
     end
 
     # 尝试解除当前账号的新浪微博绑定，并删除绑定对象
