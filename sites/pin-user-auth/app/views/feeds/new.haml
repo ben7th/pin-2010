@@ -5,6 +5,14 @@
 
 -hjavascript '/html5_upload/upload_feed_photo'
 
+-# feed创建表单，提交的参数包括
+-# title
+-# photo_names
+-# detail
+-# collection_ids
+
+-# 如果保存草稿，多保存一个 draft_token 用来指定草稿
+
 -form_tag "/feeds",:class=>'page-new-feed-form' do
   .main.grid_18.no-line
     .form-main
@@ -30,6 +38,7 @@
     .form-submit
       .field.subm
         =link_to "好了，确定创建",'javascript:;',:class=>'create-submit'
+        =link_to "保存草稿",'javsscript:;',:class=>'create-save-draft'
         =link_to '算了，取消','/',:class=>'create-cancel'
 
   .mside.grid_6.no-line

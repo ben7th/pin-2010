@@ -18,14 +18,17 @@ class Photo < UserAuthAbstract
     :content_type => ['image/gif', 'image/png', 'image/jpeg'],
     :message=>"只能上传图片",:if=>Proc.new{|photo|!photo.skip_resize_image}
   validates_attachment_presence :image,:if=>Proc.new{|photo|!photo.skip_resize_image}
+
+
   # image
+  PHOTO_STYLES_HASH = {
+    :w660 => "660x>",    #最宽660，原始比例，用于主题show页面
+    :w210 => "210x>",    #最宽210，原始比例，用于主题列表（一栏）
+    :s66 => "66x66#"     #66见方，用于收集册封面，以及图片上传标识
+  }
+
   has_attached_file :image,
-    :styles => {
-      :w660 => "660x>",    #最宽660，原始比例，用于主题show页面
-      :w200 => "200x>",    #最宽200，原始比例，用于主题列表（窄）
-      :s200 => "200x200#", #200见方，用于相册
-      :s66 => "66x66#"     #66见方，用于收集册封面，以及图片上传标识
-    },
+    :styles => PHOTO_STYLES_HASH,
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
     :default_style => :original,
@@ -37,20 +40,16 @@ class Photo < UserAuthAbstract
     self.md5 = Digest::MD5.hexdigest(File.read(file_path))
   end
 
-  def image_size(size = :original)
-    path = self.image.path(size)
+  def image_size(style = :original)
+    path = self.image.path(style)
     image = Magick::Image::read(File.new(path)).first
     {:height=>image.rows,:width=>image.columns}
   rescue Exception => ex
     {:height=>0,:width=>0}
   end
 
-  def w200_height
-    path = self.image.path(:w200)
-    image = Magick::Image::read(File.new(path)).first
-    image.rows
-  rescue Exception => ex
-    0
+  def image_height(style = :original)
+    image_size(style)[:height]
   end
 
   def image_base_path

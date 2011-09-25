@@ -1,54 +1,23 @@
 class PostDraft < UserAuthAbstract
-  belongs_to :feed
+  FORMAT_HTML = "html"
+  FORMAT_MARKDOWN = "markdown"
+
   belongs_to :user
-  validates_presence_of :feed
+  validates_presence_of :draft_token
   validates_presence_of :user
-  validates_uniqueness_of :feed_id, :scope => :user_id
+  validates_presence_of :text_format,:if => Proc.new { |post_draft| !post_draft.content.blank? }
 
-  module FeedMethods
-    def self.included(base)
-      base.has_many :post_drafts
-    end
-
-    def post_draft_of(user)
-      self.post_drafts.find_by_user_id(user.id)
-    end
-
-    def has_post_draft_of?(user)
-      !post_draft_of(user).blank?
-    end
-
-    def post_draft_content_of(user)
-      vd = post_draft_of(user)
-      return if vd.blank?
-      vd.content
-    end
-    
-    def save_post_draft(user,content)
-      vd = post_draft_of(user)
-      if vd.blank?
-        PostDraft.create(:feed=>self,:user=>user,:content=>content)
-      else
-        vd.update_attribute(:content,content)
-      end
-    end
+  def photo_name_array
+   self.photo_names.split(",")
   end
 
-  module PostMethods
+  def collection_id_array
+    self.collection_ids.split(",")
+  end
+
+  module UserMethods
     def self.included(base)
-      base.after_create :remove_post_draft
-      base.after_update :remove_post_draft_on_update
-    end
-
-    def remove_post_draft
-      vd = self.feed.post_draft_of(self.user)
-      vd.destroy unless vd.blank?
-      return true
-    end
-
-    def remove_post_draft_on_update
-      return true if self.changes["detail"].blank?
-      remove_post_draft
+      base.has_many :post_drafts,:order=>"post_drafts.updated_at desc"
     end
   end
 end

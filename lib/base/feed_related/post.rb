@@ -140,7 +140,6 @@ class Post < UserAuthAbstract
 
   include PostComment::PostMethods
   include PostVote::PostMethods
-  include PostDraft::PostMethods
   #include UserLog::PostMethods
   include PostSpamMark::PostMethods
   include Atme::AtableMethods

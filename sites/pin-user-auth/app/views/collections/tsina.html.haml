@@ -6,24 +6,40 @@
 .main.grid_24.no-line
   .page-collection-top
     .meta
-      .title 新浪微博
+      %h2 新浪微博
       .ops
         %a.create{:href=>"javascript:;"} <span class='icon'></span><span>发微博</span>
         %a.minibutton.edit{:href=>"javascript:;"} <span>修改</span>
 
   .page-ogrid.collection-feeds
     -weibo = current_user.tsina_weibo
-
     -tsina_feeds = weibo.home_timeline
+
     -tsina_feeds.each do |tsina_feed|
       -id = tsina_feed.id
-      .feed{:'data-tsina-feed-id'=>id}
-        -photo_url = tsina_feed.bmiddle_pic
+
+      -#photo_url = tsina_feed.bmiddle_pic
+      -photo_url = tsina_feed.thumbnail_pic
+
+      -reposted_feed = tsina_feed.retweeted_status
+
+
+      .feed.tsina{:'data-tsina-feed-id'=>id,:'data-col-count'=>2}
+
         -if !photo_url.blank?
           .photo
             .box{:style=>'height:120px;overflow:hidden;'}
-              %img{:src=>photo_url,:style=>"display:block;width:200px;"}
+              %img{:src=>photo_url,:style=>"display:block;"}
+
         .detail=tsina_feed.text
+
+        .clearfix
+
+        -if !reposted_feed.blank?
+          .reposted
+            =reposted_feed.text
+          
+
         .creator
           -creator = tsina_feed.user
           .avatar
@@ -32,17 +48,6 @@
             =link_to creator.name,"http://weibo.com/#{creator.id}",:target=>'_blank'
             发布在
             =link_to '新浪微博','http://www.weibo.com'
-        .comments
-          -comments =[] # weibo.comments(:id=>id,:count=>3)
-          -comments.each do |comment|
-            .comment
-              .c-creator
-                -c_creator = comment.user
-                .avatar
-                  %img{:src=>c_creator.profile_image_url}
-                .name
-                  =link_to c_creator.name,"http://weibo.com/#{c_creator.id}",:target=>'_blank'
-                  =comment.text
 
             
 

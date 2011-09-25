@@ -67,6 +67,7 @@ module UserMethods
     base.send(:include,ReputationLog::UserMethods)
     base.send(:include,Collection::UserMethods)
     base.send(:include,Photo::UserMethods)
+    base.send(:include,PostDraft::UserMethods)
   end
 
   def validate_on_create

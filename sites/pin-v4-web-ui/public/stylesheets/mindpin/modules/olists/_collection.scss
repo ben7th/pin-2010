@@ -1,24 +1,30 @@
 .page-ogrid.collection-feeds{
   position:relative;
   overflow:visible;
+  
+  $feed_margin:10px;
+  $feed_width_1c:228px; /*240-10-2*/
+  $h_padding:14px;/*(225-200)/2*/
+  $photo_padding:9px;
+  
   .feed{
     position:absolute;
     @include gray-box;
     padding:0;
-    width:228px;
-    margin-bottom:10px;
-    margin-right:10px;
+    width:$feed_width_1c;
+    margin-bottom:$feed_margin;
+    margin-right:$feed_margin;
     
     .title{
       margin:0;
-      padding:9px 14px;
+      padding:9px $h_padding;
       font-weight:bold;
       font-size:14px;
       a{color:#444 !important;}
     }
     .photo{
       margin:0;
-      padding:14px;
+      padding:$photo_padding;
       position:relative;
       line-height:0;font-size:0;
       .photo-count{
@@ -42,15 +48,15 @@
     }
     .detail{
       margin:0;
-      padding:9px 14px;
+      padding:9px $h_padding;
       font-size:14px;
       @include feed-detail-format;
     }
     .creator{
-      margin:0;
-      padding:14px;
+      margin:0 4px 4px 4px;
+      padding:5px;
       background-color:#fafafa;
-      border-top:solid 1px #eee;
+      /*border-top:solid 1px #eee;*/
       overflow:hidden;
       .avatar{float:left;img{width:32px;height:32px;padding:0;}}
       .name{
@@ -90,6 +96,20 @@
           }
         }
       }
+    }
+  }
+  
+  .feed.tsina{
+    width:468px; /*(228+2)*2+14-2=468*/
+    .photo{
+      float:left;
+    }
+    .detail{font-size:12px;}
+    .reposted{
+      background-color:#f4f4f4;
+      margin:0 4px 4px 4px;
+      padding:10px;
+      font-size:12px;
     }
   }
 }

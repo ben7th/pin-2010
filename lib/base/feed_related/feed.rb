@@ -417,7 +417,6 @@ class Feed < UserAuthAbstract
   include FeedRevision::FeedMethods
   include Post::FeedMethods
   include FeedInvite::FeedMethods
-  include PostDraft::FeedMethods
   include SpamMark::FeedMethods
   include FeedTag::FeedMethods
   include UserLog::FeedMethods

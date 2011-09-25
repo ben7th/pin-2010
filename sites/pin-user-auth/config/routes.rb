@@ -328,5 +328,5 @@ ActionController::Routing::Routes.draw do |map|
       :conditions=>{:method=>:post}
   end
 
-  map.resources :feed_drafts
+  map.resources :post_drafts
 end

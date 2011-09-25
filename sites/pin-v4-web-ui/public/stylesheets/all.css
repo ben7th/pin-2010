@@ -8836,7 +8836,9 @@ form .field.sendto-select-widget .sendto-selector {
 
 .page-ogrid.collection-feeds {
   position: relative;
-  overflow: visible; }
+  overflow: visible;
+  /*240-10-2*/
+  /*(225-200)/2*/ }
   .page-ogrid.collection-feeds .feed {
     position: absolute;
     border: solid 1px #eee;
@@ -8855,7 +8857,7 @@ form .field.sendto-select-widget .sendto-selector {
         color: #444 !important; }
     .page-ogrid.collection-feeds .feed .photo {
       margin: 0;
-      padding: 14px;
+      padding: 9px;
       position: relative;
       line-height: 0;
       font-size: 0; }
@@ -8897,10 +8899,10 @@ form .field.sendto-select-widget .sendto-selector {
         background: url(/images/alltu.png) no-repeat -691px -1px;
         background-color: #fafafa; }
     .page-ogrid.collection-feeds .feed .creator {
-      margin: 0;
-      padding: 14px;
+      margin: 0 4px 4px 4px;
+      padding: 5px;
       background-color: #fafafa;
-      border-top: solid 1px #eee;
+      /*border-top:solid 1px #eee;*/
       overflow: hidden; }
       .page-ogrid.collection-feeds .feed .creator .avatar {
         float: left; }
@@ -8942,6 +8944,18 @@ form .field.sendto-select-widget .sendto-selector {
             color: #999;
             text-decoration: none;
             border-bottom: solid 1px; }
+  .page-ogrid.collection-feeds .feed.tsina {
+    width: 468px;
+    /*(228+2)*2+14-2=468*/ }
+    .page-ogrid.collection-feeds .feed.tsina .photo {
+      float: left; }
+    .page-ogrid.collection-feeds .feed.tsina .detail {
+      font-size: 12px; }
+    .page-ogrid.collection-feeds .feed.tsina .reposted {
+      background-color: #f4f4f4;
+      margin: 0 4px 4px 4px;
+      padding: 10px;
+      font-size: 12px; }
 
 .page-ogrid.collections, .page-ogrid.collections-binded {
   width: 720px; }

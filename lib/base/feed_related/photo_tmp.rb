@@ -15,14 +15,10 @@ class PhotoTmp < ActiveRecord::Base
     :content_type => ['image/gif', 'image/png', 'image/jpeg'],
     :message=>"只能上传图片"
   validates_attachment_presence :image
+  
   # image
   has_attached_file :image,
-    :styles => {
-      :w660 => "660x>",    #最宽660，原始比例，用于主题show页面
-      :w200 => "200x>",    #最宽200，原始比例，用于主题列表（窄）
-      :s200 => "200x200#", #200见方，用于相册
-      :s66 => "66x66#"     #66见方，用于收集册封面，以及图片上传标识
-    },
+    :styles => Photo::PHOTO_STYLES_HASH,
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
     :default_style => :original
