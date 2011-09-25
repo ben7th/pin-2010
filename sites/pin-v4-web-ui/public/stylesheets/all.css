@@ -8950,12 +8950,12 @@ form .field.sendto-select-widget .sendto-selector {
     .page-ogrid.collection-feeds .feed.tsina .photo {
       float: left; }
     .page-ogrid.collection-feeds .feed.tsina .detail {
-      font-size: 12px; }
+      font-size: 13px; }
     .page-ogrid.collection-feeds .feed.tsina .reposted {
       background-color: #f4f4f4;
       margin: 0 4px 4px 4px;
       padding: 10px;
-      font-size: 12px; }
+      font-size: 13px; }
 
 .page-ogrid.collections, .page-ogrid.collections-binded {
   width: 720px; }
