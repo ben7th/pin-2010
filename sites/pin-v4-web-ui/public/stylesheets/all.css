@@ -6189,137 +6189,73 @@ form.page-new-feed-form .form-collection-select {
             margin: 0; }
 
 /*用户个人页页顶*/
-.page-user-top-info {
-  border-bottom: solid 1px #eee;
-  padding: 20px 0;
-  background-color: #fff; }
-  .page-user-top-info .avatar {
-    width: 98px;
-    height: 98px;
-    float: left; }
-  .page-user-top-info .base-info {
+.page-user-profile .profile-top {
+  border: solid 1px #eee;
+  background-color: #FFF;
+  padding: 9px;
+  padding: 0;
+  padding: 14px;
+  overflow: hidden; }
+  .page-user-profile .profile-top .avatar {
     float: left;
-    margin-left: 20px; }
-    .page-user-top-info .base-info .name {
-      font-size: 28px;
-      line-height: 24px;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #444; }
-    .page-user-top-info .base-info .sign {
-      font-size: 14px;
-      color: #999;
-      margin-left: 3px; }
-  .page-user-top-info .ops {
-    float: right; }
-    .page-user-top-info .ops .user-follow-op .channel-selector {
-      position: absolute;
-      top: 24px;
-      left: 0px;
-      width: 240px;
-      border: solid 1px #CCCCCC;
-      background-color: #fff; }
-      .page-user-top-info .ops .user-follow-op .channel-selector .channels {
-        padding: 4px 0; }
-        .page-user-top-info .ops .user-follow-op .channel-selector .channels .it {
-          padding: 4px 10px;
-          cursor: pointer; }
-          .page-user-top-info .ops .user-follow-op .channel-selector .channels .it:hover {
-            background: #eee; }
-          .page-user-top-info .ops .user-follow-op .channel-selector .channels .it.lock {
-            color: #ccc;
-            cursor: default; }
-            .page-user-top-info .ops .user-follow-op .channel-selector .channels .it.lock .quiet {
-              color: #ccc !important; }
-            .page-user-top-info .ops .user-follow-op .channel-selector .channels .it.lock:hover {
-              background: none; }
-  .page-user-top-info .tabs {
-    margin-top: 20px;
-    padding: 5px; }
-    .page-user-top-info .tabs .tab {
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      padding: 6px 12px;
-      font-weight: bold;
-      margin: 0 40px 0 0;
-      color: #333333;
-      position: relative; }
-      .page-user-top-info .tabs .tab:hover {
-        color: #333;
-        text-decoration: none; }
-      .page-user-top-info .tabs .tab.selected {
-        background: #686B72;
-        color: #fff; }
-        .page-user-top-info .tabs .tab.selected:hover {
-          color: #fff; }
-      .page-user-top-info .tabs .tab .t {
-        display: inline;
-        font-size: 14px; }
-      .page-user-top-info .tabs .tab .count {
-        position: absolute;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        background: #FFFADA;
-        color: black;
-        top: -8px;
-        left: 47px;
-        padding: 3px 6px;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        font-size: 12px;
-        line-height: 12px;
-        font-weight: bold; }
-
-.user-page-followings, .user-page-fans {
-  padding: 5px;
-  margin: 0 0 20px 0; }
-  .user-page-followings .title, .user-page-fans .title {
-    margin: 0 0 10px 0;
+    border: solid 1px #eee;
+    background-color: #FFF;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    width: 100px;
+    height: 100px;
+    padding: 4px; }
+    .page-user-profile .profile-top .avatar img {
+      width: 100px;
+      height: 100px;
+      padding: 0; }
+  .page-user-profile .profile-top .name {
+    font-size: 14px;
     font-weight: bold; }
-  .user-page-followings .avatars, .user-page-fans .avatars {
+    .page-user-profile .profile-top .name a {
+      color: #444 !important; }
+  .page-user-profile .profile-top .misc {
+    float: right;
     overflow: hidden; }
-    .user-page-followings .avatars .avatar, .user-page-fans .avatars .avatar {
+    .page-user-profile .profile-top .misc .followings, .page-user-profile .profile-top .misc .collections, .page-user-profile .profile-top .misc .feeds, .page-user-profile .profile-top .misc .tsina {
       float: left;
-      width: 26px;
-      height: 26px;
-      margin: 0 3px 3px 0;
-      text-decoration: none !important; }
-      .user-page-followings .avatars .avatar img, .user-page-fans .avatars .avatar img {
-        width: 24px;
-        height: 24px; }
-
-.user-page-recent-top-viewpoints {
-  padding: 5px;
-  padding: 5px;
-  margin: 0 0 20px 0; }
-  .user-page-recent-top-viewpoints .title {
-    margin: 0 0 10px 0;
-    font-weight: bold; }
-  .user-page-recent-top-viewpoints .viewpoints .viewpoint {
-    margin: 0 0 10px 0; }
-    .user-page-recent-top-viewpoints .viewpoints .viewpoint .vote-score {
-      font-size: 18px;
-      line-height: 30px;
-      width: 30px;
-      height: 30px;
-      font-weight: bold;
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
-      background: #53BCFE;
-      color: white;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      margin-left: 14px;
+      position: relative;
+      border: solid 1px #eee;
+      padding: 4px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px; }
+      .page-user-profile .profile-top .misc .followings .cover, .page-user-profile .profile-top .misc .collections .cover, .page-user-profile .profile-top .misc .feeds .cover, .page-user-profile .profile-top .misc .tsina .cover {
+        overflow: hidden;
+        width: 144px;
+        height: 72px;
+        background-color: #fafafa; }
+      .page-user-profile .profile-top .misc .followings .count, .page-user-profile .profile-top .misc .collections .count, .page-user-profile .profile-top .misc .feeds .count, .page-user-profile .profile-top .misc .tsina .count {
+        height: 16px;
+        line-height: 16px;
+        padding: 4px 9px;
+        background-color: #fafafa;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        color: #555;
+        margin-top: 4px; }
+    .page-user-profile .profile-top .misc .followings .cover .following-avatar {
       float: left;
-      text-align: center;
-      cursor: default; }
-    .user-page-recent-top-viewpoints .viewpoints .viewpoint .feed-ct, .user-page-recent-top-viewpoints .viewpoints .viewpoint .vp-ct {
-      margin: 0 0 0 40px; }
-      .user-page-recent-top-viewpoints .viewpoints .viewpoint .feed-ct .memo-content, .user-page-recent-top-viewpoints .viewpoints .viewpoint .vp-ct .memo-content {
-        word-wrap: break-word;
-        word-break: break-all;
-        overflow: hidden; }
+      padding: 0;
+      line-height: 0;
+      font-size: 0;
+      width: 36px;
+      height: 36px; }
+      .page-user-profile .profile-top .misc .followings .cover .following-avatar img {
+        padding: 0;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        width: 36px;
+        height: 36px; }
 
 .tag-page-top-info {
   overflow: hidden; }

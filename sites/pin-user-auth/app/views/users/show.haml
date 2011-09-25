@@ -1,24 +1,60 @@
 -#use 个人主题
 -#see 个人页->主题
 
--htitle "#{@user.name}的收集册"
+-user = @user
 
--is_current_user = (@user == current_user)
+-is_current_user = user == current_user
 
--if is_current_user
-  -collections = @user.created_collections_db
--else
-  -collections = @user.out_collections
+-followings = user.followings
+-followings_count = followings.count
+-followings_hot = followings[0..7]
 
-.mside.grid_6.no-line
-  =morender 'mside_module','avatar',:user=>@user
+-feeds = user.out_feeds
+-feeds_count = feeds.count
+-feed_cover = user.photos[0]
 
-.main.grid_18.no-line
-  .page-collection-top
-    .meta{:style=>'overflow:visible;'}
-      %h2="收集册(#{collections.count})"
-      -if is_current_user
-        .ops=morender 'new_forms','collection'
-    .clearfix
+-collections = is_current_user ? user.created_collections_db : user.out_collections
+-collections_count = collections.count
 
-  =prender 'collection','grid',:collections=>collections
+-has_binded_tsina = user.has_binded_tsina?
+-if has_binded_tsina
+  -weibo = user.tsina_weibo
+  -tsina_feeds_count = weibo.verify_credentials.statuses_count
+  -tsina_cover = weibo.user_timeline(:feature=>2,:count=>1)[0]
+
+-htitle "#{user.name}的收集册"
+
+.main.grid_24.no-line
+  .page-user-profile
+    .profile-top
+      .name.hide=usersign user
+      
+      .avatar=user_avatar_s200 user
+
+      .misc
+        .followings
+          .cover
+            -followings_hot.each do |following|
+              .following-avatar=avatar following
+          .count="#{followings_count}个联系人"
+
+        .feeds
+          .cover
+            -if !feed_cover.blank?
+              -src = feed_cover.image.url(:w210)
+              %img{:src=>src,:style=>'width:144px;'}
+          .count="#{feeds_count}个主题"
+
+        .collections
+          .cover
+          .count="#{collections_count}个收集册"
+
+        -if has_binded_tsina
+          .tsina
+            .cover
+              -if !tsina_cover.blank?
+                -src = tsina_cover.bmiddle_pic
+                %img{:src=>src,:style=>'width:144px;'}
+            .count="#{tsina_feeds_count}条微博"
+        
+        

@@ -1,136 +1,61 @@
 /*用户个人页页顶*/
-.page-user-top-info{
-  border-bottom:solid 1px #eee;
-  padding:20px 0;
-  background-color:#fff;
-
-  .avatar{
-    width:98px;height:98px;
-    float:left;
-  }
-  
-  .base-info{
-    float:left;
-    margin-left:20px;
+.page-user-profile{
+  .profile-top{
+    @include gray-box;padding:0;
+    padding:14px;
+    overflow:hidden;
+    .avatar{
+      float:left;
+      border:solid 1px #eee;
+      background-color:#FFF;
+      @include border-radius(2px);
+      $a-width:100px;
+      width:$a-width;height:$a-width;
+      padding:4px;
+      img{width:$a-width;height:$a-width;padding:0;}
+    }
     .name{
-      font-size:28px;line-height:24px;@include tfont;font-weight:bold;
-      margin-bottom:20px;
-      color:#444;
+      font-size:14px;font-weight:bold;
+      a{color:#444 !important;}
     }
-    .sign{
-      font-size:14px;color:#999;margin-left:3px;
-    }
-  }
-  
-  .ops{
-    float:right;
-
-    .user-follow-op{
-      .follow{
-        
+    
+    .misc{
+      float:right;
+      overflow:hidden;
+      
+      .followings,.collections,.feeds,.tsina{
+        float:left;margin-left:14px;
+        position:relative;
+        border:solid 1px #eee;
+        padding:4px;
+        @include border-radius(2px);
+        .cover{
+          overflow:hidden;
+          width:144px;height:72px;
+          background-color:#fafafa;
+        }
+        .count{
+          height:16px;line-height:16px;
+          padding:4px 9px;
+          background-color:#fafafa;
+          @include border-radius(2px);
+          color:#555;margin-top:4px;
+        }
       }
-      .unfollow{
-        
-      }
-      .channel-selector{
-        position:absolute;
-        top:24px;left:0px;
-        width:240px;
-        border:solid 1px #CCCCCC;
-        background-color:#fff;
-        .channels{
-          padding:4px 0;
-          .it{
-            padding:4px 10px;
-            cursor:pointer;
-            &:hover{background:#eee;};
-            &.lock{
-              color:#ccc;
-              cursor:default;
-              .quiet{color:#ccc !important;}
-              &:hover{background:none;};
-            };
+      
+      .followings{
+        .cover{
+          .following-avatar{
+            float:left;padding:0;
+            line-height:0;font-size:0;
+            $img-width:36px;
+            width:$img-width;height:$img-width;
+            img{padding:0;@include border-radius(0);width:$img-width;height:$img-width;}
           }
         }
       }
-    }
-  }
-
-  .tabs{
-    margin-top:20px;
-    padding:5px;
-    .tab{
-      @include border-radius(4px);
-      padding:6px 12px;
-      font-weight:bold;
-      margin:0 40px 0 0;
-      color:#333333;
-      position:relative;
-      &:hover{color:#333;text-decoration:none;}
-      &.selected{
-        background:#686B72;
-        color:#fff;
-        &:hover{color:#fff;}
-      }
-
-      .t{display:inline;font-size:14px;}
-      .count{
-        position:absolute;
-        @include border-radius(3px);
-        background:#FFFADA;
-        color:black;
-        top:-8px;
-        left:47px;
-        padding:3px 6px;
-        @include tfont;
-        font-size:12px;line-height:12px;
-        font-weight:bold;
-      }
-    }
-  }
-}
-
-.user-page-followings,.user-page-fans{
-  padding:5px;
-  margin:0 0 20px 0;
-  .title{
-    margin:0 0 10px 0;font-weight:bold;
-  }
-  .avatars{
-    @include miniavatar;
-  }
-}
-
-.user-page-recent-top-viewpoints{
-  padding:5px;
-  padding:5px;
-  margin:0 0 20px 0;
-  .title{
-    margin:0 0 10px 0;font-weight:bold;
-  }
-  .viewpoints{
-    .viewpoint{
-      margin:0 0 10px 0;
-      .vote-score{
-        font-size:18px;
-        line-height:30px;
-        width:30px;
-        height:30px;
-        font-weight:bold;
-        @include border-radius(4px);
-        background:#53BCFE;
-        color:white;
-        @include tfont;
-        float:left;
-        text-align:center;
-        cursor:default;
-      }
-      .feed-ct,.vp-ct{
-        margin:0 0 0 40px;
-        .memo-content{
-          word-wrap:break-word;
-          word-break:break-all;
-          overflow:hidden;
+      .collections{
+        .cover{
         }
       }
     }
