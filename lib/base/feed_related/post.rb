@@ -29,6 +29,10 @@ class Post < UserAuthAbstract
     return true
   end
 
+  def main?
+    self.kind == Post::KIND_MAIN
+  end
+
   def detail_sections
     if FORMAT_MARKDOWN == self.text_format
       self.detail.split("\n\n").map{|section|section.gsub("\n","")}
@@ -67,7 +71,7 @@ class Post < UserAuthAbstract
 
   module FeedMethods
     def self.included(base)
-      base.has_many :posts
+      base.has_many :posts,:dependent=>:destroy
       base.has_many :memoed_users_db,:through=>:posts,:source=>:user,
         :order=>"posts.vote_score desc"
     end

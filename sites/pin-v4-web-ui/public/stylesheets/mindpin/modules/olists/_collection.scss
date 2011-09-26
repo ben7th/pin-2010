@@ -174,28 +174,31 @@
 /*collection show页面顶端栏*/
 .page-collection-top,.page-info-top{
   @include gray-box;
+  padding:0;
   margin-bottom:10px;
   border-bottom:solid 3px #eee;
+  
   .meta{
     overflow:hidden;
     h2,.item{
-      font-size:16px;
+      margin:4px;
+      padding:5px;
+      font-size:14px;
       font-weight:bold;
       float:left;
-      height:32px;
-      line-height:32px;
+      height:32px;line-height:32px;
     }
     .item{
-      margin:-9px 9px -9px -9px;padding:9px;
       &.selected{
+        height:30px;line-height:30px;
         background-color:#fafafa;
-        border-left:solid 1px #eee;
-        border-right:solid 1px #eee;
+        border:solid 1px #eee;
       }
     }
     
     .ops{
       float:right;
+      padding:9px;
       .create{
         @include button-blue;
         float:left;

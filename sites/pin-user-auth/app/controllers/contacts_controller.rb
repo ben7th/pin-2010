@@ -2,6 +2,7 @@ class ContactsController < ApplicationController
   before_filter :login_required
 
   def index
+    @user = User.find(params[:user_id]) if params[:user_id]
     render :layout=>'collection'
   end
 

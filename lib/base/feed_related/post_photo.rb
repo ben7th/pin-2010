@@ -7,7 +7,7 @@ class PostPhoto < UserAuthAbstract
 
   module PostMethods
     def self.included(base)
-      base.has_many :post_photos
+      base.has_many :post_photos,:dependent=>:destroy
       base.has_many :photos, :through=>:post_photos
     end
   end

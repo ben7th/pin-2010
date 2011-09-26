@@ -1,8 +1,6 @@
 module FeedsControllerNavigationMethods
   def index
-    return _index_login unless current_user.blank?
-
-    newest
+    @user = User.find(params[:user_id]) if params[:user_id]
   end
 
   def _index_login
@@ -62,7 +60,7 @@ module FeedsControllerNavigationMethods
   end
 
   def all
-    @feeds = Feed.publics.paginate(:per_page=>20,:page=>params[:page]||1)
+    @feeds = Feed.public_timeline
     render :layout=>'collection'
   end
 

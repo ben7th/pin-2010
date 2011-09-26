@@ -41,3 +41,52 @@
     }
   }
 }
+
+.page-ogrid.followings{
+  width:960px;
+  
+  .list-blank{
+    margin:0 0 200px 0;
+  }
+  .following{
+    border:solid 1px #eee;
+    background-color:#FFF;
+    width:184px;
+    float:left;
+    margin-right:5px;
+    margin-bottom:5px;
+    $img_width:176px;
+    .avatar{
+      margin:4px;
+      width:$img_width;height:$img_width;
+      img{
+        padding:0;
+        @include border-radius(0);
+        width:$img_width;height:$img_width;
+      }
+    }
+    .data{
+      margin:0 4px 4px;
+      background-color:#fafafa;
+      height:176px;
+      &.short{height:140px;}
+      .name{
+        @include tfont;
+        font-size:12px;font-weight:bold;
+        padding:5px;a{color:#444 !important;}
+      }
+      .sign{
+        @include tfont;
+        padding:0 5px 5px;
+      }
+    }
+    .mindpin-user{
+      margin:0 4px 4px;
+      background-color:#F4F4F4;
+      padding:0 5px;
+      height:32px;line-height:32px;
+      @include tfont;
+      span{font-weight:bold;color:#888;}
+    }
+  }
+}

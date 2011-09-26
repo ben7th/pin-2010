@@ -5,9 +5,9 @@ class InCollectionTest < ActiveSupport::TestCase
   test "自己创建的 collection,可以被自己看到" do
     clear_redis_cache_and_memcache_cache
     lifei = users(:lifei)
-    scope = "all-public"
+    scope = Collection::SendStatus::PUBLIC
     assert_difference('Collection.count', 1) do
-      lifei.create_collection_by_params("我是标题","我是描述",scope)
+      lifei.create_collection_by_params("我是标题",scope)
     end
     collection = Collection.last
     assert_equal lifei.created_collections_db, lifei.created_collections
@@ -20,9 +20,9 @@ class InCollectionTest < ActiveSupport::TestCase
     init_a_followings
     a = users(:a)
     b = users(:b)
-    scope = "all-public"
+    scope = Collection::SendStatus::PUBLIC
     assert_difference('Collection.count', 1) do
-      b.create_collection_by_params("我是标题","我是描述",scope)
+      b.create_collection_by_params("我是标题",scope)
     end
     collection = Collection.last
     assert_equal b.out_collections, b.out_collections_db
@@ -39,9 +39,9 @@ class InCollectionTest < ActiveSupport::TestCase
     init_a_followings
     a = users(:a)
     b = users(:b)
-    scope = "all-followings"
+    scope = CollectionScope::FOLLOWINGS
     assert_difference('Collection.count', 1) do
-      b.create_collection_by_params("我是标题","我是描述",scope)
+      b.create_collection_by_params("我是标题",scope)
     end
     collection = Collection.last
     assert_equal b.to_followings_out_collections_db,b.to_followings_out_collections
@@ -61,7 +61,7 @@ class InCollectionTest < ActiveSupport::TestCase
     b = users(:b)
     scope = "u-#{a.id}"
     assert_difference('Collection.count', 1) do
-      b.create_collection_by_params("我是标题","我是描述",scope)
+      b.create_collection_by_params("我是标题",scope)
     end
     collection = Collection.last
     assert_equal b.to_personal_out_collections_db,b.to_personal_out_collections
@@ -84,7 +84,7 @@ class InCollectionTest < ActiveSupport::TestCase
     channel_bd = channels(:channel_bd)
     scope = "ch-#{channel_bd.id}"
     assert_difference('Collection.count', 1) do
-      b.create_collection_by_params("我是标题","我是描述",scope)
+      b.create_collection_by_params("我是标题",scope)
     end
     collection = Collection.last
     assert_equal channel_bd.out_collections_db,channel_bd.out_collections

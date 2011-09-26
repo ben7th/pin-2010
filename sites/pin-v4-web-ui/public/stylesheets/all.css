@@ -6196,6 +6196,87 @@ form.page-new-feed-form .form-collection-select {
   padding: 0;
   padding: 14px;
   overflow: hidden; }
+  .page-user-profile .profile-top .basedata {
+    overflow: hidden;
+    margin-left: 224px;
+    margin-bottom: 14px; }
+    .page-user-profile .profile-top .basedata .name {
+      margin-bottom: 14px;
+      padding: 0 5px;
+      font-size: 14px;
+      font-weight: bold;
+      height: 32px;
+      line-height: 32px; }
+      .page-user-profile .profile-top .basedata .name a {
+        color: #444 !important; }
+    .page-user-profile .profile-top .basedata .ops {
+      overflow: hidden;
+      height: 32px; }
+      .page-user-profile .profile-top .basedata .ops .do-follow, .page-user-profile .profile-top .basedata .ops .do-unfollow, .page-user-profile .profile-top .basedata .ops .edit-account {
+        display: block;
+        width: 108px;
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+        float: left;
+        font-size: 14px; }
+      .page-user-profile .profile-top .basedata .ops .do-follow {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #90DE00;
+        border: solid 1px #4EC000;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 2px #444444; }
+        .page-user-profile .profile-top .basedata .ops .do-follow:hover {
+          color: white;
+          text-decoration: none;
+          background-color: #90DE00;
+          border: solid 1px #4EC000;
+          box-shadow: 0 1px 2px #ccc; }
+        .page-user-profile .profile-top .basedata .ops .do-follow span {
+          display: block; }
+      .page-user-profile .profile-top .basedata .ops .do-unfollow {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #F0F0F0;
+        border: solid 1px #ddd;
+        font-weight: bold;
+        color: #444 !important; }
+        .page-user-profile .profile-top .basedata .ops .do-unfollow:hover {
+          text-decoration: none;
+          background-color: #E9E9E9;
+          color: #444 !important;
+          box-shadow: 0 1px 2px #eee; }
+        .page-user-profile .profile-top .basedata .ops .do-unfollow span {
+          display: block; }
+      .page-user-profile .profile-top .basedata .ops .edit-account {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #F0F0F0;
+        border: solid 1px #ddd;
+        font-weight: bold;
+        color: #444 !important;
+        width: 94px; }
+        .page-user-profile .profile-top .basedata .ops .edit-account:hover {
+          text-decoration: none;
+          background-color: #E9E9E9;
+          color: #444 !important;
+          box-shadow: 0 1px 2px #eee; }
+        .page-user-profile .profile-top .basedata .ops .edit-account span {
+          display: block; }
   .page-user-profile .profile-top .avatar {
     float: left;
     border: solid 1px #eee;
@@ -6203,21 +6284,17 @@ form.page-new-feed-form .form-collection-select {
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     padding: 4px; }
     .page-user-profile .profile-top .avatar img {
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
       padding: 0; }
-  .page-user-profile .profile-top .name {
-    font-size: 14px;
-    font-weight: bold; }
-    .page-user-profile .profile-top .name a {
-      color: #444 !important; }
   .page-user-profile .profile-top .misc {
-    float: right;
-    overflow: hidden; }
+    float: left;
+    overflow: hidden;
+    margin-top: 8px; }
     .page-user-profile .profile-top .misc .followings, .page-user-profile .profile-top .misc .collections, .page-user-profile .profile-top .misc .feeds, .page-user-profile .profile-top .misc .tsina {
       float: left;
       margin-left: 14px;
@@ -6242,6 +6319,8 @@ form.page-new-feed-form .form-collection-select {
         -webkit-border-radius: 2px;
         color: #555;
         margin-top: 4px; }
+        .page-user-profile .profile-top .misc .followings .count a, .page-user-profile .profile-top .misc .collections .count a, .page-user-profile .profile-top .misc .feeds .count a, .page-user-profile .profile-top .misc .tsina .count a {
+          color: #555 !important; }
     .page-user-profile .profile-top .misc .followings .cover .following-avatar {
       float: left;
       padding: 0;
@@ -8950,25 +9029,27 @@ form .field.sendto-select-widget .sendto-selector {
   border: solid 1px #eee;
   background-color: #FFF;
   padding: 9px;
+  padding: 0;
   margin-bottom: 10px;
   border-bottom: solid 3px #eee; }
   .page-collection-top .meta, .page-info-top .meta {
     overflow: hidden; }
     .page-collection-top .meta h2, .page-collection-top .meta .item, .page-info-top .meta h2, .page-info-top .meta .item {
-      font-size: 16px;
+      margin: 4px;
+      padding: 5px;
+      font-size: 14px;
       font-weight: bold;
       float: left;
       height: 32px;
       line-height: 32px; }
-    .page-collection-top .meta .item, .page-info-top .meta .item {
-      margin: -9px 9px -9px -9px;
-      padding: 9px; }
-      .page-collection-top .meta .item.selected, .page-info-top .meta .item.selected {
-        background-color: #fafafa;
-        border-left: solid 1px #eee;
-        border-right: solid 1px #eee; }
+    .page-collection-top .meta .item.selected, .page-info-top .meta .item.selected {
+      height: 30px;
+      line-height: 30px;
+      background-color: #fafafa;
+      border: solid 1px #eee; }
     .page-collection-top .meta .ops, .page-info-top .meta .ops {
-      float: right; }
+      float: right;
+      padding: 9px; }
       .page-collection-top .meta .ops .create, .page-info-top .meta .ops .create {
         border-radius: 3px;
         -moz-border-radius: 3px;
@@ -9232,6 +9313,55 @@ form .field.sendto-select-widget .sendto-selector {
       background-color: #fafafa;
       float: right;
       padding: 4px 9px; }
+
+.page-ogrid.followings {
+  width: 960px; }
+  .page-ogrid.followings .list-blank {
+    margin: 0 0 200px 0; }
+  .page-ogrid.followings .following {
+    border: solid 1px #eee;
+    background-color: #FFF;
+    width: 184px;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 5px; }
+    .page-ogrid.followings .following .avatar {
+      margin: 4px;
+      width: 176px;
+      height: 176px; }
+      .page-ogrid.followings .following .avatar img {
+        padding: 0;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+        width: 176px;
+        height: 176px; }
+    .page-ogrid.followings .following .data {
+      margin: 0 4px 4px;
+      background-color: #fafafa;
+      height: 176px; }
+      .page-ogrid.followings .following .data.short {
+        height: 140px; }
+      .page-ogrid.followings .following .data .name {
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 5px; }
+        .page-ogrid.followings .following .data .name a {
+          color: #444 !important; }
+      .page-ogrid.followings .following .data .sign {
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        padding: 0 5px 5px; }
+    .page-ogrid.followings .following .mindpin-user {
+      margin: 0 4px 4px;
+      background-color: #F4F4F4;
+      padding: 0 5px;
+      height: 32px;
+      line-height: 32px;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+      .page-ogrid.followings .following .mindpin-user span {
+        font-weight: bold;
+        color: #888; }
 
 .minibutton {
   border-radius: 3px;

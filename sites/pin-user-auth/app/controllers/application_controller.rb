@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
     ],
     "activation"=>["services",
       "apply","do_apply",
+      "apply_form","do_apply_form",
       "activation","do_activation"
       ],
     "feeds"=>["show"]

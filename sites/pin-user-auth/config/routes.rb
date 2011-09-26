@@ -12,6 +12,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "/apply",:controller=>"activation",:action=>"apply"
   map.connect "/do_apply",:controller=>"activation",:action=>"do_apply",
     :conditions=>{:method=>:post}
+  map.connect "/apply_form",:controller=>"activation",:action=>"apply_form"
+  map.connect "/do_apply_form",:controller=>"activation",:action=>"do_apply_form",
+    :conditions=>{:method=>:post}
 
   # ---------------- 管理员后门 -------------
   map.connect '/zhi_ma_kai_men',
@@ -302,9 +305,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :atmes
 
   map.resources :collections,
-    :collection=>{
-      :tsina=>:get
-    },
     :member=>{
       :change_name=>:put,
       :change_sendto=>:put,
@@ -329,4 +329,13 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :post_drafts
+
+  map.connect "/:user_id/contacts",:controller=>"contacts",
+    :action=>"index"
+  map.connect "/:user_id/feeds",:controller=>"feeds",
+    :action=>"index"
+  map.connect "/:user_id/collections",:controller=>"collections",
+    :action=>"index"
+  map.connect "/:user_id/collections/tsina",:controller=>"collections",
+    :action=>"tsina"
 end

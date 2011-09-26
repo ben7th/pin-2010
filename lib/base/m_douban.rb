@@ -37,4 +37,20 @@ class MDouban
     Douban::Authorize.new(API_KEY,API_SECRET)
   end
 
+  class Event
+    attr_reader :title,:summary,:content,:author_name,:author_uri,:id
+    def initialize(id)
+      @id = id
+      parse_info
+    end
+
+    def parse_info
+      doc = Nokogiri::XML(open("http://api.douban.com/event/#{@id}"))
+      @title = doc.at_css("entry title").content
+      @summary = doc.at_css("entry summary").content
+      @content = doc.at_css("entry content").content
+      @author_name = doc.at_css("entry author name").content
+      @author_uri = doc.at_css("entry author uri").content
+    end
+  end
 end

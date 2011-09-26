@@ -1,0 +1,15 @@
+.page-ogrid.followings
+  -if followings.blank?
+    .list-blank 你还没有任何联系人
+  -else
+    -followings.each do |user|
+      -user_id = user.id
+      -user_link = "users/#{user_id}"
+
+      .following{:'data-id'=>user_id}
+        .avatar
+          -link_to user_link do
+            =user_avatar_s200 user
+        .data
+          .name=usersign user
+          .sign=usersign_only user

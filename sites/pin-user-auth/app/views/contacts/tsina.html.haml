@@ -12,7 +12,7 @@
       .item.selected 新浪微博联系人
     .clearfix
 
-  .page-olist.followings
+  .page-ogrid.followings
     -if !has_binded_tsina
       .list-blank
         你还没有关联新浪微博账号。
@@ -25,7 +25,7 @@
         -uid = tsina_friend.id
         -name = tsina_friend.name
         -url = "http://weibo.com/#{uid}"
-        -imgsrc = tsina_friend.profile_image_url
+        -imgsrc = tsina_friend.profile_image_url.sub('/50/','/180/')
         -description = tsina_friend.description
 
         -mindpin_user = ConnectUser.get_user_from_tsina_id(uid)
@@ -35,11 +35,11 @@
           .avatar
             -link_to url,:target=>'_blank' do
               %img{:src=>imgsrc,:alt=>name}
-          .data
+          .data{:class=>is_mindpin_user ? 'short':''}
             .name=link_to name,url
             .sign.quiet=description
-          .ops
-            -if is_mindpin_user
-              .mindpin-user 
-                mindpin用户
-                =usersign mindpin_user
+
+          -if is_mindpin_user
+            .mindpin-user
+              =usersign mindpin_user
+              %span @mindpin

@@ -26,11 +26,19 @@ class Feed < UserAuthAbstract
     :order=>"id desc"
 
   def self.publics_db
-    Feed.mix_from_collections(Collection.publics)
+    Feed.find_by_sql(%`
+        select feeds.* from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join collections on collections.id = feed_collections.collection_id
+        where collections.send_status = '#{Collection::SendStatus::PUBLIC}'
+        order by feeds.id desc
+      `).uniq
   end
 
-  def self.publics
-    AllPublicFeedsProxy.new.get_models(Feed)
+  def self.public_timeline(count=20)
+    count = 200 if count > 200
+    ids = AllPublicFeedsProxy.new.xxxs_ids[0...count]
+    ids.map{|id|Feed.find_by_id(id)}.compact
   end
 
   def self.publics_paginate(options)
@@ -280,16 +288,34 @@ class Feed < UserAuthAbstract
     self.main_post.photos
   end
 
-  def self.mix_from_collections(collections)
-      collections.map do |collection|
-        collection.feed_ids
-      end.flatten.uniq.sort{|x,y| y<=>x}.map{|fid|Feed.find_by_id(fid)}.compact
-  end
+  #  since_id，可选，如果指定此参数，只返回id大于此id（时间上较早）的主题。
+  # max_id，可选，如果指定此参数，只返回id小于或等于此id（时间上较晚）的主题。
+  # count，可选，缺省值20，最大200。指定返回的条目数。
+  # page，可选，缺省1
+  # feature，可选，主题类型，'all', 'text', 'photo', 'text|photo'。默认all。后台应分别建立缓存。
+  def self.mix_from_collections(collections,options={})
+    count = options[:count] || 20
+    page = options[:page] || 1
+    since_id = options[:since_id]
+    max_id = options[:max_id]
+    feature = options[:feature] || "all"
 
-  def self.mix_ids_from_collections(collections)
-      collections.map do |collection|
-        collection.feed_ids
-      end.flatten.uniq.sort{|x,y| y<=>x}
+    ids = collections.map do |collection|
+      case feature
+      when "all" then collection.feed_ids
+      when "text" then collection.with_text_feed_ids
+      when "photo" then collection.with_photo_feed_ids
+      when "text|photo" then collection.mixed_feed_ids
+      end
+    end.flatten.uniq.sort{|x,y| y<=>x}
+
+    ids = ids.select{|id|id<=max_id} unless max_id.blank?
+    ids = ids.select{|id|id>since_id} unless since_id.blank?
+
+    first_index = (page-1)*count
+    last_index = first_index+count-1
+    res_ids = ids[first_index..last_index]
+    res_ids.map{|id|Feed.find_by_id(id)}.compact
   end
 
   module UserMethods
@@ -324,15 +350,6 @@ class Feed < UserAuthAbstract
 
       feed.create_main_post(title,detail)
 
-      tags = options[:tags]
-      tags = Tag::DEFAULT if tags.blank?
-
-      cids.each do |collection_id|
-        collection = Collection.find(collection_id)
-        fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
-        FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
-      end
-
       if !!options[:photo_names]
         (options[:photo_names]||"").split(",").each do |name|
           photo = PhotoAdpater.create_photo_by_file_name(name,self)
@@ -340,6 +357,14 @@ class Feed < UserAuthAbstract
         end
       end
 
+      cids.each do |collection_id|
+        collection = Collection.find(collection_id)
+        fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
+        FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
+      end
+
+      tags = options[:tags]
+      tags = Tag::DEFAULT if tags.blank?
       feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)
       feed
@@ -396,6 +421,21 @@ class Feed < UserAuthAbstract
       else
         (self.sent_feeds && user.in_feeds).first
       end
+    end
+
+    def home_timeline(options={})
+      Feed.mix_from_collections(self.in_collections,options)
+    end
+
+    def user_timeline(options={})
+      user_id = options[:user]
+      if user_id.blank?
+        collections = self.out_collections
+      else
+        user = User.find(user_id)
+        collections = (self.created_collections && user.in_collections)
+      end
+      Feed.mix_from_collections(collections,options)
     end
   end
 

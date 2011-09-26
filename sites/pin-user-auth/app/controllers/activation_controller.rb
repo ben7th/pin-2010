@@ -26,4 +26,32 @@ class ActivationController < ApplicationController
     )
     redirect_to "/apply"
   end
+
+  def apply_form
+    render :layout=>"anonymous",:template=>"index/apply_form"
+  end
+
+  def do_apply_form
+    detail = %`
+邮箱：
+#{params[:email]}
+------------
+真实姓名:
+#{params[:name]}
+------------
+个人简介:
+#{params[:description]}
+    `
+    user = User.find(1000001)
+    coll_title = "激活码申请"
+    coll = user.created_collections_db.find_by_title(coll_title)
+    if coll.blank?
+      user.create_collection_by_params(coll_title)
+      coll = user.created_collections_db.find_by_title(coll_title)
+    end
+    user.send_feed("",detail,
+      :collection_ids=>coll.id,
+      :from=>Feed::FROM_WEB)
+    redirect_to "/apply_form"
+  end
 end

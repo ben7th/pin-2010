@@ -4,24 +4,53 @@
     @include gray-box;padding:0;
     padding:14px;
     overflow:hidden;
+    .basedata{
+      overflow:hidden;
+      margin-left:224px;
+      margin-bottom:14px;
+      .name{
+        margin-bottom:14px;
+        padding:0 5px;
+        font-size:14px;font-weight:bold;
+        height:32px;line-height:32px;
+        a{color:#444 !important;}
+      }
+      .ops{
+        overflow:hidden;height:32px;
+        .do-follow,.do-unfollow,.edit-account{
+          display:block;
+          width:108px;text-align:center;
+          height:30px;line-height:30px;
+          float:left;font-size:14px;
+        }
+        .do-follow{
+          @include button-lightgreen;
+        }
+        .do-unfollow{
+          @include button-gray;
+        }
+        .edit-account{
+          @include button-gray;
+          width:94px;
+        }
+      }
+    }
+    
     .avatar{
       float:left;
       border:solid 1px #eee;
       background-color:#FFF;
       @include border-radius(2px);
-      $a-width:100px;
+      $a-width:200px;
       width:$a-width;height:$a-width;
       padding:4px;
       img{width:$a-width;height:$a-width;padding:0;}
     }
-    .name{
-      font-size:14px;font-weight:bold;
-      a{color:#444 !important;}
-    }
     
     .misc{
-      float:right;
+      float:left;
       overflow:hidden;
+      margin-top:8px;
       
       .followings,.collections,.feeds,.tsina{
         float:left;margin-left:14px;
@@ -40,6 +69,7 @@
           background-color:#fafafa;
           @include border-radius(2px);
           color:#555;margin-top:4px;
+          a{color:#555 !important;}
         }
       }
       

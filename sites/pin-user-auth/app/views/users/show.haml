@@ -1,60 +1,129 @@
 -#use 个人主题
 -#see 个人页->主题
 
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+
+      var do_follow_btn = jQuery('.page-user-profile .ops .do-follow');
+      var do_unfollow_btn = jQuery('.page-user-profile .ops .do-unfollow');
+
+      do_follow_btn.bind('click',function(){
+        var elm = jQuery(this);
+        var user_id = elm.domdata('id');
+
+        jQuery.ajax({
+          url : '/contacts/follow_mindpin',
+          type : 'POST',
+          data : 'user_id='+user_id,
+          success : function(){
+            do_follow_btn.hide();
+            do_unfollow_btn.fadeIn(200);
+          }
+        })
+      })
+
+      do_unfollow_btn.bind('click',function(){
+        var elm = jQuery(this);
+        var user_id = elm.domdata('id');
+
+        jQuery.ajax({
+          url : '/contacts/unfollow',
+          type : 'DELETE',
+          data : 'user_id='+user_id,
+          success : function(){
+            do_follow_btn.fadeIn(200);
+            do_unfollow_btn.hide();
+          }
+        })
+      })
+
+    })
+
 -user = @user
 
 -is_current_user = user == current_user
 
+-user_id = user.id
+
 -followings = user.followings
 -followings_count = followings.count
 -followings_hot = followings[0..7]
+-followings_link = "/#{user_id}/contacts"
 
 -feeds = user.out_feeds
 -feeds_count = feeds.count
--feed_cover = user.photos[0]
+-feed_cover = user.user_timeline(:count=>1,:feature=>'photo')[0]
+-feed_link = "/#{user_id}/feeds"
 
 -collections = is_current_user ? user.created_collections_db : user.out_collections
 -collections_count = collections.count
+-collection_cover_src = pin_url_for('ui','/images/covers/collection_cover.png')
+-collection_link = "/#{user_id}/collections"
+
 
 -has_binded_tsina = user.has_binded_tsina?
 -if has_binded_tsina
   -weibo = user.tsina_weibo
   -tsina_feeds_count = weibo.verify_credentials.statuses_count
   -tsina_cover = weibo.user_timeline(:feature=>2,:count=>1)[0]
+  -if !tsina_cover.blank?
+    -tsina_cover_src = tsina_cover.bmiddle_pic || tsina_cover.retweeted_status.bmiddle_pic
+  -else
+    -tsina_cover_src = pin_url_for('ui','/images/covers/tsina_cover.png')
+  -tsina_link = "/#{user_id}/collections/tsina"
 
--htitle "#{user.name}的收集册"
+
+
+-htitle "#{user.name}"
 
 .main.grid_24.no-line
   .page-user-profile
     .profile-top
-      .name.hide=usersign user
-      
       .avatar=user_avatar_s200 user
+
+      .basedata
+        .name=usersign user
+        .ops
+          -if logged_in? && !is_current_user
+            -if !current_user.following?(user)
+              %a.do-follow{:'data-id'=>user_id,:href=>'javascript:;'} <span>加入联系人</span>
+              %a.do-unfollow{:'data-id'=>user_id,:href=>'javascript:;',:style=>'display:none;'} <span>取消联系人</span>
+            -else
+              %a.do-follow{:'data-id'=>user_id,:href=>'javascript:;',:style=>'display:none;'} <span>加入联系人</span>
+              %a.do-unfollow{:'data-id'=>user_id,:href=>'javascript:;'} <span>取消联系人</span>
+          -if logged_in? && is_current_user
+            %a.edit-account{:href=>'/account'} <span>用户设置</span>
 
       .misc
         .followings
           .cover
-            -followings_hot.each do |following|
-              .following-avatar=avatar following
-          .count="#{followings_count}个联系人"
+            -link_to followings_link do
+              -followings_hot.each do |following|
+                .following-avatar=avatar following
+          .count=link_to "#{followings_count}个联系人",followings_link
 
         .feeds
           .cover
             -if !feed_cover.blank?
-              -src = feed_cover.image.url(:w210)
-              %img{:src=>src,:style=>'width:144px;'}
-          .count="#{feeds_count}个主题"
+              -src = feed_cover.photos[0].image.url(:w210)
+              -link_to feed_link do
+                %img{:src=>src,:style=>'width:144px;'}
+          .count=link_to "#{feeds_count}个主题",feed_link
 
         .collections
           .cover
-          .count="#{collections_count}个收集册"
+            -link_to collection_link do
+              %img{:src=>collection_cover_src,:style=>'width:144px;'}
+          .count=link_to "#{collections_count}个收集册",collection_link
 
         -if has_binded_tsina
           .tsina
             .cover
-              -if !tsina_cover.blank?
-                -src = tsina_cover.bmiddle_pic
-                %img{:src=>src,:style=>'width:144px;'}
-            .count="#{tsina_feeds_count}条微博"
+              -link_to tsina_link do
+                %img{:src=>tsina_cover_src,:style=>'width:144px;'}
+            .count=link_to "#{tsina_feeds_count}条微博",tsina_link
+
+      .clearfix
         
         
