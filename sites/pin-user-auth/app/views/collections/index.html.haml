@@ -1,10 +1,12 @@
 -#use collection列表页
 -#see 顶部导航栏 collections
 
--htitle '我的收集册'
+-user = @user || current_user
+
+-htitle "#{user.name}的收集册"
 
 .mside.grid_6.no-line
-  =morender 'mside_module','avatar',:user=>current_user
+  =morender 'mside_module','avatar',:user=>user
 
 .main.grid_18.no-line
   .page-collection-top
@@ -14,11 +16,12 @@
     .clearfix
 
   =prender 'collection','grid',:collections=>@collections
-  -if current_user.has_binded_tsina?
+
+  -if user == current_user && current_user.has_binded_tsina?
     .clearfix
     .page-ogrid.collections-binded
       .collection.tsina
         .headmeta
           %span.t-title=link_to "新浪微博","/collections/tsina"
         .data{:style=>'padding-bottom:0;'}
-          .tsina-img sina weibo
+          .tsina-img

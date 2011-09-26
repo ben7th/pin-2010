@@ -305,6 +305,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :atmes
 
   map.resources :collections,
+    :collection=>{
+      :tsina=>:get
+    },
     :member=>{
       :change_name=>:put,
       :change_sendto=>:put,

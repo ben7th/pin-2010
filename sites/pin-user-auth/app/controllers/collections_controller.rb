@@ -14,9 +14,10 @@ class CollectionsController < ApplicationController
   end
 
   def index
-    user = current_user
-    user = User.find(params[:user_id]) if params[:user_id]
-    @collections = user.created_collections_db
+    @user = User.find(params[:user_id]) if params[:user_id]
+    @user ||= current_user
+
+    @collections = @user.created_collections_db
     if is_android_client?
       render :json=>@collections
     else

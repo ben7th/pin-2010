@@ -2048,7 +2048,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.collections .collection .headmeta .t-title a:hover,.page-ogrid.collections-binded .collection .headmeta .t-title a:hover{color:#999;border-bottom:dotted 1px #999;text-decoration:none;}
 .page-ogrid.collections .collection .data,.page-ogrid.collections-binded .collection .data{overflow:hidden;display:block;padding:9px 0 6px 9px;width:219px;margin-left:-9px;}
 .page-ogrid.collections .collection .data .p,.page-ogrid.collections-binded .collection .data .p{border:solid 1px #f4f4f4;width:66px;height:66px;margin:0 3px 3px 0;float:left;}
-.page-ogrid.collections .collection .data .tsina-img,.page-ogrid.collections-binded .collection .data .tsina-img{border:solid 1px #f4f4f4;width:208px;height:208px;font-size:32px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#E32529;background-color:#ffffea;text-align:center;}
+.page-ogrid.collections .collection .data .tsina-img,.page-ogrid.collections-binded .collection .data .tsina-img{border:solid 1px #f4f4f4;width:208px;height:208px;background:url(/images/covers/tsina_collection.png);}
 .page-ogrid.collections .collection .ops .minibutton,.page-ogrid.collections-binded .collection .ops .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
 .page-collection-top,.page-info-top{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;margin-bottom:10px;border-bottom:solid 3px #eee;}
 .page-collection-top .meta,.page-info-top .meta{overflow:hidden;}
