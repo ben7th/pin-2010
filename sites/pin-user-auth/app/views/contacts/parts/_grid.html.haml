@@ -6,10 +6,23 @@
       -user_id = user.id
       -user_link = "/users/#{user_id}"
 
+      -has_binded_tsina = user.has_binded_tsina?
+      -if has_binded_tsina
+        -tsina_account_info = user.tsina_account_info
+        -tsina_id = tsina_account_info["connect_id"]
+        -tsina_link = "http://weibo.com/#{tsina_id}"
+        -tsina_name = tsina_account_info["user_name"]
+        -tsina_img_src = tsina_account_info["profile_image_url"].sub('/50/','/180/')
+
       .following{:'data-id'=>user_id}
         .avatar
           -link_to user_link do
             =user_avatar_s200 user
-        .data
+        .data{:class=>has_binded_tsina ? 'short':''}
           .name=usersign user
           .sign=usersign_only user
+
+        -if has_binded_tsina
+          .tsina-user
+            =link_to tsina_name,tsina_link,:target=>'_blank'
+            %span @新浪微博

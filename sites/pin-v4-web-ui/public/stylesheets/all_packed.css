@@ -2125,8 +2125,9 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.followings .following .data .name{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-size:12px;font-weight:bold;padding:5px;}
 .page-ogrid.followings .following .data .name a{color:#444!important;}
 .page-ogrid.followings .following .data .sign{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;padding:0 5px 5px;}
-.page-ogrid.followings .following .mindpin-user{margin:0 4px 4px;background-color:#F4F4F4;padding:0 5px;height:32px;line-height:32px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
-.page-ogrid.followings .following .mindpin-user span{font-weight:bold;color:#888;}
+.page-ogrid.followings .following .mindpin-user,.page-ogrid.followings .following .tsina-user{margin:0 4px 4px;background-color:#F4F4F4;padding:0 5px;height:32px;line-height:32px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
+.page-ogrid.followings .following .mindpin-user a,.page-ogrid.followings .following .tsina-user a{color:#666!important;}
+.page-ogrid.followings .following .mindpin-user span,.page-ogrid.followings .following .tsina-user span{font-weight:bold;color:#888;}
 .minibutton{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;display:inline-block;height:22px;line-height:22px;padding:0 5px;}
 .minibutton:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
 .minibutton span{display:block;}

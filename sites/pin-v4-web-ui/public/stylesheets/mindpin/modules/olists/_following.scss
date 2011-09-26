@@ -80,12 +80,13 @@
         padding:0 5px 5px;
       }
     }
-    .mindpin-user{
+    .mindpin-user,.tsina-user{
       margin:0 4px 4px;
       background-color:#F4F4F4;
       padding:0 5px;
       height:32px;line-height:32px;
       @include tfont;
+      a{color:#666 !important;}
       span{font-weight:bold;color:#888;}
     }
   }

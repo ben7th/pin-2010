@@ -9352,14 +9352,16 @@ form .field.sendto-select-widget .sendto-selector {
       .page-ogrid.followings .following .data .sign {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
         padding: 0 5px 5px; }
-    .page-ogrid.followings .following .mindpin-user {
+    .page-ogrid.followings .following .mindpin-user, .page-ogrid.followings .following .tsina-user {
       margin: 0 4px 4px;
       background-color: #F4F4F4;
       padding: 0 5px;
       height: 32px;
       line-height: 32px;
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
-      .page-ogrid.followings .following .mindpin-user span {
+      .page-ogrid.followings .following .mindpin-user a, .page-ogrid.followings .following .tsina-user a {
+        color: #666 !important; }
+      .page-ogrid.followings .following .mindpin-user span, .page-ogrid.followings .following .tsina-user span {
         font-weight: bold;
         color: #888; }
 
