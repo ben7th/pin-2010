@@ -26,5 +26,7 @@ module AccountHelper
     else
       avatar user,:medium
     end
+  rescue Exception => ex
+    avatar user,:medium
   end
 end
