@@ -2973,41 +2973,42 @@ form.page-new-feed-form .form-main {
   border: solid 1px #eee;
   background-color: #fafafa;
   /*标题*/
-  /*正文*/
   /*图片上传按钮*/
+  /*正文*/
   /*照片区域*/ }
   form.page-new-feed-form .form-main .field.title {
     padding: 9px;
-    margin: 0; }
+    margin: 0;
+    float: left; }
     form.page-new-feed-form .form-main .field.title label {
       float: left;
-      width: 50px;
-      margin-right: 10px;
+      width: 72px;
+      padding: 0 9px;
       text-align: right;
-      padding: 0;
       height: 32px;
       line-height: 32px;
-      font-size: 14px; }
+      font-size: 12px; }
     form.page-new-feed-form .form-main .field.title input.text {
-      width: 618px;
+      width: 497px;
       border-radius: 1px;
       -moz-border-radius: 1px;
       -webkit-border-radius: 1px; }
+  form.page-new-feed-form .form-main .page-file-upload {
+    padding: 9px 9px 9px 0;
+    margin: 0;
+    float: right; }
+    form.page-new-feed-form .form-main .page-file-upload .upload-btn {
+      width: 80px;
+      height: 30px;
+      line-height: 30px; }
+    form.page-new-feed-form .form-main .page-file-upload .relative {
+      position: relative; }
   form.page-new-feed-form .form-main .field.detail {
-    padding: 9px;
+    padding: 0 9px 9px;
     margin: 0; }
     form.page-new-feed-form .form-main .field.detail textarea.text {
       width: 678px;
       height: 320px; }
-  form.page-new-feed-form .form-main .page-file-upload {
-    padding: 9px;
-    margin: 0; }
-    form.page-new-feed-form .form-main .page-file-upload .upload-btn {
-      width: 80px;
-      height: 26px;
-      line-height: 26px; }
-    form.page-new-feed-form .form-main .page-file-upload .relative {
-      position: relative; }
   form.page-new-feed-form .form-main .field.photos {
     overflow: hidden;
     padding: 0 9px;
@@ -3055,10 +3056,10 @@ form.page-new-feed-form .form-main {
             color: white; }
       form.page-new-feed-form .form-main .field.photos .uploading-photo .meta {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        margin: 5px 3px 5px;
+        margin: 10px 3px 5px;
         overflow: hidden; }
         form.page-new-feed-form .form-main .field.photos .uploading-photo .meta .file-name {
-          width: 44px;
+          width: 60px;
           height: 18px;
           overflow: hidden; }
       form.page-new-feed-form .form-main .field.photos .uploading-photo .process {
@@ -3087,6 +3088,11 @@ form.page-new-feed-form .form-submit {
     padding: 9px;
     margin: 0;
     overflow: hidden; }
+    form.page-new-feed-form .form-submit .field.subm .create-submit, form.page-new-feed-form .form-submit .field.subm .create-save-draft, form.page-new-feed-form .form-submit .field.subm .create-cancel {
+      padding: 0 14px !important;
+      height: 30px;
+      line-height: 30px;
+      font-size: 14px; }
     form.page-new-feed-form .form-submit .field.subm .create-submit {
       border-radius: 3px;
       -moz-border-radius: 3px;
@@ -3099,11 +3105,6 @@ form.page-new-feed-form .form-submit {
       font-weight: bold;
       color: white;
       text-shadow: 0 0 2px #444444;
-      height: 30px;
-      line-height: 30px;
-      width: 80px;
-      font-size: 14px;
-      width: 130px;
       float: left;
       margin-right: 10px; }
       form.page-new-feed-form .form-submit .field.subm .create-submit:hover {
@@ -3113,37 +3114,54 @@ form.page-new-feed-form .form-submit {
         box-shadow: 0 1px 2px #ccc; }
       form.page-new-feed-form .form-submit .field.subm .create-submit span {
         display: block; }
-    form.page-new-feed-form .form-submit .field.subm .create-cancel {
-      border-radius: 4px;
-      -moz-border-radius: 4px;
-      -webkit-border-radius: 4px;
+    form.page-new-feed-form .form-submit .field.subm .create-save-draft {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
       display: block;
       padding: 0;
-      height: 30px;
-      line-height: 30px;
       text-align: center;
-      width: 80px;
-      font-size: 14px;
-      background: -moz-linear-gradient(-90deg, #e7e7e7, #e3e3e3);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e7e7e7), to(#e3e3e3));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');
-      border: solid 1px #aaa;
-      color: #555;
+      background-color: #F0F0F0;
+      border: solid 1px #ddd;
       font-weight: bold;
-      text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
-      width: 100px;
-      float: left; }
-      form.page-new-feed-form .form-submit .field.subm .create-cancel:hover {
-        color: #555;
+      color: #444 !important;
+      float: left;
+      margin-right: 10px; }
+      form.page-new-feed-form .form-submit .field.subm .create-save-draft:hover {
         text-decoration: none;
-        background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
-        border: solid 1px #848484; }
-form.page-new-feed-form .form-collection-select {
-  border: solid 1px #eee;
-  background-color: #fff; }
-  form.page-new-feed-form .form-collection-select h3 {
+        background-color: #E9E9E9;
+        color: #444 !important;
+        box-shadow: 0 1px 2px #eee; }
+      form.page-new-feed-form .form-submit .field.subm .create-save-draft span {
+        display: block; }
+    form.page-new-feed-form .form-submit .field.subm .create-cancel {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      display: block;
+      padding: 0;
+      text-align: center;
+      background-color: #F0F0F0;
+      border: solid 1px #ddd;
+      font-weight: bold;
+      color: #444 !important;
+      float: right; }
+      form.page-new-feed-form .form-submit .field.subm .create-cancel:hover {
+        text-decoration: none;
+        background-color: #E9E9E9;
+        color: #444 !important;
+        box-shadow: 0 1px 2px #eee; }
+      form.page-new-feed-form .form-submit .field.subm .create-cancel span {
+        display: block; }
+    form.page-new-feed-form .form-submit .field.subm span.submit-info {
+      line-height: 32px;
+      height: 32px;
+      font-size: 14px;
+      color: #DD4B39; }
+
+.page-new-feed-form-side .form-collection-select {
+  border: solid 1px #eee; }
+  .page-new-feed-form-side .form-collection-select h3 {
     padding: 9px;
     margin: 0;
     border-bottom: solid 1px #eee;
@@ -3151,36 +3169,75 @@ form.page-new-feed-form .form-collection-select {
     font-style: 14px;
     line-height: 22px;
     color: #999; }
-  form.page-new-feed-form .form-collection-select .field.collections {
+  .page-new-feed-form-side .form-collection-select .field.collections {
+    background-color: #fff;
     margin: 0; }
-    form.page-new-feed-form .form-collection-select .field.collections .c {
+    .page-new-feed-form-side .form-collection-select .field.collections .c {
       overflow: hidden;
       cursor: pointer; }
-      form.page-new-feed-form .form-collection-select .field.collections .c:hover {
+      .page-new-feed-form-side .form-collection-select .field.collections .c:hover {
         background-color: #fafafa; }
-        form.page-new-feed-form .form-collection-select .field.collections .c:hover .cb {
+        .page-new-feed-form-side .form-collection-select .field.collections .c:hover .cb {
           background-color: #eee; }
-      form.page-new-feed-form .form-collection-select .field.collections .c.checked {
+      .page-new-feed-form-side .form-collection-select .field.collections .c.checked {
         background-color: #666 !important; }
-        form.page-new-feed-form .form-collection-select .field.collections .c.checked .name {
+        .page-new-feed-form-side .form-collection-select .field.collections .c.checked .name {
           color: white !important; }
-        form.page-new-feed-form .form-collection-select .field.collections .c.checked .cb {
+        .page-new-feed-form-side .form-collection-select .field.collections .c.checked .cb {
           background-color: #eee; }
-      form.page-new-feed-form .form-collection-select .field.collections .c .cb {
+      .page-new-feed-form-side .form-collection-select .field.collections .c .cb {
         float: left;
         padding: 5px 9px;
         height: 22px;
         line-height: 22px;
         background-color: #fafafa; }
-        form.page-new-feed-form .form-collection-select .field.collections .c .cb .checkbox {
+        .page-new-feed-form-side .form-collection-select .field.collections .c .cb .checkbox {
           top: 1px; }
-      form.page-new-feed-form .form-collection-select .field.collections .c .name {
+      .page-new-feed-form-side .form-collection-select .field.collections .c .name {
         float: left;
         padding: 5px 9px;
         font-size: 14px;
         line-height: 22px;
         font-weight: bold;
         color: #666; }
+.page-new-feed-form-side .field.send-to-tsina {
+  margin-top: 5px;
+  background-color: #fff;
+  border: solid 1px #eee; }
+  .page-new-feed-form-side .field.send-to-tsina .c {
+    overflow: hidden;
+    cursor: pointer; }
+    .page-new-feed-form-side .field.send-to-tsina .c:hover {
+      background-color: #fafafa; }
+      .page-new-feed-form-side .field.send-to-tsina .c:hover .cb {
+        background-color: #eee; }
+    .page-new-feed-form-side .field.send-to-tsina .c.checked {
+      background-color: #666 !important; }
+      .page-new-feed-form-side .field.send-to-tsina .c.checked .name {
+        color: white !important; }
+      .page-new-feed-form-side .field.send-to-tsina .c.checked .cb {
+        background-color: #eee; }
+    .page-new-feed-form-side .field.send-to-tsina .c .cb {
+      float: left;
+      padding: 5px 9px;
+      height: 22px;
+      line-height: 22px;
+      background-color: #fafafa; }
+      .page-new-feed-form-side .field.send-to-tsina .c .cb .checkbox {
+        top: 1px; }
+    .page-new-feed-form-side .field.send-to-tsina .c .name {
+      float: left;
+      padding: 5px 9px;
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: bold;
+      color: #666; }
+    .page-new-feed-form-side .field.send-to-tsina .c .icon {
+      float: right;
+      width: 24px;
+      height: 24px;
+      background: url(/images/share/share_24.png) no-repeat -4px -4px;
+      margin: 4px 4px 0 0; }
 
 .page-new-feed-tips .tip {
   border-radius: 4px;

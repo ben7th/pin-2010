@@ -4,6 +4,7 @@ class MindpinTextFormat
 
   FORMAT_HTML = "html"
   FORMAT_MARKDOWN = "markdown"
+  FORMAT_TEXT = "text"
   
 #  [O]autolink	 [RW] 	 Enable the Autolinking extension
 #  [O]fenced_code	 [RW] 	 Enable PHP-Markdown fenced code extension
@@ -23,7 +24,7 @@ class MindpinTextFormat
 #  tables	 [RW] 	 Enable PHP-Markdown tables extension
 #  [O]xhtml	 [RW] 	 Generate XHTML 1.0 compilant self-closing tags (e.g. <br/>)
 
-  def initialize(string, text_kind)
+  def initialize(string, text_kind = nil)
     @string = string
     @text_kind = text_kind
   end
@@ -107,6 +108,8 @@ class MindpinTextFormat
       html_to_text
     when FORMAT_MARKDOWN
       markdown_to_text
+    else
+      html_to_text
     end
   end
 

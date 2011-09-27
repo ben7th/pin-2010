@@ -272,6 +272,19 @@ class Feed < UserAuthAbstract
     SendFeedSectionsQueueWorker.async_send_tsina_status(:feed_id=>self.id,:user_id=>user.id)
   end
 
+  def send_to_tsina
+    content = MindpinTextFormat.new(detail).to_text
+    status = truncate_u("#{title} #{content}", 126)
+    url = pin_url_for("pin-user-auth","/feeds/#{id}")
+    status = "#{status} #{url}"
+    if self.photos.blank?
+      self.creator.send_message_to_tsina_weibo(status)
+    else
+      path = self.photos.first.image.path
+      self.creator.send_tsina_image_status(path,status)
+    end
+  end
+
   def title
     post = self.main_post
     return "" if post.blank?
@@ -367,6 +380,9 @@ class Feed < UserAuthAbstract
       tags = Tag::DEFAULT if tags.blank?
       feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)
+      if options[:send_tsina] == "true" || options[:send_tsina]
+        feed.send_to_tsina
+      end
       feed
     end
 

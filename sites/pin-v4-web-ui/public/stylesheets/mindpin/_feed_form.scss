@@ -8,35 +8,35 @@ form.page-new-feed-form{
     /*标题*/
     .field.title{
       padding:9px;margin:0;
+      float:left;
       label{
-        float:left;width:50px;
-        margin-right:10px;
+        float:left;width:72px;
+        padding:0 9px;
         text-align:right;
-        padding:0;
-        height:32px;line-height:32px;font-size:14px;
+        height:32px;line-height:32px;font-size:12px;
       }
       input.text{
-        width:618px;
+        width:497px;
         @include border-radius(1px);
-      }
-    }
-    
-    /*正文*/
-    .field.detail{
-      padding:9px;margin:0;
-      textarea.text{
-        width:678px;
-        height:320px;
       }
     }
     
     /*图片上传按钮*/
     .page-file-upload{
-      padding:9px;margin:0;
+      padding:9px 9px 9px 0;margin:0;float:right;
       .upload-btn{
-        width:80px;height:26px;line-height:26px;
+        width:80px;height:30px;line-height:30px;
       }
       .relative{position:relative;}
+    }
+    
+    /*正文*/
+    .field.detail{
+      padding:0 9px 9px;margin:0;
+      textarea.text{
+        width:678px;
+        height:320px;
+      }
     }
     
     /*照片区域*/
@@ -83,9 +83,9 @@ form.page-new-feed-form{
         }
         .meta{
           @include tfont;
-          margin:5px 3px 5px;
+          margin:10px 3px 5px;
           overflow:hidden;
-          .file-name{width:44px;height:18px;overflow:hidden;}
+          .file-name{width:60px;height:18px;overflow:hidden;}
         }
         .process{
           position:absolute;
@@ -113,14 +113,21 @@ form.page-new-feed-form{
     .field.subm{
       padding:9px;margin:0;
       overflow:hidden;
-      .create-submit{@include form-a-link-submit;width:130px;float:left;margin-right:10px;}
-      .create-cancel{@include form-a-link-cancel;width:100px;float:left;}
+      .create-submit,.create-save-draft,.create-cancel{
+        padding:0 14px !important;height:30px;line-height:30px;font-size:14px;
+      }
+      .create-submit    {@include button-blue;float:left;margin-right:10px;}
+      .create-save-draft{@include button-gray;float:left;margin-right:10px;}
+      .create-cancel    {@include button-gray;float:right;}
+      
+      span.submit-info{line-height:32px;height:32px;font-size:14px;color:#DD4B39;}
     }
   }
-  
+}
+
+.page-new-feed-form-side{
   .form-collection-select{
     border:solid 1px #eee;
-    background-color:#fff;
     h3{
       padding:9px;margin:0;
       border-bottom:solid 1px #eee;
@@ -130,6 +137,7 @@ form.page-new-feed-form{
       color:#999;
     }
     .field.collections{
+      background-color:#fff;
       margin:0;
       .c{
         overflow:hidden;
@@ -161,6 +169,48 @@ form.page-new-feed-form{
           font-weight:bold;
           color:#666;
         }
+      }
+    }
+  }
+  .field.send-to-tsina{
+    margin-top:5px;
+    background-color:#fff;
+    border:solid 1px #eee;
+    .c{
+      overflow:hidden;
+      cursor:pointer;
+      &:hover{
+        background-color:#fafafa;
+        .cb{background-color:#eee;}
+      };
+      
+      &.checked{
+        background-color:#666 !important;
+        .name{color:white !important;}
+        .cb{background-color:#eee;}
+      }
+      
+      .cb{
+        float:left;
+        padding:5px 9px;
+        height:22px;line-height:22px;
+        background-color:#fafafa;
+        .checkbox{
+          top:1px;
+        }
+      }
+      .name{
+        float:left;
+        padding:5px 9px;
+        font-size:14px;line-height:22px;
+        font-weight:bold;
+        color:#666;
+      }
+      .icon{
+        float:right;
+        width:24px;height:24px;
+        background:url(/images/share/share_24.png) no-repeat -4px -4px;
+        margin:4px 4px 0 0;
       }
     }
   }

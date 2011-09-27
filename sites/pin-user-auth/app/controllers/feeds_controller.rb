@@ -33,7 +33,7 @@ class FeedsController < ApplicationController
       params[:detail],:tags=>params[:tags],
       :photo_names=>params[:photo_names],
       :collection_ids=>params[:collection_ids],
-      :from=>Feed::FROM_WEB)
+      :from=>Feed::FROM_WEB,:send_tsina=>params[:send_tsina])
     if feed.id.blank?
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'
@@ -47,7 +47,7 @@ class FeedsController < ApplicationController
       :tags=>params[:tags],
       :photo_names=>params[:photo_names],
       :collection_ids=>params[:collection_ids],
-      :from=>Feed::FROM_ANDROID)
+      :from=>Feed::FROM_ANDROID,:send_tsina=>params[:send_tsina])
     if feed.id.blank?
       return render :status=>422,:text=>422
     end

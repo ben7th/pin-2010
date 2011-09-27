@@ -5,6 +5,8 @@
 
 -hjavascript '/html5_upload/upload_feed_photo'
 
+-# 表单上绑定的js在ui工程的/js/util/new_forms/feed.js
+
 -# feed创建表单，提交的参数包括
 -# title
 -# photo_names
@@ -13,46 +15,61 @@
 
 -# 如果保存草稿，多保存一个 draft_token 用来指定草稿
 
--form_tag "/feeds",:class=>'page-new-feed-form' do
-  .main.grid_18.no-line
+
+.main.grid_18.no-line
+  -form_tag "/feeds",:class=>'page-new-feed-form' do
     .form-main
       .field.title
-        %label 标题
-        =text_field_tag "title",'',:class=>"text title-ipter"
+        %label 标题（选填）
+        =text_field_tag "title",'',:class=>"text title-ipter at-least"
 
       .page-file-upload
         -btn_width = 82
-        -btn_height = 28
+        -btn_height = 32
         .relative
           .input-div{:style=>"position:absolute;width:#{btn_width}px;height:#{btn_height}px;left:0;top:0;overflow:hidden;"}
             %input{:type=>'file',:style=>'position:absolute;top:0;right:0;height:#{btn_height}px;font-size:30px;opacity:0;',:multiple=>""}
         .upload-btn 上传图片
 
+      .clearfix
+
 
       .field.photos
-        =hidden_field_tag "photo_names",'',:class=>'photos-ipter'
+        =hidden_field_tag "photo_names",'',:class=>'photos-ipter at-least'
 
       .field.detail
-        =text_area_tag "detail",'',:class=>"text detail-ipter"
+        =text_area_tag "detail",'',:class=>"text detail-ipter at-least"
+
+      =hidden_field_tag "collection_ids","",:class=>'collections-ipter need'
+      =hidden_field_tag "send_tsina","",:class=>'send-tsina-ipter'
 
     .form-submit
       .field.subm
-        =link_to "好了，确定创建",'javascript:;',:class=>'create-submit'
-        =link_to "保存草稿",'javsscript:;',:class=>'create-save-draft'
-        =link_to '算了，取消','/',:class=>'create-cancel'
+        =link_to "确定创建",'javascript:;',:class=>'create-submit'
+        =link_to "保存草稿",'javascript:;',:class=>'create-save-draft'
+        %span.submit-info{:style=>'display:none;'}
+        =link_to '取消','/',:class=>'create-cancel'
 
-  .mside.grid_6.no-line
+.mside.grid_6.no-line
+  .page-new-feed-form-side
     .form-collection-select
       %h3 选择发送范围
-      =hidden_field_tag "collection_ids","",:class=>'collections-ipter'
+
       .field.collections
         -current_user.created_collections_db.each do |c|
           -checked_id = params[:collection]
           -if c.id.to_s == checked_id
             .c.checked{:'data-id'=>c.id}
-              .cb=check_box 'collections','aaa',:class=>'checkbox',:checked=>true
+              .cb=check_box 'collections','c',:class=>'checkbox',:checked=>true
               .name=c.title
           -else
             .c{:'data-id'=>c.id}
-              .cb=check_box 'collections','aaa',:class=>'checkbox',:checked=>false
+              .cb=check_box 'collections','c',:class=>'checkbox',:checked=>false
               .name=c.title
+    -if current_user.has_binded_tsina?
+      .field.send-to-tsina
+
+        .c
+          .cb=check_box 'collections','d',:class=>'checkbox',:checked=>false
+          .name 发送到新浪微博
+          .icon
