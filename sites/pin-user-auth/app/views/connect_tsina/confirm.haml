@@ -27,8 +27,7 @@
       })
 
       jQuery('a.create-submit').bind('click',function(){
-        form_elm = jQuery(this).closest('form');
-
+        var form_elm = jQuery(this).closest('form');
         var can_submit = true;
 
         //必填字段 凡是有classname包含need的都是必填

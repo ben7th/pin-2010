@@ -7241,17 +7241,15 @@ body.tu-mindpin-anonymous .login-wrapper {
   top: 50%;
   left: 50%;
   margin-top: -200px;
-  margin-left: -400px;
+  margin-left: -314px;
   /*连接各种网站*/ }
   body.tu-mindpin-anonymous .login-wrapper .logo {
     width: 420px;
     height: 75px;
-    background: url(/images/tu-logo.png) no-repeat;
+    background: url(/images/mindpin-sites/tu-logo.png) no-repeat;
     margin-bottom: 20px; }
   body.tu-mindpin-anonymous .login-wrapper form {
-    overflow: hidden;
-    margin-left: 80px;
-    margin-bottom: 30px; }
+    overflow: hidden; }
     body.tu-mindpin-anonymous .login-wrapper form.login-form {
       height: 100px; }
     body.tu-mindpin-anonymous .login-wrapper form .field {
@@ -7343,6 +7341,7 @@ body.tu-mindpin-anonymous .login-wrapper {
       height: 30px;
       line-height: 30px; }
   body.tu-mindpin-anonymous .login-wrapper .connects {
+    margin-top: 20px;
     overflow: hidden; }
     body.tu-mindpin-anonymous .login-wrapper .connects .desc {
       font-size: 14px;
@@ -7394,18 +7393,21 @@ body.mindpin-anonymous .login-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -180px;
-  margin-left: -300px;
-  /*连接各种网站*/ }
+  margin-top: -200px;
+  margin-left: -314px;
+  /*连接各种网站*/
+  /*未登录时，内部测试的申请表单链接*/
+  /*一些说明信息*/
+  /*登录后，选择访问哪一个站点*/
+  /*.login-wrapper*/
+  /*服务未激活首页*/ }
   body.mindpin-anonymous .login-wrapper .logo {
-    width: 320px;
+    width: 420px;
     height: 75px;
-    background: url(/images/logo.png) no-repeat;
+    background: url(/images/mindpin-sites/logo.png) no-repeat;
     margin-bottom: 20px; }
   body.mindpin-anonymous .login-wrapper form {
-    overflow: hidden;
-    margin-left: 80px;
-    margin-bottom: 30px; }
+    overflow: hidden; }
     body.mindpin-anonymous .login-wrapper form.login-form {
       height: 100px; }
     body.mindpin-anonymous .login-wrapper form .field {
@@ -7486,8 +7488,6 @@ body.mindpin-anonymous .login-wrapper {
           color: #666; }
           body.mindpin-anonymous .login-wrapper form .field .forget-password a:hover {
             color: #666; }
-  body.mindpin-anonymous .login-wrapper .login-form {
-    margin-left: 8px; }
   body.mindpin-anonymous .login-wrapper .flash-error {
     margin: 3px 0 0 0;
     background: #777;
@@ -7499,6 +7499,7 @@ body.mindpin-anonymous .login-wrapper {
       height: 30px;
       line-height: 30px; }
   body.mindpin-anonymous .login-wrapper .connects {
+    margin-top: 20px;
     overflow: hidden; }
     body.mindpin-anonymous .login-wrapper .connects .desc {
       font-size: 14px;
@@ -7545,100 +7546,137 @@ body.mindpin-anonymous .login-wrapper {
         padding: 0 9px; }
       body.mindpin-anonymous .login-wrapper .connects .connect.tsina-weibo .icon {
         background: url(/images/share/share_24.png) no-repeat -4px -4px; }
-  body.mindpin-anonymous .login-wrapper .footmisc {
-    overflow: hidden; }
-    body.mindpin-anonymous .login-wrapper .footmisc .desc {
-      float: left;
-      margin-left: 80px;
-      font-size: 14px;
-      font-weight: bold; }
-    body.mindpin-anonymous .login-wrapper .footmisc .signup {
-      overflow: hidden;
-      margin-left: 532px; }
-      body.mindpin-anonymous .login-wrapper .footmisc .signup a {
-        float: left; }
-  body.mindpin-anonymous .login-wrapper .activation {
-    position: absolute;
-    top: 0;
-    left: 320px; }
-    body.mindpin-anonymous .login-wrapper .activation .btn {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      display: block;
-      padding: 0;
-      text-align: center;
-      background-color: #4C8FFD;
-      border: solid 1px #10698D;
-      font-weight: bold;
-      color: white;
-      text-shadow: 0 0 2px #444444;
-      height: 30px;
-      line-height: 30px;
-      width: 80px;
-      font-size: 14px;
-      width: 130px;
-      margin-top: 24px;
-      *margin-top: 25px;
-      background: -moz-linear-gradient(-90deg, #d25449, #d25449);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d25449), to(#d25449));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d25449',endColorstr='#d25449');
-      border: solid 1px #830300;
-      margin-top: 10px; }
-      body.mindpin-anonymous .login-wrapper .activation .btn:hover {
-        color: white;
-        text-decoration: none;
-        border: solid 1px #0069dd;
-        box-shadow: 0 1px 2px #ccc; }
-      body.mindpin-anonymous .login-wrapper .activation .btn span {
-        display: block; }
-      body.mindpin-anonymous .login-wrapper .activation .btn:hover {
-        background: -moz-linear-gradient(-90deg, #d25449, #d25449);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d25449), to(#d25449));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d25449',endColorstr='#d25449');
-        border: solid 1px #830300; }
-  body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn {
-    position: absolute;
-    top: 0px;
-    left: 470px; }
-    body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn .btn {
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      display: block;
-      padding: 0;
-      text-align: center;
-      background-color: #4C8FFD;
-      border: solid 1px #10698D;
-      font-weight: bold;
-      color: white;
-      text-shadow: 0 0 2px #444444;
-      height: 30px;
-      line-height: 30px;
-      width: 80px;
-      font-size: 14px;
-      width: 130px;
-      margin-top: 24px;
-      *margin-top: 25px;
-      margin-top: 10px; }
-      body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn .btn:hover {
-        color: white;
-        text-decoration: none;
-        border: solid 1px #0069dd;
-        box-shadow: 0 1px 2px #ccc; }
-      body.mindpin-anonymous .login-wrapper .to-tu-mindmap-btn .btn span {
-        display: block; }
+  body.mindpin-anonymous .login-wrapper .alpha-test {
+    font-size: 14px; }
   body.mindpin-anonymous .login-wrapper .to-tu-mindpin {
     font-size: 14px;
     font-weight: bold;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-    margin-left: 8px;
-    margin-top: 30px; }
+    margin-top: 20px; }
     body.mindpin-anonymous .login-wrapper .to-tu-mindpin a.new-site {
       color: #3079ED;
       font-size: 18px; }
       body.mindpin-anonymous .login-wrapper .to-tu-mindpin a.new-site span {
         color: #7AADED; }
+    body.mindpin-anonymous .login-wrapper .to-tu-mindpin .p {
+      margin-bottom: 20px; }
+    body.mindpin-anonymous .login-wrapper .to-tu-mindpin .go-alpha {
+      font-size: 12px;
+      font-weight: normal; }
+  body.mindpin-anonymous .login-wrapper .sites-select {
+    overflow: hidden; }
+    body.mindpin-anonymous .login-wrapper .sites-select .activation {
+      float: left; }
+      body.mindpin-anonymous .login-wrapper .sites-select .activation .btn {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #4C8FFD;
+        border: solid 1px #10698D;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 2px #444444;
+        height: 30px;
+        line-height: 30px;
+        width: 80px;
+        font-size: 14px;
+        width: 130px;
+        margin-top: 24px;
+        *margin-top: 25px;
+        background: -moz-linear-gradient(-90deg, #d25449, #d25449);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d25449), to(#d25449));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d25449',endColorstr='#d25449');
+        border: solid 1px #830300;
+        margin-top: 10px; }
+        body.mindpin-anonymous .login-wrapper .sites-select .activation .btn:hover {
+          color: white;
+          text-decoration: none;
+          border: solid 1px #0069dd;
+          box-shadow: 0 1px 2px #ccc; }
+        body.mindpin-anonymous .login-wrapper .sites-select .activation .btn span {
+          display: block; }
+        body.mindpin-anonymous .login-wrapper .sites-select .activation .btn:hover {
+          background: -moz-linear-gradient(-90deg, #d25449, #d25449);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d25449), to(#d25449));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d25449',endColorstr='#d25449');
+          border: solid 1px #830300; }
+    body.mindpin-anonymous .login-wrapper .sites-select .goto-tu-mindmap-btn {
+      float: left; }
+      body.mindpin-anonymous .login-wrapper .sites-select .goto-tu-mindmap-btn .btn {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #4C8FFD;
+        border: solid 1px #10698D;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 2px #444444;
+        height: 30px;
+        line-height: 30px;
+        width: 80px;
+        font-size: 14px;
+        width: 130px;
+        margin-top: 24px;
+        *margin-top: 25px;
+        margin-top: 10px; }
+        body.mindpin-anonymous .login-wrapper .sites-select .goto-tu-mindmap-btn .btn:hover {
+          color: white;
+          text-decoration: none;
+          border: solid 1px #0069dd;
+          box-shadow: 0 1px 2px #ccc; }
+        body.mindpin-anonymous .login-wrapper .sites-select .goto-tu-mindmap-btn .btn span {
+          display: block; }
+  body.mindpin-anonymous .login-wrapper.apply {
+    margin-top: -250px; }
+  body.mindpin-anonymous .login-wrapper .apply-form .desc {
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: bold; }
+  body.mindpin-anonymous .login-wrapper .apply-form .field {
+    float: none; }
+    body.mindpin-anonymous .login-wrapper .apply-form .field input.text, body.mindpin-anonymous .login-wrapper .apply-form .field textarea.text {
+      border: solid 1px #ccc;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+      font-weight: normal;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+    body.mindpin-anonymous .login-wrapper .apply-form .field input.text {
+      width: 247px; }
+    body.mindpin-anonymous .login-wrapper .apply-form .field textarea.text {
+      width: 400px;
+      height: 120px;
+      line-height: 20px; }
+    body.mindpin-anonymous .login-wrapper .apply-form .field a.apply-submit {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      display: block;
+      padding: 0;
+      text-align: center;
+      background-color: #4C8FFD;
+      border: solid 1px #10698D;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 2px #444444;
+      height: 30px;
+      line-height: 30px;
+      width: 80px;
+      font-size: 14px; }
+      body.mindpin-anonymous .login-wrapper .apply-form .field a.apply-submit:hover {
+        color: white;
+        text-decoration: none;
+        border: solid 1px #0069dd;
+        box-shadow: 0 1px 2px #ccc; }
+      body.mindpin-anonymous .login-wrapper .apply-form .field a.apply-submit span {
+        display: block; }
+  body.mindpin-anonymous .login-wrapper.unact {
+    margin-top: -250px;
+    margin-left: -220px; }
 body.mindpin-anonymous .signup-wrapper {
   position: absolute;
   top: 0;
@@ -7649,9 +7687,9 @@ body.mindpin-anonymous .signup-wrapper {
   body.mindpin-anonymous .signup-wrapper .desc {
     float: left; }
     body.mindpin-anonymous .signup-wrapper .desc .logo {
-      width: 320px;
+      width: 420px;
       height: 75px;
-      background: url(/images/logo.png) no-repeat;
+      background: url(/images/mindpin-sites/logo.png) no-repeat;
       margin-bottom: 20px; }
     body.mindpin-anonymous .signup-wrapper .desc .logo {
       margin-top: 30px; }
@@ -7668,9 +7706,7 @@ body.mindpin-anonymous .signup-wrapper {
       line-height: 20px;
       margin-bottom: 10px; }
     body.mindpin-anonymous .signup-wrapper .signup-form form {
-      overflow: hidden;
-      margin-left: 80px;
-      margin-bottom: 30px; }
+      overflow: hidden; }
       body.mindpin-anonymous .signup-wrapper .signup-form form.login-form {
         height: 100px; }
       body.mindpin-anonymous .signup-wrapper .signup-form form .field {
@@ -7790,16 +7826,14 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   margin-left: -220px;
   overflow: hidden; }
   body.mindpin-anonymous .reset-password-wrapper .logo, body.mindpin-anonymous .activation-wrapper .logo {
-    width: 320px;
+    width: 420px;
     height: 75px;
-    background: url(/images/logo.png) no-repeat;
+    background: url(/images/mindpin-sites/logo.png) no-repeat;
     margin-bottom: 20px; }
   body.mindpin-anonymous .reset-password-wrapper .form, body.mindpin-anonymous .activation-wrapper .form {
     padding-left: 10px; }
     body.mindpin-anonymous .reset-password-wrapper .form form, body.mindpin-anonymous .activation-wrapper .form form {
-      overflow: hidden;
-      margin-left: 80px;
-      margin-bottom: 30px; }
+      overflow: hidden; }
       body.mindpin-anonymous .reset-password-wrapper .form form.login-form, body.mindpin-anonymous .activation-wrapper .form form.login-form {
         height: 100px; }
       body.mindpin-anonymous .reset-password-wrapper .form form .field, body.mindpin-anonymous .activation-wrapper .form form .field {
@@ -9090,7 +9124,6 @@ form .field.sendto-select-widget .sendto-selector {
   .page-collection-top .foot, .page-info-top .foot {
     border-top: solid 1px #eee;
     background-color: #fafafa;
-    margin: 9px -9px -9px;
     padding: 9px;
     overflow: hidden; }
     .page-collection-top .foot .creator, .page-info-top .foot .creator {

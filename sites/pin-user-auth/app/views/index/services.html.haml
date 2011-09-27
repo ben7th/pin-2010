@@ -1,22 +1,43 @@
 -#use 未登录首页
 -#see 未登录首页
 
+-htitle '社区服务尚未激活'
+
 -if logged_in?
-  .login-wrapper
+  .login-wrapper.unact
     .logo
-    .activation
-      =link_to '<span>激活社区服务</span>','/activation',:class=>'btn'
-    .to-tu-mindmap-btn
-      =link_to '<span>访问导图服务</span>',pin_url_for('pin-daotu'),:class=>'btn'
+
     .to-tu-mindpin
-      %span> 老用户请访问并记住思维导图站的新域名：
-      =link_to '<span>http://</span>tu.mindpin.com',pin_url_for('pin-daotu'),:class=>'new-site'
-      %span.marginl5> 更多新鲜功能，体验更好~
+      %span> 欢迎你，#{current_user.name}：
+      <br/><br/>
+      %span> 你的账号目前没有激活mindpin社区服务。
+      <br/>
+      %span> 如果你已经收到了激活码，可以点下面的链接进行激活：
+
+    .sites-select
+      .activation
+        =link_to '<span>激活社区服务</span>','/activation',:class=>'btn'
+
+    .to-tu-mindpin
+      %span> 你也可以继续访问思维导图工具服务。
+
+    .sites-select
+      .activation
+      .goto-tu-mindmap-btn
+        =link_to '<span>访问导图服务</span>',pin_url_for('pin-daotu'),:class=>'btn'
+
 -else
   .login-wrapper
     .logo
+
     .to-tu-mindpin
-      %span> 老用户请访问并记住思维导图站的新域名：
-      =link_to '<span>http://</span>tu.mindpin.com',pin_url_for('pin-daotu'),:class=>'new-site'
-      %span.marginl5> 更多新鲜功能，体验更好~
+      .p
+        %span> 如果你要使用思维导图工具，请访问网址：
+        =link_to '<span>http://</span>tu.mindpin.com',pin_url_for('pin-daotu'),:class=>'new-site'
+      .go-alpha
+        %span 如果你受邀参与新版社区内部测试，请
+        =link_to '&gt;从这里登录',pin_url_for('pin-user-auth','/login')
+        <br/>
+        你也可以
+        =link_to '&gt;申请参与测试',pin_url_for('pin-user-auth','/apply_form')
   

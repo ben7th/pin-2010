@@ -2,16 +2,16 @@
   .logo{
     width:420px;
     height:75px;
-    background:url(/images/tu-logo.png) no-repeat;
+    background:url(/images/mindpin-sites/tu-logo.png) no-repeat;
     margin-bottom:20px;
   }
 }
 
 @mixin mindpin-auth-logo{
   .logo{
-    width:320px;
+    width:420px;
     height:75px;
-    background:url(/images/logo.png) no-repeat;
+    background:url(/images/mindpin-sites/logo.png) no-repeat;
     margin-bottom:20px;
   }
 }
@@ -19,8 +19,6 @@
 @mixin mindtu-no-auth-form{
   form{
     overflow:hidden;
-    margin-left:80px;
-    margin-bottom:30px;
     &.login-form{height:100px;}
     .field{
       float:left;
@@ -60,6 +58,7 @@
 @mixin connect-other-sites{
   /*连接各种网站*/
   .connects{
+    margin-top:20px;;
     overflow:hidden;
     .desc{
       font-size:14px;color:#999;
@@ -81,6 +80,16 @@
   }
 }
 
+@mixin mindpin-anonymous-flash-error{
+  .flash-error{
+    margin:3px 0 0 0;
+    background:#777;
+    border:solid 1px #666;
+    @include border-radius(3px);
+    span{height:30px;line-height:30px;}
+  }
+}
+
 body{
   &.mindpin-anonymous,&.tu-mindpin-anonymous{
     @include gradient(#FFFFFF,#F7F7F7);
@@ -97,101 +106,108 @@ body{
 
 body.tu-mindpin-anonymous{
   .login-wrapper{
-    position:absolute;
-    top:50%;left:50%;
-    margin-top:-200px;
-    margin-left:-400px;
+    position:absolute;top:50%;left:50%;
+    margin-top:-200px;margin-left:-314px;
     @include tu-mindpin-auth-logo;
     @include mindtu-no-auth-form;
-    
-    .flash-error{
-      margin:3px 0 0 0;
-      background:#777;
-      border:solid 1px #666;
-      @include border-radius(3px);
-      span{height:30px;line-height:30px;}
-    }
-    
+    @include mindpin-anonymous-flash-error;
     @include connect-other-sites;
   }
 }
 
 body.mindpin-anonymous{
-  
   .login-wrapper{
     position:absolute;
-    top:50%;
-    left:50%;
-    margin-top:-180px;
-    margin-left:-300px;
+    top:50%;left:50%;
+    margin-top:-200px;
+    margin-left:-314px;
     @include mindpin-auth-logo;
-    
-    
     @include mindtu-no-auth-form;
-    .login-form{margin-left:8px;}
-    
-    .flash-error{
-      margin:3px 0 0 0;
-      background:#777;
-      border:solid 1px #666;
-      @include border-radius(3px);
-      span{height:30px;line-height:30px;}
-    }
-    
+    @include mindpin-anonymous-flash-error;
     @include connect-other-sites;
     
-    .footmisc{
-      overflow:hidden;
-      .desc{
-        float:left;
-        margin-left:80px;
-        font-size:14px;font-weight:bold;
-      }
-      .signup{
-        overflow:hidden;
-        margin-left:532px;
-        a{
-          float:left;
-        }
-      }
-    }
+    /*未登录时，内部测试的申请表单链接*/
+    .alpha-test{font-size:14px;}
     
-    .activation{
-      position:absolute;
-      top:0;left:320px;
-      .btn{
-        @include form-a-link-submit;
-        width:130px;
-        margin-top:24px;*margin-top:25px;
-        @include gradient(#D25449,#D25449);
-        border:solid 1px #830300;
-        margin-top:10px;
-        &:hover{
-          @include gradient(#D25449,#D25449);
-          border:solid 1px #830300;
-        }
-      }
-    }
-    .to-tu-mindmap-btn{
-      position:absolute;
-      top:0px;left:470px;
-      .btn{
-        @include form-a-link-submit;
-        width:130px;
-        margin-top:24px;*margin-top:25px;
-        margin-top:10px;
-      }
-    }
+    /*一些说明信息*/
     .to-tu-mindpin{
       font-size:14px;font-weight:bold;
       @include tfont;
-      margin-left:8px;
-      margin-top:30px;
+      margin-top:20px;
       a.new-site{
         color:#3079ED;
         font-size:18px;
         span{color:#7AADED}
       }
+      .p{
+        margin-bottom:20px;
+      }
+      .go-alpha{
+        font-size:12px;font-weight:normal;
+      }
+    }
+    
+    /*登录后，选择访问哪一个站点*/
+    .sites-select{
+      overflow:hidden;
+      .activation{
+        float:left;
+        .btn{
+          @include form-a-link-submit;
+          width:130px;
+          margin-top:24px;*margin-top:25px;
+          @include gradient(#D25449,#D25449);
+          border:solid 1px #830300;
+          margin-top:10px;
+          &:hover{
+            @include gradient(#D25449,#D25449);
+            border:solid 1px #830300;
+          }
+        }
+      }
+      .goto-tu-mindmap-btn{
+        float:left;
+        .btn{
+          @include form-a-link-submit;
+          width:130px;
+          margin-top:24px;*margin-top:25px;
+          margin-top:10px;
+        }
+      } 
+    }
+    
+    
+    /*.login-wrapper*/
+    &.apply{
+      margin-top:-250px;
+    }
+    .apply-form{
+      .desc{margin-bottom:20px;font-size:14px;font-weight:bold;}
+      .field{
+        float:none;
+        input.text, textarea.text{
+          border:solid 1px #ccc;
+          box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+          font-weight:normal;
+          @include tfont;
+        }
+        input.text{
+          width:247px;
+        }
+        textarea.text{
+          width:400px;height:120px;
+          line-height:20px;
+        }
+        a.apply-submit{
+          @include form-a-link-submit;
+        }
+      }
+    }
+    
+    /*服务未激活首页*/
+    &.unact{
+      margin-top:-250px;
+      margin-left:-220px;
     }
   }
   

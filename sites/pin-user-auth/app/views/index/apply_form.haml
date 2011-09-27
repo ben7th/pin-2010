@@ -1,0 +1,53 @@
+-#use 申请参与内部测试
+
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      jQuery('.apply-form a.apply-submit').bind('click',function(){
+        var form_elm = jQuery(this).closest('form');
+        var can_submit = true;
+
+        //必填字段 凡是有classname包含need的都是必填
+        form_elm.find('.field .need').each(function(){
+          var elm = jQuery(this);
+          if(jQuery.string(elm.val()).blank()){
+            can_submit = false;
+            pie.inputflash(elm);
+          }
+        });
+
+        if(can_submit){
+          form_elm.submit();
+        }
+      })
+    })
+
+-htitle '申请参与测试'
+
+-is_applied = (params[:apply] == 'success')
+
+.login-wrapper.apply
+  .apply-form
+    -if is_applied
+      .desc
+        申请已经提交，我们会进行人工审核，谢谢参与和支持。
+      .re
+        =minibutton '返回首页','/'
+    -else
+      .desc
+        %span> 请确保邮箱地址正确。
+        <br/>
+        %span> 我们会在阅读你的简介后，在1-3周内发送测试激活码到你填写的邮箱。
+      -form_tag '/do_apply_form' do
+        .field
+          %label 邮箱
+          =text_field_tag :email,'',:class=>'text need'
+        .field
+          %label 真实姓名
+          =text_field_tag :name,'',:class=>'text need'
+        .field
+          %label 自我简介
+          =text_area_tag :description,'',:class=>'text need bold'
+          .d 对自己进行简要介绍，例如职业，所在公司，兴趣爱好，特长。
+        .field
+          %a.apply-submit{:href=>"javascript:;"} <span>确定</span>

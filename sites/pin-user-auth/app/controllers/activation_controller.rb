@@ -49,9 +49,9 @@ class ActivationController < ApplicationController
       user.create_collection_by_params(coll_title)
       coll = user.created_collections_db.find_by_title(coll_title)
     end
-    user.send_feed("",detail,
-      :collection_ids=>coll.id,
+    user.send_feed("激活码申请",detail,
+      :collection_ids=>coll.id.to_s,
       :from=>Feed::FROM_WEB)
-    redirect_to "/apply_form"
+    redirect_to "/apply_form?apply=success"
   end
 end

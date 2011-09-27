@@ -38,19 +38,50 @@ class MDouban
   end
 
   class Event
-    attr_reader :title,:summary,:content,:author_name,:author_uri,:id
-    def initialize(id)
-      @id = id
-      parse_info
+    attr_reader :title,:summary,:content,:author_name,:author_uri,
+      :where,:location,:start_time,:end_time
+    def initialize(options)
+      options.each do |key,value|
+        instance_variable_set("@#{key.to_s}".to_sym, value)
+      end
     end
 
-    def parse_info
-      doc = Nokogiri::XML(open("http://api.douban.com/event/#{@id}"))
-      @title = doc.at_css("entry title").content
-      @summary = doc.at_css("entry summary").content
-      @content = doc.at_css("entry content").content
-      @author_name = doc.at_css("entry author name").content
-      @author_uri = doc.at_css("entry author uri").content
+    def self.get_by_id(id)
+      doc = Nokogiri::XML(open("http://api.douban.com/event/#{id}"))
+      title = doc.at_css("entry title").content
+      summary = doc.at_css("entry summary").content
+      content = doc.at_css("entry content").content
+      author_name = doc.at_css("entry author name").content
+      author_uri = doc.at_css("entry author uri").content
+
+      where = doc.at_css("entry gd|where")["valueString"]
+      location = doc.at_css("entry db|location").content
+      gb_when = doc.at_css("entry gd|when")
+      start_time = gb_when["startTime"]
+      end_time = gb_when["endTime"]
+      self.new(:title=>title,:summary=>summary,:content=>content,:author_name=>author_name,
+        :author_uri=>author_uri,:where=>where,:location=>location,
+        :start_time=>start_time,:end_time=>end_time
+      )
+    end
+
+    def self.build_by_location(location)
+      doc = Nokogiri::XML(open("http://api.douban.com/event/location/#{location}"))
+      doc.css("entry").map do |entry|
+        title = entry.at_css("title").content
+        summary = entry.at_css("summary").content
+        content = entry.at_css("content").content
+
+        where = entry.at_css("gd|where")["valueString"]
+        elocation = entry.at_css("db|location").content
+        gb_when = entry.at_css("gd|when")
+        start_time = gb_when["startTime"]
+        end_time = gb_when["endTime"]
+        self.new(:title=>title,:summary=>summary,:content=>content,
+          :where=>where,:location=>elocation,
+          :start_time=>start_time,:end_time=>end_time
+        )
+      end
     end
   end
 end
