@@ -1,0 +1,76 @@
+-#use 登录后的首页
+-#see 登录后的首页
+
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      jQuery('.page-ogrid.drafts .ops .delete').live('click',function(){
+        var elm = jQuery(this);
+        var draft_elm = elm.closest('.draft');
+
+        elm.confirm_dialog('确定要删除吗',function(){
+          var token = draft_elm.domdata('draft-token');
+
+          jQuery.ajax({
+            url : '/post_drafts/'+token,
+            type : 'DELETE',
+            success : function(){
+              draft_elm.fadeOut(400,function(){
+                draft_elm.remove();
+              })
+            }
+          })
+        })
+      })
+    })
+
+-htitle "我的草稿"
+
+-drafts = current_user.post_drafts
+
+.main.grid_24.no-line
+  .page-info-top
+    .meta{:style=>'overflow:visible;'}
+      %h2 我的草稿
+    .clearfix
+
+  .grid_15.alpha
+    .page-ogrid.drafts
+      -drafts.each do |draft|
+        -draft_token = draft.draft_token
+
+        -photo_tmps = draft.photo_tmps
+        -has_photo = !photo_tmps.blank?
+        -single_photo = photo_tmps.length == 1
+
+
+        -title = draft.title
+        -has_title = !title.blank?
+
+        -detail = MindpinTextFormat.new(draft.detail).to_text
+        -has_detail = !detail.blank?
+
+        .draft{:'data-draft-token'=>draft_token}
+          -if has_photo
+            -if single_photo
+              .single_photo
+                -photo = photo_tmps[0]
+                -src = photo.image.url(:w210)
+                %img{:src=>src,:style=>'width:210px;'}
+            -else
+              .photos
+                -photo_tmps.each do |photo|
+                  -src = photo.image.url(:s66)
+                  .photo
+                    %img{:src=>src}
+
+          -if has_title
+            .title=title
+
+          -if has_detail
+            .detail=detail
+
+          .clearfix
+          .ops
+            =minibutton '删除',"javascript:;",:class=>'delete'
+            =minibutton '打开草稿',"/feeds/new?draft=#{draft_token}"

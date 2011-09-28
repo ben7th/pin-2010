@@ -33,12 +33,13 @@ class FeedsController < ApplicationController
       params[:detail],:tags=>params[:tags],
       :photo_names=>params[:photo_names],
       :collection_ids=>params[:collection_ids],
-      :from=>Feed::FROM_WEB,:send_tsina=>params[:send_tsina])
+      :from=>Feed::FROM_WEB,:send_tsina=>params[:send_tsina],
+      :draft_token=>params[:draft_token])
     if feed.id.blank?
       flash[:error]=get_flash_error(feed)
       return redirect_to '/feeds/new'
     end
-    redirect_to '/'
+    redirect_to "/feeds/#{feed.id}"
   end
 
   def _create_android_client
@@ -47,7 +48,8 @@ class FeedsController < ApplicationController
       :tags=>params[:tags],
       :photo_names=>params[:photo_names],
       :collection_ids=>params[:collection_ids],
-      :from=>Feed::FROM_ANDROID,:send_tsina=>params[:send_tsina])
+      :from=>Feed::FROM_ANDROID,:send_tsina=>params[:send_tsina],
+      :draft_token=>params[:draft_token])
     if feed.id.blank?
       return render :status=>422,:text=>422
     end
@@ -184,6 +186,23 @@ class FeedsController < ApplicationController
       return render :text=>200
     end
     return render :status=>401,:text=>401
+  end
+
+  def edit
+    render :layout=>'collection'
+  end
+
+  def update
+    if @feed.creator != current_user
+      return render_status_page(401,"没有权限")
+    end
+    @feed.update_all_attr(params[:title],params[:detail],
+      params[:photo_ids],params[:photo_names],
+      params[:collection_ids],params[:current_user])
+    redirect_to "/feeds/#{@feed.id}"
+  end
+  
+  def repost
   end
 
 end

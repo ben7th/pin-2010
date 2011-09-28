@@ -22,7 +22,7 @@ class PhotosController < ApplicationController
     @image_file_name = PhotoAdpater.create_by_upload_file(params[:file])
     @image_url = PhotoAdpater.thumb_url_by_image_file_name(@image_file_name)
     unless is_android_client?
-      render :partial=>'modules/photos/feed_uploaded',
+      render :partial=>'views_modules/photos/feed_uploaded',
         :locals=>{:url=>@image_url,:name=>@image_file_name}
     else
       render :text=>@image_file_name

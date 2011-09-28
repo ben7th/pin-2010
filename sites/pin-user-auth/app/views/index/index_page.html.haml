@@ -3,12 +3,17 @@
 
 -htitle "大家最近的主题"
 
+-drafts_count = current_user.post_drafts.count
+-has_draft = drafts_count > 0
+
 .main.grid_24.no-line
   .page-info-top
     .meta{:style=>'overflow:visible;'}
       .item.selected 来自联系人的主题
       .item=link_to '所有公开主题','/feeds/all'
       .ops
+        -if has_draft
+          %a.drafts{:href=>'/post_drafts',:title=>'点击查看所有草稿'} <span>有#{drafts_count}条草稿</span>
         %a.create{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
     .clearfix
 

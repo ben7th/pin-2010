@@ -14,7 +14,13 @@ class CollectionFeedsProxy < RedisBaseProxy
       :after_create => Proc.new {|feed_collection|
         coll = feed_collection.collection
         feed = feed_collection.feed
-        CollectionFeedsProxy.new(coll).add_to_cache(feed.id)
+        proxy = CollectionFeedsProxy.new(coll)
+        ids = proxy.xxxs_ids
+        unless ids.include?(feed.id)
+          ids = ids.unshift(feed.id).uniq
+          ids = ids.sort{|id1,id2|id2<=>id1}
+          proxy.send(:send,:xxxs_ids_rediscache_save,ids)
+        end
       },
       :after_destroy => Proc.new {|feed_collection|
         coll = feed_collection.collection

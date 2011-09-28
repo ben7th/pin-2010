@@ -49,11 +49,11 @@
     .detail{
       margin:0;
       padding:9px $h_padding;
-      font-size:14px;
+      font-size:13px;
       @include feed-detail-format;
     }
     .creator{
-      margin:0 4px 4px 4px;
+      margin:4px 4px 4px 4px;
       padding:5px;
       background-color:#fafafa;
       /*border-top:solid 1px #eee;*/
@@ -206,6 +206,16 @@
         span{float:left;}
         .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
         .icon{background:url(/images/alltu.png) -85px -100px;}
+      }
+      .drafts{
+        float:left;
+        padding:0 7px;
+        height:32px;line-height:32px;font-size:12px;
+        margin-right:9px;
+        /*background-color:#ffffea;
+        border:solid 1px #EEEEEE;*/
+        color:#DD4B39 !important;
+        font-weight:bold;
       }
       .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;margin-left:9px;}
     }

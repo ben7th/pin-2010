@@ -1,5 +1,5 @@
 /*创建主题的表单*/
-form.page-new-feed-form{
+form.page-new-feed-form, form.page-edit-feed-form{
   @include new_object_form;
   .form-main{
     border:solid 1px #eee;

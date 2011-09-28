@@ -1,11 +1,19 @@
 -#use 显示主题
 
 -title_short = feed_title_short(@feed,15)
+-has_title = !title_short.blank?
+
 -creator = @feed.creator
 -collection = @feed.collections.first
 -feed_id = @feed.id
 -photos = @feed.photos
+-has_photo = !photos.blank?
+
 -detail = feed_detail(@feed)
+-has_detail = !detail.blank?
+
+-edit_link = "/feeds/#{feed_id}/edit"
+-repost_link = "/feeds/#{feed_id}/repost"
 
 -htitle title_short
 
@@ -19,15 +27,19 @@
       .c-meta
         .name=usersign creator
         .data
+    .f-ops.hide
+      =minibutton '编辑修改',edit_link
+      =minibutton '转发',repost_link
     .f-main
-      .title=link_to title_short,"/feeds/#{feed_id}"
+      -if has_title
+        .title=link_to title_short,"/feeds/#{feed_id}"
 
-      -if !photos.blank?
+      -if has_photo
         .photos>
           -photos.each do |photo|
             -img_src = photo.image.url(:w660)
             .photo>
               %img{:src=>img_src}>
 
-      -if !detail.blank?
+      -if has_detail
         .detail=detail

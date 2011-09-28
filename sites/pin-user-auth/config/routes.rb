@@ -230,7 +230,8 @@ ActionController::Routing::Routes.draw do |map|
     :send_invite_email=>:post,:save_viewpoint_draft=>:post,
     :recover=>:put,:add_spam_mark=>:post,
     :add_tags=>:post,:remove_tag=>:delete,:change_tags=>:put,
-    :lock=>:put,:unlock=>:put,:comments=>:post
+    :lock=>:put,:unlock=>:put,:comments=>:post,
+    :repost=>:get
   },:collection=>{
     :friends=>:get,:newest=>:get,
     :recommend=>:get,:joined=>:get,

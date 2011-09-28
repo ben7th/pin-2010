@@ -769,44 +769,44 @@ a.send-button.mousedown{background:-moz-linear-gradient(-90deg,#768730,#a8bb3f);
 .page-olist .list-blank{padding:20px;font-size:13px;margin:10px;border:solid 1px #EEE;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FAFAFA;}
 .page-ogrid .list-blank{padding:9px;font-size:13px;border:solid 1px #EEE;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FAFAFA;}
 .page-overlay{position:absolute;left:0;top:0;background-color:#fff;z-index:99;}
-form.page-new-feed-form h2.main-title{font-size:20px;font-weight:bold;margin:0 0 20px 0;}
-form.page-new-feed-form .field label{font-size:14px;}
-form.page-new-feed-form .form-main{border:solid 1px #eee;background-color:#fafafa;}
-form.page-new-feed-form .form-main .field.title{padding:9px;margin:0;float:left;}
-form.page-new-feed-form .form-main .field.title label{float:left;width:72px;padding:0 9px;text-align:right;height:32px;line-height:32px;font-size:12px;}
-form.page-new-feed-form .form-main .field.title input.text{width:497px;border-radius:1px;-moz-border-radius:1px;-webkit-border-radius:1px;}
-form.page-new-feed-form .form-main .page-file-upload{padding:9px 9px 9px 0;margin:0;float:right;}
-form.page-new-feed-form .form-main .page-file-upload .upload-btn{width:80px;height:30px;line-height:30px;}
-form.page-new-feed-form .form-main .page-file-upload .relative{position:relative;}
-form.page-new-feed-form .form-main .field.detail{padding:0 9px 9px;margin:0;}
-form.page-new-feed-form .form-main .field.detail textarea.text{width:678px;height:320px;}
-form.page-new-feed-form .form-main .field.photos{overflow:hidden;padding:0 9px;margin:0;}
-form.page-new-feed-form .form-main .field.photos .photo,form.page-new-feed-form .form-main .field.photos .uploading-photo{width:66px;height:66px;border:solid 1px #eee;background-color:#fafafa;padding:0;float:left;margin-right:5px;margin-bottom:5px;position:relative;}
-form.page-new-feed-form .form-main .field.photos .photo .close,form.page-new-feed-form .form-main .field.photos .uploading-photo .close{width:12px;height:12px;position:absolute;top:1px;right:1px;background:url(/images/alltu.png) -133px -81px no-repeat #999;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;border:solid 1px #666;cursor:pointer;}
-form.page-new-feed-form .form-main .field.photos .photo .close:hover,form.page-new-feed-form .form-main .field.photos .uploading-photo .close:hover{background-color:#aaa;border:solid 1px #555;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo{position:relative;background-color:#f4f4f4;background-position:5px 5px;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo.error{color:white;border-color:#B0281A;background-color:#DC4A38;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo.error .process{display:none;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close{display:inline;margin-left:3px;color:white;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close:hover{color:white;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo .meta{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;margin:10px 3px 5px;overflow:hidden;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo .meta .file-name{width:60px;height:18px;overflow:hidden;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo .process{position:absolute;width:60px;height:6px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;background:#ddd;bottom:3px;left:3px;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo .process .p{height:6px;background:#666;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
-form.page-new-feed-form .form-main .field.photos .uploading-photo .error-close{display:none;}
-form.page-new-feed-form .form-submit{border:solid 1px #eee;background-color:#fafafa;margin-top:9px;}
-form.page-new-feed-form .form-submit .field.subm{padding:9px;margin:0;overflow:hidden;}
-form.page-new-feed-form .form-submit .field.subm .create-submit,form.page-new-feed-form .form-submit .field.subm .create-save-draft,form.page-new-feed-form .form-submit .field.subm .create-cancel{padding:0 14px!important;height:30px;line-height:30px;font-size:14px;}
-form.page-new-feed-form .form-submit .field.subm .create-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;float:left;margin-right:10px;}
-form.page-new-feed-form .form-submit .field.subm .create-submit:hover{color:white;text-decoration:none;border:solid 1px #0069dd;box-shadow:0 1px 2px #ccc;}
-form.page-new-feed-form .form-submit .field.subm .create-submit span{display:block;}
-form.page-new-feed-form .form-submit .field.subm .create-save-draft{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;float:left;margin-right:10px;}
-form.page-new-feed-form .form-submit .field.subm .create-save-draft:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
-form.page-new-feed-form .form-submit .field.subm .create-save-draft span{display:block;}
-form.page-new-feed-form .form-submit .field.subm .create-cancel{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;float:right;}
-form.page-new-feed-form .form-submit .field.subm .create-cancel:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
-form.page-new-feed-form .form-submit .field.subm .create-cancel span{display:block;}
-form.page-new-feed-form .form-submit .field.subm span.submit-info{line-height:32px;height:32px;font-size:14px;color:#DD4B39;}
+form.page-new-feed-form h2.main-title,form.page-edit-feed-form h2.main-title{font-size:20px;font-weight:bold;margin:0 0 20px 0;}
+form.page-new-feed-form .field label,form.page-edit-feed-form .field label{font-size:14px;}
+form.page-new-feed-form .form-main,form.page-edit-feed-form .form-main{border:solid 1px #eee;background-color:#fafafa;}
+form.page-new-feed-form .form-main .field.title,form.page-edit-feed-form .form-main .field.title{padding:9px;margin:0;float:left;}
+form.page-new-feed-form .form-main .field.title label,form.page-edit-feed-form .form-main .field.title label{float:left;width:72px;padding:0 9px;text-align:right;height:32px;line-height:32px;font-size:12px;}
+form.page-new-feed-form .form-main .field.title input.text,form.page-edit-feed-form .form-main .field.title input.text{width:497px;border-radius:1px;-moz-border-radius:1px;-webkit-border-radius:1px;}
+form.page-new-feed-form .form-main .page-file-upload,form.page-edit-feed-form .form-main .page-file-upload{padding:9px 9px 9px 0;margin:0;float:right;}
+form.page-new-feed-form .form-main .page-file-upload .upload-btn,form.page-edit-feed-form .form-main .page-file-upload .upload-btn{width:80px;height:30px;line-height:30px;}
+form.page-new-feed-form .form-main .page-file-upload .relative,form.page-edit-feed-form .form-main .page-file-upload .relative{position:relative;}
+form.page-new-feed-form .form-main .field.detail,form.page-edit-feed-form .form-main .field.detail{padding:0 9px 9px;margin:0;}
+form.page-new-feed-form .form-main .field.detail textarea.text,form.page-edit-feed-form .form-main .field.detail textarea.text{width:678px;height:320px;}
+form.page-new-feed-form .form-main .field.photos,form.page-edit-feed-form .form-main .field.photos{overflow:hidden;padding:0 9px;margin:0;}
+form.page-new-feed-form .form-main .field.photos .photo,form.page-new-feed-form .form-main .field.photos .uploading-photo,form.page-edit-feed-form .form-main .field.photos .photo,form.page-edit-feed-form .form-main .field.photos .uploading-photo{width:66px;height:66px;border:solid 1px #eee;background-color:#fafafa;padding:0;float:left;margin-right:5px;margin-bottom:5px;position:relative;}
+form.page-new-feed-form .form-main .field.photos .photo .close,form.page-new-feed-form .form-main .field.photos .uploading-photo .close,form.page-edit-feed-form .form-main .field.photos .photo .close,form.page-edit-feed-form .form-main .field.photos .uploading-photo .close{width:12px;height:12px;position:absolute;top:1px;right:1px;background:url(/images/alltu.png) -133px -81px no-repeat #999;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;border:solid 1px #666;cursor:pointer;}
+form.page-new-feed-form .form-main .field.photos .photo .close:hover,form.page-new-feed-form .form-main .field.photos .uploading-photo .close:hover,form.page-edit-feed-form .form-main .field.photos .photo .close:hover,form.page-edit-feed-form .form-main .field.photos .uploading-photo .close:hover{background-color:#aaa;border:solid 1px #555;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo,form.page-edit-feed-form .form-main .field.photos .uploading-photo{position:relative;background-color:#f4f4f4;background-position:5px 5px;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo.error,form.page-edit-feed-form .form-main .field.photos .uploading-photo.error{color:white;border-color:#B0281A;background-color:#DC4A38;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo.error .process,form.page-edit-feed-form .form-main .field.photos .uploading-photo.error .process{display:none;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close,form.page-edit-feed-form .form-main .field.photos .uploading-photo.error .error-close{display:inline;margin-left:3px;color:white;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close:hover,form.page-edit-feed-form .form-main .field.photos .uploading-photo.error .error-close:hover{color:white;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo .meta,form.page-edit-feed-form .form-main .field.photos .uploading-photo .meta{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;margin:10px 3px 5px;overflow:hidden;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo .meta .file-name,form.page-edit-feed-form .form-main .field.photos .uploading-photo .meta .file-name{width:60px;height:18px;overflow:hidden;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo .process,form.page-edit-feed-form .form-main .field.photos .uploading-photo .process{position:absolute;width:60px;height:6px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;background:#ddd;bottom:3px;left:3px;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo .process .p,form.page-edit-feed-form .form-main .field.photos .uploading-photo .process .p{height:6px;background:#666;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
+form.page-new-feed-form .form-main .field.photos .uploading-photo .error-close,form.page-edit-feed-form .form-main .field.photos .uploading-photo .error-close{display:none;}
+form.page-new-feed-form .form-submit,form.page-edit-feed-form .form-submit{border:solid 1px #eee;background-color:#fafafa;margin-top:9px;}
+form.page-new-feed-form .form-submit .field.subm,form.page-edit-feed-form .form-submit .field.subm{padding:9px;margin:0;overflow:hidden;}
+form.page-new-feed-form .form-submit .field.subm .create-submit,form.page-new-feed-form .form-submit .field.subm .create-save-draft,form.page-new-feed-form .form-submit .field.subm .create-cancel,form.page-edit-feed-form .form-submit .field.subm .create-submit,form.page-edit-feed-form .form-submit .field.subm .create-save-draft,form.page-edit-feed-form .form-submit .field.subm .create-cancel{padding:0 14px!important;height:30px;line-height:30px;font-size:14px;}
+form.page-new-feed-form .form-submit .field.subm .create-submit,form.page-edit-feed-form .form-submit .field.subm .create-submit{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#4C8FFD;border:solid 1px #10698D;font-weight:bold;color:white;text-shadow:0 0 2px #444;float:left;margin-right:10px;}
+form.page-new-feed-form .form-submit .field.subm .create-submit:hover,form.page-edit-feed-form .form-submit .field.subm .create-submit:hover{color:white;text-decoration:none;border:solid 1px #0069dd;box-shadow:0 1px 2px #ccc;}
+form.page-new-feed-form .form-submit .field.subm .create-submit span,form.page-edit-feed-form .form-submit .field.subm .create-submit span{display:block;}
+form.page-new-feed-form .form-submit .field.subm .create-save-draft,form.page-edit-feed-form .form-submit .field.subm .create-save-draft{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;float:left;margin-right:10px;}
+form.page-new-feed-form .form-submit .field.subm .create-save-draft:hover,form.page-edit-feed-form .form-submit .field.subm .create-save-draft:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
+form.page-new-feed-form .form-submit .field.subm .create-save-draft span,form.page-edit-feed-form .form-submit .field.subm .create-save-draft span{display:block;}
+form.page-new-feed-form .form-submit .field.subm .create-cancel,form.page-edit-feed-form .form-submit .field.subm .create-cancel{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;float:right;}
+form.page-new-feed-form .form-submit .field.subm .create-cancel:hover,form.page-edit-feed-form .form-submit .field.subm .create-cancel:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
+form.page-new-feed-form .form-submit .field.subm .create-cancel span,form.page-edit-feed-form .form-submit .field.subm .create-cancel span{display:block;}
+form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit-feed-form .form-submit .field.subm span.submit-info{line-height:32px;height:32px;font-size:14px;color:#DD4B39;}
 .page-new-feed-form-side .form-collection-select{border:solid 1px #eee;}
 .page-new-feed-form-side .form-collection-select h3{padding:9px;margin:0;border-bottom:solid 1px #eee;background-color:#fafafa;font-style:14px;line-height:22px;color:#999;}
 .page-new-feed-form-side .form-collection-select .field.collections{background-color:#fff;margin:0;}
@@ -2087,6 +2087,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-collection-top .meta .ops .create span,.page-info-top .meta .ops .create span{float:left;}
 .page-collection-top .meta .ops .create .icon,.page-info-top .meta .ops .create .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
 .page-collection-top .meta .ops .create .icon,.page-info-top .meta .ops .create .icon{background:url(/images/alltu.png) -85px -100px;}
+.page-collection-top .meta .ops .drafts,.page-info-top .meta .ops .drafts{float:left;padding:0 7px;height:32px;line-height:32px;font-size:12px;margin-right:9px;color:#DD4B39!important;font-weight:bold;}
 .page-collection-top .meta .ops .minibutton.edit,.page-info-top .meta .ops .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;margin-left:9px;}
 .page-collection-top .foot,.page-info-top .foot{border-top:solid 1px #eee;background-color:#fafafa;padding:9px;overflow:hidden;}
 .page-collection-top .foot .creator,.page-info-top .foot .creator{float:left;overflow:hidden;}
@@ -2154,6 +2155,15 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.followings .following .mindpin-user,.page-ogrid.followings .following .tsina-user{margin:0 4px 4px;background-color:#F4F4F4;padding:0 5px;height:32px;line-height:32px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 .page-ogrid.followings .following .mindpin-user a,.page-ogrid.followings .following .tsina-user a{color:#666!important;}
 .page-ogrid.followings .following .mindpin-user span,.page-ogrid.followings .following .tsina-user span{font-weight:bold;color:#888;}
+.page-ogrid.drafts .draft{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:9px;overflow:hidden;margin-bottom:9px;}
+.page-ogrid.drafts .draft .single_photo{float:left;margin-right:14px;font-size:0;line-height:0;margin-bottom:9px;}
+.page-ogrid.drafts .draft .photos{overflow:hidden;margin-bottom:5px;}
+.page-ogrid.drafts .draft .photos .photo{float:left;font-size:0;line-height:0;margin-right:4px;margin-bottom:4px;width:66px;height:66px;}
+.page-ogrid.drafts .draft .photos .photo img{padding:0;width:66px;height:66px;}
+.page-ogrid.drafts .draft .title{font-size:14px;font-weight:bold;padding:5px 0;}
+.page-ogrid.drafts .draft .detail{font-size:13px;padding:5px 0;}
+.page-ogrid.drafts .draft .ops{overflow:hidden;margin:0 -4px -4px;padding:5px;background-color:#fafafa;}
+.page-ogrid.drafts .draft .ops a{float:right;margin-left:5px;font-weight:normal;color:#666!important;padding:0 9px;}
 .minibutton{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;display:block;padding:0;text-align:center;background-color:#F0F0F0;border:solid 1px #ddd;font-weight:bold;color:#444!important;display:inline-block;height:22px;line-height:22px;padding:0 5px;}
 .minibutton:hover{text-decoration:none;background-color:#E9E9E9;color:#444!important;box-shadow:0 1px 2px #eee;}
 .minibutton span{display:block;}

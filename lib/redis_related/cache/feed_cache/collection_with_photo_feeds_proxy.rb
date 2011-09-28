@@ -12,7 +12,13 @@ class CollectionWithPhotoFeedsProxy < RedisBaseProxy
     coll = feed_collection.collection
     feed = feed_collection.feed
     return if feed.main_post.post_photos.blank?
-    CollectionWithPhotoFeedsProxy.new(coll).add_to_cache(feed.id)
+    proxy = CollectionWithPhotoFeedsProxy.new(coll)
+    ids = proxy.xxxs_ids
+    unless ids.include?(feed.id)
+      ids = ids.unshift(feed.id).uniq
+      ids = ids.sort{|id1,id2|id2<=>id1}
+      proxy.send(:send,:xxxs_ids_rediscache_save,ids)
+    end
   end
 
   def self.remove_feed_cache(feed_collection)

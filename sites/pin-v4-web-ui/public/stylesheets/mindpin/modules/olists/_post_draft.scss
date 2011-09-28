@@ -1,0 +1,44 @@
+.page-ogrid.drafts{
+  .draft{
+    @include gray-box;
+    padding:9px;
+    overflow:hidden;
+    margin-bottom:9px;
+    
+    .single_photo{
+      float:left;margin-right:14px;
+      font-size:0;line-height:0;
+      margin-bottom:9px;
+    }
+    
+    .photos{
+      overflow:hidden;
+      margin-bottom:5px;
+      .photo{
+        float:left;
+        font-size:0;line-height:0;
+        margin-right:4px;margin-bottom:4px;
+        $img_width:66px;
+        width:$img_width;height:$img_width;
+        img{
+          padding:0px;
+          width:$img_width;height:$img_width;
+        }
+      }
+    }
+    .title{
+      font-size:14px;font-weight:bold;
+      padding:5px 0;
+    }
+    .detail{
+      font-size:13px;
+      padding:5px 0;
+    }
+    .ops{
+      overflow:hidden;
+      margin:0 -4px -4px;padding:5px;
+      background-color:#fafafa;
+      a{float:right;margin-left:5px;font-weight:normal;color:#666 !important;padding:0 9px;}
+    }
+  }
+}

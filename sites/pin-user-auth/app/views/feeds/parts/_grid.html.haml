@@ -9,13 +9,19 @@
   -else
     -feeds.each do |feed|
       -feed_id = feed.id
+
       -title_short = feed_title_short(feed,15)
+      -has_title = !title_short.blank?
+
       -photos = feed.photos
+      -has_photo = !photos.blank?
+
       -detail = feed_detail_short(feed)
+      -has_detail = !detail.blank?
 
       .feed{:'data-id'=>feed_id}
 
-        -if !photos.blank?
+        -if has_photo
           -photo = photos.first
           -img_src = photo.image.url(:w210)
           -css_height = photo.image_height(:w210)
@@ -27,9 +33,10 @@
               -if has_many_photos
                 .photo-count="#{photos.length} 张图片"
 
-        .title=link_to title_short,"/feeds/#{feed_id}"
+        -if has_title
+          .title=link_to title_short,"/feeds/#{feed_id}"
 
-        -if !detail.blank?
+        -if has_detail
           .detail=detail
 
         -if !hide_creator

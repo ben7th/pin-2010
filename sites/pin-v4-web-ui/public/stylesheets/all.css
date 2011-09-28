@@ -2963,24 +2963,24 @@ a.send-button {
   z-index: 99; }
 
 /*创建主题的表单*/
-form.page-new-feed-form h2.main-title {
+form.page-new-feed-form h2.main-title, form.page-edit-feed-form h2.main-title {
   font-size: 20px;
   font-weight: bold;
   margin: 0 0 20px 0; }
-form.page-new-feed-form .field label {
+form.page-new-feed-form .field label, form.page-edit-feed-form .field label {
   font-size: 14px; }
-form.page-new-feed-form .form-main {
+form.page-new-feed-form .form-main, form.page-edit-feed-form .form-main {
   border: solid 1px #eee;
   background-color: #fafafa;
   /*标题*/
   /*图片上传按钮*/
   /*正文*/
   /*照片区域*/ }
-  form.page-new-feed-form .form-main .field.title {
+  form.page-new-feed-form .form-main .field.title, form.page-edit-feed-form .form-main .field.title {
     padding: 9px;
     margin: 0;
     float: left; }
-    form.page-new-feed-form .form-main .field.title label {
+    form.page-new-feed-form .form-main .field.title label, form.page-edit-feed-form .form-main .field.title label {
       float: left;
       width: 72px;
       padding: 0 9px;
@@ -2988,32 +2988,32 @@ form.page-new-feed-form .form-main {
       height: 32px;
       line-height: 32px;
       font-size: 12px; }
-    form.page-new-feed-form .form-main .field.title input.text {
+    form.page-new-feed-form .form-main .field.title input.text, form.page-edit-feed-form .form-main .field.title input.text {
       width: 497px;
       border-radius: 1px;
       -moz-border-radius: 1px;
       -webkit-border-radius: 1px; }
-  form.page-new-feed-form .form-main .page-file-upload {
+  form.page-new-feed-form .form-main .page-file-upload, form.page-edit-feed-form .form-main .page-file-upload {
     padding: 9px 9px 9px 0;
     margin: 0;
     float: right; }
-    form.page-new-feed-form .form-main .page-file-upload .upload-btn {
+    form.page-new-feed-form .form-main .page-file-upload .upload-btn, form.page-edit-feed-form .form-main .page-file-upload .upload-btn {
       width: 80px;
       height: 30px;
       line-height: 30px; }
-    form.page-new-feed-form .form-main .page-file-upload .relative {
+    form.page-new-feed-form .form-main .page-file-upload .relative, form.page-edit-feed-form .form-main .page-file-upload .relative {
       position: relative; }
-  form.page-new-feed-form .form-main .field.detail {
+  form.page-new-feed-form .form-main .field.detail, form.page-edit-feed-form .form-main .field.detail {
     padding: 0 9px 9px;
     margin: 0; }
-    form.page-new-feed-form .form-main .field.detail textarea.text {
+    form.page-new-feed-form .form-main .field.detail textarea.text, form.page-edit-feed-form .form-main .field.detail textarea.text {
       width: 678px;
       height: 320px; }
-  form.page-new-feed-form .form-main .field.photos {
+  form.page-new-feed-form .form-main .field.photos, form.page-edit-feed-form .form-main .field.photos {
     overflow: hidden;
     padding: 0 9px;
     margin: 0; }
-    form.page-new-feed-form .form-main .field.photos .photo, form.page-new-feed-form .form-main .field.photos .uploading-photo {
+    form.page-new-feed-form .form-main .field.photos .photo, form.page-new-feed-form .form-main .field.photos .uploading-photo, form.page-edit-feed-form .form-main .field.photos .photo, form.page-edit-feed-form .form-main .field.photos .uploading-photo {
       width: 66px;
       height: 66px;
       border: solid 1px #eee;
@@ -3023,7 +3023,7 @@ form.page-new-feed-form .form-main {
       margin-right: 5px;
       margin-bottom: 5px;
       position: relative; }
-      form.page-new-feed-form .form-main .field.photos .photo .close, form.page-new-feed-form .form-main .field.photos .uploading-photo .close {
+      form.page-new-feed-form .form-main .field.photos .photo .close, form.page-new-feed-form .form-main .field.photos .uploading-photo .close, form.page-edit-feed-form .form-main .field.photos .photo .close, form.page-edit-feed-form .form-main .field.photos .uploading-photo .close {
         width: 12px;
         height: 12px;
         position: absolute;
@@ -3035,34 +3035,34 @@ form.page-new-feed-form .form-main {
         -webkit-border-radius: 2px;
         border: solid 1px #666;
         cursor: pointer; }
-        form.page-new-feed-form .form-main .field.photos .photo .close:hover, form.page-new-feed-form .form-main .field.photos .uploading-photo .close:hover {
+        form.page-new-feed-form .form-main .field.photos .photo .close:hover, form.page-new-feed-form .form-main .field.photos .uploading-photo .close:hover, form.page-edit-feed-form .form-main .field.photos .photo .close:hover, form.page-edit-feed-form .form-main .field.photos .uploading-photo .close:hover {
           background-color: #aaa;
           border: solid 1px #555; }
-    form.page-new-feed-form .form-main .field.photos .uploading-photo {
+    form.page-new-feed-form .form-main .field.photos .uploading-photo, form.page-edit-feed-form .form-main .field.photos .uploading-photo {
       position: relative;
       background-color: #f4f4f4;
       background-position: 5px 5px; }
-      form.page-new-feed-form .form-main .field.photos .uploading-photo.error {
+      form.page-new-feed-form .form-main .field.photos .uploading-photo.error, form.page-edit-feed-form .form-main .field.photos .uploading-photo.error {
         color: white;
         border-color: #B0281A;
         background-color: #DC4A38; }
-        form.page-new-feed-form .form-main .field.photos .uploading-photo.error .process {
+        form.page-new-feed-form .form-main .field.photos .uploading-photo.error .process, form.page-edit-feed-form .form-main .field.photos .uploading-photo.error .process {
           display: none; }
-        form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close {
+        form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close, form.page-edit-feed-form .form-main .field.photos .uploading-photo.error .error-close {
           display: inline;
           margin-left: 3px;
           color: white; }
-          form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close:hover {
+          form.page-new-feed-form .form-main .field.photos .uploading-photo.error .error-close:hover, form.page-edit-feed-form .form-main .field.photos .uploading-photo.error .error-close:hover {
             color: white; }
-      form.page-new-feed-form .form-main .field.photos .uploading-photo .meta {
+      form.page-new-feed-form .form-main .field.photos .uploading-photo .meta, form.page-edit-feed-form .form-main .field.photos .uploading-photo .meta {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
         margin: 10px 3px 5px;
         overflow: hidden; }
-        form.page-new-feed-form .form-main .field.photos .uploading-photo .meta .file-name {
+        form.page-new-feed-form .form-main .field.photos .uploading-photo .meta .file-name, form.page-edit-feed-form .form-main .field.photos .uploading-photo .meta .file-name {
           width: 60px;
           height: 18px;
           overflow: hidden; }
-      form.page-new-feed-form .form-main .field.photos .uploading-photo .process {
+      form.page-new-feed-form .form-main .field.photos .uploading-photo .process, form.page-edit-feed-form .form-main .field.photos .uploading-photo .process {
         position: absolute;
         width: 60px;
         height: 6px;
@@ -3072,28 +3072,28 @@ form.page-new-feed-form .form-main {
         background: #ddd;
         bottom: 3px;
         left: 3px; }
-        form.page-new-feed-form .form-main .field.photos .uploading-photo .process .p {
+        form.page-new-feed-form .form-main .field.photos .uploading-photo .process .p, form.page-edit-feed-form .form-main .field.photos .uploading-photo .process .p {
           height: 6px;
           background: #666;
           border-radius: 2px;
           -moz-border-radius: 2px;
           -webkit-border-radius: 2px; }
-      form.page-new-feed-form .form-main .field.photos .uploading-photo .error-close {
+      form.page-new-feed-form .form-main .field.photos .uploading-photo .error-close, form.page-edit-feed-form .form-main .field.photos .uploading-photo .error-close {
         display: none; }
-form.page-new-feed-form .form-submit {
+form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   border: solid 1px #eee;
   background-color: #fafafa;
   margin-top: 9px; }
-  form.page-new-feed-form .form-submit .field.subm {
+  form.page-new-feed-form .form-submit .field.subm, form.page-edit-feed-form .form-submit .field.subm {
     padding: 9px;
     margin: 0;
     overflow: hidden; }
-    form.page-new-feed-form .form-submit .field.subm .create-submit, form.page-new-feed-form .form-submit .field.subm .create-save-draft, form.page-new-feed-form .form-submit .field.subm .create-cancel {
+    form.page-new-feed-form .form-submit .field.subm .create-submit, form.page-new-feed-form .form-submit .field.subm .create-save-draft, form.page-new-feed-form .form-submit .field.subm .create-cancel, form.page-edit-feed-form .form-submit .field.subm .create-submit, form.page-edit-feed-form .form-submit .field.subm .create-save-draft, form.page-edit-feed-form .form-submit .field.subm .create-cancel {
       padding: 0 14px !important;
       height: 30px;
       line-height: 30px;
       font-size: 14px; }
-    form.page-new-feed-form .form-submit .field.subm .create-submit {
+    form.page-new-feed-form .form-submit .field.subm .create-submit, form.page-edit-feed-form .form-submit .field.subm .create-submit {
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
@@ -3107,14 +3107,14 @@ form.page-new-feed-form .form-submit {
       text-shadow: 0 0 2px #444444;
       float: left;
       margin-right: 10px; }
-      form.page-new-feed-form .form-submit .field.subm .create-submit:hover {
+      form.page-new-feed-form .form-submit .field.subm .create-submit:hover, form.page-edit-feed-form .form-submit .field.subm .create-submit:hover {
         color: white;
         text-decoration: none;
         border: solid 1px #0069dd;
         box-shadow: 0 1px 2px #ccc; }
-      form.page-new-feed-form .form-submit .field.subm .create-submit span {
+      form.page-new-feed-form .form-submit .field.subm .create-submit span, form.page-edit-feed-form .form-submit .field.subm .create-submit span {
         display: block; }
-    form.page-new-feed-form .form-submit .field.subm .create-save-draft {
+    form.page-new-feed-form .form-submit .field.subm .create-save-draft, form.page-edit-feed-form .form-submit .field.subm .create-save-draft {
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
@@ -3127,14 +3127,14 @@ form.page-new-feed-form .form-submit {
       color: #444 !important;
       float: left;
       margin-right: 10px; }
-      form.page-new-feed-form .form-submit .field.subm .create-save-draft:hover {
+      form.page-new-feed-form .form-submit .field.subm .create-save-draft:hover, form.page-edit-feed-form .form-submit .field.subm .create-save-draft:hover {
         text-decoration: none;
         background-color: #E9E9E9;
         color: #444 !important;
         box-shadow: 0 1px 2px #eee; }
-      form.page-new-feed-form .form-submit .field.subm .create-save-draft span {
+      form.page-new-feed-form .form-submit .field.subm .create-save-draft span, form.page-edit-feed-form .form-submit .field.subm .create-save-draft span {
         display: block; }
-    form.page-new-feed-form .form-submit .field.subm .create-cancel {
+    form.page-new-feed-form .form-submit .field.subm .create-cancel, form.page-edit-feed-form .form-submit .field.subm .create-cancel {
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
@@ -3146,14 +3146,14 @@ form.page-new-feed-form .form-submit {
       font-weight: bold;
       color: #444 !important;
       float: right; }
-      form.page-new-feed-form .form-submit .field.subm .create-cancel:hover {
+      form.page-new-feed-form .form-submit .field.subm .create-cancel:hover, form.page-edit-feed-form .form-submit .field.subm .create-cancel:hover {
         text-decoration: none;
         background-color: #E9E9E9;
         color: #444 !important;
         box-shadow: 0 1px 2px #eee; }
-      form.page-new-feed-form .form-submit .field.subm .create-cancel span {
+      form.page-new-feed-form .form-submit .field.subm .create-cancel span, form.page-edit-feed-form .form-submit .field.subm .create-cancel span {
         display: block; }
-    form.page-new-feed-form .form-submit .field.subm span.submit-info {
+    form.page-new-feed-form .form-submit .field.subm span.submit-info, form.page-edit-feed-form .form-submit .field.subm span.submit-info {
       line-height: 32px;
       height: 32px;
       font-size: 14px;
@@ -8993,7 +8993,7 @@ form .field.sendto-select-widget .sendto-selector {
     .page-ogrid.collection-feeds .feed .detail {
       margin: 0;
       padding: 9px 14px;
-      font-size: 14px; }
+      font-size: 13px; }
       .page-ogrid.collection-feeds .feed .detail ol {
         margin-left: 1.5em; }
       .page-ogrid.collection-feeds .feed .detail p {
@@ -9005,7 +9005,7 @@ form .field.sendto-select-widget .sendto-selector {
         background: url(/images/alltu.png) no-repeat -691px -1px;
         background-color: #fafafa; }
     .page-ogrid.collection-feeds .feed .creator {
-      margin: 0 4px 4px 4px;
+      margin: 4px 4px 4px 4px;
       padding: 5px;
       background-color: #fafafa;
       /*border-top:solid 1px #eee;*/
@@ -9171,6 +9171,17 @@ form .field.sendto-select-widget .sendto-selector {
           margin-right: 3px; }
         .page-collection-top .meta .ops .create .icon, .page-info-top .meta .ops .create .icon {
           background: url(/images/alltu.png) -85px -100px; }
+      .page-collection-top .meta .ops .drafts, .page-info-top .meta .ops .drafts {
+        float: left;
+        padding: 0 7px;
+        height: 32px;
+        line-height: 32px;
+        font-size: 12px;
+        margin-right: 9px;
+        /*background-color:#ffffea;
+        border:solid 1px #EEEEEE;*/
+        color: #DD4B39 !important;
+        font-weight: bold; }
       .page-collection-top .meta .ops .minibutton.edit, .page-info-top .meta .ops .minibutton.edit {
         float: left;
         font-size: 14px;
@@ -9450,6 +9461,53 @@ form .field.sendto-select-widget .sendto-selector {
       .page-ogrid.followings .following .mindpin-user span, .page-ogrid.followings .following .tsina-user span {
         font-weight: bold;
         color: #888; }
+
+.page-ogrid.drafts .draft {
+  border: solid 1px #eee;
+  background-color: #FFF;
+  padding: 9px;
+  padding: 9px;
+  overflow: hidden;
+  margin-bottom: 9px; }
+  .page-ogrid.drafts .draft .single_photo {
+    float: left;
+    margin-right: 14px;
+    font-size: 0;
+    line-height: 0;
+    margin-bottom: 9px; }
+  .page-ogrid.drafts .draft .photos {
+    overflow: hidden;
+    margin-bottom: 5px; }
+    .page-ogrid.drafts .draft .photos .photo {
+      float: left;
+      font-size: 0;
+      line-height: 0;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      width: 66px;
+      height: 66px; }
+      .page-ogrid.drafts .draft .photos .photo img {
+        padding: 0px;
+        width: 66px;
+        height: 66px; }
+  .page-ogrid.drafts .draft .title {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0; }
+  .page-ogrid.drafts .draft .detail {
+    font-size: 13px;
+    padding: 5px 0; }
+  .page-ogrid.drafts .draft .ops {
+    overflow: hidden;
+    margin: 0 -4px -4px;
+    padding: 5px;
+    background-color: #fafafa; }
+    .page-ogrid.drafts .draft .ops a {
+      float: right;
+      margin-left: 5px;
+      font-weight: normal;
+      color: #666 !important;
+      padding: 0 9px; }
 
 .minibutton {
   border-radius: 3px;

@@ -103,7 +103,8 @@ class Feed < UserAuthAbstract
   end
 
   def update_attrs_and_record_editor(editor,options)
-    options.assert_valid_keys(:title,:detail,:tag_names_string,:message)
+    options.assert_valid_keys(:title,:detail,:tag_names_string,:message,
+    :photo_ids,:photo_names,:collection_ids)
     return if self.locked? && !editor.is_admin_user?
     return if editor.blank?
     
@@ -116,6 +117,14 @@ class Feed < UserAuthAbstract
     con1 = (!title.blank? && title !=self.title)
     con2 = (!detail.blank? && detail !=self.detail)
     con3 = (!tag_names_string.nil?) && self.tag_has_change?(tag_names_string,editor)
+
+    con4 = (!!options[:photo_names])
+    photo_ids = self.photos.map{|photo|photo.id}
+    delete_photo_ids = photo_ids-(options[:photo_ids].split(",").map{|id|id.to_i})
+    con5 = !delete_photo_ids.blank?
+    collection_ids = self.collections.map{|collection|collection.id}
+    delete_collection_ids = collection_ids-(options[:collection_ids].split(",").map{|id|id.to_i})
+    con6 = !delete_collection_ids.blank?
 
     # 更新 feed 标题
     if con1
@@ -132,7 +141,28 @@ class Feed < UserAuthAbstract
       self.change_tags_without_record_editor(tag_names_string, editor)
     end
 
-    if con1 || con2 || con3
+    if con4
+      (options[:photo_names]||"").split(",").each do |name|
+        photo = PhotoAdpater.create_photo_by_file_name(name,self.creator)
+        self.main_post.post_photos.create(:photo=>photo)
+      end
+    end
+
+    if con5
+      delete_photo_ids.each do |id|
+        photo = Photo.find_by_id(id)
+        self.photos.delete(photo) if !!photo
+      end
+    end
+
+    if con6
+      delete_collection_ids.each do |id|
+        collection = Collection.find_by_id(id)
+        self.collections.delete(collection) if !!collection
+      end
+    end
+
+    if con1 || con2 || con3 || con4 || con5 || con6
       self.record_editer(editor,mesage)
     end
 
@@ -148,10 +178,10 @@ class Feed < UserAuthAbstract
     update_attrs_and_record_editor(editor,:detail=>detail,:message=>"修改正文")
   end
 
-  def update_all_attr(title, tags, detail, editor)
+  def update_all_attr(title,detail,photo_ids,photo_names,collection_ids, editor)
     update_attrs_and_record_editor(editor,:title=>title,
-      :detail=>detail,:tag_names_string=>tags
-    )
+      :detail=>detail,:photo_ids=>photo_ids,:photo_names=>photo_names,
+      :collection_ids=>collection_ids)
   end
 
   def show
@@ -274,7 +304,12 @@ class Feed < UserAuthAbstract
 
   def send_to_tsina
     content = MindpinTextFormat.new(detail).to_text
-    status = truncate_u("#{title} #{content}", 126)
+    ftitle = self.title
+    if ftitle.blank?
+      status = truncate_u("#{content}", 126)
+    else
+      status = truncate_u("『#{ftitle}』#{content}", 126)
+    end
     url = pin_url_for("pin-user-auth","/feeds/#{id}")
     status = "#{status} #{url}"
     if self.photos.blank?
@@ -361,6 +396,10 @@ class Feed < UserAuthAbstract
       return feed if !feed.valid?
       feed.save!
 
+
+      post_draft = PostDraft.find_by_draft_token(options[:draft_token])
+      post_draft.destroy if !!post_draft
+
       feed.create_main_post(title,detail)
 
       if !!options[:photo_names]
@@ -380,7 +419,7 @@ class Feed < UserAuthAbstract
       tags = Tag::DEFAULT if tags.blank?
       feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)
-      if options[:send_tsina] == "true" || options[:send_tsina]
+      if options[:send_tsina] == "true"
         feed.send_to_tsina
       end
       feed

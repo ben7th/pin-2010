@@ -5,10 +5,12 @@ class PostDraft < UserAuthAbstract
   belongs_to :user
   validates_presence_of :draft_token
   validates_presence_of :user
-  validates_presence_of :text_format,:if => Proc.new { |post_draft| !post_draft.content.blank? }
+  validates_presence_of :text_format,:if => Proc.new { |post_draft| !post_draft.detail.blank? }
 
-  def photo_name_array
-   self.photo_names.split(",")
+  def photo_tmps
+   self.photo_names.split(",").map do |name|
+     PhotoTmp.find(name)
+   end
   end
 
   def collection_id_array

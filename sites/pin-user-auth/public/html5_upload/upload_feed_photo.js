@@ -1,7 +1,7 @@
 pie.load(function(){
   var file_input_elm = jQuery('.page-file-upload input[type=file]');
   var photos_elm = jQuery('.page-new-feed-form .field.photos');
-  var form_photos_ipter_elm = jQuery('.page-new-feed-form .field.photos .photos-ipter').val('');
+  var form_photos_ipter_elm = jQuery('.page-new-feed-form .field.photos .photos-ipter');
 
 /*
   .uploading-photo.aj-loading{:style=>'display:none;'}

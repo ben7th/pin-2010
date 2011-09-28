@@ -12,8 +12,24 @@
 -# photo_names
 -# detail
 -# collection_ids
+-# send_tsina
 
 -# 如果保存草稿，多保存一个 draft_token 用来指定草稿
+
+-draft_token = params[:draft] || randstr(8)
+
+-draft = PostDraft.find_by_draft_token(draft_token)
+-has_draft = !draft.blank?
+
+-ipt_title          = has_draft ? draft.title : ''
+-ipt_photo_names    = has_draft ? draft.photo_names : ''
+-ipt_photo_tmps     = has_draft ? draft.photo_tmps : []
+
+-ipt_detail         = has_draft ? draft.detail : ''
+-ipt_collection_ids = has_draft ? draft.collection_ids : (params[:collection] || '')
+-ipt_send_tsina     = ''
+
+-aimed_collection = !params[:collection].blank?
 
 
 .main.grid_18.no-line
@@ -21,7 +37,7 @@
     .form-main
       .field.title
         %label 标题（选填）
-        =text_field_tag "title",'',:class=>"text title-ipter at-least"
+        =text_field_tag "title", ipt_title, :class=>"text title-ipter at-least"
 
       .page-file-upload
         -btn_width = 82
@@ -33,15 +49,25 @@
 
       .clearfix
 
-
       .field.photos
-        =hidden_field_tag "photo_names",'',:class=>'photos-ipter at-least'
+        -ipt_photo_tmps.each do |photo|
+          -image_url = photo.image.url(:s66)
+          -image_file_name = photo.id
+          =render 'views_modules/photos/feed_uploaded',:url=>image_url,:name=>image_file_name
+
+        =hidden_field_tag "photo_names", ipt_photo_names, :class=>'photos-ipter at-least'
 
       .field.detail
-        =text_area_tag "detail",'',:class=>"text detail-ipter at-least"
+        =text_area_tag "detail", ipt_detail, :class=>"text detail-ipter at-least"
 
-      =hidden_field_tag "collection_ids","",:class=>'collections-ipter need'
-      =hidden_field_tag "send_tsina","",:class=>'send-tsina-ipter'
+      -if aimed_collection
+        .aimed_collection_mark.hide{:'data-id'=>params[:collection]}
+      =hidden_field_tag "collection_ids", ipt_collection_ids, :class=>'collections-ipter need'
+      =hidden_field_tag "send_tsina", ipt_send_tsina, :class=>'send-tsina-ipter'
+
+      -if has_draft
+        .loaded_draft_mark.hide
+      =hidden_field_tag "draft_token", draft_token, :class=>'draft-token-ipter'
 
     .form-submit
       .field.subm
