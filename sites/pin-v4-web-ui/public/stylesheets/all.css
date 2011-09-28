@@ -9484,12 +9484,12 @@ form .field.sendto-select-widget .sendto-selector {
       line-height: 0;
       margin-right: 4px;
       margin-bottom: 4px;
-      width: 66px;
-      height: 66px; }
+      width: 100px;
+      height: 100px; }
       .page-ogrid.drafts .draft .photos .photo img {
         padding: 0px;
-        width: 66px;
-        height: 66px; }
+        width: 100px;
+        height: 100px; }
   .page-ogrid.drafts .draft .title {
     font-size: 14px;
     font-weight: bold;

@@ -60,7 +60,7 @@
             -else
               .photos
                 -photo_tmps.each do |photo|
-                  -src = photo.image.url(:s66)
+                  -src = photo.image.url(:s100)
                   .photo
                     %img{:src=>src}
 
