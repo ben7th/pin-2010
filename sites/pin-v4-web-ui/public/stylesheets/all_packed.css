@@ -2158,8 +2158,8 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.drafts .draft{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:9px;overflow:hidden;margin-bottom:9px;}
 .page-ogrid.drafts .draft .single_photo{float:left;margin-right:14px;font-size:0;line-height:0;margin-bottom:9px;}
 .page-ogrid.drafts .draft .photos{overflow:hidden;margin-bottom:5px;}
-.page-ogrid.drafts .draft .photos .photo{float:left;font-size:0;line-height:0;margin-right:4px;margin-bottom:4px;width:66px;height:66px;}
-.page-ogrid.drafts .draft .photos .photo img{padding:0;width:66px;height:66px;}
+.page-ogrid.drafts .draft .photos .photo{float:left;font-size:0;line-height:0;margin-right:4px;margin-bottom:4px;width:100px;height:100px;}
+.page-ogrid.drafts .draft .photos .photo img{padding:0;width:100px;height:100px;}
 .page-ogrid.drafts .draft .title{font-size:14px;font-weight:bold;padding:5px 0;}
 .page-ogrid.drafts .draft .detail{font-size:13px;padding:5px 0;}
 .page-ogrid.drafts .draft .ops{overflow:hidden;margin:0 -4px -4px;padding:5px;background-color:#fafafa;}
