@@ -32,6 +32,7 @@ public class SelectCollectionListActivity extends Activity {
 	public static final String EXTRA_VALUE_SELECT_FOR_SEND = "select_for_send";
 	public static final String EXTRA_VALUE_SELECT_FOR_RESULT = "select_for_result";
 	public static final String EXTRA_NAME_SELECT_COLLECTION_IDS = "select_collection_ids";
+	public static final String EXTRA_NAME_SEND_TSINA = "send_tsina";
 	
 	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 0;
 	public static final int MESSAGE_CREATE_COLLECTION_SUCCESS = 1;
@@ -43,6 +44,7 @@ public class SelectCollectionListActivity extends Activity {
 	private Button send_bn;
 	private Button submit_bn;
 	private Button cancel_bn;
+	private CheckBox send_tsina_cb;
 	private ListView collection_list_lv;
 	private Button new_collection_bn;
 	private EditText new_collection_et;
@@ -87,6 +89,7 @@ public class SelectCollectionListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_collection_list);
+		send_tsina_cb = (CheckBox)findViewById(R.id.send_tsina_cb);
 		
 		select_collection_ids = new ArrayList<Integer>();
 		String kind = getIntent().getStringExtra(EXTRA_NAME_KIND);
@@ -173,6 +176,13 @@ public class SelectCollectionListActivity extends Activity {
 					Intent intent = new Intent();
 					intent.putIntegerArrayListExtra(EXTRA_NAME_SELECT_COLLECTION_IDS,
 							select_collection_ids);
+					if(send_tsina_cb.isChecked()){
+						intent.putExtra(EXTRA_NAME_SEND_TSINA,
+								true);
+					}else{
+						intent.putExtra(EXTRA_NAME_SEND_TSINA,
+								false);
+					}
 					setResult(Activity.RESULT_OK,intent);
 					finish();
 				}else{
@@ -199,6 +209,13 @@ public class SelectCollectionListActivity extends Activity {
 				Intent intent = new Intent();
 				intent.putIntegerArrayListExtra(EXTRA_NAME_SELECT_COLLECTION_IDS,
 						select_collection_ids);
+				if(send_tsina_cb.isChecked()){
+					intent.putExtra(EXTRA_NAME_SEND_TSINA,
+							true);
+				}else{
+					intent.putExtra(EXTRA_NAME_SEND_TSINA,
+							false);
+				}
 				setResult(Activity.RESULT_OK,intent);
 				finish();
 			}

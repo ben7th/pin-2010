@@ -127,7 +127,7 @@ public class Http {
 	}
 
 	public static boolean send_feed(String title, String content,
-			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids) throws IntentException, AuthenticateException {
+			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids, boolean send_tsina) throws IntentException, AuthenticateException {
 		try {
 			ensure_user_authenticate();
 			String select_collection_ids_str = 
@@ -141,6 +141,9 @@ public class Http {
 			nvps.add(new BasicNameValuePair("detail", content));
 			nvps.add(new BasicNameValuePair("photo_names", photo_string));
 			nvps.add(new BasicNameValuePair("collection_ids", select_collection_ids_str));
+			if(send_tsina){
+				nvps.add(new BasicNameValuePair("send_tsina", "true"));
+			}
 			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
 			HttpResponse response = httpclient.execute(httpost);

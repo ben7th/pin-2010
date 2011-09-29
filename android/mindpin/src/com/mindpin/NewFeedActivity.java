@@ -65,6 +65,7 @@ public class NewFeedActivity extends Activity {
 	private Button send_bn;
 	private Button album_bn;
 	private Button select_collections_bn;
+	private boolean send_tsina = false;
 	private int feed_draft_id = 0;
 	
 	private ProgressDialog progress_dialog;
@@ -208,6 +209,7 @@ public class NewFeedActivity extends Activity {
 
 	private void selected_collections_and_send(Intent data) {
 		ArrayList<Integer> ids = data.getIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS);
+		send_tsina = data.getExtras().getBoolean(SelectCollectionListActivity.EXTRA_NAME_SEND_TSINA);
 		if(ids!=null && ids.size()!=0){
 			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
 			select_collection_ids = ids;
@@ -229,6 +231,7 @@ public class NewFeedActivity extends Activity {
 
 	private void selected_collections(Intent data) {
 		ArrayList<Integer> ids = data.getIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS);
+		send_tsina = data.getExtras().getBoolean(SelectCollectionListActivity.EXTRA_NAME_SEND_TSINA);
 		if(ids!=null && ids.size()!=0){
 			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
 			select_collection_ids = ids;
@@ -518,7 +521,7 @@ public class NewFeedActivity extends Activity {
 					Message msg = mhandler.obtainMessage(MESSAGE_SENDING_FEED,count,0);
 					mhandler.sendMessage(msg);
 				}
-				Http.send_feed(feed_title, feed_content, photo_names, select_collection_ids);
+				Http.send_feed(feed_title, feed_content, photo_names, select_collection_ids,send_tsina);
 				if(feed_draft_id!=0){
 					FeedDraft.destroy(getApplicationContext(), feed_draft_id);
 					feed_draft_id=0;

@@ -1146,19 +1146,32 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .show-page-lock{padding:5px;}
 .show-page-lock .unlock{font-size:14px;font-weight:bold;}
 .page-feed-show{border:solid 1px #eee;background-color:#FFF;}
-.page-feed-show .f-head{padding:14px 24px;background-color:#fafafa;border-bottom:solid 1px #eee;overflow:hidden;}
+.page-feed-show .f-head{padding:14px 14px;background-color:#fafafa;border-bottom:solid 1px #eee;overflow:hidden;}
 .page-feed-show .f-head .avatar{float:left;}
 .page-feed-show .f-head .c-meta{margin-left:60px;}
 .page-feed-show .f-head .c-meta .name{font-size:16px;line-height:32px;font-weight:bold;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 .page-feed-show .f-head .c-meta .name a{color:#444!important;}
-.page-feed-show .f-main .title{padding:14px 24px;font-weight:bold;font-size:14px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
+.page-feed-show .f-main .title{padding:14px 14px;font-weight:bold;font-size:14px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 .page-feed-show .f-main .title a{color:#444!important;}
-.page-feed-show .f-main .detail{padding:14px 24px;font-size:14px;}
+.page-feed-show .f-main .detail{padding:14px 14px;font-size:14px;}
 .page-feed-show .f-main .detail ol{margin-left:1.5em;}
 .page-feed-show .f-main .detail p{margin:0;}
 .page-feed-show .f-main .detail blockquote{font-style:normal;margin:0;padding:5px 9px 5px 25px;background:url(/images/alltu.png) no-repeat -691px -1px;background-color:#fafafa;}
-.page-feed-show .f-main .photos{padding:14px 24px;}
+.page-feed-show .f-main .photos{padding:14px 14px;}
 .page-feed-show .f-main .photos .photo{font-size:0;line-height:0;}
+.page-feed-comments-tsina{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;padding-top:5px;margin-top:9px;}
+.page-feed-comments-tsina .c-top{margin:0 5px 5px;padding:9px;background-color:#F4F4F4;font-size:14px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;height:24px;line-height:24px;}
+.page-feed-comments-tsina .c-top a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;font-weight:bold;}
+.page-feed-comments-tsina .c-top a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
+.page-feed-comments-tsina .c-top .icon{float:right;width:24px;height:24px;background:url(/images/share/share_24.png) no-repeat -4px -4px;}
+.page-feed-comments-tsina .comment{margin:0 5px 5px;padding:9px;background-color:#fafafa;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
+.page-feed-comments-tsina .comment .avatar{float:left;}
+.page-feed-comments-tsina .comment .avatar img{width:32px;height:32px;padding:0;}
+.page-feed-comments-tsina .comment .data{margin-left:42px;color:#666;}
+.page-feed-comments-tsina .comment .data a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;font-weight:bold;}
+.page-feed-comments-tsina .comment .data a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
+.page-feed-comments-tsina .comment .data .name{font-size:12px;}
+.page-feed-comments-tsina .comment .data .text{font-size:12px;margin-bottom:7px;color:#555;}
 .index-user-info{margin:0 0 25px 0;}
 .index-user-info .base{overflow:hidden;margin:0 0 20px 0;border-radius:5px 5px;-moz-border-radius:5px 5px;-webkit-border-radius:5px 5px;}
 .index-user-info .base .avatar{padding:5px;font-size:0;line-height:0;}

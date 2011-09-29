@@ -42,23 +42,23 @@ public final class R {
         public static final int send_bn=0x7f020014;
     }
     public static final class id {
-        public static final int about=0x7f08002d;
+        public static final int about=0x7f08002e;
         public static final int account_logo=0x7f080010;
         public static final int account_name=0x7f080011;
         public static final int album_bn=0x7f08001e;
-        public static final int back=0x7f080028;
+        public static final int back=0x7f080029;
         public static final int bottom_bar=0x7f080006;
-        public static final int bottom_bar_bottom=0x7f080025;
-        public static final int bottom_bar_top=0x7f080022;
-        public static final int cancel_bn=0x7f080027;
+        public static final int bottom_bar_bottom=0x7f080026;
+        public static final int bottom_bar_top=0x7f080023;
+        public static final int cancel_bn=0x7f080028;
         public static final int capture_bn=0x7f08001d;
-        public static final int capture_image=0x7f08002a;
+        public static final int capture_image=0x7f08002b;
         public static final int check_box=0x7f080020;
         public static final int collection_id=0x7f080002;
         public static final int collection_list=0x7f080005;
         public static final int collection_title=0x7f080003;
         public static final int collection_title_et=0x7f080000;
-        public static final int delete=0x7f080029;
+        public static final int delete=0x7f08002a;
         public static final int email_et=0x7f08000d;
         public static final int feed_captures=0x7f08001a;
         public static final int feed_captures_parent=0x7f080019;
@@ -71,23 +71,24 @@ public final class R {
         public static final int feed_title_et=0x7f080018;
         public static final int login_bn=0x7f08000f;
         public static final int login_titleBar=0x7f08000c;
-        public static final int logout=0x7f08002e;
+        public static final int logout=0x7f08002f;
         public static final int main_bn_camera=0x7f080013;
         public static final int main_bn_collections=0x7f080015;
         public static final int main_bn_feeds=0x7f080014;
         public static final int main_bn_new_feed=0x7f080012;
         public static final int main_notice=0x7f080017;
         public static final int main_notice_bar=0x7f080016;
-        public static final int menu_change_collection_name=0x7f08002c;
-        public static final int menu_delete_collection=0x7f08002b;
+        public static final int menu_change_collection_name=0x7f08002d;
+        public static final int menu_delete_collection=0x7f08002c;
         public static final int new_collection=0x7f080007;
-        public static final int new_collection_bn=0x7f080024;
-        public static final int new_collection_et=0x7f080023;
+        public static final int new_collection_bn=0x7f080025;
+        public static final int new_collection_et=0x7f080024;
         public static final int password_et=0x7f08000e;
-        public static final int select_collection_list=0x7f080021;
+        public static final int select_collection_list=0x7f080022;
         public static final int select_collections_bn=0x7f08001c;
         public static final int send_bn=0x7f08001f;
-        public static final int submit_bn=0x7f080026;
+        public static final int send_tsina_cb=0x7f080021;
+        public static final int submit_bn=0x7f080027;
         public static final int title_bar=0x7f080004;
     }
     public static final class layout {
@@ -118,7 +119,7 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int auth_fail=0x7f05000a;
         public static final int auth_fail_tip=0x7f050003;
-        public static final int cancel_bn=0x7f05001a;
+        public static final int cancel_bn=0x7f05001b;
         public static final int email=0x7f050005;
         public static final int email_valid_blank=0x7f050008;
         public static final int feed_select_collections=0x7f050016;
@@ -135,10 +136,10 @@ public final class R {
         /**  登陆成功后的主页面 
          */
         public static final int main_bn_new_feed=0x7f05000b;
-        public static final int menu_change_collection_name=0x7f05001c;
+        public static final int menu_change_collection_name=0x7f05001d;
         /**  收集册主题列表页面 
          */
-        public static final int menu_delete_collection=0x7f05001b;
+        public static final int menu_delete_collection=0x7f05001c;
         public static final int new_feed_content_et=0x7f050012;
         /**  新建主题页面 
          */
@@ -147,13 +148,14 @@ public final class R {
         public static final int password=0x7f050006;
         public static final int password_valid_blank=0x7f050009;
         public static final int send_bn=0x7f050013;
+        /**  选择收集册页面 
+         */
+        public static final int send_tsina=0x7f050019;
         /**  显示照片页面 
          */
         public static final int show_capture_image_back=0x7f050017;
         public static final int show_capture_image_delete=0x7f050018;
-        /**  选择收集册页面 
-         */
-        public static final int submit_bn=0x7f050019;
+        public static final int submit_bn=0x7f05001a;
     }
     public static final class style {
         public static final int body=0x7f060001;
