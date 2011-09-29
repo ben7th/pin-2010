@@ -54,7 +54,7 @@
     -url_short = weibo.send(:perform_get,"/short_url/shorten.json",:query=>{:url_long=>url_long})[0].url_short
     -tsina_comments=weibo.send(:perform_get,"/short_url/comment/comments.json",:query=>{:url_short=>url_short})
 
-  -if !tsina_comments.blank?
+  -if !tsina_comments.share_comments.blank?
     .page-feed-comments-tsina
       .c-top
         评论
