@@ -9014,14 +9014,14 @@ form .field.sendto-select-widget .sendto-selector {
     margin-right: 10px; }
     .page-ogrid.collection-feeds .feed .title {
       margin: 0;
-      padding: 9px;
+      padding: 9px 9px 0;
       font-weight: bold;
       font-size: 14px; }
       .page-ogrid.collection-feeds .feed .title a {
         color: #444 !important; }
     .page-ogrid.collection-feeds .feed .photo {
       margin: 0;
-      padding: 9px;
+      padding: 9px 9px 0;
       position: relative;
       line-height: 0;
       font-size: 0; }
@@ -9050,7 +9050,7 @@ form .field.sendto-select-widget .sendto-selector {
           opacity: 0.8; }
     .page-ogrid.collection-feeds .feed .detail {
       margin: 0;
-      padding: 9px;
+      padding: 9px 9px 0;
       font-size: 13px; }
       .page-ogrid.collection-feeds .feed .detail ol {
         margin-left: 1.5em; }
@@ -9063,7 +9063,7 @@ form .field.sendto-select-widget .sendto-selector {
         background: url(/images/alltu.png) no-repeat -691px -1px;
         background-color: #fafafa; }
     .page-ogrid.collection-feeds .feed .creator {
-      margin: 4px 4px 4px 4px;
+      margin: 9px 4px 4px 4px;
       padding: 5px;
       background-color: #fafafa;
       /*border-top:solid 1px #eee;*/

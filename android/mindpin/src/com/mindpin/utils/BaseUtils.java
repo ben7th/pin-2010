@@ -156,4 +156,19 @@ public class BaseUtils {
         return count;
     }
     
+    //ÅÐ¶Ï×Ö·û´®·Ç¿Õ
+    public static boolean isStrBlank(String str) {
+    	int length;
+
+    	if ((str == null) || ((length = str.length()) == 0)) {
+    		return true;
+    	}
+
+    	for (int i = 0; i < length; i++) {
+    		if (!Character.isWhitespace(str.charAt(i))) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }

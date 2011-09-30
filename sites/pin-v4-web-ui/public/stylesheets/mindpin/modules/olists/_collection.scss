@@ -17,14 +17,14 @@
     
     .title{
       margin:0;
-      padding:9px;
+      padding:9px 9px 0;
       font-weight:bold;
       font-size:14px;
       a{color:#444 !important;}
     }
     .photo{
       margin:0;
-      padding:$photo_padding;
+      padding:9px 9px 0;
       position:relative;
       line-height:0;font-size:0;
       .photo-count{
@@ -48,12 +48,12 @@
     }
     .detail{
       margin:0;
-      padding:9px;
+      padding:9px 9px 0;
       font-size:13px;
       @include feed-detail-format;
     }
     .creator{
-      margin:4px 4px 4px 4px;
+      margin:9px 4px 4px 4px;
       padding:5px;
       background-color:#fafafa;
       /*border-top:solid 1px #eee;*/

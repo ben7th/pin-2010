@@ -23,7 +23,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +36,6 @@ public class FeedDetailActivity extends Activity {
 	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 1;
 	public static final int MESSAGE_AUTH_FAIL = 2;
 	public static String EXTRA_NAME_FEED_ID = "feed_id";
-	
-	LinearLayout feed_photos_ll;
-	TextView feed_title_tv;
-	TextView feed_detail_tv;
-	TextView creator_name_tv;
-	ImageView creator_logo_iv;
 	
 	private String feed_id;
 	private ProgressDialog progress_dialog;
@@ -81,35 +77,48 @@ public class FeedDetailActivity extends Activity {
 
 	}
 	
+	//显示feed详细信息
 	private void show_feed() {
-		feed_photos_ll = (LinearLayout)findViewById(R.id.feed_photos);
-		ArrayList photos = (ArrayList)feed.get("photos");
-		for (Object photo : photos) {
-			Bitmap b = get_bitmap((String) photo);
+		LinearLayout feed_photos_ll = (LinearLayout)findViewById(R.id.feed_photos);
+		
+		//加载所有图片，目前是同步，将来应改成异步
+		ArrayList photo_urls = (ArrayList)feed.get("photos");
+		for (Object photo_url : photo_urls) {
+			Bitmap b = get_bitmap((String) photo_url);			
 			ImageView img = new ImageView(this);
-			LayoutParams lp = new LayoutParams(
-					LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT
-					);
-			lp.topMargin = 1;
-			lp.leftMargin = 1;
-			lp.bottomMargin = 1;
-			img.setLayoutParams(lp);
+			img.setAdjustViewBounds(true); //设置这个使得图片缩放后内容合适
 			img.setImageBitmap(b);
 			feed_photos_ll.addView(img);
 		}
-		feed_title_tv = (TextView)findViewById(R.id.feed_title);
-		String title = (String)feed.get("title");
-		feed_title_tv.setText(title);
-		feed_detail_tv = (TextView)findViewById(R.id.feed_detail);
-		String detail = (String)feed.get("detail");
-		feed_detail_tv.setText(detail);
-		creator_name_tv = (TextView)findViewById(R.id.creator_name);
+		
+		//填写标题
+		_show_feed_set_text(R.id.feed_title,"title");
+
+		//填写正文
+		_show_feed_set_text(R.id.feed_detail,"detail");
+		
+		//作者名字
+		TextView creator_name_tv = (TextView)findViewById(R.id.creator_name);
 		String name = (String)feed.get("creator_name");
 		creator_name_tv.setText(name);
-		creator_logo_iv = (ImageView) findViewById(R.id.creator_logo);
+		
+		//作者头像
+		ImageView creator_logo_iv = (ImageView) findViewById(R.id.creator_logo);
 		String url = (String)feed.get("creator_logo_url");
 		creator_logo_iv.setImageBitmap(get_bitmap(url));
 	}
+	
+	private void _show_feed_set_text(int view_id,String text_name){
+		TextView tv = (TextView)findViewById(view_id);
+		String str = (String)feed.get(text_name);
+		
+		if(BaseUtils.isStrBlank(str)){
+			tv.setVisibility(View.GONE);
+		}else{
+			tv.setText(str);
+		}	
+	}
+	
 	
 	private Bitmap get_bitmap(String image_url) {
 		Bitmap mBitmap = null;
