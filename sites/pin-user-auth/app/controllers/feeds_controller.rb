@@ -125,7 +125,7 @@ class FeedsController < ApplicationController
         :title=>@feed.title,
         :detail=>MindpinTextFormat.new(@feed.detail).to_text,
         :photos=>@feed.photos.map{|p|p.image.url(:w660)},
-        :creator=>{:name=>@feed.creator.name,:logo_url=>@feed.creator.logo(:medium).url},
+        :creator=>{:name=>@feed.creator.name,:logo_url=>@feed.creator.logo.url((:medium))},
       }
     else
       render :layout=>'collection'
