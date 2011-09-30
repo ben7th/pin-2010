@@ -307,9 +307,9 @@ class Feed < UserAuthAbstract
     ftitle = self.title
 
     if ftitle.blank?
-      status = truncate_u("#{content}", 16)
+      status = truncate_u("#{content}", 30)
     else
-      status = truncate_u("『#{ftitle}』#{content}", 16)
+      status = truncate_u("『#{ftitle}』#{content}", 30)
     end
 
     status
