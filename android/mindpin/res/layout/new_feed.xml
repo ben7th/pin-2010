@@ -2,6 +2,8 @@
 
 <LinearLayout
   	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:focusable="true"
+  	android:focusableInTouchMode="true"
 	style="@style/body"
 >
 	
@@ -13,102 +15,141 @@
 			android:layout_height="fill_parent"
 			android:layout_above="@+id/bottom_bar"
 		>
+			<!-- 标题输入 -->
 			<EditText
 				android:id="@+id/feed_title_et"
 				android:singleLine="true"
 				android:hint="@string/new_feed_title_et"
 				android:layout_alignParentTop="true"
-				style="@style/new_feed_layout_inputer"
+				style="@style/new_feed_layout_title_inputer"
 			/>
-			<LinearLayout
+			
+			<!-- 图片展示栏 -->
+			<RelativeLayout
 				android:id="@+id/feed_captures_parent"
-				android:orientation="vertical"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
 				android:layout_below="@+id/feed_title_et"
-				android:gravity="center"
+				style="@style/new_feed_layout_photo_shower"
 			>
+				<LinearLayout
+					android:id="@+id/new_feed_layout_photo_shower_top_line"
+					style="@style/new_feed_layout_photo_shower_top_line_open"
+				/>
 				<HorizontalScrollView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_alignParentTop="true"
 				>
 					<LinearLayout
 						android:id="@+id/feed_captures"
 						android:orientation="horizontal"
 					 	android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-					></LinearLayout>
+					>
+					</LinearLayout>
 				</HorizontalScrollView>
-			</LinearLayout>
-			<EditText
-				android:gravity="top"
+			</RelativeLayout>
+			
+			<!-- 正文输入 -->
+			<RelativeLayout 
 				android:layout_below="@+id/feed_captures_parent"
-				android:id="@+id/feed_content_et"
-				android:hint="@string/new_feed_content_et"
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"
-			/>
+				style="@style/new_feed_layout_detail_inputer_container"
+			>
+				<LinearLayout
+					android:id="@+id/feed_detail_inputer_top_line"
+					style="@style/new_feed_layout_detail_inputer_top_line"
+				/>
+				<EditText
+					android:id="@+id/feed_content_et"
+					android:layout_below="@+id/feed_detail_inputer_top_line"
+					android:hint="@string/new_feed_content_et"
+					style="@style/new_feed_layout_detail_inputer"
+				/>
+			</RelativeLayout>
 		</RelativeLayout>
 		
+		<!-- 窗口底栏 -->
 		<LinearLayout
 			android:id="@+id/bottom_bar"
 			android:orientation="vertical"
 			android:layout_width="fill_parent"
-			android:layout_height="112dip"
+			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
-			android:background="@drawable/bottom_bar" 
+			android:background="#f1f1f1" 
 		>
-			<Button
-				android:text="@string/feed_select_collections"
-				android:id="@+id/select_collections_bn"
-				android:layout_width="fill_parent"
-				android:layout_height="56dip"
+			<LinearLayout
+				style="@style/new_feed_bottom_bar_top_line"
 			/>
 			<LinearLayout
 				android:orientation="horizontal"
 				android:layout_width="fill_parent"
-				android:layout_height="56dip"
+				android:layout_height="40dp"
 				android:layout_alignParentBottom="true"
-				android:weightSum="10"
-				android:background="@drawable/bottom_bar">
+				android:background="#f1f1f1"
+				android:weightSum="12"
+			>	
 				<ImageButton
 					android:id="@+id/capture_bn"
-					android:layout_width="wrap_content"
+					android:layout_width="40dp"
 					android:layout_height="fill_parent"
-					android:scaleType="centerInside"
-					android:layout_weight="1"
+					android:padding="8dp"
 					android:adjustViewBounds="true"
+					android:scaleType="centerInside"
 					android:src="@drawable/camera"
 					android:background="@drawable/capture_bn"
+					android:layout_weight="0"
 				/>
-				<TextView
+				
+				<LinearLayout
+					android:layout_width="1px"
 					android:layout_height="fill_parent"
-					android:layout_width="wrap_content"
-					android:layout_weight="0.1"
-					android:background="@android:color/black" 
+					android:background="#ccc"
 				/>
-				<Button
+				
+				<ImageButton
 					android:id="@+id/album_bn"
-					android:layout_width="wrap_content"
+					android:layout_width="40dp"
 					android:layout_height="fill_parent"
-					android:layout_weight="2.2"
-					android:text="@string/album_bn"
-					android:background="@drawable/album_bn"
+					android:padding="8dp"
+					android:adjustViewBounds="true"
+					android:scaleType="centerInside"
+					android:src="@drawable/camera"
+					android:background="@drawable/capture_bn"
+					android:layout_weight="0"
 				/>
-				<TextView
+
+				<LinearLayout
+					android:layout_width="1px"
 					android:layout_height="fill_parent"
-					android:layout_width="wrap_content"
-					android:layout_weight="0.1"
-					android:background="@android:color/black" 
+					android:background="#ccc"
 				/>
-				<Button
-					android:id="@+id/send_bn"
-					android:layout_width="wrap_content"
+
+				<LinearLayout 
+					android:orientation="horizontal"
+					android:layout_width="fill_parent"
 					android:layout_height="fill_parent"
-					android:layout_weight="6.6"
-					android:text="@string/send_bn"
-					android:background="@drawable/send_bn"
-				/>
+					android:weightSum="1"
+				>
+					<Button
+						android:id="@+id/select_collections_bn"
+						android:text="@string/feed_select_collections"
+						android:layout_width="wrap_content"
+						android:layout_height="fill_parent"
+						android:layout_weight="1"
+					/>
+	
+					<LinearLayout
+						android:layout_width="1px"
+						android:layout_height="fill_parent"
+						android:background="#ccc"
+					/>
+	
+					<Button
+						android:id="@+id/send_bn"
+						android:text="@string/send_bn"
+						android:layout_width="60dp"
+						android:layout_height="fill_parent"
+					/>
+				</LinearLayout>
 			</LinearLayout>
 		
 		</LinearLayout>

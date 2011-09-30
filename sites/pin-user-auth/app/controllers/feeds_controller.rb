@@ -119,7 +119,15 @@ class FeedsController < ApplicationController
   def show
     @feed = Feed.find(params[:id])
     @feed.view_by(current_user) if @feed && current_user
-    render :layout=>'collection'
+    if is_android_client?
+      render :json=>{
+        :id=>@feed.id,:title=>@feed.title,:detail=>@feed.detail,
+        :photos=>@feed.photos.map{|p|p.image.url(:w660)},
+        :creator=>{:name=>@feed.creator.name,:logo_url=>@feed.creator.logo.url},
+        }
+    else
+      render :layout=>'collection'
+    end
   end
 
   def viewpoint

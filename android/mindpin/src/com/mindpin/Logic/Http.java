@@ -355,8 +355,53 @@ public class Http {
 		}
 	}
 	
+	public static HashMap<String, Object> read_feed(String feed_id) throws IntentException, AuthenticateException {
+		HashMap<String, Object> map = null;
+		try {
+			ensure_user_authenticate();
+			HttpGet httpget = new HttpGet(SITE + "/feeds/" + feed_id);
+			httpget.setHeader("User-Agent", "android");
+			HttpResponse response = httpclient.execute(httpget);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String json_str = IOUtils.toString(response.getEntity()
+						.getContent());
+				JSONObject feed_json = new JSONObject(json_str);
+				String id = feed_json.getString("id");
+				String title = feed_json.getString("title");
+				String detail = feed_json.getString("detail");
+				JSONArray photos_json = feed_json.getJSONArray("photos");
+				ArrayList<String> photos = new ArrayList<String>();
+				for (int i = 0; i < photos_json.length(); i++) {
+					String url = (String)photos_json.get(i);
+					photos.add(url);
+				}
+				String creator_name = feed_json.getJSONObject("creator").getString("name");
+				String creator_logo_url = feed_json.getJSONObject("creator").getString("logo_url");
+				map = new HashMap<String, Object>();
+				map.put("id",id);
+				map.put("title",title);
+				map.put("detail",detail);
+				map.put("photos",photos);
+				map.put("creator_name",creator_name);
+				map.put("creator_logo_url",creator_logo_url);
+			}
+			return map;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return map;
+		}
+	}
 	
 	public static class IntentException extends Exception{
 		private static final long serialVersionUID = -4969746083422993611L;
 	}
+
+
 }

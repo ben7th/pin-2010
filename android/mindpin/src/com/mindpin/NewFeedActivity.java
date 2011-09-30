@@ -12,9 +12,11 @@ import com.mindpin.database.FeedDraft;
 import com.mindpin.utils.BaseUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +26,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,12 +35,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
 
 public class NewFeedActivity extends Activity {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
@@ -53,6 +58,7 @@ public class NewFeedActivity extends Activity {
 	public static final int MESSAGE_SEND_FEED_SUCCESS = 6;
 	public static final int MESSAGE_SAVE_FEED_DRAFT = 7;
 	LinearLayout feed_captures;
+	RelativeLayout feed_captures_parent;
 	private ArrayList<String> capture_paths = new ArrayList<String>();
 	
 	private EditText feed_title_et;
@@ -63,7 +69,7 @@ public class NewFeedActivity extends Activity {
 	
 	private ImageButton capture_bn;
 	private Button send_bn;
-	private Button album_bn;
+	private ImageButton album_bn;
 	private Button select_collections_bn;
 	private boolean send_tsina = false;
 	private int feed_draft_id = 0;
@@ -134,9 +140,6 @@ public class NewFeedActivity extends Activity {
 		switch (requestCode) {
 		case CameraLogic.REQUEST_CAPTURE:
 			add_image_capture_to_feed_captures();
-			break;
-		case REQUEST_SHOW_IMAGE_CAPTURE:
-			process_request_show_image_capture_by_result_code(resultCode,data);
 			break;
 		case REQUEST_SHOW_IMAGE_ALBUM:
 			Uri uri = data.getData();
@@ -266,7 +269,7 @@ public class NewFeedActivity extends Activity {
 			}
 		});
 		
-		album_bn = (Button) findViewById(R.id.album_bn);
+		album_bn = (ImageButton) findViewById(R.id.album_bn);
 		album_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Uri uri = MediaStore.Images.Media.INTERNAL_CONTENT_URI;
@@ -294,8 +297,11 @@ public class NewFeedActivity extends Activity {
 	
 	private void find_views() {
 		feed_captures = (LinearLayout)findViewById(R.id.feed_captures);
+		feed_captures_parent = (RelativeLayout)findViewById(R.id.feed_captures_parent);
 		feed_title_et = (EditText) findViewById(R.id.feed_title_et);
 		feed_content_et = (EditText) findViewById(R.id.feed_content_et);
+		
+		feed_captures_parent.setVisibility(View.GONE);
 	}
 	
 	private void process_extra() {
@@ -340,48 +346,33 @@ public class NewFeedActivity extends Activity {
 		}
 	}
 	
-	private void process_request_show_image_capture_by_result_code(
-			int resultCode,Intent intent) {
-		String button_name = intent.getStringExtra(showImageCaptureActivity.EXTRA_NAME_CLICK_BUTTON_NAME);
-		if(button_name.equals(showImageCaptureActivity.EXTRA_VALUE_BACK)){
-			return;
-		}else if(button_name.equals(showImageCaptureActivity.EXTRA_VALUE_DELETE)){
-			String path = intent
-					.getStringExtra(showImageCaptureActivity.EXTRA_NAME_IMAGE_CAPTURE_PATH);
-			int index = capture_paths.indexOf(path);
-			ImageView image = (ImageView) feed_captures.getChildAt(index);
-			feed_captures.removeView(image);
-			capture_paths.remove(path);
-		}
-	}
-	
 	private void add_image_capture_to_feed_captures(){
 		String path = CameraLogic.image_capture_temp_path.getPath();
 		add_image_to_feed_captures(path);
 	}
 	
 	private void add_image_to_feed_captures(String file_path){
+		feed_captures_parent.setVisibility(View.VISIBLE);
 		capture_paths.add(file_path);
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inSampleSize = 8;
 		Bitmap b = BitmapFactory.decodeFile(file_path, options);
+		
 		ImageView img = new ImageView(this);
 		img.setAdjustViewBounds(true);
-		img.setMaxHeight(120);
-		img.setMaxWidth(120);
-		LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		lp.leftMargin = 1;
-		lp.rightMargin = 1;
+		img.setScaleType(ScaleType.CENTER_CROP);
+		LayoutParams lp = new LayoutParams(BaseUtils.get_px_by_dip(this,48),
+				BaseUtils.get_px_by_dip(this,48));
+		lp.topMargin = BaseUtils.get_px_by_dip(this,5);
+		lp.leftMargin = BaseUtils.get_px_by_dip(this,4);
+		lp.bottomMargin = BaseUtils.get_px_by_dip(this,4);
 		img.setLayoutParams(lp);
 		img.setImageBitmap(b);
 		img.setClickable(true);
-		img.setTag(file_path); 
+		img.setTag(file_path);
 		img.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String image_path = (String)v.getTag();
-				Intent intent = new Intent(NewFeedActivity.this,showImageCaptureActivity.class);
-				intent.putExtra(showImageCaptureActivity.EXTRA_NAME_IMAGE_CAPTURE_PATH, image_path);
-				startActivityForResult(intent,REQUEST_SHOW_IMAGE_CAPTURE);
+				show_image_dialog((String)v.getTag());
 			}
 		});
 		feed_captures.addView(img);
@@ -480,6 +471,42 @@ public class NewFeedActivity extends Activity {
 			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
 			select_collection_ids = ids;
 		}
+	}
+	
+	private void show_image_dialog(String image_path){
+		LayoutInflater factory = LayoutInflater
+				.from(this);
+		final View view = factory.inflate(R.layout.show_image_dialog, null);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		ImageView iv = (ImageView)view.findViewById(R.id.image_dialog_image_iv);
+		Bitmap b = BitmapFactory.decodeFile(image_path);
+		iv.setImageBitmap(b);
+		builder.setTitle("查看图片");
+		builder.setView(view);
+		final String path = image_path+"";
+		builder.setPositiveButton("移除", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				int index = capture_paths.indexOf(path);
+				ImageView image = (ImageView) feed_captures.getChildAt(index);
+				feed_captures.removeView(image);
+				capture_paths.remove(path);
+				if(capture_paths.size() == 0){
+					feed_captures_parent.setVisibility(View.GONE);
+				}
+			}
+		});
+		builder.setNeutralButton("查看", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent = new Intent(NewFeedActivity.this,showImageCaptureActivity.class);
+				intent.putExtra(showImageCaptureActivity.EXTRA_NAME_IMAGE_CAPTURE_PATH, path);
+				startActivityForResult(intent,REQUEST_SHOW_IMAGE_CAPTURE);
+			}
+		});
+		builder.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		builder.show();
 	}
 	
 	class LoginRunnable implements Runnable{

@@ -12,12 +12,8 @@ import android.widget.ImageView;
 
 public class showImageCaptureActivity extends Activity {
 	public static final String EXTRA_NAME_IMAGE_CAPTURE_PATH = "image_capture";
-	public static final String EXTRA_NAME_CLICK_BUTTON_NAME = "click_button_name";
-	public static final String EXTRA_VALUE_BACK = "back";
-	public static final String EXTRA_VALUE_DELETE = "delete";
 	
 	private Button back_bn;
-	private Button delete_bn;
 	private ImageView image_view;
 
 	@Override
@@ -25,7 +21,6 @@ public class showImageCaptureActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_image_capture);
 		back_bn = (Button) findViewById(R.id.back);
-		delete_bn = (Button) findViewById(R.id.delete);
 		image_view = (ImageView)findViewById(R.id.capture_image);
 		
 		String path = getIntent().getStringExtra(EXTRA_NAME_IMAGE_CAPTURE_PATH);
@@ -35,22 +30,9 @@ public class showImageCaptureActivity extends Activity {
 		back_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.putExtra(EXTRA_NAME_CLICK_BUTTON_NAME,EXTRA_VALUE_BACK);
 				showImageCaptureActivity.this.setResult(Activity.RESULT_OK,intent);
 				showImageCaptureActivity.this.finish();
 			}
 		});
-		
-		delete_bn.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.putExtra(EXTRA_NAME_CLICK_BUTTON_NAME,EXTRA_VALUE_DELETE);
-				String path = getIntent().getStringExtra(EXTRA_NAME_IMAGE_CAPTURE_PATH);
-				intent.putExtra(EXTRA_NAME_IMAGE_CAPTURE_PATH,path);
-				showImageCaptureActivity.this.setResult(Activity.RESULT_OK,intent);
-				showImageCaptureActivity.this.finish();
-			}
-		});
-		
 	}
 }

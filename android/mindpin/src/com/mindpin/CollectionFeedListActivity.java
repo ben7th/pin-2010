@@ -18,9 +18,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CollectionFeedListActivity extends Activity {
@@ -54,6 +58,16 @@ public class CollectionFeedListActivity extends Activity {
 						new String[]{"id","title"}, 
 						new int[]{R.id.feed_id,R.id.feed_title});
 				feed_list_lv.setAdapter(sa);
+				feed_list_lv.setOnItemClickListener(new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						TextView tv = (TextView)arg1.findViewById(R.id.feed_id);
+						String feed_id = (String)tv.getText();
+						Intent intent = new Intent(CollectionFeedListActivity.this,FeedDetailActivity.class);
+						intent.putExtra(FeedDetailActivity.EXTRA_NAME_FEED_ID,feed_id);
+						CollectionFeedListActivity.this.startActivity(intent);
+					}
+				});
 				break;
 			case MESSAGE_DESTROY_COLLECTION_SUCCESS:
 				Toast.makeText(getApplicationContext(),"²Ù×÷³É¹¦",

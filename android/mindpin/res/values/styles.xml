@@ -111,11 +111,73 @@
    	<style name="new_feed_layout_main" parent="@style/main">
    		<item name="android:padding">0dp</item>
    	</style>
-    <style name="new_feed_layout_inputer">
+    <style name="new_feed_layout_title_inputer">
     	<item name="android:textSize">18dp</item>
-    	<item name="android:layout_marginBottom">10dp</item>
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:background">@drawable/inputer_new_feed_title_background</item>
+   	</style>
+   	
+   	<!-- ## detial_inputer -->
+    <style name="new_feed_layout_detail_inputer_container">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">fill_parent</item>
+   	</style>
+    <style name="new_feed_layout_detail_inputer_top_line">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">1dp</item>
+    	<item name="android:background">#ddd</item>
+   	</style>
+    <style name="new_feed_layout_detail_inputer">
+    	<item name="android:textSize">18dp</item>
+    	<item name="android:gravity">top</item>    	
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">fill_parent</item>
+    	<item name="android:background">@drawable/inputer_new_feed_detail_background</item>
+   	</style>
+   	
+   	<!-- photo_shower -->
+    <style name="new_feed_layout_photo_shower">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:gravity">left</item>
+    	<item name="android:background">#f1f1f1</item>
+   	</style>
+    <style name="new_feed_layout_photo_shower_top_line_open">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">10dp</item>
+    	<item name="android:background">@drawable/layout_new_feed_photo_shower_topline_background</item>
+   	</style>
+    <style name="new_feed_layout_photo_shower_top_line_close">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">0dp</item>
+   	</style>
+    <style name="new_feed_layout_photo_shower_image">
+    	<item name="android:layout_width">48dp</item>
+    	<item name="android:layout_height">48dp</item>
+    	<item name="android:layout_marginTop">5dp</item>
+    	<item name="android:layout_marginLeft">4dp</item>
+    	<item name="android:layout_marginBottom">4dp</item>
+    	<item name="android:padding">0dp</item>
+   	</style>
+   	
+   	<!-- dialog -->
+   	<style name="new_collection_dialog_inputer">
+    	<item name="android:textSize">18dp</item>
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
     	<item name="android:background">@drawable/login_inputer_background</item>
+   	</style>
+   	
+   	<!-- bottom_bar -->
+    <style name="new_feed_bottom_bar_top_line">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">1dp</item>
+    	<item name="android:background">#ccc</item>
+   	</style>
+   	
+    <style name="new_feed_bottom_bar_button" parent="@style/login_layout_inputer">
+    	<item name="android:background">@drawable/login_button_background</item>
+    	<item name="android:textColor">#FFFFFF</item>
    	</style>
 </resources>

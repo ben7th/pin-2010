@@ -13,10 +13,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.TypedValue;
 
 public class BaseUtils {
+	
+	
+	public static int get_px_by_dip(Context context,int dip) {
+		Resources r = context.getResources();
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
+	}
 	
 	public static String date_string(long time){
 		SimpleDateFormat sdf = new SimpleDateFormat();

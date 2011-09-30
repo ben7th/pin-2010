@@ -25,10 +25,9 @@
     <string name="send_bn">发送</string>
     <string name="album_bn">相册</string>
     <string name="feed_title_valid_blank">请输入主题标题</string>
-    <string name="feed_select_collections">发送范围</string>
+    <string name="feed_select_collections">选择发送范围</string>
     <!-- 显示照片页面 -->
     <string name="show_capture_image_back">返回</string>
-    <string name="show_capture_image_delete">删除</string>
     <!-- 选择收集册页面 -->
     <string name="send_tsina">同步到新浪微博</string>
     <string name="submit_bn">确定</string>

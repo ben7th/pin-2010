@@ -2,8 +2,6 @@
 <resources>
 	<!-- 登录页面 -->
     <color name="login_button_text_color">#FFFFFF</color>
-    
-    <drawable name="bottom_bar">#6699ff</drawable>
     <color name="darkgray">#A9A9A9</color>
     <drawable name="feed_bn_pressed">#ff9933</drawable>
 </resources>

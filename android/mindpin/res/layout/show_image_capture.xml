@@ -7,25 +7,17 @@
 	    
     <Button
     	android:id="@+id/back"
-    	android:layout_width="wrap_content"
+    	android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
     	android:text="@string/show_capture_image_back"
     	android:layout_alignParentTop="true"
     	android:layout_alignParentLeft="true"
     />
-    <Button
-    	android:id="@+id/delete"
-    	android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-    	android:text="@string/show_capture_image_delete"
-    	android:layout_alignParentTop="true"
-    	android:layout_alignParentRight="true"
-    />
     <ImageView
     	android:id="@+id/capture_image"
     	android:layout_width="fill_parent"
   		android:layout_height="fill_parent"
-  		android:layout_below="@+id/delete"
+  		android:layout_below="@+id/back"
   		android:layout_alignParentBottom="true"
   		android:adjustViewBounds="true"
   		android:scaleType="centerInside"
