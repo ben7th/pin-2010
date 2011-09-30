@@ -12,14 +12,14 @@
 	<TextView   
 	    android:id="@+id/feed_id"
 	    android:layout_height="wrap_content"   
-	    android:layout_width="wrap_content"   
+	    android:layout_width="fill_parent"   
 	    android:textSize="14dp"
 	    android:textColor="#888"
     />
 	<TextView   
 	    android:id="@+id/feed_title"
 	    android:layout_height="wrap_content"   
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    android:textSize="18dp"
     />
 </LinearLayout>

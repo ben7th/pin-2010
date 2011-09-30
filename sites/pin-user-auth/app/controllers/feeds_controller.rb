@@ -121,10 +121,12 @@ class FeedsController < ApplicationController
     @feed.view_by(current_user) if @feed && current_user
     if is_android_client?
       render :json=>{
-        :id=>@feed.id,:title=>@feed.title,:detail=>@feed.detail,
+        :id=>@feed.id,
+        :title=>@feed.title,
+        :detail=>MindpinTextFormat.new(@feed.detail).to_text,
         :photos=>@feed.photos.map{|p|p.image.url(:w660)},
-        :creator=>{:name=>@feed.creator.name,:logo_url=>@feed.creator.logo.url},
-        }
+        :creator=>{:name=>@feed.creator.name,:logo_url=>@feed.creator.logo(:medium).url},
+      }
     else
       render :layout=>'collection'
     end

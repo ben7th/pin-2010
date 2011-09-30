@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 主题详细信息页 -->
+
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-
+  style="@style/body"
+>
 	<ScrollView
 		android:scrollbars="vertical"
-		android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
 	>    
 		<LinearLayout
-		android:orientation="vertical"
-  		android:layout_width="fill_parent"
-  		android:layout_height="fill_parent">
-			
-			<LinearLayout 
 			android:orientation="vertical"
-    	android:id="@+id/feed_photos"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    />
-    <TextView 
-    	android:id="@+id/feed_title"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    />
-    <TextView 
-    	android:id="@+id/feed_detail"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    />
-    <TextView 
-    	android:id="@+id/creator_name"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    />
-		<ImageView
-			android:id="@+id/creator_logo"
-			android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"
-		/>
-						
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="fill_parent"
+  		>
+  			<!-- 作者信息 -->
+		    <LinearLayout 
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="50dp"
+		    	android:background="#f4f4f4"
+		    	android:layout_margin="4dp"
+		    	android:padding="5dp"
+		    >
+				<ImageView
+					android:id="@+id/creator_logo"
+					android:layout_width="40dp"
+		    		android:layout_height="40dp"
+		    		android:layout_marginRight="5dp"
+				/>
+			    <TextView 
+			    	android:id="@+id/creator_name"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="40dp"
+			    	android:textSize="18dp"
+			    	android:gravity="center"
+			    	android:textColor="#888"
+			    />
+			</LinearLayout>
+			
+			<!-- 图片 -->
+			<LinearLayout 
+		    	android:id="@+id/feed_photos"
+				android:orientation="vertical"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:padding="9dp"
+	    	/>
+	    	<!-- 标题 -->
+		    <TextView 
+		    	android:id="@+id/feed_title"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:textColor="#333"
+		    	android:textSize="20dp"
+		    	android:padding="9dp"
+		    />
+		    <!-- 正文 -->
+		    <TextView 
+		    	android:id="@+id/feed_detail"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:textSize="18dp"
+		    	android:textColor="#444"
+		    	android:padding="9dp"
+		    />
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>

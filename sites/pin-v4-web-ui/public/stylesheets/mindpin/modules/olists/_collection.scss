@@ -17,7 +17,7 @@
     
     .title{
       margin:0;
-      padding:9px $h_padding;
+      padding:9px;
       font-weight:bold;
       font-size:14px;
       a{color:#444 !important;}
@@ -48,7 +48,7 @@
     }
     .detail{
       margin:0;
-      padding:9px $h_padding;
+      padding:9px;
       font-size:13px;
       @include feed-detail-format;
     }

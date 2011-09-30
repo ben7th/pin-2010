@@ -43,6 +43,9 @@
 	
 	collection_list.xml	收集册列表页
 	collection_item.xml	收集册列表项
+	collection_feed_list.xml 收集册主题列表页
+	feed_detial.xml		主题详细信息
+	
 	
 	###对话框###
 	
