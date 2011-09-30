@@ -59,8 +59,10 @@ class FeedsController < ApplicationController
   def destroy
     @feed = Feed.find_by_id(params[:id])
     if current_user == @feed.creator
-      FeedOperationQueueWorker.async_feed_operate(FeedOperationQueueWorker::DESTROY_OPERATION,:feed_id=>params[:id])
-      return render :status=>200,:text=>"删除成功"
+#      FeedOperationQueueWorker.async_feed_operate(FeedOperationQueueWorker::DESTROY_OPERATION,:feed_id=>params[:id])
+#      return render :status=>200,:text=>"删除成功"
+      @feed.destroy
+      return redirect_to '/'
     end
     render :status=>401,:text=>"没有权限"
   end

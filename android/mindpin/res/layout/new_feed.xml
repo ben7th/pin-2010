@@ -88,12 +88,11 @@
 					android:id="@+id/capture_bn"
 					android:layout_width="40dp"
 					android:layout_height="fill_parent"
-					android:padding="8dp"
+					android:padding="5dp"
 					android:adjustViewBounds="true"
 					android:scaleType="centerInside"
-					android:src="@drawable/camera"
+					android:src="@drawable/btn_camera"
 					android:background="@drawable/capture_bn"
-					android:layout_weight="0"
 				/>
 				
 				<LinearLayout
@@ -106,18 +105,11 @@
 					android:id="@+id/album_bn"
 					android:layout_width="40dp"
 					android:layout_height="fill_parent"
-					android:padding="8dp"
+					android:padding="5dp"
 					android:adjustViewBounds="true"
 					android:scaleType="centerInside"
-					android:src="@drawable/camera"
+					android:src="@drawable/btn_album"
 					android:background="@drawable/capture_bn"
-					android:layout_weight="0"
-				/>
-
-				<LinearLayout
-					android:layout_width="1px"
-					android:layout_height="fill_parent"
-					android:background="#ccc"
 				/>
 
 				<LinearLayout 
@@ -126,12 +118,18 @@
 					android:layout_height="fill_parent"
 					android:weightSum="1"
 				>
+					<LinearLayout
+						android:layout_width="1px"
+						android:layout_height="fill_parent"
+						android:background="#ccc"
+					/>
 					<Button
 						android:id="@+id/select_collections_bn"
 						android:text="@string/feed_select_collections"
 						android:layout_width="wrap_content"
 						android:layout_height="fill_parent"
 						android:layout_weight="1"
+						android:background="@drawable/capture_bn"
 					/>
 	
 					<LinearLayout
@@ -145,6 +143,7 @@
 						android:text="@string/send_bn"
 						android:layout_width="60dp"
 						android:layout_height="fill_parent"
+						
 					/>
 				</LinearLayout>
 			</LinearLayout>

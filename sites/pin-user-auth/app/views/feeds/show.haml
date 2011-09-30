@@ -14,19 +14,21 @@
 
 -edit_link = "/feeds/#{feed_id}/edit"
 -repost_link = "/feeds/#{feed_id}/repost"
+-delete_link = "/feeds/#{feed_id}"
 
 -htitle title_short
 
 .main.grid_18.no-line
   .page-feed-show
     .f-head
+      .fright=minibutton '删除',delete_link,:method=>'delete',:confirm=>'确定删除吗'
       .avatar=avatar creator
       .c-meta
         .name=usersign creator
         .data
     .f-ops.hide
-      =minibutton '编辑修改',edit_link
-      =minibutton '转发',repost_link
+      .hide=minibutton '编辑修改',edit_link
+      .hide=minibutton '转发',repost_link
     .f-main
       -if has_title
         .title=link_to title_short,"/feeds/#{feed_id}"

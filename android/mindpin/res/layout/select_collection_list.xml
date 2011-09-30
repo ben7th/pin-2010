@@ -1,22 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 收集册选择列表界面 -->
+
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-    <CheckBox
-    	android:id="@+id/send_tsina_cb"
-    	android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:text="@string/send_tsina"
-  		android:layout_alignParentTop="true"
+  android:layout_height="fill_parent"
+>
+	<!-- 发送新浪微博 -->
+	<LinearLayout 
+		android:id="@+id/select_collection_send_tsina"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:padding="5dp" android:layout_alignParentTop="true"
+		android:orientation="horizontal"
+		android:background="#f1f1f1"
+	>
+	    <CheckBox
+	    	android:id="@+id/send_tsina_cb"
+	    	android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content"
+	  		android:layout_marginRight="5dp"
+	  		android:padding="0dp"
     	/>
+		<TextView   
+		    android:layout_height="wrap_content"   
+		    android:layout_width="fill_parent"
+		    android:textSize="18dp"
+		    android:text="@string/send_tsina"
+		    android:layout_gravity="center_vertical"
+	    />
+    </LinearLayout>
+	<LinearLayout 
+		android:id="@+id/select_collection_send_tsina_bottom_line"
+		android:layout_height="1px" android:layout_width="fill_parent" android:background="#999" 
+		android:layout_below="@+id/select_collection_send_tsina"
+	/>
+	
+	<!-- 选择列表 -->
     <ListView
     	android:id="@+id/select_collection_list"
     	android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
-  		android:layout_below="@+id/send_tsina_cb"
+  		android:layout_below="@+id/select_collection_send_tsina_bottom_line"
   		android:layout_above="@+id/bottom_bar"
-    ></ListView>
+    />
+    
+    
     <LinearLayout 
     	android:id="@+id/bottom_bar"
     	android:orientation="vertical"
@@ -25,41 +54,56 @@
     	android:layout_alignParentBottom="true"
     	android:weightSum="2"
     >
+    
+		<LinearLayout
+			style="@style/bottom_bar_top_line"
+		/>
 	    <LinearLayout
-	         	android:id="@+id/bottom_bar_top"
-		    	android:orientation="horizontal"
-		    	android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:layout_weight="1"
-		  		android:weightSum="5"
+         	android:id="@+id/bottom_bar_top"
+	    	android:orientation="horizontal"
+	    	android:layout_width="fill_parent"
+	  		android:layout_weight="1"
+	  		android:weightSum="5"
+	  		android:background="#f1f1f1"
+	  		android:layout_height="40dp"
 	    >
 	    	<EditText
 	    		android:id="@+id/new_collection_et"
 	    		android:layout_weight="4"
 	    		android:layout_width="wrap_content"
 		  		android:layout_height="wrap_content"
+		  		style="@style/form_collection_dialog_inputer"
+		  		android:layout_marginTop="1dp"
+		  		android:layout_marginLeft="2dp"
+		  		android:layout_marginRight="2dp"
+		  		android:layout_marginBottom="2dp"
 	    	/>
 	    	<Button
     		 	android:id="@+id/new_collection_bn"
 	    		android:text="新建"
 	    		android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
+	  			android:layout_height="fill_parent"
 	  			android:layout_weight="1"
 	    	/>
 	    </LinearLayout>
+	    
+		<LinearLayout
+			style="@style/bottom_bar_top_line"
+		/>
 	    <LinearLayout
 	    	android:id="@+id/bottom_bar_bottom"
 	    	android:orientation="horizontal"
 	    	android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
 	  		android:layout_weight="1"
-	    	android:weightSum="2"
+	  		android:weightSum="2"
+			android:background="#f1f1f1"
+	  		android:layout_height="40dp"
 	    >
 	    	<Button
 	    		android:id="@+id/send_bn"
 	    		android:text="@string/send_bn"
 	    		android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
+	  			android:layout_height="40dp"
 	  			android:layout_weight="1"
 	  			android:visibility="gone"
 	    	/>
@@ -67,7 +111,7 @@
 	    		android:id="@+id/submit_bn"
 	    		android:text="@string/submit_bn"
 	    		android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
+	  			android:layout_height="40dp"
 	  			android:layout_weight="1"
 	  			android:visibility="gone"
 	    	/>
@@ -75,11 +119,10 @@
 	    		android:id="@+id/cancel_bn"
 	    		android:text="@string/cancel_bn"
 	    		android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
+	  			android:layout_height="40dp"
 	  			android:layout_weight="1"
 	    	/>
 	    </LinearLayout>
-    
     
     </LinearLayout>
     

@@ -29,7 +29,7 @@
     <!-- 显示照片页面 -->
     <string name="show_capture_image_back">返回</string>
     <!-- 选择收集册页面 -->
-    <string name="send_tsina">同步到新浪微博</string>
+    <string name="send_tsina">发送到新浪微博</string>
     <string name="submit_bn">确定</string>
     <string name="cancel_bn">取消</string>
    	 <!-- 收集册主题列表页面 -->
