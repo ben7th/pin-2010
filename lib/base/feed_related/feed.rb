@@ -302,6 +302,19 @@ class Feed < UserAuthAbstract
     SendFeedSectionsQueueWorker.async_send_tsina_status(:feed_id=>self.id,:user_id=>user.id)
   end
 
+  def android_title_text
+    content = MindpinTextFormat.new(self.detail).to_text
+    ftitle = self.title
+
+    if ftitle.blank?
+      status = truncate_u("#{content}", 16)
+    else
+      status = truncate_u("『#{ftitle}』#{content}", 16)
+    end
+
+    status
+  end
+
   def send_to_tsina
     content = MindpinTextFormat.new(detail).to_text
     ftitle = self.title

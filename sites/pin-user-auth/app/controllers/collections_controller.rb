@@ -32,8 +32,11 @@ class CollectionsController < ApplicationController
 
   def show
     if is_android_client?
-      feeds = @collection.creator.out_feeds
-      render :json=>feeds.map{|feed|{:id=>feed.id,:title=>feed.title}}
+      feeds = @collection.feeds
+
+      render :json=>feeds.map{|feed|
+        {:id=>feed.id,:title=>feed.android_title_text}
+      }
     else
       render :layout=>'collection'
     end

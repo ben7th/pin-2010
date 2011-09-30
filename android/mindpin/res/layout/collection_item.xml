@@ -1,27 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>  
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 收集册列表项 -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"   
+    android:orientation="vertical"   
     android:layout_width="fill_parent"   
-    android:layout_height="wrap_content"   
-    >
-    <LinearLayout
-   		android:layout_height="wrap_content"   
-		android:layout_width="wrap_content"
-		android:layout_margin="12.5dip"
-    	>
-		<TextView
-		    android:id="@+id/collection_id"  
-		    android:layout_height="wrap_content"   
-		    android:layout_width="wrap_content"   
-		    android:textSize="20dip"
-		    android:visibility="gone"
-		    />
-		<TextView
-			android:id="@+id/collection_title"   
-		    android:layout_height="wrap_content"   
-		    android:layout_width="wrap_content"
-		    android:textSize="20dip"
-		    />
-    </LinearLayout>
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+>
+	<TextView
+	    android:id="@+id/collection_id"  
+	    android:layout_height="wrap_content"   
+	    android:layout_width="wrap_content"   
+	    android:textSize="18dp"
+	    android:visibility="gone"
+    />
+	<TextView
+		android:id="@+id/collection_title"   
+	    android:layout_height="wrap_content"   
+	    android:layout_width="wrap_content"
+	    android:textSize="18dp"
+    />
 </LinearLayout>  

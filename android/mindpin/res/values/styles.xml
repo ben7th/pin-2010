@@ -45,6 +45,28 @@
     	<item name="android:padding">10dp</item>
     </style>
     
+    <!-- bottom_bar -->
+    <style name="bottom_bar">
+    	<item name="android:orientation">vertical</item>
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:background">#f1f1f1</item>
+    </style>
+    <style name="bottom_bar_top_line">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">1dp</item>
+    	<item name="android:background">#ccc</item>
+   	</style>
+    <style name="bottom_bar_button">
+		<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">40dp</item>
+    	<item name="android:textSize">15dp</item>
+    	<item name="android:background">@drawable/bottom_bar_button_background</item>
+    	<item name="android:textColor">#FFFFFF</item>
+    	<item name="android:layout_margin">2dp</item>
+   	</style>
+    
+    
     <!-- misc -->
     <style name="text">
     	<item name="android:layout_width">wrap_content</item>
@@ -162,20 +184,27 @@
    	</style>
    	
    	<!-- dialog -->
-   	<style name="new_collection_dialog_inputer">
+   	<style name="form_collection_dialog">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">fill_parent</item>
+    	<item name="android:background">#fff</item>
+    	<item name="android:padding">5dp</item>
+    	<item name="android:layout_margin">0dp</item>
+   	</style>
+   	<style name="form_collection_dialog_label">
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:textSize">14dp</item>
+    	<item name="android:layout_marginBottom">5dp</item>
+   	</style>
+   	<style name="form_collection_dialog_inputer">
     	<item name="android:textSize">18dp</item>
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
     	<item name="android:background">@drawable/login_inputer_background</item>
    	</style>
    	
-   	<!-- bottom_bar -->
-    <style name="new_feed_bottom_bar_top_line">
-    	<item name="android:layout_width">fill_parent</item>
-    	<item name="android:layout_height">1dp</item>
-    	<item name="android:background">#ccc</item>
-   	</style>
-   	
+   	<!-- new_feed_bottom_bar -->   	
     <style name="new_feed_bottom_bar_button" parent="@style/login_layout_inputer">
     	<item name="android:background">@drawable/login_button_background</item>
     	<item name="android:textColor">#FFFFFF</item>

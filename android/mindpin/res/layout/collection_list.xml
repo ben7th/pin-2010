@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 收集册列表界面 -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_height="fill_parent"
+>
+
 	<LinearLayout
 		android:id="@+id/title_bar"
 		style="@style/title_bar"
 	>
 		<TextView
 			android:text="@string/main_bn_collections"
-			android:textSize="25sp"
-			android:textColor="@android:color/white"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:gravity="center"
-			/>
-		</LinearLayout>
-		<ListView 
-			android:id="@+id/collection_list"
-			android:layout_below="@+id/title_bar"
-			android:layout_above="@+id/bottom_bar"
-			android:layout_height="fill_parent"
-			android:layout_width="wrap_content">
-		</ListView>
+			style="@style/title_bar_text"
+		/>
+	</LinearLayout>
 	
-	   	<LinearLayout 
-	  		android:id="@+id/bottom_bar"
-			android:orientation="horizontal" 
-			android:layout_width="fill_parent" 
-			android:layout_height="40dp"
-			android:layout_marginLeft="5.0dip" 
-			android:layout_marginRight="5.0dip"
-			android:layout_alignParentBottom="true"
-		>
-			<Button
-				android:id="@+id/new_collection"
-				android:text="新建"
-				android:textSize="18dp"
-				android:layout_width="fill_parent" 
-				android:layout_height="wrap_content" 
-			/>
-		</LinearLayout>
-	</RelativeLayout>
+	<ListView 
+		android:id="@+id/collection_list"
+		android:layout_below="@+id/title_bar"
+		android:layout_above="@+id/bottom_bar"
+		android:layout_height="fill_parent"
+		android:layout_width="wrap_content"
+	/>
+
+   	<LinearLayout 
+  		android:id="@+id/bottom_bar"
+		android:layout_alignParentBottom="true"
+		style="@style/bottom_bar"
+	>
+		<LinearLayout
+			style="@style/bottom_bar_top_line"
+		/>
+		<Button
+			android:id="@+id/new_collection"
+			android:text="新建收集册"
+			style="@style/bottom_bar_button"
+		/>
+	</LinearLayout>
+</RelativeLayout>

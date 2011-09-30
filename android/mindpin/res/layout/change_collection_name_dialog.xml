@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 修改收集册标题对话框 -->
+
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="horizontal"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:orientation="vertical"
+  style="@style/form_collection_dialog"
+>
     
     <TextView
-    	android:text="标题"
-    	android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
+    	android:text="收集册标题"
+    	style="@style/form_collection_dialog_label"
     />
     <EditText
     	android:id="@+id/collection_title_et"
-    	android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
+    	style="@style/form_collection_dialog_inputer"
     />
 </LinearLayout>

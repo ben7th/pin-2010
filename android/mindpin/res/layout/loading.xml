@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 刚加载时的“正在载入”页面 -->
+
 <LinearLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/body"

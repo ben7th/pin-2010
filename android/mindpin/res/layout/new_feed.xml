@@ -70,14 +70,11 @@
 		<!-- 窗口底栏 -->
 		<LinearLayout
 			android:id="@+id/bottom_bar"
-			android:orientation="vertical"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
-			android:background="#f1f1f1" 
+			style="@style/bottom_bar"
 		>
 			<LinearLayout
-				style="@style/new_feed_bottom_bar_top_line"
+				style="@style/bottom_bar_top_line"
 			/>
 			<LinearLayout
 				android:orientation="horizontal"

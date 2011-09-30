@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- “关于”页面 -->
+
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
@@ -29,3 +32,22 @@
 		/>
     </LinearLayout>
 </LinearLayout>
+
+<!-- 
+	所有页面的简要说明，简单写在这里：
+	
+	login.xml			登录页面
+	loading.xml			“正在载入..”页面
+	about.xml			“关于”页面
+	main.xml			主要功能导航页
+	
+	collection_list.xml	收集册列表页
+	collection_item.xml	收集册列表项
+	
+	###对话框###
+	
+	new_collection_dialog.xml			创建收集册对话框
+	change_collection_name_dialog.xml	修改收集册标题对话框
+	
+ -->
+
