@@ -12,15 +12,17 @@ public class FeedDraft {
 	public String content;
 	public String image_paths;
 	public String select_collection_ids;
+	public boolean send_tsina;
 	public long time;
 
 	public FeedDraft(int id,String title, String content, String image_paths,
-			String select_collection_ids,long time) {
+			String select_collection_ids,boolean send_tsina,long time) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.image_paths = image_paths;
 		this.select_collection_ids = select_collection_ids;
+		this.send_tsina = send_tsina;
 		this.time = time;
 	}
 	
@@ -41,6 +43,7 @@ public class FeedDraft {
 								Constants.TABLE_FEED_DRAFTS__CONTENT,
 								Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS,
 								Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS,
+								Constants.TABLE_FEED_DRAFTS__SEND_TSINA,
 								Constants.TABLE_FEED_DRAFTS__TIME
 							}, 
 							Constants.KEY_ID + " = "+fid, null, null, null,null);
@@ -52,8 +55,10 @@ public class FeedDraft {
 			String content = cursor.getString(2);
 			String image_paths = cursor.getString(3);
 			String select_collection_ids = cursor.getString(4);
-			long time = cursor.getLong(5);
-			FeedDraft fh = new FeedDraft(id,title, content, image_paths, select_collection_ids,time);
+			boolean send_tsina = false;
+			if(cursor.getInt(5) == 1) send_tsina = true;			
+			long time = cursor.getLong(6);
+			FeedDraft fh = new FeedDraft(id,title, content, image_paths, select_collection_ids,send_tsina,time);
 			return fh;
 		}else{
 			return null;
@@ -69,6 +74,7 @@ public class FeedDraft {
 								Constants.TABLE_FEED_DRAFTS__CONTENT,
 								Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS,
 								Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS,
+								Constants.TABLE_FEED_DRAFTS__SEND_TSINA,
 								Constants.TABLE_FEED_DRAFTS__TIME
 							}, 
 				null, null, null, null,Constants.KEY_ID+ " asc");
@@ -79,8 +85,10 @@ public class FeedDraft {
 			String content = cursor.getString(2);
 			String image_paths = cursor.getString(3);
 			String select_collection_ids = cursor.getString(4);
-			long time = cursor.getLong(5);
-			FeedDraft fh = new FeedDraft(id,title, content, image_paths, select_collection_ids,time);
+			boolean send_tsina = false;
+			if(cursor.getInt(5) == 1) send_tsina = true;	
+			long time = cursor.getLong(6);
+			FeedDraft fh = new FeedDraft(id,title, content, image_paths, select_collection_ids,send_tsina,time);
 			fhs.add(fh);
 		}
 		db.close();
@@ -113,7 +121,7 @@ public class FeedDraft {
 
 	public static void update(Context context, int feed_draft_id, String feed_title,
 			String feed_content, String images_str,
-			String select_collection_ids_str) {
+			String select_collection_ids_str,boolean send_tsina) {
 		SQLiteDatabase db = get_write_db(context);
 		
 		ContentValues values = new ContentValues();
@@ -121,6 +129,8 @@ public class FeedDraft {
 		values.put(Constants.TABLE_FEED_DRAFTS__CONTENT,feed_content);
 		values.put(Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS,images_str);
 		values.put(Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS,select_collection_ids_str);
+		int send_tsina_int = send_tsina?1:0;
+		values.put(Constants.TABLE_FEED_DRAFTS__SEND_TSINA,send_tsina_int);
 		values.put(Constants.TABLE_FEED_DRAFTS__TIME,System.currentTimeMillis());
 		
 		db.update(Constants.TABLE_FEED_DRAFTS, values,Constants.KEY_ID + " = "+ feed_draft_id,null);
@@ -128,7 +138,7 @@ public class FeedDraft {
 	}
 
 	public static void insert(Context context, String title, String content,
-			String images_str, String select_collection_ids_str) {
+			String images_str, String select_collection_ids_str,boolean send_tsina) {
 		SQLiteDatabase db = get_write_db(context);
 		
 		ContentValues values = new ContentValues();
@@ -136,6 +146,8 @@ public class FeedDraft {
 		values.put(Constants.TABLE_FEED_DRAFTS__CONTENT,content);
 		values.put(Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS,images_str);
 		values.put(Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS,select_collection_ids_str);
+		int send_tsina_int = send_tsina?1:0;
+		values.put(Constants.TABLE_FEED_DRAFTS__SEND_TSINA,send_tsina_int);
 		values.put(Constants.TABLE_FEED_DRAFTS__TIME,System.currentTimeMillis());
 		db.insert(Constants.TABLE_FEED_DRAFTS,null, values);
 		db.close();

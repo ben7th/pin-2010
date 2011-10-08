@@ -13,6 +13,7 @@ public class MindpinDBHelper extends SQLiteOpenHelper{
 			Constants.TABLE_FEED_DRAFTS__CONTENT+" text not null, "+
 			Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS+" text not null, "+
 			Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS+" text not null, " +
+			Constants.TABLE_FEED_DRAFTS__SEND_TSINA+" integer not null, " +
 			Constants.TABLE_FEED_DRAFTS__TIME+" long not null);";
 	
 

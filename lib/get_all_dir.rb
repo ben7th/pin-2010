@@ -29,7 +29,7 @@ class GetAllDir
     # 自己写的 gem
     config.gem "pie-ui"
     # 加载 公共 lib
-    config.load_paths += GetAllDir.get_all_dir(File.dirname(File.expand_path(__FILE__)))
+    config.autoload_paths += GetAllDir.get_all_dir(File.dirname(File.expand_path(__FILE__)))
     # 时区  和 国际化
     config.time_zone = 'UTC'
     config.i18n.default_locale = :cn

@@ -34,7 +34,7 @@ import com.mindpin.cache.CollectionsCache;
 import com.mindpin.utils.BaseUtils;
 
 public class Http {
-	private static final String SITE = "http://www.mindpin.com";
+	private static final String SITE = "http://dev.www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
 	private static boolean logged = false;
 	

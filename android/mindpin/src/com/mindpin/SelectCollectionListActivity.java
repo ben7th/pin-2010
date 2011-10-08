@@ -90,6 +90,8 @@ public class SelectCollectionListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_collection_list);
 		send_tsina_cb = (CheckBox)findViewById(R.id.send_tsina_cb);
+		boolean send_tsina = getIntent().getBooleanExtra(EXTRA_NAME_SEND_TSINA,false);
+		send_tsina_cb.setChecked(send_tsina);
 		
 		select_collection_ids = new ArrayList<Integer>();
 		String kind = getIntent().getStringExtra(EXTRA_NAME_KIND);
