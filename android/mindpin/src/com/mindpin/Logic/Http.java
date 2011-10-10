@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -25,9 +24,6 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.content.Context;
-
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
@@ -36,34 +32,7 @@ import com.mindpin.utils.BaseUtils;
 public class Http {
 	private static final String SITE = "http://dev.www.mindpin.com";
 	private static DefaultHttpClient httpclient = new DefaultHttpClient();
-	private static boolean logged = false;
 	
-	public static boolean is_logged_in(){
-		return logged;
-	}
-	
-	public static void set_login(){
-		logged = true;
-	}
-	
-	public static void set_logout(){
-		logged = false;
-	}
-	
-	public static void ensure_user_authenticate() throws IntentException, AuthenticateException{
-		if(is_logged_in()) return;
-		
-		Context context = Global.application_context; 
-		
-		String email = AccountManager.get_email(context);
-		String password = AccountManager.get_password(context);
-		if(!AccountManager.has_user_info(context) 
-				|| !AccountManager.user_authenticate(email, password)){
-			AccountManager.logout(context);
-			throw new AuthenticateException();
-		}
-	}
-
 	public static boolean user_authenticate(String email, String password) throws IntentException {
 		try {
 			HttpPost httpost = new HttpPost(SITE + "/session");
@@ -78,8 +47,7 @@ public class Http {
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				String info = IOUtils.toString(response.getEntity().getContent());
-				AccountInfoCache.save(info);
-				set_login();
+				AccountManager.login(httpclient.getCookieStore().getCookies(),info);
 				return true;
 			} else {
 				return false;
@@ -99,37 +67,9 @@ public class Http {
 		}
 	}
 
-	public static List<HashMap<String, Object>> get_feed_timeline()
-			throws IOException {
-		HttpGet httpget = new HttpGet(SITE);
-		httpget.setHeader("User-Agent", "android");
-		HttpResponse response = httpclient.execute(httpget);
-		HttpEntity entity = response.getEntity();
-		if (entity == null) {
-			return null;
-		}
-		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		try {
-			String json_str = IOUtils.toString(entity.getContent());
-			JSONArray feed_json_arr = new JSONArray(json_str);
-			for (int i = 0; i < feed_json_arr.length(); i++) {
-				JSONObject feed_json = feed_json_arr.getJSONObject(i);
-				JSONObject feed_attrs = (JSONObject) feed_json.get("feed");
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("id", feed_attrs.getInt("id"));
-				map.put("content", feed_attrs.getString("content"));
-				list.add(map);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
 	public static boolean send_feed(String title, String content,
 			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids, boolean send_tsina) throws IntentException, AuthenticateException {
 		try {
-			ensure_user_authenticate();
 			String select_collection_ids_str = 
 					BaseUtils.integer_list_to_string(select_collection_ids);
 			String photo_string = BaseUtils.string_list_to_string(photo_names); 
@@ -146,21 +86,21 @@ public class Http {
 			}
 			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
 
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpost);
 			response.getEntity().getContent().close();
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				return true;
-			} else {
+			} else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
+			}else {
 				return false;
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			throw new IntentException();
 		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		}catch(IntentException e){
 			e.printStackTrace();
 			throw new IntentException();
 		}
@@ -170,7 +110,6 @@ public class Http {
 		String photo_name = "";
 		
 		try {
-			ensure_user_authenticate();
 			HttpPost httpost = new HttpPost(SITE + "/photos/feed_upload");
 			httpost.setHeader("User-Agent", "android");
 			MultipartEntity me = new MultipartEntity();
@@ -178,11 +117,14 @@ public class Http {
 			FileBody bin = new FileBody(file, "image/jpeg");
 			me.addPart("file", bin);
 			httpost.setEntity(me);
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpost);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				photo_name = IOUtils.toString(response.getEntity()
 						.getContent());
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -199,6 +141,7 @@ public class Http {
 		try {
 			HttpGet httpget = new HttpGet(logo_url);
 			httpget.setHeader("User-Agent", "android");
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
@@ -215,21 +158,28 @@ public class Http {
 		}
 	}
 
-	public static List<HashMap<String, Object>> get_collections() throws IntentException, AuthenticateException {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+	public static boolean syn_data() throws IntentException, AuthenticateException {
 		try {
-			ensure_user_authenticate();
-			HttpGet httpget = new HttpGet(SITE + "/collections");
+			HttpGet httpget = new HttpGet(SITE + "/android_syn");
 			httpget.setHeader("User-Agent", "android");
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
-				String collections = IOUtils.toString(response.getEntity()
+				String json_string = IOUtils.toString(response.getEntity()
 						.getContent());
+				JSONObject json = new JSONObject(json_string);
+				String collections = ((JSONArray)json.get("collections")).toString();
+				String user_info = ((JSONObject)json.get("user")).toString();
 				CollectionsCache.save(collections);
-				list = CollectionsCache.build_list_by_json(collections);
+				AccountInfoCache.save(user_info);
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			}
-			return list;
+			return true;
+		}catch( JSONException e){
+			e.printStackTrace();
+			return false;
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			throw new IntentException();
@@ -241,14 +191,13 @@ public class Http {
 
 	public static boolean create_collection(String title) throws IntentException, AuthenticateException {
 		try {
-			ensure_user_authenticate();
 			HttpPost httpost = new HttpPost(SITE + "/collections");
 			httpost.setHeader("User-Agent", "android");
 			
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair("title", title));
 			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpost);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
@@ -256,6 +205,8 @@ public class Http {
 						.getContent());
 				CollectionsCache.save(collections);
 				return true;
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			}else{
 				return false;
 			}
@@ -271,9 +222,9 @@ public class Http {
 	public static List<HashMap<String, Object>> get_collection_feeds(int id) throws IntentException, AuthenticateException {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		try {
-			ensure_user_authenticate();
 			HttpGet httpget = new HttpGet(SITE + "/collections/" + id);
 			httpget.setHeader("User-Agent", "android");
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
@@ -287,6 +238,8 @@ public class Http {
 					map.put("title", feed_json.get("title"));
 					list.add(map);
 				}
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			}
 			return list;
 		} catch (ClientProtocolException e) {
@@ -303,10 +256,10 @@ public class Http {
 	
 	public static boolean destroy_collection(int id) throws IntentException, AuthenticateException{
 		try {
-			ensure_user_authenticate();
 			HttpDelete httpdelete = new HttpDelete(SITE + "/collections/" + id);
 			httpdelete.setHeader("User-Agent", "android");
 			HttpResponse response;
+			set_cookie_store();
 			response = httpclient.execute(httpdelete);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
@@ -314,6 +267,8 @@ public class Http {
 						.getContent());
 				CollectionsCache.save(collections);
 				return true;
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			} else {
 				return false;
 			}
@@ -328,14 +283,13 @@ public class Http {
 	
 	public static boolean change_collection_name(int id, String title) throws IntentException, AuthenticateException{
 		try {
-			ensure_user_authenticate();
 			HttpPut httpput = new HttpPut(SITE + "/collections/" + id + "/change_name");
 			httpput.setHeader("User-Agent", "android");
 			
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair("title", title));
 			httpput.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-			
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpput);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
@@ -343,6 +297,8 @@ public class Http {
 						.getContent());
 				CollectionsCache.save(collections);
 				return true;
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			} else {
 				return false;
 			}
@@ -358,9 +314,9 @@ public class Http {
 	public static HashMap<String, Object> read_feed(String feed_id) throws IntentException, AuthenticateException {
 		HashMap<String, Object> map = null;
 		try {
-			ensure_user_authenticate();
 			HttpGet httpget = new HttpGet(SITE + "/feeds/" + feed_id);
 			httpget.setHeader("User-Agent", "android");
+			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
 			String res = response.getStatusLine().toString();
 			if ("HTTP/1.1 200 OK".equals(res)) {
@@ -385,6 +341,8 @@ public class Http {
 				map.put("photos",photos);
 				map.put("creator_name",creator_name);
 				map.put("creator_logo_url",creator_logo_url);
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
 			}
 			return map;
 		} catch (ClientProtocolException e) {
@@ -397,6 +355,10 @@ public class Http {
 			e.printStackTrace();
 			return map;
 		}
+	}
+	
+	private static void set_cookie_store(){
+		httpclient.setCookieStore(AccountManager.get_cookie_store());
 	}
 	
 	public static class IntentException extends Exception{

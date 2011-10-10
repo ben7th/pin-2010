@@ -13,7 +13,7 @@
 			style="@style/login_layout_mindpin_logo"
 		/>
 		<TextView
-			android:text="android客户端工程评估版 0.04" 
+			android:text="android客户端工程评估版 0.0.4" 
 			style="@style/text"
 			android:layout_marginBottom="9dp"
 		/>

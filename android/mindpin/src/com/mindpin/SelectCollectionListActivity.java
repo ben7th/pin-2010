@@ -5,16 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mindpin.CollectionListActivity.CreateCollectionRunnable;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.cache.CollectionsCache;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -47,7 +51,6 @@ public class SelectCollectionListActivity extends Activity {
 	private CheckBox send_tsina_cb;
 	private ListView collection_list_lv;
 	private Button new_collection_bn;
-	private EditText new_collection_et;
 	private ProgressDialog progress_dialog;
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -65,7 +68,6 @@ public class SelectCollectionListActivity extends Activity {
 					select_collection_ids.add(id);
 				}
 				build_collection_list_data();
-				new_collection_et.setText("");
 				collection_list_lv.setSelection(collection_list_lv.getCount()-1);
 				Toast.makeText(getApplicationContext(), "操作成功",
 						Toast.LENGTH_SHORT).show();
@@ -106,25 +108,45 @@ public class SelectCollectionListActivity extends Activity {
 	}
 
 	private void new_collection_logic() {
-		new_collection_et = (EditText) findViewById(R.id.new_collection_et);
 		new_collection_bn = (Button) findViewById(R.id.new_collection_bn);
 		new_collection_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				String title = new_collection_et.getText().toString();
-				if(title==null || "".equals(title)){
-					Toast.makeText(getApplicationContext(), "标题不能为空",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-				
-				progress_dialog = ProgressDialog.show(SelectCollectionListActivity.this, "", "正在创建...");
-				Thread thread = new Thread(new CreateCollectionRunnable(title));
-				thread.setDaemon(true);
-				thread.start();
+				show_new_collection_dialog();
 			}
 		});
 	}
-
+	
+	private void show_new_collection_dialog() {
+		LayoutInflater factory = LayoutInflater
+				.from(SelectCollectionListActivity.this);
+		final View view = factory.inflate(R.layout.new_collection_dialog, null);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("新建收集册");
+		builder.setView(view);
+		builder.setPositiveButton("创建", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				EditText ctet = (EditText) view
+						.findViewById(R.id.collection_title_et);
+				String title = ctet.getText().toString();
+				if (title == null || "".equals(title)) {
+					Toast.makeText(getApplicationContext(), "请输入标题",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				progress_dialog = ProgressDialog.show(
+						SelectCollectionListActivity.this, "", "正在创建...");
+				Thread thread = new Thread(new CreateCollectionRunnable(title));
+				thread.setDaemon(true);
+				thread.start();		
+			}
+		});
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		builder.show();
+	}
+	
 	private void build_collection_list() {
 		build_collection_list_logic();
 		collections = CollectionsCache.get_collection_list();

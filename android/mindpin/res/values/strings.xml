@@ -32,6 +32,7 @@
     <string name="send_tsina">发送到新浪微博</string>
     <string name="submit_bn">确定</string>
     <string name="cancel_bn">取消</string>
+    <string name="new_collection">新建收集册</string>
    	 <!-- 收集册主题列表页面 -->
     <string name="menu_delete_collection">删除</string>
     <string name="menu_change_collection_name">改名</string>

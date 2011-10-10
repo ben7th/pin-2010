@@ -77,6 +77,9 @@ ActionController::Routing::Routes.draw do |map|
     :action=>'do_up_img',
     :conditions=>{:method=>:put}
 
+  # ---------------- 手机客户端同步数据 ----------
+  map.connect '/android_syn',:controller=>'sessions',:action=>'android_syn'
+
   # ---------------- 用户认证相关 -----------
   map.login_ajax '/login_ajax',:controller=>'sessions',:action=>'new_ajax'
   map.login_fbox '/login_fbox',:controller=>'sessions',:action=>'login_fbox'

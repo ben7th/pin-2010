@@ -15,11 +15,9 @@ import com.mindpin.database.FeedDraft;
 import com.mindpin.utils.BaseUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,7 +27,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,14 +50,11 @@ public class NewFeedActivity extends Activity {
 	protected static final int REQUEST_SELECT_COLLECTIONS = 3;
 	protected static final int REQUEST_SELECT_COLLECTIONS_AND_SEND = 4;
 	
-	protected static final int MESSAGE_LOGGED = 1;
-	protected static final int MESSAGE_UNLOGGED = 2;
-	protected static final int MESSAGE_INTENT_FAIL = 3;
-	public static final int MESSAGE_AUTH_FAIL = 4;
-	public static final int MESSAGE_SENDING_FEED = 5;
-	public static final int MESSAGE_SEND_FEED_SUCCESS = 6;
-	public static final int MESSAGE_SAVE_FEED_DRAFT = 7;
-	public static final int MESSAGE_SENDING_FEED_CHANGE_TITLE = 8;
+	public static final int MESSAGE_AUTH_FAIL = 1;
+	public static final int MESSAGE_SENDING_FEED = 2;
+	public static final int MESSAGE_SEND_FEED_SUCCESS = 3;
+	public static final int MESSAGE_SAVE_FEED_DRAFT = 4;
+	public static final int MESSAGE_SENDING_FEED_CHANGE_TITLE = 5;
 	LinearLayout feed_captures;
 	RelativeLayout feed_captures_parent;
 	private ArrayList<String> capture_paths = new ArrayList<String>();
@@ -82,17 +76,6 @@ public class NewFeedActivity extends Activity {
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case MESSAGE_LOGGED:
-				progress_dialog.dismiss();
-				break;
-			case MESSAGE_UNLOGGED:
-				progress_dialog.dismiss();
-				alert("登录失败，请重新登录");
-				break;
-			case MESSAGE_INTENT_FAIL:
-				progress_dialog.dismiss();
-				alert("网络不可用");
-				break;
 			case MESSAGE_AUTH_FAIL:
 				progress_dialog.dismiss();
 				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
@@ -196,7 +179,7 @@ public class NewFeedActivity extends Activity {
 	private void save_feed_draft_dialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("主题尚未发送，是否保存？");
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				if(feed_draft_id != 0){
 					FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
@@ -208,9 +191,14 @@ public class NewFeedActivity extends Activity {
 				NewFeedActivity.this.finish();
 			}
 		});
-		builder.setNegativeButton("取消",new DialogInterface.OnClickListener() {
+		builder.setNeutralButton("不保存", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				NewFeedActivity.this.finish();
+			}
+		});
+		
+		builder.setNegativeButton("取消",new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
 			}
 		});
 		
@@ -236,7 +224,7 @@ public class NewFeedActivity extends Activity {
 		progress_dialog.setMax(max_count);
 		progress_dialog.setProgress(1);
 		progress_dialog.show();
-		
+		 
 		Thread thread = new Thread(new SendFeedRunnable(max_count));
 		thread.setDaemon(true);
 		thread.start();
@@ -331,10 +319,13 @@ public class NewFeedActivity extends Activity {
 		if (Intent.ACTION_SEND.equals(it.getAction())) {
 			Bundle extras = it.getExtras();
 			has_share = true;
-			if (extras.containsKey("android.intent.extra.STREAM")) {
-				Uri uri = (Uri) extras.get("android.intent.extra.STREAM");
+			if (extras.containsKey(Intent.EXTRA_STREAM)) {
+				Uri uri = (Uri) extras.get(Intent.EXTRA_STREAM);
 				String path = get_absolute_imagePath(uri);
 				add_image_to_feed_captures(path);
+			}else if(extras.containsKey(Intent.EXTRA_TEXT)){
+				String content = (String)extras.get(Intent.EXTRA_TEXT);
+				feed_content_et.setText(content);
 			}
 		}
 		
@@ -349,12 +340,9 @@ public class NewFeedActivity extends Activity {
 		}
 		
 		if(has_share){
-			progress_dialog = ProgressDialog.show(NewFeedActivity.this, "",
-					"正在登录...");
-			LoginRunnable lr = new LoginRunnable();
-			Thread thread = new Thread(lr);
-			thread.setDaemon(true);
-			thread.start();
+			if(!AccountManager.is_logged_in()){
+				alert("请先登录");
+			}
 		}
 	}
 	
@@ -411,6 +399,7 @@ public class NewFeedActivity extends Activity {
 		builder.show();
 	}
 	
+	//构建打开草稿dialog
 	private void show_feed_draft_list_dialog() {
 		LayoutInflater factory = LayoutInflater
 				.from(this);
@@ -442,7 +431,9 @@ public class NewFeedActivity extends Activity {
 		RadioGroup feed_drafts_rg = (RadioGroup)view.findViewById(R.id.feed_drafts_rg);
 		ArrayList<FeedDraft> feed_drafts = FeedDraftManager.get_feed_drafts(getApplicationContext());
 		for (FeedDraft feedDraft : feed_drafts) {
-			RadioButton rb = new RadioButton(view.getContext());
+			RadioButton rb = (RadioButton)factory.inflate(R.layout.feed_draft_radio_button, null);
+			
+//			RadioButton rb = new RadioButton(view.getContext());
 			String title = feedDraft.title;
 			if(title == null || "".equals(title)) title = "无标题";
 			String time_str = BaseUtils.date_string(feedDraft.time);
@@ -522,32 +513,6 @@ public class NewFeedActivity extends Activity {
 		builder.show();
 	}
 	
-	class LoginRunnable implements Runnable{
-		public void run() {
-			String email = AccountManager.get_email(NewFeedActivity.this);
-			String password = AccountManager.get_password(NewFeedActivity.this);
-			try {
-				if (!"".equals(email) && !"".equals(password)
-						&& AccountManager.user_authenticate(email, password)) {
-					// 显示内容
-					Message msg = mhandler.obtainMessage();
-					msg.what = MESSAGE_LOGGED;
-					mhandler.sendMessage(msg);
-				} else {
-					// 显示登录框
-					Message msg = mhandler.obtainMessage();
-					msg.what = MESSAGE_UNLOGGED;
-					mhandler.sendMessage(msg);
-				}
-			} catch (IntentException e) {
-				Message msg = mhandler.obtainMessage();
-				msg.what = MESSAGE_INTENT_FAIL;
-				mhandler.sendMessage(msg);
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	public class SendFeedRunnable implements Runnable{
 		private int max_count;
 		public SendFeedRunnable(int max_count){
@@ -598,6 +563,7 @@ public class NewFeedActivity extends Activity {
 				mhandler.sendEmptyMessage(MESSAGE_SAVE_FEED_DRAFT);
 			} catch (AuthenticateException e) {
 				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+			}catch(IllegalStateException e){
 			}
 		}
 	};

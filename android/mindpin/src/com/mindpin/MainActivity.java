@@ -8,14 +8,19 @@ import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.utils.BaseUtils;
+import com.mindpin.widget.MindpinAlertDialog;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,9 +33,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	public static final int MESSAGE_SYN_COLLECTIONS_SUCCESS = 0;
+	public static final int MESSAGE_SYN_COLLECTIONS_SUCCESS = 1;
 	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 2;
 	public static final int MESSAGE_UPDATE_NOTICE = 3;
+	public static final int MESSAGE_AUTH_FAIL = 4;
 	
 	private Intent to_new_feed;
 	private Intent to_collection_list;
@@ -53,12 +59,23 @@ public class MainActivity extends Activity {
 				notice_tv.setText("同步收集册列表完成");
 				notice_bar.setProgress(50);
 				notice_bar.setVisibility(View.VISIBLE);
+				break;
 			case MESSAGE_UPDATE_NOTICE:
 				long time = AccountManager.last_syn_time(getApplicationContext());
 				String str = BaseUtils.date_string(time);
 				notice_tv.setText("上次同步于 "+str);
 				notice_bar.setProgress(100);
 				notice_bar.setVisibility(View.GONE);
+				UpdateUserInfoTask task = new UpdateUserInfoTask();
+				task.execute();
+				break;
+			case MESSAGE_AUTH_FAIL:
+				AccountManager.logout();
+				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+						Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(MainActivity.this,LoginActivity.class));
+				MainActivity.this.finish();
+				break;
 			}
 		};
 	};
@@ -87,8 +104,28 @@ public class MainActivity extends Activity {
 		bn_feeds = (LinearLayout)findViewById(R.id.main_bn_feeds);
 		bn_feeds.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(),"浏览主题正在施工中...",
-						Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(),"浏览主题正在施工中...",
+//						Toast.LENGTH_SHORT).show();
+				
+
+				MindpinAlertDialog dialog = new MindpinAlertDialog(MainActivity.this);
+				dialog.set_title("我是标题");
+				dialog.set_message("我是内容");
+//				dialog.set_content(R.layout.main);
+				dialog.set_button1("确定", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+				dialog.set_button3("取消", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+				dialog.set_button2("否", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+				dialog.show();
+				
 			}
 		});
 		
@@ -98,7 +135,6 @@ public class MainActivity extends Activity {
 				startActivity(to_collection_list);
 			}
 		});
-		
 		
 		ImageView account_logo_img = (ImageView)findViewById(R.id.account_logo);
 		TextView account_name_tv = (TextView)findViewById(R.id.account_name);
@@ -111,11 +147,8 @@ public class MainActivity extends Activity {
 	
 	private void start_syn() {
 		notice_tv = (TextView)findViewById(R.id.main_notice);		
-		notice_bar = (ProgressBar) findViewById(R.id.main_notice_bar);
-		if(!BaseUtils.is_wifi_active(this) || !Http.is_logged_in()){
-			mhandler.sendEmptyMessage(MESSAGE_UPDATE_NOTICE);
-			return;
-		}
+		notice_bar = (ProgressBar)findViewById(R.id.main_notice_bar);
+		
 		notice_tv.setText("正在同步...");
 		notice_bar.setProgress(20);
 		notice_bar.setVisibility(View.VISIBLE);
@@ -162,6 +195,26 @@ public class MainActivity extends Activity {
 	}
 	
 	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		 if(keyCode == KeyEvent.KEYCODE_BACK){
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("是否退出 Mindpin？");
+			builder.setPositiveButton("是",new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int which) {
+					MainActivity.this.finish();
+				}
+			});
+			builder.setNegativeButton("否",new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
+			builder.show();
+			return true;
+		 }
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
 	protected void onPause() {
 		has_pause = true;
 		super.onPause();
@@ -180,7 +233,7 @@ public class MainActivity extends Activity {
 		builder.setMessage("退出登录会清除个人缓存以及个人的推迟发送的主题，确定退出么？");
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				AccountManager.logout(MainActivity.this);
+				AccountManager.logout();
 				startActivity(new Intent(MainActivity.this, LoginActivity.class));
 				MainActivity.this.finish();
 			}
@@ -192,14 +245,14 @@ public class MainActivity extends Activity {
 	public class SynDataRunnable implements Runnable {
 		public void run() {
 			try {
-				Http.get_collections();
+				Http.syn_data();
 				mhandler.sendEmptyMessage(MESSAGE_SYN_COLLECTIONS_SUCCESS);
+				AccountManager.touch_last_syn_time(getApplicationContext());
 			} catch (IntentException e) {
 				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
 			} catch (AuthenticateException e) {
-				e.printStackTrace();
+				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
 			}
-			AccountManager.touch_last_syn_time(getApplicationContext());
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -208,4 +261,19 @@ public class MainActivity extends Activity {
 			mhandler.sendEmptyMessage(MESSAGE_UPDATE_NOTICE);
 		}
 	};
+	
+	public class UpdateUserInfoTask extends AsyncTask<String, String, Bitmap>{
+
+		protected Bitmap doInBackground(String... params) {
+			return BitmapFactory.decodeFile(AccountInfoCache.get_logo_path());
+		}
+		
+		protected void onPostExecute(Bitmap result) {
+			super.onPostExecute(result);
+			TextView account_name_tv = (TextView)findViewById(R.id.account_name);
+			account_name_tv.setText(AccountInfoCache.get_name());
+			ImageView account_logo_img = (ImageView)findViewById(R.id.account_logo);
+			account_logo_img.setImageBitmap(result);
+		}
+	}
 }

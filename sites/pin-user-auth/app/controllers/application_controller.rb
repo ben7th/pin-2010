@@ -65,7 +65,11 @@ class ApplicationController < ActionController::Base
       return redirect_to "/services"
     end
 
-    redirect_to "/"
+    if is_android_client?
+      render :status=>401,:text=>401
+    else
+      redirect_to "/"
+    end
   end
 
   def to_updating_page

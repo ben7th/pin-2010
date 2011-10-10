@@ -2,7 +2,6 @@ package com.mindpin;
 
 import java.util.HashMap;
 import java.util.List;
-
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
@@ -18,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;

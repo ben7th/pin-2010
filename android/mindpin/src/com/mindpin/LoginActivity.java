@@ -1,6 +1,5 @@
 package com.mindpin;
 
-import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import android.app.Activity;
@@ -31,7 +30,6 @@ public class LoginActivity extends Activity {
 			progressDialog.dismiss();
 			switch (msg.what) {
 			case AUTH_SUCCESS:
-				AccountManager.save_user_info(LoginActivity.this,email, password);
 				startActivity(new Intent(LoginActivity.this,
 						MainActivity.class));
 				LoginActivity.this.finish();

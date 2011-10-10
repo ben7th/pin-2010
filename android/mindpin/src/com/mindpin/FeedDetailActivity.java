@@ -7,29 +7,25 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import com.mindpin.CollectionListActivity.CreateCollectionRunnable;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.utils.BaseUtils;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
 
 public class FeedDetailActivity extends Activity {
 	public static final int MESSAGE_READ_FEED_SUCCESS = 0;
@@ -84,11 +80,14 @@ public class FeedDetailActivity extends Activity {
 		//加载所有图片，目前是同步，将来应改成异步
 		ArrayList photo_urls = (ArrayList)feed.get("photos");
 		for (Object photo_url : photo_urls) {
-			Bitmap b = get_bitmap((String) photo_url);			
 			ImageView img = new ImageView(this);
 			img.setAdjustViewBounds(true); //设置这个使得图片缩放后内容合适
+			Bitmap b = ((BitmapDrawable) getResources().getDrawable(
+					R.drawable.img_loading)).getBitmap();
 			img.setImageBitmap(b);
 			feed_photos_ll.addView(img);
+			DownloadImageTask task = new DownloadImageTask(img);
+			task.execute((String)photo_url);
 		}
 		
 		//填写标题
@@ -147,6 +146,24 @@ public class FeedDetailActivity extends Activity {
 			} catch (AuthenticateException e) {
 				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
 			}
+		}
+	}
+	
+	class DownloadImageTask extends AsyncTask<String, Integer, Bitmap>{
+		private ImageView view;
+		public DownloadImageTask(ImageView view){
+			this.view = view;
+		}
+		
+		protected Bitmap doInBackground(String... arg0) {
+			String url = arg0[0];
+			return get_bitmap(url);
+		}
+		
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			super.onPostExecute(result);
+			view.setImageBitmap(result);
 		}
 	}
 }
