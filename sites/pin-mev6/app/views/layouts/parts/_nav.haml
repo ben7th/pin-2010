@@ -1,23 +1,28 @@
 .page-header
-  .nav
+  .nav.dark
     .container_24
       .site-logo
         =link_to '思维导图','/',:class=>'logo mindmaps'
 
       -if logged_in?
-        .nav-menu
-          .user-meta
-            .title 初学者
-            .name=usersign current_user
-          -link_to "/users/#{current_user.id}",:class=>'li homepage',:tip=>'个人页' do
-            .avatar=avatar current_user,:tiny
-          =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account?service=tu'),:class=>'li setting',:tip=>'设置'
-          =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout?service=tu'),:class=>'li logout',:tip=>'退出'
+        -user = current_user
+        -homepage_link = "/users/#{user.id}"
 
         .mindmap-search-form>
           %form{:action=>"/mindmaps/search",:method=>"get"}>
             %input.inline.text{:name=>"q",:type=>"text",:'data-input-tip'=>'搜索思维导图'}>
             =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
+
+        .nav-menu
+          .user-meta>
+            .name>=usersign user
+            .avatar
+              -link_to homepage_link,:tip=>'个人页' do
+                =avatar user,:mini
+
+          =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account'),:class=>'setting',:tip=>'设置'
+          =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout'),:class=>'logout',:tip=>'退出'
+
 
 
 

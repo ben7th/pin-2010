@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +45,10 @@ public class MindpinAlertDialog extends Dialog {
 		process_message();
 		process_content_view();
 		process_button();
+		android.view.WindowManager.LayoutParams attrs = this.getWindow().getAttributes();
+		Display d=this.getWindow().getWindowManager().getDefaultDisplay();
+		attrs = this.getWindow().getAttributes();
+		attrs.width = d.getWidth(); 
 	}
 
 	private void process_button() {

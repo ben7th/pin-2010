@@ -120,10 +120,6 @@ public class MainActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 					}
 				});
-				dialog.set_button2("·ñ", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which) {
-					}
-				});
 				dialog.show();
 				
 			}

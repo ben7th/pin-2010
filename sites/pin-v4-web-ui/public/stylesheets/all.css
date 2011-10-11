@@ -2359,63 +2359,152 @@ Release Date: November 8, 2010
         color: #444; }
         .page-header .nav .nav-menu .user-meta .name a:hover {
           color: #444; }
-
-.page-account-header {
-  background: #F7F7F7;
-  border-bottom: solid 1px #ddd;
-  overflow: hidden;
-  height: 30px;
-  padding: 5px 0; }
-  .page-account-header .site-logo {
-    float: left; }
-    .page-account-header .site-logo .logo.account {
-      display: block;
+.page-header .nav.dark {
+  background-color: #333;
+  background: -moz-linear-gradient(-90deg, #333333, #111111);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#333333), to(#111111));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#333333',endColorstr='#111111');
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border-bottom: none; }
+  .page-header .nav.dark .site-logo {
+    float: left;
+    height: 48px;
+    /*logo 图面的高度是48像素*/
+    margin-left: 10px; }
+    .page-header .nav.dark .site-logo .logo {
       width: 260px;
-      height: 30px;
-      font-size: 0px;
-      line-height: 22em;
-      background: url(/images/alltu.png) -133px -50px; }
-
-.mindmap-search-form {
-  margin: 0 0 0 0;
-  padding-top: 16px;
-  overflow: hidden; }
-  .mindmap-search-form form {
-    float: right; }
-    .mindmap-search-form form input {
-      height: 22px !important;
-      line-height: 22px !important;
-      border-radius: 4px 0 0 4px;
-      -moz-border-radius: 4px 0 0 4px;
-      -webkit-border-radius: 4px 0 0 4px;
-      float: left;
-      box-shadow: none;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-      border-color: #ddd;
-      border-right: #ddd solid 1px;
-      padding-left: 7px !important;
-      width: 172px !important; }
-    .mindmap-search-form form .do-search {
+      height: 48px;
+      top: 0;
+      display: block;
       overflow: hidden;
+      font-size: 0px;
+      line-height: 22em; }
+      .page-header .nav.dark .site-logo .logo.mindpin {
+        background: url(/images/alltu.png) -394px -1px;
+        width: 295px; }
+      .page-header .nav.dark .site-logo .logo.account {
+        background: url(/images/alltu.png) -394px -100px; }
+  .page-header .nav.dark .mindmap-search-form {
+    margin: 13px 0 0 0;
+    overflow: hidden;
+    float: left; }
+    .page-header .nav.dark .mindmap-search-form form {
+      /* height = 24px*/ }
+      .page-header .nav.dark .mindmap-search-form form input {
+        height: 22px !important;
+        line-height: 22px !important;
+        border-radius: 4px 0 0 4px;
+        -moz-border-radius: 4px 0 0 4px;
+        -webkit-border-radius: 4px 0 0 4px;
+        float: left;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        border-color: #000;
+        border-right: 0 none;
+        padding-left: 7px !important;
+        width: 172px !important;
+        background-color: #eee; }
+      .page-header .nav.dark .mindmap-search-form form .do-search {
+        overflow: hidden;
+        float: left;
+        border-radius: 0 4px 4px 0;
+        -moz-border-radius: 0 4px 4px 0;
+        -webkit-border-radius: 0 4px 4px 0;
+        border: solid 1px #000;
+        border-left: none;
+        height: 22px;
+        width: 22px;
+        line-height: 22em;
+        text-align: center;
+        color: #666;
+        font-weight: bold;
+        background-image: url(/images/sites.png);
+        background-repeat: no-repeat;
+        background-position: -50px -1px;
+        box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none; }
+  .page-header .nav.dark .nav-menu {
+    float: right;
+    position: relative;
+    top: 9px;
+    margin-left: 60px;
+    margin-right: 15px;
+    /*height is 32px*/ }
+    .page-header .nav.dark .nav-menu .user-meta {
       float: left;
-      border-radius: 0 4px 4px 0;
-      -moz-border-radius: 0 4px 4px 0;
-      -webkit-border-radius: 0 4px 4px 0;
-      border: solid 1px #ddd;
-      border-left: none;
-      height: 22px;
-      width: 22px;
-      line-height: 22em;
-      text-align: center;
-      color: #666;
+      text-align: right;
+      padding: 0 0 0 10px;
+      overflow: hidden;
+      margin: 0 0 0 40px; }
+      .page-header .nav.dark .nav-menu .user-meta .name {
+        float: left;
+        margin-right: 6px;
+        font-size: 13px;
+        line-height: 32px; }
+        .page-header .nav.dark .nav-menu .user-meta .name a {
+          color: #ccc; }
+          .page-header .nav.dark .nav-menu .user-meta .name a:hover {
+            color: #fff;
+            text-decoration: none; }
+      .page-header .nav.dark .nav-menu .user-meta .avatar {
+        float: left;
+        margin-top: 4px;
+        width: 24px;
+        height: 24px; }
+        .page-header .nav.dark .nav-menu .user-meta .avatar img {
+          padding: 0; }
+    .page-header .nav.dark .nav-menu a.ali {
+      display: block;
+      float: left;
+      font-size: 13px;
+      line-height: 32px;
+      height: 32px;
+      padding: 0 9px;
+      color: #ccc; }
+      .page-header .nav.dark .nav-menu a.ali:hover {
+        color: #fff;
+        text-decoration: none; }
+    .page-header .nav.dark .nav-menu a.notices, .page-header .nav.dark .nav-menu a.setting, .page-header .nav.dark .nav-menu a.logout {
+      display: block;
+      float: left;
+      height: 24px;
+      width: 24px;
+      margin-top: 4px;
+      margin-left: 10px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px; }
+    .page-header .nav.dark .nav-menu a.notices {
+      font-size: 15px;
+      line-height: 24px;
+      color: #eee;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
       font-weight: bold;
-      background-image: url(/images/sites.png);
-      background-repeat: no-repeat;
-      background-position: -50px -1px;
-      box-shadow: none;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none; }
+      text-align: center;
+      background-color: #444; }
+      .page-header .nav.dark .nav-menu a.notices:hover {
+        color: #fff;
+        text-decoration: none; }
+    .page-header .nav.dark .nav-menu a.setting {
+      line-height: 20em;
+      overflow: hidden; }
+      .page-header .nav.dark .nav-menu a.setting .icon {
+        background: url(/images/alltu.png) no-repeat -444px -50px;
+        width: 24px;
+        height: 24px; }
+      .page-header .nav.dark .nav-menu a.setting:hover .icon {
+        background: url(/images/alltu.png) no-repeat -469px -50px; }
+    .page-header .nav.dark .nav-menu a.logout {
+      line-height: 20em;
+      overflow: hidden; }
+      .page-header .nav.dark .nav-menu a.logout .icon {
+        background: url(/images/alltu.png) no-repeat -444px -75px;
+        width: 24px;
+        height: 24px; }
+      .page-header .nav.dark .nav-menu a.logout:hover .icon {
+        background: url(/images/alltu.png) no-repeat -469px -75px; }
 
 .page-content .cell {
   margin: 0 0 60px;
