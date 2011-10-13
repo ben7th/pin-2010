@@ -14,7 +14,7 @@ import com.mindpin.Logic.Http;
 
 public class AccountInfoCache {
 	
-	public static void save(String info) {
+	public static void save(String info) throws JSONException {
 		try {
 			FileUtils.writeStringToFile(get_info_file(), info);
 			JSONObject json = new JSONObject(info);
@@ -22,9 +22,7 @@ public class AccountInfoCache {
 			if(is !=null){
 				FileUtils.copyInputStreamToFile(is,get_logo_file());
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}catch(IOException e){
+		} catch(IOException e){
 			e.printStackTrace();
 		}
 	}

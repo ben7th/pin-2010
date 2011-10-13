@@ -11,7 +11,7 @@
 		style="@style/title_bar"
 	>
 		<ImageView
-			android:id="@+id/account_logo"
+			android:id="@+id/account_avatar"
 			style="@style/title_bar_user_avatar"
 		/>
 		<TextView
@@ -29,7 +29,7 @@
 				style="@style/main_layout_table_item"
 			>
 				<LinearLayout
-					android:id="@+id/main_bn_new_feed"
+					android:id="@+id/main_button_new_feed"
 					android:background="@drawable/main_new_feed_button_background" 
 					style="@style/main_layout_table_item_image"
 				/>
@@ -43,7 +43,7 @@
 				style="@style/main_layout_table_item"
 			>
 				<LinearLayout 
-					android:id="@+id/main_bn_camera"
+					android:id="@+id/main_button_camera"
 					android:background="@drawable/main_camera_button_background"
 					style="@style/main_layout_table_item_image"
 				/>
@@ -59,7 +59,7 @@
 				style="@style/main_layout_table_item"
 			>
 				<LinearLayout
-					android:id="@+id/main_bn_feeds"
+					android:id="@+id/main_button_feeds"
 					android:background="@drawable/main_feed_button_background"
 					style="@style/main_layout_table_item_image"
 				/>
@@ -73,7 +73,7 @@
 				style="@style/main_layout_table_item"
 			>
 				<LinearLayout
-					android:id="@+id/main_bn_collections"
+					android:id="@+id/main_button_collections"
 					android:background="@drawable/main_collection_button_background" 
 					style="@style/main_layout_table_item_image"
 				/>
@@ -87,7 +87,17 @@
 		<!-- 同步进度条和提示文字 -->
 		<LinearLayout 
 			android:layout_marginTop="40px"
-		>
+			android:orientation="vertical"
+		>	
+			<TextView 
+				android:id="@+id/main_notice" 
+				android:layout_height="wrap_content" 
+				android:layout_width="fill_parent" 
+				android:gravity="center"
+				android:textSize="14dp"
+				android:layout_marginBottom="8dp"
+			/>
+			
 			<ProgressBar 
 				android:id="@+id/main_notice_bar" 
 				style="?android:attr/progressBarStyleHorizontal"
@@ -96,13 +106,6 @@
 				android:visibility="gone"
 			/>
 			
-			<TextView 
-				android:id="@+id/main_notice" 
-				android:layout_height="wrap_content" 
-				android:layout_width="fill_parent" 
-				android:gravity="center"
-				android:textSize="14dp"
-			/>
 		</LinearLayout>
 		
 	</TableLayout>

@@ -35,7 +35,12 @@ class CollectionsController < ApplicationController
       feeds = @collection.feeds
 
       render :json=>feeds.map{|feed|
-        {:id=>feed.id,:title=>feed.android_title_text}
+        {
+          :id=>feed.id,
+          :title=>feed.android_title_text,
+          :detail=>MindpinTextFormat.new(feed.detail).to_text,
+          :photos=>feed.photos.map{|p|p.image.url(:w210)}
+        }
       }
     else
       render :layout=>'collection'

@@ -78,7 +78,7 @@ public class NewFeedActivity extends Activity {
 			switch (msg.what) {
 			case MESSAGE_AUTH_FAIL:
 				progress_dialog.dismiss();
-				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
 						Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(NewFeedActivity.this,LoginActivity.class));
 				NewFeedActivity.this.finish();

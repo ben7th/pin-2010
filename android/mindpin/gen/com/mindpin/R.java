@@ -28,7 +28,7 @@ public final class R {
         public static final int collection=0x7f020008;
         public static final int collection_pressed=0x7f020009;
         public static final int feed=0x7f02000a;
-        public static final int feed_bn_pressed=0x7f02001c;
+        public static final int feed_bn_pressed=0x7f02001f;
         public static final int feed_pressed=0x7f02000b;
         public static final int icon=0x7f02000c;
         public static final int img_loading=0x7f02000d;
@@ -43,14 +43,17 @@ public final class R {
         public static final int main_feed_button_background=0x7f020016;
         public static final int main_new_feed_button_background=0x7f020017;
         public static final int mindpin_logo=0x7f020018;
-        public static final int new_feed=0x7f020019;
-        public static final int new_feed_pressed=0x7f02001a;
-        public static final int send_bn=0x7f02001b;
+        public static final int mindpin_process_dialog_background=0x7f020019;
+        public static final int new_feed=0x7f02001a;
+        public static final int new_feed_pressed=0x7f02001b;
+        public static final int send_bn=0x7f02001c;
+        public static final int title_bar_bg=0x7f02001d;
+        public static final int title_bar_img=0x7f02001e;
     }
     public static final class id {
-        public static final int about=0x7f08003d;
-        public static final int account_logo=0x7f080013;
-        public static final int account_name=0x7f080014;
+        public static final int about=0x7f08003e;
+        public static final int account_avatar=0x7f080011;
+        public static final int account_name=0x7f080012;
         public static final int album_bn=0x7f08002b;
         public static final int back=0x7f080038;
         public static final int bottom_bar=0x7f080006;
@@ -66,43 +69,44 @@ public final class R {
         public static final int collection_title_et=0x7f080000;
         public static final int creator_logo=0x7f080008;
         public static final int creator_name=0x7f080009;
-        public static final int email_et=0x7f080010;
+        public static final int email_et=0x7f08000e;
         public static final int feed_captures=0x7f080027;
         public static final int feed_captures_parent=0x7f080025;
         public static final int feed_content_et=0x7f080029;
         public static final int feed_detail=0x7f08000c;
         public static final int feed_detail_inputer_top_line=0x7f080028;
         public static final int feed_drafts_rg=0x7f08000d;
-        public static final int feed_id=0x7f08000e;
+        public static final int feed_id=0x7f080023;
         public static final int feed_list=0x7f080002;
+        public static final int feed_photo=0x7f08003b;
         public static final int feed_photos=0x7f08000a;
         public static final int feed_title=0x7f08000b;
         public static final int feed_title_et=0x7f080024;
         public static final int image_dialog_image_iv=0x7f08003a;
-        public static final int login_bn=0x7f080012;
-        public static final int login_titleBar=0x7f08000f;
-        public static final int logout=0x7f08003e;
-        public static final int main_bn_camera=0x7f080016;
-        public static final int main_bn_collections=0x7f080018;
-        public static final int main_bn_feeds=0x7f080017;
-        public static final int main_bn_new_feed=0x7f080015;
-        public static final int main_notice=0x7f08001a;
-        public static final int main_notice_bar=0x7f080019;
-        public static final int menu_change_collection_name=0x7f08003c;
-        public static final int menu_delete_collection=0x7f08003b;
-        public static final int mindpin_alert_dialog_button1=0x7f080021;
-        public static final int mindpin_alert_dialog_button2=0x7f080023;
-        public static final int mindpin_alert_dialog_button3=0x7f080022;
-        public static final int mindpin_alert_dialog_button_panel=0x7f080020;
-        public static final int mindpin_alert_dialog_content_panel=0x7f08001d;
-        public static final int mindpin_alert_dialog_content_panel_scrollView=0x7f08001e;
-        public static final int mindpin_alert_dialog_message=0x7f08001f;
-        public static final int mindpin_alert_dialog_title=0x7f08001c;
-        public static final int mindpin_alert_dialog_title_panel=0x7f08001b;
+        public static final int login_button=0x7f080010;
+        public static final int logout=0x7f08003f;
+        public static final int main_button_camera=0x7f080014;
+        public static final int main_button_collections=0x7f080016;
+        public static final int main_button_feeds=0x7f080015;
+        public static final int main_button_new_feed=0x7f080013;
+        public static final int main_notice=0x7f080017;
+        public static final int main_notice_bar=0x7f080018;
+        public static final int menu_change_collection_name=0x7f08003d;
+        public static final int menu_delete_collection=0x7f08003c;
+        public static final int mindpin_alert_dialog_button1=0x7f08001f;
+        public static final int mindpin_alert_dialog_button2=0x7f080021;
+        public static final int mindpin_alert_dialog_button3=0x7f080020;
+        public static final int mindpin_alert_dialog_button_panel=0x7f08001e;
+        public static final int mindpin_alert_dialog_content_panel=0x7f08001b;
+        public static final int mindpin_alert_dialog_content_panel_scrollView=0x7f08001c;
+        public static final int mindpin_alert_dialog_message=0x7f08001d;
+        public static final int mindpin_alert_dialog_title=0x7f08001a;
+        public static final int mindpin_alert_dialog_title_panel=0x7f080019;
+        public static final int mindpin_progress_dialog_message=0x7f080022;
         public static final int new_collection=0x7f080007;
         public static final int new_collection_bn=0x7f080034;
         public static final int new_feed_layout_photo_shower_top_line=0x7f080026;
-        public static final int password_et=0x7f080011;
+        public static final int password_et=0x7f08000f;
         public static final int select_collection_list=0x7f080032;
         public static final int select_collection_send_tsina=0x7f08002f;
         public static final int select_collection_send_tsina_bottom_line=0x7f080031;
@@ -121,65 +125,71 @@ public final class R {
         public static final int feed_detail=0x7f030005;
         public static final int feed_draft_list_dialog=0x7f030006;
         public static final int feed_draft_radio_button=0x7f030007;
-        public static final int feed_item=0x7f030008;
-        public static final int loading=0x7f030009;
-        public static final int login=0x7f03000a;
-        public static final int main=0x7f03000b;
-        public static final int mindpin_alert_dialog=0x7f03000c;
-        public static final int new_collection_dialog=0x7f03000d;
-        public static final int new_feed=0x7f03000e;
-        public static final int select_collection_item=0x7f03000f;
-        public static final int select_collection_list=0x7f030010;
-        public static final int show_image_capture=0x7f030011;
-        public static final int show_image_dialog=0x7f030012;
+        public static final int loading=0x7f030008;
+        public static final int login=0x7f030009;
+        public static final int main=0x7f03000a;
+        public static final int mindpin_alert_dialog=0x7f03000b;
+        public static final int mindpin_progress_dialog=0x7f03000c;
+        public static final int more_photo_feed_item=0x7f03000d;
+        public static final int new_collection_dialog=0x7f03000e;
+        public static final int new_feed=0x7f03000f;
+        public static final int no_photo_feed_item=0x7f030010;
+        public static final int select_collection_item=0x7f030011;
+        public static final int select_collection_list=0x7f030012;
+        public static final int show_image_capture=0x7f030013;
+        public static final int show_image_dialog=0x7f030014;
+        public static final int single_photo_feed_item=0x7f030015;
     }
     public static final class menu {
         public static final int collection_feed_list=0x7f070000;
         public static final int main=0x7f070001;
     }
     public static final class string {
-        public static final int about=0x7f05000f;
-        public static final int album_bn=0x7f050014;
+        public static final int about=0x7f050010;
+        public static final int album_bn=0x7f050015;
+        public static final int app_auth_fail=0x7f050004;
+        public static final int app_intent_connection_fail=0x7f050003;
+        /**  全局 
+         */
         public static final int app_name=0x7f050000;
-        public static final int auth_fail=0x7f05000a;
-        public static final int auth_fail_tip=0x7f050003;
-        public static final int cancel_bn=0x7f05001a;
-        public static final int email=0x7f050005;
-        public static final int email_valid_blank=0x7f050008;
-        public static final int feed_select_collections=0x7f050016;
-        public static final int feed_title_valid_blank=0x7f050015;
-        public static final int intent_connection_fail=0x7f050001;
-        public static final int login=0x7f050007;
+        public static final int app_now_loading=0x7f050002;
+        public static final int app_version=0x7f050001;
+        public static final int cancel_bn=0x7f05001b;
+        public static final int feed_select_collections=0x7f050017;
+        public static final int feed_title_valid_blank=0x7f050016;
+        public static final int login_auth_fail=0x7f05000a;
         /**  登录页面 
          */
-        public static final int login_title_bar=0x7f050004;
-        public static final int logout=0x7f050010;
-        public static final int main_bn_camera=0x7f05000c;
-        public static final int main_bn_collections=0x7f05000e;
-        public static final int main_bn_feeds=0x7f05000d;
-        /**  登陆成功后的主页面 
+        public static final int login_email=0x7f050005;
+        public static final int login_email_valid_blank=0x7f050008;
+        public static final int login_login=0x7f050007;
+        public static final int login_now_login=0x7f05000b;
+        public static final int login_password=0x7f050006;
+        public static final int login_password_valid_blank=0x7f050009;
+        public static final int logout=0x7f050011;
+        public static final int main_bn_camera=0x7f05000d;
+        public static final int main_bn_collections=0x7f05000f;
+        public static final int main_bn_feeds=0x7f05000e;
+        /**  登录成功后的主页面 
          */
-        public static final int main_bn_new_feed=0x7f05000b;
-        public static final int menu_change_collection_name=0x7f05001d;
+        public static final int main_bn_new_feed=0x7f05000c;
+        public static final int menu_change_collection_name=0x7f05001e;
         /**  收集册主题列表页面 
          */
-        public static final int menu_delete_collection=0x7f05001c;
-        public static final int new_collection=0x7f05001b;
-        public static final int new_feed_content_et=0x7f050012;
+        public static final int menu_delete_collection=0x7f05001d;
+        public static final int new_collection=0x7f05001c;
+        public static final int new_feed_content_et=0x7f050013;
         /**  新建主题页面 
          */
-        public static final int new_feed_title_et=0x7f050011;
-        public static final int now_loading=0x7f050002;
-        public static final int password=0x7f050006;
-        public static final int password_valid_blank=0x7f050009;
-        public static final int send_bn=0x7f050013;
+        public static final int new_feed_title_et=0x7f050012;
+        public static final int send_bn=0x7f050014;
         /**  选择收集册页面 
          */
-        public static final int send_tsina=0x7f050018;
+        public static final int send_tsina=0x7f050019;
         /**  显示照片页面 
          */
-        public static final int show_capture_image_back=0x7f050017;
-        public static final int submit_bn=0x7f050019;
+        public static final int show_capture_image_back=0x7f050018;
+        public static final int submit_bn=0x7f05001a;
     }
     public static final class style {
         public static final int body=0x7f060001;
@@ -210,6 +220,9 @@ public final class R {
         public static final int mindpin_alert_dialog=0x7f06001f;
         public static final int mindpin_default_theme=0x7f060000;
         public static final int mindpin_logo=0x7f06000a;
+        /**  mindpin自定义的 progress_dialog 用于 正在登录 等场合 
+         */
+        public static final int mindpin_progress_dialog=0x7f060020;
         /**  new_feed_bottom_bar 
          */
         public static final int new_feed_bottom_bar_button=0x7f06001e;

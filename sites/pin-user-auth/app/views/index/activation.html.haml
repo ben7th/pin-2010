@@ -9,16 +9,16 @@
   =flash_info
 
   .form
-    %h3 服务激活
-    %p.font14
-      mindpin社区服务
-      %span.loud> 目前仍在alpha测试期间，并未公开开放。<br/>
-      您仍然可以进行<a href='/signup'>账号注册</a>，但默认只能使用已开放的<a href='#{pin_url_for('pin-daotu')}'>思维导图编辑器</a>服务。<br/>
-      <br/>
-      如果您持有我们发放的测试激活码，<br/>
-      可以通过此页激活社区服务，参加我们的测试。帮助我们进行产品改进。
-
+    %h3 激活社区服务
     - if logged_in?
+      %p.font14
+        mindpin社区服务
+        %span.loud> 目前仍在alpha测试期间，并未公开开放。<br/>
+        您目前正使用账号 <b>#{current_user.name}(#{current_user.email})</b> 登录。<br/>
+        <br/>
+        该账号目前未激活，如果您持有我们发放的测试激活码，<br/>
+        可以通过此页激活社区服务，参加我们的测试。帮助我们进行产品改进。
+
       .aj-submit-form
         - form_tag '/do_activation' do
           .field
@@ -27,6 +27,14 @@
           .field
             = link_to '激 活','javascript:;',:class=>'active-submit a-link-submit'
     - else
+      %p.font14
+        mindpin社区服务
+        %span.loud> 目前仍在alpha测试期间，并未公开开放。<br/>
+        您仍然可以进行<a href='/signup'>账号注册</a>，但默认只能使用已开放的<a href='#{pin_url_for('pin-daotu')}'>思维导图编辑器</a>服务。<br/>
+        <br/>
+        如果您持有我们发放的测试激活码，<br/>
+        可以通过此页激活社区服务，参加我们的测试。帮助我们进行产品改进。
+
       .need-login-for-activation
         您必须先
         =minibutton '登录','/login',:class=>'blue'

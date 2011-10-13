@@ -1,15 +1,6 @@
 package com.mindpin;
 
 
-import com.mindpin.Logic.AccountManager;
-import com.mindpin.Logic.AccountManager.AuthenticateException;
-import com.mindpin.Logic.CameraLogic;
-import com.mindpin.Logic.Http;
-import com.mindpin.Logic.Http.IntentException;
-import com.mindpin.cache.AccountInfoCache;
-import com.mindpin.utils.BaseUtils;
-import com.mindpin.widget.MindpinAlertDialog;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,38 +22,50 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mindpin.Logic.AccountManager;
+import com.mindpin.Logic.AccountManager.AuthenticateException;
+import com.mindpin.Logic.CameraLogic;
+import com.mindpin.Logic.Http;
+import com.mindpin.Logic.Http.IntentException;
+import com.mindpin.cache.AccountInfoCache;
+import com.mindpin.utils.BaseUtils;
+import com.mindpin.widget.MindpinAlertDialog;
+
 public class MainActivity extends Activity {
 	public static final int MESSAGE_SYN_COLLECTIONS_SUCCESS = 1;
 	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 2;
 	public static final int MESSAGE_UPDATE_NOTICE = 3;
 	public static final int MESSAGE_AUTH_FAIL = 4;
 	
-	private Intent to_new_feed;
-	private Intent to_collection_list;
-	private LinearLayout bn_new_feed;
-	private LinearLayout bn_camera;
-	private LinearLayout bn_feeds;
-	private LinearLayout bn_collections;
-	private TextView notice_tv;
+	private Intent intent_to_new_feed;
+	private Intent intent_to_collection_list;
+	
+	private LinearLayout new_feed_button;
+	private LinearLayout camera_button;
+	private LinearLayout feeds_button;
+	private LinearLayout collections_button;
+	
+	private TextView notice_textview;
 	private ProgressBar notice_bar;
 	private boolean has_pause = false;
+	
 	private Handler mhandler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MESSAGE_INTENT_CONNECTION_FAIL:
-				notice_tv.setText("网络连接异常");
+				notice_textview.setText("网络连接异常");
 				notice_bar.setProgress(100);
 				notice_bar.setVisibility(View.GONE);
 				break;
 			case MESSAGE_SYN_COLLECTIONS_SUCCESS:
-				notice_tv.setText("同步收集册列表完成");
+				notice_textview.setText("同步收集册列表完成");
 				notice_bar.setProgress(50);
 				notice_bar.setVisibility(View.VISIBLE);
 				break;
 			case MESSAGE_UPDATE_NOTICE:
 				long time = AccountManager.last_syn_time(getApplicationContext());
 				String str = BaseUtils.date_string(time);
-				notice_tv.setText("上次同步于 "+str);
+				notice_textview.setText("上次同步于 "+str);
 				notice_bar.setProgress(100);
 				notice_bar.setVisibility(View.GONE);
 				UpdateUserInfoTask task = new UpdateUserInfoTask();
@@ -71,7 +73,7 @@ public class MainActivity extends Activity {
 				break;
 			case MESSAGE_AUTH_FAIL:
 				AccountManager.logout();
-				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
 						Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(MainActivity.this,LoginActivity.class));
 				MainActivity.this.finish();
@@ -84,25 +86,42 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		to_new_feed = new Intent(this,NewFeedActivity.class);
-		to_collection_list = new Intent(this,CollectionListActivity.class);
 		
-		bn_new_feed = (LinearLayout)findViewById(R.id.main_bn_new_feed);
-		bn_new_feed.setOnClickListener(new OnClickListener() {
+		bind_new_feed_button_event();
+		bind_camera_button_event();
+		bind_feeds_button_event();
+		bind_collections_button_event();
+
+		prepareAvatarAndName();
+		
+		start_syn();
+	}
+	
+	//设置 new_feed 按钮点击事件
+	private void bind_new_feed_button_event(){
+		intent_to_new_feed = new Intent(this,NewFeedActivity.class);
+		
+		new_feed_button = (LinearLayout)findViewById(R.id.main_button_new_feed);
+		new_feed_button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				startActivity(to_new_feed);
+				startActivity(intent_to_new_feed);
 			}
 		});
-		
-		bn_camera = (LinearLayout)findViewById(R.id.main_bn_camera);
-		bn_camera.setOnClickListener(new OnClickListener() {
+	}
+	
+	//设置 camera 按钮点击事件
+	private void bind_camera_button_event(){
+		camera_button = (LinearLayout)findViewById(R.id.main_button_camera);
+		camera_button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				CameraLogic.call_sysotem_camera(MainActivity.this);
 			}
 		});
-		
-		bn_feeds = (LinearLayout)findViewById(R.id.main_bn_feeds);
-		bn_feeds.setOnClickListener(new OnClickListener() {
+	}
+	
+	private void bind_feeds_button_event(){
+		feeds_button = (LinearLayout)findViewById(R.id.main_button_feeds);
+		feeds_button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 //				Toast.makeText(getApplicationContext(),"浏览主题正在施工中...",
 //						Toast.LENGTH_SHORT).show();
@@ -114,40 +133,50 @@ public class MainActivity extends Activity {
 //				dialog.set_content(R.layout.main);
 				dialog.set_button1("确定", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which) {
+						//..
 					}
 				});
 				dialog.set_button3("取消", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which) {
+						//..
 					}
 				});
 				dialog.show();
 				
 			}
 		});
-		
-		bn_collections = (LinearLayout) findViewById(R.id.main_bn_collections);
-		bn_collections.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				startActivity(to_collection_list);
-			}
-		});
-		
-		ImageView account_logo_img = (ImageView)findViewById(R.id.account_logo);
-		TextView account_name_tv = (TextView)findViewById(R.id.account_name);
-		account_name_tv.setText(AccountInfoCache.get_name());
-		Bitmap b = BitmapFactory.decodeFile(AccountInfoCache.get_logo_path());
-		account_logo_img.setImageBitmap(b);
-		
-		start_syn();
 	}
 	
-	private void start_syn() {
-		notice_tv = (TextView)findViewById(R.id.main_notice);		
-		notice_bar = (ProgressBar)findViewById(R.id.main_notice_bar);
+	private void bind_collections_button_event(){
+		intent_to_collection_list = new Intent(this,CollectionListActivity.class);
 		
-		notice_tv.setText("正在同步...");
+		collections_button = (LinearLayout) findViewById(R.id.main_button_collections);
+		collections_button.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				startActivity(intent_to_collection_list);
+			}
+		});
+	}
+	
+	private void prepareAvatarAndName(){
+		ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
+		Bitmap b = BitmapFactory.decodeFile(AccountInfoCache.get_logo_path());
+		account_avatar_imgview.setImageBitmap(b);
+		//这里应考虑改为异步
+		
+		TextView account_name_textview = (TextView)findViewById(R.id.account_name);
+		account_name_textview.setText(AccountInfoCache.get_name());
+	}
+	
+	//同步操作
+	private void start_syn() {
+		notice_textview = (TextView)findViewById(R.id.main_notice);		
+		notice_textview.setText("正在同步...");
+		
+		notice_bar = (ProgressBar)findViewById(R.id.main_notice_bar);
 		notice_bar.setProgress(20);
 		notice_bar.setVisibility(View.VISIBLE);
+		
 		Thread thread = new Thread(new SynDataRunnable());
 		thread.setDaemon(true);
 		thread.start();
@@ -268,7 +297,7 @@ public class MainActivity extends Activity {
 			super.onPostExecute(result);
 			TextView account_name_tv = (TextView)findViewById(R.id.account_name);
 			account_name_tv.setText(AccountInfoCache.get_name());
-			ImageView account_logo_img = (ImageView)findViewById(R.id.account_logo);
+			ImageView account_logo_img = (ImageView)findViewById(R.id.account_avatar);
 			account_logo_img.setImageBitmap(result);
 		}
 	}

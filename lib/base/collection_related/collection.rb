@@ -110,4 +110,5 @@ class Collection < UserAuthAbstract
 
   include CollectionScope::CollectionMethods
   include FeedCollection::CollectionMethods
+  include Feed::CollectionMethods
 end

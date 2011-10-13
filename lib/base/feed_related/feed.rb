@@ -517,6 +517,12 @@ class Feed < UserAuthAbstract
     end
   end
 
+  module CollectionMethods
+    def feeds_limit(options)
+      Feed.mix_from_collections([self],options)
+    end
+  end
+
   include FeedMindmap::FeedMethods
   include Fav::FeedMethods
   include HtmlDocument::FeedMethods

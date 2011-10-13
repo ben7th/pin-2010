@@ -67,18 +67,6 @@ class FeedsController < ApplicationController
     render :status=>401,:text=>"没有权限"
   end
 
-  def new_count
-    info = MessageTip.new(current_user).newest_info
-    render :json=>info
-  end
-
-  def get_new_feeds
-    mt = MessageTip.new(current_user)
-    mt.refresh_feeds_info
-    newsfeeds = mt.newest_feeds(params[:after])
-    render :partial=>"index/homepage/feeds/new_feeds",:locals=>{:newsfeeds=>newsfeeds}
-  end
-
   def fav
     current_user.add_fav_feed(@feed)
     render :stats=>200,:text=>"收藏成功"
@@ -101,10 +89,6 @@ class FeedsController < ApplicationController
   def aj_comments
     render :partial=>"feeds/show_parts/comments",
       :locals=>{:comments=>@feed.comments}
-  end
-
-  def received_comments
-    @feed_comments = current_user.being_replied_comments.paginate(:per_page=>20,:page=>params[:page]||1)
   end
 
   # 搜索

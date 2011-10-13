@@ -11,6 +11,8 @@ import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.utils.BaseUtils;
+import com.mindpin.widget.DownloadImageTask;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -41,11 +43,11 @@ public class FeedDetailActivity extends Activity {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case MESSAGE_INTENT_CONNECTION_FAIL:
-				Toast.makeText(getApplicationContext(),R.string.intent_connection_fail,
+				Toast.makeText(getApplicationContext(),R.string.app_intent_connection_fail,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case MESSAGE_AUTH_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
 						Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(FeedDetailActivity.this,
 						LoginActivity.class));
@@ -149,21 +151,4 @@ public class FeedDetailActivity extends Activity {
 		}
 	}
 	
-	class DownloadImageTask extends AsyncTask<String, Integer, Bitmap>{
-		private ImageView view;
-		public DownloadImageTask(ImageView view){
-			this.view = view;
-		}
-		
-		protected Bitmap doInBackground(String... arg0) {
-			String url = arg0[0];
-			return get_bitmap(url);
-		}
-		
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			super.onPostExecute(result);
-			view.setImageBitmap(result);
-		}
-	}
 }

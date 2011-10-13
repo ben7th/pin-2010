@@ -5,6 +5,7 @@ import java.util.List;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 import com.mindpin.Logic.Http.IntentException;
+import com.mindpin.widget.FeedListAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -21,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,14 +47,16 @@ public class CollectionFeedListActivity extends Activity {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MESSAGE_INTENT_CONNECTION_FAIL:
-				Toast.makeText(getApplicationContext(),R.string.intent_connection_fail,
+				Toast.makeText(getApplicationContext(),R.string.app_intent_connection_fail,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case MESSAGE_READ_FEED_LIST_SUCCESS:
-				SimpleAdapter sa = new SimpleAdapter(CollectionFeedListActivity.this, 
-						feeds, R.layout.feed_item,
-						new String[]{"id","title"}, 
-						new int[]{R.id.feed_id,R.id.feed_title});
+				 FeedListAdapter sa = new FeedListAdapter(CollectionFeedListActivity.this, 
+						feeds);
+//				SimpleAdapter sa = new SimpleAdapter(CollectionFeedListActivity.this, 
+//						feeds, R.layout.feed_item,
+//						new String[]{"id","title"}, 
+//						new int[]{R.id.feed_id,R.id.feed_title});
 				feed_list_lv.setAdapter(sa);
 				feed_list_lv.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -85,7 +87,7 @@ public class CollectionFeedListActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case MESSAGE_AUTH_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
 						Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(CollectionFeedListActivity.this,LoginActivity.class));
 				CollectionFeedListActivity.this.finish();

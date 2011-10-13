@@ -16,10 +16,13 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,8 +33,12 @@ import com.mindpin.cache.CollectionsCache;
 import com.mindpin.utils.BaseUtils;
 
 public class Http {
-	private static final String SITE = "http://dev.www.mindpin.com";
-	private static DefaultHttpClient httpclient = new DefaultHttpClient();
+	private static final String SITE = "http://www.mindpin.com";
+	private static HttpParams params = new BasicHttpParams(); 
+	static{
+		HttpClientParams.setRedirecting(params, false);  
+	}
+	private static DefaultHttpClient httpclient = new DefaultHttpClient(params);
 	
 	public static boolean user_authenticate(String email, String password) throws IntentException {
 		try {
@@ -62,6 +69,9 @@ public class Http {
 			e.printStackTrace();
 			return false;
 		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (JSONException e) {
 			e.printStackTrace();
 			throw new IntentException();
 		}
@@ -173,17 +183,12 @@ public class Http {
 				String user_info = ((JSONObject)json.get("user")).toString();
 				CollectionsCache.save(collections);
 				AccountInfoCache.save(user_info);
+				return true;
 			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
 				throw new AuthenticateException();
 			}
-			return true;
-		}catch( JSONException e){
-			e.printStackTrace();
-			return false;
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
 			throw new IntentException();
-		} catch (IOException e) {
+		}catch( Exception e){
 			e.printStackTrace();
 			throw new IntentException();
 		}
@@ -222,7 +227,7 @@ public class Http {
 	public static List<HashMap<String, Object>> get_collection_feeds(int id) throws IntentException, AuthenticateException {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
 		try {
-			HttpGet httpget = new HttpGet(SITE + "/collections/" + id);
+			HttpGet httpget = new HttpGet(SITE + "/api0/collection_feeds?collection_id=" + id);
 			httpget.setHeader("User-Agent", "android");
 			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
@@ -236,6 +241,14 @@ public class Http {
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					map.put("id", feed_json.get("id"));
 					map.put("title", feed_json.get("title"));
+					map.put("detail",feed_json.get("detail"));
+					JSONArray json_photos = (JSONArray)feed_json.get("photos_middle");
+					ArrayList<String> photos = new ArrayList<String>();
+					for (int j = 0; j < json_photos.length(); j++) {
+						String url = (String)json_photos.get(j);
+						photos.add(url);
+					}
+					map.put("photos",photos);
 					list.add(map);
 				}
 			}else if("HTTP/1.1 401 Unauthorized".equals(res)){

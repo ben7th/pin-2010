@@ -19,8 +19,7 @@ import android.content.SharedPreferences.Editor;
 public class AccountManager {
 	public static final String PREFERENCES_NAME = "Mindpin";
 
-	public static void login(List<Cookie> cookies, String info) {
-		try {
+	public static void login(List<Cookie> cookies, String info) throws JSONException {
 			AccountInfoCache.save(info);
 			SharedPreferences pre = Global.application_context
 					.getSharedPreferences(AccountManager.PREFERENCES_NAME,
@@ -37,9 +36,6 @@ public class AccountManager {
 			}
 			pre_edit.putString("cookies", json_arr.toString());
 			pre_edit.commit();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public static void logout(){

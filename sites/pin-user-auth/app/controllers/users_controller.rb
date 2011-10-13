@@ -8,20 +8,6 @@ class UsersController < ApplicationController
   # forgot_password_form forgot_password reset_password change_password
   include ResetPasswordMethods
 
-  def do_reg
-    # 出于安全性考虑，新用户注册时销毁cookies令牌
-    destroy_cookie_token
-    @user=User.new(params[:user])
-    if @user.save
-      # 邀请注册成功后，互相加为联系人
-      InvitationEmail.new(params[:invition_sender_email],@user.email).done
-      login_after_create(@user)
-    else
-      flash.now[:error]=get_flash_error(@user)
-      render :action=>:show
-    end
-  end
-
   def cooperate
     set_cellhead_path('/index/cellhead')
     @user = User.find(params[:id])

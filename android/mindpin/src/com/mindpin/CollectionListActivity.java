@@ -43,7 +43,7 @@ public class CollectionListActivity extends Activity {
 			switch (msg.what) {
 			case MESSAGE_INTENT_CONNECTION_FAIL:
 				Toast.makeText(getApplicationContext(),
-						R.string.intent_connection_fail, Toast.LENGTH_SHORT)
+						R.string.app_intent_connection_fail, Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case MESSAGE_CREATE_COLLECTION_SUCCESS:
@@ -56,7 +56,7 @@ public class CollectionListActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case MESSAGE_AUTH_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.auth_fail_tip,
+				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
 						Toast.LENGTH_SHORT).show();
 				startActivity(new Intent(CollectionListActivity.this,LoginActivity.class));
 				CollectionListActivity.this.finish();

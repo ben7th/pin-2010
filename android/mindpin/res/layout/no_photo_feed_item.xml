@@ -15,9 +15,16 @@
 	    android:layout_width="fill_parent"   
 	    android:textSize="14dp"
 	    android:textColor="#888"
+	    android:visibility="gone"
     />
 	<TextView   
 	    android:id="@+id/feed_title"
+	    android:layout_height="wrap_content"   
+	    android:layout_width="fill_parent"
+	    android:textSize="18dp"
+    />
+	<TextView   
+	    android:id="@+id/feed_detail"
 	    android:layout_height="wrap_content"   
 	    android:layout_width="fill_parent"
 	    android:textSize="18dp"
