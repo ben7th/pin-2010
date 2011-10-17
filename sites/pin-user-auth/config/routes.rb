@@ -290,6 +290,6 @@ ActionController::Routing::Routes.draw do |map|
     match_get api0,'collection_feeds' => 'api_feeds#collection_feeds'
 
     # ---------------- 手机客户端同步数据 ----------
-    match_get api0,'android_syn'      => 'api_feeds#mobile_data_syn'
+    match_get api0,'mobile_data_syn'  => 'api_feeds#mobile_data_syn'
   end
 end
