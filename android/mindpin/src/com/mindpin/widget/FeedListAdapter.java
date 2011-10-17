@@ -22,6 +22,7 @@ public class FeedListAdapter extends BaseAdapter {
 	private Context context;
 	private List<HashMap<String, Object>> feeds;
 	private LayoutInflater mInflater;
+	private HashMap<String, View> cache_views = new HashMap<String, View>();
 
 	public FeedListAdapter(Context context,List<HashMap<String, Object>> feeds){
 		this.context = context;
@@ -48,23 +49,27 @@ public class FeedListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		HashMap<String, Object> feed = feeds.get(position);
 		String id = (Integer) feed.get("id") + "";
-		String title = (String) feed.get("title");
-		String detail = (String) feed.get("detail");
-		ArrayList<String> photos = (ArrayList<String>) feed.get("photos");
-		switch (photos.size()) {
-		case 0:
-			convertView = create_no_photo_view(id, title, detail, parent);
-			break;
-		case 1:
-			convertView = create_single_photo_view(id, title, detail,
-					photos.get(0), parent);
-			break;
-		default:
-			convertView = create_more_photo_view(id, title, detail, photos,
-					parent);
-			break;
+		View view = cache_views.get(id);
+		if(view == null){
+			String title = (String) feed.get("title");
+			String detail = (String) feed.get("detail");
+			ArrayList<String> photos = (ArrayList<String>) feed.get("photos");
+			switch (photos.size()) {
+			case 0:
+				view = create_no_photo_view(id, title, detail, parent);
+				break;
+			case 1:
+				view = create_single_photo_view(id, title, detail,
+						photos.get(0), parent);
+				break;
+			default:
+				view = create_more_photo_view(id, title, detail, photos,
+						parent);
+				break;
+			}
+			cache_views.put(id, view); 
 		}
-		return convertView;
+		return view;
 	}
 
 	private View create_more_photo_view(String id, String title, String detail,

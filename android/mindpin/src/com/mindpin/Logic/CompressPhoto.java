@@ -1,0 +1,60 @@
+package com.mindpin.Logic;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+
+public class CompressPhoto {
+
+	public static String get_compress_file_path(String original_file_path){
+		System.out.println("上传图片");
+		int quality_size = MindpinPreferences.get_photo_quality();
+		if(quality_size == 0){
+			System.out.println("原始的");
+			System.out.println(original_file_path);
+			return original_file_path;
+		}
+		
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		//  如果该值设为true那么将不返回实际的bitmap
+		//	不给其分配内存空间而里面只包括一些解码边界信息即图片大小信息	
+        options.inJustDecodeBounds = true;
+        //	获取这个图片的宽和高
+        //	此时返回bm为空
+        BitmapFactory.decodeFile(original_file_path, options); 
+        options.inSampleSize = quality_size;
+        
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeFile(original_file_path,options);
+		File mindpin_dir = new File(Environment.getExternalStorageDirectory()
+				.getPath() + "/mindpin/");
+		if (!mindpin_dir.exists()) {
+			mindpin_dir.mkdirs();
+		}
+        
+        File file=new File(mindpin_dir,"upload_tmp.png");
+        System.out.println(options.inSampleSize);
+        System.out.println(quality_size);
+        System.out.println(file.getPath());
+        if(file.exists()){
+        	file.delete();
+        	file=new File(mindpin_dir,"upload_tmp.png");
+        }
+        try {
+            FileOutputStream out=new FileOutputStream(file);
+            if(bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)){
+                out.flush();
+                out.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return file.getPath();
+	}
+}

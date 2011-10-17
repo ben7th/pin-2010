@@ -3,18 +3,16 @@ package com.mindpin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
-import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.cache.CollectionsCache;
+import com.mindpin.runnable.MindpinHandler;
+import com.mindpin.runnable.MindpinRunnable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,31 +36,21 @@ public class CollectionListActivity extends Activity {
 	private Button new_collection;
 	private boolean has_pause = false;
 
-	private Handler mhandler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
+	private MindpinHandler mhandler = new MindpinHandler(this) {
+		public boolean mindpin_handle_message(android.os.Message msg) {
+			progress_dialog.dismiss();
 			switch (msg.what) {
-			case MESSAGE_INTENT_CONNECTION_FAIL:
-				Toast.makeText(getApplicationContext(),
-						R.string.app_intent_connection_fail, Toast.LENGTH_SHORT)
-						.show();
-				break;
 			case MESSAGE_CREATE_COLLECTION_SUCCESS:
 				build_collection_list();
 				Toast.makeText(getApplicationContext(), "操作成功",
 						Toast.LENGTH_SHORT).show();
-				break;
+				return true;
 			case MESSAGE_CREATE_COLLECTION_FAIL:
 				Toast.makeText(getApplicationContext(), "创建失败",
 						Toast.LENGTH_SHORT).show();
-				break;
-			case MESSAGE_AUTH_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
-						Toast.LENGTH_SHORT).show();
-				startActivity(new Intent(CollectionListActivity.this,LoginActivity.class));
-				CollectionListActivity.this.finish();
-				break;
+				return true;
 			}
-			progress_dialog.dismiss();
+			return false;
 		};
 	};
 
@@ -162,26 +150,22 @@ public class CollectionListActivity extends Activity {
 		collection_list_lv.setAdapter(sa);
 	}
 
-	public class CreateCollectionRunnable implements Runnable {
+	public class CreateCollectionRunnable extends MindpinRunnable{
 		private String title;
 
 		public CreateCollectionRunnable(String title) {
+			super(mhandler);
 			this.title = title;
 		}
 
-		public void run() {
-			try {
-				boolean success;
-				success = Http.create_collection(title);
-				if (success) {
-					mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_SUCCESS);
-				} else {
-					mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_FAIL);
-				}
-			} catch (IntentException e) {
-				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
-			} catch (AuthenticateException e) {
-				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+		@Override
+		public void mindpin_run() throws Exception {
+			boolean success;
+			success = Http.create_collection(title);
+			if (success) {
+				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_SUCCESS);
+			} else {
+				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_FAIL);
 			}
 		}
 	}

@@ -33,33 +33,11 @@ module SessionsControllerMethods
     _redirect_by_service
   end
 
-  # 安卓客户端使用的同步方法
-  def android_syn
-    if logged_in?
-      @collections = current_user.created_collections_db
-      user = current_user
-      return render :json=>{
-        :user=>{
-          :name=>user.name,
-          :logo=>user.logo.url,
-          :sign=>user.sign
-        },
-        :collections=>@collections
-      }
-    end
-
-    render :text=>'没有登录，无法同步',:status=>401
-  end
-
   private
   def _create_android
     if logged_in?
       after_logged_in()
-      render :json=>{
-        :name=>current_user.name,
-        :logo=>current_user.logo.url,
-        :sign=>current_user.sign
-      }
+      render :json=>{:user=>current_user.api0_json_hash}
     else
       render :status=>401,:text=>401
     end

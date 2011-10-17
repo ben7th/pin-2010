@@ -19,7 +19,7 @@ import android.content.SharedPreferences.Editor;
 public class AccountManager {
 	public static final String PREFERENCES_NAME = "Mindpin";
 
-	public static void login(List<Cookie> cookies, String info) throws JSONException {
+	public static void login(List<Cookie> cookies, String info) throws Exception {
 			AccountInfoCache.save(info);
 			SharedPreferences pre = Global.application_context
 					.getSharedPreferences(AccountManager.PREFERENCES_NAME,
@@ -47,7 +47,7 @@ public class AccountManager {
 		pre_edit.remove("last_syn_time");
 		pre_edit.commit();
 
-		AccountInfoCache.destroy();
+		AccountInfoCache.delete_cache_files();
 		CollectionsCache.destroy();
 		FeedDraft.destroy_all(Global.application_context);
 	}

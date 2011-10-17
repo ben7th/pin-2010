@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.mindpin.CollectionListActivity.CreateCollectionRunnable;
-import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
-import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.cache.CollectionsCache;
+import com.mindpin.runnable.MindpinHandler;
+import com.mindpin.runnable.MindpinRunnable;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -17,7 +15,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,39 +49,31 @@ public class SelectCollectionListActivity extends Activity {
 	private ListView collection_list_lv;
 	private Button new_collection_bn;
 	private ProgressDialog progress_dialog;
-	private Handler mhandler = new Handler(){
-		public void handleMessage(android.os.Message msg) {
+	private MindpinHandler mhandler = new MindpinHandler(this){
+		public boolean mindpin_handle_message(android.os.Message msg) {
+			progress_dialog.dismiss();
 			switch (msg.what) {
-			case MESSAGE_INTENT_CONNECTION_FAIL:
-				Toast.makeText(getApplicationContext(),
-						R.string.app_intent_connection_fail, Toast.LENGTH_SHORT)
-						.show();
-				break;
 			case MESSAGE_CREATE_COLLECTION_SUCCESS:
 				collections = CollectionsCache.get_collection_list();
-				HashMap<String, Object> c = collections.get(collections.size()-1);
-				Integer id = (Integer)c.get("id");
-				if(select_collection_ids.indexOf(id) == -1){
+				HashMap<String, Object> c = collections
+						.get(collections.size() - 1);
+				Integer id = (Integer) c.get("id");
+				if (select_collection_ids.indexOf(id) == -1) {
 					select_collection_ids.add(id);
 				}
 				build_collection_list_data();
-				collection_list_lv.setSelection(collection_list_lv.getCount()-1);
+				collection_list_lv
+						.setSelection(collection_list_lv.getCount() - 1);
 				Toast.makeText(getApplicationContext(), "操作成功",
 						Toast.LENGTH_SHORT).show();
-				break;
+				return true;
 			case MESSAGE_CREATE_COLLECTION_FAIL:
 				Toast.makeText(getApplicationContext(), "创建失败",
 						Toast.LENGTH_SHORT).show();
-				break;
-			case MESSAGE_AUTH_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
-						Toast.LENGTH_SHORT).show();
-				startActivity(new Intent(SelectCollectionListActivity.this,LoginActivity.class));
-				SelectCollectionListActivity.this.finish();
-				break;
+				return true;
 			}
-			progress_dialog.dismiss();
-		};
+			return false;
+		}
 	};
 
 	@Override
@@ -277,26 +266,21 @@ public class SelectCollectionListActivity extends Activity {
 	}
 	
 	
-	public class CreateCollectionRunnable implements Runnable {
+	public class CreateCollectionRunnable extends MindpinRunnable {
 		private String title;
 		
 		public CreateCollectionRunnable(String title) {
+			super(mhandler);
 			this.title = title;
 		}
 
-		public void run() {
-			try {
-				boolean success = Http.create_collection(title);
-				if (success) {
-					collections = CollectionsCache.get_collection_list();
-					mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_SUCCESS);
-				} else {
-					mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_FAIL);
-				}
-			} catch (IntentException e) {
-				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
-			} catch (AuthenticateException e) {
-				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+		public void mindpin_run() throws Exception {
+			boolean success = Http.create_collection(title);
+			if (success) {
+				collections = CollectionsCache.get_collection_list();
+				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_SUCCESS);
+			} else {
+				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_FAIL);
 			}
 		}
 	}

@@ -7,8 +7,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -27,127 +29,157 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.utils.BaseUtils;
 
 public class Http {
-	private static final String SITE = "http://www.mindpin.com";
+	
+	public static final String SITE = "http://www.mindpin.com";
 	private static HttpParams params = new BasicHttpParams(); 
 	static{
 		HttpClientParams.setRedirecting(params, false);  
 	}
 	private static DefaultHttpClient httpclient = new DefaultHttpClient(params);
 	
-	public static boolean user_authenticate(String email, String password) throws IntentException {
-		try {
-			HttpPost httpost = new HttpPost(SITE + "/session");
-			httpost.setHeader("User-Agent", "android");
-
-			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-			nvps.add(new BasicNameValuePair("email", email));
-			nvps.add(new BasicNameValuePair("password", password));
-			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-
-			HttpResponse response = httpclient.execute(httpost);
-			String res = response.getStatusLine().toString();
-			if ("HTTP/1.1 200 OK".equals(res)) {
-				String info = IOUtils.toString(response.getEntity().getContent());
-				AccountManager.login(httpclient.getCookieStore().getCookies(),info);
-				return true;
-			} else {
-				return false;
+	
+	// 用于发送post请求的类
+	public static abstract class MindpinPostRequest<T> {
+		private HttpPost http_post;
+		
+		// 一般文本参数的请求
+		public MindpinPostRequest(final String request_path, final NameValuePair...nv_pairs) throws UnsupportedEncodingException{
+			// 准备参数list对象
+			List<NameValuePair> nv_pair_list = new ArrayList<NameValuePair>();
+			for(NameValuePair pair : nv_pairs){
+				nv_pair_list.add(pair);
 			}
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return false;
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		} catch (JSONException e) {
-			e.printStackTrace();
-			throw new IntentException();
+			
+			// 构造http_post
+			HttpPost http_post = new HttpPost(SITE + request_path);
+			
+			http_post.setHeader("User-Agent", "android");
+			http_post.setEntity(new UrlEncodedFormEntity(nv_pair_list, HTTP.UTF_8));
+			
+			this.http_post = http_post;
 		}
-	}
-
-	public static boolean send_feed(String title, String content,
-			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids, boolean send_tsina) throws IntentException, AuthenticateException {
-		try {
-			String select_collection_ids_str = 
-					BaseUtils.integer_list_to_string(select_collection_ids);
-			String photo_string = BaseUtils.string_list_to_string(photo_names); 
-			HttpPost httpost = new HttpPost(SITE + "/feeds");
-			httpost.setHeader("User-Agent", "android");
-			// 设置 params
-			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-			nvps.add(new BasicNameValuePair("content", title));
-			nvps.add(new BasicNameValuePair("detail", content));
-			nvps.add(new BasicNameValuePair("photo_names", photo_string));
-			nvps.add(new BasicNameValuePair("collection_ids", select_collection_ids_str));
-			if(send_tsina){
-				nvps.add(new BasicNameValuePair("send_tsina", "true"));
+		
+		// 上传文件之类的请求
+		public MindpinPostRequest(final String request_path, final ParamFile...param_files){
+			//准备参数
+			MultipartEntity me = new MultipartEntity();
+			for(ParamFile param_file : param_files){
+				me.addPart(param_file.param_name, param_file.get_filebody());
 			}
-			httpost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
-
+			
+			// 构造http_post
+			HttpPost http_post = new HttpPost(SITE + request_path);
+			http_post.setHeader("User-Agent", "android");
+			http_post.setEntity(me);
+			
+			this.http_post = http_post;
+		}
+		
+		// 主方法 GO
+		public T go() throws Exception{
 			set_cookie_store();
-			HttpResponse response = httpclient.execute(httpost);
-			response.getEntity().getContent().close();
-			String res = response.getStatusLine().toString();
-			if ("HTTP/1.1 200 OK".equals(res)) {
-				return true;
-			} else if("HTTP/1.1 401 Unauthorized".equals(res)){
-				throw new AuthenticateException();
-			}else {
-				return false;
+			
+			HttpResponse response = httpclient.execute(http_post);
+			
+			int status_code = response.getStatusLine().getStatusCode(); 
+			
+			InputStream res_content = response.getEntity().getContent();
+			String responst_text = IOUtils.toString(res_content);
+			
+			res_content.close();
+			
+			switch(status_code){
+			case HttpStatus.SC_OK:
+				return on_success(responst_text);
+			case HttpStatus.SC_UNAUTHORIZED:
+				throw new AuthenticateException(); //抛出未登录异常，会被 MindpinRunnable 接到并处理
+			default:
+				throw new Exception();	//不是 200 也不是 401 只能认为是出错了。会被 MindpinRunnable 接到并处理
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IntentException();
+		}
+		
+		// 此方法为 status_code = 200 时 的处理方法，由用户自己定义
+		public abstract T on_success(String response_text) throws Exception;
+		
+	}
+	
+	// 用于包装文件以及文件MIME类型的小类
+	public static class ParamFile{
+		public String param_name;
+		public String file_path;
+		public String mime_type;
+		
+		public ParamFile(String param_name, String file_path, String mime_type){
+			this.param_name = param_name;
+			this.file_path = file_path;
+			this.mime_type = mime_type;
+		}
+		
+		public FileBody get_filebody(){
+			File file = new File(file_path);
+			return new FileBody(file, mime_type);
 		}
 	}
 	
-	public static String upload_photo(String image_path) throws IntentException, AuthenticateException{
-		String photo_name = "";
-		
-		try {
-			HttpPost httpost = new HttpPost(SITE + "/photos/feed_upload");
-			httpost.setHeader("User-Agent", "android");
-			MultipartEntity me = new MultipartEntity();
-			File file = new File(image_path);
-			FileBody bin = new FileBody(file, "image/jpeg");
-			me.addPart("file", bin);
-			httpost.setEntity(me);
-			set_cookie_store();
-			HttpResponse response = httpclient.execute(httpost);
-			String res = response.getStatusLine().toString();
-			if ("HTTP/1.1 200 OK".equals(res)) {
-				photo_name = IOUtils.toString(response.getEntity()
-						.getContent());
-			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
-				throw new AuthenticateException();
+	// 用户登录请求
+	public static boolean user_authenticate(String email, String password) throws Exception {
+		return new MindpinPostRequest<Boolean>(
+			"/session", 
+			new BasicNameValuePair("email", email),
+			new BasicNameValuePair("password", password)		
+		){
+			@Override
+			public Boolean on_success(String response_text) throws Exception{
+				AccountManager.login(httpclient.getCookieStore().getCookies(), response_text);
+				return true;
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		}
-		
-		return photo_name;
+		}.go();
 	}
 
-	public static InputStream download_logo(String logo_url) {
+	// 发送主题
+	public static boolean send_feed(String title, String content,
+			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids, boolean send_tsina) throws Exception {
+		
+		String photo_string = BaseUtils.string_list_to_string(photo_names); 
+		String select_collection_ids_str = BaseUtils.integer_list_to_string(select_collection_ids);
+		
+		return new MindpinPostRequest<Boolean>(
+			"/feeds", 
+			new BasicNameValuePair("content", title),
+			new BasicNameValuePair("detail", content),
+			new BasicNameValuePair("photo_names", photo_string),
+			new BasicNameValuePair("collection_ids", select_collection_ids_str),
+			new BasicNameValuePair("send_tsina", send_tsina ? "true":"false")
+		){
+			@Override
+			public Boolean on_success(String response_text) throws Exception{
+				return true;
+			}
+		}.go();
+	}
+	
+	public static String upload_photo(String image_path) throws Exception{
+		String upload_image_path = CompressPhoto.get_compress_file_path(image_path);
+		return new MindpinPostRequest<String>(
+			"/photos/feed_upload",
+			new ParamFile("file", upload_image_path, "image/jpeg")
+		){
+
+			@Override
+			public String on_success(String response_text) throws Exception {
+				return response_text;
+			}
+		}.go();
+	}
+
+	public static InputStream download_image(String logo_url) {
 		try {
 			HttpGet httpget = new HttpGet(logo_url);
 			httpget.setHeader("User-Agent", "android");

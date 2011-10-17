@@ -1,14 +1,16 @@
-class Api0::FeedsController < ApplicationController
+class Api0::ApiFeedsController < ApplicationController
   before_filter :api0_need_login
   def api0_need_login
     return render :text=>'api0需要在登录状态下访问',:status=>401 if !logged_in?
   end
+  
 
-  #    :collection_id  必须  收集册的id
-  #    :since_id 非必须，若指定此参数，则只获取ID比since_id大的feed信息
-  #    :max_id 非必须，弱指定此参数，则只获取ID小于或等于max_id的feed信息
-  #    :count 非必须 默认20，最大100，单页返回的结果条数
-  #    :page 非必须，返回结果的页码，默认1
+  # 获取指定的收集册中的主题列表
+  # :collection_id  必须  收集册的id
+  # :since_id 非必须，若指定此参数，则只获取ID比since_id大的feed信息
+  # :max_id 非必须，弱指定此参数，则只获取ID小于或等于max_id的feed信息
+  # :count 非必须 默认20，最大100，单页返回的结果条数
+  # :page 非必须，返回结果的页码，默认1
   def collection_feeds
     collection = Collection.find(params[:collection_id])
     feeds = collection.feeds_limit({
@@ -30,15 +32,18 @@ class Api0::FeedsController < ApplicationController
         :photos_thumbnail => feed.photos.map{|p|p.image.url(:s100)},
         :photos_middle    => feed.photos.map{|p|p.image.url(:w210)},
         :photos_large     => feed.photos.map{|p|p.image.url(:w660)},
-        :user       => {
-          :name       => user.name,
-          :sign       => user.sign,
-          :id         => user.id,
-          :following  => current_user.following?(user),
-          :avatar_url => user.logo.url,
-        }
+        :user       => user.api0_json_hash(current_user)
       }
     }
-
   end
+
+  # 手机客户端使用的数据同步方法
+  def mobile_data_syn
+    @collections = current_user.created_collections_db
+    return render :json=>{
+      :user=>current_user.api0_json_hash,
+      :collections=>@collections
+    }
+  end
+  
 end

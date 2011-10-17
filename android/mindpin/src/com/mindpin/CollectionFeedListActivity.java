@@ -2,9 +2,9 @@ package com.mindpin;
 
 import java.util.HashMap;
 import java.util.List;
-import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
-import com.mindpin.Logic.Http.IntentException;
+import com.mindpin.runnable.MindpinHandler;
+import com.mindpin.runnable.MindpinRunnable;
 import com.mindpin.widget.FeedListAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,7 +12,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,13 +42,11 @@ public class CollectionFeedListActivity extends Activity {
 	private ProgressDialog progress_dialog;
 	private List<HashMap<String, Object>> feeds;
 	private ListView feed_list_lv;
-	private Handler mhandler = new Handler(){
-		public void handleMessage(android.os.Message msg) {
+	private MindpinHandler mhandler = new MindpinHandler(this){
+		public boolean mindpin_handle_message(android.os.Message msg) {
+			progress_dialog.dismiss();
+			
 			switch (msg.what) {
-			case MESSAGE_INTENT_CONNECTION_FAIL:
-				Toast.makeText(getApplicationContext(),R.string.app_intent_connection_fail,
-						Toast.LENGTH_SHORT).show();
-				break;
 			case MESSAGE_READ_FEED_LIST_SUCCESS:
 				 FeedListAdapter sa = new FeedListAdapter(CollectionFeedListActivity.this, 
 						feeds);
@@ -68,33 +65,28 @@ public class CollectionFeedListActivity extends Activity {
 						CollectionFeedListActivity.this.startActivity(intent);
 					}
 				});
-				break;
+				return true;
 			case MESSAGE_DESTROY_COLLECTION_SUCCESS:
 				Toast.makeText(getApplicationContext(),"操作成功",
 						Toast.LENGTH_SHORT).show();
 				CollectionFeedListActivity.this.finish();
-				break;
+				return true;
 			case MESSAGE_DESTROY_COLLECTION_FAIL:
 				Toast.makeText(getApplicationContext(),"操作失败",
 						Toast.LENGTH_SHORT).show();
-				break;
+				return true;
 			case MESSAGE_CHANGE_COLLECTION_NAME_SUCCESS:
 				Toast.makeText(getApplicationContext(),"操作成功",
 						Toast.LENGTH_SHORT).show();
-				break;
+				return true;
 			case MESSAGE_CHANGE_COLLECTION_NAME_FAIL:
 				Toast.makeText(getApplicationContext(),"操作失败",
 						Toast.LENGTH_SHORT).show();
-				break;
-			case MESSAGE_AUTH_FAIL:
-				Toast.makeText(getApplicationContext(), R.string.app_auth_fail,
-						Toast.LENGTH_SHORT).show();
-				startActivity(new Intent(CollectionFeedListActivity.this,LoginActivity.class));
-				CollectionFeedListActivity.this.finish();
-				break;
+				return true;
 			}
-			progress_dialog.dismiss();
-		};
+			
+			return false;
+		}
 	};
 
 	@Override
@@ -171,75 +163,53 @@ public class CollectionFeedListActivity extends Activity {
 		builder.show();
 	}
 	
-	public class ReadCollectionFeedListRunnable implements Runnable {
+	public class ReadCollectionFeedListRunnable extends MindpinRunnable {
 		private int id;
 		public ReadCollectionFeedListRunnable(int id){
+			super(mhandler);
 			this.id = id;
 		}
 		@Override
-		public void run() {
-			try {
-				feeds = Http.get_collection_feeds(id);
-				mhandler.sendEmptyMessage(MESSAGE_READ_FEED_LIST_SUCCESS);
-			} catch (IntentException e) {
-				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
-			} catch (AuthenticateException e) {
-				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
-				e.printStackTrace();
-			}
+		public void mindpin_run()  throws Exception{
+			feeds = Http.get_collection_feeds(id);
+			mhandler.sendEmptyMessage(MESSAGE_READ_FEED_LIST_SUCCESS);
 		}
 	}
 	
-	
-	public class DestroyCollectionRunnable implements Runnable{
+	public class DestroyCollectionRunnable extends MindpinRunnable{
 		private int id;
 		public DestroyCollectionRunnable(int id){
+			super(mhandler);
 			this.id = id;
 		}
+		
 		@Override
-		public void run() {
-			try {
-				if (Http.destroy_collection(id)) {
-					mhandler.sendEmptyMessage(MESSAGE_DESTROY_COLLECTION_SUCCESS);
-				} else {
-					mhandler.sendEmptyMessage(MESSAGE_DESTROY_COLLECTION_FAIL);
-				}
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IntentException e) {
-				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
-			} catch (AuthenticateException e) {
-				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
+		public void mindpin_run() throws Exception {
+			if (Http.destroy_collection(id)) {
+				mhandler.sendEmptyMessage(MESSAGE_DESTROY_COLLECTION_SUCCESS);
+			} else {
+				mhandler.sendEmptyMessage(MESSAGE_DESTROY_COLLECTION_FAIL);
 			}
 		}
 	}
 	
-	public class ChangeCollectionNameRunnable implements Runnable{
+	public class ChangeCollectionNameRunnable extends MindpinRunnable{
 		private int id;
 		private String title;
 		
 		public ChangeCollectionNameRunnable(int collection_id,
 				String collection_title) {
+			super(mhandler);
 			this.id = collection_id;
 			this.title = collection_title;
 		}
 
 		@Override
-		public void run() {
-			try {
-				if (Http.change_collection_name(id,title)) {
-					mhandler.sendEmptyMessage(MESSAGE_CHANGE_COLLECTION_NAME_SUCCESS);
-				} else {
-					mhandler.sendEmptyMessage(MESSAGE_CHANGE_COLLECTION_NAME_FAIL);
-				}
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (IntentException e) {
-				e.printStackTrace();
-				mhandler.sendEmptyMessage(MESSAGE_INTENT_CONNECTION_FAIL);
-			} catch (AuthenticateException e) {
-				mhandler.sendEmptyMessage(MESSAGE_AUTH_FAIL);
-				e.printStackTrace();
+		public void mindpin_run() throws Exception {
+			if (Http.change_collection_name(id,title)) {
+				mhandler.sendEmptyMessage(MESSAGE_CHANGE_COLLECTION_NAME_SUCCESS);
+			} else {
+				mhandler.sendEmptyMessage(MESSAGE_CHANGE_COLLECTION_NAME_FAIL);
 			}
 		}
 		

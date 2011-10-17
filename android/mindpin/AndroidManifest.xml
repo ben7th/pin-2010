@@ -48,6 +48,8 @@
 		</activity>
 		<activity android:name=".showImageCaptureActivity">
 		</activity>
+		<activity android:name=".MindpinPreferenceActivity">
+		</activity>
 	</application>
 
 	<uses-permission android:name="android.permission.INTERNET" />

@@ -4,8 +4,19 @@
     <string name="app_name">mindpin</string>
     <string name="app_version">0.0.6 pre</string>
     <string name="app_now_loading">正在载入…</string>
-    <string name="app_intent_connection_fail">网络连接错误</string>
-    <string name="app_auth_fail">用户身份验证错误</string>
+    
+    <string name="app_method_not_define_exception">功能方法未定义</string>
+    <string name="app_intent_connection_exception">网络连接错误</string>
+    <string name="app_authenticate_exception">用户身份验证错误</string>
+    <string name="app_unknown_exception">程序执行错误</string>
+    
+    <!-- 各种dialog -->
+    <string name="dialog_close_app_title">关闭mindpin</string>
+    <string name="dialog_close_app_text">确定要关闭mindpin么？</string>
+    <string name="dialog_logout_title">退出登录</string>
+    <string name="dialog_logout_text">退出登录将清除当前账号的缓存以及草稿数据，确定么？</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_cancel">取消</string>
     
     <!-- 登录页面 -->
     <string name="login_email">邮箱</string>
@@ -23,6 +34,7 @@
     <string name="main_bn_collections">收集册</string>
     <string name="about">关于…</string>
     <string name="logout">退出登录</string>
+    <string name="setting">设置</string>
     <!-- 新建主题页面 -->
     <string name="new_feed_title_et">主题标题</string>
     <string name="new_feed_content_et">主题内容</string>
@@ -40,4 +52,6 @@
    	 <!-- 收集册主题列表页面 -->
     <string name="menu_delete_collection">删除</string>
     <string name="menu_change_collection_name">改名</string>
+    <!-- 设置页面 -->
+    <string name="upload_photo_quality">upload_photo_quality</string>
 </resources>

@@ -251,9 +251,6 @@ ActionController::Routing::Routes.draw do |map|
   # ---------------- 首页和欢迎页面 ---------
   map.root :controller=>'index',:action=>'index'
   
-  # ---------------- 手机客户端同步数据 ----------
-  map.connect '/android_syn',:controller=>'sessions',:action=>'android_syn'
-  
   match_activation_routes(map)
   match_auth_routes(map)
   match_user_routes(map)
@@ -290,6 +287,9 @@ ActionController::Routing::Routes.draw do |map|
   match_get map,'/:user_id/collections/tsina' => 'collections#tsina'
 
   map.namespace(:api0) do |api0|
-    match_get api0,'collection_feeds' => 'feeds#collection_feeds'
+    match_get api0,'collection_feeds' => 'api_feeds#collection_feeds'
+
+    # ---------------- 手机客户端同步数据 ----------
+    match_get api0,'android_syn'      => 'api_feeds#mobile_data_syn'
   end
 end
