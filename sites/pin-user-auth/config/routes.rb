@@ -287,9 +287,11 @@ ActionController::Routing::Routes.draw do |map|
   match_get map,'/:user_id/collections/tsina' => 'collections#tsina'
 
   map.namespace(:api0) do |api0|
-    match_get api0,'collection_feeds' => 'api_feeds#collection_feeds'
-
     # ---------------- 手机客户端同步数据 ----------
     match_get api0,'mobile_data_syn'  => 'api_feeds#mobile_data_syn'
+
+    match_get api0,'collection_feeds' => 'api_feeds#collection_feeds'
+    match_get api0,'show'             => 'api_feeds#show'
+
   end
 end

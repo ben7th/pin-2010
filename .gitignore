@@ -4,3 +4,4 @@ schema.rb
 .sass-cache
 yahei.ttf
 apple.otf
+*.class

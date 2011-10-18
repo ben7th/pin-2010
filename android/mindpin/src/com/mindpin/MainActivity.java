@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 		LinearLayout camera_button = (LinearLayout)findViewById(R.id.main_button_camera);
 		camera_button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				CameraLogic.call_sysotem_camera(MainActivity.this);
+				CameraLogic.call_system_camera(MainActivity.this);
 			}
 		});
 	}
@@ -128,8 +128,8 @@ public class MainActivity extends Activity {
 			TextView account_name_textview = (TextView)findViewById(R.id.account_name);
 			ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
 			
-			//account_name_textview.setText(AccountInfoCache.get_name());
-			//account_avatar_imgview.setImageBitmap(result);
+			account_name_textview.setText(AccountInfoCache.get_name());
+			account_avatar_imgview.setImageBitmap(result);
 		}
 	}
 	
@@ -139,7 +139,7 @@ public class MainActivity extends Activity {
 	
 	//同步操作
 	private void data_syn() {
-		new MindpinAsyncTask<String, Integer>(this){
+		new MindpinAsyncTask<String, Integer, Void>(this){
 			@Override
 			public void on_start() {
 				data_syn_textview.setText("正在同步数据…");
@@ -148,23 +148,23 @@ public class MainActivity extends Activity {
 			}
 			
 			@Override
-			public void do_in_background(String... params) throws Exception {
+			public Void do_in_background(String... params) throws Exception {
 				Timer timer = new Timer();
 				TimerTask timer_task = new TimerTask() {
 					@Override
 					public void run() {
 						int current_value = data_syn_progress_bar.getProgress();
 						if(current_value < 90){
-							publish_progress(current_value+2);
+							publish_progress(current_value+1);
 						}
-						
 					}
 				};
-				timer.schedule(timer_task, 100, 100);
-				Http.syn_data();
+				timer.schedule(timer_task, 50, 50);
+				Http.mobile_data_syn();
 				timer.cancel();
 				publish_progress(100);
 				Thread.sleep(500);
+				return null;
 			}
 			
 			public void on_progress_update(Integer... values) {
@@ -176,16 +176,17 @@ public class MainActivity extends Activity {
 			};
 
 			@Override
-			public void on_success() {
+			public void on_success(Void v) {
 				AccountManager.touch_last_syn_time(getApplicationContext());
 				data_syn_progress_bar.setProgress(100);
 				update_account_info();
 			}
 			
-			public void on_unknown_exception() {
-				data_syn_textview.setText("网络连接异常");
+			public boolean on_unknown_exception() {
+				BaseUtils.toast(R.string.app_data_syn_fail);
 				data_syn_progress_bar.setProgress(0);
 				data_syn_progress_bar.setVisibility(View.GONE);
+				return false;
 			};
 			
 			public void on_final() {

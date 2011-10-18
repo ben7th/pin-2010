@@ -2,10 +2,12 @@ package com.mindpin.cache;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
@@ -16,11 +18,11 @@ import com.mindpin.Logic.Http;
 
 public class AccountInfoCache {
 	
-	public static void save(String info) throws Exception {
-		FileUtils.writeStringToFile(get_json_file(), info);
-		JSONObject json = new JSONObject(info);
-		InputStream stream = Http.download_image((String)json.get("logo"));
-		if(stream != null){
+	public static void save(String account_info) throws JSONException, IOException   {
+		FileUtils.writeStringToFile(get_json_file(), account_info);
+		JSONObject json = new JSONObject(account_info);
+		InputStream stream = Http.download_image((String)json.get("avatar_url"));
+		if(null != stream){
 			FileUtils.copyInputStreamToFile(stream, get_avatar_file());
 		}
 	}

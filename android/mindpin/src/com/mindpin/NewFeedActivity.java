@@ -225,7 +225,7 @@ public class NewFeedActivity extends Activity {
 //		thread.start();
 		System.out.println("MindpinAsyncTask send_feed");
 		final int max_count = (capture_paths.size()+1)*100;		
-		new MindpinAsyncTask<String, String>(this){
+		new MindpinAsyncTask<String, String, Void>(this){
 			@Override
 			public void on_start() {
 				super.on_start();
@@ -255,7 +255,7 @@ public class NewFeedActivity extends Activity {
 			};
 			
 			@Override
-			public void on_unknown_exception() {
+			public boolean on_unknown_exception() {
 				super.on_unknown_exception();
 				if(feed_draft_id != 0){
 					FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
@@ -264,13 +264,14 @@ public class NewFeedActivity extends Activity {
 					FeedDraftManager.save_feed_draft(NewFeedActivity.this, 
 							feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
 				}
-				Toast.makeText(getApplicationContext(), "网络不可用，已保存草稿",
+				Toast.makeText(getApplicationContext(), "发送失败，已保存草稿",
 						Toast.LENGTH_SHORT).show();
 				NewFeedActivity.this.finish();
+				return false;
 			}
 			
 			@Override
-			public void do_in_background(String... params) throws Exception {
+			public Void do_in_background(String... params) throws Exception {
 				ArrayList<String> photo_names = new ArrayList<String>();
 				
 				for (int i = 0; i < capture_paths.size(); i++) {
@@ -312,10 +313,12 @@ public class NewFeedActivity extends Activity {
 					feed_draft_id=0;
 				}
 				publish_progress("send_feed_success");
+				
+				return null;
 			}
 
 			@Override
-			public void on_success() {
+			public void on_success(Void v) {
 				System.out.println("MindpinAsyncTask send_feed success");
 			}
 		}.execute();
@@ -337,7 +340,7 @@ public class NewFeedActivity extends Activity {
 		capture_bn = (ImageButton)findViewById(R.id.capture_bn);
 		capture_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				CameraLogic.call_sysotem_camera(NewFeedActivity.this);
+				CameraLogic.call_system_camera(NewFeedActivity.this);
 			}
 		});
 		send_bn = (Button) findViewById(R.id.send_bn);

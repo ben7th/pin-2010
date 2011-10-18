@@ -12,11 +12,15 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.mindpin.Logic.Global;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.TypedValue;
+import android.widget.Toast;
 
 public class BaseUtils {
 	
@@ -170,5 +174,13 @@ public class BaseUtils {
     		}
     	}
     	return true;
+    }
+    
+    public static void toast(int string_resource_id){
+		Toast.makeText(
+			Global.application_context, 
+			string_resource_id,
+			Toast.LENGTH_SHORT
+		).show();
     }
 }

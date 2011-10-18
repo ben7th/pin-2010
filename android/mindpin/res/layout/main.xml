@@ -13,6 +13,7 @@
 		<ImageView
 			android:id="@+id/account_avatar"
 			style="@style/title_bar_user_avatar"
+			android:src="@drawable/user_default_avatar_normal"
 		/>
 		<TextView
 			android:id="@+id/account_name"
@@ -86,7 +87,7 @@
 		
 		<!-- 同步进度条和提示文字 -->
 		<LinearLayout 
-			android:layout_marginTop="40px"
+			android:layout_marginTop="40dp"
 			android:orientation="vertical"
 		>	
 			<TextView 
@@ -101,7 +102,7 @@
 			<ProgressBar 
 				android:id="@+id/main_data_syn_progress_bar" 
 				style="?android:attr/progressBarStyleHorizontal"
-				android:layout_height="10dp" 
+				android:layout_height="14dp" 
 				android:layout_width="fill_parent"
 				android:visibility="gone"
 			/>

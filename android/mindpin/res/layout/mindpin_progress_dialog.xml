@@ -5,29 +5,29 @@
     android:orientation="vertical"
     android:background="@null"
 >
-    <LinearLayout
-    	android:layout_gravity="center|center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+    <RelativeLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:padding="8dp"
         android:background="@null"
     >
         <ProgressBar
-        	style="@android:style/Widget.ProgressBar.Inverse"
-        	android:layout_width="32dp" 
-        	android:layout_height="32dp"
-        	android:layout_gravity="center"
-        	android:layout_marginRight="8dp"
+        	style="@android:style/Widget.ProgressBar.Large"
+        	android:layout_width="50dp" 
+        	android:layout_height="50dp"
+        	android:layout_alignParentTop="true"
+        	android:layout_centerHorizontal="true"
         	android:background="@null"
        	/>
         <TextView android:id="@+id/mindpin_progress_dialog_message"
-        	android:text=""
+        	android:text="正在载入…"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16dp"
-            android:layout_gravity="center"
-            android:background="@null"
+           	android:layout_alignParentBottom="true"
+        	android:layout_centerHorizontal="true"
+        	android:textColor="#fff"
+        	android:background="@null"
         />
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

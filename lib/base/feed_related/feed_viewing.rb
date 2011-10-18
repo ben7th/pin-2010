@@ -19,7 +19,7 @@ class FeedViewing < UserAuthAbstract
       base.has_many :feed_viewings
     end
 
-    def view_by(user)
+    def save_viewed_by(user)
       return if user.blank?
       fv = self.feed_viewings.find_by_user_id(user.id)
       return unless fv.blank?

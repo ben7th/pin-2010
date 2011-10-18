@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mindpin.Logic.Http;
 import com.mindpin.runnable.MindpinAsyncTask;
@@ -50,20 +49,12 @@ public class LoginActivity extends Activity {
 		
 		//邮箱，密码不可以空
 		if (BaseUtils.isStrBlank(email)) {
-			Toast.makeText(
-				getApplicationContext(), 
-				R.string.login_email_valid_blank,
-				Toast.LENGTH_SHORT
-			).show();
+			BaseUtils.toast(R.string.login_email_valid_blank);
 			return false;
 		}
 
 		if (BaseUtils.isStrBlank(password)) {
-			Toast.makeText(
-				getApplicationContext(), 
-				R.string.login_password_valid_blank,
-				Toast.LENGTH_SHORT
-			).show();
+			BaseUtils.toast(R.string.login_password_valid_blank);
 			return false;
 		}
 		
@@ -72,19 +63,20 @@ public class LoginActivity extends Activity {
 	
 	//显示正在登录，并在一个线程中进行登录
 	private void doLogin(){		
-		new MindpinAsyncTask<String, String>(this, R.string.login_now_login){
+		new MindpinAsyncTask<String, Void, Void>(this, R.string.login_now_login){
 			@Override
-			public void do_in_background(String... params) throws Exception {
+			public Void do_in_background(String... params) throws Exception {
 				String email = params[0];
 				String password = params[1];
 				Http.user_authenticate(email, password);
+				return null;
 			}
 
 			@Override
-			public void on_success() {
+			public void on_success(Void v) {
 				startActivity(new Intent(LoginActivity.this, MainActivity.class));
 				LoginActivity.this.finish();
 			}
-		}.execute(this.email, this.password);
+		}.execute(email, password);
 	}
 }

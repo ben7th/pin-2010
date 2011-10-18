@@ -1,14 +1,8 @@
 package com.mindpin;
 
-import java.util.HashMap;
-import java.util.List;
-import com.mindpin.Logic.Http;
-import com.mindpin.runnable.MindpinHandler;
-import com.mindpin.runnable.MindpinRunnable;
-import com.mindpin.widget.FeedListAdapter;
+import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +17,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.mindpin.Logic.Feed;
+import com.mindpin.Logic.Http;
+import com.mindpin.runnable.MindpinHandler;
+import com.mindpin.runnable.MindpinRunnable;
+import com.mindpin.widget.FeedListAdapter;
+import com.mindpin.widget.MindpinProgressDialog;
 
 public class CollectionFeedListActivity extends Activity {
 	public static final String EXTRA_COLLECTION_ID = "collection_id";
@@ -39,14 +39,14 @@ public class CollectionFeedListActivity extends Activity {
 	
 	private int collection_id;
 	private String collection_title;
-	private ProgressDialog progress_dialog;
-	private List<HashMap<String, Object>> feeds;
+	private MindpinProgressDialog progress_dialog;
+	private ArrayList<Feed> feeds;
 	private ListView feed_list_lv;
 	private MindpinHandler mhandler = new MindpinHandler(this){
 		public boolean mindpin_handle_message(android.os.Message msg) {
 			progress_dialog.dismiss();
 			
-			switch (msg.what) {
+			switch (msg.what) { 
 			case MESSAGE_READ_FEED_LIST_SUCCESS:
 				 FeedListAdapter sa = new FeedListAdapter(CollectionFeedListActivity.this, 
 						feeds);
@@ -95,8 +95,7 @@ public class CollectionFeedListActivity extends Activity {
 		setContentView(R.layout.collection_feed_list);
 		collection_id = getIntent().getIntExtra(EXTRA_COLLECTION_ID, 0);
 		collection_title = getIntent().getStringExtra(EXTRA_COLLECTION_TITLE);
-		progress_dialog = ProgressDialog.show(this,
-				"","正在读取数据...");
+		progress_dialog = MindpinProgressDialog.show(this, "正在载入…");
 		
 		feed_list_lv = (ListView)findViewById(R.id.feed_list);
 		
@@ -116,8 +115,7 @@ public class CollectionFeedListActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_delete_collection:
-			progress_dialog = ProgressDialog.show(this,
-					"","正在删除...");
+			progress_dialog = MindpinProgressDialog.show(this, "正在删除…");
 			Thread thread = new Thread(new DestroyCollectionRunnable(collection_id));
 			thread.setDaemon(true);
 			thread.start();
@@ -149,8 +147,7 @@ public class CollectionFeedListActivity extends Activity {
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
-				progress_dialog = ProgressDialog.show(
-						CollectionFeedListActivity.this, "", "正在修改...");
+				progress_dialog = MindpinProgressDialog.show(CollectionFeedListActivity.this, "正在修改…");
 				Thread thread = new Thread(new ChangeCollectionNameRunnable(collection_id,title));
 				thread.setDaemon(true);
 				thread.start();

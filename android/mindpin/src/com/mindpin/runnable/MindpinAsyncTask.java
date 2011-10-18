@@ -3,16 +3,15 @@ package com.mindpin.runnable;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.mindpin.LoginActivity;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
-import com.mindpin.Logic.Global;
+import com.mindpin.utils.BaseUtils;
 import com.mindpin.widget.MindpinProgressDialog;
 
 // 基本请求处理框架，构建于 AsyncTask 之上
-public abstract class MindpinAsyncTask<TParams, TProgress> {
+public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 	
 	public static final int SUCCESS = 200;
 	public static final int AUTHENTICATE_EXCEPTION = 9003;
@@ -37,7 +36,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 			
 			try {
 				System.out.println("开始执行");
-				do_in_background(params);
+				inner_task_result = do_in_background(params);
 				return SUCCESS;
 			}
 			
@@ -62,7 +61,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 				switch (result) {
 				case SUCCESS:
 					//正确执行
-					on_success();
+					on_success(inner_task_result);
 					break;
 				case AUTHENTICATE_EXCEPTION:
 					// 用户身份验证错误
@@ -97,11 +96,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 		private void ___authenticate_exception(){
 			on_authenticate_exception();
 			
-			Toast.makeText(
-				Global.application_context, 
-				R.string.app_authenticate_exception,
-				Toast.LENGTH_SHORT
-			).show();
+			BaseUtils.toast(R.string.app_authenticate_exception);
 			
 			// 如果当前界面不是登录界面，则退回登录界面
 			if(activity.getClass() != LoginActivity.class){
@@ -111,13 +106,9 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 		}
 		
 		private void ___unknown_exception(){
-			on_unknown_exception();
-			
-			Toast.makeText(
-				Global.application_context, 
-				R.string.app_unknown_exception,
-				Toast.LENGTH_SHORT
-			).show();
+			if(on_unknown_exception()){
+				BaseUtils.toast(R.string.app_unknown_exception);
+			}
 		}
 		
 		private void ___final(){
@@ -133,6 +124,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 	private MindpinProgressDialog progress_dialog = null;
 	
 	private InnerTask inner_task = null;
+	private TResult inner_task_result = null;
 	
 	// 一般构造器，传入activity
 	public MindpinAsyncTask(Activity activity){
@@ -166,10 +158,10 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 	}
 	
 	// 必须实现此方法，声明异步请求中的方法逻辑
-	public abstract void do_in_background(TParams... params) throws Exception;
+	public abstract TResult do_in_background(TParams... params) throws Exception;
 	
 	// 必须实现此方法，声明请求成功时的后续处理逻辑，包括界面的变化等
-	public abstract void on_success();
+	public abstract void on_success(TResult result);
 	
 	// 选择实现此方法，声明请求开始时处理逻辑，包括界面的变化等
 	// 例如显示进度条等
@@ -187,5 +179,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress> {
 	// 钩子方法，声明在登录认证错误时的一些特定处理逻辑
 	public void on_authenticate_exception(){}
 	// 钩子方法，声明在出现其他任何异常时的一些特定处理逻辑
-	public void on_unknown_exception(){}
+	public boolean on_unknown_exception(){
+		return true;
+	}
 }

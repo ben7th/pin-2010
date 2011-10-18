@@ -13,9 +13,9 @@
 			style="@style/login_layout_mindpin_logo"
 		/>
 		<TextView
-			android:text="android客户端工程评估版 0.0.4" 
+			android:text="@string/app_version_full" 
 			style="@style/text"
-			android:layout_marginBottom="9dp"
+			android:layout_marginBottom="10dp"
 		/>
 		<TextView
 			android:text="程序：fushang318" 
@@ -24,10 +24,17 @@
 		<TextView
 			android:text="设计/美术：ben7th" 
 			style="@style/text"
-			android:layout_marginBottom="9dp"
+			android:layout_marginBottom="10dp"
 		/>
+		
 		<TextView
-			android:text="感谢您参与测试" 
+			android:text="参与测试人员：fushang318, ben7th, liyutong, 月如卡卡" 
+			style="@style/text"
+			android:layout_marginBottom="10dp"
+		/>
+		
+		<TextView
+			android:text="感谢您的使用" 
 			style="@style/text"
 		/>
     </LinearLayout>

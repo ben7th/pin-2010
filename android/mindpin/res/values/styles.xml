@@ -27,13 +27,13 @@
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>
     	<item name="android:layout_gravity">center</item>
-    	<item name="android:padding">5dp</item>
+    	<item name="android:layout_marginLeft">7dp</item>
     </style>
     
     <style name="title_bar_user_avatar">
-    	<item name="android:layout_width">32dp</item>
-    	<item name="android:layout_height">32dp</item>
-    	<item name="android:layout_margin">5dp</item>
+    	<item name="android:layout_width">42dp</item>
+    	<item name="android:layout_height">42dp</item>
+    	<item name="android:layout_margin">0dp</item>
     	<item name="android:layout_gravity">center</item>
     </style>
     
@@ -224,7 +224,7 @@
 		<item name="android:windowContentOverlay">@null</item>
 		<item name="android:windowNoTitle">true</item> <!-- 标题栏 -->
 		<item name="android:windowIsFloating">true</item> <!-- 自身浮动 -->
-		<item name="android:windowIsTranslucent">false</item> <!-- 自身半透明 -->	
+		<item name="android:windowIsTranslucent">true</item> <!-- 自身半透明 -->	
 		<item name="android:backgroundDimEnabled">false</item> <!-- 半透明的背景遮罩 -->
     	<item name="android:layout_width">wrap_content</item>
     	<item name="android:layout_height">wrap_content</item>

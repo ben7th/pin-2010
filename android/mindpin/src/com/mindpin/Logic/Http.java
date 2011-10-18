@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -29,7 +27,6 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
@@ -37,7 +34,7 @@ import com.mindpin.utils.BaseUtils;
 
 public class Http {
 	
-	public static final String SITE = "http://www.mindpin.com";
+	public static final String SITE = "http://dev.www.mindpin.com";
 	private static HttpParams params = new BasicHttpParams(); 
 	static{
 		HttpClientParams.setRedirecting(params, false);  
@@ -46,7 +43,7 @@ public class Http {
 	
 	
 	// 用于发送post请求的类
-	public static abstract class MindpinPostRequest<T> {
+	public static abstract class MindpinPostRequest<TResult> {
 		private HttpPost http_post;
 		
 		// 一般文本参数的请求
@@ -83,7 +80,7 @@ public class Http {
 		}
 		
 		// 主方法 GO
-		public T go() throws Exception{
+		public TResult go() throws Exception{
 			set_cookie_store();
 			
 			HttpResponse response = httpclient.execute(http_post);
@@ -106,8 +103,7 @@ public class Http {
 		}
 		
 		// 此方法为 status_code = 200 时 的处理方法，由用户自己定义
-		public abstract T on_success(String response_text) throws Exception;
-		
+		public abstract TResult on_success(String response_text) throws Exception;
 	}
 	
 	// 用于包装文件以及文件MIME类型的小类
@@ -128,6 +124,8 @@ public class Http {
 		}
 	}
 	
+	/*LoginActivity*/
+	
 	// 用户登录请求
 	public static boolean user_authenticate(String email, String password) throws Exception {
 		return new MindpinPostRequest<Boolean>(
@@ -137,7 +135,9 @@ public class Http {
 		){
 			@Override
 			public Boolean on_success(String response_text) throws Exception{
-				AccountManager.login(httpclient.getCookieStore().getCookies(), response_text);
+				JSONObject json = new JSONObject(response_text);
+				String user_info = ((JSONObject)json.get("user")).toString();
+				AccountManager.login(httpclient.getCookieStore().getCookies(), user_info);
 				return true;
 			}
 		}.go();
@@ -200,9 +200,9 @@ public class Http {
 		}
 	}
 
-	public static boolean syn_data() throws IntentException, AuthenticateException {
+	public static boolean mobile_data_syn() throws IntentException, AuthenticateException {
 		try {
-			HttpGet httpget = new HttpGet(SITE + "/android_syn");
+			HttpGet httpget = new HttpGet(SITE + "/api0/mobile_data_syn");
 			httpget.setHeader("User-Agent", "android");
 			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
@@ -220,7 +220,13 @@ public class Http {
 				throw new AuthenticateException();
 			}
 			throw new IntentException();
-		}catch( Exception e){
+		} catch (JSONException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IOException e) {
 			e.printStackTrace();
 			throw new IntentException();
 		}
@@ -256,8 +262,8 @@ public class Http {
 			}
 	}
 
-	public static List<HashMap<String, Object>> get_collection_feeds(int id) throws IntentException, AuthenticateException {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+	public static ArrayList<Feed> get_collection_feeds(int id) throws IntentException, AuthenticateException {
+		ArrayList<Feed> list = new ArrayList<Feed>();
 		try {
 			HttpGet httpget = new HttpGet(SITE + "/api0/collection_feeds?collection_id=" + id);
 			httpget.setHeader("User-Agent", "android");
@@ -267,26 +273,12 @@ public class Http {
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				String json_str = IOUtils.toString(response.getEntity()
 						.getContent());
-				JSONArray feed_json_arr = new JSONArray(json_str);
-				for (int i = 0; i < feed_json_arr.length(); i++) {
-					JSONObject feed_json = feed_json_arr.getJSONObject(i);
-					HashMap<String, Object> map = new HashMap<String, Object>();
-					map.put("id", feed_json.get("id"));
-					map.put("title", feed_json.get("title"));
-					map.put("detail",feed_json.get("detail"));
-					JSONArray json_photos = (JSONArray)feed_json.get("photos_middle");
-					ArrayList<String> photos = new ArrayList<String>();
-					for (int j = 0; j < json_photos.length(); j++) {
-						String url = (String)json_photos.get(j);
-						photos.add(url);
-					}
-					map.put("photos",photos);
-					list.add(map);
-				}
+				list = Feed.build_by_collection_feeds_json(json_str);
+				return list;
 			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
 				throw new AuthenticateException();
 			}
-			return list;
+			throw new IntentException();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			throw new IntentException();
@@ -356,10 +348,10 @@ public class Http {
 		}
 	}
 	
-	public static HashMap<String, Object> read_feed(String feed_id) throws IntentException, AuthenticateException {
-		HashMap<String, Object> map = null;
+	public static Feed read_feed(String feed_id) throws IntentException, AuthenticateException {
+		Feed feed = null;
 		try {
-			HttpGet httpget = new HttpGet(SITE + "/feeds/" + feed_id);
+			HttpGet httpget = new HttpGet(SITE + "/api0/show?id=" + feed_id);
 			httpget.setHeader("User-Agent", "android");
 			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
@@ -367,38 +359,15 @@ public class Http {
 			if ("HTTP/1.1 200 OK".equals(res)) {
 				String json_str = IOUtils.toString(response.getEntity()
 						.getContent());
-				JSONObject feed_json = new JSONObject(json_str);
-				String id = feed_json.getString("id");
-				String title = feed_json.getString("title");
-				String detail = feed_json.getString("detail");
-				JSONArray photos_json = feed_json.getJSONArray("photos");
-				ArrayList<String> photos = new ArrayList<String>();
-				for (int i = 0; i < photos_json.length(); i++) {
-					String url = (String)photos_json.get(i);
-					photos.add(url);
-				}
-				String creator_name = feed_json.getJSONObject("creator").getString("name");
-				String creator_logo_url = feed_json.getJSONObject("creator").getString("logo_url");
-				map = new HashMap<String, Object>();
-				map.put("id",id);
-				map.put("title",title);
-				map.put("detail",detail);
-				map.put("photos",photos);
-				map.put("creator_name",creator_name);
-				map.put("creator_logo_url",creator_logo_url);
+				feed = Feed.build_by_feed_detail_json(json_str);
+				return feed;
 			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
 				throw new AuthenticateException();
 			}
-			return map;
-		} catch (ClientProtocolException e) {
+			throw new IntentException();
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IntentException();
-		}catch (IOException e) {
-			e.printStackTrace();
-			throw new IntentException();
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return map;
 		}
 	}
 	

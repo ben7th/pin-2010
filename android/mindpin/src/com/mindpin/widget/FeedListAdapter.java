@@ -2,10 +2,9 @@ package com.mindpin.widget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import com.mindpin.R;
+import com.mindpin.Logic.Feed;
 import com.mindpin.utils.BaseUtils;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,11 +19,11 @@ import android.widget.LinearLayout.LayoutParams;
 
 public class FeedListAdapter extends BaseAdapter {
 	private Context context;
-	private List<HashMap<String, Object>> feeds;
+	private ArrayList<Feed> feeds;
 	private LayoutInflater mInflater;
 	private HashMap<String, View> cache_views = new HashMap<String, View>();
 
-	public FeedListAdapter(Context context,List<HashMap<String, Object>> feeds){
+	public FeedListAdapter(Context context,ArrayList<Feed> feeds){
 		this.context = context;
 		this.feeds = feeds;
 		this.mInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -47,13 +46,13 @@ public class FeedListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		HashMap<String, Object> feed = feeds.get(position);
-		String id = (Integer) feed.get("id") + "";
+		Feed feed = feeds.get(position);
+		String id = feed.getId();
 		View view = cache_views.get(id);
 		if(view == null){
-			String title = (String) feed.get("title");
-			String detail = (String) feed.get("detail");
-			ArrayList<String> photos = (ArrayList<String>) feed.get("photos");
+			String title = feed.getTitle();
+			String detail = feed.getDetail();
+			ArrayList<String> photos = feed.getPhotos();
 			switch (photos.size()) {
 			case 0:
 				view = create_no_photo_view(id, title, detail, parent);

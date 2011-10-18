@@ -16,7 +16,7 @@ public class CameraLogic {
 	public final static String HAS_IMAGE_CAPTURE = "has_image_capture";
 	
 	// 调用 系统的照相机
-	public static void call_sysotem_camera(Activity a) {
+	public static void call_system_camera(Activity a) {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		File capture_dir  = CameraLogic.mindpin_capture_path();
 		String name = CameraLogic.capture_name_by_time();

@@ -104,18 +104,8 @@ class FeedsController < ApplicationController
 
   def show
     @feed = Feed.find(params[:id])
-    @feed.view_by(current_user) if @feed && current_user
-    if is_android_client?
-      render :json=>{
-        :id=>@feed.id,
-        :title=>@feed.title,
-        :detail=>MindpinTextFormat.new(@feed.detail).to_text,
-        :photos=>@feed.photos.map{|p|p.image.url(:w660)},
-        :creator=>{:name=>@feed.creator.name,:logo_url=>@feed.creator.logo.url((:medium))},
-      }
-    else
-      render :layout=>'collection'
-    end
+    @feed.save_viewed_by(current_user) if @feed && current_user # 保存feed被用户查看过的记录
+    render :layout=>'collection'
   end
 
   def viewpoint

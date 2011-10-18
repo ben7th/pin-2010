@@ -32,7 +32,7 @@ public final class R {
         public static final int collection=0x7f020008;
         public static final int collection_pressed=0x7f020009;
         public static final int feed=0x7f02000a;
-        public static final int feed_bn_pressed=0x7f02001f;
+        public static final int feed_bn_pressed=0x7f020020;
         public static final int feed_pressed=0x7f02000b;
         public static final int icon=0x7f02000c;
         public static final int img_loading=0x7f02000d;
@@ -53,6 +53,7 @@ public final class R {
         public static final int send_bn=0x7f02001c;
         public static final int title_bar_bg=0x7f02001d;
         public static final int title_bar_img=0x7f02001e;
+        public static final int user_default_avatar_normal=0x7f02001f;
     }
     public static final class id {
         public static final int account_avatar=0x7f0a0011;
@@ -150,65 +151,67 @@ public final class R {
         public static final int main=0x7f090001;
     }
     public static final class string {
-        public static final int about=0x7f070018;
-        public static final int album_bn=0x7f07001e;
-        public static final int app_authenticate_exception=0x7f070005;
-        public static final int app_intent_connection_exception=0x7f070004;
-        public static final int app_method_not_define_exception=0x7f070003;
+        public static final int about=0x7f07001a;
+        public static final int album_bn=0x7f070020;
+        public static final int app_authenticate_exception=0x7f070006;
+        public static final int app_data_syn_fail=0x7f070008;
+        public static final int app_intent_connection_exception=0x7f070005;
+        public static final int app_method_not_define_exception=0x7f070004;
         /**  全局 
          */
         public static final int app_name=0x7f070000;
-        public static final int app_now_loading=0x7f070002;
-        public static final int app_unknown_exception=0x7f070006;
+        public static final int app_now_loading=0x7f070003;
+        public static final int app_unknown_exception=0x7f070007;
         public static final int app_version=0x7f070001;
-        public static final int cancel_bn=0x7f070024;
-        public static final int dialog_cancel=0x7f07000c;
-        public static final int dialog_close_app_text=0x7f070008;
+        public static final int app_version_full=0x7f070002;
+        public static final int cancel_bn=0x7f070026;
+        public static final int dialog_cancel=0x7f07000e;
+        public static final int dialog_close_app_text=0x7f07000a;
         /**  各种dialog 
          */
-        public static final int dialog_close_app_title=0x7f070007;
-        public static final int dialog_logout_text=0x7f07000a;
-        public static final int dialog_logout_title=0x7f070009;
-        public static final int dialog_ok=0x7f07000b;
-        public static final int feed_select_collections=0x7f070020;
-        public static final int feed_title_valid_blank=0x7f07001f;
-        public static final int login_auth_fail=0x7f070012;
+        public static final int dialog_close_app_title=0x7f070009;
+        public static final int dialog_logout_text=0x7f07000c;
+        public static final int dialog_logout_title=0x7f07000b;
+        public static final int dialog_ok=0x7f07000d;
+        public static final int feed_select_collections=0x7f070022;
+        public static final int feed_title_valid_blank=0x7f070021;
+        public static final int login_auth_fail=0x7f070014;
         /**  登录页面 
          */
-        public static final int login_email=0x7f07000d;
-        public static final int login_email_valid_blank=0x7f070010;
-        public static final int login_login=0x7f07000f;
-        public static final int login_now_login=0x7f070013;
-        public static final int login_password=0x7f07000e;
-        public static final int login_password_valid_blank=0x7f070011;
-        public static final int logout=0x7f070019;
-        public static final int main_bn_camera=0x7f070015;
-        public static final int main_bn_collections=0x7f070017;
-        public static final int main_bn_feeds=0x7f070016;
+        public static final int login_email=0x7f07000f;
+        public static final int login_email_valid_blank=0x7f070012;
+        public static final int login_login=0x7f070011;
+        public static final int login_now_login=0x7f070015;
+        public static final int login_password=0x7f070010;
+        public static final int login_password_valid_blank=0x7f070013;
+        public static final int logout=0x7f07001b;
+        public static final int main_bn_camera=0x7f070017;
+        public static final int main_bn_collections=0x7f070019;
+        public static final int main_bn_feeds=0x7f070018;
         /**  登录成功后的主页面 
          */
-        public static final int main_bn_new_feed=0x7f070014;
-        public static final int menu_change_collection_name=0x7f070027;
+        public static final int main_bn_new_feed=0x7f070016;
+        public static final int menu_change_collection_name=0x7f070029;
         /**  收集册主题列表页面 
          */
-        public static final int menu_delete_collection=0x7f070026;
-        public static final int new_collection=0x7f070025;
-        public static final int new_feed_content_et=0x7f07001c;
+        public static final int menu_delete_collection=0x7f070028;
+        public static final int new_collection=0x7f070027;
+        public static final int new_feed_content_et=0x7f07001e;
         /**  新建主题页面 
          */
-        public static final int new_feed_title_et=0x7f07001b;
-        public static final int send_bn=0x7f07001d;
+        public static final int new_feed_title_et=0x7f07001d;
+        public static final int send_bn=0x7f07001f;
         /**  选择收集册页面 
          */
-        public static final int send_tsina=0x7f070022;
-        public static final int setting=0x7f07001a;
+        public static final int send_tsina=0x7f070024;
+        public static final int setting=0x7f07001c;
         /**  显示照片页面 
          */
-        public static final int show_capture_image_back=0x7f070021;
-        public static final int submit_bn=0x7f070023;
+        public static final int show_capture_image_back=0x7f070023;
+        public static final int submit_bn=0x7f070025;
         /**  设置页面 
          */
-        public static final int upload_photo_quality=0x7f070028;
+        public static final int upload_photo_quality=0x7f07002a;
     }
     public static final class style {
         public static final int body=0x7f080001;
