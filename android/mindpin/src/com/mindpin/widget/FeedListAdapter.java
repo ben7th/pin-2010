@@ -3,7 +3,10 @@ package com.mindpin.widget;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.mindpin.R;
+import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Feed;
+import com.mindpin.Logic.Http;
+import com.mindpin.Logic.Http.IntentException;
 import com.mindpin.utils.BaseUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,6 +30,15 @@ public class FeedListAdapter extends BaseAdapter {
 		this.context = context;
 		this.feeds = feeds;
 		this.mInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	public void load_more_data() throws Exception{
+		Feed feed = feeds.get(feeds.size()-1);
+		String id = feed.getId();
+		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(Integer.parseInt(id));
+		for (Feed feed2 : more_feeds) {
+			feeds.add(feed2);
+		}
 	}
 
 	@Override

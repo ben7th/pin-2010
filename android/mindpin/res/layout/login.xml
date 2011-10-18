@@ -52,6 +52,7 @@
 			android:id="@+id/login_button" 
 			android:text="@string/login_login"
 			style="@style/login_layout_button"
+			android:onClick="login_button_click"
 		></Button>
 	</LinearLayout>
 </LinearLayout>

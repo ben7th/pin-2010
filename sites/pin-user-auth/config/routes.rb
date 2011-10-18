@@ -293,5 +293,7 @@ ActionController::Routing::Routes.draw do |map|
     match_get api0,'collection_feeds' => 'api_feeds#collection_feeds'
     match_get api0,'show'             => 'api_feeds#show'
 
+    match_get api0,'home_timeline'    => 'api_feeds#home_timeline'
+
   end
 end

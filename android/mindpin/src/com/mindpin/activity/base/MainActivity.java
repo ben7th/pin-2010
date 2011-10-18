@@ -1,4 +1,4 @@
-package com.mindpin;
+package com.mindpin.activity.base;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,13 +21,16 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.Http;
+import com.mindpin.activity.collection.CollectionListActivity;
+import com.mindpin.activity.feed.FeedListActivity;
+import com.mindpin.activity.sendfeed.NewFeedActivity;
 import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.runnable.MindpinAsyncTask;
 import com.mindpin.utils.BaseUtils;
-import com.mindpin.widget.MindpinAlertDialog;
 
 public class MainActivity extends Activity {
 	private TextView data_syn_textview;
@@ -80,26 +83,8 @@ public class MainActivity extends Activity {
 		LinearLayout feeds_button = (LinearLayout)findViewById(R.id.main_button_feeds);
 		feeds_button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-//				Toast.makeText(getApplicationContext(),"浏览主题正在施工中...",
-//						Toast.LENGTH_SHORT).show();
-				
-
-				MindpinAlertDialog dialog = new MindpinAlertDialog(MainActivity.this);
-				dialog.set_title("我是标题");
-				dialog.set_message("我是内容");
-//				dialog.set_content(R.layout.main);
-				dialog.set_button1("确定", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which) {
-						//..
-					}
-				});
-				dialog.set_button3("取消", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which) {
-						//..
-					}
-				});
-				dialog.show();
-				
+				Intent intent_to_new_feed = new Intent(MainActivity.this,FeedListActivity.class);
+				startActivity(intent_to_new_feed);
 			}
 		});
 	}
@@ -214,7 +199,7 @@ public class MainActivity extends Activity {
 			startActivity(new Intent(this, AboutActivity.class));
 			break;
 		case R.id.menu_setting:
-			startActivity(new Intent(this, MindpinPreferenceActivity.class));
+			startActivity(new Intent(this, MindpinSettingActivity.class));
 			break;
 		case R.id.menu_logout:
 			show_logout_dialog();
@@ -262,7 +247,7 @@ public class MainActivity extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	//这个方法是干啥的？
+	//处理其他activity界面的回调
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode != Activity.RESULT_OK){
@@ -270,12 +255,13 @@ public class MainActivity extends Activity {
 		}
 		
 		switch (requestCode) {
-		case CameraLogic.REQUEST_CAPTURE:
-			Intent intent = new Intent(MainActivity.this,NewFeedActivity.class);
-			intent.putExtra(CameraLogic.HAS_IMAGE_CAPTURE,true);
+		case CameraLogic.REQUEST_CODE_CAPTURE:
+			Intent intent = new Intent(MainActivity.this, NewFeedActivity.class);
+			intent.putExtra(CameraLogic.HAS_IMAGE_CAPTURE, true);
 			startActivity(intent);
 			break;
 		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

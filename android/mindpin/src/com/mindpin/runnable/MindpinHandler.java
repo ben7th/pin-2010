@@ -6,9 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import com.mindpin.LoginActivity;
 import com.mindpin.R;
 import com.mindpin.Logic.Global;
+import com.mindpin.activity.base.LoginActivity;
 
 public abstract class MindpinHandler extends Handler {
 	private Activity activity;

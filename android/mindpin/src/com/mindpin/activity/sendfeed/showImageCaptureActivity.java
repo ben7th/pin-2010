@@ -1,4 +1,4 @@
-package com.mindpin;
+package com.mindpin.activity.sendfeed;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.mindpin.R;
 
 public class showImageCaptureActivity extends Activity {
 	public static final String EXTRA_NAME_IMAGE_CAPTURE_PATH = "image_capture";

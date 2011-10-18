@@ -13,14 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.mindpin.Logic.Global;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.TypedValue;
 import android.widget.Toast;
+
+import com.mindpin.Logic.Global;
 
 public class BaseUtils {
 	
@@ -176,6 +176,7 @@ public class BaseUtils {
     	return true;
     }
     
+    // 快速显示一个toast
     public static void toast(int string_resource_id){
 		Toast.makeText(
 			Global.application_context, 

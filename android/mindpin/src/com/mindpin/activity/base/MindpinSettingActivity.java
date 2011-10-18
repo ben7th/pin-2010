@@ -1,12 +1,14 @@
-package com.mindpin;
+package com.mindpin.activity.base;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
-public class MindpinPreferenceActivity extends PreferenceActivity {
+import com.mindpin.R;
+
+public class MindpinSettingActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.preferences);
+		addPreferencesFromResource(R.xml.settings);
 	}
 }

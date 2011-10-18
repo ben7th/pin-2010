@@ -6,13 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.Environment;
+import com.mindpin.utils.FileDirs;
 
 public class CollectionsCache {
 
@@ -64,13 +65,8 @@ public class CollectionsCache {
 		}
 	}
 
-	private static File get_collections_file() {
-		File cache_dir = new File(Environment.getExternalStorageDirectory()
-				.getPath() + "/mindpin/cache/");
-		if (!cache_dir.exists()) {
-			cache_dir.mkdirs();
-		}
-		return new File(cache_dir,"collections.json");
+	private static File get_collections_file(){
+		return new File(FileDirs.MINDPIN_CACHE_DIR, "collections.json");
 	}
 
 }

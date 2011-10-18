@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.mindpin.LoginActivity;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
+import com.mindpin.activity.base.LoginActivity;
 import com.mindpin.utils.BaseUtils;
 import com.mindpin.widget.MindpinProgressDialog;
 

@@ -1,6 +1,7 @@
-package com.mindpin;
+package com.mindpin.activity.collection;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mindpin.R;
 import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
 import com.mindpin.runnable.MindpinHandler;
@@ -35,7 +38,6 @@ public class CollectionFeedListActivity extends Activity {
 	public static final int MESSAGE_DESTROY_COLLECTION_FAIL = 3;
 	public static final int MESSAGE_CHANGE_COLLECTION_NAME_SUCCESS = 4;
 	public static final int MESSAGE_CHANGE_COLLECTION_NAME_FAIL = 5;
-	public static final int MESSAGE_AUTH_FAIL = 6;
 	
 	private int collection_id;
 	private String collection_title;
@@ -50,10 +52,6 @@ public class CollectionFeedListActivity extends Activity {
 			case MESSAGE_READ_FEED_LIST_SUCCESS:
 				 FeedListAdapter sa = new FeedListAdapter(CollectionFeedListActivity.this, 
 						feeds);
-//				SimpleAdapter sa = new SimpleAdapter(CollectionFeedListActivity.this, 
-//						feeds, R.layout.feed_item,
-//						new String[]{"id","title"}, 
-//						new int[]{R.id.feed_id,R.id.feed_title});
 				feed_list_lv.setAdapter(sa);
 				feed_list_lv.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> arg0, View arg1,

@@ -1,4 +1,4 @@
-package com.mindpin;
+package com.mindpin.activity.sendfeed;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -34,6 +34,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.FeedDraftManager;
@@ -124,7 +125,7 @@ public class NewFeedActivity extends Activity {
 			return;
 		}
 		switch (requestCode) {
-		case CameraLogic.REQUEST_CAPTURE:
+		case CameraLogic.REQUEST_CODE_CAPTURE:
 			add_image_capture_to_feed_captures();
 			break;
 		case REQUEST_SHOW_IMAGE_ALBUM:
@@ -441,7 +442,7 @@ public class NewFeedActivity extends Activity {
 	}
 	
 	private void add_image_capture_to_feed_captures(){
-		String path = CameraLogic.image_capture_temp_path.getPath();
+		String path = CameraLogic.IMAGE_CAPTURE_TEMP_PATH.getPath();
 		add_image_to_feed_captures(path);
 	}
 	

@@ -358,7 +358,9 @@ class Feed < UserAuthAbstract
     count = options[:count] || 20
     page = options[:page] || 1
     since_id = options[:since_id]
+    sinace_id = sinace_id.to_i unless since_id.blank?
     max_id = options[:max_id]
+    max_id = max_id.to_i unless max_id.blank?
     feature = options[:feature] || "all"
 
     ids = collections.map do |collection|

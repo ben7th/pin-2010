@@ -1,13 +1,12 @@
-package com.mindpin;
+package com.mindpin.activity.base;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.runnable.MindpinAsyncTask;
 import com.mindpin.utils.BaseUtils;
@@ -20,20 +19,13 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-
-		bind_login_button_event();
 	}
-
-	private void bind_login_button_event() {
-		Button login_button = (Button)findViewById(R.id.login_button);
-		login_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				prepareEmailAndPassword();				
-				if(isParamsValid()){
-					doLogin();
-				}
-			}
-		});
+	
+	public void login_button_click(View view){
+		prepareEmailAndPassword();				
+		if(isParamsValid()){
+			doLogin();
+		}
 	}
 	
 	//获取邮箱，密码字符串。作准备。

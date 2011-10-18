@@ -35,9 +35,9 @@
     <string name="main_bn_camera">拍照</string>
     <string name="main_bn_feeds">浏览主题</string>
     <string name="main_bn_collections">收集册</string>
-    <string name="about">关于…</string>
-    <string name="logout">退出登录</string>
-    <string name="setting">设置</string>
+    <string name="menu_about">关于…</string>
+    <string name="menu_logout">退出登录</string>
+    <string name="menu_setting">设置</string>
     <!-- 新建主题页面 -->
     <string name="new_feed_title_et">主题标题</string>
     <string name="new_feed_content_et">主题内容</string>
@@ -52,7 +52,7 @@
     <string name="submit_bn">确定</string>
     <string name="cancel_bn">取消</string>
     <string name="new_collection">新建收集册</string>
-   	 <!-- 收集册主题列表页面 -->
+  	<!-- 收集册主题列表页面 -->
     <string name="menu_delete_collection">删除</string>
     <string name="menu_change_collection_name">改名</string>
     <!-- 设置页面 -->

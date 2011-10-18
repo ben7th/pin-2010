@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
+
+import com.mindpin.utils.FileDirs;
 
 public class CompressPhoto {
 
@@ -30,19 +32,14 @@ public class CompressPhoto {
         
         options.inJustDecodeBounds = false;
         Bitmap bitmap = BitmapFactory.decodeFile(original_file_path,options);
-		File mindpin_dir = new File(Environment.getExternalStorageDirectory()
-				.getPath() + "/mindpin/");
-		if (!mindpin_dir.exists()) {
-			mindpin_dir.mkdirs();
-		}
         
-        File file=new File(mindpin_dir,"upload_tmp.png");
+        File file=new File(FileDirs.MINDPIN_DIR, "upload_tmp.png");
         System.out.println(options.inSampleSize);
         System.out.println(quality_size);
         System.out.println(file.getPath());
         if(file.exists()){
         	file.delete();
-        	file=new File(mindpin_dir,"upload_tmp.png");
+        	file=new File(FileDirs.MINDPIN_DIR, "upload_tmp.png");
         }
         try {
             FileOutputStream out=new FileOutputStream(file);

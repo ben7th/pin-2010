@@ -12,9 +12,9 @@ import org.json.JSONObject;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 
 import com.mindpin.Logic.Http;
+import com.mindpin.utils.FileDirs;
 
 public class AccountInfoCache {
 	
@@ -28,22 +28,11 @@ public class AccountInfoCache {
 	}
 	
 	private static File get_avatar_file(){
-		return new File(get_or_create_cache_dir(),"logo.png");
+		return new File(FileDirs.MINDPIN_CACHE_DIR, "logo.png");
 	}
 	
 	private static File get_json_file(){
-		return new File(get_or_create_cache_dir(),"info.json");
-	}
-
-	// 返回缓存目录，没有的话就创建一个
-	private static File get_or_create_cache_dir(){
-		File cache_dir = new File(
-			Environment.getExternalStorageDirectory().getPath() + "/mindpin/cache/"
-		);
-		if (!cache_dir.exists()) {
-			cache_dir.mkdirs();
-		}
-		return cache_dir;
+		return new File(FileDirs.MINDPIN_CACHE_DIR, "info.json");
 	}
 	
 	// 删除缓存的文件

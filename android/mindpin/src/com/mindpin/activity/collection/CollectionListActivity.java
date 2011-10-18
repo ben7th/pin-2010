@@ -1,12 +1,9 @@
-package com.mindpin;
+package com.mindpin.activity.collection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import com.mindpin.Logic.Http;
-import com.mindpin.cache.CollectionsCache;
-import com.mindpin.runnable.MindpinHandler;
-import com.mindpin.runnable.MindpinRunnable;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -23,6 +20,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.mindpin.R;
+import com.mindpin.Logic.Http;
+import com.mindpin.cache.CollectionsCache;
+import com.mindpin.runnable.MindpinHandler;
+import com.mindpin.runnable.MindpinRunnable;
 
 public class CollectionListActivity extends Activity {
 	public static final int MESSAGE_READ_COLLECTION_LIST_SUCCESS = 0;

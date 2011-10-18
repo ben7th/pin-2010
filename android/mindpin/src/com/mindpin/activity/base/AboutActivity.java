@@ -1,8 +1,10 @@
-package com.mindpin;
+package com.mindpin.activity.base;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+
+import com.mindpin.R;
 
 public class AboutActivity extends Activity {
 

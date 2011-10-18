@@ -34,7 +34,7 @@ import com.mindpin.utils.BaseUtils;
 
 public class Http {
 	
-	public static final String SITE = "http://dev.www.mindpin.com";
+	public static final String SITE = "http://www.mindpin.com";
 	private static HttpParams params = new BasicHttpParams(); 
 	static{
 		HttpClientParams.setRedirecting(params, false);  
@@ -366,6 +366,39 @@ public class Http {
 			}
 			throw new IntentException();
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}
+	}
+	
+	public static ArrayList<Feed> get_home_timeline_feeds(int max_id) throws IntentException, AuthenticateException {
+		ArrayList<Feed> list = new ArrayList<Feed>();
+		try {
+			String url = SITE + "/api0/home_timeline";
+			if(max_id != -1){
+				url = url + "?max_id=" + max_id;
+			}
+			HttpGet httpget = new HttpGet(url);
+			httpget.setHeader("User-Agent", "android");
+			set_cookie_store();
+			HttpResponse response = httpclient.execute(httpget);
+			String res = response.getStatusLine().toString();
+			if ("HTTP/1.1 200 OK".equals(res)) {
+				String json_str = IOUtils.toString(response.getEntity()
+						.getContent());
+				list = Feed.build_by_collection_feeds_json(json_str);
+				return list;
+			}else if("HTTP/1.1 401 Unauthorized".equals(res)){
+				throw new AuthenticateException();
+			}
+			throw new IntentException();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IntentException();
+		}catch (JSONException e) {
 			e.printStackTrace();
 			throw new IntentException();
 		}

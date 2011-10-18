@@ -22,11 +22,11 @@ class Api0::ApiFeedsController < ApplicationController
   def collection_feeds
     collection = Collection.find(params[:collection_id])
     feeds = collection.feeds_limit({
-        :since_id=>params[:since_id],
-        :max_id=>params[:max_id],
-        :count=>params[:count],
-        :page=>params[:page]
-      })
+      :since_id=>params[:since_id],
+      :max_id=>params[:max_id],
+      :count=>params[:count],
+      :page=>params[:page]
+    })
 
     render :json=>feeds.map{|feed|
       api0_feed_json_hash(feed)
@@ -41,6 +41,25 @@ class Api0::ApiFeedsController < ApplicationController
     
     render :json=>api0_feed_json_hash(feed)
   end
+
+  # 获取当前用户以及其所有联系人的主题列表
+  # :since_id 非必须，若指定此参数，则只获取ID比since_id大的feed信息
+  # :max_id 非必须，弱指定此参数，则只获取ID小于或等于max_id的feed信息
+  # :count 非必须 默认20，最大100，单页返回的结果条数
+  # :page 非必须，返回结果的页码，默认1
+  def home_timeline
+    feeds = current_user.home_timeline({
+      :since_id=>params[:since_id],
+      :max_id=>params[:max_id],
+      :count=>params[:count],
+      :page=>params[:page]
+    })
+
+    render :json=>feeds.map{|feed|
+      api0_feed_json_hash(feed)
+    }
+  end
+
 
   private
     def api0_feed_json_hash(feed)
