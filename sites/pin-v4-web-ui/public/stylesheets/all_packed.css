@@ -733,7 +733,7 @@ body{background-color:#fff;}
 .page-content a.loud:hover{color:#ff4e04!important;}
 .page-content a.reverse{background-color:#4984cc;color:white;}
 .page-content a.reverse:hover{background-color:#5193d4;text-decoration:none;}
-body.gray{background-color:#F4F4F4;}
+body.gray{background:url(/images/body_bg.jpg) #f4f4f4;}
 .cell.no-line{border-bottom:none;margin:0;padding-bottom:60px;}
 .quotebg{border-left:solid 3px #FFE965;background-color:#FFFADA;}
 .darkbg{background-color:#f6f6f6;}
@@ -2071,7 +2071,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-new-collection-op .form .form-placeholder .ops-btns a.create-cancel:hover,.page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-cancel:hover{color:#555;text-decoration:none;background:-moz-linear-gradient(-90deg,#d7d7d7,#d3d3d3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d7d7d7),to(#d3d3d3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');border:solid 1px #848484;}
 .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title{width:268px;}
 .page-ogrid.collection-feeds{position:relative;overflow:visible;}
-.page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:228px;margin-bottom:10px;margin-right:10px;}
+.page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:228px;margin-bottom:10px;margin-right:10px;border:solid 1px #fff;box-shadow:0 1px 3px rgba(25,25,25,0.3);}
 .page-ogrid.collection-feeds .feed .title{margin:0;padding:9px 9px 0;font-weight:bold;font-size:14px;}
 .page-ogrid.collection-feeds .feed .title a{color:#444!important;}
 .page-ogrid.collection-feeds .feed .photo{margin:0;padding:9px 9px 0;position:relative;line-height:0;font-size:0;}
@@ -2083,7 +2083,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.collection-feeds .feed .detail ol{margin-left:1.5em;}
 .page-ogrid.collection-feeds .feed .detail p{margin:0;}
 .page-ogrid.collection-feeds .feed .detail blockquote{font-style:normal;margin:0;padding:5px 9px 5px 25px;background:url(/images/alltu.png) no-repeat -691px -1px;background-color:#fafafa;}
-.page-ogrid.collection-feeds .feed .creator{margin:9px 4px 4px 4px;padding:5px;background-color:#fafafa;overflow:hidden;}
+.page-ogrid.collection-feeds .feed .creator{margin:5px 0 0 0;padding:9px;background-color:#fafafa;overflow:hidden;}
 .page-ogrid.collection-feeds .feed .creator .avatar{float:left;}
 .page-ogrid.collection-feeds .feed .creator .avatar img{width:32px;height:32px;padding:0;}
 .page-ogrid.collection-feeds .feed .creator .name{margin-left:40px;color:#666;line-height:16px;}

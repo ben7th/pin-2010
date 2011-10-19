@@ -14,6 +14,9 @@
     width:$feed_width_1c;
     margin-bottom:$feed_margin;
     margin-right:$feed_margin;
+
+    border:solid 1px #fff;
+    box-shadow:0 1px 3px rgba(25, 25, 25, 0.3);
     
     .title{
       margin:0;
@@ -53,8 +56,8 @@
       @include feed-detail-format;
     }
     .creator{
-      margin:9px 4px 4px 4px;
-      padding:5px;
+      margin:5px 0px 0px 0px;
+      padding:9px;
       background-color:#fafafa;
       /*border-top:solid 1px #eee;*/
       overflow:hidden;

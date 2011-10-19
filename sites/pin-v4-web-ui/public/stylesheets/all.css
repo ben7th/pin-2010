@@ -2788,7 +2788,7 @@ body {
         text-decoration: none; }
 
 body.gray {
-  background-color: #F4F4F4; }
+  background: url(/images/body_bg.jpg) #f4f4f4; }
 
 .cell.no-line {
   border-bottom: none;
@@ -9100,7 +9100,9 @@ form .field.sendto-select-widget .sendto-selector {
     padding: 0;
     width: 228px;
     margin-bottom: 10px;
-    margin-right: 10px; }
+    margin-right: 10px;
+    border: solid 1px #fff;
+    box-shadow: 0 1px 3px rgba(25, 25, 25, 0.3); }
     .page-ogrid.collection-feeds .feed .title {
       margin: 0;
       padding: 9px 9px 0;
@@ -9152,8 +9154,8 @@ form .field.sendto-select-widget .sendto-selector {
         background: url(/images/alltu.png) no-repeat -691px -1px;
         background-color: #fafafa; }
     .page-ogrid.collection-feeds .feed .creator {
-      margin: 9px 4px 4px 4px;
-      padding: 5px;
+      margin: 5px 0px 0px 0px;
+      padding: 9px;
       background-color: #fafafa;
       /*border-top:solid 1px #eee;*/
       overflow: hidden; }
