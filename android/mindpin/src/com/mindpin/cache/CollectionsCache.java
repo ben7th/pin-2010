@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mindpin.utils.FileDirs;
+import com.mindpin.base.utils.FileDirs;
 
 public class CollectionsCache {
 

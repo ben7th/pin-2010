@@ -1,4 +1,4 @@
-package com.mindpin.runnable;
+package com.mindpin.base.runnable;
 
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http.IntentException;

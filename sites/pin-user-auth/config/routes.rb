@@ -19,6 +19,20 @@ def match_post(map, config_hash)
   match_single_route map, path, controller, action, :post
 end
 
+def match_delete(map, config_hash)
+  path = config_hash.keys[0]
+  controller, action = config_hash.values[0].split('#')
+
+  match_single_route map, path, controller, action, :delete
+end
+
+def match_put(map, config_hash)
+  path = config_hash.keys[0]
+  controller, action = config_hash.values[0].split('#')
+
+  match_single_route map, path, controller, action, :put
+end
+
 def match_activation_routes(map)
   # 选择导图服务或社区服务的页面
   match_get  map,'/services'      => 'activation#services'
@@ -288,12 +302,23 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:api0) do |api0|
     # ---------------- 手机客户端同步数据 ----------
-    match_get api0,'mobile_data_syn'  => 'api_feeds#mobile_data_syn'
+    match_get api0, 'mobile_data_syn'  => 'api#mobile_data_syn'
+    match_get api0, 'home_timeline'    => 'api#home_timeline'
 
-    match_get api0,'collection_feeds' => 'api_feeds#collection_feeds'
-    match_get api0,'show'             => 'api_feeds#show'
+    # 收集册 collections
+    match_get    api0, 'collections/feeds'  => 'api#collection_feeds'
 
-    match_get api0,'home_timeline'    => 'api_feeds#home_timeline'
+    match_post   api0, 'collections/create' => 'api#create_collection'
+    match_delete api0, 'collections/delete' => 'api#delete_collection'
+    match_put    api0, 'collections/rename' => 'api#rename_collection'
+
+    # 主题 feeds
+    match_get  api0, 'feeds/show'               => 'api#show'
+    match_post api0, 'feeds/create'             => 'api#create'
+    match_post api0, 'feeds/upload_photo'       => 'api#upload_photo'
+    match_post api0, 'feeds/create_with_photos' => 'api#create_with_photos'
+
+
 
   end
 end

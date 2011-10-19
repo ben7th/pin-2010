@@ -3,11 +3,6 @@ class CollectionsController < ApplicationController
   before_filter :per_load
   skip_before_filter :verify_authenticity_token,
     :only=>[:index,:create,:destroy,:change_name]
-  before_filter :verify_authenticity_token_by_client,
-    :only=>[:index,:create,:destroy,:change_name]
-  def verify_authenticity_token_by_client
-    verify_authenticity_token unless is_android_client?
-  end
   
   def per_load
     @collection = Collection.find(params[:id]) if params[:id]
@@ -18,11 +13,7 @@ class CollectionsController < ApplicationController
     @user ||= current_user
 
     @collections = @user.created_collections_db
-    if is_android_client?
-      render :json=>@collections
-    else
-      render :layout=>'collection'
-    end
+    render :layout=>'collection'
   end
 
   def tsina
@@ -31,32 +22,12 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    if is_android_client?
-      feeds = @collection.feeds
-
-      render :json=>feeds.map{|feed|
-        {
-          :id=>feed.id,
-          :title=>feed.android_title_text,
-          :detail=>MindpinTextFormat.new(feed.detail).to_text,
-          :photos=>feed.photos.map{|p|p.image.url(:w210)}
-        }
-      }
-    else
-      render :layout=>'collection'
-    end
+    render :layout=>'collection'
   end
 
   def create
     @collection = current_user.create_collection_by_params(params[:title])
-    if is_android_client?
-      _create_android_render
-    else
-      _create_web_render
-    end
-  end
-
-  def _create_web_render
+    
     unless @collection.id.blank?
       render :partial=>'collections/parts/grid',:locals=>{:collections=>[@collection]}
     else
@@ -64,30 +35,14 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def _create_android_render
-    unless @collection.id.blank?
-      render :json=>current_user.created_collections_db
-    else
-      render :text=>"创建失败",:status=>422
-    end
-  end
-
   def destroy
     @collection.destroy
-    if is_android_client?
-      render :json=>current_user.created_collections_db
-    else
-      render :text=>"删除成功",:status=>200
-    end
+    render :text=>"删除成功",:status=>200
   end
 
   def change_name
     if @collection.update_attributes(:title=>params[:title])
-        if is_android_client?
-          return render :json=>current_user.created_collections_db
-        else
-          return render :status=>200, :text=>"修改成功"
-        end
+      return render :status=>200, :text=>"修改成功"
     end
     return render :status=>402, :text=>"修改失败"
   end

@@ -1,4 +1,4 @@
-package com.mindpin.runnable;
+package com.mindpin.base.task;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.activity.base.LoginActivity;
-import com.mindpin.utils.BaseUtils;
+import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.widget.MindpinProgressDialog;
 
 // 基本请求处理框架，构建于 AsyncTask 之上

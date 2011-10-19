@@ -1,13 +1,8 @@
 class PhotosController < ApplicationController
   before_filter :per_load
   skip_before_filter :verify_authenticity_token,:only=>[:feed_upload]
-  before_filter :verify_authenticity_token_by_client,:only=>[:feed_upload]
   def per_load
     @photo = Photo.find(params[:id]) if params[:id]
-  end
-  
-  def verify_authenticity_token_by_client
-    verify_authenticity_token unless is_android_client?
   end
 
   def create
@@ -21,12 +16,8 @@ class PhotosController < ApplicationController
   def feed_upload
     @image_file_name = PhotoAdpater.create_by_upload_file(params[:file])
     @image_url = PhotoAdpater.thumb_url_by_image_file_name(@image_file_name)
-    unless is_android_client?
-      render :partial=>'views_modules/photos/feed_uploaded',
-        :locals=>{:url=>@image_url,:name=>@image_file_name}
-    else
-      render :text=>@image_file_name
-    end
+    render :partial=>'views_modules/photos/feed_uploaded',
+      :locals=>{:url=>@image_url,:name=>@image_file_name}
   rescue Magick::ImageMagickError => ex
     render :text=>"请上传图片",:status=>500
   end

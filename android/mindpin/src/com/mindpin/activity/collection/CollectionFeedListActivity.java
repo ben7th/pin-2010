@@ -22,8 +22,8 @@ import android.widget.Toast;
 import com.mindpin.R;
 import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
-import com.mindpin.runnable.MindpinHandler;
-import com.mindpin.runnable.MindpinRunnable;
+import com.mindpin.base.runnable.MindpinHandler;
+import com.mindpin.base.runnable.MindpinRunnable;
 import com.mindpin.widget.FeedListAdapter;
 import com.mindpin.widget.MindpinProgressDialog;
 

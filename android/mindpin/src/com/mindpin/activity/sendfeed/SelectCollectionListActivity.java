@@ -27,9 +27,9 @@ import android.widget.Toast;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.base.runnable.MindpinHandler;
+import com.mindpin.base.runnable.MindpinRunnable;
 import com.mindpin.cache.CollectionsCache;
-import com.mindpin.runnable.MindpinHandler;
-import com.mindpin.runnable.MindpinRunnable;
 
 public class SelectCollectionListActivity extends Activity {
 	public static final String EXTRA_NAME_KIND = "kind";

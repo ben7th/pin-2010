@@ -8,16 +8,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,9 +25,9 @@ import com.mindpin.Logic.Http;
 import com.mindpin.activity.collection.CollectionListActivity;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
+import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.AccountInfoCache;
-import com.mindpin.runnable.MindpinAsyncTask;
-import com.mindpin.utils.BaseUtils;
 
 public class MainActivity extends Activity {
 	private TextView data_syn_textview;
@@ -39,87 +36,55 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.base_main);
 		
-
 		data_syn_textview = (TextView)findViewById(R.id.main_data_syn_text);
 		data_syn_progress_bar = (ProgressBar)findViewById(R.id.main_data_syn_progress_bar);
 		
-		bind_all_buttons_events();
 		update_account_info();
 		data_syn();
 	}
 	
-	private void bind_all_buttons_events(){
-		bind_new_feed_button_event();
-		bind_camera_button_event();
-		bind_feeds_button_event();
-		bind_collections_button_event();
-	}
-	
 	//设置 new_feed 按钮点击事件
-	private void bind_new_feed_button_event(){
-		LinearLayout new_feed_button = (LinearLayout)findViewById(R.id.main_button_new_feed);
-		new_feed_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent_to_new_feed = new Intent(MainActivity.this,NewFeedActivity.class);
-				startActivity(intent_to_new_feed);
-			}
-		});
+	public void main_button_new_feed_click(View view){
+		Intent intent = new Intent(MainActivity.this,NewFeedActivity.class);
+		startActivity(intent);
 	}
 	
 	//设置 camera 按钮点击事件
-	private void bind_camera_button_event(){
-		LinearLayout camera_button = (LinearLayout)findViewById(R.id.main_button_camera);
-		camera_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				CameraLogic.call_system_camera(MainActivity.this);
-			}
-		});
+	public void main_button_camera_click(View view){
+		CameraLogic.call_system_camera(MainActivity.this);
 	}
 	
 	//设置 feeds 按钮点击事件
-	private void bind_feeds_button_event(){
-		LinearLayout feeds_button = (LinearLayout)findViewById(R.id.main_button_feeds);
-		feeds_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent_to_new_feed = new Intent(MainActivity.this,FeedListActivity.class);
-				startActivity(intent_to_new_feed);
-			}
-		});
+	public void main_button_feeds_click(View view){
+		Intent intent = new Intent(MainActivity.this,FeedListActivity.class);
+		startActivity(intent);
 	}
 	
 	//设置collections按钮点击事件
-	private void bind_collections_button_event(){
-		
-		
-		LinearLayout collections_button = (LinearLayout) findViewById(R.id.main_button_collections);
-		collections_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent_to_collection_list = new Intent(MainActivity.this, CollectionListActivity.class);
-				startActivity(intent_to_collection_list);
-			}
-		});
+	public void main_button_collections_click(View view){
+		Intent intent = new Intent(MainActivity.this, CollectionListActivity.class);
+		startActivity(intent);
 	}
 	
-	
-	// 在界面上刷新头像和用户名的任务
-	public class UpdateAccountInfoTask extends AsyncTask<String, String, Bitmap>{
-		protected Bitmap doInBackground(String... params) {
-			return AccountInfoCache.get_avatar_bitmap();
-		}
-		
-		protected void onPostExecute(Bitmap result) {
-			TextView account_name_textview = (TextView)findViewById(R.id.account_name);
-			ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
-			
-			account_name_textview.setText(AccountInfoCache.get_name());
-			account_avatar_imgview.setImageBitmap(result);
-		}
-	}
-	
+	// 在界面上刷新头像和用户名
 	private void update_account_info(){
-		new UpdateAccountInfoTask().execute();
+		new MindpinAsyncTask<String, String, Bitmap>(this){
+			@Override
+			public Bitmap do_in_background(String... params) throws Exception {
+				return AccountInfoCache.get_avatar_bitmap();
+			}
+
+			@Override
+			public void on_success(Bitmap result) {
+				TextView account_name_textview = (TextView)findViewById(R.id.account_name);
+				ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
+				
+				account_name_textview.setText(AccountInfoCache.get_name());
+				account_avatar_imgview.setImageBitmap(result);
+			}
+		}.execute();
 	}
 	
 	//同步操作

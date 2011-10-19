@@ -119,6 +119,16 @@ class Tsina
       end
     end
 
+    def send_message_to_tsina_weibo_in_queue(content)
+      SendTsinaStatusQueueWorker.async_send_tsina_status({
+          :user_id=>self.id,:content=>content})
+    end
+
+    def send_tsina_image_status_in_queue(image_path,content)
+      SendTsinaStatusQueueWorker.async_send_tsina_status({
+          :user_id=>self.id,:content=>content,:image_path=>image_path})
+    end
+
     def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
       image = MindmapImageCache.new(mindmap).thumb_500_img_path
       send_tsina_image_status(image,content)

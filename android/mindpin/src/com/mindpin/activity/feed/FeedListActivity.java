@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,7 +17,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
 import com.mindpin.activity.collection.FeedDetailActivity;
-import com.mindpin.runnable.MindpinAsyncTask;
+import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.widget.FeedListAdapter;
 
 public class FeedListActivity extends Activity {

@@ -1,4 +1,4 @@
-package com.mindpin.runnable;
+package com.mindpin.base.runnable;
 
 import android.app.Activity;
 import android.content.Intent;

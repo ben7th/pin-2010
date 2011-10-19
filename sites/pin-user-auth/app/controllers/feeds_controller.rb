@@ -1,14 +1,11 @@
 class FeedsController < ApplicationController
-  before_filter :login_required,:except=>[:index,:no_reply,:newest,:search,:show,:aj_comments]
-  before_filter :pre_load
-  skip_before_filter :verify_authenticity_token,:only=>[:create]
-  before_filter :verify_authenticity_token_by_client,:only=>[:create]
-  def verify_authenticity_token_by_client
-    verify_authenticity_token unless is_android_client?
-  end
-
   include FeedsControllerNavigationMethods
   include FeedsControllerInviteMethods
+
+  before_filter :login_required,:except=>[:index,:no_reply,:newest,:search,:show,:aj_comments]
+  skip_before_filter :verify_authenticity_token,:only=>[:create]
+
+  before_filter :pre_load
   def pre_load
     @feed = Feed.find(params[:id]) if params[:id]
   end
@@ -24,13 +21,9 @@ class FeedsController < ApplicationController
   end
 
   def create
-    return _create_android_client if is_android_client?
-    return _create_web
-  end
-
-  def _create_web
-    feed = current_user.send_feed(params[:title],
-      params[:detail],:tags=>params[:tags],
+    feed = current_user.send_feed(
+      :title=>params[:title],
+      :detail=>params[:detail],
       :photo_names=>params[:photo_names],
       :collection_ids=>params[:collection_ids],
       :from=>Feed::FROM_WEB,:send_tsina=>params[:send_tsina],
@@ -40,20 +33,6 @@ class FeedsController < ApplicationController
       return redirect_to '/feeds/new'
     end
     redirect_to "/feeds/#{feed.id}"
-  end
-
-  def _create_android_client
-    feed = current_user.send_feed(
-      params[:content],params[:detail],
-      :tags=>params[:tags],
-      :photo_names=>params[:photo_names],
-      :collection_ids=>params[:collection_ids],
-      :from=>Feed::FROM_ANDROID,:send_tsina=>params[:send_tsina],
-      :draft_token=>params[:draft_token])
-    if feed.id.blank?
-      return render :status=>422,:text=>422
-    end
-    return render :json=>feed
   end
 
   def destroy

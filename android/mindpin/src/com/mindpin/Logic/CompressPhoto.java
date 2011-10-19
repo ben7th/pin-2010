@@ -8,7 +8,7 @@ import java.io.IOException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.mindpin.utils.FileDirs;
+import com.mindpin.base.utils.FileDirs;
 
 public class CompressPhoto {
 

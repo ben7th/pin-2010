@@ -8,8 +8,8 @@ import android.widget.EditText;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
-import com.mindpin.runnable.MindpinAsyncTask;
-import com.mindpin.utils.BaseUtils;
+import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.utils.BaseUtils;
 
 public class LoginActivity extends Activity {
 	private String email;
@@ -18,7 +18,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+		setContentView(R.layout.base_login);
 	}
 	
 	public void login_button_click(View view){

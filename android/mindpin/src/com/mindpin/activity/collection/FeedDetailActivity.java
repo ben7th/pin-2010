@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
-import com.mindpin.runnable.MindpinAsyncTask;
-import com.mindpin.utils.BaseUtils;
+import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.widget.DownloadImageTask;
 
 public class FeedDetailActivity extends Activity {

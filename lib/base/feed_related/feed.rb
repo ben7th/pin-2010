@@ -326,10 +326,10 @@ class Feed < UserAuthAbstract
     url = pin_url_for("pin-user-auth","/feeds/#{id}")
     status = "#{status} #{url}"
     if self.photos.blank?
-      self.creator.send_message_to_tsina_weibo(status)
+      self.creator.send_message_to_tsina_weibo_in_queue(status)
     else
       path = self.photos.first.image.path
-      self.creator.send_tsina_image_status(path,status)
+      self.creator.send_tsina_image_status_in_queue(path,status)
     end
   end
 
@@ -386,7 +386,7 @@ class Feed < UserAuthAbstract
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
     end
 
-    def repost(repost_feed_id,title,detail,options={})
+    def repost(repost_feed_id,options={})
       feed = Feed.new(:creator=>self)
       rfeed = Feed.find(repost_feed_id)
       if rfeed.repost_feed_id.blank?
@@ -394,15 +394,15 @@ class Feed < UserAuthAbstract
       else
         feed.repost_feed_id = rfeed.repost_feed_id
       end
-      _send_feed(feed,title,detail,options)
+      _send_feed(feed,options)
     end
 
-    def send_feed(title,detail,options={})
+    def send_feed(options={})
       feed = Feed.new(:creator=>self)
-      _send_feed(feed,title,detail,options)
+      _send_feed(feed,options)
     end
 
-    def _send_feed(feed,title,detail,options={})
+    def _send_feed(feed,options={})
       cids = (options[:collection_ids]||"").split(",")
       raise "最少指定一个收集册" if cids.blank?
       
@@ -411,11 +411,12 @@ class Feed < UserAuthAbstract
       return feed if !feed.valid?
       feed.save!
 
+      unless options[:draft_token].blank?
+        post_draft = PostDraft.find_by_draft_token(options[:draft_token])
+        post_draft.destroy if !!post_draft
+      end
 
-      post_draft = PostDraft.find_by_draft_token(options[:draft_token])
-      post_draft.destroy if !!post_draft
-
-      feed.create_main_post(title,detail)
+      feed.create_main_post(options[:title],options[:detail])
 
       if !!options[:photo_names]
         (options[:photo_names]||"").split(",").each do |name|
@@ -430,9 +431,6 @@ class Feed < UserAuthAbstract
         FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
       end
 
-      tags = options[:tags]
-      tags = Tag::DEFAULT if tags.blank?
-      feed.add_tags_without_record_editer(tags,self)
       feed.record_editer(self)
       if options[:send_tsina] == "true"
         feed.send_to_tsina

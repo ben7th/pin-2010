@@ -45,6 +45,7 @@
     <string name="album_bn">相册</string>
     <string name="feed_title_valid_blank">请输入主题标题</string>
     <string name="feed_select_collections">选择发送范围</string>
+    <string name="feed_valid_blank">主题内容不能为空</string> 
     <!-- 显示照片页面 -->
     <string name="show_capture_image_back">返回</string>
     <!-- 选择收集册页面 -->

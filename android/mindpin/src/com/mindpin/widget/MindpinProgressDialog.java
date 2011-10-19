@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.mindpin.R;
-import com.mindpin.utils.BaseUtils;
+import com.mindpin.base.utils.BaseUtils;
 
 public class MindpinProgressDialog extends Dialog {
 	private String message;

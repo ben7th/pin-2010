@@ -2,12 +2,7 @@ package com.mindpin.widget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.mindpin.R;
-import com.mindpin.Logic.AccountManager.AuthenticateException;
-import com.mindpin.Logic.Feed;
-import com.mindpin.Logic.Http;
-import com.mindpin.Logic.Http.IntentException;
-import com.mindpin.utils.BaseUtils;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,8 +12,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
+
+import com.mindpin.R;
+import com.mindpin.Logic.Feed;
+import com.mindpin.Logic.Http;
+import com.mindpin.base.utils.BaseUtils;
 
 public class FeedListAdapter extends BaseAdapter {
 	private Context context;
@@ -35,7 +35,7 @@ public class FeedListAdapter extends BaseAdapter {
 	public void load_more_data() throws Exception{
 		Feed feed = feeds.get(feeds.size()-1);
 		String id = feed.getId();
-		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(Integer.parseInt(id));
+		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(Integer.parseInt(id)-1);
 		for (Feed feed2 : more_feeds) {
 			feeds.add(feed2);
 		}

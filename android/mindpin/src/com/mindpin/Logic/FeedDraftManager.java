@@ -2,8 +2,9 @@ package com.mindpin.Logic;
 
 import java.util.ArrayList;
 import android.content.Context;
+
+import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.FeedDraft;
-import com.mindpin.utils.BaseUtils;
 
 public class FeedDraftManager {
 

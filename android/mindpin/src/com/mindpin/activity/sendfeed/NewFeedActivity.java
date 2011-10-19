@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
@@ -39,11 +38,9 @@ import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.FeedDraftManager;
 import com.mindpin.Logic.Http;
+import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.FeedDraft;
-import com.mindpin.runnable.MindpinAsyncTask;
-import com.mindpin.runnable.MindpinHandler;
-import com.mindpin.runnable.MindpinRunnable;
-import com.mindpin.utils.BaseUtils;
 
 public class NewFeedActivity extends Activity {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
@@ -61,9 +58,9 @@ public class NewFeedActivity extends Activity {
 	private ArrayList<String> capture_paths = new ArrayList<String>();
 	
 	private EditText feed_title_et;
-	private EditText feed_content_et;
+	private EditText feed_detail_et;
 	private String feed_title;
-	private String feed_content;
+	private String feed_detail;
 	private ArrayList<Integer> select_collection_ids;
 	
 	private ImageButton capture_bn;
@@ -72,35 +69,7 @@ public class NewFeedActivity extends Activity {
 	private Button select_collections_bn;
 	private boolean send_tsina = false;
 	private int feed_draft_id = 0;
-	
 	private ProgressDialog progress_dialog;
-	private MindpinHandler mhandler = new MindpinHandler(this){
-		public boolean mindpin_handle_message(android.os.Message msg) {
-			switch (msg.what) {
-			case MESSAGE_SENDING_FEED:
-				progress_dialog.setProgress(msg.arg1);
-				return true;
-			case MESSAGE_SENDING_FEED_CHANGE_TITLE:
-				String title = (String)msg.obj;
-				progress_dialog.setTitle(title);
-				return true;
-			case MESSAGE_SEND_FEED_SUCCESS:
-				progress_dialog.dismiss();
-				Toast.makeText(getApplicationContext(), "发送成功",
-						Toast.LENGTH_SHORT).show();
-				NewFeedActivity.this.finish();
-				return true;
-			case MESSAGE_SAVE_FEED_DRAFT:
-				Toast.makeText(getApplicationContext(), "网络不可用，已保存草稿",
-						Toast.LENGTH_SHORT).show();
-				NewFeedActivity.this.finish();
-				return true;
-			default:
-				progress_dialog.dismiss();
-				return false;
-			}
-		}
-	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -148,16 +117,16 @@ public class NewFeedActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {  
 	    if(keyCode == KeyEvent.KEYCODE_BACK){
 			feed_title = feed_title_et.getText().toString();
-			feed_content = feed_content_et.getText().toString();
+			feed_detail = feed_detail_et.getText().toString();
 			boolean is_blank = (
 					("".equals(feed_title)) &&
-					"".equals(feed_content) &&
+					"".equals(feed_detail) &&
 					(capture_paths.size() == 0) &&
 					(select_collection_ids == null || select_collection_ids.size() == 0)
 					);
 			if(feed_draft_id!=0){
 				boolean has_change = FeedDraftManager.has_change(getApplicationContext(),
-						feed_draft_id,feed_title,feed_content,capture_paths,select_collection_ids,send_tsina);
+						feed_draft_id,feed_title,feed_detail,capture_paths,select_collection_ids,send_tsina);
 				if(!is_blank && has_change){
 					save_feed_draft_dialog();
 					return true;				
@@ -179,10 +148,10 @@ public class NewFeedActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				if(feed_draft_id != 0){
 					FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
-							feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
+							feed_title,feed_detail, capture_paths, select_collection_ids,send_tsina);
 				}else{
 					FeedDraftManager.save_feed_draft(NewFeedActivity.this, 
-							feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
+							feed_title,feed_detail, capture_paths, select_collection_ids,send_tsina);
 				}
 				NewFeedActivity.this.finish();
 			}
@@ -213,17 +182,13 @@ public class NewFeedActivity extends Activity {
 	}
 	
 	private void send_feed(){
-//		progress_dialog = new ProgressDialog(this);
-//		progress_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//		progress_dialog.setMessage("正在发送...");
-//		int max_count = (capture_paths.size()+1)*100;
-//		progress_dialog.setMax(max_count);
-//		progress_dialog.setProgress(1);
-//		progress_dialog.show();
-//		
-//		Thread thread = new Thread(new SendFeedRunnable(max_count));
-//		thread.setDaemon(true);
-//		thread.start();
+		if(BaseUtils.isStrBlank(feed_title) &&
+				BaseUtils.isStrBlank(feed_detail) &&
+				capture_paths.size() == 0
+				){
+			BaseUtils.toast(R.string.feed_valid_blank);
+			return;
+		}
 		System.out.println("MindpinAsyncTask send_feed");
 		final int max_count = (capture_paths.size()+1)*100;		
 		new MindpinAsyncTask<String, String, Void>(this){
@@ -260,10 +225,10 @@ public class NewFeedActivity extends Activity {
 				super.on_unknown_exception();
 				if(feed_draft_id != 0){
 					FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
-							feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
+							feed_title,feed_detail, capture_paths, select_collection_ids,send_tsina);
 				}else{
 					FeedDraftManager.save_feed_draft(NewFeedActivity.this, 
-							feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
+							feed_title,feed_detail, capture_paths, select_collection_ids,send_tsina);
 				}
 				Toast.makeText(getApplicationContext(), "发送失败，已保存草稿",
 						Toast.LENGTH_SHORT).show();
@@ -307,7 +272,11 @@ public class NewFeedActivity extends Activity {
 					}
 				};
 				timer.schedule(task, 1000, 1000);
-				Http.send_feed(feed_title, feed_content, photo_names, select_collection_ids,send_tsina);
+				if(photo_names.size() == 0){
+					Http.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina);
+				}else{
+					Http.send_photo_feed(feed_title, feed_detail, photo_names, select_collection_ids,send_tsina);
+				}
 				timer.cancel();
 				if(feed_draft_id!=0){
 					FeedDraft.destroy(getApplicationContext(), feed_draft_id);
@@ -349,7 +318,7 @@ public class NewFeedActivity extends Activity {
 			public void onClick(View v) {
 
 				feed_title = feed_title_et.getText().toString();
-				feed_content = feed_content_et.getText().toString();
+				feed_detail = feed_detail_et.getText().toString();
 				
 				if(select_collection_ids == null){
 					Intent intent = new Intent(NewFeedActivity.this,SelectCollectionListActivity.class);
@@ -394,7 +363,7 @@ public class NewFeedActivity extends Activity {
 		feed_captures = (LinearLayout)findViewById(R.id.feed_captures);
 		feed_captures_parent = (RelativeLayout)findViewById(R.id.feed_captures_parent);
 		feed_title_et = (EditText) findViewById(R.id.feed_title_et);
-		feed_content_et = (EditText) findViewById(R.id.feed_content_et);
+		feed_detail_et = (EditText) findViewById(R.id.feed_content_et);
 		
 		feed_captures_parent.setVisibility(View.GONE);
 	}
@@ -420,7 +389,7 @@ public class NewFeedActivity extends Activity {
 				add_image_to_feed_captures(path);
 			}else if(extras.containsKey(Intent.EXTRA_TEXT)){
 				String content = (String)extras.get(Intent.EXTRA_TEXT);
-				feed_content_et.setText(content);
+				feed_detail_et.setText(content);
 			}
 		}
 		
@@ -557,7 +526,7 @@ public class NewFeedActivity extends Activity {
 		if(fd == null)return;
 		
 		feed_title_et.setText(fd.title);
-		feed_content_et.setText(fd.content);
+		feed_detail_et.setText(fd.content);
 		
 		ArrayList<String> paths = BaseUtils.string_to_string_list(fd.image_paths);
 		for (String path : paths) {
@@ -608,77 +577,4 @@ public class NewFeedActivity extends Activity {
 		builder.show();
 	}
 	
-	public class SendFeedRunnable extends MindpinRunnable{
-		private int max_count;
-		public SendFeedRunnable(int max_count){
-			super(mhandler);
-			this.max_count = max_count;
-		}
-		
-		public void mindpin_run() throws Exception {
-			ArrayList<String> photo_names = new ArrayList<String>();
-			
-			for (int i = 0; i < capture_paths.size(); i++) {
-				String capture_path = capture_paths.get(i);
-				int count = 100*(i+1);
-				String title = "正在发送第 "+ (i+1) +" 张图片";
-				Message change_title_msg = mhandler.obtainMessage(MESSAGE_SENDING_FEED_CHANGE_TITLE);
-				change_title_msg.obj = title;
-				mhandler.sendMessage(change_title_msg);
-				
-				Timer timer = new Timer();
-				SendingFeedTimerTask task = new SendingFeedTimerTask(count);
-				timer.schedule(task, 1000, 1000);
-				photo_names.add(Http.upload_photo(capture_path));
-				timer.cancel();
-				Message msg = mhandler.obtainMessage(MESSAGE_SENDING_FEED,count,0);
-				mhandler.sendMessage(msg);
-			}
-			Message change_title_msg = mhandler.obtainMessage(MESSAGE_SENDING_FEED_CHANGE_TITLE);
-			String title = "正在发送文字内容";
-			change_title_msg.obj = title;
-			mhandler.sendMessage(change_title_msg);
-			Timer timer = new Timer();
-			SendingFeedTimerTask task = new SendingFeedTimerTask(max_count-1);
-			timer.schedule(task, 1000, 1000);
-			Http.send_feed(feed_title, feed_content, photo_names, select_collection_ids,send_tsina);
-			timer.cancel();
-			if(feed_draft_id!=0){
-				FeedDraft.destroy(getApplicationContext(), feed_draft_id);
-				feed_draft_id=0;
-			}
-			mhandler.sendEmptyMessage(MESSAGE_SEND_FEED_SUCCESS);
-		}
-		
-		@Override
-		public boolean on_exception() {
-			if(feed_draft_id != 0){
-				FeedDraftManager.update_feed_draft(NewFeedActivity.this,feed_draft_id, 
-						feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
-			}else{
-				FeedDraftManager.save_feed_draft(NewFeedActivity.this, 
-						feed_title,feed_content, capture_paths, select_collection_ids,send_tsina);
-			}
-			mhandler.sendEmptyMessage(MESSAGE_SAVE_FEED_DRAFT);
-			
-			return false;
-		}
-	};
-	
-	class SendingFeedTimerTask extends TimerTask{
-		private int max_count;
-
-		public SendingFeedTimerTask(int max_count) {
-			super();
-			this.max_count = max_count;
-		}
-
-		public void run() {
-			int current_count = progress_dialog.getProgress();
-			if(current_count < max_count){
-				Message msg = mhandler.obtainMessage(MESSAGE_SENDING_FEED,current_count+5,0);
-				mhandler.sendMessage(msg);
-			}
-		}
-	}
 }

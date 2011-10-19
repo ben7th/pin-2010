@@ -33,6 +33,7 @@
 					android:id="@+id/main_button_new_feed"
 					android:background="@drawable/main_new_feed_button_background" 
 					style="@style/main_layout_table_item_image"
+					android:onClick="main_button_new_feed_click"
 				/>
 				<TextView
 					android:text="@string/main_bn_new_feed"
@@ -47,6 +48,7 @@
 					android:id="@+id/main_button_camera"
 					android:background="@drawable/main_camera_button_background"
 					style="@style/main_layout_table_item_image"
+					android:onClick="main_button_camera_click"
 				/>
 				<TextView
 					android:text="@string/main_bn_camera"
@@ -63,6 +65,7 @@
 					android:id="@+id/main_button_feeds"
 					android:background="@drawable/main_feed_button_background"
 					style="@style/main_layout_table_item_image"
+					android:onClick="main_button_feeds_click"
 				/>
 				<TextView
 					android:text="@string/main_bn_feeds"
@@ -77,6 +80,7 @@
 					android:id="@+id/main_button_collections"
 					android:background="@drawable/main_collection_button_background" 
 					style="@style/main_layout_table_item_image"
+					android:onClick="main_button_collections_click"
 				/>
 				<TextView
 					android:text="@string/main_bn_collections"

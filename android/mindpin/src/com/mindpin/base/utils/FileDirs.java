@@ -1,4 +1,4 @@
-package com.mindpin.utils;
+package com.mindpin.base.utils;
 
 import java.io.File;
 

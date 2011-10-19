@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.mindpin.utils.FileDirs;
+import com.mindpin.base.utils.FileDirs;
 
 public class CameraLogic {
 	public final static int REQUEST_CODE_CAPTURE = 0;
