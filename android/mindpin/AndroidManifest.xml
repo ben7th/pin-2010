@@ -7,7 +7,7 @@
 	<uses-sdk android:minSdkVersion="4" />
 
 	<application 
-		android:theme="@style/mindpin.default.theme"
+		android:theme="@android:style/Theme.Light.NoTitleBar"
 		android:icon="@drawable/icon" 
 		android:label="@string/app_name"
 		android:name=".application.MindpinApplication"
@@ -22,7 +22,7 @@
 		<activity android:name=".activity.base.LoginActivity"></activity>
 		<activity android:name=".activity.base.MainActivity"></activity>
 		<activity android:name=".activity.base.AboutActivity"></activity>
-		<activity android:name=".activity.base.MindpinSettingActivity"></activity>
+		<activity android:name=".activity.base.MindpinSettingActivity" android:theme="@android:style/Theme.Black"></activity>
 
 		<!-- sendfeed -->
 		<activity android:name=".activity.sendfeed.NewFeedActivity" android:windowSoftInputMode="adjustResize" >

@@ -85,7 +85,7 @@ public class FeedListAdapter extends BaseAdapter {
 
 	private View create_more_photo_view(String id, String title, String detail,
 			ArrayList<String> photos, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.more_photo_feed_item, parent, false);
+		View view = mInflater.inflate(R.layout.feed_list_item_more_photos, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
 		id_tv.setText(id);
 		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
@@ -115,7 +115,7 @@ public class FeedListAdapter extends BaseAdapter {
 
 	private View create_single_photo_view(String id, String title,
 			String detail, String photo_url, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.single_photo_feed_item, parent, false);
+		View view = mInflater.inflate(R.layout.feed_list_item_single_photo, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
 		id_tv.setText(id);
 		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
@@ -129,7 +129,7 @@ public class FeedListAdapter extends BaseAdapter {
 	}
 
 	private View create_no_photo_view(String id, String title, String detail, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.no_photo_feed_item, parent, false);
+		View view = mInflater.inflate(R.layout.feed_list_item_no_photo, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
 		id_tv.setText(id);
 		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);

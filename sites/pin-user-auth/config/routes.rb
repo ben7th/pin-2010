@@ -76,6 +76,9 @@ def match_user_routes(map)
     }
   map.fans "/users/:user_id/fans",:controller=>"contacts",:action=>"fans"
   map.followings "/users/:user_id/followings",:controller=>"contacts",:action=>"followings"
+
+  match_get  map,'/contacts'       => 'contacts#index'
+  match_get  map,'/contacts/tsina' => 'contacts#tsina'
 end
 
 def match_forgot_password_routes(map)

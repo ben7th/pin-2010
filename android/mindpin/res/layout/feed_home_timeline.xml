@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/body"
+>	
+  
+	<RelativeLayout
+		style="@style/title_bar"
+	>
+		<TextView
+			style="@style/title_bar_text_center" 
+			android:text="所有主题"
+		>
+		</TextView>
+		<Button 
+			style="@style/button_go_back"
+		>
+		</Button>
+	</RelativeLayout>
+  
+  	<ListView
+		android:id="@+id/feed_list"
+		style="@style/feed_list"
+   	>
+    </ListView>
+</LinearLayout>

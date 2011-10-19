@@ -6,68 +6,55 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
 >	
+	<RelativeLayout
+		style="@style/title_bar"
+	>
+		<TextView
+			style="@style/title_bar_text_center" 
+			android:text="@string/about_title"
+		>
+		</TextView>
+		<Button 
+			style="@style/button_go_back"
+		>
+		</Button>
+	</RelativeLayout>
+	
 	<LinearLayout 
 		style="@style/main"
+		android:background="#111"
 	>
 		<ImageView 
-			style="@style/login_layout_mindpin_logo"
+			style="@style/mindpin_logo_about"
 		/>
 		<TextView
 			android:text="@string/app_version_full" 
-			style="@style/text"
-			android:layout_marginBottom="10dp"
+			style="@style/about_text"
 		/>
 		<TextView
 			android:text="程序：fushang318" 
-			style="@style/text"
+			style="@style/about_text"
 		/>
 		<TextView
-			android:text="设计/美术：ben7th" 
-			style="@style/text"
-			android:layout_marginBottom="10dp"
-		/>
-		
-		<TextView
-			android:text="参与测试人员：fushang318, ben7th, liyutong, 月如卡卡" 
-			style="@style/text"
-			android:layout_marginBottom="10dp"
+			android:text="设计与美术：ben7th" 
+			style="@style/about_text"
 		/>
 		
 		<TextView
-			android:text="感谢您的使用" 
-			style="@style/text"
+			android:text="参与测试：fushang318, ben7th, liyutong, 月如卡卡, cagia" 
+			style="@style/about_text"
+		/>
+		
+		<TextView
+			android:text="感谢您的使用:)" 
+			style="@style/about_text"
+		/>
+		
+		<Button 
+			android:text="访问我们的网站"
+			style="@style/about_site_button"
+			android:onClick="open_mindpin_website"
 		/>
     </LinearLayout>
 </LinearLayout>
-
-<!-- 
-	所有页面的简要说明，简单写在这里：
-	
-	login.xml							登录页面
-	loading.xml							“正在载入..”页面
-	about.xml							“关于”页面
-	main.xml							主要功能导航页
-	
-	collection_list.xml					收集册列表页
-	collection_item.xml					收集册列表项
-	collection_feed_list.xml 			收集册主题列表页
-	feed_item.xml						主题列表项
-	feed_detial.xml						主题详细信息
-	
-	new_feed.xml						主题创建页
-	
-	show_image_capture					显示完整图片界面
-	
-	select_collection_list				收集册选择列表
-	select_collection_item				收集册选择项
-	
-	###对话框###
-	
-	new_collection_dialog.xml			创建收集册对话框
-	change_collection_name_dialog.xml	修改收集册标题对话框
-	
-	show_image_dialog.xml				显示图片对话框
-	
-	feed_draft_list_dialog.xml			主题加载草稿对话框
- -->
 

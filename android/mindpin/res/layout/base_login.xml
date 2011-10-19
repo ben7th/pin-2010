@@ -10,10 +10,9 @@
 		style="@style/title_bar"
 	>
 		<ImageView 
-			android:src="@drawable/title_bar_img"
-			android:layout_height="40dp"
-			android:layout_width="220dp"
-			android:layout_marginTop="1dp"
+			android:src="@drawable/logo_title_bar"
+			android:layout_height="40dp" android:layout_width="220dp"
+			android:layout_marginTop="5dp"
 		/>
 		<TextView
 			android:text="@string/app_version"
@@ -25,6 +24,7 @@
 	<LinearLayout
 		android:orientation="vertical"
 		style="@style/main"
+		android:background="@drawable/ibg_login"
 	>
 		<TextView
 			android:text="感谢参与程序测试，请在下方登录："
@@ -33,6 +33,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="10dp"
 			android:gravity="center"
+			android:textColor="#fff"
 		/>
 		<EditText 
 			android:id="@+id/email_et"

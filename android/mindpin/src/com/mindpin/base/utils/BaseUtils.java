@@ -18,6 +18,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.mindpin.Logic.Global;
@@ -178,10 +179,12 @@ public class BaseUtils {
     
     // 快速显示一个toast
     public static void toast(int string_resource_id){
-		Toast.makeText(
+    	Toast toast = Toast.makeText(
 			Global.application_context, 
 			string_resource_id,
 			Toast.LENGTH_SHORT
-		).show();
+		);
+    	toast.setGravity(Gravity.CENTER, 0, 0);
+    	toast.show();
     }
 }

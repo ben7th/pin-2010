@@ -2,7 +2,6 @@ package com.mindpin.activity.feed;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,16 +16,17 @@ import com.mindpin.R;
 import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
 import com.mindpin.activity.collection.FeedDetailActivity;
+import com.mindpin.base.activity.BaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.widget.FeedListAdapter;
 
-public class FeedListActivity extends Activity {
+public class FeedListActivity extends BaseActivity {
 	private FeedListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home_timeline_feed_list);
+		setContentView(R.layout.feed_home_timeline);
 
 		final ListView feed_list_lv = (ListView) findViewById(R.id.feed_list);
         View loadMoreView = getLayoutInflater().inflate(R.layout.list_more_button, null);  

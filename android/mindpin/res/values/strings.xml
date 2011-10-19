@@ -13,6 +13,8 @@
     
     <string name="app_data_syn_fail">数据同步失败</string>
     
+    <string name="button_go_back">返回</string>
+    
     <!-- 各种dialog -->
     <string name="dialog_close_app_title">关闭mindpin</string>
     <string name="dialog_close_app_text">确定要关闭mindpin么？</string>
@@ -21,6 +23,8 @@
     <string name="dialog_ok">确定</string>
     <string name="dialog_cancel">取消</string>
     
+    <!-- 关于页面 -->
+    <string name="about_title">关于…</string>
     <!-- 登录页面 -->
     <string name="login_email">邮箱</string>
     <string name="login_password">密码</string>
