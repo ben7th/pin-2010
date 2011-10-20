@@ -2,7 +2,6 @@ package com.mindpin.activity.base;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
@@ -27,7 +25,6 @@ import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.cache.AccountInfoCache;
 
 public class MainActivity extends Activity {
 	private TextView data_syn_textview;
@@ -73,7 +70,7 @@ public class MainActivity extends Activity {
 		new MindpinAsyncTask<String, String, Bitmap>(this){
 			@Override
 			public Bitmap do_in_background(String... params) throws Exception {
-				return AccountInfoCache.get_avatar_bitmap();
+				return AccountManager.get_current_user_avatar_bitmap();
 			}
 
 			@Override
@@ -81,7 +78,7 @@ public class MainActivity extends Activity {
 				TextView account_name_textview = (TextView)findViewById(R.id.account_name);
 				ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
 				
-				account_name_textview.setText(AccountInfoCache.get_name());
+				account_name_textview.setText(AccountManager.get_current_user_name());
 				account_avatar_imgview.setImageBitmap(result);
 			}
 		}.execute();
@@ -166,29 +163,12 @@ public class MainActivity extends Activity {
 		case R.id.menu_setting:
 			startActivity(new Intent(this, MindpinSettingActivity.class));
 			break;
-		case R.id.menu_logout:
-			show_logout_dialog();
+		case R.id.menu_account_management:
+			startActivity(new Intent(this, AccountManagerActivity.class));
 			break;
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-	
-	private void show_logout_dialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
-		builder.setTitle(R.string.dialog_logout_title);
-		builder.setMessage(R.string.dialog_logout_text);
-		
-		builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				AccountManager.logout();
-				startActivity(new Intent(MainActivity.this, LoginActivity.class));
-				MainActivity.this.finish();
-			}
-		});
-		builder.setNegativeButton(R.string.dialog_cancel, null);
-		builder.show();
 	}
 	
 	@Override

@@ -1,19 +1,18 @@
 .page-olist.mindmaps{
-  padding:0 20px;
   .list-blank{
     margin:0 0 200px 0;
   }
   
   .mindmap{
     border:solid 1px #eee;
-    padding:10px;
-    margin-bottom:20px;
+    margin-bottom:14px;
+    background-color:#FFF;
 
     .creator{
-      margin:-10px -10px 10px;
+      margin:0;
       background-color:#fafafa;
       border-bottom:solid 1px #eee;
-      padding:10px;
+      padding:9px;
       overflow:hidden;
       
       .avatar{
@@ -32,10 +31,10 @@
     }
     
     .title{
-      margin:-10px -10px 10px;
+      margin:0;
       background-color:#fafafa;
       border-bottom:solid 1px #eee;
-      padding:10px;
+      padding:9px;
       
       font-size:14px;font-weight:bold;
       
@@ -49,9 +48,11 @@
     }
     
     .data{
-      margin-bottom:10px;
+      margin:0;
+      padding:9px;
       .thumb{
         overflow:hidden;
+        margin:0 auto;
         a{
           display:block;font-size:0;line-height:0;
         }
@@ -59,7 +60,8 @@
     }
     
     .status{
-      margin:0 0 10px 0;
+      margin:0;
+      padding:0 4px 4px;
       .is-private{
         margin-top:-1px;
         border-top:solid 1px #EEEEEE;
@@ -76,8 +78,7 @@
       }
       .coop-users{
         margin-top:-1px;
-        border-top:solid 1px #EEEEEE;
-        border-bottom:solid 1px #EEEEEE;
+        border:solid 1px #EEEEEE;
         background:#FAFAFA;
         padding:5px;
         overflow:hidden;
@@ -94,7 +95,8 @@
 
     .footmisc{
       overflow:hidden;
-      margin-bottom:10px;
+      margin:0;
+      padding:9px;
       .rank{
         height:18px;line-height:18px;
         float:left;

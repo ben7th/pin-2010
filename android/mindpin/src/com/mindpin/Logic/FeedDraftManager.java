@@ -15,7 +15,7 @@ public class FeedDraftManager {
 		String images_str = 
 				BaseUtils.string_list_to_string(capture_paths);
 		
-		FeedDraft.insert(context,title,content,images_str,select_collection_ids_str,send_tsina);
+		FeedDraft.insert(title,content,images_str,select_collection_ids_str,send_tsina);
 	}
 
 	public static void update_feed_draft(Context context,
@@ -27,22 +27,22 @@ public class FeedDraftManager {
 		String images_str = 
 				BaseUtils.string_list_to_string(capture_paths);
 		
-		FeedDraft.update(context,feed_draft_id,feed_title,feed_content,images_str,select_collection_ids_str,send_tsina);
+		FeedDraft.update(feed_draft_id,feed_title,feed_content,images_str,select_collection_ids_str,send_tsina);
 	}
 	
-	public static ArrayList<FeedDraft> get_feed_drafts(Context context){
-		return FeedDraft.get_feed_drafts(context);
+	public static ArrayList<FeedDraft> get_feed_drafts(){
+		return FeedDraft.get_feed_drafts();
 	}
 	
-	public static boolean has_feed_draft(Context context){
-		return FeedDraft.get_count(context) != 0;
+	public static boolean has_feed_draft(){
+		return FeedDraft.get_count() != 0;
 	}
 
-	public static boolean has_change(Context context,
+	public static boolean has_change(
 			int feed_draft_id, String feed_title, String feed_content,
 			ArrayList<String> capture_paths,
 			ArrayList<Integer> select_collection_ids,boolean send_tsina) {
-		FeedDraft fd = FeedDraft.find(context, feed_draft_id);
+		FeedDraft fd = FeedDraft.find(feed_draft_id);
 		boolean title_change = (!fd.title.equals(feed_title));
 		boolean content_change = (!fd.content.equals(feed_content));
 		boolean collections_change = (!BaseUtils.integer_list_to_string(select_collection_ids).equals(fd.select_collection_ids));

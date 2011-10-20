@@ -2600,7 +2600,10 @@ Release Date: November 8, 2010
     font-size: 14px; }
 .mside .page-submenu {
   overflow: hidden;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  padding: 9px;
+  border: solid 1px #eee;
+  background-color: #FFF; }
   .mside .page-submenu ul {
     padding-top: 2px;
     overflow: hidden; }
@@ -2731,13 +2734,13 @@ Release Date: November 8, 2010
         position: relative;
         top: 3px; }
 .mside .page-sidepart {
-  padding: 10px;
+  padding: 9px;
   background-color: #FAFAFA;
   border: solid 1px #EEEEEE;
   margin-bottom: 10px;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px; }
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px; }
 
 /*页脚*/
 /*页脚背景*/
@@ -2876,6 +2879,7 @@ a.send-button {
 
 /*页面标题栏ops按钮*/
 /*页面标准元件，标题栏*/
+/*即将过期 不建议使用*/
 .page-title-bar {
   margin-bottom: 20px;
   overflow: hidden;
@@ -8222,7 +8226,10 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   margin-bottom: 20px;
   background: #FAFAFA;
   padding-top: 10px;
-  border-top: solid 1px #eee; }
+  border-top: solid 1px #eee;
+  padding: 9px;
+  border: solid 1px #eee;
+  margin-bottom: 10px; }
   .page-mindmaps-info-bar .avatar {
     float: left;
     margin-right: 10px; }
@@ -8239,7 +8246,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   .page-mindmaps-info-bar .explore {
     overflow: hidden;
     margin: 0 0 15px 0;
-    padding: 5px 0; }
+    padding: 0 0 5px 0; }
     .page-mindmaps-info-bar .explore .btns {
       float: right; }
       .page-mindmaps-info-bar .explore .btns .show {
@@ -8285,7 +8292,10 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   margin-bottom: 20px;
   background: #FAFAFA;
   padding-top: 10px;
-  border-top: solid 1px #eee; }
+  border-top: solid 1px #eee;
+  padding: 9px;
+  border: solid 1px #eee;
+  margin-bottom: 10px; }
   .page-tu-mindmap-user-info-bar .avatar {
     float: left;
     margin-right: 10px; }
@@ -8344,13 +8354,13 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
 
 /*思维导图，侧边微博栏*/
 .page-tu-weibo {
-  padding: 10px;
+  padding: 9px;
   background-color: #FAFAFA;
   border: solid 1px #EEEEEE;
   margin-bottom: 10px;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px; }
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px; }
   .page-tu-weibo .data {
     overflow: hidden;
     margin: 0 0 10px 0; }
@@ -8365,7 +8375,9 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
 
 /*新建思维导图表单*/
 .page-new-mindmap-form {
-  padding: 10px; }
+  padding: 9px;
+  border: solid 1px #eee;
+  background-color: #FFF; }
   .page-new-mindmap-form h2.main-title {
     font-size: 20px;
     font-weight: bold;
@@ -8382,7 +8394,9 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
 
 /*导入思维导图表单*/
 .page-upload-mindmap {
-  padding: 10px; }
+  padding: 9px;
+  border: solid 1px #eee;
+  background-color: #FFF; }
   .page-upload-mindmap h2.main-title {
     font-size: 20px;
     font-weight: bold;
@@ -8479,9 +8493,10 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
   display: none; }
 
 .map-meta .coop {
-  border-bottom: solid 1px #eee;
-  padding: 0 0 10px 0;
-  margin-bottom: 10px; }
+  border: solid 1px #eee;
+  padding: 9px;
+  margin-bottom: 10px;
+  background-color: #FFF; }
   .map-meta .coop .avatars {
     overflow: hidden; }
     .map-meta .coop .avatars .avatar {
@@ -8505,9 +8520,10 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         top: 2px;
         left: 2px; }
 .map-meta .export, .map-meta .similar-maps {
-  border-bottom: solid 1px #eee;
-  padding: 0 0 10px 0;
-  margin-bottom: 10px; }
+  border: solid 1px #eee;
+  padding: 9px;
+  margin-bottom: 10px;
+  background-color: #FFF; }
 
 .page-tu-mindpin-mside-user-info {
   overflow: hidden; }
@@ -8677,6 +8693,20 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         line-height: 22em;
         position: relative;
         top: 1px; }
+
+.page-mindmap-others {
+  border: solid 1px #eee;
+  padding: 9px;
+  background-color: #fafafa; }
+  .page-mindmap-others textarea.text {
+    width: 678px;
+    height: 100px; }
+  .page-mindmap-others .aj-loading.quiet {
+    padding-left: 22px;
+    background-position: 0 8px;
+    display: none;
+    height: 23px;
+    line-height: 23px; }
 
 .page-file-upload {
   position: relative; }
@@ -9320,6 +9350,45 @@ form .field.sendto-select-widget .sendto-selector {
           margin-right: 3px; }
         .page-collection-top .meta .ops .create .icon, .page-info-top .meta .ops .create .icon {
           background: url(/images/alltu.png) -85px -100px; }
+      .page-collection-top .meta .ops .import, .page-info-top .meta .ops .import {
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        display: block;
+        padding: 0;
+        text-align: center;
+        background-color: #4C8FFD;
+        border: solid 1px #10698D;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 2px #444444;
+        background-color: #4CBBFD;
+        border: 1px solid #30A8ED;
+        margin-left: 9px;
+        float: left;
+        padding: 0 7px 0 3px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px; }
+        .page-collection-top .meta .ops .import:hover, .page-info-top .meta .ops .import:hover {
+          color: white;
+          text-decoration: none;
+          border: solid 1px #0069dd;
+          box-shadow: 0 1px 2px #ccc; }
+        .page-collection-top .meta .ops .import span, .page-info-top .meta .ops .import span {
+          display: block; }
+        .page-collection-top .meta .ops .import:hover, .page-info-top .meta .ops .import:hover {
+          border-color: #2098DD; }
+        .page-collection-top .meta .ops .import span, .page-info-top .meta .ops .import span {
+          float: left; }
+        .page-collection-top .meta .ops .import .icon, .page-info-top .meta .ops .import .icon {
+          width: 24px;
+          height: 24px;
+          position: relative;
+          top: 3px;
+          margin-right: 3px; }
+        .page-collection-top .meta .ops .import .icon, .page-info-top .meta .ops .import .icon {
+          background: url(/images/alltu.png) -85px -125px; }
       .page-collection-top .meta .ops .drafts, .page-info-top .meta .ops .drafts {
         float: left;
         padding: 0 7px;
@@ -9372,159 +9441,160 @@ form .field.sendto-select-widget .sendto-selector {
       font-size: 14px;
       font-weight: bold; }
 
-.page-olist.mindmaps {
-  padding: 0 20px; }
-  .page-olist.mindmaps .list-blank {
-    margin: 0 0 200px 0; }
-  .page-olist.mindmaps .mindmap {
-    border: solid 1px #eee;
-    padding: 10px;
-    margin-bottom: 20px; }
-    .page-olist.mindmaps .mindmap .creator {
-      margin: -10px -10px 10px;
-      background-color: #fafafa;
-      border-bottom: solid 1px #eee;
-      padding: 10px;
-      overflow: hidden; }
-      .page-olist.mindmaps .mindmap .creator .avatar {
-        float: left; }
-      .page-olist.mindmaps .mindmap .creator .name {
-        margin-left: 44px;
-        font-weight: bold;
-        line-height: 16px; }
-        .page-olist.mindmaps .mindmap .creator .name a {
-          color: #999; }
-      .page-olist.mindmaps .mindmap .creator .time {
-        margin-left: 44px;
-        line-height: 16px; }
-    .page-olist.mindmaps .mindmap .title {
-      margin: -10px -10px 10px;
-      background-color: #fafafa;
-      border-bottom: solid 1px #eee;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: bold; }
-      .page-olist.mindmaps .mindmap .title a {
-        color: #555; }
-        .page-olist.mindmaps .mindmap .title a:hover {
-          text-decoration: none;
-          border-bottom: dotted 1px #666; }
-    .page-olist.mindmaps .mindmap .data {
-      margin-bottom: 10px; }
-      .page-olist.mindmaps .mindmap .data .thumb {
-        overflow: hidden; }
-        .page-olist.mindmaps .mindmap .data .thumb a {
-          display: block;
-          font-size: 0;
-          line-height: 0; }
-    .page-olist.mindmaps .mindmap .status {
-      margin: 0 0 10px 0; }
-      .page-olist.mindmaps .mindmap .status .is-private {
-        margin-top: -1px;
-        border-top: solid 1px #EEEEEE;
-        border-bottom: solid 1px #EEEEEE;
-        padding: 5px;
-        color: #888; }
-      .page-olist.mindmaps .mindmap .status .faved-by {
-        margin-top: -1px;
-        border-top: solid 1px #EEEEEE;
-        border-bottom: solid 1px #EEEEEE;
-        padding: 5px;
-        color: #888; }
-      .page-olist.mindmaps .mindmap .status .coop-users {
-        margin-top: -1px;
-        border-top: solid 1px #EEEEEE;
-        border-bottom: solid 1px #EEEEEE;
-        background: #FAFAFA;
-        padding: 5px;
-        overflow: hidden; }
-        .page-olist.mindmaps .mindmap .status .coop-users .desc {
-          margin: 0 0 5px 0;
-          color: #888; }
-        .page-olist.mindmaps .mindmap .status .coop-users .avatar {
-          width: 26px;
-          height: 26px;
-          float: left;
-          margin-right: 5px; }
-    .page-olist.mindmaps .mindmap .footmisc {
+.page-olist.mindmaps .list-blank {
+  margin: 0 0 200px 0; }
+.page-olist.mindmaps .mindmap {
+  border: solid 1px #eee;
+  margin-bottom: 14px;
+  background-color: #FFF; }
+  .page-olist.mindmaps .mindmap .creator {
+    margin: 0;
+    background-color: #fafafa;
+    border-bottom: solid 1px #eee;
+    padding: 9px;
+    overflow: hidden; }
+    .page-olist.mindmaps .mindmap .creator .avatar {
+      float: left; }
+    .page-olist.mindmaps .mindmap .creator .name {
+      margin-left: 44px;
+      font-weight: bold;
+      line-height: 16px; }
+      .page-olist.mindmaps .mindmap .creator .name a {
+        color: #999; }
+    .page-olist.mindmaps .mindmap .creator .time {
+      margin-left: 44px;
+      line-height: 16px; }
+  .page-olist.mindmaps .mindmap .title {
+    margin: 0;
+    background-color: #fafafa;
+    border-bottom: solid 1px #eee;
+    padding: 9px;
+    font-size: 14px;
+    font-weight: bold; }
+    .page-olist.mindmaps .mindmap .title a {
+      color: #555; }
+      .page-olist.mindmaps .mindmap .title a:hover {
+        text-decoration: none;
+        border-bottom: dotted 1px #666; }
+  .page-olist.mindmaps .mindmap .data {
+    margin: 0;
+    padding: 9px; }
+    .page-olist.mindmaps .mindmap .data .thumb {
       overflow: hidden;
-      margin-bottom: 10px; }
-      .page-olist.mindmaps .mindmap .footmisc .rank {
+      margin: 0 auto; }
+      .page-olist.mindmaps .mindmap .data .thumb a {
+        display: block;
+        font-size: 0;
+        line-height: 0; }
+  .page-olist.mindmaps .mindmap .status {
+    margin: 0;
+    padding: 0 4px 4px; }
+    .page-olist.mindmaps .mindmap .status .is-private {
+      margin-top: -1px;
+      border-top: solid 1px #EEEEEE;
+      border-bottom: solid 1px #EEEEEE;
+      padding: 5px;
+      color: #888; }
+    .page-olist.mindmaps .mindmap .status .faved-by {
+      margin-top: -1px;
+      border-top: solid 1px #EEEEEE;
+      border-bottom: solid 1px #EEEEEE;
+      padding: 5px;
+      color: #888; }
+    .page-olist.mindmaps .mindmap .status .coop-users {
+      margin-top: -1px;
+      border: solid 1px #EEEEEE;
+      background: #FAFAFA;
+      padding: 5px;
+      overflow: hidden; }
+      .page-olist.mindmaps .mindmap .status .coop-users .desc {
+        margin: 0 0 5px 0;
+        color: #888; }
+      .page-olist.mindmaps .mindmap .status .coop-users .avatar {
+        width: 26px;
+        height: 26px;
+        float: left;
+        margin-right: 5px; }
+  .page-olist.mindmaps .mindmap .footmisc {
+    overflow: hidden;
+    margin: 0;
+    padding: 9px; }
+    .page-olist.mindmaps .mindmap .footmisc .rank {
+      height: 18px;
+      line-height: 18px;
+      float: left;
+      width: 30px;
+      background-color: #8ABFE6;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      margin-right: 10px; }
+    .page-olist.mindmaps .mindmap .footmisc .time {
+      height: 20px;
+      line-height: 20px;
+      float: left;
+      margin-right: 10px; }
+    .page-olist.mindmaps .mindmap .footmisc .share {
+      height: 20px;
+      line-height: 20px;
+      float: left;
+      overflow: hidden; }
+      .page-olist.mindmaps .mindmap .footmisc .share a.share_to {
+        float: left;
+        width: 18px;
         height: 18px;
-        line-height: 18px;
-        float: left;
-        width: 30px;
-        background-color: #8ABFE6;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        color: white;
-        font-weight: bold;
-        text-align: center;
-        margin-right: 10px; }
-      .page-olist.mindmaps .mindmap .footmisc .time {
-        height: 20px;
-        line-height: 20px;
-        float: left;
-        margin-right: 10px; }
-      .page-olist.mindmaps .mindmap .footmisc .share {
-        height: 20px;
-        line-height: 20px;
-        float: left;
-        overflow: hidden; }
-        .page-olist.mindmaps .mindmap .footmisc .share a.share_to {
-          float: left;
-          width: 18px;
-          height: 18px;
-          border-radius: 2px;
-          -moz-border-radius: 2px;
-          -webkit-border-radius: 2px;
-          margin-right: 5px;
-          line-height: 33em;
-          font-size: 0;
-          overflow: hidden;
-          background-color: white;
-          background-repeat: no-repeat;
-          background-position: 1px 1px; }
-          .page-olist.mindmaps .mindmap .footmisc .share a.share_to.tsina {
-            background-image: url(/images/share/tsina.png); }
-          .page-olist.mindmaps .mindmap .footmisc .share a.share_to.renren {
-            background-image: url(/images/share/renren.png); }
-          .page-olist.mindmaps .mindmap .footmisc .share a.share_to.douban {
-            background-image: url(/images/share/douban.png); }
-      .page-olist.mindmaps .mindmap .footmisc .ops {
-        height: 20px;
-        line-height: 20px;
-        float: right;
-        overflow: hidden; }
-        .page-olist.mindmaps .mindmap .footmisc .ops .o {
-          margin-left: 10px;
-          float: left; }
-          .page-olist.mindmaps .mindmap .footmisc .ops .o a {
-            font-size: 12px; }
-            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private .icon {
-              position: relative;
-              top: 2px;
-              float: left;
-              width: 16px;
-              height: 16px;
-              margin: 0 2px 0 0; }
-            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private.public .icon {
-              background: url(/images/alltu.png) no-repeat -18px -35px; }
-            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private.private .icon {
-              background: url(/images/alltu.png) no-repeat -1px -35px; }
-            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav .icon {
-              position: relative;
-              top: 2px;
-              float: left;
-              width: 16px;
-              height: 16px;
-              margin: 0 2px 0 0; }
-            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.unfav .icon {
-              background: url(/images/alltu.png) no-repeat -18px -52px; }
-            .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.fav .icon {
-              background: url(/images/alltu.png) no-repeat -1px -52px; }
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        margin-right: 5px;
+        line-height: 33em;
+        font-size: 0;
+        overflow: hidden;
+        background-color: white;
+        background-repeat: no-repeat;
+        background-position: 1px 1px; }
+        .page-olist.mindmaps .mindmap .footmisc .share a.share_to.tsina {
+          background-image: url(/images/share/tsina.png); }
+        .page-olist.mindmaps .mindmap .footmisc .share a.share_to.renren {
+          background-image: url(/images/share/renren.png); }
+        .page-olist.mindmaps .mindmap .footmisc .share a.share_to.douban {
+          background-image: url(/images/share/douban.png); }
+    .page-olist.mindmaps .mindmap .footmisc .ops {
+      height: 20px;
+      line-height: 20px;
+      float: right;
+      overflow: hidden; }
+      .page-olist.mindmaps .mindmap .footmisc .ops .o {
+        margin-left: 10px;
+        float: left; }
+        .page-olist.mindmaps .mindmap .footmisc .ops .o a {
+          font-size: 12px; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private .icon {
+            position: relative;
+            top: 2px;
+            float: left;
+            width: 16px;
+            height: 16px;
+            margin: 0 2px 0 0; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private.public .icon {
+            background: url(/images/alltu.png) no-repeat -18px -35px; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-private.private .icon {
+            background: url(/images/alltu.png) no-repeat -1px -35px; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav .icon {
+            position: relative;
+            top: 2px;
+            float: left;
+            width: 16px;
+            height: 16px;
+            margin: 0 2px 0 0; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.unfav .icon {
+            background: url(/images/alltu.png) no-repeat -18px -52px; }
+          .page-olist.mindmaps .mindmap .footmisc .ops .o a.toggle-fav.fav .icon {
+            background: url(/images/alltu.png) no-repeat -1px -52px; }
 
 .page-olist.followings .list-blank {
   margin: 0 0 200px 0; }

@@ -83,7 +83,7 @@ public class NewFeedActivity extends Activity {
 	}
 	
 	private void process_feed_draft() {
-		if(FeedDraftManager.has_feed_draft(getApplicationContext())){
+		if(FeedDraftManager.has_feed_draft()){
 			show_feed_draft_list_dialog();
 		}
 	}
@@ -125,7 +125,7 @@ public class NewFeedActivity extends Activity {
 					(select_collection_ids == null || select_collection_ids.size() == 0)
 					);
 			if(feed_draft_id!=0){
-				boolean has_change = FeedDraftManager.has_change(getApplicationContext(),
+				boolean has_change = FeedDraftManager.has_change(
 						feed_draft_id,feed_title,feed_detail,capture_paths,select_collection_ids,send_tsina);
 				if(!is_blank && has_change){
 					save_feed_draft_dialog();
@@ -279,7 +279,7 @@ public class NewFeedActivity extends Activity {
 				}
 				timer.cancel();
 				if(feed_draft_id!=0){
-					FeedDraft.destroy(getApplicationContext(), feed_draft_id);
+					FeedDraft.destroy( feed_draft_id);
 					feed_draft_id=0;
 				}
 				publish_progress("send_feed_success");
@@ -483,7 +483,7 @@ public class NewFeedActivity extends Activity {
 				Integer id = (Integer)view.getTag();
 				if(id == null) return;
 				
-				FeedDraft.destroy(getApplicationContext(), id);
+				FeedDraft.destroy(id);
 			}
 		});
 		builder.setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
@@ -493,7 +493,7 @@ public class NewFeedActivity extends Activity {
 		final AlertDialog dialog = builder.create();
 		
 		RadioGroup feed_drafts_rg = (RadioGroup)view.findViewById(R.id.feed_drafts_rg);
-		ArrayList<FeedDraft> feed_drafts = FeedDraftManager.get_feed_drafts(getApplicationContext());
+		ArrayList<FeedDraft> feed_drafts = FeedDraftManager.get_feed_drafts();
 		for (FeedDraft feedDraft : feed_drafts) {
 			RadioButton rb = (RadioButton)factory.inflate(R.layout.feed_draft_radio_button, null);
 			
@@ -522,7 +522,7 @@ public class NewFeedActivity extends Activity {
 	
 	private void open_feed_draft(Integer id) {
 		feed_draft_id = id;
-		FeedDraft fd = FeedDraft.find(getApplicationContext(), id);
+		FeedDraft fd = FeedDraft.find(id);
 		if(fd == null)return;
 		
 		feed_title_et.setText(fd.title);

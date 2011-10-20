@@ -1,11 +1,10 @@
 -htitle '思维导图首页'
 
-.mside.grid_5
+.mside.grid_6.no-line
   =render 'index/sub_menu'
   =render 'index/parts/weibo'
 
-.main.grid_19.ll
+.main.grid_18.no-line
   =render 'index/parts/manage_bar'
   =render 'mindmaps/list/list',:mindmaps=>@mindmaps
-
   .page-paginate=will_paginate @mindmaps

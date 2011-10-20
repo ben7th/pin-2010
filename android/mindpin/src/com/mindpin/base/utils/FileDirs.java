@@ -17,7 +17,14 @@ public class FileDirs {
 		return dir;
     }
     
+    public static File mindpin_user_data_dir(int user_id){
+    	return get_or_create_dir("/mindpin/users/"+user_id+"/data/");
+    }
+    
+    public static File mindpin_user_cache_dir(int user_id){
+    	return get_or_create_dir("/mindpin/users/"+user_id+"/cache/");
+    }
+    
     public final static File MINDPIN_DIR 	     = get_or_create_dir("/mindpin/");
     public final static File MINDPIN_CAPTURE_DIR = get_or_create_dir("/mindpin/capture/");
-	public final static File MINDPIN_CACHE_DIR   = get_or_create_dir("/mindpin/cache");
 }

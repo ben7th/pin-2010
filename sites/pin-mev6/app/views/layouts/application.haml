@@ -2,8 +2,12 @@
 %html{:lang=>"zh"}
   =render 'layouts/parts/head'
 
-  %body.echo
-    =render 'layouts/parts/wrap'
-    =render 'layouts/parts/footer'
+  %body.echo.gray
+    .page-wrap
+      .page-container
+        =render 'layouts/parts/nav'
+        .page-content.container_24
+          .cell.clearfix.no-line
+            =yield
     =render 'layouts/parts/phide'
     =render 'layouts/parts/javascripts'

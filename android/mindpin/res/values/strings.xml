@@ -18,8 +18,6 @@
     <!-- 各种dialog -->
     <string name="dialog_close_app_title">关闭mindpin</string>
     <string name="dialog_close_app_text">确定要关闭mindpin么？</string>
-    <string name="dialog_logout_title">退出登录</string>
-    <string name="dialog_logout_text">退出登录将清除当前账号的缓存以及草稿数据，确定么？</string>
     <string name="dialog_ok">确定</string>
     <string name="dialog_cancel">取消</string>
     
@@ -40,7 +38,7 @@
     <string name="main_bn_feeds">浏览主题</string>
     <string name="main_bn_collections">收集册</string>
     <string name="menu_about">关于…</string>
-    <string name="menu_logout">退出登录</string>
+    <string name="menu_account_management">账号管理</string>
     <string name="menu_setting">设置</string>
     <!-- 新建主题页面 -->
     <string name="new_feed_title_et">主题标题</string>

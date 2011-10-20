@@ -1,6 +1,6 @@
 package com.mindpin.Logic;
-import java.util.List;
 
+import java.util.List;
 import org.apache.http.client.CookieStore;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicCookieStore;
@@ -8,48 +8,51 @@ import org.apache.http.impl.cookie.BasicClientCookie;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.mindpin.cache.AccountInfoCache;
+
+import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.database.FeedDraft;
+import com.mindpin.database.User;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
 
 public class AccountManager {
 	public static final String PREFERENCES_NAME = "Mindpin";
 
 	public static void login(List<Cookie> cookies, String info) throws Exception {
-			AccountInfoCache.save(info);
-			SharedPreferences pre = Global.application_context
-					.getSharedPreferences(AccountManager.PREFERENCES_NAME,
-							Activity.MODE_PRIVATE);
-			Editor pre_edit = pre.edit();
-			JSONArray json_arr = new JSONArray();
-			for (Cookie cookie : cookies) {
-				JSONObject json = new JSONObject();
-				json.put("name", cookie.getName());
-				json.put("value", cookie.getValue());
-				json.put("domain", cookie.getDomain());
-				json.put("path", cookie.getPath());
-				json_arr.put(json);
-			}
-			pre_edit.putString("cookies", json_arr.toString());
-			pre_edit.commit();
-	}
-	
-	public static void logout(){
+		int user_id = Account.save( cookies, info);
+		
 		SharedPreferences pre = Global.application_context
 				.getSharedPreferences(AccountManager.PREFERENCES_NAME,
 						Activity.MODE_PRIVATE);
 		Editor pre_edit = pre.edit();
-		pre_edit.remove("cookies");
+		pre_edit.putString("current_user",user_id+"");
+		pre_edit.commit();
+	}
+	
+	public static void remove(int user_id){
+		SharedPreferences pre = Global.application_context
+				.getSharedPreferences(AccountManager.PREFERENCES_NAME,
+						Activity.MODE_PRIVATE);
+		Editor pre_edit = pre.edit();
+		pre_edit.remove("current_user");
 		pre_edit.remove("last_syn_time");
 		pre_edit.commit();
-
-		AccountInfoCache.delete_cache_files();
-		CollectionsCache.destroy();
-		FeedDraft.destroy_all(Global.application_context);
+		
+		Account.delete(user_id);
+		CollectionsCache.delete(user_id);
+		FeedDraft.destroy_all(user_id);
+	}
+	
+	public static int current_user_id(){
+		SharedPreferences pre = Global.application_context
+				.getSharedPreferences(AccountManager.PREFERENCES_NAME,
+						Activity.MODE_PRIVATE);
+		String id = pre.getString("current_user","0");
+		return Integer.parseInt(id);
 	}
 	
 	public static long last_syn_time(Context context) {
@@ -75,9 +78,9 @@ public class AccountManager {
 	
 	public static CookieStore get_cookie_store(){
 		BasicCookieStore cookie_store = new BasicCookieStore();
-		String cookies_string = get_cookies_string();
+		String cookies_string = get_current_user_cookies_string();
 		try {
-			if(!"".equals(cookies_string)){
+			if(!BaseUtils.isStrBlank(cookies_string)){
 				JSONArray json_arr = new JSONArray(cookies_string);
 				for (int i = 0; i < json_arr.length(); i++) {
 					JSONObject json = (JSONObject)json_arr.get(i);
@@ -98,17 +101,40 @@ public class AccountManager {
 	}
 
 	public static boolean is_logged_in() {
-		String cookies = get_cookies_string();
-		return !"".equals(cookies);
+		int count = User.get_count();
+		return (0 != count);
 	}
 	
-	private static String get_cookies_string(){
-		SharedPreferences pre = Global.application_context.getSharedPreferences(
-				AccountManager.PREFERENCES_NAME, Activity.MODE_PRIVATE);
-		return pre.getString("cookies", "");
+	private static String get_current_user_cookies_string(){
+		int user_id = current_user_id();
+		System.out.println(user_id);
+		if(user_id == 0){
+			return null;
+		}else{
+			System.out.println(User.find(user_id).cookies);
+			return User.find(user_id).cookies;
+		}
 	}
 	
 	public static class AuthenticateException extends Exception{
 		private static final long serialVersionUID = 8741487079704426464L;
+	}
+
+	public static Bitmap get_current_user_avatar_bitmap() {
+		int user_id = current_user_id();
+		if(user_id == 0){
+			return null;
+		}else{
+			return Account.get_avatar_bitmap(user_id);
+		}
+	}
+
+	public static String get_current_user_name() {
+		int user_id = current_user_id();
+		if(user_id == 0){
+			return null;
+		}else{
+			return User.find(user_id).name;
+		}
 	}
 }

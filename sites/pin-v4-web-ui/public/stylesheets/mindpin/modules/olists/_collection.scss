@@ -210,6 +210,20 @@
         .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
         .icon{background:url(/images/alltu.png) -85px -100px;}
       }
+      .import{
+        @include button-blue;
+        background-color:#4CBBFD;
+        border:1px solid #30A8ED;
+        &:hover{border-color:#2098DD;}
+        margin-left:9px;
+        float:left;
+        padding:0 7px 0 3px;
+        height:30px;line-height:30px;
+        font-size:14px;
+        span{float:left;}
+        .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
+        .icon{background:url(/images/alltu.png) -85px -125px;}
+      }
       .drafts{
         float:left;
         padding:0 7px;

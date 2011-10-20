@@ -3,8 +3,8 @@
 -content_for :javascript do
   =javascript_include_tag '/uploadify/upload_mindmap'
 
-.main.white.grid_18
-  .page-title-bar
+.main.grid_18.no-line
+  .page-info-top
     .meta
       %h2 从文件导入思维导图
   .page-upload-mindmap
@@ -46,7 +46,7 @@
         =f.submit "好了，确定创建",:class=>'submit disabled',:disabled=>'disabled'
         %span.marginl10=link_to '算了，取消','/'
 
-.mside.grid_6
+.mside.grid_6.no-line
   .page-sidepart
     %p 我们支持以下导图软件格式：
     %p

@@ -3,6 +3,7 @@ package com.mindpin.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.mindpin.R;
@@ -19,6 +20,7 @@ public class MindpinProgressDialog extends Dialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		setContentView(R.layout.mindpin_progress_dialog);
 		
 		if(BaseUtils.isStrBlank(this.message)){

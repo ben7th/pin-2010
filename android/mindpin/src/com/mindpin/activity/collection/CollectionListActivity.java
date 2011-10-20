@@ -77,7 +77,7 @@ public class CollectionListActivity extends Activity {
 	protected void onResume() {
 		if (has_pause) {
 			ArrayList<HashMap<String, Object>> list = CollectionsCache
-					.get_collection_list();
+					.get_current_user_collection_list();
 			if (!list.equals(collections)) {
 				collections = list;
 				build_collection_list_data();
@@ -124,7 +124,7 @@ public class CollectionListActivity extends Activity {
 	}
 	
 	private void build_collection_list() {
-		collections = CollectionsCache.get_collection_list();
+		collections = CollectionsCache.get_current_user_collection_list();
 		build_collection_list_data();
 		collection_list_lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override

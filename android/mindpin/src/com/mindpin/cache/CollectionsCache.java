@@ -13,27 +13,38 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mindpin.Logic.AccountManager;
 import com.mindpin.base.utils.FileDirs;
 
 public class CollectionsCache {
 
 	public static void save(String collections) {
+		int user_id = AccountManager.current_user_id();
+		if(user_id == 0){
+			return;
+		}
+		
 		try {
-			FileUtils.writeStringToFile(get_collections_file(), collections);
+			FileUtils.writeStringToFile(get_collections_file(user_id), collections);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}
 	
-	public static void destroy(){
-		File file = get_collections_file();
+	public static void delete(int user_id){
+		File file = get_collections_file(user_id);
 		file.delete();
 	}
 	
-	public static ArrayList<HashMap<String, Object>> get_collection_list(){
+	public static ArrayList<HashMap<String, Object>> get_current_user_collection_list(){
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		int user_id = AccountManager.current_user_id();
+		if(user_id == 0){
+			return list;
+		}
+		
 		try {
-			String json_str = IOUtils.toString(new FileInputStream(get_collections_file()));
+			String json_str = IOUtils.toString(new FileInputStream(get_collections_file(user_id)));
 			list = build_list_by_json(json_str);
 			return list;
 		} catch (FileNotFoundException e) {
@@ -65,8 +76,8 @@ public class CollectionsCache {
 		}
 	}
 
-	private static File get_collections_file(){
-		return new File(FileDirs.MINDPIN_CACHE_DIR, "collections.json");
+	private static File get_collections_file(int user_id){
+		return new File(FileDirs.mindpin_user_cache_dir(user_id), "collections.json");
 	}
 
 }

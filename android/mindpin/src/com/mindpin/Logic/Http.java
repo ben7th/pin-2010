@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -15,14 +14,12 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import com.mindpin.base.http.MindpinDeleteRequest;
 import com.mindpin.base.http.MindpinGetRequest;
 import com.mindpin.base.http.MindpinPostRequest;
 import com.mindpin.base.http.MindpinPutRequest;
 import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.cache.AccountInfoCache;
 import com.mindpin.cache.CollectionsCache;
 
 public class Http {
@@ -79,8 +76,8 @@ public class Http {
 				JSONObject json = new JSONObject(response_text);
 				String collections = ((JSONArray)json.get("collections")).toString();
 				String user_info = ((JSONObject)json.get("user")).toString();
+				Account.save(httpclient.getCookieStore().getCookies(), user_info);
 				CollectionsCache.save(collections);
-				AccountInfoCache.save(user_info);
 				return true;
 			}
 		}.go();

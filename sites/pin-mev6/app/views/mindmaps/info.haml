@@ -1,5 +1,5 @@
--content_for :title do
-  概要 - #{@mindmap.title}
+-htitle "概要 - #{@mindmap.title}"
+  
 
 -content_for :javascripts do
   = javascript_include_tag "pages/mindmap_choose_cooperator"
@@ -26,7 +26,7 @@
       })
     })
 
-.mside.grid_5
+.mside.grid_6.no-line
   .map-meta
     =render 'mindmaps/info_parts/coop',:mindmap=>@mindmap
 
@@ -38,7 +38,7 @@
       %h3 内容相关导图
       =render :partial=>'mindmaps/parts/similar_mindmaps'
 
-.main.grid_19.ll
+.main.grid_18.no-line
   -mindmap_user = @mindmap.user
 
   .page-mindmaps-info-bar
@@ -57,15 +57,64 @@
   .page-mindmap-info-view
     =render 'mindmaps/list/list',:mindmaps=>[@mindmap]
 
+  -if logged_in? && current_user.has_binded_tsina?
+    -weibo = current_user.tsina_weibo
+  -elsif creator.has_binded_tsina?
+    -weibo = creator.tsina_weibo
+  -else
+    -weibo = User.find(1016287).tsina_weibo if RAILS_ENV=='development' # 1016287 漫品 ben7th6@sina.com
+    -weibo = User.find(1009).tsina_weibo if RAILS_ENV=='production' # 1009 大灰狼果糖 ben7th@126.com
+
+  -if !weibo.blank?
+    -url_long = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}")
+    -url_short = weibo.send(:perform_get,"/short_url/shorten.json",:query=>{:url_long=>url_long})[0].url_short
+    -tsina_comments=weibo.send(:perform_get,"/short_url/comment/comments.json",:query=>{:url_short=>url_short})
+
+  -if !tsina_comments.share_comments.blank?
+    .page-feed-comments-tsina.marginb10
+      .c-top
+        评论
+        =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
+        .icon
+      -tsina_comments.share_comments.each do |comment|
+        .comment
+          -user = comment.user
+          -created_at = Time.parse comment.created_at
+          -status = comment.status
+
+          -uid = user.id
+          -mindpin_user = ConnectUser.get_user_from_tsina_id(uid)
+          -is_mindpin_user = !mindpin_user.blank?
+
+          -weibo_url = "http://weibo.com/#{status.user.id}/#{mid2url(status.id)}"
+          -weibo_url_text = weibo_url.sub('http://','')
+
+          .avatar
+            %img{:src=>user.profile_image_url}
+          .data
+            .name.quiet
+              =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
+              -if is_mindpin_user
+                ="(#{usersign mindpin_user} @mindpin)"
+            .text=comment.text
+            .from.quiet
+              =jtime created_at
+              在
+              =link_to weibo_url_text,weibo_url,:target=>'_blank'
+
+  -else
+    .page-feed-comments-tsina.marginb10
+      .c-top
+        评论
+        =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
+        .icon
+      .comment 暂无评论
+
   -if logged_in? && current_user.has_binded_sina?
-    .page-mindmap-others{:style=>'margin:0 20px 10px 20px;'}
+    .page-mindmap-others
+      -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}")
       =minibutton '(beta)分享大图到新浪微博','javascript:;',:class=>'share-full-img',:'data-id'=>@mindmap.id
       .share-full-img-content{:style=>'margin:5px 0 0 0;'}
-        =text_area_tag 'content',"分享mindpin的思维导图：#{@mindmap.title}。点击查看大图，看完整图片。网站链接：#{pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}")}",:class=>'text'
-      .aj-loading.quiet{:style=>'padding-left:22px;background-position:0 8px;display:none;height:23px;line-height:23px;'} 正在向微博传输数据..请稍候
-
-      -page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
-      -page_title = "分享mindpin的思维导图：#{@mindmap.title}。点击查看大图，看完整图片。"
-      -newest_pic_url = pin_url_for("pin-mindmap-image-cache","#{@mindmap.id}.1.png?#{@mindmap.updated_at.to_i}")
-      -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
+        =text_area_tag 'content',"分享mindpin的思维导图：#{@mindmap.title}。点击查看大图，看完整图片。网站链接：#{page_url}",:class=>'text'
+      .aj-loading.quiet 正在向微博传输数据..请稍候
       .do-share{:style=>'display:none;'} 分享完毕

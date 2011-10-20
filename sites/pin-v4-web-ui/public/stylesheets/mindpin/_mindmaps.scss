@@ -48,10 +48,14 @@
 
 .page-mindmaps-info-bar{
   @include mindmaps-bar;
+  padding:9px;
+  border:solid 1px #eee;
+  margin-bottom:10px;
+  
   .explore{
     overflow:hidden;
     margin:0 0 15px 0;
-    padding:5px 0;
+    padding:0 0 5px 0;
     .btns{
       float:right;
       .show{
@@ -96,6 +100,9 @@
 
 .page-tu-mindmap-user-info-bar{
   @include mindmaps-bar;
+  padding:9px;
+  border:solid 1px #eee;
+  margin-bottom:10px;
 }
 
 
@@ -170,13 +177,17 @@
 
 /*新建思维导图表单*/
 .page-new-mindmap-form{
-  padding:10px;
+  padding:9px;
   @include new_mindmap_form;
+  border:solid 1px #eee;
+  background-color:#FFF;
 }
 /*导入思维导图表单*/
 .page-upload-mindmap{
-  padding:10px;
+  padding:9px;
   @include new_mindmap_form;
+  border:solid 1px #eee;
+  background-color:#FFF;
   .page-upload-mindmap-result{
     background:#FFF9DC;
     border:solid 1px #EFEACE;
@@ -263,7 +274,11 @@
 
 .map-meta{
   .coop{
-    @include sbdb2010;
+    border:solid 1px #eee;
+    padding:9px;
+    margin-bottom:10px;
+    background-color:#FFF;
+    
     .avatars{
       overflow:hidden;
       .avatar{
@@ -290,7 +305,10 @@
   }
 
   .export,.similar-maps{
-    @include sbdb2010;
+    border:solid 1px #eee;
+    padding:9px;
+    margin-bottom:10px;
+    background-color:#FFF;
   }
 }
 
@@ -445,5 +463,15 @@
         }
       }
     }
+  }
+}
+
+.page-mindmap-others{
+  border:solid 1px #eee;
+  padding:9px;
+  background-color:#fafafa;
+  textarea.text{width:678px;height:100px;}
+  .aj-loading.quiet{
+    padding-left:22px;background-position:0 8px;display:none;height:23px;line-height:23px;
   }
 }

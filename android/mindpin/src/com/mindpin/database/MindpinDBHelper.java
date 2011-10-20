@@ -14,9 +14,18 @@ public class MindpinDBHelper extends SQLiteOpenHelper{
 			Constants.TABLE_FEED_DRAFTS__IMAGE_PATHS+" text not null, "+
 			Constants.TABLE_FEED_DRAFTS__SELECT_COLLECTION_IDS+" text not null, " +
 			Constants.TABLE_FEED_DRAFTS__SEND_TSINA+" integer not null, " +
-			Constants.TABLE_FEED_DRAFTS__TIME+" long not null);";
+			Constants.TABLE_FEED_DRAFTS__TIME+" long not null, "+
+			Constants.TABLE_FEED_DRAFTS__USER_ID+" integer not null);";
 	
-
+	private static final String create_table_users = "create table " +
+			Constants.TABLE_USERS + "(" + 
+			Constants.KEY_ID + " integer primary key autoincrement, "+
+			Constants.TABLE_USERS__USER_ID + " integer not null, "+
+			Constants.TABLE_USERS__NAME + " text not null, "+
+			Constants.TABLE_USERS__COOKIES + " text not null, "+
+			Constants.TABLE_USERS__INFO + " text not null);";
+	
+	
 	public MindpinDBHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);
@@ -25,11 +34,13 @@ public class MindpinDBHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(create_table_feed_drafts);
+		db.execSQL(create_table_users);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("drop table if exists "+Constants.TABLE_FEED_DRAFTS);
+		db.execSQL("drop table if exists "+Constants.TABLE_USERS);
 		onCreate(db);
 	}
 }

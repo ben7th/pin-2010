@@ -57,7 +57,7 @@ public class SelectCollectionListActivity extends Activity {
 			progress_dialog.dismiss();
 			switch (msg.what) {
 			case MESSAGE_CREATE_COLLECTION_SUCCESS:
-				collections = CollectionsCache.get_collection_list();
+				collections = CollectionsCache.get_current_user_collection_list();
 				HashMap<String, Object> c = collections
 						.get(collections.size() - 1);
 				Integer id = (Integer) c.get("id");
@@ -141,7 +141,7 @@ public class SelectCollectionListActivity extends Activity {
 	
 	private void build_collection_list() {
 		build_collection_list_logic();
-		collections = CollectionsCache.get_collection_list();
+		collections = CollectionsCache.get_current_user_collection_list();
 		build_collection_list_data();
 	}
 
@@ -280,7 +280,7 @@ public class SelectCollectionListActivity extends Activity {
 		public void mindpin_run() throws Exception {
 			boolean success = Http.create_collection(title);
 			if (success) {
-				collections = CollectionsCache.get_collection_list();
+				collections = CollectionsCache.get_current_user_collection_list();
 				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_SUCCESS);
 			} else {
 				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_FAIL);
