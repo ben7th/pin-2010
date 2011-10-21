@@ -11,6 +11,7 @@ pie.load(function(){
   var form_title_ipter_elm = op_elm.find('input.ipt-title');
 
   var collections_grid_elm = jQuery('.page-ogrid.collections');
+  var list_blank_elm = collections_grid_elm.find('.list-blank');
 
 
   //点击按钮弹出表单
@@ -101,9 +102,9 @@ pie.load(function(){
           //collections_grid_elm.prepend(loading_elm)
         },
         success : function(res){
+          list_blank_elm.remove();
           var new_elm = jQuery(res);
           collections_grid_elm.prepend(new_elm.hide().fadeIn());
-          //loading_elm.remove();
         },
         error : function(){
           //loading_elm.addClass('error').delay(500).fadeOut();

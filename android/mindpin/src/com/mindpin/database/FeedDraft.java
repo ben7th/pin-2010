@@ -117,7 +117,7 @@ public class FeedDraft {
 	
 	public static void destroy_all(int user_id){
 		SQLiteDatabase db = get_write_db();
-		db.execSQL("DELETE FROM "+ Constants.TABLE_FEED_DRAFTS+" WHERE"+Constants.TABLE_FEED_DRAFTS__USER_ID+" = ?",new Object[]{user_id});
+		db.execSQL("DELETE FROM "+ Constants.TABLE_FEED_DRAFTS+" WHERE "+Constants.TABLE_FEED_DRAFTS__USER_ID+" = ?",new Object[]{user_id});
 		db.close();
 	}
 

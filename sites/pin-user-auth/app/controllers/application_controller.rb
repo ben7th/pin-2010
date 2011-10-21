@@ -53,11 +53,8 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_services_page
   def redirect_services_page
     # 如果已登录，已经v2激活的用户放行，其他用户重定向到/services页
-    if logged_in?
-      if current_user.is_v2_activation_user?
-        return true #放行PASS
-      end
-      return redirect_to "/services"
+    if logged_in? && current_user.is_v2_activation_user?
+      return true #放行PASS
     end
 
     # 如果未登录，特定页面放行，其他用户重定向到 / 页
@@ -65,12 +62,12 @@ class ApplicationController < ActionController::Base
     action = params[:action]
 
     pass_actions = UN_UPDATING_PAGE[controller]
-    return true if !pass_actions.blank? && pass_actions.include?(action) #指定action，放行PASS
+    return true if !!pass_actions && pass_actions.include?(action) #指定action，放行PASS
 
     if is_android_client?
       render :status=>401,:text=>401
     else
-      redirect_to "/"
+      return redirect_to "/services"
     end
   end
 

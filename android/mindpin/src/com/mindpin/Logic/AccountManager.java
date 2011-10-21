@@ -8,7 +8,6 @@ import org.apache.http.impl.cookie.BasicClientCookie;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.database.FeedDraft;
@@ -21,16 +20,19 @@ import android.graphics.Bitmap;
 
 public class AccountManager {
 	public static final String PREFERENCES_NAME = "Mindpin";
-
-	public static void login(List<Cookie> cookies, String info) throws Exception {
-		int user_id = Account.save( cookies, info);
-		
+	
+	public static void switch_account(int user_id){
 		SharedPreferences pre = Global.application_context
 				.getSharedPreferences(AccountManager.PREFERENCES_NAME,
 						Activity.MODE_PRIVATE);
 		Editor pre_edit = pre.edit();
 		pre_edit.putString("current_user",user_id+"");
 		pre_edit.commit();
+	}
+
+	public static void login(List<Cookie> cookies, String info) throws Exception {
+		int user_id = Account.save( cookies, info);
+		switch_account(user_id);
 	}
 	
 	public static void remove(int user_id){
@@ -99,19 +101,20 @@ public class AccountManager {
 		}
 		return cookie_store;
 	}
-
+	
 	public static boolean is_logged_in() {
 		int count = User.get_count();
+		if(count != 0 && current_user_id() == 0){
+			switch_account(User.get_users().get(0).user_id);
+		}
 		return (0 != count);
 	}
 	
 	private static String get_current_user_cookies_string(){
 		int user_id = current_user_id();
-		System.out.println(user_id);
 		if(user_id == 0){
 			return null;
 		}else{
-			System.out.println(User.find(user_id).cookies);
 			return User.find(user_id).cookies;
 		}
 	}

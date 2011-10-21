@@ -60,4 +60,8 @@
     <string name="menu_change_collection_name">改名</string>
     <!-- 设置页面 -->
     <string name="upload_photo_quality">upload_photo_quality</string>
+    <!-- 账号管理 -->
+    <string name="account_edit">编辑</string>
+    <string name="account_edit_end">完成</string>
+    <string name="account_delete">删除</string>
 </resources>

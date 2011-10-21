@@ -19,10 +19,12 @@ import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
+import com.mindpin.Logic.Global;
 import com.mindpin.Logic.Http;
 import com.mindpin.activity.collection.CollectionListActivity;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
+import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 
@@ -40,6 +42,15 @@ public class MainActivity extends Activity {
 		
 		update_account_info();
 		data_syn();
+		
+		// 当切换账号的时候，会产生第二个 main_activity
+		// 全局只会有一个 main_activity
+		// 当产生第二个 main_activity 时，结束第一个main_activity
+		MainActivity activity = ((MindpinApplication)getApplication()).get_main_activity();
+		if(activity != null){
+			activity.finish();
+		}
+		((MindpinApplication)getApplication()).set_main_activity(this);
 	}
 	
 	//设置 new_feed 按钮点击事件

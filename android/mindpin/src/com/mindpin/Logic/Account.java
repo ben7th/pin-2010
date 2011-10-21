@@ -12,6 +12,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
+import com.mindpin.R;
 import com.mindpin.base.utils.FileDirs;
 import com.mindpin.database.User;
 
@@ -22,13 +26,13 @@ public class Account {
 		int user_id = (Integer)json.get("id");
 		String name = (String)json.get("name");
 		String avatar_url = (String)json.get("avatar_url");
-		
 		// 保存头像
-		InputStream stream = Http.download_image(avatar_url);
-		if(null != stream){
-			FileUtils.copyInputStreamToFile(stream, get_avatar_file(user_id));
+		if(!"/images/logo/default_users_normal.png".equals(avatar_url)){
+			InputStream stream = Http.download_image(avatar_url);
+			if(null != stream){
+				FileUtils.copyInputStreamToFile(stream, get_avatar_file(user_id));
+			}
 		}
-		
 		// 保存个人信息
 		String cookies_str = cookies_list_to_cookies_str(cookies);
 		User user = User.find(user_id);
@@ -72,7 +76,13 @@ public class Account {
 	
 	// 获取当前缓存的头像文件Bitmap对象
 	public static Bitmap get_avatar_bitmap(int user_id){
-		return BitmapFactory.decodeFile(get_avatar_file(user_id).getPath());
+		File file = get_avatar_file(user_id);
+		if(file.exists()){
+			return BitmapFactory.decodeFile(file.getPath());
+		}else{
+			Drawable draw = Global.application_context.getResources().getDrawable(R.drawable.user_default_avatar_normal);
+			return ((BitmapDrawable)draw).getBitmap();  
+		}
 	}
 	
 	private static File get_avatar_file(int user_id){

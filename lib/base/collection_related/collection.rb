@@ -38,10 +38,11 @@ class Collection < UserAuthAbstract
       base.has_many :created_collections_db,:class_name=>"Collection",:foreign_key=>:creator_id
     end
 
-    def create_collection_by_params(title,scope = 'public')
-      collection = Collection.new(:creator=>self,:title=>title)
+    def create_collection_by_params(title, scope='public')
+      collection = Collection.new(:creator=>self, :title=>title)
       CollectionScope.build_list_form_string(collection,scope)
       collection.save
+      return collection
     end
 
     def out_collections_db
