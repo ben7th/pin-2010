@@ -35,14 +35,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.base_main);
-		
-		data_syn_textview = (TextView)findViewById(R.id.main_data_syn_text);
-		data_syn_progress_bar = (ProgressBar)findViewById(R.id.main_data_syn_progress_bar);
-		
-		update_account_info();
-		data_syn();
-		
 		// 当切换账号的时候，会产生第二个 main_activity
 		// 全局只会有一个 main_activity
 		// 当产生第二个 main_activity 时，结束第一个main_activity
@@ -51,6 +43,19 @@ public class MainActivity extends Activity {
 			activity.finish();
 		}
 		((MindpinApplication)getApplication()).set_main_activity(this);
+		
+		if(AccountManager.current_user_is_activation_user()){
+			setContentView(R.layout.base_main);
+			data_syn_textview = (TextView)findViewById(R.id.main_data_syn_text);
+			data_syn_progress_bar = (ProgressBar)findViewById(R.id.main_data_syn_progress_bar);
+			
+			update_account_info();
+			data_syn();
+		}else{
+			setContentView(R.layout.base_main_not_activate);
+			update_account_info();
+		}
+		
 	}
 	
 	//设置 new_feed 按钮点击事件

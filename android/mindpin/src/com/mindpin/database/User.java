@@ -1,14 +1,9 @@
 package com.mindpin.database;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.mindpin.Logic.Global;
-import com.mindpin.Logic.Http;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -59,6 +54,15 @@ public class User {
 			return fh;
 		}else{
 			return null;
+		}
+	}
+	
+	public boolean is_v2_activate(){
+		try {
+			JSONObject info_json = new JSONObject(info);
+			return (Boolean)info_json.get("v2_activate");
+		} catch (JSONException e) {
+			return false;
 		}
 	}
 	

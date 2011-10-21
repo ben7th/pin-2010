@@ -188,11 +188,12 @@ module UserMethods
 
   def api0_json_hash(logged_in_user = nil)
     {
-      :id         => self.id,
-      :name       => self.name,
-      :sign       => self.sign,
-      :avatar_url => self.logo.url,
-      :following  => logged_in_user.blank? ? false : logged_in_user.following?(self),
+      :id          => self.id,
+      :name        => self.name,
+      :sign        => self.sign,
+      :avatar_url  => self.logo.url,
+      :following   => logged_in_user.blank? ? false : logged_in_user.following?(self),
+      :v2_activate => self.is_v2_activation_user?
     }
   end
 

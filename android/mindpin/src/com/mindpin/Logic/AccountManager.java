@@ -140,4 +140,13 @@ public class AccountManager {
 			return User.find(user_id).name;
 		}
 	}
+
+	public static boolean current_user_is_activation_user() {
+		int user_id = current_user_id();
+		if(user_id == 0){
+			return false;
+		}else{
+			return User.find(user_id).is_v2_activate();
+		}
+	}
 }

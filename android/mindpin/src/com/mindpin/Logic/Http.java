@@ -24,7 +24,7 @@ import com.mindpin.cache.CollectionsCache;
 
 public class Http {
 	
-	public static final String SITE = "http://www.mindpin.com";
+	public static final String SITE = "http://dev.www.mindpin.com";
 	private static HttpParams params = new BasicHttpParams(); 
 	static{
 		HttpClientParams.setRedirecting(params, false);  
@@ -64,6 +64,7 @@ public class Http {
 				return true;
 			}
 		}.go();
+		
 	}
 	
 	// MainActivity

@@ -14,6 +14,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.protocol.HTTP;
 
+import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
 import com.mindpin.Logic.Http;
 
@@ -37,6 +38,8 @@ public abstract class MindpinHttpRequest<TResult> {
 		case HttpStatus.SC_OK:
 			return on_success(responst_text);
 		case HttpStatus.SC_UNAUTHORIZED:
+			on_authenticate_exception();
+			clear_current_user_data();
 			throw new AuthenticateException(); //抛出未登录异常，会被 MindpinRunnable 接到并处理
 		default:
 			throw new Exception();	//不是 200 也不是 401 只能认为是出错了。会被 MindpinRunnable 接到并处理
@@ -45,6 +48,16 @@ public abstract class MindpinHttpRequest<TResult> {
 	
 	// 此方法为 status_code = 200 时 的处理方法，由用户自己定义
 	public abstract TResult on_success(String response_text) throws Exception;
+	
+	public void on_authenticate_exception(){/*nothing..*/};
+	
+	// 发生登录失败时，清除当前用户的用户管理记录数据
+	private void clear_current_user_data(){
+		int user_id = AccountManager.current_user_id();
+		if(user_id!=0){
+			AccountManager.remove(user_id);
+		}
+	}
 	
 	protected String build_params_string(NameValuePair...nv_pairs){
 		String params_string = "?";
