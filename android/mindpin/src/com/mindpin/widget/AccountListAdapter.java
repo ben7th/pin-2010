@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
+import com.mindpin.activity.base.AccountManagerActivity;
 import com.mindpin.database.User;
 
 import android.content.Context;
@@ -19,10 +20,12 @@ import android.widget.TextView;
 public class AccountListAdapter extends BaseAdapter   {
 	private ArrayList<User> users;
 	private LayoutInflater mInflater;
+	private Context context;
 	private boolean is_edit_mode = false;
 
 	public AccountListAdapter(Context context){
 		super();
+		this.context = context;
 		this.users = User.get_users();
 		this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -73,6 +76,10 @@ public class AccountListAdapter extends BaseAdapter   {
 	public void remove_item(int position){
 		users.remove(position);
 		this.notifyDataSetChanged();
+		AccountManagerActivity activity = (AccountManagerActivity)context;
+		if(users.size() == 0){
+			activity.go_to_login();
+		}
 	}
 	
 	public void open_edit_mode(){

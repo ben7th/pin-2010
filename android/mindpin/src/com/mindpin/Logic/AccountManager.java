@@ -113,9 +113,14 @@ public class AccountManager {
 	private static String get_current_user_cookies_string(){
 		int user_id = current_user_id();
 		if(user_id == 0){
-			return null;
+			return "";
 		}else{
-			return User.find(user_id).cookies;
+			User user = User.find(user_id);
+			if(user == null){
+				return "";
+			}else{
+				return user.cookies;
+			}
 		}
 	}
 	

@@ -81,15 +81,20 @@ public class AccountManagerActivity extends Activity {
 					User user = users.get(0);
 					AccountManager.switch_account(user.user_id);
 					startActivity(new Intent(AccountManagerActivity.this,MainActivity.class));
+					this.finish();
 				}else{
-					MainActivity activity = ((MindpinApplication)getApplication()).get_main_activity();
-					activity.finish();
-					startActivity(new Intent(AccountManagerActivity.this,LoginActivity.class));
+					go_to_login();
 				}
-				this.finish();
 				return true;				
 			}
 	    }  
 	    return super.onKeyDown(keyCode, event);  
-	} 
+	}
+	
+	public void go_to_login() {
+		MainActivity activity = ((MindpinApplication)getApplication()).get_main_activity();
+		activity.finish();
+		startActivity(new Intent(AccountManagerActivity.this,LoginActivity.class));
+		this.finish();
+	}
 }

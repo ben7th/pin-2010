@@ -2,7 +2,6 @@ package com.mindpin.widget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,11 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-
 import com.mindpin.R;
-import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.database.Feed;
 
 public class FeedListAdapter extends BaseAdapter {
 	private Context context;
@@ -34,7 +32,7 @@ public class FeedListAdapter extends BaseAdapter {
 	
 	public void load_more_data() throws Exception{
 		Feed feed = feeds.get(feeds.size()-1);
-		String id = feed.getId();
+		String id = feed.feed_id+"";
 		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(Integer.parseInt(id)-1);
 		for (Feed feed2 : more_feeds) {
 			feeds.add(feed2);
@@ -59,22 +57,18 @@ public class FeedListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Feed feed = feeds.get(position);
-		String id = feed.getId();
+		String id = feed.feed_id+"";
 		View view = cache_views.get(id);
 		if(view == null){
-			String title = feed.getTitle();
-			String detail = feed.getDetail();
-			ArrayList<String> photos = feed.getPhotos();
-			switch (photos.size()) {
+			switch (feed.photos_middle.size()) {
 			case 0:
-				view = create_no_photo_view(id, title, detail, parent);
+				view = create_no_photo_view(feed, parent);
 				break;
 			case 1:
-				view = create_single_photo_view(id, title, detail,
-						photos.get(0), parent);
+				view = create_single_photo_view(feed, parent);
 				break;
 			default:
-				view = create_more_photo_view(id, title, detail, photos,
+				view = create_more_photo_view(feed,
 						parent);
 				break;
 			}
@@ -83,16 +77,15 @@ public class FeedListAdapter extends BaseAdapter {
 		return view;
 	}
 
-	private View create_more_photo_view(String id, String title, String detail,
-			ArrayList<String> photos, ViewGroup parent) {
+	private View create_more_photo_view(Feed feed, ViewGroup parent) {
 		View view = mInflater.inflate(R.layout.feed_list_item_more_photos, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
-		id_tv.setText(id);
+		id_tv.setText(feed.feed_id+"");
 		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
-		title_tv.setText(title);
+		title_tv.setText(feed.title);
 		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
-		detail_tv.setText(detail);
-		
+		detail_tv.setText(feed.detail);
+		ArrayList<String> photos = feed.photos_middle;
 		LinearLayout feed_photos = (LinearLayout)view.findViewById(R.id.feed_photos);
 		for (int i = 0; i < photos.size(); i++) {
 			String photo_url = photos.get(i);
@@ -106,36 +99,37 @@ public class FeedListAdapter extends BaseAdapter {
 			img.setLayoutParams(lp);
 			img.setImageBitmap(b);
 			feed_photos.addView(img);
-			DownloadImageTask task = new DownloadImageTask(img);
-			task.execute(photo_url);
+			DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, img);
+			task.execute();
 		}
 		
 		return view;
 	}
 
-	private View create_single_photo_view(String id, String title,
-			String detail, String photo_url, ViewGroup parent) {
+	private View create_single_photo_view(Feed feed, ViewGroup parent) {
 		View view = mInflater.inflate(R.layout.feed_list_item_single_photo, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
-		id_tv.setText(id);
+		id_tv.setText(feed.feed_id+"");
 		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
-		title_tv.setText(title);
+		title_tv.setText(feed.title);
 		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
-		detail_tv.setText(detail);
+		detail_tv.setText(feed.detail);
 		ImageView image_iv = (ImageView)view.findViewById(R.id.feed_photo);
-		DownloadImageTask task = new DownloadImageTask(image_iv);
-		task.execute(photo_url);
+		String photo_url = feed.photos_middle.get(0);
+		
+		DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, image_iv);
+		task.execute();
 		return view;
 	}
 
-	private View create_no_photo_view(String id, String title, String detail, ViewGroup parent) {
+	private View create_no_photo_view(Feed feed, ViewGroup parent) {
 		View view = mInflater.inflate(R.layout.feed_list_item_no_photo, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
-		id_tv.setText(id);
+		id_tv.setText(feed.feed_id+"");
 		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
-		title_tv.setText(title);
+		title_tv.setText(feed.title);
 		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
-		detail_tv.setText(detail);
+		detail_tv.setText(feed.detail);
 		return view;
 	}
 }

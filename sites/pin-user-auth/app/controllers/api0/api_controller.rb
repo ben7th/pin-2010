@@ -150,6 +150,7 @@ class Api0::ApiController < ApplicationController
 
       return {
         :created_at => feed.created_at,
+        :updated_at => feed.updated_at,
         :id         => feed.id,
         :title      => feed.android_title_text,
         :detail     => MindpinTextFormat.new(feed.detail).to_text,

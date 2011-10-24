@@ -2,7 +2,7 @@ package com.mindpin.database;
 
 public class Constants {
 	public static final String DATABASE_NAME = "mindpin";
-	public static final int DATABASE_VERSION = 8;
+	public static final int DATABASE_VERSION = 9;
 	public static final String KEY_ID="_id";
 	
 	// 主题草稿 数据表的常量
@@ -21,4 +21,11 @@ public class Constants {
 	public static final String TABLE_USERS__NAME = "name";
 	public static final String TABLE_USERS__COOKIES = "cookies";
 	public static final String TABLE_USERS__INFO = "info";
+	
+	// feed 缓存
+	public static final String TABLE_FEEDS = "feeds";
+	public static final String TABLE_FEEDS__ID = "feed_id";
+	public static final String TABLE_FEEDS__USER_ID = "user_id";
+	public static final String TABLE_FEEDS__JSON = "json";
+	public static final String TABLE_FEEDS__UPDATED_AT = "updated_at";
 }

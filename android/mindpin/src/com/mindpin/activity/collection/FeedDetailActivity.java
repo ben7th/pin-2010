@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,12 +15,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.mindpin.R;
-import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.database.Feed;
+import com.mindpin.widget.DownloadFeedPhotoTask;
 import com.mindpin.widget.DownloadImageTask;
 
 public class FeedDetailActivity extends Activity {
@@ -57,7 +56,7 @@ public class FeedDetailActivity extends Activity {
 	private void show_feed(Feed feed) {
 		LinearLayout feed_photos_ll = (LinearLayout)findViewById(R.id.feed_photos);
 		
-		ArrayList<String> photo_urls = feed.getPhotos();
+		ArrayList<String> photo_urls = feed.photos_large;
 		for (String photo_url : photo_urls) {
 			ImageView img = new ImageView(this);
 			img.setAdjustViewBounds(true); //设置这个使得图片缩放后内容合适
@@ -65,13 +64,13 @@ public class FeedDetailActivity extends Activity {
 					R.drawable.img_loading)).getBitmap();
 			img.setImageBitmap(b);
 			feed_photos_ll.addView(img);
-			DownloadImageTask task = new DownloadImageTask(img);
-			task.execute(photo_url);
+			DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, img);
+			task.execute();
 		}
 		
 		//填写标题
 		TextView title_tv = (TextView)findViewById(R.id.feed_title);
-		String title = feed.getTitle();
+		String title = feed.title;
 		if(BaseUtils.isStrBlank(title)){
 			title_tv.setVisibility(View.GONE);
 		}else{
@@ -80,7 +79,7 @@ public class FeedDetailActivity extends Activity {
 
 		//填写正文
 		TextView detail_tv = (TextView)findViewById(R.id.feed_detail);
-		String detail = feed.getDetail();
+		String detail = feed.detail;
 		if(BaseUtils.isStrBlank(detail)){
 			detail_tv.setVisibility(View.GONE);
 		}else{
@@ -89,12 +88,12 @@ public class FeedDetailActivity extends Activity {
 		
 		//作者名字
 		TextView creator_name_tv = (TextView)findViewById(R.id.creator_name);
-		String name = feed.getCreator_name();
+		String name = feed.user_name;
 		creator_name_tv.setText(name);
 		
 		//作者头像
 		ImageView creator_logo_iv = (ImageView) findViewById(R.id.creator_logo);
-		String url = feed.getCreator_logo_url();
+		String url = feed.user_logo_url;
 		creator_logo_iv.setImageBitmap(get_bitmap(url));
 	}
 	

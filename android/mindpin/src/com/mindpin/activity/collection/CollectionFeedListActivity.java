@@ -18,12 +18,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mindpin.R;
-import com.mindpin.Logic.Feed;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.runnable.MindpinHandler;
 import com.mindpin.base.runnable.MindpinRunnable;
+import com.mindpin.database.Feed;
 import com.mindpin.widget.FeedListAdapter;
 import com.mindpin.widget.MindpinProgressDialog;
 

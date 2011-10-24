@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
-import com.mindpin.Logic.Global;
 import com.mindpin.Logic.Http;
 import com.mindpin.activity.collection.CollectionListActivity;
 import com.mindpin.activity.feed.FeedListActivity;

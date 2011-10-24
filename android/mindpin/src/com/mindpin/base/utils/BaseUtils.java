@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +36,13 @@ public class BaseUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat();
 		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(new Date(time));
+	}
+	
+	// yyyy-MM-ddTHH:mm:ssZ
+	public static long parse_iso_time_string_to_long(String iso_time_string) throws ParseException{
+		SimpleDateFormat sdf = new SimpleDateFormat();
+		sdf.applyPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		return sdf.parse(iso_time_string).getTime();
 	}
 	
 	public static boolean is_wifi_active(Context context) {

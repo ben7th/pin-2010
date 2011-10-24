@@ -13,11 +13,8 @@ import com.mindpin.base.utils.FileDirs;
 public class CompressPhoto {
 
 	public static String get_compress_file_path(String original_file_path){
-		System.out.println("上传图片");
 		int quality_size = MindpinPreferences.get_photo_quality();
 		if(quality_size == 0){
-			System.out.println("原始的");
-			System.out.println(original_file_path);
 			return original_file_path;
 		}
 		
@@ -34,9 +31,6 @@ public class CompressPhoto {
         Bitmap bitmap = BitmapFactory.decodeFile(original_file_path,options);
         
         File file=new File(FileDirs.MINDPIN_DIR, "upload_tmp.png");
-        System.out.println(options.inSampleSize);
-        System.out.println(quality_size);
-        System.out.println(file.getPath());
         if(file.exists()){
         	file.delete();
         	file=new File(FileDirs.MINDPIN_DIR, "upload_tmp.png");

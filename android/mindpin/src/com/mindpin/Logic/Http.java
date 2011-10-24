@@ -21,6 +21,7 @@ import com.mindpin.base.http.MindpinPutRequest;
 import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.CollectionsCache;
+import com.mindpin.database.Feed;
 
 public class Http {
 	
@@ -180,8 +181,10 @@ public class Http {
 				){
 			@Override
 			public ArrayList<Feed> on_success(String response_text) throws Exception {
-				ArrayList<Feed> list = new ArrayList<Feed>();
-				list = Feed.build_by_collection_feeds_json(response_text);
+				ArrayList<Feed> list = Feed.build_list_by_json(response_text);
+				for (Feed feed : list) {
+					Feed.create_or_update(feed.json);
+				}
 				return list;
 			}
 		}.go();
@@ -223,7 +226,8 @@ public class Http {
 					@Override
 					public Feed on_success(String response_text)
 							throws Exception {
-						Feed feed = Feed.build_by_feed_detail_json(response_text);
+						Feed feed = Feed.build_by_json(response_text);
+						Feed.create_or_update(feed.json);
 						return feed;
 					}
 		}.go();
@@ -242,8 +246,10 @@ public class Http {
 			@Override
 			public ArrayList<Feed> on_success(String response_text)
 					throws Exception {
-				ArrayList<Feed> list = new ArrayList<Feed>();
-				list = Feed.build_by_collection_feeds_json(response_text);
+				ArrayList<Feed> list = Feed.build_list_by_json(response_text);
+				for (Feed feed : list) {
+					Feed.create_or_update(feed.json);
+				}
 				return list;
 			}
 		}.go();
