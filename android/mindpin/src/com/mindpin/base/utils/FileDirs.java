@@ -8,7 +8,7 @@ import android.os.Environment;
 
 public class FileDirs {
 
-	// 尝试获得一个文件夹句柄，如果文件夹不存在就创建该文件夹
+	// 尝试获得一个文件夹引用，如果文件夹不存在就创建该文件夹
     public static File get_or_create_dir(String path){
     	File dir = new File(
 			Environment.getExternalStorageDirectory().getPath() + path

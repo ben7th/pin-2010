@@ -1,19 +1,21 @@
 package com.mindpin.Logic;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import com.mindpin.base.http.MindpinDeleteRequest;
 import com.mindpin.base.http.MindpinGetRequest;
 import com.mindpin.base.http.MindpinPostRequest;
@@ -22,10 +24,11 @@ import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.database.Feed;
+import com.mindpin.database.User;
 
 public class Http {
 	
-	public static final String SITE = "http://dev.www.mindpin.com";
+	public static final String SITE = "http://www.mindpin.com";
 	private static HttpParams params = new BasicHttpParams(); 
 	static{
 		HttpClientParams.setRedirecting(params, false);  
@@ -48,6 +51,9 @@ public class Http {
 	public static final String 上传主题图片 			= "/api0/feeds/upload_photo";
 	public static final String 创建带图片主题 		= "/api0/feeds/create_with_photos";
 	
+	private static List<Cookie> cookies(){
+		return httpclient.getCookieStore().getCookies();
+	}
 	
 	// LoginActivity
 	// 用户登录请求
@@ -55,17 +61,16 @@ public class Http {
 		return new MindpinPostRequest<Boolean>(
 			用户登录, 
 			new BasicNameValuePair("email", email),
-			new BasicNameValuePair("password", password)		
+			new BasicNameValuePair("password", password)
 		){
 			@Override
 			public Boolean on_success(String response_text) throws Exception{
 				JSONObject json = new JSONObject(response_text);
 				String user_info = ((JSONObject)json.get("user")).toString();
-				AccountManager.login(httpclient.getCookieStore().getCookies(), user_info);
+				AccountManager.login(cookies(), user_info);
 				return true;
 			}
 		}.go();
-		
 	}
 	
 	// MainActivity
@@ -78,7 +83,7 @@ public class Http {
 				JSONObject json = new JSONObject(response_text);
 				String collections = ((JSONArray)json.get("collections")).toString();
 				String user_info = ((JSONObject)json.get("user")).toString();
-				Account.save(httpclient.getCookieStore().getCookies(), user_info);
+				new User(cookies(), user_info).save();
 				CollectionsCache.save(collections);
 				return true;
 			}
@@ -140,9 +145,9 @@ public class Http {
 		}.go();
 	}
 
-	public static InputStream download_image(String logo_url) {
+	public static InputStream download_image(String image_url) {
 		try {
-			HttpGet httpget = new HttpGet(logo_url);
+			HttpGet httpget = new HttpGet(image_url);
 			httpget.setHeader("User-Agent", "android");
 			set_cookie_store();
 			HttpResponse response = httpclient.execute(httpget);
@@ -152,10 +157,7 @@ public class Http {
 			} else {
 				return null;
 			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

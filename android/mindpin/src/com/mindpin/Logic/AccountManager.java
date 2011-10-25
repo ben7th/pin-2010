@@ -21,18 +21,22 @@ import android.graphics.Bitmap;
 public class AccountManager {
 	public static final String PREFERENCES_NAME = "Mindpin";
 	
-	public static void switch_account(int user_id){
+	public static void switch_account(int user_id) {
 		SharedPreferences pre = Global.application_context
 				.getSharedPreferences(AccountManager.PREFERENCES_NAME,
 						Activity.MODE_PRIVATE);
 		Editor pre_edit = pre.edit();
-		pre_edit.putString("current_user",user_id+"");
+		pre_edit.putString("current_user", user_id + "");
 		pre_edit.commit();
 	}
 
 	public static void login(List<Cookie> cookies, String info) throws Exception {
-		int user_id = Account.save( cookies, info);
-		switch_account(user_id);
+		User user = new User(cookies, info);
+		if(user.save()){
+			switch_account(user.user_id);
+		}else{
+			throw new AuthenticateException();
+		}
 	}
 	
 	public static void remove(int user_id){
@@ -44,7 +48,7 @@ public class AccountManager {
 		pre_edit.remove("last_syn_time");
 		pre_edit.commit();
 		
-		Account.delete(user_id);
+		User.find(user_id).destroy();
 		CollectionsCache.delete(user_id);
 		FeedDraft.destroy_all(user_id);
 	}
@@ -55,6 +59,16 @@ public class AccountManager {
 						Activity.MODE_PRIVATE);
 		String id = pre.getString("current_user","0");
 		return Integer.parseInt(id);
+	}
+	
+	public static User current_user(){
+		SharedPreferences pre = Global.application_context
+		.getSharedPreferences(AccountManager.PREFERENCES_NAME,
+				Activity.MODE_PRIVATE);
+		String id = pre.getString("current_user","0");
+		int user_id = Integer.parseInt(id);
+		
+		return User.find(user_id);
 	}
 	
 	public static long last_syn_time(Context context) {
@@ -82,7 +96,7 @@ public class AccountManager {
 		BasicCookieStore cookie_store = new BasicCookieStore();
 		String cookies_string = get_current_user_cookies_string();
 		try {
-			if(!BaseUtils.isStrBlank(cookies_string)){
+			if(!BaseUtils.is_str_blank(cookies_string)){
 				JSONArray json_arr = new JSONArray(cookies_string);
 				for (int i = 0; i < json_arr.length(); i++) {
 					JSONObject json = (JSONObject)json_arr.get(i);
@@ -103,9 +117,9 @@ public class AccountManager {
 	}
 	
 	public static boolean is_logged_in() {
-		int count = User.get_count();
+		int count = User.count();
 		if(count != 0 && current_user_id() == 0){
-			switch_account(User.get_users().get(0).user_id);
+			switch_account(User.all().get(0).user_id);
 		}
 		return (0 != count);
 	}
@@ -129,12 +143,7 @@ public class AccountManager {
 	}
 
 	public static Bitmap get_current_user_avatar_bitmap() {
-		int user_id = current_user_id();
-		if(user_id == 0){
-			return null;
-		}else{
-			return Account.get_avatar_bitmap(user_id);
-		}
+		return current_user().get_avatar_bitmap();
 	}
 
 	public static String get_current_user_name() {

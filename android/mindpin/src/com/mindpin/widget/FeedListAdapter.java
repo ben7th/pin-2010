@@ -88,6 +88,7 @@ public class FeedListAdapter extends BaseAdapter {
 		ArrayList<String> photos = feed.photos_middle;
 		LinearLayout feed_photos = (LinearLayout)view.findViewById(R.id.feed_photos);
 		for (int i = 0; i < photos.size(); i++) {
+			if(i>5){break;}
 			String photo_url = photos.get(i);
 			
 			ImageView img = new ImageView(context);

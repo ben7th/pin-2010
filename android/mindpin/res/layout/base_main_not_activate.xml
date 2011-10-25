@@ -6,20 +6,10 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
 >	
-	<!-- 顶栏，有头像和名字 -->
-	<LinearLayout
-		style="@style/title_bar"
-	>
-		<ImageView
-			android:id="@+id/account_avatar"
-			style="@style/title_bar_user_avatar"
-			android:src="@drawable/user_default_avatar_normal"
-		/>
-		<TextView
-			android:id="@+id/account_name"
-			style="@style/title_bar_text"
-		/>
-	</LinearLayout>
+	<include 
+		layout="@layout/part_head_bar_user_info"
+	/>
+
 	
 	<!-- 告诉用户没有激活 -->
 	<LinearLayout

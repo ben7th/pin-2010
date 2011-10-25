@@ -182,8 +182,8 @@ public class NewFeedActivity extends Activity {
 	}
 	
 	private void send_feed(){
-		if(BaseUtils.isStrBlank(feed_title) &&
-				BaseUtils.isStrBlank(feed_detail) &&
+		if(BaseUtils.is_str_blank(feed_title) &&
+				BaseUtils.is_str_blank(feed_detail) &&
 				capture_paths.size() == 0
 				){
 			BaseUtils.toast(R.string.feed_valid_blank);

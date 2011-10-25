@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/mindpin_bgc"
+>
+  	<TextView
+	    android:id="@+id/account_id"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:visibility="gone"
+    />
+    <ImageView 
+    	android:id="@+id/current_account"
+		android:src="@drawable/account_current"
+		android:layout_height="20dp"   
+	    android:layout_width="20dp"
+	    android:layout_alignParentLeft="true"
+	    android:layout_centerVertical="true"
+	    android:visibility="gone"
+    />
+   	<TextView
+		android:id="@+id/account_name"   
+	    android:layout_height="50dp"
+	    android:layout_width="wrap_content"
+	    android:textSize="18dp"
+	    android:gravity="center"
+	    android:layout_toRightOf="@+id/current_account"
+    />
+    <Button
+    	android:id="@+id/account_delete"
+	    android:layout_height="wrap_content"   
+	    android:layout_width="wrap_content"
+	    android:text="@string/account_delete_button"
+	    android:visibility="gone"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+    />
+</RelativeLayout>

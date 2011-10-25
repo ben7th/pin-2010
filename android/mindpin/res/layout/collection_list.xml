@@ -9,11 +9,11 @@
 
 	<LinearLayout
 		android:id="@+id/title_bar"
-		style="@style/title_bar"
+		style="@style/head_bar"
 	>
 		<TextView
 			android:text="@string/main_bn_collections"
-			style="@style/title_bar_text"
+			style="@style/head_bar_text"
 		/>
 	</LinearLayout>
 	

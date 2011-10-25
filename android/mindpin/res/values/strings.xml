@@ -2,8 +2,8 @@
 <resources>
 	<!-- 全局 -->
     <string name="app_name">mindpin</string>
-    <string name="app_version">0.0.7 pre</string>
-    <string name="app_version_full">android客户端 0.0.7 pre</string>
+    <string name="app_version">0.0.9 pre</string>
+    <string name="app_version_full">android客户端 0.0.9 pre</string>
     <string name="app_now_loading">正在载入…</string>
     
     <string name="app_method_not_define_exception">功能方法未定义</string>
@@ -61,7 +61,8 @@
     <!-- 设置页面 -->
     <string name="upload_photo_quality">upload_photo_quality</string>
     <!-- 账号管理 -->
-    <string name="account_edit">编辑</string>
-    <string name="account_edit_end">完成</string>
-    <string name="account_delete">删除</string>
+    <string name="account_manager_title">账号管理</string>
+    <string name="account_edit_button">编辑</string>
+    <string name="account_edit_button_close">完成</string>
+    <string name="account_delete_button">删除</string>
 </resources>

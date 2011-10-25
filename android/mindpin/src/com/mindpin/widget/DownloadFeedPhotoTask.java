@@ -2,10 +2,9 @@ package com.mindpin.widget;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -33,34 +32,41 @@ public class DownloadFeedPhotoTask extends AsyncTask<String, Integer, Bitmap>{
 	}
 
 	private Bitmap get_bitmap() {
-		Bitmap mBitmap = null;
 		try {
-			File cache_file = get_cache_file();
-			if(cache_file != null && cache_file.exists()){
-				FileInputStream is = new FileInputStream(cache_file);
-				mBitmap = BitmapFactory.decodeStream(is);
-			}else{
-				
+			Bitmap mBitmap = get_cache_bitmap();
+			if(mBitmap == null){
+				File cache_file = get_cache_file();
 				URL url = new URL(photo_url);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				InputStream is = conn.getInputStream();
 				
-				if(cache_file != null){
-					FileUtils.copyInputStreamToFile(is, cache_file);
-					FileInputStream fis = new FileInputStream(get_cache_file());
-					mBitmap = BitmapFactory.decodeStream(fis);
-				}else{
-					mBitmap = BitmapFactory.decodeStream(is);
+				FileUtils.copyInputStreamToFile(is, cache_file);
+				FileInputStream fis = new FileInputStream(get_cache_file());
+				mBitmap = BitmapFactory.decodeStream(fis);
+			}
+			return mBitmap;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Bitmap get_cache_bitmap() {
+		Bitmap mBitmap = null;
+		try {
+			File cache_file = get_cache_file();
+			if(cache_file.exists()){
+				FileInputStream is = new FileInputStream(cache_file);
+				mBitmap = BitmapFactory.decodeStream(is);
+				if(mBitmap == null){
+					cache_file.delete();
 				}
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 			return mBitmap;
-		} catch (IOException e) {
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return mBitmap;
 		}
-		return mBitmap;
 	}
 
 	@Override

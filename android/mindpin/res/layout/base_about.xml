@@ -7,17 +7,16 @@
 	style="@style/body"
 >	
 	<RelativeLayout
-		style="@style/title_bar"
+		style="@style/head_bar"
 	>
 		<TextView
-			style="@style/title_bar_text_center" 
+			style="@style/head_bar_text_center" 
 			android:text="@string/about_title"
 		>
 		</TextView>
 		<Button 
-			style="@style/button_go_back"
-		>
-		</Button>
+			style="@style/head_bar_button_go_back"
+		/>
 	</RelativeLayout>
 	
 	<LinearLayout 

@@ -170,7 +170,7 @@ public class BaseUtils {
     }
     
     //ÅÐ¶Ï×Ö·û´®·Ç¿Õ
-    public static boolean isStrBlank(String str) {
+    public static boolean is_str_blank(String str) {
     	int length;
 
     	if ((str == null) || ((length = str.length()) == 0)) {

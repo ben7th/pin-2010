@@ -42,13 +42,16 @@
 			</LinearLayout>
 			
 			<!-- 图片 -->
-			<LinearLayout 
+			<LinearLayout
 		    	android:id="@+id/feed_photos"
-				android:orientation="vertical"
+		    	android:orientation="vertical"
 		    	android:layout_width="fill_parent"
 		    	android:layout_height="wrap_content"
-		    	android:paddingTop="9dp" android:paddingLeft="9dp" android:paddingRight="9dp" android:paddingBottom="0dp"
-	    	/>
+				android:paddingTop="9dp" 
+				android:paddingLeft="9dp" 
+				android:paddingRight="9dp" 
+				android:paddingBottom="0dp"			 
+			></LinearLayout>
 	    	<!-- 标题 -->
 		    <TextView 
 		    	android:id="@+id/feed_title"

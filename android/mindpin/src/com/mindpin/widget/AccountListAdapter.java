@@ -26,7 +26,7 @@ public class AccountListAdapter extends BaseAdapter   {
 	public AccountListAdapter(Context context){
 		super();
 		this.context = context;
-		this.users = User.get_users();
+		this.users = User.all();
 		this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
@@ -47,7 +47,7 @@ public class AccountListAdapter extends BaseAdapter   {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.account_item, parent, false);
+		View view = mInflater.inflate(R.layout.list_account_item, parent, false);
 		TextView id_tv = (TextView)view.findViewById(R.id.account_id);
 		TextView name_tv = (TextView)view.findViewById(R.id.account_name);
 		ImageView img = (ImageView)view.findViewById(R.id.current_account);
@@ -78,7 +78,8 @@ public class AccountListAdapter extends BaseAdapter   {
 		this.notifyDataSetChanged();
 		AccountManagerActivity activity = (AccountManagerActivity)context;
 		if(users.size() == 0){
-			activity.go_to_login();
+//			activity.go_to_login();
+			activity.finish();
 		}
 	}
 	

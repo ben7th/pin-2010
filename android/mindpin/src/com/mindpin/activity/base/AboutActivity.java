@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mindpin.R;
-import com.mindpin.base.activity.BaseActivity;
+import com.mindpin.base.activity.MindpinBaseActivity;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends MindpinBaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

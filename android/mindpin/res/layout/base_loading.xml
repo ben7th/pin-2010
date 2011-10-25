@@ -9,6 +9,5 @@
     <TextView 
     	android:text="@string/app_now_loading"
     	style="@style/loading_layout_text"
-   	></TextView>
-    	
+   	/>
 </LinearLayout>

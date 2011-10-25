@@ -10,11 +10,11 @@
   
 	<LinearLayout
 		android:id="@+id/title_bar"
-		style="@style/title_bar"
+		style="@style/head_bar"
 	>
 		<TextView
 			android:text="收集册内的主题"
-			style="@style/title_bar_text"
+			style="@style/head_bar_text"
 		/>
 	</LinearLayout>
   

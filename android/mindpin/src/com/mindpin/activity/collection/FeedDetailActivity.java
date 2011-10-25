@@ -21,7 +21,6 @@ import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.Feed;
 import com.mindpin.widget.DownloadFeedPhotoTask;
-import com.mindpin.widget.DownloadImageTask;
 
 public class FeedDetailActivity extends Activity {
 	public static String EXTRA_NAME_FEED_ID = "feed_id";
@@ -54,24 +53,13 @@ public class FeedDetailActivity extends Activity {
 	
 	//显示feed详细信息
 	private void show_feed(Feed feed) {
-		LinearLayout feed_photos_ll = (LinearLayout)findViewById(R.id.feed_photos);
-		
-		ArrayList<String> photo_urls = feed.photos_large;
-		for (String photo_url : photo_urls) {
-			ImageView img = new ImageView(this);
-			img.setAdjustViewBounds(true); //设置这个使得图片缩放后内容合适
-			Bitmap b = ((BitmapDrawable) getResources().getDrawable(
-					R.drawable.img_loading)).getBitmap();
-			img.setImageBitmap(b);
-			feed_photos_ll.addView(img);
-			DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, img);
-			task.execute();
-		}
+		// 渲染照片
+		show_feed_photos(feed);
 		
 		//填写标题
 		TextView title_tv = (TextView)findViewById(R.id.feed_title);
 		String title = feed.title;
-		if(BaseUtils.isStrBlank(title)){
+		if(BaseUtils.is_str_blank(title)){
 			title_tv.setVisibility(View.GONE);
 		}else{
 			title_tv.setText(title);
@@ -80,7 +68,7 @@ public class FeedDetailActivity extends Activity {
 		//填写正文
 		TextView detail_tv = (TextView)findViewById(R.id.feed_detail);
 		String detail = feed.detail;
-		if(BaseUtils.isStrBlank(detail)){
+		if(BaseUtils.is_str_blank(detail)){
 			detail_tv.setVisibility(View.GONE);
 		}else{
 			detail_tv.setText(detail);
@@ -97,6 +85,22 @@ public class FeedDetailActivity extends Activity {
 		creator_logo_iv.setImageBitmap(get_bitmap(url));
 	}
 	
+	private void show_feed_photos(Feed feed) {
+		ArrayList<String> photo_urls = feed.photos_large;
+		if(photo_urls.size()!=0){
+			LinearLayout feed_photos_ll = (LinearLayout)findViewById(R.id.feed_photos);
+			for (String photo : photo_urls) {
+				ImageView img = new ImageView(this);
+				img.setAdjustViewBounds(true);
+				BitmapDrawable draw = (BitmapDrawable)getResources().getDrawable(R.drawable.img_loading);
+				img.setImageBitmap(draw.getBitmap());
+				feed_photos_ll.addView(img);
+				DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed,photo,img);
+				task.execute();
+			}
+		}		
+	}
+
 	private Bitmap get_bitmap(String image_url) {
 		Bitmap mBitmap = null;
 		try {

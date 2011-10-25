@@ -5,15 +5,15 @@
 >	
   
 	<RelativeLayout
-		style="@style/title_bar"
+		style="@style/head_bar"
 	>
 		<TextView
-			style="@style/title_bar_text_center" 
+			style="@style/head_bar_text_center" 
 			android:text="所有主题"
 		>
 		</TextView>
 		<Button 
-			style="@style/button_go_back"
+			style="@style/head_bar_button_go_back"
 		>
 		</Button>
 	</RelativeLayout>
@@ -21,6 +21,7 @@
   	<ListView
 		android:id="@+id/feed_list"
 		style="@style/feed_list"
+		android:fastScrollEnabled="true" 
    	>
     </ListView>
 </LinearLayout>
