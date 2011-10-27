@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,12 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.Feed;
 import com.mindpin.widget.DownloadFeedPhotoTask;
 
-public class FeedDetailActivity extends Activity {
+public class FeedDetailActivity extends MindpinBaseActivity {
 	public static String EXTRA_NAME_FEED_ID = "feed_id";
 
 	@Override

@@ -1,12 +1,10 @@
 package com.mindpin.base.task;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
-import com.mindpin.activity.base.LoginActivity;
+import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.widget.MindpinProgressDialog;
 
@@ -22,9 +20,9 @@ public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 		
 		@Override
 		protected void onPreExecute(){
-			// 如果构造器传入了 process_dialog_message 则显示一个提示框
-			if(process_dialog_message != null){
-				progress_dialog = MindpinProgressDialog.show(activity, process_dialog_message);
+			// 如果构造器传入了 progress_dialog_message 则显示一个提示框
+			if(null != progress_dialog_message && null != progress_dialog_activity){
+				progress_dialog = MindpinProgressDialog.show(progress_dialog_activity, progress_dialog_message);
 			}
 			on_start();
 		}
@@ -35,7 +33,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 			//publishProgress(null);
 			
 			try {
-				System.out.println("开始执行");
+				System.out.println("开始执行 MindpinAsyncTask");
 				inner_task_result = do_in_background(params);
 				return SUCCESS;
 			}
@@ -98,11 +96,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 			
 			BaseUtils.toast(R.string.app_authenticate_exception);
 			
-			// 如果当前界面不是登录界面，则退回登录界面
-			if(activity.getClass() != LoginActivity.class){
-				activity.startActivity(new Intent(activity, LoginActivity.class));
-				activity.finish();
-			}
+			// 2011.10.27 不再对用户身份验证错误的情况进行自动处理
 		}
 		
 		private void ___unknown_exception(){
@@ -113,35 +107,37 @@ public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 		
 		private void ___final(){
 			on_final();
-			if(progress_dialog != null){
+			if(null != progress_dialog){
 				progress_dialog.dismiss();
 			}
 		}
 	}
 	
-	private Activity activity = null;
-	private String process_dialog_message = null;
+	
+	private MindpinBaseActivity progress_dialog_activity = null;
+	private String progress_dialog_message = null;
 	private MindpinProgressDialog progress_dialog = null;
 	
 	private InnerTask inner_task = null;
 	private TResult inner_task_result = null;
 	
-	// 一般构造器，传入activity
-	public MindpinAsyncTask(Activity activity){
+	// 一般构造器，什么都不用传
+	public MindpinAsyncTask(){
 		super();
-		this.activity = activity;
 	}
-	// 构造器2，传入activity，以及process_dialog上面显示的文字
-	public MindpinAsyncTask(Activity activity, String process_dialog_message){
+	// 构造器2，传入activity，以及 progress_dialog 上面显示的文字
+	// 由于显示 progress dialog 必须用到activity，所以传进来
+	public MindpinAsyncTask(MindpinBaseActivity progress_dialog_activity, String process_dialog_message){
 		super();
-		this.activity = activity;
-		this.process_dialog_message = process_dialog_message;
+		this.progress_dialog_activity = progress_dialog_activity;
+		this.progress_dialog_message = process_dialog_message;
 	}
-	// 构造器3，传入activity，以及process_dialog上面显示的文字的资源号
-	public MindpinAsyncTask(Activity activity, int process_dialog_message_resource_id){
+	// 构造器3，传入activity，以及 progress_dialog 上面显示的文字的资源号
+	// 由于显示 progress dialog 必须用到activity，所以传进来
+	public MindpinAsyncTask(MindpinBaseActivity progress_dialog_activity, int process_dialog_message_resource_id){
 		super();
-		this.activity = activity;
-		this.process_dialog_message = activity.getResources().getString(process_dialog_message_resource_id);
+		this.progress_dialog_activity = progress_dialog_activity;
+		this.progress_dialog_message = progress_dialog_activity.getResources().getString(process_dialog_message_resource_id);
 	}
 	
 	

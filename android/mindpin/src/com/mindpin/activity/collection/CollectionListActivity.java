@@ -3,8 +3,6 @@ package com.mindpin.activity.collection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -23,11 +21,12 @@ import android.widget.Toast;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.runnable.MindpinHandler;
 import com.mindpin.base.runnable.MindpinRunnable;
 import com.mindpin.cache.CollectionsCache;
 
-public class CollectionListActivity extends Activity {
+public class CollectionListActivity extends MindpinBaseActivity {
 	public static final int MESSAGE_READ_COLLECTION_LIST_SUCCESS = 0;
 	protected static final int MESSAGE_CREATE_COLLECTION_SUCCESS = 1;
 	protected static final int MESSAGE_CREATE_COLLECTION_FAIL = 2;

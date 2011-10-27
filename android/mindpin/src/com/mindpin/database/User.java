@@ -15,6 +15,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.Global;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.utils.FileDirs;
+import com.mindpin.cache.CollectionsCache;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -29,6 +30,14 @@ public class User extends BaseModel {
 	public String name;
 	public String cookies;
 	public String info;
+	
+	// 用一个特殊的user实例来表示一个空user
+	// 用 is_nil() 方法来判断是否空user
+	// 不可用 null == user 来判断
+	private static User NIL_USER = new User(0, "", "", "");
+	public boolean is_nil(){
+		return 0 == user_id;
+	}
 	
 	private User(int user_id, String name, String cookies, String info){
 		this.user_id = user_id;
@@ -84,7 +93,9 @@ public class User extends BaseModel {
 	}
 	
 	public static User find(int user_id){
-		Cursor cursor = query_one(
+		SQLiteDatabase db = get_read_db();
+		
+		Cursor cursor = db.query(
 			Constants.TABLE_USERS,
 			new String[]{
 				Constants.KEY_ID,
@@ -97,13 +108,17 @@ public class User extends BaseModel {
 			null, null, null, null
 		);
 		
-		if(null != cursor){
+		boolean has_result = cursor.moveToFirst();
+		
+		if(has_result){
 			String name = cursor.getString(2);
 			String cookies = cursor.getString(3);
 			String info = cursor.getString(4);
+			db.close();
 			return new User(user_id, name, cookies, info);
 		}else{
-			return null;
+			db.close();
+			return NIL_USER;
 		}
 	}
 	
@@ -129,6 +144,7 @@ public class User extends BaseModel {
 			String info = cursor.getString(4);
 			users.add(new User(user_id, name, cookies, info));
 		}
+		
 		db.close();
 		return users;
 	}
@@ -153,6 +169,8 @@ public class User extends BaseModel {
 	
 	// 保存
 	public boolean save(){
+		if(this.is_nil()) return false;
+		
 		try {
 			String avatar_url = get_avatar_url();
 			
@@ -172,7 +190,7 @@ public class User extends BaseModel {
 			values.put(Constants.TABLE_USERS__INFO, 	info);
 			
 			User user = find(user_id);
-			if(null == user){
+			if(user.is_nil()){
 				db.insert(Constants.TABLE_USERS, null, values);
 			}else{
 				db.update(Constants.TABLE_USERS, values, Constants.TABLE_USERS__USER_ID + " = "+ user_id, null);
@@ -186,8 +204,10 @@ public class User extends BaseModel {
 		}
 	}
 	
-	// 删除
+	// 删除，同时删除了数据库信息，头像文件，收集册缓存，草稿
 	public boolean destroy(){
+		if(this.is_nil()) return false;
+		
 		try {
 			// 删除数据库信息
 			SQLiteDatabase db = get_write_db();
@@ -198,6 +218,10 @@ public class User extends BaseModel {
 			
 			// 删除头像文件
 			get_avatar_file().delete();
+			
+			// 删除收集册缓存，草稿
+			CollectionsCache.delete(user_id);
+			FeedDraft.destroy_all(user_id);
 			
 			return true;
 		} catch (Exception e) {

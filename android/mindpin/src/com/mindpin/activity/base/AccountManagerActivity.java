@@ -1,9 +1,8 @@
 package com.mindpin.activity.base;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
-import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.database.User;
 import com.mindpin.widget.AccountListAdapter;
@@ -44,7 +42,8 @@ public class AccountManagerActivity extends MindpinBaseActivity {
 					int position, long id) {
 				TextView id_textview = (TextView)view.findViewById(R.id.account_id);
 				String user_id = (String)id_textview.getText();
-				AccountManager.switch_account(Integer.parseInt(user_id));
+				User user = User.find(Integer.parseInt(user_id));
+				AccountManager.switch_account(user);
 				startActivity(new Intent(AccountManagerActivity.this,MainActivity.class));
 				AccountManagerActivity.this.finish();
 			}
@@ -59,7 +58,7 @@ public class AccountManagerActivity extends MindpinBaseActivity {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(AccountManagerActivity.this,LoginActivity.class));
+				open_login();
 			}
 		});
 	}
@@ -79,51 +78,41 @@ public class AccountManagerActivity extends MindpinBaseActivity {
 		}
 	}
 	
-//	@Override  
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {  
-//	    if(keyCode == KeyEvent.KEYCODE_BACK){
-//			int id = AccountManager.current_user_id();
-//			if(0 == id){
-//				if(User.get_count() != 0){
-//					ArrayList<User> users = User.get_users();
-//					User user = users.get(0);
-//					AccountManager.switch_account(user.user_id);
-//					startActivity(new Intent(AccountManagerActivity.this,MainActivity.class));
-//					this.finish();
-//				}else{
-//					go_to_login();
-//				}
-//				return true;				
-//			}
-//	    }  
-//	    return super.onKeyDown(keyCode, event);  
-//	}
-	
-	public void go_to_login() {
-		MainActivity activity = ((MindpinApplication)getApplication()).get_main_activity();
-		activity.finish();
-		startActivity(new Intent(AccountManagerActivity.this,LoginActivity.class));
-//		this.finish();
+	@Override
+	// 硬返回按钮
+	public boolean onKeyDown(int keyCode, KeyEvent event) {  
+	    if(keyCode == KeyEvent.KEYCODE_BACK){
+	    	on_account_manager_activity_go_back();
+			this.finish();
+			return true;				
+	    }  
+	    return super.onKeyDown(keyCode, event);  
 	}
 	
+	// 软返回回调
 	@Override
-	protected void onDestroy() {
-		int id = AccountManager.current_user_id();
-		if (0 == id) {
-			if (User.count() != 0) {
-				ArrayList<User> users = User.all();
-				User user = users.get(0);
-				AccountManager.switch_account(user.user_id);
-				startActivity(new Intent(AccountManagerActivity.this,
-						MainActivity.class));
-//				this.finish();
+	public void on_go_back() {
+		super.on_go_back();
+		on_account_manager_activity_go_back();
+	}
+	
+	private void on_account_manager_activity_go_back(){
+		// 由于可能在删除用户时，删除了当前正登录的用户，所以 is_logged_in()会返回false
+		if (!is_logged_in()) {
+			if (User.count() > 0) {
+				// 如果还有用户，则选择所有用户中的第一个，切换之
+				AccountManager.switch_account(User.all().get(0));
+				// open main_activity 堆栈会被MindpinBaseActivity自动清理
+				open_activity(MainActivity.class);
 			} else {
-				go_to_login();
+				// 如果没有用户了，则关闭所有已经打开的界面，再打开登录界面
+				restart_to_login();
 			}
 		}
-		
-		
-		super.onDestroy();
+	}
+	
+	public void open_login(){
+		open_activity(LoginActivity.class);
 	}
 	
 }

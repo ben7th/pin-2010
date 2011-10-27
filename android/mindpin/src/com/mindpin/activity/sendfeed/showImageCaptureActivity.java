@@ -11,8 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mindpin.R;
+import com.mindpin.base.activity.MindpinBaseActivity;
 
-public class showImageCaptureActivity extends Activity {
+public class showImageCaptureActivity extends MindpinBaseActivity {
 	public static final String EXTRA_NAME_IMAGE_CAPTURE_PATH = "image_capture";
 	
 	private Button back_bn;

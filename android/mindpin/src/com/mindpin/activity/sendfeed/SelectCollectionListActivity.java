@@ -27,11 +27,12 @@ import android.widget.Toast;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.runnable.MindpinHandler;
 import com.mindpin.base.runnable.MindpinRunnable;
 import com.mindpin.cache.CollectionsCache;
 
-public class SelectCollectionListActivity extends Activity {
+public class SelectCollectionListActivity extends MindpinBaseActivity {
 	public static final String EXTRA_NAME_KIND = "kind";
 	public static final String EXTRA_VALUE_SELECT_FOR_SEND = "select_for_send";
 	public static final String EXTRA_VALUE_SELECT_FOR_RESULT = "select_for_result";

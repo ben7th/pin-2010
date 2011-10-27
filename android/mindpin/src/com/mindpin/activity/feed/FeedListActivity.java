@@ -32,7 +32,7 @@ public class FeedListActivity extends MindpinBaseActivity {
         final ProgressBar loading = (ProgressBar)loadMoreView.findViewById(R.id.list_more_button_loading);
         loadMoreButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				new MindpinAsyncTask<String, Void, Void>(FeedListActivity.this){
+				new MindpinAsyncTask<String, Void, Void>(){
 					public void on_start() {
 						loading.setVisibility(View.VISIBLE);
 					}

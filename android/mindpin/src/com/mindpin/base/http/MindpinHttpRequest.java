@@ -12,20 +12,38 @@ import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
-import com.mindpin.Logic.Http;
 
 public abstract class MindpinHttpRequest<TResult> {
 	protected HttpUriRequest http_uri_request;
+	private DefaultHttpClient http_client;
+	
+	// 公共方法，构造一个http_client实例，会自动设置cookie到其中
+	final static public DefaultHttpClient get_httpclient_instance(){
+		HttpParams params = new BasicHttpParams();
+		HttpClientParams.setRedirecting(params, false);
+		DefaultHttpClient client = new DefaultHttpClient(params);
+		client.setCookieStore(AccountManager.get_cookie_store());
+		
+		return client;
+	}
+	
+	final public List<Cookie> get_cookies(){
+		return http_client.getCookieStore().getCookies();
+	}
 	
 	// 主方法 GO
 	public TResult go() throws Exception{
-		Http.set_cookie_store();
-		
-		HttpResponse response = Http.httpclient.execute(http_uri_request);
+		http_client = get_httpclient_instance();
+		HttpResponse response = http_client.execute(http_uri_request);
 		
 		int status_code = response.getStatusLine().getStatusCode(); 
 		
@@ -39,7 +57,6 @@ public abstract class MindpinHttpRequest<TResult> {
 			return on_success(responst_text);
 		case HttpStatus.SC_UNAUTHORIZED:
 			on_authenticate_exception();
-			clear_current_user_data();
 			throw new AuthenticateException(); //抛出未登录异常，会被 MindpinRunnable 接到并处理
 		default:
 			throw new Exception();	//不是 200 也不是 401 只能认为是出错了。会被 MindpinRunnable 接到并处理
@@ -50,14 +67,6 @@ public abstract class MindpinHttpRequest<TResult> {
 	public abstract TResult on_success(String response_text) throws Exception;
 	
 	public void on_authenticate_exception(){/*nothing..*/};
-	
-	// 发生登录失败时，清除当前用户的用户管理记录数据
-	private void clear_current_user_data(){
-		int user_id = AccountManager.current_user_id();
-		if(user_id!=0){
-			AccountManager.remove(user_id);
-		}
-	}
 	
 	protected String build_params_string(NameValuePair...nv_pairs){
 		String params_string = "?";

@@ -52,6 +52,13 @@
 		<activity android:name=".activity.collection.CollectionFeedListActivity"></activity>
 		<!-- home_timeline -->		
 		<activity android:name=".activity.feed.FeedListActivity"></activity>
+		
+		<!-- 数据同步服务 -->
+		<receiver android:name=".receiver.SynDataBroadcastReceiver">
+			<intent-filter>
+				<action android:name="com.mindpin.action.start_syn_data"/>
+			</intent-filter>
+		</receiver>
 	</application>
 
 	<uses-permission android:name="android.permission.INTERNET" />
@@ -61,4 +68,5 @@
 
 <!-- 
 	2011.10.25 优化内存占用，完善账户管理功能
+	2011.10.26 调整数据同步机制
  -->

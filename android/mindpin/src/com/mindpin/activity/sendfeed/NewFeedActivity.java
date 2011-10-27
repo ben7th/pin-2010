@@ -34,15 +34,15 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mindpin.R;
-import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.FeedDraftManager;
 import com.mindpin.Logic.Http;
+import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.FeedDraft;
 
-public class NewFeedActivity extends Activity {
+public class NewFeedActivity extends MindpinBaseActivity {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
 	public static final int REQUEST_SHOW_IMAGE_ALBUM = 2;
 	protected static final int REQUEST_SELECT_COLLECTIONS = 3;
@@ -191,7 +191,7 @@ public class NewFeedActivity extends Activity {
 		}
 		System.out.println("MindpinAsyncTask send_feed");
 		final int max_count = (capture_paths.size()+1)*100;		
-		new MindpinAsyncTask<String, String, Void>(this){
+		new MindpinAsyncTask<String, String, Void>(){
 			@Override
 			public void on_start() {
 				super.on_start();
@@ -404,7 +404,7 @@ public class NewFeedActivity extends Activity {
 		}
 		
 		if(has_share){
-			if(!AccountManager.is_logged_in()){
+			if(!is_logged_in()){
 				alert("ÇëÏÈµÇÂ¼");
 			}
 		}

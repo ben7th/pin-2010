@@ -2,11 +2,6 @@ package com.mindpin.widget;
 
 import java.util.ArrayList;
 
-import com.mindpin.R;
-import com.mindpin.Logic.AccountManager;
-import com.mindpin.activity.base.AccountManagerActivity;
-import com.mindpin.database.User;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.mindpin.R;
+import com.mindpin.Logic.AccountManager;
+import com.mindpin.activity.base.AccountManagerActivity;
+import com.mindpin.database.User;
 
 public class AccountListAdapter extends BaseAdapter   {
 	private ArrayList<User> users;
@@ -51,22 +51,28 @@ public class AccountListAdapter extends BaseAdapter   {
 		TextView id_tv = (TextView)view.findViewById(R.id.account_id);
 		TextView name_tv = (TextView)view.findViewById(R.id.account_name);
 		ImageView img = (ImageView)view.findViewById(R.id.current_account);
+		ImageView account_avatar_iv = (ImageView)view.findViewById(R.id.account_avatar);
 		if(is_edit_mode){
 			Button delete_bn = (Button)view.findViewById(R.id.account_delete);
 			delete_bn.setVisibility(View.VISIBLE);
 		}
 		final User user = (User)users.get(position);
-		if(AccountManager.current_user_id() == user.user_id){
+		User current_user = AccountManager.current_user();
+		
+		if(current_user.user_id == user.user_id){
+			img.setVisibility(View.VISIBLE);
+		}else if(current_user.is_nil() && position == 0){
 			img.setVisibility(View.VISIBLE);
 		}
 		id_tv.setText(user.user_id+"");
 		name_tv.setText(user.name);
+		account_avatar_iv.setImageBitmap(user.get_avatar_bitmap());
 		Button delete_bn = (Button)view.findViewById(R.id.account_delete);
 		final int pos = position;
 		delete_bn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AccountManager.remove(user.user_id);
+				user.destroy();
 				AccountListAdapter.this.remove_item(pos);
 			}
 		});
@@ -78,8 +84,7 @@ public class AccountListAdapter extends BaseAdapter   {
 		this.notifyDataSetChanged();
 		AccountManagerActivity activity = (AccountManagerActivity)context;
 		if(users.size() == 0){
-//			activity.go_to_login();
-			activity.finish();
+			activity.restart_to_login();
 		}
 	}
 	

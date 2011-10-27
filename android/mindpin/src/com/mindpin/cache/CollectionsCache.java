@@ -19,7 +19,7 @@ import com.mindpin.base.utils.FileDirs;
 public class CollectionsCache {
 
 	public static void save(String collections) {
-		int user_id = AccountManager.current_user_id();
+		int user_id = AccountManager.current_user().user_id;
 		if(user_id == 0){
 			return;
 		}
@@ -38,7 +38,7 @@ public class CollectionsCache {
 	
 	public static ArrayList<HashMap<String, Object>> get_current_user_collection_list(){
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
-		int user_id = AccountManager.current_user_id();
+		int user_id = AccountManager.current_user().user_id;
 		if(user_id == 0){
 			return list;
 		}

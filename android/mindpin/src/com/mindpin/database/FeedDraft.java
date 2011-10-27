@@ -148,7 +148,7 @@ public class FeedDraft {
 	public static void insert( String title, String content,
 			String images_str, String select_collection_ids_str,boolean send_tsina) {
 		SQLiteDatabase db = get_write_db();
-		int user_id = AccountManager.current_user_id();
+		int user_id = AccountManager.current_user().user_id;
 		if(user_id == 0){
 			return;
 		}
