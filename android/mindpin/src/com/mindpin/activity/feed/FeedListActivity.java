@@ -1,12 +1,23 @@
 package com.mindpin.activity.feed;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.HeaderViewListAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,15 +27,18 @@ import com.mindpin.activity.collection.FeedDetailActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.database.Feed;
+import com.mindpin.receiver.BroadcastReceiverConstants;
 import com.mindpin.widget.FeedListAdapter;
 
 public class FeedListActivity extends MindpinBaseActivity {
 	private FeedListAdapter adapter;
+	private SynImageBroadcastReceiver syn_image_broadcast_receiver = new SynImageBroadcastReceiver();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feed_home_timeline);
+		registerReceiver(syn_image_broadcast_receiver, new IntentFilter(BroadcastReceiverConstants.ACTION_SYN_FEED_HOME_LINE_IMAGE));
 
 		final ListView feed_list_lv = (ListView) findViewById(R.id.feed_list);
         View loadMoreView = getLayoutInflater().inflate(R.layout.list_more_button, null);  
@@ -85,5 +99,35 @@ public class FeedListActivity extends MindpinBaseActivity {
 			}
 		}.execute();
 
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(syn_image_broadcast_receiver);
+	}
+	
+	class SynImageBroadcastReceiver extends BroadcastReceiver{
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			try {
+				String image_url = intent.getStringExtra("image_url");
+				String image_path = intent.getStringExtra("image_cache_path");
+				
+				File cache_file = new File(image_path);	
+				FileInputStream is = new FileInputStream(cache_file);
+				Bitmap mBitmap = BitmapFactory.decodeStream(is);
+				if(mBitmap == null){
+					cache_file.delete();
+				}else{
+					ImageView iv = adapter.get_image_view(image_url);
+					if(iv != null){
+						iv.setImageBitmap(mBitmap);
+					}
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

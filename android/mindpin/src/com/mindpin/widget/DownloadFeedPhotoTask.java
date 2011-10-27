@@ -5,11 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
-import com.mindpin.base.utils.FileDirs;
+import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -76,17 +74,6 @@ public class DownloadFeedPhotoTask extends AsyncTask<String, Integer, Bitmap>{
 	}
 	
 	private File get_cache_file(){
-		try {
-			URI uri = new URI(photo_url);
-			String path = uri.getPath();
-			String[] arr = path.split("/");
-			String file_name = arr[4] + "_" + arr[5];
-			File file = FileDirs.feed_data_dir(feed);
-			File cache_file = new File(file,file_name);
-		return cache_file;
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return FeedImageCache.get_cache_file(feed, photo_url);
 	}
 }

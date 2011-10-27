@@ -1,8 +1,11 @@
 package com.mindpin.widget;
 
+import java.io.File;
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
 
 public class FeedListAdapter extends BaseAdapter {
@@ -23,6 +27,7 @@ public class FeedListAdapter extends BaseAdapter {
 	private ArrayList<Feed> feeds;
 	private LayoutInflater mInflater;
 	private HashMap<String, View> cache_views = new HashMap<String, View>();
+	private HashMap<String, SoftReference<ImageView>> image_views = new HashMap<String,SoftReference<ImageView>>();
 
 	public FeedListAdapter(Context context,ArrayList<Feed> feeds){
 		this.context = context;
@@ -37,6 +42,11 @@ public class FeedListAdapter extends BaseAdapter {
 		for (Feed feed2 : more_feeds) {
 			feeds.add(feed2);
 		}
+	}
+	
+	public ImageView get_image_view(String image_url){
+		SoftReference<ImageView> ref = image_views.get(image_url);
+		return ref.get();
 	}
 
 	@Override
@@ -100,8 +110,9 @@ public class FeedListAdapter extends BaseAdapter {
 			img.setLayoutParams(lp);
 			img.setImageBitmap(b);
 			feed_photos.addView(img);
-			DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, img);
-			task.execute();
+//			DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, img);
+//			task.execute();
+			send_cache_image(feed, photo_url,img);
 		}
 		
 		return view;
@@ -118,8 +129,9 @@ public class FeedListAdapter extends BaseAdapter {
 		ImageView image_iv = (ImageView)view.findViewById(R.id.feed_photo);
 		String photo_url = feed.photos_middle.get(0);
 		
-		DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, image_iv);
-		task.execute();
+//		DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, image_iv);
+//		task.execute();
+		send_cache_image(feed, photo_url,image_iv);
 		return view;
 	}
 
@@ -132,5 +144,15 @@ public class FeedListAdapter extends BaseAdapter {
 		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
 		detail_tv.setText(feed.detail);
 		return view;
+	}
+	
+	private void send_cache_image(Feed feed,String image_url,ImageView image_view){
+		image_views.put(image_url, new SoftReference<ImageView>(image_view));
+		Intent intent = new Intent("com.mindpin.action.cache_image");
+		File file = FeedImageCache.get_cache_file(feed, image_url);
+		String path = file.getPath();
+		intent.putExtra("image_url", image_url);
+		intent.putExtra("image_cache_path", path);
+		context.sendBroadcast(intent);
 	}
 }
