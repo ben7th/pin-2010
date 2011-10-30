@@ -53,6 +53,9 @@
 		<!-- home_timeline -->		
 		<activity android:name=".activity.feed.FeedListActivity"></activity>
 		
+		<!-- 人际关系 -->
+		<activity android:name=".activity.contacts.ContactsActivity"></activity>
+		
 		<!-- 数据同步接收器 -->
 		<receiver android:name=".receiver.SynDataBroadcastReceiver">
 			<intent-filter>
@@ -72,6 +75,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
 </manifest>
 
 <!-- 

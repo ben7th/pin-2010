@@ -16,7 +16,6 @@ public class SynDataBroadcastReceiver extends BroadcastReceiver {
 
 			public void on_start() {
 				send_progress_broadcast(context, 0);
-				System.out.println("task on start!!");
 			};
 
 			@Override
@@ -46,19 +45,22 @@ public class SynDataBroadcastReceiver extends BroadcastReceiver {
 			}
 
 			public void on_success(Void v) {
-				send_progress_broadcast(context, 101);
+				// nothing
 			}
 
 			public boolean on_unknown_exception() {
 				send_progress_broadcast(context, -1);
 				return false;
 			};
+			
+			public void on_final() {
+				send_progress_broadcast(context, 101);
+			};
 		}.execute();
 
 	}
 
 	private void send_progress_broadcast(Context context, int progress) {
-		System.out.println("send progress broadcast " + progress);
 		Intent i = new Intent(BroadcastReceiverConstants.ACTION_SYN_DATA_UI);
 		i.putExtra("progress", progress);
 		context.sendBroadcast(i);

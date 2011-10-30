@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Global;
 import com.mindpin.Logic.Http;
+import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.FileDirs;
 import com.mindpin.cache.CollectionsCache;
 
@@ -79,7 +79,7 @@ public class User extends BaseModel {
 		if(file.exists()){
 			return BitmapFactory.decodeFile(file.getPath());
 		}else{
-			Drawable draw = Global.application_context.getResources().getDrawable(R.drawable.user_default_avatar_normal);
+			Drawable draw = MindpinApplication.context.getResources().getDrawable(R.drawable.user_default_avatar_normal);
 			return ((BitmapDrawable)draw).getBitmap();  
 		}
 	}

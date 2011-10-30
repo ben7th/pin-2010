@@ -41,7 +41,7 @@ module ViewpointFormatHelper
     main_post = feed.main_post
 
     html_str = MindpinTextFormat.new(detail, main_post.text_format).to_text.gsub("\n","<br/>")
-    find_and_preserve html_str
+    find_and_preserve h(html_str)
   end
 
   # 观点

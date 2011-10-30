@@ -4,12 +4,16 @@ import java.util.Stack;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.activity.base.LoginActivity;
+import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.User;
+import com.mindpin.receiver.BroadcastReceiverConstants;
 
 public class MindpinBaseActivity extends Activity {
 	private static Stack<MindpinBaseActivity> activities_stack = new Stack<MindpinBaseActivity>();
@@ -18,6 +22,9 @@ public class MindpinBaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		deal_activities_stack();
+		
+		registerReceiver(FeedImageCache.syn_image_broadcast_receiver, new IntentFilter(
+				BroadcastReceiverConstants.ACTION_SYN_FEED_HOME_LINE_IMAGE));
 	}
 
 	private void deal_activities_stack() {
@@ -58,6 +65,7 @@ public class MindpinBaseActivity extends Activity {
 		//System.out.println("处理前：activities堆栈包含"+ activities_stack.size() +"个实例");
 		activities_stack.remove(this);
 		//System.out.println("处理前：activities堆栈包含"+ activities_stack.size() +"个实例");
+		unregisterReceiver(FeedImageCache.syn_image_broadcast_receiver);
 	}
 	
 	// 关闭所有堆栈中的activity
@@ -98,4 +106,11 @@ public class MindpinBaseActivity extends Activity {
 	public void on_go_back() {
 	};
 	
+	
+	// 尝试从缓存获取一个图片放到指定的view
+	final public void load_cached_image(String image_url, ImageView image_view){
+		FeedImageCache.load_cached_image(image_url, image_view);
+	}
+	
+
 }

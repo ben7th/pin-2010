@@ -22,13 +22,13 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.mindpin.Logic.Global;
+import com.mindpin.application.MindpinApplication;
 
 public class BaseUtils {
 	
 	
-	public static int get_px_by_dip(Context context,int dip) {
-		Resources r = context.getResources();
+	public static int get_px_by_dip(int dip) {
+		Resources r = MindpinApplication.context.getResources();
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
 	}
 	
@@ -188,7 +188,7 @@ public class BaseUtils {
     // 快速显示一个toast
     public static void toast(int string_resource_id){
     	Toast toast = Toast.makeText(
-			Global.application_context, 
+    		MindpinApplication.context, 
 			string_resource_id,
 			Toast.LENGTH_SHORT
 		);

@@ -3,7 +3,8 @@ package com.mindpin.database;
 import java.util.ArrayList;
 
 import com.mindpin.Logic.AccountManager;
-import com.mindpin.Logic.Global;
+import com.mindpin.application.MindpinApplication;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -104,13 +105,13 @@ public class FeedDraft {
 	}
 	
 	private static SQLiteDatabase get_write_db(){
-		MindpinDBHelper md = new MindpinDBHelper(Global.application_context, Constants.DATABASE_NAME,
+		MindpinDBHelper md = new MindpinDBHelper(MindpinApplication.context, Constants.DATABASE_NAME,
 				null, Constants.DATABASE_VERSION);
 		return md.getWritableDatabase();
 	}
 	
 	private static SQLiteDatabase get_read_db(){
-		MindpinDBHelper md = new MindpinDBHelper(Global.application_context, Constants.DATABASE_NAME,
+		MindpinDBHelper md = new MindpinDBHelper(MindpinApplication.context, Constants.DATABASE_NAME,
 				null, Constants.DATABASE_VERSION);
 		return md.getReadableDatabase();
 	}

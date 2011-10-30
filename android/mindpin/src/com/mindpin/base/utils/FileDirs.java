@@ -25,6 +25,10 @@ public class FileDirs {
     	return get_or_create_dir("/mindpin/users/"+user_id+"/data"+"/feeds/"+feed_id);
     }
     
+    public static File mindpin_downloaded_image_cache_dir(){
+    	return get_or_create_dir("/mindpin/cache/downloaded_image/");
+    }
+    
     public static File mindpin_user_data_dir(int user_id){
     	return get_or_create_dir("/mindpin/users/"+user_id+"/data/");
     }

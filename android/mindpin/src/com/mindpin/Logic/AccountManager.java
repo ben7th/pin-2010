@@ -14,12 +14,13 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.User;
 
 public class AccountManager {
 	final private static String PREFERENCES_NAME = "Mindpin";
-	final private static SharedPreferences SHARED_PREFERENCES = Global.application_context
+	final private static SharedPreferences SHARED_PREFERENCES = MindpinApplication.context
 			.getSharedPreferences(PREFERENCES_NAME, Activity.MODE_PRIVATE);
 
 	final private static String PREFERENCES_KEY_CURRENT_USER_ID = "current_user_id";

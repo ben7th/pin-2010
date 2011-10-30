@@ -6,21 +6,31 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.Gallery;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+import android.widget.ViewSwitcher.ViewFactory;
+
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.Feed;
-import com.mindpin.widget.DownloadFeedPhotoTask;
 
 public class FeedDetailActivity extends MindpinBaseActivity {
 	public static String EXTRA_NAME_FEED_ID = "feed_id";
@@ -86,21 +96,47 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 	}
 	
 	private void show_feed_photos(Feed feed) {
-		ArrayList<String> photo_urls = feed.photos_large;
-		if(photo_urls.size()!=0){
-			LinearLayout feed_photos_ll = (LinearLayout)findViewById(R.id.feed_photos);
-			for (String photo : photo_urls) {
-				ImageView img = new ImageView(this);
-				img.setAdjustViewBounds(true);
-				BitmapDrawable draw = (BitmapDrawable)getResources().getDrawable(R.drawable.img_loading);
-				img.setImageBitmap(draw.getBitmap());
-				feed_photos_ll.addView(img);
-				DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed,photo,img);
-				task.execute();
+		try {
+			ArrayList<String> photo_urls = feed.photos_large;
+			if(photo_urls.size()!=0){
+				ImageSwitcher feed_photos = (ImageSwitcher)findViewById(R.id.feed_photos);
+				feed_photos.setFactory(new ViewFactory() {
+					@Override
+					public View makeView() {
+						return new ImageView(MindpinApplication.context);
+					}
+				});
+				final GestureDetector detector = new GestureDetector(new SimpleOnGestureListener(){
+					@Override
+					public boolean onFling(MotionEvent e1, MotionEvent e2,
+							float velocityX, float velocityY) {
+						System.out.println("我滑动了");
+						return super.onFling(e1, e2, velocityX, velocityY);
+					}
+				});
+				feed_photos.setOnTouchListener(new OnTouchListener() {
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						return detector.onTouchEvent(event);
+					}
+				});
+				feed_photos.setImageResource(R.drawable.img_loading);
+				
+//			for (String photo_url : photo_urls) {
+//				ImageView img = new ImageView(this);
+//				img.setAdjustViewBounds(true);
+//				BitmapDrawable draw = (BitmapDrawable)getResources().getDrawable(R.drawable.img_loading);
+//				img.setImageBitmap(draw.getBitmap());
+//				feed_photos_ll.addView(img);
+//				load_cached_image(photo_url, img);
+//			}
 			}
+		} catch (Exception e) {
+			System.out.println("显示主题图片出错了");
+			e.printStackTrace();
 		}		
 	}
-
+	
 	private Bitmap get_bitmap(String image_url) {
 		Bitmap mBitmap = null;
 		try {

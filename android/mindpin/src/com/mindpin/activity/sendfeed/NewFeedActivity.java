@@ -425,11 +425,11 @@ public class NewFeedActivity extends MindpinBaseActivity {
 		ImageView img = new ImageView(this);
 		img.setAdjustViewBounds(true);
 		img.setScaleType(ScaleType.CENTER_CROP);
-		LayoutParams lp = new LayoutParams(BaseUtils.get_px_by_dip(this,48),
-				BaseUtils.get_px_by_dip(this,48));
-		lp.topMargin = BaseUtils.get_px_by_dip(this,5);
-		lp.leftMargin = BaseUtils.get_px_by_dip(this,4);
-		lp.bottomMargin = BaseUtils.get_px_by_dip(this,4);
+		LayoutParams lp = new LayoutParams(BaseUtils.get_px_by_dip(48),
+				BaseUtils.get_px_by_dip(48));
+		lp.topMargin = BaseUtils.get_px_by_dip(5);
+		lp.leftMargin = BaseUtils.get_px_by_dip(4);
+		lp.bottomMargin = BaseUtils.get_px_by_dip(4);
 		img.setLayoutParams(lp);
 		img.setImageBitmap(b);
 		img.setClickable(true);

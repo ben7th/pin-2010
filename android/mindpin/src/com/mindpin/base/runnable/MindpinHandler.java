@@ -7,8 +7,8 @@ import android.os.Message;
 import android.widget.Toast;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Global;
 import com.mindpin.activity.base.LoginActivity;
+import com.mindpin.application.MindpinApplication;
 
 public abstract class MindpinHandler extends Handler {
 	private Activity activity;
@@ -29,7 +29,7 @@ public abstract class MindpinHandler extends Handler {
 			case MindpinRunnable.METHOD_NOT_DEFINE_EXCEPTION:
 				// 方法没有定义
 				Toast.makeText(
-					Global.application_context, 
+					MindpinApplication.context, 
 					R.string.app_method_not_define_exception,
 					Toast.LENGTH_SHORT
 				).show();
@@ -37,7 +37,7 @@ public abstract class MindpinHandler extends Handler {
 			case MindpinRunnable.INTENT_CONNECTION_EXCEPTION:
 				// 网络连接错误
 				Toast.makeText(
-					Global.application_context, 
+					MindpinApplication.context, 
 					R.string.app_intent_connection_exception,
 					Toast.LENGTH_SHORT
 				).show();
@@ -48,7 +48,7 @@ public abstract class MindpinHandler extends Handler {
 			case MindpinRunnable.AUTHENTICATE_EXCEPTION:
 				// 用户身份验证错误
 				Toast.makeText(
-					Global.application_context, 
+					MindpinApplication.context, 
 					R.string.app_authenticate_exception,
 					Toast.LENGTH_SHORT
 				).show();
@@ -62,7 +62,7 @@ public abstract class MindpinHandler extends Handler {
 			case MindpinRunnable.UNKNOW_EXCEPTION:
 				// 程序执行错误
 				Toast.makeText(
-					Global.application_context, 
+					MindpinApplication.context, 
 					R.string.app_unknown_exception,
 					Toast.LENGTH_SHORT
 				).show();
@@ -70,7 +70,7 @@ public abstract class MindpinHandler extends Handler {
 			default:
 				// message.what 传入了无法被处理的值，也算程序执行错误
 				Toast.makeText(
-					Global.application_context, 
+					MindpinApplication.context, 
 					R.string.app_unknown_exception,
 					Toast.LENGTH_SHORT
 				).show();

@@ -1,14 +1,11 @@
 package com.mindpin.widget;
 
-import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
-import android.content.Context;
-import android.content.Intent;
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,37 +13,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.application.MindpinApplication;
+import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
 
 public class FeedListAdapter extends BaseAdapter {
-	private Context context;
 	private ArrayList<Feed> feeds;
-	private LayoutInflater mInflater;
-	private HashMap<String, View> cache_views = new HashMap<String, View>();
-	private HashMap<String, SoftReference<ImageView>> image_views = new HashMap<String,SoftReference<ImageView>>();
+	private HashMap<Integer, SoftReference<View>> cache_views = new HashMap<Integer, SoftReference<View>>();
 
-	public FeedListAdapter(Context context,ArrayList<Feed> feeds){
-		this.context = context;
+	public FeedListAdapter(MindpinBaseActivity activity, ArrayList<Feed> feeds) {
 		this.feeds = feeds;
-		this.mInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
-	
-	public void load_more_data() throws Exception{
-		Feed feed = feeds.get(feeds.size()-1);
-		String id = feed.feed_id+"";
-		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(Integer.parseInt(id)-1);
-		for (Feed feed2 : more_feeds) {
-			feeds.add(feed2);
-		}
-	}
-	
-	public ImageView get_image_view(String image_url){
-		SoftReference<ImageView> ref = image_views.get(image_url);
-		return ref.get();
 	}
 
 	@Override
@@ -67,92 +48,103 @@ public class FeedListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Feed feed = feeds.get(position);
-		String id = feed.feed_id+"";
-		View view = cache_views.get(id);
-		if(view == null){
-			switch (feed.photos_middle.size()) {
-			case 0:
-				view = create_no_photo_view(feed, parent);
-				break;
-			case 1:
-				view = create_single_photo_view(feed, parent);
-				break;
-			default:
-				view = create_more_photo_view(feed,
-						parent);
-				break;
-			}
-			cache_views.put(id, view); 
+		int feed_id = feed.feed_id;
+
+		View view = get_view_from_cache_views(feed_id);
+
+		if (null != view) {
+			return view;
 		}
+
+		switch (feed.photos_middle.size()) {
+		case 0:
+			view = create_no_photo_view(feed, parent);
+			break;
+		case 1:
+			view = create_single_photo_view(feed, parent);
+			break;
+		default:
+			view = create_more_photo_view(feed, parent);
+			break;
+		}
+		cache_views.put(feed_id, new SoftReference<View>(view));
 		return view;
 	}
 
+	private View get_view_from_cache_views(int feed_id) {
+		SoftReference<View> soft_ref = cache_views.get(feed_id);
+		return null == soft_ref ? null : soft_ref.get();
+	}
+
+	public void load_more_data() throws Exception {
+		Feed feed = feeds.get(feeds.size() - 1);
+		int id = feed.feed_id;
+		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(id - 1);
+		for (Feed feed2 : more_feeds) {
+			feeds.add(feed2);
+		}
+	}
+
 	private View create_more_photo_view(Feed feed, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.feed_list_item_more_photos, parent, false);
-		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
-		id_tv.setText(feed.feed_id+"");
-		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
+		View view = MindpinApplication.inflate(R.layout.feed_list_item_more_photos,
+				parent, false);
+		TextView id_tv = (TextView) view.findViewById(R.id.feed_id);
+		id_tv.setText(feed.feed_id + "");
+		TextView title_tv = (TextView) view.findViewById(R.id.feed_title);
 		title_tv.setText(feed.title);
-		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
+		TextView detail_tv = (TextView) view.findViewById(R.id.feed_detail);
 		detail_tv.setText(feed.detail);
 		ArrayList<String> photos = feed.photos_middle;
-		LinearLayout feed_photos = (LinearLayout)view.findViewById(R.id.feed_photos);
+		LinearLayout feed_photos = (LinearLayout) view
+				.findViewById(R.id.feed_photos);
 		for (int i = 0; i < photos.size(); i++) {
-			if(i>5){break;}
+			if (i > 5) {
+				break;
+			}
 			String photo_url = photos.get(i);
-			
-			ImageView img = new ImageView(context);
-			img.setAdjustViewBounds(true); //设置这个使得图片缩放后内容合适
-			Bitmap b = ((BitmapDrawable) context.getResources().getDrawable(
+
+			ImageView img = new ImageView(MindpinApplication.context);
+			img.setAdjustViewBounds(true); // 设置这个使得图片缩放后内容合适
+			Bitmap b = ((BitmapDrawable) MindpinApplication.context.getResources().getDrawable(
 					R.drawable.img_loading)).getBitmap();
-			LayoutParams lp = new LayoutParams(BaseUtils.get_px_by_dip(context,96),
-					BaseUtils.get_px_by_dip(context,96));
+			LayoutParams lp = new LayoutParams(BaseUtils.get_px_by_dip(96),
+					BaseUtils.get_px_by_dip(96));
 			img.setLayoutParams(lp);
 			img.setImageBitmap(b);
 			feed_photos.addView(img);
-//			DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, img);
-//			task.execute();
-			send_cache_image(feed, photo_url,img);
+
+			FeedImageCache.load_cached_image(photo_url, img);
 		}
-		
+
 		return view;
 	}
 
 	private View create_single_photo_view(Feed feed, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.feed_list_item_single_photo, parent, false);
-		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
-		id_tv.setText(feed.feed_id+"");
-		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
+		View view = MindpinApplication.inflate(R.layout.feed_list_item_single_photo,
+				parent, false);
+		TextView id_tv = (TextView) view.findViewById(R.id.feed_id);
+		id_tv.setText(feed.feed_id + "");
+		TextView title_tv = (TextView) view.findViewById(R.id.feed_title);
 		title_tv.setText(feed.title);
-		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
+		TextView detail_tv = (TextView) view.findViewById(R.id.feed_detail);
 		detail_tv.setText(feed.detail);
-		ImageView image_iv = (ImageView)view.findViewById(R.id.feed_photo);
+		ImageView image_view = (ImageView) view.findViewById(R.id.feed_photo);
 		String photo_url = feed.photos_middle.get(0);
-		
-//		DownloadFeedPhotoTask task = new DownloadFeedPhotoTask(feed, photo_url, image_iv);
-//		task.execute();
-		send_cache_image(feed, photo_url,image_iv);
+
+		FeedImageCache.load_cached_image(photo_url, image_view);
 		return view;
 	}
 
 	private View create_no_photo_view(Feed feed, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.feed_list_item_no_photo, parent, false);
-		TextView id_tv = (TextView)view.findViewById(R.id.feed_id);
-		id_tv.setText(feed.feed_id+"");
-		TextView title_tv = (TextView)view.findViewById(R.id.feed_title);
+		View view = MindpinApplication.inflate(R.layout.feed_list_item_no_photo, parent,
+				false);
+		TextView id_tv = (TextView) view.findViewById(R.id.feed_id);
+		id_tv.setText(feed.feed_id + "");
+		TextView title_tv = (TextView) view.findViewById(R.id.feed_title);
 		title_tv.setText(feed.title);
-		TextView detail_tv = (TextView)view.findViewById(R.id.feed_detail);
+		TextView detail_tv = (TextView) view.findViewById(R.id.feed_detail);
 		detail_tv.setText(feed.detail);
 		return view;
 	}
-	
-	private void send_cache_image(Feed feed,String image_url,ImageView image_view){
-		image_views.put(image_url, new SoftReference<ImageView>(image_view));
-		Intent intent = new Intent("com.mindpin.action.cache_image");
-		File file = FeedImageCache.get_cache_file(feed, image_url);
-		String path = file.getPath();
-		intent.putExtra("image_url", image_url);
-		intent.putExtra("image_cache_path", path);
-		context.sendBroadcast(intent);
-	}
+
 }

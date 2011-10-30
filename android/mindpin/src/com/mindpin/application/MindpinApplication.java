@@ -1,26 +1,27 @@
 package com.mindpin.application;
 
-import com.mindpin.Logic.Global;
-import com.mindpin.activity.base.MainActivity;
-
 import android.app.Application;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class MindpinApplication extends Application{
-	// ±£´æ main_activity µÄÊµÀý
-	private MainActivity main_activity;
+public class MindpinApplication extends Application {
+
+	public static Context context;
+	public static LayoutInflater mInflater;
+
+	public static View inflate(int resource, ViewGroup root, boolean attachToRoot){
+		return mInflater.inflate(resource, root, attachToRoot);
+	}
+	
 	@Override
 	public void onCreate() {
-		Global.application_context = getApplicationContext();
+		context = getApplicationContext();
+
+		mInflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 		super.onCreate();
 	}
-	
-	public MainActivity get_main_activity(){
-		return this.main_activity;
-	}
-	
-	public void set_main_activity(MainActivity main_activity){
-		this.main_activity = main_activity;
-	}
-	
-	
 }

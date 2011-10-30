@@ -2,11 +2,11 @@ package com.mindpin.database;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mindpin.Logic.Global;
+import com.mindpin.application.MindpinApplication;
 
 public abstract class BaseModel {
 	final private static MindpinDBHelper get_db_helper() {
-		return new MindpinDBHelper(Global.application_context,
+		return new MindpinDBHelper(MindpinApplication.context,
 				Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
 	}
 

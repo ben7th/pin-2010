@@ -222,22 +222,22 @@ public class Http {
 	
 	public static ArrayList<Feed> get_home_timeline_feeds(int max_id)
 			throws Exception {
-		BasicNameValuePair pair;
+		BasicNameValuePair param;
 		if (max_id != -1) {
-			pair = new BasicNameValuePair("max_id", max_id + "");
+			param = new BasicNameValuePair("max_id", max_id + "");
 		} else {
-			pair = new BasicNameValuePair("max_id", "");
+			param = new BasicNameValuePair("max_id", "");
 		}
-		return new MindpinGetRequest<ArrayList<Feed>>(我的收件箱主题列表, pair) {
+		return new MindpinGetRequest<ArrayList<Feed>>(我的收件箱主题列表, param) {
 
 			@Override
 			public ArrayList<Feed> on_success(String response_text)
 					throws Exception {
-				ArrayList<Feed> list = Feed.build_list_by_json(response_text);
-				for (Feed feed : list) {
+				ArrayList<Feed> feeds = Feed.build_list_by_json(response_text);
+				for (Feed feed : feeds) {
 					Feed.create_or_update(feed.json);
 				}
-				return list;
+				return feeds;
 			}
 		}.go();
 	}

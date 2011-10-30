@@ -4,7 +4,7 @@
   android:id="@+id/add_account"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:background="@color/mindpin_bgc"
+  android:background="#ddd"
 >
 	<!-- 新增 图标 -->
     <ImageView 

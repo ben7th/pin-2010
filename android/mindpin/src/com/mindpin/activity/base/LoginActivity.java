@@ -66,7 +66,7 @@ public class LoginActivity extends MindpinBaseActivity {
 			@Override
 			public void on_success(Void v) {
 				open_activity(MainActivity.class);
-				LoginActivity.this.finish();
+				finish();
 			}
 		}.execute(email, password);
 	}

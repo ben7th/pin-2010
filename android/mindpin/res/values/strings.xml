@@ -39,7 +39,9 @@
     <string name="main_bn_collections">收集册</string>
     <string name="menu_about">关于…</string>
     <string name="menu_account_management">账号管理</string>
+    <string name="menu_contacts">人际关系</string>
     <string name="menu_setting">设置</string>
+    
     <!-- 新建主题页面 -->
     <string name="new_feed_title_et">主题标题</string>
     <string name="new_feed_content_et">主题内容</string>

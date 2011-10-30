@@ -11,16 +11,17 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.activity.collection.CollectionListActivity;
+import com.mindpin.activity.contacts.ContactsActivity;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
@@ -37,10 +38,21 @@ public class MainActivity extends MindpinBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// 注册receiver
 		registerReceiver(syn_data_broadcast_receiver, new IntentFilter(
 				BroadcastReceiverConstants.ACTION_SYN_DATA_UI));
 		
-		load_view();
+		// load view
+		if(current_user().is_v2_activate()){
+			setContentView(R.layout.base_main);
+			data_syn_textview = (TextView)findViewById(R.id.main_data_syn_text);
+			data_syn_progress_bar = (ProgressBar)findViewById(R.id.main_data_syn_progress_bar);
+			update_account_info();			
+			start_syn_data();
+		}else{
+			setContentView(R.layout.base_main_not_activate);
+			update_account_info();
+		}
 	}
 	
 	@Override
@@ -50,40 +62,9 @@ public class MainActivity extends MindpinBaseActivity {
 		unregisterReceiver(syn_data_broadcast_receiver);
 	}
 	
-	private void load_view() {
-		if(current_user().is_v2_activate()){
-			setContentView(R.layout.base_main);
-			data_syn_textview = (TextView)findViewById(R.id.main_data_syn_text);
-			data_syn_progress_bar = (ProgressBar)findViewById(R.id.main_data_syn_progress_bar);
-			
-			update_account_info();
-			data_syn();
-		}else{
-			setContentView(R.layout.base_main_not_activate);
-			update_account_info();
-		}
-	}
-	
-	
-	//设置 new_feed 按钮点击事件
-	public void main_button_new_feed_click(View view){
-		//open_activity(NewFeedActivity.class);
-		sendBroadcast(new Intent("com.mindpin.RestartLogin"));
-	}
-	
-	//设置 camera 按钮点击事件
-	public void main_button_camera_click(View view){
-		CameraLogic.call_system_camera(MainActivity.this);
-	}
-	
-	//设置 feeds 按钮点击事件
-	public void main_button_feeds_click(View view){
-		open_activity(FeedListActivity.class);
-	}
-	
-	//设置collections按钮点击事件
-	public void main_button_collections_click(View view){
-		open_activity(CollectionListActivity.class);
+	//同步操作
+	private void start_syn_data() {
+		sendBroadcast(new Intent("com.mindpin.action.start_syn_data"));
 	}
 	
 	// 在界面上刷新头像和用户名
@@ -105,16 +86,30 @@ public class MainActivity extends MindpinBaseActivity {
 		}.execute();
 	}
 	
-	//同步操作
-	private void data_syn() {
-		sendBroadcast(new Intent("com.mindpin.action.start_syn_data"));
+	//设置 new_feed 按钮点击事件
+	public void main_button_new_feed_click(View view){
+		open_activity(NewFeedActivity.class);
+	}
+	
+	//设置 camera 按钮点击事件
+	public void main_button_camera_click(View view){
+		CameraLogic.call_system_camera(this);
+	}
+	
+	//设置 feeds 按钮点击事件
+	public void main_button_feeds_click(View view){
+		open_activity(FeedListActivity.class);
+	}
+	
+	//设置collections按钮点击事件
+	public void main_button_collections_click(View view){
+		open_activity(CollectionListActivity.class);
 	}
 	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -126,6 +121,9 @@ public class MainActivity extends MindpinBaseActivity {
 			break;
 		case R.id.menu_setting:
 			open_activity(MindpinSettingActivity.class);
+			break;
+		case R.id.menu_contacts:
+			open_activity(ContactsActivity.class);
 			break;
 		case R.id.menu_account_management:
 			open_activity(AccountManagerActivity.class);
@@ -140,23 +138,25 @@ public class MainActivity extends MindpinBaseActivity {
 		 if(keyCode == KeyEvent.KEYCODE_BACK){
 			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this); //这里只能用this，不能用appliction_context
 			
-			builder.setTitle(R.string.dialog_close_app_title);
-			builder.setMessage(R.string.dialog_close_app_text);
-			
-			builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which) {
-					MainActivity.this.finish();
-				}
-			});
-			builder.setNegativeButton(R.string.dialog_cancel, null);
-			builder.show();
+			builder
+				.setTitle(R.string.dialog_close_app_title)
+				.setMessage(R.string.dialog_close_app_text)
+				.setPositiveButton(R.string.dialog_ok,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int which) {
+							MainActivity.this.finish();
+						}
+					})
+				.setNegativeButton(R.string.dialog_cancel, null)
+				.show();
 			
 			return true;
 		 }
-		return super.onKeyDown(keyCode, event);
+		 return super.onKeyDown(keyCode, event);
 	}
 	
-	//处理其他activity界面的回调
+	//处理其他activity界面的回调，例如照相
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(resultCode != Activity.RESULT_OK){
@@ -174,7 +174,7 @@ public class MainActivity extends MindpinBaseActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	// 服务广播接收器
+	// 同步服务广播接收器
 	class SynDataUIBroadcastReceiver extends BroadcastReceiver{
 		@Override
 		public void onReceive(Context context, Intent intent) {

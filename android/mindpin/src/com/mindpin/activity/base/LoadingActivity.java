@@ -14,6 +14,6 @@ public class LoadingActivity extends MindpinBaseActivity {
 		
 		// 这里是应用的入口，进入该activity后再根据当前登录状态，进入login或是main		
 		open_activity(is_logged_in() ? MainActivity.class : LoginActivity.class);
-		this.finish();
+		finish();
 	}
 }
