@@ -37,11 +37,11 @@ module ViewpointFormatHelper
 
   # 临时方法
   def feed_detail_for_show(feed)
-    detail = feed.detail || ''
+    detail = h(feed.detail || '')
     main_post = feed.main_post
 
     html_str = MindpinTextFormat.new(detail, main_post.text_format).to_text.gsub("\n","<br/>")
-    find_and_preserve h(html_str)
+    find_and_preserve html_str
   end
 
   # 观点
