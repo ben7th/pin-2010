@@ -37,28 +37,41 @@
 			    	android:layout_height="40dp"
 			    	android:textSize="18dp"
 			    	android:gravity="center"
-			    	android:textColor="#888"
 			    />
 			</LinearLayout>
 			
 			<!-- 图片 -->
-			<ImageSwitcher 
-		    	android:id="@+id/feed_photos"
+			<LinearLayout
+				android:orientation="vertical"
+				android:id="@+id/feed_photos"
 				android:layout_width="fill_parent"
-        		android:layout_height="wrap_content" 
-				android:paddingTop="9dp" 
-				android:paddingLeft="9dp" 
-				android:paddingRight="9dp" 
-				android:paddingBottom="0dp"			 
-        		/>
+	        	android:layout_height="wrap_content" 
+			>
+				<ImageSwitcher  
+			    	android:id="@+id/feed_photos_image_switcher"
+					android:layout_width="fill_parent"
+	        		android:layout_height="wrap_content" 
+					android:paddingTop="9dp" 
+					android:paddingLeft="9dp" 
+					android:paddingRight="9dp" 
+					android:paddingBottom="0dp"			 
+	        		/>
+	        		<TextView
+	        			android:id="@+id/feed_photos_footer"
+	        			android:layout_width="wrap_content"
+	        			android:layout_height="wrap_content"		 
+	        		/>
+			</LinearLayout>
 	    	<!-- 标题 -->
 		    <TextView 
 		    	android:id="@+id/feed_title"
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
-		    	android:textColor="#333"
 		    	android:textSize="20dp"
-		    	android:paddingTop="9dp" android:paddingLeft="9dp" android:paddingRight="9dp" android:paddingBottom="0dp"
+		    	android:paddingTop="9dp" 
+		    	android:paddingLeft="9dp" 
+		    	android:paddingRight="9dp" 
+		    	android:paddingBottom="0dp"
 		    />
 		    <!-- 正文 -->
 		    <TextView 
@@ -66,8 +79,10 @@
 		    	android:layout_width="wrap_content"
 		    	android:layout_height="wrap_content"
 		    	android:textSize="18dp"
-		    	android:textColor="#444"
-		    	android:paddingTop="9dp" android:paddingLeft="9dp" android:paddingRight="9dp" android:paddingBottom="0dp"
+		    	android:paddingTop="9dp" 
+		    	android:paddingLeft="9dp" 
+		    	android:paddingRight="9dp" 
+		    	android:paddingBottom="0dp"
 		    />
 		</LinearLayout>
 	</ScrollView>

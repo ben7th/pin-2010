@@ -29,17 +29,8 @@ class Api0::ApiController < ApplicationController
     })
 
     render :json=>feeds.map{|feed|
-      api0_feed_json_hash(feed)
+      api0_feed_json_brief_hash(feed)
     }
-  end
-  
-  # 根据id获取单条feed信息
-  # :id 必须，feed的ID
-  def show
-    feed = Feed.find(params[:id])
-    feed.save_viewed_by(current_user) if feed && current_user # 保存feed被用户查看过的记录
-    
-    render :json=>api0_feed_json_hash(feed)
   end
 
   # 获取当前用户以及其所有联系人的主题列表
@@ -56,8 +47,17 @@ class Api0::ApiController < ApplicationController
     })
 
     render :json=>feeds.map{|feed|
-      api0_feed_json_hash(feed)
+      api0_feed_json_brief_hash(feed)
     }
+  end
+
+  # 根据id获取单条feed信息
+  # :id 必须，feed的ID
+  def show
+    feed = Feed.find(params[:id])
+    feed.save_viewed_by(current_user) if feed && current_user # 保存feed被用户查看过的记录
+    
+    render :json=>api0_feed_json_hash(feed)
   end
 
   # 发送一个纯文字主题
@@ -143,7 +143,7 @@ class Api0::ApiController < ApplicationController
     render :text=>"api0 收集册重命名失败",:status=>400
   end
 
-  # -------- 以下是一些公共私有方法 --------
+  # -------- 以下是一些私有方法 --------
   private
     def api0_feed_json_hash(feed)
       user = feed.creator
@@ -154,6 +154,24 @@ class Api0::ApiController < ApplicationController
         :id         => feed.id,
         :title      => feed.android_title_text,
         :detail     => MindpinTextFormat.new(feed.detail).to_text,
+        :from       => feed.from,
+        :photos_thumbnail => feed.photos.map{|p|p.image.url(:s100)},
+        :photos_middle    => feed.photos.map{|p|p.image.url(:w210)},
+        :photos_large     => feed.photos.map{|p|p.image.url(:w660)},
+        :user       => user.api0_json_hash(current_user)
+      }
+    end
+
+    def api0_feed_json_brief_hash(feed)
+      user = feed.creator
+      feed_format = FeedFormat.new(feed)
+
+      return {
+        :created_at => feed.created_at,
+        :updated_at => feed.updated_at,
+        :id         => feed.id,
+        :title      => feed.android_title_text,
+        :detail     => feed_format.short_detail_brief,
         :from       => feed.from,
         :photos_thumbnail => feed.photos.map{|p|p.image.url(:s100)},
         :photos_middle    => feed.photos.map{|p|p.image.url(:w210)},

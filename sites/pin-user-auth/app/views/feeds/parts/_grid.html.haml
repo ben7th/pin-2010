@@ -16,7 +16,7 @@
       -photos = feed.photos
       -has_photo = !photos.blank?
 
-      -detail = feed_detail_short(feed)
+      -detail = FeedFormat.new(feed).short_detail_brief
       -has_detail = !detail.blank?
 
       .feed{:'data-id'=>feed_id}

@@ -4,26 +4,20 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"   
+    android:orientation="vertical"
     style="@style/feed_list_item"
 >
 	<TextView   
 	    android:id="@+id/feed_id"
-	    android:layout_height="wrap_content"   
-	    android:layout_width="fill_parent"   
-	    android:textSize="14dp"
+	    style="@style/feed_list_item_text"
 	    android:visibility="gone"
     />
 	<TextView   
 	    android:id="@+id/feed_title"
-	    android:layout_height="wrap_content"   
-	    android:layout_width="fill_parent"
-	    android:textSize="16dp"
+	    style="@style/feed_list_item_text"
     />
 	<TextView   
 	    android:id="@+id/feed_detail"
-	    android:layout_height="wrap_content"   
-	    android:layout_width="fill_parent"
-	    android:textSize="16dp"
+	    style="@style/feed_list_item_text"
     />
 </LinearLayout>

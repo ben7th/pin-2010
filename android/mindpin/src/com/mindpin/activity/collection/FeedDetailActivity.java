@@ -25,6 +25,7 @@ import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher.ViewFactory;
 
 import com.mindpin.R;
+import com.mindpin.Logic.FeedPhotoSwitch;
 import com.mindpin.Logic.Http;
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
@@ -99,36 +100,8 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		try {
 			ArrayList<String> photo_urls = feed.photos_large;
 			if(photo_urls.size()!=0){
-				ImageSwitcher feed_photos = (ImageSwitcher)findViewById(R.id.feed_photos);
-				feed_photos.setFactory(new ViewFactory() {
-					@Override
-					public View makeView() {
-						return new ImageView(MindpinApplication.context);
-					}
-				});
-				final GestureDetector detector = new GestureDetector(new SimpleOnGestureListener(){
-					@Override
-					public boolean onDown(MotionEvent e) {
-						System.out.println("on down");
-						return super.onDown(e);
-					}
-					
-					@Override
-					public boolean onFling(MotionEvent e1, MotionEvent e2,
-							float velocityX, float velocityY) {
-						System.out.println("我滑动了");
-						return super.onFling(e1, e2, velocityX, velocityY);
-					}
-				});
-				feed_photos.setOnTouchListener(new OnTouchListener() {
-					@Override
-					public boolean onTouch(View v, MotionEvent event) {
-						System.out.println("我触摸了");
-						return detector.onTouchEvent(event);
-					}
-				});
-				
-				feed_photos.setImageResource(R.drawable.img_loading);
+				LinearLayout ll = (LinearLayout)findViewById(R.id.feed_photos);
+				new FeedPhotoSwitch(ll,photo_urls);
 				
 //			for (String photo_url : photo_urls) {
 //				ImageView img = new ImageView(this);
@@ -143,12 +116,6 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 			System.out.println("显示主题图片出错了");
 			e.printStackTrace();
 		}		
-	}
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		System.out.println("on touch evnent");
-		return super.onTouchEvent(event);
 	}
 	
 	private Bitmap get_bitmap(String image_url) {

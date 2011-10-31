@@ -7,7 +7,7 @@
 	<uses-sdk android:minSdkVersion="4" />
 
 	<application 
-		android:theme="@android:style/Theme.Light.NoTitleBar"
+		android:theme="@style/Theme.mindpin"
 		android:icon="@drawable/icon" 
 		android:label="@string/app_name"
 		android:name=".application.MindpinApplication"
