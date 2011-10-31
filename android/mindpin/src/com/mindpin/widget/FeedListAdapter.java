@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,7 +27,7 @@ public class FeedListAdapter extends BaseAdapter {
 	private ArrayList<Feed> feeds;
 	private HashMap<Integer, SoftReference<View>> cache_views = new HashMap<Integer, SoftReference<View>>();
 
-	public FeedListAdapter(MindpinBaseActivity activity, ArrayList<Feed> feeds) {
+	public FeedListAdapter(ArrayList<Feed> feeds) {
 		this.feeds = feeds;
 	}
 
@@ -138,12 +139,17 @@ public class FeedListAdapter extends BaseAdapter {
 	private View create_no_photo_view(Feed feed, ViewGroup parent) {
 		View view = MindpinApplication.inflate(R.layout.feed_list_item_no_photo, parent,
 				false);
-		TextView id_tv = (TextView) view.findViewById(R.id.feed_id);
-		id_tv.setText(feed.feed_id + "");
-		TextView title_tv = (TextView) view.findViewById(R.id.feed_title);
-		title_tv.setText(feed.title);
-		TextView detail_tv = (TextView) view.findViewById(R.id.feed_detail);
-		detail_tv.setText(feed.detail);
+		
+		TextView id_textview = (TextView) view.findViewById(R.id.feed_id);
+		id_textview.setText(feed.feed_id + "");
+		
+		TextView title_textview = (TextView) view.findViewById(R.id.feed_title);
+		title_textview.setText(feed.title);
+		title_textview.getPaint().setFakeBoldText(true);
+		
+		TextView detail_textview = (TextView) view.findViewById(R.id.feed_detail);
+		detail_textview.setText(Html.fromHtml(feed.detail));
+		
 		return view;
 	}
 

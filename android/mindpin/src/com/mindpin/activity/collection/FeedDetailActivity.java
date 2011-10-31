@@ -20,6 +20,7 @@ import android.widget.Gallery;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher.ViewFactory;
@@ -31,10 +32,16 @@ import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
 
 public class FeedDetailActivity extends MindpinBaseActivity {
 	public static String EXTRA_NAME_FEED_ID = "feed_id";
+	private ImageSwitcher feed_photos_image_switcher;
+	private TextView feed_photos_footer;
+	private int photos_current_index = 0;
+	private ArrayList<String> photo_urls;
+	private MotionEvent down_event;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,19 +105,32 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 	
 	private void show_feed_photos(Feed feed) {
 		try {
-			ArrayList<String> photo_urls = feed.photos_large;
+			this.photo_urls = feed.photos_large;
 			if(photo_urls.size()!=0){
-				LinearLayout ll = (LinearLayout)findViewById(R.id.feed_photos);
-				new FeedPhotoSwitch(ll,photo_urls);
-				
-//			for (String photo_url : photo_urls) {
-//				ImageView img = new ImageView(this);
-//				img.setAdjustViewBounds(true);
-//				BitmapDrawable draw = (BitmapDrawable)getResources().getDrawable(R.drawable.img_loading);
-//				img.setImageBitmap(draw.getBitmap());
-//				feed_photos_ll.addView(img);
-//				load_cached_image(photo_url, img);
-//			}
+				this.feed_photos_image_switcher = (ImageSwitcher)findViewById(R.id.feed_photos_image_switcher);
+				this.feed_photos_footer = (TextView)findViewById(R.id.feed_photos_footer);
+				feed_photos_image_switcher.setLongClickable(true);
+				feed_photos_image_switcher.setFactory(new ViewFactory() {
+					@Override
+					public View makeView() {
+						ImageView view = new ImageView(MindpinApplication.context);
+						view.setImageResource(R.drawable.img_loading);
+						return view;
+					}
+				});
+				// 显示第一幅图片
+				show_current_image();
+				OnTouchListener touch_listener = new OnTouchListener() {
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						return on_touch_event(event);
+					}
+				};
+				// 滚动条和 image_switcher 都需要注册事件
+				// 这样当 从图片内滑到图片外时才能正常工作
+				feed_photos_image_switcher.setOnTouchListener(touch_listener);
+				ScrollView feed_detail_scroll = (ScrollView)findViewById(R.id.feed_detail_scroll);
+				feed_detail_scroll.setOnTouchListener(touch_listener);
 			}
 		} catch (Exception e) {
 			System.out.println("显示主题图片出错了");
@@ -118,6 +138,35 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		}		
 	}
 	
+	public boolean on_touch_event(MotionEvent event) {
+		System.out.println(event.getAction() );
+		if(event.getAction() == MotionEvent.ACTION_DOWN){
+			this.down_event = MotionEvent.obtain(event);
+		}else if(event.getAction() == MotionEvent.ACTION_UP){
+			float down_x = this.down_event.getX();
+			float up_x = event.getX();
+			if(Math.abs(down_x-up_x) > 50){
+				if(down_x > up_x){
+					on_left();
+				}else{
+					on_right();
+				}
+			}
+		}
+		return true;
+	}
+	
+	private void show_current_image() {
+		ImageView image_view = (ImageView) feed_photos_image_switcher.getNextView();
+		image_view.setImageResource(R.drawable.img_loading);
+		feed_photos_image_switcher.showNext();
+		String footer_text = photos_current_index  + 1 + "/" + photo_urls.size();
+		feed_photos_footer.setText(footer_text);
+		
+		String image_url = photo_urls.get(photos_current_index);
+		FeedImageCache.load_cached_image(image_url, image_view);
+	}
+
 	private Bitmap get_bitmap(String image_url) {
 		Bitmap mBitmap = null;
 		try {
@@ -133,6 +182,22 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 			return mBitmap;
 		}
 		return mBitmap;
+	}
+	
+	private void on_right() {
+		if(photos_current_index > 0){
+			System.out.println("right");
+			photos_current_index--;
+			show_current_image();
+		}
+	}
+
+	private void on_left() {
+		if(photos_current_index+1 < photo_urls.size()){
+			System.out.println("left");
+			photos_current_index++;
+			show_current_image();
+		}
 	}
 
 }

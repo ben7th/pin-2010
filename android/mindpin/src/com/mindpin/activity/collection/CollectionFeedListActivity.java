@@ -48,8 +48,7 @@ public class CollectionFeedListActivity extends MindpinBaseActivity {
 			
 			switch (msg.what) { 
 			case MESSAGE_READ_FEED_LIST_SUCCESS:
-				 FeedListAdapter sa = new FeedListAdapter(CollectionFeedListActivity.this, 
-						feeds);
+				 FeedListAdapter sa = new FeedListAdapter(feeds);
 				feed_list_lv.setAdapter(sa);
 				feed_list_lv.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> arg0, View arg1,

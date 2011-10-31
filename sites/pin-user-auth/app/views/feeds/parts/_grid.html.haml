@@ -37,7 +37,7 @@
           .title=link_to title_short,"/feeds/#{feed_id}"
 
         -if has_detail
-          .detail=detail
+          .detail.wordwrap=detail
 
         -if !hide_creator
           .creator

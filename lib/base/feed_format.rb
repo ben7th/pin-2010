@@ -58,6 +58,16 @@ class FeedFormat
     return str4
   end
 
+  def title
+    str1 = CGI.escapeHTML(@title)
+    return str1
+  end
+  
+  def title_brief(length = 32)
+    str1 = truncate_u(title, length, '…')
+    return str1
+  end
+
   private
     def reduce_return(str)
       return str.gsub(/\n{2,}/, "\n\n")

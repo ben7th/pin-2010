@@ -61,17 +61,7 @@ public class FeedPhotoSwitch {
 		// 显示第一幅图片
 		show_current_image();
 		// 注册切换图片事件
-		final GestureDetector detector = new GestureDetector(new ImageGesture());
 		feed_photos_image_switcher.setOnTouchListener(new ImageTouchListener());
-		
-//		feed_photos_image_switcher.setOnTouchListener(new OnTouchListener() {
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				return detector.onTouchEvent(event);
-//			}
-//		});
-		
-		
 	}
 	
 	private void show_current_image(){
@@ -92,11 +82,20 @@ public class FeedPhotoSwitch {
 		public boolean onTouch(View v, MotionEvent event) {
 			if(event.getAction() == MotionEvent.ACTION_DOWN){
 				this.down_event = MotionEvent.obtain(event);
-			}else if(event.getAction() == MotionEvent.ACTION_UP || 
-					event.getAction() == MotionEvent.ACTION_CANCEL ){
+			}else if(event.getAction() == MotionEvent.ACTION_UP){
 				float down_x = this.down_event.getX();
 				float up_x = event.getX();
 				if(Math.abs(down_x-up_x) > 50){
+					if(down_x > up_x){
+						on_left();
+					}else{
+						on_right();
+					}
+				}
+			}else if(event.getAction() == MotionEvent.ACTION_CANCEL){
+				float down_x = this.down_event.getX();
+				float up_x = event.getX();
+				if(Math.abs(down_x-up_x) > 20){
 					if(down_x > up_x){
 						on_left();
 					}else{
@@ -108,41 +107,20 @@ public class FeedPhotoSwitch {
 		}
 
 		private void on_right() {
-			System.out.println("right");
+			if(current_index > 0){
+				System.out.println("right");
+				current_index--;
+				show_current_image();
+			}
 		}
 
 		private void on_left() {
-			System.out.println("left");
+			if(current_index+1 < photo_urls.size()){
+				System.out.println("left");
+				current_index++;
+				show_current_image();
+			}
 		}
 		
-	}
-	
-	
-	class ImageGesture extends SimpleOnGestureListener{
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2,
-				float velocityX, float velocityY) {
-			int i = ViewConfiguration.getMinimumFlingVelocity();
-			System.out.println("default " + i);
-			System.out.println(Math.abs(velocityX));
-			if (e1.getX() - e2.getX() > FLING_MIN_DISTANCE
-					&& Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-				 // Fling left
-				if(current_index < photo_urls.size()-1){
-					System.out.println("下一个");
-					current_index++;
-					show_current_image();
-				}
-			} else if (e2.getX() - e1.getX() > FLING_MIN_DISTANCE
-					&& Math.abs(velocityX) > FLING_MIN_VELOCITY) {
-				 // Fling right
-				if(current_index > 0){
-					System.out.println("上一个");
-					current_index--;
-					show_current_image();
-				}				
-			}
-			return true;
-		}
 	}
 }

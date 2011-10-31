@@ -23,8 +23,9 @@
 	    android:layout_height="fill_parent"
 	    android:orientation="vertical"
 	    android:gravity="center_horizontal"
+	    android:padding="9dp"
 	>
-	<TextView   
+		<TextView   
 		    android:id="@+id/feed_id"
 		    android:layout_height="wrap_content"   
 		    android:layout_width="fill_parent"   

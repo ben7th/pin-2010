@@ -147,17 +147,23 @@ class Api0::ApiController < ApplicationController
   private
     def api0_feed_json_hash(feed)
       user = feed.creator
+      feed_format = FeedFormat.new(feed)
+
+      photos = feed.photos
+      photos_count = feed.photos.count
 
       return {
         :created_at => feed.created_at,
         :updated_at => feed.updated_at,
         :id         => feed.id,
-        :title      => feed.android_title_text,
-        :detail     => MindpinTextFormat.new(feed.detail).to_text,
+        :title      => feed_format.title,
+        :detail     => feed_format.detail,
         :from       => feed.from,
-        :photos_thumbnail => feed.photos.map{|p|p.image.url(:s100)},
-        :photos_middle    => feed.photos.map{|p|p.image.url(:w210)},
-        :photos_large     => feed.photos.map{|p|p.image.url(:w660)},
+        :photos_thumbnail => photos.map{|p|p.image.url(:s100)},
+        :photos_middle    => photos.map{|p|p.image.url(:w210)},
+        :photos_large     => photos.map{|p|p.image.url(:w660)},
+        :photos_count     => photos_count,
+        :brief            => false,
         :user       => user.api0_json_hash(current_user)
       }
     end
@@ -166,16 +172,21 @@ class Api0::ApiController < ApplicationController
       user = feed.creator
       feed_format = FeedFormat.new(feed)
 
+      brief_photos = feed.photos.all(:limit=>3)
+      photos_count = feed.photos.count
+
       return {
         :created_at => feed.created_at,
         :updated_at => feed.updated_at,
         :id         => feed.id,
-        :title      => feed.android_title_text,
+        :title      => feed_format.title_brief,
         :detail     => feed_format.short_detail_brief,
         :from       => feed.from,
-        :photos_thumbnail => feed.photos.map{|p|p.image.url(:s100)},
-        :photos_middle    => feed.photos.map{|p|p.image.url(:w210)},
-        :photos_large     => feed.photos.map{|p|p.image.url(:w660)},
+        :photos_thumbnail => brief_photos.map{|p|p.image.url(:s100)},
+        :photos_middle    => brief_photos.map{|p|p.image.url(:w210)},
+        :photos_large     => brief_photos.map{|p|p.image.url(:w660)},
+        :photos_count     => photos_count,
+        :brief            => true,
         :user       => user.api0_json_hash(current_user)
       }
     end

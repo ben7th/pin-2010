@@ -81,7 +81,7 @@ public class MainActivity extends MindpinBaseActivity {
 				ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
 				
 				account_name_textview.setText(current_user().name);
-				account_avatar_imgview.setImageBitmap(bitmap);
+				account_avatar_imgview.setImageBitmap(BaseUtils.to_round_corner(bitmap,5));
 			}
 		}.execute();
 	}

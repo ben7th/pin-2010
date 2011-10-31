@@ -82,7 +82,7 @@ public class FeedListActivity extends MindpinBaseActivity {
 
 			@Override
 			public void on_success(ArrayList<Feed> feeds) {
-				adapter = new FeedListAdapter(FeedListActivity.this, feeds);
+				adapter = new FeedListAdapter(feeds);
 				feed_list.setAdapter(adapter);
 				feed_list.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> arg0, View arg1,
