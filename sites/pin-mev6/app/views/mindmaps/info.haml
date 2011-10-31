@@ -57,6 +57,7 @@
   .page-mindmap-info-view
     =render 'mindmaps/list/list',:mindmaps=>[@mindmap]
 
+  -creator = @mindmap.user
   -if logged_in? && current_user.has_binded_tsina?
     -weibo = current_user.tsina_weibo
   -elsif creator.has_binded_tsina?
