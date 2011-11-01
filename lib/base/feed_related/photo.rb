@@ -53,6 +53,10 @@ class Photo < UserAuthAbstract
     image_size(style)[:height]
   end
 
+  def image_ratio(style = :original)
+    return image_size(style)[:height].to_f / image_size(style)[:width].to_f
+  end
+
   def image_base_path
     File.join(IMAGE_BASE_PATH,self.id.to_s)
   end

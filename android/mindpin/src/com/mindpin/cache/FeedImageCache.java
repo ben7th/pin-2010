@@ -27,10 +27,32 @@ public class FeedImageCache {
 	}
 	
 	final static public void load_cached_image(String image_url, ImageView image_view){
-		image_view_hashmap.put(image_url, new SoftReference<ImageView>(image_view));
-		Intent intent = new Intent("com.mindpin.action.cache_image");
-		intent.putExtra("image_url", image_url);
-		MindpinApplication.context.sendBroadcast(intent);
+		File cache_file = FeedImageCache.get_cache_file(image_url);
+		if(!cache_file.exists()){
+			image_view_hashmap.put(image_url, new SoftReference<ImageView>(image_view));
+			Intent intent = new Intent("com.mindpin.action.cache_image");
+			intent.putExtra("image_url", image_url);
+			MindpinApplication.context.sendBroadcast(intent);
+		}else{
+			set_bitmap_to_imageview(cache_file, image_view);
+		}
+	}
+	
+	final static private void set_bitmap_to_imageview(File cache_file, ImageView image_view){
+		try {
+			FileInputStream stream = new FileInputStream(cache_file);
+			Bitmap img_bitmap = BitmapFactory.decodeStream(stream);
+			
+			if(null == img_bitmap){
+				cache_file.delete();
+			}else{
+				if(null != image_view){
+					image_view.setImageBitmap(img_bitmap);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// 根据图像url，获取本地的磁盘缓存文件路径
@@ -59,23 +81,11 @@ public class FeedImageCache {
 	final static class SynImageBroadcastReceiver extends BroadcastReceiver{
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			try {
-				String image_url = intent.getStringExtra("image_url");
-				File cache_file = FeedImageCache.get_cache_file(image_url);
-				FileInputStream stream = new FileInputStream(cache_file);
-				Bitmap img_bitmap = BitmapFactory.decodeStream(stream);
-				
-				if(null == img_bitmap){
-					cache_file.delete();
-				}else{
-					ImageView image_view = get_image_view(image_url);
-					if(null != image_view){
-						image_view.setImageBitmap(img_bitmap);
-					}
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+			String image_url = intent.getStringExtra("image_url");
+			ImageView image_view = get_image_view(image_url);
+			File cache_file = FeedImageCache.get_cache_file(image_url);
+			
+			set_bitmap_to_imageview(cache_file, image_view);
 		}
 	}
 }

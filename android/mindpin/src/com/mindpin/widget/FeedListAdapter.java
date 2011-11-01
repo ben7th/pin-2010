@@ -1,6 +1,7 @@
 package com.mindpin.widget;
 
 import java.lang.ref.SoftReference;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -114,9 +115,15 @@ public class FeedListAdapter extends BaseAdapter {
 	
 	private void set_single_photo(View view, Feed feed){
 		ImageView image_view = (ImageView) view.findViewById(R.id.feed_photo);
-		String photo_url = feed.photos_thumbnail.get(0);
 		image_view.setAdjustViewBounds(true);
-		LayoutParams lp = new LayoutParams(image_view.getLayoutParams());
+		
+		String photo_url = feed.photos_large.get(0);
+		//int w660_photo_height = feed.photos_large_ratio.get(0);
+		
+		int width = BaseUtils.dp_to_px(260);
+		int height = BaseUtils.dp_to_px(260);
+		
+		LayoutParams lp = new LayoutParams(width, height);
 		lp.bottomMargin = BaseUtils.dp_to_px(9);
 		image_view.setLayoutParams(lp);
 		
@@ -131,6 +138,7 @@ public class FeedListAdapter extends BaseAdapter {
 		for (String photo_url : photo_urls) {
 			ImageView image_view = new ImageView(MindpinApplication.context);
 			image_view.setAdjustViewBounds(true); // 设置这个使得图片缩放后内容合适
+			
 			Bitmap b = ((BitmapDrawable) MindpinApplication.context
 					.getResources().getDrawable(R.drawable.img_loading))
 					.getBitmap();

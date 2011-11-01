@@ -20,6 +20,7 @@ public class Feed {
 	public ArrayList<String> photos_middle;
 	public ArrayList<String> photos_large;
 	public ArrayList<String> photos_thumbnail;
+	public ArrayList<Double> photos_large_ratio;
 	public int user_id;
 	public String user_name;
 	public String user_avatar_url;
@@ -30,13 +31,14 @@ public class Feed {
 		try{
 			JSONObject json_obj = new JSONObject(json);
 			
-			this.feed_id 			= (Integer) json_obj.get("id");
-			this.title 				= (String) json_obj.get("title");
-			this.detail 			= (String) json_obj.get("detail");
-			this.photos_middle 		= json_array_to_array_list((JSONArray) json_obj.get("photos_middle"));
-			this.photos_large 		= json_array_to_array_list((JSONArray) json_obj.get("photos_large"));
-			this.photos_thumbnail 	= json_array_to_array_list((JSONArray) json_obj.get("photos_thumbnail"));
-			this.updated_at 		= BaseUtils.parse_iso_time_string_to_long((String)json_obj.get("updated_at"));
+			this.feed_id 			 = (Integer) json_obj.get("id");
+			this.title 				 = (String) json_obj.get("title");
+			this.detail 			 = (String) json_obj.get("detail");
+			this.photos_middle 		 = json_array_to_array_list((JSONArray) json_obj.get("photos_middle"));
+			this.photos_large 		 = json_array_to_array_list((JSONArray) json_obj.get("photos_large"));
+			this.photos_thumbnail 	 = json_array_to_array_list((JSONArray) json_obj.get("photos_thumbnail"));
+			this.photos_large_ratio = json_array_to_array_list_double((JSONArray) json_obj.get("photos_large_ratio"));
+			this.updated_at 		 = BaseUtils.parse_iso_time_string_to_long((String)json_obj.get("updated_at"));
 			
 			JSONObject user = (JSONObject)json_obj.get("user");
 			
@@ -114,12 +116,22 @@ public class Feed {
 		}
 	}
 	
-	private static ArrayList<String> json_array_to_array_list(JSONArray json_array)
-			throws JSONException {
+	private static ArrayList<String> json_array_to_array_list(
+			JSONArray json_array) throws JSONException {
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i = 0; i < json_array.length(); i++) {
-			String url = (String)json_array.get(i);
+			String url = json_array.getString(i);
 			list.add(url);
+		}
+		return list;
+	}
+
+	private static ArrayList<Double> json_array_to_array_list_double(
+			JSONArray json_array) throws JSONException {
+		ArrayList<Double> list = new ArrayList<Double>();
+		for (int i = 0; i < json_array.length(); i++) {
+			double ratio = json_array.getDouble(i);
+			list.add(ratio);
 		}
 		return list;
 	}

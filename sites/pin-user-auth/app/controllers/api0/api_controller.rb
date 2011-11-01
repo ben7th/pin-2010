@@ -162,7 +162,7 @@ class Api0::ApiController < ApplicationController
         :photos_thumbnail => photos.map{|p|p.image.url(:s100)},
         :photos_middle    => photos.map{|p|p.image.url(:w210)},
         :photos_large     => photos.map{|p|p.image.url(:w660)},
-        :photos_large_height  => photos.map{|p| p.image_height(:w660)},
+        :photos_ratio     => photos.map{|p| p.image_ratio},
         :photos_count     => photos_count,
         :brief            => false,
         :user       => user.api0_json_hash(current_user)
@@ -186,7 +186,7 @@ class Api0::ApiController < ApplicationController
         :photos_thumbnail => brief_photos.map{|p|p.image.url(:s100)},
         :photos_middle    => brief_photos.map{|p|p.image.url(:w210)},
         :photos_large     => brief_photos.map{|p|p.image.url(:w660)},
-        :photos_large_height  => brief_photos.map{|p| p.image_height(:w660)},
+        :photos_ratio     => brief_photos.map{|p| p.image_ratio},
         :photos_count     => photos_count,
         :brief            => true,
         :user       => user.api0_json_hash(current_user)
