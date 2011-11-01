@@ -16,7 +16,7 @@ class FeedFormat
   #
   #  生成顺序
   #  str = 原文持久存储字符串
-  #  str1 = 3次以上/n减为2次/n(str)
+  #  str1 = 2次以上/n减为1次/n(str)
   #  str2 = 截取300字（str1）
   #  str3 = html_escape(str2)
   #  str4 = 转换\n为<br/>(str3)
@@ -26,7 +26,7 @@ class FeedFormat
   def detail_brief(length = 300)
     str1 = reduce_return(@detail)
     str2 = truncate_u(str1, length, '…')
-    str3 = CGI.escapeHTML(str2)
+    str3 = _escape_html(str2)
     str4 = trans_return_to_br(str3)
     str5 = trans_space_to_nbsp(str4)
     
@@ -51,7 +51,7 @@ class FeedFormat
   #  return str4
 
   def detail
-    str1 = CGI.escapeHTML(@detail)
+    str1 = _escape_html(@detail)
     str2 = trans_return_to_br(str1)
     str3 = trans_space_to_nbsp(str2)
     str4 = trans_format_widget(str3)
@@ -59,7 +59,7 @@ class FeedFormat
   end
 
   def title
-    str1 = CGI.escapeHTML(@title)
+    str1 = _escape_html(@title)
     return str1
   end
   
@@ -70,7 +70,7 @@ class FeedFormat
 
   private
     def reduce_return(str)
-      return str.gsub(/\n{2,}/, "\n\n")
+      return str.gsub(/\n{1,}/, "\n")
     end
 
     def trans_return_to_br(str)
@@ -83,5 +83,10 @@ class FeedFormat
 
     def trans_format_widget(str)
       return str
+    end
+
+    # 自定义的html转义方法，不对 & 和 " 进行转义
+    def _escape_html(str)
+      str.gsub(/>/, "&gt;").gsub(/</, "&lt;")
     end
 end

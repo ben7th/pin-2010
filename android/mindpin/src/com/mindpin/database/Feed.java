@@ -1,13 +1,15 @@
 package com.mindpin.database;
 
-import java.text.ParseException;
 import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.BaseUtils;
 
@@ -17,30 +19,40 @@ public class Feed {
 	public String detail;
 	public ArrayList<String> photos_middle;
 	public ArrayList<String> photos_large;
+	public ArrayList<String> photos_thumbnail;
 	public int user_id;
 	public String user_name;
-	public String user_logo_url;
+	public String user_avatar_url;
 	public long updated_at;
 	public String json;
 	
-	public Feed(int feed_id, String title, String detail,
-			ArrayList<String> photos_middle, ArrayList<String> photos_large,
-			int user_id, String user_name, String user_logo_url,
-			long updated_at, String json) {
-		this.feed_id = feed_id;
-		this.title = title;
-		this.detail = detail;
-		this.photos_middle = photos_middle;
-		this.photos_large = photos_large;
-		this.user_id = user_id;
-		this.user_name = user_name;
-		this.user_logo_url = user_logo_url;
-		this.updated_at = updated_at;
-		this.json = json;
+	public Feed(String json){
+		try{
+			JSONObject json_obj = new JSONObject(json);
+			
+			this.feed_id 			= (Integer) json_obj.get("id");
+			this.title 				= (String) json_obj.get("title");
+			this.detail 			= (String) json_obj.get("detail");
+			this.photos_middle 		= json_array_to_array_list((JSONArray) json_obj.get("photos_middle"));
+			this.photos_large 		= json_array_to_array_list((JSONArray) json_obj.get("photos_large"));
+			this.photos_thumbnail 	= json_array_to_array_list((JSONArray) json_obj.get("photos_thumbnail"));
+			this.updated_at 		= BaseUtils.parse_iso_time_string_to_long((String)json_obj.get("updated_at"));
+			
+			JSONObject user = (JSONObject)json_obj.get("user");
+			
+			this.user_id 			= (Integer) user.getInt("id");
+			this.user_name 			= (String) user.get("name");
+			this.user_avatar_url 	= (String) user.get("avatar_url");
+			
+			this.json = json;
+		}catch(Exception e){
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	public static Feed create_or_update(String json){
-		Feed newest_feed = build_by_json(json);
+		Feed newest_feed = new Feed(json);
 		Feed old_feed = find(newest_feed.feed_id);
 		if(old_feed == null){
 			newest_feed.create();
@@ -81,39 +93,8 @@ public class Feed {
 		db.close();
 		if(has){
 			String json = cursor.getString(0);
-			return Feed.build_by_json(json);			
+			return new Feed(json);			
 		}else{
-			return null;
-		}
-	}
-	
-	
-	public static Feed build_by_json(String json) {
-		try {
-			JSONObject json_obj = new JSONObject(json);
-			String time_str = (String)json_obj.get("updated_at");
-			
-			int feed_id = (Integer)json_obj.get("id");
-			String title = (String)json_obj.get("title");
-			String detail = (String)json_obj.get("detail");
-			long updated_at = BaseUtils.parse_iso_time_string_to_long(time_str);
-			ArrayList<String> photos_middle = json_array_to_array_list((JSONArray) json_obj
-					.get("photos_middle"));
-			ArrayList<String> photos_large = json_array_to_array_list((JSONArray) json_obj
-					.get("photos_large"));
-			JSONObject user = (JSONObject)json_obj.get("user");
-			int user_id = (Integer)user.getInt("id");
-			String user_name = (String)user.get("name");
-			String user_logo_url = (String)user.get("avatar_url");
-			Feed feed = new Feed(feed_id, title, detail, photos_middle,
-					photos_large, user_id, user_name, user_logo_url,
-					updated_at, json);
-			return feed;
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		} catch (ParseException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -124,30 +105,10 @@ public class Feed {
 			JSONArray json_arr = new JSONArray(json);
 			for (int i = 0; i < json_arr.length(); i++) {
 				JSONObject json_obj = (JSONObject)json_arr.get(i);
-				String time_str = (String)json_obj.get("updated_at");
-				
-				int feed_id = (Integer)json_obj.get("id");
-				String title = (String)json_obj.get("title");
-				String detail = (String)json_obj.get("detail");
-				long updated_at = BaseUtils.parse_iso_time_string_to_long(time_str);
-				ArrayList<String> photos_middle = json_array_to_array_list((JSONArray) json_obj
-						.get("photos_middle"));
-				ArrayList<String> photos_large = json_array_to_array_list((JSONArray) json_obj
-						.get("photos_large"));
-				JSONObject user = (JSONObject)json_obj.get("user");
-				int user_id = (Integer)user.getInt("id");
-				String user_name = (String)user.get("name");
-				String user_logo_url = (String)user.get("avatar_url");
-				Feed feed = new Feed(feed_id, title, detail, photos_middle,
-						photos_large, user_id, user_name, user_logo_url,
-						updated_at, json_obj.toString());
-				feeds.add(feed);
+				feeds.add(new Feed(json_obj.toString()));
 			}
 			return feeds;
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return feeds;
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return feeds;
 		}

@@ -9,7 +9,7 @@
 -photos = @feed.photos
 -has_photo = !photos.blank?
 
--detail = FeedFormat.new(@feed).detail
+-detail = auto_link FeedFormat.new(@feed).detail
 -has_detail = !detail.blank?
 
 -edit_link = "/feeds/#{feed_id}/edit"

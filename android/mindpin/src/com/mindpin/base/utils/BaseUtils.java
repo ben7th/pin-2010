@@ -35,7 +35,7 @@ import com.mindpin.application.MindpinApplication;
 public class BaseUtils {
 	
 	
-	public static int get_px_by_dip(int dip) {
+	public static int dp_to_px(int dip) {
 		Resources r = MindpinApplication.context.getResources();
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, r.getDisplayMetrics());
 	}

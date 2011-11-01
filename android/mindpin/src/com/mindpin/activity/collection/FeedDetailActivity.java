@@ -9,24 +9,17 @@ import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Gallery;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher.ViewFactory;
 
 import com.mindpin.R;
-import com.mindpin.Logic.FeedPhotoSwitch;
 import com.mindpin.Logic.Http;
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
@@ -34,14 +27,10 @@ import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
+import com.mindpin.widget.MindpinImageSwitcher;
 
 public class FeedDetailActivity extends MindpinBaseActivity {
 	public static String EXTRA_NAME_FEED_ID = "feed_id";
-	private ImageSwitcher feed_photos_image_switcher;
-	private TextView feed_photos_footer;
-	private int photos_current_index = 0;
-	private ArrayList<String> photo_urls;
-	private MotionEvent down_event;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,36 +88,24 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		
 		//作者头像
 		ImageView creator_logo_iv = (ImageView) findViewById(R.id.creator_logo);
-		String url = feed.user_logo_url;
+		String url = feed.user_avatar_url;
 		creator_logo_iv.setImageBitmap(get_bitmap(url));
 	}
 	
 	private void show_feed_photos(Feed feed) {
 		try {
-			this.photo_urls = feed.photos_large;
+			ArrayList<String> photo_urls = feed.photos_large;
 			if(photo_urls.size()!=0){
-				this.feed_photos_image_switcher = (ImageSwitcher)findViewById(R.id.feed_photos_image_switcher);
-				this.feed_photos_footer = (TextView)findViewById(R.id.feed_photos_footer);
-				feed_photos_image_switcher.setLongClickable(true);
-				feed_photos_image_switcher.setFactory(new ViewFactory() {
-					@Override
-					public View makeView() {
-						ImageView view = new ImageView(MindpinApplication.context);
-						view.setImageResource(R.drawable.img_loading);
-						return view;
-					}
-				});
-				// 显示第一幅图片
-				show_current_image();
+				final MindpinImageSwitcher feed_photos_image_switcher = (MindpinImageSwitcher)findViewById(R.id.feed_photos_image_switcher);
+				feed_photos_image_switcher.load_urls(photo_urls);
+				
 				OnTouchListener touch_listener = new OnTouchListener() {
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
-						return on_touch_event(event);
+						feed_photos_image_switcher.onTouchEvent(event);
+						return false;
 					}
 				};
-				// 滚动条和 image_switcher 都需要注册事件
-				// 这样当 从图片内滑到图片外时才能正常工作
-				feed_photos_image_switcher.setOnTouchListener(touch_listener);
 				ScrollView feed_detail_scroll = (ScrollView)findViewById(R.id.feed_detail_scroll);
 				feed_detail_scroll.setOnTouchListener(touch_listener);
 			}
@@ -138,35 +115,6 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		}		
 	}
 	
-	public boolean on_touch_event(MotionEvent event) {
-		System.out.println(event.getAction() );
-		if(event.getAction() == MotionEvent.ACTION_DOWN){
-			this.down_event = MotionEvent.obtain(event);
-		}else if(event.getAction() == MotionEvent.ACTION_UP){
-			float down_x = this.down_event.getX();
-			float up_x = event.getX();
-			if(Math.abs(down_x-up_x) > 50){
-				if(down_x > up_x){
-					on_left();
-				}else{
-					on_right();
-				}
-			}
-		}
-		return true;
-	}
-	
-	private void show_current_image() {
-		ImageView image_view = (ImageView) feed_photos_image_switcher.getNextView();
-		image_view.setImageResource(R.drawable.img_loading);
-		feed_photos_image_switcher.showNext();
-		String footer_text = photos_current_index  + 1 + "/" + photo_urls.size();
-		feed_photos_footer.setText(footer_text);
-		
-		String image_url = photo_urls.get(photos_current_index);
-		FeedImageCache.load_cached_image(image_url, image_view);
-	}
-
 	private Bitmap get_bitmap(String image_url) {
 		Bitmap mBitmap = null;
 		try {
@@ -184,20 +132,5 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		return mBitmap;
 	}
 	
-	private void on_right() {
-		if(photos_current_index > 0){
-			System.out.println("right");
-			photos_current_index--;
-			show_current_image();
-		}
-	}
-
-	private void on_left() {
-		if(photos_current_index+1 < photo_urls.size()){
-			System.out.println("left");
-			photos_current_index++;
-			show_current_image();
-		}
-	}
 
 }

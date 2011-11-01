@@ -2,9 +2,6 @@ package com.mindpin.widget;
 
 import java.util.ArrayList;
 
-import com.mindpin.R;
-import com.mindpin.application.MindpinApplication;
-
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
@@ -12,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.SpinnerAdapter;
+
+import com.mindpin.R;
+import com.mindpin.application.MindpinApplication;
 
 public class ImageAdapter extends BaseAdapter {
 	private ArrayList<String> image_urls;

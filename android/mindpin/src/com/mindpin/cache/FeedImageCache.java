@@ -42,7 +42,7 @@ public class FeedImageCache {
 		try {
 			URI uri = new URI(image_url);
 
-			String filename = uri.hashCode() + "";
+			String filename = uri.hashCode() + ".cache";
 
 			File cache_file = new File(
 					FileDirs.mindpin_downloaded_image_cache_dir(), filename);

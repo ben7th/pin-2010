@@ -213,7 +213,7 @@ public class Http {
 					@Override
 					public Feed on_success(String response_text)
 							throws Exception {
-						Feed feed = Feed.build_by_json(response_text);
+						Feed feed = new Feed(response_text);
 						Feed.create_or_update(feed.json);
 						return feed;
 					}

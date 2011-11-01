@@ -4,45 +4,40 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     style="@style/feed_list_item"
 >
+
+	<include 
+		layout="@layout/part_feed_list_userinfo"
+	/>
+
 	<LinearLayout
-		android:layout_width="wrap_content"   
-	    android:layout_height="wrap_content"
+		android:orientation="vertical"
+		style="@style/feed_list_content"
 	>
-		<ImageView
-			android:id="@+id/feed_photo"
-			android:layout_width="192dp"   
-	    	android:layout_height="192dp"
-	    	android:src="@drawable/img_loading"
-		/>
-	</LinearLayout>
-	<LinearLayout
-		android:layout_width="wrap_content"   
-	    android:layout_height="fill_parent"
-	    android:orientation="vertical"
-	    android:gravity="center_horizontal"
-	    android:padding="9dp"
-	>
-		<TextView   
-		    android:id="@+id/feed_id"
-		    android:layout_height="wrap_content"   
-		    android:layout_width="fill_parent"   
-		    android:textSize="14dp"
-		    android:visibility="gone"
-	    />
+	
 		<TextView   
 		    android:id="@+id/feed_title"
-		    android:layout_height="wrap_content"   
-		    android:layout_width="fill_parent"
-		    android:textSize="16dp"
+		    style="@style/feed_list_item_title"
 	    />
-		<TextView   
-		    android:id="@+id/feed_detail"
-		    android:layout_height="wrap_content"   
-		    android:layout_width="fill_parent"
-		    android:textSize="16dp"
-	    />
+	    
+	    <LinearLayout 
+	    	android:orientation="horizontal"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    >
+			<ImageView
+				android:id="@+id/feed_photo"
+				android:layout_width="84dp"   
+		    	android:layout_height="84dp"
+		    	android:layout_marginRight="4dp"
+		    	android:src="@drawable/img_loading"
+			/>
+	
+			<TextView   
+			    android:id="@+id/feed_detail"
+			    style="@style/feed_list_item_text"
+		    />
+	    </LinearLayout>
 	</LinearLayout>
 </LinearLayout>

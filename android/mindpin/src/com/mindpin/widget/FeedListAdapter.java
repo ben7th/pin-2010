@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.application.MindpinApplication;
-import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
@@ -87,70 +86,114 @@ public class FeedListAdapter extends BaseAdapter {
 	}
 
 	private View create_more_photo_view(Feed feed, ViewGroup parent) {
-		View view = MindpinApplication.inflate(R.layout.feed_list_item_more_photos,
-				parent, false);
-		TextView id_tv = (TextView) view.findViewById(R.id.feed_id);
-		id_tv.setText(feed.feed_id + "");
-		TextView title_tv = (TextView) view.findViewById(R.id.feed_title);
-		title_tv.setText(feed.title);
-		TextView detail_tv = (TextView) view.findViewById(R.id.feed_detail);
-		detail_tv.setText(feed.detail);
-		ArrayList<String> photos = feed.photos_middle;
-		LinearLayout feed_photos = (LinearLayout) view
-				.findViewById(R.id.feed_photos);
-		for (int i = 0; i < photos.size(); i++) {
-			if (i > 5) {
-				break;
-			}
-			String photo_url = photos.get(i);
-
-			ImageView img = new ImageView(MindpinApplication.context);
-			img.setAdjustViewBounds(true); // 设置这个使得图片缩放后内容合适
-			Bitmap b = ((BitmapDrawable) MindpinApplication.context.getResources().getDrawable(
-					R.drawable.img_loading)).getBitmap();
-			LayoutParams lp = new LayoutParams(BaseUtils.get_px_by_dip(96),
-					BaseUtils.get_px_by_dip(96));
-			img.setLayoutParams(lp);
-			img.setImageBitmap(b);
-			feed_photos.addView(img);
-
-			FeedImageCache.load_cached_image(photo_url, img);
-		}
+		View view = MindpinApplication.inflate(
+				R.layout.feed_list_item_more_photos, parent, false);
+		
+		set_photos(view, feed);
+		set_basic_info(view, feed);
 
 		return view;
 	}
 
 	private View create_single_photo_view(Feed feed, ViewGroup parent) {
-		View view = MindpinApplication.inflate(R.layout.feed_list_item_single_photo,
-				parent, false);
-		TextView id_tv = (TextView) view.findViewById(R.id.feed_id);
-		id_tv.setText(feed.feed_id + "");
-		TextView title_tv = (TextView) view.findViewById(R.id.feed_title);
-		title_tv.setText(feed.title);
-		TextView detail_tv = (TextView) view.findViewById(R.id.feed_detail);
-		detail_tv.setText(feed.detail);
-		ImageView image_view = (ImageView) view.findViewById(R.id.feed_photo);
-		String photo_url = feed.photos_middle.get(0);
+		View view = MindpinApplication.inflate(
+				R.layout.feed_list_item_single_photo, parent, false);
 
-		FeedImageCache.load_cached_image(photo_url, image_view);
+		set_single_photo(view, feed);
+		set_basic_info(view, feed);
 		return view;
 	}
 
 	private View create_no_photo_view(Feed feed, ViewGroup parent) {
-		View view = MindpinApplication.inflate(R.layout.feed_list_item_no_photo, parent,
-				false);
+		View view = MindpinApplication.inflate(
+				R.layout.feed_list_item_no_photo, parent, false);
 		
+		set_basic_info(view, feed);
+		return view;
+	}
+	
+	private void set_single_photo(View view, Feed feed){
+		ImageView image_view = (ImageView) view.findViewById(R.id.feed_photo);
+		String photo_url = feed.photos_thumbnail.get(0);
+		image_view.setAdjustViewBounds(true);
+
+		FeedImageCache.load_cached_image(photo_url, image_view);
+	}
+	
+	private void set_photos(View view, Feed feed) {
+		ArrayList<String> photo_urls = feed.photos_thumbnail;
+		LinearLayout feed_photos = (LinearLayout) view
+				.findViewById(R.id.feed_photos);
+
+		for (String photo_url : photo_urls) {
+			ImageView image_view = new ImageView(MindpinApplication.context);
+			image_view.setAdjustViewBounds(true); // 设置这个使得图片缩放后内容合适
+			Bitmap b = ((BitmapDrawable) MindpinApplication.context
+					.getResources().getDrawable(R.drawable.img_loading))
+					.getBitmap();
+			int size_width = BaseUtils.dp_to_px(84);
+			LayoutParams lp = new LayoutParams(size_width, size_width);
+			lp.rightMargin = BaseUtils.dp_to_px(4); // 3x86 + 2x2 = 3x84+2x4
+			lp.bottomMargin = BaseUtils.dp_to_px(9);
+			image_view.setLayoutParams(lp);
+			image_view.setImageBitmap(b);
+			feed_photos.addView(image_view);
+
+			FeedImageCache.load_cached_image(photo_url, image_view);
+		}
+	}
+	
+	
+	private void set_basic_info(View view, Feed feed){
+		set_id(view, feed);
+		set_title(view, feed);
+		set_detail(view, feed);
+		
+		set_user_avatar(view, feed);
+		set_user_name(view, feed);
+		set_updated_at(view, feed);
+	}
+	
+	private void set_id(View view, Feed feed){
 		TextView id_textview = (TextView) view.findViewById(R.id.feed_id);
 		id_textview.setText(feed.feed_id + "");
-		
+	}
+	
+	private void set_title(View view, Feed feed){
 		TextView title_textview = (TextView) view.findViewById(R.id.feed_title);
-		title_textview.setText(feed.title);
-		title_textview.getPaint().setFakeBoldText(true);
 		
+		if (BaseUtils.is_str_blank(feed.title)) {
+			title_textview.setVisibility(View.GONE);
+		} else {
+			title_textview.setText(feed.title);
+			// title_textview.getPaint().setFakeBoldText(true);
+		}
+	}
+	
+	private void set_detail(View view, Feed feed) {
 		TextView detail_textview = (TextView) view.findViewById(R.id.feed_detail);
-		detail_textview.setText(Html.fromHtml(feed.detail));
 		
-		return view;
+		if (BaseUtils.is_str_blank(feed.detail)) {
+			detail_textview.setVisibility(View.GONE);
+		} else {
+
+			detail_textview.setText(Html.fromHtml(feed.detail));
+		}
+	}
+	
+	private void set_user_avatar(View view, Feed feed){
+		ImageView user_avatar = (ImageView) view.findViewById(R.id.user_avatar);
+		FeedImageCache.load_cached_image(feed.user_avatar_url, user_avatar);
+	}
+	
+	private void set_user_name(View view, Feed feed){
+		TextView user_name_textview = (TextView) view.findViewById(R.id.user_name);
+		user_name_textview.setText(feed.user_name);
+	}
+	
+	private void set_updated_at(View view, Feed feed){
+		TextView updated_at_textview = (TextView) view.findViewById(R.id.updated_at);
+		updated_at_textview.setText(BaseUtils.date_string(feed.updated_at));
 	}
 
 }

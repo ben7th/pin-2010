@@ -48,7 +48,7 @@
 				android:layout_width="fill_parent"
 	        	android:layout_height="wrap_content" 
 			>
-				<ImageSwitcher
+				<com.mindpin.widget.MindpinImageSwitcher
 					android:layout_gravity="center"
 			    	android:id="@+id/feed_photos_image_switcher"
 					android:layout_width="wrap_content"
