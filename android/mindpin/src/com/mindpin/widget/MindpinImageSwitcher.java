@@ -47,7 +47,7 @@ public class MindpinImageSwitcher extends ViewAnimator {
 			addView(image_view, i);
 		}
 	}
-
+	
 	@Override
 	public void showNext() {
 		if (which_child >= getChildCount() - 1) {
@@ -59,19 +59,14 @@ public class MindpinImageSwitcher extends ViewAnimator {
 		setOutAnimation(getContext(), R.anim.slide_out_left);
 		setDisplayedChild(next);
 		System.out.println("index " +which_child);
-
-		if (next >= 6 && image_urls.size() - 1 > end_index) {
+		
+		if (end_index-which_child < 5 && image_urls.size() - 1 > end_index) {
 			// 增加新的图片
 			String image_url = image_urls.get(end_index + 1);
 			ImageView image_view = new ImageView(MindpinApplication.context);
 			FeedImageCache.load_cached_image(image_url, image_view);
 			addView(image_view);
-			// 删除一个旧的图片
-			removeViewAt(0);
-			// 角标向后移动 1
-			start_index++;
 			end_index++;
-			which_child--;
 		}
 	}
 
@@ -87,26 +82,26 @@ public class MindpinImageSwitcher extends ViewAnimator {
 		setDisplayedChild(previous);
 		System.out.println("index " +which_child);
 
-		if (start_index != 0 && previous <= 5) {
-			// 增加新的图片
-			String image_url = image_urls.get(start_index - 1);
-			ImageView image_view = new ImageView(MindpinApplication.context);
-			FeedImageCache.load_cached_image(image_url, image_view);
-
-			ArrayList<View> views = get_children();
-			System.out.println("count " +  views.size());
-			views.remove(views.size() - 1);
-			removeAllViews();
-
-			addView(image_view);
-			for (View view : views) {
-				addView(view);
-			}
-			// 角标向前移动 1
-			start_index--;
-			end_index--;
-			which_child++;
-		}
+//		if (start_index != 0 && previous <= 5) {
+//			// 增加新的图片
+//			String image_url = image_urls.get(start_index - 1);
+//			ImageView image_view = new ImageView(MindpinApplication.context);
+//			FeedImageCache.load_cached_image(image_url, image_view);
+//
+//			ArrayList<View> views = get_children();
+//			System.out.println("count " +  views.size());
+//			views.remove(views.size() - 1);
+//			removeAllViews();
+//
+//			addView(image_view);
+//			for (View view : views) {
+//				addView(view);
+//			}
+//			// 角标向前移动 1
+//			start_index--;
+//			end_index--;
+//			which_child++;
+//		}
 
 	}
 

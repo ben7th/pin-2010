@@ -15,29 +15,21 @@
 		android:orientation="vertical"
 		style="@style/feed_list_content"
 	>
+		<ImageView
+			android:id="@+id/feed_photo"
+			android:layout_width="260dp"   
+	    	android:layout_height="260dp"
+	    	android:src="@drawable/img_loading"
+		/>
 	
 		<TextView   
 		    android:id="@+id/feed_title"
 		    style="@style/feed_list_item_title"
+	    />	    
+
+		<TextView   
+		    android:id="@+id/feed_detail"
+		    style="@style/feed_list_item_text"
 	    />
-	    
-	    <LinearLayout 
-	    	android:orientation="horizontal"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    >
-			<ImageView
-				android:id="@+id/feed_photo"
-				android:layout_width="84dp"   
-		    	android:layout_height="84dp"
-		    	android:layout_marginRight="4dp"
-		    	android:src="@drawable/img_loading"
-			/>
-	
-			<TextView   
-			    android:id="@+id/feed_detail"
-			    style="@style/feed_list_item_text"
-		    />
-	    </LinearLayout>
 	</LinearLayout>
 </LinearLayout>

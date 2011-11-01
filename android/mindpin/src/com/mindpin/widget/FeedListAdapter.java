@@ -116,7 +116,10 @@ public class FeedListAdapter extends BaseAdapter {
 		ImageView image_view = (ImageView) view.findViewById(R.id.feed_photo);
 		String photo_url = feed.photos_thumbnail.get(0);
 		image_view.setAdjustViewBounds(true);
-
+		LayoutParams lp = new LayoutParams(image_view.getLayoutParams());
+		lp.bottomMargin = BaseUtils.dp_to_px(9);
+		image_view.setLayoutParams(lp);
+		
 		FeedImageCache.load_cached_image(photo_url, image_view);
 	}
 	
