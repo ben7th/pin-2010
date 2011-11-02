@@ -20,7 +20,7 @@ public class Feed {
 	public ArrayList<String> photos_middle;
 	public ArrayList<String> photos_large;
 	public ArrayList<String> photos_thumbnail;
-	public ArrayList<Double> photos_large_ratio;
+	public ArrayList<Double> photos_ratio;
 	public int user_id;
 	public String user_name;
 	public String user_avatar_url;
@@ -31,14 +31,14 @@ public class Feed {
 		try{
 			JSONObject json_obj = new JSONObject(json);
 			
-			this.feed_id 			 = (Integer) json_obj.get("id");
-			this.title 				 = (String) json_obj.get("title");
-			this.detail 			 = (String) json_obj.get("detail");
-			this.photos_middle 		 = json_array_to_array_list((JSONArray) json_obj.get("photos_middle"));
-			this.photos_large 		 = json_array_to_array_list((JSONArray) json_obj.get("photos_large"));
-			this.photos_thumbnail 	 = json_array_to_array_list((JSONArray) json_obj.get("photos_thumbnail"));
-			this.photos_large_ratio = json_array_to_array_list_double((JSONArray) json_obj.get("photos_large_ratio"));
-			this.updated_at 		 = BaseUtils.parse_iso_time_string_to_long((String)json_obj.get("updated_at"));
+			this.feed_id 			= (Integer) json_obj.get("id");
+			this.title 				= (String) json_obj.get("title");
+			this.detail 			= (String) json_obj.get("detail");
+			this.photos_middle 		= json_array_to_array_list((JSONArray) json_obj.get("photos_middle"));
+			this.photos_large 		= json_array_to_array_list((JSONArray) json_obj.get("photos_large"));
+			this.photos_thumbnail 	= json_array_to_array_list((JSONArray) json_obj.get("photos_thumbnail"));
+			this.photos_ratio 		= json_array_to_array_list_double((JSONArray) json_obj.get("photos_ratio"));
+			this.updated_at 		= BaseUtils.parse_iso_time_string_to_long((String)json_obj.get("updated_at"));
 			
 			JSONObject user = (JSONObject)json_obj.get("user");
 			

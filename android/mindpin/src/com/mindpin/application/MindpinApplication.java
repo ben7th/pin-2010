@@ -15,13 +15,14 @@ public class MindpinApplication extends Application {
 		return mInflater.inflate(resource, root, attachToRoot);
 	}
 	
+	public static View inflate(int resource, ViewGroup root){
+		return mInflater.inflate(resource, root);
+	}
+	
 	@Override
 	public void onCreate() {
 		context = getApplicationContext();
-
-		mInflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+		mInflater = LayoutInflater.from(context);
 		super.onCreate();
 	}
 }

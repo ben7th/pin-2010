@@ -2,23 +2,20 @@ package com.mindpin.widget;
 
 import java.util.ArrayList;
 
-import com.mindpin.R;
-import com.mindpin.application.MindpinApplication;
-import com.mindpin.cache.FeedImageCache;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewAnimator;
+
+import com.mindpin.R;
+import com.mindpin.cache.ImageCache;
 
 public class MindpinImageSwitcher extends ViewAnimator {
 	private ArrayList<String> image_urls;
-	private int start_index;
-	private int end_index;
-
-	private int which_child = 0;
 	private MotionEvent down_event;
+	private TextView footer;
 
 	public MindpinImageSwitcher(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -28,94 +25,64 @@ public class MindpinImageSwitcher extends ViewAnimator {
 		super(context);
 	}
 
-	public void load_urls(ArrayList<String> image_urls) {
+	public void load_urls(ArrayList<String> image_urls, TextView footer) {
 		this.image_urls = image_urls;
-		this.start_index = 0;
-		this.end_index = 10;
-		if (image_urls.size() - 1 < end_index) {
-			end_index = image_urls.size() - 1;
-		}
-		load_part_image();
-		setDisplayedChild(0);
-	}
-
-	private void load_part_image() {
-		for (int i = start_index; i <= end_index; i++) {
-			String image_url = image_urls.get(i);
+		this.footer = footer;
+		for (int i = 0; i < image_urls.size(); i++) {
 			ImageView image_view = new ImageView(getContext());
-			FeedImageCache.load_cached_image(image_url, image_view);
 			addView(image_view, i);
 		}
+		show_first();
+	}
+
+	private void show_first(){
+		load_bitmap(0);
+		load_bitmap(1);
+		setDisplayedChild(0);
+		footer.setText("1/"+image_urls.size());
 	}
 	
 
 	@Override
 	public void showNext() {
-		if (which_child >= getChildCount() - 1) {
+		int index = getDisplayedChild();
+		if (index >= getChildCount() - 1) {
 			// 到最后了
 			return;
 		}
-		int next = which_child + 1;
+		
 		setInAnimation(getContext(), R.anim.slide_in_right);
 		setOutAnimation(getContext(), R.anim.slide_out_left);
-		setDisplayedChild(next);
-		System.out.println("index " +which_child);
-
-		if (next >= 6 && image_urls.size() - 1 > end_index) {
-			// 增加新的图片
-			String image_url = image_urls.get(end_index + 1);
-			ImageView image_view = new ImageView(MindpinApplication.context);
-			FeedImageCache.load_cached_image(image_url, image_view);
-			addView(image_view);
-			// 删除一个旧的图片
-			removeViewAt(0);
-			// 角标向后移动 1
-			start_index++;
-			end_index++;
-			which_child--;
+		if(index<image_urls.size()-1){
+			load_bitmap(index+1);
 		}
+		load_bitmap(index+1);
+		setDisplayedChild(index+1);
+		if(index-1>=0){
+			remove_bitmap(index-1);
+		}
+		footer.setText(index+2+"/"+image_urls.size());
 	}
 
 	@Override
 	public void showPrevious() {
-		if (which_child <= 0) {
+		int index = getDisplayedChild();
+		if (index <= 0) {
 			// 到最开始了
 			return;
 		}
 		setInAnimation(getContext(), R.anim.slide_in_left);
 		setOutAnimation(getContext(), R.anim.slide_out_right);
 		
-		if (start_index != 0 && which_child <= 6) {
-			// 增加新的图片
-			String image_url = image_urls.get(start_index - 1);
-			ImageView image_view = new ImageView(MindpinApplication.context);
-			FeedImageCache.load_cached_image(image_url, image_view);
-
-			ArrayList<View> views = get_children();
-			System.out.println("count " +  views.size());
-			views.remove(views.size() - 1);
-			removeAllViews();
-			addView(image_view);
-			for (View view : views) {
-				addView(view);
-			}
-			View view = getChildAt(which_child+1);
-			view.setVisibility(View.VISIBLE);
-			
-			setDisplayedChild(which_child);
-			// 角标向前移动 1
-			start_index--;
-			end_index--;
-		}else{
-			setDisplayedChild(which_child-1);
+		if(index-1>=0){
+			load_bitmap(index-1);
 		}
-
-	}
-
-	@Override
-	public void setDisplayedChild(int whichChild) {
-		this.which_child = whichChild;
-		super.setDisplayedChild(whichChild);
+		setDisplayedChild(index-1);
+		if(index<image_urls.size()-1){
+			remove_bitmap(index+1);
+		}
+		
+		footer.setText(index+"/"+image_urls.size());
 	}
 
 	@Override
@@ -140,12 +107,15 @@ public class MindpinImageSwitcher extends ViewAnimator {
 		return super.onTouchEvent(event);
 	}
 
-	private ArrayList<View> get_children() {
-		ArrayList<View> views = new ArrayList<View>();
-		for (int i = 0; i < getChildCount(); i++) {
-			views.add(getChildAt(i));
-		}
-		return views;
+	private void load_bitmap(int index){
+		String image_url = image_urls.get(index);
+		ImageView image_view = (ImageView)getChildAt(index);
+		ImageCache.load_cached_image(image_url, image_view);
+	}
+	
+	private void remove_bitmap(int index){
+		ImageView image_view = (ImageView)getChildAt(index);
+		image_view.setBackgroundResource(R.drawable.bg_image_loading);
 	}
 
 }

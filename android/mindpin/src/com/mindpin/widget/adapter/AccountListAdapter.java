@@ -1,4 +1,4 @@
-package com.mindpin.widget;
+package com.mindpin.widget.adapter;
 
 import java.util.ArrayList;
 

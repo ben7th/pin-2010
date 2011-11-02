@@ -13,19 +13,15 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher.ViewFactory;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
-import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.cache.FeedImageCache;
 import com.mindpin.database.Feed;
 import com.mindpin.widget.MindpinImageSwitcher;
 
@@ -48,11 +44,13 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 			@Override
 			public Feed do_in_background(String... params) throws Exception {
 				String feed_id = params[0];
+				System.out.println("read");
 				return Http.read_feed(feed_id);
 			}
 
 			@Override
 			public void on_success(Feed feed) {
+				System.out.println("show");
 				show_feed(feed);
 			}
 		}.execute(feed_id);
@@ -97,8 +95,10 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 			ArrayList<String> photo_urls = feed.photos_large;
 			if(photo_urls.size()!=0){
 				final MindpinImageSwitcher feed_photos_image_switcher = (MindpinImageSwitcher)findViewById(R.id.feed_photos_image_switcher);
-				feed_photos_image_switcher.load_urls(photo_urls);
+				TextView footer = (TextView)findViewById(R.id.feed_photos_footer);
+				feed_photos_image_switcher.load_urls(photo_urls,footer);
 				
+				// ×¢²á×óÓÒ»¬¶¯Ê±¼ä
 				OnTouchListener touch_listener = new OnTouchListener() {
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {

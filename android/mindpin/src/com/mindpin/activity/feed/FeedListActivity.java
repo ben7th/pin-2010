@@ -18,7 +18,7 @@ import com.mindpin.activity.collection.FeedDetailActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.database.Feed;
-import com.mindpin.widget.FeedListAdapter;
+import com.mindpin.widget.adapter.FeedListAdapter;
 
 public class FeedListActivity extends MindpinBaseActivity {
 	private FeedListAdapter adapter;

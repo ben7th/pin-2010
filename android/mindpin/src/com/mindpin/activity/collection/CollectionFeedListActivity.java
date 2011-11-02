@@ -22,8 +22,8 @@ import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.runnable.MindpinHandler;
 import com.mindpin.base.runnable.MindpinRunnable;
 import com.mindpin.database.Feed;
-import com.mindpin.widget.FeedListAdapter;
 import com.mindpin.widget.MindpinProgressDialog;
+import com.mindpin.widget.adapter.FeedListAdapter;
 
 public class CollectionFeedListActivity extends MindpinBaseActivity {
 	public static final String EXTRA_COLLECTION_ID = "collection_id";

@@ -178,6 +178,7 @@ public class User extends BaseModel {
 			InputStream stream = Http.download_image(avatar_url);
 			if(null != stream){
 				FileUtils.copyInputStreamToFile(stream, get_avatar_file());
+				stream.close();
 			}
 			
 			// 保存数据库信息

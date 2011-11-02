@@ -16,7 +16,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.database.User;
-import com.mindpin.widget.AccountListAdapter;
+import com.mindpin.widget.adapter.AccountListAdapter;
 
 public class AccountManagerActivity extends MindpinBaseActivity {
 	

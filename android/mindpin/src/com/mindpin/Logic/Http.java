@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -136,8 +137,8 @@ public class Http {
 			HttpGet httpget = new HttpGet(image_url);
 			httpget.setHeader("User-Agent", "android");
 			HttpResponse response = MindpinHttpRequest.get_httpclient_instance().execute(httpget);
-			String res = response.getStatusLine().toString();
-			if ("HTTP/1.1 200 OK".equals(res)) {
+			int status_code = response.getStatusLine().getStatusCode();
+			if (HttpStatus.SC_OK == status_code) {
 				return response.getEntity().getContent();
 			} else {
 				return null;

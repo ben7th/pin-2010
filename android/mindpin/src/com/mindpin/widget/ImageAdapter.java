@@ -3,7 +3,6 @@ package com.mindpin.widget;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -39,9 +38,8 @@ public class ImageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Context context = MindpinApplication.context;
 		ImageView image_view = new ImageView(context);
-		BitmapDrawable draw = (BitmapDrawable) context.getResources()
-				.getDrawable(R.drawable.img_loading);
-		image_view.setImageBitmap(draw.getBitmap());
+
+		image_view.setBackgroundResource(R.drawable.bg_image_loading);
 		image_view.setScaleType(ImageView.ScaleType.FIT_XY);
 		image_view.setLayoutParams(new Gallery.LayoutParams(400, 400));
 		return image_view;

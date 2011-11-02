@@ -41,14 +41,6 @@ class Photo < UserAuthAbstract
     self.md5 = Digest::MD5.hexdigest(File.read(file_path))
   end
 
-  def image_size(style = :original)
-    path = self.image.path(style)
-    image = Magick::Image::read(File.new(path)).first
-    {:height=>image.rows,:width=>image.columns}
-  rescue Exception => ex
-    {:height=>0,:width=>0}
-  end
-
   def image_height(style = :original)
     image_size(style)[:height]
   end

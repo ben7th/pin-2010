@@ -5,12 +5,15 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.client.HttpClient;
+
 import com.mindpin.base.task.MindpinAsyncTask;
-import com.mindpin.cache.FeedImageCache;
+import com.mindpin.cache.ImageCache;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 
 public class CacheImageBroadcastReceiver extends BroadcastReceiver {
 
@@ -25,8 +28,8 @@ public class CacheImageBroadcastReceiver extends BroadcastReceiver {
 
 			@Override
 			public Void do_in_background(String... params) throws Exception {
-				File cache_file = FeedImageCache.get_cache_file(image_url);
-				if(!cache_file.exists()){
+				File cache_file = ImageCache.get_cache_file(image_url);
+				if(null != cache_file && !cache_file.exists()){
 					URL url = new URL(image_url);
 					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 					InputStream is = conn.getInputStream();
