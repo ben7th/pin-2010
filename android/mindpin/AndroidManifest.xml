@@ -47,7 +47,7 @@
 		<activity android:name=".activity.sendfeed.showImageCaptureActivity"></activity>
 
 		<!-- collection -->
-		<activity android:name=".activity.collection.FeedDetailActivity"></activity>
+		<activity android:name=".activity.feed.FeedDetailActivity"></activity>
 		<activity android:name=".activity.collection.CollectionListActivity"></activity>
 		<activity android:name=".activity.collection.CollectionFeedListActivity"></activity>
 		<!-- home_timeline -->		

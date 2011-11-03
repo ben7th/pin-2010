@@ -161,11 +161,22 @@ public class Http {
 			}
 		}.go();
 	}
-
+	
 	public static ArrayList<Feed> get_collection_feeds(int id) throws UnsupportedEncodingException, Exception {
+		return get_collection_feeds(id,-1);
+	}
+
+	public static ArrayList<Feed> get_collection_feeds(int id,int max_id) throws UnsupportedEncodingException, Exception {
+		BasicNameValuePair param;
+		if (max_id != -1) {
+			param = new BasicNameValuePair("max_id", max_id + "");
+		} else {
+			param = new BasicNameValuePair("max_id", "");
+		}
 		return new MindpinGetRequest<ArrayList<Feed>>(
 				收集册的主题列表, 
-				new BasicNameValuePair("collection_id", id+"")
+				new BasicNameValuePair("collection_id", id+""),
+				param
 				){
 			@Override
 			public ArrayList<Feed> on_success(String response_text) throws Exception {

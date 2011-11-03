@@ -1,7 +1,10 @@
 -#use 显示主题
 
--title_short = feed_title_short(@feed,15)
--has_title = !title_short.blank?
+-feed_format = FeedFormat.new(@feed)
+
+-title_brief = feed_format.title_brief
+-title = feed_format.title
+-has_title = !title_brief.blank?
 
 -creator = @feed.creator
 -collection = @feed.collections.first
@@ -9,14 +12,14 @@
 -photos = @feed.photos
 -has_photo = !photos.blank?
 
--detail = auto_link FeedFormat.new(@feed).detail
+-detail = auto_link feed_format.detail
 -has_detail = !detail.blank?
 
 -edit_link = "/feeds/#{feed_id}/edit"
 -repost_link = "/feeds/#{feed_id}/repost"
 -delete_link = "/feeds/#{feed_id}"
 
--htitle title_short
+-htitle title_brief
 
 .main.grid_18.no-line
   .page-feed-show
@@ -31,7 +34,7 @@
       .hide=minibutton '转发',repost_link
     .f-main
       -if has_title
-        .title=link_to title_short,"/feeds/#{feed_id}"
+        .title=link_to title,"/feeds/#{feed_id}"
 
       -if has_photo
         .photos>
@@ -41,7 +44,7 @@
               %img{:src=>img_src}>
 
       -if has_detail
-        .detail=detail
+        .detail.wordwrap=detail
 
   -if logged_in? && current_user.has_binded_tsina?
     -weibo = current_user.tsina_weibo
@@ -57,7 +60,7 @@
     -tsina_comments=weibo.send(:perform_get,"/short_url/comment/comments.json",:query=>{:url_short=>url_short})
 
   -if !tsina_comments.share_comments.blank?
-    .page-feed-comments-tsina
+    .page-feed-comments-tsina.hide
       .c-top
         评论
         =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'

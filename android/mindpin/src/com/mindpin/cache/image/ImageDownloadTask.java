@@ -31,7 +31,7 @@ public class ImageDownloadTask extends AsyncTask<String, Integer, File> {
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				InputStream is = conn.getInputStream();
 				FileUtils.copyInputStreamToFile(is, cache_file);
-				is.close();
+				is.close(); //这里有时候会取不到file
 			}
 			
 			return cache_file;
@@ -45,14 +45,16 @@ public class ImageDownloadTask extends AsyncTask<String, Integer, File> {
 	protected void onPostExecute(File cache_file) {
 		if (isCancelled()) {
 			cache_file = null;
+			return;
 		}
-
+		
 		if (image_view_reference != null) {
 			ImageView image_view = image_view_reference.get();
 			if (image_view != null) {
 				ImageCacheSoftRefSingleton.set_bitmap_to_imageview(cache_file, image_view);
 			}
 		}
+		
 	}
 
 }

@@ -204,6 +204,16 @@ public class BaseUtils {
     	toast.show();
     }
     
+    public static void toast(String string){
+    	Toast toast = Toast.makeText(
+    		MindpinApplication.context, 
+			string,
+			Toast.LENGTH_SHORT
+		);
+    	toast.setGravity(Gravity.CENTER, 0, 0);
+    	toast.show();
+    }
+    
     
     public static Bitmap to_round_corner(Bitmap bitmap, int pixels) { 
         

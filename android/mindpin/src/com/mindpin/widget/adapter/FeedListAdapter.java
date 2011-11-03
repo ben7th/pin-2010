@@ -2,7 +2,6 @@ package com.mindpin.widget.adapter;
 
 import java.util.ArrayList;
 
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
+import com.mindpin.activity.feed.FeedHelper;
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.image.ImageCache;
@@ -19,9 +19,16 @@ import com.mindpin.database.Feed;
 
 public class FeedListAdapter extends BaseAdapter {
 	private ArrayList<Feed> feeds;
+	private int collection_id;
 	
 	public FeedListAdapter(ArrayList<Feed> feeds) {
 		this.feeds = feeds;
+		this.collection_id = -1;
+	}
+	
+	public FeedListAdapter(ArrayList<Feed> feeds,int collection_id) {
+		this.feeds = feeds;
+		this.collection_id  = collection_id;
 	}
 
 	@Override
@@ -39,8 +46,25 @@ public class FeedListAdapter extends BaseAdapter {
 		return position;
 	}
 	
-	// 读取更多主题，点击列表下方时调用
 	public void load_more_data() throws Exception {
+		if(collection_id == -1){
+			load_home_timeline_more_data();
+		}else{
+			load_collection_more_data();
+		}
+	}
+	
+	private void load_collection_more_data() throws Exception {
+		Feed current_last_feed = feeds.get(feeds.size() - 1);
+		int feed_id = current_last_feed.feed_id;
+		ArrayList<Feed> more_feeds = Http.get_collection_feeds(collection_id,feed_id-1);
+		for (Feed feed : more_feeds) {
+			feeds.add(feed);
+		}
+	}
+
+	// 读取更多主题，点击列表下方时调用
+	public void load_home_timeline_more_data() throws Exception {
 		Feed current_last_feed = feeds.get(feeds.size() - 1);
 		int feed_id = current_last_feed.feed_id;
 		
@@ -104,52 +128,16 @@ public class FeedListAdapter extends BaseAdapter {
 	
 	private void set_basic_info(ViewHolder view_holder, Feed feed){
 		set_id(view_holder, feed);
-		set_title(view_holder, feed);
-		set_detail(view_holder, feed);
+		FeedHelper.set_title(view_holder.title_textview, feed);
+		FeedHelper.set_detail(view_holder.detail_textview, feed);
 		
-		set_user_avatar(view_holder, feed);
-		set_user_name(view_holder, feed);
-		set_updated_at(view_holder, feed);
+		FeedHelper.set_user_avatar(view_holder.user_avatar_imageview, feed);
+		FeedHelper.set_user_name(view_holder.user_name_textview, feed);
+		FeedHelper.set_updated_at(view_holder.updated_at_textview, feed);
 	}
 	
 	private void set_id(ViewHolder view_holder, Feed feed){
 		view_holder.id_textview.setText(feed.feed_id + "");
-	}
-	
-	private void set_title(ViewHolder view_holder, Feed feed){
-		TextView title_textview = view_holder.title_textview;
-		
-		if (BaseUtils.is_str_blank(feed.title)) {
-			title_textview.setVisibility(View.GONE);
-		} else {
-			title_textview.setText(feed.title);
-			title_textview.setVisibility(View.VISIBLE);
-			// title_textview.getPaint().setFakeBoldText(true);
-		}
-	}
-	
-	private void set_detail(ViewHolder view_holder, Feed feed) {
-		TextView detail_textview = view_holder.detail_textview;
-		
-		if (BaseUtils.is_str_blank(feed.detail)) {
-			detail_textview.setVisibility(View.GONE);
-		} else {
-			detail_textview.setText(Html.fromHtml(feed.detail));
-			detail_textview.setVisibility(View.VISIBLE);
-		}
-	}
-	
-	private void set_user_avatar(ViewHolder view_holder, Feed feed){
-		view_holder.user_avatar_imageview.setImageResource(R.drawable.user_default_avatar_normal);
-		ImageCache.load_cached_image(feed.user_avatar_url, view_holder.user_avatar_imageview);
-	}
-	
-	private void set_user_name(ViewHolder view_holder, Feed feed){
-		view_holder.user_name_textview.setText(feed.user_name);
-	}
-	
-	private void set_updated_at(ViewHolder view_holder, Feed feed){
-		view_holder.updated_at_textview.setText(BaseUtils.date_string(feed.updated_at));
 	}
 	
 	private void clear_photos(ViewHolder view_holder){
@@ -195,7 +183,7 @@ public class FeedListAdapter extends BaseAdapter {
 		ImageCache.load_cached_image(photo_url, image_view);
 	}
 	
-	private final class ViewHolder {  
+	private final class ViewHolder {
 		public TextView id_textview;
 		public TextView title_textview;
 		public TextView detail_textview;

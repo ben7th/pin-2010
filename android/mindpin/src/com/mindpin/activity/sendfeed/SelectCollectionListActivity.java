@@ -260,10 +260,13 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 			View view = super.getView(position, convertView, parent);
 			HashMap<String, Object> object = collections.get(position);
 			Integer id = (Integer)object.get("id");
+			CheckBox cb = (CheckBox)view.findViewById(R.id.check_box);
 			if(select_collection_ids !=null && select_collection_ids.indexOf(id) != -1){
-				CheckBox cb = (CheckBox)view.findViewById(R.id.check_box);
 				cb.setChecked(true);
 				view.setBackgroundColor(R.color.darkgray);
+			}else{
+				cb.setChecked(false);
+				view.setBackgroundColor(android.R.color.transparent);
 			}
 			return view;
 		}

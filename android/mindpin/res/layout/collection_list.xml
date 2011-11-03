@@ -7,19 +7,27 @@
 	android:layout_height="fill_parent"
 >
 
-	<LinearLayout
-		android:id="@+id/title_bar"
+	<RelativeLayout
+		android:id="@+id/head_bar"
 		style="@style/head_bar"
 	>
-		<TextView
-			android:text="@string/main_bn_collections"
-			style="@style/head_bar_text"
+		<Button 
+			style="@style/head_bar_button_go_back"
 		/>
-	</LinearLayout>
+		<TextView 
+			style="@style/head_bar_text_center" 
+			android:text="@string/main_bn_collections"
+		/>
+	    <Button
+	    	android:id="@+id/toggle_list_mode"
+			android:text="编辑"
+			style="@style/head_bar_button_right"
+	    />
+	</RelativeLayout>
 	
 	<ListView 
 		android:id="@+id/collection_list"
-		android:layout_below="@+id/title_bar"
+		android:layout_below="@+id/head_bar"
 		android:layout_above="@+id/bottom_bar"
 		android:layout_height="fill_parent"
 		android:layout_width="fill_parent"

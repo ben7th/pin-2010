@@ -8,6 +8,7 @@
 		style="@style/head_bar"
 	>
 		<TextView
+			android:id="@+id/feed_list_title"
 			style="@style/head_bar_text_center" 
 			android:text="所有主题"
 		/>

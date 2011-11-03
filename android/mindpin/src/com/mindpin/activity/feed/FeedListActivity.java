@@ -14,30 +14,40 @@ import android.widget.TextView;
 
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
-import com.mindpin.activity.collection.FeedDetailActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.database.Feed;
 import com.mindpin.widget.adapter.FeedListAdapter;
 
 public class FeedListActivity extends MindpinBaseActivity {
+	public static final String EXTRA_COLLECTION_ID = "collection_id";
+	public static final String EXTRA_COLLECTION_TITLE = "collection_title";
 	private FeedListAdapter adapter;
-	
-	
 	private ListView feed_list;
-	
+	private int collection_id;
+	private String collection_title;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.feed_home_timeline);
-
+		setContentView(R.layout.feed_list);
+		this.collection_id = getIntent().getIntExtra(EXTRA_COLLECTION_ID, -1);
+		this.collection_title = getIntent().getStringExtra(EXTRA_COLLECTION_TITLE);
 
 		feed_list = (ListView) findViewById(R.id.feed_list);
         
+		set_title();
 		bind_load_more_button_event();
 		load_feeds_data();
 	}
 	
+	private void set_title() {
+		if(collection_id != -1){
+			TextView title_view = (TextView)findViewById(R.id.feed_list_title);
+			title_view.setText(collection_title+"µÄÖ÷Ìâ");
+		}
+	}
+
 	private void bind_load_more_button_event(){
         View load_more_view = getLayoutInflater().inflate(R.layout.list_more_button, null);  
         View load_more_button = load_more_view.findViewById(R.id.list_more_button);
@@ -77,12 +87,20 @@ public class FeedListActivity extends MindpinBaseActivity {
 			@Override
 			public ArrayList<Feed> do_in_background(String... params)
 					throws Exception {
-				return Http.get_home_timeline_feeds(-1);
+				if(collection_id != -1){
+					return Http.get_collection_feeds(collection_id);
+				}else{
+					return Http.get_home_timeline_feeds(-1);
+				}
 			}
 
 			@Override
 			public void on_success(ArrayList<Feed> feeds) {
-				adapter = new FeedListAdapter(feeds);
+				if(collection_id != -1){
+					adapter = new FeedListAdapter(feeds,collection_id);
+				}else{
+					adapter = new FeedListAdapter(feeds);
+				}
 				feed_list.setAdapter(adapter);
 				feed_list.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> arg0, View arg1,

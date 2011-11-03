@@ -2114,6 +2114,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-ogrid.collections .collection .data .p,.page-ogrid.collections-binded .collection .data .p{border:solid 1px #f4f4f4;width:66px;height:66px;margin:0 3px 3px 0;float:left;}
 .page-ogrid.collections .collection .data .tsina-img,.page-ogrid.collections-binded .collection .data .tsina-img{border:solid 1px #f4f4f4;width:208px;height:208px;background:url(/images/covers/tsina_collection.png);}
 .page-ogrid.collections .collection .ops .minibutton,.page-ogrid.collections-binded .collection .ops .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
+.mside.grid_6 .page-ogrid.collections{width:240px;}
 .page-collection-top,.page-info-top{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;margin-bottom:10px;border-bottom:solid 3px #eee;}
 .page-collection-top .meta,.page-info-top .meta{overflow:hidden;}
 .page-collection-top .meta h2,.page-collection-top .meta .item,.page-info-top .meta h2,.page-info-top .meta .item{margin:4px;padding:5px;font-size:14px;font-weight:bold;float:left;height:32px;line-height:32px;}

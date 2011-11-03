@@ -9301,6 +9301,9 @@ form .field.sendto-select-widget .sendto-selector {
       height: 30px;
       font-size: 14px; }
 
+.mside.grid_6 .page-ogrid.collections {
+  width: 240px; }
+
 /*collection show页面顶端栏*/
 .page-collection-top, .page-info-top {
   border: solid 1px #eee;

@@ -6,6 +6,19 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   style="@style/body"
 >
+
+	<RelativeLayout
+		style="@style/head_bar"
+	>
+		<TextView
+			style="@style/head_bar_text_center" 
+			android:text="主题详情"
+		/>
+		<Button 
+			style="@style/head_bar_button_go_back"
+		/>
+	</RelativeLayout>
+
 	<ScrollView
 		android:id="@+id/feed_detail_scroll"
 		android:scrollbars="vertical"
@@ -16,76 +29,51 @@
 			android:orientation="vertical"
 	  		android:layout_width="fill_parent"
 	  		android:layout_height="fill_parent"
-	  		android:paddingBottom="9dp"
   		>
   			<!-- 作者信息 -->
-		    <LinearLayout 
-		    	android:layout_width="fill_parent"
-		    	android:layout_height="50dp"
-		    	android:background="#f4f4f4"
-		    	android:padding="5dp"
-		    	android:layout_marginTop="4dp" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:layout_marginBottom="0dp"
-		    >
-				<ImageView
-					android:id="@+id/creator_logo"
-					android:layout_width="40dp"
-		    		android:layout_height="40dp"
-		    		android:layout_marginRight="5dp"
-				/>
-			    <TextView 
-			    	android:id="@+id/creator_name"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="40dp"
-			    	android:textSize="18dp"
-			    	android:gravity="center"
-			    />
-			</LinearLayout>
+			<include 
+				layout="@layout/part_feed_userinfo"
+			/>
 			
-			<!-- 图片 -->
 			<LinearLayout
 				android:orientation="vertical"
-				android:id="@+id/feed_photos"
-				android:layout_width="fill_parent"
-	        	android:layout_height="wrap_content" 
+				style="@style/feed_detail_content"
 			>
-				<com.mindpin.widget.MindpinImageSwitcher
-					android:layout_gravity="center"
-			    	android:id="@+id/feed_photos_image_switcher"
+				<RelativeLayout
+					android:id="@+id/feed_detail_photos"
+					android:orientation="vertical"
 					android:layout_width="wrap_content"
-	        		android:layout_height="350dip" 
-					android:paddingTop="9dp" 
-					android:paddingLeft="9dp" 
-					android:paddingRight="9dp" 
-					android:paddingBottom="0dp"			 
+		        	android:layout_height="wrap_content"
+		        	android:paddingBottom="9dp"
+		        	android:visibility="gone"
+				>
+					<com.mindpin.widget.MindpinImageSwitcher
+						android:layout_gravity="center"
+				    	android:id="@+id/feed_detail_photos_image_switcher"
+						android:layout_width="302dp"
+		        		android:layout_height="302dp"
 	        		/>
 	        		<TextView
-	        			android:id="@+id/feed_photos_footer"
-	        			android:layout_width="wrap_content"
-	        			android:layout_height="wrap_content"		 
+	        			android:id="@+id/feed_detail_photos_footer"
+	        			android:layout_width="300dp"
+	        			android:layout_height="32dp"
+	        			android:background="#99000000"
+	        			android:textColor="#fff"
+	        			android:gravity="center"
+	        			android:layout_alignParentBottom="true"
+	        			android:layout_centerHorizontal="true"
 	        		/>
+				</RelativeLayout>
+				
+			    <TextView 
+			    	android:id="@+id/feed_title"
+			    	style="@style/feed_list_item_title"
+			    />
+			    <TextView 
+			    	android:id="@+id/feed_detail"
+			    	style="@style/feed_list_item_text"
+			    />
 			</LinearLayout>
-	    	<!-- 标题 -->
-		    <TextView 
-		    	android:id="@+id/feed_title"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:textSize="20dp"
-		    	android:paddingTop="9dp" 
-		    	android:paddingLeft="9dp" 
-		    	android:paddingRight="9dp" 
-		    	android:paddingBottom="0dp"
-		    />
-		    <!-- 正文 -->
-		    <TextView 
-		    	android:id="@+id/feed_detail"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:textSize="18dp"
-		    	android:paddingTop="9dp" 
-		    	android:paddingLeft="9dp" 
-		    	android:paddingRight="9dp" 
-		    	android:paddingBottom="0dp"
-		    />
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>
