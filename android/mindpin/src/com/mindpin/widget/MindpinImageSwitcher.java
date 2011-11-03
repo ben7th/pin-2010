@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 
 import com.mindpin.R;
-import com.mindpin.cache.ImageCache;
+import com.mindpin.cache.image.ImageCache;
 
 public class MindpinImageSwitcher extends ViewAnimator {
 	private ArrayList<String> image_urls;

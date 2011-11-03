@@ -72,7 +72,7 @@ module ApplicationMethods
     if RAILS_ENV == "development"
       raise ex
     else
-      return render_status_page(505,ex.message)
+      return render_status_page(500,ex.message)
     end
   end
 

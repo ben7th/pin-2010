@@ -14,7 +14,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.cache.ImageCache;
+import com.mindpin.cache.image.ImageCache;
 import com.mindpin.database.Feed;
 
 public class FeedListAdapter extends BaseAdapter {
@@ -171,7 +171,7 @@ public class FeedListAdapter extends BaseAdapter {
 		lp.height = BaseUtils.dp_to_px((int)(260*photo_ratio));
 		image_view.setLayoutParams(lp);
 		
-		String photo_url = feed.photos_large.get(0);
+		String photo_url = feed.photos_middle.get(0);
 		ImageCache.load_cached_image(photo_url, image_view);
 	}
 	

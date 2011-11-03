@@ -2,16 +2,14 @@ package com.mindpin.base.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.activity.base.LoginActivity;
-import com.mindpin.cache.ImageCache;
+import com.mindpin.cache.image.ImageCache;
 import com.mindpin.database.User;
-import com.mindpin.receiver.BroadcastReceiverConstants;
 
 public class MindpinBaseActivity extends Activity {
 	
@@ -19,16 +17,12 @@ public class MindpinBaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActivitiesStackSingleton.tidy_and_push_activity(this);
-		
-		registerReceiver(ImageCache.syn_image_broadcast_receiver, new IntentFilter(
-				BroadcastReceiverConstants.ACTION_SYN_FEED_HOME_LINE_IMAGE));
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		ActivitiesStackSingleton.remove_activity(this);
-		unregisterReceiver(ImageCache.syn_image_broadcast_receiver);
 	}
 	
 	

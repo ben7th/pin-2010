@@ -62,12 +62,6 @@
 				<action android:name="com.mindpin.action.start_syn_data"/>
 			</intent-filter>
 		</receiver>
-		<!-- 缓存图片接收器 -->
-		<receiver android:name=".receiver.CacheImageBroadcastReceiver">
-			<intent-filter>
-				<action android:name="com.mindpin.action.cache_image"/>
-			</intent-filter>
-		</receiver>
 		
 		
 	</application>
