@@ -175,7 +175,6 @@ def match_feeds_routes(map)
       :change_tags          =>:put,
       :lock                 =>:put,
       :unlock               =>:put,
-      :comments             =>:post,
       :repost               =>:get
     },
     :collection=>{
@@ -193,8 +192,7 @@ def match_feeds_routes(map)
       feed.resources :feed_revisions,:as=>"revisions"
     end
 
-  map.destroy_feed_comments "/feed_comments/:id",:controller=>"feed_comments",
-  :action=>"destroy",:conditions=>{:method=>:delete}
+    match_post   map, '/feeds/:feed_id/comments' => 'post_comments#create'
 end
 
 def match_viewpoints_routes(map)
@@ -321,7 +319,10 @@ ActionController::Routing::Routes.draw do |map|
     match_post api0, 'feeds/upload_photo'       => 'api#upload_photo'
     match_post api0, 'feeds/create_with_photos' => 'api#create_with_photos'
 
+    # 主题评论 comments
 
+    match_get  api0, 'comments/list'   => 'api#feed_comments'
+    match_post api0, 'comments/create' => 'api#create_comment'
 
   end
 end

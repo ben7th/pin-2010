@@ -4687,14 +4687,15 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       font-size: 0;
       line-height: 0; }
 
-.page-feed-comments-tsina {
+/*评论列表*/
+.page-feed-show-comments-tsina, .page-feed-show-comments {
   border: solid 1px #eee;
   background-color: #FFF;
   padding: 9px;
   padding: 0;
   padding-top: 5px;
   margin-top: 9px; }
-  .page-feed-comments-tsina .c-top {
+  .page-feed-show-comments-tsina .c-top, .page-feed-show-comments .c-top {
     margin: 0 5px 5px;
     padding: 9px;
     background-color: #F4F4F4;
@@ -4702,47 +4703,69 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
     height: 24px;
     line-height: 24px; }
-    .page-feed-comments-tsina .c-top a {
+    .page-feed-show-comments-tsina .c-top a, .page-feed-show-comments .c-top a {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
       color: #999;
       font-weight: bold; }
-      .page-feed-comments-tsina .c-top a:hover {
+      .page-feed-show-comments-tsina .c-top a:hover, .page-feed-show-comments .c-top a:hover {
         color: #999;
         text-decoration: none;
         border-bottom: solid 1px; }
-    .page-feed-comments-tsina .c-top .icon {
+    .page-feed-show-comments-tsina .c-top .icon, .page-feed-show-comments .c-top .icon {
       float: right;
       width: 24px;
       height: 24px;
       background: url(/images/share/share_24.png) no-repeat -4px -4px; }
-  .page-feed-comments-tsina .comment {
+  .page-feed-show-comments-tsina .comment, .page-feed-show-comments .comment {
     margin: 0 5px 5px;
     padding: 9px;
     background-color: #fafafa;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
-    .page-feed-comments-tsina .comment .avatar {
+    .page-feed-show-comments-tsina .comment .avatar, .page-feed-show-comments .comment .avatar {
       float: left; }
-      .page-feed-comments-tsina .comment .avatar img {
+      .page-feed-show-comments-tsina .comment .avatar img, .page-feed-show-comments .comment .avatar img {
         width: 32px;
         height: 32px;
         padding: 0; }
-    .page-feed-comments-tsina .comment .data {
+    .page-feed-show-comments-tsina .comment .data, .page-feed-show-comments .comment .data {
       margin-left: 42px;
       color: #666; }
-      .page-feed-comments-tsina .comment .data a {
+      .page-feed-show-comments-tsina .comment .data a, .page-feed-show-comments .comment .data a {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
         color: #999;
         font-weight: bold; }
-        .page-feed-comments-tsina .comment .data a:hover {
+        .page-feed-show-comments-tsina .comment .data a:hover, .page-feed-show-comments .comment .data a:hover {
           color: #999;
           text-decoration: none;
           border-bottom: solid 1px; }
-      .page-feed-comments-tsina .comment .data .name {
+      .page-feed-show-comments-tsina .comment .data .name, .page-feed-show-comments .comment .data .name {
         font-size: 12px; }
-      .page-feed-comments-tsina .comment .data .text {
+      .page-feed-show-comments-tsina .comment .data .text, .page-feed-show-comments .comment .data .text {
         font-size: 12px;
         margin-bottom: 7px;
         color: #555; }
+  .page-feed-show-comments-tsina .comment-form, .page-feed-show-comments .comment-form {
+    margin: 0;
+    padding: 0 5px 5px 5px; }
+    .page-feed-show-comments-tsina .comment-form textarea.comment-ipter, .page-feed-show-comments .comment-form textarea.comment-ipter {
+      width: 686px;
+      height: 42px;
+      margin: 0;
+      font-size: 12px; }
+    .page-feed-show-comments-tsina .comment-form .cfops, .page-feed-show-comments .comment-form .cfops {
+      overflow: hidden;
+      margin-top: 4px; }
+      .page-feed-show-comments-tsina .comment-form .cfops span.submit-info, .page-feed-show-comments .comment-form .cfops span.submit-info {
+        line-height: 24px;
+        height: 24px;
+        color: #DD4B39;
+        padding-right: 9px; }
+      .page-feed-show-comments-tsina .comment-form .cfops a.commit, .page-feed-show-comments .comment-form .cfops a.commit {
+        width: 80px; }
+        .page-feed-show-comments-tsina .comment-form .cfops a.commit.disabled, .page-feed-show-comments .comment-form .cfops a.commit.disabled {
+          color: #aaa !important;
+          background-color: #F4F4F4 !important;
+          cursor: default; }
 
 /*首页的用户信息*/
 .index-user-info {

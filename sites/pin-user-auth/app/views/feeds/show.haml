@@ -24,7 +24,8 @@
 .main.grid_18.no-line
   .page-feed-show
     .f-head
-      .fright=minibutton '删除',delete_link,:method=>'delete',:confirm=>'确定删除吗'
+      -if logged_in? && creator == current_user
+        .fright=minibutton '删除',delete_link,:method=>'delete',:confirm=>'确定删除吗'
       .avatar=avatar creator
       .c-meta
         .name=usersign creator
@@ -46,50 +47,8 @@
       -if has_detail
         .detail.wordwrap=detail
 
-  -if logged_in? && current_user.has_binded_tsina?
-    -weibo = current_user.tsina_weibo
-  -elsif creator.has_binded_tsina?
-    -weibo = creator.tsina_weibo
-  -else
-    -weibo = User.find(1016287).tsina_weibo if RAILS_ENV=='development' # 1016287 漫品 ben7th6@sina.com
-    -weibo = User.find(1009).tsina_weibo if RAILS_ENV=='production' # 1009 大灰狼果糖 ben7th@126.com
-
-  -if !weibo.blank?
-    -url_long = pin_url_for('pin-user-auth',"/feeds/#{feed_id}")
-    -url_short = weibo.send(:perform_get,"/short_url/shorten.json",:query=>{:url_long=>url_long})[0].url_short
-    -tsina_comments=weibo.send(:perform_get,"/short_url/comment/comments.json",:query=>{:url_short=>url_short})
-
-  -if !tsina_comments.share_comments.blank?
-    .page-feed-comments-tsina.hide
-      .c-top
-        评论
-        =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
-        .icon
-      -tsina_comments.share_comments.each do |comment|
-        .comment
-          -user = comment.user
-          -created_at = Time.parse comment.created_at
-          -status = comment.status
-
-          -uid = user.id
-          -mindpin_user = ConnectUser.get_user_from_tsina_id(uid)
-          -is_mindpin_user = !mindpin_user.blank?
-
-          -weibo_url = "http://weibo.com/#{status.user.id}/#{mid2url(status.id)}"
-          -weibo_url_text = weibo_url.sub('http://','')
-
-          .avatar
-            %img{:src=>user.profile_image_url}
-          .data
-            .name.quiet
-              =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
-              -if is_mindpin_user
-                ="(#{usersign mindpin_user} @mindpin)"
-            .text=comment.text
-            .from.quiet
-              =jtime created_at
-              在
-              =link_to weibo_url_text,weibo_url,:target=>'_blank'
+  =render_with_error_msg '评论加载错误','/feeds/parts/show_comments',:feed=>@feed,:comments=>@feed.main_post.comments
+  =render_with_error_msg '新浪微博评论加载错误','/feeds/parts/weibo_comments',:feed=>@feed
 
 .mside.grid_6.no-line
   =prender 'collection','grid',:collections=>[collection]

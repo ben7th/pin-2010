@@ -24,7 +24,7 @@ import com.mindpin.database.User;
 
 public class Http {
 	
-	public static final String SITE = "http://www.mindpin.com";
+	public static final String SITE = "http://dev.www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/session";
@@ -41,6 +41,9 @@ public class Http {
 	public static final String 创建纯文本主题 		= "/api0/feeds/create";
 	public static final String 上传主题图片 			= "/api0/feeds/upload_photo";
 	public static final String 创建带图片主题 		= "/api0/feeds/create_with_photos";
+	
+	public static final String 创建主题评论			= "/api0/comments/create";
+	public static final String 主题的评论列表       = "/api0/comments/list";
 	
 	// LoginActivity
 	// 用户登录请求
@@ -250,6 +253,32 @@ public class Http {
 					Feed.create_or_update(feed.json);
 				}
 				return feeds;
+			}
+		}.go();
+	}
+	
+	public static boolean add_feed_commment(String feed_id, String comment) throws UnsupportedEncodingException, Exception{
+		return new MindpinPostRequest<Boolean>(
+				创建主题评论, 
+				new BasicNameValuePair("feed_id", feed_id),
+				new BasicNameValuePair("content", comment)
+				){
+			@Override
+			public Boolean on_success(String response_text) throws Exception {
+				return true;
+			}
+		}.go();
+	}
+	
+	public static Boolean get_feed_comments(String feed_id) throws Exception{
+		return new MindpinGetRequest<Boolean>(
+				主题的评论列表, 
+				new BasicNameValuePair("feed_id", feed_id)
+				){
+			@Override
+			public Boolean on_success(String response_text) throws Exception {
+				// TODO 组装评论数据
+				return true;
 			}
 		}.go();
 	}

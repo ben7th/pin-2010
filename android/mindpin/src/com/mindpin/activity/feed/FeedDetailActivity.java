@@ -2,10 +2,13 @@ package com.mindpin.activity.feed;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -27,11 +30,28 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		setContentView(R.layout.feed_detail);
 		
 		load_feed_detail();
+		bind_feed_comment_event();
 	}
 	
-	private void load_feed_detail(){
+	private void bind_feed_comment_event() {
+		Button send_feed_comment_bn = (Button)findViewById(R.id.send_feed_comment_bn);
+		send_feed_comment_bn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(),SendFeedCommentActivity.class);
+				intent.putExtra(SendFeedCommentActivity.EXTRA_NAME_FEED_ID,get_feed_id());
+				startActivity(intent);
+			}
+		});
+	}
+	
+	private String get_feed_id(){
 		Bundle ex = getIntent().getExtras();
-		String feed_id = ex.getString(EXTRA_NAME_FEED_ID);
+		return ex.getString(EXTRA_NAME_FEED_ID);
+	}
+
+	private void load_feed_detail(){
+		String feed_id = get_feed_id();
 		
 		new MindpinAsyncTask<String, Void, Feed>(this, R.string.app_now_loading) {			
 			@Override

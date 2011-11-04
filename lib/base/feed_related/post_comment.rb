@@ -7,11 +7,15 @@ class PostComment < UserAuthAbstract
 
   module PostMethods
     def self.included(base)
-      base.has_many :comments,:class_name=>"PostComment",:order=>"id asc"
+      base.has_many :comments,:class_name=>"PostComment",:order=>"id desc"
     end
 
-    def create_comment(user,content)
-      PostComment.create(:post=>self,:user=>user,:content=>content)
+    def add_comment(user,content)
+      comment = PostComment.new(:post=>self,:user=>user,:content=>content)
+      unless comment.save
+        raise comment.errors.first[1]
+      end
+      comment
     end
   end
   include Atme::AtableMethods

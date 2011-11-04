@@ -1,0 +1,30 @@
+-feed_id = feed.id
+
+.page-feed-show-comments
+  .c-top
+    评论 @mindpin
+
+  -if logged_in?
+    .comment-form{:'data-id'=>feed_id}
+      %textarea.comment-ipter.text
+      .cfops
+        .fright
+          %span.submit-info
+          %a.minibutton.commit{:href=>"javascript:;"} <span>评论</span>
+
+  .comments
+    -if comments.blank?
+      .comment.blank 现在还没有评论
+    -comments.each do |comment|
+      .comment
+        -user = comment.user
+        -created_at = comment.created_at
+
+        .avatar
+          =avatar user,:tiny
+        .data
+          .name.quiet
+            =usersign user
+          .text=h comment.content
+          .from.quiet
+            =jtime created_at

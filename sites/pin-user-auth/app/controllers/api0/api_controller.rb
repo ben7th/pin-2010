@@ -143,6 +143,27 @@ class Api0::ApiController < ApplicationController
     render :text=>"api0 收集册重命名失败",:status=>400
   end
 
+  # 获取指定主题的评论列表
+  # :feed_id 必须 主题的id
+  def feed_comments
+    comments = feed.main_post.comments
+    return render :json=>comments.map{|comment|
+      api0_comment_json_hash(comment)
+    }
+  end
+
+  # 添加一条评论
+  # :feed_id 必须 主题的id
+  # :content 必须，评论正文内容
+  def create_comment
+    feed = Feed.find(params[:feed_id])
+    comment = feed.add_comment(current_user,params[:content])
+    return render :json=>api0_comment_json_hash(comment)
+  rescue Exception => ex
+    render :text=>ex.message, :status=>400
+  end
+
+
   # -------- 以下是一些私有方法 --------
   private
     def api0_feed_json_hash(feed)
@@ -159,6 +180,7 @@ class Api0::ApiController < ApplicationController
         :title      => feed_format.title,
         :detail     => feed_format.detail,
         :from       => feed.from,
+        :comments_count   => feed.main_post.comments.count,
         :photos_thumbnail => photos.map{|p|p.image.url(:s100)},
         :photos_middle    => photos.map{|p|p.image.url(:w210)},
         :photos_large     => photos.map{|p|p.image.url(:w660)},
@@ -183,6 +205,7 @@ class Api0::ApiController < ApplicationController
         :title      => feed_format.title_brief,
         :detail     => feed_format.short_detail_brief,
         :from       => feed.from,
+        :comments_count   => feed.main_post.comments.count,
         :photos_thumbnail => brief_photos.map{|p|p.image.url(:s100)},
         :photos_middle    => brief_photos.map{|p|p.image.url(:w210)},
         :photos_large     => brief_photos.map{|p|p.image.url(:w660)},
@@ -190,6 +213,19 @@ class Api0::ApiController < ApplicationController
         :photos_count     => photos_count,
         :brief            => true,
         :user       => user.api0_json_hash(current_user)
+      }
+    end
+
+    def api0_comment_json_hash(comment)
+      user = comment.user
+      feed = comment.post.feed
+      
+      return {
+        :created_at => comment.created_at,
+        :id         => comment.id,
+        :content    => comment.content,
+        :user => user.api0_json_hash(current_user),
+        :feed => api0_feed_json_hash(feed)
       }
     end
 end

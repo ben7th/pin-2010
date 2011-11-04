@@ -13,21 +13,21 @@
     var relative_millisecond = current_date_millisecond - timestamp_date_millisecond;
 
     if(relative_millisecond < 0){
-      return "1秒前"
+      return "1秒前";
     }
     if(relative_millisecond < 60000){
-      return parseInt(relative_millisecond/1000) + "秒前"
+      return parseInt(relative_millisecond/1000) + "秒前";
     }
     if(relative_millisecond < 3600000){
-      return parseInt(relative_millisecond/60000) + "分钟前"
+      return parseInt(relative_millisecond/60000) + "分钟前";
     }
     if(relative_millisecond < 86400000 && timestamp_date.getDate()==current_date.getDate()){
-      return "今天 "+ timestamp_date.getHours() +"点"+ timestamp_date.getMinutes() +"分"
+      return timestamp_date.getHours() +":"+ timestamp_date.getMinutes();
     }
     if(timestamp_date.getYear() == current_date.getYear()){
-      return (timestamp_date.getMonth()+1) +"月"+timestamp_date.getDate()+"日 "+timestamp_date.getHours()+"点"+timestamp_date.getMinutes()+"分"
+      return (timestamp_date.getMonth()+1) +"月"+timestamp_date.getDate()+"日 "+timestamp_date.getHours()+":"+timestamp_date.getMinutes();
     }
-    return timestamp_date.getFullYear()+"年 "+(timestamp_date.getMonth()+1) +"月"+timestamp_date.getDate()+"日 "+timestamp_date.getHours()+"点"+timestamp_date.getMinutes()+"分"
+    return timestamp_date.getFullYear()+"年"+(timestamp_date.getMonth()+1) +"月"+timestamp_date.getDate()+"日 "+timestamp_date.getHours()+":"+timestamp_date.getMinutes();
   }
 
   jQuery.fn.extend({

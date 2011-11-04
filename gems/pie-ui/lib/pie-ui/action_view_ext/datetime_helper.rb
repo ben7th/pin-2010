@@ -47,12 +47,12 @@ module PieUi
         return "#{relative_second/60}分钟前"
       end
       if relative_second < 86400 && current_time.day==time.day
-        return "今天 #{time.hour}点#{time.min}分"
+        return "#{time.hour}:#{time.min}"
       end
       if time.year == time.year
-        return "#{time.month}月#{time.day}日 #{time.hour}点#{time.min}分"
+        return "#{time.month}月#{time.day}日 #{time.hour}:#{time.min}"
       end
-      "#{time.year}年 #{time.month}月#{time.day}日 #{time.hour}点#{time.min}分"
+      "#{time.year}年#{time.month}月#{time.day}日 #{time.hour}:#{time.min}"
     end
 
     def time_tz(time)

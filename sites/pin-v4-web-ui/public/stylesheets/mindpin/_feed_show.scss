@@ -544,7 +544,8 @@
   }
 }
 
-.page-feed-comments-tsina{
+/*评论列表*/
+.page-feed-show-comments-tsina, .page-feed-show-comments{
   @include gray-box;padding:0;padding-top:5px;
   margin-top:9px;
   .c-top{
@@ -578,6 +579,28 @@
       }
       .text{
         font-size:12px;margin-bottom:7px;color:#555;
+      }
+    }
+  }
+  
+  .comment-form{
+    margin:0;
+    padding:0 5px 5px 5px;
+    textarea.comment-ipter{
+      width:686px;height:42px;
+      margin:0;font-size:12px;
+    }
+    .cfops{
+      overflow:hidden;
+      margin-top:4px;
+      span.submit-info{line-height:24px;height:24px;color:#DD4B39;padding-right:9px;}
+      a.commit{
+        width:80px;
+        &.disabled{
+          color:#aaa !important;
+          background-color:#F4F4F4 !important;
+          cursor:default;
+        }
       }
     }
   }

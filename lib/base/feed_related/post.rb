@@ -140,6 +140,10 @@ class Post < UserAuthAbstract
     def main_post
       self.posts.find_by_kind(Post::KIND_MAIN)
     end
+    
+    def add_comment(user,comment_str)
+      self.main_post.add_comment(user, comment_str)
+    end
   end
 
   include PostComment::PostMethods

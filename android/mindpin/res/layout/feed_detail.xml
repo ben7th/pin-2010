@@ -73,6 +73,12 @@
 			    	android:id="@+id/feed_detail"
 			    	style="@style/feed_list_item_text"
 			    />
+			    <Button
+					android:id="@+id/send_feed_comment_bn"
+					android:text="发送评论"
+					android:layout_width="fill_parent" 
+					android:layout_height="wrap_content"
+					/>
 			</LinearLayout>
 		</LinearLayout>
 	</ScrollView>

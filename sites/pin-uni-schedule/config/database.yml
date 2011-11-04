@@ -1,0 +1,30 @@
+development:
+  adapter: mysql
+  encoding: utf8
+  database: pin-uni-schedule-development
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+  reconnect: true
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: pin-uni-schedule-test
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+  reconnect: true
+
+
+production:
+  adapter: mysql
+  encoding: utf8
+  database: pin-uni-schedule
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+  reconnect: true

@@ -56,15 +56,6 @@ class FeedsController < ApplicationController
     render :stats=>200,:text=>"取消收藏成功"
   end
 
-  def comments
-    comment = @feed.comments.create(:content=>params[:content],:user=>current_user)
-    unless comment.id.blank?
-      return render :partial=>'feeds/lists/comments',
-        :locals=>{:comments=>[comment]}
-    end
-    render :status=>403,:text=>"主题评论创建失败"
-  end
-
   def aj_comments
     render :partial=>"feeds/show_parts/comments",
       :locals=>{:comments=>@feed.comments}

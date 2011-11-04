@@ -1,0 +1,42 @@
+-feed_id = feed.id
+-creator = feed.creator
+
+-weibo = public_weibo(creator)
+
+-if !weibo.blank?
+  -url_long = pin_url_for('pin-user-auth',"/feeds/#{feed_id}")
+  -url_short = weibo.send(:perform_get,"/short_url/shorten.json",:query=>{:url_long=>url_long})[0].url_short
+  -tsina_comments = weibo.send(:perform_get,"/short_url/comment/comments.json",:query=>{:url_short=>url_short})
+
+-if !tsina_comments.blank? && !tsina_comments.share_comments.blank?
+  .page-feed-show-comments-tsina
+    .c-top
+      评论
+      =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
+      .icon
+
+    -tsina_comments.share_comments.each do |comment|
+      .comment
+        -user = comment.user
+        -created_at = Time.parse comment.created_at
+        -status = comment.status
+
+        -uid = user.id
+        -mindpin_user = ConnectUser.get_user_from_tsina_id(uid)
+        -is_mindpin_user = !mindpin_user.blank?
+
+        -weibo_url = "http://weibo.com/#{status.user.id}/#{mid2url(status.id)}"
+        -weibo_url_text = weibo_url.sub('http://','')
+
+        .avatar
+          %img{:src=>user.profile_image_url}
+        .data
+          .name.quiet
+            =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
+            -if is_mindpin_user
+              ="(#{usersign mindpin_user} @mindpin)"
+          .text=comment.text
+          .from.quiet
+            =jtime created_at
+            在
+            =link_to weibo_url_text,weibo_url,:target=>'_blank'
