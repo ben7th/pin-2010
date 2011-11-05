@@ -16,7 +16,7 @@ class PhotoAdpater
   end
 
   def self.thumb_url_by_image_file_name(image_file_name)
-    PhotoTmp.find(image_file_name).image.url(:s66)
+    PhotoTmp.find(image_file_name).image.url(:s100)
   end
 
   def self.path_by_image_file_name(image_file_name)
@@ -24,7 +24,7 @@ class PhotoAdpater
   end
 
   def self.thumb_path_by_image_file_name(image_file_name)
-    PhotoTmp.find(image_file_name).image.path(:s66)
+    PhotoTmp.find(image_file_name).image.path(:s100)
   end
 
   def self.create_photo_by_file_name(image_file_name,user)

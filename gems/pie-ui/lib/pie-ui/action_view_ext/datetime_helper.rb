@@ -40,19 +40,28 @@ module PieUi
     def friendly_relative_time(time)
       current_time = Time.now
       relative_second = current_time.to_i - time.to_i
+      
+      if relative_second < 0
+        return "片刻前"
+      end
+
       if relative_second < 60
         return "#{relative_second}秒前"
       end
+
       if relative_second < 3600
         return "#{relative_second/60}分钟前"
       end
-      if relative_second < 86400 && current_time.day==time.day
-        return "#{time.hour}:#{time.min}"
+
+      if relative_second < 86400 && current_time.day == time.day
+        return time.strftime("%H:%M")
       end
+
       if time.year == time.year
-        return "#{time.month}月#{time.day}日 #{time.hour}:#{time.min}"
+        return time.strftime("%m月#{time.day}日 %H:%M")
       end
-      "#{time.year}年#{time.month}月#{time.day}日 #{time.hour}:#{time.min}"
+
+      return time.strftime("%Y年%m月#{time.day}日 %H:%M")
     end
 
     def time_tz(time)

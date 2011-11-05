@@ -536,7 +536,7 @@
   a{
     @include tfont;
     color:#999;
-    font-weight:bold;
+    
     &:hover{
       color:#999;text-decoration:none;
       border-bottom:solid 1px;
@@ -575,10 +575,11 @@
       color:#666;
       @include link-in-comments;
       .name{
-        font-size:12px;
+        font-size:12px;line-height:16px;
       }
       .text{
-        font-size:12px;margin-bottom:7px;color:#555;
+        font-size:12px;line-height:16px;
+        color:#555;margin-top:8px;
       }
     }
   }
@@ -587,8 +588,9 @@
     margin:0;
     padding:0 5px 5px 5px;
     textarea.comment-ipter{
-      width:686px;height:42px;
+      width:566px;height:42px;
       margin:0;font-size:12px;
+      @include tfont;
     }
     .cfops{
       overflow:hidden;

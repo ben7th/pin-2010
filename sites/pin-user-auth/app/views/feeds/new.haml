@@ -51,7 +51,7 @@
 
       .field.photos
         -ipt_photo_tmps.each do |photo|
-          -image_url = photo.image.url(:s66)
+          -image_url = photo.image.url(:s100)
           -image_file_name = photo.id
           =render 'views_modules/photos/feed_uploaded',:url=>image_url,:name=>image_file_name
 

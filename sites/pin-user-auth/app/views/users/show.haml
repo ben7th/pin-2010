@@ -106,7 +106,7 @@
         .feeds
           .cover
             -if !feed_cover.blank?
-              -src = feed_cover.photos[0].image.url(:w210)
+              -src = feed_cover.photos[0].image.url(:w220)
               -link_to feed_link do
                 %img{:src=>src,:style=>'width:144px;'}
           .count=link_to "#{feeds_count}个主题",feed_link

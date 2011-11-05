@@ -24,7 +24,7 @@ import com.mindpin.database.User;
 
 public class Http {
 	
-	public static final String SITE = "http://dev.www.mindpin.com";
+	public static final String SITE = "http://www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/session";
@@ -43,7 +43,7 @@ public class Http {
 	public static final String 创建带图片主题 		= "/api0/feeds/create_with_photos";
 	
 	public static final String 创建主题评论			= "/api0/comments/create";
-	public static final String 主题的评论列表       = "/api0/comments/list";
+	public static final String 主题的评论列表        = "/api0/comments/list";
 	
 	// LoginActivity
 	// 用户登录请求

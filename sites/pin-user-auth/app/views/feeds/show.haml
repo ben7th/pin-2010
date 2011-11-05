@@ -21,7 +21,7 @@
 
 -htitle title_brief
 
-.main.grid_18.no-line
+.main.grid_15.no-line
   .page-feed-show
     .f-head
       -if logged_in? && creator == current_user
@@ -40,7 +40,7 @@
       -if has_photo
         .photos>
           -photos.each do |photo|
-            -img_src = photo.image.url(:w660)
+            -img_src = photo.image.url(:w500)
             .photo>
               %img{:src=>img_src}>
 
@@ -50,5 +50,5 @@
   =render_with_error_msg '评论加载错误','/feeds/parts/show_comments',:feed=>@feed,:comments=>@feed.main_post.comments
   =render_with_error_msg '新浪微博评论加载错误','/feeds/parts/weibo_comments',:feed=>@feed
 
-.mside.grid_6.no-line
+.mside.grid_6.no-line.fright
   =prender 'collection','grid',:collections=>[collection]

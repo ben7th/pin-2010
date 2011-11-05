@@ -35,8 +35,8 @@
             =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
             -if is_mindpin_user
               ="(#{usersign mindpin_user} @mindpin)"
-          .text=comment.text
-          .from.quiet
-            =jtime created_at
-            在
-            =link_to weibo_url_text,weibo_url,:target=>'_blank'
+
+          .text
+            =comment.text
+            %span.quiet (#{jtime created_at})
+            %span.quiet (#{link_to "@#{weibo_url_text}",weibo_url,:target=>'_blank'})

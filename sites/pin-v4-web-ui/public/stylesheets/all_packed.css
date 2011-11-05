@@ -803,6 +803,7 @@ form.page-new-feed-form .form-main .field.detail,form.page-edit-feed-form .form-
 form.page-new-feed-form .form-main .field.detail textarea.text,form.page-edit-feed-form .form-main .field.detail textarea.text{width:678px;height:320px;}
 form.page-new-feed-form .form-main .field.photos,form.page-edit-feed-form .form-main .field.photos{overflow:hidden;padding:0 9px;margin:0;}
 form.page-new-feed-form .form-main .field.photos .photo,form.page-new-feed-form .form-main .field.photos .uploading-photo,form.page-edit-feed-form .form-main .field.photos .photo,form.page-edit-feed-form .form-main .field.photos .uploading-photo{width:66px;height:66px;border:solid 1px #eee;background-color:#fafafa;padding:0;float:left;margin-right:5px;margin-bottom:5px;position:relative;}
+form.page-new-feed-form .form-main .field.photos .photo img,form.page-new-feed-form .form-main .field.photos .uploading-photo img,form.page-edit-feed-form .form-main .field.photos .photo img,form.page-edit-feed-form .form-main .field.photos .uploading-photo img{padding:0;width:66px;height:66px;}
 form.page-new-feed-form .form-main .field.photos .photo .close,form.page-new-feed-form .form-main .field.photos .uploading-photo .close,form.page-edit-feed-form .form-main .field.photos .photo .close,form.page-edit-feed-form .form-main .field.photos .uploading-photo .close{width:12px;height:12px;position:absolute;top:1px;right:1px;background:url(/images/alltu.png) -133px -81px no-repeat #999;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;border:solid 1px #666;cursor:pointer;}
 form.page-new-feed-form .form-main .field.photos .photo .close:hover,form.page-new-feed-form .form-main .field.photos .uploading-photo .close:hover,form.page-edit-feed-form .form-main .field.photos .photo .close:hover,form.page-edit-feed-form .form-main .field.photos .uploading-photo .close:hover{background-color:#aaa;border:solid 1px #555;}
 form.page-new-feed-form .form-main .field.photos .uploading-photo,form.page-edit-feed-form .form-main .field.photos .uploading-photo{position:relative;background-color:#f4f4f4;background-position:5px 5px;}
@@ -1182,19 +1183,19 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-feed-show .f-main .photos .photo{font-size:0;line-height:0;}
 .page-feed-show-comments-tsina,.page-feed-show-comments{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;padding-top:5px;margin-top:9px;}
 .page-feed-show-comments-tsina .c-top,.page-feed-show-comments .c-top{margin:0 5px 5px;padding:9px;background-color:#F4F4F4;font-size:14px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;height:24px;line-height:24px;}
-.page-feed-show-comments-tsina .c-top a,.page-feed-show-comments .c-top a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;font-weight:bold;}
+.page-feed-show-comments-tsina .c-top a,.page-feed-show-comments .c-top a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;}
 .page-feed-show-comments-tsina .c-top a:hover,.page-feed-show-comments .c-top a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
 .page-feed-show-comments-tsina .c-top .icon,.page-feed-show-comments .c-top .icon{float:right;width:24px;height:24px;background:url(/images/share/share_24.png) no-repeat -4px -4px;}
 .page-feed-show-comments-tsina .comment,.page-feed-show-comments .comment{margin:0 5px 5px;padding:9px;background-color:#fafafa;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 .page-feed-show-comments-tsina .comment .avatar,.page-feed-show-comments .comment .avatar{float:left;}
 .page-feed-show-comments-tsina .comment .avatar img,.page-feed-show-comments .comment .avatar img{width:32px;height:32px;padding:0;}
 .page-feed-show-comments-tsina .comment .data,.page-feed-show-comments .comment .data{margin-left:42px;color:#666;}
-.page-feed-show-comments-tsina .comment .data a,.page-feed-show-comments .comment .data a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;font-weight:bold;}
+.page-feed-show-comments-tsina .comment .data a,.page-feed-show-comments .comment .data a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;}
 .page-feed-show-comments-tsina .comment .data a:hover,.page-feed-show-comments .comment .data a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
-.page-feed-show-comments-tsina .comment .data .name,.page-feed-show-comments .comment .data .name{font-size:12px;}
-.page-feed-show-comments-tsina .comment .data .text,.page-feed-show-comments .comment .data .text{font-size:12px;margin-bottom:7px;color:#555;}
+.page-feed-show-comments-tsina .comment .data .name,.page-feed-show-comments .comment .data .name{font-size:12px;line-height:16px;}
+.page-feed-show-comments-tsina .comment .data .text,.page-feed-show-comments .comment .data .text{font-size:12px;line-height:16px;color:#555;margin-top:8px;}
 .page-feed-show-comments-tsina .comment-form,.page-feed-show-comments .comment-form{margin:0;padding:0 5px 5px 5px;}
-.page-feed-show-comments-tsina .comment-form textarea.comment-ipter,.page-feed-show-comments .comment-form textarea.comment-ipter{width:686px;height:42px;margin:0;font-size:12px;}
+.page-feed-show-comments-tsina .comment-form textarea.comment-ipter,.page-feed-show-comments .comment-form textarea.comment-ipter{width:566px;height:42px;margin:0;font-size:12px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 .page-feed-show-comments-tsina .comment-form .cfops,.page-feed-show-comments .comment-form .cfops{overflow:hidden;margin-top:4px;}
 .page-feed-show-comments-tsina .comment-form .cfops span.submit-info,.page-feed-show-comments .comment-form .cfops span.submit-info{line-height:24px;height:24px;color:#DD4B39;padding-right:9px;}
 .page-feed-show-comments-tsina .comment-form .cfops a.commit,.page-feed-show-comments .comment-form .cfops a.commit{width:80px;}
@@ -2083,14 +2084,14 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title{width:268px;}
 .page-ogrid.collection-feeds{position:relative;overflow:visible;}
 .page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:228px;margin-bottom:10px;margin-right:10px;border:solid 1px #fff;box-shadow:0 1px 3px rgba(25,25,25,0.3);}
-.page-ogrid.collection-feeds .feed .title{margin:0;padding:9px 9px 0;font-weight:bold;font-size:14px;}
+.page-ogrid.collection-feeds .feed .title{margin:0;padding:9px 9px 0;font-weight:bold;font-size:12px;}
 .page-ogrid.collection-feeds .feed .title a{color:#444!important;}
-.page-ogrid.collection-feeds .feed .photo{margin:0;padding:9px 9px 0;position:relative;line-height:0;font-size:0;}
+.page-ogrid.collection-feeds .feed .photo{margin:0;padding:4px 4px 0;position:relative;line-height:0;font-size:0;}
 .page-ogrid.collection-feeds .feed .photo .photo-count{opacity:.7;background-color:#000;color:white;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;font-size:14px;font-weight:bold;text-align:center;height:32px;line-height:32px;padding:0 7px;position:absolute;top:24px;left:24px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
 .page-ogrid.collection-feeds .feed .photo:hover{cursor:pointer;}
 .page-ogrid.collection-feeds .feed .photo:hover img{opacity:.9;}
 .page-ogrid.collection-feeds .feed .photo:hover .photo-count{opacity:.8;}
-.page-ogrid.collection-feeds .feed .detail{margin:0;padding:9px 9px 0;font-size:13px;}
+.page-ogrid.collection-feeds .feed .detail{margin:0;padding:9px 9px 0;font-size:12px;}
 .page-ogrid.collection-feeds .feed .detail ol{margin-left:1.5em;}
 .page-ogrid.collection-feeds .feed .detail p{margin:0;}
 .page-ogrid.collection-feeds .feed .detail blockquote{font-style:normal;margin:0;padding:5px 9px 5px 25px;background:url(/images/alltu.png) no-repeat -691px -1px;background-color:#fafafa;}

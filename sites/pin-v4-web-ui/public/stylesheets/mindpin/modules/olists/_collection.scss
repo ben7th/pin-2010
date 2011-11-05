@@ -22,12 +22,12 @@
       margin:0;
       padding:9px 9px 0;
       font-weight:bold;
-      font-size:14px;
+      font-size:12px;
       a{color:#444 !important;}
     }
     .photo{
       margin:0;
-      padding:9px 9px 0;
+      padding:4px 4px 0;
       position:relative;
       line-height:0;font-size:0;
       .photo-count{
@@ -52,7 +52,7 @@
     .detail{
       margin:0;
       padding:9px 9px 0;
-      font-size:13px;
+      font-size:12px;
       @include feed-detail-format;
     }
     .creator{

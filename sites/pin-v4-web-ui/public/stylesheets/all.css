@@ -3125,6 +3125,10 @@ form.page-new-feed-form .form-main, form.page-edit-feed-form .form-main {
       margin-right: 5px;
       margin-bottom: 5px;
       position: relative; }
+      form.page-new-feed-form .form-main .field.photos .photo img, form.page-new-feed-form .form-main .field.photos .uploading-photo img, form.page-edit-feed-form .form-main .field.photos .photo img, form.page-edit-feed-form .form-main .field.photos .uploading-photo img {
+        padding: 0;
+        width: 66px;
+        height: 66px; }
       form.page-new-feed-form .form-main .field.photos .photo .close, form.page-new-feed-form .form-main .field.photos .uploading-photo .close, form.page-edit-feed-form .form-main .field.photos .photo .close, form.page-edit-feed-form .form-main .field.photos .uploading-photo .close {
         width: 12px;
         height: 12px;
@@ -4705,8 +4709,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     line-height: 24px; }
     .page-feed-show-comments-tsina .c-top a, .page-feed-show-comments .c-top a {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-      color: #999;
-      font-weight: bold; }
+      color: #999; }
       .page-feed-show-comments-tsina .c-top a:hover, .page-feed-show-comments .c-top a:hover {
         color: #999;
         text-decoration: none;
@@ -4732,26 +4735,28 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       color: #666; }
       .page-feed-show-comments-tsina .comment .data a, .page-feed-show-comments .comment .data a {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        color: #999;
-        font-weight: bold; }
+        color: #999; }
         .page-feed-show-comments-tsina .comment .data a:hover, .page-feed-show-comments .comment .data a:hover {
           color: #999;
           text-decoration: none;
           border-bottom: solid 1px; }
       .page-feed-show-comments-tsina .comment .data .name, .page-feed-show-comments .comment .data .name {
-        font-size: 12px; }
+        font-size: 12px;
+        line-height: 16px; }
       .page-feed-show-comments-tsina .comment .data .text, .page-feed-show-comments .comment .data .text {
         font-size: 12px;
-        margin-bottom: 7px;
-        color: #555; }
+        line-height: 16px;
+        color: #555;
+        margin-top: 8px; }
   .page-feed-show-comments-tsina .comment-form, .page-feed-show-comments .comment-form {
     margin: 0;
     padding: 0 5px 5px 5px; }
     .page-feed-show-comments-tsina .comment-form textarea.comment-ipter, .page-feed-show-comments .comment-form textarea.comment-ipter {
-      width: 686px;
+      width: 566px;
       height: 42px;
       margin: 0;
-      font-size: 12px; }
+      font-size: 12px;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
     .page-feed-show-comments-tsina .comment-form .cfops, .page-feed-show-comments .comment-form .cfops {
       overflow: hidden;
       margin-top: 4px; }
@@ -9169,12 +9174,12 @@ form .field.sendto-select-widget .sendto-selector {
       margin: 0;
       padding: 9px 9px 0;
       font-weight: bold;
-      font-size: 14px; }
+      font-size: 12px; }
       .page-ogrid.collection-feeds .feed .title a {
         color: #444 !important; }
     .page-ogrid.collection-feeds .feed .photo {
       margin: 0;
-      padding: 9px 9px 0;
+      padding: 4px 4px 0;
       position: relative;
       line-height: 0;
       font-size: 0; }
@@ -9204,7 +9209,7 @@ form .field.sendto-select-widget .sendto-selector {
     .page-ogrid.collection-feeds .feed .detail {
       margin: 0;
       padding: 9px 9px 0;
-      font-size: 13px; }
+      font-size: 12px; }
       .page-ogrid.collection-feeds .feed .detail ol {
         margin-left: 1.5em; }
       .page-ogrid.collection-feeds .feed .detail p {

@@ -8,7 +8,7 @@ class Api0::ApiController < ApplicationController
   def mobile_data_syn
     collections = current_user.created_collections_db
     return render :json=>{
-      :user        => current_user.api0_json_hash,
+      :user        => api0_user_json_hash(current_user),
       :collections => collections
     }
   end
@@ -146,6 +146,7 @@ class Api0::ApiController < ApplicationController
   # 获取指定主题的评论列表
   # :feed_id 必须 主题的id
   def feed_comments
+    feed = Feed.find(params[:feed_id])
     comments = feed.main_post.comments
     return render :json=>comments.map{|comment|
       api0_comment_json_hash(comment)
@@ -164,7 +165,7 @@ class Api0::ApiController < ApplicationController
   end
 
 
-  # -------- 以下是一些私有方法 --------
+  # -------- 以下是一些私有方法 用来包装数据 --------
   private
     def api0_feed_json_hash(feed)
       user = feed.creator
@@ -173,7 +174,8 @@ class Api0::ApiController < ApplicationController
       photos = feed.photos
       photos_count = feed.photos.count
 
-      return {
+      @_feed_jh ||= {}
+      return @_feed_jh[feed] ||= {
         :created_at => feed.created_at,
         :updated_at => feed.updated_at,
         :id         => feed.id,
@@ -182,12 +184,12 @@ class Api0::ApiController < ApplicationController
         :from       => feed.from,
         :comments_count   => feed.main_post.comments.count,
         :photos_thumbnail => photos.map{|p|p.image.url(:s100)},
-        :photos_middle    => photos.map{|p|p.image.url(:w210)},
-        :photos_large     => photos.map{|p|p.image.url(:w660)},
+        :photos_middle    => photos.map{|p|p.image.url(:w220)},
+        :photos_large     => photos.map{|p|p.image.url(:w500)},
         :photos_ratio     => photos.map{|p|p.image_ratio},
         :photos_count     => photos_count,
         :brief            => false,
-        :user       => user.api0_json_hash(current_user)
+        :user       => api0_user_json_hash(user)
       }
     end
 
@@ -198,7 +200,8 @@ class Api0::ApiController < ApplicationController
       brief_photos = feed.photos.all(:limit=>3)
       photos_count = feed.photos.count
 
-      return {
+      @_feed_jbh ||= {}
+      return @_feed_jbh[feed] ||= {
         :created_at => feed.created_at,
         :updated_at => feed.updated_at,
         :id         => feed.id,
@@ -207,25 +210,31 @@ class Api0::ApiController < ApplicationController
         :from       => feed.from,
         :comments_count   => feed.main_post.comments.count,
         :photos_thumbnail => brief_photos.map{|p|p.image.url(:s100)},
-        :photos_middle    => brief_photos.map{|p|p.image.url(:w210)},
-        :photos_large     => brief_photos.map{|p|p.image.url(:w660)},
+        :photos_middle    => brief_photos.map{|p|p.image.url(:w220)},
+        :photos_large     => brief_photos.map{|p|p.image.url(:w500)},
         :photos_ratio     => brief_photos.map{|p|p.image_ratio},
         :photos_count     => photos_count,
         :brief            => true,
-        :user       => user.api0_json_hash(current_user)
+        :user       => api0_user_json_hash(user)
       }
     end
 
     def api0_comment_json_hash(comment)
       user = comment.user
       feed = comment.post.feed
-      
-      return {
+
+      @_comment_jh ||= {}
+      return @_comment_jh[comment] ||= {
         :created_at => comment.created_at,
         :id         => comment.id,
         :content    => comment.content,
-        :user => user.api0_json_hash(current_user),
+        :user => api0_user_json_hash(user),
         :feed => api0_feed_json_hash(feed)
       }
+    end
+
+    def api0_user_json_hash(user)
+      @_user_jh ||= {}
+      return @_user_jh[user] ||= user.api0_json_hash(current_user)
     end
 end

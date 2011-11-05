@@ -25,6 +25,6 @@
         .data
           .name.quiet
             =usersign user
-          .text=h comment.content
-          .from.quiet
-            =jtime created_at
+          .text
+            =h comment.content
+            %span.quiet (#{jtime created_at})

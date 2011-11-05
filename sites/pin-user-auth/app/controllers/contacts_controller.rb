@@ -3,11 +3,9 @@ class ContactsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id]) if params[:user_id]
-    render :layout=>'collection'
   end
 
   def tsina
-    render :layout=>'collection'
   end
 
   def follow

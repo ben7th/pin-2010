@@ -13,16 +13,13 @@ class CollectionsController < ApplicationController
     @user ||= current_user
 
     @collections = @user.created_collections_db
-    render :layout=>'collection'
   end
 
   def tsina
     @user = User.find(params[:user_id]) if params[:user_id]
-    render :layout=>'collection'
   end
 
   def show
-    render :layout=>'collection'
   end
 
   def create

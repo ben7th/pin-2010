@@ -14,7 +14,7 @@
           -with_photo_feeds.each do |f|
             .p
               -photo = f.photos[0]
-              %img{:src=>photo.image.url(:s66),:style=>'width:66px;height:66px;'}
+              %img{:src=>photo.image.url(:s100),:style=>'width:66px;height:66px;'}
           -1.upto (9-with_photo_feeds_count) do
             .p
         .ops
