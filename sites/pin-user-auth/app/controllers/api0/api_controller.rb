@@ -220,8 +220,8 @@ class Api0::ApiController < ApplicationController
 
       @_feed_jh ||= {}
       return @_feed_jh[feed] ||= {
-        :created_at => feed.created_at,
-        :updated_at => feed.updated_at,
+        :created_at => feed.created_at.localtime,
+        :updated_at => feed.updated_at.localtime,
         :id         => feed.id,
         :title      => feed_format.title,
         :detail     => feed_format.detail,
@@ -246,8 +246,8 @@ class Api0::ApiController < ApplicationController
 
       @_feed_jbh ||= {}
       return @_feed_jbh[feed] ||= {
-        :created_at => feed.created_at,
-        :updated_at => feed.updated_at,
+        :created_at => feed.created_at.localtime,
+        :updated_at => feed.updated_at.localtime,
         :id         => feed.id,
         :title      => feed_format.title_brief,
         :detail     => feed_format.short_detail_brief,
@@ -269,7 +269,7 @@ class Api0::ApiController < ApplicationController
 
       @_comment_jh ||= {}
       return @_comment_jh[comment] ||= {
-        :created_at => comment.created_at,
+        :created_at => comment.created_at.localtime,
         :id         => comment.id,
         :content    => comment.content,
         :user => api0_user_json_hash(user),
