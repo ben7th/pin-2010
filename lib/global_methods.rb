@@ -91,3 +91,21 @@ def truncate_u(text, length = 30, truncate_string = "...")
     end
   end
 end
+
+# 阿里云文件存储服务的请求签名方法
+require 'openssl'
+require 'base64'
+def ali_oss_sign(key, res)
+  digest  = OpenSSL::Digest::Digest.new('sha1')
+
+  verb = 'GET'
+  md5 = ''
+  ty = ''
+  date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S %Z')
+  header = ''
+
+  str = "#{verb}\n#{md5}\n#{ty}\n#{date}\n#{header}#{res}"
+  p date
+  p Base64.encode64(OpenSSL::HMAC.digest(digest, key, str)).strip
+  p Base64.encode64(OpenSSL::HMAC.digest(digest, key, date)).strip
+end

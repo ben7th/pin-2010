@@ -76,7 +76,24 @@
 						style="@style/main_layout_table_item_text"
 					/>
 				</LinearLayout>
-			</TableRow>		
+			</TableRow>
+
+			<TableRow>
+				<LinearLayout
+					style="@style/main_layout_table_item"
+				>
+					<LinearLayout
+						android:background="@drawable/main_feed_button_background"
+						style="@style/main_layout_table_item_image"
+						android:onClick="main_button_received_comments_click"
+					/>
+					<TextView
+						android:text="收到的评论"
+						style="@style/main_layout_table_item_text"
+					/>
+				</LinearLayout>
+			</TableRow>			
+			
 		</TableLayout>
 		
 		<!-- 同步进度条和提示文字 -->

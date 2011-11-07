@@ -23,6 +23,7 @@ import com.mindpin.Logic.CameraLogic;
 import com.mindpin.activity.collection.CollectionListActivity;
 import com.mindpin.activity.contacts.ContactsActivity;
 import com.mindpin.activity.feed.FeedListActivity;
+import com.mindpin.activity.feed.ReceivedCommentListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
@@ -104,6 +105,10 @@ public class MainActivity extends MindpinBaseActivity {
 	//设置collections按钮点击事件
 	public void main_button_collections_click(View view){
 		open_activity(CollectionListActivity.class);
+	}
+	
+	public void main_button_received_comments_click(View view){
+		open_activity(ReceivedCommentListActivity.class);
 	}
 	
 

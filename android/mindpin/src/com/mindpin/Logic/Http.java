@@ -20,11 +20,12 @@ import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.database.Feed;
+import com.mindpin.database.FeedComment;
 import com.mindpin.database.User;
 
 public class Http {
 	
-	public static final String SITE = "http://www.mindpin.com";
+	public static final String SITE = "http://dev.www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/session";
@@ -43,7 +44,10 @@ public class Http {
 	public static final String 创建带图片主题 		= "/api0/feeds/create_with_photos";
 	
 	public static final String 创建主题评论			= "/api0/comments/create";
-	public static final String 主题的评论列表        = "/api0/comments/list";
+	public static final String 主题的评论列表		= "/api0/comments/list";
+	public static final String 删除主题评论			= "/api0/comments/delete";
+	public static final String 回复主题评论			= "/api0/comments/reply";
+	public static final String 当前用户收到的评论	= "/api0/comments/received";
 	
 	// LoginActivity
 	// 用户登录请求
@@ -270,16 +274,62 @@ public class Http {
 		}.go();
 	}
 	
-	public static Boolean get_feed_comments(String feed_id) throws Exception{
-		return new MindpinGetRequest<Boolean>(
+	public static ArrayList<FeedComment> get_feed_comments(String feed_id) throws Exception{
+		return new MindpinGetRequest<ArrayList<FeedComment>>(
 				主题的评论列表, 
 				new BasicNameValuePair("feed_id", feed_id)
 				){
 			@Override
-			public Boolean on_success(String response_text) throws Exception {
-				// TODO 组装评论数据
-				return true;
+			public ArrayList<FeedComment> on_success(String response_text) throws Exception {
+				return FeedComment.build_list_by_json(response_text);
 			}
+		}.go();
+	}
+	
+	public static void destroy_feed_commment(String comment_id) throws Exception{
+		new MindpinDeleteRequest<Void>(
+				删除主题评论,
+				new BasicNameValuePair("comment_id", comment_id)
+				) {
+			@Override
+			public Void on_success(String response_text) throws Exception {
+				return null;
+			}
+		}.go();
+	}
+	
+	public static Boolean reply_feed_comment(String comment_id,String content) throws Exception{
+		return new MindpinPostRequest<Boolean>(
+				回复主题评论,
+				new BasicNameValuePair("comment_id", comment_id),
+				new BasicNameValuePair("content", content)
+				) {
+			public Boolean on_success(String response_text) throws Exception {
+				return true;
+			};
+		}.go();
+	}
+	
+	public static ArrayList<FeedComment> received_comments() throws Exception{
+		return received_comments(-1);
+	}
+	
+	public static ArrayList<FeedComment> received_comments(int max_id) throws Exception{
+		BasicNameValuePair param;
+		if (max_id != -1) {
+			param = new BasicNameValuePair("max_id", max_id + "");
+		} else {
+			param = new BasicNameValuePair("max_id", "");
+		}
+		return new MindpinGetRequest<ArrayList<FeedComment>>(
+				当前用户收到的评论,
+				param
+				) {
+					@Override
+					public ArrayList<FeedComment> on_success(
+							String response_text) throws Exception {
+						return FeedComment.build_list_by_json(response_text);
+					}
 		}.go();
 	}
 	

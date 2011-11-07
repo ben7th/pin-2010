@@ -69,8 +69,15 @@ class FeedFormat
   end
 
   private
+    # 最大限度缩减正文内的换行符数量
+    # 去掉开头和结尾的换行
+    # 去掉连续的一个以上的换行
+    # 去掉多个换行中间夹杂空白字符
     def reduce_return(str)
-      return str.gsub(/\n{1,}/, "\n")
+      str1 =  str.gsub(/^\n+/, "") # 开头
+      str2 = str1.gsub(/\n(\s|\n)*$/, "") # 末尾
+      str3 = str2.gsub(/\n(\s|\n)*\n/, "\n") # 中间
+      return str3
     end
 
     def trans_return_to_br(str)

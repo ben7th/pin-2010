@@ -349,7 +349,7 @@ class Feed < UserAuthAbstract
     self.main_post.photos
   end
 
-  #  since_id，可选，如果指定此参数，只返回id大于此id（时间上较早）的主题。
+  # since_id，可选，如果指定此参数，只返回id大于此id（时间上较早）的主题。
   # max_id，可选，如果指定此参数，只返回id小于或等于此id（时间上较晚）的主题。
   # count，可选，缺省值20，最大200。指定返回的条目数。
   # page，可选，缺省1
@@ -358,7 +358,7 @@ class Feed < UserAuthAbstract
     count = options[:count] || 20
     page = options[:page] || 1
     since_id = options[:since_id]
-    sinace_id = sinace_id.to_i unless since_id.blank?
+    since_id = since_id.to_i unless since_id.blank?
     max_id = options[:max_id]
     max_id = max_id.to_i unless max_id.blank?
     feature = options[:feature] || "all"

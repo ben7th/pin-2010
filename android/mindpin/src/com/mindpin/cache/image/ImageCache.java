@@ -17,6 +17,7 @@ public class ImageCache {
 		if(null == cache_file || !cache_file.exists()){
 			download(image_url, image_view);
 		}else{
+			image_view.setTag(null); //这一句不能漏，否则可能图片错位
 		 	ImageCacheSoftRefSingleton.set_bitmap_to_imageview(cache_file, image_view);
 		}
 	}

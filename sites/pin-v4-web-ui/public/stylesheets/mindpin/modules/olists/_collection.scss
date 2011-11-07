@@ -37,10 +37,10 @@
         @include tfont;
         font-size:14px;font-weight:bold;
         text-align:center;
-        height:32px;line-height:32px;
+        height:28px;line-height:28px;
         padding:0 7px;
         position:absolute;
-        top:24px;left:24px;
+        top:9px;left:9px;
         @include border-radius(3px);
       }
       &:hover{

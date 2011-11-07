@@ -23,7 +23,7 @@ public class MindpinProgressDialog extends Dialog {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM, WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		setContentView(R.layout.mindpin_progress_dialog);
 		
-		if(BaseUtils.is_str_blank(this.message)){
+		if(!BaseUtils.is_str_blank(this.message)){
 			TextView message_textview = (TextView)findViewById(R.id.mindpin_progress_dialog_message);
 			message_textview.setText(this.message);
 		}

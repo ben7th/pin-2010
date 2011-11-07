@@ -192,7 +192,10 @@ def match_feeds_routes(map)
       feed.resources :feed_revisions,:as=>"revisions"
     end
 
-    match_post   map, '/feeds/:feed_id/comments' => 'post_comments#create'
+    match_post map, '/feeds/:feed_id/comments' => 'post_comments#create'
+    map.resources :post_comments, :collection=>{
+      :reply => :post
+    }
 end
 
 def match_viewpoints_routes(map)
@@ -321,8 +324,12 @@ ActionController::Routing::Routes.draw do |map|
 
     # 主题评论 comments
 
-    match_get  api0, 'comments/list'   => 'api#feed_comments'
-    match_post api0, 'comments/create' => 'api#create_comment'
+    match_get    api0, 'comments/list'   => 'api#feed_comments'
+    match_post   api0, 'comments/create' => 'api#create_comment'
+    match_delete api0, 'comments/delete' => 'api#delete_comment'
+    match_post   api0, 'comments/reply'  => 'api#reply_comment'
+
+    match_get    api0, 'comments/received'  => 'api#comments_received'
 
   end
 end

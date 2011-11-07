@@ -57,6 +57,8 @@
 		<activity android:name=".activity.contacts.ContactsActivity"></activity>
 		<!-- comment -->
 		<activity android:name=".activity.feed.SendFeedCommentActivity"></activity>
+		<activity android:name=".activity.feed.FeedCommentListActivity"></activity>
+		<activity android:name=".activity.feed.ReceivedCommentListActivity"></activity>
 		<!-- 数据同步接收器 -->
 		<receiver android:name=".receiver.SynDataBroadcastReceiver">
 			<intent-filter>

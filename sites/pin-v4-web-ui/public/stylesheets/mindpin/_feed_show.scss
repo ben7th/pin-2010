@@ -546,7 +546,6 @@
 
 /*评论列表*/
 .page-feed-show-comments-tsina, .page-feed-show-comments{
-  @include gray-box;padding:0;padding-top:5px;
   margin-top:9px;
   .c-top{
     margin:0 5px 5px;
@@ -558,29 +557,6 @@
     .icon{
       float:right;
       width:24px;height:24px;background:url(/images/share/share_24.png) no-repeat -4px -4px;
-    }
-  }
-  
-  .comment{
-    margin:0 5px 5px;
-    padding:9px;
-    background-color:#fafafa;
-    @include tfont;
-    .avatar{
-      float:left;
-      img{width:32px;height:32px;padding:0;}
-    }
-    .data{
-      margin-left:42px;
-      color:#666;
-      @include link-in-comments;
-      .name{
-        font-size:12px;line-height:16px;
-      }
-      .text{
-        font-size:12px;line-height:16px;
-        color:#555;margin-top:8px;
-      }
     }
   }
   
@@ -604,6 +580,51 @@
           cursor:default;
         }
       }
+    }
+  }
+  
+  .c-box{
+    @include gray-box;
+    padding:0;padding-top:5px;
+    margin-bottom:6px;
+  }
+  
+  .comment{
+    margin:0;padding:6px;
+    @include tfont;
+    position:relative;
+    @include link-in-comments;
+    
+    .avatar{
+      float:left;
+      img{width:32px;height:32px;padding:0;}
+      border:solid 1px #eee;
+    }
+    .data{
+      margin-left:42px;margin-right:42px;
+      color:#555;
+      background-color:#fafafa;
+      @include border-radius(3px);
+      padding:4px;
+      border:solid 1px #eee;
+      .name{
+        font-size:12px;line-height:16px;
+      }
+      .text{
+        font-size:12px;line-height:16px;
+        color:#444;margin-top:8px;margin-bottom:3px;
+      }
+    }
+    .ops{
+      line-height:16px;
+      position:absolute;
+      right:54px;top:11px;
+    }
+  }
+  
+  .comment.of_creator{
+    .avatar{
+      float:right;
     }
   }
 }

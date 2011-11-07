@@ -30,10 +30,23 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		setContentView(R.layout.feed_detail);
 		
 		load_feed_detail();
-		bind_feed_comment_event();
+		bind_send_feed_comment_event();
+		bind_feed_comment_list_event();
 	}
 	
-	private void bind_feed_comment_event() {
+	private void bind_feed_comment_list_event() {
+		Button comment_list = (Button)findViewById(R.id.feed_comment_list);
+		comment_list.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(),FeedCommentListActivity.class);
+				intent.putExtra(FeedCommentListActivity.EXTRA_NAME_FEED_ID,get_feed_id());
+				startActivity(intent);
+			}
+		});
+	}
+
+	private void bind_send_feed_comment_event() {
 		Button send_feed_comment_bn = (Button)findViewById(R.id.send_feed_comment_bn);
 		send_feed_comment_bn.setOnClickListener(new OnClickListener() {
 			@Override
@@ -82,10 +95,10 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 	
 	private void show_feed_photos(Feed feed) {
 		try {
-			ArrayList<String> photo_urls = feed.photos_middle;
 			RelativeLayout photos_layout = (RelativeLayout) findViewById(R.id.feed_detail_photos);
 			TextView footer = (TextView) findViewById(R.id.feed_detail_photos_footer);
 			
+			ArrayList<String> photo_urls = feed.photos_middle;
 			if (photo_urls.size() > 0) {
 				photos_layout.setVisibility(View.VISIBLE);
 				
@@ -93,15 +106,14 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 				switcher.load_urls(photo_urls, feed.photos_ratio, footer);
 
 				// 注册左右手势滑动事件
-				OnTouchListener touch_listener = new OnTouchListener() {
+				ScrollView feed_detail_scroll = (ScrollView) findViewById(R.id.feed_detail_scroll);
+				feed_detail_scroll.setOnTouchListener(new OnTouchListener() {
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
 						switcher.onTouchEvent(event);
 						return false;
 					}
-				};
-				ScrollView feed_detail_scroll = (ScrollView) findViewById(R.id.feed_detail_scroll);
-				feed_detail_scroll.setOnTouchListener(touch_listener);
+				});
 			}else{
 				photos_layout.setVisibility(View.GONE);
 			}
