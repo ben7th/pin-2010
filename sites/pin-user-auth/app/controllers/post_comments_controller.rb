@@ -1,16 +1,16 @@
 class PostCommentsController < ApplicationController
   before_filter :login_required
-  before_filter :per_load
-  def per_load
+  before_filter :pre_load
+  def pre_load
     @feed = Feed.find(params[:feed_id]) if params[:feed_id]
     @comment = PostComment.find(params[:id]) if params[:id]
   end
 
   def create
-    comment = @feed.add_comment(current_user,params[:content])
-    render :partial=>'/feeds/parts/show_comments',:locals=>{:feed=>@feed,:comments=>[comment]}
+    comment = @feed.add_comment(current_user, params[:content])
+    return render :partial=>'/feeds/parts/show_comments',:locals=>{:feed=>@feed,:comments=>[comment]}
   rescue Exception => ex
-    render :text=>ex.message,:status=>400
+    return render :text=>ex.message,:status=>400
   end
 
   def destroy

@@ -13,7 +13,7 @@ class PostComment < UserAuthAbstract
       base.has_many :comments,:class_name=>"PostComment",:order=>"id desc"
     end
 
-    def add_comment(user,content)
+    def add_comment(user, content)
       comment = PostComment.new(:post=>self,:user=>user,:content=>content)
       unless comment.save
         raise comment.errors.first[1]
