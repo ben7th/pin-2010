@@ -26,7 +26,7 @@ import com.mindpin.database.User;
 
 public class Http {
 	
-	public static final String SITE = "http://dev.www.mindpin.com";
+	public static final String SITE = "http://www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/session";
