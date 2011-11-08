@@ -1182,17 +1182,18 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-feed-show .f-main .photos{padding:14px 14px;}
 .page-feed-show .f-main .photos .photo{font-size:0;line-height:0;}
 .page-feed-show-comments-tsina,.page-feed-show-comments{margin-top:9px;}
-.page-feed-show-comments-tsina .c-top,.page-feed-show-comments .c-top{padding:5px 14px;background-color:#fafafa;margin-bottom:9px;border:solid 1px #eee;font-size:12px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;height:24px;line-height:24px;}
+.page-feed-show-comments-tsina .c-top,.page-feed-show-comments .c-top{padding:5px 14px;background-color:#fafafa;margin-bottom:9px;margin-left:44px;margin-right:44px;border:solid 1px #eee;font-size:12px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;height:24px;line-height:24px;}
 .page-feed-show-comments-tsina .c-top a,.page-feed-show-comments .c-top a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;}
 .page-feed-show-comments-tsina .c-top a:hover,.page-feed-show-comments .c-top a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
 .page-feed-show-comments-tsina .c-top .icon,.page-feed-show-comments .c-top .icon{float:right;width:24px;height:24px;background:url(/images/share/share_24.png) no-repeat -4px -4px;}
-.page-feed-show-comments-tsina .comment-form,.page-feed-show-comments .comment-form{margin:0 0 14px 0;position:relative;}
+.page-feed-show-comments-tsina .comment-form,.page-feed-show-comments .comment-form{margin:0 0 14px 0;position:relative;overflow:hidden;}
 .page-feed-show-comments-tsina .comment-form .arrow,.page-feed-show-comments .comment-form .arrow{font-family:"宋体";color:#fff;font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;position:absolute;left:39px;top:10px;z-index:-1;}
 .page-feed-show-comments-tsina .comment-form .avatar,.page-feed-show-comments .comment-form .avatar{float:left;}
 .page-feed-show-comments-tsina .comment-form .avatar img,.page-feed-show-comments .comment-form .avatar img{width:32px;height:32px;padding:1px;background-color:#eee;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;}
-.page-feed-show-comments-tsina .comment-form .cfmain,.page-feed-show-comments .comment-form .cfmain{z-index:1;margin-left:44px;margin-right:44px;background-color:#fff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;padding:4px;overflow:hidden;}
-.page-feed-show-comments-tsina .comment-form .cfmain textarea.comment-ipter,.page-feed-show-comments .comment-form .cfmain textarea.comment-ipter{width:482px;height:42px;margin:0;font-size:12px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;border-color:#eee;}
-.page-feed-show-comments-tsina .comment-form .cfmain .cfops,.page-feed-show-comments .comment-form .cfmain .cfops{overflow:hidden;margin:4px -4px -4px -4px;padding:4px;background-color:#fafafa;}
+.page-feed-show-comments-tsina .comment-form .cfmain,.page-feed-show-comments .comment-form .cfmain{margin-left:44px;margin-right:44px;width:502px;background-color:#fff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;overflow:hidden;}
+.page-feed-show-comments-tsina .comment-form .cfmain .cta,.page-feed-show-comments .comment-form .cfmain .cta{padding:4px;line-height:0;font-size:0;}
+.page-feed-show-comments-tsina .comment-form .cfmain .cta textarea.comment-ipter,.page-feed-show-comments .comment-form .cfmain .cta textarea.comment-ipter{width:482px;height:42px;margin:0;font-size:12px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;border-color:#eee;}
+.page-feed-show-comments-tsina .comment-form .cfmain .cfops,.page-feed-show-comments .comment-form .cfmain .cfops{overflow:hidden;padding:4px;background-color:#fafafa;}
 .page-feed-show-comments-tsina .comment-form .cfmain .cfops span.submit-info,.page-feed-show-comments .comment-form .cfmain .cfops span.submit-info{line-height:24px;height:24px;color:#DD4B39;padding-right:9px;}
 .page-feed-show-comments-tsina .comment-form .cfmain .cfops a.commit,.page-feed-show-comments .comment-form .cfmain .cfops a.commit{width:80px;}
 .page-feed-show-comments-tsina .comment-form .cfmain .cfops a.commit.disabled,.page-feed-show-comments .comment-form .cfmain .cfops a.commit.disabled{color:#aaa!important;background-color:#F4F4F4!important;cursor:default;}
@@ -1200,6 +1201,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-feed-show-comments-tsina .comment-form.of_creator .avatar,.page-feed-show-comments .comment-form.of_creator .avatar{float:right;}
 .page-feed-show-comments-tsina .c-box,.page-feed-show-comments .c-box{border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;padding-top:5px;margin-bottom:6px;}
 .page-feed-show-comments-tsina .comment,.page-feed-show-comments .comment{margin:0 0 9px 0;padding:0;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;position:relative;overflow:hidden;}
+.page-feed-show-comments-tsina .comment.blank,.page-feed-show-comments .comment.blank{margin-left:44px;padding-left:4px;}
 .page-feed-show-comments-tsina .comment a,.page-feed-show-comments .comment a{font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#999;}
 .page-feed-show-comments-tsina .comment a:hover,.page-feed-show-comments .comment a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
 .page-feed-show-comments-tsina .comment .arrow,.page-feed-show-comments .comment .arrow{font-family:"宋体";color:#fff;font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;position:absolute;left:39px;top:10px;z-index:-1;}

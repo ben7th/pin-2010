@@ -550,7 +550,7 @@
   
   .c-top{
     padding:5px 14px;background-color:#fafafa;
-    margin-bottom:9px;
+    margin-bottom:9px;margin-left:44px;margin-right:44px;
     border:solid 1px #eee;
     @include link-in-comments;
     font-size:12px;@include tfont;
@@ -562,7 +562,7 @@
   }
   
   .comment-form{
-    margin:0 0 14px 0;position:relative;
+    margin:0 0 14px 0;position:relative;overflow:hidden;
     .arrow{
       font-family: "宋体";color:#fff;
       font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;
@@ -578,21 +578,23 @@
       }
     }
     .cfmain{
-      z-index:1;
-      margin-left:44px;margin-right:44px;
+      margin-left:44px;margin-right:44px;width:502px;/*chrome里有bug，必须指定宽度*/
       background-color:#fff;
       @include border-radius(3px);
-      padding:4px;overflow:hidden;
+      overflow:hidden;
       
-      textarea.comment-ipter{
-        width:482px;height:42px;
-        margin:0;font-size:12px;
-        @include tfont;
-        border-color:#eee;
+      .cta{
+        padding:4px;line-height:0;font-size:0;
+        textarea.comment-ipter{
+          width:482px;height:42px;
+          margin:0;font-size:12px;
+          @include tfont;
+          border-color:#eee;
+        }
       }
       .cfops{
         overflow:hidden;
-        margin:4px -4px -4px -4px;padding:4px;
+        padding:4px;
         background-color:#fafafa;
         span.submit-info{line-height:24px;height:24px;color:#DD4B39;padding-right:9px;}
         a.commit{
@@ -624,6 +626,8 @@
   }
   
   .comment{
+    &.blank{margin-left:44px;padding-left:4px;}
+    
     margin:0 0 9px 0;padding:0;
     @include tfont;
     position:relative;

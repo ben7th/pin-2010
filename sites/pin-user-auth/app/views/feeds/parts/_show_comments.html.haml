@@ -8,9 +8,11 @@
     -cls = ( feed_creator == current_user ? 'of_creator':'')
     .comment-form{:'data-feed-id'=>feed_id, :class=>cls}
       .arrow ◆
-      .avatar=avatar current_user,:tiny
+      .avatar
+        =avatar current_user,:tiny
       .cfmain
-        %textarea.comment-ipter.text
+        .cta>
+          %textarea.comment-ipter.text>
         .cfops
           .fright
             %span.submit-info

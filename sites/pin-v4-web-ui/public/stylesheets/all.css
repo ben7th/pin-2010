@@ -4698,6 +4698,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     padding: 5px 14px;
     background-color: #fafafa;
     margin-bottom: 9px;
+    margin-left: 44px;
+    margin-right: 44px;
     border: solid 1px #eee;
     font-size: 12px;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
@@ -4717,7 +4719,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       background: url(/images/share/share_24.png) no-repeat -4px -4px; }
   .page-feed-show-comments-tsina .comment-form, .page-feed-show-comments .comment-form {
     margin: 0 0 14px 0;
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
     .page-feed-show-comments-tsina .comment-form .arrow, .page-feed-show-comments .comment-form .arrow {
       font-family: "宋体";
       color: #fff;
@@ -4741,25 +4744,28 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px; }
     .page-feed-show-comments-tsina .comment-form .cfmain, .page-feed-show-comments .comment-form .cfmain {
-      z-index: 1;
       margin-left: 44px;
       margin-right: 44px;
+      width: 502px;
+      /*chrome里有bug，必须指定宽度*/
       background-color: #fff;
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
-      padding: 4px;
       overflow: hidden; }
-      .page-feed-show-comments-tsina .comment-form .cfmain textarea.comment-ipter, .page-feed-show-comments .comment-form .cfmain textarea.comment-ipter {
-        width: 482px;
-        height: 42px;
-        margin: 0;
-        font-size: 12px;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-        border-color: #eee; }
+      .page-feed-show-comments-tsina .comment-form .cfmain .cta, .page-feed-show-comments .comment-form .cfmain .cta {
+        padding: 4px;
+        line-height: 0;
+        font-size: 0; }
+        .page-feed-show-comments-tsina .comment-form .cfmain .cta textarea.comment-ipter, .page-feed-show-comments .comment-form .cfmain .cta textarea.comment-ipter {
+          width: 482px;
+          height: 42px;
+          margin: 0;
+          font-size: 12px;
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          border-color: #eee; }
       .page-feed-show-comments-tsina .comment-form .cfmain .cfops, .page-feed-show-comments .comment-form .cfmain .cfops {
         overflow: hidden;
-        margin: 4px -4px -4px -4px;
         padding: 4px;
         background-color: #fafafa; }
         .page-feed-show-comments-tsina .comment-form .cfmain .cfops span.submit-info, .page-feed-show-comments .comment-form .cfmain .cfops span.submit-info {
@@ -4792,6 +4798,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
     position: relative;
     overflow: hidden; }
+    .page-feed-show-comments-tsina .comment.blank, .page-feed-show-comments .comment.blank {
+      margin-left: 44px;
+      padding-left: 4px; }
     .page-feed-show-comments-tsina .comment a, .page-feed-show-comments .comment a {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
       color: #999; }
