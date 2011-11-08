@@ -660,7 +660,7 @@ div.pagination .prev_page:hover,div.pagination .next_page:hover{text-decoration:
 .page-header .nav.dark .nav-menu a.logout{line-height:20em;overflow:hidden;}
 .page-header .nav.dark .nav-menu a.logout .icon{background:url(/images/alltu.png) no-repeat -444px -75px;width:24px;height:24px;}
 .page-header .nav.dark .nav-menu a.logout:hover .icon{background:url(/images/alltu.png) no-repeat -469px -75px;}
-.page-content.top_fixed{margin-top:48px;}
+.page-content.top_fixed{padding-top:48px;}
 .page-content .cell{margin:0 0 60px;border-bottom:solid 1px #eee;}
 .page-content .cell.layout-auto{margin:0;border-bottom:none 0;overflow:hidden;}
 .page-content .cell.layout-auto .layout-main{overflow:hidden;}

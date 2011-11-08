@@ -2513,7 +2513,7 @@ Release Date: November 8, 2010
         background: url(/images/alltu.png) no-repeat -469px -75px; }
 
 .page-content.top_fixed {
-  margin-top: 48px; }
+  padding-top: 48px; }
 
 .page-content .cell {
   margin: 0 0 60px;
