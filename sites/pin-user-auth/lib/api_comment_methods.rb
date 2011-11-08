@@ -1,4 +1,4 @@
-module Api0::ApiCommentMethods
+module ApiCommentMethods
 
   # 获取指定主题的评论列表
   # :feed_id 必须 主题的id
