@@ -2,12 +2,14 @@
 -feed_creator = feed.creator
 
 .page-feed-show-comments
-  .c-box
-    .c-top
-      评论 @mindpin
+  .c-top 评论 @mindpin
 
-    -if logged_in?
-      .comment-form{:'data-feed-id'=>feed_id}
+  -if logged_in?
+    -cls = ( feed_creator == current_user ? 'of_creator':'')
+    .comment-form{:'data-feed-id'=>feed_id, :class=>cls}
+      .arrow ◆
+      .avatar=avatar current_user,:tiny
+      .cfmain
         %textarea.comment-ipter.text
         .cfops
           .fright
@@ -17,38 +19,33 @@
   .comments
     -if comments.blank?
       .comment.blank 现在还没有评论
-    -comments.each do |comment|
-      -user = comment.user
-      -created_at = comment.created_at
-      -can_be_delete = logged_in? && [feed_creator, user].include?(current_user)
+    -else
+      -prev_user = nil
+      -comments.each do |comment|
+        -user = comment.user
+        -created_at = comment.created_at
+        -can_be_delete = logged_in? && [feed_creator, user].include?(current_user)
 
-      -if user == feed_creator
-        .comment.of_creator{:'data-id'=>comment.id,:'data-user-name'=>user.name}
+        -clsa = (user == feed_creator ? 'of_creator':'')
+        -clsb = (user == prev_user ? 'same-user':'')
+        -cls  = [clsa,clsb]*' '
+
+        -prev_user = user
+
+        .comment{:'data-id'=>comment.id,:'data-user-name'=>user.name,:class=>cls}
+          .arrow ◆
           .avatar
             =avatar user,:tiny
-          .data
-            .name.quiet
-              =usersign user
-            .text
-              =h comment.content
-              %span.quiet (#{jtime created_at})
-          .ops
-            -if can_be_delete
-              =link_to '删除','javascript:;',:class=>'delete'
-              %span.quiet -
-            =link_to '回复','javascript:;',:class=>'reply'
-      -else
-        .comment{:'data-id'=>comment.id,:'data-user-name'=>user.name}
-          .avatar
-            =avatar user,:tiny
-          .data
-            .name.quiet
-              =usersign user
-            .text
-              =h comment.content
-              %span.quiet (#{jtime created_at})
-          .ops
-            -if can_be_delete
-              =link_to '删除','javascript:;',:class=>'delete'
-              %span.quiet -
-            =link_to '回复','javascript:;',:class=>'reply'
+          .cmain
+            .cdata
+              .meta
+                .name.quiet
+                  =usersign user
+                .ops
+                  -if can_be_delete
+                    =link_to '删除','javascript:;',:class=>'delete'
+                    %span.quiet -
+                  =link_to '回复','javascript:;',:class=>'reply'
+              .ctext.wordwrap
+                =h comment.content
+                %span.quiet (#{jtime created_at})

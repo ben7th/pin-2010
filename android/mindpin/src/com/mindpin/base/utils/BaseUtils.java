@@ -49,7 +49,7 @@ public class BaseUtils {
 	// yyyy-MM-ddTHH:mm:ssZ
 	public static long parse_iso_time_string_to_long(String iso_time_string) throws ParseException{
 		SimpleDateFormat sdf = new SimpleDateFormat();
-		sdf.applyPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		sdf.applyPattern("yyyy-MM-dd'T'HH:mm:ssZ");
 		return sdf.parse(iso_time_string).getTime();
 	}
 	

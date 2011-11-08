@@ -12,7 +12,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
-import com.mindpin.database.FeedComment;
+import com.mindpin.beans.FeedComment;
 import com.mindpin.widget.adapter.ReceivedCommentListAdapter;
 
 public class ReceivedCommentListActivity extends MindpinBaseActivity {

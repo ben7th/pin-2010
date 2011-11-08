@@ -16,7 +16,7 @@ import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
-import com.mindpin.database.FeedComment;
+import com.mindpin.beans.FeedComment;
 import com.mindpin.widget.adapter.FeedCommentListAdapter;
 
 public class FeedCommentListActivity extends MindpinBaseActivity {

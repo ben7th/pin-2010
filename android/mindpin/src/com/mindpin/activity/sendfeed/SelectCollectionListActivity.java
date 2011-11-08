@@ -1,36 +1,28 @@
 package com.mindpin.activity.sendfeed;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.activity.MindpinBaseActivity;
-import com.mindpin.base.runnable.MindpinHandler;
-import com.mindpin.base.runnable.MindpinRunnable;
+import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.beans.Collection;
 import com.mindpin.cache.CollectionsCache;
+import com.mindpin.widget.adapter.SelectCollectionListAdapter;
 
 public class SelectCollectionListActivity extends MindpinBaseActivity {
 	public static final String EXTRA_NAME_KIND = "kind";
@@ -39,76 +31,62 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 	public static final String EXTRA_NAME_SELECT_COLLECTION_IDS = "select_collection_ids";
 	public static final String EXTRA_NAME_SEND_TSINA = "send_tsina";
 	
-	public static final int MESSAGE_INTENT_CONNECTION_FAIL = 0;
-	public static final int MESSAGE_CREATE_COLLECTION_SUCCESS = 1;
-	public static final int MESSAGE_CREATE_COLLECTION_FAIL = 2;
-	public static final int MESSAGE_AUTH_FAIL = 3;
-	
-	private List<HashMap<String, Object>> collections;
-	private ArrayList<Integer> select_collection_ids;
-	private Button send_bn;
-	private Button submit_bn;
-	private Button cancel_bn;
-	private CheckBox send_tsina_cb;
 	private ListView collection_list_lv;
-	private Button new_collection_bn;
-	private ProgressDialog progress_dialog;
-	private MindpinHandler mhandler = new MindpinHandler(this){
-		public boolean mindpin_handle_message(android.os.Message msg) {
-			progress_dialog.dismiss();
-			switch (msg.what) {
-			case MESSAGE_CREATE_COLLECTION_SUCCESS:
-				collections = CollectionsCache.get_current_user_collection_list();
-				HashMap<String, Object> c = collections
-						.get(collections.size() - 1);
-				Integer id = (Integer) c.get("id");
-				if (select_collection_ids.indexOf(id) == -1) {
-					select_collection_ids.add(id);
-				}
-				build_collection_list_data();
-				collection_list_lv
-						.setSelection(collection_list_lv.getCount() - 1);
-				Toast.makeText(getApplicationContext(), "操作成功",
-						Toast.LENGTH_SHORT).show();
-				return true;
-			case MESSAGE_CREATE_COLLECTION_FAIL:
-				Toast.makeText(getApplicationContext(), "创建失败",
-						Toast.LENGTH_SHORT).show();
-				return true;
-			}
-			return false;
-		}
-	};
+	private ArrayList<Integer> select_collection_ids;
+	private SelectCollectionListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_collection_list);
-		send_tsina_cb = (CheckBox)findViewById(R.id.send_tsina_cb);
-		boolean send_tsina = getIntent().getBooleanExtra(EXTRA_NAME_SEND_TSINA,false);
-		send_tsina_cb.setChecked(send_tsina);
 		
+		set_tsina_checkbox();
+		set_select_collections_checkbox();
+		
+		build_collection_list();
+		bind_new_collection_event();
+	}
+	
+	private void set_tsina_checkbox() {
+		CheckBox send_tsina_cb = (CheckBox)findViewById(R.id.send_tsina_cb);
+		boolean send_tsina = getIntent().getBooleanExtra(EXTRA_NAME_SEND_TSINA,false);
+		send_tsina_cb.setChecked(send_tsina);		
+	}
+
+	private void set_select_collections_checkbox() {
 		select_collection_ids = new ArrayList<Integer>();
 		String kind = getIntent().getStringExtra(EXTRA_NAME_KIND);
 		if(kind.equals(EXTRA_VALUE_SELECT_FOR_RESULT)){
-			init_select_for_result();
+			init_button_event_for_result();
 		}else if(kind.equals(EXTRA_VALUE_SELECT_FOR_SEND)){
-			init_select_for_send();
+			init_button_event_for_send();
 		}
-		
-		build_collection_list();
-		new_collection_logic();
 	}
 
-	private void new_collection_logic() {
-		new_collection_bn = (Button) findViewById(R.id.new_collection_bn);
+	private void build_collection_list() {
+		collection_list_lv = (ListView) findViewById(R.id.select_collection_list);
+		
+		ArrayList<Collection> collections = CollectionsCache.get_current_user_collection_list();
+		adapter = new SelectCollectionListAdapter(collections, select_collection_ids);
+		collection_list_lv.setAdapter(adapter);
+		
+		collection_list_lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View current_item, int position,
+					long arg3) {
+				adapter.select_item(current_item,position);
+			}
+		});
+	}
+	
+	private void bind_new_collection_event() {
+		Button new_collection_bn = (Button) findViewById(R.id.new_collection_bn);
 		new_collection_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				show_new_collection_dialog();
 			}
 		});
 	}
-	
+
 	private void show_new_collection_dialog() {
 		LayoutInflater factory = LayoutInflater
 				.from(SelectCollectionListActivity.this);
@@ -122,15 +100,10 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 						.findViewById(R.id.collection_title_et);
 				String title = ctet.getText().toString();
 				if (title == null || "".equals(title)) {
-					Toast.makeText(getApplicationContext(), "请输入标题",
-							Toast.LENGTH_SHORT).show();
+					BaseUtils.toast("请输入标题");
 					return;
 				}
-				progress_dialog = ProgressDialog.show(
-						SelectCollectionListActivity.this, "", "正在创建...");
-				Thread thread = new Thread(new CreateCollectionRunnable(title));
-				thread.setDaemon(true);
-				thread.start();		
+				create_collection(title);
 			}
 		});
 		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -140,43 +113,8 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 		builder.show();
 	}
 	
-	private void build_collection_list() {
-		build_collection_list_logic();
-		collections = CollectionsCache.get_current_user_collection_list();
-		build_collection_list_data();
-	}
-
-	private void build_collection_list_data() {
-		SimpleAdapter sa = new MySimpleAdapter(SelectCollectionListActivity.this,
-				collections, R.layout.select_collection_item, new String[] { "id",
-						"title" }, new int[] { R.id.collection_id,
-						R.id.collection_title });
-		collection_list_lv.setAdapter(sa);
-	}
-
-	private void build_collection_list_logic() {
-		collection_list_lv = (ListView) findViewById(R.id.select_collection_list);
-		collection_list_lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				CheckBox cb = (CheckBox)arg1.findViewById(R.id.check_box);
-				HashMap<String, Object> object = collections.get(arg2);
-				Integer id = (Integer)object.get("id");
-				if(cb.isChecked()){
-					cb.setChecked(false);
-					arg1.setBackgroundColor(android.R.color.black);
-					select_collection_ids.remove(id);
-				}else{
-					cb.setChecked(true);
-					arg1.setBackgroundColor(R.color.darkgray);
-					select_collection_ids.add(id);
-				}
-			}
-		});
-	}
-
-	private void init_select_for_send() {
-		cancel_bn = (Button)findViewById(R.id.cancel_bn);
+	private void init_button_event_for_send() {
+		Button cancel_bn = (Button)findViewById(R.id.cancel_bn);
 		cancel_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -185,7 +123,8 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 			}
 		});
 		
-		send_bn = (Button) findViewById(R.id.send_bn);
+		final CheckBox send_tsina_cb = (CheckBox)findViewById(R.id.send_tsina_cb);
+		Button send_bn = (Button) findViewById(R.id.send_bn);
 		send_bn.setVisibility(View.VISIBLE);
 		send_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -203,23 +142,20 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 					setResult(Activity.RESULT_OK,intent);
 					finish();
 				}else{
-					Toast.makeText(getApplicationContext(),
-							"至少选择一个收集册", Toast.LENGTH_SHORT)
-							.show();
+					BaseUtils.toast("至少选择一个收集册");
 				}
 			}
 		});
-		
-		
 	}
 
-	private void init_select_for_result() {
+	private void init_button_event_for_result() {
 		ArrayList<Integer> ids = getIntent().getIntegerArrayListExtra(EXTRA_NAME_SELECT_COLLECTION_IDS);
 		if(ids !=null){
 			select_collection_ids = ids;
 		}
 		
-		submit_bn = (Button) findViewById(R.id.submit_bn);
+		final CheckBox send_tsina_cb = (CheckBox)findViewById(R.id.send_tsina_cb);
+		Button submit_bn = (Button) findViewById(R.id.submit_bn);
 		submit_bn.setVisibility(View.VISIBLE);
 		submit_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -238,7 +174,7 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 			}
 		});
 		
-		cancel_bn = (Button)findViewById(R.id.cancel_bn);
+		Button cancel_bn = (Button)findViewById(R.id.cancel_bn);
 		cancel_bn.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -248,47 +184,30 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 		});
 	}
 	
-	public class MySimpleAdapter extends SimpleAdapter {
-		public MySimpleAdapter(Context context,
-				List<? extends Map<String, ?>> data, int resource,
-				String[] from, int[] to) {
-			super(context, data, resource, from, to);
-		}
-		
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = super.getView(position, convertView, parent);
-			HashMap<String, Object> object = collections.get(position);
-			Integer id = (Integer)object.get("id");
-			CheckBox cb = (CheckBox)view.findViewById(R.id.check_box);
-			if(select_collection_ids !=null && select_collection_ids.indexOf(id) != -1){
-				cb.setChecked(true);
-				view.setBackgroundColor(R.color.darkgray);
-			}else{
-				cb.setChecked(false);
-				view.setBackgroundColor(android.R.color.transparent);
+	private void create_collection(String title){
+		new MindpinAsyncTask<String, Void, Boolean>(this,"正在创建...") {
+			@Override
+			public Boolean do_in_background(String... params)
+					throws Exception {
+				String title1 = params[0];
+				return Http.create_collection(title1);
 			}
-			return view;
-		}
-	}
-	
-	
-	public class CreateCollectionRunnable extends MindpinRunnable {
-		private String title;
-		
-		public CreateCollectionRunnable(String title) {
-			super(mhandler);
-			this.title = title;
-		}
 
-		public void mindpin_run() throws Exception {
-			boolean success = Http.create_collection(title);
-			if (success) {
-				collections = CollectionsCache.get_current_user_collection_list();
-				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_SUCCESS);
-			} else {
-				mhandler.sendEmptyMessage(MESSAGE_CREATE_COLLECTION_FAIL);
+			@Override
+			public void on_success(Boolean result) {
+				if(result){
+					ArrayList<Collection> collections = CollectionsCache.get_current_user_collection_list();
+					Collection collection = collections
+							.get(collections.size() - 1);
+					adapter.add_item(collection);
+					collection_list_lv
+							.setSelection(collection_list_lv.getCount() - 1);
+					BaseUtils.toast("创建成功");
+				}else{
+					BaseUtils.toast("创建失败");
+				}
 			}
-		}
+		}.execute(title);
 	}
+	
 }

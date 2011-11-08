@@ -4650,9 +4650,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   border: solid 1px #eee;
   background-color: #FFF; }
   .page-feed-show .f-head {
-    padding: 14px 14px;
+    margin: 5px 5px 0 5px;
+    padding: 9px;
     background-color: #fafafa;
-    border-bottom: solid 1px #eee;
     overflow: hidden; }
     .page-feed-show .f-head .avatar {
       float: left; }
@@ -4695,10 +4695,11 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 .page-feed-show-comments-tsina, .page-feed-show-comments {
   margin-top: 9px; }
   .page-feed-show-comments-tsina .c-top, .page-feed-show-comments .c-top {
-    margin: 0 5px 5px;
-    padding: 9px;
-    background-color: #F4F4F4;
-    font-size: 14px;
+    padding: 5px 14px;
+    background-color: #fafafa;
+    margin-bottom: 9px;
+    border: solid 1px #eee;
+    font-size: 12px;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
     height: 24px;
     line-height: 24px; }
@@ -4715,28 +4716,69 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       height: 24px;
       background: url(/images/share/share_24.png) no-repeat -4px -4px; }
   .page-feed-show-comments-tsina .comment-form, .page-feed-show-comments .comment-form {
-    margin: 0;
-    padding: 0 5px 5px 5px; }
-    .page-feed-show-comments-tsina .comment-form textarea.comment-ipter, .page-feed-show-comments .comment-form textarea.comment-ipter {
-      width: 566px;
-      height: 42px;
-      margin: 0;
-      font-size: 12px;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
-    .page-feed-show-comments-tsina .comment-form .cfops, .page-feed-show-comments .comment-form .cfops {
+    margin: 0 0 14px 0;
+    position: relative; }
+    .page-feed-show-comments-tsina .comment-form .arrow, .page-feed-show-comments .comment-form .arrow {
+      font-family: "宋体";
+      color: #fff;
+      font-size: 16px;
+      height: 16px;
+      line-height: 16px;
+      width: 16px;
       overflow: hidden;
-      margin-top: 4px; }
-      .page-feed-show-comments-tsina .comment-form .cfops span.submit-info, .page-feed-show-comments .comment-form .cfops span.submit-info {
-        line-height: 24px;
-        height: 24px;
-        color: #DD4B39;
-        padding-right: 9px; }
-      .page-feed-show-comments-tsina .comment-form .cfops a.commit, .page-feed-show-comments .comment-form .cfops a.commit {
-        width: 80px; }
-        .page-feed-show-comments-tsina .comment-form .cfops a.commit.disabled, .page-feed-show-comments .comment-form .cfops a.commit.disabled {
-          color: #aaa !important;
-          background-color: #F4F4F4 !important;
-          cursor: default; }
+      position: absolute;
+      left: 39px;
+      top: 10px;
+      z-index: -1; }
+    .page-feed-show-comments-tsina .comment-form .avatar, .page-feed-show-comments .comment-form .avatar {
+      float: left; }
+      .page-feed-show-comments-tsina .comment-form .avatar img, .page-feed-show-comments .comment-form .avatar img {
+        width: 32px;
+        height: 32px;
+        padding: 1px;
+        background-color: #eee;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+    .page-feed-show-comments-tsina .comment-form .cfmain, .page-feed-show-comments .comment-form .cfmain {
+      z-index: 1;
+      margin-left: 44px;
+      margin-right: 44px;
+      background-color: #fff;
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      padding: 4px;
+      overflow: hidden; }
+      .page-feed-show-comments-tsina .comment-form .cfmain textarea.comment-ipter, .page-feed-show-comments .comment-form .cfmain textarea.comment-ipter {
+        width: 482px;
+        height: 42px;
+        margin: 0;
+        font-size: 12px;
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        border-color: #eee; }
+      .page-feed-show-comments-tsina .comment-form .cfmain .cfops, .page-feed-show-comments .comment-form .cfmain .cfops {
+        overflow: hidden;
+        margin: 4px -4px -4px -4px;
+        padding: 4px;
+        background-color: #fafafa; }
+        .page-feed-show-comments-tsina .comment-form .cfmain .cfops span.submit-info, .page-feed-show-comments .comment-form .cfmain .cfops span.submit-info {
+          line-height: 24px;
+          height: 24px;
+          color: #DD4B39;
+          padding-right: 9px; }
+        .page-feed-show-comments-tsina .comment-form .cfmain .cfops a.commit, .page-feed-show-comments .comment-form .cfmain .cfops a.commit {
+          width: 80px; }
+          .page-feed-show-comments-tsina .comment-form .cfmain .cfops a.commit.disabled, .page-feed-show-comments .comment-form .cfmain .cfops a.commit.disabled {
+            color: #aaa !important;
+            background-color: #F4F4F4 !important;
+            cursor: default; }
+    .page-feed-show-comments-tsina .comment-form.of_creator .arrow, .page-feed-show-comments .comment-form.of_creator .arrow {
+      text-align: right;
+      left: auto;
+      right: 38px; }
+    .page-feed-show-comments-tsina .comment-form.of_creator .avatar, .page-feed-show-comments .comment-form.of_creator .avatar {
+      float: right; }
   .page-feed-show-comments-tsina .c-box, .page-feed-show-comments .c-box {
     border: solid 1px #eee;
     background-color: #FFF;
@@ -4745,10 +4787,11 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     padding-top: 5px;
     margin-bottom: 6px; }
   .page-feed-show-comments-tsina .comment, .page-feed-show-comments .comment {
-    margin: 0;
-    padding: 6px;
+    margin: 0 0 9px 0;
+    padding: 0;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
     .page-feed-show-comments-tsina .comment a, .page-feed-show-comments .comment a {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
       color: #999; }
@@ -4756,39 +4799,72 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         color: #999;
         text-decoration: none;
         border-bottom: solid 1px; }
+    .page-feed-show-comments-tsina .comment .arrow, .page-feed-show-comments .comment .arrow {
+      font-family: "宋体";
+      color: #fff;
+      font-size: 16px;
+      height: 16px;
+      line-height: 16px;
+      width: 16px;
+      overflow: hidden;
+      position: absolute;
+      left: 39px;
+      top: 10px;
+      z-index: -1; }
     .page-feed-show-comments-tsina .comment .avatar, .page-feed-show-comments .comment .avatar {
-      float: left;
-      border: solid 1px #eee; }
+      float: left; }
       .page-feed-show-comments-tsina .comment .avatar img, .page-feed-show-comments .comment .avatar img {
         width: 32px;
         height: 32px;
-        padding: 0; }
-    .page-feed-show-comments-tsina .comment .data, .page-feed-show-comments .comment .data {
-      margin-left: 42px;
-      margin-right: 42px;
-      color: #555;
-      background-color: #fafafa;
-      border-radius: 3px;
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      padding: 4px;
-      border: solid 1px #eee; }
-      .page-feed-show-comments-tsina .comment .data .name, .page-feed-show-comments .comment .data .name {
-        font-size: 12px;
-        line-height: 16px; }
-      .page-feed-show-comments-tsina .comment .data .text, .page-feed-show-comments .comment .data .text {
-        font-size: 12px;
-        line-height: 16px;
-        color: #444;
-        margin-top: 8px;
-        margin-bottom: 3px; }
-    .page-feed-show-comments-tsina .comment .ops, .page-feed-show-comments .comment .ops {
-      line-height: 16px;
-      position: absolute;
-      right: 54px;
-      top: 11px; }
-  .page-feed-show-comments-tsina .comment.of_creator .avatar, .page-feed-show-comments .comment.of_creator .avatar {
-    float: right; }
+        padding: 1px;
+        background-color: #eee;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px; }
+    .page-feed-show-comments-tsina .comment .cmain, .page-feed-show-comments .comment .cmain {
+      margin-left: 44px;
+      margin-right: 44px;
+      z-index: 1; }
+      .page-feed-show-comments-tsina .comment .cmain .cdata, .page-feed-show-comments .comment .cmain .cdata {
+        margin: 0;
+        /*float:left;*/
+        color: #555;
+        background-color: #fff;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        padding: 9px; }
+        .page-feed-show-comments-tsina .comment .cmain .cdata .meta, .page-feed-show-comments .comment .cmain .cdata .meta {
+          overflow: hidden; }
+          .page-feed-show-comments-tsina .comment .cmain .cdata .meta .name, .page-feed-show-comments .comment .cmain .cdata .meta .name {
+            font-size: 12px;
+            line-height: 16px;
+            float: left;
+            overflow: hidden;
+            padding-right: 30px; }
+          .page-feed-show-comments-tsina .comment .cmain .cdata .meta .ops, .page-feed-show-comments .comment .cmain .cdata .meta .ops {
+            font-size: 12px;
+            line-height: 16px;
+            float: right;
+            overflow: hidden; }
+        .page-feed-show-comments-tsina .comment .cmain .cdata .ctext, .page-feed-show-comments .comment .cmain .cdata .ctext {
+          font-size: 12px;
+          color: #444;
+          margin-top: 8px; }
+    .page-feed-show-comments-tsina .comment.of_creator .arrow, .page-feed-show-comments .comment.of_creator .arrow {
+      text-align: right;
+      left: auto;
+      right: 38px;
+      color: #fafafa; }
+    .page-feed-show-comments-tsina .comment.of_creator .avatar, .page-feed-show-comments .comment.of_creator .avatar {
+      float: right; }
+    .page-feed-show-comments-tsina .comment.of_creator .cmain .cdata, .page-feed-show-comments .comment.of_creator .cmain .cdata {
+      /*float:right;*/
+      background-color: #fafafa; }
+    .page-feed-show-comments-tsina .comment.same-user, .page-feed-show-comments .comment.same-user {
+      margin-top: -5px;
+      /*.arrow{display:none;}
+      .avatar{display:none;}*/ }
 
 /*首页的用户信息*/
 .index-user-info {

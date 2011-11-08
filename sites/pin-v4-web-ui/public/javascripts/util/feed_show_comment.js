@@ -88,6 +88,11 @@ pie.load(function(){
       comments_elm.find('.comments').prepend(new_comment_elm);
 
       new_comment_elm.hide().fadeIn(200);
+
+      var next_elm = new_comment_elm.next('.comment');
+      if( new_comment_elm.domdata('user-name') == next_elm.domdata('user-name') ){
+        next_elm.addClass('same-user');
+      }
   }
 
   // 删除评论
@@ -104,6 +109,7 @@ pie.load(function(){
         type : 'delete',
         success : function(){
           comment_elm.fadeOut(200,function(){
+            comment_elm.next('.comment').removeClass('same-user');
             comment_elm.remove();
           })
         }

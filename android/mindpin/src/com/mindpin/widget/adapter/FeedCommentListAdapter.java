@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.mindpin.R;
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.beans.FeedComment;
 import com.mindpin.cache.image.ImageCache;
-import com.mindpin.database.FeedComment;
 
 public class FeedCommentListAdapter extends BaseAdapter {
 	private ArrayList<FeedComment> feed_comments;

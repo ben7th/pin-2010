@@ -500,9 +500,9 @@
   border:solid 1px #eee;
   background-color:#FFF;
   .f-head{
-    padding:14px 14px;
+    margin:5px 5px 0 5px;
+    padding:9px;
     background-color:#fafafa;
-    border-bottom:solid 1px #eee;
     overflow:hidden;
     .avatar{float:left;}
     .c-meta{
@@ -547,12 +547,13 @@
 /*评论列表*/
 .page-feed-show-comments-tsina, .page-feed-show-comments{
   margin-top:9px;
+  
   .c-top{
-    margin:0 5px 5px;
-    padding:9px;
-    background-color:#F4F4F4;
+    padding:5px 14px;background-color:#fafafa;
+    margin-bottom:9px;
+    border:solid 1px #eee;
     @include link-in-comments;
-    font-size:14px;@include tfont;
+    font-size:12px;@include tfont;
     height:24px;line-height:24px;
     .icon{
       float:right;
@@ -561,24 +562,57 @@
   }
   
   .comment-form{
-    margin:0;
-    padding:0 5px 5px 5px;
-    textarea.comment-ipter{
-      width:566px;height:42px;
-      margin:0;font-size:12px;
-      @include tfont;
+    margin:0 0 14px 0;position:relative;
+    .arrow{
+      font-family: "宋体";color:#fff;
+      font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;
+      position:absolute;left:39px;top:10px;
+      z-index:-1;
     }
-    .cfops{
-      overflow:hidden;
-      margin-top:4px;
-      span.submit-info{line-height:24px;height:24px;color:#DD4B39;padding-right:9px;}
-      a.commit{
-        width:80px;
-        &.disabled{
-          color:#aaa !important;
-          background-color:#F4F4F4 !important;
-          cursor:default;
+    .avatar{
+      float:left;
+      img{
+        width:32px;height:32px;padding:1px;
+        background-color:#eee;
+        @include border-radius(3px);
+      }
+    }
+    .cfmain{
+      z-index:1;
+      margin-left:44px;margin-right:44px;
+      background-color:#fff;
+      @include border-radius(3px);
+      padding:4px;overflow:hidden;
+      
+      textarea.comment-ipter{
+        width:482px;height:42px;
+        margin:0;font-size:12px;
+        @include tfont;
+        border-color:#eee;
+      }
+      .cfops{
+        overflow:hidden;
+        margin:4px -4px -4px -4px;padding:4px;
+        background-color:#fafafa;
+        span.submit-info{line-height:24px;height:24px;color:#DD4B39;padding-right:9px;}
+        a.commit{
+          width:80px;
+          &.disabled{
+            color:#aaa !important;
+            background-color:#F4F4F4 !important;
+            cursor:default;
+          }
         }
+      }
+    }
+    
+    &.of_creator{
+      .arrow{
+        text-align:right;
+        left:auto;right:38px;
+      }
+      .avatar{
+        float:right;
       }
     }
   }
@@ -590,41 +624,75 @@
   }
   
   .comment{
-    margin:0;padding:6px;
+    margin:0 0 9px 0;padding:0;
     @include tfont;
     position:relative;
     @include link-in-comments;
+    overflow:hidden;
+    .arrow{
+      font-family: "宋体";color:#fff;
+      font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;
+      position:absolute;left:39px;top:10px;
+      z-index:-1;
+    }
     
     .avatar{
       float:left;
-      img{width:32px;height:32px;padding:0;}
-      border:solid 1px #eee;
-    }
-    .data{
-      margin-left:42px;margin-right:42px;
-      color:#555;
-      background-color:#fafafa;
-      @include border-radius(3px);
-      padding:4px;
-      border:solid 1px #eee;
-      .name{
-        font-size:12px;line-height:16px;
-      }
-      .text{
-        font-size:12px;line-height:16px;
-        color:#444;margin-top:8px;margin-bottom:3px;
+      img{
+        width:32px;height:32px;padding:1px;
+        background-color:#eee;
+        @include border-radius(3px);
       }
     }
-    .ops{
-      line-height:16px;
-      position:absolute;
-      right:54px;top:11px;
+    .cmain{
+      margin-left:44px;
+      margin-right:44px;
+      z-index:1;
+      .cdata{
+        margin:0;
+        /*float:left;*/
+        color:#555;
+        background-color:#fff;
+        @include border-radius(3px);
+        padding:9px;
+        
+        .meta{
+          overflow:hidden;
+          .name{
+            font-size:12px;line-height:16px;float:left;overflow:hidden;padding-right:30px;
+          }
+          .ops{
+            font-size:12px;line-height:16px;float:right;overflow:hidden;
+          } 
+        }
+        .ctext{
+          font-size:12px;
+          color:#444;margin-top:8px;
+        }
+      }
     }
-  }
-  
-  .comment.of_creator{
-    .avatar{
-      float:right;
+    
+    &.of_creator{
+      .arrow{
+        text-align:right;
+        left:auto;right:38px;color:#fafafa;
+      }
+      .avatar{
+        float:right;
+      }
+      .cmain{
+        .cdata{
+          /*float:right;*/
+          background-color:#fafafa;
+        }
+      }
     }
+    
+    &.same-user{
+      margin-top:-5px;
+      /*.arrow{display:none;}
+      .avatar{display:none;}*/
+    }
+    
   }
 }

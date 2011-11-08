@@ -18,19 +18,20 @@ import com.mindpin.base.http.MindpinPostRequest;
 import com.mindpin.base.http.MindpinPutRequest;
 import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.beans.FeedComment;
+import com.mindpin.beans.Following;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.database.Feed;
-import com.mindpin.database.FeedComment;
 import com.mindpin.database.User;
 
 public class Http {
 	
-	public static final String SITE = "http://www.mindpin.com";
+	public static final String SITE = "http://dev.www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/session";
 	
-	public static final String 同步数据 			 	= "/api0/mobile_data_syn";
+	public static final String 同步数据 			= "/api0/mobile_data_syn";
 	public static final String 我的收件箱主题列表 	= "/api0/home_timeline";
 	
 	public static final String 收集册的主题列表 		= "/api0/collections/feeds";
@@ -38,7 +39,7 @@ public class Http {
 	public static final String 删除收集册 			= "/api0/collections/delete";
 	public static final String 收集册改名 			= "/api0/collections/rename";
 	
-	public static final String 主题详情 				= "/api0/feeds/show";
+	public static final String 主题详情				= "/api0/feeds/show";
 	public static final String 创建纯文本主题 		= "/api0/feeds/create";
 	public static final String 上传主题图片 			= "/api0/feeds/upload_photo";
 	public static final String 创建带图片主题 		= "/api0/feeds/create_with_photos";
@@ -48,6 +49,8 @@ public class Http {
 	public static final String 删除主题评论			= "/api0/comments/delete";
 	public static final String 回复主题评论			= "/api0/comments/reply";
 	public static final String 当前用户收到的评论	= "/api0/comments/received";
+	
+	public static final String 用户的关注列表		= "/api0/contacts/followings";
 	
 	// LoginActivity
 	// 用户登录请求
@@ -329,6 +332,23 @@ public class Http {
 					public ArrayList<FeedComment> on_success(
 							String response_text) throws Exception {
 						return FeedComment.build_list_by_json(response_text);
+					}
+		}.go();
+	}
+	
+	public static ArrayList<Following> get_current_user_followings() throws Exception{
+		return get_followings(AccountManager.current_user().user_id+"");
+	}
+	
+	public static ArrayList<Following> get_followings(String user_id) throws Exception{
+		return new MindpinGetRequest<ArrayList<Following>>(
+				用户的关注列表,
+				new BasicNameValuePair("user_id", user_id)
+				) {
+					@Override
+					public ArrayList<Following> on_success(String response_text)
+							throws Exception {
+						return Following.build_list_by_json(response_text);
 					}
 		}.go();
 	}

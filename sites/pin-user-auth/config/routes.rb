@@ -74,8 +74,12 @@ def match_user_routes(map)
       :feeds_rank=>:get,
       :viewpoints_rank=>:get
     }
-  map.fans "/users/:user_id/fans",:controller=>"contacts",:action=>"fans"
-  map.followings "/users/:user_id/followings",:controller=>"contacts",:action=>"followings"
+
+  match_get  map,'/users/:user_id/fans'       => 'contacts#fans'
+  match_get  map,'/users/:user_id/followings' => 'contacts#followings'
+
+  match_post map,'/contacts/follow_mindpin' => 'contacts#follow_mindpin'
+  match_post map,'/contacts/unfollow'       => 'contacts#unfollow'
 
   match_get  map,'/contacts'       => 'contacts#index'
   match_get  map,'/contacts/tsina' => 'contacts#tsina'
@@ -330,6 +334,9 @@ ActionController::Routing::Routes.draw do |map|
     match_post   api0, 'comments/reply'  => 'api#reply_comment'
 
     match_get    api0, 'comments/received'  => 'api#comments_received'
+
+    # 人际关系 contacts
+    match_get api0, 'contacts/followings' => 'api#contacts_followings'
 
   end
 end

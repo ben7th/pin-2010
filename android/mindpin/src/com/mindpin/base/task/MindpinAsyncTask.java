@@ -77,6 +77,7 @@ public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 				
 				___final();
 			}catch(Exception e){
+				e.printStackTrace();
 				// 如果最终处理过程中出现任何异常，也捕获之
 				___unknown_exception();
 			}

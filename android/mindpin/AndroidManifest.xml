@@ -55,6 +55,7 @@
 		
 		<!-- 人际关系 -->
 		<activity android:name=".activity.contacts.ContactsActivity"></activity>
+		<activity android:name=".activity.contacts.FollowingListActivity"></activity>
 		<!-- comment -->
 		<activity android:name=".activity.feed.SendFeedCommentActivity"></activity>
 		<activity android:name=".activity.feed.FeedCommentListActivity"></activity>

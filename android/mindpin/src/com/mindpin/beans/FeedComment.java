@@ -1,4 +1,4 @@
-package com.mindpin.database;
+package com.mindpin.beans;
 
 import java.util.ArrayList;
 import org.json.JSONArray;

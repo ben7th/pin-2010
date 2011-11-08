@@ -22,6 +22,7 @@ import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.activity.collection.CollectionListActivity;
 import com.mindpin.activity.contacts.ContactsActivity;
+import com.mindpin.activity.contacts.FollowingListActivity;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.activity.feed.ReceivedCommentListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
@@ -109,6 +110,10 @@ public class MainActivity extends MindpinBaseActivity {
 	
 	public void main_button_received_comments_click(View view){
 		open_activity(ReceivedCommentListActivity.class);
+	}
+	
+	public void main_button_followings_click(View view){
+		open_activity(FollowingListActivity.class);
 	}
 	
 

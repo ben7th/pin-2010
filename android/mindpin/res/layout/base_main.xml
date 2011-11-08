@@ -92,6 +92,19 @@
 						style="@style/main_layout_table_item_text"
 					/>
 				</LinearLayout>
+				<LinearLayout
+					style="@style/main_layout_table_item"
+				>
+					<LinearLayout
+						android:background="@drawable/main_feed_button_background"
+						style="@style/main_layout_table_item_image"
+						android:onClick="main_button_followings_click"
+					/>
+					<TextView
+						android:text="我的关注"
+						style="@style/main_layout_table_item_text"
+					/>
+				</LinearLayout>
 			</TableRow>			
 			
 		</TableLayout>

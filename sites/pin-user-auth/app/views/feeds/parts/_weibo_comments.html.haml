@@ -10,14 +10,14 @@
 
 -if !tsina_comments.blank? && !tsina_comments.share_comments.blank?
   .page-feed-show-comments-tsina
-    .c-box
-      .c-top
-        评论
-        =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
-        .icon
+    .c-top
+      评论
+      =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
+      .icon
 
-    -tsina_comments.share_comments.each do |comment|
-      .comment
+    .comments
+      -prev_user = nil
+      -tsina_comments.share_comments.each do |comment|
         -user = comment.user
         -created_at = Time.parse comment.created_at
         -status = comment.status
@@ -29,15 +29,22 @@
         -weibo_url = "http://weibo.com/#{status.user.id}/#{mid2url(status.id)}"
         -weibo_url_text = weibo_url.sub('http://','')
 
-        .avatar
-          %img{:src=>user.profile_image_url}
-        .data
-          .name.quiet
-            =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
-            -if is_mindpin_user
-              ="(#{usersign mindpin_user} @mindpin)"
+        -cls = (!prev_user.blank? && prev_user.id == user.id) ? 'same-user':''
+        -prev_user = user
 
-          .text
-            =comment.text
-            %span.quiet (#{jtime created_at})
-            %span.quiet (#{link_to "@#{weibo_url_text}",weibo_url,:target=>'_blank'})
+        .comment{:class=>cls}
+          .arrow ◆
+          .avatar
+            %img{:src=>user.profile_image_url}
+          .cmain
+            .cdata
+              .meta
+                .name.quiet
+                  =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
+                  -if is_mindpin_user
+                    ="(#{usersign mindpin_user} @mindpin)"
+
+              .ctext.wordwrap
+                =comment.text
+                %span.quiet (#{jtime created_at})
+                %span.quiet (#{link_to "@#{weibo_url_text}",weibo_url,:target=>'_blank'})
