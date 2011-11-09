@@ -28,6 +28,7 @@ class PostComment < UserAuthAbstract
     # 用户收到的评论
     # 分为，1 用户的主题收到的评论
     # 2 回复给用户的评论
+    # 不包括用户自己的评论
 
     # since_id，可选，如果指定此参数，只返回id大于此id（时间上较早）的评论。
     # max_id，可选，如果指定此参数，只返回id小于或等于此id（时间上较晚）的评论。
@@ -43,10 +44,11 @@ class PostComment < UserAuthAbstract
       max_id = options[:max_id]
       max_id = max_id.to_i unless max_id.blank?
 
-      where_str = "WHERE PC.id>#{since_id}"
+      user_id = self.id
+
+      where_str = "WHERE PC.user_id<>#{user_id} AND PC.id>#{since_id}"
       where_str = "#{where_str} AND PC.id<=#{max_id}" if !max_id.blank?
 
-      user_id = self.id
       PostComment.find_by_sql(%~
         SELECT DISTINCT RES.* FROM
         (

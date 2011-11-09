@@ -1,13 +1,17 @@
 package com.mindpin.activity.feed;
 
 import java.util.ArrayList;
-
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
 import com.mindpin.R;
 import com.mindpin.Logic.Http;
 import com.mindpin.base.activity.MindpinBaseActivity;
@@ -28,6 +32,17 @@ public class ReceivedCommentListActivity extends MindpinBaseActivity {
 		
 		bind_received_comment_list_event();
 		bind_load_more_button_event();
+		bind_list_item_click_event();
+	}
+
+	private void bind_list_item_click_event() {
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				show_context_menu_dialog(position);
+			}
+		});
 	}
 
 	private void bind_load_more_button_event() {
@@ -78,6 +93,40 @@ public class ReceivedCommentListActivity extends MindpinBaseActivity {
 				list.setAdapter(adapter);
 			}
 		}.execute();
+	}
+	
+	private void show_context_menu_dialog(int position){
+		final FeedComment feed_comment = (FeedComment)adapter.getItem(position);
+		Builder builder = new AlertDialog.Builder(this);
+		final String[] items = new String[]{"回复评论","转到主题"};
+		builder.setTitle("评论");
+		builder.setItems(items,new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case 0:
+					reply_comment(feed_comment);
+					break;
+				case 1:
+					redirect_to_feed(feed_comment);
+					break;
+				}
+			}
+		});
+		builder.show();
+	}
+	
+	private void reply_comment(FeedComment feed_comment) {
+		Intent intent = new Intent(getApplicationContext(),SendFeedCommentActivity.class);
+		intent.putExtra(SendFeedCommentActivity.EXTRA_NAME_COMMENT_ID,feed_comment.comment_id+"");
+		ReceivedCommentListActivity.this.startActivity(intent);
+	}
+	
+	private void redirect_to_feed(FeedComment feed_comment) {
+		Intent intent = new Intent(getApplicationContext(),
+				FeedDetailActivity.class);
+		intent.putExtra(FeedDetailActivity.EXTRA_NAME_FEED_ID, feed_comment.feed_id+"");
+		ReceivedCommentListActivity.this.startActivity(intent);
 	}
 	
 }

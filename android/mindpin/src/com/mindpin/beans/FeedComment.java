@@ -13,9 +13,10 @@ public class FeedComment {
 	public String user_logo_url;
 	public int feed_creator_id;
 	public int comment_creator_id;
+	public int feed_id;
 
 	public FeedComment(int comment_id, String content, long created_at,
-			String user_name, String user_logo_url, int comment_creator_id, int feed_creator_id) {
+			String user_name, String user_logo_url, int comment_creator_id, int feed_creator_id, int feed_id) {
 		this.comment_id = comment_id;
 		this.content = content;
 		this.created_at = created_at;
@@ -23,6 +24,7 @@ public class FeedComment {
 		this.user_logo_url = user_logo_url;
 		this.comment_creator_id = comment_creator_id;
 		this.feed_creator_id = feed_creator_id;
+		this.feed_id = feed_id;
 	}
 
 	public static ArrayList<FeedComment> build_list_by_json(String response_text) {
@@ -39,10 +41,11 @@ public class FeedComment {
 				String user_logo_url = user.getString("avatar_url");
 				
 				int comment_creator_id = user.getInt("id");
-				int feed_creator_id = json.getJSONObject("feed").getJSONObject("user").getInt("id");
+				JSONObject feed = json.getJSONObject("feed");
+				int feed_creator_id = feed.getJSONObject("user").getInt("id");
+				int feed_id = feed.getInt("id");
 				
-				
-				list.add(new FeedComment(id,content,created_at,user_name,user_logo_url,comment_creator_id,feed_creator_id));
+				list.add(new FeedComment(id,content,created_at,user_name,user_logo_url,comment_creator_id,feed_creator_id,feed_id));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

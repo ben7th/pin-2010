@@ -1,15 +1,14 @@
 package com.mindpin.activity.feed;
 
 import java.util.ArrayList;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
@@ -21,7 +20,9 @@ import com.mindpin.widget.adapter.FeedCommentListAdapter;
 
 public class FeedCommentListActivity extends MindpinBaseActivity {
 	public static final String EXTRA_NAME_FEED_ID = "feed_id";
-
+	private ListView list;
+	private FeedCommentListAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,64 +44,87 @@ public class FeedCommentListActivity extends MindpinBaseActivity {
 
 			@Override
 			public void on_success(ArrayList<FeedComment> feed_comments) {
-				ListView list = (ListView)findViewById(R.id.feed_comment_list);
-				bind_list_adapter(list,feed_comments);
-				bind_list_item_long_click_event(list);
+				list = (ListView)findViewById(R.id.feed_comment_list);
+				adapter = new FeedCommentListAdapter(feed_comments);
+				list.setAdapter(adapter);
+				list.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						show_context_menu_dialog(position);
+					}
+				});
 			}
 		}.execute(feed_id);
 	}
 	
-	private void bind_list_item_long_click_event(ListView list) {
-		list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+	private void show_context_menu_dialog(final int position){
+		Builder builder = new AlertDialog.Builder(this);
+		
+		final FeedComment feed_comment = (FeedComment)adapter.getItem(position);
+		int current_user_id = AccountManager.current_user().user_id;
+		if(current_user_id == feed_comment.comment_creator_id ||
+				current_user_id == feed_comment.feed_creator_id){
+			
+			build_has_delete_context_menu_dialog(position, builder, feed_comment);
+		}else{
+			build_no_delete_context_menu_dialog(builder, feed_comment);
+		}
+		
+		builder.show();
+	}
+
+	private void build_no_delete_context_menu_dialog(Builder builder,
+			final FeedComment feed_comment) {
+		final String[] items = new String[]{"回复评论"};
+		builder.setTitle("评论");
+		builder.setItems(items,new DialogInterface.OnClickListener(){
 			@Override
-			public void onCreateContextMenu(ContextMenu menu, View v,
-					ContextMenuInfo menuInfo) {
-				AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
-				ListView list_view = (ListView)v;
-				FeedCommentListAdapter adapter = (FeedCommentListAdapter)list_view.getAdapter();
-				FeedComment feed_comment = (FeedComment)adapter.getItem(info.position);
-				
-				menu.setHeaderTitle(feed_comment.content);
-				// 增加回复评论的菜单项和点击事件
-				add_reply_comment_meun_item(menu,feed_comment.comment_id+"");
-				// 增加删除评论的菜单项和点击事件
-				add_destroy_comment_menu_item(menu,feed_comment,adapter,info.position);
+			public void onClick(DialogInterface dialog, int which) {
+				reply_comment(feed_comment);
 			}
+		});
+	}
 
-			private void add_destroy_comment_menu_item(ContextMenu menu,
-					final FeedComment feed_comment, final FeedCommentListAdapter adapter, final int position) {
-				int current_user_id = AccountManager.current_user().user_id;
-				if(current_user_id == feed_comment.comment_creator_id ||
-						current_user_id == feed_comment.feed_creator_id){
-					MenuItem item2 = menu.add("删除评论");
-					item2.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-						@Override
-						public boolean onMenuItemClick(MenuItem item) {
-							destroy_comment(feed_comment.comment_id+"",adapter,position);
-							return false;
-						}
-					});
+	private void build_has_delete_context_menu_dialog(final int position,
+			Builder builder, final FeedComment feed_comment) {
+		final String[] items = new String[]{"回复评论","删除评论"};
+		builder.setTitle("评论");
+		builder.setItems(items,new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				switch (which) {
+				case 0:
+					reply_comment(feed_comment);
+					break;
+				case 1:
+					show_destroy_comment_dialog(feed_comment.comment_id+"", adapter, position);
+					break;
 				}
-			}
-
-			private void add_reply_comment_meun_item(ContextMenu menu,final String comment_id) {
-				MenuItem item1 = menu.add("回复评论");
-				item1.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						Intent intent = new Intent(getApplicationContext(),SendFeedCommentActivity.class);
-						intent.putExtra(SendFeedCommentActivity.EXTRA_NAME_COMMENT_ID,comment_id);
-						FeedCommentListActivity.this.startActivity(intent);
-						return false;
-					}
-				});						
 			}
 		});
 	}
 	
-	private void bind_list_adapter(ListView list, ArrayList<FeedComment> feed_comments) {
-		FeedCommentListAdapter adapter = new FeedCommentListAdapter(feed_comments);
-		list.setAdapter(adapter);
+	private void reply_comment(FeedComment feed_comment) {
+		Intent intent = new Intent(getApplicationContext(),SendFeedCommentActivity.class);
+		intent.putExtra(SendFeedCommentActivity.EXTRA_NAME_COMMENT_ID,feed_comment.comment_id+"");
+		FeedCommentListActivity.this.startActivity(intent);
+	}
+	
+	private void show_destroy_comment_dialog(final String comment_id, final FeedCommentListAdapter adapter, final int position) {
+		Builder builder = new AlertDialog.Builder(this);
+		
+		builder
+		.setMessage("确认删除这条评论吗？")
+		.setPositiveButton(R.string.dialog_ok,
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,
+						int which) {
+					destroy_comment(comment_id, adapter, position);
+				}
+			})
+		.setNegativeButton(R.string.dialog_cancel, null)
+		.show();
 	}
 	
 	private void destroy_comment(String comment_id, final FeedCommentListAdapter adapter, final int position) {
@@ -124,4 +148,5 @@ public class FeedCommentListActivity extends MindpinBaseActivity {
 			}
 		}.execute(comment_id);
 	}
+	
 }

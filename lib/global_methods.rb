@@ -95,17 +95,32 @@ end
 # 阿里云文件存储服务的请求签名方法
 require 'openssl'
 require 'base64'
-def ali_oss_sign(key, res)
+def ali_oss_sign(verb, key, date, res)
   digest  = OpenSSL::Digest::Digest.new('sha1')
 
-  verb = 'GET'
   md5 = ''
   ty = ''
-  date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S %Z')
   header = ''
 
   str = "#{verb}\n#{md5}\n#{ty}\n#{date}\n#{header}#{res}"
-  p date
-  p Base64.encode64(OpenSSL::HMAC.digest(digest, key, str)).strip
-  p Base64.encode64(OpenSSL::HMAC.digest(digest, key, date)).strip
+  bytemac = OpenSSL::HMAC.digest(digest, key, str)
+  res = Base64.encode64(bytemac).strip
+end
+
+def ali_get_all(id, key)
+  date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S %Z')
+
+  Net::HTTP.start('storage.aliyun.com') do |http|
+    r = http.get('/','Authorization'=>"OSS #{id}:#{ali_oss_sign('GET', key, date, '/')}",'Date'=>date)
+    puts r.body
+  end
+end
+
+def put_bucket(id, key, bucket)
+  date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S %Z')
+
+  Net::HTTP.start('storage.aliyun.com') do |http|
+    r = http.put("/#{bucket}",'Authorization'=>"OSS #{id}:#{ali_oss_sign('PUT', key, date, "/#{bucket}")}",'Date'=>date)
+    puts r.body
+  end
 end
