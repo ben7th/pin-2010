@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
@@ -185,12 +185,12 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 	}
 	
 	private void create_collection(String title){
-		new MindpinAsyncTask<String, Void, Boolean>(this,"正在创建...") {
+		new MindpinAsyncTask<String, Void, Boolean>(this,R.string.now_creating) {
 			@Override
 			public Boolean do_in_background(String... params)
 					throws Exception {
 				String title1 = params[0];
-				return Http.create_collection(title1);
+				return HttpApi.create_collection(title1);
 			}
 
 			@Override

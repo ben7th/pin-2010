@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
@@ -59,7 +59,7 @@ public class LoginActivity extends MindpinBaseActivity {
 			public Void do_in_background(String... params) throws Exception {
 				String email = params[0];
 				String password = params[1];
-				Http.user_authenticate(email, password);
+				HttpApi.user_authenticate(email, password);
 				return null;
 			}
 

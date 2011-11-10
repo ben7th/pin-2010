@@ -7,7 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 
 public abstract class MindpinPostRequest<TResult> extends MindpinHttpRequest<TResult> {
 	// 一般文本参数的请求
@@ -31,7 +31,7 @@ public abstract class MindpinPostRequest<TResult> extends MindpinHttpRequest<TRe
 	}
 	
 	private HttpPost build_http_post(HttpEntity entity, String request_path){
-		HttpPost http_post = new HttpPost(Http.SITE + request_path);
+		HttpPost http_post = new HttpPost(HttpApi.SITE + request_path);
 		http_post.setHeader("User-Agent", "android");
 		http_post.setEntity(entity);
 		return http_post;

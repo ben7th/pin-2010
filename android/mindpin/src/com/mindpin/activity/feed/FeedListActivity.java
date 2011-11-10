@@ -1,29 +1,26 @@
 package com.mindpin.activity.feed;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
-import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.activity.MindpinSimpleDataList;
 import com.mindpin.database.Feed;
 import com.mindpin.widget.adapter.FeedListAdapter;
+import com.mindpin.widget.view.HeadBar;
 
 public class FeedListActivity extends MindpinBaseActivity {
-	public static final String EXTRA_COLLECTION_ID = "collection_id";
+	public static final String EXTRA_COLLECTION_ID    = "collection_id";
 	public static final String EXTRA_COLLECTION_TITLE = "collection_title";
-	private FeedListAdapter adapter;
-	private ListView feed_list;
+	
 	private int collection_id;
 	private String collection_title;
 
@@ -31,93 +28,65 @@ public class FeedListActivity extends MindpinBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feed_list);
-		this.collection_id = getIntent().getIntExtra(EXTRA_COLLECTION_ID, -1);
+		
+		this.collection_id    = getIntent().getIntExtra(EXTRA_COLLECTION_ID, -1);
 		this.collection_title = getIntent().getStringExtra(EXTRA_COLLECTION_TITLE);
-
-		feed_list = (ListView) findViewById(R.id.feed_list);
         
 		set_title();
-		bind_load_more_button_event();
-		load_feeds_data();
+		load_data();
+	}
+	
+	private boolean is_home_timeline(){
+		return -1 == collection_id;
 	}
 	
 	private void set_title() {
-		if(collection_id != -1){
-			TextView title_view = (TextView)findViewById(R.id.feed_list_title);
-			title_view.setText(collection_title+"的主题");
+		if(!is_home_timeline()){
+			HeadBar headbar = (HeadBar) findViewById(R.id.head_bar);
+			headbar.set_title(collection_title);
 		}
 	}
-
-	private void bind_load_more_button_event(){
-        View load_more_view = getLayoutInflater().inflate(R.layout.list_more_button, null);  
-        View load_more_button = load_more_view.findViewById(R.id.list_more_button);
-		final ProgressBar loading_progress = (ProgressBar)load_more_view.findViewById(R.id.list_more_button_loading);
+	
+	private void load_data(){
+		ListView list_view = (ListView) findViewById(R.id.feed_list);
+		FeedListAdapter adapter = new FeedListAdapter(this);
 		
-        load_more_button.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				new MindpinAsyncTask<String, Void, Void>(){
-					public void on_start() {
-						loading_progress.setVisibility(View.VISIBLE);
-					}
-					
-					@Override
-					public Void do_in_background(String... params)
-							throws Exception {
-						adapter.load_more_data();
-						return null;
-					}
+		new MindpinSimpleDataList<Feed, FeedListAdapter>(list_view, adapter) {
 
-					@Override
-					public void on_success(Void result) {
-						loading_progress.setVisibility(View.GONE);
-					};
-					
-					public boolean on_unknown_exception() {
-						return false;
-					};
-				}.execute();
-			}
-		});
-        
-        feed_list.addFooterView(load_more_view);
-	}
-	
-	private void load_feeds_data() {
-		new MindpinAsyncTask<String, Void, ArrayList<Feed>>(this, "正在载入…") {
 			@Override
-			public ArrayList<Feed> do_in_background(String... params)
-					throws Exception {
-				if(collection_id != -1){
-					return Http.get_collection_feeds(collection_id);
+			public List<Feed> load_list_data() throws Exception {
+				if(is_home_timeline()){
+					return HttpApi.FeedsApi.get_home_timeline();
 				}else{
-					return Http.get_home_timeline_feeds(-1);
+					return HttpApi.CollectionApi.get_collection_feeds(collection_id);
 				}
 			}
 
 			@Override
-			public void on_success(ArrayList<Feed> feeds) {
-				if(collection_id != -1){
-					adapter = new FeedListAdapter(feeds,collection_id);
-				}else{
-					adapter = new FeedListAdapter(feeds);
-				}
-				feed_list.setAdapter(adapter);
-				feed_list.setOnItemClickListener(new OnItemClickListener() {
-					public void onItemClick(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3) {
-						TextView text_view = (TextView) arg1
-								.findViewById(R.id.feed_id);
-						String feed_id = (String) text_view.getText();
+			public List<Feed> load_list_more_data() throws Exception {
+				int max_id = get_adapter().get_max_id_for_request();
 
-						Intent intent = new Intent(getApplicationContext(),
-								FeedDetailActivity.class);
-						intent.putExtra(FeedDetailActivity.EXTRA_NAME_FEED_ID,
-								feed_id);
-						FeedListActivity.this.startActivity(intent);
-					}
-				});
+				if(is_home_timeline()){
+					return HttpApi.FeedsApi.get_home_timeline(max_id);
+				}else{
+					return HttpApi.CollectionApi.get_collection_feeds(collection_id, max_id);
+				}
 			}
-		}.execute();
-	}
-	
+
+			@Override
+			public OnItemClickListener list_item_click_listener() {
+				return new OnItemClickListener() {
+					public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+						System.out.println(position);
+						System.out.println(get_adapter().fetch_item(position));
+						int feed_id = get_adapter().fetch_item(position).feed_id;
+						Intent intent = new Intent(getApplicationContext(), FeedDetailActivity.class);
+						intent.putExtra(FeedDetailActivity.EXTRA_NAME_FEED_ID, feed_id);
+						startActivity(intent);
+					}
+				};
+			}
+			
+		}.load();
+	}	
 }

@@ -2,8 +2,19 @@
 <resources>
 	<style name="Theme.mindpin" parent="@android:Theme.Light.NoTitleBar">
 		<item name="android:windowBackground">@color/mindpin_bgc</item>
+		<item name="android:listViewStyle">@style/mindpin_list_theme</item>
 	</style>
 
+    <!-- 主题公共元素 -->
+    <style name="mindpin_list_theme" parent="@android:style/Widget.ListView.White">
+    	<item name="android:smoothScrollbar">true</item>
+    	<item name="android:fastScrollEnabled">true</item>
+    	<item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:listSelector">@android:drawable/list_selector_background</item>
+        <item name="android:background">@color/mindpin_bgc</item>
+    </style>
+    
+    <!-- 以下为其他 -->
     <style name="body">
     	<item name="android:orientation">vertical</item>
     	<item name="android:layout_width">fill_parent</item>
@@ -105,17 +116,16 @@
     	<item name="android:textSize">16dp</item>
     </style>
     
-    <style name="feed_list">
-    	<item name="android:layout_width">fill_parent</item>
-    	<item name="android:layout_height">fill_parent</item>
-    </style>
     
     <style name="feed_list_item">
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
-    	<item name="android:background">#f4f4f4</item>
     	<item name="android:orientation">vertical</item>
     	<item name="android:paddingBottom">18dp</item>
+    </style>
+    
+    <style name="feed_grid_item" parent="@style/feed_list_item">
+    	<item name="android:background">#f4f4f4</item>
     </style>
     
     <style name="feed_list_item_title">
@@ -130,7 +140,7 @@
     <style name="feed_list_item_text">
     	<item name="android:layout_width">fill_parent</item>
     	<item name="android:layout_height">wrap_content</item>
-    	<item name="android:textColor">#666</item>
+    	
     	<item name="android:textSize">14dp</item>
     </style>
     

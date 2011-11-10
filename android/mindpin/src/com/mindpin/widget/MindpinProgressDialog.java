@@ -16,6 +16,11 @@ public class MindpinProgressDialog extends Dialog {
 		super(context, R.style.mindpin_progress_dialog);
 		this.message = message;
 	}
+	
+	public MindpinProgressDialog(Context context,int resid){
+		super(context, R.style.mindpin_progress_dialog);
+		this.message = context.getString(resid);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class MindpinProgressDialog extends Dialog {
 	}
 	
 	public static MindpinProgressDialog show(Context context){
-		MindpinProgressDialog dialog = new MindpinProgressDialog(context, "’˝‘⁄‘ÿ»Î°≠");
+		MindpinProgressDialog dialog = new MindpinProgressDialog(context, R.string.now_loading);
 		dialog.show();
 		return dialog;
 	}

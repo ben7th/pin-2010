@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Collection {
-	public int collection_id;
+	public Integer collection_id;
 	public String title;
 	
 	public Collection(int collection_id, String title) {

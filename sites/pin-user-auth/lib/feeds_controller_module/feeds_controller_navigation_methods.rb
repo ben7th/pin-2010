@@ -3,6 +3,10 @@ module FeedsControllerNavigationMethods
     @user = User.find(params[:user_id]) if params[:user_id]
   end
 
+  def public_timeline
+    @feeds = Feed.public_timeline
+  end
+
   def _index_login
     case cookies[:menu_feeds_tab]
     when "friends" then friends
@@ -57,11 +61,6 @@ module FeedsControllerNavigationMethods
     set_cookies_menu_feeds_tab "no_reply"
     @feeds = Feed.no_reply.paginate(:per_page=>20,:page=>params[:page]||1)
     render :template=>"feeds/no_reply"
-  end
-
-  def all
-    @feeds = Feed.public_timeline
-    render :layout=>'collection'
   end
 
   private

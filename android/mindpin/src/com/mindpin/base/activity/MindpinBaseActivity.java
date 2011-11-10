@@ -11,7 +11,7 @@ import com.mindpin.activity.base.LoginActivity;
 import com.mindpin.cache.image.ImageCache;
 import com.mindpin.database.User;
 
-public class MindpinBaseActivity extends Activity {
+abstract public class MindpinBaseActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,5 @@ public class MindpinBaseActivity extends Activity {
 	final public void load_cached_image(String image_url, ImageView image_view){
 		ImageCache.load_cached_image(image_url, image_view);
 	}
-	
 
 }

@@ -10,7 +10,8 @@
 	android:background="#ddd"
 >
 	<TextView 
-	 	android:text="查看更多…"
+		android:id="@+id/list_more_button_info"
+	 	android:text="查看更多"
 	 	android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="16dp"

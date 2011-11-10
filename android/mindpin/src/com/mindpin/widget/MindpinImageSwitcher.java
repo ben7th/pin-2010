@@ -25,10 +25,6 @@ public class MindpinImageSwitcher extends ViewAnimator {
 		super(context, attrs);
 	}
 
-	public MindpinImageSwitcher(Context context) {
-		super(context);
-	}
-
 	public void load_urls(List<String> image_urls,List<Double> image_ratios, TextView footer) {
 		this.image_urls = image_urls;
 		//this.image_ratios = image_ratios;

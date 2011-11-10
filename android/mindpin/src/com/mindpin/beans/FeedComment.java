@@ -6,23 +6,23 @@ import org.json.JSONObject;
 import com.mindpin.base.utils.BaseUtils;
 
 public class FeedComment {
-	public int comment_id;
+	public Integer comment_id;
 	public String content;
 	public long created_at;
 	public String user_name;
 	public String user_logo_url;
 	public int feed_creator_id;
-	public int comment_creator_id;
-	public int feed_id;
+	public int creator_id;
+	public Integer feed_id;
 
 	public FeedComment(int comment_id, String content, long created_at,
-			String user_name, String user_logo_url, int comment_creator_id, int feed_creator_id, int feed_id) {
+			String user_name, String user_logo_url, int creator_id, int feed_creator_id, int feed_id) {
 		this.comment_id = comment_id;
 		this.content = content;
 		this.created_at = created_at;
 		this.user_name = user_name;
 		this.user_logo_url = user_logo_url;
-		this.comment_creator_id = comment_creator_id;
+		this.creator_id = creator_id;
 		this.feed_creator_id = feed_creator_id;
 		this.feed_id = feed_id;
 	}

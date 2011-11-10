@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
@@ -73,13 +73,12 @@ public class CollectionListActivity extends MindpinBaseActivity {
 	}
 
 	private void build_collection_list() {
-		final ArrayList<Collection> collections = CollectionsCache
-				.get_current_user_collection_list();
-		ListView collection_list_lv = (ListView) findViewById(R.id.collection_list);
+		final ArrayList<Collection> collections = CollectionsCache.get_current_user_collection_list();
+		ListView collection_list = (ListView) findViewById(R.id.collection_list);
 
-		final CollectionListAdapter sa = new CollectionListAdapter(collections,
-				this);
-		collection_list_lv.setAdapter(sa);
+		final CollectionListAdapter sa = new CollectionListAdapter(this);
+		sa.add_items(collections);
+		collection_list.setAdapter(sa);
 		final Button toggle_list_mode_bn = (Button) findViewById(R.id.toggle_list_mode);
 		toggle_list_mode_bn.setText("编辑");
 
@@ -96,7 +95,7 @@ public class CollectionListActivity extends MindpinBaseActivity {
 			}
 		});
 
-		collection_list_lv.setOnItemClickListener(new OnItemClickListener() {
+		collection_list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -114,11 +113,11 @@ public class CollectionListActivity extends MindpinBaseActivity {
 	}
 
 	private void create_collection(String title) {
-		new MindpinAsyncTask<String, Void, Boolean>(this, "正在创建...") {
+		new MindpinAsyncTask<String, Void, Boolean>(this, R.string.now_creating) {
 			@Override
 			public Boolean do_in_background(String... params) throws Exception {
 				String title1 = params[0];
-				return Http.create_collection(title1);
+				return HttpApi.create_collection(title1);
 			}
 
 			@Override

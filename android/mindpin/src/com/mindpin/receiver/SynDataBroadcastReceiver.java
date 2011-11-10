@@ -2,7 +2,7 @@ package com.mindpin.receiver;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.task.MindpinAsyncTask;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,7 +30,7 @@ public class SynDataBroadcastReceiver extends BroadcastReceiver {
 						}
 					};
 					timer.schedule(timer_task, 50, 50);
-					Http.mobile_data_syn();
+					HttpApi.mobile_data_syn();
 
 					send_progress_broadcast(context, 100);
 

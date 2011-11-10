@@ -2,7 +2,7 @@ package com.mindpin.Logic;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -18,20 +18,20 @@ import com.mindpin.base.http.MindpinPostRequest;
 import com.mindpin.base.http.MindpinPutRequest;
 import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.beans.ContactUser;
 import com.mindpin.beans.FeedComment;
-import com.mindpin.beans.Following;
 import com.mindpin.cache.CollectionsCache;
 import com.mindpin.database.Feed;
 import com.mindpin.database.User;
 
-public class Http {
+public class HttpApi {
 	
 	public static final String SITE = "http://www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/session";
 	
-	public static final String 同步数据 			= "/api0/mobile_data_syn";
+	public static final String 同步数据 			    = "/api0/mobile_data_syn";
 	public static final String 我的收件箱主题列表 	= "/api0/home_timeline";
 	
 	public static final String 收集册的主题列表 		= "/api0/collections/feeds";
@@ -48,7 +48,7 @@ public class Http {
 	public static final String 主题的评论列表		= "/api0/comments/list";
 	public static final String 删除主题评论			= "/api0/comments/delete";
 	public static final String 回复主题评论			= "/api0/comments/reply";
-	public static final String 当前用户收到的评论	= "/api0/comments/received";
+	public static final String 当前用户收到的评论    = "/api0/comments/received";
 	
 	public static final String 用户的关注列表		= "/api0/contacts/followings";
 	
@@ -88,8 +88,8 @@ public class Http {
 	}
 	
 	
-	public static Void send_text_feed(String title,String detail,
-			ArrayList<Integer> select_collection_ids, boolean send_tsina) throws Exception{
+	public static Void send_text_feed(String title, String detail, 
+			List<Integer> select_collection_ids, boolean send_tsina) throws Exception{
 		
 		String select_collection_ids_str = BaseUtils.integer_list_to_string(select_collection_ids);
 		return new MindpinPostRequest<Void>(
@@ -108,7 +108,7 @@ public class Http {
 
 	// 发送主题
 	public static Void send_photo_feed(String title, String detail,
-			ArrayList<String> photo_names, ArrayList<Integer> select_collection_ids, boolean send_tsina) throws Exception {
+			List<String> photo_names, List<Integer> select_collection_ids, boolean send_tsina) throws Exception {
 		
 		String photo_string = BaseUtils.string_list_to_string(photo_names); 
 		String select_collection_ids_str = BaseUtils.integer_list_to_string(select_collection_ids);
@@ -172,37 +172,10 @@ public class Http {
 		}.go();
 	}
 	
-	public static ArrayList<Feed> get_collection_feeds(int id) throws UnsupportedEncodingException, Exception {
-		return get_collection_feeds(id,-1);
-	}
-
-	public static ArrayList<Feed> get_collection_feeds(int id,int max_id) throws UnsupportedEncodingException, Exception {
-		BasicNameValuePair param;
-		if (max_id != -1) {
-			param = new BasicNameValuePair("max_id", max_id + "");
-		} else {
-			param = new BasicNameValuePair("max_id", "");
-		}
-		return new MindpinGetRequest<ArrayList<Feed>>(
-				收集册的主题列表, 
-				new BasicNameValuePair("collection_id", id+""),
-				param
-				){
-			@Override
-			public ArrayList<Feed> on_success(String response_text) throws Exception {
-				ArrayList<Feed> list = Feed.build_list_by_json(response_text);
-				for (Feed feed : list) {
-					Feed.create_or_update(feed.json);
-				}
-				return list;
-			}
-		}.go();
-	}
-	
-	public static boolean destroy_collection(int id) throws Exception{
+	public static boolean destroy_collection(Integer collection_id) throws Exception{
 		return new MindpinDeleteRequest<Boolean>(
 				删除收集册,
-				new BasicNameValuePair("collection_id", id+"")){
+				new BasicNameValuePair("collection_id", collection_id.toString())){
 			@Override
 			public Boolean on_success(String response_text) throws Exception {
 				CollectionsCache.save(response_text);
@@ -212,11 +185,11 @@ public class Http {
 		}.go();
 	}
 	
-	public static boolean change_collection_name(int id, String title) throws UnsupportedEncodingException, Exception{
+	public static boolean change_collection_name(Integer collection_id, String title) throws UnsupportedEncodingException, Exception{
 		return new MindpinPutRequest<Boolean>(
 				收集册改名,
 				new BasicNameValuePair("title", title),
-				new BasicNameValuePair("collection_id", id+"")){
+				new BasicNameValuePair("collection_id", collection_id.toString())){
 
 					@Override
 					public Boolean on_success(String response_text)
@@ -227,10 +200,10 @@ public class Http {
 		}.go();
 	}
 	
-	public static Feed read_feed(String feed_id) throws Exception {
+	public static Feed read_feed(Integer feed_id) throws Exception {
 		return new MindpinGetRequest<Feed>(
 				主题详情,
-				new BasicNameValuePair("id", feed_id)){
+				new BasicNameValuePair("id", feed_id.toString())){
 
 					@Override
 					public Feed on_success(String response_text)
@@ -242,33 +215,11 @@ public class Http {
 		}.go();
 	}
 	
-	public static ArrayList<Feed> get_home_timeline_feeds(int max_id)
-			throws Exception {
-		BasicNameValuePair param;
-		if (max_id != -1) {
-			param = new BasicNameValuePair("max_id", max_id + "");
-		} else {
-			param = new BasicNameValuePair("max_id", "");
-		}
-		return new MindpinGetRequest<ArrayList<Feed>>(我的收件箱主题列表, param) {
-
-			@Override
-			public ArrayList<Feed> on_success(String response_text)
-					throws Exception {
-				ArrayList<Feed> feeds = Feed.build_list_by_json(response_text);
-				for (Feed feed : feeds) {
-					Feed.create_or_update(feed.json);
-				}
-				return feeds;
-			}
-		}.go();
-	}
-	
-	public static boolean add_feed_commment(String feed_id, String comment) throws UnsupportedEncodingException, Exception{
+	public static boolean add_feed_commment(Integer feed_id, String content) throws UnsupportedEncodingException, Exception{
 		return new MindpinPostRequest<Boolean>(
 				创建主题评论, 
-				new BasicNameValuePair("feed_id", feed_id),
-				new BasicNameValuePair("content", comment)
+				new BasicNameValuePair("feed_id", feed_id.toString()),
+				new BasicNameValuePair("content", content)
 				){
 			@Override
 			public Boolean on_success(String response_text) throws Exception {
@@ -277,22 +228,22 @@ public class Http {
 		}.go();
 	}
 	
-	public static ArrayList<FeedComment> get_feed_comments(String feed_id) throws Exception{
-		return new MindpinGetRequest<ArrayList<FeedComment>>(
+	public static List<FeedComment> get_feed_comments(Integer feed_id) throws Exception{
+		return new MindpinGetRequest<List<FeedComment>>(
 				主题的评论列表, 
-				new BasicNameValuePair("feed_id", feed_id)
+				new BasicNameValuePair("feed_id", feed_id.toString())
 				){
 			@Override
-			public ArrayList<FeedComment> on_success(String response_text) throws Exception {
+			public List<FeedComment> on_success(String response_text) throws Exception {
 				return FeedComment.build_list_by_json(response_text);
 			}
 		}.go();
 	}
 	
-	public static void destroy_feed_commment(String comment_id) throws Exception{
+	public static void destroy_feed_commment(Integer comment_id) throws Exception{
 		new MindpinDeleteRequest<Void>(
 				删除主题评论,
-				new BasicNameValuePair("comment_id", comment_id)
+				new BasicNameValuePair("comment_id", comment_id.toString())
 				) {
 			@Override
 			public Void on_success(String response_text) throws Exception {
@@ -301,10 +252,10 @@ public class Http {
 		}.go();
 	}
 	
-	public static Boolean reply_feed_comment(String comment_id,String content) throws Exception{
+	public static Boolean reply_feed_comment(Integer comment_id, String content) throws Exception{
 		return new MindpinPostRequest<Boolean>(
 				回复主题评论,
-				new BasicNameValuePair("comment_id", comment_id),
+				new BasicNameValuePair("comment_id", comment_id.toString()),
 				new BasicNameValuePair("content", content)
 				) {
 			public Boolean on_success(String response_text) throws Exception {
@@ -313,43 +264,44 @@ public class Http {
 		}.go();
 	}
 	
-	public static ArrayList<FeedComment> received_comments() throws Exception{
+	public static List<FeedComment> received_comments() throws Exception{
 		return received_comments(-1);
 	}
 	
-	public static ArrayList<FeedComment> received_comments(int max_id) throws Exception{
+	public static List<FeedComment> received_comments(Integer max_id) throws Exception{
 		BasicNameValuePair param;
-		if (max_id != -1) {
-			param = new BasicNameValuePair("max_id", max_id + "");
+		if (max_id > 0) {
+			param = new BasicNameValuePair("max_id", max_id.toString());
 		} else {
 			param = new BasicNameValuePair("max_id", "");
 		}
-		return new MindpinGetRequest<ArrayList<FeedComment>>(
+		return new MindpinGetRequest<List<FeedComment>>(
 				当前用户收到的评论,
 				param
 				) {
 					@Override
-					public ArrayList<FeedComment> on_success(
+					public List<FeedComment> on_success(
 							String response_text) throws Exception {
 						return FeedComment.build_list_by_json(response_text);
 					}
 		}.go();
 	}
 	
-	public static ArrayList<Following> get_current_user_followings() throws Exception{
-		return get_followings(AccountManager.current_user().user_id+"");
+	public static List<ContactUser> get_current_user_followings() throws Exception{
+		return get_followings(AccountManager.current_user().user_id);
 	}
 	
-	public static ArrayList<Following> get_followings(String user_id) throws Exception{
-		return new MindpinGetRequest<ArrayList<Following>>(
-				用户的关注列表,
-				new BasicNameValuePair("user_id", user_id)
-				) {
-					@Override
-					public ArrayList<Following> on_success(String response_text)
-							throws Exception {
-						return Following.build_list_by_json(response_text);
-					}
+	public static List<ContactUser> get_followings(Integer user_id)
+			throws Exception {
+		return new MindpinGetRequest<List<ContactUser>>(
+			用户的关注列表,
+			new BasicNameValuePair("user_id", user_id.toString())
+		) {
+			@Override
+			public List<ContactUser> on_success(String response_text)
+					throws Exception {
+				return ContactUser.build_list_by_json(response_text);
+			}
 		}.go();
 	}
 	
@@ -357,5 +309,53 @@ public class Http {
 		private static final long serialVersionUID = -4969746083422993611L;
 	}
 
+	public static class FeedsApi{
+		public static List<Feed> get_home_timeline() throws Exception{
+			return request_我的收件箱主题列表();
+		}
+		public static List<Feed> get_home_timeline(Integer max_id) throws Exception {
+			BasicNameValuePair param = new BasicNameValuePair("max_id", max_id.toString());
+			return request_我的收件箱主题列表(param);
+		}
+		private static List<Feed> request_我的收件箱主题列表(BasicNameValuePair... param) throws Exception{
+			return new MindpinGetRequest<List<Feed>>(我的收件箱主题列表, param) {
 
+				@Override
+				public List<Feed> on_success(String response_text)
+						throws Exception {
+					List<Feed> feeds = Feed.build_list_by_json(response_text);
+					for (Feed feed : feeds) {
+						Feed.create_or_update(feed.json);
+					}
+					return feeds;
+				}
+			}.go();
+		}
+	}
+
+	public static class CollectionApi{
+		public static List<Feed> get_collection_feeds(int collection_id) throws Exception {
+			return request_收集册的主题列表(collection_id, -1);
+		}
+
+		public static List<Feed> get_collection_feeds(int collection_id, int max_id) throws Exception {
+			return request_收集册的主题列表(collection_id, max_id);
+		}
+		private static List<Feed> request_收集册的主题列表(Integer collection_id, Integer max_id) throws Exception{			
+			return new MindpinGetRequest<List<Feed>>(
+					收集册的主题列表, 
+					new BasicNameValuePair("collection_id", collection_id.toString()),
+					new BasicNameValuePair("max_id", ( max_id > 0 ? "" : max_id.toString()))
+			){
+				@Override
+				public List<Feed> on_success(String response_text) throws Exception {
+					List<Feed> list = Feed.build_list_by_json(response_text);
+					for (Feed feed : list) {
+						Feed.create_or_update(feed.json);
+					}
+					return list;
+				}
+			}.go();
+		}
+	}
 }

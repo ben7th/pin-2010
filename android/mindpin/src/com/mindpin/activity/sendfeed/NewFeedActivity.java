@@ -1,6 +1,7 @@
 package com.mindpin.activity.sendfeed;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,7 +37,8 @@ import android.widget.Toast;
 import com.mindpin.R;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.FeedDraftManager;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
+import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
@@ -55,13 +57,13 @@ public class NewFeedActivity extends MindpinBaseActivity {
 	public static final int MESSAGE_SENDING_FEED_CHANGE_TITLE = 5;
 	LinearLayout feed_captures;
 	RelativeLayout feed_captures_parent;
-	private ArrayList<String> capture_paths = new ArrayList<String>();
+	private List<String> capture_paths = new ArrayList<String>();
 	
 	private EditText feed_title_et;
 	private EditText feed_detail_et;
 	private String feed_title;
 	private String feed_detail;
-	private ArrayList<Integer> select_collection_ids;
+	private List<Integer> select_collection_ids;
 	
 	private ImageButton capture_bn;
 	private Button send_bn;
@@ -197,7 +199,7 @@ public class NewFeedActivity extends MindpinBaseActivity {
 				super.on_start();
 				progress_dialog = new ProgressDialog(NewFeedActivity.this);
 				progress_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				progress_dialog.setMessage("正在发送...");
+				progress_dialog.setMessage(MindpinApplication.now_sending);
 				progress_dialog.setMax(max_count);
 				progress_dialog.setProgress(1);
 				progress_dialog.show();
@@ -257,7 +259,7 @@ public class NewFeedActivity extends MindpinBaseActivity {
 						}
 					};
 					timer.schedule(task, 1000, 1000);
-					photo_names.add(Http.upload_photo(capture_path));
+					photo_names.add(HttpApi.upload_photo(capture_path));
 					timer.cancel();
 					publish_progress("sending_feed",count+"");
 				}
@@ -273,9 +275,9 @@ public class NewFeedActivity extends MindpinBaseActivity {
 				};
 				timer.schedule(task, 1000, 1000);
 				if(photo_names.size() == 0){
-					Http.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina);
+					HttpApi.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina);
 				}else{
-					Http.send_photo_feed(feed_title, feed_detail, photo_names, select_collection_ids,send_tsina);
+					HttpApi.send_photo_feed(feed_title, feed_detail, photo_names, select_collection_ids,send_tsina);
 				}
 				timer.cancel();
 				if(feed_draft_id!=0){
@@ -349,8 +351,7 @@ public class NewFeedActivity extends MindpinBaseActivity {
 				intent.putExtra(SelectCollectionListActivity.EXTRA_NAME_KIND, 
 						SelectCollectionListActivity.EXTRA_VALUE_SELECT_FOR_RESULT);
 				if(select_collection_ids != null && select_collection_ids.size() != 0){
-					intent.putIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS, 
-							select_collection_ids);
+					intent.putIntegerArrayListExtra(SelectCollectionListActivity.EXTRA_NAME_SELECT_COLLECTION_IDS, (ArrayList<Integer>)select_collection_ids);
 				}
 				intent.putExtra(SelectCollectionListActivity.EXTRA_NAME_SEND_TSINA, send_tsina);
 				startActivityForResult(intent,REQUEST_SELECT_COLLECTIONS);
@@ -528,12 +529,12 @@ public class NewFeedActivity extends MindpinBaseActivity {
 		feed_title_et.setText(fd.title);
 		feed_detail_et.setText(fd.content);
 		
-		ArrayList<String> paths = BaseUtils.string_to_string_list(fd.image_paths);
+		List<String> paths = BaseUtils.string_to_string_list(fd.image_paths);
 		for (String path : paths) {
 			add_image_to_feed_captures(path);
 		}
 		
-		ArrayList<Integer> ids = BaseUtils.string_to_integer_list(fd.select_collection_ids);
+		List<Integer> ids = BaseUtils.string_to_integer_list(fd.select_collection_ids);
 		if(ids!=null && ids.size()!=0){
 			select_collections_bn.setText("选择了"+ ids.size() +"收集册");
 			select_collection_ids = ids;

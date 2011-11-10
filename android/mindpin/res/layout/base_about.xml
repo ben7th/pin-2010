@@ -6,18 +6,10 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
 >	
-	<RelativeLayout
-		style="@style/head_bar"
-	>
-		<TextView
-			style="@style/head_bar_text_center" 
-			android:text="@string/about_title"
-		>
-		</TextView>
-		<Button 
-			style="@style/head_bar_button_go_back"
-		/>
-	</RelativeLayout>
+  	<com.mindpin.widget.view.HeadBar
+  		style="@style/head_bar"
+  		title="关于…"
+  	/>
 	
 	<ScrollView
 		android:scrollbars="vertical"

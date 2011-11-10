@@ -4,12 +4,6 @@
   android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-    <TextView
-    	android:id="@+id/feed_comment_id"
-   		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:visibility="gone"
-    />
     <!-- 作者信息 -->
 	<RelativeLayout
 		android:layout_width="fill_parent"

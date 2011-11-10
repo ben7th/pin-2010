@@ -1,115 +1,52 @@
 package com.mindpin.widget.adapter;
 
-import java.util.ArrayList;
-
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
 import com.mindpin.activity.feed.FeedHelper;
-import com.mindpin.application.MindpinApplication;
+import com.mindpin.base.activity.MindpinBaseActivity;
+import com.mindpin.base.adapter.MindpinBaseAdapter;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.image.ImageCache;
 import com.mindpin.database.Feed;
 
-public class FeedListAdapter extends BaseAdapter {
-	private ArrayList<Feed> feeds;
-	private int collection_id;
-	
-	public FeedListAdapter(ArrayList<Feed> feeds) {
-		this.feeds = feeds;
-		this.collection_id = -1;
+public class FeedListAdapter extends MindpinBaseAdapter<Feed> {
+	public FeedListAdapter(MindpinBaseActivity activity) {
+		super(activity);
 	}
 	
-	public FeedListAdapter(ArrayList<Feed> feeds,int collection_id) {
-		this.feeds = feeds;
-		this.collection_id  = collection_id;
+	@Override
+	public View inflate_view() {
+		return inflate(R.layout.feed_list_item, null);
+	}
+	
+	@Override
+	public BaseViewHolder build_view_holder(View view) {
+		ViewHolder view_holder = new ViewHolder();
+		
+		view_holder.id_textview 	= (TextView) view.findViewById(R.id.feed_id);
+		view_holder.title_textview  = (TextView) view.findViewById(R.id.feed_title);
+		view_holder.detail_textview = (TextView) view.findViewById(R.id.feed_detail);
+		
+		view_holder.user_name_textview 	  = (TextView)  view.findViewById(R.id.user_name);
+		view_holder.user_avatar_imageview = (ImageView) view.findViewById(R.id.user_avatar);
+		view_holder.updated_at_textview   = (TextView)  view.findViewById(R.id.updated_at);
+		
+		view_holder.feed_photos_1st = (ImageView) view.findViewById(R.id.feed_photos_1st);
+		view_holder.feed_photos_2nd = (ImageView) view.findViewById(R.id.feed_photos_2nd);
+		view_holder.feed_photos_3rd = (ImageView) view.findViewById(R.id.feed_photos_3rd);
+		view_holder.feed_one_photo  = (ImageView) view.findViewById(R.id.feed_one_photo);
+		
+		return view_holder;
 	}
 
 	@Override
-	public int getCount() {
-		return feeds.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return feeds.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-	
-	public void load_more_data() throws Exception {
-		if(collection_id == -1){
-			load_home_timeline_more_data();
-		}else{
-			load_collection_more_data();
-		}
-	}
-	
-	private void load_collection_more_data() throws Exception {
-		Feed current_last_feed = feeds.get(feeds.size() - 1);
-		int feed_id = current_last_feed.feed_id;
-		ArrayList<Feed> more_feeds = Http.get_collection_feeds(collection_id,feed_id-1);
-		for (Feed feed : more_feeds) {
-			feeds.add(feed);
-		}
-	}
-
-	// 读取更多主题，点击列表下方时调用
-	public void load_home_timeline_more_data() throws Exception {
-		Feed current_last_feed = feeds.get(feeds.size() - 1);
-		int feed_id = current_last_feed.feed_id;
+	public void fill_with_data(BaseViewHolder holder, Feed feed, int position) {
+		ViewHolder view_holder = (ViewHolder) holder;
 		
-		ArrayList<Feed> more_feeds = Http.get_home_timeline_feeds(feed_id - 1);
-		for (Feed feed : more_feeds) {
-			feeds.add(feed);
-		}
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		Feed feed = feeds.get(position);
-		convertView = generate_view_holder(convertView);
-		
-		ViewHolder view_holder = (ViewHolder)convertView.getTag();
-		fill_with_feed_data(view_holder, feed);
-		
-		return convertView;
-	}
-
-	private View generate_view_holder(View convertView) {
-		if(null == convertView){
-			ViewHolder view_holder = new ViewHolder();
-			convertView = MindpinApplication.inflate(R.layout.feed_list_item, null);
-			
-			view_holder.id_textview 	= (TextView) convertView.findViewById(R.id.feed_id);
-			view_holder.title_textview  = (TextView) convertView.findViewById(R.id.feed_title);
-			view_holder.detail_textview = (TextView) convertView.findViewById(R.id.feed_detail);
-			
-			view_holder.user_name_textview 	  = (TextView) convertView.findViewById(R.id.user_name);
-			view_holder.user_avatar_imageview = (ImageView) convertView.findViewById(R.id.user_avatar);
-			view_holder.updated_at_textview   = (TextView) convertView.findViewById(R.id.updated_at);
-			
-			view_holder.feed_photos_1st = (ImageView) convertView.findViewById(R.id.feed_photos_1st);
-			view_holder.feed_photos_2nd = (ImageView) convertView.findViewById(R.id.feed_photos_2nd);
-			view_holder.feed_photos_3rd = (ImageView) convertView.findViewById(R.id.feed_photos_3rd);
-			view_holder.feed_one_photo  = (ImageView) convertView.findViewById(R.id.feed_one_photo);
-			
-			convertView.setTag(view_holder);
-		}
-		
-		return convertView;
-	}
-	
-	private void fill_with_feed_data(ViewHolder view_holder, Feed feed){
 		set_basic_info(view_holder, feed);
 		
 		switch (feed.photos_middle.size()) {
@@ -183,7 +120,11 @@ public class FeedListAdapter extends BaseAdapter {
 		ImageCache.load_cached_image(photo_url, image_view);
 	}
 	
-	private final class ViewHolder {
+	public int get_max_id_for_request(){
+		return fetch_item(getCount() - 1).feed_id - 1;
+	}
+	
+	private final class ViewHolder implements BaseViewHolder {
 		public TextView id_textview;
 		public TextView title_textview;
 		public TextView detail_textview;
@@ -196,6 +137,6 @@ public class FeedListAdapter extends BaseAdapter {
         public ImageView feed_photos_2nd;
         public ImageView feed_photos_3rd;
         public ImageView feed_one_photo;
-    } 
+    }
 
 }

@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.FileDirs;
 import com.mindpin.cache.CollectionsCache;
@@ -175,7 +175,7 @@ public class User extends BaseModel {
 			String avatar_url = get_avatar_url();
 			
 			// 保存头像文件
-			InputStream stream = Http.download_image(avatar_url);
+			InputStream stream = HttpApi.download_image(avatar_url);
 			if(null != stream){
 				FileUtils.copyInputStreamToFile(stream, get_avatar_file());
 				stream.close();

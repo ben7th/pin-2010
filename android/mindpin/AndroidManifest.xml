@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.mindpin" 
-	android:versionCode="9" 
-	android:versionName="0.0.9 pre"
+	android:versionCode="14" 
+	android:versionName="0.0.14a pre"
 >
 	<uses-sdk android:minSdkVersion="4" />
 
@@ -55,11 +55,11 @@
 		
 		<!-- 人际关系 -->
 		<activity android:name=".activity.contacts.ContactsActivity"></activity>
-		<activity android:name=".activity.contacts.FollowingListActivity"></activity>
+		<activity android:name=".activity.contacts.FollowingGridActivity"></activity>
 		<!-- comment -->
-		<activity android:name=".activity.feed.SendFeedCommentActivity"></activity>
-		<activity android:name=".activity.feed.FeedCommentListActivity"></activity>
-		<activity android:name=".activity.feed.ReceivedCommentListActivity"></activity>
+		<activity android:name=".activity.comment.SendFeedCommentActivity"></activity>
+		<activity android:name=".activity.comment.FeedCommentListActivity"></activity>
+		<activity android:name=".activity.comment.ReceivedCommentListActivity"></activity>
 		<!-- 数据同步接收器 -->
 		<receiver android:name=".receiver.SynDataBroadcastReceiver">
 			<intent-filter>

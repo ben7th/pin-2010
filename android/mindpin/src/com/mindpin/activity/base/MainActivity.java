@@ -21,10 +21,10 @@ import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.activity.collection.CollectionListActivity;
+import com.mindpin.activity.comment.ReceivedCommentListActivity;
 import com.mindpin.activity.contacts.ContactsActivity;
-import com.mindpin.activity.contacts.FollowingListActivity;
+import com.mindpin.activity.contacts.FollowingGridActivity;
 import com.mindpin.activity.feed.FeedListActivity;
-import com.mindpin.activity.feed.ReceivedCommentListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
@@ -113,7 +113,7 @@ public class MainActivity extends MindpinBaseActivity {
 	}
 	
 	public void main_button_followings_click(View view){
-		open_activity(FollowingListActivity.class);
+		open_activity(FollowingGridActivity.class);
 	}
 	
 
@@ -198,7 +198,7 @@ public class MainActivity extends MindpinBaseActivity {
 				break;
 			case 0:
 				//开始同步
-				data_syn_textview.setText("正在同步数据…");
+				data_syn_textview.setText(R.string.now_syning);
 				data_syn_progress_bar.setProgress(0);
 				data_syn_progress_bar.setVisibility(View.VISIBLE);
 			case 1:

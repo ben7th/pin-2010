@@ -4,7 +4,12 @@
     <string name="app_name">mindpin</string>
     <string name="app_version">0.0.9 pre</string>
     <string name="app_version_full">android客户端 0.0.9 pre</string>
-    <string name="app_now_loading">正在载入…</string>
+    <string name="now_loading">正在载入…</string>
+    <string name="now_sending">正在发送…</string>
+    <string name="now_creating">正在创建…</string>
+    <string name="now_deleting">正在删除…</string>
+    <string name="now_updating">正在修改…</string>
+    <string name="now_syning">正在同步数据…</string>
     
     <string name="app_method_not_define_exception">功能方法未定义</string>
     <string name="app_intent_connection_exception">网络连接错误</string>
@@ -21,8 +26,6 @@
     <string name="dialog_ok">确定</string>
     <string name="dialog_cancel">取消</string>
     
-    <!-- 关于页面 -->
-    <string name="about_title">关于…</string>
     <!-- 登录页面 -->
     <string name="login_email">邮箱</string>
     <string name="login_password">密码</string>

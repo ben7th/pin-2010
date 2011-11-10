@@ -1,4 +1,4 @@
-package com.mindpin.activity.feed;
+package com.mindpin.activity.comment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
@@ -42,17 +42,17 @@ public class SendFeedCommentActivity extends MindpinBaseActivity {
 			return;
 		}
 		
-		new MindpinAsyncTask<String, Void, Boolean>(this,"ÕýÔÚ·¢ËÍ...") {
+		new MindpinAsyncTask<String, Void, Boolean>(this,R.string.now_sending) {
 			@Override
 			public Boolean do_in_background(String... params) throws Exception {
-				String feed_id = getIntent().getStringExtra(EXTRA_NAME_FEED_ID);
-				String comment_id = getIntent().getStringExtra(EXTRA_NAME_COMMENT_ID);
+				Integer feed_id    = getIntent().getIntExtra(EXTRA_NAME_FEED_ID, -1);
+				Integer comment_id = getIntent().getIntExtra(EXTRA_NAME_COMMENT_ID, -1);
 				
-				String comment = params[0];
-				if(!BaseUtils.is_str_blank(feed_id)){
-					return Http.add_feed_commment(feed_id, comment);
-				}else if(!BaseUtils.is_str_blank(comment_id)){
-					return Http.reply_feed_comment(comment_id,comment);
+				String content = params[0];
+				if(feed_id > 0){
+					return HttpApi.add_feed_commment(feed_id, content);
+				}else if(comment_id > 0){
+					return HttpApi.reply_feed_comment(comment_id, content);
 				}
 				return true;
 			}

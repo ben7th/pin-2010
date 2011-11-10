@@ -1,7 +1,7 @@
 package com.mindpin.base.runnable;
 
 import com.mindpin.Logic.AccountManager.AuthenticateException;
-import com.mindpin.Logic.Http.IntentException;
+import com.mindpin.Logic.HttpApi.IntentException;
 
 public abstract class MindpinRunnable implements Runnable {
 	public static final int METHOD_NOT_DEFINE_EXCEPTION = 9001;

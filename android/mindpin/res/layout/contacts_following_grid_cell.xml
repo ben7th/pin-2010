@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-	
+  style="@style/feed_grid_item"
+>
+	<LinearLayout 
+		android:orientation="vertical"
+		android:layout_width="96dp"
+		android:layout_height="192dp"
+		android:layout_marginRight="8dp"
+		android:layout_marginTop="8dp"
+	>
 		<TextView
 			android:id="@+id/user_id" 
 		 	android:layout_width="wrap_content"
@@ -14,24 +19,23 @@
 		<ImageView 
 			android:id="@+id/user_avatar"
 			android:src="@drawable/user_default_avatar_normal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="96dp"
+			android:layout_height="96dp"
+			android:adjustViewBounds="true"
 		/>
 		<TextView
 			android:id="@+id/user_name" 
-		 	android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+		 	style="@style/feed_list_item_text"
 		/>
 		<TextView
 			android:id="@+id/user_sign" 
-		 	android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+		 	style="@style/feed_list_item_text"
+			android:visibility="gone"
 		/>
 		<TextView
 			android:id="@+id/v2_activate" 
-		 	android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+		 	style="@style/feed_list_item_text"
+			android:visibility="gone"
 		/>
-		
-		
+	</LinearLayout>
 </LinearLayout>

@@ -191,7 +191,7 @@ def match_feeds_routes(map)
       :no_reply   =>:get,
       :search     =>:get,
       :incoming   =>:get,
-      :all        =>:get
+      :public_timeline => :get
     } do |feed|
       feed.resources :feed_revisions,:as=>"revisions"
     end

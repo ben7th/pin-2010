@@ -1,72 +1,69 @@
 package com.mindpin.widget.adapter;
 
-import java.util.ArrayList;
-import com.mindpin.R;
-import com.mindpin.Logic.Http;
-import com.mindpin.application.MindpinApplication;
-import com.mindpin.base.activity.MindpinBaseActivity;
-import com.mindpin.base.task.MindpinAsyncTask;
-import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.Collection;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class CollectionListAdapter extends BaseAdapter {
-	private ArrayList<Collection> collections;
+import com.mindpin.R;
+import com.mindpin.Logic.HttpApi;
+import com.mindpin.base.activity.MindpinBaseActivity;
+import com.mindpin.base.adapter.MindpinBaseAdapter;
+import com.mindpin.base.task.MindpinAsyncTask;
+import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.beans.Collection;
+
+public class CollectionListAdapter extends MindpinBaseAdapter<Collection> {
+	
 	private boolean edit_mode;
-	private MindpinBaseActivity activity;
-
-	public CollectionListAdapter(ArrayList<Collection> collections,
-			MindpinBaseActivity activity) {
-		this.collections = collections;
+	private List<Collection> collections;
+	
+	public CollectionListAdapter(MindpinBaseActivity activity) {
+		super(activity);
 		this.edit_mode = false;
-		this.activity = activity;
 	}
-
+	
 	@Override
-	public int getCount() {
-		return collections.size();
+	public View inflate_view() {
+		return inflate(R.layout.collection_list_item, null);
 	}
-
+	
 	@Override
-	public Object getItem(int position) {
-		return collections.get(position);
+	public BaseViewHolder build_view_holder(View view) {
+		ViewHolder view_holder = new ViewHolder();
+		
+		view_holder.id_textview 	 		   = (TextView) view.findViewById(R.id.collection_id);
+		view_holder.title_textview  		   = (TextView) view.findViewById(R.id.collection_title);
+		view_holder.edit_collection_button 	   = (Button)   view.findViewById(R.id.edit_collection);
+		view_holder.destroy_collection_button  = (Button)   view.findViewById(R.id.destroy_collection);
+		
+		return view_holder;
 	}
-
+	
 	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		Collection collection = collections.get(position);
-		convertView = generate_view_holder(convertView);
-
-		ViewHolder view_holder = (ViewHolder) convertView.getTag();
-		fill_with_collection_data(view_holder, collection);
+	public void fill_with_data(BaseViewHolder holder, Collection collection, int position) {
+		ViewHolder view_holder = (ViewHolder) holder;
+		
+		view_holder.id_textview.setText(collection.collection_id.toString());
+		view_holder.title_textview.setText(collection.title);
+		
 		bind_button_event(position, view_holder, collection);
-		return convertView;
 	}
 
-	private void bind_button_event(final int position, ViewHolder view_holder,
-			Collection collection) {
+	private void bind_button_event(final int position, ViewHolder view_holder, Collection collection) {
 		if (this.edit_mode) {
-			view_holder.edit_collection.setVisibility(View.VISIBLE);
-			view_holder.destroy_collection.setVisibility(View.VISIBLE);
+			view_holder.edit_collection_button.setVisibility(View.VISIBLE);
+			view_holder.destroy_collection_button.setVisibility(View.VISIBLE);
 
 			final String collection_id = collection.collection_id + "";
 			final String title = collection.title;
-
-			view_holder.edit_collection
+			
+			view_holder.edit_collection_button
 					.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
@@ -74,7 +71,7 @@ public class CollectionListAdapter extends BaseAdapter {
 									collection_id, title);
 						}
 					});
-			view_holder.destroy_collection
+			view_holder.destroy_collection_button
 					.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
@@ -83,8 +80,8 @@ public class CollectionListAdapter extends BaseAdapter {
 						}
 					});
 		} else {
-			view_holder.edit_collection.setVisibility(View.GONE);
-			view_holder.destroy_collection.setVisibility(View.GONE);
+			view_holder.edit_collection_button.setVisibility(View.GONE);
+			view_holder.destroy_collection_button.setVisibility(View.GONE);
 		}
 	}
 
@@ -102,34 +99,9 @@ public class CollectionListAdapter extends BaseAdapter {
 		return this.edit_mode;
 	}
 
-	private void fill_with_collection_data(ViewHolder view_holder,
-			Collection collection) {
-		view_holder.id_tv.setText(collection.collection_id + "");
-		view_holder.title_tv.setText(collection.title);
-	}
-
-	private View generate_view_holder(View convertView) {
-		if (null == convertView) {
-			ViewHolder view_holder = new ViewHolder();
-			convertView = MindpinApplication.inflate(R.layout.collection_item,
-					null);
-			view_holder.id_tv = (TextView) convertView
-					.findViewById(R.id.collection_id);
-			view_holder.title_tv = (TextView) convertView
-					.findViewById(R.id.collection_title);
-			view_holder.edit_collection = (Button) convertView
-					.findViewById(R.id.edit_collection);
-			view_holder.destroy_collection = (Button) convertView
-					.findViewById(R.id.destroy_collection);
-			convertView.setTag(view_holder);
-		}
-		return convertView;
-	}
-
 	private void show_change_collection_name_dialog(final int position,
 			final String id, final String old_title) {
-		final View view = MindpinApplication.inflate(
-				R.layout.change_collection_name_dialog, null);
+		final View view = inflate(R.layout.change_collection_name_dialog, null);
 		EditText ctet = (EditText) view.findViewById(R.id.collection_title_et);
 		ctet.setText(old_title);
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -145,14 +117,14 @@ public class CollectionListAdapter extends BaseAdapter {
 					return;
 				}
 
-				new MindpinAsyncTask<String, Void, Boolean>(activity, "正在修改...") {
+				new MindpinAsyncTask<String, Void, Boolean>(activity, R.string.now_updating) {
 					@Override
 					public Boolean do_in_background(String... params)
 							throws Exception {
 						String id_str = params[0];
 						int id1 = Integer.parseInt(id_str);
 						String title = params[1];
-						return Http.change_collection_name(id1, title);
+						return HttpApi.change_collection_name(id1, title);
 					}
 
 					@Override
@@ -186,19 +158,19 @@ public class CollectionListAdapter extends BaseAdapter {
 		builder.setMessage("确定删除这个收集册吗？");
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				new MindpinAsyncTask<String, Void, Boolean>(activity, "正在修改...") {
+				new MindpinAsyncTask<String, Void, Boolean>(activity, R.string.now_deleting) {
 					@Override
 					public Boolean do_in_background(String... params)
 							throws Exception {
 						int id = Integer.parseInt(params[0]);
-						return Http.destroy_collection(id);
+						return HttpApi.destroy_collection(id);
 					}
 
 					@Override
 					public void on_success(Boolean result) {
 						if (result) {
 							BaseUtils.toast("操作成功");
-							remove_collection_item(position);
+							remove_item(position);
 						} else {
 							BaseUtils.toast("操作失败");
 						}
@@ -213,15 +185,10 @@ public class CollectionListAdapter extends BaseAdapter {
 		builder.show();
 	}
 
-	private void remove_collection_item(int position) {
-		collections.remove(position);
-		this.notifyDataSetChanged();
-	}
-
-	private class ViewHolder {
-		public Button destroy_collection;
-		public Button edit_collection;
-		public TextView id_tv;
-		public TextView title_tv;
+	private class ViewHolder implements BaseViewHolder {
+		public Button destroy_collection_button;
+		public Button edit_collection_button;
+		public TextView id_textview;
+		public TextView title_textview;
 	}
 }

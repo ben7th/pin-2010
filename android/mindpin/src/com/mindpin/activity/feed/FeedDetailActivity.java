@@ -14,7 +14,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mindpin.R;
-import com.mindpin.Logic.Http;
+import com.mindpin.Logic.HttpApi;
+import com.mindpin.activity.comment.FeedCommentListActivity;
+import com.mindpin.activity.comment.SendFeedCommentActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
@@ -58,19 +60,19 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 		});
 	}
 	
-	private String get_feed_id(){
+	private int get_feed_id(){
 		Bundle ex = getIntent().getExtras();
-		return ex.getString(EXTRA_NAME_FEED_ID);
+		return ex.getInt(EXTRA_NAME_FEED_ID);
 	}
 
 	private void load_feed_detail(){
-		String feed_id = get_feed_id();
+		int feed_id = get_feed_id();
 		
-		new MindpinAsyncTask<String, Void, Feed>(this, R.string.app_now_loading) {			
+		new MindpinAsyncTask<Integer, Void, Feed>(this, R.string.now_loading) {			
 			@Override
-			public Feed do_in_background(String... params) throws Exception {
-				String feed_id = params[0];
-				return Http.read_feed(feed_id);
+			public Feed do_in_background(Integer... params) throws Exception {
+				int feed_id = params[0];
+				return HttpApi.read_feed(feed_id);
 			}
 
 			@Override

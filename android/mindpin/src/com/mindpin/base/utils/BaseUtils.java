@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -72,7 +73,7 @@ public class BaseUtils {
 	}
 	
 	// [1,2,3,4] -> "1,2,3,4"
-	public static String integer_list_to_string(ArrayList<Integer> ids){
+	public static String integer_list_to_string(List<Integer> ids){
 		String res = "";
 		if(ids !=null){
 			for (Integer s : ids){
@@ -87,7 +88,7 @@ public class BaseUtils {
 	}
 	
 	// ["1","2","3","4"] -> "1,2,3,4"
-	public static String string_list_to_string(ArrayList<String> strs){
+	public static String string_list_to_string(List<String> strs){
 		String res="";
 		if(strs !=null){
 			for (String s : strs){
@@ -101,8 +102,8 @@ public class BaseUtils {
 		return res;
 	}
 	
-	public static ArrayList<String> string_to_string_list(String string){
-		ArrayList<String> list = new ArrayList<String>();
+	public static List<String> string_to_string_list(String string){
+		List<String> list = new ArrayList<String>();
 		String[] arr = string.split(",");
 		for (String str : arr) {
 			if(!"".equals(str)){
@@ -112,8 +113,8 @@ public class BaseUtils {
 		return list;
 	}
 	
-	public static ArrayList<Integer> string_to_integer_list(String string){
-		ArrayList<Integer> list = new ArrayList<Integer>();
+	public static List<Integer> string_to_integer_list(String string){
+		List<Integer> list = new ArrayList<Integer>();
 		String[] arr = string.split(",");
 		for (String str : arr) {
 			if(!"".equals(str)){
@@ -213,7 +214,6 @@ public class BaseUtils {
     	toast.setGravity(Gravity.CENTER, 0, 0);
     	toast.show();
     }
-    
     
     public static Bitmap to_round_corner(Bitmap bitmap, int pixels) { 
         
