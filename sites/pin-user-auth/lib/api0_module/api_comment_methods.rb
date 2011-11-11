@@ -25,7 +25,7 @@ module ApiCommentMethods
   # :comment_id 必须 评论的id
   def delete_comment
     comment = PostComment.find(params[:comment_id])
-    if [comment.post.feed.creator, comment.user].include? current_user
+    if comment.can_be_deleted_by?(current_user)
       comment.destroy
       return render :json=>api0_comment_json_hash(comment)
     end

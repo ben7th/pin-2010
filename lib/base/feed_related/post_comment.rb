@@ -16,6 +16,20 @@ class PostComment < UserAuthAbstract
     end
   end
 
+  def feed
+    return nil if self.post.blank?
+    return self.post.feed
+  end
+
+  def feed_creator
+    retrun nil if self.feed.blank?
+    return feed.creator
+  end
+
+  def can_be_deleted_by?(user)
+    [self.feed_creator, self.user].include? user
+  end
+
   module PostMethods
     def self.included(base)
       base.has_many :comments,:class_name=>"PostComment",:order=>"id desc"

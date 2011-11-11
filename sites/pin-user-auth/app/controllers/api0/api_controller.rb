@@ -170,7 +170,7 @@ class Api0::ApiController < ApplicationController
       return nil if comment.blank?
 
       user = comment.user
-      feed = comment.post.feed
+      feed = comment.feed
 
       @_comment_jh ||= {}
       return @_comment_jh[comment] ||= {

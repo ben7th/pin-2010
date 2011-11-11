@@ -14,7 +14,7 @@ class PostCommentsController < ApplicationController
   end
 
   def destroy
-    if [@comment.post.feed.creator, @comment.user].include? current_user
+    if @comment.can_be_deleted_by?(current_user)
       @comment.destroy
       return render :text=>'删除成功',:status=>200
     end
@@ -24,7 +24,7 @@ class PostCommentsController < ApplicationController
   def reply
     reply_to_comment = PostComment.find(params[:reply_comment_id])
     comment = reply_to_comment.add_reply(current_user, params[:content])
-    render :partial=>'/feeds/parts/show_comments',:locals=>{:feed=>comment.post.feed,:comments=>[comment]}
+    render :partial=>'/feeds/parts/show_comments',:locals=>{:feed=>comment.feed,:comments=>[comment]}
   rescue Exception => ex
     render :text=>ex.message,:status=>400
   end
