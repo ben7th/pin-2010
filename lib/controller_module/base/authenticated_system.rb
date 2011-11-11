@@ -137,10 +137,15 @@ module AuthenticatedSystem
     end
   end
 
+  def remember_me_cookie_key
+    return :remember_me_token if RAILS_ENV=='production'
+    return :remember_me_token_devel
+  end
+
   # Called from #current_user.  Finaly, attempt to login by an expiring token in the cookie.
   def login_from_cookie
-    if cookies[:token]
-      user=User.authenticate_cookies_token(cookies[:token])
+    if cookies[remember_me_cookie_key]
+      user=User.authenticate_cookies_token(cookies[remember_me_cookie_key])
       if user
         self.current_user = user
       end

@@ -20,7 +20,7 @@ module SessionsMethods
 
   def create_remember_me_cookie_token
     if params[:remember_me]
-      cookies[:token]=current_user.create_cookies_token(30)
+      cookies[remember_me_cookie_key]=current_user.create_cookies_token(30)
     end
   end
 
@@ -35,7 +35,7 @@ module SessionsMethods
   end
 
   def destroy_remember_me_cookie_token
-    cookies[:token] = {
+    cookies[remember_me_cookie_key] = {
       :value=>nil,
       :expires=>0.days.from_now,
       :domain=>ActionController::Base.session_options[:domain]
