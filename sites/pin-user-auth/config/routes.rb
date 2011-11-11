@@ -315,7 +315,7 @@ ActionController::Routing::Routes.draw do |map|
 
     # 收集册 collections
     match_get    api0, 'collections/feeds'  => 'api#collection_feeds'
-
+    match_get    api0, 'collections/list'   => 'api#collection_list'
     match_post   api0, 'collections/create' => 'api#create_collection'
     match_delete api0, 'collections/delete' => 'api#delete_collection'
     match_put    api0, 'collections/rename' => 'api#rename_collection'
@@ -332,8 +332,9 @@ ActionController::Routing::Routes.draw do |map|
     match_post   api0, 'comments/create' => 'api#create_comment'
     match_delete api0, 'comments/delete' => 'api#delete_comment'
     match_post   api0, 'comments/reply'  => 'api#reply_comment'
-
-    match_get    api0, 'comments/received'  => 'api#comments_received'
+    
+    match_get    api0, 'comments/received' => 'api#comments_received'
+    match_get    api0, 'comments/sent'     => 'api#comments_sent'
 
     # 人际关系 contacts
     match_get api0, 'contacts/followings' => 'api#contacts_followings'

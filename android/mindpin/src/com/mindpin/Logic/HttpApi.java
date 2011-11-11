@@ -345,10 +345,12 @@ public class HttpApi {
 			return new MindpinGetRequest<List<Feed>>(
 					收集册的主题列表, 
 					new BasicNameValuePair("collection_id", collection_id.toString()),
-					new BasicNameValuePair("max_id", ( max_id > 0 ? "" : max_id.toString()))
+					new BasicNameValuePair("max_id", ( max_id > 0 ? max_id.toString() : ""))
 			){
 				@Override
 				public List<Feed> on_success(String response_text) throws Exception {
+					System.out.println(1111111111);
+					System.out.println(response_text);
 					List<Feed> list = Feed.build_list_by_json(response_text);
 					for (Feed feed : list) {
 						Feed.create_or_update(feed.json);

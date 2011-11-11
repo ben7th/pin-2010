@@ -97,16 +97,12 @@ public class CollectionListActivity extends MindpinBaseActivity {
 
 		collection_list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				Collection collection = collections.get(arg2);
 
-				Intent intent = new Intent(CollectionListActivity.this,
-						FeedListActivity.class);
-				intent.putExtra(FeedListActivity.EXTRA_COLLECTION_ID,
-						collection.collection_id);
-				intent.putExtra(FeedListActivity.EXTRA_COLLECTION_TITLE,
-						collection.title);
+				Intent intent = new Intent(CollectionListActivity.this, FeedListActivity.class);
+				intent.putExtra(FeedListActivity.EXTRA_COLLECTION_ID, collection.collection_id);
+				intent.putExtra(FeedListActivity.EXTRA_COLLECTION_TITLE, collection.title);
 				startActivity(intent);
 			}
 		});

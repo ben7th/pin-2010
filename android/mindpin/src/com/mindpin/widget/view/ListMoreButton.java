@@ -66,7 +66,6 @@ abstract public class ListMoreButton<M> extends LinearLayout {
 
 					@Override
 					public void on_success(List<M> items) {
-						System.out.println(items);
 						adapter.add_items(items);
 					}
 					
