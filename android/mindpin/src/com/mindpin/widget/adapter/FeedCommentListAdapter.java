@@ -14,8 +14,8 @@ import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.adapter.MindpinBaseAdapter;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.FeedComment;
 import com.mindpin.cache.image.ImageCache;
+import com.mindpin.model.FeedComment;
 
 public class FeedCommentListAdapter extends MindpinBaseAdapter<FeedComment> {
 
@@ -47,8 +47,8 @@ public class FeedCommentListAdapter extends MindpinBaseAdapter<FeedComment> {
 		view_holder.content_tv.setText(comment.content);
 		view_holder.created_at_tv.setText(BaseUtils.date_string(comment.created_at));
 		
-		view_holder.user_name_tv.setText(comment.user_name);
-		ImageCache.load_cached_image(comment.user_logo_url,view_holder.user_logo_iv);
+		view_holder.user_name_tv.setText(comment.creator.name);
+		ImageCache.load_cached_image(comment.creator.avatar_url, view_holder.user_logo_iv);
 	}
 	
 	public void show_item_dialog(int position){
@@ -81,8 +81,8 @@ public class FeedCommentListAdapter extends MindpinBaseAdapter<FeedComment> {
 	
 	private boolean can_delete_comment(FeedComment feed_comment){
 		int current_user_id = activity.current_user().user_id;
-		int creator_id = feed_comment.creator_id;
-		int feed_creator_id = feed_comment.feed_creator_id;
+		int creator_id = feed_comment.creator.user_id;
+		int feed_creator_id = feed_comment.feed.creator.user_id;
 		
 		return current_user_id == creator_id || current_user_id == feed_creator_id;
 	}

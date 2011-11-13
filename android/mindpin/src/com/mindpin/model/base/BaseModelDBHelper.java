@@ -1,20 +1,22 @@
-package com.mindpin.database;
+package com.mindpin.model.base;
 
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mindpin.application.MindpinApplication;
+import com.mindpin.database.Constants;
+import com.mindpin.database.MindpinDBHelper;
 
-public abstract class BaseModel {
+abstract public class BaseModelDBHelper {
 	final private static MindpinDBHelper get_db_helper() {
 		return new MindpinDBHelper(MindpinApplication.context,
 				Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
 	}
 
-	final static SQLiteDatabase get_write_db() {
+	final public static SQLiteDatabase get_write_db() {
 		return get_db_helper().getWritableDatabase();
 	}
 
-	final static SQLiteDatabase get_read_db() {
+	final public static SQLiteDatabase get_read_db() {
 		return get_db_helper().getReadableDatabase();
 	}
 }

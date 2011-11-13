@@ -1,9 +1,6 @@
 package com.mindpin.Logic;
 
-import java.util.List;
-
 import org.apache.http.client.CookieStore;
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.json.JSONArray;
@@ -16,7 +13,8 @@ import android.content.SharedPreferences.Editor;
 
 import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.database.User;
+import com.mindpin.model.AccountUser;
+import com.mindpin.model.database.AccountUserDBHelper;
 
 public class AccountManager {
 	final private static String PREFERENCES_NAME = "Mindpin";
@@ -26,18 +24,20 @@ public class AccountManager {
 	final private static String PREFERENCES_KEY_CURRENT_USER_ID = "current_user_id";
 	final private static String PREFERENCES_KEY_LAST_SYN_TIME = "last_syn_time";
 
-	public static void switch_account(User user) {
+	public static void switch_account(AccountUser user) {
 		Editor pre_edit = SHARED_PREFERENCES.edit();
 		pre_edit.putInt(PREFERENCES_KEY_CURRENT_USER_ID, user.user_id);
 		pre_edit.commit();
 	}
 
-	public static void login(List<Cookie> cookies, String info)
-			throws Exception {
-		User user = new User(cookies, info);
+	public static void login(String cookies, String info) throws Exception {
+		//Log.d("AccountManager login", cookies);
+		//Log.d("AccountManager login", info);
 		
-		if (user.save()) {
-			switch_account(user);
+		AccountUser account_user = new AccountUser(cookies, info);
+		
+		if (AccountUserDBHelper.save(account_user)) {
+			switch_account(account_user);
 		} else {
 			throw new AuthenticateException();
 		}
@@ -84,10 +84,9 @@ public class AccountManager {
 		return cookie_store;
 	}
 
-	public static User current_user() {
-		int user_id = SHARED_PREFERENCES.getInt(
-				PREFERENCES_KEY_CURRENT_USER_ID, 0);
-		return User.find(user_id);
+	public static AccountUser current_user() {
+		int user_id = SHARED_PREFERENCES.getInt(PREFERENCES_KEY_CURRENT_USER_ID, 0);
+		return AccountUserDBHelper.find(user_id);
 	}
 
 	public static boolean is_logged_in() {

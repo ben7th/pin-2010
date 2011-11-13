@@ -1,9 +1,6 @@
 package com.mindpin.widget.adapter;
 
-import java.util.ArrayList;
-import com.mindpin.R;
-import com.mindpin.application.MindpinApplication;
-import com.mindpin.beans.Collection;
+import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class SelectCollectionListAdapter extends BaseAdapter {
-	private ArrayList<Collection> collections;
-	private ArrayList<Integer> select_collection_ids;
+import com.mindpin.R;
+import com.mindpin.application.MindpinApplication;
+import com.mindpin.model.Collection;
 
-	public SelectCollectionListAdapter(ArrayList<Collection> collections,
-			ArrayList<Integer> select_collection_ids) {
+public class SelectCollectionListAdapter extends BaseAdapter {
+	private List<Collection> collections;
+	private List<Integer> select_collection_ids;
+
+	public SelectCollectionListAdapter(List<Collection> collections, List<Integer> select_collection_ids) {
 		this.collections = collections;
 		this.select_collection_ids = select_collection_ids;
 	}

@@ -1,6 +1,8 @@
 package com.mindpin.activity.sendfeed;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,8 +22,8 @@ import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.Collection;
-import com.mindpin.cache.CollectionsCache;
+import com.mindpin.model.Collection;
+import com.mindpin.model.cache.CollectionsCache;
 import com.mindpin.widget.adapter.SelectCollectionListAdapter;
 
 public class SelectCollectionListActivity extends MindpinBaseActivity {
@@ -66,7 +68,7 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 	private void build_collection_list() {
 		collection_list_lv = (ListView) findViewById(R.id.select_collection_list);
 		
-		ArrayList<Collection> collections = CollectionsCache.get_current_user_collection_list();
+		List<Collection> collections = CollectionsCache.get_current_user_collection_list();
 		adapter = new SelectCollectionListAdapter(collections, select_collection_ids);
 		collection_list_lv.setAdapter(adapter);
 		
@@ -130,8 +132,7 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 			public void onClick(View v) {
 				if(select_collection_ids!=null && select_collection_ids.size()!=0){
 					Intent intent = new Intent();
-					intent.putIntegerArrayListExtra(EXTRA_NAME_SELECT_COLLECTION_IDS,
-							select_collection_ids);
+					intent.putIntegerArrayListExtra(EXTRA_NAME_SELECT_COLLECTION_IDS, select_collection_ids);
 					if(send_tsina_cb.isChecked()){
 						intent.putExtra(EXTRA_NAME_SEND_TSINA,
 								true);
@@ -196,7 +197,7 @@ public class SelectCollectionListActivity extends MindpinBaseActivity {
 			@Override
 			public void on_success(Boolean result) {
 				if(result){
-					ArrayList<Collection> collections = CollectionsCache.get_current_user_collection_list();
+					List<Collection> collections = CollectionsCache.get_current_user_collection_list();
 					Collection collection = collections
 							.get(collections.size() - 1);
 					adapter.add_item(collection);

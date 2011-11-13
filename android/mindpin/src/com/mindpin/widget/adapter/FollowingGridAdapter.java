@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.mindpin.R;
 import com.mindpin.application.MindpinApplication;
-import com.mindpin.beans.ContactUser;
 import com.mindpin.cache.image.ImageCache;
+import com.mindpin.model.ContactUser;
 
 public class FollowingGridAdapter extends BaseAdapter {
 	private List<ContactUser> followings;

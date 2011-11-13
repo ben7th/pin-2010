@@ -13,7 +13,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.activity.MindpinSimpleDataList;
-import com.mindpin.beans.FeedComment;
+import com.mindpin.model.FeedComment;
 import com.mindpin.widget.adapter.FeedCommentListAdapter;
 
 public class FeedCommentListActivity extends MindpinBaseActivity {

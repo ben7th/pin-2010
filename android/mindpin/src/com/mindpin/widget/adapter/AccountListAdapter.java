@@ -1,90 +1,85 @@
 package com.mindpin.widget.adapter;
 
-import java.util.ArrayList;
-
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager;
-import com.mindpin.activity.base.AccountManagerActivity;
-import com.mindpin.database.User;
+import com.mindpin.base.activity.MindpinBaseActivity;
+import com.mindpin.base.adapter.MindpinBaseAdapter;
+import com.mindpin.cache.image.ImageCache;
+import com.mindpin.model.AccountUser;
+import com.mindpin.model.database.AccountUserDBHelper;
 
-public class AccountListAdapter extends BaseAdapter   {
-	private ArrayList<User> users;
-	private LayoutInflater mInflater;
-	private Context context;
+public class AccountListAdapter extends MindpinBaseAdapter<AccountUser> {
+	
 	private boolean is_edit_mode = false;
 
-	public AccountListAdapter(Context context){
-		super();
-		this.context = context;
-		this.users = User.all();
-		this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	public AccountListAdapter(MindpinBaseActivity activity) {
+		super(activity);
 	}
 
 	@Override
-	public int getCount() {
-		return users.size();
+	public View inflate_view() {
+		return inflate(R.layout.list_account_item, null);
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return users.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = mInflater.inflate(R.layout.list_account_item, parent, false);
-		TextView id_tv = (TextView)view.findViewById(R.id.account_id);
-		TextView name_tv = (TextView)view.findViewById(R.id.account_name);
-		ImageView img = (ImageView)view.findViewById(R.id.current_account);
-		ImageView account_avatar_iv = (ImageView)view.findViewById(R.id.account_avatar);
-		if(is_edit_mode){
-			Button delete_bn = (Button)view.findViewById(R.id.account_delete);
-			delete_bn.setVisibility(View.VISIBLE);
-		}
-		final User user = (User)users.get(position);
-		User current_user = AccountManager.current_user();
+	public BaseViewHolder build_view_holder(View view) {
+		ViewHolder view_holder = new ViewHolder();
 		
-		if(current_user.user_id == user.user_id){
-			img.setVisibility(View.VISIBLE);
-		}else if(current_user.is_nil() && position == 0){
-			img.setVisibility(View.VISIBLE);
+		view_holder.current_account_icon_imageview = (ImageView) view.findViewById(R.id.current_account_icon);
+		view_holder.account_avatar_imageview       = (ImageView) view.findViewById(R.id.account_avatar);
+		view_holder.account_name_textview          = (TextView)  view.findViewById(R.id.account_name);
+		view_holder.delete_button                  = (Button)    view.findViewById(R.id.account_delete);
+		
+		return view_holder;
+	}
+
+	@Override
+	public void fill_with_data(BaseViewHolder holder, final AccountUser account_user, int position) {
+		ViewHolder view_holder = (ViewHolder) holder;
+		
+		if(is_edit_mode){
+			view_holder.delete_button.setVisibility(View.VISIBLE);
+		}else{
+			view_holder.delete_button.setVisibility(View.GONE);
 		}
-		id_tv.setText(user.user_id+"");
-		name_tv.setText(user.name);
-		account_avatar_iv.setImageBitmap(user.get_avatar_bitmap());
-		Button delete_bn = (Button)view.findViewById(R.id.account_delete);
-		final int pos = position;
-		delete_bn.setOnClickListener(new OnClickListener() {
+		view_holder.delete_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				user.destroy();
-				AccountListAdapter.this.remove_item(pos);
+				AccountUserDBHelper.destroy(account_user);
+				remove_account(account_user);
 			}
 		});
-		return view;
+		
+		
+		if(is_current_user_icon_showing(account_user, position)){
+			view_holder.current_account_icon_imageview.setVisibility(View.VISIBLE);
+		}else{
+			view_holder.current_account_icon_imageview.setVisibility(View.GONE);
+		}
+		
+		view_holder.account_name_textview.setText(account_user.name);
+		ImageCache.load_cached_image(account_user.avatar_url, view_holder.account_avatar_imageview);
 	}
 	
-	public void remove_item(int position){
-		users.remove(position);
-		this.notifyDataSetChanged();
-		AccountManagerActivity activity = (AccountManagerActivity)context;
-		if(users.size() == 0){
-			activity.restart_to_login();
+	private boolean is_current_user_icon_showing(AccountUser account_user, int position){
+		AccountUser current_user = AccountManager.current_user();
+		
+		boolean c1 = current_user.user_id == account_user.user_id;
+		boolean c2 = current_user.is_nil() && 0 == position;
+		
+		return c1 || c2;
+	}
+	
+	private void remove_account(AccountUser account_user){
+		remove_item(account_user);
+		if(0 == getCount()){
+			this.activity.restart_to_login();
 		}
 	}
 	
@@ -101,5 +96,11 @@ public class AccountListAdapter extends BaseAdapter   {
 	public boolean is_edit_mode(){
 		return is_edit_mode;
 	}
-
+	
+	private class ViewHolder implements BaseViewHolder{
+		ImageView current_account_icon_imageview;
+		ImageView account_avatar_imageview;
+		TextView  account_name_textview;
+		Button delete_button;
+	}
 }

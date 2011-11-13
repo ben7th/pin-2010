@@ -1,6 +1,7 @@
 package com.mindpin.base.task;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.mindpin.R;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
@@ -33,21 +34,21 @@ public abstract class MindpinAsyncTask<TParams, TProgress, TResult> {
 			//publishProgress(null);
 			
 			try {
-				System.out.println("开始执行 MindpinAsyncTask");
+				Log.d("MindpinAsyncTask","开始执行");
 				inner_task_result = do_in_background(params);
 				return SUCCESS;
 			}
 			
 			catch (AuthenticateException e){
 				// 用户身份验证错误
-				System.out.println("MindpinAsyncTask 用户身份验证错误");
+				Log.e("MindpinAsyncTask","用户身份验证错误");
 				e.printStackTrace();
 				return AUTHENTICATE_EXCEPTION;
 			} 
 			
 			catch (Exception e){
 				// 程序执行错误
-				System.out.println("MindpinAsyncTask 程序执行错误");
+				Log.e("MindpinAsyncTask","程序执行错误");
 				e.printStackTrace();
 				return UNKNOWN_EXCEPTION;
 			}

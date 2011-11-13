@@ -17,7 +17,7 @@ import com.mindpin.Logic.HttpApi;
 import com.mindpin.activity.feed.FeedDetailActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.activity.MindpinSimpleDataList;
-import com.mindpin.beans.FeedComment;
+import com.mindpin.model.FeedComment;
 import com.mindpin.widget.adapter.ReceivedCommentListAdapter;
 
 public class ReceivedCommentListActivity extends MindpinBaseActivity {
@@ -88,7 +88,7 @@ public class ReceivedCommentListActivity extends MindpinBaseActivity {
 	
 	private void redirect_to_feed(FeedComment feed_comment) {
 		Intent intent = new Intent(getApplicationContext(), FeedDetailActivity.class);
-		intent.putExtra(FeedDetailActivity.EXTRA_NAME_FEED_ID, feed_comment.feed_id);
+		intent.putExtra(FeedDetailActivity.EXTRA_NAME_FEED_ID, feed_comment.feed.feed_id);
 		ReceivedCommentListActivity.this.startActivity(intent);
 	}
 	

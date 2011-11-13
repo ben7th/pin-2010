@@ -16,7 +16,7 @@ import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.adapter.MindpinBaseAdapter;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.Collection;
+import com.mindpin.model.Collection;
 
 public class CollectionListAdapter extends MindpinBaseAdapter<Collection> {
 	
@@ -49,7 +49,7 @@ public class CollectionListAdapter extends MindpinBaseAdapter<Collection> {
 	public void fill_with_data(BaseViewHolder holder, Collection collection, int position) {
 		ViewHolder view_holder = (ViewHolder) holder;
 		
-		view_holder.id_textview.setText(collection.collection_id.toString());
+		view_holder.id_textview.setText(collection.collection_id+"");
 		view_holder.title_textview.setText(collection.title);
 		
 		bind_button_event(position, view_holder, collection);

@@ -73,7 +73,6 @@ public final class R {
     public static final class id {
         public static final int account_avatar=0x7f0b002a;
         public static final int account_delete=0x7f0b002c;
-        public static final int account_id=0x7f0b0029;
         public static final int account_list=0x7f0b0000;
         public static final int account_name=0x7f0b002b;
         public static final int add_account=0x7f0b0027;
@@ -93,6 +92,7 @@ public final class R {
         public static final int contacts=0x7f0b0010;
         public static final int created_at=0x7f0b0017;
         public static final int current_account=0x7f0b0028;
+        public static final int current_account_icon=0x7f0b0029;
         public static final int destroy_collection=0x7f0b000f;
         public static final int edit_collection=0x7f0b000e;
         public static final int email_et=0x7f0b0001;

@@ -18,7 +18,7 @@
 	    <Button
 			android:text="@string/account_edit_button"
 			style="@style/head_bar_button_right"
-			android:onClick="edit_account"
+			android:onClick="on_edit_account_button_click"
 	    />
 	</RelativeLayout>
   

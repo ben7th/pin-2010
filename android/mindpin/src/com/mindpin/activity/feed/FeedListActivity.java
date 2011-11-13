@@ -13,7 +13,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.activity.MindpinSimpleDataList;
-import com.mindpin.database.Feed;
+import com.mindpin.model.Feed;
 import com.mindpin.widget.adapter.FeedListAdapter;
 import com.mindpin.widget.view.HeadBar;
 

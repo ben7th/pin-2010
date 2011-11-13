@@ -21,6 +21,7 @@ import org.apache.http.protocol.HTTP;
 
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.Logic.AccountManager.AuthenticateException;
+import com.mindpin.model.base.CookieHelper;
 
 public abstract class MindpinHttpRequest<TResult> {
 	protected HttpUriRequest http_uri_request;
@@ -36,8 +37,12 @@ public abstract class MindpinHttpRequest<TResult> {
 		return client;
 	}
 	
-	final public List<Cookie> get_cookies(){
+	final private List<Cookie> get_cookies_list(){
 		return http_client.getCookieStore().getCookies();
+	}
+	
+	final public String get_cookies(){
+		return CookieHelper.parse_string(get_cookies_list());
 	}
 	
 	// Ö÷·½·¨ GO

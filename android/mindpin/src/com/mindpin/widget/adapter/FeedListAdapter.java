@@ -11,7 +11,7 @@ import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.adapter.MindpinBaseAdapter;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.image.ImageCache;
-import com.mindpin.database.Feed;
+import com.mindpin.model.Feed;
 
 public class FeedListAdapter extends MindpinBaseAdapter<Feed> {
 	public FeedListAdapter(MindpinBaseActivity activity) {

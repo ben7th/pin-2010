@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.mindpin.Logic.AccountManager;
 import com.mindpin.activity.base.LoginActivity;
 import com.mindpin.cache.image.ImageCache;
-import com.mindpin.database.User;
+import com.mindpin.model.AccountUser;
 
 abstract public class MindpinBaseActivity extends Activity {
 	
@@ -47,7 +47,7 @@ abstract public class MindpinBaseActivity extends Activity {
 		return AccountManager.is_logged_in();
 	}
 
-	final public User current_user() {
+	final public AccountUser current_user() {
 		return AccountManager.current_user();
 	}
 

@@ -1,6 +1,7 @@
 package com.mindpin.activity.collection;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,14 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.mindpin.R;
 import com.mindpin.Logic.HttpApi;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.Collection;
-import com.mindpin.cache.CollectionsCache;
+import com.mindpin.model.Collection;
+import com.mindpin.model.cache.CollectionsCache;
 import com.mindpin.widget.adapter.CollectionListAdapter;
 
 public class CollectionListActivity extends MindpinBaseActivity {
@@ -73,7 +75,7 @@ public class CollectionListActivity extends MindpinBaseActivity {
 	}
 
 	private void build_collection_list() {
-		final ArrayList<Collection> collections = CollectionsCache.get_current_user_collection_list();
+		final List<Collection> collections = CollectionsCache.get_current_user_collection_list();
 		ListView collection_list = (ListView) findViewById(R.id.collection_list);
 
 		final CollectionListAdapter sa = new CollectionListAdapter(this);

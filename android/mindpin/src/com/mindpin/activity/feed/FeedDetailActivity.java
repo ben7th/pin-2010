@@ -1,6 +1,6 @@
 package com.mindpin.activity.feed;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.mindpin.activity.comment.SendFeedCommentActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.database.Feed;
+import com.mindpin.model.Feed;
 import com.mindpin.widget.MindpinImageSwitcher;
 
 public class FeedDetailActivity extends MindpinBaseActivity {
@@ -100,7 +100,7 @@ public class FeedDetailActivity extends MindpinBaseActivity {
 			RelativeLayout photos_layout = (RelativeLayout) findViewById(R.id.feed_detail_photos);
 			TextView footer = (TextView) findViewById(R.id.feed_detail_photos_footer);
 			
-			ArrayList<String> photo_urls = feed.photos_middle;
+			List<String> photo_urls = feed.photos_middle;
 			if (photo_urls.size() > 0) {
 				photos_layout.setVisibility(View.VISIBLE);
 				

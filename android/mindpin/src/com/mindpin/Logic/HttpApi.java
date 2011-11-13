@@ -18,11 +18,13 @@ import com.mindpin.base.http.MindpinPostRequest;
 import com.mindpin.base.http.MindpinPutRequest;
 import com.mindpin.base.http.ParamFile;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.ContactUser;
-import com.mindpin.beans.FeedComment;
-import com.mindpin.cache.CollectionsCache;
-import com.mindpin.database.Feed;
-import com.mindpin.database.User;
+import com.mindpin.model.AccountUser;
+import com.mindpin.model.ContactUser;
+import com.mindpin.model.Feed;
+import com.mindpin.model.FeedComment;
+import com.mindpin.model.cache.CollectionsCache;
+import com.mindpin.model.database.AccountUserDBHelper;
+import com.mindpin.model.database.FeedDBHelper;
 
 public class HttpApi {
 	
@@ -80,7 +82,8 @@ public class HttpApi {
 				JSONObject json = new JSONObject(response_text);
 				String collections = ((JSONArray)json.get("collections")).toString();
 				String user_info = ((JSONObject)json.get("user")).toString();
-				new User(get_cookies(), user_info).save();
+				
+				AccountUserDBHelper.save(new AccountUser(get_cookies(), user_info));
 				CollectionsCache.save(collections);
 				return true;
 			}
@@ -208,8 +211,8 @@ public class HttpApi {
 					@Override
 					public Feed on_success(String response_text)
 							throws Exception {
-						Feed feed = new Feed(response_text);
-						Feed.create_or_update(feed.json);
+						Feed feed = Feed.build(response_text);
+						FeedDBHelper.create_or_update(feed);
 						return feed;
 					}
 		}.go();
@@ -325,7 +328,7 @@ public class HttpApi {
 						throws Exception {
 					List<Feed> feeds = Feed.build_list_by_json(response_text);
 					for (Feed feed : feeds) {
-						Feed.create_or_update(feed.json);
+						FeedDBHelper.create_or_update(feed);
 					}
 					return feeds;
 				}
@@ -349,11 +352,9 @@ public class HttpApi {
 			){
 				@Override
 				public List<Feed> on_success(String response_text) throws Exception {
-					System.out.println(1111111111);
-					System.out.println(response_text);
 					List<Feed> list = Feed.build_list_by_json(response_text);
 					for (Feed feed : list) {
-						Feed.create_or_update(feed.json);
+						FeedDBHelper.create_or_update(feed);
 					}
 					return list;
 				}

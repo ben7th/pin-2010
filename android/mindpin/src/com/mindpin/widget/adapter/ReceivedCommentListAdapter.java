@@ -8,8 +8,8 @@ import com.mindpin.R;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.adapter.MindpinBaseAdapter;
 import com.mindpin.base.utils.BaseUtils;
-import com.mindpin.beans.FeedComment;
 import com.mindpin.cache.image.ImageCache;
+import com.mindpin.model.FeedComment;
 
 public class ReceivedCommentListAdapter extends MindpinBaseAdapter<FeedComment> {
 
@@ -43,8 +43,8 @@ public class ReceivedCommentListAdapter extends MindpinBaseAdapter<FeedComment> 
 		view_holder.content_tv.setText(comment.content);
 		view_holder.created_at_tv.setText(BaseUtils.date_string(comment.created_at));
 		
-		view_holder.user_name_tv.setText(comment.user_name);
-		ImageCache.load_cached_image(comment.user_logo_url,view_holder.user_logo_iv);
+		view_holder.user_name_tv.setText(comment.creator.name);
+		ImageCache.load_cached_image(comment.creator.avatar_url, view_holder.user_logo_iv);
 		
 	}
 	

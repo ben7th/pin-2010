@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -27,8 +26,8 @@ import com.mindpin.activity.contacts.FollowingGridActivity;
 import com.mindpin.activity.feed.FeedListActivity;
 import com.mindpin.activity.sendfeed.NewFeedActivity;
 import com.mindpin.base.activity.MindpinBaseActivity;
-import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.cache.image.ImageCache;
 import com.mindpin.receiver.BroadcastReceiverConstants;
 
 public class MainActivity extends MindpinBaseActivity {
@@ -45,16 +44,15 @@ public class MainActivity extends MindpinBaseActivity {
 				BroadcastReceiverConstants.ACTION_SYN_DATA_UI));
 		
 		// load view
-		if(current_user().is_v2_activate()){
+		if(current_user().v2_activate){
 			setContentView(R.layout.base_main);
 			data_syn_textview = (TextView)findViewById(R.id.main_data_syn_text);
 			data_syn_progress_bar = (ProgressBar)findViewById(R.id.main_data_syn_progress_bar);
-			update_account_info();			
 			start_syn_data();
 		}else{
 			setContentView(R.layout.base_main_not_activate);
-			update_account_info();
 		}
+		update_account_info();			
 	}
 	
 	@Override
@@ -71,21 +69,11 @@ public class MainActivity extends MindpinBaseActivity {
 	
 	// 在界面上刷新头像和用户名
 	private void update_account_info(){
-		new MindpinAsyncTask<String, String, Bitmap>(){
-			@Override
-			public Bitmap do_in_background(String... params) throws Exception {
-				return current_user().get_avatar_bitmap();
-			}
-
-			@Override
-			public void on_success(Bitmap bitmap) {
-				TextView account_name_textview = (TextView)findViewById(R.id.account_name);
-				ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
-				
-				account_name_textview.setText(current_user().name);
-				account_avatar_imgview.setImageBitmap(BaseUtils.to_round_corner(bitmap,5));
-			}
-		}.execute();
+		TextView account_name_textview   = (TextView) findViewById(R.id.account_name);
+		ImageView account_avatar_imgview = (ImageView)findViewById(R.id.account_avatar);
+		
+		account_name_textview.setText(current_user().name);
+		ImageCache.load_cached_image(current_user().avatar_url, account_avatar_imgview);
 	}
 	
 	//设置 new_feed 按钮点击事件

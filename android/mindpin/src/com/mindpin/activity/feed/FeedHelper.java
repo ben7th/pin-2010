@@ -9,17 +9,17 @@ import com.mindpin.R;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.cache.image.ImageCache;
-import com.mindpin.database.Feed;
+import com.mindpin.model.Feed;
 
 public class FeedHelper {
 	public static void set_user_avatar(ImageView image_view, Feed feed){
 		image_view.setImageResource(R.drawable.user_default_avatar_normal);
 		image_view.setVisibility(View.VISIBLE);
-		ImageCache.load_cached_image(feed.user_avatar_url, image_view);
+		ImageCache.load_cached_image(feed.creator.avatar_url, image_view);
 	}
 	
 	public static void set_user_name(TextView text_view, Feed feed){
-		text_view.setText(feed.user_name);
+		text_view.setText(feed.creator.name);
 		text_view.setVisibility(View.VISIBLE);
 	}
 	

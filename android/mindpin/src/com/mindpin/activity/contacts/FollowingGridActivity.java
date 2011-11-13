@@ -9,7 +9,7 @@ import com.mindpin.R;
 import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
-import com.mindpin.beans.ContactUser;
+import com.mindpin.model.ContactUser;
 import com.mindpin.widget.adapter.FollowingGridAdapter;
 
 public class FollowingGridActivity extends MindpinBaseActivity {

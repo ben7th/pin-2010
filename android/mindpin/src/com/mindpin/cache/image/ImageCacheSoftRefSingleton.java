@@ -43,7 +43,7 @@ public class ImageCacheSoftRefSingleton {
 		Bitmap img_bitmap;
 		Map<File, SoftReference<Bitmap>> used_bitmap_list = instance.used_bitmap_list;
 		
-		// 先尝试从链表中获取
+		// 先尝试从MAP中获取
 		if (used_bitmap_list.containsKey(cache_file)) {
 			SoftReference<Bitmap> ref = used_bitmap_list.get(cache_file);
 			if (null != ref) {
