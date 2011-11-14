@@ -27,7 +27,6 @@ public class FeedListAdapter extends MindpinBaseAdapter<Feed> {
 	public BaseViewHolder build_view_holder(View view) {
 		ViewHolder view_holder = new ViewHolder();
 		
-		view_holder.id_textview 	= (TextView) view.findViewById(R.id.feed_id);
 		view_holder.title_textview  = (TextView) view.findViewById(R.id.feed_title);
 		view_holder.detail_textview = (TextView) view.findViewById(R.id.feed_detail);
 		
@@ -64,17 +63,12 @@ public class FeedListAdapter extends MindpinBaseAdapter<Feed> {
 	}
 	
 	private void set_basic_info(ViewHolder view_holder, Feed feed){
-		set_id(view_holder, feed);
 		FeedHelper.set_title(view_holder.title_textview, feed);
 		FeedHelper.set_detail(view_holder.detail_textview, feed);
 		
 		FeedHelper.set_user_avatar(view_holder.user_avatar_imageview, feed);
 		FeedHelper.set_user_name(view_holder.user_name_textview, feed);
 		FeedHelper.set_updated_at(view_holder.updated_at_textview, feed);
-	}
-	
-	private void set_id(ViewHolder view_holder, Feed feed){
-		view_holder.id_textview.setText(feed.feed_id + "");
 	}
 	
 	private void clear_photos(ViewHolder view_holder){
@@ -125,7 +119,6 @@ public class FeedListAdapter extends MindpinBaseAdapter<Feed> {
 	}
 	
 	private final class ViewHolder implements BaseViewHolder {
-		public TextView id_textview;
 		public TextView title_textview;
 		public TextView detail_textview;
 		

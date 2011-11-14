@@ -41,9 +41,15 @@ public class ContactUser extends BaseModel {
 		this.v2_activate = json.getBoolean("v2_activate");
 		this.following   = json.getBoolean("following");
 		this.avatar_url  = json.getString("avatar_url");
+		
+		contact_user_refs.put(json_str, new WeakReference<ContactUser>(this));
 	}
 	
+	// 只公开build和build_list_by_json
 	public static ContactUser build(String json_str) throws JSONException{
+		if(json_str == "null"){
+			return ContactUser.NIL_CONTACT_USER;
+		}
 		
 		// 先尝试从MAP中获取
 		if (contact_user_refs.containsKey(json_str)) {
@@ -66,8 +72,7 @@ public class ContactUser extends BaseModel {
 		
 		for (int i = 0; i < json_array.length(); i++) {
 			String contact_user_json_str = json_array.getString(i);	
-			ContactUser contact_user = new ContactUser(contact_user_json_str);
-			list.add(contact_user);
+			list.add(ContactUser.build(contact_user_json_str));
 		}
 		return list;
 	}

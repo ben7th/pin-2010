@@ -19,12 +19,19 @@ public class Collection extends BaseModel {
 		set_nil();
 	}
 	
-	// 公开构造函数只保留根据 json_str 构造对象的函数
-	public Collection(String json_str) throws JSONException {
+	private Collection(String json_str) throws JSONException {
 		JSONObject json = new JSONObject(json_str);
 		
 		this.collection_id = json.getInt("id");
 		this.title         = json.getString("title");
+	}
+	
+	public static Collection build(String json_str) throws JSONException{
+		if(json_str == "null"){
+			return Collection.NIL_COLLECTION;
+		}else{
+			return new Collection(json_str);
+		}
 	}
 
 	// 一般也有一个这样的“构造” List 的函数
@@ -34,8 +41,7 @@ public class Collection extends BaseModel {
 		
 		for (int i = 0; i < collection_list_ja.length(); i++) {
 			String collection_json_str = collection_list_ja.getString(i);
-			Collection collection = new Collection(collection_json_str);
-			list.add(collection);
+			list.add(Collection.build(collection_json_str));
 		}
 		return list;
 	}

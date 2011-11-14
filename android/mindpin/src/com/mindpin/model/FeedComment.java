@@ -24,7 +24,7 @@ public class FeedComment extends BaseModel {
 		set_nil();
 	}
 	
-	public FeedComment(String json_str) throws Exception {
+	private FeedComment(String json_str) throws Exception {
 		JSONObject json = new JSONObject(json_str);
 		
 		this.comment_id = json.getInt("id");
@@ -38,13 +38,21 @@ public class FeedComment extends BaseModel {
 		this.feed    = Feed.build(feed_json_str);
 	}
 
+	public static FeedComment build(String json_str) throws Exception{
+		if(json_str == "null"){
+			return FeedComment.NIL_FEED_COMMENT;
+		}else{
+			return new FeedComment(json_str);
+		}
+	}
+	
 	public static List<FeedComment> build_list_by_json(String json_str) throws Exception {
 		List<FeedComment> list = new ArrayList<FeedComment>();
 		JSONArray array = new JSONArray(json_str);
 		
 		for (int i = 0; i < array.length(); i++) {
 			String feed_comment_json_str = array.getString(i);
-			list.add(new FeedComment(feed_comment_json_str));
+			list.add(FeedComment.build(feed_comment_json_str));
 		}
 		return list;
 	}

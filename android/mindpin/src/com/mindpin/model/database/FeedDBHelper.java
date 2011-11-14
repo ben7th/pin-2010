@@ -64,10 +64,13 @@ public class FeedDBHelper extends BaseModelDBHelper {
 	// 不代表更新成功或失败
 	final public static boolean create_or_update(final Feed feed) {
 		Feed old_feed = find(feed.feed_id);
+		//Log.d("FeedDBHelper", "create or update");
 		
 		if (old_feed.is_nil()) {
+			Log.d("FeedDBHelper", "create");
 			return create(feed);
 		} else if (feed.updated_at > old_feed.updated_at) {
+			Log.d("FeedDBHelper", "update");
 			return update(feed);
 		}
 		return false;
