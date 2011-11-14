@@ -495,22 +495,57 @@
 
 /*--------上面的是原来的，下面的是新的---------*/
 
+.page-feed-show-head{
+  overflow:hidden;margin-bottom:9px;
+  padding:0 5px;
+  .avatar{
+    float:left;
+    img{
+      padding:0;
+      border:solid 1px #eee;
+      border-top:solid 1px #ddd;
+      border-bottom:solid 1px #fff;
+      @include border-radius(4px);
+    }
+  }
+  .c-meta{
+    margin-left:60px;
+    .name{
+      font-size:14px;line-height:24px;
+      font-weight:bold;@include tfont;
+      text-shadow:0 1px 0 white;
+      a{color:#444 !important;}
+    }
+    .time{
+      font-size:14px;line-height:24px;
+      text-shadow:0 1px 0 white;
+      .date{color:#444 !important;}
+    }
+  }
+}
+
 /** 主题呈现 **/
 .page-feed-show{
   border:solid 1px #eee;
   background-color:#FFF;
   .f-head{
-    margin:5px 5px 0 5px;
-    padding:9px;
+    margin:4px 4px 0 4px;
+    padding:5px;
     background-color:#fafafa;
     overflow:hidden;
     .avatar{float:left;}
     .c-meta{
       margin-left:60px;
       .name{
-        font-size:16px;line-height:32px;
+        font-size:14px;line-height:24px;
         font-weight:bold;@include tfont;
+        text-shadow:0 1px 0 white;
         a{color:#444 !important;}
+      }
+      .time{
+        font-size:14px;line-height:24px;
+        text-shadow:0 1px 0 white;
+        .date{color:#444 !important;}
       }
     }
   }
@@ -526,8 +561,12 @@
       @include feed-detail-format;
     }
     .photos{
-      padding:14px 14px;
-      .photo{font-size:0;line-height:0;}
+      padding-top:4px;
+      .photo{margin:0 4px 4px 4px;font-size:0;line-height:0;
+        background-color:#fafafa;
+        text-align:center;
+        img{margin:0 auto;}
+      }
     }
   }
 }
@@ -544,17 +583,23 @@
   }
 }
 
+@mixin thin-shadow-border{
+  border-bottom:solid 1px #eee;
+  border-top:solid 1px #fff;
+}
+
 /*评论列表*/
 .page-feed-show-comments-tsina, .page-feed-show-comments{
   margin-top:9px;
   
   .c-top{
-    padding:5px 14px;background-color:#fafafa;
-    margin-bottom:9px;margin-left:44px;margin-right:44px;
+    padding:5px 5px 5px 9px;background-color:#fafafa;
+    margin-bottom:9px;margin-left:40px;margin-right:40px;
     border:solid 1px #eee;
     @include link-in-comments;
     font-size:12px;@include tfont;
     height:24px;line-height:24px;
+    @include border-radius(3px);
     .icon{
       float:right;
       width:24px;height:24px;background:url(/images/share/share_24.png) no-repeat -4px -4px;
@@ -566,27 +611,30 @@
     .arrow{
       font-family: "宋体";color:#fff;
       font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;
-      position:absolute;left:39px;top:10px;
+      position:absolute;left:35px;top:10px;
       z-index:-1;
     }
     .avatar{
       float:left;
       img{
-        width:32px;height:32px;padding:1px;
-        background-color:#eee;
-        @include border-radius(3px);
+        width:32px;height:32px;padding:0px;
+        border:solid 1px #eee;
+        border-top:solid 1px #ddd;
+        border-bottom:solid 1px #fff;
+        @include border-radius(4px);
       }
     }
     .cfmain{
-      margin-left:44px;margin-right:44px;width:502px;/*chrome里有bug，必须指定宽度*/
+      margin-left:40px;margin-right:40px;width:510px;/*chrome里有bug，必须指定宽度*/
       background-color:#fff;
       @include border-radius(3px);
       overflow:hidden;
+      @include thin-shadow-border;
       
       .cta{
         padding:4px;line-height:0;font-size:0;
         textarea.comment-ipter{
-          width:482px;height:42px;
+          width:490px;height:42px;
           margin:0;font-size:12px;
           @include tfont;
           border-color:#eee;
@@ -611,7 +659,7 @@
     &.of_creator{
       .arrow{
         text-align:right;
-        left:auto;right:38px;
+        left:auto;right:34px;
       }
       .avatar{
         float:right;
@@ -636,21 +684,22 @@
     .arrow{
       font-family: "宋体";color:#fff;
       font-size:16px;height:16px;line-height:16px;width:16px;overflow:hidden;
-      position:absolute;left:39px;top:10px;
+      position:absolute;left:35px;top:10px;
       z-index:-1;
     }
     
     .avatar{
       float:left;
       img{
-        width:32px;height:32px;padding:1px;
-        background-color:#eee;
-        @include border-radius(3px);
+        width:32px;height:32px;padding:0px;
+        border:solid 1px #eee;
+        border-top:solid 1px #ddd;
+        border-bottom:solid 1px #fff;
+        @include border-radius(4px);
       }
     }
     .cmain{
-      margin-left:44px;
-      margin-right:44px;
+      margin-left:40px;margin-right:40px;
       z-index:1;
       .cdata{
         margin:0;
@@ -659,6 +708,7 @@
         background-color:#fff;
         @include border-radius(3px);
         padding:9px;
+        @include thin-shadow-border;
         
         .meta{
           overflow:hidden;
@@ -679,7 +729,7 @@
     &.of_creator{
       .arrow{
         text-align:right;
-        left:auto;right:38px;color:#fafafa;
+        left:auto;right:34px;color:#fafafa;
       }
       .avatar{
         float:right;

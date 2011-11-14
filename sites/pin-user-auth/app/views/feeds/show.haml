@@ -6,6 +6,8 @@
 -title = feed_format.title
 -has_title = !title_brief.blank?
 
+-created_at = @feed.created_at
+
 -creator = @feed.creator
 -collection = @feed.collections.first
 -feed_id = @feed.id
@@ -22,32 +24,39 @@
 -htitle title_brief
 
 .main.grid_15.no-line
-  .page-feed-show
-    .f-head
-      -if logged_in? && creator == current_user
-        .fright=minibutton '删除',delete_link,:method=>'delete',:confirm=>'确定删除吗'
+  .grid_13.push_1.alpha
+    .page-feed-show-head.hide
       .avatar=avatar creator
       .c-meta
         .name=usersign creator
-        .data
-    .f-ops.hide
-      .hide=minibutton '编辑修改',edit_link
-      .hide=minibutton '转发',repost_link
-    .f-main
-      -if has_title
-        .title=link_to title,"/feeds/#{feed_id}"
+        .time=jtime created_at
+    .page-feed-show
+      .f-head
+        -if logged_in? && creator == current_user
+          .fright=minibutton '删除',delete_link,:method=>'delete',:confirm=>'确定删除吗'
+        .avatar=avatar creator
+        .c-meta
+          .name=usersign creator
+          .time=jtime created_at
+      .f-ops.hide
+        .hide=minibutton '编辑修改',edit_link
+        .hide=minibutton '转发',repost_link
+      .f-main
+        -if has_title
+          .title=link_to title,"/feeds/#{feed_id}"
 
-      -if has_photo
-        .photos>
-          -photos.each do |photo|
-            -img_src = photo.image.url(:w500)
-            .photo>
-              %img{:src=>img_src}>
+        -if has_photo
+          .photos>
+            -photos.each do |photo|
+              -img_src = photo.image.url(:w500)
+              .photo>
+                %img{:src=>img_src}>
 
-      -if has_detail
-        .detail.wordwrap=detail
+        -if has_detail
+          .detail.wordwrap=detail
 
-  =render_with_error_msg '评论加载错误','/feeds/parts/show_comments',:feed=>@feed,:comments=>@feed.main_post.comments
+  .clearfix
+  =render_with_error_msg '评论加载错误','/feeds/parts/show_comments',:feed=>@feed,:comments=>@feed.comments
   =render_with_error_msg '新浪微博评论加载错误','/feeds/parts/weibo_comments',:feed=>@feed
 
 .mside.grid_6.no-line.fright

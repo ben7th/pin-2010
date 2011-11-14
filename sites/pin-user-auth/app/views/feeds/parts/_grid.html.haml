@@ -9,15 +9,21 @@
   -else
     -feeds.each do |feed|
       -feed_id = feed.id
+      -feed_format = FeedFormat.new(feed)
 
-      -title_short = feed_title_short(feed,15)
+      -title_short = feed_format.title_brief
       -has_title = !title_short.blank?
 
       -photos = feed.photos
       -has_photo = !photos.blank?
 
-      -detail = FeedFormat.new(feed).short_detail_brief
+      -detail = feed_format.short_detail_brief
       -has_detail = !detail.blank?
+
+      -comment_count = feed.comments.count
+      -has_comment = comment_count > 0
+
+      -feed_link = "/feeds/#{feed_id}"
 
       .feed{:'data-id'=>feed_id}
 
@@ -28,16 +34,28 @@
           -has_many_photos = photos.length > 1
 
           .photo>
-            %a{:href=>"/feeds/#{feed_id}"}>
+            %a{:href=>feed_link}>
               %img{:src=>img_src,:style=>"display:block;height:#{css_height}px"}
               -if has_many_photos
                 .photo-count="#{photos.length} 张图片"
 
         -if has_title
-          .title=link_to title_short,"/feeds/#{feed_id}"
+          .title.wordwrap=link_to title_short,"/feeds/#{feed_id}"
 
         -if has_detail
           .detail.wordwrap=detail
+
+        .footer-links
+          -if has_comment
+            .comment-count
+              .icon
+              %a{:href=>feed_link}=comment_count
+          .created-at
+            .icon
+            %a{:href=>feed_link}=jtime(feed.created_at)
+          .show-detail
+            .icon
+            %a{:href=>feed_link} 查看全文
 
         -if !hide_creator
           .creator

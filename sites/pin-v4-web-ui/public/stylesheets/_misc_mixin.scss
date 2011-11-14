@@ -233,6 +233,7 @@
 
 @mixin tfont{
   font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+  /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
 }
 
 @mixin word-break{

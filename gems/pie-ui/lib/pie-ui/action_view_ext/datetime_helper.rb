@@ -58,10 +58,10 @@ module PieUi
       end
 
       if time.year == time.year
-        return time.strftime("%m月#{time.day}日 %H:%M")
+        return time.strftime("#{time.month}月#{time.day}日 %H:%M")
       end
 
-      return time.strftime("%Y年%m月#{time.day}日 %H:%M")
+      return time.strftime("%Y年#{time.month}月#{time.day}日 %H:%M")
     end
 
     def time_tz(time)

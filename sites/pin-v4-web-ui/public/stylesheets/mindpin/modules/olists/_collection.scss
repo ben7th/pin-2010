@@ -20,14 +20,14 @@
     
     .title{
       margin:0;
-      padding:9px 9px 0;
+      padding:4px 9px;
       font-weight:bold;
       font-size:12px;
       a{color:#444 !important;}
     }
     .photo{
       margin:0;
-      padding:4px 4px 0;
+      padding:4px;
       position:relative;
       line-height:0;font-size:0;
       .photo-count{
@@ -51,13 +51,38 @@
     }
     .detail{
       margin:0;
-      padding:9px 9px 0;
+      padding:4px 9px;
       font-size:12px;
       @include feed-detail-format;
+      @include tfont;
+    }
+    .footer-links{
+      padding:4px 9px;
+      a{@include tfont;color:#999;
+        &:hover{
+          color:#999;text-decoration:none;
+          border-bottom:solid 1px;
+        }
+      }
+      .comment-count, .created-at, .show-detail{
+        font-size:12px;line-height:16px;
+      }
+      .comment-count{
+        margin-bottom:3px;
+        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-103px)}
+      }
+      .created-at{
+        margin-bottom:3px;
+        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-137px)}
+      }
+      .show-detail{
+        margin-bottom:3px;
+        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-120px)}
+      }
     }
     .creator{
-      margin:5px 0px 0px 0px;
-      padding:9px;
+      margin:0 4px 4px 4px;
+      padding:5px;
       background-color:#fafafa;
       /*border-top:solid 1px #eee;*/
       overflow:hidden;

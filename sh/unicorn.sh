@@ -7,6 +7,9 @@ user_auth_pid=/web/2010/pids/unicorn-user-auth.pid
 mev6_dir=$pin_2010_dir/sites/pin-mev6
 mev6_pid=/web/2010/pids/unicorn-mev6.pid
 
+uni_schedule_dir=$pin_2010_dir/sites/pin-uni-schedule
+uni_schedule_pid=/web/2010/pids/unicorn-uni-schedule.pid
+
 sh_dir=`dirname $0`
 . $sh_dir/function.sh
 . /etc/rc.status
@@ -23,9 +26,14 @@ rails_env=$(get_rails_env)
      pid=$mev6_pid
      echo "mev6"
     ;;
+    schedule)
+     cd $uni_schedule_dir
+     pid=$uni_schedule_pid
+     echo "schedule"
+    ;;
     *)
     echo "$1"
-    echo "tip:(user|mev6)"
+    echo "tip:(user|mev6|schedule)"
     exit 5
     ;;
   esac

@@ -12,6 +12,7 @@ case "$1" in
     ./worker_sh/resque_queue_workers_all.rb start
     ./worker_sh/wake_up_resque_worker.sh start
 
+    ./unicorn.sh schedule start
     ./unicorn.sh mev6 start
     ./unicorn.sh user start
   ;;
@@ -19,6 +20,7 @@ case "$1" in
     echo "a_key stop"
     ./unicorn.sh user stop
     ./unicorn.sh mev6 stop
+    ./unicorn.sh schedule stop
 
     ./worker_sh/wake_up_resque_worker.sh stop
     ./worker_sh/resque_queue_workers_all.rb stop 

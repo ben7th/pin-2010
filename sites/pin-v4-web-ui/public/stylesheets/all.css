@@ -71,8 +71,9 @@ body {
   font-size: 75%;
   background: #fff;
   color: #222;
-  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-  /*font-family:"Microsoft Yahei","微软雅黑","Helvetica Neue",Arial,Helvetica,sans-serif;*/ }
+  /*font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;*/
+  /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
+  font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
 
 /*各级标题*/
 h1, h2, h3, h4, h5, h6 {
@@ -1895,7 +1896,8 @@ input.text, textarea, select {
     box-shadow: none !important; }
   input.text.bold, textarea.bold, select.bold {
     font-weight: bold;
-    font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+    font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
 
 input.text {
   width: 200px;
@@ -2337,6 +2339,7 @@ Release Date: November 8, 2010
         line-height: 30px;
         font-size: 14px;
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         text-align: center;
         font-weight: bold;
         color: #444; }
@@ -2487,6 +2490,7 @@ Release Date: November 8, 2010
       line-height: 24px;
       color: #eee;
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       font-weight: bold;
       text-align: center;
       background-color: #444; }
@@ -3162,6 +3166,7 @@ form.page-new-feed-form .form-main, form.page-edit-feed-form .form-main {
             color: white; }
       form.page-new-feed-form .form-main .field.photos .uploading-photo .meta, form.page-edit-feed-form .form-main .field.photos .uploading-photo .meta {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         margin: 10px 3px 5px;
         overflow: hidden; }
         form.page-new-feed-form .form-main .field.photos .uploading-photo .meta .file-name, form.page-edit-feed-form .form-main .field.photos .uploading-photo .meta .file-name {
@@ -3623,6 +3628,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     float: left; }
     .page-searched-feeds .feed .stats .stat, .page-recommend-feeds .feed .stats .stat {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       overflow: hidden;
       float: left;
       padding: 3px 8px; }
@@ -3654,6 +3660,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       font-size: 14px;
       font-weight: bold;
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       margin: 0 0 5px 0; }
   .page-searched-feeds .feed .footmisc, .page-recommend-feeds .feed .footmisc {
     overflow: hidden;
@@ -4108,7 +4115,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         .page-feed-viewpoints .viewpoint .main .content h1 {
           font-size: 18px;
           font-weight: bold;
-          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
         .page-feed-viewpoints .viewpoint .main .content h2 {
           font-size: 16px;
           margin: 0 0 0.5em 0; }
@@ -4645,13 +4653,45 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     font-weight: bold; }
 
 /*--------上面的是原来的，下面的是新的---------*/
+.page-feed-show-head {
+  overflow: hidden;
+  margin-bottom: 9px;
+  padding: 0 5px; }
+  .page-feed-show-head .avatar {
+    float: left; }
+    .page-feed-show-head .avatar img {
+      padding: 0;
+      border: solid 1px #eee;
+      border-top: solid 1px #ddd;
+      border-bottom: solid 1px #fff;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px; }
+  .page-feed-show-head .c-meta {
+    margin-left: 60px; }
+    .page-feed-show-head .c-meta .name {
+      font-size: 14px;
+      line-height: 24px;
+      font-weight: bold;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
+      text-shadow: 0 1px 0 white; }
+      .page-feed-show-head .c-meta .name a {
+        color: #444 !important; }
+    .page-feed-show-head .c-meta .time {
+      font-size: 14px;
+      line-height: 24px;
+      text-shadow: 0 1px 0 white; }
+      .page-feed-show-head .c-meta .time .date {
+        color: #444 !important; }
+
 /** 主题呈现 **/
 .page-feed-show {
   border: solid 1px #eee;
   background-color: #FFF; }
   .page-feed-show .f-head {
-    margin: 5px 5px 0 5px;
-    padding: 9px;
+    margin: 4px 4px 0 4px;
+    padding: 5px;
     background-color: #fafafa;
     overflow: hidden; }
     .page-feed-show .f-head .avatar {
@@ -4659,17 +4699,26 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     .page-feed-show .f-head .c-meta {
       margin-left: 60px; }
       .page-feed-show .f-head .c-meta .name {
-        font-size: 16px;
-        line-height: 32px;
+        font-size: 14px;
+        line-height: 24px;
         font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
+        text-shadow: 0 1px 0 white; }
         .page-feed-show .f-head .c-meta .name a {
+          color: #444 !important; }
+      .page-feed-show .f-head .c-meta .time {
+        font-size: 14px;
+        line-height: 24px;
+        text-shadow: 0 1px 0 white; }
+        .page-feed-show .f-head .c-meta .time .date {
           color: #444 !important; }
   .page-feed-show .f-main .title {
     padding: 14px 14px;
     font-weight: bold;
     font-size: 14px;
-    font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+    font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
     .page-feed-show .f-main .title a {
       color: #444 !important; }
   .page-feed-show .f-main .detail {
@@ -4686,27 +4735,37 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       background: url(/images/alltu.png) no-repeat -691px -1px;
       background-color: #fafafa; }
   .page-feed-show .f-main .photos {
-    padding: 14px 14px; }
+    padding-top: 4px; }
     .page-feed-show .f-main .photos .photo {
+      margin: 0 4px 4px 4px;
       font-size: 0;
-      line-height: 0; }
+      line-height: 0;
+      background-color: #fafafa;
+      text-align: center; }
+      .page-feed-show .f-main .photos .photo img {
+        margin: 0 auto; }
 
 /*评论列表*/
 .page-feed-show-comments-tsina, .page-feed-show-comments {
   margin-top: 9px; }
   .page-feed-show-comments-tsina .c-top, .page-feed-show-comments .c-top {
-    padding: 5px 14px;
+    padding: 5px 5px 5px 9px;
     background-color: #fafafa;
     margin-bottom: 9px;
-    margin-left: 44px;
-    margin-right: 44px;
+    margin-left: 40px;
+    margin-right: 40px;
     border: solid 1px #eee;
     font-size: 12px;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
     height: 24px;
-    line-height: 24px; }
+    line-height: 24px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px; }
     .page-feed-show-comments-tsina .c-top a, .page-feed-show-comments .c-top a {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       color: #999; }
       .page-feed-show-comments-tsina .c-top a:hover, .page-feed-show-comments .c-top a:hover {
         color: #999;
@@ -4730,7 +4789,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       width: 16px;
       overflow: hidden;
       position: absolute;
-      left: 39px;
+      left: 35px;
       top: 10px;
       z-index: -1; }
     .page-feed-show-comments-tsina .comment-form .avatar, .page-feed-show-comments .comment-form .avatar {
@@ -4738,31 +4797,36 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       .page-feed-show-comments-tsina .comment-form .avatar img, .page-feed-show-comments .comment-form .avatar img {
         width: 32px;
         height: 32px;
-        padding: 1px;
-        background-color: #eee;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px; }
+        padding: 0px;
+        border: solid 1px #eee;
+        border-top: solid 1px #ddd;
+        border-bottom: solid 1px #fff;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
     .page-feed-show-comments-tsina .comment-form .cfmain, .page-feed-show-comments .comment-form .cfmain {
-      margin-left: 44px;
-      margin-right: 44px;
-      width: 502px;
+      margin-left: 40px;
+      margin-right: 40px;
+      width: 510px;
       /*chrome里有bug，必须指定宽度*/
       background-color: #fff;
       border-radius: 3px;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
-      overflow: hidden; }
+      overflow: hidden;
+      border-bottom: solid 1px #eee;
+      border-top: solid 1px #fff; }
       .page-feed-show-comments-tsina .comment-form .cfmain .cta, .page-feed-show-comments .comment-form .cfmain .cta {
         padding: 4px;
         line-height: 0;
         font-size: 0; }
         .page-feed-show-comments-tsina .comment-form .cfmain .cta textarea.comment-ipter, .page-feed-show-comments .comment-form .cfmain .cta textarea.comment-ipter {
-          width: 482px;
+          width: 490px;
           height: 42px;
           margin: 0;
           font-size: 12px;
           font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
           border-color: #eee; }
       .page-feed-show-comments-tsina .comment-form .cfmain .cfops, .page-feed-show-comments .comment-form .cfmain .cfops {
         overflow: hidden;
@@ -4782,7 +4846,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     .page-feed-show-comments-tsina .comment-form.of_creator .arrow, .page-feed-show-comments .comment-form.of_creator .arrow {
       text-align: right;
       left: auto;
-      right: 38px; }
+      right: 34px; }
     .page-feed-show-comments-tsina .comment-form.of_creator .avatar, .page-feed-show-comments .comment-form.of_creator .avatar {
       float: right; }
   .page-feed-show-comments-tsina .c-box, .page-feed-show-comments .c-box {
@@ -4796,6 +4860,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     margin: 0 0 9px 0;
     padding: 0;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
     position: relative;
     overflow: hidden; }
     .page-feed-show-comments-tsina .comment.blank, .page-feed-show-comments .comment.blank {
@@ -4803,6 +4868,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       padding-left: 4px; }
     .page-feed-show-comments-tsina .comment a, .page-feed-show-comments .comment a {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       color: #999; }
       .page-feed-show-comments-tsina .comment a:hover, .page-feed-show-comments .comment a:hover {
         color: #999;
@@ -4817,7 +4883,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       width: 16px;
       overflow: hidden;
       position: absolute;
-      left: 39px;
+      left: 35px;
       top: 10px;
       z-index: -1; }
     .page-feed-show-comments-tsina .comment .avatar, .page-feed-show-comments .comment .avatar {
@@ -4825,14 +4891,16 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       .page-feed-show-comments-tsina .comment .avatar img, .page-feed-show-comments .comment .avatar img {
         width: 32px;
         height: 32px;
-        padding: 1px;
-        background-color: #eee;
-        border-radius: 3px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px; }
+        padding: 0px;
+        border: solid 1px #eee;
+        border-top: solid 1px #ddd;
+        border-bottom: solid 1px #fff;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px; }
     .page-feed-show-comments-tsina .comment .cmain, .page-feed-show-comments .comment .cmain {
-      margin-left: 44px;
-      margin-right: 44px;
+      margin-left: 40px;
+      margin-right: 40px;
       z-index: 1; }
       .page-feed-show-comments-tsina .comment .cmain .cdata, .page-feed-show-comments .comment .cmain .cdata {
         margin: 0;
@@ -4842,7 +4910,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
-        padding: 9px; }
+        padding: 9px;
+        border-bottom: solid 1px #eee;
+        border-top: solid 1px #fff; }
         .page-feed-show-comments-tsina .comment .cmain .cdata .meta, .page-feed-show-comments .comment .cmain .cdata .meta {
           overflow: hidden; }
           .page-feed-show-comments-tsina .comment .cmain .cdata .meta .name, .page-feed-show-comments .comment .cmain .cdata .meta .name {
@@ -4863,7 +4933,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     .page-feed-show-comments-tsina .comment.of_creator .arrow, .page-feed-show-comments .comment.of_creator .arrow {
       text-align: right;
       left: auto;
-      right: 38px;
+      right: 34px;
       color: #fafafa; }
     .page-feed-show-comments-tsina .comment.of_creator .avatar, .page-feed-show-comments .comment.of_creator .avatar {
       float: right; }
@@ -5015,7 +5085,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         width: 20px;
         text-align: center;
         font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
       .index-newbie-welcome .feeds-for-newbie .feed .t {
         margin-left: 30px; }
   .index-newbie-welcome .users {
@@ -5543,6 +5614,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
             color: white; }
       .page-channels-set .channel .meta .ucount {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         font-weight: bold;
         color: #ccc;
         float: right;
@@ -5790,6 +5862,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       color: white;
       font-weight: bold;
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       padding: 0 6px;
       display: inline;
       font-size: 12px;
@@ -6060,6 +6133,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         padding: 14px;
         font-size: 12px;
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         color: #888; }
         .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel .desc b {
           color: #444;
@@ -7149,7 +7223,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         color: white;
         font-weight: bold;
         margin: 0 10px 0 0;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
       .tag-aj-info .box .base .rss {
         float: right; }
         .tag-aj-info .box .base .rss a {
@@ -7249,6 +7324,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
           position: absolute;
           font-weight: bold;
           font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
           right: 0;
           bottom: 0;
           text-align: center;
@@ -7549,6 +7625,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         overflow: hidden; }
         .page-users-rank-list .user-info .data .rep .score {
           font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
           font-weight: bold;
           font-size: 18px;
           float: left;
@@ -7561,6 +7638,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         overflow: hidden; }
         .page-users-rank-list .user-info .data .feeds .count, .page-users-rank-list .user-info .data .viewpoints .count {
           font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
           font-weight: bold;
           font-size: 18px;
           float: left;
@@ -7610,7 +7688,8 @@ body.tu-mindpin-anonymous .login-wrapper {
         border: solid 1px #ccc;
         box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
         font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
       body.tu-mindpin-anonymous .login-wrapper form .field a.login-submit {
         border-radius: 3px;
         -moz-border-radius: 3px;
@@ -7768,7 +7847,8 @@ body.mindpin-anonymous .login-wrapper {
         border: solid 1px #ccc;
         box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
         font-weight: bold;
-        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
       body.mindpin-anonymous .login-wrapper form .field a.login-submit {
         border-radius: 3px;
         -moz-border-radius: 3px;
@@ -7900,6 +7980,7 @@ body.mindpin-anonymous .login-wrapper {
     font-size: 14px;
     font-weight: bold;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
     margin-top: 20px; }
     body.mindpin-anonymous .login-wrapper .to-tu-mindpin a.new-site {
       color: #3079ED;
@@ -7992,7 +8073,8 @@ body.mindpin-anonymous .login-wrapper {
       border: solid 1px #ccc;
       box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
       font-weight: normal;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
     body.mindpin-anonymous .login-wrapper .apply-form .field input.text {
       width: 247px; }
     body.mindpin-anonymous .login-wrapper .apply-form .field textarea.text {
@@ -8067,7 +8149,8 @@ body.mindpin-anonymous .signup-wrapper {
           border: solid 1px #ccc;
           box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
           font-weight: bold;
-          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
         body.mindpin-anonymous .signup-wrapper .signup-form form .field a.login-submit {
           border-radius: 3px;
           -moz-border-radius: 3px;
@@ -8194,7 +8277,8 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
           border: solid 1px #ccc;
           box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
           font-weight: bold;
-          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+          font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+          /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
         body.mindpin-anonymous .reset-password-wrapper .form form .field a.login-submit, body.mindpin-anonymous .activation-wrapper .form form .field a.login-submit {
           border-radius: 3px;
           -moz-border-radius: 3px;
@@ -8816,6 +8900,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
         right: 8px;
         color: red;
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         font-weight: bold;
         font-size: 18px; }
       .page-tsina-app-tu .mindmaps .mindmap .img {
@@ -8917,6 +9002,7 @@ body.mindpin-anonymous .reset-password-wrapper, body.mindpin-anonymous .activati
           color: white; }
     .page-photos .uploading-photo .meta {
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       margin: 20px 6px 10px;
       overflow: hidden; }
     .page-photos .uploading-photo .process {
@@ -9001,6 +9087,7 @@ form .field.sendto-select-widget .sendto-ipter {
         margin-right: 3px; }
       form .field.sendto-select-widget .sendto-ipter .sendtos .ch span.close {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         height: 18px;
         line-height: 18px;
         font-size: 14px;
@@ -9275,14 +9362,14 @@ form .field.sendto-select-widget .sendto-selector {
     box-shadow: 0 1px 3px rgba(25, 25, 25, 0.3); }
     .page-ogrid.collection-feeds .feed .title {
       margin: 0;
-      padding: 9px 9px 0;
+      padding: 4px 9px;
       font-weight: bold;
       font-size: 12px; }
       .page-ogrid.collection-feeds .feed .title a {
         color: #444 !important; }
     .page-ogrid.collection-feeds .feed .photo {
       margin: 0;
-      padding: 4px 4px 0;
+      padding: 4px;
       position: relative;
       line-height: 0;
       font-size: 0; }
@@ -9291,6 +9378,7 @@ form .field.sendto-select-widget .sendto-selector {
         background-color: #000;
         color: white;
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         font-size: 14px;
         font-weight: bold;
         text-align: center;
@@ -9311,8 +9399,10 @@ form .field.sendto-select-widget .sendto-selector {
           opacity: 0.8; }
     .page-ogrid.collection-feeds .feed .detail {
       margin: 0;
-      padding: 9px 9px 0;
-      font-size: 12px; }
+      padding: 4px 9px;
+      font-size: 12px;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
       .page-ogrid.collection-feeds .feed .detail ol {
         margin-left: 1.5em; }
       .page-ogrid.collection-feeds .feed .detail p {
@@ -9323,9 +9413,46 @@ form .field.sendto-select-widget .sendto-selector {
         padding: 5px 9px 5px 25px;
         background: url(/images/alltu.png) no-repeat -691px -1px;
         background-color: #fafafa; }
+    .page-ogrid.collection-feeds .feed .footer-links {
+      padding: 4px 9px; }
+      .page-ogrid.collection-feeds .feed .footer-links a {
+        font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
+        color: #999; }
+        .page-ogrid.collection-feeds .feed .footer-links a:hover {
+          color: #999;
+          text-decoration: none;
+          border-bottom: solid 1px; }
+      .page-ogrid.collection-feeds .feed .footer-links .comment-count, .page-ogrid.collection-feeds .feed .footer-links .created-at, .page-ogrid.collection-feeds .feed .footer-links .show-detail {
+        font-size: 12px;
+        line-height: 16px; }
+      .page-ogrid.collection-feeds .feed .footer-links .comment-count {
+        margin-bottom: 3px; }
+        .page-ogrid.collection-feeds .feed .footer-links .comment-count .icon {
+          height: 16px;
+          width: 16px;
+          margin-right: 5px;
+          float: left;
+          background: url(/images/alltu.png) no-repeat -1px -103px; }
+      .page-ogrid.collection-feeds .feed .footer-links .created-at {
+        margin-bottom: 3px; }
+        .page-ogrid.collection-feeds .feed .footer-links .created-at .icon {
+          height: 16px;
+          width: 16px;
+          margin-right: 5px;
+          float: left;
+          background: url(/images/alltu.png) no-repeat -1px -137px; }
+      .page-ogrid.collection-feeds .feed .footer-links .show-detail {
+        margin-bottom: 3px; }
+        .page-ogrid.collection-feeds .feed .footer-links .show-detail .icon {
+          height: 16px;
+          width: 16px;
+          margin-right: 5px;
+          float: left;
+          background: url(/images/alltu.png) no-repeat -1px -120px; }
     .page-ogrid.collection-feeds .feed .creator {
-      margin: 5px 0px 0px 0px;
-      padding: 9px;
+      margin: 0 4px 4px 4px;
+      padding: 5px;
       background-color: #fafafa;
       /*border-top:solid 1px #eee;*/
       overflow: hidden; }
@@ -9403,6 +9530,7 @@ form .field.sendto-select-widget .sendto-selector {
         font-size: 14px;
         font-weight: bold;
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         line-height: 22px;
         color: #999; }
         .page-ogrid.collections .collection .headmeta .t-title a:hover, .page-ogrid.collections-binded .collection .headmeta .t-title a:hover {
@@ -9674,6 +9802,7 @@ form .field.sendto-select-widget .sendto-selector {
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
       font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
       color: white;
       font-weight: bold;
       text-align: center;
@@ -9761,6 +9890,7 @@ form .field.sendto-select-widget .sendto-selector {
     margin-left: 10px;
     line-height: 17px;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+    /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
     width: 430px; }
     .page-olist.followings .following .data .name a {
       color: #444 !important; }
@@ -9805,6 +9935,7 @@ form .field.sendto-select-widget .sendto-selector {
         height: 140px; }
       .page-ogrid.followings .following .data .name {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         font-size: 12px;
         font-weight: bold;
         padding: 5px; }
@@ -9812,6 +9943,7 @@ form .field.sendto-select-widget .sendto-selector {
           color: #444 !important; }
       .page-ogrid.followings .following .data .sign {
         font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+        /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
         padding: 0 5px 5px; }
     .page-ogrid.followings .following .mindpin-user, .page-ogrid.followings .following .tsina-user {
       margin: 0 4px 4px;
@@ -9819,7 +9951,8 @@ form .field.sendto-select-widget .sendto-selector {
       padding: 0 5px;
       height: 32px;
       line-height: 32px;
-      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif; }
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
       .page-ogrid.followings .following .mindpin-user a, .page-ogrid.followings .following .tsina-user a {
         color: #666 !important; }
       .page-ogrid.followings .following .mindpin-user span, .page-ogrid.followings .following .tsina-user span {
