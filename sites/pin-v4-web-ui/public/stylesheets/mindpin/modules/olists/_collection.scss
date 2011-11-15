@@ -32,48 +32,49 @@
       font-size:12px;
       a{color:#444 !important;}
     }
-    .photos{
+    a.photos{
+      display:block;
       margin:4px 4px 4px 4px;overflow:hidden;
+      position:relative;line-height:0;font-size:0;
       .photo{
-        position:relative;
         line-height:0;font-size:0;
         background-color:#FAFAFA;
         text-align:center;
         overflow:hidden;
-        img{margin:0 auto;}
-        .photo-count{
-          opacity:0.7;
-          background-color:#000;
-          color:white;
-          @include tfont;
-          font-size:14px;font-weight:bold;
-          text-align:center;
-          height:28px;line-height:28px;
-          padding:0 7px;
-          position:absolute;
-          top:9px;left:9px;
-          @include border-radius(3px);
-        }
-        &:hover{
-          cursor:pointer;
-          img{opacity:0.9;}
-          .photo-count{opacity:0.8;}
-        }
+        img{margin:0 auto;display:block;}
       }
       .photo.w2{
         width:205px;height:205px;margin-right:5px;float:left;
-        img{width:205px;}
       }
       .photo.w3{
         width:135px;height:135px;margin-right:5px;float:left;
-        img{width:135px;}
       }
       .photo.w4{
         width:100px;height:100px;margin-right:5px;float:left;
-        img{width:100px;}
       }
       .photo.nr{
         margin-right:0;
+      }
+      
+      .photo-count{
+        background-color:rgba(0, 0, 0, 0.7);
+        color:white;
+        @include tfont;
+        font-size:12px;font-weight:bold;
+        text-align:center;
+        height:24px;line-height:24px;
+        padding:0 6px;
+        position:absolute;
+        bottom:5px;left:5px;
+        @include border-radius(3px);
+      }
+      
+      &:hover{
+        cursor:pointer;
+        img{opacity:0.9;}
+        .photo-count{
+          background-color:rgba(0, 0, 0, 0.8);
+        }
       }
     }
     .detail{
@@ -110,12 +111,12 @@
       overflow:hidden;
       .avatar{float:left;img{width:32px;height:32px;padding:0;}}
       .name,.created-at{
-        height:16px;line-height:16px;;
-        a{@include tfont;color:#999;
-          height:16px;line-height:16px;display:block;
+        height:16px;line-height:16px;overflow:hidden;
+        a{
+          @include tfont;color:#999;
+          height:16px;line-height:16px;float:left;
           &:hover{
-            color:#999;text-decoration:none;
-            border-bottom:solid 1px;
+            color:#999;text-decoration:baseline;
           }
         }
       }

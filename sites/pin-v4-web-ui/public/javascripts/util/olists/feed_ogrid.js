@@ -5,8 +5,8 @@ pie.load(function(){
   if(jQuery('.page-ogrid.collection-feeds').length == 0) return;
 
   var col_height_array = [0, 0, 0, 0];
-  var col_width = 240;
-  var padding_bottom = 14;
+  var col_width = 262;
+  var padding_bottom = 19;
 
   //普通feed
   jQuery('.page-ogrid.collection-feeds .feed').each(function(){

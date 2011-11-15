@@ -10,71 +10,38 @@
 
   -has_many_photos = photos.length > 1
 
-  .photos>
+  %a.photos{:href=>feed_link}>
     -case photos_count
     -when 1
       -photo = photos[0]
-      -img_src = photo.image.url(:w500)
-      -css_width = photo.image_size(:w500)[:width]
-      -css_height = photo.image_size(:w500)[:height]
+      -sizes = grid_photo_large_sizes(photo, :w500, 415, 415)
+      -src, width, height, box_height, margin_top = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top]
 
-      -if css_width >= 415
-        -css_width = 415
-        -css_height = css_height * 415 / css_width
-
-      .photo{:style=>css_height >= 415 ? 'height:415px;':''}>
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;width:#{css_width}px;height:#{css_height}px;"}
-          -if has_many_photos
-            .photo-count="#{photos.length} 张图片"
+      .photo{:style=>"height:#{box_height}px"}>
+        %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;"}
 
     -when 2
-      .photo.w2>
-        -photo = photos[0]
-        -img_src = photo.image.url(:w220)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
-      .photo.w2.nr>
-        -photo = photos[1]
-        -img_src = photo.image.url(:w220)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
+      -photos[0...2].each_with_index do |photo, index|
+        -klass = (index == 1 ? 'nr':'')
+        -sizes = grid_photo_large_sizes(photo, :w220, 205, 205, true)
+        -src, width, height, box_height, margin_top = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top]
+        .photo.w2{:class=>klass,:style=>"height:#{box_height}px"}>
+          %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;"}
 
     -when 3
-      .photo.w3>
-        -photo = photos[0]
-        -img_src = photo.image.url(:w220)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
-      .photo.w3>
-        -photo = photos[1]
-        -img_src = photo.image.url(:w220)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
-      .photo.w3.nr>
-        -photo = photos[2]
-        -img_src = photo.image.url(:w220)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
+      -photos[0...3].each_with_index do |photo, index|
+        -klass = (index == 2 ? 'nr':'')
+        -sizes = grid_photo_large_sizes(photo, :w220, 135, 135, true)
+        -src, width, height, box_height, margin_top = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top]
+        .photo.w3{:class=>klass,:style=>"height:#{box_height}px"}>
+          %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;"}
 
     -else
-      .photo.w4>
-        -photo = photos[0]
-        -img_src = photo.image.url(:s100)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
-      .photo.w4>
-        -photo = photos[1]
-        -img_src = photo.image.url(:s100)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
-      .photo.w4>
-        -photo = photos[2]
-        -img_src = photo.image.url(:s100)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
-      .photo.w4.nr>
-        -photo = photos[3]
-        -img_src = photo.image.url(:s100)
-        %a{:href=>feed_link}>
-          %img{:src=>img_src,:style=>"display:block;"}
+      -photos[0...4].each_with_index do |photo, index|
+        -klass = (index == 3 ? 'nr':'')
+        .photo.w4{:class=>klass}>
+          -img_src = photo.image.url(:s100)
+          %img{:src=>img_src}
+
+      -if has_many_photos
+        .photo-count="#{photos.length} 张图片"
