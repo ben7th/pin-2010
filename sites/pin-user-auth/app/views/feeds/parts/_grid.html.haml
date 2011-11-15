@@ -14,9 +14,6 @@
       -title_short = feed_format.title_brief
       -has_title = !title_short.blank?
 
-      -photos = feed.photos
-      -has_photo = !photos.blank?
-
       -detail = feed_format.short_detail_brief
       -has_detail = !detail.blank?
 
@@ -25,19 +22,17 @@
 
       -feed_link = "/feeds/#{feed_id}"
 
-      .feed{:'data-id'=>feed_id}
+      .feed{:'data-id'=>feed_id,:'data-col-count'=>2}
 
-        -if has_photo
-          -photo = photos.first
-          -img_src = photo.image.url(:w220)
-          -css_height = photo.image_height(:w220)
-          -has_many_photos = photos.length > 1
+        -if !hide_creator
+          .creator
+            .avatar=avatar(feed.creator,:tiny)
+            .name=usersign(feed.creator)
+            .created-at
+              .icon
+              %a{:href=>feed_link}=jtime(feed.created_at)
 
-          .photo>
-            %a{:href=>feed_link}>
-              %img{:src=>img_src,:style=>"display:block;height:#{css_height}px"}
-              -if has_many_photos
-                .photo-count="#{photos.length} 张图片"
+        =render_with_error_msg '照片加载错误','/feeds/parts/grid_photos',:feed=>feed
 
         -if has_title
           .title.wordwrap=link_to title_short,"/feeds/#{feed_id}"
@@ -50,14 +45,6 @@
             .comment-count
               .icon
               %a{:href=>feed_link}=comment_count
-          .created-at
-            .icon
-            %a{:href=>feed_link}=jtime(feed.created_at)
           .show-detail
             .icon
             %a{:href=>feed_link} 查看全文
-
-        -if !hide_creator
-          .creator
-            .avatar=avatar(feed.creator,:tiny)
-            .name=usersign(feed.creator)

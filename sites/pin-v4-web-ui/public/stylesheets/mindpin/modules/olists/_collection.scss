@@ -2,9 +2,16 @@
   position:relative;
   overflow:visible;
   
+  /*
   $feed_margin:10px;
   $feed_width_1c:228px; /*240-10-2*/
-  $h_padding:14px;/*(225-200)/2*/
+  /*$h_padding:14px; /*(225-200)/2*/
+  /*$photo_padding:9px;
+  */
+  
+  $feed_margin:10px;
+  $feed_width_1c:423px; /*480-10-2*/
+  $h_padding:14px; /*(225-200)/2*/
   $photo_padding:9px;
   
   .feed{
@@ -25,28 +32,48 @@
       font-size:12px;
       a{color:#444 !important;}
     }
-    .photo{
-      margin:0;
-      padding:4px;
-      position:relative;
-      line-height:0;font-size:0;
-      .photo-count{
-        opacity:0.7;
-        background-color:#000;
-        color:white;
-        @include tfont;
-        font-size:14px;font-weight:bold;
+    .photos{
+      margin:4px 4px 4px 4px;overflow:hidden;
+      .photo{
+        position:relative;
+        line-height:0;font-size:0;
+        background-color:#FAFAFA;
         text-align:center;
-        height:28px;line-height:28px;
-        padding:0 7px;
-        position:absolute;
-        top:9px;left:9px;
-        @include border-radius(3px);
+        overflow:hidden;
+        img{margin:0 auto;}
+        .photo-count{
+          opacity:0.7;
+          background-color:#000;
+          color:white;
+          @include tfont;
+          font-size:14px;font-weight:bold;
+          text-align:center;
+          height:28px;line-height:28px;
+          padding:0 7px;
+          position:absolute;
+          top:9px;left:9px;
+          @include border-radius(3px);
+        }
+        &:hover{
+          cursor:pointer;
+          img{opacity:0.9;}
+          .photo-count{opacity:0.8;}
+        }
       }
-      &:hover{
-        cursor:pointer;
-        img{opacity:0.9;}
-        .photo-count{opacity:0.8;}
+      .photo.w2{
+        width:205px;height:205px;margin-right:5px;float:left;
+        img{width:205px;}
+      }
+      .photo.w3{
+        width:135px;height:135px;margin-right:5px;float:left;
+        img{width:135px;}
+      }
+      .photo.w4{
+        width:100px;height:100px;margin-right:5px;float:left;
+        img{width:100px;}
+      }
+      .photo.nr{
+        margin-right:0;
       }
     }
     .detail{
@@ -58,22 +85,18 @@
     }
     .footer-links{
       padding:4px 9px;
-      a{@include tfont;color:#999;
-        &:hover{
-          color:#999;text-decoration:none;
-          border-bottom:solid 1px;
-        }
-      }
       .comment-count, .created-at, .show-detail{
         font-size:12px;line-height:16px;
+        a{@include tfont;color:#999;
+          &:hover{
+            color:#999;text-decoration:none;
+            border-bottom:solid 1px;
+          }
+        }
       }
       .comment-count{
         margin-bottom:3px;
         .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-103px)}
-      }
-      .created-at{
-        margin-bottom:3px;
-        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-137px)}
       }
       .show-detail{
         margin-bottom:3px;
@@ -81,24 +104,29 @@
       }
     }
     .creator{
-      margin:0 4px 4px 4px;
+      margin:4px 4px 9px 4px;
       padding:5px;
       background-color:#fafafa;
-      /*border-top:solid 1px #eee;*/
       overflow:hidden;
       .avatar{float:left;img{width:32px;height:32px;padding:0;}}
-      .name{
-        margin-left:40px;
-        color:#666;
-        line-height:16px;
-        a{
-          color:#999;
-          font-weight:bold;
+      .name,.created-at{
+        height:16px;line-height:16px;;
+        a{@include tfont;color:#999;
+          height:16px;line-height:16px;display:block;
           &:hover{
             color:#999;text-decoration:none;
             border-bottom:solid 1px;
           }
         }
+      }
+      .name{
+        margin-left:40px;
+        color:#666;
+        a{font-weight:bold;color:#666;}
+      }
+      .created-at{
+        margin-left:40px;
+        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-137px);display:none;}
       }
     }
     

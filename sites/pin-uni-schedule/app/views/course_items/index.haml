@@ -1,0 +1,8 @@
+=link_to "返回","/"
+%ul
+  -if @course_items.blank?
+    %li 该时段没有课程
+  -else
+    -@course_items.each do |course_item|
+      %li=render :partial=>"course_items/parts/course_item",:locals=>{:course_item=>course_item}
+

@@ -12,4 +12,8 @@ class CourseItem < ActiveRecord::Base
   validates_presence_of :teacher
   validates_presence_of :course
   validates_presence_of :other_info
+
+  def other_info_hash
+    ActiveSupport::JSON.decode(other_info)
+  end
 end

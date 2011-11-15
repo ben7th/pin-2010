@@ -1,0 +1,22 @@
+-weeks = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
+-order_nums = ["1","2","3","4","5","6","7","8","9","10"]
+
+:css
+  table tr td{
+    border: 1px solid black;
+  }
+  table{
+    border-collapse:collapse;
+  }
+
+
+%table
+  %tr
+    %td lalal
+    -weeks.each do |week|
+      %td=week
+  -order_nums.each do |order_num|
+    %tr
+      %td=order_num
+      -weeks.each_with_index do |week,index|
+        %td=render :partial=>"index/parts/cell",:locals=>{:week_day=>index+1,:order_num=>order_num}

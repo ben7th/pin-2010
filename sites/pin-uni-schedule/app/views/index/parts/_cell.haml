@@ -1,0 +1,3 @@
+=link_to "增加","course_items?week_day=#{week_day}&order_num=#{order_num}"
+-current_user.select_course_items(order_num,week_day).each do |course_item|
+  =link_to "#{course_item.course.name}","/course_items/#{course_item.id}",:target=>"_blank"

@@ -1,0 +1,80 @@
+-photos = feed.photos
+-has_photo = !photos.blank?
+
+-photos_count = photos.count
+
+-feed_id = feed.id
+-feed_link = "/feeds/#{feed_id}"
+
+-if has_photo
+
+  -has_many_photos = photos.length > 1
+
+  .photos>
+    -case photos_count
+    -when 1
+      -photo = photos[0]
+      -img_src = photo.image.url(:w500)
+      -css_width = photo.image_size(:w500)[:width]
+      -css_height = photo.image_size(:w500)[:height]
+
+      -if css_width >= 500
+        -css_width = 415
+        -css_height = css_height * 415 / css_width
+
+      .photo{:style=>css_height >= 415 ? 'height:415px;':''}>
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;width:#{css_width}px;height:#{css_height}px;"}
+          -if has_many_photos
+            .photo-count="#{photos.length} 张图片"
+
+    -when 2
+      .photo.w2>
+        -photo = photos[0]
+        -img_src = photo.image.url(:w220)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+      .photo.w2.nr>
+        -photo = photos[1]
+        -img_src = photo.image.url(:w220)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+
+    -when 3
+      .photo.w3>
+        -photo = photos[0]
+        -img_src = photo.image.url(:w220)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+      .photo.w3>
+        -photo = photos[1]
+        -img_src = photo.image.url(:w220)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+      .photo.w3.nr>
+        -photo = photos[2]
+        -img_src = photo.image.url(:w220)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+
+    -else
+      .photo.w4>
+        -photo = photos[0]
+        -img_src = photo.image.url(:s100)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+      .photo.w4>
+        -photo = photos[1]
+        -img_src = photo.image.url(:s100)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+      .photo.w4>
+        -photo = photos[2]
+        -img_src = photo.image.url(:s100)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}
+      .photo.w4.nr>
+        -photo = photos[3]
+        -img_src = photo.image.url(:s100)
+        %a{:href=>feed_link}>
+          %img{:src=>img_src,:style=>"display:block;"}

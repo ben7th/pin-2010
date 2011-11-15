@@ -1,0 +1,39 @@
+-course = @course_item.course
+%div
+  %span 课程名
+  %span="#{course.name}"
+%div
+  %span 课程号
+  %span="#{course.cid}"
+%div
+  %span 所属学校
+  %span="#{course.university.name}"
+%div
+  %span 院系
+  %span="#{course.department.name}"
+%div
+  %span 地点
+  %span="#{@course_item.location.name}"
+%div
+  %span 教师姓名
+  %span="#{@course_item.teacher.name}"
+%div
+  %span 教师编码
+  %span="#{@course_item.teacher.tid}"
+%div
+  %span 学生容量
+  %span="#{@course_item.load}"
+%div
+  %span 上课时间
+  %span="星期#{@course_item.week_day},第#{@course_item.order_num}节"
+%div
+  %span 课程持续节次
+  %span="#{@course_item.period}"
+%div
+  %span 上课周次
+  %span="#{@course_item.in_week}"
+
+  -@course_item.other_info_hash.each do |key,value|
+    %div
+      %span="#{key}"
+      %span="#{value}"
