@@ -2111,7 +2111,7 @@ form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover,form .f
 .page-new-collection-op .form .form-placeholder .ops-btns a.create-cancel:hover,.page-new-collection-op .pop-box .form-placeholder .ops-btns a.create-cancel:hover{color:#555;text-decoration:none;background:-moz-linear-gradient(-90deg,#d7d7d7,#d3d3d3);background:-webkit-gradient(linear,0% 0,0% 100%,from(#d7d7d7),to(#d3d3d3));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');border:solid 1px #848484;}
 .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title{width:268px;}
 .page-ogrid.collection-feeds{position:relative;overflow:visible;}
-.page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:423px;margin-bottom:10px;margin-right:10px;border:solid 1px #fff;box-shadow:0 1px 3px rgba(25,25,25,0.3);}
+.page-ogrid.collection-feeds .feed{position:absolute;border:solid 1px #eee;background-color:#FFF;padding:9px;padding:0;width:423px;margin-bottom:10px;margin-right:10px;border:solid 1px #eee;}
 .page-ogrid.collection-feeds .feed .title{margin:0;padding:4px 9px;font-weight:bold;font-size:12px;}
 .page-ogrid.collection-feeds .feed .title a{color:#444!important;}
 .page-ogrid.collection-feeds .feed a.photos{display:block;margin:4px 4px 4px 4px;overflow:hidden;position:relative;line-height:0;font-size:0;}

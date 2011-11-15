@@ -9364,8 +9364,8 @@ $feed_width_1c:228px; /*240-10-2*/
     width: 423px;
     margin-bottom: 10px;
     margin-right: 10px;
-    border: solid 1px #fff;
-    box-shadow: 0 1px 3px rgba(25, 25, 25, 0.3); }
+    border: solid 1px #eee;
+    /*box-shadow:0 1px 3px rgba(25, 25, 25, 0.3);*/ }
     .page-ogrid.collection-feeds .feed .title {
       margin: 0;
       padding: 4px 9px;
