@@ -1,0 +1,145 @@
+.page-schedule-table{
+  border:solid 1px #eee;
+  background-color:#FFF;
+  width:950px;
+  padding:4px;
+  
+  tr.table-head{
+    border-bottom:solid 1px #eee;
+    td{
+      height:24px;line-height:24px;
+      width:118px;
+      border-right:solid 1px #eee;
+      border-bottom:solid 1px #eee;
+      
+      .weekday{
+        padding:3px 5px;
+        text-align:center;
+        color:#666;
+      }
+      
+      &.head-order-num{
+        width:30px;
+        font-size:0;line-height:0;
+        .avatar{
+          img{padding:0;width:30px;height:30px;};
+        }
+      }
+      &.head-weekday{
+        width:130px;
+        background-color:#fafafa;
+      }
+      &.today{
+        background-color:#f4f4f4;
+      }
+    }
+  }
+  
+  tr.table-body{
+    td{
+      &.tcell-order-num{
+        background-color:#FAFAFA;
+        vertical-align:top;
+        border-right:solid 1px #eee;
+        border-bottom:solid 1px #eee;
+        .order-num{
+          color:#666;
+          padding:5px;
+          @include tfont;
+          text-align:center;
+          font-size:16px;
+          font-weight:bold;
+          height:72px;
+          line-height:24px;
+        }
+      }
+      &.tcell-weekday{
+        vertical-align:top;
+        border-right:solid 1px #eee;
+        border-bottom:solid 1px #eee;
+        overflow:hidden;
+        .sel-cell{
+          position:relative;
+          padding:5px;
+          .item{
+            overflow:hidden;
+            font-size:14px;line-height:24px;
+            a{color:#444;&:hover{color:#444;}}
+          }
+          a.add{
+            opacity:0.8;
+            position:absolute;
+            height:24px;width:24px;
+            /*@include gradient(#51BD1E, #389C0A);*/
+            right:4px;top:4px;
+            @include border-radius(4px);
+            overflow:hidden;
+            line-height:30em;
+            border:solid 1px #3079ED;
+            @include gradient(#4D90FE, #4787ED);
+            .icon{
+              width:24px;height:24px;
+              @include allimg(-85px,-100px);
+            }
+          }
+        }
+        &.hover{
+          background-color:#F9FFE6;
+          a.add{
+            border:solid 1px #2f5bb7;
+            @include gradient(#4D90FE, #357ae8);
+          }
+        }
+      }
+      &.today{
+        background-color:#fafafa;
+      }
+    }
+  }
+}
+
+.page-info-top{
+  .course-items-head{
+    padding:5px;
+    overflow:hidden;
+    a.minibutton{padding:0 14px;line-height:30px;height:30px;font-size:14px;float:left;}
+    .info{float:right;font-size:14px;height:32px;line-height:32px;color:#666;margin-right:5px;}
+  }
+}
+
+.page-olist.course-items{
+  .course-item{
+    margin-bottom:5px;
+    background-color:#FFF;
+    border:solid 1px #eee;
+    position:relative;
+    .course{
+      margin:4px;
+      padding:5px 9px;
+      background-color:#fafafa;
+      .name{font-weight:bold;font-size:14px;line-height:24px;a{color:#444;&:hover{color:#444;}}}
+    }
+    .meta{
+      margin:0 4px 4px 4px;
+      padding:5px 9px;
+      .teacher{font-size:12px;color:#666;a{color:#666;&:hover{color:#666;}}}
+      .location{font-size:12px;color:#666;a{color:#666;&:hover{color:#666;}}}
+      .selected-users{font-size:12px;color:#666;a{color:#666;&:hover{color:#666;}}}
+    }
+    .selection{
+      position:absolute;
+      top:9px;right:9px;
+      a.minibutton.select{
+        border:solid 1px #4EC000;
+        background-color:#90DE00;
+        padding:0 7px;
+        span{color:white;text-shadow:0 0 2px #444444;}
+      }
+      a.minibutton.unselect{
+        margin-left:7px;padding:0 7px;
+        span{color:#888;}
+      }
+      .has_selected{color:#666;}
+    }
+  }
+}

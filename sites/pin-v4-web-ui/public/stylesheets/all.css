@@ -2266,7 +2266,7 @@ Release Date: November 8, 2010
       line-height: 22em; }
       .page-header .nav .site-logo .logo.mindpin {
         background: url(/images/alltu.png) -394px -1px;
-        width: 295px; }
+        width: 225px; }
       .page-header .nav .site-logo .logo.mindmaps {
         background: url(/images/alltu.png) -133px -1px; }
   .page-header .nav .nav-menu {
@@ -2321,13 +2321,21 @@ Release Date: November 8, 2010
         top: 3px;
         left: 8px; }
       .page-header .nav .nav-menu a.li.feeds .icon {
-        background: url(/images/alltu.png) no-repeat -394px -50px; }
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -394px -50px; }
       .page-header .nav .nav-menu a.li.contacts .icon {
-        background: url(/images/alltu.png) no-repeat -419px -50px; }
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -419px -50px; }
       .page-header .nav .nav-menu a.li.collections .icon {
-        background: url(/images/alltu.png) no-repeat -394px -75px; }
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -394px -75px; }
       .page-header .nav .nav-menu a.li.entries .icon {
-        background: url(/images/alltu.png) no-repeat -419px -75px; }
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -419px -75px; }
       .page-header .nav .nav-menu a.li.notices, .page-header .nav .nav-menu a.li.setting, .page-header .nav .nav-menu a.li.logout {
         width: 30px;
         padding: 0;
@@ -2346,10 +2354,14 @@ Release Date: November 8, 2010
       .page-header .nav .nav-menu a.li.setting {
         margin-left: 10px; }
         .page-header .nav .nav-menu a.li.setting .icon {
-          background: url(/images/alltu.png) no-repeat -444px -50px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -444px -50px;
           left: 3px; }
       .page-header .nav .nav-menu a.li.logout .icon {
-        background: url(/images/alltu.png) no-repeat -444px -75px;
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -444px -75px;
         left: 3px; }
     .page-header .nav .nav-menu .user-meta {
       float: left;
@@ -2390,9 +2402,16 @@ Release Date: November 8, 2010
       line-height: 22em; }
       .page-header .nav.dark .site-logo .logo.mindpin {
         background: url(/images/alltu.png) -394px -1px;
-        width: 295px; }
+        width: 225px; }
       .page-header .nav.dark .site-logo .logo.account {
         background: url(/images/alltu.png) -394px -100px; }
+  .page-header .nav.dark .site-name {
+    float: left;
+    height: 48px;
+    line-height: 48px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff; }
   .page-header .nav.dark .mindmap-search-form {
     margin: 13px 0 0 0;
     overflow: hidden;
@@ -2501,20 +2520,28 @@ Release Date: November 8, 2010
       line-height: 20em;
       overflow: hidden; }
       .page-header .nav.dark .nav-menu a.setting .icon {
-        background: url(/images/alltu.png) no-repeat -444px -50px;
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -444px -50px;
         width: 24px;
         height: 24px; }
       .page-header .nav.dark .nav-menu a.setting:hover .icon {
-        background: url(/images/alltu.png) no-repeat -469px -50px; }
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -469px -50px; }
     .page-header .nav.dark .nav-menu a.logout {
       line-height: 20em;
       overflow: hidden; }
       .page-header .nav.dark .nav-menu a.logout .icon {
-        background: url(/images/alltu.png) no-repeat -444px -75px;
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -444px -75px;
         width: 24px;
         height: 24px; }
       .page-header .nav.dark .nav-menu a.logout:hover .icon {
-        background: url(/images/alltu.png) no-repeat -469px -75px; }
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -469px -75px; }
 
 .page-content.top_fixed {
   padding-top: 48px; }
@@ -3432,7 +3459,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         float: none; }
         .page-feeds .feed .f .tags .tag {
           float: left;
-          background: url(/images/icons/all.png) no-repeat 0 -209px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: 0 -209px;
           line-height: 19px;
           padding: 0 0 0 13px;
           margin: 0 6px 0 0;
@@ -3478,7 +3507,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
           .page-feeds .feed .f .viewpoint .my-viewpoint .arrow, .page-feeds .feed .f .viewpoint .hot-viewpoint .arrow {
             width: 15px;
             height: 7px;
-            background: url(/images/icons/all.png) no-repeat -271px -65px;
+            background-image: url(/images/icons/all.png);
+            background-repeat: no-repeat;
+            background-position: -271px -65px;
             margin: 0 0 0 36px; }
           .page-feeds .feed .f .viewpoint .my-viewpoint .data, .page-feeds .feed .f .viewpoint .hot-viewpoint .data {
             padding: 5px;
@@ -3579,7 +3610,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         float: none; }
         .page-feeds-grid .feed .f .tags .tag {
           float: left;
-          background: url(/images/icons/all.png) no-repeat 0 -209px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: 0 -209px;
           line-height: 19px;
           padding: 0 0 0 13px;
           margin: 0 6px 0 0;
@@ -3672,7 +3705,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       float: left; }
       .page-searched-feeds .feed .footmisc .tags .tag, .page-recommend-feeds .feed .footmisc .tags .tag {
         float: left;
-        background: url(/images/icons/all.png) no-repeat 0 -209px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: 0 -209px;
         line-height: 19px;
         padding: 0 0 0 13px;
         margin: 0 6px 0 0;
@@ -3837,7 +3872,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   margin: 0 0 10px 0; }
   .feed-show-page-head .ftag .feed-tags .tag {
     float: left;
-    background: url(/images/icons/all.png) no-repeat 0 -209px;
+    background-image: url(/images/icons/all.png);
+    background-repeat: no-repeat;
+    background-position: 0 -209px;
     line-height: 19px;
     padding: 0 0 0 13px;
     margin: 0 6px 0 0;
@@ -3890,7 +3927,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         width: 10px;
         height: 10px;
         float: left;
-        background: url(/images/icons/all.png) no-repeat -229px -87px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -229px -87px;
         margin: 0 3px 0 0;
         position: relative;
         top: 3px;
@@ -3950,7 +3989,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         width: 10px;
         height: 10px;
         float: left;
-        background: url(/images/icons/all.png) no-repeat -229px -87px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -229px -87px;
         margin: 0 3px 0 0;
         position: relative;
         top: 3px;
@@ -4011,7 +4052,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   .feed-is-locked .icon, .feed-is-hidden-by-useless .icon {
     width: 24px;
     height: 24px;
-    background: url(/images/icons/all.png) no-repeat -275px -142px;
+    background-image: url(/images/icons/all.png);
+    background-repeat: no-repeat;
+    background-position: -275px -142px;
     float: left;
     margin-right: 10px; }
   .feed-is-locked .desc, .feed-is-hidden-by-useless .desc {
@@ -4021,7 +4064,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     color: #666; }
 
 .feed-is-hidden-by-useless .icon {
-  background: url(/images/icons/all.png) no-repeat -300px -142px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -300px -142px; }
 
 .page-feed-viewpoints-title {
   font-size: 14px;
@@ -4048,12 +4093,16 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         -webkit-border-radius: 3px;
         width: 20px;
         height: 17px;
-        background: url(/images/icons/all.png) no-repeat -229px -33px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -229px -33px;
         background-color: #FEF4A6;
         cursor: pointer;
         margin: 0 0 4px 0; }
         .page-feed-viewpoints .viewpoint .vote-ops .vote-up:hover {
-          background: url(/images/icons/all.png) no-repeat -229px -51px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -229px -51px;
           background-color: #A8500E; }
       .page-feed-viewpoints .viewpoint .vote-ops .vote-down {
         border-radius: 3px;
@@ -4061,12 +4110,16 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         -webkit-border-radius: 3px;
         width: 20px;
         height: 17px;
-        background: url(/images/icons/all.png) no-repeat -250px -33px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -250px -33px;
         background-color: #FEF4A6;
         cursor: pointer;
         margin: 0 0 4px 0; }
         .page-feed-viewpoints .viewpoint .vote-ops .vote-down:hover {
-          background: url(/images/icons/all.png) no-repeat -250px -51px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -250px -51px;
           background-color: #A8500E; }
       .page-feed-viewpoints .viewpoint .vote-ops .vote-score {
         font-size: 16px;
@@ -4082,9 +4135,13 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
           color: white;
           background: #53BCFE; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-up {
-        background: url(/images/icons/all.png) no-repeat -229px -51px; }
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -229px -51px; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-down {
-        background: url(/images/icons/all.png) no-repeat -250px -51px; }
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -250px -51px; }
       .page-feed-viewpoints .viewpoint .vote-ops .voted-up, .page-feed-viewpoints .viewpoint .vote-ops .voted-down {
         border-radius: 3px;
         -moz-border-radius: 3px;
@@ -4157,7 +4214,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         float: left; }
         .page-feed-viewpoints .viewpoint .footmisc .tags .tag {
           float: left;
-          background: url(/images/icons/all.png) no-repeat 0 -209px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: 0 -209px;
           line-height: 19px;
           padding: 0 0 0 13px;
           margin: 0 6px 0 0;
@@ -4237,7 +4296,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
               width: 10px;
               height: 10px;
               float: left;
-              background: url(/images/icons/all.png) no-repeat -229px -87px;
+              background-image: url(/images/icons/all.png);
+              background-repeat: no-repeat;
+              background-position: -229px -87px;
               margin: 0 3px 0 0;
               position: relative;
               top: 3px;
@@ -4268,7 +4329,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         .page-feed-viewpoints .viewpoint .add-comment a.echo .icon {
           width: 10px;
           height: 10px;
-          background: url(/images/icons/all.png) no-repeat -253px -87px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -253px -87px;
           margin: 0 3px 0 0;
           position: relative;
           top: 1px;
@@ -4444,7 +4507,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         float: right;
         width: 12px;
         height: 12px;
-        background: url(/images/icons/all.png) no-repeat -240px -87px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -240px -87px;
         position: relative;
         top: 5px;
         cursor: pointer;
@@ -4464,7 +4529,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         width: 16px;
         height: 16px;
         float: left;
-        background: url(/images/icons/all.png) no-repeat -315px -100px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -315px -100px;
         margin: 0 3px 0 0; }
     .page-show-side-invite .invite-share .show-page-invite-link-share {
       float: left;
@@ -4473,7 +4540,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         width: 16px;
         height: 16px;
         float: left;
-        background: url(/images/icons/all.png) no-repeat -332px -100px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -332px -100px;
         margin: 0 0px 0 0; }
   .page-show-side-invite .show-page-share-tsina {
     margin: 0 0 12px; }
@@ -4481,7 +4550,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       width: 16px;
       height: 16px;
       float: left;
-      background: url(/images/icons/all.png) no-repeat 0px -167px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: 0px -167px;
       margin: 0 3px 0 0; }
 
 .page-show-who-recommend {
@@ -4506,7 +4577,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       float: right;
       width: 12px;
       height: 12px;
-      background: url(/images/icons/all.png) no-repeat -240px -87px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: -240px -87px;
       position: relative;
       top: 5px;
       cursor: pointer;
@@ -4732,8 +4805,14 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       font-style: normal;
       margin: 0;
       padding: 5px 9px 5px 25px;
-      background: url(/images/alltu.png) no-repeat -691px -1px;
+      background-image: url(/images/alltu.png);
+      background-repeat: no-repeat;
+      background-position: -691px -1px;
       background-color: #fafafa; }
+    .page-feed-show .f-main .detail .feed-format-img {
+      margin: 0 -10px;
+      background-color: #fafafa;
+      text-align: center; }
   .page-feed-show .f-main .photos {
     padding-top: 4px; }
     .page-feed-show .f-main .photos .photo {
@@ -5914,27 +5993,49 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   padding: 0 5px; }
 
 .module-links.feeds .home .icon {
-  background: url(/images/icons/all.png) no-repeat -225px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -225px -117px; }
 .module-links.feeds .favs .icon {
-  background: url(/images/icons/all.png) no-repeat -150px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -150px -117px; }
 .module-links.feeds .received_comments .icon {
-  background: url(/images/icons/all.png) no-repeat -175px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -175px -117px; }
 .module-links.feeds .quoted-me-feeds .icon {
-  background: url(/images/icons/all.png) no-repeat -200px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -200px -117px; }
 .module-links.feeds .answered-feeds .icon {
-  background: url(/images/icons/all.png) no-repeat -250px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -250px -117px; }
 .module-links.feeds .be-asked-feeds .icon {
-  background: url(/images/icons/all.png) no-repeat -275px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -275px -117px; }
 .module-links.feeds .be-hidden-feeds .icon {
-  background: url(/images/icons/all.png) no-repeat -325px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -325px -117px; }
 .module-links.feeds .recent-userlogs .icon {
-  background: url(/images/icons/all.png) no-repeat -300px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -300px -117px; }
 .module-links.feeds .recent-hot-feeds .icon {
-  background: url(/images/icons/all.png) no-repeat -350px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -350px -117px; }
 .module-links.feeds .recommend .icon {
-  background: url(/images/icons/all.png) no-repeat -375px -117px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -375px -117px; }
 .module-links.feeds .atmes .icon {
-  background: url(/images/icons/all.png) no-repeat -325px -142px; }
+  background-image: url(/images/icons/all.png);
+  background-repeat: no-repeat;
+  background-position: -325px -142px; }
 
 .email_setting .mail span {
   border-radius: 4px;
@@ -6269,7 +6370,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       .page-usage-select .feeds.checked .check, .page-usage-select .mindmaps.checked .check {
         width: 32px;
         height: 32px;
-        background: url(/images/icons/all.png) no-repeat -196px -66px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: -196px -66px;
         position: absolute;
         top: 10px;
         left: 170px; }
@@ -6533,13 +6636,21 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
           float: left;
           margin-right: 10px; }
         .no-auth-head .intro_and_form .mindpin-intro .misc .txt .p .icon1 {
-          background: url(/images/icons/all.png) no-repeat -125px -142px; }
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -125px -142px; }
         .no-auth-head .intro_and_form .mindpin-intro .misc .txt .p .icon2 {
-          background: url(/images/icons/all.png) no-repeat -150px -142px; }
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -150px -142px; }
         .no-auth-head .intro_and_form .mindpin-intro .misc .txt .p .icon3 {
-          background: url(/images/icons/all.png) no-repeat -175px -142px; }
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -175px -142px; }
         .no-auth-head .intro_and_form .mindpin-intro .misc .txt .p .icon4 {
-          background: url(/images/icons/all.png) no-repeat -200px -142px; }
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -200px -142px; }
 
 .index-userlogs {
   margin: 0 0 20px 0; }
@@ -6567,7 +6678,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         .index-userlogs .log .footmisc .viewpoint .arrow {
           width: 15px;
           height: 7px;
-          background: url(/images/icons/all.png) no-repeat -271px -65px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: -271px -65px;
           margin: 0 0 0 36px; }
         .index-userlogs .log .footmisc .viewpoint .data {
           padding: 5px;
@@ -6789,7 +6902,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
             width: 10px;
             height: 10px;
             float: left;
-            background: url(/images/icons/all.png) no-repeat -229px -87px;
+            background-image: url(/images/icons/all.png);
+            background-repeat: no-repeat;
+            background-position: -229px -87px;
             margin: 0 3px 0 0;
             position: relative;
             top: 3px;
@@ -6935,7 +7050,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     margin: 0 0 6px 0; }
     .tag-related-tags .tag-and-count .tag {
       float: left;
-      background: url(/images/icons/all.png) no-repeat 0 -209px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: 0 -209px;
       line-height: 19px;
       padding: 0 0 0 13px;
       margin: 0 6px 0 0;
@@ -6985,7 +7102,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     margin: 0 0 6px 0; }
     .page-show-side-status .tags-count .tag-and-count .tag {
       float: left;
-      background: url(/images/icons/all.png) no-repeat 0 -209px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: 0 -209px;
       line-height: 19px;
       padding: 0 0 0 13px;
       margin: 0 6px 0 0;
@@ -7040,7 +7159,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       margin: 0 0 6px 0; }
       .page-tags-rank-list .tag-info .tag-and-count .tag {
         float: left;
-        background: url(/images/icons/all.png) no-repeat 0 -209px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: 0 -209px;
         line-height: 19px;
         padding: 0 0 0 13px;
         margin: 0 6px 0 0;
@@ -7105,7 +7226,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     float: left; }
     .page-tags-with-another-name .tag-info .tag .tag {
       float: left;
-      background: url(/images/icons/all.png) no-repeat 0 -209px;
+      background-image: url(/images/icons/all.png);
+      background-repeat: no-repeat;
+      background-position: 0 -209px;
       line-height: 19px;
       padding: 0 0 0 13px;
       margin: 0 6px 0 0;
@@ -7146,7 +7269,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       float: left; }
       .page-tags-with-another-name .tag-info .another-names .another-name .tag {
         float: left;
-        background: url(/images/icons/all.png) no-repeat 0 -209px;
+        background-image: url(/images/icons/all.png);
+        background-repeat: no-repeat;
+        background-position: 0 -209px;
         line-height: 19px;
         padding: 0 0 0 13px;
         margin: 0 6px 0 0;
@@ -7189,7 +7314,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     width: 32px;
     height: 32px;
     display: block;
-    background: url(/images/icons/all.png) no-repeat -320px -66px; }
+    background-image: url(/images/icons/all.png);
+    background-repeat: no-repeat;
+    background-position: -320px -66px; }
 
 .tag-aj-info {
   background-color: #595959;
@@ -7498,7 +7625,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         padding: 0 0 5px 0; }
         .page-revisions .revision .main .tags .tag {
           float: left;
-          background: url(/images/icons/all.png) no-repeat 0 -209px;
+          background-image: url(/images/icons/all.png);
+          background-repeat: no-repeat;
+          background-position: 0 -209px;
           line-height: 19px;
           padding: 0 0 0 13px;
           margin: 0 6px 0 0;
@@ -9152,6 +9281,178 @@ form .field.sendto-select-widget .sendto-selector {
       form .field.sendto-select-widget .sendto-selector .groups .it.lock:hover, form .field.sendto-select-widget .sendto-selector .channels .it.lock:hover {
         background: none; }
 
+/*schedule*/
+.page-schedule-table {
+  border: solid 1px #eee;
+  background-color: #FFF;
+  width: 950px;
+  padding: 4px; }
+  .page-schedule-table tr.table-head {
+    border-bottom: solid 1px #eee; }
+    .page-schedule-table tr.table-head td {
+      height: 24px;
+      line-height: 24px;
+      width: 118px;
+      border-right: solid 1px #eee;
+      border-bottom: solid 1px #eee; }
+      .page-schedule-table tr.table-head td .weekday {
+        padding: 3px 5px;
+        text-align: center;
+        color: #666; }
+      .page-schedule-table tr.table-head td.head-order-num {
+        width: 30px;
+        font-size: 0;
+        line-height: 0; }
+        .page-schedule-table tr.table-head td.head-order-num .avatar img {
+          padding: 0;
+          width: 30px;
+          height: 30px; }
+      .page-schedule-table tr.table-head td.head-weekday {
+        width: 130px;
+        background-color: #fafafa; }
+      .page-schedule-table tr.table-head td.today {
+        background-color: #f4f4f4; }
+  .page-schedule-table tr.table-body td.tcell-order-num {
+    background-color: #FAFAFA;
+    vertical-align: top;
+    border-right: solid 1px #eee;
+    border-bottom: solid 1px #eee; }
+    .page-schedule-table tr.table-body td.tcell-order-num .order-num {
+      color: #666;
+      padding: 5px;
+      font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
+      /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      height: 72px;
+      line-height: 24px; }
+  .page-schedule-table tr.table-body td.tcell-weekday {
+    vertical-align: top;
+    border-right: solid 1px #eee;
+    border-bottom: solid 1px #eee;
+    overflow: hidden; }
+    .page-schedule-table tr.table-body td.tcell-weekday .sel-cell {
+      position: relative;
+      padding: 5px; }
+      .page-schedule-table tr.table-body td.tcell-weekday .sel-cell .item {
+        overflow: hidden;
+        font-size: 14px;
+        line-height: 24px; }
+        .page-schedule-table tr.table-body td.tcell-weekday .sel-cell .item a {
+          color: #444; }
+          .page-schedule-table tr.table-body td.tcell-weekday .sel-cell .item a:hover {
+            color: #444; }
+      .page-schedule-table tr.table-body td.tcell-weekday .sel-cell a.add {
+        opacity: 0.8;
+        position: absolute;
+        height: 24px;
+        width: 24px;
+        /*@include gradient(#51BD1E, #389C0A);*/
+        right: 4px;
+        top: 4px;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        overflow: hidden;
+        line-height: 30em;
+        border: solid 1px #3079ED;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #4787ed);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#4787ed));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#4787ed'); }
+        .page-schedule-table tr.table-body td.tcell-weekday .sel-cell a.add .icon {
+          width: 24px;
+          height: 24px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -85px -100px; }
+    .page-schedule-table tr.table-body td.tcell-weekday.hover {
+      background-color: #F9FFE6; }
+      .page-schedule-table tr.table-body td.tcell-weekday.hover a.add {
+        border: solid 1px #2f5bb7;
+        background: -moz-linear-gradient(-90deg, #4d90fe, #357ae8);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d90fe), to(#357ae8));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4d90fe',endColorstr='#357ae8'); }
+  .page-schedule-table tr.table-body td.today {
+    background-color: #fafafa; }
+
+.page-info-top .course-items-head {
+  padding: 5px;
+  overflow: hidden; }
+  .page-info-top .course-items-head a.minibutton {
+    padding: 0 14px;
+    line-height: 30px;
+    height: 30px;
+    font-size: 14px;
+    float: left; }
+  .page-info-top .course-items-head .info {
+    float: right;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    color: #666;
+    margin-right: 5px; }
+
+.page-olist.course-items .course-item {
+  margin-bottom: 5px;
+  background-color: #FFF;
+  border: solid 1px #eee;
+  position: relative; }
+  .page-olist.course-items .course-item .course {
+    margin: 4px;
+    padding: 5px 9px;
+    background-color: #fafafa; }
+    .page-olist.course-items .course-item .course .name {
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 24px; }
+      .page-olist.course-items .course-item .course .name a {
+        color: #444; }
+        .page-olist.course-items .course-item .course .name a:hover {
+          color: #444; }
+  .page-olist.course-items .course-item .meta {
+    margin: 0 4px 4px 4px;
+    padding: 5px 9px; }
+    .page-olist.course-items .course-item .meta .teacher {
+      font-size: 12px;
+      color: #666; }
+      .page-olist.course-items .course-item .meta .teacher a {
+        color: #666; }
+        .page-olist.course-items .course-item .meta .teacher a:hover {
+          color: #666; }
+    .page-olist.course-items .course-item .meta .location {
+      font-size: 12px;
+      color: #666; }
+      .page-olist.course-items .course-item .meta .location a {
+        color: #666; }
+        .page-olist.course-items .course-item .meta .location a:hover {
+          color: #666; }
+    .page-olist.course-items .course-item .meta .selected-users {
+      font-size: 12px;
+      color: #666; }
+      .page-olist.course-items .course-item .meta .selected-users a {
+        color: #666; }
+        .page-olist.course-items .course-item .meta .selected-users a:hover {
+          color: #666; }
+  .page-olist.course-items .course-item .selection {
+    position: absolute;
+    top: 9px;
+    right: 9px; }
+    .page-olist.course-items .course-item .selection a.minibutton.select {
+      border: solid 1px #4EC000;
+      background-color: #90DE00;
+      padding: 0 7px; }
+      .page-olist.course-items .course-item .selection a.minibutton.select span {
+        color: white;
+        text-shadow: 0 0 2px #444444; }
+    .page-olist.course-items .course-item .selection a.minibutton.unselect {
+      margin-left: 7px;
+      padding: 0 7px; }
+      .page-olist.course-items .course-item .selection a.minibutton.unselect span {
+        color: #888; }
+    .page-olist.course-items .course-item .selection .has_selected {
+      color: #666; }
+
 /*modules*/
 .page-mside-avatar {
   border: solid 1px #eee;
@@ -9443,7 +9744,9 @@ $feed_width_1c:228px; /*240-10-2*/
         font-style: normal;
         margin: 0;
         padding: 5px 9px 5px 25px;
-        background: url(/images/alltu.png) no-repeat -691px -1px;
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -691px -1px;
         background-color: #fafafa; }
     .page-ogrid.collection-feeds .feed .footer-links {
       padding: 4px 9px; }
@@ -9465,7 +9768,9 @@ $feed_width_1c:228px; /*240-10-2*/
           width: 16px;
           margin-right: 5px;
           float: left;
-          background: url(/images/alltu.png) no-repeat -1px -103px; }
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -1px -103px; }
       .page-ogrid.collection-feeds .feed .footer-links .show-detail {
         margin-bottom: 3px; }
         .page-ogrid.collection-feeds .feed .footer-links .show-detail .icon {
@@ -9473,7 +9778,9 @@ $feed_width_1c:228px; /*240-10-2*/
           width: 16px;
           margin-right: 5px;
           float: left;
-          background: url(/images/alltu.png) no-repeat -1px -120px; }
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -1px -120px; }
     .page-ogrid.collection-feeds .feed .creator {
       margin: 4px 4px 9px 4px;
       padding: 5px;
@@ -9512,7 +9819,9 @@ $feed_width_1c:228px; /*240-10-2*/
           width: 16px;
           margin-right: 5px;
           float: left;
-          background: url(/images/alltu.png) no-repeat -1px -137px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -1px -137px;
           display: none; }
     .page-ogrid.collection-feeds .feed .comments .comment {
       margin: 0;

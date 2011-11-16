@@ -2,6 +2,7 @@ class CourseItem < ActiveRecord::Base
   belongs_to :course
   belongs_to :teacher
   belongs_to :location
+  has_many :user_course_items
 
   validates_presence_of :week_day
   validates_presence_of :order_num
@@ -15,5 +16,9 @@ class CourseItem < ActiveRecord::Base
 
   def other_info_hash
     ActiveSupport::JSON.decode(other_info)
+  end
+
+  def selected_users
+    self.user_course_items.map{|item|item.user}
   end
 end

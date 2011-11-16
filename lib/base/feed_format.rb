@@ -4,7 +4,14 @@ class FeedFormat
     @feed = feed
     @title = feed.title || ''
     @detail = feed.detail || ''
+
+    @photos = feed.photos
+    @photo_used = false
+
+    @transed_detail = _detail # 顺序不可改
   end
+
+  def photo_used; @photo_used; end
 
   # --------- 10月31日之后的新api
 
@@ -16,7 +23,8 @@ class FeedFormat
   #
   #  生成顺序
   #  str = 原文持久存储字符串
-  #  str1 = 2次以上/n减为1次/n(str)
+  #  str0 = 换行符标准化(str)
+  #  str1 = 2次以上/n减为1次/n(str1)
   #  str2 = 截取300字（str1）
   #  str3 = html_escape(str2)
   #  str4 = 转换\n为<br/>(str3)
@@ -24,7 +32,8 @@ class FeedFormat
   #  return str5
 
   def detail_brief(length = 300)
-    str1 = reduce_return(@detail)
+    str0 = typical_return(@detail)
+    str1 = reduce_return(str0)
     str2 = truncate_u(str1, length, '…')
     str3 = _escape_html(str2)
     str4 = trans_return_to_br(str3)
@@ -51,7 +60,12 @@ class FeedFormat
   #  return str4
 
   def detail
-    str1 = _escape_html(@detail)
+    @transed_detail
+  end
+
+  def _detail
+    str0 = typical_return(@detail)
+    str1 = _escape_html(str0)
     str2 = trans_return_to_br(str1)
     str3 = trans_space_to_nbsp(str2)
     str4 = trans_format_widget(str3)
@@ -69,14 +83,19 @@ class FeedFormat
   end
 
   private
+    # 去掉所有的\r，使得换行符标准化
+    def typical_return(str)
+      str.gsub(/\r/,"")
+    end
+
     # 最大限度缩减正文内的换行符数量
     # 去掉开头和结尾的换行
     # 去掉连续的一个以上的换行
     # 去掉多个换行中间夹杂空白字符
     def reduce_return(str)
-      str1 =  str.gsub(/^\n+/, "") # 开头
-      str2 = str1.gsub(/\n(\s|\n)*$/, "") # 末尾
-      str3 = str2.gsub(/\n(\s|\n)*\n/, "\n") # 中间
+      str1 =  str.gsub(/^\n+/, "") # 去掉开头的连续\n
+      str2 = str1.gsub(/\n(\s|\n)*$/, "") # 去掉末尾的连续\n和\s
+      str3 = str2.gsub(/\n(\s|\n)*\n/, "\n") # 去掉中间的连续\n
       return str3
     end
 
@@ -89,7 +108,22 @@ class FeedFormat
     end
 
     def trans_format_widget(str)
-      return str
+      str1 = trans_images(str)
+      return str1
+    end
+
+    # 转换正文中的图片引用
+    def trans_images(str)
+      str.gsub /\[图片([0-9])+\](<br\/>)*/ do |s|
+        index = $1.to_i - 1
+        photo = @photos[index]
+        if !photo.blank?
+          @photo_used = true
+          "<div class='feed-format-img'><img src='#{photo.image.url(:w500)}'/></div>"
+        else
+          s
+        end
+      end
     end
 
     # 自定义的html转义方法，不对 & 和 " 进行转义

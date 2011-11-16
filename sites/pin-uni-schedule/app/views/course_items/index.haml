@@ -1,8 +1,51 @@
-=link_to "返回","/"
-%ul
-  -if @course_items.blank?
-    %li 该时段没有课程
-  -else
-    -@course_items.each do |course_item|
-      %li=render :partial=>"course_items/parts/course_item",:locals=>{:course_item=>course_item}
+-htitle '课程选择'
 
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      jQuery('.course-items .course-item a.select').live('click',function(){
+        // post /course_items/:course_item_id/select
+        var elm = jQuery(this);
+        var item_elm = elm.closest('.course-item');
+        var id = item_elm.domdata('id');
+        jQuery.ajax({
+          url : '/course_items/'+id+'/select',
+          type : 'POST',
+          success : function(res){
+            var new_elm = jQuery(res).find('.course-item');
+            pie.replace_dom(new_elm, item_elm);
+          }
+        })
+      })
+
+      jQuery('.course-items .course-item a.unselect').live('click',function(){
+        // delete /course_items/:course_item_id/cancel_select
+        var elm = jQuery(this);
+        var item_elm = elm.closest('.course-item');
+        var id = item_elm.domdata('id');
+        jQuery.ajax({
+          url : '/course_items/'+id+'/cancel_select',
+          type : 'DELETE',
+          success : function(res){
+            var new_elm = jQuery(res).find('.course-item');
+            pie.replace_dom(new_elm, item_elm);
+          }
+        })
+      })
+    })
+
+-weekdays = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"]
+-weekday = weekdays[params[:week_day].to_i]
+-order_num = params[:order_num]
+
+.grid_16.main.nl
+
+  .page-info-top
+    .course-items-head
+      %a.minibutton{:href=>'/'} <span>返回</span>
+      .info 课程列表：#{weekday} 第 #{order_num} 课时
+  .page-paginate.marginb5
+    =will_paginate @course_items
+  =render '/course_items/parts/list',:course_items=>@course_items
+  .page-paginate
+    =will_paginate @course_items

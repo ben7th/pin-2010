@@ -51,7 +51,7 @@
         overflow:hidden;
         font-size:0px;
         line-height:22em;
-        &.mindpin{background:url(/images/alltu.png) -394px -1px;width:295px;}
+        &.mindpin{background:url(/images/alltu.png) -394px -1px;width:225px;}
         &.mindmaps{background:url(/images/alltu.png) -133px -1px;}
       }
     }
@@ -141,9 +141,15 @@
         width:260px;height:48px;top:0;
         display:block;overflow:hidden;
         font-size:0px;line-height:22em;
-        &.mindpin{background:url(/images/alltu.png) -394px -1px;width:295px;}
+        &.mindpin{background:url(/images/alltu.png) -394px -1px;width:225px;}
         &.account{background:url(/images/alltu.png) -394px -100px;}
       }
+    }
+    .site-name{float:left;
+      height:48px;line-height:48px;
+      font-weight:bold;
+      font-size:14px;
+      color:#fff;
     }
     
     .mindmap-search-form{

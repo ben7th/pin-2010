@@ -13,6 +13,7 @@
 -feed_id = @feed.id
 -photos = @feed.photos
 -has_photo = !photos.blank?
+-photo_used = feed_format.photo_used
 
 -detail = auto_link feed_format.detail
 -has_detail = !detail.blank?
@@ -45,7 +46,7 @@
         -if has_title
           .title=link_to title,"/feeds/#{feed_id}"
 
-        -if has_photo
+        -if has_photo & !photo_used
           .photos>
             -photos.each do |photo|
               -img_src = photo.image.url(:w500)

@@ -184,11 +184,15 @@
 }
 
 @mixin allicon($x,$y){
-  background:url(/images/icons/all.png) no-repeat $x $y;
+  background-image:url(/images/icons/all.png);
+  background-repeat:no-repeat;
+  background-position:$x $y;
 }
 
 @mixin allimg($x,$y){
-  background:url(/images/alltu.png) no-repeat $x $y;
+  background-image:url(/images/alltu.png);
+  background-repeat:no-repeat;
+  background-position:$x $y;
 }
 
 @mixin footmisc{
@@ -561,5 +565,13 @@
     padding:5px 9px 5px 25px;
     @include allimg(-691px,-1px);
     background-color:#fafafa;
+  }
+}
+
+@mixin feed-detail-format-in-show{
+  .feed-format-img{
+    margin:0 -10px;
+    background-color:#fafafa;
+    text-align:center;
   }
 }

@@ -1,22 +1,39 @@
--weeks = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
--order_nums = ["1","2","3","4","5","6","7","8","9","10"]
+-htitle '我的课程表'
 
-:css
-  table tr td{
-    border: 1px solid black;
-  }
-  table{
-    border-collapse:collapse;
-  }
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      jQuery('.page-schedule-table .tcell-weekday').live('mouseenter',function(){
+        var elm = jQuery(this);
+        elm.addClass('hover').find('a.add').show();
+      }).live('mouseleave',function(){
+        var elm = jQuery(this);
+        var add = elm.removeClass('hover').find('a.add');
+        if(!add.hasClass('first')) add.hide();
+      })
+    })
 
+-weekdays = ["星期一","星期二","星期三","星期四","星期五","星期六","星期天"]
+-order_nums = [1,2,3,4,5,6,7,8,9,10]
 
-%table
-  %tr
-    %td lalal
-    -weeks.each do |week|
-      %td=week
-  -order_nums.each do |order_num|
-    %tr
-      %td=order_num
-      -weeks.each_with_index do |week,index|
-        %td=render :partial=>"index/parts/cell",:locals=>{:week_day=>index+1,:order_num=>order_num}
+-today_wday = Time.now.wday
+
+.grid_24.main.nl
+  %table.page-schedule-table
+    %tbody
+      %tr.table-head
+        %td.head-order-num
+          %a.avatar{:href=>'/',:title=>'点此刷新'}>=avatar(current_user, :tiny)
+        -weekdays.each_with_index do |weekday, index|
+          -is_today = (index+1)%7 == today_wday
+          %td.head-weekday{:class=>is_today ? 'today':''}
+            .weekday=weekday
+      -order_nums.each do |order_num|
+        %tr.table-body
+          %td.tcell-order-num
+            .order-num=order_num
+          -weekdays.each_with_index do |weekday, index|
+            -is_today = (index+1)%7 == today_wday
+            %td.tcell-weekday{:class=>is_today ? 'today':''}
+              -week_day = (index == 6 ? 0 : index+1)
+              =render "index/parts/cell",:week_day=>week_day,:order_num=>order_num

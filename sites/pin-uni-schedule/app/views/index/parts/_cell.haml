@@ -1,3 +1,13 @@
-=link_to "增加","course_items?week_day=#{week_day}&order_num=#{order_num}"
--current_user.select_course_items(order_num,week_day).each do |course_item|
-  =link_to "#{course_item.course.name}","/course_items/#{course_item.id}",:target=>"_blank"
+-link = "/course_items?week_day=#{week_day}&order_num=#{order_num}"
+
+-first_cell = (order_num == 1 && week_day == 1)
+-style = first_cell ? '' : 'display:none;'
+-klass = first_cell ? 'first' : ''
+
+.sel-cell
+  %a.add{:class=>klass,:style=>style,:tip=>'添加课程',:href=>"/course_items?week_day=#{week_day}&order_num=#{order_num}"}
+    .icon
+    %span 增加
+  -@course_items_hash[week_day][order_num].each do |course_item|
+    .item
+      =link_to "#{course_item.course.name}","/course_items/#{course_item.id}",:target=>"_blank"

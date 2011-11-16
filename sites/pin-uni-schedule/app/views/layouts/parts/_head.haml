@@ -1,0 +1,21 @@
+%head
+  %meta{:charset=>"utf-8"}
+  %meta{:"http-equiv"=>"X-UA-Compatible",:content=>"chrome=1"}
+  %meta{:"http-equiv"=>"X-UA-Compatible",:content=>"IE=EmulateIE7"}
+  %meta{:name=>"description",:content=>"mindpin是一个关注知识，学术和思想话题的互动社区，努力为知识工作者构建一个有价值的生态环境"}
+  %meta{:name=>"keywords",:content=>"mindpin,知识,思想,讨论,团队,创意,问题,想法,计划,协作,NGO,社区"}
+  %meta{:name=>"viewport",:content=>"width=device-width,initial-scale=1"}
+  <meta property="wb:webmaster" content="8b53c190287cde08" />
+
+  -tstring = (yield :title) || ''
+  -if tstring.blank?
+    %title="mindpin 大学课程表"
+  -else
+    %title=["#{tstring.gsub("\n",'')}", "mindpin 大学课程表"]*' - '
+
+  = require_ui_css
+  /[if !IE 7]
+    :css
+      .page-wrap {display:table;height:100%}
+  = yield :css
+  = yield :head

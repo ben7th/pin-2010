@@ -1,0 +1,42 @@
+.page-olist.course-items
+  -if course_items.blank?
+    .list-blank 这个时段还没有课程
+  -else
+    -course_items.each do |course_item|
+      -course_item_id = course_item.id
+      -name = h course_item.course.name
+      -link = "/course_items/#{course_item_id}"
+
+      -teacher = course_item.teacher
+      -teacher_name = teacher.name
+      -teacher_link = "/teachers/#{teacher.id}"
+
+      -location = course_item.location
+      -location_name = location.name
+      -location_link = "/locations/#{location.id}"
+
+      -selected_users= course_item.selected_users
+      -selected_users_count = selected_users.count
+      -selected_users_limit = course_item.selected_users[0...8]
+
+      .course-item{:'data-id'=>course_item_id}
+        .course
+          .name=link_to name,link
+        .meta
+          %span.teacher=link_to teacher_name,teacher_link
+          %span.quiet -
+          %span.location=link_to location_name,location_link
+          %span.quiet -
+          %span.selected-users 上课人数: #{selected_users_count}
+
+        -if logged_in?
+          - has_selected = current_user.has_selected_course_item?(course_item)
+          -# "/course_items/#{course_item.id}/select?week_day=#{params[:week_day]}&order_num=#{params[:order_num]}",:method=>:post
+          -# "/course_items/#{course_item.id}/cancel_select?week_day=#{params[:week_day]}&order_num=#{params[:order_num]}",:method=>:delete
+
+          .selection
+            -if has_selected
+              %span.has_selected 你已经选择了这项课程
+              %a.minibutton.unselect{:href=>'javascript:;'} <span>x 取消</span>
+            -else
+              %a.minibutton.select{:href=>'javascript:;'} <span>+ 选择</span>

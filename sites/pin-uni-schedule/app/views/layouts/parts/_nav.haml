@@ -1,0 +1,20 @@
+.page-header
+  .nav.dark.fixed
+    .container_24
+      .site-logo
+        =link_to 'mindpin','/',:class=>'logo mindpin'
+      .site-name 大学课程表
+
+      -if logged_in?
+        -user = current_user
+        -homepage_link = "/users/#{user.id}"
+
+        .nav-menu
+          .user-meta>
+            .name>=usersign user
+            .avatar
+              -link_to homepage_link,:tip=>'个人页' do
+                =avatar user,:mini
+
+          =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account'),:class=>'setting',:tip=>'设置'
+          =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout'),:class=>'logout',:tip=>'退出'

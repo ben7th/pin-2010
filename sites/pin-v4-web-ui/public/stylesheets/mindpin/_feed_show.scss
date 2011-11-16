@@ -559,6 +559,7 @@
       padding:14px 14px;
       font-size:14px;
       @include feed-detail-format;
+      @include feed-detail-format-in-show;
     }
     .photos{
       padding-top:4px;

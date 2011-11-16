@@ -157,6 +157,12 @@ pie.highlight=function(elm){
   })
 }
 
+pie.replace_dom=function(new_elm, old_elm){
+  jQuery(new_elm).hide().fadeIn(200);
+  jQuery(old_elm).before(new_elm);
+  jQuery(old_elm).remove();
+}
+
 //---XML code begin
 pie.dom.xml={
   //获取空的XML解析对象

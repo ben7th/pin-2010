@@ -79,7 +79,7 @@ def match_user_routes(map)
   match_get  map,'/users/:user_id/followings' => 'contacts#followings'
 
   match_post map,'/contacts/follow_mindpin' => 'contacts#follow_mindpin'
-  match_post map,'/contacts/unfollow'       => 'contacts#unfollow'
+  match_delete map,'/contacts/unfollow'       => 'contacts#unfollow'
 
   match_get  map,'/contacts'       => 'contacts#index'
   match_get  map,'/contacts/tsina' => 'contacts#tsina'

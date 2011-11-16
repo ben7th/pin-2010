@@ -23,18 +23,18 @@
     -when 2
       -photos[0...2].each_with_index do |photo, index|
         -klass = (index == 1 ? 'nr':'')
-        -sizes = grid_photo_large_sizes(photo, :w220, 205, 205, true)
-        -src, width, height, box_height, margin_top = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top]
+        -sizes = grid_photo_square_sizes(photo, :w500, 205)
+        -src, width, height, box_height, margin_top, margin_left = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top], sizes[:margin_left]
         .photo.w2{:class=>klass,:style=>"height:#{box_height}px"}>
-          %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;"}
+          %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;margin-left:#{margin_left}px;"}
 
     -when 3
       -photos[0...3].each_with_index do |photo, index|
         -klass = (index == 2 ? 'nr':'')
-        -sizes = grid_photo_large_sizes(photo, :w220, 135, 135, true)
-        -src, width, height, box_height, margin_top = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top]
+        -sizes = grid_photo_square_sizes(photo, :w500, 135)
+        -src, width, height, box_height, margin_top, margin_left = sizes[:src], sizes[:width], sizes[:height], sizes[:box_height], sizes[:margin_top], sizes[:margin_left]
         .photo.w3{:class=>klass,:style=>"height:#{box_height}px"}>
-          %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;"}
+          %img{:src=>src,:style=>"width:#{width}px;height:#{height}px;margin-top:#{margin_top}px;margin-left:#{margin_left}px;"}
 
     -else
       -photos[0...4].each_with_index do |photo, index|

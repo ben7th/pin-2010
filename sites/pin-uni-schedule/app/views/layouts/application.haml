@@ -1,0 +1,14 @@
+!!! 5
+%html{:lang=>"zh"}
+  =render 'layouts/parts/head'
+
+  %body.echo.gray
+    .page-wrap
+      .page-container
+        =render 'layouts/parts/nav'
+        .page-content.container_24.top_fixed
+          .cell.clearfix.no-line
+            =yield
+    =render 'layouts/parts/footer'
+    =render 'layouts/parts/phide'
+    =render 'layouts/parts/javascripts'

@@ -1,0 +1,13 @@
+-code = flash[:status_code]
+-text = flash[:status_text]
+
+.main.nl
+  .page-title-bar
+    .bold{:style=>'font-size:24px;'} HTTP #{code}
+    .p=show_status_code(code)
+
+  .paddingl10
+    - if !text.blank?
+      .quiet.margint10=text
+    .margint10
+      =minibutton '返回首页','/'
