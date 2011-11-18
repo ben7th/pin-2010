@@ -43,6 +43,7 @@
   .page-info-top
     .course-items-head
       %a.minibutton{:href=>'/'} <span>返回</span>
+      %a.minibutton{:href=>'/course_items/new'} <span>新建课程</span>
       .info 课程列表：#{weekday} 第 #{order_num} 课时
   .page-paginate.marginb5
     =will_paginate @course_items

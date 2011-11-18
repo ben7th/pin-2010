@@ -13,7 +13,8 @@ module ApplicationMethods
     base.before_filter :fix_ie_accept
     # 对错误显示友好的页面
     base.around_filter :catch_template_exception
-    base.before_filter :hold_quck_connect_account
+    # 强制信息不完整的用户补充信息
+    base.before_filter :force_to_complete
   end
 
   #-----------------------
@@ -80,28 +81,15 @@ module ApplicationMethods
     request.headers["User-Agent"] == "android"
   end
 
-  def hold_quck_connect_account
-    controller = params[:controller]
-    action = params[:action]
-    skip = (
-            (controller == "connect_tsina" &&
-            (
-              action == "complete_account_info" ||
-                action == "do_complete_account_info"
-            )) ||
-            (controller == "sessions" &&
-              action == "destroy"
-            )
-          )
-    return true if skip
+  def force_to_complete
+    return true if [
+      ["account/complete", "index"  ],
+      ["account/complete", "submit" ],
+      ["sessions"        , "destroy"],
+    ].include? [params[:controller], params[:action]]
 
-    if logged_in? && current_user.is_quick_connect_account?
-      app_name = File.basename RAILS_ROOT
-      if app_name == "pin-mev6" || params["service"] == "tu"
-        redirect_to pin_url_for("pin-user-auth","/connect_tsina/complete_account_info?service=tu")
-      else
-        redirect_to pin_url_for("pin-user-auth","/connect_tsina/complete_account_info")
-      end
+    if logged_in? && current_user.is_user_info_incomplete?
+      redirect_to pin_url_for("pin-user-auth","/account/complete")
     end
   end
 

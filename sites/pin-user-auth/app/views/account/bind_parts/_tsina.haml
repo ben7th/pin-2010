@@ -4,6 +4,6 @@
 =render 'account/bind_parts/binded_tsina_account_info'
 
 -if !current_user.is_quick_connect_account?
-  =minibutton "解除新浪微博账号关联","/connect_tsina/account_bind_unbind",:method=>:post,:confirm=>'确定要解除关联吗？',:class=>'red'
+  =minibutton "解除新浪微博账号关联","/account/tsina/disconnect",:method=>:post,:confirm=>'确定要解除关联吗？',:class=>'red'
 -else
   %span> 该账号目前是快速连接账号，请在补全页面补全信息

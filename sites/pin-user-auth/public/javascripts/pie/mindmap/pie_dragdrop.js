@@ -1,5 +1,5 @@
 /** pielib Controller version 0.1
- *  (c) 2006-2008 MindPin.com - songliang
+ *  (c) 2006-2008 mindpin.com - songliang
  *  
  *  require:
  *  scriptaculous 1.8.1 with prototype.js ver 1.6.0.1

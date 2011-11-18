@@ -56,6 +56,20 @@ class UserCourseItem < ActiveRecord::Base
       location.course_items & self.course_items
     end
 
+    def can_select_course_item_list(week_day,order_num)
+      university = self.profile.university
+      CourseItem.find_by_sql(
+        %`
+        select course_items.* from course_items
+        inner join courses on courses.id = course_items.course_id
+        inner join universities on universities.id = courses.university_id
+          and universities.id = #{university.id}
+        where course_items.order_num = #{order_num}
+          and course_items.week_day = #{week_day}
+        `
+      )
+    end
+
     # {
     #     :1=>{:1=>[]},
     #     :2=>{},

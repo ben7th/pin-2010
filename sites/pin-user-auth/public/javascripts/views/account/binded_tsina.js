@@ -5,7 +5,7 @@ pie.load(function(){
     jQuery('.page-binded-account-info .misc').addClass('up');
     
     jQuery.ajax({
-      url : '/connect_tsina/account_bind_update_info',
+      url : '/account/tsina/update_info',
       type : 'POST',
       success : function(res){
         var elm = jQuery(res);

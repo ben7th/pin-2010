@@ -6,10 +6,8 @@
 .module-links.account
   =account_setting_link "基本信息","/account","base"
   =account_setting_link "修改头像","/account/avatared","avatared"
-  =account_setting_link "关联新浪微博","/account/bind_tsina","bind-tsina"
+  =account_setting_link "关联新浪微博","/account/tsina","bind-tsina"
 
   .exit-account-setting
-    -if session[:account_setting_from_site_flag] == 'tu'
-      =minibutton '离开用户设置',pin_url_for('pin-daotu')
-    -else
-      =minibutton '离开用户设置',pin_url_for('pin-user-auth')
+    -site = session[:account_setting_from_site_flag]
+    =minibutton '离开用户设置',pin_url_for(site)

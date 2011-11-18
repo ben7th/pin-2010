@@ -20,8 +20,8 @@
               -link_to homepage_link,:tip=>'个人页' do
                 =avatar user,:mini
 
-          =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account'),:class=>'setting',:tip=>'设置'
-          =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout'),:class=>'logout',:tip=>'退出'
+          =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account?call=tu'),:class=>'setting',:tip=>'设置'
+          =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout?call=tu'),:class=>'logout',:tip=>'退出'
 
 
 

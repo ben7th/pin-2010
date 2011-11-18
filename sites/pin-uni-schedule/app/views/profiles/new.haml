@@ -1,0 +1,11 @@
+%div.padding15.prefix_9
+  -form_tag "/profile",:method=>:post do
+    %div
+      -@universities.each do |university|
+        =radio_button_tag "university_id",university.id
+        =university.name
+    %div
+      =radio_button_tag "university_id",-1
+      =text_field_tag 'university_name'
+    %div
+      =submit_tag "确定"

@@ -1,6 +1,43 @@
-.minibutton{
-  @include button-gray;
+@mixin minibutton-base{
   display:inline-block;
   height:22px;line-height:22px;
-  padding:0 5px;
+  padding:0 6px;
+}
+
+.minibutton{
+  @include button-gray;
+  @include minibutton-base;
+}
+
+.minibutton.lightgreen{
+  @include button-lightgreen;
+  @include minibutton-base;
+}
+
+.minibutton.green{
+  @include button-green;
+  @include minibutton-base;
+}
+
+.minibutton.blue{
+  @include button-blue;
+  @include minibutton-base;
+}
+
+.submitbutton{
+  @include button-blue;
+  height:30px;line-height:30px;font-size:14px;
+  width:80px;
+}
+
+.middlebutton.green{
+  @include button-green;
+  height:30px;line-height:30px;font-size:14px;
+  padding:0 14px;
+}
+
+.middlebutton.darkred{
+  @include button-darkred;
+  height:30px;line-height:30px;font-size:14px;
+  padding:0 14px;
 }

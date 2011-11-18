@@ -1,6 +1,6 @@
 #require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Rails)
 
-# MindPin BaseMetal 0.2
+# mindpin BaseMetal 0.2
 # updated_at 2010.7.22
 # used for Rack
 

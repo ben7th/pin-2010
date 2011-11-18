@@ -1,0 +1,13 @@
+-#use 重新设置密码成功
+-#see 重设密码成功后的重定向
+
+-htitle "重新设置密码"
+
+.main.grid_24.nl
+  .page-anonymous-wrapper
+    .reset-password-box
+      .logo
+      .form
+        = flash_info
+        = minibutton '返回首页','/',:class=>'gray',:style=>'margin-right:6px;'
+        = minibutton '返回思维导图首页',pin_url_for('pin-daotu','/'),:class=>'gray'

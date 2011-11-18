@@ -16,64 +16,99 @@ class ApplicationController < ActionController::Base
     if request.xhr?
       return render :text=>tsina_error.message,:status=>503
     else
-      return render_status_page(503,tsina_error.message)
+      return render_status_page(503, "新浪微博API认证错误：#{tsina_error.message}")
     end
   end
 
+  #------------------------
 
-  UN_UPDATING_PAGE = {
-    "index"=>["index"],
-    "sessions"=>["new","create","destroy"],
-    "users"=>["new","create",
-      "forgot_password_form","forgot_password",
-      "reset_password","change_password","show"
-      ],
-    "account"=>["base","base_submit",
-      "avatared","avatared_submit",
-      "bind_tsina","do_tsina_connect_setting"
+  # 未登录或者未激活时，能够访问的页面
+  ANONYMOUS_FREE_PAGES = {
+    :index => [:index],
+    :activation => [
+      :services,
+      :apply, :apply_submit,
+      :activation, :activation_submit
     ],
-    "connect_tsina"=>[
-      "index","callback","confirm",
-      "complete_account_info","do_complete_account_info",
-      "bind","create",
-      "account_bind","account_bind_callback",
-      "account_bind_failure","account_bind_update_info",
-      "account_bind_unbind"
+    # 登录，登出
+    :'account/sessions' => [:new,:create,:destroy],
+    
+    # 注册
+    :'account/signup' => [
+      :form, :form_submit
     ],
-    "contacts"=>["follow","unfollow",
-      "followings","fans","create"
+
+    # 忘记密码
+    :'account/forgot_password' => [
+      :form, :form_submit,
+      :reset, :reset_submit
     ],
-    "activation"=>["services",
-      "apply","do_apply",
-      "apply_form","do_apply_form",
-      "activation","do_activation"
-      ],
-    "feeds"=>["show"]
+
+    # 用户设置
+    :'account/setting' => [
+      :base, :base_submit,
+      :avatared, :avatared_submit,
+    ],
+    
+    # 用户设置 新浪微博绑定相关
+    :'account/tsina' => [
+      :index,
+      :connect,
+      :callback,
+      :connect_failure,
+      :update_info,
+      :disconnect
+    ],
+
+    # 几个应用的新浪微博入口
+    :'apps/tsina_app_tu'       =>[:index,:connect,:callback],
+    :'apps/tsina_app_schedule' =>[:index,:connect,:callback],
+    :'apps/tsina_app_mindpin'  =>[:index,:connect,:callback],
+
+    # 主要新浪微博连接方法
+    :'account/tsina_signup' => [:index,:bind,:create],
+    :'account/complete'     => [:index,:submit],
+
+    # 个人页 / 主题页
+    :users => [:show],
+    :feeds => [:show],
+
+
+    :contacts =>[
+      :follow,
+      :unfollow,
+      :followings,
+      :fans,
+      :create
+    ],
   }
-  before_filter :redirect_services_page
-  def redirect_services_page
-    # 如果已登录，已经v2激活的用户放行，其他用户重定向到/services页
-    if logged_in? && current_user.is_v2_activation_user?
-      return true #放行PASS
-    end
+  before_filter :hold_anonymous_free_page
+  def hold_anonymous_free_page
+    # 如果已登录，并且当前用户已经v2激活，任意放行
+    return true if (logged_in? && current_user.is_v2_activation_user?)
 
-    # 如果未登录，特定页面放行，其他用户重定向到 / 页
-    controller = params[:controller]
-    action = params[:action]
-
-    pass_actions = UN_UPDATING_PAGE[controller]
-    return true if !!pass_actions && pass_actions.include?(action) #指定action，放行PASS
-
-    if is_android_client?
-      render :status=>401,:text=>401
-    else
-      return redirect_to "/services"
-    end
+    # 如果未登录或未激活，特定页面放行
+    return true if _is_anonymous_free_page?
+    
+    # 其他用户，重定向处理
+    return render :status=>401,:text=>401 if is_android_client? # android客户端，401
+    return redirect_to "/services" if logged_in?
+    return redirect_to "/"
   end
+
+  def _is_anonymous_free_page?
+    controller = params[:controller].to_sym
+    action     = params[:action].to_sym
+
+    pass_actions = ANONYMOUS_FREE_PAGES[controller]
+    return true if !!pass_actions && pass_actions.include?(action) #指定action，放行PASS
+    return false
+  end
+
+  #--------------------------
 
   def to_updating_page
     redirect_to pin_url_for("ui","updating.html")
   end
-
 
 end

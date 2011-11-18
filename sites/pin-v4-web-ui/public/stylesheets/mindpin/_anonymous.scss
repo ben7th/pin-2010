@@ -1,188 +1,184 @@
-@mixin tu-mindpin-auth-logo{
-  .logo{
-    width:420px;
-    height:75px;
-    background:url(/images/mindpin-sites/tu-logo.png) no-repeat;
-    margin-bottom:20px;
+@mixin daotu-logo_large{
+  width:420px; height:75px;
+  background:url(/images/mindpin-sites/tu-logo.png) no-repeat;
+  margin-bottom:40px;
+}
+@mixin mindpin_logo_large{
+  width:420px;height:75px;
+  background:url(/images/mindpin-sites/logo.png) no-repeat;
+  margin-bottom:40px;
+  &.daotu{
+    @include daotu-logo_large;
   }
 }
-
-@mixin mindpin-auth-logo{
-  .logo{
-    width:420px;
-    height:75px;
-    background:url(/images/mindpin-sites/logo.png) no-repeat;
-    margin-bottom:20px;
+@mixin anonymous-box-base{
+  width:600px;margin-left:175px;margin-top:30px;
+}
+@mixin anonymous-bold-text-input{
+  input.text{
+    border:solid 1px #ccc;
+    box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
+    font-weight:bold;
+    @include tfont;
+    width:228px;height:24px;line-height:24px;
+    @include border-radius(4px);
   }
 }
-
-@mixin mindtu-no-auth-form{
+@mixin anonymous-login-form{
   form{
-    overflow:hidden;
-    &.login-form{height:100px;}
-    .field{
-      float:left;
-      margin-right:10px;margin-bottom:9px;
-      label{display:block;}
-      input.text{
-        border:solid 1px #ccc;
-        box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-        font-weight:bold;
-        @include tfont;
+    overflow:hidden;margin-bottom:30px;
+    .field{label{display:block;}}
+    .flash-error{
+      width:210px;
+      /*background:#777;
+      border:solid 1px #666;*/
+      @include border-radius(3px);
+      span{height:30px;line-height:30px;}
+    }
+    
+    .p1{
+      overflow:hidden;margin-bottom:5px;
+      .field{
+        margin-right:9px;margin-bottom:0;
+        @include anonymous-bold-text-input;
       }
-      a.login-submit{
-        @include form-a-link-submit;
-        margin-top:24px;*margin-top:25px;
-      }
-      a.signup{
-        @include form-a-link-submit;
-        margin-top:24px;*margin-top:25px;
-        @include gradient(#38B927,#35B624);
-        border:solid 1px #4A993E;
-        &:hover{
-          @include gradient(#35B624,#32B321);
-          border:solid 1px #4A993E;
-        }
-      }
-      .remember-me{
-        padding:3px;
-      }
-      .forget-password{
-        padding:3px;
+    }
+    
+    .p2{
+      width:240px;
+      overflow:hidden;margin-bottom:9px;
+      .remember-me{float:left;font-size:12px;height:32px;line-height:32px;}
+      .forget-password{font-size:12px;height:32px;line-height:32px;float:right;
         a{color:#666;&:hover{color:#666;}}
       }
     }
+    
+    .p3{
+      padding-bottom:5px;
+    }
   }
 }
-
-@mixin connect-other-sites{
+@mixin anonymous-connects{
   /*连接各种网站*/
   .connects{
-    margin-top:20px;;
+    margin-bottom:30px;
     overflow:hidden;
-    .desc{
-      font-size:14px;color:#999;
+    .inset{
       float:left;
-      height:32px;line-height:32px;
-      font-weight:bold;
-      margin-right:20px;
-    }
-    .connect{
-      @include button-gray;
-      @include border-radius(3px);
-      float:left;
-      .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
-      .name{float:left;font-size:14px;height:30px;line-height:30px;padding: 0 9px;}
-      &.tsina-weibo{
-        .icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}
-      }
-    }
-  }
-}
-
-@mixin mindpin-anonymous-flash-error{
-  .flash-error{
-    margin:3px 0 0 0;
-    background:#777;
-    border:solid 1px #666;
-    @include border-radius(3px);
-    span{height:30px;line-height:30px;}
-  }
-}
-
-body{
-  &.mindpin-anonymous,&.tu-mindpin-anonymous{
-    @include gradient(#FFFFFF,#F7F7F7);
-    .page-footer{
-      background:none;
-      color:#666;
-      .bold{font-weight:normal;}
-      .pf{border:none;}
-    }
-  }
-}
-
-
-
-body.tu-mindpin-anonymous{
-  .login-wrapper{
-    position:absolute;top:50%;left:50%;
-    margin-top:-200px;margin-left:-314px;
-    @include tu-mindpin-auth-logo;
-    @include mindtu-no-auth-form;
-    @include mindpin-anonymous-flash-error;
-    @include connect-other-sites;
-  }
-}
-
-body.mindpin-anonymous{
-  .login-wrapper{
-    position:absolute;
-    top:50%;left:50%;
-    margin-top:-200px;
-    margin-left:-314px;
-    @include mindpin-auth-logo;
-    @include mindtu-no-auth-form;
-    @include mindpin-anonymous-flash-error;
-    @include connect-other-sites;
-    
-    /*未登录时，内部测试的申请表单链接*/
-    .alpha-test{font-size:14px;}
-    
-    /*一些说明信息*/
-    .to-tu-mindpin{
-      font-size:14px;font-weight:bold;
-      @include tfont;
-      margin-top:20px;
-      a.new-site{
-        color:#3079ED;
-        font-size:18px;
-        span{color:#7AADED}
-      }
-      .p{
-        margin-bottom:20px;
-      }
-      .go-alpha{
-        font-size:12px;font-weight:normal;
-      }
-    }
-    
-    /*登录后，选择访问哪一个站点*/
-    .sites-select{
-      overflow:hidden;
-      .activation{
+      padding:5px;
+      box-shadow:0 1px 2px rgba(50, 50, 50, 0.2) inset;
+      @include border-radius(7px);
+      .connect{
         float:left;
-        .btn{
-          @include form-a-link-submit;
-          width:130px;
-          margin-top:24px;*margin-top:25px;
-          @include gradient(#D25449,#D25449);
-          border:solid 1px #830300;
-          margin-top:10px;
-          &:hover{
-            @include gradient(#D25449,#D25449);
-            border:solid 1px #830300;
+        @include button-red;
+        @include border-radius(3px);
+        .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
+        .name{float:left;font-size:14px;height:30px;line-height:30px;padding: 0 9px;}
+        &.tsina-weibo{.icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}}
+      } 
+    }
+  }
+}
+
+.page-anonymous-wrapper{
+  .root-box{
+    @include anonymous-box-base;
+    .logo{@include mindpin_logo_large;}
+    .root-content{
+      margin-left:75px;
+      .if-u-want-to-use-mindmap{
+        font-size:14px;font-weight:bold;margin-bottom:20px;
+        .url{
+          a{font-size:18px;color:#3079ED;span{color:#7AADED}}
+        }
+      }
+      .if-u-has-alpha-account, .if-u-want-to-apply{
+        margin-bottom:20px;
+        .desc{margin-bottom:5px;}
+      }
+      
+      .welcome,.to-activation,.to-tu-mindpin{
+        margin-bottom:20px;
+        .desc{margin-bottom:5px;}
+      }
+      
+      .aj-submit-form{
+        @include anonymous-bold-text-input;
+      }
+    }
+  }
+  .login-box{
+    @include anonymous-box-base;
+    .logo{@include mindpin_logo_large;}
+    .login-content{
+      padding-left:75px;overflow:hidden;
+      .ct{
+        float:left;border-right:solid 2px #eee;padding-top:18px;
+        padding-right:60px;
+        @include anonymous-login-form;
+        @include anonymous-connects;
+      }
+      .others{
+        .bl{margin-bottom:14px;}
+        float:right;margin-right:30px;
+        .desc{margin-bottom:4px;}
+      }
+    }
+  }
+  .signup-box{
+    @include anonymous-box-base;
+    .logo{@include mindpin_logo_large;}
+    .signup-content{
+      padding-left:75px;overflow:hidden;
+      .ct{
+        float:left;border-right:solid 2px #eee;
+        padding-right:40px;
+        form{
+          @include anonymous-bold-text-input;
+          .quiet{padding-left:3px;}
+          a.signup-submit{width:100px;}
+          .flash-error{
+            width:210px;
+            /*background:#777;
+            border:solid 1px #666;*/
+            @include border-radius(3px);
+            span{height:30px;line-height:30px;}
+            .tip{line-height:14px;height:14px;margin-top:5px;}
           }
         }
       }
-      .goto-tu-mindmap-btn{
-        float:left;
-        .btn{
-          @include form-a-link-submit;
-          width:130px;
-          margin-top:24px;*margin-top:25px;
-          margin-top:10px;
-        }
-      } 
+      .others{
+        .bl{margin-bottom:14px;}
+        float:right;margin-right:30px;
+        .desc{margin-bottom:4px;}
+        @include anonymous-connects;
+      }
     }
-    
-    
-    /*.login-wrapper*/
-    &.apply{
-      margin-top:-250px;
+  }
+  
+  .reset-password-box{
+    @include anonymous-box-base;
+    .logo{@include mindpin_logo_large;}
+    .form{
+      padding-left:75px;overflow:hidden;
+      form{
+        margin:0;
+        @include anonymous-bold-text-input;
+      }
     }
-    .apply-form{
-      .desc{margin-bottom:20px;font-size:14px;font-weight:bold;}
+    &.no1{
+      margin-left:-320px;
+    }
+  }
+  
+  .apply-form{
+    @include anonymous-box-base;
+    background-color:#FFF;border:solid 1px #eee;margin-top:50px;
+    .title{margin:4px 4px 14px 4px;background-color:#fafafa;font-size:14px;font-weight:bold;padding:5px 10px;}
+    .desc{padding:0px 14px;margin-bottom:14px;font-size:14px;}
+    .re{margin:4px;padding:5px 10px;background-color:#fafafa;}
+    form{
+      margin:4px;padding:5px 10px;background-color:#fafafa;
       .field{
         float:none;
         input.text, textarea.text{
@@ -198,74 +194,7 @@ body.mindpin-anonymous{
           width:400px;height:120px;
           line-height:20px;
         }
-        a.apply-submit{
-          @include form-a-link-submit;
-        }
       }
-    }
-    
-    /*服务未激活首页*/
-    &.unact{
-      margin-top:-250px;
-      margin-left:-220px;
-    }
-  }
-  
-  .signup-wrapper{
-    position:absolute;
-    top:0;
-    left:50%;
-    margin-top:100px;
-    margin-left:-380px;
-    overflow:hidden;
-    .desc{
-      float:left;
-      @include mindpin-auth-logo;
-      .logo{
-        margin-top:30px;
-      }
-      .to-login{font-size:14px;margin-left:10px;margin-bottom:30px;}
-      .flash-error{margin-left:10px;}
-    }
-    .signup-form{
-      margin-left:470px;
-      h2{
-        font-size:14px;line-height:20px;
-        margin-bottom:10px;
-      }
-      @include mindtu-no-auth-form;
-      form{
-        margin:0;
-        .field{
-          float:none;
-          .submit{margin:0;}
-          .fielderror{display:none;}
-          a.signup-submit{
-            @include form-a-link-submit;
-          }
-        }
-      }
-    }
-  }
-  .reset-password-wrapper,.activation-wrapper{
-    position:absolute;
-    top:0;
-    left:50%;
-    margin-top:170px;
-    margin-left:-220px;
-    overflow:hidden;
-    @include mindpin-auth-logo;
-    .form{
-      padding-left:10px;
-      @include mindtu-no-auth-form;
-      form{
-        margin:0;
-        a.reset-password-submit{@include form-a-link-submit;margin-top:24px;}
-        a.active-submit{@include form-a-link-submit;margin-top:24px;}
-      }
-    }
-    &.no1{
-      margin-left:-320px;
     }
   }
 }

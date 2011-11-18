@@ -23,4 +23,15 @@ class Course < ActiveRecord::Base
     }
   end
 
+  def self.create_or_find(university,department,name,cid)
+    course = Course.find(:first,
+      :conditions=>{:department_id=>department.id,
+        :university_id=>university.id,
+        :name=>name})
+    if course.blank?
+      course = Course.create(:name=>name,:cid=>cid,:department=>department,:university=>university)
+    end
+    course
+  end
+
 end

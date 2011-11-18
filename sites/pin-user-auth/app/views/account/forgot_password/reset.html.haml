@@ -1,0 +1,43 @@
+-#use 重新设置密码
+-#see 重设密码邮件中的链接
+
+-htitle "重新设置密码"
+
+-pw_code = params[:pw_code]
+-submit_url = "/account/reset_password_submit/#{pw_code}"
+-forgot_url = "/account/forgot_password"
+
+-found_user = !@user.blank?
+
+.main.grid_24.nl
+  .page-anonymous-wrapper
+    .reset-password-box
+      .logo
+      .form
+        = flash_info
+
+        -if found_user
+          %h3 为 #{@user.email} 重设密码
+          %p.font14
+            请在下面
+            %span.loud> 输入您的新密码并点击“确定”
+            ，mindpin系统将根据您输入的新密码重新设置你的登录密码。
+          - form_for @user,:url=>submit_url do |f|
+            .field
+              %label 新密码
+              = f.password_field :password,:size=>25,:maxlength=>255,:class=>'text need'
+            .field
+              %label 确认新密码
+              = f.password_field :password_confirmation,:size=>25,:maxlength=>255,:class=>'text need'
+            .field
+              = link_to '确定','javascript:;',:class=>'reset-password-submit submitbutton'
+
+        -else
+          .flash-error
+            %span> 指定请求重设密码的链接无效
+          %p.font14
+            如果您是由重设密码邮件包含的链接点击而来，可能该邮件包含的链接已经过期。<br/>
+            请尝试重新进行#{link_to '重设密码',forgot_url}操作。
+
+          = minibutton '返回首页','/',:class=>'gray',:style=>'margin-right:6px;'
+          = minibutton '返回思维导图首页',pin_url_for('pin-daotu','/'),:class=>'gray'

@@ -8,7 +8,8 @@ module PieUi
         "ui"                      =>  "http://ui.mindpin.com/",
         "pin-mindmap-editor"      =>  "http://mindmap-editor.mindpin.com/",
         "pin-mindmap-image-cache" =>  "http://mindmap-image-cache.mindpin.com/",
-        "pin-daotu"               =>  "http://tu.mindpin.com/"
+        "pin-daotu"               =>  "http://tu.mindpin.com/",
+        "pin-schedule"            =>  "http://schedule.mindpin.com/"
       },
       "development"=>{
         "user_auth"               =>  "http://dev.www.mindpin.com/",
@@ -16,7 +17,8 @@ module PieUi
         "ui"                      =>  "http://dev.ui.mindpin.com/",
         "pin-mindmap-editor"      =>  "http://dev.mindmap-editor.mindpin.com/",
         "pin-mindmap-image-cache" =>  "http://dev.mindmap-image-cache.mindpin.com/",
-        "pin-daotu"               =>  "http://dev.tu.mindpin.com/"
+        "pin-daotu"               =>  "http://dev.tu.mindpin.com/",
+        "pin-schedule"            =>  "http://dev.schedule.mindpin.com/"
       },
       "test"=>{
         "user_auth"               =>  "http://dev.www.mindpin.com/",
@@ -24,7 +26,8 @@ module PieUi
         "ui"                      =>  "http://dev.ui.mindpin.com/",
         "pin-mindmap-editor"      =>  "http://dev.mindmap-editor.mindpin.com/",
         "pin-mindmap-image-cache" =>  "http://dev.mindmap-image-cache.mindpin.com/",
-        "pin-daotu"               =>  "http://dev.tu.mindpin.com/"
+        "pin-daotu"               =>  "http://dev.tu.mindpin.com/",
+        "pin-schedule"            =>  "http://dev.schedule.mindpin.com/"
       }
     }
 

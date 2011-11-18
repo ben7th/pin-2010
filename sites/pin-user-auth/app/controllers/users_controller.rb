@@ -1,19 +1,8 @@
 class UsersController < ApplicationController
-  before_filter :login_required,:only => [:edit,:update,
+  before_filter :login_required,:only => [
+    :edit,:update,
     :fans,:followings
   ]
-
-  include SessionsMethods
-  include UsersControllerMethods
-  # forgot_password_form forgot_password reset_password change_password
-  include ResetPasswordMethods
-
-  def cooperate
-    set_cellhead_path('/index/cellhead')
-    @user = User.find(params[:id])
-    @cooperate_edit_mindmaps = @user.cooperate_edit_mindmaps
-    @cooperate_view_mindmaps = @user.cooperate_view_mindmaps
-  end
 
   def show
     @user = User.find(params[:id])

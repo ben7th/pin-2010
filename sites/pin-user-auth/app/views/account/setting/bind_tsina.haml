@@ -20,7 +20,7 @@
       .desc>
         按下面的按钮，在新浪微博授权界面上输入信息，选择“连接”，完成关联。<br/>
         这个过程是安全的，我们不会获得或保存你的微博账号和密码。
-      =link_to "关联新浪微博账号","/connect_tsina/account_bind",:class=>'bind-btn'
+      =link_to "关联新浪微博账号","/account/tsina/connect",:class=>'bind-btn'
     -else
       -# 已经关联后显示
       =render 'account/bind_parts/tsina'

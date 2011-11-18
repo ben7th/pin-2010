@@ -21,6 +21,15 @@
 			style="@style/main"
 			android:background="#111"
 		>
+			<WebView 
+				android:id="@+id/webView1" 
+				android:layout_width="fill_parent" 
+				android:layout_height="fill_parent"
+				android:padding="0dp"
+				android:layout_margin="0dp"
+			>
+			</WebView>
+			
 			<ImageView 
 				style="@style/mindpin_logo_about"
 			/>

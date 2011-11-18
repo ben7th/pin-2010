@@ -5,32 +5,33 @@ class Tsina
   class RepeatSendError<StandardError;end
 
   SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
-  CALLBACK_URL = SETTINGS["tsina_callback_url"]
-  BIND_CALLBACK_URL = SETTINGS["tsina_bind_callback_url"]
-  TU_CALLBACK_URL = SETTINGS["tsina_tu_callback_url"]
-  MINDMAP_APP_CALLBACK_URL = SETTINGS["tsina_mindmap_app_callback_url"]
   API_KEY = SETTINGS["tsina_api_key"]
   API_SECRET = SETTINGS["tsina_api_secret"]
   API_SITE = "http://api.t.sina.com.cn"
+
+  ACCOUNT_CONNECT_CALLBACK = pin_url_for("pin-user-auth","/account/tsina/callback")
+  APP_DAOTU_CALLBACK = pin_url_for("pin-user-auth","/apps/tsina/tu/callback")
+  APP_MINDPIN_CALLBACK = pin_url_for("pin-user-auth","/apps/tsina/mindpin/callback")
+  APP_SCHEDULE_CALLBACK = pin_url_for("pin-user-auth","/apps/tsina/schedule/callback")
 
   def initialize
     @request_token = Tsina.get_request_token
   end
   
-  def authorize_url
-    @request_token.authorize_url({:oauth_callback=>Tsina::CALLBACK_URL})
+  def app_mindpin_authorize_url
+    @request_token.authorize_url({:oauth_callback=>APP_MINDPIN_CALLBACK})
   end
 
-  def bind_authorize_url
-    @request_token.authorize_url({:oauth_callback=>Tsina::BIND_CALLBACK_URL})
+  def account_connect_authorize_url
+    @request_token.authorize_url({:oauth_callback=>ACCOUNT_CONNECT_CALLBACK})
   end
 
-  def tu_authorize_url
-    @request_token.authorize_url({:oauth_callback=>Tsina::TU_CALLBACK_URL})
+  def app_daotu_authorize_url
+    @request_token.authorize_url({:oauth_callback=>APP_DAOTU_CALLBACK})
   end
 
-  def mindmap_app_authorize_url
-    @request_token.authorize_url({:oauth_callback=>Tsina::MINDMAP_APP_CALLBACK_URL})
+  def app_schedule_authorize_url
+    @request_token.authorize_url({:oauth_callback=>APP_SCHEDULE_CALLBACK})
   end
 
   def request_token

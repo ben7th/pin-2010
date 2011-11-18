@@ -16,6 +16,12 @@
   filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$from}',endColorstr='#{$to}');
 }
 
+@mixin gredient_h($from, $to){
+  background:-moz-linear-gradient(0deg,$from,$to);
+  background:-webkit-gradient(linear,left top,right top,from($from),to($to));
+  filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr='#{$from}',endColorstr='#{$to}');
+}
+
 @mixin btn-color($c1,$c2,$cb1,$cf,$c3,$c4){
   @include border-radius(4px);
   @include gradient($c1,$c2);
@@ -348,84 +354,85 @@
 }
 
 /*标准按钮*/
-@mixin button-blue{
-  @include border-radius(3px);
-  display:block;
-  padding:0;
-  text-align:center;
-  background-color:#4C8FFD;
-  border:solid 1px #10698D;
+@mixin button-base{
+  @include border-radius(3px);display:inline-block;padding:0;text-align:center;
   font-weight:bold;
-  color:white;
+  &:hover{
+    text-decoration:none;
+  };
+  span{display:block;}
+}
+
+@mixin button-blue{
+  @include button-base;
+  color:#fff !important;background-color:#4C8FFD;
+  border:solid 1px #10698D;
   text-shadow:0 0 2px #444444;
   &:hover{
-    color:white;
-    text-decoration:none;
+    color:#fff !important;
     border:solid 1px #0069dd;
     box-shadow:0 1px 2px #ccc;
   }
-  span{display:block;}
 }
 
 @mixin button-gray{
-  @include border-radius(3px);
-  display:block;
-  padding:0;
-  text-align:center;
-  background-color:#F0F0F0;
+  @include button-base;
+  color:#555 !important;background-color:#F0F0F0;
   border:solid 1px #ddd;
-  font-weight:bold;
-  color:#444 !important;
   &:hover{
-    text-decoration:none;
-    background-color:#E9E9E9;
-    color:#444 !important;
+    color:#555 !important;background-color:#E9E9E9;
     box-shadow:0 1px 2px #eee;
   }
-  span{display:block;}
 }
 
 @mixin button-darkred{
-  @include border-radius(3px);
-  display:block;
-  padding:0;
-  text-align:center;
-  background-color:#DD4B39;
+  @include button-base;
+  color:#fff !important;background-color:#DD4B39;
   border:solid 1px #D14836;
-  font-weight:bold;
-  color:white;
   text-shadow:0 0 2px #444444;
   &:hover{
-    color:white;
-    text-decoration:none;
-    background-color:#CF402F;
-    @include gradient(#DD4B39,#C53727);
+    color:#fff !important;background-color:#CF402F;@include gradient(#DD4B39,#C53727);
     border:solid 1px #B0281A;
     box-shadow:0 1px 2px #eee;
   }
-  span{display:block;}
 }
 
 @mixin button-lightgreen{
-  @include border-radius(3px);
-  display:block;
-  padding:0;
-  text-align:center;
-  background-color:#90DE00;
+  @include button-base;
+  color:#fff !important;background-color:#90DE00;
   border:solid 1px #4EC000;
-  font-weight:bold;
-  color:white;
   text-shadow:0 0 2px #444444;
   &:hover{
-    color:white;
-    text-decoration:none;
-    background-color:#90DE00;
+    color:#fff !important;background-color:#90DE00;
     border:solid 1px #4EC000;
     box-shadow:0 1px 2px #ccc;
   }
-  span{display:block;}
 }
 
+@mixin button-green{
+  @include button-base;
+  color:#fff !important;@include gradient(#38B927,#35B624);
+  border:solid 1px #4A993E;
+  text-shadow:0 0 2px #444444;
+  &:hover{
+    color:#fff !important;@include gradient(#35B624,#32B321);
+    border:solid 1px #4A993E;
+    box-shadow:0 1px 2px #ccc;
+  }
+}
+
+@mixin button-red{
+  @include button-base;
+  color:#fff !important;@include gradient(#EF3800,#C70200);
+  border:solid 1px #D31A00;
+  text-shadow:0 0 2px #444444;
+  &:hover{
+    color:#fff !important;
+    box-shadow:0 1px 2px #ccc;
+  }
+}
+
+/*form-buttons*/
 @mixin form-a-link-submit{
   @include button-blue;
   height:30px;line-height:30px;

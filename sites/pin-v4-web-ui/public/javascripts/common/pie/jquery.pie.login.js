@@ -1,59 +1,76 @@
 pie.load(function(){
+  var login_prefix = '.page-anonymous-wrapper .login-box .login-form ';
+
   //登录表单按钮提交
-  jQuery(document).delegate('.login-wrapper .login-form a.login-submit','click',function(){
-    var elm = jQuery(this);
-    elm.closest('form').submit();
+  jQuery(document).delegate(login_prefix + 'a.login-submit','click',function(){
+    form_submit(jQuery(this).closest('form'));
   });
 
   //登录表单回车提交
-  jQuery(document).delegate('.login-wrapper .login-form input.text','keydown',function(event){
+  jQuery(document).delegate(login_prefix + 'input.text','keydown',function(event){
     if(event.keyCode == 13){
-      jQuery(this).closest('form').submit();
+      form_submit(jQuery(this).closest('form'));
     }
   })
-})
 
-pie.load(function(){
+  // -----------------------
+
+  var signup_prefix = '.page-anonymous-wrapper .signup-box .signup-form '
+
   //注册表单按钮提交
-  jQuery(document).delegate('.signup-wrapper .signup-form a.signup-submit','click',function(){
-    var elm = jQuery(this);
-    elm.closest('form').submit();
+  jQuery(document).delegate(signup_prefix + 'a.signup-submit','click',function(){
+    form_submit(jQuery(this).closest('form'));
   });
 
   //登录表单回车提交
-  jQuery(document).delegate('.signup-wrapper .signup-form input.text','keydown',function(event){
+  jQuery(document).delegate(signup_prefix + 'input.text','keydown',function(event){
     if(event.keyCode == 13){
-      jQuery(this).closest('form').submit();
+      form_submit(jQuery(this).closest('form'));
     }
   })
-})
 
-pie.load(function(){
-  //注册表单按钮提交
-  jQuery(document).delegate('.reset-password-wrapper form a.reset-password-submit','click',function(){
-    var elm = jQuery(this);
-    elm.closest('form').submit();
+  // --------------
+
+  var password_prefix = '.page-anonymous-wrapper .reset-password-box form '
+
+  //重置密码表单提交
+  jQuery(document).delegate(password_prefix + 'a.reset-password-submit','click',function(){
+    form_submit(jQuery(this).closest('form'));
   });
 
-  //登录表单回车提交
-  jQuery(document).delegate('.reset-password-wrapper form input.text','keydown',function(event){
+  //重置密码表单回车提交
+  jQuery(document).delegate(password_prefix + 'input.text','keydown',function(event){
     if(event.keyCode == 13){
-      jQuery(this).closest('form').submit();
+      form_submit(jQuery(this).closest('form'));
     }
   })
-})
 
-pie.load(function(){
+  var form_submit = function(form_elm){
+    var can_submit = true;
+
+    //必填字段 凡是有classname包含need的都是必填
+    form_elm.find('.field .need').each(function(){
+      var elm = jQuery(this);
+      if(jQuery.string(elm.val()).blank()){
+        can_submit = false;
+        pie.inputflash(elm);
+      }
+    });
+
+    if(can_submit){
+      form_elm.submit();
+    }
+  }
+  
   //各种表单按钮提交
   jQuery(document).delegate('.aj-submit-form a.a-link-submit','click',function(){
-    var elm = jQuery(this);
-    elm.closest('form').submit();
+    form_submit(jQuery(this).closest('form'));
   });
 
   //各种表单回车提交
   jQuery(document).delegate('.aj-submit-form input.text','keydown',function(event){
     if(event.keyCode == 13){
-      jQuery(this).closest('form').submit();
+      form_submit(jQuery(this).closest('form'));
     }
   })
 })

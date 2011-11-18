@@ -3,4 +3,5 @@ class User < UserBase
   index :email
 
   include UserCourseItem::UserMethods
+  include Profile::UserMethods
 end

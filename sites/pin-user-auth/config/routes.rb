@@ -1,61 +1,28 @@
-def match_single_route(map, path, controller, action, method=:get)
-  map.connect path,
-    :controller=>controller,
-    :action=>action,
-    :conditions=>{:method=>method}
-end
+include RoutesMethods
 
-def match_get(map, config_hash)
-  path = config_hash.keys[0]
-  controller, action = config_hash.values[0].split('#')
-
-  match_single_route map, path, controller, action, :get
-end
-
-def match_post(map, config_hash)
-  path = config_hash.keys[0]
-  controller, action = config_hash.values[0].split('#')
-
-  match_single_route map, path, controller, action, :post
-end
-
-def match_delete(map, config_hash)
-  path = config_hash.keys[0]
-  controller, action = config_hash.values[0].split('#')
-
-  match_single_route map, path, controller, action, :delete
-end
-
-def match_put(map, config_hash)
-  path = config_hash.keys[0]
-  controller, action = config_hash.values[0].split('#')
-
-  match_single_route map, path, controller, action, :put
-end
+# -----------------
 
 def match_activation_routes(map)
-  # 选择导图服务或社区服务的页面
+  # 服务选择页
   match_get  map,'/services'      => 'activation#services'
-  # 激活页面
-  match_get  map,'/activation'    => 'activation#activation'
-  # 激活请求表单提交
-  match_post map,'/do_activation' => 'activation#do_activation'
-  # 请求参与测试
-  match_get  map,'/apply_form'    => 'activation#apply_form'
-  # 提交请求参与测试表单
-  match_post map,'/do_apply_form' => 'activation#do_apply_form'
+  
+  # 请求参与测试 / 提交请求参与测试表单
+  match_get  map,'/apply'         => 'activation#apply'
+  match_post map,'/apply_submit'  => 'activation#apply_submit'
+
+  # 激活页面 / 激活请求表单提交
+  match_get  map,'/activation'        => 'activation#activation'
+  match_post map,'/activation_submit' => 'activation#activation_submit'
 end
 
 def match_auth_routes(map)
   # ---------------- 用户认证相关 -----------
-  map.login '/login',
-    :controller=>'sessions',:action=>'new'
-  map.logout '/logout',
-    :controller=>'sessions',:action=>'destroy'
-  map.signup '/signup',
-    :controller=>'users',:action=>'new'
+  match_get  map, '/login'  => 'account/sessions#new'
+  match_post map, '/login'  => 'account/sessions#create'
+  match_get  map, '/logout' => 'account/sessions#destroy'
 
-  map.resource :session
+  match_get  map, '/signup'        => 'account/signup#form'
+  match_post map, '/signup_submit' => 'account/signup#form_submit'
 end
 
 def match_user_routes(map)
@@ -86,75 +53,50 @@ def match_user_routes(map)
 end
 
 def match_forgot_password_routes(map)
-  # 忘记密码
-  map.forgot_password_form '/forgot_password_form',
-    :controller=>'users',:action=>'forgot_password_form'
-  map.forgot_password '/forgot_password',
-    :controller=>'users',:action=>'forgot_password'
-  # 重设密码
-  map.reset_password '/reset_password/:pw_code',
-    :controller=>'users',:action=>'reset_password'
-  map.change_password '/change_password/:pw_code',
-    :controller=>'users',:action=>'change_password'
-
-  # 以后考虑放到单独的controller里
+  map.namespace(:account) do |account|
+    match_get  account, 'forgot_password'                => 'forgot_password#form'
+    match_post account, 'forgot_password/submit'         => 'forgot_password#form_submit'
+    match_get  account, 'reset_password/:pw_code'        => 'forgot_password#reset'
+    match_put  account, 'reset_password_submit/:pw_code' => 'forgot_password#reset_submit'
+  end
 end
 
 def match_account_routes(map)
-  # 基本信息
-  map.user_base_info "/account",
-    :controller=>"account",:action=>"base",
-    :conditions=>{:method=>:get}
-  map.user_base_info_submit "/account",
-    :controller=>"account",:action=>"base_submit",
-    :conditions=>{:method=>:put}
+  map.namespace(:account) do |account|
+    # 基本信息
+    match_get  account, "/"                     => "setting#base"
+    match_put  account, "/"                     => "setting#base_submit"
 
-  # 头像设置
-  map.user_avatared_info "/account/avatared",
-    :controller=>"account",:action=>"avatared",
-    :conditions=>{:method=>:get}
-  map.user_avatared_info_submit "/account/avatared",
-    :controller=>"account",:action=>"avatared_submit",
-    :conditions=>{:method=>:put}
+    # 头像设置
+    match_get  account, "avatared"              => 'setting#avatared'
+    match_put  account, "avatared"              => 'setting#avatared_submit'
 
-  # mindpin正式账号 绑定 外站账号
-  map.account_bind_tsina "/account/bind_tsina",
-    :controller=>"account",:action=>"bind_tsina"
-  map.account_bind_renren "/account/bind_renren",
-    :controller=>"account",:action=>"bind_renren"
+    match_get  account, "tsina"                 => "tsina#index"
+    # 设置中点击“关联新浪微博账号”按钮
+    match_get  account, "tsina/connect"         => "tsina#connect"
+    # 设置中“关联新浪微博账号”的callback
+    match_get  account, "tsina/callback"        => "tsina#callback"
+    # 设置中“关联新浪微博账号”关联失败，新浪微博账号已经关联过别的账号
+    match_get  account, "tsina/connect_failure" => "tsina#connect_failure"
+    # 关联新浪微博账号之后，在设置中手动更新新浪微博账号信息
+    match_post account, "tsina/update_info"     => "tsina#update_info"
+    # 取消新浪微博账号与当前账号关联
+    match_post account, "tsina/disconnect"      => "tsina#disconnect"
+  end
 end
 
 def match_connect_tsina_routes(map)
-  # -- 关联 绑定 新浪微博
-  map.connect "/connect_tsina",
-    :controller=>"connect_tsina",:action=>"index"
-  map.connect "/connect_tsina/callback",
-    :controller=>"connect_tsina",:action=>"callback"
-  map.connect "/connect_tsina/confirm",
-    :controller=>"connect_tsina",:action=>"confirm"
-  map.connect "/connect_tsina/complete_account_info",
-    :controller=>"connect_tsina",:action=>"complete_account_info"
-  map.connect "/connect_tsina/do_complete_account_info",
-    :controller=>"connect_tsina",:action=>"do_complete_account_info",
-    :conditions=>{:method=>:post}
-  map.connect "/connect_tsina/bind",:controller=>"connect_tsina",
-    :action=>"bind",:conditions=>{:method=>:post}
-  map.connect "/connect_tsina/create",:controller=>"connect_tsina",
-    :action=>"create",:conditions=>{:method=>:post}
+  # 与关联确认和补充账号信息相关的逻辑
+  map.namespace(:account) do |account|
+    match_get  account, "tsina_signup"        => "tsina_signup#index"
+    match_post account, "tsina_signup/bind"   => "tsina_signup#bind"
+    match_post account, "tsina_signup/create" => "tsina_signup#create"
+  end
 
-
-  map.connect "/connect_tsina/account_bind",
-    :controller=>"connect_tsina",:action=>"account_bind"
-  map.connect "/connect_tsina/account_bind_callback",
-    :controller=>"connect_tsina",:action=>"account_bind_callback"
-  map.connect "/connect_tsina/account_bind_failure",
-    :controller=>"connect_tsina",:action=>"account_bind_failure"
-  map.connect "/connect_tsina/account_bind_update_info",
-    :controller=>"connect_tsina",
-    :action=>"account_bind_update_info",:conditions=>{:method=>:post}
-  map.connect "/connect_tsina/account_bind_unbind",
-    :controller=>"connect_tsina",:action=>"account_bind_unbind",
-    :conditions=>{:method=>:post}
+  map.namespace(:account) do |account|
+    match_get  account, "complete"            => "complete#index"
+    match_post account, "complete/submit"     => "complete#submit"
+  end
 end
 
 def match_feeds_routes(map)
@@ -268,26 +210,42 @@ def match_photos_and_entries_routes(map)
   map.resources :entries,:collection=>{:photos=>:get}
 end
 
+def match_tsina_app_routes(map)
+  map.namespace(:apps) do |apps|
+    match_get apps,'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
+    match_get apps,'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
+
+    match_get apps,'tsina/tu'                   => 'tsina_app_tu#index'
+    match_get apps,'tsina/tu/connect'           => 'tsina_app_tu#connect'
+    match_get apps,'tsina/tu/callback'          => 'tsina_app_tu#callback'
+
+    match_get apps,'tsina/schedule'             => 'tsina_app_schedule#index'
+    match_get apps,'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
+    match_get apps,'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
+  end
+end
+
+######################################
 
 ActionController::Routing::Routes.draw do |map|
   # ---------------- 首页和欢迎页面 ---------
-  map.root :controller=>'index',:action=>'index'
-  
-  match_activation_routes(map)
+  map.root :controller=>'index', :action=>'index'
   match_auth_routes(map)
-  match_user_routes(map)
   match_forgot_password_routes(map)
   match_account_routes(map)
   match_connect_tsina_routes(map)
+  match_activation_routes(map)
   
+
+  match_user_routes(map)
   match_feeds_routes(map)
   match_viewpoints_routes(map)
   map.resources :feed_revisions,:member=>{:rollback=>:put}
   map.resources :user_logs,:collection=>{:friends=>:get,:newest=>:get}
-  
+
   map.resources :messages
   match_get map,'/messages/user/:user_id' => 'messages#user_messages'
-  
+
   match_get map,'/short_url/:code'        => 'short_urls#show'
 
   match_channels_routes(map)
@@ -298,6 +256,8 @@ ActionController::Routing::Routes.draw do |map|
   match_collections_routes(map)
 
   match_photos_and_entries_routes(map)
+
+  match_tsina_app_routes(map)
 
   map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
 
@@ -332,7 +292,7 @@ ActionController::Routing::Routes.draw do |map|
     match_post   api0, 'comments/create' => 'api#create_comment'
     match_delete api0, 'comments/delete' => 'api#delete_comment'
     match_post   api0, 'comments/reply'  => 'api#reply_comment'
-    
+
     match_get    api0, 'comments/received' => 'api#comments_received'
     match_get    api0, 'comments/sent'     => 'api#comments_sent'
 

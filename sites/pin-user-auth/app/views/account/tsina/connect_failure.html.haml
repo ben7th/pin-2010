@@ -1,0 +1,55 @@
+-#use 关联新浪微博账号失败的提示页
+-#see 用户设置->关联新浪微博
+
+-htitle '关联新浪微博账号失败 - 重复关联'
+
+.mside.grid_5
+  =render 'account/parts/account_links'
+
+.main.grid_19.ll
+  .page-title-bar
+    .meta
+      %h2 尝试关联新浪微博账号，但是关联失败。
+
+  .padding10
+    -user = @connected_user.user
+    .bind-failure-desc
+      .p
+        你目前登录的新浪微博账号，在此之前已经和另一个mindpin账号关联了。
+        .bold.font14>
+          =link_to "#{user.name}","/users/#{user.id}",:target=>'_blank'
+      .error-icon
+
+    .bind-failure-desc
+      .p
+        一个新浪微博账号只能关联一个mindpin账号。
+      .p.btb
+        如果想改变关联关系，请按照以下步骤，顺序操作：
+      .help
+        -if user.is_mindpin_typical_account?
+          .p
+            1. 退出当前登录的mindpin账号；
+          .p
+            2. 在首页 <span class='bold'>使用新浪微博账号</span> 登录mindpin；
+          .p
+            3. 进入 <span class='bold'>用户设置 > 关联新浪微博</span> 进行“解除关联”操作；
+          .p
+            4. 换回当前账号登录mindpin，重新尝试关联新浪微博。
+          .p
+            或者，尝试关联其他的新浪微博账号。
+        -else
+          .p
+            1. 退出当前登录的mindpin账号；
+          .p
+            2. 在首页 <span class='bold'>使用新浪微博账号</span> 登录mindpin；
+          .p
+            3. 在信息补全页面对账号信息进行补全；
+          .p
+            4. 进入 <span class='bold'>用户设置 > 关联新浪微博</span> 进行“解除关联”操作；
+          .p
+            5. 换回当前账号登录mindpin，重新尝试关联新浪微博。
+          .p
+            或者，尝试关联其他的新浪微博账号。
+
+      .margint10
+        =minibutton '知道了，返回','/account/tsina'

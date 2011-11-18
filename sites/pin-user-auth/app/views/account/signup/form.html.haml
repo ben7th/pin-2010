@@ -1,0 +1,42 @@
+-htitle '注册'
+
+-submit_url = "/signup_submit"
+
+.main.grid_24.nl
+  .page-anonymous-wrapper
+    .signup-box
+      .logo
+      .signup-content
+        .ct
+          .signup-form
+            - form_for @user,:url=>submit_url do |f|
+              = flash_info
+              = hidden_field_tag :service,params[:service]
+              .field
+                %label 电子邮箱
+                = f.text_field :email,:maxlength=>50,:class=>'text need'
+                .quiet 必填，以后用来登录
+              .field
+                %label 用户名
+                = f.text_field :name,:maxlength=>50,:class=>'text need'
+                .quiet 显示的名称，必填，以后可以修改
+              .field
+                %label 密码
+                = f.password_field :password,:value=>'',:maxlength=>32,:class=>'text need'
+              .field
+                %label 确认密码
+                = f.password_field :password_confirmation,:value=>'',:maxlength=>32,:class=>'text need'
+              .field.subm
+                =link_to '<span>确认注册</span>','javascript:;',:class=>'signup-submit submitbutton'
+        .others
+          .bl
+            .desc 如果你已经注册过了，请：
+            %a.minibutton{:href=>'/login'} <span>直接登录</span>
+
+          .bl
+            .desc 也可以使用新浪微博账号登录：
+            .connects
+              .inset
+                %a.connect.tsina-weibo{:href=>pin_url_for('pin-user-auth','/apps/tsina/mindpin/connect'),:title=>'使用新浪微博账号登陆'}
+                  .icon
+                  .name 连接新浪微博

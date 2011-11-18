@@ -1,0 +1,76 @@
+-form_tag "/course_items",:method=>:post,:class=>"prefix_4" do
+  %div.padding15
+    %div 教师
+    -@university.teachers.each do |teacher|
+      %div
+        %span=radio_button_tag "teacher_id",teacher.id
+        %span=teacher.name
+    %div
+      %span=radio_button_tag "teacher_id",-1
+      %span 增加新教师
+    %div
+      %span 姓名
+      %span=text_field_tag "teacher_name"
+    %div
+      %span 编号
+      %span=text_field_tag "teacher_tid"
+
+
+  %div.padding15
+    %div 上课地点
+    -@university.locations.each do |location|
+      %div
+        %span=radio_button_tag "location_id",location.id
+        %span=location.name
+    %div
+      %span=radio_button_tag "location_id",-1
+      %span 增加新地点
+    %div
+      %span 详细地点
+      %span=text_field_tag "location_name"
+
+  %div.padding15
+    %div 院系
+    -@university.departments.each do |department|
+      %div
+        %span=radio_button_tag "department_id",department.id
+        %span=department.name
+    %div
+      %span=radio_button_tag "department_id",-1
+      %span 增加新院系
+    %div
+      %span 名称
+      %span=text_field_tag "department_name"
+
+  %div.padding15
+    %div 课程
+    -@university.courses.each do |course|
+      %div
+        %span=radio_button_tag "course_id",course.id
+        %span=course.name
+    %div
+      %span=radio_button_tag "course_id",-1
+      %span 增加新课程
+    %div
+      %span 名称
+      %span=text_field_tag "course_name"
+    %div
+      %span 编号
+      %span=text_field_tag "course_cid"
+
+    %div.padding15
+      %div 时间
+      %div
+        %span 周次
+        -week_days = [["星期一",1],["星期二",2],["星期三",3],["星期四",4],["星期五",5],["星期六",6],["星期七",0]]
+        %span=select_tag "week_day",options_for_select(week_days)
+      %div
+        %span 节次
+        -order_nums = [["第一节",1],["第二节",2],["第三节",3],["第四节",4],["第五节",5],["第六节",6],["第七节",7],["第八节",8],["第九节",9],["第十节",10]]
+        %span=select_tag "order_num",options_for_select(order_nums)
+      %div
+        %span 持续节次
+        -periods = [["一节",1],["二节",2],["三节",3],["四节",4]]
+        %span=select_tag "period",options_for_select(periods)
+
+  %div.padding15=submit_tag "创建"

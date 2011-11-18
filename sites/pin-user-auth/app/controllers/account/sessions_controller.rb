@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Account::SessionsController < ApplicationController
   include SessionsMethods
   include SessionsControllerMethods
 end

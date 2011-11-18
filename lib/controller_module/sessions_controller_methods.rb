@@ -6,17 +6,14 @@ module SessionsControllerMethods
 
   # 登录
   def new
-    if logged_in?
-      return redirect_back_or_default(root_url)
-    end
-
-    render :layout=>'anonymous',:template=>'index/login'
+    return redirect_back_or_default(root_url) if logged_in?
+    return render :layout=>'anonymous',:template=>'index/login'
   end
 
   def create
-    self.current_user = User.authenticate(params[:email],params[:password])
+    self.current_user = User.authenticate2(params[:email], params[:password])
     return _create_android if is_android_client?
-    _create_web
+    return _create_web
   end
 
   # 登出
@@ -30,35 +27,36 @@ module SessionsControllerMethods
       destroy_online_record(user)
     end
 
-    _redirect_by_service
+    site = case params[:call]
+    when 'tu' then 'pin-daotu'
+    else 'pin-user-auth'
+    end
+
+    return redirect_to pin_url_for(site,'/login')
   end
 
   private
-  def _create_android
-    if logged_in?
-      after_logged_in()
-      render :json=>{:user=>current_user.api0_json_hash}
-    else
-      render :status=>401,:text=>401
-    end
-  end
-
-  def _create_web
-    if logged_in?
-      after_logged_in()
-    else
-      flash[:error]="邮箱/密码不正确"
+    def _create_android
+      if logged_in?
+        after_logged_in()
+        return render :json=>{:user=>current_user.api0_json_hash}
+      else
+        return render :status=>401, :text=>'登录失败，用户名/密码错误'
+      end
     end
 
-    _redirect_by_service
-  end
+    def _create_web
+      site = case params[:call]
+      when 'tu' then 'pin-daotu'
+      else 'pin-user-auth'
+      end
 
-  def _redirect_by_service
-    if params[:service] == "tu"
-      return redirect_back_or_default(pin_url_for("pin-daotu"))
-    else
-      return redirect_back_or_default('/login')
+      if logged_in?
+        after_logged_in()
+        return redirect_to pin_url_for(site,'/')
+      else
+        flash[:error]="邮箱/密码不正确"
+        return redirect_to pin_url_for(site,'/login')
+      end
     end
-  end
-
 end

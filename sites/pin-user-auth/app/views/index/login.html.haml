@@ -1,28 +1,45 @@
-.login-wrapper
-  .logo
-  -form_tag(pin_url_for('pin-user-auth','/session'),{:class=>'login-form'}) do
-    .field
-      %label 电子邮箱
-      =text_field_tag :email,params[:email],:class=>'text',:tabindex=>'1'
-      =flash_info
-    .field
-      %label 密码
-      =password_field_tag :password,params[:password],:class=>'text',:tabindex=>'2'
-      .forget-password
-        =link_to '忘记密码了…',pin_url_for('pin-user-auth','/forgot_password_form')
-    .field
-      =link_to '<span>登　录</span>','javascript:;',:class=>'login-submit'
-      .remember-me
-        %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
-        %span 记住我
-    .field
-      =link_to '<span>注　册</span>',pin_url_for('pin-user-auth','/signup'),:class=>'signup'
+-htitle '登录'
 
-  .alpha-test
-    %a.apply{:href=>pin_url_for('pin-user-auth','/apply_form'),:title=>'申请参与测试'} &gt; 申请参与测试
+-submit_url          = pin_url_for('pin-user-auth','/login')
+-connect_tsina_url   = pin_url_for('pin-user-auth','/apps/tsina/mindpin/connect')
+-forgot_password_url = pin_url_for('pin-user-auth','/account/forgot_password')
+-signup_url          = pin_url_for('pin-user-auth','/signup')
+-apply_url           = pin_url_for('pin-user-auth','/apply')
 
-  .connects
-    .desc 其他网站账号登录
-    %a.connect.tsina-weibo{:href=>pin_url_for('pin-user-auth','/connect_tsina'),:title=>'使用新浪微博账号登陆'}
-      .icon
-      .name 新浪微博
+.main.grid_24.nl
+  .page-anonymous-wrapper
+    .login-box
+      .logo
+      .login-content
+        .ct
+          .connects
+            .inset
+              %a.connect.tsina-weibo{:href=>connect_tsina_url,:title=>'使用新浪微博账号登陆'}
+                .icon
+                .name 使用新浪微博账号登录
+
+          -form_tag(submit_url,{:class=>'login-form'}) do
+            =flash_info
+            .p1
+              .field.email
+                %label 电子邮箱 / 用户名
+                =text_field_tag     :email   ,params[:email]   ,:class=>'text need',:tabindex=>'1'
+              .field.password
+                %label 密码
+                =password_field_tag :password,params[:password],:class=>'text need',:tabindex=>'2'
+            .p2
+              .remember-me
+                %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
+                %span 记住我
+              .forget-password
+                =link_to '我忘记密码了…', forgot_password_url
+            .p3
+              =link_to '<span>登　录</span>','javascript:;',:class=>'login-submit submitbutton'
+
+        .others
+          .bl
+            .desc 你还可以…
+            %a.middlebutton.green{:href=>signup_url} 注册一个账号
+          .bl
+            .desc 或者
+            %a.minibutton{:href=>apply_url} 申请参与α测试

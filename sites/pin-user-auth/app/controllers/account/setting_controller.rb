@@ -1,14 +1,18 @@
-class AccountController <  ApplicationController
+class Account::SettingController <  ApplicationController
   layout "account"
   before_filter :login_required
 
   # 基本信息
   def base
-    if !params[:service].blank?
-      session[:account_setting_from_site_flag] = params[:service]
-    else
-      session[:account_setting_from_site_flag] = ''
+    if !params[:call].blank?
+      site = case params[:call]
+      when 'tu'      then 'pin-daotu'
+      when 'mindpin' then 'pin-user-auth'
+      end
+
+      session[:account_setting_from_site_flag] = site
     end
+    # 否则不变
   end
 
     # 修改基本信息
@@ -69,7 +73,7 @@ class AccountController <  ApplicationController
     image_path = UserAvatarAdpater.path_by_image_file_name(@image_file_name)
     image = Magick::Image::read(File.new(image_path)).first
     @image_size = {:height=>image.rows,:width=>image.columns}
-    return render :template=>"account/copper_avatared"
+    return render :template=>"account/setting/copper_avatared"
   end
 
   def _copper
@@ -78,11 +82,4 @@ class AccountController <  ApplicationController
     FileUtils.rm(@image_file_path)
     redirect_to :action=>:avatared
   end
-
-  def bind_tsina
-  end
-
-  def bind_renren
-  end
-
 end
