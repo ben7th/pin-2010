@@ -7,6 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   map.public_maps "/mindmaps/public",:controller=>"mindmaps",:action=>"public_maps"
   map.user_mindmaps "/mindmaps/users/:user_id",:controller=>"mindmaps",:action=>"user_mindmaps"
 
+  match_get map, '/tsina_app' => 'index#tsina_app_redirect'
+
   map.resources :mindmaps,:collection=>{
     :aj_words=>:get,
     :cooperates=>:get,

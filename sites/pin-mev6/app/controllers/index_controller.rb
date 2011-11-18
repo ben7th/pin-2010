@@ -10,4 +10,8 @@ class IndexController < ApplicationController
     # 如果还没有登录，渲染登录页
     render :layout=>'anonymous',:template=>'index/login'
   end
+
+  def tsina_app_redirect
+    redirect_to pin_url_for('pin-user-auth','/apps/tsina/mindpin')
+  end
 end
