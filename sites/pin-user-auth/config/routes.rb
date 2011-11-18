@@ -212,6 +212,7 @@ end
 
 def match_tsina_app_routes(map)
   map.namespace(:apps) do |apps|
+    match_get apps,'tsina/mindpin'              => 'tsina_app_mindpin#index'
     match_get apps,'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
     match_get apps,'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
 
