@@ -4,6 +4,8 @@ class FeedFormat
     @feed = feed
     @title = feed.title || ''
     @detail = feed.detail || ''
+    
+    @widget_hash = {}
 
     @photos = feed.photos
     @photo_used = false
@@ -32,7 +34,8 @@ class FeedFormat
   #  return str5
 
   def detail_brief(length = 300)
-    str0 = typical_return(@detail)
+    str0 = typical_return(@detail) # 回车换行标准化
+
     str1 = reduce_return(str0)
     str2 = truncate_u(str1, length, '…')
     str3 = _escape_html(str2)
@@ -64,12 +67,20 @@ class FeedFormat
   end
 
   def _detail
-    str0 = typical_return(@detail)
-    str1 = _escape_html(str0)
-    str2 = trans_return_to_br(str1)
-    str3 = trans_space_to_nbsp(str2)
-    str4 = trans_format_widget(str3)
-    return str4
+    str0 = typical_return(@detail) # 回车换行标准化
+
+    str1 = trans_code(str0)
+    str2 = trans_images(str1)
+
+    str3 = _escape_html(str2)
+    str4 = trans_return_to_br(str3)
+    str5 = trans_space_to_nbsp(str4)
+
+    str6 = pack_widgets(str5)
+
+    return str6
+  rescue Exception=>ex
+    return "文本解析错误 #{ex}"
   end
 
   def title
@@ -107,23 +118,56 @@ class FeedFormat
       return str.gsub(/\s/,'&nbsp;')
     end
 
-    def trans_format_widget(str)
-      str1 = trans_images(str)
-      return str1
+    # 转换正文中的程序段
+    def trans_code(str)
+      str.gsub /\[code (.+)\]((\w|\W)+)\[\/code]/ do |s|
+        lang = $1
+        lines = $2
+
+        # 去掉前面和后面的换行符
+        lines.gsub! /^\n*/,''
+        lines.gsub! /\n*$/,''
+
+        head_str = "<div class='feed-format-code-head'>#{lang} code</div>"
+        # widget_str = CodeRay.scan(lines, lang).div(:css => :class)
+        div = Nokogiri::XML.fragment CodeRay.scan(lines, lang).div(:css => :class)
+        div.at_css('div.code')['class']="code #{lang}"
+        # div.at_css('div.code').before head_str
+        widget_str = div.to_xml
+
+        push_in_hash("#{head_str}#{widget_str}")
+      end
     end
 
     # 转换正文中的图片引用
     def trans_images(str)
-      str.gsub /\[图片([0-9])+\](<br\/>)*/ do |s|
+      str.gsub /\[图片([0-9])+\](\n)*/ do |s|
         index = $1.to_i - 1
         photo = @photos[index]
         if !photo.blank?
           @photo_used = true
-          "<div class='feed-format-img'><img src='#{photo.image.url(:w500)}'/></div>"
+          push_in_hash "<div class='feed-format-img'><img src='#{photo.image.url(:w500)}'/></div>"
         else
           s
         end
       end
+    end
+
+    # 将转换好的组件代码先存放在一个hash里
+    def push_in_hash(widget_str)
+      key = "[r=#{randstr}]"
+      @widget_hash[key] = widget_str
+
+      return key
+    end
+
+    # 最后，把所有组件代码从hash里替换回来
+    def pack_widgets(str)
+      re = str
+      @widget_hash.each do |key, value|
+        re.gsub! key, value
+      end
+      re
     end
 
     # 自定义的html转义方法，不对 & 和 " 进行转义

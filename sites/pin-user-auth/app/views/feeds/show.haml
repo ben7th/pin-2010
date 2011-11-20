@@ -54,7 +54,9 @@
                 %img{:src=>img_src}>
 
         -if has_detail
-          .detail.wordwrap=detail
+          .detail.wordwrap
+            :preserve
+              #{detail}
 
   .clearfix
   =render_with_error_msg '评论加载错误','/feeds/parts/show_comments',:feed=>@feed,:comments=>@feed.comments

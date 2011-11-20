@@ -1195,6 +1195,8 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-feed-show .f-main .detail p{margin:0;}
 .page-feed-show .f-main .detail blockquote{font-style:normal;margin:0;padding:5px 9px 5px 25px;background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-691px -1px;background-color:#fafafa;}
 .page-feed-show .f-main .detail .feed-format-img{margin:0 -10px;background-color:#fafafa;text-align:center;}
+.page-feed-show .f-main .detail .feed-format-code-head{margin:0 -10px;font-weight:bold;background-color:#f1f1f1;color:#666;padding:0 10px;}
+.page-feed-show .f-main .detail .CodeRay{margin:0 -10px;background-color:#fafafa;padding:5px 10px;}
 .page-feed-show .f-main .photos{padding-top:4px;}
 .page-feed-show .f-main .photos .photo{margin:0 4px 4px 4px;font-size:0;line-height:0;background-color:#fafafa;text-align:center;}
 .page-feed-show .f-main .photos .photo img{margin:0 auto;}

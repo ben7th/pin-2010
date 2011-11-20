@@ -4818,6 +4818,16 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       margin: 0 -10px;
       background-color: #fafafa;
       text-align: center; }
+    .page-feed-show .f-main .detail .feed-format-code-head {
+      margin: 0 -10px;
+      font-weight: bold;
+      background-color: #f1f1f1;
+      color: #666;
+      padding: 0 10px; }
+    .page-feed-show .f-main .detail .CodeRay {
+      margin: 0 -10px;
+      background-color: #fafafa;
+      padding: 5px 10px; }
   .page-feed-show .f-main .photos {
     padding-top: 4px; }
     .page-feed-show .f-main .photos .photo {
