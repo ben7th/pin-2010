@@ -1482,7 +1482,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel .desc{padding:14px;font-size:12px;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;color:#888;}
 .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel .desc b{color:#444;font-size:14px;}
 .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.selected{width:353px;background-color:#fafafa;border:solid 1px #eee;border-bottom:solid 1px #fafafa;}
-.page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect{cursor:pointer;background-color:#fff;border-bottom:solid 1px #eee;}
+.page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect{cursor:pointer;border-bottom:solid 1px #eee;}
 .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect .desc{background-color:#eee;}
 .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect.mode1 .desc{margin:0 4px 4px 0;padding:14px 14px 11px 14px;}
 .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect.mode2 .desc{margin:0 0 4px 4px;padding:14px 14px 11px 14px;}
