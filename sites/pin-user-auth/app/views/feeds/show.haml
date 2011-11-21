@@ -1,18 +1,18 @@
 -#use 显示主题
 
--feed_format = FeedFormat.new(@feed)
+-feed_format = @feed.text_format
 
 -title_brief = feed_format.title_brief
--title = feed_format.title
--has_title = !title_brief.blank?
+-title       = feed_format.title
+-has_title   = !title_brief.blank?
 
 -created_at = @feed.created_at
 
--creator = @feed.creator
+-creator    = @feed.creator
 -collection = @feed.collections.first
--feed_id = @feed.id
--photos = @feed.photos
--has_photo = !photos.blank?
+-feed_id    = @feed.id
+-photos     = @feed.photos
+-has_photo  = !photos.blank?
 -photo_used = feed_format.photo_used
 
 -detail = auto_link feed_format.detail

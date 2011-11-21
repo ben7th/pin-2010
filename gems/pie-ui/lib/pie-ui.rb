@@ -58,12 +58,8 @@ module PieUi
     def load_gems
       require "haml"
       require 'coderay'
-
       require 'haml-coderay'
       Haml::Filters::CodeRay.encoder_options = {:css=>:class}
-
-      require "paperclip"
-      ActiveRecord::Base.send :include, Paperclip
     end
 
   end

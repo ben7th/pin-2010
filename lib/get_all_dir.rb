@@ -26,8 +26,13 @@ class GetAllDir
     config.gem "resque"
     # markdown 解析器
     config.gem 'redcarpet'
+
+    # paperclip
+    config.gem "paperclip", :version => "~> 2.4"
+
     # 自己写的 gem
     config.gem "pie-ui"
+
     # 加载 公共 lib
     config.autoload_paths += GetAllDir.get_all_dir(File.dirname(File.expand_path(__FILE__)))
     # 时区  和 国际化

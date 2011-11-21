@@ -1,6 +1,3 @@
--#use 登录后的首页
--#see 登录后的首页
-
 -content_for :javascript do
   :javascript
     pie.load(function(){
@@ -39,16 +36,18 @@
       -drafts.each do |draft|
         -draft_token = draft.draft_token
 
-        -photo_tmps = draft.photo_tmps
-        -has_photo = !photo_tmps.blank?
+        -format = FeedFormat.new(draft)
+
+        -photo_tmps   = draft.photo_tmps
+        -has_photo    = !photo_tmps.blank?
         -single_photo = photo_tmps.length == 1
 
 
-        -title = draft.title
-        -has_title = !title.blank?
+        -title      = format.title
+        -has_title  = format.has_title?
 
-        -detail = MindpinTextFormat.new(draft.detail).to_text
-        -has_detail = !detail.blank?
+        -detail     = format.detail_brief
+        -has_detail = format.has_detail?
 
         .draft{:'data-draft-token'=>draft_token}
           -if has_photo
@@ -56,7 +55,7 @@
               .single_photo
                 -photo = photo_tmps[0]
                 -src = photo.image.url(:w220)
-                %img{:src=>src,:style=>'width:210px;'}
+                %img{:src=>src,:style=>'width:220px;'}
             -else
               .photos
                 -photo_tmps.each do |photo|
@@ -72,5 +71,5 @@
 
           .clearfix
           .ops
-            =minibutton '删除',"javascript:;",:class=>'delete'
+            =minibutton '删除',"javascript:;", :class=>'delete'
             =minibutton '打开草稿',"/feeds/new?draft=#{draft_token}"

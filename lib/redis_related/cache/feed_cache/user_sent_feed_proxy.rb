@@ -35,11 +35,6 @@ class UserSentFeedProxy < RedisBaseProxy
         UserSentFeedProxy.add_feed_cache(feed)
       },
       :after_update => Proc.new {|feed|
-        if feed.to_hide?
-          UserSentFeedProxy.remove_feed_cache(feed)
-        elsif feed.to_show?
-          UserSentFeedProxy.add_feed_cache(feed)
-        end
       },
       :after_destroy => Proc.new {|feed|
         UserSentFeedProxy.remove_feed_cache(feed)

@@ -1,0 +1,3 @@
+-form_tag "/teachers/#{@teacher.id}",:method=>:put,:multipart=>true do
+  =file_field_tag 'logo'
+  =submit_tag "上传"

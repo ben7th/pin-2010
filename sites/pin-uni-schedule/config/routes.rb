@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
     :select=>:post,:cancel_select=>:delete
   }
 
-  map.resources :users
   map.resource :profile
+  map.resources :teachers
+
+  map.resources :users
 end

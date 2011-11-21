@@ -6263,7 +6263,6 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         border-bottom: solid 1px #fafafa; }
       .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect {
         cursor: pointer;
-        background-color: #fff;
         border-bottom: solid 1px #eee; }
         .page-login-from-other-connect-operation .f .connect-link-form .select-mode .sel.unselect .desc {
           background-color: #eee; }

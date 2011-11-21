@@ -7,13 +7,18 @@ class FeedFormat
     
     @widget_hash = {}
 
-    @photos = feed.photos
+    @photos = case feed
+      when Feed      then feed.photos
+      when PostDraft then feed.photo_tmps
+    end
     @photo_used = false
 
     @transed_detail = _detail # 顺序不可改
   end
 
   def photo_used; @photo_used; end
+  def has_title?; !@title.blank?; end
+  def has_detail?; !@detail.blank?; end
 
   # --------- 10月31日之后的新api
 

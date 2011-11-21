@@ -52,11 +52,14 @@
   f1_style = mode2 ? 'display:none;':''
   f2_style = mode2 ? '':'display:none;'
 
+- bind_url   = pin_url_for('pin-user-auth',"/account/tsina_signup/bind")
+- create_url = pin_url_for('pin-user-auth',"/account/tsina_signup/create")
+
 .main.grid_18.no-line
-  =render '/connect_tsina/parts/tsina_user_info',:bindinfo=>@tsina_user_info
+  =render '/account/tsina_signup/tsina_user_info',:bindinfo=>@tsina_user_info
 
   .page-login-from-other-connect-operation
-    %h3 请选择关联方式：
+    %h3 请选择账号关联方式：
 
     =flash_info
 
@@ -64,12 +67,12 @@
       .connect-link-form
         .select-mode
           .sel.mode1{:class=>sel1_class}
-            .desc <b>使用已有的账号</b> 以前注册过
+            .desc <b>使用已有的账号</b> 以前注册过mindpin
           .sel.mode2{:class=>sel2_class}
             .desc <b>使用新的账号</b> 以前没有注册过
 
         .connect-link-form-form.form1{:style=>f1_style}
-          -form_tag "/account/tsina_signup/bind" do
+          -form_tag bind_url do
             =hidden_field_tag :service,params[:service]
             .field
               %label=t('activerecord.attributes.user.email')
@@ -81,7 +84,7 @@
               %a.create-submit{:href=>'javascript:;'} <span>确定关联</span>
 
         .connect-link-form-form.form2{:style=>f2_style}
-          -form_for User.new,:url=>"/account/tsina_signup/create" do |f|
+          -form_for User.new,:url=>create_url do |f|
             = hidden_field_tag :service,params[:service]
             .field
               %label 电子邮箱

@@ -1,0 +1,4 @@
+%div
+  %img{:src=>@teacher.logo.url}
+%div=@teacher.name
+%div=link_to "上传头像","/teachers/#{@teacher.id}/edit"

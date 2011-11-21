@@ -16,7 +16,7 @@
   %span="#{@course_item.location.name}"
 %div
   %span 教师姓名
-  %span="#{@course_item.teacher.name}"
+  %span=link_to "#{@course_item.teacher.name}","/teachers/#{@course_item.teacher.id}"
 %div
   %span 教师编码
   %span="#{@course_item.teacher.tid}"
