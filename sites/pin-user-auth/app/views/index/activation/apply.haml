@@ -33,9 +33,15 @@
         .re=minibutton '返回首页','/'
       -else
         .desc
-          %span> 请确保邮箱地址正确。
+          %span.loud.bold.font12> 注意：进行此α测试的主题社区和在线思维导图工具没有联系，目前也没有任何功能上的整合。
+          %span.loud.bold.font12> 不进行此激活，并不影响思维导图工具的使用。只需要使用在线思维导图的朋友，请
+          %a.minibutton.font12{:href=>'http://tu.mindpin.com'} <span>去这里</span>
           %br>
-          %span> 我们会在阅读你的简介后，在数周内发送测试激活码到你填写的邮箱。
+          %br>
+          %span.font12> 请确保邮箱地址正确。
+          %br>
+          %span.font12> 我们会在阅读你的简介后，在数周内发送测试激活码到你填写的邮箱。
+
         -form_tag '/apply_submit' do
           .field
             %label 邮箱
