@@ -105,7 +105,7 @@ class Oss
           :file_name=>File.basename(save_path)
         }
       else
-        raise Oss::ResponseError
+        raise Oss::ResponseError,r.code
       end
     end
   end
