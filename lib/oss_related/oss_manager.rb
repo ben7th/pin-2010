@@ -18,4 +18,20 @@ class OssManager
     OSS.delete_file(CONFIG["bucket"], save_path)
   end
 
+  def self.get_file(save_path)
+    OSS.get_file(CONFIG["bucket"],save_path)
+  end
+
+  def self.get_file_body(save_path)
+    OSS.get_file_body(CONFIG["bucket"],save_path)
+  end
+
+  def self.get_file_meta(save_path)
+    OSS.get_file_meta(CONFIG["bucket"],save_path)
+  end
+
+  def self.file_exists?(save_path)
+    OSS.file_exists?(CONFIG["bucket"],save_path)
+  end
+
 end

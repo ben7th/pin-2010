@@ -1,29 +1,31 @@
 module AuthenticatedSystem
 
   private
-  # Returns true or false if the user is logged in.
-  # Preloads @current_user with the user model if they're logged in.
+
+  # 判断用户是否登录，同时预加载 @current_user 对象
   def logged_in?
     !!current_user
   end
 
+  # 判断当前登录用户是否系统admin用户
+  # 此方法已过时，逻辑不是很正确，不建议使用
   def admin_authorization
     logged_in? && current_user.name=='admin'
   end
 
-  # Accesses the current user from the session.
-  # Future calls avoid the database because nil is not equal to false.
+  # 根据session里的信息，获取当前登录用户
+  # 如果没有登录，则返回 nil
   def current_user
-    @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || login_from_api) unless @current_user == false
+    @current_user ||= (
+      login_from_session    ||
+      login_from_basic_auth ||
+      login_from_cookie     ||
+      login_from_api
+    ) unless @current_user == false
   end
 
-  # Store the given user id in the session.
   # 设定指定对象为当前会话用户对象，并将基本信息传入session保存
   def current_user=(user)
-    if !user.blank?
-      create_logged_in_for_plugin_token
-    end
-
     session[:user_id] = user ? user.id : nil
     @current_user = user || false
   end
@@ -159,10 +161,5 @@ module AuthenticatedSystem
     rescue
       nil
     end
-  end
-
-  # 创建插件cookie
-  def create_logged_in_for_plugin_token
-    cookies[:logged_in_for_plugin] = {:value=>true,:expires => 30.days.from_now,:domain=>'mindpin.com'}
   end
 end

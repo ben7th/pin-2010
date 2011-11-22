@@ -17,7 +17,7 @@
       .following{:'data-id'=>user_id}
         .avatar
           -link_to user_link do
-            =user_avatar_s200 user
+            =user_avatar_big user
         .data{:class=>has_binded_tsina ? 'short':''}
           .name=usersign user
           .sign=usersign_only user

@@ -2,15 +2,36 @@ module Paperclip
   module Storage
     module Oss
       def self.extended base
-        p "oss self.extended"
+#        p "oss self.extended"
+      end
+
+      def meta(style_name = default_style)
+        if !original_filename.blank?
+          OssManager.get_file_meta(path(style_name))
+        else
+          {}
+        end
       end
 
       def exists?(style_name = default_style)
-        !original_filename.blank?
+        if !original_filename.blank?
+          OssManager.file_exists?(path(style_name))
+        else
+          false
+        end
       end
 
       def to_file style_name = default_style
-        p "oss to_file #{style_name}"
+        return @queued_for_write[style_name] if @queued_for_write[style_name]
+        filename = path(style_name)
+        extname  = File.extname(filename)
+        basename = File.basename(filename, extname)
+        file = Tempfile.new([basename, extname])
+        file.binmode
+        body = OssManager.get_file_body(path(style_name))
+        file.write(body)
+        file.rewind
+        return file
       end
 
       def flush_writes

@@ -60,6 +60,60 @@ class Oss
     end
   end
 
+  def get_file(bucket,save_path)
+    body = get_file_body(bucket,save_path)
+    return nil if body.blank?
+    file = Tempfile.new("lala.jpg")
+    file.binmode
+    file.write(body)
+    file.rewind
+    file
+  end
+
+  def get_file_body(bucket,save_path)
+    path = File.join("/",bucket,save_path)
+    method = "GET"
+    head_hash = get_head_hash(method,path)
+
+    Net::HTTP.start('storage.aliyun.com') do |http|
+      r = http.send_request(method,path,nil,head_hash)
+      case r.code
+      when "404"
+        return nil
+      when "200"
+        r.body
+      else
+        raise Oss::ResponseError
+      end
+    end
+  end
+
+  def get_file_meta(bucket,save_path)
+    path = File.join("/",bucket,save_path)
+    method = "HEAD"
+    head_hash = get_head_hash(method,path)
+
+    Net::HTTP.start('storage.aliyun.com') do |http|
+      r = http.send_request(method,path,nil,head_hash)
+      case r.code
+      when "404"
+        return {}
+      when "200"
+        {
+          :content_type=>r["Content-Type"],
+          :content_length=>r["Content-Length"].to_i,
+          :file_name=>File.basename(save_path)
+        }
+      else
+        raise Oss::ResponseError
+      end
+    end
+  end
+
+  def file_exists?(bucket,save_path)
+    !get_file_meta(bucket,save_path).blank?
+  end
+
   private
   def get_head_hash(method,path,option={})
     date = Time.now.gmtime.strftime('%a, %d %b %Y %H:%M:%S %Z')
