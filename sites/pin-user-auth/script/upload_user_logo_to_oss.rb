@@ -45,7 +45,7 @@ users.each_with_index do |u,index|
       end
     rescue Exception => e
       File.open("/web/2010/logs/upload_user_logo_to_oss.log","a") do  |f|
-        f << "user_id=#{user.id},style=#{style},message=#{e.message}\n"
+        f << "user_id=#{user.id},style=#{style},message=#{e.class},#{e.message}\n"
       end
     end
   end

@@ -83,7 +83,7 @@ class Oss
       when "200"
         r.body
       else
-        raise Oss::ResponseError
+        raise Oss::ResponseError,r.code
       end
     end
   end
@@ -156,7 +156,7 @@ class Oss
     when "200"
       return true
     else
-      raise Oss::ResponseError
+      raise Oss::ResponseError,response.code
     end
   end
 
@@ -165,7 +165,7 @@ class Oss
     when "200"
       return true
     else
-      raise Oss::ResponseError
+      raise Oss::ResponseError,response.code
     end
   end
 
