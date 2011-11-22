@@ -1,3 +1,7 @@
+# cookie_verification_secret
+ActionController::Base.cookie_verifier_secret = '9f1e67be4945ad700daef99307e8b46313a3c781368e85e3d6ef8fd9142577c22ec4fb0e60f4671ba6939fed090a8bcdf1ebe1a0588120f327fa5e5e110940f6';
+
+# session
 case RAILS_ENV
   when 'production'
     ActionController::Base.session = {
@@ -7,7 +11,7 @@ case RAILS_ENV
     }
   else
     ActionController::Base.session = {
-      :domain => "mindpin.com",
+      :domain => "mindpin.com", 
       :key=>'_mindpin_session_devel',
       :secret=>'883abe7844502ee307e376fa4d0509253d7f9e55fc8be69a934735cd470cc8671af39e27482885960f3364fa8af420b5519571193e22987c3e9e4f9da29f15fb'
     }
@@ -17,3 +21,18 @@ ActionController::Dispatcher.middleware.insert_before(
   FlashSessionCookieMiddleware,
   ActionController::Base.session_options[:key]
 )
+
+# Mime Types
+Mime::Type.register "image/png",  :png
+Mime::Type.register "image/jpeg", :jpg
+Mime::Type.register "image/gif",  :gif
+Mime::Type.register "application/msword", :doc
+Mime::Type.register "application/mmap",   :mmap
+Mime::Type.register "application/mm",     :mm
+
+# load patches
+Dir[
+  File.join(RAILS_ROOT, "../../lib/patches", "**", "*.rb")
+].sort.each { |patch|
+  require(patch)
+}

@@ -150,25 +150,24 @@ class Oss
   end
 
   def process_object_response(response)
+    return true if response.code.to_i / 100 == 2
+
+    # 错误处理
     case response.code
     when "404"
       raise Oss::NoSuchBucketError
-    when "200"
-      return true
     else
-      code = Nokogiri::XML(response.body).at_css("Error Code").content.strip
-      raise Oss::ResponseError,"#{response.code},#{code}"
+      error_code = Nokogiri::XML(response.body).at_css("Error Code").content.strip
+      raise Oss::ResponseError,"#{response.code},#{error_code}"
     end
   end
 
   def process_bucket_response(response)
-    case response.code
-    when "200"
-      return true
-    else
-      code = Nokogiri::XML(response.body).at_css("Error Code").content.strip
-      raise Oss::ResponseError,"#{response.code},#{code}"
-    end
+    return true if response.code.to_i / 100 == 2
+
+    # 错误处理
+    error_code = Nokogiri::XML(response.body).at_css("Error Code").content.strip
+    raise Oss::ResponseError,"#{response.code},#{error_code}"
   end
 
 end
