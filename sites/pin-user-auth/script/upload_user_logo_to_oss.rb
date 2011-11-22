@@ -7,6 +7,18 @@ users.each_with_index do |u,index|
 
   user = User.find(u.id)
   next if user.logo_file_name.blank?
+
+  # 有些用户没有original头像，先预处理一下
+  original_path = user.logo.path(:original)
+  normal_path   = user.logo.path(:normal)
+  if !File.exists?(original_path)
+    if File.exists?(normal_path)
+      FileUtils.mkdir_p(File.dirname(original_path))
+      FileUtils.cp(normal_path,original_path)
+    else
+      next
+    end
+  end
   
   [:large, :medium, :normal, :tiny, :mini, :original].each do |style|
 
