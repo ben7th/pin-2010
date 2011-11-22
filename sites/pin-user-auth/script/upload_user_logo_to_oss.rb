@@ -1,3 +1,7 @@
+def User.record_timestamps
+  false
+end
+
 users = User.find(:all,:select=>"id",:order=>"id asc")
 count = users.length
 
@@ -27,6 +31,13 @@ users.each_with_index do |u,index|
 
       if style != :original && !File.exists?(path)
         user.logo.reprocess!(style)
+      end
+
+      if user.logo_content_type.blank? || user.logo_file_size.blank?
+        file = user.logo.to_file(:original)
+        user.logo_content_type = file.content_type.strip
+        user.logo_file_size = file.size
+        user.save(false)
       end
 
       file_name         = user.logo_file_name
