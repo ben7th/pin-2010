@@ -20,14 +20,7 @@ module AccountHelper
 
   # 尝试返回尺寸为200的user头像，如果没有（头像更新于9月20日前的，则返回:medium的头像 96x96）
   def user_avatar_big(user)
-    logo_updated_at = user.logo_updated_at
-    if(logo_updated_at.year.to_i >= 2011 && logo_updated_at.month.to_i >= 11 && logo_updated_at.day.to_i >= 22)
-      avatar user,:large
-    else
-      avatar user,:medium
-    end
-  rescue Exception => ex
-    avatar user,:medium
+    avatar user, :large
   end
 
   # 尝试返回用于获取数据的公共微博连接对象
