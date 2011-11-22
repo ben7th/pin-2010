@@ -156,7 +156,8 @@ class Oss
     when "200"
       return true
     else
-      raise Oss::ResponseError,response.code
+      code = Nokogiri::XML(response.body).at_css("Error Code").content.strip
+      raise Oss::ResponseError,"#{response.code},#{code}"
     end
   end
 
@@ -165,7 +166,8 @@ class Oss
     when "200"
       return true
     else
-      raise Oss::ResponseError,response.code
+      code = Nokogiri::XML(response.body).at_css("Error Code").content.strip
+      raise Oss::ResponseError,"#{response.code},#{code}"
     end
   end
 
