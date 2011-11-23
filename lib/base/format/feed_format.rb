@@ -7,10 +7,7 @@ class FeedFormat
     
     @widget_hash = {}
 
-    @photos = case feed
-      when Feed      then feed.photos
-      when PostDraft then feed.photo_tmps
-    end
+    @photos = feed.photos
     @photo_used = false
 
     @transed_detail = _detail # 顺序不可改

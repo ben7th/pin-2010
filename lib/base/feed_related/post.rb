@@ -5,7 +5,7 @@ class Post < UserAuthAbstract
   validates_presence_of :feed,:on=>:create
   validates_presence_of :user,:on=>:create
 
-  KIND_MAIN = "main"
+  KIND_MAIN   = "main"
   KIND_NORMAL = "normal"
 
   FORMAT_HTML = "html"
@@ -18,8 +18,7 @@ class Post < UserAuthAbstract
   named_scope :normal,:conditions=>"kind = '#{KIND_NORMAL}'",
     :order=>"id asc"
 
-  after_create :remove_feed_invite
-  after_update :remove_feed_invite
+  after_save :remove_feed_invite
   def remove_feed_invite
     feed = self.feed
     user = self.user
@@ -122,9 +121,15 @@ class Post < UserAuthAbstract
       end.compact
     end
 
-    def create_main_post(title,detail)
-      self.posts.create(:title=>title,:detail=>detail,
-        :user=>self.creator,:kind=>Post::KIND_MAIN,:text_format=>Post::FORMAT_HTML)
+    def create_main_post(title, detail, photos=[])
+      self.posts.create(
+        :title       => title,
+        :detail      => detail,
+        :user        => self.creator,
+        :kind        => Post::KIND_MAIN,
+        :text_format => Post::FORMAT_HTML,
+        :photos      => photos
+      )
     end
 
     def update_title_without_record_editor(title)

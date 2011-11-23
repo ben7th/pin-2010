@@ -136,7 +136,7 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(UserPrivateMindmapProxy)
 
     # photo 缓存
-    MindpinLogicManagement.load_redis_proxy(PhotoSizeProxy)
+#    MindpinLogicManagement.load_redis_proxy(PhotoSizeProxy)
 
   # tip
     MindpinLogicManagement.load_tip_proxy(UserTipProxy)

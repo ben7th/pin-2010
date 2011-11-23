@@ -145,58 +145,109 @@ class Feed < UserAuthAbstract
       base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
     end
 
-    def repost(repost_feed_id,options={})
-      feed = Feed.new(:creator=>self)
-      rfeed = Feed.find(repost_feed_id)
-      if rfeed.repost_feed_id.blank?
-        feed.repost_feed_id = rfeed.id
-      else
-        feed.repost_feed_id = rfeed.repost_feed_id
-      end
-      _send_feed(feed,options)
-    end
+    # 转发
+#    def repost(repost_feed_id,options={})
+#      feed = Feed.new(:creator=>self)
+#      rfeed = Feed.find(repost_feed_id)
+#      if rfeed.repost_feed_id.blank?
+#        feed.repost_feed_id = rfeed.id
+#      else
+#        feed.repost_feed_id = rfeed.repost_feed_id
+#      end
+#      _send_feed(feed,options)
+#    end
 
+    # 根据传入的参数发送一个主题
     def send_feed(options={})
-      feed = Feed.new(:creator=>self)
-      _send_feed(feed,options)
+      SendFeedAdapter.new(self, options).do_send
     end
 
-    def _send_feed(feed,options={})
-      cids = (options[:collection_ids]||"").split(",")
-      raise "最少指定一个收集册" if cids.blank?
-      
-      from = (options[:from]||FROM_WEB)
-      feed.from = from
-      return feed if !feed.valid?
-      feed.save!
+    class SendFeedAdapter
+      def initialize(creator, options={})
+        @creator = creator
 
-      unless options[:draft_token].blank?
-        post_draft = PostDraft.find_by_draft_token(options[:draft_token])
-        post_draft.destroy if !!post_draft
+        @collection_ids = (options[:collection_ids]||'').split(',')
+        raise "至少指定一个收集册" if @collection_ids.blank?
+
+        @from         = options[:from] || FROM_WEB
+        @draft_token = options[:draft_token]
+        @photo_ids   = (options[:photo_ids]||'').split(',')
+
+        @title       = options[:title]
+        @detail      = options[:detail]
+        @send_tsina  = options[:send_tsina] == 'true'
       end
 
-      feed.create_main_post(options[:title],options[:detail])
+      def do_send
+        photos      = @photo_ids.map{|id| Photo.find_by_id(id)}.uniq.compact
+        collections = @collection_ids.map{|id| Collection.find_by_id(id)}.uniq.compact
 
-      if !!options[:photo_names]
-        (options[:photo_names]||"").split(",").each do |name|
-          photo = PhotoAdpater.create_photo_by_file_name(name,self)
-          feed.main_post.post_photos.create(:photo=>photo)
+#        feed = Feed.new(
+#          :creator => @creator,
+#          :from    => @from,
+#          :collections => collections
+#        )
+#
+#        feed.posts = [
+#          Post.new(
+#            :title  => @title,
+#            :detail => @detail,
+#            :user   => @creator,
+#            :feed   => feed,
+#            :kind   => Post::KIND_MAIN,
+#            :text_format => Post::FORMAT_HTML,
+#            :photos => photos
+#          )
+#        ]
+#
+#        feed.save!
+
+        feed = Feed.new(
+          :creator => @creator,
+          :from    => @from
+        )
+        return feed if !feed.valid?
+        feed.save!
+
+        feed.create_main_post(@title, @detail, photos)
+
+        collections.each { |collection|
+          fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id, collection.id)
+          FeedCollection.create(:feed=>feed, :collection=>collection) if fc.blank?
+        }
+
+        delete_draft
+        feed.record_editer(@creator)
+        feed.send_to_tsina if @send_tsina
+        return feed
+      end
+      
+      def delete_draft
+        unless @draft_token.blank?
+          post_draft = PostDraft.find_by_draft_token(@draft_token)
+          post_draft.destroy if !!post_draft
         end
       end
 
-      cids.each do |collection_id|
-        collection = Collection.find(collection_id)
-        fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
-        FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
-      end
+#      def _link_photos(photo_ids)
+#        unless photo_ids.blank?
+#          photo_ids.each do |id|
+#            photo =
+#            feed.main_post.post_photos.create(:photo=>photo)
+#          end
+#        end
+#      end
 
-      feed.record_editer(self)
-      if options[:send_tsina] == "true"
-        feed.send_to_tsina
-      end
-      feed
+#      collection_ids.each do |collection_id|
+#        collection = Collection.find(collection_id)
+#        fc = FeedCollection.find_by_feed_id_and_collection_id(feed.id,collection.id)
+#        FeedCollection.create(:feed=>feed,:collection=>collection) if fc.blank?
+#      end
+
     end
 
+    #################
+    public
     def all_feeds_count
       Feed.news_feeds_of_user(self).unhidden.count
     end

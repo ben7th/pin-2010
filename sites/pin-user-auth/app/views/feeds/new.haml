@@ -9,7 +9,7 @@
 
 -# feed创建表单，提交的参数包括
 -# title
--# photo_names
+-# photo_ids
 -# detail
 -# collection_ids
 -# send_tsina
@@ -22,8 +22,8 @@
 -has_draft = !draft.blank?
 
 -ipt_title          = has_draft ? draft.title : ''
--ipt_photo_names    = has_draft ? draft.photo_names : ''
--ipt_photo_tmps     = has_draft ? draft.photo_tmps : []
+-ipt_photo_ids      = has_draft ? draft.photo_ids : ''
+-ipt_photos         = has_draft ? draft.photos : []
 
 -ipt_detail         = has_draft ? draft.detail : ''
 -ipt_collection_ids = has_draft ? draft.collection_ids : (params[:collection] || '')
@@ -50,12 +50,10 @@
       .clearfix
 
       .field.photos
-        -ipt_photo_tmps.each do |photo|
-          -image_url = photo.image.url(:s100)
-          -image_file_name = photo.id
-          =render 'views_modules/photos/feed_uploaded',:url=>image_url,:name=>image_file_name
+        -ipt_photos.each do |photo|
+          =render 'views_modules/photos/feed_uploaded',:photo=>photo
 
-        =hidden_field_tag "photo_names", ipt_photo_names, :class=>'photos-ipter at-least'
+        =hidden_field_tag "photo_ids", ipt_photo_ids, :class=>'photos-ipter at-least'
 
       .field.detail
         =text_area_tag "detail", ipt_detail, :class=>"text detail-ipter at-least"

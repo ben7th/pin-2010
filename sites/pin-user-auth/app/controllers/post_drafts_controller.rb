@@ -22,16 +22,20 @@ class PostDraftsController < ApplicationController
   end
 
   def _create__new_draft
-    @post_draft = PostDraft.new(:title=>params[:title],:detail=>params[:detail],
-      :photo_names=>params[:photo_names],:collection_ids=>params[:collection_ids],
-      :user=>current_user,:draft_token=>params[:draft_token]
+    @post_draft = PostDraft.new(
+      :title          => params[:title],
+      :detail         => params[:detail],
+      :photo_ids    => params[:photo_ids],
+      :collection_ids => params[:collection_ids],
+      :user           => current_user,
+      :draft_token    => params[:draft_token]
     )
   end
 
   def _create__update_draft
-    @post_draft.title = params[:title] if params[:title]
-    @post_draft.detail = params[:detail] if params[:detail]
-    @post_draft.photo_names = params[:photo_names] if params[:photo_names]
+    @post_draft.title          = params[:title] if params[:title]
+    @post_draft.detail         = params[:detail] if params[:detail]
+    @post_draft.photo_ids      = params[:photo_ids] if params[:photo_ids]
     @post_draft.collection_ids = params[:collection_ids] if params[:collection_ids]
   end
 

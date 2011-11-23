@@ -21,16 +21,20 @@ class FeedsController < ApplicationController
 
   def create
     feed = current_user.send_feed(
-      :title=>params[:title],
-      :detail=>params[:detail],
-      :photo_names=>params[:photo_names],
-      :collection_ids=>params[:collection_ids],
-      :from=>Feed::FROM_WEB,:send_tsina=>params[:send_tsina],
-      :draft_token=>params[:draft_token])
+      :title          => params[:title],
+      :detail         => params[:detail],
+      :photo_ids      => params[:photo_ids],
+      :collection_ids => params[:collection_ids],
+      :from           => Feed::FROM_WEB,
+      :send_tsina     => params[:send_tsina],
+      :draft_token    => params[:draft_token]
+    )
+    
     if feed.id.blank?
-      flash[:error]=get_flash_error(feed)
+      flash[:error] = get_flash_error(feed)
       return redirect_to '/feeds/new'
     end
+    
     redirect_to "/feeds/#{feed.id}"
   end
 

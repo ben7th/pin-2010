@@ -25,11 +25,10 @@ module Paperclip
       # 这里修改为 给文件随机命名
       # 以下两行是 lifei 添加的
       # 这段代码放在lib里不起作用，需要放在工程的 initializers 里
-      kouzhanming = uploaded_filename.split(".").last
-      base_name = UUIDTools::UUID.random_create.to_s
+      randstr_filename = get_randstr_filename(uploaded_filename)
 
       # instance_write(:file_name,       uploaded_filename.strip)
-      instance_write(:file_name,       "#{base_name}.#{kouzhanming}".strip) # 这一行修改过，其他代码和原来一样
+      instance_write(:file_name,       randstr_filename) # 这一行修改过，其他代码和原来一样
       instance_write(:content_type,    uploaded_file.content_type.to_s.strip)
       instance_write(:file_size,       uploaded_file.size.to_i)
       instance_write(:fingerprint,     generate_fingerprint(uploaded_file))
@@ -44,6 +43,14 @@ module Paperclip
       instance_write(:fingerprint, generate_fingerprint(@queued_for_write[:original]))
     ensure
       uploaded_file.close if close_uploaded_file
+    end
+
+    # 获取一个随机的文件名
+    def get_randstr_filename(uploaded_filename)
+      arr = uploaded_filename.split(".")
+      ext_name = arr.length > 1 ? arr.last.downcase : ''
+
+      return "#{randstr}.#{ext_name}".strip
     end
   end
 end

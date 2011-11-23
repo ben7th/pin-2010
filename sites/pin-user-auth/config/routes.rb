@@ -204,26 +204,22 @@ def match_collections_routes(map)
 end
 
 def match_photos_and_entries_routes(map)
-  map.resources :photos,:collection=>{:feed_upload=>:post},:member=>{
-    :comments=>:post,:add_description=>:put,
-    :send_feed=>:get,:create_feed=>:post
-  }
-  map.resources :entries,:collection=>{:photos=>:get}
+  match_post map, '/photos/upload_for_feed' => 'photos#upload_for_feed'
 end
 
 def match_tsina_app_routes(map)
   map.namespace(:apps) do |apps|
-    match_get apps,'tsina/mindpin'              => 'tsina_app_mindpin#index'
-    match_get apps,'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
-    match_get apps,'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
+    match_get apps, 'tsina/mindpin'              => 'tsina_app_mindpin#index'
+    match_get apps, 'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
+    match_get apps, 'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
 
-    match_get apps,'tsina/tu'                   => 'tsina_app_tu#index'
-    match_get apps,'tsina/tu/connect'           => 'tsina_app_tu#connect'
-    match_get apps,'tsina/tu/callback'          => 'tsina_app_tu#callback'
+    match_get apps, 'tsina/tu'                   => 'tsina_app_tu#index'
+    match_get apps, 'tsina/tu/connect'           => 'tsina_app_tu#connect'
+    match_get apps, 'tsina/tu/callback'          => 'tsina_app_tu#callback'
 
-    match_get apps,'tsina/schedule'             => 'tsina_app_schedule#index'
-    match_get apps,'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
-    match_get apps,'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
+    match_get apps, 'tsina/schedule'             => 'tsina_app_schedule#index'
+    match_get apps, 'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
+    match_get apps, 'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
   end
 end
 

@@ -1,7 +1,9 @@
 pie.load(function(){
-  var file_input_elm = jQuery('.page-file-upload input[type=file]');
-  var photos_elm = jQuery('.page-new-feed-form .field.photos');
+  var file_input_elm        = jQuery('.page-file-upload input[type=file]');
+  var photos_elm            = jQuery('.page-new-feed-form .field.photos');
   var form_photos_ipter_elm = jQuery('.page-new-feed-form .field.photos .photos-ipter');
+
+  var upload_url = '/photos/upload_for_feed';
 
 /*
   .uploading-photo.aj-loading{:style=>'display:none;'}
@@ -43,12 +45,12 @@ pie.load(function(){
   })
 
   var set_param = function(){
-    var photo_names = [];
+    var photo_ids = [];
     photos_elm.find('.photo').each(function(){
-      photo_names.push(jQuery(this).domdata('name'));
+      photo_ids.push(jQuery(this).domdata('photo-id'));
     })
 
-    form_photos_ipter_elm.val(photo_names);
+    form_photos_ipter_elm.val(photo_ids);
   }
 
   var get_file_size_str = function(file){
@@ -116,7 +118,7 @@ pie.load(function(){
       }
     };
 
-    xhr.open("POST", "/photos/feed_upload");
+    xhr.open("POST", upload_url);
     xhr.send(form_data);
   };
 

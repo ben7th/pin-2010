@@ -63,13 +63,16 @@ class Account::SettingController <  ApplicationController
 
     return render :template=>"account/setting/copper_avatared"
   rescue
-    flash.now[:error] = "头像保存失败，请选择头像图片并上传"
-    return render :action=>:avatared
+    flash[:error] = "图片上传失败"
+    redirect_to :action=>:avatared
   end
   
   # 修改头像 - 裁切原始头像并保存到云
   def avatared_submit_copper
     UserAvatarAdpater.copper_logo(current_user, params[:x1], params[:y1], params[:width], params[:height])
+    redirect_to :action=>:avatared
+  rescue
+    flash[:error] = "头像裁剪失败"
     redirect_to :action=>:avatared
   end
 end

@@ -12,10 +12,10 @@ class Atme < UserAuthAbstract
 
   def self.parse_at_users(content)
     atme_strings = content.gsub(AT_REG).to_a
-    atme_strings.map do |str|
+    atme_strings.map { |str|
       uname = str.gsub("@","")
       User.find_by_name(uname)
-    end.compact
+    }.compact
   end
 
   def self.add_atmes_by_atable(atable,content,creator)
@@ -75,12 +75,12 @@ class Atme < UserAuthAbstract
     end
 
     def add_atmes_by_memo_on_create
-      Atme.add_atmes_by_atable(self,self.detail,self.user)
+      # Atme.add_atmes_by_atable(self, self.detail, self.user)
       return true
     end
 
     def add_atmes_by_memo_on_update
-      Atme.change_atmes_by_atable(self,self.detail,self.user)
+      Atme.change_atmes_by_atable(self, self.detail, self.user)
       return true
     end
   end
@@ -93,10 +93,12 @@ class Atme < UserAuthAbstract
 
     def add_atmes_by_content
       Atme.add_atmes_by_atable(self,self.content,self.user)
+      return true
     end
 
     def destroy_related_atmes
       self.atmes.each{|a|a.destroy}
+      return true
     end
   end
 

@@ -1,29 +1,34 @@
 require 'RMagick'
-require 'digest/md5'
 class Photo < UserAuthAbstract
   belongs_to :user
+  
   validates_presence_of :user
+  validates_attachment_content_type :image,
+    :content_type => ['image/gif', 'image/png', 'image/jpeg'],
+    :message=>"只能上传图片"
+  validates_attachment_presence :image
 
+  # ----
   if RAILS_ENV == "development"
     IMAGE_BASE_PATH = "/web1/2010/photos/images"
     IMAGE_PATH = "#{IMAGE_BASE_PATH}/:id/:style/:basename.:extension"
     IMAGE_URL = "http://dev.mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
+
+#    IMAGE_PATH = "/:class/:attachment/:id/:style/:basename.:extension"
+#    IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
   else
     IMAGE_BASE_PATH = "/web/2010/photos/images"
     IMAGE_PATH = "#{IMAGE_BASE_PATH}/:id/:style/:basename.:extension"
     IMAGE_URL = "http://mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
+
+#    IMAGE_PATH = "/:class/:attachment/:id/:style/:basename.:extension"
+#    IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
   end
-
-  validates_attachment_content_type :image,
-    :content_type => ['image/gif', 'image/png', 'image/jpeg'],
-    :message=>"只能上传图片",:if=>Proc.new{|photo|!photo.skip_resize_image}
-  validates_attachment_presence :image,:if=>Proc.new{|photo|!photo.skip_resize_image}
-
 
   # image
   PHOTO_STYLES_HASH = {
     :w500 => '500x>',    #最宽500，原始比例，用于主题show页面，以及手机列表页
-    :w220 => '220x>',    #最宽210，原始比例，用于主题列表（一栏）
+    :w250 => '250x>',    #最宽250，原始比例，用于主题列表（一栏）
     :s100 => '100x100#', #100见方，用于草稿的回显，以及手机客户端缩略图，收集册封面，以及图片上传标识
   }
 
@@ -31,33 +36,22 @@ class Photo < UserAuthAbstract
     :styles => PHOTO_STYLES_HASH,
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
-    :default_style => :original,
-    :if=>Proc.new{|photo|!photo.skip_resize_image}
+    :default_style => :original
+    #:storage => :oss
 
-  before_create :set_md5
-  def set_md5
-    file_path = self.image.queued_for_write[:original].path
-    self.md5 = Digest::MD5.hexdigest(File.read(file_path))
+  def image_size(style = :original)
+    {
+      :height => image.height(style),
+      :width  => image.width(style)
+    }
   end
 
   def image_height(style = :original)
-    image_size(style)[:height]
+    image.height(style)
   end
 
   def image_ratio(style = :original)
-    return image_size(style)[:height].to_f / image_size(style)[:width].to_f
-  end
-
-  def image_base_path
-    File.join(IMAGE_BASE_PATH,self.id.to_s)
-  end
-
-  def skip_resize_image
-    @skip_resize_image
-  end
-
-  def skip_resize_image=(skip_resize_image)
-    @skip_resize_image=skip_resize_image
+    return image.height(style).to_f / image.width(style).to_f
   end
 
   module UserMethods

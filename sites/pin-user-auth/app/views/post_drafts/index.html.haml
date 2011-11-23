@@ -38,9 +38,9 @@
 
         -format = FeedFormat.new(draft)
 
-        -photo_tmps   = draft.photo_tmps
-        -has_photo    = !photo_tmps.blank?
-        -single_photo = photo_tmps.length == 1
+        -photos       = draft.photos
+        -has_photo    = !photos.blank?
+        -single_photo = photos.length == 1
 
 
         -title      = format.title
@@ -53,12 +53,12 @@
           -if has_photo
             -if single_photo
               .single_photo
-                -photo = photo_tmps[0]
-                -src = photo.image.url(:w220)
+                -photo = photos[0]
+                -src = photo.image.url(:w250)
                 %img{:src=>src,:style=>'width:220px;'}
             -else
               .photos
-                -photo_tmps.each do |photo|
+                -photos.each do |photo|
                   -src = photo.image.url(:s100)
                   .photo
                     %img{:src=>src}
