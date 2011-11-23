@@ -54,32 +54,22 @@ class Account::SettingController <  ApplicationController
   # 头像
   def avatared;end
 
-  # 修改头像
-  def avatared_submit
-    if !params[:copper]
-      if params[:user].blank?
-        flash.now[:error] = "头像保存失败，请选择头像图片并上传"
-        return render :action=>:avatared
-      end
-      return _save_avatar
-    else
-      return _copper
-    end
-  end
+  # 修改头像 - 上传原始头像
+  def avatared_submit_raw
+    adpater = UserAvatarAdpater.new(current_user, params[:logo]).create_temp_file
+    
+    @temp_image_size = adpater.temp_image_size
+    @temp_image_url  = adpater.temp_image_url
 
-  def _save_avatar
-    @image_file_name = UserAvatarAdpater.create_by_upload_file(params[:user][:logo])
-    @image_url = UserAvatarAdpater.url_by_image_file_name(@image_file_name)
-    image_path = UserAvatarAdpater.path_by_image_file_name(@image_file_name)
-    image = Magick::Image::read(File.new(image_path)).first
-    @image_size = {:height=>image.rows,:width=>image.columns}
     return render :template=>"account/setting/copper_avatared"
+  rescue
+    flash.now[:error] = "头像保存失败，请选择头像图片并上传"
+    return render :action=>:avatared
   end
-
-  def _copper
-    @image_file_path = UserAvatarAdpater.path_by_image_file_name(params[:image_file_name])
-    current_user.copper_logo(@image_file_path,params)
-    FileUtils.rm(@image_file_path)
+  
+  # 修改头像 - 裁切原始头像并保存到云
+  def avatared_submit_copper
+    UserAvatarAdpater.copper_logo(current_user, params[:x1], params[:y1], params[:width], params[:height])
     redirect_to :action=>:avatared
   end
 end

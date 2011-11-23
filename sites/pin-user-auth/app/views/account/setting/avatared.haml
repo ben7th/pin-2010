@@ -15,14 +15,15 @@
     = flash_info
     .page-account-base-form.aj-submit-form
       .clearfix
+        = logo current_user,:large
         = logo current_user,:medium
         = logo current_user,:normal
         = logo current_user,:tiny
         = logo current_user,:mini
 
-      - form_for current_user,:url=>"/account/avatared",:method=>:put,:html=>{:multipart=>true} do |f|
+      - form_tag "/account/avatared_submit_raw",:multipart=>true do
         .field
           %label 选择一张图片并上传
-          = f.file_field(:logo)
+          = file_field_tag :logo
         .field
           = link_to '上传图片','javascript:;',:class=>'account-submit a-link-submit'

@@ -146,35 +146,6 @@ module UserMethods
   end
 
   public
-  def copper_logo(image_file_path, params)
-    file = File.new(image_file_path)
-    self.update_attributes(:logo=>file)
-    self.photos.create(:image=>file)
-    file = File.new(image_file_path)
-    img = Magick::Image::read(file).first
-    img.crop!(params[:x1].to_i, params[:y1].to_i,params[:width].to_i, params[:height].to_i,true)
-    _resize(img)
-  end
-
-  def _resize(img)
-#      :raw=>'500x500>',
-#      :s200=>"200x200#",
-#      :medium=>"96x96#",
-#      :normal=>"48x48#",
-#      :tiny=>'32x32#',
-#      :mini=>'24x24#'
-    _resize_logo(img,"s200",200,200)
-    _resize_logo(img,"medium",96,96)
-    _resize_logo(img,"normal",48,48)
-    _resize_logo(img,"tiny",32,32)
-    _resize_logo(img,"mini",24,24)
-  end
-
-  def _resize_logo(img,type,width,height)
-    img_type = img.resize(width,height)
-    img_type.write File.expand_path(UserBase::LOGO_PATH_ROOT)+"/users/logos/#{self.id}/#{type}/#{self.logo_file_name}"
-  end
-
   def change_password(old_pass,new_pass,new_pass_confirmation)
     raise "请输入旧密码" if old_pass.blank?
     raise "请输入新密码" if new_pass.blank?

@@ -68,8 +68,9 @@ def match_account_routes(map)
     match_put  account, "/"                     => "setting#base_submit"
 
     # 头像设置
-    match_get  account, "avatared"              => 'setting#avatared'
-    match_put  account, "avatared"              => 'setting#avatared_submit'
+    match_get  account, "avatared"               => 'setting#avatared'
+    match_post account, "avatared_submit_raw"    => 'setting#avatared_submit_raw'
+    match_post account, "avatared_submit_copper" => 'setting#avatared_submit_copper'
 
     match_get  account, "tsina"                 => "tsina#index"
     # 设置中点击“关联新浪微博账号”按钮
