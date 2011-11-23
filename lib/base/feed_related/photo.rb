@@ -9,21 +9,8 @@ class Photo < UserAuthAbstract
   validates_attachment_presence :image
 
   # ----
-  if RAILS_ENV == "development"
-    IMAGE_BASE_PATH = "/web1/2010/photos/images"
-    IMAGE_PATH = "#{IMAGE_BASE_PATH}/:id/:style/:basename.:extension"
-    IMAGE_URL = "http://dev.mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
-
-#    IMAGE_PATH = "/:class/:attachment/:id/:style/:basename.:extension"
-#    IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
-  else
-    IMAGE_BASE_PATH = "/web/2010/photos/images"
-    IMAGE_PATH = "#{IMAGE_BASE_PATH}/:id/:style/:basename.:extension"
-    IMAGE_URL = "http://mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
-
-#    IMAGE_PATH = "/:class/:attachment/:id/:style/:basename.:extension"
-#    IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
-  end
+  IMAGE_PATH = "/:class/:attachment/:id/:style/:basename.:extension"
+  IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
 
   # image
   PHOTO_STYLES_HASH = {
@@ -36,8 +23,8 @@ class Photo < UserAuthAbstract
     :styles => PHOTO_STYLES_HASH,
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
-    :default_style => :original
-    #:storage => :oss
+    :default_style => :original,
+    :storage => :oss
 
   def image_size(style = :original)
     {
