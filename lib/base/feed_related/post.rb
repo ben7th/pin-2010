@@ -1,16 +1,29 @@
 class Post < UserAuthAbstract
 
-  belongs_to :feed
-  belongs_to :user
-  validates_presence_of :feed,:on=>:create
-  validates_presence_of :user,:on=>:create
-
+  # 常量
   KIND_MAIN   = "main"
   KIND_NORMAL = "normal"
 
   FORMAT_HTML = "html"
   FORMAT_MARKDOWN = "markdown"
 
+  # 字段声明
+
+  # 该字段用于在校验时区分是单独创建还是关联创建
+  # 例如，在创建feed时关联创建post
+  # 设为 true 则可以跳过对 feed 的校验
+  attr_accessor :create_by_feed
+
+  # 数据关系
+  belongs_to :feed
+  belongs_to :user
+
+  # 校验
+  validates_presence_of :feed,:if=>Proc.new{|post| post.create_by_feed != true}
+  validates_presence_of :user
+
+
+  # 查询
   named_scope :limited, lambda {|count|
     {:limit=>count.to_i,:order=>"posts.updated_at desc"}
   }
@@ -18,6 +31,7 @@ class Post < UserAuthAbstract
   named_scope :normal,:conditions=>"kind = '#{KIND_NORMAL}'",
     :order=>"id asc"
 
+  # 回调
   after_save :remove_feed_invite
   def remove_feed_invite
     feed = self.feed
@@ -69,12 +83,6 @@ class Post < UserAuthAbstract
   end
 
   module FeedMethods
-    def self.included(base)
-      base.has_many :posts,:dependent=>:destroy
-      base.has_many :memoed_users_db,:through=>:posts,:source=>:user,
-        :order=>"posts.vote_score desc"
-    end
-
     def post_of(user)
       self.posts.find_by_user_id(user.id)
     end
@@ -121,17 +129,6 @@ class Post < UserAuthAbstract
       end.compact
     end
 
-    def create_main_post(title, detail, photos=[])
-      self.posts.create(
-        :title       => title,
-        :detail      => detail,
-        :user        => self.creator,
-        :kind        => Post::KIND_MAIN,
-        :text_format => Post::FORMAT_HTML,
-        :photos      => photos
-      )
-    end
-
     def update_title_without_record_editor(title)
       post = self.main_post
       post.update_attribute(:title,title)
@@ -140,10 +137,6 @@ class Post < UserAuthAbstract
     def update_detail_without_record_editor(detail)
       post = self.main_post
       post.update_attribute(:detail,detail)
-    end
-
-    def main_post
-      self.posts.find_by_kind(Post::KIND_MAIN)
     end
     
     def add_comment(user, comment_str)

@@ -190,7 +190,5 @@ class Mindmap < Mev6Abstract
   include MindmapCooperationMethods
   include MindmapFav::MindmapMethods
 
-  include FeedMindmap::MindmapMethods
-
   include HistoryRecord::MindmapMethods
 end

@@ -62,12 +62,6 @@ class FeedRevision < UserAuthAbstract
   end
 
   module FeedMethods
-    def self.included(base)
-      base.has_many :feed_revisions,:order=>"feed_revisions.id desc"
-      base.has_many :edited_users,:through=>:feed_revisions,:source=>:user,
-        :order=>"feed_revisions.id desc"
-    end
-
     def last_edited_time
       fc = self.feed_revisions.first
       return self.updated_at if fc.blank?
@@ -78,10 +72,16 @@ class FeedRevision < UserAuthAbstract
       edited_users.first
     end
 
-    def record_editer(editer,message="")
+    def record_editer(editer, message='')
       self.reload
-      FeedRevision.create(:feed=>self,:user=>editer,:tag_ids_json=>self.tag_ids.to_json,
-        :title=>self.title,:detail=>self.detail,:message=>message)
+      FeedRevision.create(
+        :feed => self,
+        :user => editer,
+        :tag_ids_json => self.tag_ids.to_json,
+        :title   => self.title,
+        :detail  => self.detail,
+        :message => message
+      )
     end
   end
 

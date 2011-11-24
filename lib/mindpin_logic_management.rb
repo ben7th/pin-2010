@@ -100,7 +100,7 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy(CollectionWithTextFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(CollectionWithPhotoFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(CollectionMixedFeedsProxy)
-    
+
     MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserBeInvitedFeedsProxy)
     MindpinLogicManagement.load_redis_proxy(UserFavTagFeedsProxy)

@@ -19,10 +19,11 @@ class Atme < UserAuthAbstract
   end
 
   def self.add_atmes_by_atable(atable,content,creator)
-    users = Atme.parse_at_users(content)
+    users = Atme.parse_at_users(content||'')
+
     users.each do |u|
       next if u == creator
-      u.atmes.create(:atable=>atable,:creator=>creator)
+      u.atmes.create(:atable=>atable, :creator=>creator)
     end
   end
 
@@ -75,7 +76,7 @@ class Atme < UserAuthAbstract
     end
 
     def add_atmes_by_memo_on_create
-      # Atme.add_atmes_by_atable(self, self.detail, self.user)
+      Atme.add_atmes_by_atable(self, self.detail, self.user)
       return true
     end
 
