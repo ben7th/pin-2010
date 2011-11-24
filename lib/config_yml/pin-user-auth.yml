@@ -6,8 +6,6 @@ development:
   renren_bind_callback_url: http://dev.www.mindpin.com/bind_other_site/renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
-  tsina_api_key: 1526151944
-  tsina_api_secret: a00a7048df478244376d69b14bb7ae07
   douban_api_key: 0698f40c6ba7f4d213cadc2542f7de76
   douban_api_secret: bad70c605a01184f
   client_cache_key: client_cache_key_devel
@@ -20,8 +18,6 @@ test:
   renren_callback_url: http://dev.www.mindpin.com/connect_renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
-  tsina_api_key: 1526151944
-  tsina_api_secret: a00a7048df478244376d69b14bb7ae07
   spam_mark_effect_count: 5
 
 production:
@@ -32,7 +28,5 @@ production:
   renren_bind_callback_url: http://www.mindpin.com/bind_other_site/renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
   renren_api_secret: 7317a969ef764953a5b22e5862a27c0b
-  tsina_api_key: 1526151944
-  tsina_api_secret: a00a7048df478244376d69b14bb7ae07
   client_cache_key: client_cache_key
   spam_mark_effect_count: 5

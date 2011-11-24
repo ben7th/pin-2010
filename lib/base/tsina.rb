@@ -4,9 +4,8 @@ class Tsina
   class ContentLengthError<StandardError;end
   class RepeatSendError<StandardError;end
 
-  SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
-  API_KEY = SETTINGS["tsina_api_key"]
-  API_SECRET = SETTINGS["tsina_api_secret"]
+  API_KEY = "1526151944"
+  API_SECRET = "a00a7048df478244376d69b14bb7ae07"
   API_SITE = "http://api.t.sina.com.cn"
 
   ACCOUNT_CONNECT_CALLBACK = pin_url_for("pin-user-auth","/account/tsina/callback")

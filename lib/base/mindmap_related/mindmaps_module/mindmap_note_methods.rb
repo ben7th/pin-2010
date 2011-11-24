@@ -1,7 +1,7 @@
 module MindmapNoteMethods
   NOTE_REPO_BASE_PATH = case RAILS_ENV
   when 'development'
-    CoreService.find_setting_by_project_name("pin-notes")["note_repo_path"]
+    "/root/mindpin_base/note_repo"
   when 'production'
     '/web/2010/note_repo' # 部署环境下note没有启动，加载不了，直接写了
   end

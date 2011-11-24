@@ -13,7 +13,18 @@ class UserBase < UserAuthAbstract
     LOGO_URL_ROOT = SETTINGS["user_logo_file_url_root"]
   end
 
-  ADMIN_USER_EMAILS = CoreService.find_setting_by_name("admin_users_email")
+  ADMIN_USER_EMAILS = case RAILS_ENV
+  when "development"
+    ["ben7th@126.com"]
+  when "test"
+    ["ben7th@126.com"]
+  when "production"
+    [
+      "ben7th@sina.com",
+      "4820357@qq.com",
+      "sophia.njtu@gmail.com"
+    ]
+  end
   
   @logo_path = "/:class/:attachment/:id/:style/:basename.:extension"
   @logo_url  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
