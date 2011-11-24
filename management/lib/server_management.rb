@@ -1,7 +1,7 @@
 class ServerManagement
+
   # 包含的server
   Servers = ['memcached_service','redis_service','mindmaps_lucene_service','feeds_lucene_service','resque_web_service']
-  SERVERS_SH_PATH = File.join(ConfigManager.pin_2010_path,"sh/service_sh")
   
   include ServersMemcached
   include ServersRedis
@@ -11,6 +11,7 @@ class ServerManagement
   
 
   class << self
+    include PathConfig
     # 检测服务是否开启
     def start?(server_name)
       check_server_name_param(server_name)

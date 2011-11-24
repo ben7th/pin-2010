@@ -1,11 +1,10 @@
 class ResqueQueueWorkerManagement
-  # 包含的 queue
-  Queues = ConfigManager.resque_queues
+  
   # 支持的操作
   Operations = ["start",'stop','pause','cont']
-  WORKER_SH_PATH = File.join(ConfigManager.pin_2010_path,"sh/worker_sh")
   
   class << self
+    include PathConfig
     def start?(queue_name)
       check_resque_queue_name(queue_name)
       state(queue_name) == "正常运行"
@@ -55,7 +54,7 @@ class ResqueQueueWorkerManagement
     
     private
     def check_resque_queue_name(queue_name)
-      raise "没有 #{queue_name} 这个 queue" unless Queues.include?(queue_name)
+      raise "没有 #{queue_name} 这个 queue" unless QUEUES.include?(queue_name)
     end
     
     def get_pid_file_path_by_queue_name(queue_name)

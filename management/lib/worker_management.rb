@@ -1,4 +1,5 @@
 class WorkerManagement
+
   # 包含的 worker
   Workers = [
     "mindmap_import_queue_worker",
@@ -6,9 +7,9 @@ class WorkerManagement
   ]
   # 支持的操作
   Operations = ["start",'stop']
-  WORKER_SH_PATH = File.join(ConfigManager.pin_2010_path,"sh/worker_sh")
   
   class << self
+    include PathConfig
 
     # 检测worker是否开启
     def start?(worker_name)

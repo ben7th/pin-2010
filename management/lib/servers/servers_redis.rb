@@ -4,8 +4,9 @@ module ServersRedis
   end
 
   module ClassMethods
+    include PathConfig
+
     REDIS_CLIENT = Redis.new(:thread_safe=>true)
-    REDIS_SERVICE_SH = File.join(ServerManagement::SERVERS_SH_PATH,"redis_service.sh")
     def redis_service_state
       pid_file_path = "/web/2010/pids/redis_service.pid"
       ManagementUtil.check_process_by_pid_file(pid_file_path)
@@ -16,15 +17,15 @@ module ServersRedis
     end
 
     def start_redis_service
-      Dir.chdir(ServerManagement::SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} start` }
+      Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} start` }
     end
 
     def stop_redis_service
-      Dir.chdir(ServerManagement::SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} stop` }
+      Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} stop` }
     end
 
     def restart_redis_service
-      Dir.chdir(ServerManagement::SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} restart` }
+      Dir.chdir(SERVERS_SH_PATH){ `sh #{REDIS_SERVICE_SH} restart` }
     end
 
     # 返回redis的状态

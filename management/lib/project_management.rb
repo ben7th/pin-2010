@@ -1,7 +1,7 @@
 class ProjectManagement
-  UNICORN_SH_PATH = File.join(ConfigManager.pin_2010_path,"sh")
   
   class << self
+    include PathConfig
 
     # 操作工程的 启动，关闭，重启，usr
     # param operation 要做的操作
@@ -79,7 +79,7 @@ class ProjectManagement
       if !["pin-user-auth","pin-mev6","pin-uni-schedule"].include?(project_name)
         raise "#{project_name} 工程不存在"
       end
-      File.join(ConfigManager.pin_2010_path,"sites/#{project_name}/log/#{RAILS_ENV}.log")
+      File.join(PIN_2010_PATH,"sites/#{project_name}/log/#{RAILS_ENV}.log")
     end
   end
 end

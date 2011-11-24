@@ -1,8 +1,0 @@
-development:
-  git_repo_path: /root/mindpin_base/git_repo
-
-test:
-  git_repo_path: /root/mindpin_base/git_repo
-
-production:
-  git_repo_path: /web/2010/git_repo

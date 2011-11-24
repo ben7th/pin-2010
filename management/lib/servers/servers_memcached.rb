@@ -4,6 +4,8 @@ module ServersMemcached
   end
 
   module ClassMethods
+    include PathConfig
+
     # 返回 memcached 的运行状态
     def memcached_service_state
       pid_file_path = "/tmp/memcached.pid"
@@ -15,8 +17,8 @@ module ServersMemcached
     end
 
     def start_memcached_service
-      memcached_sh = File.join(ServerManagement::SERVERS_SH_PATH,"memcache.sh")
-      Dir.chdir(ServerManagement::SERVERS_SH_PATH){ `sh #{memcached_sh}` }
+      memcached_sh = File.join(SERVERS_SH_PATH,"memcache.sh")
+      Dir.chdir(SERVERS_SH_PATH){ `sh #{memcached_sh}` }
     end
 
     def restart_memcached_service

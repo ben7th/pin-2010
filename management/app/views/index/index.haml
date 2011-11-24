@@ -50,7 +50,7 @@
       %th 日志最后修改时间
       %th 操作
   %tbody
-    -ConfigManager.resque_queues.each do |queue|
+    -PathConfig::QUEUES.each do |queue|
       %tr=render :partial=>"index/parts/resque_queue_worker_stat",:locals=>{:queue_name=>queue}
 
 =link_to "退出登录","/logout"
