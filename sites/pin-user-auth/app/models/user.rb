@@ -50,7 +50,6 @@ class User < UserBase
   include Activity::UserMethods
   include UserAutoCompeleteCache
   include Mindmap::UserMethods
-  include Listening::UserMethods
   include ActivationCode::UserMethods
 
   include UserBaseEvent

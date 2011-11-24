@@ -125,6 +125,8 @@ class Feed < UserAuthAbstract
 
   # 同步方法
   def send_to_tsina
+    self.reload
+
     fdetail = self.detail
     ftitle  = self.title
     url     = self.http_url
@@ -140,12 +142,10 @@ class Feed < UserAuthAbstract
     end
     status = "#{status} #{url}"
     
-
     if photos.blank?
       creator.send_message_to_tsina_weibo_in_queue(status)
     else
-      img_path = photos[0].image.path
-      creator.send_tsina_image_status_in_queue(img_path, status)
+      creator.send_photo_to_tsina_in_queue(photos[0].id,status)
     end
   end
 

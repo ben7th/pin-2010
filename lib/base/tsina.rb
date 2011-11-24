@@ -101,6 +101,11 @@ class Tsina
       return false
     end
 
+    def send_photo_to_tsina_weibo(photo_id,content)
+      path = Photo.find(photo_id).image.to_file.path
+      send_tsina_image_status(path,content)
+    end
+
     def send_tsina_image_status(image,content)
       wb = self.tsina_weibo
       res = ""
@@ -128,6 +133,11 @@ class Tsina
     def send_tsina_image_status_in_queue(image_path,content)
       SendTsinaStatusQueueWorker.async_send_tsina_status({
           :user_id=>self.id,:content=>content,:image_path=>image_path})
+    end
+
+    def send_photo_to_tsina_in_queue(photo_id,content)
+      SendTsinaStatusQueueWorker.async_send_tsina_status({
+          :user_id=>self.id,:content=>content,:photo_id=>photo_id})
     end
 
     def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
