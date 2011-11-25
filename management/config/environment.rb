@@ -6,9 +6,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "redis"
 
-  require "#{RAILS_ROOT}/../lib/get_all_dir"
   config.autoload_paths += Dir["#{RAILS_ROOT}/lib/**/"]
-  config.load_paths += GetAllDir.get_all_dir("#{RAILS_ROOT}/../lib/config")
 
   config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
