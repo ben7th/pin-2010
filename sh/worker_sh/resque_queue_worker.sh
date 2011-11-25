@@ -20,7 +20,7 @@ case "$2" in
   start)
     echo "start"
     assert_process_from_pid_file_not_exist $processor_pid
-    VVERBOSE=1 INTERVAL=1 QUEUE=$queue_name rake environment resque:work 1>>$log_path 2>>$log_path &
+    VVERBOSE=1 INTERVAL=1 QUEUE=$queue_name RAILS_ENV=$rails_env rake environment resque:work 1>>$log_path 2>>$log_path &
     echo $! > $processor_pid
     rc_status -v
   ;;
