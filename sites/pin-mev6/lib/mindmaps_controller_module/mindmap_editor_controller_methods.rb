@@ -67,7 +67,7 @@ module MindmapEditorControllerMethods
     if !has_view_rights?(@mindmap,current_user)
       return (render :text=>'private')
     end
-    render :json=>{'mindmap'=>{'title'=>@mindmap.title,'logo'=>@mindmap.logo.url,'created_at'=>@mindmap.created_at}}
+    render :json=>{'mindmap'=>{'title'=>@mindmap.title,'created_at'=>@mindmap.created_at}}
   end
 
   def _download_mm

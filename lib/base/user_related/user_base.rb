@@ -4,15 +4,6 @@ class UserBase < UserAuthAbstract
   set_readonly true
   set_table_name("users")
 
-  if RAILS_ENV == "test"
-    LOGO_PATH_ROOT = "/tmp/"
-    LOGO_URL_ROOT = "http://localhost"
-  else
-    SETTINGS = CoreService.find_setting_by_project_name(CoreService::USER_AUTH)
-    LOGO_PATH_ROOT = SETTINGS["user_logo_file_path_root"]
-    LOGO_URL_ROOT = SETTINGS["user_logo_file_url_root"]
-  end
-
   ADMIN_USER_EMAILS = case RAILS_ENV
   when "development"
     ["ben7th@126.com"]

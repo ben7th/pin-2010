@@ -3,9 +3,21 @@ class Tag < UserAuthAbstract
 
   validates_format_of :name,:with=>/^[A-Za-z0-9一-龥]+$/
 
+  case RAILS_ENV
+  when "test"
+    LOGO_PATH_ROOT = "/tmp/"
+    LOGO_URL_ROOT = "http://localhost"
+  when "production"
+    LOGO_PATH_ROOT = "/web/2010/images/"
+    LOGO_URL_ROOT = "http://img.mindpin.com/"
+  when "development"
+    LOGO_PATH_ROOT = "/web/2010/devel_images/"
+    LOGO_URL_ROOT = "http://dev.img.mindpin.com/"
+  end
+
   # logo
-  @logo_path = "#{UserBase::LOGO_PATH_ROOT}:class/:attachment/:id/:style/:basename.:extension"
-  @logo_url = "#{UserBase::LOGO_URL_ROOT}:class/:attachment/:id/:style/:basename.:extension"
+  @logo_path = "#{LOGO_PATH_ROOT}:class/:attachment/:id/:style/:basename.:extension"
+  @logo_url = "#{LOGO_URL_ROOT}:class/:attachment/:id/:style/:basename.:extension"
   has_attached_file :logo,:styles =>
     {:raw=>'500x500>',:medium=>"96x96#",
     :normal=>"48x48#",:tiny=>'32x32#',:mini=>'24x24#',:s16=>'16x16#' },

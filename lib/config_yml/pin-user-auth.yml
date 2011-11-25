@@ -1,6 +1,4 @@
 development:
-  user_logo_file_path_root: /web/2010/devel_images/
-  user_logo_file_url_root: http://dev.img.mindpin.com/
   import_mindmap_file_base_path: /root/mindpin_base/import_mindmap
   renren_callback_url: http://dev.www.mindpin.com/connect_renren_callback
   renren_bind_callback_url: http://dev.www.mindpin.com/bind_other_site/renren_callback
@@ -12,8 +10,6 @@ development:
   spam_mark_effect_count: 5
 
 test:
-  user_logo_file_path_root: /web/2010/devel_images/
-  user_logo_file_url_root: http://dev.img.mindpin.com/
   import_mindmap_file_base_path: /root/mindpin_base/import_mindmap
   renren_callback_url: http://dev.www.mindpin.com/connect_renren_callback
   renren_api_key: e7533b7ee8b541878000455b20b3589b
@@ -21,8 +17,6 @@ test:
   spam_mark_effect_count: 5
 
 production:
-  user_logo_file_path_root: /web/2010/images/
-  user_logo_file_url_root: http://img.mindpin.com/
   import_mindmap_file_base_path: /web/2010/import_mindmap
   renren_callback_url: http://www.mindpin.com/connect_renren_callback
   renren_bind_callback_url: http://www.mindpin.com/bind_other_site/renren_callback

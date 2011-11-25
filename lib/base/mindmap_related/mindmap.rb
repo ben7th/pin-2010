@@ -55,14 +55,6 @@ class Mindmap < Mev6Abstract
   # 校验部分
   validates_presence_of :title
  
-  @file_path = "#{UserBase::LOGO_PATH_ROOT}:class/:attachment/:id/:style/:basename.:extension"
-  @file_url = "#{UserBase::LOGO_URL_ROOT}:class/:attachment/:id/:style/:basename.:extension"
-  has_attached_file :logo,:styles => {:s128=>'128x128>',:mini=>'32x32#'},
-    :path => @file_path,
-    :url => @file_url,
-    :default_url => "/images/logo/default_:class_:style.png",
-    :default_style => :mini
-
   after_create :refresh_thumb_image
   def refresh_thumb_image
      MindmapImageCache.new(self).refresh_all_cache_file
