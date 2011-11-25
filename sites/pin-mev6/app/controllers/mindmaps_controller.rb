@@ -1,7 +1,7 @@
 class MindmapsController < ApplicationController
   include MindmapRightsHelper
   include MindmapEditorControllerMethods
-  before_filter :per_load
+  before_filter :per_load,:except=>:refresh_thumb
   def per_load
     @mindmap = Mindmap.find(params[:id]) if params[:id]
   end
@@ -55,6 +55,11 @@ class MindmapsController < ApplicationController
     render :status=>500,:json=>{:code=>1,:message=>ex.message}
   rescue Exception => ex
     render :status=>500,:json=>{:code=>0,:message=>ex.message}
+  end
+
+  def refresh_thumb
+    MindmapImageCache.new(@mindmap).refresh_all_cache_file
+    render :text=>200
   end
 
   include MindmapImportControllerMethods

@@ -1,6 +1,2 @@
-# load tasks
-Dir[
-  File.join(RAILS_ROOT, "../../lib/tasks", "**", "*.rb")
-].sort.each { |patch|
-  require(patch)
-}
+require "#{RAILS_ROOT}/../../lib/mindpin_rails_loader"
+MindpinRailsLoader.load_tasks

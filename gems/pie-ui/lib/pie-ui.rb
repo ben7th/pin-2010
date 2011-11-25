@@ -7,18 +7,7 @@ module PieUi
     end
 
     # 加载各个扩展
-    def load_extensions
-      if defined? ActiveRecord::Base
-        require 'pie-ui/active_record_ext/set_readonly'
-        ActiveRecord::Base.send :include, PieUi::SetReadonly
-
-        require 'pie-ui/active_record_ext/build_database_connection'
-        ActiveRecord::Base.send :include, PieUi::BuildDatabaseConnection
-
-        require 'pie-ui/active_record_ext/save_without_timestamping'
-        ActiveRecord::Base.send :include, PieUi::SaveWithoutTimestamping
-      end
-      
+    def load_extensions      
       if defined? ActionView::Base
         require 'pie-ui/action_view_ext/xml_format_helper'
         ActionView::Base.send :include, PieUi::XmlFormatHelper
