@@ -37,16 +37,21 @@ module MindmapManagingControllerMethods
     end
   end
 
+  # 切换公开私有
   def toggle_private
     if(@mindmap.user_id != current_user.id)
-      return render :status=>503,:text=>"修改失败"
+      return render :status=>401, :text=>"没有编辑权限"
     end
 
     if @mindmap.toggle_private
-      return render :partial=>'mindmaps/list/list',:locals=>{:mindmaps=>[@mindmap]}
+      return render :text=>@mindmap.private?
     end
+
+    return render :status=>503,:text=>"修改失败"
+  rescue
     return render :status=>503,:text=>"修改失败"
   end
+
 
   def public_maps
     @mindmaps = Mindmap.publics.paginate({:order=>"id desc",:page=>params[:page],:per_page=>25})

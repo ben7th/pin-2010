@@ -105,30 +105,7 @@
       }
     }
     .creator{
-      margin:4px 4px 9px 4px;
-      padding:5px;
-      background-color:#fafafa;
-      overflow:hidden;
-      .avatar{float:left;img{width:32px;height:32px;padding:0;}}
-      .name,.created-at{
-        height:16px;line-height:16px;overflow:hidden;
-        a{
-          @include tfont;color:#999;
-          height:16px;line-height:16px;float:left;
-          &:hover{
-            color:#999;text-decoration:baseline;
-          }
-        }
-      }
-      .name{
-        margin-left:40px;
-        color:#666;
-        a{font-weight:bold;color:#666;}
-      }
-      .created-at{
-        margin-left:40px;
-        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-137px);display:none;}
-      }
+      @include olist-creator; /*misc_mixin*/
     }
     
     .comments{
@@ -267,20 +244,6 @@
         span{float:left;}
         .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
         .icon{background:url(/images/alltu.png) -85px -100px;}
-      }
-      .import{
-        @include button-blue;
-        background-color:#4CBBFD;
-        border:1px solid #30A8ED;
-        &:hover{border-color:#2098DD;}
-        margin-left:9px;
-        float:left;
-        padding:0 7px 0 3px;
-        height:30px;line-height:30px;
-        font-size:14px;
-        span{float:left;}
-        .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
-        .icon{background:url(/images/alltu.png) -85px -125px;}
       }
       .drafts{
         float:left;

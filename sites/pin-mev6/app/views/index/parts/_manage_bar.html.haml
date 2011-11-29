@@ -1,6 +1,15 @@
-.page-info-top
-  .meta
-    .item 创作和管理个人的思维导图
-    .ops
-      =link_to '<span class="icon"></span><span>新建</span>','/mindmaps/new',:class=>'create mindmap'
-      =link_to '<span class="icon"></span><span>导入</span>','/mindmaps/import',:class=>'import mindmap'
+-new_url    = '/mindmaps/new'
+-import_url = '/mindmaps/import'
+
+.page-mindmaps-top
+  .grid_3.alpha
+    .avatar
+      -link_to current_user do
+        =avatar current_user
+
+  .arrow
+  .grid_14.omega
+    .box
+      .ops
+        =link_to '<span class="icon"></span><span>新建</span>',new_url,    :class=>'new'
+        =link_to '<span class="icon"></span><span>导入</span>',import_url, :class=>'import'

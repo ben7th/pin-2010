@@ -31,7 +31,7 @@ class UserBase < UserAuthAbstract
     :storage => :oss,
     :path => @logo_path,
     :url  => @logo_url,
-    :default_url   => "/images/logo/default_:class_:style.png",
+    :default_url   => pin_url_for('ui',"/images/default_avatars/:style.png"),
     :default_style => :normal
 
   

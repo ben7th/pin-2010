@@ -218,25 +218,3 @@ form.page-new-feed-form, form.page-edit-feed-form{
     }
   }
 }
-
-.page-new-feed-tips{
-  .tip{
-    @include border-radius(4px);
-    padding:10px;
-    font-size:14px;
-    margin:0 0 20px 0;
-    font-family:Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
-    .title{
-      font-size:16px;
-      font-weight:bold;
-      margin:0 0 10px 0;
-      padding:0 0 10px 0;
-    }
-    ul{
-      list-style-type: none;
-      margin:0 0 0 1.5em;
-      li{margin-bottom:1em;}
-    }
-    .alignright{font-size:12px;font-weight:bold;}
-  }
-}

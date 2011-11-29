@@ -41,6 +41,7 @@ class Mindmap < Mev6Abstract
   index [:weight,:user_id]
   
   has_one :visit_counter, :as=>:resource
+  has_one :mindmap_file
 
   # name_scopes
   named_scope :publics,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PUBLIC}'"
@@ -95,12 +96,15 @@ class Mindmap < Mev6Abstract
     {:height=>0,:width=>0}
   end
 
-  def self.import(user,attrs,struct)
+  def self.import(user,attrs,struct,original_file_path)
     mindmap = Mindmap.new(attrs)
     mindmap.user = user
     mindmap.struct = struct
     if mindmap.valid?
       mindmap.save
+    end
+    File.open(original_file_path,"r") do |f|
+      MindmapFile.create(:mindmap=>mindmap,:file=>f)
     end
     mindmap
   end
@@ -160,6 +164,13 @@ class Mindmap < Mev6Abstract
 
   def low_value?
     self.document.nodes.length <= 3
+  end
+
+  def mindmap_file_url
+    mf = self.mindmap_file
+    unless mf.blank?
+      mf.file.url
+    end
   end
 
   module UserMethods

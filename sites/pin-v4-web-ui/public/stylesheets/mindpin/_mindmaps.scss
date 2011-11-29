@@ -147,19 +147,6 @@
   }
 }
 
-/*思维导图，侧边微博栏*/
-.page-tu-weibo{
-  @include sidepart;
-  .data{
-    overflow:hidden;
-    margin:0 0 10px 0;
-    .avatar{float:left;}
-    .title,.name{margin-left:40px;line-height:16px;}
-  }
-  .ops{height:24px;overflow:hidden;}
-}
-
-
 @mixin new_mindmap_form{
   @include new_object_form;
   .field.title{

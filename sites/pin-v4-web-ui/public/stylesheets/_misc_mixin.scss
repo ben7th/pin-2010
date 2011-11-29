@@ -432,6 +432,18 @@
   }
 }
 
+@mixin button-lightblue{
+  @include button-base;
+  color:#fff !important;@include gradient(#4CBBFD,#4CBBFD);
+  border:solid 1px #30A8ED;
+  text-shadow:0 0 2px #444444;
+  &:hover{
+    border-color:#2098DD;
+    color:#fff !important;
+    box-shadow:0 1px 2px #ccc;
+  }
+}
+
 /*form-buttons*/
 @mixin form-a-link-submit{
   @include button-blue;
@@ -593,5 +605,29 @@
     margin:0 -10px;
     background-color:#fafafa;
     padding:5px 10px;
+  }
+}
+
+@mixin olist-creator{
+  margin:4px;padding:5px;
+  background-color:#fafafa;
+  overflow:hidden;
+  
+  .avatar{float:left;img{width:32px;height:32px;padding:0;}}
+  .name,.created-at{
+    height:16px;line-height:16px;margin-left:42px;
+    overflow:hidden;
+    a{
+      color:#999;
+      height:16px;line-height:16px;float:left;
+      &:hover{color:#999;text-decoration:baseline;}
+    }
+  }
+  .name{
+    color:#666;
+    a{font-weight:bold;color:#666 !important;}
+  }
+  .created-at{
+    .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-137px);display:none;}
   }
 }

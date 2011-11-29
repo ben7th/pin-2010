@@ -1,0 +1,28 @@
+-page_url = pin_url_for('pin-daotu',"/mindmaps/#{mindmap.id}")
+-page_title = "从mindpin分享思维导图：『#{mindmap.title}』- 作者：#{mindmap.user.name}"
+-newest_pic_url = mindmap_thumb_url_for_share(mindmap)
+
+-tsina_url  = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
+
+-# jiathis 参考 http://www.jiathis.com/help/html/share-with-jiathis-api
+-# http://www.jiathis.com/send/?webid=shareID&url=$siteUrl&title=$siteTitle&uid=$uid
+
+-# shareID 分享ID参数代表你要分享到哪个站点的ID编号, 可以通过这个文档查询：分享网站ID清单
+-# $siteUrl 参数代表你要分享的网站链接地址，可以通过动态程序调用
+-# $siteTitle 参数代表你要分享的网站页面标题，可以通过动态程序调用，也可自定义。
+-# $uid(非必须) 代表你注册JiaThis的会员UID，可以登录网站后查到您的UID，用于数据统计。
+
+-tqq_url    = "http://www.jiathis.com/send/?url=#{page_url}&title=#{page_title}&webid=tqq"
+-douban_url = "http://www.jiathis.com/send/?url=#{page_url}&title=#{page_title}&webid=douban"
+-renren_url = "http://www.jiathis.com/send/?url=#{page_url}&title=#{page_title}&webid=renren"
+-gmail_url  = "http://www.jiathis.com/send/?url=#{page_url}&title=#{page_title}&webid=gmail"
+-email_url  = "http://www.jiathis.com/send/?url=#{page_url}&title=#{page_title}&webid=email"
+
+.share
+  %a.tsina{:href=>tsina_url, :target=>'_blank', :tip=>'分享到新浪微博'} 分享到新浪微博
+
+  %a.tqq{    :href=>tqq_url,    :target=>'_blank', :tip=>'分享到腾讯微博'} 分享到腾讯微博
+  %a.douban{ :href=>douban_url, :target=>'_blank', :tip=>'分享到豆瓣'} 分享到豆瓣
+  %a.renren{ :href=>renren_url, :target=>'_blank', :tip=>'分享到人人网'} 分享到人人网
+  %a.gmail{  :href=>gmail_url,  :target=>'_blank', :tip=>'以Gmail分享'} 以Gmail分享
+  %a.email{  :href=>email_url,  :target=>'_blank', :tip=>'以其他邮件分享'} 以其他邮件分享

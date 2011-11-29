@@ -10,18 +10,20 @@ module PieUi
       end
     end
 
-    def logo(model, style=nil, id=nil)
-      style_str = style.nil? ? '':"_#{style}"
+    def logo(model, style=nil)
       alt = get_visable_name(model)
+      klass = ['logo', style]*' '
 
       unless model.blank?
-        id = "#{dom_id(model)}#{style_str}"
-        logo_url = model.logo.url(style)
-        src = model.logo_file_name.blank? ? pin_url_for('pin-user-auth',logo_url) : logo_url
-        "<img alt='#{alt}' class='logo #{style}' id='logo_#{id}' src='#{src}'/>"
+        src   = model.logo.url(style)
+        meta  = [dom_id(model), style]*','
+        
+        "<img src='#{src}' alt='#{alt}' class='#{klass}' data-meta='#{meta}'/>"
       else
-        src = pin_url_for('pin-user-auth',"/images/logo/default_unknown_#{style}.png")
-        "<img alt='#{alt}' class='logo #{style}' src='#{src}'/>"
+        src   = User.new.logo.url(style)
+        meta  = ['unknown', style]*','
+
+        "<img src='#{src}' alt='#{alt}' class='#{klass}' data-meta='#{meta}'/>"
       end
     end
 
@@ -30,16 +32,11 @@ module PieUi
       when User
         logo(user_or_email,style)
       when String
-        avatar_by_email(user_or_email,style)
+        logo(User.find_by_email(user_or_email), style)
       else
-        src = pin_url_for('ui',"/images/logo/default_unknown_#{style}.png")
-        "<img alt='guest' class='logo guest #{style}' src='#{src}'/>"
+        logo(nil, style)
       end
     end
-
-    def avatar_by_email(email, style)
-      user = User.find_by_email(email)
-      logo(user,style)
-    end
+    
   end
 end

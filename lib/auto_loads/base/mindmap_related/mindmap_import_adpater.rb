@@ -38,6 +38,10 @@ class MindmapImportAdpater
     str
   end
 
+  def self.original_file_path_by_upload_temp_id(upload_temp_id)
+      self.original_file_path(upload_temp_id)
+  end
+
   def self.thumb_file_path_by_upload_temp_id(upload_temp_id)
     self.thumb_file_path(upload_temp_id)
   end
@@ -56,6 +60,11 @@ class MindmapImportAdpater
 
     dir_path = self.dir_path(upload_temp_id)
     FileUtils.mkdir_p(dir_path)
+
+    # 保存原始文件 original.xxx
+    dir_path = self.dir_path(upload_temp_id)
+    original_file_path = File.join(dir_path,"original#{File.extname(file_name)}")
+    FileUtils.cp(file.path,original_file_path)
 
     # 生成 struct.xml
     struct_file_path = self.struct_file_path(upload_temp_id)
@@ -112,5 +121,10 @@ class MindmapImportAdpater
   def self.thumb_file_path(upload_temp_id)
     dir_path = self.dir_path(upload_temp_id)
     File.join(dir_path,"thumb.png")
+  end
+
+  def self.original_file_path(upload_temp_id)
+    dir_path = self.dir_path(upload_temp_id)
+    Dir[File.join(dir_path,"original*")].pop
   end
 end

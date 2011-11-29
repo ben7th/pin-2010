@@ -1,7 +1,7 @@
 /*页面标准元件，渲染出错*/
 .render-error{
-  background-color:red;
-  color:white;
+  background-color:#eee;
+  color:#333;
   @include border-radius(2px);
   padding:5px;
 }
@@ -107,11 +107,10 @@
 /*物件列表*/
 .page-olist{
   .list-blank{
-    padding:20px;font-size:13px;
-    margin:10px;
-    border:solid 1px #EEEEEE;
-    @include border-radius(3px);
-    background-color:#FAFAFA;
+    padding:14px;font-size:12px;
+    border:solid 1px #eee;
+    @include border-radius(2px);
+    background-color:#fafafa;
   }
 }
 
@@ -130,4 +129,19 @@
   left:0;top:0;
   background-color:#fff;
   z-index:99;
+}
+
+/*我们的微博，显示在侧边栏*/
+.page-mindpin-weibo{
+  border:solid 1px #eee;
+  background-color:#fafafa;
+  padding:9px;
+  @include border-radius(3px);
+  .data{
+    overflow:hidden;
+    margin:0 0 9px 0;
+    .avatar{float:left;}
+    .title,.name{margin-left:40px;line-height:16px;}
+  }
+  .ops{margin-left:40px;height:24px;overflow:hidden;}
 }

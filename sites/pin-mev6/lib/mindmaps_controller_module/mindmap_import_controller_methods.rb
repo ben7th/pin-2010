@@ -17,6 +17,7 @@ module MindmapImportControllerMethods
 
         struct = MindmapImportAdpater.struct_by_upload_temp_id(upload_temp_id)
 
+
     render :json=>{:upload_temp_id=>upload_temp_id,:thumb_src=>url,
       :type=>type,:nodes_count=>nodes_count,:filename=>filename}
   rescue Exception => ex
@@ -37,7 +38,8 @@ module MindmapImportControllerMethods
 
   def do_import
     struct = MindmapImportAdpater.struct_by_upload_temp_id(params[:upload_temp_id])
-    mindmap = Mindmap.import(current_user,params[:mindmap],struct)
+    original_file_path = MindmapImportAdpater.original_file_path_by_upload_temp_id(params[:upload_temp_id])
+    mindmap = Mindmap.import(current_user,params[:mindmap],struct,original_file_path)
     MindmapImportAdpater.remove_file_by_upload_temp_id(params[:upload_temp_id])
     
     if mindmap.id.blank?

@@ -30,14 +30,29 @@
   width:80px;
 }
 
-.middlebutton.green{
-  @include button-green;
+/* --------------- */
+
+@mixin middlebutton-base{
   height:30px;line-height:30px;font-size:14px;
   padding:0 14px;
 }
 
+.middlebutton.blue{
+  @include button-blue;
+  @include middlebutton-base;
+}
+
+.middlebutton.lightblue{
+  @include button-lightblue;
+  @include middlebutton-base;
+}
+
+.middlebutton.green{
+  @include button-green;
+  @include middlebutton-base;
+}
+
 .middlebutton.darkred{
   @include button-darkred;
-  height:30px;line-height:30px;font-size:14px;
-  padding:0 14px;
+  @include middlebutton-base;
 }

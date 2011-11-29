@@ -1,180 +1,233 @@
+.page-mindmaps-top{
+  padding-bottom:20px;
+  overflow:hidden;
+  position:relative;
+  .avatar{
+    margin-left:55px;margin-bottom:9px;margin-top:10px;
+    a{display:block;font-size:0;line-height:0;}
+    img{
+      width:48px;height:48px;padding:0;
+      @include border-radius(4px);
+      border:solid 1px #eee;
+    }
+  }
+  
+  .arrow{
+    border-color:transparent #fafafa transparent transparent;
+    border-style:dashed solid dashed dashed;
+    border-width:9px;
+    height:0;overflow:hidden;
+    position:absolute;left:103px;top:26px;
+    z-index:1;
+  }
+  
+  .box{
+    overflow:hidden;
+    width:150px;
+    border:solid 1px #eee;
+    background-color:#fafafa;
+    @include border-radius(3px);
+    
+    .ops{
+      float:left;
+      padding:9px 18px;
+      a.new, a.import{
+        width:48px;height:48px;float:left;line-height:22px;
+        .icon{width:24px;height:24px;margin-left:12px;margin-top:2px;}
+      }
+      a.new{
+        @include button-blue;
+        margin-right:14px;
+        .icon{background:url(/images/alltu.png) -60px -100px;}
+      }
+      a.import{
+        @include button-lightblue;
+        .icon{background:url(/images/alltu.png) -35px -100px;}
+      }
+    }
+  }
+}
+
 .page-olist.mindmaps{
   .list-blank{
-    margin:0 0 200px 0;
+    @include border-radius(3px);
   }
   
   .mindmap{
-    border:solid 1px #eee;
-    margin-bottom:14px;
-    background-color:#FFF;
+    overflow:hidden;
+    margin-bottom:20px;
+    position:relative;
+    
+    .m-avatar{
+      margin-left:55px;margin-bottom:9px;
+      a{display:block;font-size:0;line-height:0;}
+      img{
+        width:48px;height:48px;padding:0;
+        @include border-radius(4px);
+        border:solid 1px #eee;
+      }
+    }
+    
+    .m-ops{
+      margin-left:55px;width:48px;
+      @include border-radius(4px);
+      background-color:#f1f1f1;
+      border:solid 1px #eee;
+      .fav-star{
+        position:relative;
+        margin:8px 8px 12px;
+        a.do-fav{
+          display:block;
+          width:32px;height:32px;
+          &.not-faved{
+            @include allimg(-327px, -81px);
+            opacity:0.2;
+            &:hover{
+              opacity:1;
+            };
+          }
+          &.faved{
+            @include allimg(-361px, -81px);
+          }
+        }
+        $count-color:rgba(0, 0, 0, 0.2);
+        .count-arrow{
+          border-color:transparent transparent $count-color transparent;
+          border-style:dashed dashed solid dashed;
+          border-width:4px;
+          height:0;overflow:hidden;
+          position:absolute;left:12px;top:28px;
+          z-index:1;
+        }
+        .count{
+          width:24px;height:14px;line-height:14px;margin-left:4px;margin-top:4px;
+          @include border-radius(3px);
+          background-color:$count-color;
+          color:#fff;font-size:11px;
+          font-weight:bold;text-align:center;
+        }
+      }
+      a.delete{
+        display:block;
+        width:32px;height:32px;margin:0 8px 8px;
+        @include allimg(-361px, -114px);
+        opacity:0.2;
+        &:hover{
+          opacity:1;
+        };
+      }
+      a.edit{
+        display:block;
+        width:32px;height:32px;margin:8px;
+        @include allimg(-295px, -81px);
+        opacity:0.5;
+        &:hover{
+          opacity:1;
+        };
+      }
+      a.do-private{
+        display:block;
+        width:32px;height:32px;margin:0 8px 8px;
+        &.public{
+          @include allimg(-295px, -114px);
+          opacity:0.2;
+          &:hover{
+            opacity:1;
+          };
+        }
+        &.private{
+          @include allimg(-328px, -114px);
+        }
+      }
 
-    .creator{
-      margin:0;
-      background-color:#fafafa;
-      border-bottom:solid 1px #eee;
-      padding:9px;
+    }
+    
+    .arrow{
+      border-color:transparent #fff transparent transparent;
+      border-style:dashed solid dashed dashed;
+      border-width:9px;
+      height:0;overflow:hidden;
+      position:absolute;left:103px;top:16px;
+      z-index:1;
+    }
+
+    
+    .box{
+      width:500px;padding:0 9px 9px;
+      border:solid 1px #eee;
+      background-color:#FFF;
+      @include border-radius(3px);
       overflow:hidden;
       
-      .avatar{
-        float:left;
-      }
-      .name{
-        margin-left:44px;
-        font-weight:bold;
+      .creator{
+        padding:9px;overflow:hidden;
         line-height:16px;
-        a{color:#999;}
-      }
-      .time{
-        margin-left:44px;
-        line-height:16px;
-      }
-    }
-    
-    .title{
-      margin:0;
-      background-color:#fafafa;
-      border-bottom:solid 1px #eee;
-      padding:9px;
-      
-      font-size:14px;font-weight:bold;
-      
-      a{
-        color:#555;
-        &:hover{
-          text-decoration:none;
-          border-bottom:dotted 1px #666;
+        .name, .created-at{
+          float:left;margin-right:9px;
+          a{color:#999;&:hover{color:#666 !important;text-decoration:none;}}
+          .date{color:inherit !important;}
         }
       }
-    }
-    
-    .data{
-      margin:0;
-      padding:9px;
-      .thumb{
-        overflow:hidden;
-        margin:0 auto;
+      
+      .title{
+        padding:0 9px 9px 9px;
+        /*background-color:#fafafa;*/
         a{
-          display:block;font-size:0;line-height:0;
+          font-size:14px;font-weight:bold;
+          color:#444;
+          &:hover{
+            text-decoration:none;
+            border-bottom:dotted 1px #666;
+          }
         }
       }
-    }
-    
-    .status{
-      margin:0;
-      padding:0 4px 4px;
-      .is-private{
-        margin-top:-1px;
-        border-top:solid 1px #EEEEEE;
-        border-bottom:solid 1px #EEEEEE;
-        padding:5px;
-        color:#888;
+      
+      .data{
+        margin:0 4px 9px 4px;
+        overflow:hidden;
+        min-height:130px;
+        .thumb{
+          overflow:hidden;
+          margin:0 auto;
+          a{
+            display:block;font-size:0;line-height:0;
+          }
+        }
       }
-      .faved-by{
-        margin-top:-1px;
-        border-top:solid 1px #EEEEEE;
-        border-bottom:solid 1px #EEEEEE;
-        padding:5px;
-        color:#888;
-      }
+      
       .coop-users{
-        margin-top:-1px;
-        border:solid 1px #EEEEEE;
-        background:#FAFAFA;
-        padding:5px;
+        padding:9px;margin:0 -9px;
+        background:#fafafa;border-top:solid 1px #eee;
         overflow:hidden;
         .desc{
-          margin:0 0 5px 0;
+          margin:0 0 9px 0;height:16px;line-height:16px;
           color:#888;
         }
         .avatar{
-          width:26px;height:26px;
-          float:left;margin-right:5px;
+          float:left;margin-right:9px;
+          img{padding:0;width:32px;height:32px;}
         }
       }
-    }
-
-    .footmisc{
-      overflow:hidden;
-      margin:0;
-      padding:9px;
-      .rank{
-        height:18px;line-height:18px;
-        float:left;
-        width:30px;
-        background-color:#8ABFE6;
-        @include border-radius(3px);
-        @include tfont;
-        color:white;
-        font-weight:bold;
-        text-align:center;
-        margin-right:10px;
-      }
-      .time{
-        height:20px;
-        line-height:20px;
-        float:left;
-        margin-right:10px;
-      }
+  
       .share{
-        height:20px;
-        line-height:20px;
-        float:left;
+        padding:9px;margin:0 -9px -9px;
+        background-color:#fafafa;
+        border-top:solid 1px #eee;
         overflow:hidden;
-        a.share_to {
-          float:left;
-          width:18px;height:18px;
-          @include border-radius(2px);
-          margin-right:5px;
-          line-height:33em;font-size:0;
-          overflow:hidden;
-          background-color:white;
-          background-repeat:no-repeat;
-          background-position:1px 1px;
-          &.tsina {
-            background-image:url(/images/share/tsina.png);
-          }
-          &.renren {
-            background-image: url(/images/share/renren.png);
-          }
-          &.douban {
-            background-image: url(/images/share/douban.png);
-          }
+        a{
+          overflow:hidden;font-size:0;line-height:20em;
+          display:block;float:left;margin-right:9px;
+          width:32px;height:32px;
+          background-image:url(/images/share/share_all.png);
+          opacity:0.6;
+          &:hover{opacity:1;};
         }
-      }
-      .ops{
-        height:20px;
-        line-height:20px;
-        float:right;
-        overflow:hidden;
-        .o{
-          margin-left:10px;
-          float:left;
-          a{
-            font-size:12px;
-            &.toggle-private{
-              .icon{
-                position:relative;
-                top:2px;
-                float:left;
-                width:16px;height:16px;
-                margin:0 2px 0 0;
-              }
-              &.public{.icon{background:url(/images/alltu.png) no-repeat -18px -35px;}}
-              &.private{.icon{background:url(/images/alltu.png) no-repeat -1px -35px;}}
-            }
-            &.toggle-fav{
-              .icon{
-                position:relative;
-                top:2px;
-                float:left;
-                width:16px;height:16px;
-                margin:0 2px 0 0;
-              }
-              &.unfav{.icon{background:url(/images/alltu.png) no-repeat -18px -52px;}}
-              &.fav{.icon{background:url(/images/alltu.png) no-repeat -1px -52px;}}
-            }
-          }
-        }
+        a.tsina{  background-position:0 0;}
+        a.tqq{    background-position:0 -32px;}
+        a.douban{ background-position:0 -64px;}
+        a.renren{ background-position:0 -96px;}
+        a.gmail{  background-position:0 -128px;}
+        a.email{  background-position:0 -160px;}
       }
     }
   }
