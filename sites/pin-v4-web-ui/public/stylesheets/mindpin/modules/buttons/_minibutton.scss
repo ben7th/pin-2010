@@ -52,6 +52,11 @@
   @include middlebutton-base;
 }
 
+.middlebutton.lightgreen{
+  @include button-lightgreen;
+  @include middlebutton-base;
+}
+
 .middlebutton.darkred{
   @include button-darkred;
   @include middlebutton-base;

@@ -1,8 +1,16 @@
-.page-submenu.clearfix
-  %ul
-    =sub_menu_li "我的导图",'/',:class=>'first'
-    =sub_menu_li "我参与的协作",'/mindmaps/cooperates'
-    =sub_menu_li "浏览其他导图",'/mindmaps/public'
-    =sub_menu_li "加星导图",'/mindmaps/favs',:class=>'last'
+-my_url     = pin_url_for 'pin-daotu', '/'
+-public_url = pin_url_for 'pin-daotu', '/mindmaps/public'
+-favs_url   = pin_url_for 'pin-daotu', '/mindmaps/favs'
+-cooper_url = pin_url_for 'pin-daotu', '/mindmaps/cooperates'
+
+%ul.page-mindmaps-sidemenu
+  =sub_menu_li "我的导图", my_url, :class=>'first'
+  =sub_menu_li "浏览其他导图", public_url, :class=>'last'
+
+%ul.page-mindmaps-sidemenu
+  =sub_menu_li "我加星的导图",favs_url, :class=>'only'
+
+%ul.page-mindmaps-sidemenu
+  =sub_menu_li "我参与的协作<label>测试功能</label>",cooper_url, :class=>'only'
 
     

@@ -1,12 +1,12 @@
 -htitle '我的思维导图'
 
-.mside.grid_6.no-line
-  =render 'index/sub_menu'
-  =render 'index/parts/weibo'
-
 .main.grid_17.no-line
   =render 'index/parts/manage_bar'
   =render 'mindmaps/list/list',:mindmaps=>@mindmaps
   .grid_16.alpha
     .page-paginate=will_paginate @mindmaps
+
+.mside.grid_6.no-line
+  =render 'index/sub_menu'
+  =render 'index/parts/misc'
 

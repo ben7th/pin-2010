@@ -1,9 +1,10 @@
--htitle "我参与的协作"
+-htitle '我参与的协作'
+
+.main.grid_17.no-line
+  =render 'mindmaps/list/list',:mindmaps=>@mindmaps
+  .grid_16.alpha
+    .page-paginate=will_paginate @mindmaps
 
 .mside.grid_6.no-line
   =render 'index/sub_menu'
-  =render 'index/parts/weibo'
-
-.main.grid_18.no-line
-  =render "mindmaps/list/list",:mindmaps=>@mindmaps
-  .page-paginate=will_paginate @mindmaps
+  =render 'index/parts/misc'

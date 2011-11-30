@@ -32,7 +32,7 @@
               =avatar creator
           .m-ops
             -if is_owner
-              %a.edit{:href=>edit_url,:target=>'_blank',:tipr=>'编辑'}
+              %a.edit{:href=>edit_url,:target=>'_blank',:tipr=>'打开在线编辑'}
               %a.do-private{:href=>'javascript:;',:class=>private_class,:tipr=>'切换公开/私有'}
               %a.delete{:href=>'javascript:;',:tipr=>'删除'}
 
@@ -53,6 +53,7 @@
             .title=link_to title,info_url
 
             .data
+              %a.refresh-thumb{:href=>'javascript:;',:tipr=>'刷新缩略图'} <div class='icon'></div>
               .thumb{:style=>"width:#{thumb_width}px;height:#{thumb_height}px;"}
                 -link_to info_url do
                   =mindmap_image(mindmap,"500x500")
@@ -65,4 +66,5 @@
                     -link_to u,:tip=>u.name do
                       =avatar u,:tiny
 
+            =render 'mindmaps/list/download',:mindmap=>mindmap
             =render 'mindmaps/list/share',:mindmap=>mindmap

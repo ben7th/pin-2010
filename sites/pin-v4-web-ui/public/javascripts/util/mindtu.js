@@ -48,32 +48,47 @@ pie.load(function(){
   })
 
   //导图列表，收藏
-  jQuery(document).delegate('.page-olist.mindmaps .mindmap .ops .toggle-fav','click',function(){
-    var elm = jQuery(this);
+  jQuery(document).delegate('.page-olist.mindmaps .mindmap .m-ops .do-fav','click',function(){
+    var elm         = jQuery(this);
     var mindmap_elm = elm.closest('.mindmap');
-    var mindmap_id = mindmap_elm.attr('data-id');
+    var mindmap_id  = mindmap_elm.domdata('id');
+
+    var count_elm   = mindmap_elm.find('.fav-star .count')
 
     //put /mindmaps/:id/toggle_fav
     jQuery.ajax({
       url : '/mindmaps/'+mindmap_id+'/toggle_fav',
       type : 'PUT',
       success : function(res){
-        var res_elm = jQuery(res);
-
-        //星标dom
-        var new_elm = res_elm.find('.ops .o .toggle-fav');
-        elm.after(new_elm).remove();
-
-        //状态栏dom
-        var new_status_elm = res_elm.find('.status .faved-by');
-        var old_status_elm = mindmap_elm.find('.status .faved-by');
-
-        
-        old_status_elm.after(new_status_elm).remove();
-        if(new_status_elm.css('display')!='none'){
-          new_status_elm.hide().fadeIn(200);
+        var is_fav = (res == 'true');
+        if(is_fav){
+          elm.addClass('faved').removeClass('not-faved');
+          count_elm.html(parseInt(count_elm.html()) + 1);
+        }else{
+          elm.removeClass('faved').addClass('not-faved');
+          count_elm.html(parseInt(count_elm.html()) - 1);
         }
       }
     })
   });
+
+  //刷新缩略图
+  jQuery(document).delegate('.page-olist.mindmaps .mindmap .refresh-thumb','click',function(){
+    var elm         = jQuery(this);
+    var mindmap_elm = elm.closest('.mindmap');
+    var mindmap_id  = mindmap_elm.domdata('id');
+
+    var image_elm   = mindmap_elm.find('.thumb img')
+
+
+    //put  /mindmaps/:id/refresh_thumb
+    jQuery.ajax({
+      url : '/mindmaps/'+mindmap_id+'/refresh_thumb?size_param=500x500',
+      type : 'PUT',
+      success : function(res){
+        image_elm.attr('src', res);
+      }
+    })
+  })
+
 })

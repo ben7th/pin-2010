@@ -173,6 +173,13 @@ class Mindmap < Mev6Abstract
     end
   end
 
+  def mindmap_file_type
+    mf = self.mindmap_file
+    unless mf.blank?
+      File.extname(mf.file_file_name)[1..-1]
+    end
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :mindmaps,:order=>"mindmaps.updated_at desc"

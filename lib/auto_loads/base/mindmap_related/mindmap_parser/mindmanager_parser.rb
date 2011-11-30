@@ -39,10 +39,10 @@ class MindmanagerParser < MapFileParser
     path="#{Dir::tmpdir}/#{UUIDTools::UUID.random_create.to_s}/"
     FileUtils.mkdir(path)
     file_name = "#{path}Document.xml"
-    # 创建并解析document.xml,返回附件图片的文件路径
-    image_files = create_and_parse_document(mindmap,file_name)
+    # 创建并解析document.xml
+    create_and_parse_document(mindmap,file_name)
     # zip打包，并且将zip文件改名为mmap
-    zip_dir = pack_to_zip(mindmap,file_name,image_files)
+    zip_dir = pack_to_zip(mindmap,file_name)
     File.delete(file_name)
     FileUtils.rm_r(path)
     return zip_dir
@@ -58,8 +58,6 @@ class MindmanagerParser < MapFileParser
     xml_content = Nokogiri::XML(mmap_xml)
     # 根据node的id得到node的备注，然后添加到document.xml中
     add_remarks_to_element(mindmap,xml_content)
-    # node节点中的图片添加到document.xml中
-    image_files = add_imgs_to_element(xml_content)
     # 用Nokogiri解析xml文件，将xml文件中的OId全部换成独立的
     xml_content.css('[OId]').each do |element|
       bytes = UUIDTools::UUID.random_create.raw
@@ -73,30 +71,6 @@ class MindmanagerParser < MapFileParser
     File.open(file_name,"w") do |file|
       file.write(xml_content.to_s.gsub("<ap:SubTopics/>",""))
     end
-    return image_files
-  end
-
-  # 查找element中图片，下载后并添加到mmap的bin文件夹下，并保存在document.xml中
-  # 并且设置图片的宽度和高度（暂时将原先大小的值除以4）
-  def self.add_imgs_to_element(xml_content)
-    image_files = []
-    xml_content.css('ap|Image').each do |image_node|
-      img_src_node = image_node.css('ap|ImageData cor|Uri')[0]
-      image_url = img_src_node.inner_html
-      response_body = HandleGetRequest.get_response_from_url(image_url)
-      image_file_name = "#{UUIDTools::UUID.random_create.to_s.upcase}.bin"
-      image_file_path = "#{Dir::tmpdir}/#{image_file_name}"
-      file = File.open(image_file_path,"wb")
-      file.write(response_body)
-      file.close
-      image_files << image_file_path
-      img_src_node.inner_html = "mmarch://bin/#{image_file_name}"
-      width = image_node.css('ap|ImageSize')[0].attribute("Width")
-      width.value = ((width.value.to_i)/4.0).to_s
-      height = image_node.css('ap|ImageSize')[0].attribute("Height")
-      height.value = ((height.value.to_i)/4.0).to_s
-    end
-    image_files
   end
 
   # 查找element的所对应的备注，并添加到document.xml中去
@@ -126,7 +100,7 @@ class MindmanagerParser < MapFileParser
   end
   
   # 将需要的东西打包到mmap文件中
-  def self.pack_to_zip(mindmap,file_name,image_files)
+  def self.pack_to_zip(mindmap,file_name)
     zip_dir = "#{Dir::tmpdir}/#{mindmap.title}.mmap"
     FileUtils.rm(zip_dir) if File.exist?(zip_dir)
     Zip::ZipFile.open zip_dir, Zip::ZipFile::CREATE do |zip|
@@ -138,13 +112,6 @@ class MindmanagerParser < MapFileParser
       zip.add("xsd/MindManagerCore.xsd",self.mmap_src_file_path("xsd/MindManagerCore.xsd"))
       zip.add("xsd/MindManagerDelta.xsd", self.mmap_src_file_path("xsd/MindManagerDelta.xsd"))
       zip.add("xsd/MindManagerPrimitive.xsd",self.mmap_src_file_path("xsd/MindManagerPrimitive.xsd"))
-      image_files.each do |image_file|
-        zip.add("bin/#{image_file.gsub("#{Dir::tmpdir}/","")}", image_file)
-      end
-    end
-    # 删除临时文件
-    image_files.each do |image_file|
-      FileUtils.rm(image_file)
     end
     return zip_dir
   end

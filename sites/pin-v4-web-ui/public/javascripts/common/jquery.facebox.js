@@ -97,17 +97,19 @@
     },
 
     loading: function() {
-      init()
-      if ($('#facebox .loading').length == 1) return true
-      showOverlay()
+      init();
+      if ($('#facebox .loading').length == 1) return true;
+      showOverlay();
 
-      $('#facebox .content').empty()
-      $('#facebox .body').children().hide().end().
-        append('<div class="loading"></div>')
+      $('#facebox .content')
+        .empty()
+        .append('<div class="loading"></div>');
 
       $('#facebox').css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - 205
+        //top:	getPageScroll()[1] + (getPageHeight() / 10),
+        //left:	$(window).width() / 2 - 198 // 396/2 in css
+        top:  getPageScroll()[1] + getPageHeight() / 3 - $('#facebox').height() / 3,
+        left: $(window).width() / 2 - $('#facebox').width() / 2
       }).show()
 
       $(document).bind('keydown.facebox', function(e) {
@@ -120,10 +122,15 @@
     reveal: function(data, klass) {
       $(document).trigger('beforeReveal.facebox')
       if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
       $('#facebox .loading').remove()
+      $('#facebox .content').empty().append(data)
       $('#facebox .body').children().fadeIn('normal')
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').width() / 2))
+      //$('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').width() / 2))
+      $('#facebox').css({
+        top:  getPageScroll()[1] + getPageHeight() / 3 - $('#facebox').height() / 3,
+        left: $(window).width() / 2 - $('#facebox').width() / 2
+      }).show()
+
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
 

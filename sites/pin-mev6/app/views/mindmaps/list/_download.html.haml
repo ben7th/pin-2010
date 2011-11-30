@@ -1,0 +1,13 @@
+-original_upload_file_url = mindmap.mindmap_file_url
+
+.download
+  .desc 下载导图：
+  .l
+    =minibutton 'MindManager 文件', "/mindmaps/#{mindmap.id}.mmap"
+    =minibutton 'FreeMind8 文件',   "/mindmaps/#{mindmap.id}.mm?v=8"
+    =minibutton 'FreeMind9 文件',   "/mindmaps/#{mindmap.id}.mm?v=9"
+  .l
+    =minibutton 'PNG 图片',         "/mindmaps/#{mindmap.id}.png",:target=>'_blank'
+    =minibutton 'Word 大纲文件',     "/mindmaps/#{mindmap.id}.doc"
+    -if !original_upload_file_url.blank?
+      =minibutton '导图原始文件', original_upload_file_url, :class=>'lightgreen'
