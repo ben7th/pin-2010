@@ -39,7 +39,7 @@ class MindmapsController < ApplicationController
   def search
     begin
       @query = params[:q]
-      @result = MindmapLucene.search_paginate(@query,:page=>params[:page])
+      @result = MindmapLucene.search_paginate(@query,:page=>params[:page],:per_page=>12)
     rescue MindmapLucene::MindmapSearchFailureError => ex
       return render_status_page(500,ex)
     end

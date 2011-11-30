@@ -1,0 +1,15 @@
+.page-mindmaps-thumb-list
+  -if mindmaps.blank?
+    .list-blank 目前还没有思维导图
+  -else
+    -mindmaps.each do |mindmap|
+
+      -mindmap_id = mindmap.id
+      -title = h truncate_u(mindmap.title,8)
+      -info_url = "/mindmaps/#{mindmap_id}/info"
+
+      .mindmap{:'data-id'=>mindmap_id}            
+        .thumb
+          -link_to info_url do
+            =mindmap_image(mindmap,"120x120")
+        .title=link_to title, info_url

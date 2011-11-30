@@ -1,0 +1,106 @@
+/*表单*/
+@mixin new_mindmap_form{
+  @include new_object_form;
+  .field.title{
+    input.text{width:678px;}
+  }
+  .field.description{
+    textarea.text{width:678px;height:80px;}
+  }
+  .field.private{
+    span{
+      &.disabled{color:#777;}
+    }
+  }
+}
+
+/*新建思维导图表单*/
+.page-new-mindmap-form{
+  padding:9px;
+  @include new_mindmap_form;
+  border:solid 1px #eee;
+  background-color:#FFF;
+}
+/*导入思维导图表单*/
+.page-upload-mindmap{
+  padding:9px;
+  @include new_mindmap_form;
+  border:solid 1px #eee;
+  background-color:#FFF;
+  .page-upload-mindmap-result{
+    background:#FFF9DC;
+    border:solid 1px #EFEACE;
+    @include border-radius(5px);
+    margin:0 0 10px 0;
+    padding:10px;
+    overflow:hidden;
+    position:relative;
+    .thumb{
+      float:left;
+      width:120px;
+      height:120px;
+    }
+    .data{
+      margin-left:140px;
+      h3{
+        font-size:14px;font-weight:bold;
+        margin:0 0 10px 0;
+      }
+      .type,.filename,.nodes-count{
+        overflow:hidden;
+        font-size:14px;
+        .l{float:left;width:100px;}
+        .t{float:left;font-weight:bold;}
+      }
+    }
+    .close{
+      width:16px;
+      height:16px;
+      background:url(/images/icons/cancel.png);
+      position:absolute;
+      top:10px;
+      right:10px;
+      cursor:pointer;
+    }
+  }
+  
+  #page-mindmap-upload-queue{
+    .uploadifyQueueItem{
+      background:#FFF9DC;
+      border:solid 1px #EFEACE;
+      @include border-radius(5px);
+      margin:0 0 10px 0;
+      padding:10px;
+      width:auto;
+      color:#666;
+      .uploadifyProgress{
+        @include border-radius(3px);
+        background-color:#EFEACE;
+        .uploadifyProgressBar{
+          @include border-radius(3px);
+          height:12px;
+          background-color:#4C8EFF;
+        }
+      }
+    }
+  }
+  .upload{
+    overflow:hidden;
+    background:#FFF9DC;
+    border:solid 1px #EFEACE;
+    @include border-radius(5px);
+    padding:10px;
+    margin-bottom:10px;
+    .btn{
+      float:left;
+      width:93px;height:21px;
+      overflow:hidden;
+      margin-right:10px;
+    }
+    .desc{
+      float:left;
+      color:#666;
+      height:21px;line-height:21px;
+    }
+  }
+}

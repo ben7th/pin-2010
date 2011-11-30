@@ -41,6 +41,12 @@ module PieUi
 
         require 'pie-ui/action_view_ext/link_helper'
         ActionView::Base.send :include, PieUi::LinkHelper
+
+        require 'pie-ui/action_view_ext/partial_helper'
+        ActionView::Base.send :include, PieUi::PartialHelper
+
+        require 'pie-ui/action_view_ext/weibo_helper'
+        ActionView::Base.send :include, PieUi::WeiboHelper
       end
     end
 

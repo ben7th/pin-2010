@@ -321,3 +321,48 @@ ul.page-mindmaps-sidemenu{
     }
   }
 }
+
+.page-mindmaps-thumb-list{
+  overflow:hidden;
+  .mindmap{
+    width:120px;
+    overflow:hidden;
+    border:solid 1px #eee;
+    padding:9px 9px 5px;
+    background-color:#fafafa;
+    float:left;
+    margin:0 9px 9px 0;
+    .thumb{
+      width:120px;height:120px;
+    }
+    .title{
+      line-height:20px;height:20px;margin-top:5px;
+      a{color:#555;&:hover{color:#555;}}
+    }
+  }
+}
+
+.page-mindmaps-searche-result-top{
+  padding:0 0 9px 0;margin-bottom:14px;
+  border-bottom:double 3px #ccc;
+}
+
+.page-mindmaps-searche-result{
+  overflow:hidden;
+  .mindmap{
+    width:120px;
+    overflow:hidden;
+    border:solid 1px #eee;
+    padding:9px 9px 5px;
+    background-color:#fafafa;
+    float:left;
+    margin:0 9px 9px 0;
+    .thumb{
+      width:120px;height:120px;
+    }
+    .title{
+      line-height:20px;height:20px;margin-top:5px;
+      a{color:#555;&:hover{color:#555;}}
+    }
+  }
+}

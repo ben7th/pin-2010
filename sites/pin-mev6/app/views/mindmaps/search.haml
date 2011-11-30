@@ -1,42 +1,31 @@
 -htitle "搜索结果"
 
-.mside.grid_5
-  .padding10
-    =minibutton '返回首页',"/"
+-count = @result.total_count
+-items = @result.items
 
-.main.grid_19.ll
-  .searched-mindmaps
-    %h2.main-title
+.main.grid_23.nl.push_1.alpha
+  .page-mindmaps-searche-result-top
+    .title
       关于
-      %span.loud>#{@query}
-      ，找到 #{@result.total_count} 条结果
-    -@result.items.each do |item|
-      -mindmap = item.mindmap
-      -unless mindmap.blank?
-        .search-result
-          .meta.darkbg
-            .avatar
-              =avatar mindmap.user,:tiny
-            .c
-              -if mindmap && !mindmap.private?
-                .title
-                  -if mindmap.user.blank?
-                    ='[已删除用户]'
-                  -else
-                    =link_to mindmap.user.name,mindmap.user
-                  的
-                  =link_to item.title,"/mindmaps/#{mindmap.id}"
-                .data
-                  =item.content
-              -else
-                .data
-                导图内容不公开，无法显示
-          .score.lightbg
-            搜索相关度
-            %span.loud=item.score
-          .time.lightbg
-            导图编辑时间
-            =jtime(mindmap.updated_at)
+      %span.bold=@query
+      找到 #{count} 条结果
+      %a.minibutton{:href=>'/',:style=>'margin-left:20px;'} 返回首页
 
-  .mindmap-paginate.padding5
-    =will_paginate @result
+  .page-mindmaps-searche-result
+    -if items.blank?
+      .list-blank 没有搜索到任何结果
+    -else
+      -items.each do |item|
+        -mindmap = item.mindmap
+        -mindmap_id = mindmap.id
+        -title = h truncate_u(mindmap.title,8)
+        -info_url = "/mindmaps/#{mindmap_id}/info"
+
+        .mindmap{:'data-id'=>mindmap_id}
+          .thumb
+            -link_to info_url do
+              =mindmap_image(mindmap,"120x120")
+          .title=link_to title, info_url
+          .score="相关度 #{item.score}"
+
+  .page-paginate.fleft=will_paginate @result

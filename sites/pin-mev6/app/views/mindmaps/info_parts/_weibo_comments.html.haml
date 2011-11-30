@@ -1,0 +1,53 @@
+-mindmap_id = mindmap.id
+-creator = mindmap.user
+
+-weibo = public_weibo(creator)
+
+-if !weibo.blank?
+  -url_long = pin_url_for('pin-daotu',"/mindmaps/#{mindmap_id}")
+  -url_short = weibo.send(:perform_get,"/short_url/shorten.json",:query=>{:url_long=>url_long})[0].url_short
+  -tsina_comments = weibo.send(:perform_get,"/short_url/comment/comments.json",:query=>{:url_short=>url_short})
+
+.page-feed-show-comments-tsina.daotu
+  .c-top
+    评论
+    =link_to '@新浪微博',"http://weibo.com",:target=>'_blank'
+    .icon
+
+  -if !tsina_comments.blank? && !tsina_comments.share_comments.blank?
+    .comments
+      -prev_user = nil
+      -tsina_comments.share_comments.each do |comment|
+        -user = comment.user
+        -created_at = Time.parse comment.created_at
+        -status = comment.status
+
+        -uid = user.id
+        -mindpin_user = ConnectUser.get_user_from_tsina_id(uid)
+        -is_mindpin_user = !mindpin_user.blank?
+
+        -weibo_url = "http://weibo.com/#{status.user.id}/#{mid2url(status.id)}"
+        -weibo_url_text = weibo_url.sub('http://','')
+
+        -cls = (!prev_user.blank? && prev_user.id == user.id) ? 'same-user':''
+        -prev_user = user
+
+        .comment{:class=>cls}
+          .arrow ◆
+          .avatar
+            %img{:src=>user.profile_image_url}
+          .cmain
+            .cdata
+              .meta
+                .name.quiet
+                  =link_to user.name,"http://weibo.com/#{user.id}",:target=>'_blank'
+                  -if is_mindpin_user
+                    ="(#{usersign mindpin_user} @mindpin)"
+
+              .ctext.wordwrap
+                =comment.text
+                %span.quiet (#{jtime created_at})
+                %span.quiet (#{link_to "@#{weibo_url_text}",weibo_url,:target=>'_blank'})
+
+  -else
+    .no-comment 分享导图到新浪微博，相关的评论会自动显示在这里！

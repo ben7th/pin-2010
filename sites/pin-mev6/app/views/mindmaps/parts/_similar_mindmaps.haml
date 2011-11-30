@@ -1,14 +1,22 @@
--mindmap = @mindmap
+.page-similar-mindmaps
+  .title 内容相似导图
 
--if !mindmap.low_value?
-  .hide
-    -mindmap.major_words.each do |word|
-      %span=word
-  -s_maps = mindmap.similar_mindmaps
-  -s_maps.each do |m|
-    %div=link_to m.title,"/mindmaps/#{m.id}/info"
-  -if s_maps.blank?
-    %div 没有找到相似的导图
--else
-  %div 导图内容太少
-  %div 没有找到相似的导图
+  -if !mindmap.low_value?
+    -maps = mindmap.similar_mindmaps
+
+    -if maps.blank?
+      .not-found 没有找到相似的导图
+    -else
+      -maps.each do |m|
+        -title    = h truncate_u(m.title,12)
+        -info_url = "/mindmaps/#{m.id}/info"
+
+        .s-map
+          .thumb>
+            -link_to info_url do
+              =mindmap_image(m,"120x120")
+          .t=link_to title,info_url
+
+  -else
+    .not-found 当前导图内容较少
+    .not-found 没有找到相似的导图

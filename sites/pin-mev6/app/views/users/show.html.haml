@@ -1,16 +1,15 @@
 -htitle "#{@user.name}的思维导图"
 
-.mside.grid_5.no-line
-  .page-tu-mindpin-mside-user-info
+.mside.grid_3.no-line
+  .page-mindmap-user-page-side
     .avatar
       -link_to @user do
         =avatar @user,:medium
 
-.main.grid_19.no-line
-  .page-tu-mindmap-user-info-bar
-    .data
-      .name.bold=usersign @user,false
-      .sign=h(@user.sign)
+.main.grid_20.no-line
+  .page-mindmap-user-page-top
+    .name=usersign @user
+    .sign=h(@user.sign)
 
-  =render 'mindmaps/list/list',:mindmaps=>@mindmaps
-  .page-paginate=will_paginate @mindmaps
+  =render 'mindmaps/list/thumb_list',:mindmaps=>@mindmaps
+  .page-paginate.fleft=will_paginate @mindmaps
