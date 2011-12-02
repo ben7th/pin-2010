@@ -8,6 +8,11 @@ article, aside, dialog, figure, footer, header,
 hgroup, nav, section {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 article,aside,dialog,figure,footer,header,hgroup, nav, section{display:block;}
 
+html{
+  overflow-x:hidden;
+  overflow-y:scroll;
+}
+
 body {line-height:1.5;}
 
 ins{text-decoration:none}

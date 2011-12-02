@@ -11,11 +11,26 @@ class SendTsinaStatusQueueWorker
     user = User.find_by_id(options["user_id"])
     content = options["content"]
     if !options["image_path"].blank?
-      user.send_tsina_image_status(options["image_path"],content)
+
+      id = user.send_tsina_image_status(options["image_path"],content)
+      if id.blank?
+        user.send_tsina_image_status_in_queue(options["image_path"],content)
+      end
+
     elsif !options["photo_id"].blank?
-      user.send_photo_to_tsina_weibo(options["photo_id"],content)
+
+      id = user.send_photo_to_tsina_weibo(options["photo_id"],content)
+      if id.blank?
+        user.send_photo_to_tsina_in_queue(options["photo_id"],content)
+      end
+
     else
-      user.send_message_to_tsina_weibo(content)
+
+      id = user.send_message_to_tsina_weibo(content)
+      if id.blank?
+        user.send_message_to_tsina_weibo_in_queue(content)
+      end
+
     end
   end
 end

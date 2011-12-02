@@ -1,7 +1,8 @@
--htitle 'mindpin.com 主题社区 alpha'
+-htitle 'MINDPIN 社区 alpha'
 
 -activation_url = pin_url_for('pin-user-auth','/activation')
 -daotu_url = pin_url_for('pin-daotu')
+-apply_url = pin_url_for('pin-user-auth','/apply')
 
 .main.grid_24.nl
   .page-anonymous-wrapper
@@ -12,14 +13,22 @@
         .welcome
           .font14.bold 欢迎你，#{current_user.name} (#{current_user.email})：
           %br
-          .desc.bold 你的账号目前没有激活mindpin社区服务。
-
-        .to-activation
-          .desc 如果你已经收到了我们发放的激活码，可以点下面的链接进行激活：
-          %a.middlebutton.green{:href=>activation_url} <span>激活社区服务</span>
+          .desc.bold.font14 你的账号目前没有激活MINDPIN社区，新服务目前正在进行内测。
 
         .to-tu-mindpin
-          .desc 你也可以继续访问思维导图工具服务。
-          %a.middlebutton.darkred{:href=>daotu_url} <span>访问导图服务</span>
+          .desc 如果你是使用思维导图工具的老用户，今后请通过以下网址直接登录访问：
+          %a.middlebutton.loginred{:href=>daotu_url} <span>http://tu.mindpin.com 思维导图</span>
+
+        .to-activation
+          .desc 如果你受邀参加社区α测试，已经收到激活码，可以点下面的链接进行激活：
+          %a.middlebutton.loginblue{:href=>activation_url} <span>激活社区服务</span>
+
+        .if-u-want-to-apply
+          .desc 如果你感兴趣，你也可以：
+          .btn
+            %a.middlebutton.logingray{:href=>apply_url} <span>申请参加测试</span>
+
+        .logout
+          %a{:href=>'/logout'} 点此退出登录
 
   

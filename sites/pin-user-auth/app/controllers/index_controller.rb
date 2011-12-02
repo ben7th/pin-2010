@@ -12,7 +12,7 @@ class IndexController < ApplicationController
     # 如果已经登录，渲染服务列表页
     return render :layout=>'anonymous',:template=>'index/services' if logged_in?
 
-    # 如果还没有登录，渲染未登录首页
-    return render :layout=>'anonymous',:template=>'index/root'
+    # 如果还没有登录，渲染登录页
+    return render :layout=>'anonymous',:template=>'index/login'
   end
 end

@@ -10,4 +10,5 @@
 
   .exit-account-setting
     -site = session[:account_setting_from_site_flag]
+    -site = 'pin-user-auth' if site.blank?
     =minibutton '离开用户设置',pin_url_for(site)

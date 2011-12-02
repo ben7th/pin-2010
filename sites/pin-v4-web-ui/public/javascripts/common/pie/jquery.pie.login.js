@@ -53,7 +53,7 @@ pie.load(function(){
       var elm = jQuery(this);
       if(jQuery.string(elm.val()).blank()){
         can_submit = false;
-        pie.inputflash(elm);
+        pie.inputflashdark(elm);
       }
     });
 

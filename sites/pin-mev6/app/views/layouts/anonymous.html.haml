@@ -2,11 +2,9 @@
 %html{:lang=>"zh"}
   =render 'layouts/parts/head'
 
-  %body.echo.gray
+  %body.echo.dark
     .page-wrap
       .page-container
-        -if logged_in?
-          =render 'layouts/parts/nav',:simple=>true
         .page-content.container_24.top_fixed
           .cell.clearfix.no-line
             =yield

@@ -1,19 +1,14 @@
-@mixin daotu-logo_large{
-  width:420px; height:75px;
-  background:url(/images/mindpin-sites/tu-logo.png) no-repeat;
-  margin-bottom:40px;
-}
-@mixin mindpin_logo_large{
-  width:420px;height:75px;
-  background:url(/images/mindpin-sites/logo.png) no-repeat;
-  margin-bottom:40px;
-  &.daotu{
-    @include daotu-logo_large;
-  }
-}
 @mixin anonymous-box-base{
-  width:600px;margin-left:175px;margin-top:30px;
+  /*外部容器宽度950px*/
+  width:600px;margin-left:264px;margin-top:50px;
 }
+
+@mixin mindpin_logo_h100{
+  width:500px;height:100px; /*主要部分宽度 394px 422px*/
+  background:url(/images/mindpin-sites/logo.png) no-repeat 0 0;
+  margin-bottom:40px;
+}
+
 @mixin anonymous-bold-text-input{
   input.text{
     border:solid 1px #ccc;
@@ -24,58 +19,55 @@
     @include border-radius(4px);
   }
 }
-@mixin anonymous-login-form{
-  form{
-    overflow:hidden;margin-bottom:30px;
-    .field{label{display:block;}}
-    .flash-error{
-      width:210px;
-      /*background:#777;
-      border:solid 1px #666;*/
-      @include border-radius(3px);
-      span{height:30px;line-height:30px;}
-    }
-    
-    .p1{
-      overflow:hidden;margin-bottom:5px;
-      .field{
-        margin-right:9px;margin-bottom:0;
-        @include anonymous-bold-text-input;
-      }
-    }
-    
-    .p2{
-      width:240px;
-      overflow:hidden;margin-bottom:9px;
-      .remember-me{float:left;font-size:12px;height:32px;line-height:32px;}
-      .forget-password{font-size:12px;height:32px;line-height:32px;float:right;
-        a{color:#666;&:hover{color:#666;}}
-      }
-    }
-    
-    .p3{
-      padding-bottom:5px;
-    }
-  }
-}
+
 @mixin anonymous-connects{
   /*连接各种网站*/
   .connects{
-    margin-bottom:30px;
     overflow:hidden;
-    .inset{
-      float:left;
-      padding:5px;
-      box-shadow:0 1px 2px rgba(50, 50, 50, 0.2) inset;
-      @include border-radius(7px);
-      .connect{
-        float:left;
-        @include button-red;
-        @include border-radius(3px);
-        .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
-        .name{float:left;font-size:14px;height:30px;line-height:30px;padding: 0 9px;}
-        &.tsina-weibo{.icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}}
-      } 
+    .connect{
+      float:left;padding:0 3px;
+      .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
+      .name{float:left;font-size:14px;height:30px;line-height:30px;padding: 0 9px;}
+      &.tsina-weibo{.icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}}
+    } 
+  }
+}
+
+@mixin darkbg-text{
+  color:#f1f1f1;
+  text-shadow:0 0 3px black;
+  a{color:#f1f1f1;&:hover{color:#f1f1f1;}}
+}
+
+@mixin dark_bg_field_with_label{
+  float:none;margin-bottom:14px;
+  position:relative;
+  overflow:hidden;
+  .middlebutton{margin-right:9px;}
+  label{
+    color:#53575B;font-size:14px;line-height:32px;height:32px;
+    margin:0;padding:0;
+    position:absolute;
+    top:0;left:7px;
+    cursor:text;font-weight:bold;
+  }
+  /*.text-box{
+    padding:1px;
+    @include border-radius(4px);
+    float:left;line-height:0;
+    background-color:rgba(255,255,255,0.4);
+    *background-color:#888;
+  }*/
+  input.text, textarea.text{
+    height:22px;line-height:22px;
+    background-color:#25282B;
+    @include border-radius(3px);
+    box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset;
+    border:none;
+    color:#f1f1f1;
+    @include tfont;
+    &.active{
+      background-color:#16181A;
     }
   }
 }
@@ -83,74 +75,174 @@
 .page-anonymous-wrapper{
   .root-box{
     @include anonymous-box-base;
-    .logo{@include mindpin_logo_large;}
+    .logo{@include mindpin_logo_h100;}
     .root-content{
-      margin-left:75px;
+      padding:0 14px;
       .if-u-want-to-use-mindmap{
-        font-size:14px;font-weight:bold;margin-bottom:20px;
-        .url{
-          a{font-size:18px;color:#3079ED;span{color:#7AADED}}
-        }
+        @include darkbg-text;
+        margin-bottom:20px;
+        .desc{font-size:14px;margin-bottom:5px;}
+        .url{a{font-size:18px;color:#bacafa;font-weight:bold;}}
       }
       .if-u-has-alpha-account, .if-u-want-to-apply{
         margin-bottom:20px;
-        .desc{margin-bottom:5px;}
+        .desc{@include darkbg-text;margin-bottom:5px;}
       }
       
       .welcome,.to-activation,.to-tu-mindpin{
         margin-bottom:20px;
-        .desc{margin-bottom:5px;}
+        @include darkbg-text;
+        .desc{@include darkbg-text;margin-bottom:5px;}
+      }
+      
+      .to-tu-mindpin{
+        padding-bottom:20px;
+        margin-bottom:30px;
+        border-bottom:solid 1px #A5A5A5;
+        .middlebutton{height:36px;line-height:36px;}
       }
       
       .aj-submit-form{
-        @include anonymous-bold-text-input;
+        .field{
+          @include dark_bg_field_with_label;
+        }
       }
+      
+      .logout{
+        margin-top:20px;
+        a{@include darkbg-text;}
+      }
+      .need-login-for-activation{
+        @include darkbg-text;
+      }
+      
+      p{@include darkbg-text;font-size:14px;
+        .loud{color:#FBEB96 !important;}
+      }
+      
+      .title{@include darkbg-text;font-weight:bold;font-size:14px;margin-bottom:9px;}
     }
   }
+  
   .login-box{
-    @include anonymous-box-base;
-    .logo{@include mindpin_logo_large;}
-    .login-content{
-      padding-left:75px;overflow:hidden;
-      .ct{
-        float:left;border-right:solid 2px #eee;padding-top:18px;
-        padding-right:60px;
-        @include anonymous-login-form;
-        @include anonymous-connects;
+    /*外部容器宽度950px*/ /*800x370*/
+    width:800px;margin-left:-400px;margin-top:-185px;
+    left:50%;top:45%;position:absolute;
+    .logo{
+      width:600px;height:120px;
+      margin-left:150px;
+      background:url(/images/mindpin-sites/logo.png) no-repeat 0 -101px;
+      margin-bottom:50px;
+      &.daotu{
+        background:url(/images/mindpin-sites/logo.png) no-repeat 0 -222px;
       }
-      .others{
-        .bl{margin-bottom:14px;}
-        float:right;margin-right:30px;
-        .desc{margin-bottom:4px;}
+    }
+    .login-content{
+      margin-left:105px;
+      overflow:hidden;
+      .ct{
+        @include anonymous-connects;
+        form{
+          overflow:hidden;margin-bottom:30px;
+          .field{
+            @include dark_bg_field_with_label;
+            float:left;margin-right:9px;margin-bottom:5px;
+            label{height:44px;line-height:44px;left:16px;font-size:16px;}
+            input.text{
+              height:34px;line-height:34px;padding:5px 14px;font-weight:bold;
+              width:240px;font-size:16px;
+            }
+            a.login-submit{
+              overflow:hidden;span{float:left;}
+              font-size:16px;line-height:42px;height:42px;
+              .icon{width:24px;height:24px;@include allimg(-35px,-125px);
+                margin-top:9px;margin-left:9px;
+              }
+            }
+            
+            &.error{
+              span{
+                padding:0;margin:0;font-size:14px;font-weight:bold;
+                background:none;border:none;
+                line-height:20px;height:20px;
+                @include darkbg-text;
+              }
+            }
+            &.misc{width:270px;overflow:hidden;
+              font-size:14px;
+              line-height:20px;height:20px;
+              .remember-me{padding:0 4px;@include darkbg-text;float:left;margin-right:30px;}
+              .forget-password{@include darkbg-text;float:left;}
+            }
+            &.reg{width:270px;overflow:hidden;
+              font-size:14px;font-weight:bold;
+              a{padding:0 4px;@include darkbg-text;line-height:20px;height:20px;}
+            }
+            &.wallpaper{
+              width:270px;overflow:hidden;
+              .wallpaper-toggle{
+                overflow:hidden;margin-top:4px;
+                .title{@include darkbg-text;font-size:14px;
+                  float:left;height:24px;line-height:24px;
+                  margin-left:9px;
+                }
+                .prev,.next{
+                  width:24px;height:24px;display:block;
+                  float:left;font-size:0;line-height:30em;overflow:hidden;
+                  margin-right:0px;opacity:0.6;
+                  &:hover{opacity:1;};
+                }
+                .prev{@include allimg(-35px,-150px);}
+                .next{@include allimg(-60px,-150px);}
+              }
+            }
+            &.tsina{
+              width:270px;overflow:hidden;
+            }
+          }
+          
+          .p1, .p2, .p3{
+            overflow:hidden;
+          }
+          .p2{margin-bottom:30px;}
+        }
       }
     }
   }
+  
   .signup-box{
     @include anonymous-box-base;
-    .logo{@include mindpin_logo_large;}
+    .logo{@include mindpin_logo_h100;}
     .signup-content{
-      padding-left:75px;overflow:hidden;
+      padding:0 14px;overflow:hidden;
       .ct{
-        float:left;border-right:solid 2px #eee;
-        padding-right:40px;
+        float:left;border-right:solid 1px #A5A5A5;
+        padding-right:60px;
         form{
-          @include anonymous-bold-text-input;
-          .quiet{padding-left:3px;}
-          a.signup-submit{width:100px;}
-          .flash-error{
-            width:210px;
-            /*background:#777;
-            border:solid 1px #666;*/
-            @include border-radius(3px);
-            span{height:30px;line-height:30px;}
-            .tip{line-height:14px;height:14px;margin-top:5px;}
+          .field{
+            @include dark_bg_field_with_label;
           }
+          .fi{
+            height:24px;margin-bottom:14px;
+            padding:0 3px;
+          }
+          .flash-error{
+            @include darkbg-text;
+            margin:0;padding:0;background:none;
+            border:none;height:24px;line-height:24px;
+            .others.tip{
+              margin:0;padding:0 5px;height:24px;line-height:24px;
+              background-color:rgba(0,0,0,0.2);
+            }
+          }
+          .quiet{padding:3px}
         }
       }
       .others{
+        margin-top:15px;
         .bl{margin-bottom:14px;}
         float:right;margin-right:30px;
-        .desc{margin-bottom:4px;}
+        .desc{margin-bottom:5px;@include darkbg-text;}
         @include anonymous-connects;
       }
     }
@@ -158,12 +250,16 @@
   
   .reset-password-box{
     @include anonymous-box-base;
-    .logo{@include mindpin_logo_large;}
+    .logo{@include mindpin_logo_h100;}
     .form{
-      padding-left:75px;overflow:hidden;
+      padding:0 14px;overflow:hidden;
+      .title{@include darkbg-text;font-weight:bold;font-size:14px;margin-bottom:9px;}
+      .desc{@include darkbg-text;font-size:14px;margin-bottom:14px;.loud{color:#FBEB96 !important;}}
+      
       form{
-        margin:0;
-        @include anonymous-bold-text-input;
+        .field{
+          @include dark_bg_field_with_label;
+        }
       }
     }
     &.no1{
@@ -173,28 +269,38 @@
   
   .apply-form{
     @include anonymous-box-base;
-    background-color:#FFF;border:solid 1px #eee;margin-top:50px;
-    .title{margin:4px 4px 14px 4px;background-color:#fafafa;font-size:14px;font-weight:bold;padding:5px 10px;}
-    .desc{padding:0px 14px;margin-bottom:14px;font-size:14px;}
-    .re{margin:4px;padding:5px 10px;background-color:#fafafa;}
-    form{
-      margin:4px;padding:5px 10px;background-color:#fafafa;
-      .field{
-        float:none;
-        input.text, textarea.text{
-          border:solid 1px #ccc;
-          box-shadow:1px 1px 2px rgba(0, 0, 0, 0.2) inset;
-          font-weight:normal;
-          @include tfont;
-        }
-        input.text{
-          width:247px;
-        }
-        textarea.text{
-          width:400px;height:120px;
-          line-height:20px;
+    .logo{@include mindpin_logo_h100;}
+    .apply-content{
+      margin-left:14px;
+      .title{@include darkbg-text;margin-bottom:10px;font-size:14px;font-weight:bold;}
+      .desc{
+        @include darkbg-text;margin-bottom:10px;
+        a{color:#BACAFA;&:hover{color:#BACAFA;}}
+      }
+      .re{@include darkbg-text;margin-bottom:10px;}
+      form{
+        padding-top:10px;
+        .field{
+          @include dark_bg_field_with_label;
+
+          input.text{
+            width:247px;
+          }
+          textarea.text{
+            width:400px;height:80px;
+            line-height:20px;
+          }
         }
       }
     }
   }
+  
+}
+
+.page-anonymous-wallpaper{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;height:100%;overflow:hidden;
+  z-index:-100;
 }

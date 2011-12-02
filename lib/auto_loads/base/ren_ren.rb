@@ -16,14 +16,14 @@ class RenRen
 
   def get_access_token(authorization_code)
     access_token_url = "http://graph.renren.com/oauth/token?client_id=#{API_KEY}&client_secret=#{API_SECRET}&redirect_uri=#{CALLBACK_URL}&grant_type=authorization_code&code=#{authorization_code}"
-    access_token = HandleGetRequest.get_response_from_url(access_token_url)
+    access_token = HttpUtil.get_body_by_url(access_token_url)
     access_token_hash = ActiveSupport::JSON.decode(access_token)
     access_token_hash["access_token"]
   end
 
   def get_bind_access_token(authorization_code)
     access_token_url = "http://graph.renren.com/oauth/token?client_id=#{API_KEY}&client_secret=#{API_SECRET}&redirect_uri=#{BIND_CALLBACK_URL}&grant_type=authorization_code&code=#{authorization_code}"
-    access_token = HandleGetRequest.get_response_from_url(access_token_url)
+    access_token = HttpUtil.get_body_by_url(access_token_url)
     access_token_hash = ActiveSupport::JSON.decode(access_token)
     access_token_hash["access_token"]
   end
@@ -62,7 +62,7 @@ class RenRen
 
   def get_session_key_and_uid(access_token)
     uri = URI.encode("http://graph.renren.com/renren_api/session_key?oauth_token=#{access_token}")
-    hash_json = HandleGetRequest.get_response_from_url(uri)
+    hash_json = HttpUtil.get_body_by_url(uri)
     session_hash = ActiveSupport::JSON.decode(hash_json)
     uid = session_hash["user"]["id"]
     session_key = session_hash["renren_token"]["session_key"]

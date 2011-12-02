@@ -1,13 +1,18 @@
-/*页脚*/
-  /*页脚背景*/
-    $foot-bg-color   : #F7F7F7;
-    $foot-bg-color-1 : #F7F7F7;
-  /*页脚顶边*/
-    $foot-border-top-color : #DDDDDD;
-
 .page-footer{
   background-color:#F7F7F7;
   .pf{
     border-top:solid 2px #e6e6e6;
+  }
+}
+
+body.dark{
+  .page-footer{
+    background:none;
+    .pf{
+      border-top:solid 2px transparent;
+      background:none;
+      color:#f1f1f1;
+      text-shadow:0 0 3px black;
+    }
   }
 }

@@ -58,6 +58,8 @@ class MindpinRailsLoader
 
     # 自己写的 gem
     @config.gem "pie-ui"
+    # http client
+#    @config.gem "patron"
   end
 
   def load_codes

@@ -1,10 +1,4 @@
 class ActivationController < ApplicationController
-  def services
-    return redirect_to '/' if logged_in? && current_user.is_v2_activation_user?
-    render :layout=>"anonymous", :template=>"index/services"
-  end
-
-  # -----------------
 
   def apply
     @is_applied = params[:r] == 'success'

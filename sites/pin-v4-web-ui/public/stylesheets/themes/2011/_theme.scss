@@ -3,6 +3,12 @@
 
 body{
   background-color:#ffffff;
+  &.gray{
+    background:url(/images/bodybgs/body_bg_gray.jpg) #f4f4f4;
+  }
+  &.dark{
+    background:url(/images/bodybgs/body_bg_dark.jpg) #343942;
+  }
 }
 
 /*一般文字*/
@@ -49,12 +55,6 @@ body{
       color:white;
       &:hover{background-color:$text-a-hover-color;text-decoration:none;}
     }
-  }
-}
-
-body{
-  &.gray{
-    background:url(/images/body_bg.jpg) #f4f4f4;
   }
 }
 

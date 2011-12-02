@@ -10,7 +10,7 @@
           var elm = jQuery(this);
           if(jQuery.string(elm.val()).blank()){
             can_submit = false;
-            pie.inputflash(elm);
+            pie.inputflashdark(elm);
           }
         });
 
@@ -24,34 +24,40 @@
 
 -is_applied = @is_applied
 
+-if logged_in?
+  -email = current_user.email
+-else
+  -email = ''
+
 .main.grid_24.nl
   .page-anonymous-wrapper
     .apply-form
-      .title 申请参与 mindpin主题社区 α测试
-      -if is_applied
-        .desc 申请表已经提交，我们会进行人工审核，谢谢你的支持。
-        .re=minibutton '返回首页','/'
-      -else
-        .desc
-          %span.loud.bold.font12> 注意：进行此α测试的主题社区和在线思维导图工具没有联系，目前也没有任何功能上的整合。
-          %span.loud.bold.font12> 不进行此激活，并不影响思维导图工具的使用。只需要使用在线思维导图的朋友，请
-          %a.minibutton.font12{:href=>'http://tu.mindpin.com'} <span>去这里</span>
-          %br>
-          %br>
-          %span.font12> 请确保邮箱地址正确。
-          %br>
-          %span.font12> 我们会在阅读你的简介后，在数周内发送测试激活码到你填写的邮箱。
+      .logo
+      .apply-content
+        .title 申请参加α测试
+        -if is_applied
+          .desc 申请表已经提交，我们会进行人工审核，谢谢你的支持。
+          .re
+            %a.middlebutton.logingray{:href=>'/'} <span>返回首页</span>
+        -else
+          .desc
+            %span> 友好提示：是否参加社区测试，对思维导图工具的使用没有影响。访问思维导图工具请：
+            %a{:href=>'http://tu.mindpin.com'} —&gt;去这里
+          .desc
+            %span> 请确保邮箱地址正确。
+            %br
+            %span> 我们会在阅读你的简介后，在数周内发送测试激活码到你填写的邮箱。
 
-        -form_tag '/apply_submit' do
-          .field
-            %label 邮箱
-            =text_field_tag :email,'',:class=>'text need'
-          .field
-            %label 真实姓名
-            =text_field_tag :name,'',:class=>'text need'
-          .field
-            %label 自我简介
-            =text_area_tag :description,'',:class=>'text need'
-            .d 对自己进行简要介绍，例如职业，所在公司，兴趣爱好，特长。
-          .field
-            %a.apply-submit.submitbutton{:href=>"javascript:;"} <span>确定</span>
+          -form_tag '/apply_submit' do
+            .field
+              %label 邮箱
+              =text_field_tag :email, email, :class=>'text need j-tip',:tabindex=>1
+            .field
+              %label 真实姓名
+              =text_field_tag :name,'',:class=>'text need j-tip',:tabindex=>2
+            .field
+              %label 自我简介，可以写所在行业，兴趣爱好，特长等
+              =text_area_tag :description,'',:class=>'text need j-tip',:tabindex=>3
+            .field
+              %a.apply-submit.middlebutton.loginblue{:href=>"javascript:;"} <span>写好了</span>
+              %a.middlebutton.logingray{:href=>'/'} <span>返回首页</span>

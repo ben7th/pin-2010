@@ -13,10 +13,10 @@
 
       .root-content
         =flash_info
-        %h3 激活社区服务
+        .title 激活社区服务
         - if logged_in?
           %p
-            mindpin社区服务
+            MINDPIN社区
             %span.loud> 目前仍在alpha测试期间，并未公开开放。<br/>
             你目前正使用账号 <b>#{current_user.name}(#{current_user.email})</b> 登录。<br/>
             <br/>
@@ -27,12 +27,13 @@
             - form_tag submit_url do
               .field
                 %label 激活码
-                = text_field_tag :code,"",:size=>25,:maxlength=>255,:class=>'marginr5 text need'
+                = text_field_tag :code,"",:size=>25,:maxlength=>255,:class=>'marginr5 text need j-tip'
               .field
-                = link_to '激 活','javascript:;',:class=>'active-submit a-link-submit submitbutton'
+                = link_to '激 活','javascript:;',:class=>'active-submit a-link-submit middlebutton loginblue'
+                %a.middlebutton.logingray{:href=>'/'} <span>返回首页</span>
         - else
           %p
-            mindpin社区服务
+            MINDPIN社区
             %span.loud> 目前仍在alpha测试期间，并未公开开放。<br/>
             你仍然可以进行<a href='/signup'>账号注册</a>，但默认只能使用已开放的<a href='#{pin_url_for('pin-daotu')}'>思维导图编辑器</a>服务。<br/>
             <br/>
@@ -40,6 +41,5 @@
             可以通过此页激活社区服务，参加我们的测试。帮助我们进行产品改进。
 
           .need-login-for-activation
-            你必须先
-            =minibutton '登录','/login',:class=>'green'
+            =minibutton '你必须先登录','/login',:class=>'logingray'
             ，才能进行服务激活操作

@@ -2,10 +2,7 @@ include RoutesMethods
 
 # -----------------
 
-def match_activation_routes(map)
-  # 服务选择页
-  match_get  map,'/services'      => 'activation#services'
-  
+def match_activation_routes(map)  
   # 请求参与测试 / 提交请求参与测试表单
   match_get  map,'/apply'         => 'activation#apply'
   match_post map,'/apply_submit'  => 'activation#apply_submit'
@@ -205,6 +202,7 @@ end
 
 def match_photos_and_entries_routes(map)
   match_post map, '/photos/upload_for_feed' => 'photos#upload_for_feed'
+  match_post map, '/photos/import_image_url'=> 'photos#import_image_url'
 end
 
 def match_tsina_app_routes(map)
@@ -298,4 +296,12 @@ ActionController::Routing::Routes.draw do |map|
     match_get api0, 'contacts/followings' => 'api#contacts_followings'
 
   end
+
+  match_get map, '/zhi_ma_kai_men/login_wallpapers/new'       => 'login_wallpapers#new'
+  match_post map, '/zhi_ma_kai_men/login_wallpapers'             => 'login_wallpapers#create'
+  match_get map, '/zhi_ma_kai_men/login_wallpapers'               => 'login_wallpapers#index'
+  match_delete map, '/zhi_ma_kai_men/login_wallpapers/:id'      => 'login_wallpapers#destroy'
+
+  match_get map,'/login_get_next_wallpaper' => "login_wallpapers#get_next_wallpaper"
+  match_get map,'/login_get_prev_wallpaper' => "login_wallpapers#get_prev_wallpaper"
 end

@@ -4,8 +4,8 @@
 -htitle "头像设置 裁剪头像"
 
 - content_for :javascripts do
-  = javascript_include_tag 'jsCropperUi/cropper'
-  = javascript_include_tag 'views/account/image_cut'
+  = javascript_include_tag '/jsCropperUi/cropper'
+  = javascript_include_tag 'views/image_cut'
 
 - width  = @temp_image_size[:width]
 - height = @temp_image_size[:height]

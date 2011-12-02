@@ -81,6 +81,9 @@ class ApplicationController < ActionController::Base
       :fans,
       :create
     ],
+    :login_wallpapers=>[
+      :index,:new,:create,:destroy,:get_next_wallpaper,:get_prev_wallpaper
+    ]
   }
   before_filter :hold_anonymous_free_page
   def hold_anonymous_free_page
@@ -92,7 +95,6 @@ class ApplicationController < ActionController::Base
     
     # 其他用户，重定向处理
     return render :status=>401,:text=>401 if is_android_client? # android客户端，401
-    return redirect_to "/services" if logged_in?
     return redirect_to "/"
   end
 

@@ -85,9 +85,7 @@ class Tsina
       res = wb.update(content)
       res["id"]
     rescue Exception=>ex
-      p ex.message
-      puts ex.backtrace*"\n"
-      return false
+      process_weibo_ex(ex)
     end
 
     def repost_message_to_tsina_weibo(id,content)
@@ -95,9 +93,7 @@ class Tsina
       res = wb.repost(id,:status=>content)
       res["id"]
     rescue Exception=>ex
-      p ex.message
-      puts ex.backtrace*"\n"
-      return false
+      process_weibo_ex(ex)
     end
 
     def send_photo_to_tsina_weibo(photo_id,content)
@@ -112,14 +108,18 @@ class Tsina
         res = wb.upload(content,f)
       end
       res["id"]
-    rescue Weibo::RateLimitExceeded=>ex
+    rescue Exception=>ex
+      process_weibo_ex(ex)
+    end
+
+    def process_weibo_ex(ex)
       p ex.message
       puts ex.backtrace*"\n"
-      if !!ex.message.match("内容长度")
+      if !!ex.message.match("Text too long")
         raise Tsina::ContentLengthError
       elsif !!ex.message.match("accessor was revoked")
         raise Tsina::OauthFailureError
-      elsif !!ex.message.match("不要太贪心哦")
+      elsif !!ex.message.match("repeated weibo text")
         raise Tsina::RepeatSendError
       end
     end
@@ -139,16 +139,6 @@ class Tsina
           :user_id=>self.id,:content=>content,:photo_id=>photo_id})
     end
 
-    def send_mindmap_thumb_to_tsina_weibo(mindmap,content)
-      image = MindmapImageCache.new(mindmap).thumb_500_img_path
-      send_tsina_image_status(image,content)
-    end
-
-    def share_mindmap_to_tsina_in_queue(mindmap)
-      image_path = MindmapImageCache.new(mindmap).thumb_500_img_path
-      SendTsinaStatusQueueWorker.async_send_tsina_status({
-          :user_id=>self.id,:content=>"分享导图 #{mindmap.title}",:image_path=>image_path})
-    end
   end
 
 end

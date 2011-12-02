@@ -1,0 +1,6 @@
+- form_tag "/zhi_ma_kai_men/login_wallpapers",:multipart=>true do
+      %label 标题
+      = text_field_tag :title
+      %label 选择一张图片并上传
+      = file_field_tag :image
+      = submit_tag "上传图片"

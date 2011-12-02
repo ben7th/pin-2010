@@ -7,8 +7,8 @@
       .form
         =flash_info
 
-        %h3 重新设置密码
-        %p.font14
+        .title 重新设置密码
+        .desc
           在此输入
           %span.loud> 您注册时使用的电子邮件地址
           ，并点击“确定”
@@ -18,6 +18,7 @@
         - form_tag '/account/forgot_password/submit' do
           .field
             %label 电子邮箱地址
-            = text_field_tag :email,"",:size=>25,:maxlength=>255,:class=>'marginr5 text need'
+            = text_field_tag :email,"",:size=>25,:maxlength=>255,:class=>'marginr5 text need j-tip'
           .field
-            = link_to '确定','javascript:;',:class=>'reset-password-submit submitbutton'
+            = link_to '确定','javascript:;',:class=>'reset-password-submit middlebutton loginblue'
+            %a.middlebutton.logingray{:href=>'/'} <span>返回首页</span>

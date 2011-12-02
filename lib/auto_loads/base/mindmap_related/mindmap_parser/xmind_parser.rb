@@ -125,7 +125,7 @@ class XmindParser < MapFileParser
       img_file_name = "#{UUIDTools::UUID.random_create.to_s}"+".#{img_src.split(".")[-1]}"
       image_file_path = "#{Dir::tmpdir}/#{img_file_name}"
       file = File.open(image_file_path,"wb")
-      file.write(HandleGetRequest.get_response_from_url(img_src))
+      file.write(HttpUtil.get_body_by_url(img_src))
       file.close
       img_element['xhtml:src'] = "xap:attachments/#{img_file_name}"
       img_files << image_file_path

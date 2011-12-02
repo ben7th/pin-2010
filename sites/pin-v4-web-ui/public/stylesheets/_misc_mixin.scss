@@ -39,50 +39,6 @@
   }
 }
 
-@mixin viewpoint-in-list{
-  margin:0 0 10px 0;
-  .arrow{
-    width:15px;height:7px;
-    @include allicon(-271px,-65px);
-    margin:0 0 0 36px;
-  }
-  .data{
-    padding:5px;
-    background:#F0F7FF;
-    @include border-radius(3px);
-    .avatar{
-      float:right;
-      img{width:20px;height:20px;}
-    }
-    .name{
-      font-size:12px;
-      margin:0 0 6px 0;
-      color:#A5A5A5;
-      .title{
-        font-size:12px;
-        margin:0 0 6px 0;
-      }
-      .vote-score{
-        @include border-radius(4px);
-        background:#53BCFE;
-        color:white;
-        font-weight:bold;
-        margin:0 4px 0 0;
-        padding:0 6px;
-        cursor:default;
-      }
-      .bold{font-weight:normal;}
-    }
-    .time{
-      font-size:12px;
-      margin:0 0 6px 0;
-    }
-    .memo-content{
-      p{margin:0;}
-    }
-  }
-}
-
 @mixin chs-ch{
   .chs .ch{
     margin:0 0 4px 0;
@@ -101,59 +57,10 @@
   }
 }
 
-@mixin miniavatar{
-  overflow:hidden;
-  .avatar{
-    float:left;
-    width:26px;height:26px;
-    margin:0 3px 3px 0;
-    img{width:24px;height:24px;}
-    text-decoration:none !important;
-  }
-}
-
 @mixin pie-pad($from,$to,$radius:4px){
   @include gradient($from,$to);
   @include border-radius($radius);
   @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
-}
-
-@mixin editable-form{
-  form{
-    position:absolute;
-    width:172px;
-    @include border-radius(4px);
-    background:#E0EBAF;
-    border:solid 2px #323546;
-    padding:2px;
-    input{
-      background:#F7FCFF;
-      border:none;
-      padding:0 2px;
-      @include border-radius(3px);
-      border:solid 1px #111;
-    }
-    button{
-      @include border-radius(3px);
-      border:none 0px;
-      margin:2px 5px 0 0;
-      border:solid 1px #666;
-      &.editable-submit{
-        color:white;
-        background:#0063DC;
-        &:hover{
-          background:#0054BD;
-        }
-      }
-      &.editable-cancel{
-        color:#666666;
-        background:#ddd;
-        &:hover{
-          background:#CFCFCF;
-        }
-      }
-    }
-  }
 }
 
 @mixin submitbtns{
@@ -246,11 +153,6 @@
   /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
 }
 
-@mixin word-break{
-  word-wrap:break-word;
-  word-break:break-all;
-}
-
 @mixin tags{
   overflow:hidden;
   float:left;
@@ -289,21 +191,6 @@
       padding:0 4px;
       line-height:16px;
       position:relative;top:1px;
-    }
-  }
-}
-
-@mixin tag-and-count{
-  .tag-and-count{
-    @include tags;
-    float:none;
-    display:block;
-    margin:0 0 6px 0;
-    .count{
-      line-height:19px;
-      font-weight:bold;
-      font-size:14px;
-      color:#888888;
     }
   }
 }
@@ -355,7 +242,7 @@
 
 /*标准按钮*/
 @mixin button-base{
-  @include border-radius(3px);display:inline-block;padding:0;text-align:center;
+  @include border-radius(5px);display:inline-block;padding:0;text-align:center;
   font-weight:bold;
   &:hover{
     text-decoration:none;
@@ -441,6 +328,44 @@
     border-color:#2098DD;
     color:#fff !important;
     box-shadow:0 1px 2px #ccc;
+  }
+}
+
+@mixin button-loginblue{
+  @include button-base;
+  color:#fff !important;
+  background-color:#3C7FED;
+  border:solid 1px #5396FD;
+  text-shadow:0 0 2px black;
+  box-shadow:0 0 3px black;
+  &:hover{
+    background:#5C8FFD;
+    color:#fff !important;
+  }
+}
+
+@mixin button-logingray{
+  @include button-base;
+  color:#fff !important;
+  background-color:#666;
+  border:solid 1px #777;
+  text-shadow:0 0 2px black;
+  box-shadow:0 0 3px black;
+  &:hover{
+    background:#888;
+    color:#fff !important;
+  }
+}
+
+@mixin button-loginred{
+  @include button-base;
+  color:#fff !important;
+  background-color:#ED513C;
+  border:solid 1px #FD6553;
+  text-shadow:0 0 2px #444444;
+  &:hover{
+    background-color:#FD7A5C;
+    color:#fff !important;
   }
 }
 

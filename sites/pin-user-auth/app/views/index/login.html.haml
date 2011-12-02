@@ -1,3 +1,7 @@
+-# javascript 见 UI//common/pie/jquery.pie.login.js
+
+-hjavascript pin_url_for('ui','/singlejs/login_wallpaper_load')
+
 -htitle '登录'
 
 -submit_url          = pin_url_for('pin-user-auth','/login')
@@ -6,40 +10,55 @@
 -signup_url          = pin_url_for('pin-user-auth','/signup')
 -apply_url           = pin_url_for('pin-user-auth','/apply')
 
+-old_wallpaper_id = cookies[:login_wallpaper_id]
+-wallpaper = old_wallpaper_id.blank? ? LoginWallpaper.last : LoginWallpaper.find_by_id(old_wallpaper_id)
+
 .main.grid_24.nl
+  -if !wallpaper.blank?
+    -wallpaper_id = wallpaper.id
+    -wallpaper_title = h wallpaper.title
+    -wallpaper_url = wallpaper.image.url
+    -width = wallpaper.image.width
+    -height = wallpaper.image.height
+    .page-anonymous-wallpaper{:'data-width'=>width, :'data-height'=>height, :'data-img-src'=>wallpaper_url, :'data-id'=>wallpaper_id}
+
   .page-anonymous-wrapper
     .login-box
       .logo
       .login-content
         .ct
-          .connects
-            .inset
-              %a.connect.tsina-weibo{:href=>connect_tsina_url,:title=>'使用新浪微博账号登陆'}
-                .icon
-                .name 使用新浪微博账号登录
-
           -form_tag(submit_url,{:class=>'login-form'}) do
-            =flash_info
             .p1
               .field.email
                 %label 电子邮箱 / 用户名
-                =text_field_tag     :email   ,params[:email]   ,:class=>'text need',:tabindex=>'1'
+                =text_field_tag     :email   ,params[:email]   ,:class=>'text need j-tip',:tabindex=>'1'
               .field.password
                 %label 密码
-                =password_field_tag :password,params[:password],:class=>'text need',:tabindex=>'2'
-            .p2
-              .remember-me
-                %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
-                %span 记住我
-              .forget-password
-                =link_to '我忘记密码了…', forgot_password_url
-            .p3
-              =link_to '<span>登　录</span>','javascript:;',:class=>'login-submit submitbutton'
+                =password_field_tag :password,params[:password],:class=>'text need j-tip',:tabindex=>'2'
+              .field
+                %a.login-submit.middlebutton.loginblue{:href=>'javascript:;'} <span>登 录</span><span class='icon'></span>
 
-        .others
-          .bl
-            .desc 你还可以…
-            %a.middlebutton.green{:href=>signup_url} 注册一个账号
-          .bl
-            .desc 或者
-            %a.minibutton{:href=>apply_url} 申请参与α测试
+            .p2
+              .field.reg
+                %a{:href=>signup_url} 注册一个新账号
+              .field.misc
+                .remember-me
+                  %span=check_box_tag :remember_me,params[:remember_me],true,:class=>'checkbox'
+                  %span 下次记住我
+                .forget-password
+                  =link_to '我忘记密码了…', forgot_password_url
+              .field.error
+                %span=flash[:error]
+
+            .p3
+              .field.tsina
+                .connects
+                  %a.connect.tsina-weibo.middlebutton.loginred{:href=>connect_tsina_url,:title=>'使用新浪微博账号登陆'}
+                    .icon
+                    .name 微博登录
+              .field.wallpaper
+                -if !wallpaper.blank?
+                  .wallpaper-toggle{:style=>'display:none;'}
+                    %a.prev{:href=>'javascript:;'} 上一张图
+                    %a.next{:href=>'javascript:;'} 下一张图
+                    .title=wallpaper_title

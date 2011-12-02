@@ -9,6 +9,18 @@ pie.inputflash = function(input_elm){
     });
 }
 
+pie.inputflashdark = function(input_elm){
+  input_elm
+    .stop()
+    .animate({'background-color': '#16181A'},200)
+    .animate({'background-color': '#25282B'},200)
+    .animate({'background-color': '#16181A'},200)
+    .animate({'background-color': '#25282B'},200,function(){
+      input_elm.css('background-color','');
+    });
+}
+
+
 pie.load(function(){
   var ani = function(elm){
     elm.css('backgroundColor','#292929')
