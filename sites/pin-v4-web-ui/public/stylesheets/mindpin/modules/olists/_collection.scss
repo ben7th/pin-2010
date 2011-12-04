@@ -1,6 +1,16 @@
 .page-ogrid.collection-feeds{
   position:relative;
   overflow:visible;
+  padding-top:20px;
+  
+  background:url(/images/bodybgs/timeline-line.png) repeat-y 453px 0;
+  
+  .list-blank{
+    padding:9px;font-size:14px;
+    border:solid 1px #ccc;
+    background-color:#FAFAFA;
+    color:#666;
+  }
   
   /*
   $feed_margin:10px;
@@ -16,25 +26,50 @@
   
   .feed{
     position:absolute;
-    @include gray-box;
     padding:0;
     width:$feed_width_1c;
     margin-bottom:$feed_margin;
     margin-right:$feed_margin;
-
-    border:solid 1px #eee;
-    /*box-shadow:0 1px 3px rgba(25, 25, 25, 0.3);*/
+    border:solid 1px #ccc;
+    background-color:#fff;
+    
+    .creator{  
+      overflow:hidden;
+      padding:9px;border-bottom:solid 1px #eee;
+      .avatar{float:left;img{width:32px;height:32px;padding:0;@include border-radius(0);}}
+      .c-meta{
+        margin-left:41px;height:32px;
+        .name,.created-at{
+          height:16px;line-height:16px;
+          overflow:hidden;
+          a{
+            color:#666;
+            height:16px;line-height:16px;float:left;
+            &:hover{color:#666;text-decoration:baseline;}
+          }
+        }
+        .name{
+        }
+        .created-at{
+        }
+      }
+    }
     
     .title{
-      margin:0;
-      padding:4px 9px;
+      margin-top:4px;
+      padding:0 9px;
       font-weight:bold;
       font-size:12px;
-      a{color:#444 !important;}
+      background-color:#fff;
+      a{
+        line-height:24px;height:24px;
+        color:#444 !important;
+      }
     }
+    
     a.photos{
       display:block;
-      margin:4px 4px 4px 4px;overflow:hidden;
+      margin:4px;overflow:hidden;
       position:relative;line-height:0;font-size:0;
       .photo{
         line-height:0;font-size:0;
@@ -77,35 +112,40 @@
         }
       }
     }
+    
     .detail{
-      margin:0;
+      margin-top:4px;
       padding:4px 9px;
       font-size:12px;
       @include feed-detail-format;
-      @include tfont;
+      background-color:#fff;
     }
+    
     .footer-links{
-      padding:4px 9px;
+      margin:4px;
+      padding:0 5px;
+      background-color:#f7f7f7;
       .comment-count, .created-at, .show-detail{
-        font-size:12px;line-height:16px;
-        a{@include tfont;color:#999;
+        font-size:12px;
+        a{
+          height:24px;line-height:24px;
+          color:#999;
           &:hover{
-            color:#999;text-decoration:none;
-            border-bottom:solid 1px;
+            color:#999;text-decoration:baseline;
           }
         }
       }
+      
+      .comment-count, .show-detail{
+        .icon{height:16px;width:16px;margin:4px 0px 0 0;float:left;}
+      }
+      
       .comment-count{
-        margin-bottom:3px;
-        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-103px)}
+        .icon{@include allimg(-1px,-103px)}
       }
       .show-detail{
-        margin-bottom:3px;
-        .icon{height:16px;width:16px;margin-right:5px;float:left;@include allimg(-1px,-120px)}
+        .icon{@include allimg(-1px,-120px)}
       }
-    }
-    .creator{
-      @include olist-creator; /*misc_mixin*/
     }
     
     .comments{

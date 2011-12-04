@@ -14,6 +14,7 @@ class LoginWallpapersController < ApplicationController
   def destroy
     @login_wallpaper = LoginWallpaper.find(params[:id])
     @login_wallpaper.destroy
+    redirect_to :action=>:index
   end
 
   def get_next_wallpaper

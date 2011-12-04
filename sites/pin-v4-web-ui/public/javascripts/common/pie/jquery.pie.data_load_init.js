@@ -18,20 +18,18 @@
 
 pie.load(function(){
   if(pie.env == 'development'){
-    var elm = jQuery('<div class="rc5">development</div>');
-    elm
-      .css('width',210)
+    jQuery('<div class="rc5">DEVELOPMENT</div>')
       .css('height',40)
       .css('font-size',36)
       .css('line-height','40px')
-      .css('opacity','0.618')
-      .css('position','absolute')
+      .css('position','fixed')
       .css('padding',10)
       .css('left',10)
-      .css('top',20)
+      .css('top',82)
       .css('color','white')
-      .css('background','black');
-    jQuery('body').append(elm);
+      .css('background','rgba(0,0,0,0.6)')
+      .css('z-index',99)
+      .appendTo(jQuery('body'));
   }
 })
 

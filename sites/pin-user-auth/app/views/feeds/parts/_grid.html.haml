@@ -27,10 +27,10 @@
         -if !hide_creator
           .creator
             .avatar=avatar(feed.creator,:tiny)
-            .name=usersign(feed.creator)
-            .created-at
-              .icon
-              %a{:href=>feed_link}=jtime(feed.created_at)
+            .c-meta
+              .name=usersign(feed.creator)
+              .created-at
+                %a{:href=>feed_link}=jtime(feed.created_at)
 
         =render_with_error_msg '照片加载错误','/feeds/parts/grid_photos',:feed=>feed
 

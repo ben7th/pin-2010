@@ -1,23 +1,62 @@
--#use 登录后的首页
--#see 登录后的首页
-
--htitle "大家最近的主题"
+-hjavascript pin_url_for('ui','/singlejs/feed_ogrid.js')
 
 -drafts_count = current_user.post_drafts.count
 -has_draft = drafts_count > 0
 
+-contacts_6 = current_user.followings[0...3]
+-coutacts_count = current_user.followings.count
+
+-feeds = current_user.out_feeds
+-feeds_count = feeds.count
+
 .main.grid_24.no-line
   .page-index-top
-    
+    .wallpaper
+      %img{:src=>'http://storage.aliyun.com/mindpin/login_wallpapers/images/27/original/JyvrPg0h.jpg?1322897563'}
 
-  .page-info-top
-    .meta{:style=>'overflow:visible;'}
-      .item.selected 来自联系人的主题
-      .item=link_to '所有公开主题','/feeds/public_timeline'
-      .ops
-        -if has_draft
-          %a.drafts{:href=>'/post_drafts',:title=>'点击查看所有草稿'} <span>有#{drafts_count}条草稿</span>
-        %a.create{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
+    .avatar=avatar current_user,:large
+
+    .contacts
+      .avas
+        -0.upto 5 do |i|
+          -fo = contacts_6[i]
+          -if fo.blank?
+            .c.nil
+          -else
+            .c=avatar fo
+      .title 联系人
+      .count=coutacts_count
+
+    .feeds
+      .photo
+      .add
+        .icon
+      .show-list
+        .icon
+      .title 条目
+      .count=feeds_count
+
+    .collections
+      .photo
+      .add
+        .icon
+      .show-list
+        .icon
+      .title 汇集册
+      .count=feeds_count
+
+    .weibo
+      .photo
+      .weibo-logo
+      .show-list
+        .icon
+      .title 新浪微博
+      .count=964
+
     .clearfix
+    .timeline-end
+      .icon
+      .lbg
+      .now=Time.now
 
   =prender 'feed','grid',:feeds=>@feeds

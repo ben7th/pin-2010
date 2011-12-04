@@ -1,155 +1,59 @@
-/*页眉*/
-  /*页眉背景*/
-    $head-bg-color   : #444444;
-    $head-bg-color-1 : #444444;
-  /*页眉文字*/
-    $head-text-color : #eeeeee;
-  /*页眉底边*/
-    $head-border-bottom-color : #DFDFDF;
-
-  /*顶端用户导航背景*/
-    $head-userbox-bg-color     : #EBF3A7;
-    $head-userbox-bg-color-2   : #E4EE6F;
-  /*顶端用户导航边线*/
-    $head-userbox-border-color : #ABBE2E;
-
 /*顶部*/
 .page-header{
-  .menu{
-    background:#444;
-    color:$head-text-color;
-    overflow:hidden;
-    
-    a{color:#eee;&:hover{color:#fff;}}
-
-    .topbar{
-      margin-right:5px;
-      float:right;
-      overflow:hidden;
-      .sp{
-        float:left;
-        line-height:30px;
-        margin-left:15px;
-        &.feeds{a{color:#E2EDFA;}}
-        &.mindmaps{a{color:#FBF3CA;}}
-      }
-    }
-  }
-  
-  .nav{
-    background:#f7f7f7;
-    border-bottom:solid 1px #ddd;
-    overflow:hidden;
-    
-    .site-logo{
-      float:left;
-      height:52px;
-      .logo{
-        position:relative;
-        width:260px;height:48px;top:2px;
-        display:block;
-        overflow:hidden;
-        font-size:0px;
-        line-height:22em;
-        &.mindpin{background:url(/images/alltu.png) -394px -1px;width:225px;}
-        &.mindmaps{background:url(/images/alltu.png) -133px -1px;}
-      }
-    }
-    
-    .nav-menu{
-      float:right;
-      position:relative;top:10px;
-      margin-left:60px;
-      margin-right:5px;
-      a.li{
-        display:inline-block;
-        float:left;
-        border:solid 1px #ddd;
-        font-size:0;line-height:30em;
-        height:30px;width:40px;
-        background:#fafafa;
-        padding:0 5px;
-        margin-right:1px;
-        &:hover{
-          text-decoration:none;
-          background:#fff;
-        }
-        
-        &.first{@include border-radius(3px 0 0 3px);}
-        &.last{@include border-radius(0 3px 3px 0);}
-        &.current{
-          background:#eee;
-          box-shadow:inset 0 1px 5px #bbb;
-          border-color:#aaa;
-        }
-        &.lock{opacity:0.2}
-        
-        &.homepage{
-          padding:0;
-          border:0 none;
-          width:32px;height:32px;margin-right:10px;
-          .avatar{width:32px;height:32px;img{padding:0;}}
-        }
-        
-        .icon{width:24px;height:24px;position:relative;top:3px;left:8px;}
-        &.feeds{.icon{@include allimg(-394px,-50px);}}
-        &.contacts{.icon{@include allimg(-419px,-50px);}}
-        &.collections{.icon{@include allimg(-394px,-75px);}}
-        &.entries{.icon{@include allimg(-419px,-75px);}}
-        
-        &.notices,&.setting,&.logout{
-          width:30px;padding:0;
-          @include border-radius(3px);
-        }
-        &.notices{
-          margin-left:10px;
-          line-height:30px;
-          font-size:14px;@include tfont;
-          text-align:center;
-          font-weight:bold;
-          color:#444;
-        }
-        &.setting{margin-left:10px;.icon{@include allimg(-444px,-50px);left:3px;}}
-        &.logout{.icon{@include allimg(-444px,-75px);left:3px;}}
-      }
-      .user-meta{
-        float:left;
-        text-align:right;
-        margin-right:6px;
-        line-height:16px;
-        .title{
-          color:#999;
-        }
-        .name{a{color:#444;&:hover{color:#444;}}}
-      }
-    }
-  }
-
   .nav.dark{
-    background-color:#333;
-    @include gradient(#333,#111);
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.5);
+    background-color:rgba(51,51,51,0.9);
+    @include gradient(rgba(51,51,51,0.9), rgba(17,17,17,0.9));
     border-bottom:none;
+    height:72px;
     
-    &.fixed{position:fixed;top:0;width:100%;z-index:99;opacity:0.9;}
+    &.fixed{position:fixed;top:0;width:100%;z-index:99;}
     
     .site-logo{
       float:left;
       height:48px; /*logo 图面的高度是48像素*/
-      margin-left:10px;
+      margin-top:12px;
       .logo{
-        width:260px;height:48px;top:0;
-        display:block;overflow:hidden;
-        font-size:0px;line-height:22em;
-        &.mindpin{background:url(/images/alltu.png) -394px -1px;width:225px;}
+        width:295px;height:48px;
+        display:block;font-size:0px;line-height:22em;overflow:hidden;
+        &.mindpin{background:url(/images/alltu.png) -394px -1px;}
         &.account{background:url(/images/alltu.png) -394px -100px;}
       }
     }
-    .site-name{float:left;
-      height:48px;line-height:48px;
-      font-weight:bold;
-      font-size:14px;
-      color:#fff;
+    
+    .nav-menu{
+      margin-top:28px;
+      float:right;
+      position:relative;
+      /*height is 32px*/
+            
+      a.ali{
+        display:block;float:left;
+        font-size:14px;line-height:32px;
+        height:32px;padding:0 10px;
+        text-shadow:1px 1px 1px rgba(0, 0, 0, 0.8);
+        color:#ccc;&:hover{color:#fff;text-decoration:none;}
+      }
+      
+      a.notices, a.setting, a.logout{
+        display:block;float:left;
+        height:24px;width:24px;margin-top:4px;margin-left:14px;
+        @include border-radius(2px);
+        font-size:0;line-height:20em;overflow:hidden;
+        .icon{width:24px;height:24px;}
+      }
+      
+      a.notices{
+        .icon{@include allimg(-394px,-50px);}
+        &:hover{.icon{@include allimg(-419px,-50px);}}
+      }
+      a.setting{
+        .icon{@include allimg(-444px,-50px);}
+        &:hover{.icon{@include allimg(-469px,-50px);}}
+      }
+      a.logout{
+        .icon{@include allimg(-444px,-75px);}
+        &:hover{.icon{@include allimg(-469px,-75px);}}
+      }
     }
     
     .mindmap-search-form{
@@ -188,60 +92,6 @@
       }
     }
     
-    .nav-menu{
-      float:right;
-      position:relative;top:9px;
-      margin-left:60px;
-      margin-right:15px;
-      /*height is 32px*/
-      .user-meta{
-        float:left;
-        text-align:right;
-        padding:0 0 0 10px;
-        overflow:hidden;
-        margin:0 0 0 40px;
-        .name{
-          float:left;margin-right:6px;
-          font-size:13px;line-height:32px;
-          a{color:#ccc;&:hover{color:#fff;text-decoration:none;}}
-        }
-        .avatar{
-          float:left;margin-top:4px;
-          width:24px;height:24px;img{padding:0;}
-        }
-      }
-      
-      a.ali{
-        display:block;float:left;
-        font-size:13px;line-height:32px;
-        height:32px;padding:0 9px;
-        color:#ccc;&:hover{color:#fff;text-decoration:none;}
-      }
-      
-      a.notices,a.setting,a.logout{
-        display:block;float:left;
-        height:24px;width:24px;margin-top:4px;margin-left:10px;
-        @include border-radius(2px);
-        
-      }
-      
-      a.notices{
-        font-size:15px;line-height:24px;
-        color:#eee;&:hover{color:#fff;text-decoration:none;}
-        @include tfont;font-weight:bold;
-        text-align:center;background-color:#444;
-      }
-      a.setting{
-        line-height:20em;overflow:hidden;
-        .icon{@include allimg(-444px,-50px);width:24px;height:24px;}
-        &:hover{.icon{@include allimg(-469px,-50px);}}
-      }
-      a.logout{
-        line-height:20em;overflow:hidden;
-        .icon{@include allimg(-444px,-75px);width:24px;height:24px;}
-        &:hover{.icon{@include allimg(-469px,-75px);}}
-      }
-    }
   }
 }
 
