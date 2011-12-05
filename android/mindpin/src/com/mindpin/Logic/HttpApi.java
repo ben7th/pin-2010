@@ -11,6 +11,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.location.Location;
+
 import com.mindpin.base.http.MindpinDeleteRequest;
 import com.mindpin.base.http.MindpinGetRequest;
 import com.mindpin.base.http.MindpinHttpRequest;
@@ -28,10 +30,10 @@ import com.mindpin.model.database.FeedDBHelper;
 
 public class HttpApi {
 	
-	public static final String SITE = "http://www.mindpin.com";
+	public static final String SITE = "http://dev.www.mindpin.com";
 	
 	// 各种路径常量
-	public static final String 用户登录				= "/session";
+	public static final String 用户登录				= "/login";
 	
 	public static final String 同步数据 			    = "/api0/mobile_data_syn";
 	public static final String 我的收件箱主题列表 	= "/api0/home_timeline";
@@ -42,9 +44,8 @@ public class HttpApi {
 	public static final String 收集册改名 			= "/api0/collections/rename";
 	
 	public static final String 主题详情				= "/api0/feeds/show";
-	public static final String 创建纯文本主题 		= "/api0/feeds/create";
+	public static final String 创建主题 		= "/api0/feeds/create";
 	public static final String 上传主题图片 			= "/api0/feeds/upload_photo";
-	public static final String 创建带图片主题 		= "/api0/feeds/create_with_photos";
 	
 	public static final String 创建主题评论			= "/api0/comments/create";
 	public static final String 主题的评论列表		= "/api0/comments/list";
@@ -92,15 +93,16 @@ public class HttpApi {
 	
 	
 	public static Void send_text_feed(String title, String detail, 
-			List<Integer> select_collection_ids, boolean send_tsina) throws Exception{
+			List<Integer> select_collection_ids, boolean send_tsina, Location current_location) throws Exception{
 		
 		String select_collection_ids_str = BaseUtils.integer_list_to_string(select_collection_ids);
 		return new MindpinPostRequest<Void>(
-			创建纯文本主题, 
+				创建主题, 
 			new BasicNameValuePair("title", title),
 			new BasicNameValuePair("detail", detail),
 			new BasicNameValuePair("collection_ids", select_collection_ids_str),
-			new BasicNameValuePair("send_tsina", send_tsina ? "true":"false")
+			new BasicNameValuePair("send_tsina", send_tsina ? "true":"false"),
+			new BasicNameValuePair("location", BaseUtils.location_to_string(current_location))
 		){
 			@Override
 			public Void on_success(String response_text) throws Exception{
@@ -111,18 +113,19 @@ public class HttpApi {
 
 	// 发送主题
 	public static Void send_photo_feed(String title, String detail,
-			List<String> photo_names, List<Integer> select_collection_ids, boolean send_tsina) throws Exception {
+			List<Integer> photo_ids, List<Integer> select_collection_ids, boolean send_tsina, Location current_location) throws Exception {
 		
-		String photo_string = BaseUtils.string_list_to_string(photo_names); 
+		String photo_string = BaseUtils.integer_list_to_string(photo_ids); 
 		String select_collection_ids_str = BaseUtils.integer_list_to_string(select_collection_ids);
 		
 		return new MindpinPostRequest<Void>(
-			创建带图片主题, 
+				创建主题, 
 			new BasicNameValuePair("title", title),
 			new BasicNameValuePair("detail", detail),
-			new BasicNameValuePair("photo_names", photo_string),
+			new BasicNameValuePair("photo_ids", photo_string),
 			new BasicNameValuePair("collection_ids", select_collection_ids_str),
-			new BasicNameValuePair("send_tsina", send_tsina ? "true":"false")
+			new BasicNameValuePair("send_tsina", send_tsina ? "true":"false"),
+			new BasicNameValuePair("location", BaseUtils.location_to_string(current_location))
 		){
 			@Override
 			public Void on_success(String response_text) throws Exception{
@@ -131,16 +134,17 @@ public class HttpApi {
 		}.go();
 	}
 	
-	public static String upload_photo(String image_path) throws Exception{
+	public static Integer upload_photo(String image_path) throws Exception{
 		String upload_image_path = CompressPhoto.get_compress_file_path(image_path);
-		return new MindpinPostRequest<String>(
+		return new MindpinPostRequest<Integer>(
 			上传主题图片,
 			new ParamFile("file", upload_image_path, "image/jpeg")
 		){
 
 			@Override
-			public String on_success(String response_text) throws Exception {
-				return response_text;
+			public Integer on_success(String response_text) throws Exception {
+				JSONObject json = new JSONObject(response_text);
+				return json.getInt("photo_id");
 			}
 		}.go();
 	}

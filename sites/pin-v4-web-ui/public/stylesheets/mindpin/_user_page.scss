@@ -1,38 +1,48 @@
 .page-index-top{
+  margin-top:-3px;padding-top:3px;
+  margin-left:-3px;padding-left:3px;
   overflow:hidden;
   
+  $box-shadow:0px 0px 3px rgba(0,0,0,0.4);
+    
   .wallpaper{
     position:absolute;
     left:0;top:72px;
     width:100%;
     height:194px;overflow:hidden;
     z-index:-99;
+    background-color:rgba(51,51,51,0.9);
     img{width:100%;height:auto;}
   }
   
   .avatar{
-    float:left;margin-right:20px;
+    float:left;margin-right:20px;margin-bottom:3px;
     img{width:134px;height:134px;padding:0;@include border-radius(0);}
+    box-shadow:$box-shadow;
   }
   
   .contacts, .feeds, .collections, .weibo{
     float:left;
-    width:150px;height:134px;overflow:hidden;
+    width:150px;height:134px;overflow:visible;
     margin-right:20px;
     
     .title{
       float:left;
-      width:99px;line-height:32px;height:32px;margin-right:3px;
+      width:99px;line-height:32px;height:32px;margin-right:3px;margin-bottom:3px;
       background-color:#666;
+      background-color:rgba(102,102,102,0.8);
       color:#f1f1f1;text-shadow:0px 0px 2px rgba(0, 0, 0, 0.8);
       font-weight:bold;text-align:center;font-size:14px;
+      box-shadow:$box-shadow;
     }
     .count{
       float:left;
       width:48px;height:32px;line-height:32px;
       background-color:#f1f1f1;
+      background-color:rgba(250,250,250,0.8);
       color:#555;
       font-weight:bold;text-align:center;font-size:22px;
+      box-shadow:$box-shadow;
     }
     
     .show-list{
@@ -40,6 +50,7 @@
       width:48px;height:48px;
       background-color:#ccc;
       background-color:rgba(204,204,204,0.8);
+      box-shadow:$box-shadow;
       .icon{width:32px;height:32px;margin:8px 0 0 8px;
         @include allimg(-229px, -114px);
       }
@@ -48,13 +59,14 @@
   
   .contacts{
     .avas{
-      overflow:hidden;
-      width:153px;
+      overflow:visible;
+      width:153px;height:102px;
       .c{
         width:48px;height:48px;
         background-color:rgba(250,250,250,0.4);
         margin:0 3px 3px 0;
         float:left;
+        box-shadow:$box-shadow;
         &.nil{
           width:46px;height:46px;
           border:dashed 1px #ccc;
@@ -69,14 +81,15 @@
       float:left;margin:0 3px 3px 0;
       width:97px;height:97px;
       border:dashed 1px #ccc;
+      box-shadow:$box-shadow;
     }
     .add{
       float:left;
       width:48px;height:48px;margin-bottom:3px;
-      background-color:#B8E7B2;
+      /*background-color:#B8E7B2;
       .icon{width:32px;height:32px;margin:8px 0 0 8px;
         @include allimg(-229px, -81px);
-      }
+      }*/
     }
   }
   
@@ -86,6 +99,7 @@
       float:left;margin:0 3px 3px 0;
       width:97px;height:97px;
       border:dashed 1px #ccc;
+      box-shadow:$box-shadow;
     }
     .add{
       float:left;
@@ -99,6 +113,7 @@
       float:left;margin:0 3px 3px 0;
       width:97px;height:97px;
       border:dashed 1px #ccc;
+      box-shadow:$box-shadow;
     }
     .weibo-logo{
       float:left;
@@ -111,7 +126,7 @@
   .timeline-end{
     overflow:hidden;position:relative;
     color:#f1f1f1;text-shadow:0px 0px 2px rgba(0, 0, 0, 0.8);
-    height:32px;line-height:32px;margin-top:4px;padding-bottom:4px;
+    height:32px;line-height:32px;margin-top:1px;padding-bottom:4px;
     
     .now{
       margin-left:455px;

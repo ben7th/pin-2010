@@ -20,6 +20,15 @@ class Preference < UserAuthAbstract
 
   index :user_id
 
+
+  @head_cover_path = "/:class/:attachment/:id/:style/:basename.:extension"
+  @head_cover_url  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
+  has_attached_file :head_cover,
+    :storage => :oss,
+    :path => @head_cover_path,
+    :url  => @head_cover_url,
+    :default_url   => pin_url_for('ui',"/images/default_avatars/:style.png")
+
   module UserMethods
     def can_send_message_to?(user)
       return true if user.preference.messages_set == ALL_USERS

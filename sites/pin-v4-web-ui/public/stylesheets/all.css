@@ -2246,6 +2246,8 @@ Release Date: November 8, 2010
         background: url(/images/alltu.png) -394px -1px; }
       .page-header .nav.dark .site-logo .logo.account {
         background: url(/images/alltu.png) -394px -100px; }
+      .page-header .nav.dark .site-logo .logo.daotu {
+        background: url(/images/alltu.png) -98px -1px; }
   .page-header .nav.dark .nav-menu {
     margin-top: 28px;
     float: right;
@@ -2304,46 +2306,59 @@ Release Date: November 8, 2010
       background-repeat: no-repeat;
       background-position: -469px -75px; }
   .page-header .nav.dark .mindmap-search-form {
-    margin: 13px 0 0 0;
+    margin: 28px 0 0 30px;
     overflow: hidden;
-    float: left; }
+    float: left;
+    height: 32px; }
     .page-header .nav.dark .mindmap-search-form form {
       /* height = 24px*/ }
+      .page-header .nav.dark .mindmap-search-form form .field {
+        position: relative;
+        padding: 0;
+        margin: 0; }
+        .page-header .nav.dark .mindmap-search-form form .field label {
+          position: absolute;
+          line-height: 30px;
+          height: 30px;
+          color: #a3a7aB;
+          font-size: 14px;
+          padding: 0;
+          margin: 0;
+          left: 9px;
+          cursor: text; }
       .page-header .nav.dark .mindmap-search-form form input {
-        height: 22px !important;
-        line-height: 22px !important;
-        border-radius: 4px 0 0 4px;
-        -moz-border-radius: 4px 0 0 4px;
-        -webkit-border-radius: 4px 0 0 4px;
+        height: 30px !important;
+        line-height: 30px !important;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
         float: left;
-        box-shadow: none;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none;
-        border-color: #000;
-        border-right: 0 none;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) inset;
+        border: solid 1px #777;
+        border: solid 1px rgba(204, 204, 204, 0.6);
         padding-left: 7px !important;
-        width: 172px !important;
-        background-color: #eee; }
+        width: 240px !important;
+        background-color: #555;
+        color: #f1f1f1; }
+        .page-header .nav.dark .mindmap-search-form form input.active {
+          background-color: #777; }
       .page-header .nav.dark .mindmap-search-form form .do-search {
         overflow: hidden;
         float: left;
-        border-radius: 0 4px 4px 0;
-        -moz-border-radius: 0 4px 4px 0;
-        -webkit-border-radius: 0 4px 4px 0;
-        border: solid 1px #000;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
         border-left: none;
-        height: 22px;
-        width: 22px;
+        height: 24px;
+        width: 24px;
         line-height: 22em;
-        text-align: center;
-        color: #666;
-        font-weight: bold;
-        background-image: url(/images/sites.png);
+        background-color: #999;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background-image: url(/images/alltu.png);
         background-repeat: no-repeat;
-        background-position: -50px -1px;
-        box-shadow: none;
-        -moz-box-shadow: none;
-        -webkit-box-shadow: none; }
+        background-position: -85px -75px; }
 
 .page-content.top_fixed {
   padding-top: 72px; }
@@ -2796,16 +2811,6 @@ a.send-button {
         top: 1px;
         left: 1px; }
 
-/*物件列表*/
-.page-olist .list-blank {
-  padding: 14px;
-  font-size: 12px;
-  border: solid 1px #eee;
-  border-radius: 2px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  background-color: #fafafa; }
-
 .page-ogrid .list-blank {
   padding: 9px;
   font-size: 14px;
@@ -2823,7 +2828,7 @@ a.send-button {
 
 /*我们的微博，显示在侧边栏*/
 .page-mindpin-weibo {
-  border: solid 1px #eee;
+  border: solid 1px #ddd;
   background-color: #fafafa;
   padding: 9px;
   border-radius: 3px;
@@ -2844,7 +2849,7 @@ a.send-button {
     overflow: hidden; }
 
 .page-based-on-html5 {
-  border: solid 1px #eee;
+  border: solid 1px #ddd;
   background-color: #fafafa;
   padding: 9px;
   border-radius: 3px;
@@ -4124,7 +4129,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     margin-bottom: 9px;
     margin-left: 40px;
     margin-right: 40px;
-    border: solid 1px #eee;
+    border: solid 1px #ccc;
     font-size: 12px;
     font-family: "Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;
     /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/
@@ -5600,6 +5605,10 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   margin: 0; }
 
 .page-index-top {
+  margin-top: -3px;
+  padding-top: 3px;
+  margin-left: -3px;
+  padding-left: 3px;
   overflow: hidden; }
   .page-index-top .wallpaper {
     position: absolute;
@@ -5608,13 +5617,16 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     width: 100%;
     height: 194px;
     overflow: hidden;
-    z-index: -99; }
+    z-index: -99;
+    background-color: rgba(51, 51, 51, 0.9); }
     .page-index-top .wallpaper img {
       width: 100%;
       height: auto; }
   .page-index-top .avatar {
     float: left;
-    margin-right: 20px; }
+    margin-right: 20px;
+    margin-bottom: 3px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
     .page-index-top .avatar img {
       width: 134px;
       height: 134px;
@@ -5626,7 +5638,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     float: left;
     width: 150px;
     height: 134px;
-    overflow: hidden;
+    overflow: visible;
     margin-right: 20px; }
     .page-index-top .contacts .title, .page-index-top .feeds .title, .page-index-top .collections .title, .page-index-top .weibo .title {
       float: left;
@@ -5634,28 +5646,34 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       line-height: 32px;
       height: 32px;
       margin-right: 3px;
+      margin-bottom: 3px;
       background-color: #666;
+      background-color: rgba(102, 102, 102, 0.8);
       color: #f1f1f1;
       text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
       font-weight: bold;
       text-align: center;
-      font-size: 14px; }
+      font-size: 14px;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
     .page-index-top .contacts .count, .page-index-top .feeds .count, .page-index-top .collections .count, .page-index-top .weibo .count {
       float: left;
       width: 48px;
       height: 32px;
       line-height: 32px;
       background-color: #f1f1f1;
+      background-color: rgba(250, 250, 250, 0.8);
       color: #555;
       font-weight: bold;
       text-align: center;
-      font-size: 22px; }
+      font-size: 22px;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
     .page-index-top .contacts .show-list, .page-index-top .feeds .show-list, .page-index-top .collections .show-list, .page-index-top .weibo .show-list {
       float: left;
       width: 48px;
       height: 48px;
       background-color: #ccc;
-      background-color: rgba(204, 204, 204, 0.8); }
+      background-color: rgba(204, 204, 204, 0.8);
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
       .page-index-top .contacts .show-list .icon, .page-index-top .feeds .show-list .icon, .page-index-top .collections .show-list .icon, .page-index-top .weibo .show-list .icon {
         width: 32px;
         height: 32px;
@@ -5664,14 +5682,16 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         background-repeat: no-repeat;
         background-position: -229px -114px; }
   .page-index-top .contacts .avas {
-    overflow: hidden;
-    width: 153px; }
+    overflow: visible;
+    width: 153px;
+    height: 102px; }
     .page-index-top .contacts .avas .c {
       width: 48px;
       height: 48px;
       background-color: rgba(250, 250, 250, 0.4);
       margin: 0 3px 3px 0;
-      float: left; }
+      float: left;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
       .page-index-top .contacts .avas .c.nil {
         width: 46px;
         height: 46px;
@@ -5682,27 +5702,25 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     margin: 0 3px 3px 0;
     width: 97px;
     height: 97px;
-    border: dashed 1px #ccc; }
+    border: dashed 1px #ccc;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
   .page-index-top .feeds .add {
     float: left;
     width: 48px;
     height: 48px;
     margin-bottom: 3px;
-    background-color: #B8E7B2; }
-    .page-index-top .feeds .add .icon {
-      width: 32px;
-      height: 32px;
-      margin: 8px 0 0 8px;
-      background-image: url(/images/alltu.png);
-      background-repeat: no-repeat;
-      background-position: -229px -81px; }
+    /*background-color:#B8E7B2;
+    .icon{width:32px;height:32px;margin:8px 0 0 8px;
+      @include allimg(-229px, -81px);
+    }*/ }
   .page-index-top .collections .photo {
     background-color: rgba(250, 250, 250, 0.4);
     float: left;
     margin: 0 3px 3px 0;
     width: 97px;
     height: 97px;
-    border: dashed 1px #ccc; }
+    border: dashed 1px #ccc;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
   .page-index-top .collections .add {
     float: left;
     width: 48px;
@@ -5714,7 +5732,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     margin: 0 3px 3px 0;
     width: 97px;
     height: 97px;
-    border: dashed 1px #ccc; }
+    border: dashed 1px #ccc;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
   .page-index-top .weibo .weibo-logo {
     float: left;
     width: 48px;
@@ -5731,7 +5750,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
     height: 32px;
     line-height: 32px;
-    margin-top: 4px;
+    margin-top: 1px;
     padding-bottom: 4px; }
     .page-index-top .timeline-end .now {
       margin-left: 455px;
@@ -6557,7 +6576,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 
 /*协作编辑暂时关闭*/
 .page-cooper-closed {
-  border: solid 1px #eee;
+  border: solid 1px #ccc;
   background-color: #fafafa;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -7226,6 +7245,65 @@ $feed_width_1c:228px; /*240-10-2*/
     margin-right: 10px;
     border: solid 1px #ccc;
     background-color: #fff; }
+    .page-ogrid.collection-feeds .feed .timeline-node {
+      position: absolute;
+      width: 32px;
+      height: 32px; }
+      .page-ogrid.collection-feeds .feed .timeline-node .icon {
+        margin: 8px 0 0 8px;
+        width: 16px;
+        height: 16px;
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -18px -35px; }
+      .page-ogrid.collection-feeds .feed .timeline-node .arrow {
+        position: absolute;
+        z-index: 1;
+        top: 15px;
+        width: 16px;
+        height: 16px; }
+        .page-ogrid.collection-feeds .feed .timeline-node .arrow.at-left {
+          left: -15px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -1px -52px; }
+        .page-ogrid.collection-feeds .feed .timeline-node .arrow.at-right {
+          right: -15px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -18px -52px; }
+      .page-ogrid.collection-feeds .feed .timeline-node.android .icon, .page-ogrid.collection-feeds .feed .timeline-node.photos .icon, .page-ogrid.collection-feeds .feed .timeline-node.with_location .icon {
+        margin: 0;
+        width: 32px;
+        height: 32px; }
+      .page-ogrid.collection-feeds .feed .timeline-node.android .arrow, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow {
+        position: absolute;
+        z-index: 1;
+        top: 15px;
+        width: 11px;
+        height: 16px; }
+        .page-ogrid.collection-feeds .feed .timeline-node.android .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow.at-left {
+          left: -15px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -6px -52px; }
+        .page-ogrid.collection-feeds .feed .timeline-node.android .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow.at-right {
+          right: -15px;
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -18px -52px; }
+      .page-ogrid.collection-feeds .feed .timeline-node.android .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -196px -147px; }
+      .page-ogrid.collection-feeds .feed .timeline-node.photos .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -262px -147px; }
+      .page-ogrid.collection-feeds .feed .timeline-node.with_location .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -295px -147px; }
     .page-ogrid.collection-feeds .feed .creator {
       overflow: hidden;
       padding: 9px;
@@ -7579,7 +7657,7 @@ ul.page-mindmaps-sidemenu {
   overflow: hidden;
   margin-bottom: 14px;
   background-color: #fafafa;
-  border: solid 1px #eee;
+  border: solid 1px #ddd;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px; }
@@ -7629,9 +7707,9 @@ ul.page-mindmaps-sidemenu {
   overflow: hidden;
   position: relative; }
   .page-mindmaps-top .avatar {
-    margin-left: 55px;
-    margin-bottom: 9px;
-    margin-top: 10px; }
+    padding-left: 55px;
+    padding-bottom: 9px;
+    padding-top: 10px; }
     .page-mindmaps-top .avatar a {
       display: block;
       font-size: 0;
@@ -7643,7 +7721,8 @@ ul.page-mindmaps-sidemenu {
       border-radius: 4px;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
-      border: solid 1px #eee; }
+      border: solid 1px #ccc;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.7); }
   .page-mindmaps-top .arrow {
     border-color: transparent #fafafa transparent transparent;
     border-style: dashed solid dashed dashed;
@@ -7657,7 +7736,7 @@ ul.page-mindmaps-sidemenu {
   .page-mindmaps-top .box {
     overflow: hidden;
     width: 150px;
-    border: solid 1px #eee;
+    border: solid 1px #ccc;
     background-color: #fafafa;
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -7745,7 +7824,7 @@ ul.page-mindmaps-sidemenu {
       border-radius: 4px;
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
-      border: solid 1px #eee; }
+      border: solid 1px #ddd; }
   .page-olist.mindmaps .mindmap .m-ops {
     margin-left: 55px;
     width: 48px;
@@ -7753,7 +7832,7 @@ ul.page-mindmaps-sidemenu {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     background-color: #f1f1f1;
-    border: solid 1px #eee; }
+    border: solid 1px #ddd; }
     .page-olist.mindmaps .mindmap .m-ops .fav-star {
       position: relative;
       margin: 8px 8px 12px; }
@@ -7847,7 +7926,7 @@ ul.page-mindmaps-sidemenu {
   .page-olist.mindmaps .mindmap .box {
     width: 500px;
     padding: 0 9px 9px;
-    border: solid 1px #eee;
+    border: solid 1px #ccc;
     background-color: #FFF;
     border-radius: 3px;
     -moz-border-radius: 3px;

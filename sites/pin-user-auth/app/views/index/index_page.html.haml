@@ -3,7 +3,7 @@
 -drafts_count = current_user.post_drafts.count
 -has_draft = drafts_count > 0
 
--contacts_6 = current_user.followings[0...3]
+-contacts_6 = current_user.followings[0...6]
 -coutacts_count = current_user.followings.count
 
 -feeds = current_user.out_feeds
@@ -12,7 +12,7 @@
 .main.grid_24.no-line
   .page-index-top
     .wallpaper
-      %img{:src=>'http://storage.aliyun.com/mindpin/login_wallpapers/images/27/original/JyvrPg0h.jpg?1322897563'}
+      %img.hide{:src=>'http://storage.aliyun.com/mindpin/login_wallpapers/images/27/original/JyvrPg0h.jpg?1322897563'}
 
     .avatar=avatar current_user,:large
 

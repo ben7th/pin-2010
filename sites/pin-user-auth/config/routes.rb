@@ -280,7 +280,6 @@ ActionController::Routing::Routes.draw do |map|
     match_get  api0, 'feeds/show'               => 'api#show'
     match_post api0, 'feeds/create'             => 'api#create'
     match_post api0, 'feeds/upload_photo'       => 'api#upload_photo'
-    match_post api0, 'feeds/create_with_photos' => 'api#create_with_photos'
 
     # 主题评论 comments
 

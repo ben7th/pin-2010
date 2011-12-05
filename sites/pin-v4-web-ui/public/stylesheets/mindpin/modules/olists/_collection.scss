@@ -33,6 +33,39 @@
     border:solid 1px #ccc;
     background-color:#fff;
     
+    .timeline-node{
+      position:absolute;
+      width:32px;height:32px;
+      .icon{
+        margin:8px 0 0 8px;
+        width:16px;height:16px;@include allimg(-18px,-35px);
+      }
+      .arrow{
+        position:absolute;z-index:1;
+        top:15px;
+        width:16px;height:16px;
+        &.at-left{left:-15px;@include allimg(-1px, -52px);}
+        &.at-right{right:-15px;@include allimg(-18px, -52px);}
+      }
+      
+      &.android, &.photos, &.with_location{
+        .icon{
+          margin:0;
+          width:32px;height:32px;
+        }
+        .arrow{
+          position:absolute;z-index:1;
+          top:15px;
+          width:11px;height:16px;
+          &.at-left{left:-15px;@include allimg(-6px, -52px);}
+          &.at-right{right:-15px;@include allimg(-18px, -52px);}
+        }
+      }
+      &.android{.icon{@include allimg(-196px,-147px);}}
+      &.photos{.icon{@include allimg(-262px,-147px);}}
+      &.with_location{.icon{@include allimg(-295px,-147px);}}
+    }
+    
     .creator{  
       overflow:hidden;
       padding:9px;border-bottom:solid 1px #eee;

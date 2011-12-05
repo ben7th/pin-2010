@@ -50,8 +50,10 @@
 			</RelativeLayout>
 			
 			<!-- 正文输入 -->
-			<RelativeLayout 
+			<RelativeLayout
+				android:id="@+id/feed_detail_parent"
 				android:layout_below="@+id/feed_captures_parent"
+				android:layout_above="@+id/pulish_location"
 				style="@style/new_feed_layout_detail_inputer_container"
 			>
 				<LinearLayout
@@ -65,6 +67,14 @@
 					style="@style/new_feed_layout_detail_inputer"
 				/>
 			</RelativeLayout>
+			
+			<CheckBox
+				android:id="@+id/pulish_location"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true"
+				android:text="发布地理信息"
+			/>
 		</RelativeLayout>
 		
 		<!-- 窗口底栏 -->

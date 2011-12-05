@@ -11,7 +11,7 @@ ul.page-mindmaps-sidemenu{
   overflow:hidden;
   margin-bottom:14px;
   background-color:#fafafa;
-  border:solid 1px #eee;
+  border:solid 1px #ddd;
   @include border-radius(4px);
   
   li{
@@ -63,12 +63,13 @@ ul.page-mindmaps-sidemenu{
   overflow:hidden;
   position:relative;
   .avatar{
-    margin-left:55px;margin-bottom:9px;margin-top:10px;
+    padding-left:55px;padding-bottom:9px;padding-top:10px;
     a{display:block;font-size:0;line-height:0;}
     img{
       width:48px;height:48px;padding:0;
       @include border-radius(4px);
-      border:solid 1px #eee;
+      border:solid 1px #ccc;
+      box-shadow:0 0 3px rgba(0,0,0,0.7);
     }
   }
   
@@ -84,7 +85,7 @@ ul.page-mindmaps-sidemenu{
   .box{
     overflow:hidden;
     width:150px;
-    border:solid 1px #eee;
+    border:solid 1px #ccc;
     background-color:#fafafa;
     @include border-radius(3px);
     
@@ -124,7 +125,7 @@ ul.page-mindmaps-sidemenu{
       img{
         width:48px;height:48px;padding:0;
         @include border-radius(4px);
-        border:solid 1px #eee;
+        border:solid 1px #ddd;
       }
     }
     
@@ -132,7 +133,7 @@ ul.page-mindmaps-sidemenu{
       margin-left:55px;width:48px;
       @include border-radius(4px);
       background-color:#f1f1f1;
-      border:solid 1px #eee;
+      border:solid 1px #ddd;
       .fav-star{
         position:relative;
         margin:8px 8px 12px;
@@ -214,7 +215,7 @@ ul.page-mindmaps-sidemenu{
     
     .box{
       width:500px;padding:0 9px 9px;
-      border:solid 1px #eee;
+      border:solid 1px #ccc;
       background-color:#FFF;
       @include border-radius(3px);
       overflow:hidden;

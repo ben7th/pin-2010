@@ -17,6 +17,7 @@
         display:block;font-size:0px;line-height:22em;overflow:hidden;
         &.mindpin{background:url(/images/alltu.png) -394px -1px;}
         &.account{background:url(/images/alltu.png) -394px -100px;}
+        &.daotu{  background:url(/images/alltu.png) -98px  -1px;}
       }
     }
     
@@ -57,37 +58,49 @@
     }
     
     .mindmap-search-form{
-      margin:13px 0 0 0;
+      margin:28px 0 0 30px;
       overflow:hidden;
       float:left;
+      height:32px;
       form{ /* height = 24px*/
+        .field{
+          position:relative;padding:0;margin:0;
+          label{
+            position:absolute;
+            line-height:30px;height:30px;
+            color:#a3a7aB;font-size:14px;
+            padding:0;margin:0;
+            left:9px;
+            cursor:text;
+          }
+        }
+        
         input{
-          height:22px !important;line-height:22px !important;
-          @include border-radius(4px 0 0 4px);
+          height:30px !important;line-height:30px !important;
+          @include border-radius(3px);
           float:left;
-          @include box-shadow(none);
-          border-color:#000;
-          border-right:0 none;
+          box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5) inset;
+          border:solid 1px #777;
+          border:solid 1px rgba(204,204,204,0.6);
           padding-left:7px !important;
-          width:172px !important;
-          background-color:#eee;
+          width:240px !important;
+          background-color:#555;
+          &.active{
+            background-color:#777;
+          }
+          color:#f1f1f1;
         }
         .do-search{
           overflow:hidden;
           float:left;
-          @include border-radius(0 4px 4px 0);
-          border:solid 1px #000;
+          @include border-radius(3px);
           border-left:none;
-          height:22px;
-          width:22px;
+          height:24px;width:24px;
           line-height:22em;
-          text-align:center;
-          color:#666;
-          font-weight:bold;
-          background-image:url(/images/sites.png);
-          background-repeat:no-repeat;
-          background-position:-50px -1px;
-          @include box-shadow(none);
+          background-color:#999;
+          position:absolute;
+          top:4px;right:4px;
+          @include allimg(-85px,-75px);
         }
       }
     }

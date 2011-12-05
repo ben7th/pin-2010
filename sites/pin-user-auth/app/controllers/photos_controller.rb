@@ -7,8 +7,8 @@ class PhotosController < ApplicationController
     
     render :partial => 'views_modules/photos/feed_uploaded',
            :locals  => {:photo=>photo}
-#  rescue Exception=>ex
-#    render :text=>"上传出错 #{ex}", :status=>500
+  rescue Exception=>ex
+    render :text=>"上传出错 #{ex}", :status=>500
   end
 
   def import_image_url

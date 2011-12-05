@@ -25,6 +25,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.TypedValue;
@@ -235,5 +236,14 @@ public class BaseUtils {
         canvas.drawBitmap(bitmap, rect, rect, paint); 
  
         return output; 
+    }
+    
+    public static String location_to_string(Location location){
+    	if(location == null){
+    		return "";
+    	}
+		double lat = location.getLatitude();
+		double lng = location.getLongitude();
+		return lat + "," + lng;
     }
 }

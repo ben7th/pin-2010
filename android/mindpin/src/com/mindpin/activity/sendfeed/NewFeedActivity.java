@@ -8,11 +8,14 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -22,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -240,7 +244,7 @@ public class NewFeedActivity extends MindpinBaseActivity {
 			
 			@Override
 			public Void do_in_background(String... params) throws Exception {
-				ArrayList<String> photo_names = new ArrayList<String>();
+				ArrayList<Integer> photo_ids = new ArrayList<Integer>();
 				
 				for (int i = 0; i < capture_paths.size(); i++) {
 					String capture_path = capture_paths.get(i);
@@ -259,7 +263,7 @@ public class NewFeedActivity extends MindpinBaseActivity {
 						}
 					};
 					timer.schedule(task, 1000, 1000);
-					photo_names.add(HttpApi.upload_photo(capture_path));
+					photo_ids.add(HttpApi.upload_photo(capture_path));
 					timer.cancel();
 					publish_progress("sending_feed",count+"");
 				}
@@ -274,11 +278,16 @@ public class NewFeedActivity extends MindpinBaseActivity {
 					}
 				};
 				timer.schedule(task, 1000, 1000);
-				if(photo_names.size() == 0){
-					HttpApi.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina);
-				}else{
-					HttpApi.send_photo_feed(feed_title, feed_detail, photo_names, select_collection_ids,send_tsina);
+				Location current_location = null;
+				CheckBox cb = (CheckBox)findViewById(R.id.pulish_location);
+				if(cb.isChecked()){
+					current_location = get_location();
 				}
+				if(photo_ids.size() == 0){
+					HttpApi.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina,current_location);
+				}else{
+					HttpApi.send_photo_feed(feed_title, feed_detail, photo_ids, select_collection_ids,send_tsina,current_location);
+				} 
 				timer.cancel();
 				if(feed_draft_id!=0){
 					FeedDraft.destroy( feed_draft_id);
@@ -576,6 +585,13 @@ public class NewFeedActivity extends MindpinBaseActivity {
 			}
 		});
 		builder.show();
+	}
+	
+	private Location get_location(){
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        locationManager.getProviders(true);
+        return location;
 	}
 	
 }

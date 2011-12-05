@@ -113,6 +113,12 @@ class Feed < UserAuthAbstract
     []
   end
 
+  def location
+    self.main_post.location
+  rescue
+    ''
+  end
+
   # ----------------
 
   def text_format
@@ -219,6 +225,7 @@ class Feed < UserAuthAbstract
         @title       = options[:title]
         @detail      = options[:detail]
         @send_tsina  = options[:send_tsina] == 'true'
+        @location = options[:location].blank? ? nil : options[:location]
       end
 
       def do_send
@@ -232,7 +239,7 @@ class Feed < UserAuthAbstract
           :posts_attributes => [
             {
               :create_by_feed => true, # 跳过校验
-
+              :location => @location,
               :user   => @creator,
               :title  => @title,
               :detail => @detail,

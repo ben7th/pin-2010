@@ -20,9 +20,18 @@
       -comment_count = feed.comments.count
       -has_comment = comment_count > 0
 
+      -location = feed.location
+      -has_location = !location.blank?
+
       -feed_link = "/feeds/#{feed_id}"
 
-      .feed{:'data-id'=>feed_id,:'data-col-count'=>2}
+      -timeline_icon_class = timeline_icon_class feed
+
+      .feed{:'data-id'=>feed_id, :'data-col-count'=>2}
+
+        .timeline-node{:class=>timeline_icon_class, :style=>'display:none;'}
+          .icon
+          .arrow
 
         -if !hide_creator
           .creator
@@ -41,6 +50,9 @@
           .detail.wordwrap=detail
 
         .footer-links
+          -#if has_location
+          -#  .location=location
+
           -if has_comment
             .comment-count
               .icon

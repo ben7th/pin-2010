@@ -27,7 +27,8 @@ class FeedsController < ApplicationController
       :collection_ids => params[:collection_ids],
       :from           => Feed::FROM_WEB,
       :send_tsina     => params[:send_tsina],
-      :draft_token    => params[:draft_token]
+      :draft_token    => params[:draft_token],
+      :location       => params[:location]
     )
     
     if feed.id.blank?

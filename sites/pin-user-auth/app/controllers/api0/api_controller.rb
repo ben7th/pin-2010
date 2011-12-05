@@ -47,20 +47,28 @@ class Api0::ApiController < ApplicationController
     render :json=>api0_feed_json_hash(feed)
   end
 
-  # 发送一个纯文字主题
+  # 发送一个主题
   # :title 非必须
   # :detail 非必须
-  # * 注：以上两个参数虽然都是非必须，但至少要有其中一个，否则400错误（请求参数错误）
+  #
+  # :photo_ids 必须，一个到多个photo的id（从 upload_photo 方法返回结果中获得），用英文逗号 ',' 隔开
+  # 如果要上传图片，需要先调用 upload_photo
+  #
+  # * 注：以上三个参数虽然都是非必须，但至少要有其中一个，否则400错误（请求参数错误）
+  #
   # :collection_ids 必须，一个到多个收集册的id，用英文逗号 ',' 隔开
   # :send_tsina 非必须，是否发送到新浪微博 取值为字符串的 true 或 false
+  # :location 非必须，地理位置经纬度信息
   def create
     feed = Apiv0.send_feed_by_user(
       current_user,
       :title          => params[:title],
       :detail         => params[:detail],
+      :photo_ids      => params[:photo_ids],
       :collection_ids => params[:collection_ids],
       :send_tsina     => params[:send_tsina],
-      :from           => Feed::FROM_ANDROID
+      :from           => Feed::FROM_ANDROID,
+      :location       => params[:location]
     )
 
     render :json=>api0_feed_json_hash(feed)
@@ -71,33 +79,13 @@ class Api0::ApiController < ApplicationController
   
   # 上传一张图片
   # file 必须，binary二进制内容，上传的图片
-  # * 注 此方法将返回photo name，该name在后续执行 send_with_photos 时将用到
+  # * 注 此方法将返回photo id，该id在后续执行 create 时将用到
   def upload_photo
-    name = PhotoAdpater.create_by_upload_file(params[:file])
-    render :json=>name
+    photo = PhotoAdpater.create_photo_by_upload_file(current_user, params[:file])
+    render :json=>{:photo_id=>photo.id}
   end
 
-  # :title 非必须
-  # :detail 非必须
-  # :photo_names 必须，一个到多个photo的name（从 upload_photo 方法返回结果中获得），用英文逗号 ',' 隔开
-  # :collection_ids 必须，一个到多个收集册的id，用英文逗号 ',' 隔开
-  # :send_tsina 非必须，是否发送到新浪微博 取值为字符串的 true 或 false
-  # * 注 此方法从逻辑上来说应该在若干次调用 upload_photo 方法之后调用
-  def create_with_photos
-    feed = Apiv0.send_feed_by_user(
-      current_user,
-      :title          => params[:title],
-      :detail         => params[:detail],
-      :photo_names    => params[:photo_names],
-      :collection_ids => params[:collection_ids],
-      :send_tsina     => params[:send_tsina],
-      :from           => Feed::FROM_ANDROID
-    )
-
-    render :json=>api0_feed_json_hash(feed)
-  rescue Apiv0::ParamsNotValidException => e
-    render :text=>"api0 参数错误：#{e.message}", :status=>400
-  end
+  # -------------------------
 
   # 获取指定用户的关注对象（TA关注的人）列表
   # :user_id 必须，用户id
@@ -129,12 +117,12 @@ class Api0::ApiController < ApplicationController
         :from       => feed.from,
         :comments_count   => feed.main_post.comments.count,
         :photos_thumbnail => photos.map{|p|p.image.url(:s100)},
-        :photos_middle    => photos.map{|p|p.image.url(:w220)},
+        :photos_middle    => photos.map{|p|p.image.url(:w250)},
         :photos_large     => photos.map{|p|p.image.url(:w500)},
         :photos_ratio     => photos.map{|p|p.image_ratio},
         :photos_count     => photos_count,
         :brief            => false,
-        :user       => api0_user_json_hash(user)
+        :user        => api0_user_json_hash(user)
       }
     end
 
@@ -157,7 +145,7 @@ class Api0::ApiController < ApplicationController
         :from       => feed.from,
         :comments_count   => feed.main_post.comments.count,
         :photos_thumbnail => brief_photos.map{|p|p.image.url(:s100)},
-        :photos_middle    => brief_photos.map{|p|p.image.url(:w220)},
+        :photos_middle    => brief_photos.map{|p|p.image.url(:w250)},
         :photos_large     => brief_photos.map{|p|p.image.url(:w500)},
         :photos_ratio     => brief_photos.map{|p|p.image_ratio},
         :photos_count     => photos_count,
