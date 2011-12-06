@@ -7536,8 +7536,10 @@ $feed_width_1c:228px; /*240-10-2*/
   width: 240px; }
 
 .page-mindpin-index-bar {
-  position: relative; }
+  position: relative;
+  z-index: 2; }
   .page-mindpin-index-bar .box {
+    z-index: 2;
     position: absolute;
     top: 20px;
     left: 0px;
