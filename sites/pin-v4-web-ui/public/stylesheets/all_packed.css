@@ -1712,8 +1712,8 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-ogrid.collections .collection .data .tsina-img,.page-ogrid.collections-binded .collection .data .tsina-img{border:solid 1px #f4f4f4;width:208px;height:208px;background:url(/images/covers/tsina_collection.png);}
 .page-ogrid.collections .collection .ops .minibutton,.page-ogrid.collections-binded .collection .ops .minibutton{display:block;line-height:30px;height:30px;font-size:14px;}
 .mside.grid_6 .page-ogrid.collections{width:240px;}
-.page-mindpin-index-bar{position:relative;}
-.page-mindpin-index-bar .box{position:absolute;top:20px;left:0;overflow:hidden;height:32px;}
+.page-mindpin-index-bar{position:relative;z-index:3;}
+.page-mindpin-index-bar .box{z-index:3;position:absolute;top:20px;left:0;overflow:hidden;height:32px;}
 .page-mindpin-index-bar .box .create{float:left;margin-right:10px;}
 .page-mindpin-index-bar .box .drafts{float:left;background-color:rgba(250,250,250,0.4);font-size:14px;height:32px;line-height:32px;padding:0 9px;color:#666!important;}
 .page-collection-top,.page-info-top{border:solid 1px #ccc;background-color:#FFF;padding:9px;padding:0;margin-bottom:10px;border-bottom:solid 3px #eee;}
