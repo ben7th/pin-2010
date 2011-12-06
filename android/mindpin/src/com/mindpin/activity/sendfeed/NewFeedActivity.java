@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
 import com.mindpin.database.FeedDraft;
 
-public class NewFeedActivity extends MindpinBaseActivity {
+public class NewFeedActivity extends MindpinBaseActivity implements LocationListener {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
 	public static final int REQUEST_SHOW_IMAGE_ALBUM = 2;
 	protected static final int REQUEST_SELECT_COLLECTIONS = 3;
@@ -77,6 +78,12 @@ public class NewFeedActivity extends MindpinBaseActivity {
 	private int feed_draft_id = 0;
 	private ProgressDialog progress_dialog;
 	
+	private LocationManager locationManager;
+	// 当前的地理信息
+	private Location current_location;
+	// 最后发布的地理信息，用户选择不发布时，该值为空
+	private Location send_location;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,6 +93,31 @@ public class NewFeedActivity extends MindpinBaseActivity {
 		process_extra();
 		process_share();
 		process_feed_draft();
+		process_location();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20000, 1, this);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		locationManager.removeUpdates(this);
+	}
+	
+	private void process_location(){
+		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		
+		Button bn = (Button)findViewById(R.id.my_location);
+		bn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				open_activity(MyLocationActivity.class);
+			}
+		});
 	}
 	
 	private void process_feed_draft() {
@@ -195,7 +227,7 @@ public class NewFeedActivity extends MindpinBaseActivity {
 			BaseUtils.toast(R.string.feed_valid_blank);
 			return;
 		}
-		System.out.println("MindpinAsyncTask send_feed");
+		
 		final int max_count = (capture_paths.size()+1)*100;		
 		new MindpinAsyncTask<String, String, Void>(){
 			@Override
@@ -223,6 +255,8 @@ public class NewFeedActivity extends MindpinBaseActivity {
 					Toast.makeText(getApplicationContext(), "发送成功",
 							Toast.LENGTH_SHORT).show();
 					NewFeedActivity.this.finish();
+				}else if(what == "get_location"){
+					progress_dialog.setTitle("正在获取地理信息");
 				}
 			};
 			
@@ -244,8 +278,14 @@ public class NewFeedActivity extends MindpinBaseActivity {
 			
 			@Override
 			public Void do_in_background(String... params) throws Exception {
-				ArrayList<Integer> photo_ids = new ArrayList<Integer>();
+				CheckBox cb = (CheckBox)findViewById(R.id.pulish_location);
+				if(cb.isChecked()){
+					publish_progress("get_location");
+					while(current_location == null){}
+					send_location = current_location;
+				}
 				
+				ArrayList<Integer> photo_ids = new ArrayList<Integer>();
 				for (int i = 0; i < capture_paths.size(); i++) {
 					String capture_path = capture_paths.get(i);
 					final int count = 100*(i+1);
@@ -278,15 +318,11 @@ public class NewFeedActivity extends MindpinBaseActivity {
 					}
 				};
 				timer.schedule(task, 1000, 1000);
-				Location current_location = null;
-				CheckBox cb = (CheckBox)findViewById(R.id.pulish_location);
-				if(cb.isChecked()){
-					current_location = get_location();
-				}
+	
 				if(photo_ids.size() == 0){
-					HttpApi.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina,current_location);
+					HttpApi.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina,send_location);
 				}else{
-					HttpApi.send_photo_feed(feed_title, feed_detail, photo_ids, select_collection_ids,send_tsina,current_location);
+					HttpApi.send_photo_feed(feed_title, feed_detail, photo_ids, select_collection_ids,send_tsina,send_location);
 				} 
 				timer.cancel();
 				if(feed_draft_id!=0){
@@ -587,11 +623,21 @@ public class NewFeedActivity extends MindpinBaseActivity {
 		builder.show();
 	}
 	
-	private Location get_location(){
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        locationManager.getProviders(true);
-        return location;
+	@Override
+	public void onLocationChanged(Location location) {
+		this.current_location = location;
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
 	}
 	
 }

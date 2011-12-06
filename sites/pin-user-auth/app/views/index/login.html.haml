@@ -12,6 +12,7 @@
 
 -old_wallpaper_id = cookies[:login_wallpaper_id]
 -wallpaper = old_wallpaper_id.blank? ? LoginWallpaper.last : LoginWallpaper.find_by_id(old_wallpaper_id)
+-wallpaper = LoginWallpaper.last if wallpaper.blank?
 
 .main.grid_24.nl
   -if !wallpaper.blank?

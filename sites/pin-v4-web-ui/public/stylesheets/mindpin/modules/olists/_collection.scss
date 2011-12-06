@@ -48,7 +48,7 @@
         &.at-right{right:-15px;@include allimg(-18px, -52px);}
       }
       
-      &.android, &.photos, &.with_location{
+      &.android, &.photos, &.with_location, &.with_music{
         .icon{
           margin:0;
           width:32px;height:32px;
@@ -61,9 +61,10 @@
           &.at-right{right:-15px;@include allimg(-18px, -52px);}
         }
       }
-      &.android{.icon{@include allimg(-196px,-147px);}}
-      &.photos{.icon{@include allimg(-262px,-147px);}}
-      &.with_location{.icon{@include allimg(-295px,-147px);}}
+      &.android{       .icon{@include allimg(-196px,-147px);}}
+      &.photos{        .icon{@include allimg(-262px,-147px);}}
+      &.with_location{ .icon{@include allimg(-295px,-147px);}}
+      &.with_music{    .icon{@include allimg(-328px,-147px);}}
     }
     
     .creator{  
@@ -279,6 +280,25 @@
 }
 
 .mside.grid_6 .page-ogrid.collections{width:240px;}
+
+.page-mindpin-index-bar{
+  position:relative;
+  .box{
+    position:absolute;
+    top:20px;left:0px;
+    overflow:hidden;height:32px;
+    .create{
+      float:left;margin-right:10px;
+    }
+    .drafts{
+      float:left;
+      background-color:rgba(250, 250, 250, 0.4);
+      font-size:14px;height:32px;line-height:32px;
+      padding:0 9px;
+      color:#666 !important;
+    }
+  }
+}
 
 /*collection show页面顶端栏*/
 .page-collection-top,.page-info-top{

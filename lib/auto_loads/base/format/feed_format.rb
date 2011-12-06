@@ -9,6 +9,7 @@ class FeedFormat
 
     @photos = feed.photos
     @photo_used = false
+    @has_music = false
 
     @transed_detail = _detail # 顺序不可改
   end
@@ -16,6 +17,14 @@ class FeedFormat
   def photo_used; @photo_used; end
   def has_title?; !@title.blank?; end
   def has_detail?; !@detail.blank?; end
+
+  def timeline_icon_class
+    return 'with_location' if !@feed.location.blank?
+    return 'photos' if !@feed.photos.blank?
+    return 'with_music' if @has_music
+
+    return @feed.from
+  end
 
   # --------- 10月31日之后的新api
 
@@ -38,13 +47,17 @@ class FeedFormat
   def detail_brief(length = 300)
     str0 = typical_return(@detail) # 回车换行标准化
 
+    str0 = trans_xiami_music(str0)
+
     str1 = reduce_return(str0)
     str2 = truncate_u(str1, length, '…')
     str3 = _escape_html(str2)
     str4 = trans_return_to_br(str3)
     str5 = trans_space_to_nbsp(str4)
     
-    return str5
+    str6 = pack_widgets(str5)
+
+    return str6
   end
 
   def short_detail_brief
@@ -73,6 +86,7 @@ class FeedFormat
 
     str1 = trans_code(str0)
     str2 = trans_images(str1)
+    str2 = trans_xiami_music(str2)
 
     str3 = _escape_html(str2)
     str4 = trans_return_to_br(str3)
@@ -151,6 +165,24 @@ class FeedFormat
           push_in_hash "<div class='feed-format-img'><img src='#{photo.image.url(:w500)}'/></div>"
         else
           s
+        end
+      end
+    end
+
+    def trans_xiami_music(str)
+      re = str.gsub /\[xiami:([0-9]+)\]/ do |s|
+        music_id = $1
+        if !music_id.blank?
+          @has_music = true
+          push_in_hash "<embed width='257' height='33' wmode='transparent' type='application/x-shockwave-flash' src='http://www.xiami.com/widget/470304_#{music_id}/singlePlayer.swf'/>"
+        end
+      end
+
+      re.gsub /\[http:\/\/www\.xiami\.com\/song\/([0-9]+)\]/ do |s|
+        music_id = $1
+        if !music_id.blank?
+          @has_music = true
+          push_in_hash "<embed width='257' height='33' wmode='transparent' type='application/x-shockwave-flash' src='http://www.xiami.com/widget/470304_#{music_id}/singlePlayer.swf'/>"
         end
       end
     end

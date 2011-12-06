@@ -53,7 +53,7 @@
 			<RelativeLayout
 				android:id="@+id/feed_detail_parent"
 				android:layout_below="@+id/feed_captures_parent"
-				android:layout_above="@+id/pulish_location"
+				android:layout_above="@+id/pulish_location_parent"
 				style="@style/new_feed_layout_detail_inputer_container"
 			>
 				<LinearLayout
@@ -68,13 +68,27 @@
 				/>
 			</RelativeLayout>
 			
-			<CheckBox
-				android:id="@+id/pulish_location"
+			<LinearLayout
+				android:id="@+id/publish_location_parent"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_alignParentBottom="true"
-				android:text="发布地理信息"
-			/>
+				android:orientation="horizontal"
+			>
+				<CheckBox
+					android:id="@+id/pulish_location"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:text="发布地理信息"
+				/>
+				<Button
+					android:id="@+id/my_location"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="查看我的位置"
+				/>
+			</LinearLayout>
 		</RelativeLayout>
 		
 		<!-- 窗口底栏 -->

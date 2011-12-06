@@ -119,6 +119,18 @@ class Feed < UserAuthAbstract
     ''
   end
 
+  def location_lat
+    self.main_post.location.split(',')[0]
+  rescue
+    ''
+  end
+  
+  def location_lng
+    self.main_post.location.split(',')[1]
+  rescue
+    ''
+  end
+
   # ----------------
 
   def text_format

@@ -1,0 +1,54 @@
+-contacts_6 = current_user.followings[0...6]
+-coutacts_count = current_user.followings.count
+
+-feeds = current_user.out_feeds
+-feeds_count = feeds.count
+
+.page-index-top
+  .wallpaper
+    %img{:src=>'http://storage.aliyun.com/mindpin/login_wallpapers/images/27/original/JyvrPg0h.jpg?1322897563'}
+
+  .avatar=avatar user,:large
+
+  .contacts
+    .avas
+      -0.upto 5 do |i|
+        -fo = contacts_6[i]
+        -if fo.blank?
+          .c.nil
+        -else
+          .c=avatar fo
+    .title 联系人
+    .count=coutacts_count
+
+  .feeds
+    .photo
+    .add
+      .icon
+    .show-list
+      .icon
+    .title 条目
+    .count=feeds_count
+
+  .collections
+    .photo
+    .add
+      .icon
+    .show-list
+      .icon
+    .title 汇集册
+    .count=feeds_count
+
+  .weibo
+    .photo
+    .weibo-logo
+    .show-list
+      .icon
+    .title 新浪微博
+    .count=964
+
+  .clearfix
+  .timeline-end
+    .icon
+    .lbg
+    .now=Time.now

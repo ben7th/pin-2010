@@ -7272,22 +7272,22 @@ $feed_width_1c:228px; /*240-10-2*/
           background-image: url(/images/alltu.png);
           background-repeat: no-repeat;
           background-position: -18px -52px; }
-      .page-ogrid.collection-feeds .feed .timeline-node.android .icon, .page-ogrid.collection-feeds .feed .timeline-node.photos .icon, .page-ogrid.collection-feeds .feed .timeline-node.with_location .icon {
+      .page-ogrid.collection-feeds .feed .timeline-node.android .icon, .page-ogrid.collection-feeds .feed .timeline-node.photos .icon, .page-ogrid.collection-feeds .feed .timeline-node.with_location .icon, .page-ogrid.collection-feeds .feed .timeline-node.with_music .icon {
         margin: 0;
         width: 32px;
         height: 32px; }
-      .page-ogrid.collection-feeds .feed .timeline-node.android .arrow, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow {
+      .page-ogrid.collection-feeds .feed .timeline-node.android .arrow, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow, .page-ogrid.collection-feeds .feed .timeline-node.with_music .arrow {
         position: absolute;
         z-index: 1;
         top: 15px;
         width: 11px;
         height: 16px; }
-        .page-ogrid.collection-feeds .feed .timeline-node.android .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow.at-left {
+        .page-ogrid.collection-feeds .feed .timeline-node.android .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow.at-left, .page-ogrid.collection-feeds .feed .timeline-node.with_music .arrow.at-left {
           left: -15px;
           background-image: url(/images/alltu.png);
           background-repeat: no-repeat;
           background-position: -6px -52px; }
-        .page-ogrid.collection-feeds .feed .timeline-node.android .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow.at-right {
+        .page-ogrid.collection-feeds .feed .timeline-node.android .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.photos .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.with_location .arrow.at-right, .page-ogrid.collection-feeds .feed .timeline-node.with_music .arrow.at-right {
           right: -15px;
           background-image: url(/images/alltu.png);
           background-repeat: no-repeat;
@@ -7304,6 +7304,10 @@ $feed_width_1c:228px; /*240-10-2*/
         background-image: url(/images/alltu.png);
         background-repeat: no-repeat;
         background-position: -295px -147px; }
+      .page-ogrid.collection-feeds .feed .timeline-node.with_music .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -328px -147px; }
     .page-ogrid.collection-feeds .feed .creator {
       overflow: hidden;
       padding: 9px;
@@ -7530,6 +7534,26 @@ $feed_width_1c:228px; /*240-10-2*/
 
 .mside.grid_6 .page-ogrid.collections {
   width: 240px; }
+
+.page-mindpin-index-bar {
+  position: relative; }
+  .page-mindpin-index-bar .box {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    overflow: hidden;
+    height: 32px; }
+    .page-mindpin-index-bar .box .create {
+      float: left;
+      margin-right: 10px; }
+    .page-mindpin-index-bar .box .drafts {
+      float: left;
+      background-color: rgba(250, 250, 250, 0.4);
+      font-size: 14px;
+      height: 32px;
+      line-height: 32px;
+      padding: 0 9px;
+      color: #666 !important; }
 
 /*collection show页面顶端栏*/
 .page-collection-top, .page-info-top {

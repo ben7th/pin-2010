@@ -160,12 +160,4 @@ module FeedHelper
     url
   end
 
-  # feed的发送图标class
-  def timeline_icon_class(feed)
-    return 'with_location' if !feed.location.blank?
-    return 'photos' if !feed.photos.blank?
-
-    return feed.from
-  end
-
 end
