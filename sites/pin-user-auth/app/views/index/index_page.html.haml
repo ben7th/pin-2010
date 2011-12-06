@@ -8,8 +8,8 @@
 
   .page-mindpin-index-bar
     .box
-      -#.item.selected 来自联系人的主题
-      -#.item=link_to '所有公开主题','/feeds/public_timeline'
+      -# .item.selected 来自联系人的主题
+      -# .item=link_to '所有公开主题','/feeds/public_timeline'
       .ops
         %a.create.middlebutton.blue{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
         -if has_draft
