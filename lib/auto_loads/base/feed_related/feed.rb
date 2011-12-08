@@ -173,13 +173,13 @@ class Feed < UserAuthAbstract
   # page，可选，缺省1
   # feature，可选，主题类型，'all', 'text', 'photo', 'text|photo'。默认all。后台应分别建立缓存。
   def self.mix_from_collections(collections, options={})
-    count = options[:count] || 20
-    page  = options[:page] || 1
+    count    = options[:count] || 20
+    page     = options[:page]  || 1
     since_id = options[:since_id]
     since_id = since_id.to_i unless since_id.blank?
-    max_id = options[:max_id]
-    max_id = max_id.to_i unless max_id.blank?
-    feature = options[:feature] || "all"
+    max_id   = options[:max_id]
+    max_id   = max_id.to_i unless max_id.blank?
+    feature  = options[:feature] || "all"
 
     ids = collections.map do |collection|
       case feature

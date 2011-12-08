@@ -1,18 +1,6 @@
 -hjavascript pin_url_for('ui','/singlejs/feed_ogrid.js')
 
--drafts_count = current_user.post_drafts.count
--has_draft = drafts_count > 0
-
 .main.grid_24.no-line
   =render_with_error_msg '基本信息加载错误', 'index/parts/page_index_top', :user=>current_user
-
-  .page-mindpin-index-bar
-    .box
-      -# .item.selected 来自联系人的主题
-      -# .item=link_to '所有公开主题','/feeds/public_timeline'
-      .ops
-        %a.create.middlebutton.blue{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
-        -if has_draft
-          %a.drafts{:href=>'/post_drafts',:title=>'点击查看所有草稿'} <span>有#{drafts_count}条草稿</span>
-
+  =render_with_error_msg '工具栏加载错误', 'index/parts/page_mindpin_index_bar'
   =prender 'feed','grid',:feeds=>@feeds

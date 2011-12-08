@@ -279,8 +279,6 @@
   }
 }
 
-.mside.grid_6 .page-ogrid.collections{width:240px;}
-
 .page-mindpin-index-bar{
   position:relative;
   z-index:3; 
@@ -300,72 +298,4 @@
       color:#666 !important;
     }
   }
-}
-
-/*collection show页面顶端栏*/
-.page-collection-top,.page-info-top{
-  @include gray-box;
-  padding:0;
-  margin-bottom:10px;
-  border-bottom:solid 3px #eee;
-  
-  .meta{
-    overflow:hidden;
-    h2,.item{
-      margin:4px;
-      padding:5px;
-      font-size:14px;
-      font-weight:bold;
-      float:left;
-      height:32px;line-height:32px;
-    }
-    .item{
-      &.selected{
-        height:30px;line-height:30px;
-        background-color:#fafafa;
-        border:solid 1px #eee;
-      }
-    }
-    
-    .ops{
-      float:right;
-      padding:9px;
-      .create{
-        @include button-blue;
-        float:left;
-        padding:0 7px 0 3px;
-        height:30px;line-height:30px;
-        font-size:14px;
-        span{float:left;}
-        .icon{width:24px;height:24px;position:relative;top:3px;margin-right:3px;}
-        .icon{background:url(/images/alltu.png) -85px -100px;}
-      }
-      .drafts{
-        float:left;
-        padding:0 7px;
-        height:32px;line-height:32px;font-size:12px;
-        margin-right:9px;
-        /*background-color:#ffffea;
-        border:solid 1px #EEEEEE;*/
-        color:#DD4B39 !important;
-        font-weight:bold;
-      }
-      .minibutton.edit{float:left;font-size:14px;padding:0 7px;height:30px;line-height:30px;margin-left:9px;}
-    }
-  }
-  .foot{
-    border-top:solid 1px #eee;
-    background-color:#fafafa;
-    padding:9px;
-    overflow:hidden;
-    .creator{
-      float:left;overflow:hidden;
-      .avatar{float:left;margin-right:9px;img{width:32px;height:32px;padding:0;}}
-      .name{float:left;height:32px;line-height:32px;margin-right:6px;font-size:14px;}
-      .desc{float:left;height:32px;line-height:32px;margin-right:6px;font-size:14px;}
-    }
-    .f-count{
-      float:right;height:32px;line-height:32px;font-size:14px;font-weight:bold;
-    }
-  }  
 }

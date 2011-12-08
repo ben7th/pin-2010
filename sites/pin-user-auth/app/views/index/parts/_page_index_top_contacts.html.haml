@@ -1,0 +1,18 @@
+-# 传入 user
+
+-partly_followings = user.followings[0...6]
+-followings_count = user.followings.count
+-user_contacts_url = pin_url_for('pin-user-auth',"/#{user.id}/contacts")
+
+.contacts
+  .avas
+    -0.upto 5 do |i|
+      -fo = partly_followings[i]
+      -if fo.blank?
+        .c <div class='nil'></div>
+          
+      -else
+        .c=link_to avatar(fo), pin_url_for('pin-user-auth',"/users/#{fo.id}")
+
+  .title=link_to '联系人',user_contacts_url
+  .count=followings_count

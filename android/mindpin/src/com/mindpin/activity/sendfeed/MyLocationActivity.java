@@ -3,56 +3,100 @@ package com.mindpin.activity.sendfeed;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import com.mapabc.mapapi.GeoPoint;
-import com.mapabc.mapapi.MapActivity;
-import com.mapabc.mapapi.MapController;
-import com.mapabc.mapapi.MapView;
-import com.mapabc.mapapi.MyLocationOverlay;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
 import com.mindpin.R;
+import com.mindpin.base.utils.location.AvatarMyLocationOverlay;
 
 public class MyLocationActivity extends MapActivity {
-	public static final int FIRST_LOCATION=110;
+	public static final int GEO_FIX_SUCESS = 110;
 	private MapView map_view;
+	private MyLocationOverlay my_location_overlay;
 	private MapController map_controller;
-	private MyLocationOverlay location_overlay;
 	private Handler handler = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
-			if (msg.what == FIRST_LOCATION) {
-				map_controller.animateTo(location_overlay.getMyLocation());
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case GEO_FIX_SUCESS:
+				map_controller.animateTo(my_location_overlay.getMyLocation());
+				map_controller.setZoom(15);
+				break;
 			}
 		}
-    };
+	};
 
 	@Override
 	protected void onCreate(Bundle arg0) {
-    	this.setMapMode(MAP_MODE_VECTOR);//设置地图为矢量模式
 		super.onCreate(arg0);
 		setContentView(R.layout.my_location);
-		
-		map_view = (MapView) findViewById(R.id.mapView);
-		map_controller = map_view.getController();
-		
-		map_view.setBuiltInZoomControls(true);  // 增加地图缩放的两个按钮
-		
-		location_overlay = new MyLocationOverlay(this, map_view);
-		map_view.getOverlays().add(location_overlay);
-		//实现初次定位使定位结果居中显示
-		location_overlay.runOnFirstFix(new Runnable() {
-			public void run() {
-            	handler.sendMessage(Message.obtain(handler, FIRST_LOCATION));
-            }
-        });
+		init_field();
+		build_my_location_overlay();
+
+		init_relocate_button();
 	}
-	
-    @Override
-	protected void onPause() {
-    	location_overlay.disableMyLocation();
-		super.onPause();
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
 	}
 
 	@Override
 	protected void onResume() {
-		location_overlay.enableMyLocation();
+		// 启动地位，尝试从 GPS或基站 获取设备位置
+		my_location_overlay.enableMyLocation();
 		super.onResume();
 	}
+
+	@Override
+	protected void onPause() {
+		// 关闭地位
+		my_location_overlay.disableMyLocation();
+		super.onPause();
+	}
+	
+	private void init_relocate_button() {
+		ViewGroup container = map_view.getZoomButtonsController().getContainer(); 
+		Button button = new Button(this);
+		button.setText("⊙");
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT,Gravity.RIGHT);
+		
+		params.setMargins(0, 0, 50, 0);
+		container.addView(button,params);
+		
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				map_controller.animateTo(my_location_overlay.getMyLocation());
+				map_controller.setZoom(15);
+			}
+		});
+	}
+	
+	private void init_field() {
+		map_view = (MapView) findViewById(R.id.map_view);
+		map_view.setBuiltInZoomControls(true);
+		map_controller = map_view.getController();
+	}
+
+	private void build_my_location_overlay() {
+		my_location_overlay = new AvatarMyLocationOverlay(this, map_view);
+		my_location_overlay.runOnFirstFix(new Runnable() {
+			@Override
+			public void run() {
+				handler.sendEmptyMessage(GEO_FIX_SUCESS);
+			}
+		});
+		map_view.getOverlays().add(my_location_overlay);
+	}
+
 }

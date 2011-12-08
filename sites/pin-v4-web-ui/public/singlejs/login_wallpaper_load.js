@@ -1,7 +1,8 @@
 //  计算图片缩放宽度，高度，负margin
-//  两种情况：
-//  1 高度过剩，此时宽度过剩则无视，宽度不足则补齐
-//  2 高度不足，此时先补齐宽度，然后计算对应的 h1 ，如果h1不足则补齐
+//  分两步走：
+//  1 如果宽度不足，补齐宽度，计算高度
+//  2 如果此时高度不足，补齐高度
+//  最后计算margin
 
 pie.load(function(){
   var wallpaper_box_elm = jQuery('.page-anonymous-wallpaper');

@@ -1,53 +1,70 @@
--contacts_6 = current_user.followings[0...6]
--coutacts_count = current_user.followings.count
+-# 传入参数 user
 
--feeds = current_user.out_feeds
--feeds_count = feeds.count
+-hjavascript pin_url_for('ui','/singlejs/follow_and_unfollow.js')
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+
+      var load_cover = function(cover_elm){
+        var cover_src = cover_elm.domdata('src');
+        var a_elm = cover_elm.find('a');
+
+        if(!jQuery.string(cover_src).blank()){
+          pie.load_cut_img(cover_src, cover_elm, a_elm, function(){
+            cover_elm.removeClass('nil');
+          });
+        }
+      }
+
+      // 微博
+      var cover_elm = jQuery('.page-index-top .weibo .cover');
+      load_cover(cover_elm);
+
+      // 主题条目
+      var cover_elm = jQuery('.page-index-top .feeds .cover');
+      load_cover(jQuery(cover_elm[0]));
+      load_cover(jQuery(cover_elm[1]));
+
+      // 收集册
+      var cover_elm = jQuery('.page-index-top .collections .cover');
+      load_cover(jQuery(cover_elm[0]));
+      load_cover(jQuery(cover_elm[1]));
+      load_cover(jQuery(cover_elm[2]));
+      load_cover(jQuery(cover_elm[3]));
+    })
+
+-user_id = user.id
+-user_page_url = pin_url_for('pin-user-auth',"/users/#{user_id}")
+
+-is_me = logged_in? && (user == current_user)
 
 .page-index-top
   .wallpaper
     %img{:src=>'http://storage.aliyun.com/mindpin/login_wallpapers/images/27/original/JyvrPg0h.jpg?1322897563'}
 
-  .avatar=avatar user,:large
+  .avatar=link_to avatar(user,:large),user_page_url
 
-  .contacts
-    .avas
-      -0.upto 5 do |i|
-        -fo = contacts_6[i]
-        -if fo.blank?
-          .c.nil
-        -else
-          .c=avatar fo
-    .title 联系人
-    .count=coutacts_count
-
-  .feeds
-    .photo
-    .add
-      .icon
-    .show-list
-      .icon
-    .title 条目
-    .count=feeds_count
-
-  .collections
-    .photo
-    .add
-      .icon
-    .show-list
-      .icon
-    .title 汇集册
-    .count=feeds_count
-
-  .weibo
-    .photo
-    .weibo-logo
-    .show-list
-      .icon
-    .title 新浪微博
-    .count=964
-
+  =render_with_error_msg '联系人数据错误','index/parts/page_index_top_contacts',:user=>user
+  =render_with_error_msg '条目数据错误','index/parts/page_index_top_feeds',:user=>user
+  =render_with_error_msg '汇集册数据错误','index/parts/page_index_top_collections',:user=>user
+  =render_with_error_msg '微博API错误','index/parts/page_index_top_weibo',:user=>user
   .clearfix
+
+  .misc-ops
+    -if logged_in?
+      -if is_me
+        -#
+      -else
+        -has_followed = current_user.following?(user)
+
+        .follow-ops
+          -if !has_followed
+            %a.do-follow{:'data-id'=>user_id,:href=>'javascript:;'} <span class='icon'></span><span>添加到联系人</span>
+            %a.do-unfoll{:'data-id'=>user_id,:href=>'javascript:;',:style=>'display:none;'} <span class='icon'></span><span>取消此联系人</span>
+          -else
+            %a.do-follow{:'data-id'=>user_id,:href=>'javascript:;',:style=>'display:none;'} <span class='icon'></span><span>添加到联系人</span>
+            %a.do-unfoll{:'data-id'=>user_id,:href=>'javascript:;'} <span class='icon'></span><span>取消此联系人</span>
+
   .timeline-end
     .icon
     .lbg

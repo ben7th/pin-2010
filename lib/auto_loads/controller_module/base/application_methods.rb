@@ -28,7 +28,11 @@ module ApplicationMethods
   #----------------------
 
   def hold_ie6
-    if /MSIE 6.0/.match(request.user_agent)
+    if /MSIE 6/.match(request.user_agent)
+      render "layouts/status_page/hold_ie6",:layout=>false
+    end
+
+    if /MSIE 7/.match(request.user_agent)
       render "layouts/status_page/hold_ie6",:layout=>false
     end
   end

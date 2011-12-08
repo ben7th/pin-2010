@@ -1,0 +1,9 @@
+-drafts_count = current_user.post_drafts.count
+-has_draft = drafts_count > 0
+
+.page-mindpin-index-bar
+  .box
+    .ops
+      %a.create.middlebutton.blue{:href=>"/feeds/new"} <span class='icon'></span><span>创建主题</span>
+      -if has_draft
+        %a.drafts{:href=>'/post_drafts',:title=>'点击查看所有草稿'} <span>有#{drafts_count}条草稿</span>

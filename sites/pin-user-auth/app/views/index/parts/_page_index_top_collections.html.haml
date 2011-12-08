@@ -1,0 +1,39 @@
+-# 传入 user
+
+-user_id = user.id
+-user_collections_url = pin_url_for('pin-user-auth',"/#{user_id}/collections")
+
+-collections_count = user.out_collections.count
+
+-timeline_photo = user.user_timeline(:count=>6,:feature=>'photo')
+-fc_ta, fc_bl, fc_bm, fc_br = timeline_photo[2], timeline_photo[3], timeline_photo[4], timeline_photo[5]
+
+-fc_ta_src, fc_bl_src, fc_bm_src, fc_br_src = '','','',''
+
+-has_ta = !fc_ta.blank?
+-if has_ta && !fc_ta.photos[0].blank?
+  -fc_ta_src = fc_ta.photos[0].image.url(:w250)
+
+-has_bl = !fc_bl.blank?
+-if has_bl && !fc_bl.photos[0].blank?
+  -fc_bl_src = fc_bl.photos[0].image.url(:s100)
+
+-has_bm = !fc_bm.blank?
+-if has_bm && !fc_bm.photos[0].blank?
+  -fc_bm_src = fc_bm.photos[0].image.url(:s100)
+
+-has_br = !fc_br.blank?
+-if has_br && !fc_br.photos[0].blank?
+  -fc_br_src = fc_br.photos[0].image.url(:s100)
+
+.collections
+  .cover.ta.nil{:'data-src'=>fc_ta_src}
+    %a{:href=>user_collections_url}
+  .cover.bl.nil{:'data-src'=>fc_bl_src}
+    %a{:href=>user_collections_url}
+  .cover.bm.nil{:'data-src'=>fc_bm_src}
+    %a{:href=>user_collections_url}
+  .cover.br.nil{:'data-src'=>fc_br_src}
+    %a{:href=>user_collections_url}
+  .title=link_to '汇集册',user_collections_url
+  .count=collections_count

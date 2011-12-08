@@ -946,6 +946,7 @@ body {
   -webkit-border-radius: 0 4px 4px 0;
   padding: 6px 10px;
   background-color: #5C5E4E;
+  background-color: rgba(0, 0, 0, 0.6);
   color: #F3F8DB;
   position: fixed;
   width: 100px;
@@ -5609,7 +5610,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   padding-top: 3px;
   margin-left: -3px;
   padding-left: 3px;
-  overflow: hidden; }
+  overflow: hidden;
+  padding-bottom: 12px; }
   .page-index-top .wallpaper {
     position: absolute;
     left: 0;
@@ -5617,6 +5619,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     width: 100%;
     height: 194px;
     overflow: hidden;
+    height: 206px;
     z-index: -99;
     background-color: rgba(51, 51, 51, 0.9); }
     .page-index-top .wallpaper img {
@@ -5624,9 +5627,11 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       height: auto; }
   .page-index-top .avatar {
     float: left;
-    margin-right: 20px;
+    margin-right: 40px;
     margin-bottom: 3px;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
+    .page-index-top .avatar a {
+      display: block; }
     .page-index-top .avatar img {
       width: 134px;
       height: 134px;
@@ -5648,39 +5653,70 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       margin-right: 3px;
       margin-bottom: 3px;
       background-color: #666;
-      background-color: rgba(102, 102, 102, 0.8);
+      background-color: rgba(102, 102, 102, 0.6);
       color: #f1f1f1;
       text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
       font-weight: bold;
       text-align: center;
       font-size: 14px;
       box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
+      .page-index-top .contacts .title a, .page-index-top .feeds .title a, .page-index-top .collections .title a, .page-index-top .weibo .title a {
+        color: #f1f1f1; }
+        .page-index-top .contacts .title a:hover, .page-index-top .feeds .title a:hover, .page-index-top .collections .title a:hover, .page-index-top .weibo .title a:hover {
+          color: #f1f1f1; }
     .page-index-top .contacts .count, .page-index-top .feeds .count, .page-index-top .collections .count, .page-index-top .weibo .count {
       float: left;
       width: 48px;
       height: 32px;
       line-height: 32px;
-      background-color: #f1f1f1;
-      background-color: rgba(250, 250, 250, 0.8);
-      color: #555;
       font-weight: bold;
       text-align: center;
       font-size: 22px;
-      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
-    .page-index-top .contacts .show-list, .page-index-top .feeds .show-list, .page-index-top .collections .show-list, .page-index-top .weibo .show-list {
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #f1f1f1;
+      text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8); }
+    .page-index-top .contacts .cover, .page-index-top .feeds .cover, .page-index-top .collections .cover, .page-index-top .weibo .cover {
+      background-color: rgba(250, 250, 250, 0.4);
       float: left;
-      width: 48px;
-      height: 48px;
-      background-color: #ccc;
-      background-color: rgba(204, 204, 204, 0.8);
-      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
-      .page-index-top .contacts .show-list .icon, .page-index-top .feeds .show-list .icon, .page-index-top .collections .show-list .icon, .page-index-top .weibo .show-list .icon {
-        width: 32px;
-        height: 32px;
-        margin: 8px 0 0 8px;
-        background-image: url(/images/alltu.png);
-        background-repeat: no-repeat;
-        background-position: -229px -114px; }
+      margin: 0 3px 3px 0;
+      width: 99px;
+      height: 99px;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+      overflow: hidden; }
+      .page-index-top .contacts .cover a, .page-index-top .feeds .cover a, .page-index-top .collections .cover a, .page-index-top .weibo .cover a {
+        display: block;
+        opacity: 0.9; }
+        .page-index-top .contacts .cover a:hover, .page-index-top .feeds .cover a:hover, .page-index-top .collections .cover a:hover, .page-index-top .weibo .cover a:hover {
+          opacity: 1; }
+      .page-index-top .contacts .cover.nil a, .page-index-top .feeds .cover.nil a, .page-index-top .collections .cover.nil a, .page-index-top .weibo .cover.nil a {
+        width: 97px;
+        height: 97px;
+        border: dashed 1px #ccc; }
+      .page-index-top .contacts .cover.l50, .page-index-top .feeds .cover.l50, .page-index-top .collections .cover.l50, .page-index-top .weibo .cover.l50 {
+        width: 74px; }
+        .page-index-top .contacts .cover.l50.nil a, .page-index-top .feeds .cover.l50.nil a, .page-index-top .collections .cover.l50.nil a, .page-index-top .weibo .cover.l50.nil a {
+          width: 72px; }
+      .page-index-top .contacts .cover.r50, .page-index-top .feeds .cover.r50, .page-index-top .collections .cover.r50, .page-index-top .weibo .cover.r50 {
+        width: 73px;
+        margin-right: 0; }
+        .page-index-top .contacts .cover.r50.nil a, .page-index-top .feeds .cover.r50.nil a, .page-index-top .collections .cover.r50.nil a, .page-index-top .weibo .cover.r50.nil a {
+          width: 71px; }
+      .page-index-top .contacts .cover.ta, .page-index-top .feeds .cover.ta, .page-index-top .collections .cover.ta, .page-index-top .weibo .cover.ta {
+        width: 150px;
+        height: 64px;
+        margin-right: 0; }
+        .page-index-top .contacts .cover.ta.nil a, .page-index-top .feeds .cover.ta.nil a, .page-index-top .collections .cover.ta.nil a, .page-index-top .weibo .cover.ta.nil a {
+          width: 148px;
+          height: 62px; }
+      .page-index-top .contacts .cover.bl, .page-index-top .contacts .cover.bm, .page-index-top .contacts .cover.br, .page-index-top .feeds .cover.bl, .page-index-top .feeds .cover.bm, .page-index-top .feeds .cover.br, .page-index-top .collections .cover.bl, .page-index-top .collections .cover.bm, .page-index-top .collections .cover.br, .page-index-top .weibo .cover.bl, .page-index-top .weibo .cover.bm, .page-index-top .weibo .cover.br {
+        width: 48px;
+        height: 32px; }
+        .page-index-top .contacts .cover.bl.nil a, .page-index-top .contacts .cover.bm.nil a, .page-index-top .contacts .cover.br.nil a, .page-index-top .feeds .cover.bl.nil a, .page-index-top .feeds .cover.bm.nil a, .page-index-top .feeds .cover.br.nil a, .page-index-top .collections .cover.bl.nil a, .page-index-top .collections .cover.bm.nil a, .page-index-top .collections .cover.br.nil a, .page-index-top .weibo .cover.bl.nil a, .page-index-top .weibo .cover.bm.nil a, .page-index-top .weibo .cover.br.nil a {
+          width: 46px;
+          height: 30px; }
+      .page-index-top .contacts .cover.br, .page-index-top .feeds .cover.br, .page-index-top .collections .cover.br, .page-index-top .weibo .cover.br {
+        margin-right: 0; }
   .page-index-top .contacts .avas {
     overflow: visible;
     width: 153px;
@@ -5692,48 +5728,15 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       margin: 0 3px 3px 0;
       float: left;
       box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
-      .page-index-top .contacts .avas .c.nil {
+      .page-index-top .contacts .avas .c a {
+        display: block;
+        opacity: 0.9; }
+        .page-index-top .contacts .avas .c a:hover {
+          opacity: 1; }
+      .page-index-top .contacts .avas .c .nil {
         width: 46px;
         height: 46px;
         border: dashed 1px #ccc; }
-  .page-index-top .feeds .photo {
-    background-color: rgba(250, 250, 250, 0.4);
-    float: left;
-    margin: 0 3px 3px 0;
-    width: 97px;
-    height: 97px;
-    border: dashed 1px #ccc;
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
-  .page-index-top .feeds .add {
-    float: left;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 3px;
-    /*background-color:#B8E7B2;
-    .icon{width:32px;height:32px;margin:8px 0 0 8px;
-      @include allimg(-229px, -81px);
-    }*/ }
-  .page-index-top .collections .photo {
-    background-color: rgba(250, 250, 250, 0.4);
-    float: left;
-    margin: 0 3px 3px 0;
-    width: 97px;
-    height: 97px;
-    border: dashed 1px #ccc;
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
-  .page-index-top .collections .add {
-    float: left;
-    width: 48px;
-    height: 48px;
-    margin-bottom: 3px; }
-  .page-index-top .weibo .photo {
-    background-color: rgba(250, 250, 250, 0.4);
-    float: left;
-    margin: 0 3px 3px 0;
-    width: 97px;
-    height: 97px;
-    border: dashed 1px #ccc;
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
   .page-index-top .weibo .weibo-logo {
     float: left;
     width: 48px;
@@ -5742,18 +5745,65 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     background-image: url(/images/alltu.png);
     background-repeat: no-repeat;
     background-position: -394px -149px;
-    background-color: rgba(250, 250, 250, 0.8); }
-  .page-index-top .timeline-end {
+    background-color: #fafafa;
+    opacity: 0.8; }
+    .page-index-top .weibo .weibo-logo:hover {
+      opacity: 1; }
+  .page-index-top .misc-ops {
     overflow: hidden;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 5px;
+    padding-bottom: 4px;
+    float: left; }
+    .page-index-top .misc-ops .follow-ops {
+      float: left;
+      overflow: hidden; }
+      .page-index-top .misc-ops .follow-ops a {
+        display: block;
+        height: 24px;
+        line-height: 24px;
+        padding-right: 6px;
+        background-color: rgba(0, 0, 0, 0.6);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+        text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+        font-size: 12px;
+        overflow: hidden;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        color: #f1f1f1; }
+        .page-index-top .misc-ops .follow-ops a .icon {
+          float: left;
+          width: 24px;
+          height: 24px;
+          opacity: 0.8; }
+        .page-index-top .misc-ops .follow-ops a.do-follow .icon {
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -60px -125px; }
+        .page-index-top .misc-ops .follow-ops a.do-unfoll .icon {
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -85px -125px; }
+        .page-index-top .misc-ops .follow-ops a:hover {
+          color: #f1f1f1;
+          text-decoration: none;
+          background-color: rgba(0, 0, 0, 0.7); }
+          .page-index-top .misc-ops .follow-ops a:hover .icon {
+            opacity: 1; }
+  .page-index-top .timeline-end {
     position: relative;
     color: #f1f1f1;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
     height: 32px;
     line-height: 32px;
     margin-top: 1px;
-    padding-bottom: 4px; }
+    padding-bottom: 4px;
+    float: right;
+    width: 550px; }
     .page-index-top .timeline-end .now {
-      margin-left: 455px;
+      margin-left: 55px;
       font-weight: bold;
       padding: 0 14px; }
     .page-index-top .timeline-end .icon {
@@ -5763,169 +5813,18 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       background-repeat: no-repeat;
       background-position: -1px -35px;
       position: absolute;
-      left: 447px;
-      /*950/2-8-20*/
+      left: 47px;
+      /*550/2-8-20*/
       top: 8px;
       z-index: 2; }
     .page-index-top .timeline-end .lbg {
       position: absolute;
       width: 4px;
-      height: 20px;
-      left: 453px;
+      height: 32px;
+      left: 53px;
       top: 16px;
       background: url(/images/bodybgs/timeline-line.png) repeat-y;
       z-index: 1; }
-
-/*用户个人页页顶*/
-.page-user-profile .profile-top {
-  border: solid 1px #ccc;
-  background-color: #FFF;
-  padding: 9px;
-  padding: 0;
-  padding: 14px;
-  overflow: hidden; }
-  .page-user-profile .profile-top .basedata {
-    overflow: hidden;
-    margin-left: 224px;
-    margin-bottom: 14px; }
-    .page-user-profile .profile-top .basedata .name {
-      margin-bottom: 14px;
-      padding: 0 5px;
-      font-size: 14px;
-      font-weight: bold;
-      height: 32px;
-      line-height: 32px; }
-      .page-user-profile .profile-top .basedata .name a {
-        color: #444 !important; }
-    .page-user-profile .profile-top .basedata .ops {
-      overflow: hidden;
-      height: 32px; }
-      .page-user-profile .profile-top .basedata .ops .do-follow, .page-user-profile .profile-top .basedata .ops .do-unfollow, .page-user-profile .profile-top .basedata .ops .edit-account {
-        display: block;
-        width: 108px;
-        text-align: center;
-        height: 30px;
-        line-height: 30px;
-        float: left;
-        font-size: 14px; }
-      .page-user-profile .profile-top .basedata .ops .do-follow {
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        display: inline-block;
-        padding: 0;
-        text-align: center;
-        font-weight: bold;
-        color: #fff !important;
-        background-color: #90DE00;
-        border: solid 1px #4EC000;
-        text-shadow: 0 0 2px #444444; }
-        .page-user-profile .profile-top .basedata .ops .do-follow:hover {
-          text-decoration: none; }
-        .page-user-profile .profile-top .basedata .ops .do-follow span {
-          display: block; }
-        .page-user-profile .profile-top .basedata .ops .do-follow:hover {
-          color: #fff !important;
-          background-color: #90DE00;
-          border: solid 1px #4EC000;
-          box-shadow: 0 1px 2px #ccc; }
-      .page-user-profile .profile-top .basedata .ops .do-unfollow {
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        display: inline-block;
-        padding: 0;
-        text-align: center;
-        font-weight: bold;
-        color: #555 !important;
-        background-color: #F0F0F0;
-        border: solid 1px #ddd; }
-        .page-user-profile .profile-top .basedata .ops .do-unfollow:hover {
-          text-decoration: none; }
-        .page-user-profile .profile-top .basedata .ops .do-unfollow span {
-          display: block; }
-        .page-user-profile .profile-top .basedata .ops .do-unfollow:hover {
-          color: #555 !important;
-          background-color: #E9E9E9;
-          box-shadow: 0 1px 2px #eee; }
-      .page-user-profile .profile-top .basedata .ops .edit-account {
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        display: inline-block;
-        padding: 0;
-        text-align: center;
-        font-weight: bold;
-        color: #555 !important;
-        background-color: #F0F0F0;
-        border: solid 1px #ddd;
-        width: 94px; }
-        .page-user-profile .profile-top .basedata .ops .edit-account:hover {
-          text-decoration: none; }
-        .page-user-profile .profile-top .basedata .ops .edit-account span {
-          display: block; }
-        .page-user-profile .profile-top .basedata .ops .edit-account:hover {
-          color: #555 !important;
-          background-color: #E9E9E9;
-          box-shadow: 0 1px 2px #eee; }
-  .page-user-profile .profile-top .avatar {
-    float: left;
-    border: solid 1px #eee;
-    background-color: #FFF;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    width: 200px;
-    height: 200px;
-    padding: 4px; }
-    .page-user-profile .profile-top .avatar img {
-      width: 200px;
-      height: 200px;
-      padding: 0; }
-  .page-user-profile .profile-top .misc {
-    float: left;
-    overflow: hidden;
-    margin-top: 8px; }
-    .page-user-profile .profile-top .misc .followings, .page-user-profile .profile-top .misc .collections, .page-user-profile .profile-top .misc .feeds, .page-user-profile .profile-top .misc .tsina {
-      float: left;
-      margin-left: 14px;
-      position: relative;
-      border: solid 1px #eee;
-      padding: 4px;
-      border-radius: 2px;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px; }
-      .page-user-profile .profile-top .misc .followings .cover, .page-user-profile .profile-top .misc .collections .cover, .page-user-profile .profile-top .misc .feeds .cover, .page-user-profile .profile-top .misc .tsina .cover {
-        overflow: hidden;
-        width: 144px;
-        height: 72px;
-        background-color: #fafafa; }
-      .page-user-profile .profile-top .misc .followings .count, .page-user-profile .profile-top .misc .collections .count, .page-user-profile .profile-top .misc .feeds .count, .page-user-profile .profile-top .misc .tsina .count {
-        height: 16px;
-        line-height: 16px;
-        padding: 4px 9px;
-        background-color: #fafafa;
-        border-radius: 2px;
-        -moz-border-radius: 2px;
-        -webkit-border-radius: 2px;
-        color: #555;
-        margin-top: 4px; }
-        .page-user-profile .profile-top .misc .followings .count a, .page-user-profile .profile-top .misc .collections .count a, .page-user-profile .profile-top .misc .feeds .count a, .page-user-profile .profile-top .misc .tsina .count a {
-          color: #555 !important; }
-    .page-user-profile .profile-top .misc .followings .cover .following-avatar {
-      float: left;
-      padding: 0;
-      line-height: 0;
-      font-size: 0;
-      width: 36px;
-      height: 36px; }
-      .page-user-profile .profile-top .misc .followings .cover .following-avatar img {
-        padding: 0;
-        border-radius: 0;
-        -moz-border-radius: 0;
-        -webkit-border-radius: 0;
-        width: 36px;
-        height: 36px; }
 
 .page-anonymous-wrapper .root-box {
   /*外部容器宽度950px*/
@@ -7532,9 +7431,6 @@ $feed_width_1c:228px; /*240-10-2*/
       height: 30px;
       font-size: 14px; }
 
-.mside.grid_6 .page-ogrid.collections {
-  width: 240px; }
-
 .page-mindpin-index-bar {
   position: relative;
   z-index: 3; }
@@ -7556,119 +7452,6 @@ $feed_width_1c:228px; /*240-10-2*/
       line-height: 32px;
       padding: 0 9px;
       color: #666 !important; }
-
-/*collection show页面顶端栏*/
-.page-collection-top, .page-info-top {
-  border: solid 1px #ccc;
-  background-color: #FFF;
-  padding: 9px;
-  padding: 0;
-  margin-bottom: 10px;
-  border-bottom: solid 3px #eee; }
-  .page-collection-top .meta, .page-info-top .meta {
-    overflow: hidden; }
-    .page-collection-top .meta h2, .page-collection-top .meta .item, .page-info-top .meta h2, .page-info-top .meta .item {
-      margin: 4px;
-      padding: 5px;
-      font-size: 14px;
-      font-weight: bold;
-      float: left;
-      height: 32px;
-      line-height: 32px; }
-    .page-collection-top .meta .item.selected, .page-info-top .meta .item.selected {
-      height: 30px;
-      line-height: 30px;
-      background-color: #fafafa;
-      border: solid 1px #eee; }
-    .page-collection-top .meta .ops, .page-info-top .meta .ops {
-      float: right;
-      padding: 9px; }
-      .page-collection-top .meta .ops .create, .page-info-top .meta .ops .create {
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        display: inline-block;
-        padding: 0;
-        text-align: center;
-        font-weight: bold;
-        color: #fff !important;
-        background-color: #4C8FFD;
-        border: solid 1px #10698D;
-        text-shadow: 0 0 2px #444444;
-        float: left;
-        padding: 0 7px 0 3px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 14px; }
-        .page-collection-top .meta .ops .create:hover, .page-info-top .meta .ops .create:hover {
-          text-decoration: none; }
-        .page-collection-top .meta .ops .create span, .page-info-top .meta .ops .create span {
-          display: block; }
-        .page-collection-top .meta .ops .create:hover, .page-info-top .meta .ops .create:hover {
-          color: #fff !important;
-          border: solid 1px #0069dd;
-          box-shadow: 0 1px 2px #ccc; }
-        .page-collection-top .meta .ops .create span, .page-info-top .meta .ops .create span {
-          float: left; }
-        .page-collection-top .meta .ops .create .icon, .page-info-top .meta .ops .create .icon {
-          width: 24px;
-          height: 24px;
-          position: relative;
-          top: 3px;
-          margin-right: 3px; }
-        .page-collection-top .meta .ops .create .icon, .page-info-top .meta .ops .create .icon {
-          background: url(/images/alltu.png) -85px -100px; }
-      .page-collection-top .meta .ops .drafts, .page-info-top .meta .ops .drafts {
-        float: left;
-        padding: 0 7px;
-        height: 32px;
-        line-height: 32px;
-        font-size: 12px;
-        margin-right: 9px;
-        /*background-color:#ffffea;
-        border:solid 1px #EEEEEE;*/
-        color: #DD4B39 !important;
-        font-weight: bold; }
-      .page-collection-top .meta .ops .minibutton.edit, .page-info-top .meta .ops .minibutton.edit {
-        float: left;
-        font-size: 14px;
-        padding: 0 7px;
-        height: 30px;
-        line-height: 30px;
-        margin-left: 9px; }
-  .page-collection-top .foot, .page-info-top .foot {
-    border-top: solid 1px #eee;
-    background-color: #fafafa;
-    padding: 9px;
-    overflow: hidden; }
-    .page-collection-top .foot .creator, .page-info-top .foot .creator {
-      float: left;
-      overflow: hidden; }
-      .page-collection-top .foot .creator .avatar, .page-info-top .foot .creator .avatar {
-        float: left;
-        margin-right: 9px; }
-        .page-collection-top .foot .creator .avatar img, .page-info-top .foot .creator .avatar img {
-          width: 32px;
-          height: 32px;
-          padding: 0; }
-      .page-collection-top .foot .creator .name, .page-info-top .foot .creator .name {
-        float: left;
-        height: 32px;
-        line-height: 32px;
-        margin-right: 6px;
-        font-size: 14px; }
-      .page-collection-top .foot .creator .desc, .page-info-top .foot .creator .desc {
-        float: left;
-        height: 32px;
-        line-height: 32px;
-        margin-right: 6px;
-        font-size: 14px; }
-    .page-collection-top .foot .f-count, .page-info-top .foot .f-count {
-      float: right;
-      height: 32px;
-      line-height: 32px;
-      font-size: 14px;
-      font-weight: bold; }
 
 .page-mindmap-what-is-daotu {
   padding: 10px;

@@ -8,15 +8,12 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -38,7 +35,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.mindpin.R;
 import com.mindpin.Logic.CameraLogic;
 import com.mindpin.Logic.FeedDraftManager;
@@ -47,9 +43,10 @@ import com.mindpin.application.MindpinApplication;
 import com.mindpin.base.activity.MindpinBaseActivity;
 import com.mindpin.base.task.MindpinAsyncTask;
 import com.mindpin.base.utils.BaseUtils;
+import com.mindpin.base.utils.location.LocationManagerProxy;
 import com.mindpin.database.FeedDraft;
 
-public class NewFeedActivity extends MindpinBaseActivity implements LocationListener {
+public class NewFeedActivity extends MindpinBaseActivity  {
 	public static final int REQUEST_SHOW_IMAGE_CAPTURE = 1;
 	public static final int REQUEST_SHOW_IMAGE_ALBUM = 2;
 	protected static final int REQUEST_SELECT_COLLECTIONS = 3;
@@ -78,11 +75,8 @@ public class NewFeedActivity extends MindpinBaseActivity implements LocationList
 	private int feed_draft_id = 0;
 	private ProgressDialog progress_dialog;
 	
-	private LocationManager locationManager;
-	// 当前的地理信息
-	private Location current_location;
-	// 最后发布的地理信息，用户选择不发布时，该值为空
-	private Location send_location;
+	private LocationManagerProxy location_manager_proxy;
+	private CheckBox pulish_location_check_box;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,19 +91,25 @@ public class NewFeedActivity extends MindpinBaseActivity implements LocationList
 	}
 	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20000, 1, this);
-	}
-	
-	@Override
 	protected void onPause() {
 		super.onPause();
-		locationManager.removeUpdates(this);
+		location_manager_proxy.disable_my_location();
 	}
 	
 	private void process_location(){
-		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		location_manager_proxy = new LocationManagerProxy();
+		pulish_location_check_box = (CheckBox)findViewById(R.id.pulish_location);
+		
+		pulish_location_check_box.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(pulish_location_check_box.isChecked()){
+					get_location_dialog();
+				}else{
+					location_manager_proxy.disable_my_location();
+				}
+			}
+		});
 		
 		Button bn = (Button)findViewById(R.id.my_location);
 		bn.setOnClickListener(new OnClickListener() {
@@ -255,8 +255,6 @@ public class NewFeedActivity extends MindpinBaseActivity implements LocationList
 					Toast.makeText(getApplicationContext(), "发送成功",
 							Toast.LENGTH_SHORT).show();
 					NewFeedActivity.this.finish();
-				}else if(what == "get_location"){
-					progress_dialog.setTitle("正在获取地理信息");
 				}
 			};
 			
@@ -278,13 +276,6 @@ public class NewFeedActivity extends MindpinBaseActivity implements LocationList
 			
 			@Override
 			public Void do_in_background(String... params) throws Exception {
-				CheckBox cb = (CheckBox)findViewById(R.id.pulish_location);
-				if(cb.isChecked()){
-					publish_progress("get_location");
-					while(current_location == null){}
-					send_location = current_location;
-				}
-				
 				ArrayList<Integer> photo_ids = new ArrayList<Integer>();
 				for (int i = 0; i < capture_paths.size(); i++) {
 					String capture_path = capture_paths.get(i);
@@ -318,7 +309,11 @@ public class NewFeedActivity extends MindpinBaseActivity implements LocationList
 					}
 				};
 				timer.schedule(task, 1000, 1000);
-	
+
+				Location send_location = null;
+				if(pulish_location_check_box.isChecked()){
+					send_location = location_manager_proxy.get_my_location();
+				}
 				if(photo_ids.size() == 0){
 					HttpApi.send_text_feed(feed_title, feed_detail,select_collection_ids,send_tsina,send_location);
 				}else{
@@ -623,21 +618,28 @@ public class NewFeedActivity extends MindpinBaseActivity implements LocationList
 		builder.show();
 	}
 	
-	@Override
-	public void onLocationChanged(Location location) {
-		this.current_location = location;
-	}
 
-	@Override
-	public void onProviderDisabled(String provider) {
-	}
-
-	@Override
-	public void onProviderEnabled(String provider) {
-	}
-
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
+	private void get_location_dialog() {
+		new MindpinAsyncTask<Void, Void, Void>(this, "正在获取地理位置"){
+			public void on_start() {
+				location_manager_proxy = new LocationManagerProxy();
+				location_manager_proxy.enable_my_location();
+			};
+			
+			@Override
+			public Void do_in_background(Void... params) throws Exception {
+				System.out.println("get_location_dialog..background start");
+				while(location_manager_proxy.get_my_location() == null){
+				}
+				location_manager_proxy.disable_my_location();
+				System.out.println("get_location_dialog..background end");
+				return null;
+			}
+			
+			@Override
+			public void on_success(Void v) {
+			}
+		}.execute();
 	}
 	
 }
