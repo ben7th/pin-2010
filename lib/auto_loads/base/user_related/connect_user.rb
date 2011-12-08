@@ -156,7 +156,7 @@ class ConnectUser < UserAuthAbstract
     def account_type
       cu = ConnectUser.find_by_user_id(self.id)
       return COMMON if cu.blank?
-      if self.is_quick_connect_account?
+      if self.is_user_info_incomplete?
         return cu.connect_type
       end
       BIND
@@ -164,14 +164,7 @@ class ConnectUser < UserAuthAbstract
 
     # 该账号是否是一个 mindpin正式账号
     def is_mindpin_typical_account?
-      !is_quick_connect_account?
-    end
-
-    # 该账号是否是一个快速连接账号（不论连接的是什么）
-    # 由于不再考虑“账号关联”这个逻辑，代码中关于 old_user_id 的部分删除了。
-    def is_quick_connect_account?
-      connect_user = ConnectUser.find_by_user_id(self.id)
-      !!connect_user && self.hashed_password.blank?
+      !is_user_info_incomplete?
     end
 
     def is_user_info_incomplete?
@@ -180,14 +173,14 @@ class ConnectUser < UserAuthAbstract
 
     # 尝试解除当前账号的新浪微博绑定，并删除绑定对象
     def unbind_tsina_account
-      return if is_quick_connect_account?
+      return if is_user_info_incomplete?
       cu = tsina_connect_user
       cu.destroy if cu
     end
 
     # 尝试解除当前账号的人人网绑定，并删除绑定对象
     def unbind_renren_account
-      return if is_quick_connect_account?
+      return if is_user_info_incomplete?
       cu = renren_connect_user
       cu.destroy if cu
     end

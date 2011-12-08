@@ -49,3 +49,4 @@
           = password_field :user,:password_confirmation,:value=>'',:maxlength=>32,:class=>'text bold'
         .field.subm
           %a.create-submit{:href=>"javascript:;",:onclick=>"jQuery(this).closest('form').submit();"} <span>补充完毕</span>
+          %a.logout.middlebutton.gray{:style=>'margin-left:10px;',:href=>pin_url_for('pin-user-auth','/logout')} <span>登出MINDPIN</span>

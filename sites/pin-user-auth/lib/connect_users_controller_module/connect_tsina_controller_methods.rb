@@ -55,9 +55,6 @@ module ConnectTsinaControllerMethods
       self.current_user = user
       after_logged_in()
 
-      # 如果是历史遗留的快速连接账号，强制重定向到 complete_account_info，令其补全信息
-      return _redirect_complete_account_info if user.is_quick_connect_account?
-
       # 如果是普通账号，重定向到参数的指定页，完成这次登录
       return redirect_to redirect_url
     end
@@ -67,10 +64,6 @@ module ConnectTsinaControllerMethods
     # 用户是首次使用该新浪微博账号访问 mindpin，此时，重定向到confirm页面
     # 让其选择关联方式： 新建账号 / 使用原有mindpin账号
     _redirect_connect_tsina_confirm
-  end
-
-  def _redirect_complete_account_info
-    return redirect_to "/connect_tsina/complete_account_info"
   end
 
   def _redirect_connect_tsina_confirm

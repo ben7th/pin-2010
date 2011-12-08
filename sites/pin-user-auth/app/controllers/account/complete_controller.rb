@@ -4,8 +4,11 @@ class Account::CompleteController < ApplicationController
   end
 
   def submit
-    valid_user = User.new(params[:user])
-    valid_user.name = randstr
+    valid_user = User.find(current_user.id)
+    valid_user.email = params[:user][:email]
+    valid_user.password = params[:user][:password]
+    valid_user.password_confirmation = params[:user][:password_confirmation]
+
     unless valid_user.valid?
       flash[:error] = get_flash_error(valid_user)
       return redirect_tsina_signup

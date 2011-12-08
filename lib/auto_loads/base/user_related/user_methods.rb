@@ -79,9 +79,7 @@ module UserMethods
 
   def validate_on_update
     if !self.email.gsub("@mindpin.com").to_a.blank?
-      if !self.is_quick_connect_account?
-        errors.add(:email,"邮箱格式不符规范")
-      end
+      errors.add(:email,"邮箱格式不符规范")
     end
   end
 
