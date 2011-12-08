@@ -51,4 +51,8 @@ class CollectionMixedFeedsProxy < RedisBaseProxy
       }
     }
   end
+  
+  def self.tidy!
+    self.base_tidy!(Collection,Feed)
+  end
 end

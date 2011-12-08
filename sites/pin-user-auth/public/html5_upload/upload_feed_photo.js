@@ -69,7 +69,7 @@ pie.load(function(){
     uploading_elm.find('.file-name').html(file.name);
     uploading_elm.find('.file-size').html(get_file_size_str(file));
     uploading_elm.find('.p').css('width',0)
-    uploading_elm.hide().fadeIn().prependTo(photos_elm);
+    uploading_elm.hide().fadeIn().appendTo(photos_elm);
     return uploading_elm;
   }
 
