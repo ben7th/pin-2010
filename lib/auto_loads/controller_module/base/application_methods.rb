@@ -79,11 +79,12 @@ module ApplicationMethods
     request.headers["User-Agent"] == "android"
   end
 
+  # 快速连接账号补全信息，部分地址放行
   def force_to_complete
     return true if [
       ["account/complete", "index"  ],
       ["account/complete", "submit" ],
-      ["sessions"        , "destroy"],
+      ["account/sessions", "destroy"],
     ].include? [params[:controller], params[:action]]
 
     if logged_in? && current_user.is_user_info_incomplete?
