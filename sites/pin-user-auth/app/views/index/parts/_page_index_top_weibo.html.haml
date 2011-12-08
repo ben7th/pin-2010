@@ -4,26 +4,32 @@
 
 -if has_binded_tsina
   -weibo = user.tsina_weibo
-  -weibo_verify_credentials = weibo.verify_credentials
-  -weibo_statuses_count = weibo_verify_credentials.statuses_count
-  -weibo_url = "http://weibo.com/#{weibo_verify_credentials.id}"
 
-  -weibo_cover = weibo.user_timeline(:feature=>2,:count=>1)[0]
-  -has_weibo_cover = !weibo_cover.blank?
+  -begin
+    -weibo_verify_credentials = weibo.verify_credentials
+    -weibo_statuses_count = weibo_verify_credentials.statuses_count
+    -weibo_url = "http://weibo.com/#{weibo_verify_credentials.id}"
 
-  -if has_weibo_cover
-    -weibo_cover_src = weibo_cover.bmiddle_pic || weibo_cover.retweeted_status.bmiddle_pic
+    -weibo_cover = weibo.user_timeline(:feature=>2,:count=>1)[0]
+    -has_weibo_cover = !weibo_cover.blank?
 
-  -weibo_collection_page_url = "/#{user.id}/collections/tsina"
-
-  .weibo
     -if has_weibo_cover
-      .cover.nil{:'data-src'=>weibo_cover_src}
-        %a{:href=>weibo_url, :target=>'_blank', :style=>'display:none;'}
-    -else
-      .cover.nil
+      -weibo_cover_src = weibo_cover.bmiddle_pic || weibo_cover.retweeted_status.bmiddle_pic
 
-    %a.weibo-logo{:href=>weibo_url, :target=>'_blank', :title=>"打开#{user.name}的新浪微博"}
+    -weibo_collection_page_url = "/#{user.id}/collections/tsina"
 
-    .title=link_to '新浪微博',weibo_url,:target=>'_blank'
-    .count=weibo_statuses_count
+    .weibo
+      -if has_weibo_cover
+        .cover.nil{:'data-src'=>weibo_cover_src}
+          %a{:href=>weibo_url, :target=>'_blank', :style=>'display:none;'}
+      -else
+        .cover.nil
+
+      %a.weibo-logo{:href=>weibo_url, :target=>'_blank', :title=>"打开#{user.name}的新浪微博"}
+
+      .title=link_to '新浪微博',weibo_url,:target=>'_blank'
+      .count=weibo_statuses_count
+
+  -rescue Weibo::Unauthorized
+    .weibo
+      .unauthorized 新浪微博<br/>用户授权失效

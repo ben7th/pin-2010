@@ -1345,6 +1345,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-index-top .contacts .avas .c .nil{width:46px;height:46px;border:dashed 1px #ccc;}
 .page-index-top .weibo .weibo-logo{float:left;width:48px;height:48px;margin-bottom:3px;background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-394px -149px;background-color:#fafafa;opacity:.8;}
 .page-index-top .weibo .weibo-logo:hover{opacity:1;}
+.page-index-top .weibo .unauthorized{padding-top:47px;padding-bottom:47px;line-height:20px;background-color:rgba(0,0,0,0.4);color:white;text-align:center;}
 .page-index-top .misc-ops{overflow:hidden;height:24px;line-height:24px;margin-top:5px;padding-bottom:4px;float:left;}
 .page-index-top .misc-ops .follow-ops{float:left;overflow:hidden;}
 .page-index-top .misc-ops .follow-ops a{display:block;height:24px;line-height:24px;padding-right:6px;background-color:rgba(0,0,0,0.6);box-shadow:0 0 3px rgba(0,0,0,0.4);text-shadow:0 0 2px rgba(0,0,0,0.8);font-size:12px;overflow:hidden;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;color:#f1f1f1;}

@@ -5749,6 +5749,13 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     opacity: 0.8; }
     .page-index-top .weibo .weibo-logo:hover {
       opacity: 1; }
+  .page-index-top .weibo .unauthorized {
+    padding-top: 47px;
+    padding-bottom: 47px;
+    line-height: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    text-align: center; }
   .page-index-top .misc-ops {
     overflow: hidden;
     height: 24px;
