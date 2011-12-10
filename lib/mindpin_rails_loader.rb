@@ -19,7 +19,7 @@ class MindpinRailsLoader
     load_codes
     load_config
 
-    require 'ap'
+    require 'ap' # gem awesome_print
     require File.join(MINDPIN_LIB_PATH, 'mindpin_global_methods.rb')
   end
 
@@ -27,15 +27,13 @@ class MindpinRailsLoader
 
   # 加载常用的一些 gem
   def load_gems
-    @config.gem 'mislav-will_paginate',
-      :version => '2.3.11',
-      :source  => 'http://gems.github.com/',
-      :lib     => 'will_paginate'
+    @config.gem 'will_paginate',
+      :version => '2.3.11'
 
     @config.gem 'haml'
     @config.gem 'redis'
     @config.gem 'pacecar'
-    @config.gem 'contacts_cn'
+    @config.gem 'contacts_cn' # 此gem依赖 hpricot
     @config.gem 'nokogiri'
     @config.gem 'oauth'
     @config.gem 'uuidtools'
