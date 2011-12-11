@@ -5,11 +5,20 @@ module MindmapsHelper
   end
 
   # 在页面上显示导图某尺寸缩略图，会被js lazy load
-  def mindmap_image(mindmap,size_param)
-    asset_num = mindmap.id % 10
-    src = pin_url_for("pin-mindmap-image-cache","#{mindmap.id}.#{size_param}.png?#{mindmap.updated_at.to_i}")
-    src.gsub! 'mindmap-image-cache',"mindmap-image-cache-#{asset_num}"
+  # 12月11日 由于环境迁移 EXT3 文件系统单一目录下子目录数量有限制，因此
+  # 导图ID > 42033 （产品环境超限的导图id）
+  # 时，分多个文件夹
+  def mindmap_image(mindmap, size_param)
+    id = mindmap.id
 
+    if id <= 42033
+      src = pin_url_for("pin-mindmap-image-cache","#{id}.#{size_param}.png?#{mindmap.updated_at.to_i}")
+    else
+      asset_id = (id / 10000).to_s
+      src = pin_url_for("pin-mindmap-image-cache","/x/#{asset_id}/#{id}.#{size_param}.png?#{mindmap.updated_at.to_i}")
+    end
+
+    src.gsub! 'mindmap-image-cache',"mindmap-image-cache-#{id % 10}"
     "<img alt='#{h mindmap.title}' src='#{src}' />"
   end
 
