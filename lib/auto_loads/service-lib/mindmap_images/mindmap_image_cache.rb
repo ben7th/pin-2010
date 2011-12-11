@@ -27,8 +27,18 @@ class MindmapImageCache
   end
 
   # 导图图片的硬盘缓存文件 的存放路径
+  # 12月11日 由于环境迁移 EXT3 文件系统单一目录下子目录数量有限制，因此
+  # 导图ID > 42033 （产品环境超限的导图id）
+  # 时，分多个文件夹
   def img_path(size_param)
-    File.join(ATTACHED_FILE_PATH_ROOT,"mindmap_cache_images",@mindmap.id.to_s,"#{size_param}.png")
+    id = @mindmap.id
+
+    if id <= 42033
+      return File.join(ATTACHED_FILE_PATH_ROOT, "mindmap_cache_images", id.to_s, "#{size_param}.png")
+    else
+      asset_path = id / 10000
+      return File.join(ATTACHED_FILE_PATH_ROOT, "mindmap_cache_images", asset_path, id.to_s, "#{size_param}.png")
+    end
   end
 
   def export(zoom = 1)
