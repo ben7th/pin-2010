@@ -11,12 +11,8 @@ module MindmapsHelper
   def mindmap_image(mindmap, size_param)
     id = mindmap.id
 
-    if id <= 42033
-      src = pin_url_for("pin-mindmap-image-cache","#{id}.#{size_param}.png?#{mindmap.updated_at.to_i}")
-    else
-      asset_id = (id / 10000).to_s
-      src = pin_url_for("pin-mindmap-image-cache","/asset/#{asset_id}/#{id}.#{size_param}.png?#{mindmap.updated_at.to_i}")
-    end
+    asset_id = (id / 1000).to_s
+    src = pin_url_for("pin-mindmap-image-cache","/asset/#{asset_id}/#{id}.#{size_param}.png?#{mindmap.updated_at.to_i}")
 
     src.gsub! 'mindmap-image-cache',"mindmap-image-cache-#{id % 10}"
     "<img alt='#{h mindmap.title}' src='#{src}' />"

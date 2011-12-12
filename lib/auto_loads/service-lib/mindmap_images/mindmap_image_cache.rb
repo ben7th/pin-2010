@@ -33,12 +33,8 @@ class MindmapImageCache
   def img_path(size_param)
     id = @mindmap.id
 
-    if id <= 42033
-      return File.join(ATTACHED_FILE_PATH_ROOT, "mindmap_cache_images", id.to_s, "#{size_param}.png")
-    else
-      asset_id = (id / 10000).to_s
-      return File.join(ATTACHED_FILE_PATH_ROOT, "mindmap_cache_images_#{asset_id}", id.to_s, "#{size_param}.png")
-    end
+    asset_id = (id / 1000).to_s
+    return File.join(ATTACHED_FILE_PATH_ROOT, "mindmap_cache_images_#{asset_id}", id.to_s, "#{size_param}.png")
   end
 
   def export(zoom = 1)
