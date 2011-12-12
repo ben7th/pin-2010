@@ -165,11 +165,11 @@ ENV['RAILS_ASSET_ID'] = UiService.asset_id
 # 声明邮件服务配置
 if defined? ActionMailer::Base
   ActionMailer::Base.smtp_settings = {
-    :address => "mail.mindpin.com",
-    :domain => "mindpin.com",
+    :address        => "mail.mindpin.com",
+    :domain         => "mindpin.com",
     :authentication => :plain,
-    :user_name => "mindpin",
-    :password => "m1ndp1ngood!!!"
+    :user_name      => "mindpin",
+    :password       => "m1ndp1ngoodmail"
   }
 end
 

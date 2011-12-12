@@ -29,8 +29,8 @@ class HttpUtil
     sess = Patron::Session.new
     sess.timeout = timeout
     sess.base_url = "#{uri.scheme}://#{uri.host}"
-    sess.headers['User-Agent'] = 'Mozilla/5.0'
-
+    sess.headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.121 Safari/535.2'
+    
     path = uri.query ? "#{uri.path}?#{uri.query}" : uri.path
     sess.get(path)
   end

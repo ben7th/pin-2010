@@ -30,6 +30,8 @@ class MediaThumbnail < UserAuthAbstract
       return HOST_YOUKU
     when "www.tudou.com"
       return HOST_TUDOU
+    when "www.xiami.com"
+      return HOST_XIAMI
     else
       return ""
     end
@@ -41,6 +43,8 @@ class MediaThumbnail < UserAuthAbstract
       return YoukuParse.new(url).to_hash
     when HOST_TUDOU
       return TudouParse.new(url).to_hash
+    when HOST_XIAMI
+      return XiamiParse.new(url).to_hash
     else
       return {}
     end
