@@ -77,8 +77,9 @@ class FeedsController < ApplicationController
   end
 
   def show
-    @feed = Feed.find(params[:id])
-    @feed.save_viewed_by(current_user) if @feed && current_user # 保存feed被用户查看过的记录
+    if logged_in? && @feed.blank?
+      @feed.save_viewed_by(current_user)  # 保存feed被用户查看过的记录
+    end
   end
 
   def viewpoint

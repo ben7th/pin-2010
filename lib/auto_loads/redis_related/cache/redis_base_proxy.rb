@@ -23,6 +23,14 @@ public
     xxxs_ids_rediscache_save(ids)
   end
 
+  # 向向量缓存里添加id，并根据id倒序重排序
+  def add_to_cache_and_sort(id)
+    ids = xxxs_ids
+    ids.unshift(id).uniq!
+    ids.sort!{|id1, id2| id2<=>id1 }
+    xxxs_ids_rediscache_save(ids)
+  end
+
   def remove_from_cache(id)
     ids = xxxs_ids
     ids.delete(id)

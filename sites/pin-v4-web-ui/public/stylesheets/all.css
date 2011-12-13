@@ -4110,6 +4110,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       margin: 0 -10px;
       background-color: #fafafa;
       padding: 5px 10px; }
+    .page-feed-show .f-main .detail .feed-format-video {
+      margin: 0 -10px; }
   .page-feed-show .f-main .photos {
     padding-top: 4px; }
     .page-feed-show .f-main .photos .photo {
@@ -5615,11 +5617,11 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   .page-index-top .wallpaper {
     position: absolute;
     left: 0;
-    top: 72px;
+    top: 0;
     width: 100%;
     height: 194px;
     overflow: hidden;
-    height: 206px;
+    height: 278px;
     z-index: -99;
     background-color: rgba(51, 51, 51, 0.9); }
     .page-index-top .wallpaper img {
@@ -5671,7 +5673,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       line-height: 32px;
       font-weight: bold;
       text-align: center;
-      font-size: 22px;
+      font-size: 16px;
       box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
       background-color: rgba(0, 0, 0, 0.4);
       color: #f1f1f1;

@@ -3,7 +3,7 @@
 -user_id = user.id
 -user_collections_url = pin_url_for('pin-user-auth',"/#{user_id}/collections")
 
--collections_count = user.out_collections.count
+-collections_count = user.created_collections_count
 
 -timeline_photo = user.user_timeline(:count=>6,:feature=>'photo')
 -fc_ta, fc_bl, fc_bm, fc_br = timeline_photo[2], timeline_photo[3], timeline_photo[4], timeline_photo[5]

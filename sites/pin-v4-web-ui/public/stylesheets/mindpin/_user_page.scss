@@ -8,10 +8,10 @@
     
   .wallpaper{
     position:absolute;
-    left:0;top:72px;
+    left:0;top:0;
     width:100%;
     height:194px;overflow:hidden;
-    height:206px;
+    height:278px;
     z-index:-99;
     background-color:rgba(51,51,51,0.9);
     img{width:100%;height:auto;}
@@ -42,7 +42,7 @@
     .count{
       float:left;
       width:48px;height:32px;line-height:32px;
-      font-weight:bold;text-align:center;font-size:22px;
+      font-weight:bold;text-align:center;font-size:16px;
       box-shadow:$box-shadow;
       background-color:rgba(0, 0, 0, 0.4);
       color:#f1f1f1;text-shadow:0px 0px 2px rgba(0, 0, 0, 0.8);

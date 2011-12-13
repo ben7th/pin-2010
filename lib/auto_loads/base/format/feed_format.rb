@@ -10,6 +10,7 @@ class FeedFormat
     @photos = feed.photos
     @photo_used = false
     @has_music = false
+    @has_video = false
 
     @transed_detail = _detail # 顺序不可改
   end
@@ -24,6 +25,16 @@ class FeedFormat
     return 'with_music' if @has_music
 
     return @feed.from
+  end
+
+  # -------------
+
+  def short_detail_brief
+    detail_brief(150)
+  end
+
+  def detail
+    @transed_detail
   end
 
   # --------- 10月31日之后的新api
@@ -48,6 +59,8 @@ class FeedFormat
     str0 = typical_return(@detail) # 回车换行标准化
 
     str0 = trans_xiami_music(str0)
+    str0 = trans_youku_video(str0)
+    str0 = trans_tudou_video(str0)
 
     str1 = reduce_return(str0)
     str2 = truncate_u(str1, length, '…')
@@ -58,10 +71,6 @@ class FeedFormat
     str6 = pack_widgets(str5)
 
     return str6
-  end
-
-  def short_detail_brief
-    detail_brief(150)
   end
 
 
@@ -77,16 +86,14 @@ class FeedFormat
   #  str4 = 转换各种格式组件(str3)
   #  return str4
 
-  def detail
-    @transed_detail
-  end
-
   def _detail
     str0 = typical_return(@detail) # 回车换行标准化
 
     str1 = trans_code(str0)
     str2 = trans_images(str1)
     str2 = trans_xiami_music(str2)
+    str2 = trans_youku_video(str2)
+    str2 = trans_tudou_video(str2)
 
     str3 = _escape_html(str2)
     str4 = trans_return_to_br(str3)
@@ -183,6 +190,32 @@ class FeedFormat
         if !music_id.blank?
           @has_music = true
           push_in_hash "<embed width='257' height='33' wmode='transparent' type='application/x-shockwave-flash' src='http://www.xiami.com/widget/470304_#{music_id}/singlePlayer.swf'/>"
+        end
+      end
+    end
+
+    def trans_youku_video(str)
+      str.gsub /\[(http:\/\/v\.youku\.com\/v_show\/id_(.+)\.html)\]/ do |s|
+        #video_url = $1
+        video_id  = $2
+        if !video_id.blank?
+          @has_video = true
+          #img_src = MediaThumbnail.get_thumb_src(video_url)
+          push_in_hash "<div class='feed-format-video'><embed src='http://player.youku.com/player.php/sid/#{video_id}/v.swf' allowFullScreen='true' quality='high' width='100%' height='400' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash'></embed></div>"
+          #push_in_hash "<div class='feed-format-video'><img src='#{img_src}' /></div>"
+        end
+      end
+    end
+
+    def trans_tudou_video(str)
+      str.gsub /\[(http:\/\/www\.tudou\.com\/programs\/view\/(.+)\/)\]/ do |s|
+        #video_url = $1
+        video_id  = $2
+        if !video_id.blank?
+          @has_video = true
+          #img_src = MediaThumbnail.get_thumb_src(video_url)
+          push_in_hash "<div class='feed-format-video'><embed src='http://www.tudou.com/v/#{video_id}/v.swf' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' wmode='opaque' width='100%' height='400'></embed></div>"
+          #push_in_hash "<div class='feed-format-video'><img src='#{img_src}' /></div>"
         end
       end
     end

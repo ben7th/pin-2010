@@ -1,22 +1,22 @@
 class MindpinLogicManagement
 
-  REDIS_LOGIC = :redis_logic
+  REDIS_LOGIC      = :redis_logic
   REPUTATION_LOGIC = :reputation_logic
-  TIP_LOGIC = :tip_logic
+  TIP_LOGIC        = :tip_logic
 
   def self.load_redis_proxy(klass)
-    load_proxy(klass,REDIS_LOGIC)
+    load_proxy(klass, REDIS_LOGIC)
   end
   
   def self.load_reputation_proxy(klass)
-    load_proxy(klass,REPUTATION_LOGIC)
+    load_proxy(klass, REPUTATION_LOGIC)
   end
   
   def self.load_tip_proxy(klass)
-    load_proxy(klass,TIP_LOGIC)
+    load_proxy(klass, TIP_LOGIC)
   end
 
-  def self.load_proxy(klass,logic_type)
+  def self.load_proxy(klass, logic_type)
     rules = klass.rules
     raise("#{klass} cache rules 未定义") if rules.nil?
     [rules].flatten.each do |r|
@@ -31,9 +31,9 @@ class MindpinLogicManagement
   end
   
   def self.run_all_logic_by_rules(model, callback_type)
-    self.run_logic_by_rules(model, REDIS_LOGIC, callback_type)
+    self.run_logic_by_rules(model, REDIS_LOGIC,      callback_type)
     self.run_logic_by_rules(model, REPUTATION_LOGIC, callback_type)
-    self.run_logic_by_rules(model, TIP_LOGIC, callback_type)
+    self.run_logic_by_rules(model, TIP_LOGIC,        callback_type)
   end
 
   def self.run_logic_by_rules(model, logic_type, callback_type)
@@ -44,11 +44,11 @@ class MindpinLogicManagement
     end
   end
 
-  def self.has_method?(model,method_id)
-    !self.get_method(model,method_id).nil?
+  def self.has_method?(model, method_id)
+    !self.get_method(model, method_id).nil?
   end
 
-  def self.get_method(model,method_id)
+  def self.get_method(model, method_id)
     @@funcs.each do |f|
       if (f[:class] == model.class) && !f[method_id].nil?
         return f
@@ -57,15 +57,15 @@ class MindpinLogicManagement
     return nil
   end
 
-  def self.do_method(model,method_id,*args)
-    func = self.get_method(model,method_id)
-    func[method_id].call(model,*args)
+  def self.do_method(model, method_id, *args)
+    func = self.get_method(model, method_id)
+    func[method_id].call(model, *args)
   end
   
   @@rules = {
-    REDIS_LOGIC=>[],
-    REPUTATION_LOGIC=>[],
-    TIP_LOGIC=>[]
+    REDIS_LOGIC      => [],
+    REPUTATION_LOGIC => [],
+    TIP_LOGIC        => []
   }
 
   @@funcs = []
@@ -94,31 +94,13 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_redis_proxy UserFavMindmapsProxy
     MindpinLogicManagement.load_redis_proxy MindmapFavUsersProxy
 
-    # feed 缓存
-    MindpinLogicManagement.load_redis_proxy(UserSentFeedProxy)
-    MindpinLogicManagement.load_redis_proxy(CollectionFeedsProxy)
-    MindpinLogicManagement.load_redis_proxy(CollectionWithTextFeedsProxy)
-    MindpinLogicManagement.load_redis_proxy(CollectionWithPhotoFeedsProxy)
-    MindpinLogicManagement.load_redis_proxy(CollectionMixedFeedsProxy)
+    # feed 缓存 最后更新 2011.12.13 songliang
+    MindpinLogicManagement.load_redis_proxy CollectionFeedsCacheModule::LogicRules
+    MindpinLogicManagement.load_redis_proxy PublicTimelineCacheModule::LogicRules
 
-    MindpinLogicManagement.load_redis_proxy(UserMemoedFeedsProxy)
-    MindpinLogicManagement.load_redis_proxy(UserBeInvitedFeedsProxy)
-    MindpinLogicManagement.load_redis_proxy(UserFavTagFeedsProxy)
-    MindpinLogicManagement.load_redis_proxy(AllPublicFeedsProxy)
-
-    # collection 缓存
-    MindpinLogicManagement.load_redis_proxy(UserChannelOutCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserCreatedCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserOutCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserToFollowingsOutCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserToPersonalInCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserToPersonalOutCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserInCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserChannelInCollectionProxy)
-
-    MindpinLogicManagement.load_redis_proxy(UserIncomingToPersonalInCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserIncomingCollectionProxy)
-    MindpinLogicManagement.load_redis_proxy(UserPrivateCollectionProxy)
+    # collection 缓存 最后更新 2011.12.13 songliang
+    MindpinLogicManagement.load_redis_proxy UserHomeTimelineCollectionsCacheModule::LogicRules
+    
     # log 缓存
     MindpinLogicManagement.load_redis_proxy(UserOutboxLogProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxLogProxy)

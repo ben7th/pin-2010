@@ -70,5 +70,4 @@ class Channel < UserAuthAbstract
   include CooperationChannel::ChannelMethods
   include ChannelUser::ChannelMethods
   include CollectionScope::ChannelMethods
-  include Feed::ChannelMethods
 end

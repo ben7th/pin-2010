@@ -3,7 +3,7 @@
 -user_id = user.id
 -user_page_url = pin_url_for('pin-user-auth',"/users/#{user_id}")
 
--feeds_count = user.out_feeds.count
+-feeds_count = user.created_feeds_count
 
 -timeline_photo = user.user_timeline(:count=>2,:feature=>'photo')
 -feed_cover_l, feed_cover_r = timeline_photo[0], timeline_photo[1]

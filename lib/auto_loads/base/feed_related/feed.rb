@@ -203,7 +203,7 @@ class Feed < UserAuthAbstract
   
   module UserMethods
     def self.included(base)
-      base.has_many :created_feeds,:class_name=>"Feed",:foreign_key=>:creator_id
+      base.has_many :created_feeds, :class_name=>"Feed", :foreign_key=>:creator_id
     end
 
     # 转发
@@ -271,51 +271,10 @@ class Feed < UserAuthAbstract
       end
     end
 
-    #################
-    public
-    def all_feeds_count
-      Feed.news_feeds_of_user(self).unhidden.count
-    end
-
-    def sent_feeds_db
-      Feed.news_feeds_of_user(self).normal
-    end
-
-    def hidden_feeds
-      Feed.news_feeds_of_user(self).hidden
-    end
-
-    #############
-    def out_feeds
-      Feed.mix_from_collections(self.out_collections)
-    end
+    # ---------------------
     
-    def private_feeds
-      Feed.mix_from_collections(self.private_collections)
-    end
-
-    def in_feeds
-      Feed.mix_from_collections(self.in_collections)
-    end
-
-    def to_followings_out_feeds
-      Feed.mix_from_collections(self.to_followings_out_collections)
-    end
-
-    def incoming_feeds
-      Feed.mix_from_collections(self.incoming_collections)
-    end
-
-    def to_personal_out_feeds
-      Feed.mix_from_collections(self.to_personal_out_collections)
-    end
-
-    def to_personal_in_feeds
-      Feed.mix_from_collections(self.to_personal_in_collections)
-    end
-
-    def incoming_to_personal_in_feeds
-      Feed.mix_from_collections(self.incoming_to_personal_in_collections)
+    def created_feeds_count
+      self.created_feeds.count
     end
 
     def newest_feed(user)
@@ -327,34 +286,11 @@ class Feed < UserAuthAbstract
     end
 
     def home_timeline(options={})
-      Feed.mix_from_collections(self.in_collections,options)
+      Feed.mix_from_collections(self.home_timeline_collections, options)
     end
 
-    def user_timeline(options={})
-      user_id = options[:user]
-      if user_id.blank?
-        collections = self.out_collections
-      else
-        user = User.find(user_id)
-        collections = (self.created_collections && user.in_collections)
-      end
-      Feed.mix_from_collections(collections,options)
-    end
-  end
-
-  module ChannelMethods
-    def out_feeds
-      Feed.mix_from_collections(self.out_collections)
-    end
-
-    def in_feeds
-      Feed.mix_from_collections(self.in_collections)
-    end
-  end
-
-  module CollectionMethods
-    def feeds_limit(options)
-      Feed.mix_from_collections([self],options)
+    def user_timeline(options={})  
+      Feed.mix_from_collections(self.public_collections, options)
     end
   end
 

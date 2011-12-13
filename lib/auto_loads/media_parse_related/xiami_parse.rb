@@ -10,7 +10,7 @@ def initialize(url)
   end
 
   def time
-    ""
+    "00:00"
   end
 
   def to_hash

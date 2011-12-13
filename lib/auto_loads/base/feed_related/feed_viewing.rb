@@ -22,8 +22,7 @@ class FeedViewing < UserAuthAbstract
     def save_viewed_by(user)
       return if user.blank?
       fv = self.feed_viewings.find_by_user_id(user.id)
-      return unless fv.blank?
-      self.feed_viewings.create(:user=>user)
+      self.feed_viewings.create(:user=>user) if fv.blank?
     end
   end
 end

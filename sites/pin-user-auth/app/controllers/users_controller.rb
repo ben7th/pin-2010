@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @feeds = @user.out_feeds.paginate(:per_page=>20,:page=>params[:page]||1)
+    @feeds = @user.user_timeline
   end
 
   def favs

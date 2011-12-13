@@ -2,31 +2,7 @@ class TudouParse
   def initialize(url)
     @url = url
     @uri = URI.parse(@url)
-    @content = get_body
-    @doc = Nokogiri::HTML(@content)
     parse
-  end
-
-  def parse
-    case @uri.path
-    when /playlist/
-      parse_playlist
-    when /programs/
-      parse_programs
-    else
-      raise "不支持的地址"
-    end
-  end
-  
-  def parse_playlist
-    json = @doc.at_css("script").match(/listData = (\[[^\]]*\])/m)[1]
-    json.split("},{").map{|str|{:iid=>str.match(/iid:(.*)\n,/)[1],:pic=>str.match(/pic:"(.*)"/)[1]}}
-    iid = File.basename(@uri.path).split(".").first.split(/i|l/)[2]
-  end
-
-  def parse_programs
-    @thumb_src = @doc.at_css("script").inner_html.match(/pic = '(.*)'/)[1]
-    @time = @doc.at_css("script").inner_html.match(/time = '(.*)'/)[1]
   end
 
   def thumb_src
@@ -56,5 +32,58 @@ class TudouParse
     else
       return resp.body
     end
+  end
+
+  def parse
+    case @url
+    when /playlist/
+      parse_playlist
+    when /programs/
+      parse_programs
+    else
+      raise "不支持的地址"
+    end
+  end
+
+  def parse_playlist
+    doc = Nokogiri::HTML(get_body)
+    json = doc.at_css("script").inner_html.match(/listData = (\[[^\]]*\])/m)[1]
+    data = json.split("},{").map do |str|
+      iid = str.match(/iid:(.*)\n,/)[1]
+      pic = str.match(/pic:"(.*)"/)[1]
+      time = str.match(/time:"(.*)"/)[1]
+      {:iid=>iid,:pic=>pic,:time=>time}
+    end
+    iid = File.basename(@uri.path).split(".").first.split(/i|l/)[2]
+    if iid.blank?
+      hash = data.first
+      @thumb_src = hash[:pic]
+      @time = hash[:time]
+    else
+      data.each do |hash|
+        if hash[:iid] == iid
+          @thumb_src = hash[:pic]
+          @time = hash[:time]
+          return
+        end
+      end
+    end
+  end
+
+  def parse_programs
+#    http://www.tudou.com/programs/view/LKHAxPz1CrY/
+    id = @url.match(/programs\/view\/([^\/]*)/)[1]
+    content = open("http://api.tudou.com/v3/gw?method=item.info.get&appKey=acdec9d9af7be796&format=json&itemCodes=#{id}").read
+    json = ActiveSupport::JSON.decode(content)
+    @thumb_src = json["multiResult"]["results"][0]["picUrl"]
+    @time = convert_minute(json["multiResult"]["results"][0]["totalTime"])
+  end
+
+  def convert_minute(milli_second)
+    seconds = milli_second.to_i/1000
+    minute = seconds.to_i/60
+    
+    sec = seconds.to_i-minute*60
+    "#{sprintf("%02d", minute)}:#{sprintf("%02d",sec)}"
   end
 end

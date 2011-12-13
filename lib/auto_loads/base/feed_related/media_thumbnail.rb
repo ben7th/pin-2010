@@ -8,9 +8,11 @@ class MediaThumbnail < UserAuthAbstract
   validates_presence_of :url
   validates_presence_of :thumb_src
   validates_presence_of :time
-    validates_inclusion_of :host, :in=>MEDIA_HOSTS
+  validates_inclusion_of :host, :in=>MEDIA_HOSTS
   
   def self.get_thumb_src(url)
+    # 去掉结尾的 /
+    url.gsub!(/\/\z/,"")
     media_thumbnail = self.find_by_url(url)
     return media_thumbnail.thumb_src unless media_thumbnail.blank?
 
