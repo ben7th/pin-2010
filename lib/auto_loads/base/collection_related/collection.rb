@@ -19,7 +19,7 @@ class Collection < UserAuthAbstract
   named_scope :privates, :conditions=>['send_status = ?', Collection::SendStatus::PRIVATE]
 
   def validate
-    channel_ids = self.creator.channels_db_ids
+    channel_ids = self.creator.channel_ids
     sent_c_ids = self.sent_channels.map{|c|c.id}
     cs = sent_c_ids-channel_ids
 

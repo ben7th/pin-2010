@@ -31,13 +31,13 @@ class Channel < UserAuthAbstract
 
   module UserMethods
     def self.included(base)
-      base.has_many :channels_db,:class_name=>"Channel",:foreign_key=>:creator_id
+      base.has_many :channels,:class_name=>"Channel",:foreign_key=>:creator_id
     end
 
     def daotu_channel
-      channel = self.channels_db.find_by_name("思维导图群组")
+      channel = self.channels.find_by_name("思维导图群组")
       if channel.blank?
-        channel = self.channels_db.create(:name=>"思维导图群组")
+        channel = self.channels.create(:name=>"思维导图群组")
       end
       channel
     end
@@ -48,7 +48,7 @@ class Channel < UserAuthAbstract
 
     # self 是channel的拥有者 user是被查的人
     def channels_of_user_db(user)
-      user.belongs_to_channels_db & self.channels_db
+      user.belongs_to_channels_db & self.channels
     end
 
     def to_sort_channels_by_ids(ids)

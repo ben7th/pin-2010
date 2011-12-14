@@ -71,60 +71,52 @@ class MindpinLogicManagement
   @@funcs = []
 
   # redis
-    # 标注 feed 缓存
+  # 以下声明应按照一定顺序，以保证缓存回调的先后运行
+
+    # 1 频道缓存
+    MindpinLogicManagement.load_redis_proxy ChannelUserCacheModule::LogicRules
+
+    # 2 联系人缓存
+    MindpinLogicManagement.load_redis_proxy ContactCacheModule::LogicRules
+
+    # 3 collection 缓存 最后更新 2011.12.13 songliang
+    MindpinLogicManagement.load_redis_proxy UserHomeTimelineCollectionsCacheModule::LogicRules
+
+    # 4 feed 缓存 最后更新 2011.12.13 songliang
+    MindpinLogicManagement.load_redis_proxy CollectionFeedsCacheModule::LogicRules
+    MindpinLogicManagement.load_redis_proxy PublicTimelineCacheModule::LogicRules
+    MindpinLogicManagement.load_redis_proxy HomeTimelineCacheModule::LogicRules
+
+  
+    # -------------------
+
+    # 5 标注 feed 缓存
     MindpinLogicManagement.load_redis_proxy UserFavFeedsProxy
     MindpinLogicManagement.load_redis_proxy FeedFavUsersProxy
 
-    # 联系人缓存
-    MindpinLogicManagement.load_redis_proxy FansProxy
-    MindpinLogicManagement.load_redis_proxy FollowingsProxy
-
-    # 频道缓存
-    MindpinLogicManagement.load_redis_proxy UserChannelsCacheProxy
-    MindpinLogicManagement.load_redis_proxy ChannelUsersCacheProxy
-    MindpinLogicManagement.load_redis_proxy BlongsChannelsOfUserProxy
-    MindpinLogicManagement.load_redis_proxy UserCreatedChannelsCacheProxy
-
-
-    # 协同导图缓存
-    MindpinLogicManagement.load_redis_proxy UserCooperateMindmapsProxy
-
-
-    # 标注导图缓存
-    MindpinLogicManagement.load_redis_proxy UserFavMindmapsProxy
-    MindpinLogicManagement.load_redis_proxy MindmapFavUsersProxy
-
-    # feed 缓存 最后更新 2011.12.13 songliang
-    MindpinLogicManagement.load_redis_proxy CollectionFeedsCacheModule::LogicRules
-    MindpinLogicManagement.load_redis_proxy PublicTimelineCacheModule::LogicRules
-
-    # collection 缓存 最后更新 2011.12.13 songliang
-    MindpinLogicManagement.load_redis_proxy UserHomeTimelineCollectionsCacheModule::LogicRules
-    
-    # log 缓存
+    # 6 log 缓存
     MindpinLogicManagement.load_redis_proxy(UserOutboxLogProxy)
     MindpinLogicManagement.load_redis_proxy(UserInboxLogProxy)
 
-    # post 缓存
-    MindpinLogicManagement.load_redis_proxy(UserHotPostsProxy)
 
-    # tag 缓存
+    # 7 tag 缓存
     MindpinLogicManagement.load_redis_proxy(UserFavTagsProxy)
     MindpinLogicManagement.load_redis_proxy(TagFavUsersProxy)
 
-    # mindmap 缓存
-    MindpinLogicManagement.load_redis_proxy(UserOutboxMindmapProxy)
-    MindpinLogicManagement.load_redis_proxy(UserInboxMindmapProxy)
-    MindpinLogicManagement.load_redis_proxy(UserPrivateMindmapProxy)
-
-    # photo 缓存
-#    MindpinLogicManagement.load_redis_proxy(PhotoSizeProxy)
-
-  # tip
+    # 8 tip
     MindpinLogicManagement.load_tip_proxy(UserTipProxy)
     MindpinLogicManagement.load_tip_proxy(UserJoinedFeedsChangeTipProxy)
 
-  # reputation
+    # 9 reputation
     MindpinLogicManagement.load_reputation_proxy PostVoteReputationProxy
     MindpinLogicManagement.load_reputation_proxy FeedVoteReputationProxy
+
+    # ------------------
+
+    # 10 协同导图缓存
+    MindpinLogicManagement.load_redis_proxy UserCooperateMindmapsProxy
+
+    # 11 标注导图缓存
+    MindpinLogicManagement.load_redis_proxy UserFavMindmapsProxy
+    MindpinLogicManagement.load_redis_proxy MindmapFavUsersProxy
 end

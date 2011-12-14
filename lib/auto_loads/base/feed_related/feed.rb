@@ -30,14 +30,6 @@ class Feed < UserAuthAbstract
   validates_presence_of :creator
   validates_inclusion_of :from, :in=>FROMS
 
-  # 查询
-  named_scope :news_feeds_of_user,lambda {|user|
-    {
-      :conditions=>"feeds.creator_id = #{user.id}",
-      :order=>'id desc'
-    }
-  }
-
   named_scope :limited,lambda {|count|
     {:limit=>count}
   }
@@ -131,6 +123,11 @@ class Feed < UserAuthAbstract
     ''
   end
 
+  # 判断当前feed是否对某个user公开可见，该部分逻辑留待扩展
+  def public_to?(user)
+    !self.collections.select{|coll|coll.public?}.blank? || (self.creator == user)
+  end
+
   # ----------------
 
   def text_format
@@ -203,7 +200,7 @@ class Feed < UserAuthAbstract
   
   module UserMethods
     def self.included(base)
-      base.has_many :created_feeds, :class_name=>"Feed", :foreign_key=>:creator_id
+      base.has_many :created_feeds, :class_name=>"Feed", :foreign_key=>:creator_id,:order=>"feeds.id desc"
     end
 
     # 转发
@@ -286,12 +283,34 @@ class Feed < UserAuthAbstract
     end
 
     def home_timeline(options={})
-      Feed.mix_from_collections(self.home_timeline_collections, options)
+      count    = options[:count] || 20
+      page     = options[:page]  || 1
+      since_id = options[:since_id]
+      since_id = since_id.to_i unless since_id.blank?
+      max_id   = options[:max_id]
+      max_id   = max_id.to_i unless max_id.blank?
+      feature  = options[:feature] || "all"
+
+      ids = case feature
+      when "all"        then self.home_timeline_feed_ids
+      when "text"       then self.home_timeline_with_text_feed_ids
+      when "photo"      then self.home_timeline_with_photo_feed_ids
+      when "text|photo" then self.home_timeline_mixed_feed_ids
+      end
+
+      ids = ids.select{|id|id<=max_id} unless max_id.blank?
+      ids = ids.select{|id|id>since_id} unless since_id.blank?
+
+      first_index = (page-1)*count
+      last_index  = first_index+count-1
+      res_ids = ids[first_index..last_index]
+      res_ids.map{|id|Feed.find_by_id(id)}.uniq.compact
     end
 
     def user_timeline(options={})  
       Feed.mix_from_collections(self.public_collections, options)
     end
+
   end
 
   include Fav::FeedMethods

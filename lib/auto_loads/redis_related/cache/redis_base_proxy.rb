@@ -19,13 +19,26 @@ public
   # 向向量缓存里添加id
   def add_to_cache(id)
     ids = xxxs_ids
+    return if ids.include? id
+
     ids.unshift(id).uniq!
     xxxs_ids_rediscache_save(ids)
+  end
+
+  # 向向量缓存里添加id，并设置数量上限
+  def add_to_cache_limit(id,limit=200)
+    ids = xxxs_ids
+    return if ids.include? id
+
+    ids.unshift(id).uniq!
+    xxxs_ids_rediscache_save(ids[0...limit])
   end
 
   # 向向量缓存里添加id，并根据id倒序重排序
   def add_to_cache_and_sort(id)
     ids = xxxs_ids
+    return if ids.include? id
+
     ids.unshift(id).uniq!
     ids.sort!{|id1, id2| id2<=>id1 }
     xxxs_ids_rediscache_save(ids)

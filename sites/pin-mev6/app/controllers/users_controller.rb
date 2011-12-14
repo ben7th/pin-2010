@@ -5,7 +5,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @mindmaps = @user.out_mindmaps_paginate(:per_page=>20,:page=>params[:page]||1)
+    if logged_in? && @user == current_user
+      @mindmaps = @user.mindmaps.paginate(:per_page=>20, :page=>params[:page]||1)
+    else
+      @mindmaps = @user.mindmaps.publics.paginate(:per_page=>20, :page=>params[:page]||1)
+    end
   end
 
 end
