@@ -165,8 +165,8 @@ class Feed < UserAuthAbstract
   end
 
   def self.option_filter(options={})
-    count    = options[:count] || 20
-    page     = options[:page]  || 1
+    count    = (options[:count] || 20).to_i
+    page     = (options[:page]  || 1).to_i
     since_id = options[:since_id]
     since_id = since_id.to_i unless since_id.blank?
     max_id   = options[:max_id]

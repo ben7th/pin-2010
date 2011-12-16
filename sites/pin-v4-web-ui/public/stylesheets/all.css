@@ -7392,6 +7392,20 @@ $feed_width_1c:228px; /*240-10-2*/
       padding: 10px;
       font-size: 13px; }
 
+.page-ogrid-feeds-load-more {
+  border-top: double 3px #ddd;
+  border-bottom: double 3px #ddd;
+  margin-top: 14px;
+  margin-right: 40px;
+  text-align: center; }
+  .page-ogrid-feeds-load-more a {
+    font-size: 14px;
+    line-height: 40px;
+    height: 40px;
+    color: #666; }
+    .page-ogrid-feeds-load-more a:hover {
+      color: #666; }
+
 .page-ogrid.collections, .page-ogrid.collections-binded {
   width: 720px; }
   .page-ogrid.collections .list-blank, .page-ogrid.collections-binded .list-blank {

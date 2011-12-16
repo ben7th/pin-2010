@@ -6,7 +6,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @feeds = @user.user_timeline
+    @feeds = @user.user_timeline(:count=>40,:page=>params[:page] || 1)
+
+    if request.xhr?
+      return render :partial=>'feeds/parts/grid',:locals=>{:feeds=>@feeds}
+    end
   end
 
   def favs

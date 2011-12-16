@@ -222,6 +222,17 @@
   }
 }
 
+.page-ogrid-feeds-load-more{
+  border-top:double 3px #ddd;
+  border-bottom:double 3px #ddd;
+  margin-top:14px;
+  margin-right:40px;
+  text-align:center;
+  a{font-size:14px;line-height:40px;height:40px;
+    color:#666;&:hover{color:#666;};
+  }
+}
+
 .page-ogrid.collections,.page-ogrid.collections-binded{
   width:720px;
   
