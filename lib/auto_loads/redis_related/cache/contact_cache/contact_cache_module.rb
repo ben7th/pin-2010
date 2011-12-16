@@ -9,6 +9,14 @@ module ContactCacheModule
     def xxxs_ids_db
       @user.followings_db.map{|user|user.id}
     end
+
+    def self.tidy!
+      self.base_tidy!(User,User)
+    end
+
+    def self.one_tidy!(key_id)
+      self.base_one_tidy!(User,User,key_id)
+    end
   end
 
   class FansProxy < RedisBaseProxy
@@ -19,6 +27,14 @@ module ContactCacheModule
 
     def xxxs_ids_db
       @user.fans_db.map{|user|user.id}
+    end
+
+    def self.tidy!
+      self.base_tidy!(User,User)
+    end
+
+    def self.one_tidy!(key_id)
+      self.base_one_tidy!(User,User,key_id)
     end
   end
 

@@ -81,7 +81,7 @@ pie.mindmap.Node = Class.create({
 
   _bindCommonEvents:function(){
     //令节点不可选择
-    this.el.makeUnselectable();
+    pie.make_unselectable(this.el);
 
     //绑定鼠标滑过事件，可以将事件上提，改成mousemove事件以优化——jerry
     this.el.observe("mouseover",function(){

@@ -1,0 +1,24 @@
+-#use 发送激活码邮件模板
+
+-name = @name
+-code = @code
+-url  = pin_url_for('pin-user-auth','/activation')
+
+%div
+  %b=name
+  %span ，你好！
+
+%p 我们已经阅读了你向MINDPIN社区发送的测试申请。
+
+%p 感谢你的支持！欢迎参加测试。
+
+%p 你的测试激活码是: <b>#{code}</b>
+
+%p 请登录MINDPIN社区，并通过以下地址进行账号激活：(单击此链接 或 复制链接地址到您的浏览器中访问)
+
+%p
+  %a{:href=>url, :target=>'_blank'}=url
+
+%p 使用以上激活码，激活完毕后，就可以开始使用MINDPIN社区的所有功能。
+
+=render 'footer'

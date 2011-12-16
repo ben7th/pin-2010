@@ -9,6 +9,7 @@
       -title = h mindmap.title
       -info_url = "/mindmaps/#{mindmap_id}/info"
       -edit_url = "/mindmaps/#{mindmap_id}/edit"
+      -view_url = "/mindmaps/#{mindmap_id}"
 
       -thumb_size = mindmap.large_thumb_image_true_size
       -thumb_width, thumb_height = thumb_size[:width], thumb_size[:height]
@@ -35,6 +36,8 @@
               %a.edit{:href=>edit_url,:target=>'_blank',:tipr=>'打开在线编辑'}
               %a.do-private{:href=>'javascript:;',:class=>private_class,:tipr=>'切换公开/私有'}
               %a.delete{:href=>'javascript:;',:tipr=>'删除'}
+            -else
+              %a.view{:href=>view_url,:target=>'_blank',:tipr=>'在编辑器中查看'}
 
             -if logged_in?
               .fav-star

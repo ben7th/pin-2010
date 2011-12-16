@@ -376,7 +376,7 @@ pie.mindmap.BasicMapPaper = Class.create({
   },
   //根节点和一级子节点坐标排布函数
   setRootCoord:function(root){
-    Element.makeUnselectable(root.el);
+    pie.make_unselectable(root.el);
     var padding = 10;
     root.top = root.el.offsetTop;
     root.left = root.el.offsetLeft;

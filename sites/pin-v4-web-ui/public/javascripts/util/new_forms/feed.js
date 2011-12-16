@@ -45,7 +45,7 @@ pie.load(function(){
   })
 
   //勾选在列表中的
-  selected_collection_ids.each(function(id){
+  jQuery.each(selected_collection_ids, function(index, id){
     var elm = data_form_side_elm.find('.field.collections .c[data-id='+id+']')
     check_channel(elm, true);
   });

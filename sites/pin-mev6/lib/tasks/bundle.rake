@@ -7,6 +7,7 @@ namespace :bundle do
     closure_path = RAILS_ROOT + '/../pin-v4-web-ui/lib/closure_compiler.jar'
     
     files = [
+      'pie_mpaccordion.js',
       'pie_dragdrop.js',
       'pie_mindmap_node_dragdrop.js',
       'pie_map_menu.js',

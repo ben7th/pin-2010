@@ -38,7 +38,7 @@ pie.mindmap.NodeTitleEditor = Class.create({
     }
 
     //使之可选择
-    Element.makeSelectable(this.title_inputer.el);
+    pie.make_selectable(this.title_inputer.el);
 
     //绑定回车 和 shift + 回车 事件
     Event.observe(this.title_inputer.el,"keydown",function(evt){

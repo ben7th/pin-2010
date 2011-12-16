@@ -11,11 +11,11 @@ pie.load(function(){
     var src = wallpaper_box_elm.domdata('img-src');
     wallpaper_box_elm.empty().append('<img style="display:none;" src="'+src+'" />');
     var img_elm = wallpaper_box_elm.find('img');
+    jQuery('.wallpaper-toggle .title').html(wallpaper_box_elm.domdata('title'));
+
     img_elm.bind('load',function(){
       img_elm.fadeIn(500);
       i_resize();
-
-      jQuery('.wallpaper-toggle .title').html(wallpaper_box_elm.domdata('title'));
       jQuery('.wallpaper-toggle').fadeIn();
     })
   }

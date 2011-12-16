@@ -69,5 +69,16 @@ class FeedCollection < UserAuthAbstract
     def timeline(options={})
       Feed.mix_from_collections([self],options)
     end
+
+    def feeds_limit(options={})
+      Feed.option_filter(options) do |feature|
+        case feature
+        when "all"        then self.feed_ids
+        when "text"       then self.with_text_feed_ids
+        when "photo"      then self.with_photo_feed_ids
+        when "text|photo" then self.mixed_feed_ids
+        end
+      end
+    end
   end
 end

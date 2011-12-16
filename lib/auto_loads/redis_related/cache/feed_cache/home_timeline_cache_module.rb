@@ -14,8 +14,8 @@ module HomeTimelineCacheModule
   end
   
   class HomeTimelineFeedsWithTextProxy < RedisBaseProxy
-    def initialize(collection)
-      @collection = collection
+    def initialize(user)
+      @user = user
       @key = "user_#{@user.id}_home_timeline_with_text_feeds"
     end
     
@@ -25,8 +25,8 @@ module HomeTimelineCacheModule
   end
 
   class HomeTimelineFeedsWithPhotoProxy < RedisBaseProxy
-    def initialize(collection)
-      @collection = collection
+    def initialize(user)
+      @user= user
       @key = "user_#{@user.id}_home_timeline_with_photo_feeds"
     end
 
@@ -36,8 +36,8 @@ module HomeTimelineCacheModule
   end
 
   class HomeTimelineFeedsMixedProxy < RedisBaseProxy
-    def initialize(collection)
-      @collection = collection
+    def initialize(user)
+      @user = user
       @key = "user_#{@user.id}_home_timeline_mixed_feeds"
     end
 

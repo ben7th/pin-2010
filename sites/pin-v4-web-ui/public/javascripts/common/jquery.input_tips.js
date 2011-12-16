@@ -99,7 +99,7 @@ jQuery.fn.input = function(fn) {
 
 pie.load(function(){
   jQuery.fn.pie_j_tips = function() {
-    var elm = $(this);
+    var elm = jQuery(this);
     var jt_label_elm = elm.closest('.field').find('label');
     jt_label_elm.mousedown(function(){
       setTimeout(function(){

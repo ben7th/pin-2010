@@ -12,7 +12,7 @@ class CollectionsController < ApplicationController
     @user = User.find(params[:user_id]) if params[:user_id]
     @user ||= current_user
 
-    @collections = @user.created_collections_db
+    @collections = @user.created_collections
   end
 
   def tsina

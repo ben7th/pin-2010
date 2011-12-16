@@ -63,7 +63,7 @@ class MindmapsController < ApplicationController
     MindmapImageCache.new(@mindmap).refresh_all_cache_file
 
     size_param = params[:size_param] || "500x500"
-    render :text=>pin_url_for("pin-mindmap-image-cache","#{@mindmap.id}.#{size_param}.png?#{Time.now.to_i}")
+    render :text=>@mindmap.thumb_image_url(size_param)
   end
 
   include MindmapImportControllerMethods

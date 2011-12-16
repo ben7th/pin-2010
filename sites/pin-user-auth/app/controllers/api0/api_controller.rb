@@ -9,7 +9,7 @@ class Api0::ApiController < ApplicationController
 
   # 手机客户端使用的数据同步方法
   def mobile_data_syn
-    collections = current_user.created_collections_db
+    collections = current_user.created_collections
     return render :json=>{
       :user        => api0_user_json_hash(current_user),
       :collections => collections.map{|collection|
@@ -94,6 +94,9 @@ class Api0::ApiController < ApplicationController
     render :json=>user.followings.map{|u|
       api0_user_json_hash(u)
     }
+  end
+
+  def test
   end
 
   # -------- 以下是一些私有方法 用来包装数据 --------

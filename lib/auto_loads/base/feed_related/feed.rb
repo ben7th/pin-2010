@@ -15,11 +15,11 @@ class Feed < UserAuthAbstract
   has_one    :main_post, :class_name=>'Post', :conditions=>"kind = '#{Post::KIND_MAIN}'" # 不能写校验，也不能关联创建
   has_many   :posts, :dependent=>:destroy
   has_many   :memoed_users_db, :through=>:posts, :source=>:user,
-             :order=>"posts.vote_score desc"
+    :order=>"posts.vote_score desc"
 
   has_many   :feed_revisions, :order=>"feed_revisions.id desc"
   has_many   :edited_users, :through=>:feed_revisions, :source=>:user,
-             :order=>"feed_revisions.id desc"
+    :order=>"feed_revisions.id desc"
 
 
   # 参数关联
@@ -38,8 +38,8 @@ class Feed < UserAuthAbstract
   named_scope :unhidden, :conditions=>"feeds.hidden IS NOT TRUE", :order=>"feeds.id DESC"
   named_scope :hidden,   :conditions=>"feeds.hidden IS TRUE",     :order=>"feeds.id DESC"
   named_scope :no_reply, :conditions=>"posts.feed_id IS NULL AND feeds.hidden IS NOT TRUE",
-                           :joins=>"LEFT JOIN posts ON posts.feed_id = feeds.id",
-                           :order=>"id DESC"
+    :joins=>"LEFT JOIN posts ON posts.feed_id = feeds.id",
+    :order=>"id DESC"
 
   def self.publics_db
     Feed.find_by_sql(%~
@@ -48,7 +48,7 @@ class Feed < UserAuthAbstract
       JOIN collections C ON C.id = FC.collection_id
       WHERE C.send_status = '#{Collection::SendStatus::PUBLIC}'
       ORDER BY F.id DESC
-    ~).uniq
+      ~).uniq
   end
 
   def self.public_timeline(count=20)
@@ -164,12 +164,7 @@ class Feed < UserAuthAbstract
     end
   end
 
-  # since_id，可选，如果指定此参数，只返回id大于此id（时间上较早）的主题。
-  # max_id，可选，如果指定此参数，只返回id小于或等于此id（时间上较晚）的主题。
-  # count，可选，缺省值20，最大200。指定返回的条目数。
-  # page，可选，缺省1
-  # feature，可选，主题类型，'all', 'text', 'photo', 'text|photo'。默认all。后台应分别建立缓存。
-  def self.mix_from_collections(collections, options={})
+  def self.option_filter(options={})
     count    = options[:count] || 20
     page     = options[:page]  || 1
     since_id = options[:since_id]
@@ -178,14 +173,7 @@ class Feed < UserAuthAbstract
     max_id   = max_id.to_i unless max_id.blank?
     feature  = options[:feature] || "all"
 
-    ids = collections.map do |collection|
-      case feature
-      when "all"        then collection.feed_ids
-      when "text"       then collection.with_text_feed_ids
-      when "photo"      then collection.with_photo_feed_ids
-      when "text|photo" then collection.mixed_feed_ids
-      end
-    end.flatten.uniq.sort{|x,y| y<=>x}
+    ids = yield feature
 
     ids = ids.select{|id|id<=max_id} unless max_id.blank?
     ids = ids.select{|id|id>since_id} unless since_id.blank?
@@ -204,16 +192,16 @@ class Feed < UserAuthAbstract
     end
 
     # 转发
-#    def repost(repost_feed_id,options={})
-#      feed = Feed.new(:creator=>self)
-#      rfeed = Feed.find(repost_feed_id)
-#      if rfeed.repost_feed_id.blank?
-#        feed.repost_feed_id = rfeed.id
-#      else
-#        feed.repost_feed_id = rfeed.repost_feed_id
-#      end
-#      _send_feed(feed,options)
-#    end
+    #    def repost(repost_feed_id,options={})
+    #      feed = Feed.new(:creator=>self)
+    #      rfeed = Feed.find(repost_feed_id)
+    #      if rfeed.repost_feed_id.blank?
+    #        feed.repost_feed_id = rfeed.id
+    #      else
+    #        feed.repost_feed_id = rfeed.repost_feed_id
+    #      end
+    #      _send_feed(feed,options)
+    #    end
 
     # 根据传入的参数发送一个主题
     def send_feed(options={})
@@ -283,34 +271,33 @@ class Feed < UserAuthAbstract
     end
 
     def home_timeline(options={})
-      count    = options[:count] || 20
-      page     = options[:page]  || 1
-      since_id = options[:since_id]
-      since_id = since_id.to_i unless since_id.blank?
-      max_id   = options[:max_id]
-      max_id   = max_id.to_i unless max_id.blank?
-      feature  = options[:feature] || "all"
-
-      ids = case feature
-      when "all"        then self.home_timeline_feed_ids
-      when "text"       then self.home_timeline_with_text_feed_ids
-      when "photo"      then self.home_timeline_with_photo_feed_ids
-      when "text|photo" then self.home_timeline_mixed_feed_ids
+      Feed.option_filter(options) do |feature|
+        case feature
+        when "all"        then self.home_timeline_feed_ids
+        when "text"       then self.home_timeline_with_text_feed_ids
+        when "photo"      then self.home_timeline_with_photo_feed_ids
+        when "text|photo" then self.home_timeline_mixed_feed_ids
+        end
       end
-
-      ids = ids.select{|id|id<=max_id} unless max_id.blank?
-      ids = ids.select{|id|id>since_id} unless since_id.blank?
-
-      first_index = (page-1)*count
-      last_index  = first_index+count-1
-      res_ids = ids[first_index..last_index]
-      res_ids.map{|id|Feed.find_by_id(id)}.uniq.compact
     end
 
-    def user_timeline(options={})  
-      Feed.mix_from_collections(self.public_collections, options)
+    # since_id，可选，如果指定此参数，只返回id大于此id（时间上较早）的主题。
+    # max_id，可选，如果指定此参数，只返回id小于或等于此id（时间上较晚）的主题。
+    # count，可选，缺省值20，最大200。指定返回的条目数。
+    # page，可选，缺省1
+    # feature，可选，主题类型，'all', 'text', 'photo', 'text|photo'。默认all。后台应分别建立缓存。
+    def user_timeline(options={})
+      Feed.option_filter(options) do |feature|
+        self.public_collections.map do |collection|
+          case feature
+          when "all"        then collection.feed_ids
+          when "text"       then collection.with_text_feed_ids
+          when "photo"      then collection.with_photo_feed_ids
+          when "text|photo" then collection.mixed_feed_ids
+          end
+        end.flatten.uniq.sort{|x,y| y<=>x}
+      end
     end
-
   end
 
   include Fav::FeedMethods

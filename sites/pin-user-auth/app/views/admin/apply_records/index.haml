@@ -1,0 +1,33 @@
+.main.nl
+  .page-admin-apply-management
+    .title{:style=>'font-weight:bold;font-size:14px;padding:9px;'} ALPHA测试激活码申请记录
+    .list{:style=>'overflow:hidden;'}
+      -@apply_records.each do |ar|
+        -id    = ar.id
+        -email = h ar.email
+        -name  = h ar.name
+        -desc  = h ar.description
+        -time  = jtime ar.created_at
+        -code  = ar.activation_code.code
+        -linked_user = ar.linked_user
+
+        .apply{:'data-id'=>id,:style=>'margin:0 9px 9px 0;overflow:hidden;'}
+          .grid_13
+            .box{:style=>'padding:9px;border:solid 1px #ddd;background-color:#f4f4f4;'}
+              .top{:style=>'margin-bottom:5px;padding-bottom:5px;border-bottom:solid 1px #eee;'}
+                .email="<b>#{name}</b> (#{email})"
+              .bd
+                %span.desc=desc
+                %span.quiet - #{time}
+          .grid_7
+            .code.bold{:style=>'font-size:14px;'}=code
+            .state
+              -if linked_user.blank?
+                未激活
+              -else
+                已激活给 #{usersign linked_user}
+
+  .grid_10=will_paginate @apply_records
+
+          
+        

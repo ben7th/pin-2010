@@ -294,6 +294,8 @@ ActionController::Routing::Routes.draw do |map|
     # 人际关系 contacts
     match_get api0, 'contacts/followings' => 'api#contacts_followings'
 
+    match_get api0, 'test' => "api#test"
+
   end
 
   match_get map, '/zhi_ma_kai_men/login_wallpapers/new'       => 'login_wallpapers#new'
@@ -303,4 +305,8 @@ ActionController::Routing::Routes.draw do |map|
 
   match_get map,'/login_get_next_wallpaper' => "login_wallpapers#get_next_wallpaper"
   match_get map,'/login_get_prev_wallpaper' => "login_wallpapers#get_prev_wallpaper"
+
+  map.namespace(:admin) do |admin|
+    admin.resources :apply_records
+  end
 end

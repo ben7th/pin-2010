@@ -14,7 +14,7 @@ pie.load(function(){
   //普通feed 文艺feed
   jQuery('.page-ogrid.collection-feeds .feed').each(function(){
     var feed_elm = jQuery(this);
-    var min_height_col = jQuery.inArray(Math.min.apply(Math,col_height_array),col_height_array);
+    var min_height_col = jQuery.array(col_height_array).min_index();
     var min_height = col_height_array[min_height_col];
 
     var col_count = 1;
@@ -36,7 +36,7 @@ pie.load(function(){
     var arrow_elm = timeline_node_elm.find('.arrow');
 
     var top_juedui = min_height; //图标应该处于的绝对垂直位置
-    var top_juedui_fix = [timeline_height, top_juedui].max(); //图标应该低于已经排布到的最大高度
+    var top_juedui_fix = jQuery.array([timeline_height, top_juedui]).max(); //图标应该低于已经排布到的最大高度
     var offset = top_juedui_fix - top_juedui; //应该下调的距离
 
     timeline_height = top_juedui_fix + 36;

@@ -136,4 +136,18 @@ private
     end
   end
 
+  def self.base_one_tidy!(key_class,value_calss,key_id)
+    key_item = key_class.find(key_id)
+    proxy = self.new(key_item)
+    ids = proxy.xxxs_ids
+    
+    ids.each do |value_id|
+      value_item = value_calss.find_by_id(value_id)
+      if value_item.blank?
+        p "删除了一个空值"
+        proxy.remove_from_cache(value_id)
+      end
+    end
+  end
+
 end

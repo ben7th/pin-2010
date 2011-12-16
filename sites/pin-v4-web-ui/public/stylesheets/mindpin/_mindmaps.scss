@@ -1,6 +1,6 @@
 /*协作编辑暂时关闭*/
 .page-cooper-closed{
-  border:solid 1px #ccc;background-color:#fafafa;
+  border:solid 1px #ddd; background-color:#fafafa;
   @include border-radius(3px);
   padding:9px;
   margin-bottom:14px;
@@ -12,7 +12,7 @@
   .s-map{
     margin-bottom:9px;
     width:120px;
-    border:solid 1px #eee;
+    border:solid 1px #ddd;
     background-color:#fafafa;
     padding:4px;@include border-radius(3px);
     .thumb{

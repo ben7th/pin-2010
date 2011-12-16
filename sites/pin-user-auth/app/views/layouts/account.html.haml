@@ -12,4 +12,7 @@
 
     =render 'layouts/parts/phide'
     =render 'layouts/parts/footer'
+
+    =javascript_include_tag pin_url_for('ui',"javascripts/lib/prototype/protoaculous.1.8.3.min.js?#{ENV['RAILS_ASSET_ID']}")
     =render 'layouts/parts/javascripts'
+

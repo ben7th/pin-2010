@@ -28,21 +28,21 @@ try{
 	document.execCommand('BackgroundImageCache', false, true);
 }catch(e){}
 
-pie.isIE=function(){
+pie.isIE = function(){
 	return window.navigator.userAgent.indexOf("MSIE")>=1;
 }
 
-pie.isFF=function(){
+pie.isFF = function(){
 	return window.navigator.userAgent.indexOf("Firefox")>=1;
 }
 
-pie.isChrome=function(){
+pie.isChrome = function(){
 	return window.navigator.userAgent.indexOf("Chrome")>=1;
 }
 
-pie.randstr=function(length){
+pie.randstr = function(length){
   length = length || 8;
-  var base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toArray();
+  var base = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
   var size = base.length;
   var j = pie.rand(size-10);
   re = base[j]
@@ -53,33 +53,30 @@ pie.randstr=function(length){
   return re;
 }
 
-pie.rand=function(num){
+pie.rand = function(num){
   var i = Math.random()
   return Math.round(i*(num-1))
 }
 
-Element.addMethods({
-  makeUnselectable: function(element, cursor){
-    cursor = cursor || 'default';
-    element.onselectstart = function(){
-      return false;
-    };
-    element.unselectable = "on";
-    element.style.MozUserSelect = "none";
-    return element;
-  },
-  makeSelectable: function(element){
-    element.onselectstart = function(){
-      return true;
-    };
-    element.unselectable = "off";
-    element.style.MozUserSelect = "";
-    return element;
-  },
-  do_click:function(element){
-    pie.do_click(element)
-  }
-});
+pie.make_unselectable = function(element, cursor){
+  cursor = cursor || 'default';
+
+  element.onselectstart = function(){ return false; };
+  element.unselectable  = 'on';
+
+  element.style.MozUserSelect    = 'none';
+  element.style.webkitUserSelect = 'none';
+  return element;
+}
+
+pie.make_selectable = function(element){
+  element.onselectstart = function(){return true;};
+  element.unselectable  = 'off';
+
+  element.style.MozUserSelect    = '';
+  element.style.webkitUserSelect = '';
+  return element;
+}
 
 // 对Date的扩展，将 Date 转化为指定格式的String
 // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
@@ -251,7 +248,11 @@ pie.open_win = function(url,w,h,wname){
 //onload
 pie.load = function(func){
   jQuery(document).ready(function(){
-    try{func();}catch(e){alert(e.name + ':' + e.message);}
+    func();
+//    try{func();}catch(e){
+//      alert(e.name + ':' + e.message);
+//      pie.log(e.stack);
+//    }
   });
 }
 
@@ -344,11 +345,9 @@ MINDPIN_URLS = {
   }
 }
 
-pie.pin_url_for = function(site,path){
+pie.pin_url_for = function(site, path){
   var site_url = MINDPIN_URLS[pie.env][site];
-  path = path || ''
-  if(path.blank()){
-    return site_url;
-  }
-  return site_url + path.gsub(/^\//,'');
+  var jqstr = jQuery.string(path || '');
+  if(jqstr.blank()){ return site_url; }
+  return site_url + jqstr.gsub(/^\//,'').str;
 }

@@ -1,7 +1,5 @@
 package com.mindpin.widget.adapter;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.mindpin.R;
 import com.mindpin.Logic.HttpApi;
 import com.mindpin.base.activity.MindpinBaseActivity;
@@ -21,7 +18,6 @@ import com.mindpin.model.Collection;
 public class CollectionListAdapter extends MindpinBaseAdapter<Collection> {
 	
 	private boolean edit_mode;
-	private List<Collection> collections;
 	
 	public CollectionListAdapter(MindpinBaseActivity activity) {
 		super(activity);
@@ -147,7 +143,8 @@ public class CollectionListAdapter extends MindpinBaseAdapter<Collection> {
 	}
 
 	private void change_collection_name(int position, String title) {
-		Collection collection = collections.get(position);
+		Collection collection = fetch_item(position);
+		
 		collection.title = title;
 		this.notifyDataSetChanged();
 	}

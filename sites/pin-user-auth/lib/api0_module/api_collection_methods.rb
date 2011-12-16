@@ -22,7 +22,7 @@ module ApiCollectionMethods
 
   # 获取当前登录用户的收集册列表
   def collection_list
-    collections = current_user.created_collections_db
+    collections = current_user.created_collections
     return render :json=>collections.map{|collection|
       api0_collection_json_hash(collection)
     }
@@ -34,7 +34,9 @@ module ApiCollectionMethods
     collection = current_user.create_collection_by_params(params[:title])
 
     unless collection.id.blank?
-      render :json=>current_user.created_collections_db
+      render :json=>current_user.created_collections.map{|c|
+        api0_collection_json_hash(c)
+      }
     else
       render :text=>"api0 收集册创建失败",:status=>400
     end
@@ -45,7 +47,9 @@ module ApiCollectionMethods
   def delete_collection
     collection = Collection.find(params[:collection_id])
     collection.destroy
-    render :json=>current_user.created_collections_db
+    render :json=>current_user.created_collections.map{|c|
+      api0_collection_json_hash(c)
+    }
   end
 
   # 重命名一个收集册
@@ -54,7 +58,9 @@ module ApiCollectionMethods
   def rename_collection
     collection = Collection.find(params[:collection_id])
     if collection.update_attributes(:title=>params[:title])
-      return render :json=>current_user.created_collections_db
+      return render :json=>current_user.created_collections.map{|c|
+        api0_collection_json_hash(c)
+      }
     end
     render :text=>"api0 收集册重命名失败",:status=>400
   end

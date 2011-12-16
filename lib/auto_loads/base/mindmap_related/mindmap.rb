@@ -180,6 +180,16 @@ class Mindmap < Mev6Abstract
     end
   end
 
+  def thumb_image_url(size_param)
+    id        = self.id
+    asset_id  = (id / 1000).to_s
+    cache_num = self.updated_at.to_i
+
+    src = pin_url_for("pin-mindmap-image-cache","/asset/#{asset_id}/#{id}.#{size_param}.png?#{cache_num}")
+
+    return src.gsub 'mindmap-image-cache',"mindmap-image-cache-#{id % 10}"
+  end
+
   module UserMethods
     def self.included(base)
       base.has_many :mindmaps,:order=>"mindmaps.updated_at desc"

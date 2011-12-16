@@ -10,7 +10,7 @@ class InCollectionTest < ActiveSupport::TestCase
       lifei.create_collection_by_params("我是标题",scope)
     end
     collection = Collection.last
-    assert_equal lifei.created_collections_db, lifei.created_collections
+    assert_equal lifei.created_collections, lifei.created_collections
     assert_equal [collection], lifei.created_collections
     assert_equal [collection], lifei.in_collections
   end

@@ -3,7 +3,7 @@ module PieUi
     
     # 加载自定义的类
     def load_classes
-      require 'pie-ui/classes/ui_service'
+      require 'pie-ui/classes/ui_asset'
     end
 
     # 加载各个扩展
@@ -160,7 +160,7 @@ Grit::Repo.send(:include,RepoInit)
 Grit::Diff.send(:include,DiffInit)
 
 # 声明 asset_id
-ENV['RAILS_ASSET_ID'] = UiService.asset_id
+ENV['RAILS_ASSET_ID'] = UiAsset.asset_id
 
 # 声明邮件服务配置
 if defined? ActionMailer::Base

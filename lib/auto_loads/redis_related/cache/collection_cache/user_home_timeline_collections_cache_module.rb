@@ -43,7 +43,7 @@ module UserHomeTimelineCollectionsCacheModule
             end
           else
             fans.each do |fan|
-              CollectionsProxy.new(fan).remove_form_cache(collection.id)
+              CollectionsProxy.new(fan).remove_from_cache(collection.id)
             end
           end
         },
@@ -56,7 +56,7 @@ module UserHomeTimelineCollectionsCacheModule
 
           # 从 fans 时间线 删除
           fans.each do |fan|
-            CollectionsProxy.new(fan).remove_form_cache(collection.id)
+            CollectionsProxy.new(fan).remove_from_cache(collection.id)
           end
         }
       }

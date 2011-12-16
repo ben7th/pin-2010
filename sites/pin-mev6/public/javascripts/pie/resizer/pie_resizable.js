@@ -33,24 +33,26 @@ pie.Resizable=Class.create({
 	createHandle:function(){
 		this.s_handle={
 			el:$(Builder.node("div",{"class":"s-handle"}))
-			.makeUnselectable()
 			.observe("mouseover",this.showHandle.bind(this))
 			.observe("mouseout",this.hideHandle.bind(this))
 		}
 		
 		this.e_handle={
 			el:$(Builder.node("div",{"class":"e-handle"}))
-			.makeUnselectable()
 			.observe("mouseover",this.showHandle.bind(this))
 			.observe("mouseout",this.hideHandle.bind(this))
 		}
 		
 		this.se_handle={
 			el:$(Builder.node("div",{"class":"se-handle"}))
-			.makeUnselectable()
 			.observe("mouseover",this.showHandle.bind(this))
 			.observe("mouseout",this.hideHandle.bind(this))
 		}
+
+    pie.make_unselectable(this.s_handle);
+    pie.make_unselectable(this.e_handle);
+    pie.make_unselectable(this.se_handle);
+
 		this.el.appendChild(this.s_handle.el);
 		this.el.appendChild(this.e_handle.el);
 		this.el.appendChild(this.se_handle.el);

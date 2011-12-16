@@ -68,8 +68,7 @@ ul.page-mindmaps-sidemenu{
     img{
       width:48px;height:48px;padding:0;
       @include border-radius(4px);
-      border:solid 1px #ccc;
-      box-shadow:0 0 3px rgba(0,0,0,0.7);
+      border:solid 1px #ddd;
     }
   }
   
@@ -181,7 +180,16 @@ ul.page-mindmaps-sidemenu{
         display:block;
         width:32px;height:32px;margin:8px;
         @include allimg(-295px, -81px);
-        opacity:0.5;
+        opacity:0.7;
+        &:hover{
+          opacity:1;
+        };
+      }
+      a.view{
+        display:block;
+        width:32px;height:32px;margin:8px;
+        @include allimg(-262px, -81px);
+        opacity:0.7;
         &:hover{
           opacity:1;
         };

@@ -8,7 +8,7 @@
       .not-found 没有找到相似的导图
     -else
       -maps.each do |m|
-        -title    = h truncate_u(m.title,12)
+        -title    = h truncate_u(m.title,9)
         -info_url = "/mindmaps/#{m.id}/info"
 
         .s-map

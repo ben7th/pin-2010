@@ -80,7 +80,7 @@
       %h3 选择发送范围
 
       .field.collections
-        -current_user.created_collections_db.each do |c|
+        -current_user.created_collections.each do |c|
           -checked_id = params[:collection]
           -if c.id.to_s == checked_id
             .c.checked{:'data-id'=>c.id}
