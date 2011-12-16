@@ -180,7 +180,7 @@ class Feed < UserAuthAbstract
 
     first_index = (page-1)*count
     last_index  = first_index+count-1
-    res_ids = ids[first_index..last_index]
+    res_ids = ids[first_index..last_index] || []
     res_ids.map{|id|Feed.find_by_id(id)}.uniq.compact
   end
 
