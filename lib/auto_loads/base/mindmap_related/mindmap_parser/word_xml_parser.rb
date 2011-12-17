@@ -26,14 +26,22 @@ class WordXmlParser < MapFileParser
 
     mindmap.node_notes.each {|node_id, note|
       out_xml.css("note[id='#{node_id}']").each {|n|
-        w_p = Nokogiri::XML::Node.new('w:p', out_xml)
-        w_p.default_namespace=("http://schemas.microsoft.com/office/word/2003/wordml")
-        
-        w_p.inner_html = note.replace_html_enter_tags_to_text.split("\n").map{ |text|
-          "<w:r><w:t>#{text}</w:t><w:br/></w:r>"
-        } * ''
+        wp = Nokogiri::XML::Node.new('w:p', out_xml)
+        wp.default_namespace=("http://schemas.microsoft.com/office/word/2003/wordml")
 
-        n.parent.add_child(w_p)
+        note.replace_html_enter_tags_to_text.split("\n").each{|text|
+          wr = Nokogiri::XML::Node.new('w:r', wp)
+          wt = Nokogiri::XML::Node.new('w:t', wp)
+          wt.inner_html = text
+          wbr = Nokogiri::XML::Node.new('w:br', wp)
+
+          wr.add_child(wt)
+          wr.add_child(wbr)
+
+          wp.add_child(wr)
+        }
+
+        n.parent.add_child(wp)
       }
     }
 
