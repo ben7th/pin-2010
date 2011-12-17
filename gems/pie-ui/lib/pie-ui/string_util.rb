@@ -163,6 +163,7 @@ class String
     BlueCloth.new(self).to_html
   end
 
+  # 导图导出会用到这个方法
   def replace_html_enter_tags_to_text
     str = self.gsub(/<\/?[^>]*>/,  "<br>")
     str.gsub!(/(<\/?br>)+/,"\n")
