@@ -27,12 +27,12 @@ class WordXmlParser < MapFileParser
     mindmap.node_notes.each {|node_id, note|
       out_xml.css("note[id='#{node_id}']").each {|n|
         w_p = Nokogiri::XML::Node.new('w:p', out_xml)
+        w_p.default_namespace=("http://schemas.microsoft.com/office/word/2003/wordml")
         
         w_p.inner_html = note.replace_html_enter_tags_to_text.split("\n").map{ |text|
           "<w:r><w:t>#{text}</w:t><w:br/></w:r>"
         } * ''
 
-        w_p.default_namespace=("http://schemas.microsoft.com/office/word/2003/wordml")
         n.parent.add_child(w_p)
       }
     }
