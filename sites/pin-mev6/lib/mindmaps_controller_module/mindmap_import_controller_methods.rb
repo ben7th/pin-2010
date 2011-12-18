@@ -14,9 +14,7 @@ module MindmapImportControllerMethods
     nodes_count    = MindmapImportAdpater.nodes_count_by_upload_temp_id(upload_temp_id)
     filename       = MindmapImportAdpater.title_by_filename(params[:Filename])
 
-
-        struct = MindmapImportAdpater.struct_by_upload_temp_id(upload_temp_id)
-
+    struct         = MindmapImportAdpater.struct_by_upload_temp_id(upload_temp_id)
 
     render :json=>{
       :upload_temp_id => upload_temp_id,

@@ -10,30 +10,30 @@ ActionController::Routing::Routes.draw do |map|
   match_get map, '/tsina_app' => 'index#tsina_app_redirect'
 
   map.resources :mindmaps,:collection=>{
-    :aj_words=>:get,
-    :cooperates=>:get,
-    :search=>:get,
-    :import=>:get,
-    :do_import=>:post,
-    :upload_import_file=>:post,
-    :favs=>:get,
-    :mine_private=>:get
+    :aj_words           => :get,
+    :cooperates         => :get,
+    :search             => :get,
+    :import             => :get,
+    :do_import          => :post,
+    :upload_import_file => :post,
+    :favs               => :get,
+    :mine_private       => :get
   },:member=>{
-    :export=>:get,
-    :change_title=>:put,
-    :clone_form=>:get,
-    :do_clone=>:put,
-    :toggle_private=>:put,
-    :info=>:get,
-    :toggle_fav=>:put,
-    :newest=>:get,
-    :widget=>:get,
-    :undo=>:put,
-    :redo=>:put,
-    :rollback_history_record=>:put,
-    :history_records=>:get,
-    :share_original=>:put,
-    :refresh_thumb=>:put
+    :export                  => :get,
+    :change_title            => :put,
+    :clone_form              => :get,
+    :do_clone                => :put,
+    :toggle_private          => :put,
+    :info                    => :get,
+    :toggle_fav              => :put,
+    :newest                  => :get,
+    :widget                  => :get,
+    :undo                    => :put,
+    :redo                    => :put,
+    :rollback_history_record => :put,
+    :history_records         => :get,
+    :share_original          => :put,
+    :refresh_thumb           => :put
   } do |mindmap|
     mindmap.files                   "files",:controller=>"files",:action=>"index",:conditions=>{:method=>:get}
     mindmap.search_image            "files/search_image",:controller=>"files",:action=>"search_image",:conditions=>{:method=>:get}
@@ -55,4 +55,5 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :image_attachments
   map.resources :atmes
+
 end

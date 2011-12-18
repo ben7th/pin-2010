@@ -57,6 +57,14 @@ pie.load(function(){
       }
     });
 
+    form_elm.find('.field .need-light').each(function(){
+      var elm = jQuery(this);
+      if(jQuery.string(elm.val()).blank()){
+        can_submit = false;
+        pie.inputflash(elm);
+      }
+    });
+
     if(can_submit){
       form_elm.submit();
     }
@@ -64,7 +72,12 @@ pie.load(function(){
   
   //各种表单按钮提交
   jQuery(document).delegate('.aj-submit-form a.a-link-submit','click',function(){
-    form_submit(jQuery(this).closest('form'));
+    var elm = jQuery(this);
+    if(elm.hasClass('disabled')){
+      return;
+    }else{
+      form_submit(jQuery(this).closest('form'));
+    }
   });
 
   //各种表单回车提交

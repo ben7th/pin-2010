@@ -47,6 +47,15 @@
   @include middlebutton-base;
 }
 
+.middlebutton.disabled, .middlebutton.blue.disabled{
+  background-color:#f4f4f4 !important;
+  border:solid 1px #ddd !important;
+  color:#aaa !important; &:hover{color:#aaa !important;}
+  text-shadow:none !important;
+  box-shadow:none !important;
+  cursor:default;
+}
+
 .middlebutton.blue{
   @include button-blue;
   @include middlebutton-base;

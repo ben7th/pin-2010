@@ -1,3 +1,9 @@
+.page-new-mindmap-side{
+  padding:9px;
+  border:solid 1px #ddd;
+  background-color:#fafafa;
+}
+
 /*表单*/
 @mixin new_mindmap_form{
   @include new_object_form;
@@ -16,23 +22,48 @@
 
 /*新建思维导图表单*/
 .page-new-mindmap-form{
-  padding:9px;
-  @include new_mindmap_form;
-  border:solid 1px #eee;
-  background-color:#FFF;
-}
-/*导入思维导图表单*/
-.page-upload-mindmap{
-  padding:9px;
-  @include new_mindmap_form;
-  border:solid 1px #eee;
-  background-color:#FFF;
+  border:solid 1px #ddd;
+  background-color:#fff;
+  .ftitle{
+    padding:15px;font-size:14px;font-weight:bold;
+    background-color:#fafafa;
+    border-bottom:solid 1px #eee;
+  }
+  form{
+    padding:15px;
+    .field{
+      overflow:hidden;
+      margin:0;border-top:solid 1px #ddd;
+      background-color:#f7f7f7;
+      label{
+        float:left;height:32px;line-height:32px;
+        padding:15px;
+        width:100px;
+        text-align:right;
+        font-size:14px;font-weight:bold;color:#666;
+      }
+      .ip{
+        background-color:#fff;
+        margin-left:130px;
+        padding:15px;
+        &.pri{
+          height:32px;line-height:32px;
+        }
+      }
+      
+      &.sub{
+        background-color:#fff;
+        padding:15px 0 0 0;
+        text-align:right;
+      }
+      
+      &.title{input.text{width:300px;}}
+    }
+  }
+  
   .page-upload-mindmap-result{
-    background:#FFF9DC;
-    border:solid 1px #EFEACE;
-    @include border-radius(5px);
-    margin:0 0 10px 0;
-    padding:10px;
+    background:#FFF9DC;border-bottom:solid 1px #EFEACE;
+    padding:15px;
     overflow:hidden;
     position:relative;
     .thumb{
@@ -67,30 +98,27 @@
   #page-mindmap-upload-queue{
     .uploadifyQueueItem{
       background:#FFF9DC;
-      border:solid 1px #EFEACE;
-      @include border-radius(5px);
-      margin:0 0 10px 0;
-      padding:10px;
+      border-style:none none solid none;
+      border-bottom-width:1px;
+      padding:15px;
       width:auto;
       color:#666;
       .uploadifyProgress{
-        @include border-radius(3px);
+        @include border-radius(2px);
         background-color:#EFEACE;
         .uploadifyProgressBar{
-          @include border-radius(3px);
+          @include border-radius(2px);
           height:12px;
           background-color:#4C8EFF;
         }
       }
     }
   }
+  
   .upload{
     overflow:hidden;
-    background:#FFF9DC;
-    border:solid 1px #EFEACE;
-    @include border-radius(5px);
-    padding:10px;
-    margin-bottom:10px;
+    background:#FFF9DC;border-bottom:solid 1px #EFEACE;
+    padding:15px;
     .btn{
       float:left;
       width:93px;height:21px;

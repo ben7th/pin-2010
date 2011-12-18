@@ -1,0 +1,25 @@
+-htitle "创建思维导图"
+
+.main.grid_18
+  .page-new-mindmap-form.aj-submit-form
+    .ftitle 创建思维导图
+    =flash_info
+    - form_for(@mindmap,:html=>{:multipart=>true}) do |f|
+      .field.title
+        %label 标题
+        .ip=text_field_tag :'mindmap[title]','',:class=>'text need-light'
+      .field
+        %label 是否私有
+        .ip.pri
+          =f.check_box :private,:class=>'checkbox'
+          %span 这个导图只有我自己能看到
+      .field.sub
+        %a.middlebutton.blue.a-link-submit{:href=>'javascript:;'} 确定创建
+        %a.middlebutton.gray.marginl10{:href=>'/'} 取消
+
+.mside.grid_6
+  .page-new-mindmap-side
+    .p
+      如果您手头有在常用导图软件中绘制的导图，可以使用
+      =minibutton '从文件导入导图','/mindmaps/import',:class=>'green'
+      功能，把它上传到MINDPIN网站。

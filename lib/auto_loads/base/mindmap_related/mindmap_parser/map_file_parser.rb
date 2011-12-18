@@ -5,10 +5,12 @@ require 'base64'
 
 class MapFileParser
 
-  def initialize(mindmap)
-    @mindmap  = mindmap
-    @document = mindmap.document
-  end
+# TODO 重构，把类方法变为实例方法，以简化代码调用
+# 今年先算了，2012年有时间再做吧
+#  def initialize(mindmap)
+#    @mindmap  = mindmap
+#    @document = mindmap.document
+#  end
   
   # 用 xslt 导入的导图节点 id 是 序列数字
   # 把这些序列数字传化成 randstr(20)

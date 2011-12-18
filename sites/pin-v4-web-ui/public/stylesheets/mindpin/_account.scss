@@ -310,56 +310,6 @@
   }
 }
 
-.page-usage-select{
-  overflow:hidden;
-  margin:0 0 40px 0;
-  padding:30px 0;
-  border-top:dotted 1px #DFDFDF;
-  border-bottom:dotted 1px #DFDFDF;
-  .feeds{
-    margin-right:80px;
-    .icon{
-      width:180px;
-      height:140px;
-      background:url(/images/icons/usage-feed.png);
-      border:solid 2px #DFDFDF;
-      margin:0 0 10px 0;
-      cursor:pointer;
-    }
-  }
-  .mindmaps{
-    .icon{
-      width:180px;
-      height:140px;
-      background:url(/images/icons/usage-mindmap.png);
-      border:solid 2px #DFDFDF;
-      margin:0 0 10px 0;
-      cursor:pointer;
-    }
-  }
-  .feeds, .mindmaps{
-    padding:5px;
-    float:left;
-    position:relative;
-    &.checked{
-      background:#FFF3B2;
-      @include border-radius(5px);
-      .check{
-        width:32px;height:32px;
-        @include allicon(-196px,-66px);
-        position:absolute;
-        top:10px;left:170px;
-      }
-      .choose{display:none;}
-      .ok{float:left;margin-right:10px;display:block !important;}
-    }
-    .desc{
-      margin:0 0 10px 0;
-    }
-    .choose{float:left;margin-right:10px;}
-  }
-}
-
 .page-copper-avatar{
   .old-img,.cutted-img{
     background-color:#Fafafa;

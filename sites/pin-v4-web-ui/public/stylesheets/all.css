@@ -2120,7 +2120,6 @@ Release Date: November 8, 2010
   background-color: #F5F5F5;
   border: 2px solid #E5E5E5;
   font: 12px Verdana, Geneva, sans-serif;
-  margin-top: 5px;
   padding: 10px;
   width: 300px;
   color: #111; }
@@ -5034,58 +5033,6 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       border: solid 1px #0069dd;
       box-shadow: 0 1px 2px #ccc; }
 
-.page-usage-select {
-  overflow: hidden;
-  margin: 0 0 40px 0;
-  padding: 30px 0;
-  border-top: dotted 1px #DFDFDF;
-  border-bottom: dotted 1px #DFDFDF; }
-  .page-usage-select .feeds {
-    margin-right: 80px; }
-    .page-usage-select .feeds .icon {
-      width: 180px;
-      height: 140px;
-      background: url(/images/icons/usage-feed.png);
-      border: solid 2px #DFDFDF;
-      margin: 0 0 10px 0;
-      cursor: pointer; }
-  .page-usage-select .mindmaps .icon {
-    width: 180px;
-    height: 140px;
-    background: url(/images/icons/usage-mindmap.png);
-    border: solid 2px #DFDFDF;
-    margin: 0 0 10px 0;
-    cursor: pointer; }
-  .page-usage-select .feeds, .page-usage-select .mindmaps {
-    padding: 5px;
-    float: left;
-    position: relative; }
-    .page-usage-select .feeds.checked, .page-usage-select .mindmaps.checked {
-      background: #FFF3B2;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
-      border-radius: 5px; }
-      .page-usage-select .feeds.checked .check, .page-usage-select .mindmaps.checked .check {
-        width: 32px;
-        height: 32px;
-        background-image: url(/images/icons/all.png);
-        background-repeat: no-repeat;
-        background-position: -196px -66px;
-        position: absolute;
-        top: 10px;
-        left: 170px; }
-      .page-usage-select .feeds.checked .choose, .page-usage-select .mindmaps.checked .choose {
-        display: none; }
-      .page-usage-select .feeds.checked .ok, .page-usage-select .mindmaps.checked .ok {
-        float: left;
-        margin-right: 10px;
-        display: block !important; }
-    .page-usage-select .feeds .desc, .page-usage-select .mindmaps .desc {
-      margin: 0 0 10px 0; }
-    .page-usage-select .feeds .choose, .page-usage-select .mindmaps .choose {
-      float: left;
-      margin-right: 10px; }
-
 .page-copper-avatar .old-img, .page-copper-avatar .cutted-img {
   background-color: #Fafafa;
   padding: 5px;
@@ -6966,74 +6913,78 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   .page-new-collection-op .pop-box .form-placeholder form .field .ipt-title {
     width: 268px; }
 
+.page-new-mindmap-side {
+  padding: 9px;
+  border: solid 1px #ddd;
+  background-color: #fafafa; }
+
 /*表单*/
 /*新建思维导图表单*/
 .page-new-mindmap-form {
-  padding: 9px;
-  border: solid 1px #eee;
-  background-color: #FFF; }
-  .page-new-mindmap-form h2.main-title {
-    font-size: 20px;
+  border: solid 1px #ddd;
+  background-color: #fff; }
+  .page-new-mindmap-form .ftitle {
+    padding: 15px;
+    font-size: 14px;
     font-weight: bold;
-    margin: 0 0 20px 0; }
-  .page-new-mindmap-form .field label {
-    font-size: 14px; }
-  .page-new-mindmap-form .field.title input.text {
-    width: 678px; }
-  .page-new-mindmap-form .field.description textarea.text {
-    width: 678px;
-    height: 80px; }
-  .page-new-mindmap-form .field.private span.disabled {
-    color: #777; }
-
-/*导入思维导图表单*/
-.page-upload-mindmap {
-  padding: 9px;
-  border: solid 1px #eee;
-  background-color: #FFF; }
-  .page-upload-mindmap h2.main-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 0 20px 0; }
-  .page-upload-mindmap .field label {
-    font-size: 14px; }
-  .page-upload-mindmap .field.title input.text {
-    width: 678px; }
-  .page-upload-mindmap .field.description textarea.text {
-    width: 678px;
-    height: 80px; }
-  .page-upload-mindmap .field.private span.disabled {
-    color: #777; }
-  .page-upload-mindmap .page-upload-mindmap-result {
+    background-color: #fafafa;
+    border-bottom: solid 1px #eee; }
+  .page-new-mindmap-form form {
+    padding: 15px; }
+    .page-new-mindmap-form form .field {
+      overflow: hidden;
+      margin: 0;
+      border-top: solid 1px #ddd;
+      background-color: #f7f7f7; }
+      .page-new-mindmap-form form .field label {
+        float: left;
+        height: 32px;
+        line-height: 32px;
+        padding: 15px;
+        width: 100px;
+        text-align: right;
+        font-size: 14px;
+        font-weight: bold;
+        color: #666; }
+      .page-new-mindmap-form form .field .ip {
+        background-color: #fff;
+        margin-left: 130px;
+        padding: 15px; }
+        .page-new-mindmap-form form .field .ip.pri {
+          height: 32px;
+          line-height: 32px; }
+      .page-new-mindmap-form form .field.sub {
+        background-color: #fff;
+        padding: 15px 0 0 0;
+        text-align: right; }
+      .page-new-mindmap-form form .field.title input.text {
+        width: 300px; }
+  .page-new-mindmap-form .page-upload-mindmap-result {
     background: #FFF9DC;
-    border: solid 1px #EFEACE;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    margin: 0 0 10px 0;
-    padding: 10px;
+    border-bottom: solid 1px #EFEACE;
+    padding: 15px;
     overflow: hidden;
     position: relative; }
-    .page-upload-mindmap .page-upload-mindmap-result .thumb {
+    .page-new-mindmap-form .page-upload-mindmap-result .thumb {
       float: left;
       width: 120px;
       height: 120px; }
-    .page-upload-mindmap .page-upload-mindmap-result .data {
+    .page-new-mindmap-form .page-upload-mindmap-result .data {
       margin-left: 140px; }
-      .page-upload-mindmap .page-upload-mindmap-result .data h3 {
+      .page-new-mindmap-form .page-upload-mindmap-result .data h3 {
         font-size: 14px;
         font-weight: bold;
         margin: 0 0 10px 0; }
-      .page-upload-mindmap .page-upload-mindmap-result .data .type, .page-upload-mindmap .page-upload-mindmap-result .data .filename, .page-upload-mindmap .page-upload-mindmap-result .data .nodes-count {
+      .page-new-mindmap-form .page-upload-mindmap-result .data .type, .page-new-mindmap-form .page-upload-mindmap-result .data .filename, .page-new-mindmap-form .page-upload-mindmap-result .data .nodes-count {
         overflow: hidden;
         font-size: 14px; }
-        .page-upload-mindmap .page-upload-mindmap-result .data .type .l, .page-upload-mindmap .page-upload-mindmap-result .data .filename .l, .page-upload-mindmap .page-upload-mindmap-result .data .nodes-count .l {
+        .page-new-mindmap-form .page-upload-mindmap-result .data .type .l, .page-new-mindmap-form .page-upload-mindmap-result .data .filename .l, .page-new-mindmap-form .page-upload-mindmap-result .data .nodes-count .l {
           float: left;
           width: 100px; }
-        .page-upload-mindmap .page-upload-mindmap-result .data .type .t, .page-upload-mindmap .page-upload-mindmap-result .data .filename .t, .page-upload-mindmap .page-upload-mindmap-result .data .nodes-count .t {
+        .page-new-mindmap-form .page-upload-mindmap-result .data .type .t, .page-new-mindmap-form .page-upload-mindmap-result .data .filename .t, .page-new-mindmap-form .page-upload-mindmap-result .data .nodes-count .t {
           float: left;
           font-weight: bold; }
-    .page-upload-mindmap .page-upload-mindmap-result .close {
+    .page-new-mindmap-form .page-upload-mindmap-result .close {
       width: 16px;
       height: 16px;
       background: url(/images/icons/cancel.png);
@@ -7041,43 +6992,36 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       top: 10px;
       right: 10px;
       cursor: pointer; }
-  .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem {
+  .page-new-mindmap-form #page-mindmap-upload-queue .uploadifyQueueItem {
     background: #FFF9DC;
-    border: solid 1px #EFEACE;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    margin: 0 0 10px 0;
-    padding: 10px;
+    border-style: none none solid none;
+    border-bottom-width: 1px;
+    padding: 15px;
     width: auto;
     color: #666; }
-    .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem .uploadifyProgress {
-      -moz-border-radius: 3px;
-      -webkit-border-radius: 3px;
-      border-radius: 3px;
+    .page-new-mindmap-form #page-mindmap-upload-queue .uploadifyQueueItem .uploadifyProgress {
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
       background-color: #EFEACE; }
-      .page-upload-mindmap #page-mindmap-upload-queue .uploadifyQueueItem .uploadifyProgress .uploadifyProgressBar {
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+      .page-new-mindmap-form #page-mindmap-upload-queue .uploadifyQueueItem .uploadifyProgress .uploadifyProgressBar {
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
         height: 12px;
         background-color: #4C8EFF; }
-  .page-upload-mindmap .upload {
+  .page-new-mindmap-form .upload {
     overflow: hidden;
     background: #FFF9DC;
-    border: solid 1px #EFEACE;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px; }
-    .page-upload-mindmap .upload .btn {
+    border-bottom: solid 1px #EFEACE;
+    padding: 15px; }
+    .page-new-mindmap-form .upload .btn {
       float: left;
       width: 93px;
       height: 21px;
       overflow: hidden;
       margin-right: 10px; }
-    .page-upload-mindmap .upload .desc {
+    .page-new-mindmap-form .upload .desc {
       float: left;
       color: #666;
       height: 21px;
@@ -7748,6 +7692,16 @@ $feed_width_1c:228px; /*240-10-2*/
     color: #555 !important;
     background-color: #E9E9E9;
     box-shadow: 0 1px 2px #eee; }
+
+.middlebutton.disabled, .middlebutton.blue.disabled {
+  background-color: #f4f4f4 !important;
+  border: solid 1px #ddd !important;
+  color: #aaa !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  cursor: default; }
+  .middlebutton.disabled:hover, .middlebutton.blue.disabled:hover {
+    color: #aaa !important; }
 
 .middlebutton.blue {
   -moz-border-radius: 5px;

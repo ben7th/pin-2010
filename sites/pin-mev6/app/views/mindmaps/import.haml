@@ -1,13 +1,11 @@
 -htitle "导入思维导图"
 
--content_for :javascript do
-  =javascript_include_tag '/uploadify/upload_mindmap'
+-hjavascript '/uploadify/upload_mindmap'
 
-.main.grid_18.no-line
-  .page-info-top
-    .meta
-      %h2 从文件导入思维导图
-  .page-upload-mindmap
+.main.grid_18
+  .page-new-mindmap-form.aj-submit-form
+    .ftitle 从文件导入思维导图
+
     .page-upload-mindmap-result{:style=>'display:none;'}
       .thumb
       .data
@@ -24,46 +22,42 @@
           .t
       .close
 
-    #page-mindmap-upload-queue
+    .queue#page-mindmap-upload-queue
     .upload
       .btn
         #page-mindmap-import-btn
-      .desc
-        选择要上传的导图文件，不超过4MB。支持 .mmap, .mm, .xmind, .imm
+      .desc 选择要上传的导图文件，不超过4MB。支持 .mm, .mmap, .xmind
 
     -form_for(@mindmap,:url=>'/mindmaps/do_import',:html=>{:multipart=>true}) do |f|
       =hidden_field_tag 'upload_temp_id',''
       .field.title
         %label 标题
-        = text_field_tag :'mindmap[title]','',:class=>'text disabled',:disabled=>'disabled'
-      .field.description
-        %label 描述 <span class='quiet font12'>(选填)</span>
-        = text_area_tag :'mindmap[description]','',:class=>'text disabled',:disabled=>'disabled'
+        .ip=text_field_tag :'mindmap[title]','',:class=>'text disabled',:disabled=>'disabled'
       .field.private
-        = f.check_box :private,:class=>'checkbox disabled',:disabled=>'disabled'
-        %span.disabled 这个导图只有我自己能看到
-      .field
-        =f.submit "好了，确定创建",:class=>'submit disabled',:disabled=>'disabled'
-        %span.marginl10=link_to '算了，取消','/'
+        %label 是否私有
+        .ip.pri
+          =f.check_box :private,:class=>'checkbox disabled',:disabled=>'disabled'
+          %span.disabled 这个导图只有我自己能看到
+      .field.sub
+        %a.middlebutton.blue.a-link-submit.disabled{:href=>'javascript:;'} 确定创建
+        %a.middlebutton.gray.marginl10{:href=>'/'} 取消
 
-.mside.grid_6.no-line
-  .page-sidepart
-    %p 我们支持以下导图软件格式：
-    %p
+.mside.grid_6
+  .page-new-mindmap-side
+    .p
+      我们支持以下导图软件格式：
+    .p
       %span.bold MMAP
       %span - MindManager
-    %p
+    .p
       %span.bold MM
       %span - FreeMind
-    %p
+    .p
       %span.bold XMIND
       %span - XMind
-    %p
-      %span.bold IMM
-      %span - Buzan's iMindMap
-    %p.margint10
+    .p.margint10
       选择文件并确定上传后，系统需要少许时间进行处理和转换，请耐心等待。
-    %p
+    .p
       我们能够确保基本导图结构的完好。<br/>
       但是由于MINDPIN导图编辑器仍需进一步完善，一些导图软件中的特定格式，如文字颜色，内嵌图片，导入后会有不同程度的丢失。
-      导入成功后原始文件也会被备份，随时可以从MINDPIN下载！
+      %span.bold 导入成功后原始文件也会被备份，随时可以从MINDPIN下载
