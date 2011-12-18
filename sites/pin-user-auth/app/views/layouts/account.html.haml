@@ -2,13 +2,12 @@
 %html{:lang=>"zh"}
   =render 'layouts/parts/head'
 
-  %body.echo
+  %body.echo.gray
     .page-wrap
       .page-container
         =render 'layouts/parts/account_nav'
         .page-content.container_24
-          .cell.clearfix
-            =yield
+          =yield
 
     =render 'layouts/parts/phide'
     =render 'layouts/parts/footer'

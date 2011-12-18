@@ -1,33 +1,32 @@
 -simple ||= false
 
 .page-header
-  .nav.dark.fixed
-    .container_24
-      .site-logo=link_to 'MINDPIN','/',:class=>'logo mindpin'
+  .container_24
+    .site-logo=link_to 'MINDPIN','/',:class=>'logo mindpin'
 
-      -if logged_in?
+    -if logged_in?
 
-        -user = current_user
-        -user_name = user.name
-        -homepage_url = "/users/#{user.id}"
+      -user = current_user
+      -user_name = user.name
+      -homepage_url = "/users/#{user.id}"
 
-        -index_url       = '/'
-        -collections_url = '/collections'
-        -contacts_url    = '/contacts'
+      -index_url       = '/'
+      -collections_url = '/collections'
+      -contacts_url    = '/contacts'
 
-        -notice_url  = '/notices'
-        -account_url = pin_url_for('pin-user-auth','/account?call=mindpin')
-        -logout_url  = pin_url_for('pin-user-auth','/logout')
+      -notice_url  = '/notices'
+      -account_url = pin_url_for('pin-user-auth','/account?call=mindpin')
+      -logout_url  = pin_url_for('pin-user-auth','/logout')
 
-        .nav-menu
-          -if !simple
-            %a{:href=>index_url,       :class=>'ali'} <div class="icon"></div><span>主题</span>
-            %a{:href=>collections_url, :class=>'ali'} <div class="icon"></div><span>收集册</span>
-            %a{:href=>contacts_url,    :class=>'ali'} <div class="icon"></div><span>人际关系</span>
+      .nav-menu
+        -if !simple
+          %a{:href=>index_url,       :class=>'ali'} <div class="icon"></div><span>主题</span>
+          %a{:href=>collections_url, :class=>'ali'} <div class="icon"></div><span>收集册</span>
+          %a{:href=>contacts_url,    :class=>'ali'} <div class="icon"></div><span>人际关系</span>
 
-          %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
+        %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
 
-          %a{:href=>notice_url,  :class=>'notices', :tip=>'通知', :'data-notices-count'=>current_user.tips_count} <div class="icon"></div><span>通知</span>
+        %a{:href=>notice_url,  :class=>'notices', :tip=>'通知', :'data-notices-count'=>current_user.tips_count} <div class="icon"></div><span>通知</span>
 
-          %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
-          %a{:href=>logout_url,  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>
+        %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
+        %a{:href=>logout_url,  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>

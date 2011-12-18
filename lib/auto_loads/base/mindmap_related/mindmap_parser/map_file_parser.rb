@@ -1,11 +1,15 @@
 require 'uuidtools'
 require 'xml/xslt'
 require "rexml/document"
-require 'rbconfig'
 require 'base64'
 
 class MapFileParser
 
+  def initialize(mindmap)
+    @mindmap  = mindmap
+    @document = mindmap.document
+  end
+  
   # 用 xslt 导入的导图节点 id 是 序列数字
   # 把这些序列数字传化成 randstr(20)
   def self.process_note_id_to_randstr(struct)
@@ -26,19 +30,11 @@ class MapFileParser
     xslt = XML::XSLT.new()
     xslt.xml = REXML::Document.new xml_str
     xslt.xsl = REXML::Document.new xslt_str
-    out=xslt.serve()
-    system_os = Config::CONFIG['host_os']
-    if system_os=="mswin32"
-      out.to_s
-    elsif system_os=="linux-gnu"
-      out.to_s.gsub(/&amp;/,'&')
-    else
-      out.to_s
-    end
+    xslt.serve().to_s.gsub(/&amp;/, '&')
   end
 
-  def self.xslt_transform(sourcepath,xsltpath)
-    self.xslt_transform_form_filepath(sourcepath,xsltpath)
+  def self.xslt_transform(sourcepath, xsltpath)
+    self.xslt_transform_form_filepath(sourcepath, xsltpath)
   end
 
   def self.xslt_file_path(file_name)
@@ -48,5 +44,12 @@ class MapFileParser
   def self.depend_file_path
     File.dirname(File.expand_path(__FILE__))
   end
-  
+
+  def self.reduce_string_br(str)
+    str1 = str.gsub(/<\/?[^>]*>/, '<br>')
+    str1.gsub!(/(<\/?br>)+/, "\n")
+    str1.gsub!(/^(\n)+/, '')
+    str1.gsub!('&nbsp;', '')
+    str1
+  end
 end

@@ -1,28 +1,25 @@
-
-
 .page-header
-  .nav.dark.fixed
-    .container_24
-      .site-logo=link_to '思维导图','/',:class=>'logo daotu'
+  .container_24
+    .site-logo=link_to '思维导图','/',:class=>'logo daotu'
 
-      -if logged_in?
+    -if logged_in?
 
-        -user = current_user
-        -user_name = user.name
-        -homepage_url = "/users/#{user.id}"
+      -user = current_user
+      -user_name = user.name
+      -homepage_url = "/users/#{user.id}"
 
-        -account_url = pin_url_for('pin-user-auth','/account?call=tu')
-        -logout_url  = pin_url_for('pin-user-auth','/logout?call=tu')
+      -account_url = pin_url_for('pin-user-auth','/account?call=tu')
+      -logout_url  = pin_url_for('pin-user-auth','/logout?call=tu')
 
-        .mindmap-search-form>
-          %form{:action=>"/mindmaps/search",:method=>"get"}>
-            .field
-              %label 搜索思维导图
-              %input.inline.text{:name=>"q",:type=>"text",:class=>'j-tip'}>
-              =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
+      .mindmap-search-form>
+        %form{:action=>"/mindmaps/search",:method=>"get"}>
+          .field
+            %label 搜索思维导图
+            %input.inline.text{:name=>"q",:type=>"text",:class=>'j-tip'}>
+            =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
 
-        .nav-menu
-          %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
+      .nav-menu
+        %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
 
-          %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
-          %a{:href=>logout_url,  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>
+        %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
+        %a{:href=>logout_url,  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>

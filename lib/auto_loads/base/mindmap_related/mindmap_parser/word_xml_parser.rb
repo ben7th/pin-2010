@@ -29,7 +29,7 @@ class WordXmlParser < MapFileParser
         wp = Nokogiri::XML::Node.new('w:p', out_xml)
         wp.default_namespace=("http://schemas.microsoft.com/office/word/2003/wordml")
 
-        note.replace_html_enter_tags_to_text.split("\n").each{|text|
+        reduce_string_br(note).split("\n").each{|text|
           wr = Nokogiri::XML::Node.new('w:r', wp)
           wt = Nokogiri::XML::Node.new('w:t', wp)
           wt.inner_html = text

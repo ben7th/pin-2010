@@ -28,10 +28,10 @@ class MindmapImportAdpater
     type = name_splits.pop
 
     str = case type
-    when 'mmap' then "Mindmanager"
-    when 'mm' then "Freemind"
+    when 'mmap'  then "Mindmanager"
+    when 'mm'    then "Freemind"
     when 'xmind' then "Xmind"
-    when 'imm' then "Imindmap"
+    when 'imm'   then "Imindmap"
     else
       raise UnSupportFormatError,"不支持的导图格式"
     end

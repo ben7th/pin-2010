@@ -83,11 +83,6 @@
 }
 
 .avatar{font-size:0px;line-height:0px;overflow:hidden;}
-.avatar img,.avatars img,.icons img{
-  @include border-radius(2px);
-  padding:1px;
-}
-
 
 .topl{
   overflow:hidden;

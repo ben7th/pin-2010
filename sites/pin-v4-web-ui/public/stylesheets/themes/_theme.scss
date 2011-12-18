@@ -1,12 +1,30 @@
-/*顶部*/
-.page-header{
-  .nav.dark{
+body{
+  background-color:#fff;
+  a{color:#2C6FDD;&:hover{color:#4C8FFD;}}
+      
+  .page-footer{
+    .ct{
+      height:30px;line-height:30px;
+      text-align:center;
+    }
+  }
+  
+  &.gray{background:url(/images/bodybgs/body_bg_gray_1204.jpg) #eee;}
+  &.dark{background:url(/images/bodybgs/body_bg_dark.jpg) #343942;
+    .page-footer{
+      .ct{
+        color:#f1f1f1;
+        text-shadow:0 0 3px black;
+      }
+    }
+  }
+  
+  .page-header{
     background-color:rgba(51,51,51,0.9);
     @include gradient(rgba(51,51,51,0.9), rgba(17,17,17,0.9));
-    border-bottom:none;
-    height:72px;
     
-    &.fixed{position:fixed;top:0;width:100%;z-index:99;}
+    height:72px;width:100%;
+    position:fixed;top:0;z-index:99;
     
     .site-logo{
       float:left;
@@ -17,7 +35,7 @@
         display:block;font-size:0px;line-height:22em;overflow:hidden;
         &.mindpin{background:url(/images/alltu.png) -394px -1px;}
         &.account{background:url(/images/alltu.png) -394px -100px;}
-        &.daotu{  background:url(/images/alltu.png) -98px  -1px;}
+        &.daotu  {background:url(/images/alltu.png) -98px  -1px;}
       }
     }
     
@@ -104,8 +122,21 @@
         }
       }
     }
-    
+  }
+
+  .page-content{
+    color:#333333;
+    padding-top:72px;
+    .loud{color:#FB4A00 !important;}
+    .quiet,.date{color:#A5A5A5 !important;}
+    .main{padding:20px 0 60px;}
+    .mside{padding:20px 0 60px;}
   }
 }
 
-@import "main_and_side"
+input.text, textarea{
+  background-color:#fff;
+  border:solid 1px #ccc;
+  box-shadow:0 0 3px rgba(0, 0, 0, 0.1) inset;
+  &.active{background-color:#ffffea;}
+}

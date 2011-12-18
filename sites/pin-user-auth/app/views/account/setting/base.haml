@@ -1,34 +1,37 @@
 -#use 用户基本信息设置
 -#see 用户设置->基本信息
 
+-user  = current_user
+-email = user.email
+-name  = user.name
+-sign  = user.sign
+
 -htitle "基本信息设置"
 
 .mside.grid_5
   =render 'account/parts/account_links'
 
-.main.grid_19.ll
-  .page-title-bar
-    .meta
-      %h2 你可以在这里设置你平常使用的用户昵称以及签名档
-
-  .paddingl20
-    = flash_info
-    .page-account-base-form.aj-submit-form
-      - form_for current_user,:url=>"/account",:html=>{:method=>:put} do |f|
+.main.grid_19
+  .page-setting-base
+    .title 基本信息设置
+    .form.base.aj-submit-form
+      = flash_info
+      - form_for user,:url=>"/account", :html=>{:method=>:put} do |f|
+        .field
+          %label 电子邮件
+          .ip.mail=email
         .field
           %label 用户名
-          = text_field_tag :name,current_user.name,:class=>'text'
+          .ip=text_field_tag :name, name, :class=>'text'
         .field
           %label 签名档
-          = text_area_tag :sign,current_user.sign,:class=>'text',:style=>'width:200px;'
+          .ip=text_area_tag :sign, sign, :class=>'text', :style=>'width:200px;'
         .field
-          %label 旧密码
-          = password_field_tag :old_password,'',:class=>'text'
+          %label 现在的密码
+          .ip=password_field_tag :old_password,'',:class=>'text'
         .field
           %label 新密码
-          = password_field_tag :new_password,'',:class=>'text'
-        .field
-          %label 确认新密码
-          = password_field_tag :new_password_confirmation,'',:class=>'text'
-        .field
-          = link_to '保存更改','javascript:;',:class=>'account-submit a-link-submit'
+          .ip.new-password=password_field_tag :new_password,'',:class=>'text'
+          .ip=password_field_tag :new_password_confirmation,'',:class=>'text'
+        .field.sub
+          = link_to '保存更改','javascript:;',:class=>'middlebutton blue a-link-submit'

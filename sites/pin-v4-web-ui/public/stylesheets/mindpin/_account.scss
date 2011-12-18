@@ -1,25 +1,134 @@
-.email_setting{
-  .mail{
-    span{
-      @include border-radius(4px);
-      font-size:24px;
-      padding:6px;
-      font-weight:bold;
-      background:#388FFF;
-      color:white;
-      text-shadow:-1px -1px rgba(0,0,0,0.4);
+.page-account-links{
+  .link{
+    font-size:14px;margin-bottom:9px;
+    @include border-radius(4px);
+    background-color:#eee;border:solid 1px #ddd;
+    @include transition(background-color .5s ease-in);
+    &:hover{background-color:#fafafa;}
+    
+    &.selected{
+      background-color:#666666;border:solid 1px #444;
+      a{color:white;&:hover{color:white;}}
+    }
+    
+    a{
+      padding:4px 8px;
+      display:block;
+      height:24px;
+      line-height:24px;
+      color:#555;
+      &:hover{
+        color:#555;
+      };
+    }
+    
+    .icon{
+      float:left;
+      width:24px;
+      height:24px;
+      margin-right:8px;
     }
   }
-  .email_activated{
-    @include border-radius(4px);
-    width:150px;
-    font-size:14px;
-    margin:0 0 10px 0;
+
+  .base{
+    .icon{background:url(/images/alltu.png) no-repeat -60px -50px;}
+    &.selected{.icon{background:url(/images/alltu.png) no-repeat -60px -75px;}}
+  }
+  .avatared{
+    .icon{background:url(/images/alltu.png) no-repeat -35px -50px;}
+    &.selected{.icon{background:url(/images/alltu.png) no-repeat -35px -75px;}}
+  }
+  .bind-tsina{
+    .icon{background:url(/images/alltu.png) no-repeat -85px -50px;}
   }
 }
 
-.message-setting{
-  span.dc{font-size:14px;}
+.page-setting-base{
+  background-color:#fff;
+  border:solid 1px #ddd;
+  .title{
+    padding:14px;background-color:#fafafa;
+    border-bottom:solid 1px #eee;
+    font-size:14px;font-weight:bold;
+  }
+  .form{
+    padding:14px;
+    &.base .field{
+      overflow:hidden;
+      background-color:#f7f7f7;
+      border-top:solid 1px #ddd;
+      margin-bottom:0;
+      
+      label{
+        float:left;
+        padding:15px;
+        text-align:right;
+        font-size:14px;
+        font-weight:bold;
+        line-height:32px;height:32px;
+        width:150px;
+        color:#666;
+      }
+      .ip{
+        margin-left:180px;background-color:#FFF;
+        padding:15px;
+        &.new-password{
+          padding-bottom:0;
+        }
+        &.mail{
+          line-height:32px;
+          font-size:14px;font-weight:bold;
+          color:#000;
+        }
+      }
+      
+      &.sub{
+        padding:15px 0 0;
+        background-color:#fff;
+        text-align:right;
+      }
+    }
+    
+    .field.sub{
+      margin-bottom:0;
+    }
+  }
+  
+  /*用户设置页，关联新浪微博*/
+  .page-account-bind-tsina{
+    padding:15px;
+    overflow:visible;
+    
+    .img-intro{
+      width:316px;height:293px;
+      background:url(/images/share/connect_tsina.png) no-repeat;
+      margin-bottom:20px;
+    }
+    .desc{
+      font-size:14px;margin-bottom:20px;
+    }
+    
+    a.bind-btn{
+      display:block;
+      font-size:14px;font-weight:bold;
+      color:white;
+      @include border-radius(3px);
+      background-color:#ED3800;
+      border:solid 1px #D31900;
+      width:160px;
+      height:40px;line-height:40px;
+      text-align:center;
+      text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
+      margin-bottom:10px;
+      &:hover{
+        text-decoration:none;
+        background-color:#EF3A02;
+        color:white;
+        border:solid 1px #C30900;
+        box-shadow:0 1px 2px #ccc;
+      }
+    } 
+  }
 }
 
 /*新浪微博账号信息*/
@@ -98,43 +207,6 @@
     right:9px;
     top:10px;
   }
-}
-
-/*用户设置页，关联新浪微博*/
-.page-account-bind-tsina{
-  padding:0 20px;
-  overflow:visible;
-  
-  .img-intro{
-    width:316px;height:293px;
-    background:url(/images/share/connect_tsina.png) no-repeat;
-    margin-bottom:20px;
-  }
-  .desc{
-    font-size:14px;margin-bottom:20px;
-  }
-  
-  a.bind-btn{
-    display:block;
-    font-size:14px;font-weight:bold;
-    color:white;
-    @include border-radius(3px);
-    background-color:#ED3800;
-    border:solid 1px #D31900;
-    width:160px;
-    height:40px;line-height:40px;
-    text-align:center;
-    text-shadow:0px 0px 2px rgba(0, 0, 0, 0.9);
-    margin-bottom:10px;
-    &:hover{
-      text-decoration:none;
-      background-color:#EF3A02;
-      color:white;
-      border:solid 1px #C30900;
-      box-shadow:0 1px 2px #ccc;
-    }
-  }
-  
 }
 
 /*使用其他网站账号登录，账号选择（新账号，老账号）*/
@@ -288,31 +360,14 @@
   }
 }
 
-.page-account-base-form{
-  .field{
-    overflow:hidden;
-    a.account-submit{
-      @include form-a-link-submit;
-      float:left;
-      margin-right:10px;
-    }
-    a.account-cancel{
-      @include form-a-link-cancel;
-      float:left;
-    }
-  }
-}
-
 .page-copper-avatar{
   .old-img,.cutted-img{
     background-color:#Fafafa;
     padding:5px;
-    border:solid 1px #eee;
-    @include border-radius(3px);
+    border:solid 1px #ddd;
     margin-bottom:10px;
   }
   .cutted-img{
     width:100px;
-    margin:0;
   }
 }

@@ -3,12 +3,7 @@
 
 -binded_tsina = current_user.has_binded_sina?
 
-.module-links.account
+.page-account-links
   =account_setting_link "基本信息","/account","base"
   =account_setting_link "修改头像","/account/avatared","avatared"
   =account_setting_link "关联新浪微博","/account/tsina","bind-tsina"
-
-  .exit-account-setting
-    -site = session[:account_setting_from_site_flag]
-    -site = 'pin-user-auth' if site.blank?
-    =minibutton '离开用户设置',pin_url_for(site)

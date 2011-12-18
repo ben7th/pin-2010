@@ -1,9 +1,12 @@
+-site = session[:account_setting_from_site_flag]
+-site = 'pin-user-auth' if site.blank?
+-exit_url = pin_url_for(site)
+
 .page-header
-  .nav.dark
-    .container_24
-      .site-logo
-        -if session[:account_setting_from_site_flag] == 'tu'
-          =link_to '思维导图',pin_url_for('pin-daotu'),:class=>'logo account'
-        -else
-          =link_to '思维导图',pin_url_for('pin-user-auth'),:class=>'logo account'
+  .container_24
+    .site-logo
+      =link_to 'MINDPIN', exit_url, :class=>'logo account'
+
+    .nav-menu
+      %a.middlebutton.logingray{:href=>exit_url} 退出用户设置
       

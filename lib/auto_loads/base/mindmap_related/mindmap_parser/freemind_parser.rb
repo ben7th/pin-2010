@@ -47,7 +47,7 @@ class FreemindParser < MapFileParser
           new_node = Nokogiri::XML::Node.new('hook',nokogiri_doc)
           new_node["name"] = "accessories/plugins/NodeNote.properties"
           text = Nokogiri::XML::Node.new('text',nokogiri_doc)
-          text.content = "#{note.replace_html_enter_tags_to_text}"
+          text.content = reduce_string_br(note)
           new_node.add_child(text)
           n.add_child(new_node)
         end

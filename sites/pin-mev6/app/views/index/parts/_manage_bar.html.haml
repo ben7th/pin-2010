@@ -2,14 +2,11 @@
 -import_url = '/mindmaps/import'
 
 .page-mindmaps-top
-  .grid_3.alpha
-    .avatar
-      -link_to current_user do
-        =avatar current_user
-
+  .avatar
+    -link_to current_user do
+      =avatar current_user
   .arrow
-  .grid_14.omega
-    .box
-      .ops
-        =link_to '<span class="icon"></span><span>新建</span>',new_url,    :class=>'new'
-        =link_to '<span class="icon"></span><span>导入</span>',import_url, :class=>'import'
+  .box
+    .ops
+      =link_to '<div class="icon"></div><div class="txt">新建</div>', new_url,    :class=>'new'
+      =link_to '<div class="icon"></div><div class="txt">导入</div>', import_url, :class=>'import'

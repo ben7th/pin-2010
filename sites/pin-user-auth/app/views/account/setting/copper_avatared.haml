@@ -10,38 +10,30 @@
 - width  = @temp_image_size[:width]
 - height = @temp_image_size[:height]
 
-- temp_image_url = @temp_image_url
+- temp_image_url = "#{@temp_image_url}?#{randstr}"
 
 .mside.grid_5
   =render 'account/parts/account_links'
 
 .main.grid_19.ll
-  .page-title-bar
-    .meta
-      %h2 请在下面选择要裁剪的范围
+  .page-copper-avatar
+    .old-img
+      .font14.bold 上传的原始图片
+      %img#img_with_preview{:src=>temp_image_url,:style=>"width:#{width}px;height:#{height}px;"}
 
-  .paddingl20
-    .page-copper-avatar
+    .cutted-img
+      .font14.bold 裁剪后的图片
+      #preview_wrap{:style=>'width:48px;height:48px;'}
 
-      .old-img
-        .title.font14.bold 原始图片
+    .form.aj-submit-form
+      - form_tag "/account/avatared_submit_copper",:id=>"copper_form" do
+        = hidden_field_tag :x1,     100
+        = hidden_field_tag :y1,     100
+        = hidden_field_tag :width , 200
+        = hidden_field_tag :height, 200
 
-        %img#img_with_preview{:src=>temp_image_url,:style=>"width:#{width}px;height:#{height}px;"}
-
-      .cutted-img
-        .title.font14.bold 裁剪后的图片
-        #preview_wrap{:style=>'width:48px;height:48px;'}
-
-      .margint10
-        .page-account-base-form.aj-submit-form
-          - form_tag "/account/avatared_submit_copper",:id=>"copper_form" do
-            = hidden_field_tag :x1,     100
-            = hidden_field_tag :y1,     100
-            = hidden_field_tag :width , 200
-            = hidden_field_tag :height, 200
-
-            .field
-              = link_to '保存更改','javascript:;',:class=>'account-submit a-link-submit'
-              = link_to '取消',pin_url_for('pin-user-auth','/account/avatared'),:class=>'account-cancel'
+        .field.sub
+          = link_to '保存更改','javascript:;',:class=>'middlebutton blue a-link-submit'
+          = link_to '取消',pin_url_for('pin-user-auth','/account/avatared'),:class=>'middlebutton gray account-cancel'
 
   

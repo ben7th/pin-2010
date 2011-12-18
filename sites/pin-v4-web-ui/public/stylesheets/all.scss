@@ -26,14 +26,13 @@
 @import 'ui/2-mindpin/uploadify';
 
 /*主题皮肤*/
-@import 'themes/2011/theme';
+@import 'themes/theme';
 
 /*mindpin*/
 @import 'mindpin/base_layout';
 @import 'mindpin/feed_form';
 @import 'mindpin/feed_show';
 @import 'mindpin/channel';
-@import 'mindpin/module_links';
 @import 'mindpin/account';
 @import 'mindpin/user_page';
 @import 'mindpin/anonymous';
@@ -50,7 +49,6 @@
 @import 'mindpin/modules/new_forms/mindmap';
 
 @import 'mindpin/modules/olists/collection';
-@import 'mindpin/modules/olists/mindmap';
 @import 'mindpin/modules/olists/following';
 @import 'mindpin/modules/olists/post_draft';
 
