@@ -3,7 +3,6 @@ class FeedsController < ApplicationController
   include FeedsControllerInviteMethods
 
   before_filter :login_required,:except=>[:index,:no_reply,:newest,:search,:show,:aj_comments]
-  skip_before_filter :verify_authenticity_token,:only=>[:create]
 
   before_filter :pre_load
   def pre_load

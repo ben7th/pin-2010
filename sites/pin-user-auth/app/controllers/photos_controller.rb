@@ -1,6 +1,5 @@
 class PhotosController < ApplicationController
   before_filter :login_required
-  skip_before_filter :verify_authenticity_token, :only=>[:upload_for_feed]
 
   def upload_for_feed
     photo = PhotoAdpater.create_photo_by_upload_file(current_user, params[:file])

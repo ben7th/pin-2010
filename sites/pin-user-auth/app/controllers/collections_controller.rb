@@ -1,9 +1,6 @@
 class CollectionsController < ApplicationController
   before_filter :login_required
   before_filter :per_load
-  skip_before_filter :verify_authenticity_token,
-    :only=>[:index,:create,:destroy,:change_name]
-  
   def per_load
     @collection = Collection.find(params[:id]) if params[:id]
   end

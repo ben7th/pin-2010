@@ -1,8 +1,4 @@
 module MindmapImportControllerMethods
-  def self.included(base)
-    base.skip_before_filter :verify_authenticity_token,:only=>[:upload_import_file]
-  end
-
   def import
     @mindmap = Mindmap.new
   end

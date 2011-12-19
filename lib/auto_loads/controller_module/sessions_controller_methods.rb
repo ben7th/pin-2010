@@ -1,9 +1,4 @@
 module SessionsControllerMethods
-  def self.included(base)
-    # 登录表单不进行csrf校验
-    base.skip_before_filter :verify_authenticity_token
-  end
-
   # 登录
   def new
     return redirect_back_or_default(root_url) if logged_in?
