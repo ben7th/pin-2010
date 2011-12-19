@@ -1,15 +1,15 @@
-%h3 数据共享
-.mindmap-export.padding5
-  =render :partial=>'mindmap_editor/module/export'
+.box
+  .part
+    .title 数据下载
+    .mindmap-export.padding5
+      =render 'mindmap_editor/module/export'
 
--page_url = pin_url_for('pin-daotu',"/mindmaps/#{@mindmap.id}/info")
--page_title = "MindPin思维导图：#{@mindmap.title}"
--newest_pic_url = mindmap_thumb_url_for_share(@mindmap)
+  .part
+    .title 分享导图
+    .padding5
+      =render 'mindmaps/list/share',:mindmap=>@mindmap
 
-.share.padding5
-  -win_url = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
-  =link_to '分享到新浪微博',"javascript:pie.open_win('#{win_url}',610,510,pie.randstr());",:class=>'share_to tsina',:tip=>'分享到新浪微博'
-
-%h3 相关导图
-.padding5
-  =render :partial=>'mindmap_editor/module/similar_mindmaps'
+  .part
+    .title 相关导图
+    .padding5
+      =render 'mindmap_editor/module/similar_mindmaps'

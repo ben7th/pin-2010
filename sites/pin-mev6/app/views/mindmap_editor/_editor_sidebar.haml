@@ -1,27 +1,18 @@
--accordion_bar do
-  -accordion_item '数据导出和下载' do
+.box
+  .part
+    .title 数据下载
     .mindmap-export.padding5
       =render 'mindmap_editor/module/export'
 
-  -accordion_item '节点备注显示' do
+  .part
+    .title 节点备注
     .mindmap-note-sidebar
       .blank-text.quiet 没有备注信息
       .text{:style=>'display:none;'}
       .ops
         =minibutton '编辑备注','javascript:;',:class=>'edit'
 
-  -accordion_item '相关导图' do
+  .part
+    .title 相关导图
     .padding5
       =render 'mindmap_editor/module/similar_mindmaps'
-
--#  暂时还用不上喔
--#  -accordion_item '快照',:bgc=>"#98BC48",:open=>true do
--#    .padding5
--#      %ul.snapshots-list
--#        -@mindmap.snapshot_commits.each do |c|
--#          %li
--#            =show_commit_stat(c)
--#            =c.message
--#            =link_to '恢复',"/mindmaps/#{@mindmap.id}/snapshots/#{c.id}/recover",:method=>'PUT',:confirm=>'恢复这个快照，当前正在编辑的信息将丢失，确定吗？'
--#      .buttons
--#        =minibutton_remote '创建快照',:url=>"/mindmaps/#{@mindmap.id}/snapshots/new",:method=>'GET'

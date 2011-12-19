@@ -1,8 +1,8 @@
 !!! 5
 %html{:lang=>"zh"}
   =render 'layouts/parts/head'
-  %body.echo
-    .page-content
+  %body.echo.gray
+    .page-content.fullscreen
       =yield
 
     =javascript_include_tag pin_url_for('ui',"javascripts/lib/prototype/protoaculous.1.8.3.min.js?#{ENV['RAILS_ASSET_ID']}")

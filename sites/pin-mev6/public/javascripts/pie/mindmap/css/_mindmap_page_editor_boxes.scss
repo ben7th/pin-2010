@@ -91,6 +91,10 @@
 
 .page-mindmap-note-editor{
   @include editor_base;
+  textarea#node-note{
+    width:400px;
+    height:300px;
+  }
 }
 
 /*字号颜色选择器*/

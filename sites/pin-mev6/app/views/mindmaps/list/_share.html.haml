@@ -3,7 +3,7 @@
 
 -page_url = pin_url_for('pin-daotu',"/mindmaps/#{mindmap.id}")
 -page_title = "从mindpin分享思维导图：『#{mindmap.title}』- 作者：#{creator_name}"
--newest_pic_url = mindmap_thumb_url_for_share(mindmap)
+-newest_pic_url = mindmap.thumb_image_url('500x500')
 
 -tsina_url  = "http://service.weibo.com/share/share.php?url=#{page_url}&appkey=1526151944&title=#{page_title}&pic=#{newest_pic_url}&ralateUid="
 

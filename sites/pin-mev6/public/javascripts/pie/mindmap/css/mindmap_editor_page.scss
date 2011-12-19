@@ -13,74 +13,44 @@ body{
   width:100%;
   overflow:hidden;
   height:30px;
-  background:#444444;
+  background:#444;
+  background:rgba(51,51,51,0.9);
   color:white;
-
-  .map-logo{
-    float:left;
-    width:20px;
-    height:20px;
-    @include border-radius(4px);
-    background:url(/images/mindmap_logo_20.png);
-    margin:5px;
-  }
 
   .map-title{
     float:left;
-    margin-right:20px;
-    font-size:14px;
+    margin-left:20px;
+    font-size:12px;
     font-weight:bold;
-    line-height:30px;
-    a{
-      color:#E4F1FF;
-    }
+    height:30px;line-height:30px;
+    a{color:#fff;}
   }
 
   .map-creator{
     float:left;
     overflow:hidden;
-    margin-right:20px;
-    line-height:30px;
+    margin-left:20px;
+    height:30px;line-height:30px;
     .avatar{
-      float:left;
+      float:left;margin-right:10px;
       img.logo{
-        width:20px;height:20px;@include border-radius(4px);
+        width:24px;height:24px;
         border:0;padding:0;
-        margin:5px;
+        margin:3px;
       }
     }
     .name{
       float:left;
-      a{
-        color:#E4F1FF;
-      }
+      a{color:#fff;}
     }
   }
 
   .map-timestamp{
     float:left;
-    margin-right:20px;
-    line-height:30px;
-    .date{
-      color:#ccc !important;
-    }
+    margin-left:20px;
+    height:30px;line-height:30px;
   }
 
-  .map-export{
-    float:left;
-    margin-right:20px;
-    line-height:30px;
-    .minibutton{
-      box-shadow:none;
-    }
-    span.ex{
-      margin-left:5px;
-      a{
-        color:#FBF3CA;
-        font-weight:bold;
-      }
-    }
-  }
   .map-close{
     float:right;
     margin-right:10px;
@@ -89,9 +59,9 @@ body{
       float:left;
       color:#fff;
       font-weight:bold;
-      background:url(/images/close.png) no-repeat left 10px;
+      background:url(/images/close.png) no-repeat left 8px;
       padding-left:20px;
-      line-height:35px;
+      height:30px;line-height:30px;
     }
   }
 }
@@ -100,65 +70,37 @@ body{
   clear:both;
   overflow:hidden;
   position:relative;
+
   #mindmap-sidebar{
     *display:inline;
     width:210px;
     float:right;
     overflow:hidden;
     height:100%;
-    background-color:#F7F7F7 !important;
-    .mpaccordion-bar{
-      .mpaccordion-toggler{
-        border-top:solid 1px #444;
-        border-bottom:solid 1px #444;
-        @include gradient(#888888, #444444);
-        color:white;
-      }
-      .mpaccordion-content{
 
+    .box{
+      padding:5px;
+      .part{
+        border:solid 1px #ddd;
+        background-color:#fff;
+        margin-bottom:5px;
+        .title{
+          background-color:#f7f7f7;
+          border-bottom:solid 1px #eee;
+          padding:5px;
+        }
       }
     }
+
     .mindmap-note-sidebar{
       padding:5px;
-      /*210x133 200x123*/
       .blank-text,.text{
         padding:5px;
-        width:190px !important;
-        height:113px !important;
+        width:178px !important;
+        height:150px !important;
         background-color:#f1f1f1;
         margin:0 0 5px 0;
         overflow:auto;
-      }
-    }
-    .snapshots-list{
-      margin-bottom:5px;
-    }
-    .chat-box{
-      .chat-list{
-        height:150px;
-        background-color:white;
-        margin-bottom:5px;
-        @include border-radius(2px);
-        color:#111;
-        overflow-y:scroll;
-        .chat-start{
-          color:#999;
-          padding:0 5px;
-        }
-        .chat-line{
-          padding:0 5px;
-          .username{
-            font-weight:bold;
-          }
-        }
-      }
-      .chat-form{
-        #chat-inputer{
-          height:21px !important;
-          padding:0 5px !important;
-          width:190px;
-          font-size:12px;
-        }
       }
     }
   }
@@ -272,32 +214,6 @@ body{
           .oo,hr{display:none;}
           h5{margin-bottom:0;}
         }
-      }
-    }
-  }
-  &.viewer{
-    background:#fff !important;
-    #mindmap-sidebar{
-      background:#fff !important;
-      color:black;
-      .mindmap-export,.share{
-        border-bottom:solid 1px #CDD7DB;
-      }
-      h3{
-        padding:5px;
-      }
-      a{
-        &:hover{
-        }
-      }
-      a.share_to{
-        padding-left:20px;
-        color:#082F42;
-        display:block;
-        margin:3px 0;
-        &.tsina{background:url(/images/share/tsina.png) no-repeat;}
-        &.renren{background:url(/images/share/renren.png) no-repeat;}
-        &.douban{background:url(/images/share/douban.png) no-repeat;}
       }
     }
   }

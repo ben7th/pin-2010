@@ -2311,6 +2311,9 @@ body {
       padding: 20px 0 60px; }
     body .page-content .mside {
       padding: 20px 0 60px; }
+    body .page-content.fullscreen {
+      padding: 0;
+      margin: 0; }
 
 input.text, textarea {
   background-color: #fff;
@@ -6046,35 +6049,44 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       width: 48px;
       height: 48px;
       float: left;
-      -moz-transition: background-color 0.5s ease-in;
-      -webkit-transition: background-color 0.5s ease-in;
-      transition: background-color 0.5s ease-in;
-      background-color: #f1f1f1;
+      -moz-transition: background-color 0.5s ease-in, border-color 0.5s ease-in;
+      -webkit-transition: background-color 0.5s ease-in, border-color 0.5s ease-in;
+      transition: background-color 0.5s ease-in, border-color 0.5s ease-in;
       -moz-border-radius: 3px;
       -webkit-border-radius: 3px;
-      border-radius: 3px;
-      border: solid 1px #ddd; }
-      .page-mindmaps-top .box a.new:hover, .page-mindmaps-top .box a.import:hover {
-        text-decoration: none;
-        background-color: #fafafa; }
+      border-radius: 3px; }
       .page-mindmaps-top .box a.new .icon, .page-mindmaps-top .box a.import .icon {
         width: 24px;
         height: 24px;
         margin-left: 12px;
         margin-top: 2px; }
       .page-mindmaps-top .box a.new .txt, .page-mindmaps-top .box a.import .txt {
-        color: #555;
+        color: white;
+        text-shadow: 0 0 2px #444444;
         width: 48px;
         text-align: center;
         height: 20px;
         line-height: 20px;
         font-weight: bold; }
     .page-mindmaps-top .box a.new {
-      margin-right: 9px; }
+      margin-right: 9px;
+      background-color: #4C8FFD;
+      border: solid 1px #10698D; }
+      .page-mindmaps-top .box a.new:hover {
+        text-decoration: none;
+        background-color: #444;
+        border-color: #333; }
       .page-mindmaps-top .box a.new .icon {
         background: url(/images/alltu.png) -60px -100px; }
-    .page-mindmaps-top .box a.import .icon {
-      background: url(/images/alltu.png) -35px -100px; }
+    .page-mindmaps-top .box a.import {
+      background-color: #4CBBFD;
+      border: solid 1px #30A8ED; }
+      .page-mindmaps-top .box a.import:hover {
+        text-decoration: none;
+        background-color: #444;
+        border-color: #333; }
+      .page-mindmaps-top .box a.import .icon {
+        background: url(/images/alltu.png) -35px -100px; }
 
 .page-olist.mindmaps .list-blank {
   -moz-border-radius: 3px;

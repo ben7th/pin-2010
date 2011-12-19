@@ -131,6 +131,10 @@ body{
     .quiet,.date{color:#A5A5A5 !important;}
     .main{padding:20px 0 60px;}
     .mside{padding:20px 0 60px;}
+    
+    &.fullscreen{
+      padding:0;margin:0;
+    }
   }
 }
 

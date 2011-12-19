@@ -10,62 +10,42 @@ body {
   width: 100%;
   overflow: hidden;
   height: 30px;
-  background: #444444;
+  background: #444;
+  background: rgba(51, 51, 51, 0.9);
   color: white; }
-  #mindmap-toolbar .map-logo {
-    float: left;
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    background: url(/images/mindmap_logo_20.png);
-    margin: 5px; }
   #mindmap-toolbar .map-title {
     float: left;
-    margin-right: 20px;
-    font-size: 14px;
+    margin-left: 20px;
+    font-size: 12px;
     font-weight: bold;
+    height: 30px;
     line-height: 30px; }
     #mindmap-toolbar .map-title a {
-      color: #E4F1FF; }
+      color: #fff; }
   #mindmap-toolbar .map-creator {
     float: left;
     overflow: hidden;
-    margin-right: 20px;
+    margin-left: 20px;
+    height: 30px;
     line-height: 30px; }
     #mindmap-toolbar .map-creator .avatar {
-      float: left; }
+      float: left;
+      margin-right: 10px; }
       #mindmap-toolbar .map-creator .avatar img.logo {
-        width: 20px;
-        height: 20px;
-        border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
+        width: 24px;
+        height: 24px;
         border: 0;
         padding: 0;
-        margin: 5px; }
+        margin: 3px; }
     #mindmap-toolbar .map-creator .name {
       float: left; }
       #mindmap-toolbar .map-creator .name a {
-        color: #E4F1FF; }
+        color: #fff; }
   #mindmap-toolbar .map-timestamp {
     float: left;
-    margin-right: 20px;
+    margin-left: 20px;
+    height: 30px;
     line-height: 30px; }
-    #mindmap-toolbar .map-timestamp .date {
-      color: #ccc !important; }
-  #mindmap-toolbar .map-export {
-    float: left;
-    margin-right: 20px;
-    line-height: 30px; }
-    #mindmap-toolbar .map-export .minibutton {
-      box-shadow: none; }
-    #mindmap-toolbar .map-export span.ex {
-      margin-left: 5px; }
-      #mindmap-toolbar .map-export span.ex a {
-        color: #FBF3CA;
-        font-weight: bold; }
   #mindmap-toolbar .map-close {
     float: right;
     margin-right: 10px;
@@ -74,9 +54,10 @@ body {
       float: left;
       color: #fff;
       font-weight: bold;
-      background: url(/images/close.png) no-repeat left 10px;
+      background: url(/images/close.png) no-repeat left 8px;
       padding-left: 20px;
-      line-height: 35px; }
+      height: 30px;
+      line-height: 30px; }
 
 #mindmap-main {
   clear: both;
@@ -87,48 +68,26 @@ body {
     width: 210px;
     float: right;
     overflow: hidden;
-    height: 100%;
-    background-color: #F7F7F7 !important; }
-    #mindmap-main #mindmap-sidebar .mpaccordion-bar .mpaccordion-toggler {
-      border-top: solid 1px #444;
-      border-bottom: solid 1px #444;
-      background: -moz-linear-gradient(-90deg, #888888, #444444);
-      background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#888888), to(#444444));
-      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#888888',endColorstr='#444444');
-      color: white; }
+    height: 100%; }
+    #mindmap-main #mindmap-sidebar .box {
+      padding: 5px; }
+      #mindmap-main #mindmap-sidebar .box .part {
+        border: solid 1px #ddd;
+        background-color: #fff;
+        margin-bottom: 5px; }
+        #mindmap-main #mindmap-sidebar .box .part .title {
+          background-color: #f7f7f7;
+          border-bottom: solid 1px #eee;
+          padding: 5px; }
     #mindmap-main #mindmap-sidebar .mindmap-note-sidebar {
-      padding: 5px;
-      /*210x133 200x123*/ }
+      padding: 5px; }
       #mindmap-main #mindmap-sidebar .mindmap-note-sidebar .blank-text, #mindmap-main #mindmap-sidebar .mindmap-note-sidebar .text {
         padding: 5px;
-        width: 190px !important;
-        height: 113px !important;
+        width: 178px !important;
+        height: 150px !important;
         background-color: #f1f1f1;
         margin: 0 0 5px 0;
         overflow: auto; }
-    #mindmap-main #mindmap-sidebar .snapshots-list {
-      margin-bottom: 5px; }
-    #mindmap-main #mindmap-sidebar .chat-box .chat-list {
-      height: 150px;
-      background-color: white;
-      margin-bottom: 5px;
-      border-radius: 2px;
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      color: #111;
-      overflow-y: scroll; }
-      #mindmap-main #mindmap-sidebar .chat-box .chat-list .chat-start {
-        color: #999;
-        padding: 0 5px; }
-      #mindmap-main #mindmap-sidebar .chat-box .chat-list .chat-line {
-        padding: 0 5px; }
-        #mindmap-main #mindmap-sidebar .chat-box .chat-list .chat-line .username {
-          font-weight: bold; }
-    #mindmap-main #mindmap-sidebar .chat-box .chat-form #chat-inputer {
-      height: 21px !important;
-      padding: 0 5px !important;
-      width: 190px;
-      font-size: 12px; }
   #mindmap-main #mindmap-resizer {
     position: absolute;
     border: none;
@@ -275,26 +234,6 @@ body {
           display: none; }
         #mindmap-main #mindmap-resizer .mindmap-paper-toolbar .ops-intro.close h5 {
           margin-bottom: 0; }
-  #mindmap-main.viewer {
-    background: #fff !important; }
-    #mindmap-main.viewer #mindmap-sidebar {
-      background: #fff !important;
-      color: black; }
-      #mindmap-main.viewer #mindmap-sidebar .mindmap-export, #mindmap-main.viewer #mindmap-sidebar .share {
-        border-bottom: solid 1px #CDD7DB; }
-      #mindmap-main.viewer #mindmap-sidebar h3 {
-        padding: 5px; }
-      #mindmap-main.viewer #mindmap-sidebar a.share_to {
-        padding-left: 20px;
-        color: #082F42;
-        display: block;
-        margin: 3px 0; }
-        #mindmap-main.viewer #mindmap-sidebar a.share_to.tsina {
-          background: url(/images/share/tsina.png) no-repeat; }
-        #mindmap-main.viewer #mindmap-sidebar a.share_to.renren {
-          background: url(/images/share/renren.png) no-repeat; }
-        #mindmap-main.viewer #mindmap-sidebar a.share_to.douban {
-          background: url(/images/share/douban.png) no-repeat; }
 
 #mindmap-status-bar {
   overflow: hidden;
@@ -635,6 +574,9 @@ body {
     overflow: hidden; }
     .page-mindmap-note-editor .ebody .ops {
       margin-top: 30px; }
+  .page-mindmap-note-editor textarea#node-note {
+    width: 400px;
+    height: 300px; }
 
 /*字号颜色选择器*/
 .page-mindmap-color-editor {

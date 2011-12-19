@@ -8,11 +8,6 @@
     .name
       =link_to muser.name,pin_url_for('pin-daotu',"/users/#{@mindmap.user.id}"),:target=>'_blank'
   .map-timestamp
-    %span 创建于
     %span.loud=jtime @mindmap.created_at
-  .map-export
-    =link_to_remote "<span>导出为..</span>",:url=>"/mindmaps/#{@mindmap.id}/export",:method=>:get,:html=>{:class=>'minibutton'}
-    %span.ex=link_to 'PNG图片',"/mindmaps/#{@mindmap.id}.png",:target=>'_blank'
-    %span.ex=link_to 'WORD文档',"/mindmaps/#{@mindmap.id}.doc"
   .map-close
     =link_to '关闭，返回',pin_url_for("pin-daotu","/mindmaps/#{@mindmap.id}/info")
