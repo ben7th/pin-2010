@@ -9,8 +9,7 @@
     -0.upto 5 do |i|
       -fo = partly_followings[i]
       -if fo.blank?
-        .c <div class='nil'></div>
-          
+        .c
       -else
         .c=link_to avatar(fo), pin_url_for('pin-user-auth',"/users/#{fo.id}")
 

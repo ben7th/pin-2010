@@ -1,6 +1,6 @@
 -hjavascript pin_url_for('ui','/singlejs/feed_ogrid.js')
 
-.main.grid_24.no-line
+.main.grid_24
   =render_with_error_msg '基本信息加载错误', 'index/parts/page_index_top', :user=>current_user
   =render_with_error_msg '工具栏加载错误', 'index/parts/page_mindpin_index_bar'
   =prender 'feed','grid',:feeds=>@feeds

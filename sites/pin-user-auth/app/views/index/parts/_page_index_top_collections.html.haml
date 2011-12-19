@@ -12,7 +12,7 @@
 
 -has_ta = !fc_ta.blank?
 -if has_ta && !fc_ta.photos[0].blank?
-  -fc_ta_src = fc_ta.photos[0].image.url(:w250)
+  -fc_ta_src = fc_ta.photos[0].image.url(:s100)
 
 -has_bl = !fc_bl.blank?
 -if has_bl && !fc_bl.photos[0].blank?

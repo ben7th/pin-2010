@@ -2,8 +2,15 @@
 -#see 用户设置
 
 -binded_tsina = current_user.has_binded_sina?
+-is_v2_activation = current_user.is_v2_activation_user?
 
 .page-account-links
   =account_setting_link "基本信息","/account","base"
   =account_setting_link "修改头像","/account/avatared","avatared"
   =account_setting_link "关联新浪微博","/account/tsina","bind-tsina"
+
+.page-account-split{:style=>'height:3px;border-top:solid 1px #ccc;border-bottom:solid 1px #ccc;margin-bottom:10px;'}
+
+-if is_v2_activation
+  .page-account-links
+    =account_setting_link "版头封面","/account/head_cover","head-cover"

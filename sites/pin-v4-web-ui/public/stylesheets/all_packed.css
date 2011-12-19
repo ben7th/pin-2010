@@ -56,8 +56,6 @@ tfoot{font-style:italic;}
 caption{background:#eee;}
 .hide{display:none!important;}
 .quiet{color:#999;}
-.added{background:#060;color:#fff;}
-.removed{background:#900;color:#fff;}
 .bold{font-weight:bold;}
 .normal{font-weight:normal;}
 .textleft{text-align:left;}
@@ -1199,29 +1197,23 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-index-top .avatar a{display:block;}
 .page-index-top .avatar img{width:134px;height:134px;padding:0;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}
 .page-index-top .contacts,.page-index-top .feeds,.page-index-top .collections,.page-index-top .weibo{float:left;width:150px;height:134px;overflow:visible;margin-right:20px;}
-.page-index-top .contacts .title,.page-index-top .feeds .title,.page-index-top .collections .title,.page-index-top .weibo .title{float:left;width:99px;line-height:32px;height:32px;margin-right:3px;margin-bottom:3px;background-color:#666;background-color:rgba(102,102,102,0.6);color:#f1f1f1;text-shadow:0 0 2px rgba(0,0,0,0.8);font-weight:bold;text-align:center;font-size:14px;box-shadow:0 0 3px rgba(0,0,0,0.4);}
+.page-index-top .contacts .title,.page-index-top .feeds .title,.page-index-top .collections .title,.page-index-top .weibo .title{float:left;width:99px;line-height:32px;height:32px;margin-right:3px;margin-bottom:3px;background-color:#666;background-color:rgba(0,0,0,0.4);color:#f1f1f1;text-shadow:0 0 2px rgba(0,0,0,0.8);font-weight:bold;text-align:center;font-size:14px;box-shadow:0 0 3px rgba(0,0,0,0.4);}
 .page-index-top .contacts .title a,.page-index-top .feeds .title a,.page-index-top .collections .title a,.page-index-top .weibo .title a{color:#f1f1f1;}
 .page-index-top .contacts .title a:hover,.page-index-top .feeds .title a:hover,.page-index-top .collections .title a:hover,.page-index-top .weibo .title a:hover{color:#f1f1f1;}
 .page-index-top .contacts .count,.page-index-top .feeds .count,.page-index-top .collections .count,.page-index-top .weibo .count{float:left;width:48px;height:32px;line-height:32px;font-weight:bold;text-align:center;font-size:16px;box-shadow:0 0 3px rgba(0,0,0,0.4);background-color:rgba(0,0,0,0.4);color:#f1f1f1;text-shadow:0 0 2px rgba(0,0,0,0.8);}
 .page-index-top .contacts .cover,.page-index-top .feeds .cover,.page-index-top .collections .cover,.page-index-top .weibo .cover{background-color:rgba(250,250,250,0.4);float:left;margin:0 3px 3px 0;width:99px;height:99px;box-shadow:0 0 3px rgba(0,0,0,0.4);overflow:hidden;}
 .page-index-top .contacts .cover a,.page-index-top .feeds .cover a,.page-index-top .collections .cover a,.page-index-top .weibo .cover a{display:block;opacity:.9;}
 .page-index-top .contacts .cover a:hover,.page-index-top .feeds .cover a:hover,.page-index-top .collections .cover a:hover,.page-index-top .weibo .cover a:hover{opacity:1;}
-.page-index-top .contacts .cover.nil a,.page-index-top .feeds .cover.nil a,.page-index-top .collections .cover.nil a,.page-index-top .weibo .cover.nil a{width:97px;height:97px;border:dashed 1px #ccc;}
 .page-index-top .contacts .cover.l50,.page-index-top .feeds .cover.l50,.page-index-top .collections .cover.l50,.page-index-top .weibo .cover.l50{width:74px;}
-.page-index-top .contacts .cover.l50.nil a,.page-index-top .feeds .cover.l50.nil a,.page-index-top .collections .cover.l50.nil a,.page-index-top .weibo .cover.l50.nil a{width:72px;}
 .page-index-top .contacts .cover.r50,.page-index-top .feeds .cover.r50,.page-index-top .collections .cover.r50,.page-index-top .weibo .cover.r50{width:73px;margin-right:0;}
-.page-index-top .contacts .cover.r50.nil a,.page-index-top .feeds .cover.r50.nil a,.page-index-top .collections .cover.r50.nil a,.page-index-top .weibo .cover.r50.nil a{width:71px;}
 .page-index-top .contacts .cover.ta,.page-index-top .feeds .cover.ta,.page-index-top .collections .cover.ta,.page-index-top .weibo .cover.ta{width:150px;height:64px;margin-right:0;}
-.page-index-top .contacts .cover.ta.nil a,.page-index-top .feeds .cover.ta.nil a,.page-index-top .collections .cover.ta.nil a,.page-index-top .weibo .cover.ta.nil a{width:148px;height:62px;}
 .page-index-top .contacts .cover.bl,.page-index-top .contacts .cover.bm,.page-index-top .contacts .cover.br,.page-index-top .feeds .cover.bl,.page-index-top .feeds .cover.bm,.page-index-top .feeds .cover.br,.page-index-top .collections .cover.bl,.page-index-top .collections .cover.bm,.page-index-top .collections .cover.br,.page-index-top .weibo .cover.bl,.page-index-top .weibo .cover.bm,.page-index-top .weibo .cover.br{width:48px;height:32px;}
-.page-index-top .contacts .cover.bl.nil a,.page-index-top .contacts .cover.bm.nil a,.page-index-top .contacts .cover.br.nil a,.page-index-top .feeds .cover.bl.nil a,.page-index-top .feeds .cover.bm.nil a,.page-index-top .feeds .cover.br.nil a,.page-index-top .collections .cover.bl.nil a,.page-index-top .collections .cover.bm.nil a,.page-index-top .collections .cover.br.nil a,.page-index-top .weibo .cover.bl.nil a,.page-index-top .weibo .cover.bm.nil a,.page-index-top .weibo .cover.br.nil a{width:46px;height:30px;}
 .page-index-top .contacts .cover.br,.page-index-top .feeds .cover.br,.page-index-top .collections .cover.br,.page-index-top .weibo .cover.br{margin-right:0;}
 .page-index-top .contacts .avas{overflow:visible;width:153px;height:102px;}
 .page-index-top .contacts .avas .c{width:48px;height:48px;background-color:rgba(250,250,250,0.4);margin:0 3px 3px 0;float:left;box-shadow:0 0 3px rgba(0,0,0,0.4);}
 .page-index-top .contacts .avas .c a{display:block;opacity:.9;}
 .page-index-top .contacts .avas .c a:hover{opacity:1;}
-.page-index-top .contacts .avas .c .nil{width:46px;height:46px;border:dashed 1px #ccc;}
-.page-index-top .weibo .weibo-logo{float:left;width:48px;height:48px;margin-bottom:3px;background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-394px -149px;background-color:#fafafa;opacity:.8;}
+.page-index-top .weibo .weibo-logo{float:left;width:48px;height:48px;margin-bottom:3px;background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-394px -149px;background-color:#fafafa;box-shadow:0 0 3px rgba(0,0,0,0.4);opacity:.8;}
 .page-index-top .weibo .weibo-logo:hover{opacity:1;}
 .page-index-top .weibo .unauthorized{padding-top:47px;padding-bottom:47px;line-height:20px;background-color:rgba(0,0,0,0.4);color:white;text-align:center;}
 .page-index-top .misc-ops{overflow:hidden;height:24px;line-height:24px;margin-top:5px;padding-bottom:4px;float:left;}
@@ -1669,9 +1661,9 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-ogrid.collection-feeds .feed .comments .comment .name{margin-left:40px;color:#666;line-height:16px;}
 .page-ogrid.collection-feeds .feed .comments .comment .name a{color:#999;font-weight:bold;}
 .page-ogrid.collection-feeds .feed .comments .comment .name a:hover{color:#999;text-decoration:none;border-bottom:solid 1px;}
-.page-ogrid.collection-feeds .feed.tsina{width:468px;}
-.page-ogrid.collection-feeds .feed.tsina .photo{float:left;}
-.page-ogrid.collection-feeds .feed.tsina .detail{font-size:13px;}
+.page-ogrid.collection-feeds .feed.tsina .cart{position:absolute;top:9px;right:9px;}
+.page-ogrid.collection-feeds .feed.tsina .cart .added{line-height:24px;}
+.page-ogrid.collection-feeds .feed.tsina .photo{margin:4px;}
 .page-ogrid.collection-feeds .feed.tsina .reposted{background-color:#f4f4f4;margin:0 4px 4px 4px;padding:10px;font-size:13px;}
 .page-ogrid-feeds-load-more{border-top:double 3px #ddd;border-bottom:double 3px #ddd;margin-top:14px;margin-right:40px;text-align:center;}
 .page-ogrid-feeds-load-more a{font-size:14px;line-height:40px;height:40px;color:#666;}

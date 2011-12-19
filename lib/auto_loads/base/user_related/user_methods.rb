@@ -69,6 +69,7 @@ module UserMethods
     base.send(:include, Photo::UserMethods)
     base.send(:include, PostDraft::UserMethods)
     base.send(:include, PostComment::UserMethods)
+    base.send(:include, WeiboCart::UserMethods)
   end
 
   def validate_on_create

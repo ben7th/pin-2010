@@ -208,11 +208,16 @@
   }
   
   .feed.tsina{
-    width:468px; /*(228+2)*2+14-2=468*/
-    .photo{
-      float:left;
+    .cart{
+      position:absolute;
+      top:9px;right:9px;
+      .added{
+        line-height:24px;
+      }
     }
-    .detail{font-size:13px;}
+    .photo{
+      margin:4px;
+    }
     .reposted{
       background-color:#f4f4f4;
       margin:0 4px 4px 4px;

@@ -1,4 +1,3 @@
-require "weibo"
 class Tsina
   class OauthFailureError<StandardError;end
   class ContentLengthError<StandardError;end

@@ -1,0 +1,22 @@
+-#use 上传用户头像
+-#see 用户设置->修改头像
+
+-htitle "版头封面设置"
+
+-cover_url = current_user.preference.head_cover.url
+
+.mside.grid_5
+  =render 'account/parts/account_links'
+
+.main.grid_19.ll
+  .page-setting-base
+    .title 上传一张图片，作为你的版头封面
+    .cover{:style=>'padding:15px;'}
+      %img{:src=>cover_url, :alt=>cover_url, :style=>'width:720px;'}
+    .form.aj-submit-form
+      - form_tag "/account/head_cover",:multipart=>true do
+        .field
+          %label 选择一张图片并上传
+          .ip=file_field_tag :file
+        .field.sub
+          = link_to '上传图片','javascript:;',:class=>'middlebutton blue a-link-submit'

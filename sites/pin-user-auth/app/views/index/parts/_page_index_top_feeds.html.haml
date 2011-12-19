@@ -10,11 +10,11 @@
 
 -has_feed_cover_l = !feed_cover_l.blank?
 -if has_feed_cover_l && !feed_cover_l.photos[0].blank?
-  -feed_cover_l_src = feed_cover_l.photos[0].image.url(:w250)
+  -feed_cover_l_src = feed_cover_l.photos[0].image.url(:s100)
 
 -has_feed_cover_r = !feed_cover_r.blank?
 -if has_feed_cover_r && !feed_cover_r.photos[0].blank?
-  -feed_cover_r_src = feed_cover_r.photos[0].image.url(:w250)
+  -feed_cover_r_src = feed_cover_r.photos[0].image.url(:s100)
 
 .feeds
   -if has_feed_cover_l

@@ -15,10 +15,6 @@ class CollectionsController < ApplicationController
     @collections = @user.created_collections
   end
 
-  def tsina
-    @user = User.find(params[:user_id]) if params[:user_id]
-  end
-
   def show
   end
 

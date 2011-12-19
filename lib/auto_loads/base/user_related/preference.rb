@@ -23,11 +23,12 @@ class Preference < UserAuthAbstract
 
   @head_cover_path = "/:class/:attachment/:id/:style/:basename.:extension"
   @head_cover_url  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
-  has_attached_file :head_cover,
+  has_attached_file :head_cover,:styles => {:normal => '1440x300#' },
     :storage => :oss,
     :path => @head_cover_path,
     :url  => @head_cover_url,
-    :default_url   => pin_url_for('ui',"/images/default_avatars/:style.png")
+    :default_url   => pin_url_for('ui',"/images/default_head_covers/:style.jpg"),
+    :default_style => :normal
 
   module UserMethods
     def can_send_message_to?(user)
@@ -80,6 +81,10 @@ class Preference < UserAuthAbstract
 
     def use_mindmap?
       self.preference.usage == Preference::Usage::MINDMAP
+    end
+
+    def set_head_cover(file)
+      self.preference.update_attributes(:head_cover=>file)
     end
     
   end

@@ -1,0 +1,72 @@
+-# /weibo/home_timeline
+
+-hjavascript pin_url_for('ui','/singlejs/feed_ogrid.js')
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      jQuery('.feed.tsina .cart .add').live('click',function(){
+        // /weibo/cart/add
+        var elm      = jQuery(this);
+        var feed_elm = elm.closest('.feed');
+        var mid      = feed_elm.domdata('weibo-mid');
+        jQuery.ajax({
+          url  : '/weibo/cart/add',
+          data : {'mid':mid},
+          type : 'POST',
+          success : function(res){
+            elm.hide();
+            feed_elm.find('.cart .added').show();
+          }
+        })
+      });
+    })
+
+-user = current_user
+-weibo = user.tsina_weibo
+-tsina_feeds = weibo.home_timeline
+
+-htitle "#{user.name}的新浪微博"
+
+.main.grid_24
+  .page-ogrid.collection-feeds{:style=>'opacity:0;'}
+    -tsina_feeds.each do |tsina_feed|
+      -id = tsina_feed.id
+      -photo_url = tsina_feed.bmiddle_pic
+      -reposted_feed = tsina_feed.retweeted_status
+
+      -creator = tsina_feed.user
+      -creator_image_url = creator.profile_image_url
+
+      -has_cart = WeiboCart.has_cart?(current_user, id)
+
+      .feed.tsina{:'data-weibo-mid'=>id,:'data-col-count'=>2}
+
+        .timeline-node{:class=>'', :style=>'display:none;'}
+          .icon
+          .arrow
+
+        .creator
+          .avatar
+            %img{:src=>creator_image_url}
+          .c-meta
+            .name=link_to creator.name,"http://weibo.com/#{creator.id}",:target=>'_blank'
+
+        .cart
+          -if has_cart
+            %a.minibutton.green.add{:href=>'javascript:;',:style=>'display:none'} 收集
+            %span.added.quiet 已收集
+          -else
+            %a.minibutton.green.add{:href=>'javascript:;'} 收集
+            %span.added.quiet{:style=>'display:none'} 已收集
+
+        -if !photo_url.blank?
+          .photo
+            .box{:style=>'height:278px;overflow:hidden;'}
+              %img{:src=>photo_url,:style=>"display:block;width:415px;"}
+
+        .detail=tsina_feed.text
+
+        .clearfix
+        -if !reposted_feed.blank?
+          .reposted
+            =reposted_feed.text

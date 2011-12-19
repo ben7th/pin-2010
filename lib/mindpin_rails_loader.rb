@@ -54,6 +54,8 @@ class MindpinRailsLoader
       :version => "~> 2.4"
     @config.gem 'paperclip-meta'
 
+    @config.gem 'weibo'
+
     # 自己写的 gem
     @config.gem "pie-ui"
     # http client

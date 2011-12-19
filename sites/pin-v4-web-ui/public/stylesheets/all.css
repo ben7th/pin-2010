@@ -226,14 +226,6 @@ caption {
 .quiet {
   color: #999; }
 
-.added {
-  background: #060;
-  color: #fff; }
-
-.removed {
-  background: #900;
-  color: #fff; }
-
 .bold {
   font-weight: bold; }
 
@@ -5092,7 +5084,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       margin-right: 3px;
       margin-bottom: 3px;
       background-color: #666;
-      background-color: rgba(102, 102, 102, 0.6);
+      background-color: rgba(0, 0, 0, 0.4);
       color: #f1f1f1;
       text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
       font-weight: bold;
@@ -5128,32 +5120,18 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         opacity: 0.9; }
         .page-index-top .contacts .cover a:hover, .page-index-top .feeds .cover a:hover, .page-index-top .collections .cover a:hover, .page-index-top .weibo .cover a:hover {
           opacity: 1; }
-      .page-index-top .contacts .cover.nil a, .page-index-top .feeds .cover.nil a, .page-index-top .collections .cover.nil a, .page-index-top .weibo .cover.nil a {
-        width: 97px;
-        height: 97px;
-        border: dashed 1px #ccc; }
       .page-index-top .contacts .cover.l50, .page-index-top .feeds .cover.l50, .page-index-top .collections .cover.l50, .page-index-top .weibo .cover.l50 {
         width: 74px; }
-        .page-index-top .contacts .cover.l50.nil a, .page-index-top .feeds .cover.l50.nil a, .page-index-top .collections .cover.l50.nil a, .page-index-top .weibo .cover.l50.nil a {
-          width: 72px; }
       .page-index-top .contacts .cover.r50, .page-index-top .feeds .cover.r50, .page-index-top .collections .cover.r50, .page-index-top .weibo .cover.r50 {
         width: 73px;
         margin-right: 0; }
-        .page-index-top .contacts .cover.r50.nil a, .page-index-top .feeds .cover.r50.nil a, .page-index-top .collections .cover.r50.nil a, .page-index-top .weibo .cover.r50.nil a {
-          width: 71px; }
       .page-index-top .contacts .cover.ta, .page-index-top .feeds .cover.ta, .page-index-top .collections .cover.ta, .page-index-top .weibo .cover.ta {
         width: 150px;
         height: 64px;
         margin-right: 0; }
-        .page-index-top .contacts .cover.ta.nil a, .page-index-top .feeds .cover.ta.nil a, .page-index-top .collections .cover.ta.nil a, .page-index-top .weibo .cover.ta.nil a {
-          width: 148px;
-          height: 62px; }
       .page-index-top .contacts .cover.bl, .page-index-top .contacts .cover.bm, .page-index-top .contacts .cover.br, .page-index-top .feeds .cover.bl, .page-index-top .feeds .cover.bm, .page-index-top .feeds .cover.br, .page-index-top .collections .cover.bl, .page-index-top .collections .cover.bm, .page-index-top .collections .cover.br, .page-index-top .weibo .cover.bl, .page-index-top .weibo .cover.bm, .page-index-top .weibo .cover.br {
         width: 48px;
         height: 32px; }
-        .page-index-top .contacts .cover.bl.nil a, .page-index-top .contacts .cover.bm.nil a, .page-index-top .contacts .cover.br.nil a, .page-index-top .feeds .cover.bl.nil a, .page-index-top .feeds .cover.bm.nil a, .page-index-top .feeds .cover.br.nil a, .page-index-top .collections .cover.bl.nil a, .page-index-top .collections .cover.bm.nil a, .page-index-top .collections .cover.br.nil a, .page-index-top .weibo .cover.bl.nil a, .page-index-top .weibo .cover.bm.nil a, .page-index-top .weibo .cover.br.nil a {
-          width: 46px;
-          height: 30px; }
       .page-index-top .contacts .cover.br, .page-index-top .feeds .cover.br, .page-index-top .collections .cover.br, .page-index-top .weibo .cover.br {
         margin-right: 0; }
   .page-index-top .contacts .avas {
@@ -5172,10 +5150,6 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
         opacity: 0.9; }
         .page-index-top .contacts .avas .c a:hover {
           opacity: 1; }
-      .page-index-top .contacts .avas .c .nil {
-        width: 46px;
-        height: 46px;
-        border: dashed 1px #ccc; }
   .page-index-top .weibo .weibo-logo {
     float: left;
     width: 48px;
@@ -5185,6 +5159,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     background-repeat: no-repeat;
     background-position: -394px -149px;
     background-color: #fafafa;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
     opacity: 0.8; }
     .page-index-top .weibo .weibo-logo:hover {
       opacity: 1; }
@@ -7289,18 +7264,19 @@ $feed_width_1c:228px; /*240-10-2*/
             color: #999;
             text-decoration: none;
             border-bottom: solid 1px; }
-  .page-ogrid.collection-feeds .feed.tsina {
-    width: 468px;
-    /*(228+2)*2+14-2=468*/ }
-    .page-ogrid.collection-feeds .feed.tsina .photo {
-      float: left; }
-    .page-ogrid.collection-feeds .feed.tsina .detail {
-      font-size: 13px; }
-    .page-ogrid.collection-feeds .feed.tsina .reposted {
-      background-color: #f4f4f4;
-      margin: 0 4px 4px 4px;
-      padding: 10px;
-      font-size: 13px; }
+  .page-ogrid.collection-feeds .feed.tsina .cart {
+    position: absolute;
+    top: 9px;
+    right: 9px; }
+    .page-ogrid.collection-feeds .feed.tsina .cart .added {
+      line-height: 24px; }
+  .page-ogrid.collection-feeds .feed.tsina .photo {
+    margin: 4px; }
+  .page-ogrid.collection-feeds .feed.tsina .reposted {
+    background-color: #f4f4f4;
+    margin: 0 4px 4px 4px;
+    padding: 10px;
+    font-size: 13px; }
 
 .page-ogrid-feeds-load-more {
   border-top: double 3px #ddd;

@@ -38,9 +38,11 @@
 
 -is_me = logged_in? && (user == current_user)
 
+-cover_src = current_user.preference.head_cover.url
+
 .page-index-top
   .wallpaper
-    %img{:src=>'http://storage.aliyun.com/mindpin/login_wallpapers/images/44/original/f3nIxSvX.jpg?1323021488'}
+    %img{:src=>cover_src}
 
   .avatar=link_to avatar(user,:large),user_page_url
 

@@ -80,6 +80,10 @@ def match_account_routes(map)
     match_post account, "tsina/update_info"     => "tsina#update_info"
     # 取消新浪微博账号与当前账号关联
     match_post account, "tsina/disconnect"      => "tsina#disconnect"
+
+    # --------- 社区用户设置
+    match_get  account, 'head_cover' => 'preferences#head_cover'
+    match_post account, 'head_cover' => 'preferences#head_cover_submit'
   end
 end
 
@@ -190,13 +194,10 @@ end
 
 def match_collections_routes(map)
   map.resources :collections,
-    :collection=>{
-      :tsina=>:get
-    },
     :member=>{
-      :change_name=>:put,
-      :change_sendto=>:put,
-      :add_feed=>:put
+      :change_name   => :put,
+      :change_sendto => :put,
+      :add_feed      => :put
     }
 end
 
@@ -218,6 +219,15 @@ def match_tsina_app_routes(map)
     match_get apps, 'tsina/schedule'             => 'tsina_app_schedule#index'
     match_get apps, 'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
     match_get apps, 'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
+  end
+end
+
+def match_weibo_routes(map)
+  map.namespace :tsina_weibo, :path_prefix=>'weibo' do |weibo|
+    match_get  weibo, 'home_timeline' => 'timeline#home_timeline'
+
+    match_get  weibo, 'cart'     => 'cart#index'
+    match_post weibo, 'cart/add' => 'cart#add'
   end
 end
 
@@ -262,7 +272,6 @@ ActionController::Routing::Routes.draw do |map|
   match_get map,'/:user_id/contacts'          => 'contacts#index'
   match_get map,'/:user_id/feeds'             => 'feeds#index'
   match_get map,'/:user_id/collections'       => 'collections#index'
-  match_get map,'/:user_id/collections/tsina' => 'collections#tsina'
 
   map.namespace(:api0) do |api0|
     # ---------------- 手机客户端同步数据 ----------
@@ -305,6 +314,8 @@ ActionController::Routing::Routes.draw do |map|
 
   match_get map,'/login_get_next_wallpaper' => "login_wallpapers#get_next_wallpaper"
   match_get map,'/login_get_prev_wallpaper' => "login_wallpapers#get_prev_wallpaper"
+
+  match_weibo_routes(map)
 
   map.namespace(:admin) do |admin|
     admin.resources :apply_records
