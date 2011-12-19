@@ -110,7 +110,7 @@ module HomeTimelineCacheModule
       user    = channel_user.user
       creator = channel_user.channel.creator
 
-      return if creator.followings?(user)
+      return if creator.following?(user)
 
       user.public_collections.each { |c|
         c.feeds.each { |feed|
