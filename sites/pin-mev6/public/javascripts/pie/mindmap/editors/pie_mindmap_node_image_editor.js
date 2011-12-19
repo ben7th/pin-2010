@@ -123,9 +123,7 @@ pie.mindmap.NodeImageEditor = Class.create({
   _enable_upload_btn:function(){
     this.upload_enabled = true;
 
-    var scriptData = {
-      'authenticity_token':pie.auth_token
-    }
+    var scriptData = {}
     scriptData[pie.session_key] = pie.session_value;
 
     jQuery('.page-mindmap-image-editor #page-upload-mindmap-img').uploadify({

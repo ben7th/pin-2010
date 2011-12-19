@@ -65,7 +65,8 @@ pie.load(function(){
     })
 
     jQuery.ajax({
-      url  : pie.pin_url_for('pin-user-auth', '/login_get_prev_wallpaper?id='+id),
+      url  : '/login_get_prev_wallpaper',
+      data : {'id':id},
       type : 'GET',
       success : function(res){
         load_res(res);
@@ -85,7 +86,8 @@ pie.load(function(){
     })
 
     jQuery.ajax({
-      url  : pie.pin_url_for('pin-user-auth', '/login_get_next_wallpaper?id='+id),
+      url  : '/login_get_next_wallpaper',
+      data : {'id':id},
       type : 'GET',
       success : function(res){
         load_res(res);

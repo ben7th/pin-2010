@@ -77,9 +77,7 @@ pie.load(function(){
     var uploading_elm = create_file_uploading_elm(file);
 
     var form_data = new FormData();
-    form_data.append('file',file);
-    form_data.append('authenticity_token',decodeURIComponent(decodeURIComponent(pie.auth_token)));
-    form_data.append(pie.session_key,pie.session_value);
+    form_data.append('file', file);
     
     var xhr = new XMLHttpRequest();
 

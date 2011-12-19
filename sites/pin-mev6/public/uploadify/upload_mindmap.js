@@ -1,9 +1,4 @@
 pie.load(function(){
-//  var scriptData = {
-//    'authenticity_token':pie.auth_token
-//  }
-//  scriptData[pie.session_key] = pie.session_value;
-
   jQuery('#page-mindmap-import-btn').uploadify({
     'uploader'     : '/uploadify/uploadify.swf?'+pie.randstr(),
     'script'       : '/mindmaps/upload_import_file',
@@ -18,7 +13,6 @@ pie.load(function(){
     'fileDesc'     : '导图文件 mm, mmap, xmind',
     'fileExt'      : '*.mm;*.mmap;*.xmind;',
     'sizeLimit'    : 4194304,// 4.megabytes
-    //'scriptData'   : scriptData,
     'queueID'      : 'page-mindmap-upload-queue',
 
     'onComplete'  : function(event, ID, fileObj, response, data) {
