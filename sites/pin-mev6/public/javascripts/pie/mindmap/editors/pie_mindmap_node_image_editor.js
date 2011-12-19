@@ -36,12 +36,12 @@ pie.mindmap.NodeImageEditor = Class.create({
     var func = this;
 
     //取消
-    jQuery(document).delegate('.page-mindmap-image-editor .cancel','click.mindmap_node_image_editor',function(){
+    jQuery(document).delegate('.page-mindmap-image-editor .ops a.cancel','click.mindmap_node_image_editor',function(){
       func.close();
     });
 
     //确定
-    jQuery(document).delegate('.page-mindmap-image-editor .accept','click.mindmap_node_image_editor',function(){
+    jQuery(document).delegate('.page-mindmap-image-editor .ops a.accept','click.mindmap_node_image_editor',function(){
       var node = func.node;
 
       var selected_li = jQuery('.page-mindmap-image-editor .image-list li.selected');
