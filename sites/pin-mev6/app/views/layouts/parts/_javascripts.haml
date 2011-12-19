@@ -1,12 +1,6 @@
 = require_lib_js
 = require_mindpin_js
 
--session_key = ActionController::Base.session_options[:key]
-:javascript
-  //将auth_token保存在变量中，将来作某些全页面缓存时，应考虑如何兼顾这里
-  pie.session_key = '#{session_key}'
-  pie.session_value = encodeURIComponent('#{u cookies[session_key]}')
-
 = yield :javascript
 = yield :javascripts
 

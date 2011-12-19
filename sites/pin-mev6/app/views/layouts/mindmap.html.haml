@@ -7,3 +7,8 @@
 
     =javascript_include_tag pin_url_for('ui',"javascripts/lib/prototype/protoaculous.1.8.3.min.js?#{ENV['RAILS_ASSET_ID']}")
     =render 'layouts/parts/javascripts'
+
+    -session_key = ActionController::Base.session_options[:key]
+    :javascript
+      PIE_SESSION_KEY   = '#{session_key}'
+      PIE_SESSION_VALUE = encodeURIComponent('#{u cookies[session_key]}')

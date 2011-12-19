@@ -124,7 +124,7 @@ pie.mindmap.NodeImageEditor = Class.create({
     this.upload_enabled = true;
 
     var scriptData = {}
-    scriptData[pie.session_key] = pie.session_value;
+    scriptData[PIE_SESSION_KEY] = PIE_SESSION_VALUE;
 
     jQuery('.page-mindmap-image-editor #page-upload-mindmap-img').uploadify({
         'uploader'     : '/uploadify/uploadify.swf',
@@ -150,6 +150,7 @@ pie.mindmap.NodeImageEditor = Class.create({
         },
         'onError'     : function (event, ID, fileObj, errorObj) {
           setTimeout(function(){
+            pie.log(event, ID, fileObj, errorObj);
             jQuery('.uploadifyError .percentage').html(' - 上传出错');
           },1);
         }
