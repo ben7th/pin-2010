@@ -224,7 +224,8 @@ end
 
 def match_weibo_routes(map)
   map.namespace :tsina_weibo, :path_prefix=>'weibo' do |weibo|
-    match_get  weibo, 'home_timeline' => 'timeline#home_timeline'
+    match_get  weibo, '/' => 'timeline#home_timeline'
+    match_get  weibo, '/user/:user_id' => 'timeline#user_timeline'
 
     match_get  weibo, 'cart'     => 'cart#index'
     match_post weibo, 'cart/add' => 'cart#add'
@@ -307,10 +308,10 @@ ActionController::Routing::Routes.draw do |map|
 
   end
 
-  match_get map, '/zhi_ma_kai_men/login_wallpapers/new'       => 'login_wallpapers#new'
-  match_post map, '/zhi_ma_kai_men/login_wallpapers'             => 'login_wallpapers#create'
-  match_get map, '/zhi_ma_kai_men/login_wallpapers'               => 'login_wallpapers#index'
-  match_delete map, '/zhi_ma_kai_men/login_wallpapers/:id'      => 'login_wallpapers#destroy'
+  match_get    map, '/zhi_ma_kai_men/login_wallpapers/new' => 'login_wallpapers#new'
+  match_post   map, '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#create'
+  match_get    map, '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#index'
+  match_delete map, '/zhi_ma_kai_men/login_wallpapers/:id' => 'login_wallpapers#destroy'
 
   match_get map,'/login_get_next_wallpaper' => "login_wallpapers#get_next_wallpaper"
   match_get map,'/login_get_prev_wallpaper' => "login_wallpapers#get_prev_wallpaper"

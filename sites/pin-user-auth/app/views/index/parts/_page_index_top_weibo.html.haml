@@ -8,7 +8,11 @@
   -begin
     -weibo_verify_credentials = weibo.verify_credentials
     -weibo_statuses_count = weibo_verify_credentials.statuses_count
-    -weibo_url = "http://weibo.com/#{weibo_verify_credentials.id}"
+
+    -if user == current_user
+      -weibo_url = pin_url_for('pin-user-auth','/weibo')
+    -else
+      -weibo_url = pin_url_for('pin-user-auth',"/weibo/user/#{user.id}")
 
     -weibo_cover = weibo.user_timeline(:feature=>2,:count=>1)[0]
     -has_weibo_cover = !weibo_cover.blank?

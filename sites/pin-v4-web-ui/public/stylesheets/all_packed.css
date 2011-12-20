@@ -1197,12 +1197,12 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-index-top .avatar a{display:block;}
 .page-index-top .avatar img{width:134px;height:134px;padding:0;-moz-border-radius:0;-webkit-border-radius:0;border-radius:0;}
 .page-index-top .contacts,.page-index-top .feeds,.page-index-top .collections,.page-index-top .weibo{float:left;width:150px;height:134px;overflow:visible;margin-right:20px;}
-.page-index-top .contacts .title,.page-index-top .feeds .title,.page-index-top .collections .title,.page-index-top .weibo .title{float:left;width:99px;line-height:32px;height:32px;margin-right:3px;margin-bottom:3px;background-color:#666;background-color:rgba(0,0,0,0.4);color:#f1f1f1;text-shadow:0 0 2px rgba(0,0,0,0.8);font-weight:bold;text-align:center;font-size:14px;box-shadow:0 0 3px rgba(0,0,0,0.4);}
-.page-index-top .contacts .title a,.page-index-top .feeds .title a,.page-index-top .collections .title a,.page-index-top .weibo .title a{color:#f1f1f1;}
-.page-index-top .contacts .title a:hover,.page-index-top .feeds .title a:hover,.page-index-top .collections .title a:hover,.page-index-top .weibo .title a:hover{color:#f1f1f1;}
+.page-index-top .contacts .title,.page-index-top .feeds .title,.page-index-top .collections .title,.page-index-top .weibo .title{float:left;width:99px;line-height:32px;height:32px;margin-right:3px;margin-bottom:3px;box-shadow:0 0 3px rgba(0,0,0,0.4);}
+.page-index-top .contacts .title a,.page-index-top .feeds .title a,.page-index-top .collections .title a,.page-index-top .weibo .title a{display:block;width:99px;line-height:32px;height:32px;background-color:#666;background-color:rgba(0,0,0,0.4);color:#f1f1f1;text-shadow:0 0 2px rgba(0,0,0,0.8);font-weight:bold;text-align:center;font-size:14px;-moz-transition:background-color .2s ease-in;-webkit-transition:background-color .2s ease-in;transition:background-color .2s ease-in;}
+.page-index-top .contacts .title a:hover,.page-index-top .feeds .title a:hover,.page-index-top .collections .title a:hover,.page-index-top .weibo .title a:hover{background-color:#eee;background-color:rgba(255,255,255,0.4);text-decoration:none;}
 .page-index-top .contacts .count,.page-index-top .feeds .count,.page-index-top .collections .count,.page-index-top .weibo .count{float:left;width:48px;height:32px;line-height:32px;font-weight:bold;text-align:center;font-size:16px;box-shadow:0 0 3px rgba(0,0,0,0.4);background-color:rgba(0,0,0,0.4);color:#f1f1f1;text-shadow:0 0 2px rgba(0,0,0,0.8);}
 .page-index-top .contacts .cover,.page-index-top .feeds .cover,.page-index-top .collections .cover,.page-index-top .weibo .cover{background-color:rgba(250,250,250,0.4);float:left;margin:0 3px 3px 0;width:99px;height:99px;box-shadow:0 0 3px rgba(0,0,0,0.4);overflow:hidden;}
-.page-index-top .contacts .cover a,.page-index-top .feeds .cover a,.page-index-top .collections .cover a,.page-index-top .weibo .cover a{display:block;opacity:.9;}
+.page-index-top .contacts .cover a,.page-index-top .feeds .cover a,.page-index-top .collections .cover a,.page-index-top .weibo .cover a{display:block;opacity:.9;-moz-transition:opacity .2s ease-in;-webkit-transition:opacity .2s ease-in;transition:opacity .2s ease-in;}
 .page-index-top .contacts .cover a:hover,.page-index-top .feeds .cover a:hover,.page-index-top .collections .cover a:hover,.page-index-top .weibo .cover a:hover{opacity:1;}
 .page-index-top .contacts .cover.l50,.page-index-top .feeds .cover.l50,.page-index-top .collections .cover.l50,.page-index-top .weibo .cover.l50{width:74px;}
 .page-index-top .contacts .cover.r50,.page-index-top .feeds .cover.r50,.page-index-top .collections .cover.r50,.page-index-top .weibo .cover.r50{width:73px;margin-right:0;}
@@ -1228,7 +1228,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-index-top .timeline-end .now{margin-left:55px;font-weight:bold;padding:0 14px;}
 .page-index-top .timeline-end .icon{width:16px;height:16px;background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-1px -35px;position:absolute;left:47px;top:8px;z-index:2;}
 .page-index-top .timeline-end .lbg{position:absolute;width:4px;height:32px;left:53px;top:16px;background:url(/images/bodybgs/timeline-line.png) repeat-y;z-index:1;}
-.page-anonymous-wrapper .root-box{width:600px;margin-left:264px;margin-top:50px;}
+.page-anonymous-wrapper .root-box{width:600px;margin-top:120px;margin-left:-300px;left:50%;position:absolute;}
 .page-anonymous-wrapper .root-box .logo{width:500px;height:100px;background:url(/images/mindpin-sites/logo.png) no-repeat 0 0;margin-bottom:40px;}
 .page-anonymous-wrapper .root-box .root-content{padding:0 14px;}
 .page-anonymous-wrapper .root-box .root-content .if-u-want-to-use-mindmap{color:#f1f1f1;text-shadow:0 0 3px black;margin-bottom:20px;}
@@ -1313,7 +1313,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-anonymous-wrapper .login-box .login-content .ct form .field.tsina{width:270px;overflow:hidden;}
 .page-anonymous-wrapper .login-box .login-content .ct form .p1,.page-anonymous-wrapper .login-box .login-content .ct form .p2,.page-anonymous-wrapper .login-box .login-content .ct form .p3{overflow:hidden;}
 .page-anonymous-wrapper .login-box .login-content .ct form .p2{margin-bottom:30px;}
-.page-anonymous-wrapper .signup-box{width:600px;margin-left:264px;margin-top:50px;}
+.page-anonymous-wrapper .signup-box{width:600px;margin-top:120px;margin-left:-300px;left:50%;position:absolute;}
 .page-anonymous-wrapper .signup-box .logo{width:500px;height:100px;background:url(/images/mindpin-sites/logo.png) no-repeat 0 0;margin-bottom:40px;}
 .page-anonymous-wrapper .signup-box .signup-content{padding:0 14px;overflow:hidden;}
 .page-anonymous-wrapper .signup-box .signup-content .ct{float:left;border-right:solid 1px #A5A5A5;padding-right:60px;}
@@ -1338,7 +1338,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-anonymous-wrapper .signup-box .signup-content .others .connects .connect .icon{width:24px;height:24px;float:left;position:relative;top:3px;margin-left:3px;}
 .page-anonymous-wrapper .signup-box .signup-content .others .connects .connect .name{float:left;font-size:14px;height:30px;line-height:30px;padding:0 9px;}
 .page-anonymous-wrapper .signup-box .signup-content .others .connects .connect.tsina-weibo .icon{background:url(/images/share/share_24.png) no-repeat -4px -4px;}
-.page-anonymous-wrapper .reset-password-box{width:600px;margin-left:264px;margin-top:50px;}
+.page-anonymous-wrapper .reset-password-box{width:600px;margin-top:120px;margin-left:-300px;left:50%;position:absolute;}
 .page-anonymous-wrapper .reset-password-box .logo{width:500px;height:100px;background:url(/images/mindpin-sites/logo.png) no-repeat 0 0;margin-bottom:40px;}
 .page-anonymous-wrapper .reset-password-box .form{padding:0 14px;overflow:hidden;}
 .page-anonymous-wrapper .reset-password-box .form .title{color:#f1f1f1;text-shadow:0 0 3px black;font-weight:bold;font-size:14px;margin-bottom:9px;}
@@ -1354,7 +1354,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-anonymous-wrapper .reset-password-box .form form .field input.text,.page-anonymous-wrapper .reset-password-box .form form .field textarea.text{height:22px;line-height:22px;background-color:#25282B;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;box-shadow:1px 1px 2px rgba(0,0,0,0.5) inset;border:none;color:#f1f1f1;font-family:"Segoe UI","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,"Verdana Ref",sans serif;}
 .page-anonymous-wrapper .reset-password-box .form form .field input.text.active,.page-anonymous-wrapper .reset-password-box .form form .field textarea.text.active{background-color:#16181A;}
 .page-anonymous-wrapper .reset-password-box.no1{margin-left:-320px;}
-.page-anonymous-wrapper .apply-form{width:600px;margin-left:264px;margin-top:50px;}
+.page-anonymous-wrapper .apply-form{width:600px;margin-top:120px;margin-left:-300px;left:50%;position:absolute;}
 .page-anonymous-wrapper .apply-form .logo{width:500px;height:100px;background:url(/images/mindpin-sites/logo.png) no-repeat 0 0;margin-bottom:40px;}
 .page-anonymous-wrapper .apply-form .apply-content{margin-left:14px;}
 .page-anonymous-wrapper .apply-form .apply-content .title{color:#f1f1f1;text-shadow:0 0 3px black;margin-bottom:10px;font-size:14px;font-weight:bold;}

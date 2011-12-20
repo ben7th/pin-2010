@@ -1,37 +1,8 @@
 -# 传入参数 user
 
 -hjavascript pin_url_for('ui','/singlejs/follow_and_unfollow.js')
--content_for :javascript do
-  :javascript
-    pie.load(function(){
+-hjavascript pin_url_for('ui','/singlejs/page_index_top.js')
 
-      var load_cover = function(cover_elm){
-        var cover_src = cover_elm.domdata('src');
-        var a_elm = cover_elm.find('a');
-
-        if(!jQuery.string(cover_src).blank()){
-          pie.load_cut_img(cover_src, cover_elm, a_elm, function(){
-            cover_elm.removeClass('nil');
-          });
-        }
-      }
-
-      // 微博
-      var cover_elm = jQuery('.page-index-top .weibo .cover');
-      load_cover(cover_elm);
-
-      // 主题条目
-      var cover_elm = jQuery('.page-index-top .feeds .cover');
-      load_cover(jQuery(cover_elm[0]));
-      load_cover(jQuery(cover_elm[1]));
-
-      // 收集册
-      var cover_elm = jQuery('.page-index-top .collections .cover');
-      load_cover(jQuery(cover_elm[0]));
-      load_cover(jQuery(cover_elm[1]));
-      load_cover(jQuery(cover_elm[2]));
-      load_cover(jQuery(cover_elm[3]));
-    })
 
 -user_id = user.id
 -user_page_url = pin_url_for('pin-user-auth',"/users/#{user_id}")
@@ -41,8 +12,7 @@
 -cover_src = current_user.preference.head_cover.url
 
 .page-index-top
-  .wallpaper
-    %img{:src=>cover_src}
+  .wallpaper{:'data-src'=>cover_src}
 
   .avatar=link_to avatar(user,:large),user_page_url
 
@@ -50,6 +20,7 @@
   =render_with_error_msg '条目数据错误','index/parts/page_index_top_feeds',:user=>user
   =render_with_error_msg '汇集册数据错误','index/parts/page_index_top_collections',:user=>user
   =render_with_error_msg '微博API错误','index/parts/page_index_top_weibo',:user=>user
+
   .clearfix
 
   .misc-ops

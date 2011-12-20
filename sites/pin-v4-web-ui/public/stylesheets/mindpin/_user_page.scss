@@ -33,12 +33,21 @@
     .title{
       float:left;
       width:99px;line-height:32px;height:32px;margin-right:3px;margin-bottom:3px;
-      background-color:#666;
-      background-color:$bg0004;
-      color:#f1f1f1;text-shadow:0px 0px 2px rgba(0, 0, 0, 0.8);
-      font-weight:bold;text-align:center;font-size:14px;
       box-shadow:$box-shadow;
-      a{color:#f1f1f1;&:hover{color:#f1f1f1;}}
+      a{
+        display:block;width:99px;line-height:32px;height:32px;
+        background-color:#666;
+        background-color:$bg0004;
+        color:#f1f1f1;text-shadow:0px 0px 2px rgba(0, 0, 0, 0.8);
+        font-weight:bold;text-align:center;font-size:14px;
+        @include transition(background-color .2s ease-in);
+        &:hover{
+
+          background-color:#eee;
+          background-color:rgba(255,255,255,0.4);
+          text-decoration:none;
+        };
+      }
     }
     .count{
       float:left;
@@ -56,7 +65,10 @@
       box-shadow:$box-shadow;
       overflow:hidden;
       
-      a{display:block;opacity:0.9;&:hover{opacity:1;}}
+      a{display:block;opacity:0.9;&:hover{opacity:1;}
+        @include transition(opacity .2s ease-in);
+      }
+      
       &.l50{width:74px;}
       &.r50{width:73px;margin-right:0;}
       

@@ -5083,18 +5083,26 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       height: 32px;
       margin-right: 3px;
       margin-bottom: 3px;
-      background-color: #666;
-      background-color: rgba(0, 0, 0, 0.4);
-      color: #f1f1f1;
-      text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
-      font-weight: bold;
-      text-align: center;
-      font-size: 14px;
       box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4); }
       .page-index-top .contacts .title a, .page-index-top .feeds .title a, .page-index-top .collections .title a, .page-index-top .weibo .title a {
-        color: #f1f1f1; }
+        display: block;
+        width: 99px;
+        line-height: 32px;
+        height: 32px;
+        background-color: #666;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #f1f1f1;
+        text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.8);
+        font-weight: bold;
+        text-align: center;
+        font-size: 14px;
+        -moz-transition: background-color 0.2s ease-in;
+        -webkit-transition: background-color 0.2s ease-in;
+        transition: background-color 0.2s ease-in; }
         .page-index-top .contacts .title a:hover, .page-index-top .feeds .title a:hover, .page-index-top .collections .title a:hover, .page-index-top .weibo .title a:hover {
-          color: #f1f1f1; }
+          background-color: #eee;
+          background-color: rgba(255, 255, 255, 0.4);
+          text-decoration: none; }
     .page-index-top .contacts .count, .page-index-top .feeds .count, .page-index-top .collections .count, .page-index-top .weibo .count {
       float: left;
       width: 48px;
@@ -5117,7 +5125,10 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       overflow: hidden; }
       .page-index-top .contacts .cover a, .page-index-top .feeds .cover a, .page-index-top .collections .cover a, .page-index-top .weibo .cover a {
         display: block;
-        opacity: 0.9; }
+        opacity: 0.9;
+        -moz-transition: opacity 0.2s ease-in;
+        -webkit-transition: opacity 0.2s ease-in;
+        transition: opacity 0.2s ease-in; }
         .page-index-top .contacts .cover a:hover, .page-index-top .feeds .cover a:hover, .page-index-top .collections .cover a:hover, .page-index-top .weibo .cover a:hover {
           opacity: 1; }
       .page-index-top .contacts .cover.l50, .page-index-top .feeds .cover.l50, .page-index-top .collections .cover.l50, .page-index-top .weibo .cover.l50 {
@@ -5250,8 +5261,10 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 .page-anonymous-wrapper .root-box {
   /*外部容器宽度950px*/
   width: 600px;
-  margin-left: 264px;
-  margin-top: 50px; }
+  margin-top: 120px;
+  margin-left: -300px;
+  left: 50%;
+  position: absolute; }
   .page-anonymous-wrapper .root-box .logo {
     width: 500px;
     height: 100px;
@@ -5602,8 +5615,10 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 .page-anonymous-wrapper .signup-box {
   /*外部容器宽度950px*/
   width: 600px;
-  margin-left: 264px;
-  margin-top: 50px; }
+  margin-top: 120px;
+  margin-left: -300px;
+  left: 50%;
+  position: absolute; }
   .page-anonymous-wrapper .signup-box .logo {
     width: 500px;
     height: 100px;
@@ -5720,8 +5735,10 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 .page-anonymous-wrapper .reset-password-box {
   /*外部容器宽度950px*/
   width: 600px;
-  margin-left: 264px;
-  margin-top: 50px; }
+  margin-top: 120px;
+  margin-left: -300px;
+  left: 50%;
+  position: absolute; }
   .page-anonymous-wrapper .reset-password-box .logo {
     width: 500px;
     height: 100px;
@@ -5797,8 +5814,10 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 .page-anonymous-wrapper .apply-form {
   /*外部容器宽度950px*/
   width: 600px;
-  margin-left: 264px;
-  margin-top: 50px; }
+  margin-top: 120px;
+  margin-left: -300px;
+  left: 50%;
+  position: absolute; }
   .page-anonymous-wrapper .apply-form .logo {
     width: 500px;
     height: 100px;
