@@ -29,6 +29,11 @@
   @include minibutton-base;
 }
 
+.minibutton.loginlightgreen{
+  @include button-loginlightgreen;
+  @include minibutton-base;
+}
+
 .submitbutton{
   @include button-blue;
   height:30px;line-height:30px;font-size:14px;

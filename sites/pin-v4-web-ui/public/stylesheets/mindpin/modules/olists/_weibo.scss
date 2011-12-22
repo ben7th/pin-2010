@@ -47,7 +47,7 @@
   
   .weibo-user-info{
     margin:10px;
-    width:338px;height:64px;margin-bottom:98px;border:solid 1px #ccc;padding:6px;
+    width:338px;height:152px;border:solid 1px #ccc;padding:6px;
     background-color:#f7f7f7;
     @include box-shadow(0 3px 9px #aaa);
     color:#666;
@@ -59,7 +59,7 @@
     .name{
       margin-left:78px;
       font-size:14px;font-weight:bold;line-height:16px;
-      margin-bottom:16px;
+      margin-bottom:8px;
     }
     .counts{
       margin-left:78px;
@@ -68,6 +68,16 @@
         float:left;padding-right:6px;border-right:solid 1px #ddd;margin-right:6px;
        .n{font-weight:bold;font-size:14px;height:16px;line-height:16px;}
        .t{height:16px;line-height:16px;}
+      }
+    }
+    
+    .form{
+      background-color:#eee;margin:6px -6px -6px;
+      float:left;clear:both;font-size:0px;line-height:0px;
+      width:350px;height:88px; //152-64=88
+      textarea{
+        margin:6px;padding:6px;font-size:12px;
+        width:324px;height:62px;
       }
     }
   }
@@ -81,6 +91,22 @@
     width:152px;height:152px; border:solid 1px #ccc;padding:6px;
     background-color:#f7f7f7;
     @include box-shadow(0 3px 9px #aaa);
+    
+    .ops{
+      position:relative;top:-30px;margin:-6px;padding:6px;
+      clear:both;background-color:rgba(0,0,0,0.6);
+      height:24px;
+      overflow:hidden;
+      .cart{
+        float:right;
+        a.minibutton{@include border-radius(3px);}
+      }
+    }
+    
+    .ops{opacity:0;@include transition(opacity .5s ease-in);}
+    &:hover{
+      .ops{opacity:1;}
+    }
     
     .detail{
       float:left;
@@ -127,14 +153,14 @@
     
     &.with-photo{
       /* 186*2-20-14=338 */
-      width:338px;height:152px;
+      width:338px;
       .detail{width:178px;height:150px;}
       .photo{margin-left:6px;}
     }
     
     &.with-repost{
       /* 186*2-20-14=338 */
-      width:338px;height:152px;
+      width:338px;
       .detail{width:167px;height:150px;}
       .repost{width:167px;height:150px;}
     }

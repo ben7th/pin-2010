@@ -74,6 +74,10 @@
           .n=weibo_statuses_count
           .t 微博
 
+      .form.hide
+        .arrow
+        %textarea.weibo-ipt
+
     -statuses.each do |status|
       :ruby
         mid = status.id
@@ -108,3 +112,12 @@
         -if with_photo
           .photo{:'data-src'=>photo_url}
             .pct
+
+        .ops
+          .cart
+            -if has_cart
+              %a.minibutton.loginlightgreen.add{:href=>'javascript:;',:style=>'display:none'} 收集
+              %span.added.quiet 已收集
+            -else
+              %a.minibutton.loginlightgreen.add{:href=>'javascript:;'} 收集
+              %span.added.quiet{:style=>'display:none'} 已收集

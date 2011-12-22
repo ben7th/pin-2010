@@ -4,4 +4,7 @@ class WebWeibo::TimelineController < ApplicationController
 
   def home_timeline
   end
+
+  def user_timeline
+  end
 end

@@ -389,6 +389,20 @@
   }
 }
 
+@mixin button-loginlightgreen{
+  @include button-base;
+  color:#fff !important;
+  background-color:#BDED3C;
+  border:solid 1px #D1FD53;
+  text-shadow:0 0 2px black;
+  box-shadow:0 0 3px black;
+  @include transition(background-color .2s ease-in);
+  &:hover{
+    background-color:#D1FD53;
+    color:#fff !important;
+  }
+}
+
 /*form-buttons*/
 @mixin form-a-link-submit{
   @include button-blue;
