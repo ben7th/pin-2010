@@ -33,7 +33,7 @@ module MindmapManagingControllerMethods
 
   def info
     if !has_view_rights?(@mindmap,current_user)
-      return render_status_page(403,'当前用户对这个思维导图没有编辑权限')
+      return render_status_page(403,'当前用户对这个思维导图没有查看权限')
     end
   end
 
