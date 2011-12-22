@@ -223,12 +223,18 @@ def match_tsina_app_routes(map)
 end
 
 def match_weibo_routes(map)
-  map.namespace :tsina_weibo, :path_prefix=>'weibo' do |weibo|
+  map.namespace :web_weibo, :path_prefix=>'weibo' do |weibo|
     match_get  weibo, '/' => 'timeline#home_timeline'
     match_get  weibo, '/user/:user_id' => 'timeline#user_timeline'
 
     match_get  weibo, 'cart'     => 'cart#index'
     match_post weibo, 'cart/add' => 'cart#add'
+  end
+end
+
+def match_douban_routes(map)
+  map.namespace :web_douban, :path_prefix=>'douban' do |douban|
+    match_get  douban, '/' => 'events#index'
   end
 end
 
@@ -317,6 +323,7 @@ ActionController::Routing::Routes.draw do |map|
   match_get map,'/login_get_prev_wallpaper' => "login_wallpapers#get_prev_wallpaper"
 
   match_weibo_routes(map)
+  match_douban_routes(map)
 
   map.namespace(:admin) do |admin|
     admin.resources :apply_records

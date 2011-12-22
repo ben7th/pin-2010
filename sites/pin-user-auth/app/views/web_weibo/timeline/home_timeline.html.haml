@@ -1,0 +1,110 @@
+-# /weibo/home_timeline
+
+-hjavascript pin_url_for('ui','/singlejs/jquery.isotope.min.js')
+
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      jQuery('.page-web-weibo-statuses').isotope({
+        // options
+        itemSelector : '.gi',
+        masonry : {
+          columnWidth: 186
+        }
+      })
+    })
+
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+
+      jQuery('.feed.tsina .cart .add').live('click',function(){
+        // /weibo/cart/add
+        var elm      = jQuery(this);
+        var feed_elm = elm.closest('.feed');
+        var mid      = feed_elm.domdata('weibo-mid');
+        jQuery.ajax({
+          url  : '/weibo/cart/add',
+          data : {'mid':mid},
+          type : 'POST',
+          success : function(res){
+            elm.hide();
+            feed_elm.find('.cart .added').show();
+          }
+        })
+      });
+
+      jQuery('.page-web-weibo-statuses .status .photo').each(function(){
+        var elm = jQuery(this);
+        var ct_elm = elm.find('.pct')
+        pie.load_cut_img(elm.domdata('src'), ct_elm, ct_elm);
+      })
+
+    })
+
+:ruby
+  user   = current_user
+  weibo  = user.tsina_weibo
+  verify = weibo.verify_credentials
+  statuses = weibo.home_timeline
+
+  weibo_user_avatar_url = verify.profile_image_url.sub('/50/','/180/')
+  weibo_user_name = verify.name
+
+  weibo_followers_count = verify.followers_count
+  weibo_friends_count   = verify.friends_count
+  weibo_statuses_count  = verify.statuses_count
+
+-htitle "#{user.name}的新浪微博"
+
+.main
+  .page-web-weibo-statuses{:style=>''}
+    .weibo-user-info.gi
+      .avatar
+        %img{:src=>weibo_user_avatar_url}
+      .name=weibo_user_name
+      .counts
+        .count.followers
+          .n=weibo_followers_count
+          .t 粉丝
+        .count.friends
+          .n=weibo_friends_count
+          .t 关注
+        .count.statuses
+          .n=weibo_statuses_count
+          .t 微博
+
+    -statuses.each do |status|
+      :ruby
+        mid = status.id
+        reposted_status = status.retweeted_status
+
+        with_repost = !reposted_status.blank?
+
+        photo_url = status.bmiddle_pic
+        photo_url = photo_url || reposted_status.bmiddle_pic if with_repost
+
+        with_photo = !photo_url.blank?
+
+        detail        = h(status.text)
+        repost_detail = h(reposted_status.text) if with_repost
+
+        has_cart = WeiboCart.has_cart?(current_user, id)
+
+        klass = [
+          with_repost    ? 'with-repost' : '' ,
+          with_photo     ? 'with-photo' : ''
+        ]*' '
+
+      .status.gi{:'data-mid'=>mid, :class=>klass}
+        .detail.wordwarp
+          .text=detail
+
+        -if with_repost
+          .repost.wordwarp
+            .repost-arrow
+            .text=repost_detail
+
+        -if with_photo
+          .photo{:'data-src'=>photo_url}
+            .pct

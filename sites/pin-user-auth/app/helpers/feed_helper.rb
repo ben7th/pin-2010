@@ -110,4 +110,14 @@ module FeedHelper
     WeiboStatus.mid2chars(mid)
   end
   
+  def text_chs_length(str)
+    l = 0
+    
+    str.unpack("U*").each do |asc|
+      l += (asc<127 ? 0.5 : 1)
+    end
+    
+    return l
+  end
+
 end

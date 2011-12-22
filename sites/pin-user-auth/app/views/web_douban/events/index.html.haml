@@ -1,0 +1,25 @@
+-hjavascript pin_url_for('ui','/singlejs/feed_ogrid.js')
+
+-htitle '豆瓣活动'
+
+-events = MindpinDouban::Event.get_all_by_city('beijing')
+
+.main.grid_24
+  .page-ogrid.collection-feeds{:style=>'opacity:0;'}
+    -events.each do |event|
+      -url       = event.id
+      -title     = event.title.t
+      -content   = event.content.t
+      -photo_url = event.link[2].href.gsub('mpic','lpic')
+
+      .feed.douban-event{:'data-douban-event-url'=>url}
+        .timeline-node{:class=>'', :style=>'display:none;'}
+          .icon
+          .arrow
+
+        .photo
+          .box{:style=>'height:415px;overflow:hidden;'}
+            %img{:src=>photo_url,:style=>"display:block;width:415px;"}
+
+        .title=title
+        .detail.wordwrap=ct content

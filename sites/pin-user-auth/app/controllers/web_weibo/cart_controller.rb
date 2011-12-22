@@ -1,4 +1,4 @@
-class TsinaWeibo::CartController < ApplicationController
+class WebWeibo::CartController < ApplicationController
   before_filter :login_required
 
   def add

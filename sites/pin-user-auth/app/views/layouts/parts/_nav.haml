@@ -1,7 +1,10 @@
--simple ||= false
+:ruby
+  simple ||= false
+  fullscreen ||= false
+  klass = fullscreen ? 'container_auto' : 'container_24'
 
 .page-header
-  .container_24
+  %div{:class=>klass}
     .site-logo=link_to 'MINDPIN','/',:class=>'logo mindpin'
 
     -if logged_in?

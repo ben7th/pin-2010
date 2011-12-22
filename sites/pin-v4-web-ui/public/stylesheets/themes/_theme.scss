@@ -26,6 +26,8 @@ body{
     height:72px;width:100%;
     position:fixed;top:0;z-index:99;
     
+    .container_auto{padding:0 20px;min-width:950px;}
+    
     .site-logo{
       float:left;
       height:48px; /*logo 图面的高度是48像素*/
