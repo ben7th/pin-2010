@@ -11,24 +11,28 @@
         masonry : {
           columnWidth: 186
         }
-      })
+      });
 
-      var boxhover_timer;
-      jQuery('.page-web-weibo-statuses .status .box').live('mouseenter',function(){
-        var elm = jQuery(this);
-        var status_elm = elm.closest('.status');
-        var mid = status_elm.domdata('mid');
+      jQuery('.page-web-weibo-statuses .status .box').hoverIntent({
+        sensitivity: 10,
+        interval: 250,
+        over: function(){
+          var elm = jQuery(this);
+          var status_elm = elm.closest('.status');
+          var mid = status_elm.domdata('mid');
+          status_elm.addClass('boxhover');
+          jQuery('.page-web-weibo-statuses .status[data-mid!="'+mid+'"]').addClass('boxhoverhide');
+        },
+        timeout: 0,
+        out: function(){
+          var elm = jQuery(this);
+          var status_elm = elm.closest('.status');
 
-        clearTimeout(boxhover_timer);
-        status_elm.addClass('boxhover').removeClass('boxleave').removeClass('boxhoverhide').removeClass('boxleavehide');
-        jQuery('.page-web-weibo-statuses .status[data-mid!="'+mid+'"]').addClass('boxhoverhide');
-      }).live('mouseleave',function(){
-        var elm = jQuery(this);
-        var status_elm = elm.closest('.status');
+          status_elm.removeClass('boxhover');
+          jQuery('.page-web-weibo-statuses .status').removeClass('boxhoverhide');
+        }
+      });
 
-        status_elm.removeClass('boxhover').addClass('boxleave');
-        jQuery('.page-web-weibo-statuses .status').removeClass('boxhoverhide');
-      })
     })
 
 -content_for :javascript do
@@ -125,6 +129,7 @@
           -if with_repost
             .repost.wordwarp
               .repost-arrow
+                .icon
               .text=repost_detail
 
           -if with_photo

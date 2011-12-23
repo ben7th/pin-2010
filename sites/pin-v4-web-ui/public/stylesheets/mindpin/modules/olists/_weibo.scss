@@ -73,9 +73,9 @@
   .status{
     // 基本单元 186 x 186
     
-    
+    margin:10px;//background-color:#333;
     .box{
-      width:152px;height:152px;margin:10px;border:solid 1px #ccc;padding:6px;
+      width:152px;height:152px;border:solid 1px #ccc;padding:6px;
       background-color:#f7f7f7;
       @include box-shadow(0 3px 9px #aaa);
       overflow:hidden;
@@ -103,19 +103,21 @@
         float:left;
         border:solid 1px #eee;
         background-color:#eee;
-        position:relative;
         .text{
           width:120px;height:108px;overflow:hidden;
           margin:15px;color:#555;
         }
         
         .repost-arrow{
-          position:absolute;
-          width:16px;height:16px;overflow:hidden;
-          @include allimg(-18px,-18px);
-          top:26px;
-          left:-16px;
-          z-index:3;
+          position:relative;
+          .icon{
+            position:absolute;
+            width:16px;height:16px;overflow:hidden;
+            @include allimg(-18px,-18px);
+            top:26px;
+            left:-16px;
+            z-index:3;
+          }
         }
       }
       
@@ -159,33 +161,23 @@
     
     // 动画效果。。
     .box{
+      opacity:.9999999;
+      @include transition(all .3s ease-out 0s);
       .ops{opacity:0;}
     }
     
     &.boxhover{
       z-index:4;
       .box{
-        margin-top:0px;
+        margin-top:-10px;
         height:192px;
-        @include transition(all .3s ease-out .5s);
-        .ops{opacity:1;@include transition(all .3s ease-out .5s);}
-      }
-    }
-    
-    &.boxleave{
-      z-index:4;
-      .box{
-        @include transition(all .3s ease-out);
-        .ops{@include transition(all .3s ease-out);}
+        .ops{opacity:1;}
       }
     }
     
     &.boxhoverhide{
-      z-index:-1;
-      .box{
-        opacity:0.4;
-        @include transition(all .3s ease-out .5s);
-      }
+      //z-index:-1;
+      .box{ opacity:0.3;}
     }
     
   }
