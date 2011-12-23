@@ -1719,7 +1719,7 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .isotope{-moz-transition:height .8s,width .8s;-webkit-transition:height .8s,width .8s;transition:height .8s,width .8s;}
 .isotope .isotope-item{-webkit-transition:-webkit-transform .8s,opacity .8s;-moz-transition:-moz-transform .8s,opacity .8s;-o-transition:top .8s,left .8s,opacity .8s;transition:transform .8s,opacity .8s;}
 .isotope.no-transition,.isotope.no-transition .isotope-item,.isotope .isotope-item.no-transition{-webkit-transition-duration:0s;-moz-transition-duration:0s;-o-transition-duration:0s;transition-duration:0s;}
-.page-web-weibo-statuses{padding-left:20px;overflow:hidden;}
+.page-web-weibo-statuses{padding-left:20px;padding-bottom:30px;overflow:hidden;}
 .page-web-weibo-statuses .weibo-user-info{margin:10px;width:338px;height:152px;border:solid 1px #ccc;padding:6px;background-color:#f7f7f7;-moz-box-shadow:0 3px 9px #aaa;-webkit-box-shadow:0 3px 9px #aaa;box-shadow:0 3px 9px #aaa;color:#666;}
 .page-web-weibo-statuses .weibo-user-info .avatar{float:left;}
 .page-web-weibo-statuses .weibo-user-info .avatar img{width:64px;height:64px;}
@@ -1732,8 +1732,11 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-web-weibo-statuses .weibo-user-info .form textarea{margin:6px;padding:6px;font-size:12px;width:324px;height:62px;}
 .page-web-weibo-statuses .status{margin:10px;}
 .page-web-weibo-statuses .status .box{width:152px;height:152px;border:solid 1px #ccc;padding:6px;background-color:#f7f7f7;-moz-box-shadow:0 3px 9px #aaa;-webkit-box-shadow:0 3px 9px #aaa;box-shadow:0 3px 9px #aaa;overflow:hidden;}
-.page-web-weibo-statuses .status .box .ops{clear:both;padding-top:11px;height:24px;overflow:hidden;}
-.page-web-weibo-statuses .status .box .ops .cart{float:right;}
+.page-web-weibo-statuses .status .box .ops{clear:both;padding-top:7px;height:32px;overflow:hidden;}
+.page-web-weibo-statuses .status .box .ops .avatar{float:left;}
+.page-web-weibo-statuses .status .box .ops .avatar img{height:32px;width:32px;}
+.page-web-weibo-statuses .status .box .ops .name{float:left;margin-left:12px;height:32px;line-height:32px;font-size:weight;color:#666;}
+.page-web-weibo-statuses .status .box .ops .cart{float:right;margin-top:8px;}
 .page-web-weibo-statuses .status .box .ops .cart a.minibutton{-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
 .page-web-weibo-statuses .status .box .detail{float:left;border:solid 1px #eee;background-color:#fff;}
 .page-web-weibo-statuses .status .box .detail .text{width:120px;height:108px;overflow:hidden;margin:15px;color:#777;}

@@ -7553,6 +7553,7 @@ $feed_width_1c:228px; /*240-10-2*/
 
 .page-web-weibo-statuses {
   padding-left: 20px;
+  padding-bottom: 30px;
   overflow: hidden; }
   .page-web-weibo-statuses .weibo-user-info {
     margin: 10px;
@@ -7621,11 +7622,24 @@ $feed_width_1c:228px; /*240-10-2*/
       overflow: hidden; }
       .page-web-weibo-statuses .status .box .ops {
         clear: both;
-        padding-top: 11px;
-        height: 24px;
+        padding-top: 7px;
+        height: 32px;
         overflow: hidden; }
+        .page-web-weibo-statuses .status .box .ops .avatar {
+          float: left; }
+          .page-web-weibo-statuses .status .box .ops .avatar img {
+            height: 32px;
+            width: 32px; }
+        .page-web-weibo-statuses .status .box .ops .name {
+          float: left;
+          margin-left: 12px;
+          height: 32px;
+          line-height: 32px;
+          font-size: weight;
+          color: #666; }
         .page-web-weibo-statuses .status .box .ops .cart {
-          float: right; }
+          float: right;
+          margin-top: 8px; }
           .page-web-weibo-statuses .status .box .ops .cart a.minibutton {
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;

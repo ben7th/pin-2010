@@ -15,7 +15,7 @@
 
       jQuery('.page-web-weibo-statuses .status .box').hoverIntent({
         sensitivity: 10,
-        interval: 250,
+        interval: 300,
         over: function(){
           var elm = jQuery(this);
           var status_elm = elm.closest('.status');
@@ -79,7 +79,7 @@
 -htitle "#{user.name}的新浪微博"
 
 .main
-  .page-web-weibo-statuses{:style=>''}
+  .page-web-weibo-statuses{:style=>'height:0;'}
     .weibo-user-info.gi
       .avatar
         %img{:src=>weibo_user_avatar_url}
@@ -102,6 +102,11 @@
     -statuses.each do |status|
       :ruby
         mid = status.id
+
+        user = status.user
+        user_name = user.name
+        user_avatar_url = user.profile_image_url
+
         reposted_status = status.retweeted_status
 
         with_repost = !reposted_status.blank?
@@ -137,6 +142,9 @@
               .pct
 
           .ops
+            .avatar
+              %img{:src=>user_avatar_url}
+            .name=user_name
             .cart
               -if has_cart
                 %a.minibutton.green.add{:href=>'javascript:;',:style=>'display:none'} 收集
