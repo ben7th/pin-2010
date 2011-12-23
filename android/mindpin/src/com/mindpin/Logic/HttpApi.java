@@ -30,7 +30,7 @@ import com.mindpin.model.database.FeedDBHelper;
 
 public class HttpApi {
 	
-	public static final String SITE = "http://dev.www.mindpin.com";
+	public static final String SITE = "http://www.mindpin.com";
 	
 	// 各种路径常量
 	public static final String 用户登录				= "/login";

@@ -12,6 +12,23 @@
           columnWidth: 186
         }
       })
+
+      var boxhover_timer;
+      jQuery('.page-web-weibo-statuses .status .box').live('mouseenter',function(){
+        var elm = jQuery(this);
+        var status_elm = elm.closest('.status');
+        var mid = status_elm.domdata('mid');
+
+        clearTimeout(boxhover_timer);
+        status_elm.addClass('boxhover').removeClass('boxleave').removeClass('boxhoverhide').removeClass('boxleavehide');
+        jQuery('.page-web-weibo-statuses .status[data-mid!="'+mid+'"]').addClass('boxhoverhide');
+      }).live('mouseleave',function(){
+        var elm = jQuery(this);
+        var status_elm = elm.closest('.status');
+
+        status_elm.removeClass('boxhover').addClass('boxleave');
+        jQuery('.page-web-weibo-statuses .status').removeClass('boxhoverhide');
+      })
     })
 
 -content_for :javascript do
@@ -101,23 +118,24 @@
         ]*' '
 
       .status.gi{:'data-mid'=>mid, :class=>klass}
-        .detail.wordwarp
-          .text=detail
+        .box
+          .detail.wordwarp
+            .text=detail
 
-        -if with_repost
-          .repost.wordwarp
-            .repost-arrow
-            .text=repost_detail
+          -if with_repost
+            .repost.wordwarp
+              .repost-arrow
+              .text=repost_detail
 
-        -if with_photo
-          .photo{:'data-src'=>photo_url}
-            .pct
+          -if with_photo
+            .photo{:'data-src'=>photo_url}
+              .pct
 
-        .ops
-          .cart
-            -if has_cart
-              %a.minibutton.loginlightgreen.add{:href=>'javascript:;',:style=>'display:none'} 收集
-              %span.added.quiet 已收集
-            -else
-              %a.minibutton.loginlightgreen.add{:href=>'javascript:;'} 收集
-              %span.added.quiet{:style=>'display:none'} 已收集
+          .ops
+            .cart
+              -if has_cart
+                %a.minibutton.green.add{:href=>'javascript:;',:style=>'display:none'} 收集
+                %span.added.quiet 已收集
+              -else
+                %a.minibutton.green.add{:href=>'javascript:;'} 收集
+                %span.added.quiet{:style=>'display:none'} 已收集

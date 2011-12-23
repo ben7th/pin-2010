@@ -8,6 +8,10 @@ class LoginWallpaper < ActiveRecord::Base
   IMAGE_URL  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
 
   has_attached_file :image,
+    :styles => {
+    :s250  => '250x250#',
+    :s500 => '500x500#',
+  },
     :path => IMAGE_PATH,
     :url => IMAGE_URL,
     :default_style => :original,
