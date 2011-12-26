@@ -34,7 +34,6 @@ class FeedsController < ApplicationController
       flash[:error] = get_flash_error(feed)
       return redirect_to '/feeds/new'
     end
-    
     redirect_to "/feeds/#{feed.id}"
   end
 

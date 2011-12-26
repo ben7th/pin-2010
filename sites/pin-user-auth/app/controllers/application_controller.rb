@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     # 用户设置
     :'account/setting' => [
       :base, :base_submit,
-      :avatared, :avatared_submit,
+      :avatared, :avatared_submit_raw, :avatared_submit_copper
     ],
     
     # 用户设置 新浪微博绑定相关

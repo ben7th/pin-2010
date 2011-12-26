@@ -11,7 +11,7 @@ module PublicTimelineCacheModule
 
     def self.add_feed_cache(feed)
       public_collections = feed.collections.select {|collection| collection.public? }
-      feed_is_public = !public_collections.blank? # 只要有一个公开收集册，就认为feed是公开的
+      feed_is_public = feed.collections.blank? || !public_collections.blank? # 只要有一个公开收集册或者没有放入任何收集册，就认为feed是公开的
 
       PublicTimelineProxy.new.add_to_cache_and_sort(feed.id) if feed_is_public
     end

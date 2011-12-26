@@ -18,6 +18,9 @@ class Collection < UserAuthAbstract
   named_scope :publics,  :conditions=>['send_status = ?', Collection::SendStatus::PUBLIC]
   named_scope :privates, :conditions=>['send_status = ?', Collection::SendStatus::PRIVATE]
 
+  named_scope :active, :conditions=>['active = ?', true]
+  named_scope :unactive, :conditions=>['active = ?', false]
+
   def validate
     channel_ids = self.creator.channel_ids
     sent_c_ids = self.sent_channels.map{|c|c.id}
@@ -50,6 +53,19 @@ class Collection < UserAuthAbstract
       CollectionScope.build_list_form_string(collection, scope)
       collection.save!
       return collection
+    end
+
+    def home_timeline_collections
+      collections = []
+
+      # 自己创建的收集册
+      collections += self.created_collections
+      # 每个联系人的公开收集册
+      self.followings.map{|user|
+        collections += user.public_collections
+      }
+
+      collections.uniq.sort{|x,y| y.id<=>x.id}
     end
   end
 

@@ -1,5 +1,4 @@
 module HomeTimelineCacheModule
-
   class HomeTimelineFeedsProxy < RedisBaseProxy
     
     def initialize(user)
@@ -8,7 +7,8 @@ module HomeTimelineCacheModule
     end
 
     def xxxs_ids_db
-      @user.home_timeline_collections.map{|c|c.feed_ids}.flatten.uniq.sort{|id1, id2| id2<=>id1 }
+      (@user.home_timeline_collections.map{|c|c.feed_ids}.flatten +
+        @user.no_collection_feed_ids).uniq.sort{ |id1, id2| id2<=>id1 }
     end
 
   end
@@ -20,7 +20,8 @@ module HomeTimelineCacheModule
     end
     
     def xxxs_ids_db
-      @user.home_timeline_collections.map{|c|c.with_text_feed_ids}.flatten.uniq.sort{|id1, id2| id2<=>id1 }
+      (@user.home_timeline_collections.map{|c|c.with_text_feed_ids}.flatten +
+        @user.no_collection_with_text_feed_ids).uniq.sort{ |id1, id2| id2<=>id1 }
     end
   end
 
@@ -31,7 +32,8 @@ module HomeTimelineCacheModule
     end
 
     def xxxs_ids_db
-      @user.home_timeline_collections.map{|c|c.with_photo_feed_ids}.flatten.uniq.sort{|id1, id2| id2<=>id1 }
+      (@user.home_timeline_collections.map{|c|c.with_photo_feed_ids}.flatten +
+        @user.no_collection_with_photo_feed_ids).uniq.sort{ |id1, id2| id2<=>id1 }
     end
   end
 
@@ -42,7 +44,8 @@ module HomeTimelineCacheModule
     end
 
     def xxxs_ids_db
-      @user.home_timeline_collections.map{|c|c.mixed_feed_ids}.flatten.uniq.sort{|id1, id2| id2<=>id1 }
+      (@user.home_timeline_collections.map{|c|c.mixed_feed_ids}.flatten +
+        @user.no_collection_mixed_feed_ids).uniq.sort{ |id1, id2| id2<=>id1 }
     end
   end
 
@@ -99,11 +102,14 @@ module HomeTimelineCacheModule
       user    = channel_user.user
       creator = channel_user.channel.creator
       
-      user.public_collections.each { |c|
+      user.public_collections.each do |c|
         c.feeds.each { |feed|
           self._add(creator, feed)
         }
-      }
+      end
+      user.no_collection_feeds.each do |feed|
+        self._add(creator, feed)
+      end
     end
 
     def self.update_cache_when_channel_user_destroy(channel_user)
@@ -112,11 +118,14 @@ module HomeTimelineCacheModule
 
       return if creator.following?(user)
 
-      user.public_collections.each { |c|
+      user.public_collections.each do |c|
         c.feeds.each { |feed|
           self._remove(creator, feed)
         }
-      }
+    end
+      user.no_collection_feeds.each do |feed|
+        self._remove(creator, feed)
+      end
     end
 
     def self.rules

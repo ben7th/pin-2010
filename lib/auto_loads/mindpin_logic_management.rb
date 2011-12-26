@@ -79,10 +79,8 @@ class MindpinLogicManagement
     # 2 联系人缓存
     MindpinLogicManagement.load_redis_proxy ContactCacheModule::LogicRules
 
-    # 3 collection 缓存 最后更新 2011.12.13 songliang
-    MindpinLogicManagement.load_redis_proxy UserHomeTimelineCollectionsCacheModule::LogicRules
-
     # 4 feed 缓存 最后更新 2011.12.13 songliang
+    MindpinLogicManagement.load_redis_proxy NoCollectionFeedsCacheModule::LogicRules
     MindpinLogicManagement.load_redis_proxy CollectionFeedsCacheModule::LogicRules
     MindpinLogicManagement.load_redis_proxy PublicTimelineCacheModule::LogicRules
     MindpinLogicManagement.load_redis_proxy HomeTimelineCacheModule::LogicRules

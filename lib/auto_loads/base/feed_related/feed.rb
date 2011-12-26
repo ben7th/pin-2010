@@ -125,7 +125,7 @@ class Feed < UserAuthAbstract
 
   # 判断当前feed是否对某个user公开可见，该部分逻辑留待扩展
   def public_to?(user)
-    !self.collections.select{|coll|coll.public?}.blank? || (self.creator == user)
+    self.collections.blank? || !self.collections.select{|coll|coll.public?}.blank? || (self.creator == user)
   end
 
   # ----------------
@@ -213,7 +213,6 @@ class Feed < UserAuthAbstract
         @creator = creator
 
         @collection_ids = (options[:collection_ids]||'').split(',')
-        raise "至少指定一个收集册" if @collection_ids.blank?
 
         @from         = options[:from] || FROM_WEB
         @draft_token = options[:draft_token]
@@ -257,17 +256,58 @@ class Feed < UserAuthAbstract
     end
 
     # ---------------------
+    def no_collection_feeds_db
+      Feed.find_by_sql(%`
+        select feeds.* from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        where feed_collections.collection_id is null
+        and feeds.creator_id = #{self.id}
+        order by feeds.id desc
+        `).uniq
+    end
+
+    def no_collection_with_text_feeds_db
+      Feed.find_by_sql(%`
+        select feeds.* from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        where feed_collections.collection_id is null
+        and posts.detail != ''
+        and feeds.creator_id = #{self.id}
+        order by feeds.id desc
+        `).uniq
+    end
+
+    def no_collection_with_photo_feeds_db
+      Feed.find_by_sql(%`
+        select feeds.* from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        inner join post_photos on post_photos.post_id = posts.id
+        where feed_collections.collection_id is null
+        and feeds.creator_id = #{self.id}
+        order by feeds.id desc
+        `).uniq
+    end
+
+    def no_collection_mixed_feeds_db
+      Feed.find_by_sql(%`
+        select feeds.* from feeds
+        inner join feed_collections on feed_collections.feed_id = feeds.id
+        inner join posts on posts.feed_id = feeds.id
+          and posts.kind = '#{Post::KIND_MAIN}'
+        inner join post_photos on post_photos.post_id = posts.id
+        where feed_collections.collection_id is null
+          and feeds.creator_id = #{self.id}
+          and posts.detail != ''
+        order by feeds.id desc
+        `).uniq
+    end
     
     def created_feeds_count
       self.created_feeds.count
-    end
-
-    def newest_feed(user)
-      if user.blank?
-        self.out_feeds.first
-      else
-        (self.sent_feeds && user.in_feeds).first
-      end
     end
 
     def home_timeline(options={})
@@ -287,7 +327,16 @@ class Feed < UserAuthAbstract
     # page，可选，缺省1
     # feature，可选，主题类型，'all', 'text', 'photo', 'text|photo'。默认all。后台应分别建立缓存。
     def user_timeline(options={})
-      Feed.option_filter(options) do |feature|
+      feeds = Feed.option_filter(options) do |feature|
+        case feature
+        when "all" then self.no_collection_feed_ids
+        when "text" then self.no_collection_with_text_feed_ids
+        when "photo" then self.no_collection_with_photo_feed_ids
+        when "text|photo" then self.no_collection_mixed_feed_ids
+        end
+      end
+
+      feeds += Feed.option_filter(options) do |feature|
         self.public_collections.map do |collection|
           case feature
           when "all"        then collection.feed_ids
@@ -295,8 +344,9 @@ class Feed < UserAuthAbstract
           when "photo"      then collection.with_photo_feed_ids
           when "text|photo" then collection.mixed_feed_ids
           end
-        end.flatten.uniq.sort{|x,y| y<=>x}
+        end.flatten
       end
+      feeds.uniq.sort{|x,y| y.id<=>x.id}
     end
   end
 
