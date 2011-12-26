@@ -114,13 +114,11 @@ module UserBaseModule
     end
 
     # 使用SHA1算法，根据内部密钥和明文密码计算加密后的密码
-    private
     def encrypted_password(password, salt)
       Digest::SHA1.hexdigest(password + 'jerry_sun' + salt)
     end
 
     # 使用SHA1算法生成令牌字符串
-    private
     def hashed_token_string(name, hashed_password)
       Digest::SHA1.hexdigest(name + hashed_password + 'onlyecho')
     end
