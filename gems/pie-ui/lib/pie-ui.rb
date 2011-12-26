@@ -74,62 +74,6 @@ if defined? Rails
   end  
 end
 
-# ---------------------------------------------------------------
-
-# 加载cache_money配置
-if defined? ActiveRecord::Base
-  begin
-    require 'memcache'
-    require 'cache_money'
-
-    memcached_config = {
-      :test=>{
-        :ttl=>604800,
-        :namespace=>"global_test",
-        :sessions=>false,
-        :debug=>false,
-        :servers=>"localhost:11211"
-      },
-      :development=>{
-        :ttl=>604800,
-        :namespace=>"global_development",
-        :sessions=>false,
-        :debug=>true,
-        :servers=>"localhost:11211"
-      },
-      :production=>{
-        :ttl=>604800,
-        :namespace=>"production",
-        :sessions=>false,
-        :debug=>false,
-        :servers=>"localhost:11211"
-      }
-    }
-    config = memcached_config[RAILS_ENV.to_sym]
-
-    if RAILS_ENV == "test"
-      $memcache = Cash::Mock.new
-      p ">>>>> 当前为测试环境，$memcache = Cash::Mock.new"
-    else
-      $memcache = MemCache.new(config)
-    end
-    
-    $memcache.servers = config[:servers]
-
-    $local  = Cash::Local.new($memcache)
-    $lock   = Cash::Lock.new($memcache)
-    $cache  = Cash::Transactional.new($local, $lock)
-
-    p '>>>>> 加载 cache_money 配置'
-
-    class ActiveRecord::Base
-      is_cached :repository => $cache
-    end
-  rescue Exception => ex
-    p "#{ex.message}，cache_money 配置加载失败"
-  end
-end
-
 # 加载 mindpin_logic 配置
 if defined? ActiveRecord::Base
   begin

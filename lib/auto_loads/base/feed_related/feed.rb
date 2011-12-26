@@ -11,16 +11,14 @@ class Feed < UserAuthAbstract
   attr_accessor :_revision_message   # 该项如果非空，则保存时创建一个版本，并附带上该信息
 
   # 数据关系
-  belongs_to :creator, :class_name=>"User", :foreign_key=>:creator_id
   has_one    :main_post, :class_name=>'Post', :conditions=>"kind = '#{Post::KIND_MAIN}'" # 不能写校验，也不能关联创建
   has_many   :posts, :dependent=>:destroy
   has_many   :memoed_users_db, :through=>:posts, :source=>:user,
-    :order=>"posts.vote_score desc"
+    :order=>'posts.vote_score desc'
 
-  has_many   :feed_revisions, :order=>"feed_revisions.id desc"
+  has_many   :feed_revisions, :order=>'feed_revisions.id desc'
   has_many   :edited_users, :through=>:feed_revisions, :source=>:user,
-    :order=>"feed_revisions.id desc"
-
+    :order=>'feed_revisions.id desc'
 
   # 参数关联
   accepts_nested_attributes_for :posts
@@ -62,6 +60,7 @@ class Feed < UserAuthAbstract
   def _send_weibo_after_save
     self.send_to_tsina if @_send_weibo == true
     @_send_weibo = nil
+  ensure
     return true
   end
 
@@ -69,6 +68,7 @@ class Feed < UserAuthAbstract
   def _delete_related_draft_after_save
     @_related_draft.destroy if !!@_related_draft
     @_related_draft = nil
+  ensure
     return true
   end
 
@@ -76,9 +76,18 @@ class Feed < UserAuthAbstract
   def _record_editer_after_save
     self.record_editer(self.creator, @_revision_message) if !@_revision_message.blank?
     @_revision_message = nil
+  ensure
     return true
   end
 
+  # 关联
+  def creator # 因为缓存系统有未知问题，不用 belongs_to 声明，而是自定义两个方法
+    User.find_by_id(self.creator_id)
+  end
+
+  def creator=(creator)
+    self.creator_id = creator.id if !creator.blank?
+  end
 
   # 属性字段
   def title

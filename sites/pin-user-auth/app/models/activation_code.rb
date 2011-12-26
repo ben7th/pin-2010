@@ -28,9 +28,9 @@ class ActivationCode < ActiveRecord::Base
   end
 
   def self.acitvate_user(code,user)
-    raise "请先登录" if user.blank?
+    raise "激活前请先登录" if user.blank?
     ac = ActivationCode.find_by_code(code)
-    raise "激活码不对哦~" if ac.blank?
+    raise "激活码不正确" if ac.blank?
     raise "激活码已经被使用过了" unless ac.user_id.blank?
     ac.update_attributes(:user_id=>user.id)
   end

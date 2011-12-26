@@ -32,9 +32,14 @@ end
 
 ids = Feed.find(:all,:limit=>1000,:select=>"id").map{|f|f.id}
 count = ids.count
+
 while true do
-  id = ids[rand(count-1)]
-  write_file
-  show_feed id
-  sleep 30
+  begin
+    id = ids[rand(count-1)]
+    write_file
+    show_feed id
+    sleep 30
+  rescue
+    p '...'
+  end
 end
