@@ -28,6 +28,9 @@ module MindpinLogicRule
 
   def run_mindpin_logic_by_callback_type(callback_type)
     MindpinLogicManagement.run_all_logic_by_rules(self, callback_type)
+  rescue Exception => ex
+    p ex.message
+    puts ex.backtrace.join("\n")
   ensure
     return true
   end

@@ -55,16 +55,15 @@ class Atme < UserAuthAbstract
     end
   end
 
-  module FeedRevisionMethods
+  module FeedMethods
     def self.included(base)
-      base.after_create :add_or_change_atmes_by_content
+      base.after_save :add_or_change_atmes_by_content
     end
 
     def add_or_change_atmes_by_content
-      feed = self.feed
-      detail = feed.detail
-      user = self.user
-      Atme.change_atmes_by_atable(feed,detail,user)
+      detail = self.detail
+      user = self.creator
+      Atme.change_atmes_by_atable(self,detail,user)
       return true
     end
   end

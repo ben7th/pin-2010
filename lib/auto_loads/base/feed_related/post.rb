@@ -31,17 +31,6 @@ class Post < UserAuthAbstract
   named_scope :normal,:conditions=>"kind = '#{KIND_NORMAL}'",
     :order=>"id asc"
 
-  # 回调
-  after_save :remove_feed_invite
-  def remove_feed_invite
-    feed = self.feed
-    user = self.user
-    return if feed.blank? || user.blank?
-    fi = FeedInvite.find_by_feed_id_and_user_id(feed.id,user.id)
-    fi.destroy unless fi.blank?
-    return true
-  end
-
   def main?
     self.kind == Post::KIND_MAIN
   end
@@ -96,22 +85,14 @@ class Post < UserAuthAbstract
       post = self.post_of(user)
       if post.blank?
         post = Post.create(:feed=>self,:user=>user,:memo=>content)
-        post.record_editer(user)
       elsif post.memo != content
         post.add_memo(content)
-        post.record_editer(user)
       end
       post
     end
 
     def has_post?
       !self.posts.blank?
-    end
-
-    def hot_post
-      post = self.posts.first
-      return if post.vote_score <= 0
-      return post
     end
 
     def memoed_users
@@ -145,11 +126,8 @@ class Post < UserAuthAbstract
   end
 
   include PostComment::PostMethods
-  include PostVote::PostMethods
   #include UserLog::PostMethods
-  include PostSpamMark::PostMethods
   include Atme::AtableMethods
   include Atme::PostMethods
-  include PostRevision::PostMethods
   include PostPhoto::PostMethods
 end

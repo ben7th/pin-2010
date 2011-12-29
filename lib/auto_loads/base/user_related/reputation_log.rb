@@ -1,10 +1,4 @@
 class ReputationLog < UserAuthAbstract
-  ADD_POST_VOTE_UP = "ADD_POST_VOTE_UP"
-  CANCEL_POST_VOTE_UP = "CANCEL_POST_VOTE_UP"
-
-  ADD_FEED_VOTE_UP = "ADD_FEED_VOTE_UP"
-  CANCEL_FEED_VOTE_UP = "CANCEL_FEED_VOTE_UP"
-
   belongs_to :user
   validates_presence_of :user
   validates_presence_of :kind

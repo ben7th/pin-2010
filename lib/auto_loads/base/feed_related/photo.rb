@@ -59,5 +59,4 @@ class Photo < UserAuthAbstract
   end
 
   include PostPhoto::PhotoMethods
-  include PhotoComment::PhotoMethods
 end

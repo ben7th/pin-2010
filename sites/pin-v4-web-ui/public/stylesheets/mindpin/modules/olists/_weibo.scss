@@ -1,21 +1,17 @@
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
-}
-
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
+  &.isotope-hidden{
+    pointer-events: none;
+    z-index: 1;
+  }
 }
 
 /**** Isotope CSS3 transitions ****/
 .isotope{
-  @include transition2(height 0.8s, width 0.8s);
+  @include transition((height 0.8s, width 0.8s));
   .isotope-item{
-    -webkit-transition: -webkit-transform 0.8s, opacity 0.8s;
-       -moz-transition:    -moz-transform 0.8s, opacity 0.8s;
-         -o-transition:    top 0.8s, left 0.8s, opacity 0.8s;
-            transition:         transform 0.8s, opacity 0.8s;
+    @include transition((top 0.8s, left 0.8s, opacity 0.8s));
   }
 }
 
@@ -29,16 +25,79 @@
           transition-duration: 0s;
 }
 
+.page-web-weibo-overlay{
+  position:absolute;top:0;left:0;
+  width:100%;
+  z-index:3;
+  background-color:#eee;
+}
+
+.page-web-weibo-toolbar{
+  float:left;z-index:3;position:fixed;
+  width:48px;margin-left:15px;margin-top:-4px;
+  a{display:block;width:48px;height:48px;margin-bottom:10px;background-color:#000;}
+}
+
+a.page-web-weibo-load-more{
+  display:block;
+  margin-left:83px;
+  border:solid 1px #ccc;float:left;clear:both;overflow:hidden;
+  background-color:#666;opacity:0.6;
+  @include box-shadow(0 1px 5px #AAAAAA);
+  @include transition(all .3s);
+  span{
+    display:block;
+    color:white;text-align:center;padding:0 10px;
+    font-size:15px;height:36px;line-height:36px;font-weight:bold;
+    float:left;
+  }
+  .icon{
+    display:none;
+    float:left;width:53px;height:36px;
+    background:url(/images/loading/11.gif) no-repeat 0px 13px;
+  }
+  &:hover{
+    opacity:1;text-decoration:none;
+  };
+  &.loading{
+    opacity:1;cursor:default;
+    .icon{display:block;}
+  }
+}
+
 .page-web-weibo-statuses{
-  padding-left:20px;
+  margin-top:-15px;
+  margin-left:73px;
   padding-bottom:30px;
   overflow:hidden;
+
+  .weibo-trends, .weibo-user-info, .status .box{
+    @include box-shadow(0 1px 5px #aaa);
+  }
+  
+  .weibo-trends{
+    margin:10px;
+    width:152px;border:solid 1px #ccc;padding:6px;
+    height:338px;overflow:hidden;
+    background-color:#fff;
+    .t{font-size:14px;font-weight:bold;
+      padding:3px 6px;color:#666;
+      margin-bottom:5px;height:22px;line-height:22px;
+    }
+    a.trend{
+      display:block;
+      line-height:20px;height:20px;
+      background-color:#f4f4f4;color:#555;
+      margin-bottom:5px;
+      padding:3px 6px;
+    }
+    // 像素正好填满 good
+  }
   
   .weibo-user-info{
     margin:10px;
     width:338px;height:152px;border:solid 1px #ccc;padding:6px;
     background-color:#f7f7f7;
-    @include box-shadow(0 3px 9px #aaa);
     color:#666;
     
     .avatar{
@@ -73,19 +132,27 @@
   
   .status{
     // 基本单元 186 x 186
-    
-    margin:10px;//background-color:#333;
+    margin:10px;
     .box{
       width:152px;height:152px;border:solid 1px #ccc;padding:6px;
       background-color:#f7f7f7;
-      @include box-shadow(0 3px 9px #aaa);
       overflow:hidden;
+      cursor:default;
+      
+      .avatar{
+        position:absolute;
+        left:-3px;bottom:-3px;
+        font-size:0;line-height:0;
+        @include border-radius(3px);
+        @include box-shadow(0 1px 4px #aaa);
+        img{height:32px;width:32px;
+          @include border-radius(3px);
+        }
+      }
       
       .ops{
-        clear:both;padding-top:7px;height:32px;
-        overflow:hidden;
-        .avatar{float:left;img{height:32px;width:32px;}}
-        .name{float:left;margin-left:12px;height:32px;line-height:32px;font-size:weight;color:#666;}
+        clear:both;height:32px;padding-top:7px;
+        .name{float:left;margin-left:32px;height:32px;line-height:32px;font-size:weight;color:#666;}
         .cart{
           float:right;margin-top:8px;
           a.minibutton{@include border-radius(3px);}
@@ -94,7 +161,6 @@
       
       .detail{
         float:left;
-        border:solid 1px #eee;
         background-color:#fff;
         .text{
           width:120px;height:108px;overflow:hidden;
@@ -104,7 +170,6 @@
       
       .repost{
         float:left;
-        border:solid 1px #eee;
         background-color:#eee;
         .text{
           width:120px;height:108px;overflow:hidden;
@@ -116,8 +181,8 @@
           .icon{
             position:absolute;
             width:16px;height:16px;overflow:hidden;
-            @include allimg(-18px,-18px);
-            top:26px;
+            @include allimg(-18px, -18px);
+            top:22px;
             left:-16px;
             z-index:3;
           }
@@ -126,15 +191,13 @@
       
       .photo{
         float:left;
-        //border:solid 1px #eee;
         background-color:#fafafa;
-        width:152px;height:152px;
-        .pct{width:152px;height:152px;overflow:hidden;}
+        width:152px;height:152px;overflow:hidden;
       }
       
       // 普通
       .detail{
-        width:150px;height:150px;
+        width:152px;height:152px;
       }
       
     }
@@ -142,45 +205,45 @@
     &.with-photo{
       /* 186*2-20-14=338 */
       .box{width:338px;
-        .detail{width:185px;border-right:none;height:150px;}
+        .detail{width:186px;}
       }
     }
     
     &.with-repost{
       /* 186*2-20-14=338 */
       .box{width:338px;
-        .detail{width:167px;height:150px;}
-        .repost{width:167px;height:150px;}
+        .detail{width:169px;}
+        .repost{width:169px;height:152px;}
       }
     }
     
     &.with-repost.with-photo{
       // 186*3-20-14=524
       .box{width:524px;
-        .detail{width:184px;}
-        .repost{width:184px;height:150px;}
+        .detail{width:186px;}
+        .repost{width:186px;}
       }
     }
     
     // 动画效果。。
     .box{
-      opacity:.9999999;
-      @include transition(all .3s ease-out 0s);
-      .ops{opacity:0;}
+      @include transition((margin .2s, height .2s));
+      .avatar{@include transition(bottom .2s);}
+      .ops{opacity:0;@include transition(opacity .2s);}
     }
     
     &.boxhover{
       z-index:4;
       .box{
-        margin-top:-10px;
+        margin-top:-5px;
         height:192px;
+        .avatar{bottom:8px;}
         .ops{opacity:1;}
       }
     }
     
     &.boxhoverhide{
-      //z-index:-1;
-      .box{ opacity:0.3;}
+      .box{opacity:0.3;}
     }
     
   }

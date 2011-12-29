@@ -8,17 +8,11 @@ class Feed < UserAuthAbstract
   # 字段声明
   attr_accessor :_send_weibo         # 如果为true，则保存时使用队列发送新浪微博，参考下文的回调方法
   attr_accessor :_related_draft      # 关联着相关的草稿实例，如果该项有值，则保存时将关联的草稿删除掉
-  attr_accessor :_revision_message   # 该项如果非空，则保存时创建一个版本，并附带上该信息
 
   # 数据关系
   has_one    :main_post, :class_name=>'Post', :conditions=>"kind = '#{Post::KIND_MAIN}'" # 不能写校验，也不能关联创建
   has_many   :posts, :dependent=>:destroy
-  has_many   :memoed_users_db, :through=>:posts, :source=>:user,
-    :order=>'posts.vote_score desc'
-
-  has_many   :feed_revisions, :order=>'feed_revisions.id desc'
-  has_many   :edited_users, :through=>:feed_revisions, :source=>:user,
-    :order=>'feed_revisions.id desc'
+  has_many   :memoed_users_db, :through=>:posts, :source=>:user
 
   # 参数关联
   accepts_nested_attributes_for :posts
@@ -68,14 +62,6 @@ class Feed < UserAuthAbstract
   def _delete_related_draft_after_save
     @_related_draft.destroy if !!@_related_draft
     @_related_draft = nil
-  ensure
-    return true
-  end
-
-  after_save :_record_editer_after_save
-  def _record_editer_after_save
-    self.record_editer(self.creator, @_revision_message) if !@_revision_message.blank?
-    @_revision_message = nil
   ensure
     return true
   end
@@ -255,8 +241,7 @@ class Feed < UserAuthAbstract
           ],
 
           :_send_weibo         => @send_tsina,
-          :_related_draft      => PostDraft.find_by_draft_token(@draft_token),
-          :_revision_message   => '创建主题'
+          :_related_draft      => PostDraft.find_by_draft_token(@draft_token)
         )
         
         feed.save!
@@ -362,16 +347,13 @@ class Feed < UserAuthAbstract
   include Fav::FeedMethods
   include FeedLucene::FeedMethods
   include ShortUrl::FeedMethods
-  include FeedRevision::FeedMethods
   include Post::FeedMethods
-  include FeedInvite::FeedMethods
-  include SpamMark::FeedMethods
   include FeedTag::FeedMethods
   include UserLog::FeedMethods
   include FeedTag::FeedMethods
-  include FeedVote::FeedMethods
   include FeedViewing::FeedMethods
   include Atme::AtableMethods
+  include Atme::FeedMethods
   
   include FeedCollection::FeedMethods
 end

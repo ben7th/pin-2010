@@ -2,9 +2,6 @@ module UserNoticeHelper
   def user_tip_str(tip)
     re = case tip.kind
 
-    when UserTipProxy::FEED_INVITE
-      be_invited_tip_str(tip)
-
     when UserTipProxy::FAVS_EDIT_FEED_TITLE
       fav_edit_feed_title_str(tip)
 
@@ -13,15 +10,6 @@ module UserNoticeHelper
 
     when UserTipProxy::FAVS_EDIT_VIEWPOINT
       fav_edit_viewpoint_str(tip)
-
-    when UserTipProxy::VIEWPOINT_VOTE_UP
-      vote_up_tip_str(tip)
-
-    when UserTipProxy::VIEWPOINT_SPAM_MARK_EFFECT
-      viewpoint_span_mark_effect(tip)
-
-    when UserTipProxy::FEED_SPAM_MARK_EFFECT
-      feed_spam_mark_effect_str(tip)
 
     when UserTipProxy::VIEWPOINT_COMMENT
       viewpoint_comment_str(tip)
@@ -37,19 +25,6 @@ module UserNoticeHelper
   rescue Exception => ex
     return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
     "<del class='quiet'>通知已失效</del><div style='display:none;'>#{ex}</div>"
-  end
-
-  # 被邀请的通知
-  def be_invited_tip_str(be_invited_tip)
-    # id feed creator
-
-    user = be_invited_tip.creator
-    feed = be_invited_tip.feed
-
-    re = []
-    re << usersign(user,false)
-    re << '邀请你参与主题'
-    re << link_to(h(truncate_u(feed.content,16)),feed)
   end
 
   def fav_edit_feed_title_str(fav_change_tip)
@@ -84,43 +59,6 @@ module UserNoticeHelper
     re << '在主题'
     re << link_to(h(truncate_u(feed.content,16)),feed)
     re << "中修改了观点"
-  end
-
-  def vote_up_tip_str(vote_tip)
-    voters = vote_tip.voters
-    feed = vote_tip.viewpoint.feed
-
-    re = []
-
-    vre = []
-    voters.each do |voter|
-      vre << usersign(voter,false)
-    end
-
-    re << vre*','
-    re << '对于你在主题'
-    re << link_to(h(truncate_u(feed.content,16)),feed)
-    re << '中的观点表示赞成'
-  end
-
-  def viewpoint_span_mark_effect(tip)
-    feed = tip.feed
-    viewpoint = tip.viewpoint
-
-    re = []
-    re << '你的观点'
-    re << link_to(h(truncate_u(viewpoint.memo,16)),feed)
-    re << '因为被认为没有帮助而被隐藏'
-  end
-
-  def feed_spam_mark_effect_str(tip)
-    # :id,:feed,:kind,:time
-    feed = tip.feed
-
-    re = []
-    re << '你的主题'
-    re << link_to(h(truncate_u(feed.content,16)),feed)
-    re << '因为被认为不值得讨论或目的不明确而被隐藏'
   end
 
   def viewpoint_comment_str(tip)

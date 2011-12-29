@@ -1,13 +1,4 @@
 module FeedHelper
-  def activity_to_html(activity)
-    begin
-      operator = EmailActor.get_user_by_email(activity.operator)
-      render :partial=>"activities/#{activity.event}",:locals=>{:activity=>activity,:operator=>operator}
-    end
-  rescue Exception => ex
-    ex
-  end
-
   def user_last_feed(user)
     feed = user.out_newest_feed
     return if feed.nil?
@@ -94,16 +85,6 @@ module FeedHelper
 
   def recent_feeds
     Feed.paginate(:per_page=>5,:page=>1,:order=>'id desc')
-  end
-
-  def support_str(viewpoint)
-    viewpoint.viewpoint_up_votes.map{|vote|
-      link_to(vote.user.name,vote.user,:class=>'quiet')
-    }*',' + ' 表示赞成'
-  end
-
-  def unsupport_str(viewpoint)
-    "#{viewpoint.viewpoint_down_votes.length}人表示反对"
   end
 
   def mid2url(mid)

@@ -50,11 +50,10 @@ class UserJoinedFeedsChangeTipProxy
         }
       },
       {
-        :class => FeedRevision,
-        :after_create => Proc.new{|feed_revision|
-          feed = feed_revision.feed
+        :class => Feed,
+        :after_save => Proc.new{|feed|
           users = feed.joined_users_and_creator
-          users = users-[feed_revision.user]
+          users = users-[feed.creator]
           next if users.blank?
           user_ids = users.map{|user|user.id}
 

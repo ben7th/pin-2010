@@ -4,10 +4,6 @@ module UserBaseEvent
     !self.logo_file_name.blank?
   end
 
-  def has_invite_others?
-    !!self.send_invite_email
-  end
-
   def has_contacts?
     self.contacts.size > 0
   end
@@ -31,7 +27,6 @@ module UserBaseEvent
   def complate_percentage
     score = 0;
     score += 18 if has_avatar?
-    score += 10 if has_invite_others?
     score += 18 if has_contacts?
 #    score += 15 if has_channels?
     score += 18 if has_feeds?
@@ -44,7 +39,6 @@ module UserBaseEvent
   def base_event
     return {
       :avatar=>has_avatar?,
-      :invite=>has_invite_others?,
       :contacts=>has_contacts?,
       :activated=>activated?,
       :bind_site=>bind_site?,

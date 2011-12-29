@@ -38,8 +38,9 @@ while true do
     id = ids[rand(count-1)]
     write_file
     show_feed id
-    sleep 30
-  rescue
+  rescue Exception=>ex
     p '...'
+  ensure
+    sleep 30
   end
 end

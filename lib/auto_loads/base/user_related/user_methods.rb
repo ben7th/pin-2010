@@ -58,7 +58,6 @@ module UserMethods
     base.send(:include, ConnectUser::UserMethods)
     base.send(:include, Tsina::UserMethods)
     base.send(:include, MindmapFav::UserMethods)
-    base.send(:include, FeedInvite::UserMethods)
     base.send(:include, UserLog::UserMethods)
     base.send(:include, TagFav::UserMethods)
     base.send(:include, TagsMapOfUserCreatedFeedsProxy::UserMethods)

@@ -112,12 +112,8 @@ def match_feeds_routes(map)
       :aj_viewpoint_in_list =>:post,
       :update_detail        =>:put,
       :update_content       =>:put,
-      :invite               =>:post,
-      :cancel_invite        =>:delete,
-      :send_invite_email    =>:post,
       :save_viewpoint_draft =>:post,
       :recover              =>:put,
-      :add_spam_mark        =>:post,
       :add_tags             =>:post,
       :remove_tag           =>:delete,
       :change_tags          =>:put,
@@ -136,9 +132,7 @@ def match_feeds_routes(map)
       :search     =>:get,
       :incoming   =>:get,
       :public_timeline => :get
-    } do |feed|
-      feed.resources :feed_revisions,:as=>"revisions"
-    end
+    }
 
     match_post map, '/feeds/:feed_id/comments' => 'post_comments#create'
     map.resources :post_comments, :collection=>{
@@ -156,15 +150,7 @@ def match_viewpoints_routes(map)
   
   map.create_viewpoint_feed "/viewpoints/:id/feeds",:controller=>"viewpoints",
     :action=>"create_feed",:conditions=>{:method=>:post}
-  map.viewpoint_vote_up "/viewpoints/:id/vote_up",:controller=>"viewpoints",
-    :action=>"vote_up",:conditions=>{:method=>:post}
-  map.viewpoint_vote_down "/viewpoints/:id/vote_down",:controller=>"viewpoints",
-    :action=>"vote_down",:conditions=>{:method=>:post}
-  map.viewpoint_cancel_vote "/viewpoints/:id/cancel_vote",:controller=>"viewpoints",
-    :action=>"cancel_vote",:conditions=>{:method=>:delete}
 
-  map.resources :viewpoint_revisions,:as=>"revisions",:path_prefix=>"/viewpoints/:viewpoint_id"
-  map.resources :viewpoint_revisions,:member=>{:rollback=>:put}
 end
 
 def match_channels_routes(map)
@@ -224,11 +210,24 @@ end
 
 def match_weibo_routes(map)
   map.namespace :web_weibo, :path_prefix=>'weibo' do |weibo|
-    match_get  weibo, '/'               => 'timeline#home_timeline'
-    match_get  weibo, '/users/:user_id' => 'timeline#user_timeline'
+    match_get  weibo, '/'                   => 'timeline#home_timeline'  # 微博首页
+    match_get  weibo, '/users/:uid'         => 'timeline#user_timeline'  # 某用户的微博
+    weibo.connect '/trends/:trend_name', :controller=>'timeline', :action=>'trend_statuses', # 某话题的微博
+      :conditions => {:method => :get}, :requirements => {:trend_name => /.+/}
 
-    match_get  weibo, 'cart'     => 'cart#index'
-    match_post weibo, 'cart/add' => 'cart#add'
+    match_get  weibo, '/atmes'         => 'timeline#atmes'          # @我的
+    match_get  weibo, '/comments/byme' => 'timeline#comments_by_me' # 我发出的评论
+    match_get  weibo, '/comments/tome' => 'timeline#comments_to_me' # 我收到的评论
+
+    match_get  weibo, '/contacts/:uid/friends'   => 'contacts#friends'   #某用户的关注对象
+    match_get  weibo, '/contacts/:uid/followers' => 'contacts#followers' #某用户的粉丝
+
+    match_get  weibo, '/statuses/:mid'             => 'statuses#show'        # 单条微博显示
+    match_post weibo, '/statuses'                  => 'statuses#create'      # 发一条微博
+    match_post weibo, '/statuses/:mid/add_comment' => 'statuses#add_comment' # 发一条评论
+
+    match_get  weibo, '/cart'     => 'cart#index'
+    match_post weibo, '/cart/add' => 'cart#add'
   end
 end
 
@@ -253,7 +252,6 @@ ActionController::Routing::Routes.draw do |map|
   match_user_routes(map)
   match_feeds_routes(map)
   match_viewpoints_routes(map)
-  map.resources :feed_revisions,:member=>{:rollback=>:put}
   map.resources :user_logs,:collection=>{:friends=>:get,:newest=>:get}
 
   map.resources :messages

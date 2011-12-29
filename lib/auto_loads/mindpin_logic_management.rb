@@ -105,10 +105,6 @@ class MindpinLogicManagement
     MindpinLogicManagement.load_tip_proxy(UserTipProxy)
     MindpinLogicManagement.load_tip_proxy(UserJoinedFeedsChangeTipProxy)
 
-    # 9 reputation
-    MindpinLogicManagement.load_reputation_proxy PostVoteReputationProxy
-    MindpinLogicManagement.load_reputation_proxy FeedVoteReputationProxy
-
     # ------------------
 
     # 10 协同导图缓存

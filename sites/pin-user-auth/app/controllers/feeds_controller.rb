@@ -1,6 +1,5 @@
 class FeedsController < ApplicationController
   include FeedsControllerNavigationMethods
-  include FeedsControllerInviteMethods
 
   before_filter :login_required,:except=>[:index,:no_reply,:newest,:search,:show,:aj_comments]
 
@@ -106,11 +105,6 @@ class FeedsController < ApplicationController
   def save_viewpoint_draft
     @feed.save_viewpoint_draft(current_user,params[:content])
     render :text=>200
-  end
-
-  def add_spam_mark
-    @feed.add_spam_mark(current_user)
-    render :partial=>'feeds/show_parts/feed_show',:locals=>{:feed=>@feed}
   end
 
   def recover

@@ -126,6 +126,7 @@ class UserLog < UserAuthAbstract
   module FeedMethods
     def self.included(base)
       base.after_create :add_add_feed_log
+      base.after_update :add_edit_feed_log
     end
 
     def add_add_feed_log
@@ -135,23 +136,12 @@ class UserLog < UserAuthAbstract
       p ex
       return true
     end
-  end
-
-  module FeedRevisionMethods
-    def self.included(base)
-      base.after_create :add_edit_feed_log
-    end
 
     def add_edit_feed_log
-      feed = self.feed
-      fvs = feed.feed_revisions
-      fvs = fvs-[self]
-      return true if fvs.blank?
+      user = self.creator
+      return true if user.last_edit_feed == self
 
-      user = self.user
-      return true if user.last_edit_feed == self.feed
-
-      user.create_edit_feed_log(self.feed)
+      user.create_edit_feed_log(self)
       return true
     rescue Exception => ex
       p ex

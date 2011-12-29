@@ -197,21 +197,16 @@ class FeedLucene
     end
   end
 
-  module FeedRevisionMethods
-    def self.included(base)
-      base.after_create :update_lucene_index_on_create
-    end
-
-    def update_lucene_index_on_create
-      FeedLucene.index_one_feed(self.feed.id)
-      return true
-    end
-  end
-
   module FeedMethods
     def self.included(base)
+      base.after_create :update_lucene_index_on_save
       base.after_update :update_lucene_index_on_update
       base.after_destroy :destroy_lucene_index_on_destroy
+    end
+
+    def update_lucene_index_on_save
+      FeedLucene.index_one_feed(self.id)
+      return true
     end
 
     def destroy_lucene_index_on_destroy

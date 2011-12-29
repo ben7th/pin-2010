@@ -1,0 +1,53 @@
+-statuses.each do |status|
+  :ruby
+    mid = status.id
+
+    user = status.user
+    user_name = user.name
+    user_avatar_url = user.profile_image_url
+
+    reposted_status = status.retweeted_status
+
+    with_repost = !reposted_status.blank?
+
+    photo_url = status.bmiddle_pic
+    photo_url = photo_url || reposted_status.bmiddle_pic if with_repost
+
+    with_photo = !photo_url.blank?
+
+    detail        = h(status.text)
+    repost_detail = h(reposted_status.text) if with_repost
+
+    has_cart = WeiboCart.has_cart?(current_user, id)
+
+    klass = [
+      with_repost    ? 'with-repost' : '' ,
+      with_photo     ? 'with-photo' : ''
+    ]*' '
+
+  .status.gi{:'data-mid'=>mid, :class=>klass}
+    .box
+      .avatar
+        %img{:src=>user_avatar_url}
+
+      .detail.wordwarp
+        .text=detail
+
+      -if with_repost
+        .repost.wordwarp
+          .repost-arrow
+            .icon
+          .text=repost_detail
+
+      -if with_photo
+        .photo{:'data-src'=>photo_url}
+
+      .ops
+        .name=user_name
+        .cart
+          -if has_cart
+            %a.minibutton.green.add{:href=>'javascript:;',:style=>'display:none'} 收集
+            %span.added.quiet 已收集
+          -else
+            %a.minibutton.green.add{:href=>'javascript:;'} 收集
+            %span.added.quiet{:style=>'display:none'} 已收集

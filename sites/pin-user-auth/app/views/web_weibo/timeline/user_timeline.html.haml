@@ -1,8 +1,7 @@
 -hjavascript pin_url_for('ui','/singlejs/jquery.isotope.min.js')
 -hjavascript pin_url_for('ui','/singlejs/web_weibo/home_timeline.js')
 
--htitle "#{current_user.name}的微博收集"
-
 .main
+  =render 'web_weibo/timeline/part/my_toolbar', :weibo_user_id=>@weibo_user_id
   .page-web-weibo-statuses{:style=>'height:0;'}
     =render 'web_weibo/timeline/part/statuses', :statuses=>@statuses

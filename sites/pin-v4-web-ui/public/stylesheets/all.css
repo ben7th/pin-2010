@@ -7526,10 +7526,9 @@ $feed_width_1c:228px; /*240-10-2*/
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2; }
-
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1; }
+  .isotope-item.isotope-hidden {
+    pointer-events: none;
+    z-index: 1; }
 
 /**** Isotope CSS3 transitions ****/
 .isotope {
@@ -7537,10 +7536,9 @@ $feed_width_1c:228px; /*240-10-2*/
   -webkit-transition: height 0.8s, width 0.8s;
   transition: height 0.8s, width 0.8s; }
   .isotope .isotope-item {
-    -webkit-transition: -webkit-transform 0.8s, opacity 0.8s;
-    -moz-transition: -moz-transform 0.8s, opacity 0.8s;
-    -o-transition: top 0.8s, left 0.8s, opacity 0.8s;
-    transition: transform 0.8s, opacity 0.8s; }
+    -moz-transition: top 0.8s, left 0.8s, opacity 0.8s;
+    -webkit-transition: top 0.8s, left 0.8s, opacity 0.8s;
+    transition: top 0.8s, left 0.8s, opacity 0.8s; }
 
 /**** disabling Isotope CSS3 transitions ****/
 .isotope.no-transition,
@@ -7551,10 +7549,101 @@ $feed_width_1c:228px; /*240-10-2*/
   -o-transition-duration: 0s;
   transition-duration: 0s; }
 
+.page-web-weibo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  background-color: #eee; }
+
+.page-web-weibo-toolbar {
+  float: left;
+  z-index: 3;
+  position: fixed;
+  width: 48px;
+  margin-left: 15px;
+  margin-top: -4px; }
+  .page-web-weibo-toolbar a {
+    display: block;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    background-color: #000; }
+
+a.page-web-weibo-load-more {
+  display: block;
+  margin-left: 83px;
+  border: solid 1px #ccc;
+  float: left;
+  clear: both;
+  overflow: hidden;
+  background-color: #666;
+  opacity: 0.6;
+  -moz-box-shadow: 0 1px 5px #aaaaaa;
+  -webkit-box-shadow: 0 1px 5px #aaaaaa;
+  box-shadow: 0 1px 5px #aaaaaa;
+  -moz-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s; }
+  a.page-web-weibo-load-more span {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0 10px;
+    font-size: 15px;
+    height: 36px;
+    line-height: 36px;
+    font-weight: bold;
+    float: left; }
+  a.page-web-weibo-load-more .icon {
+    display: none;
+    float: left;
+    width: 53px;
+    height: 36px;
+    background: url(/images/loading/11.gif) no-repeat 0px 13px; }
+  a.page-web-weibo-load-more:hover {
+    opacity: 1;
+    text-decoration: none; }
+  a.page-web-weibo-load-more.loading {
+    opacity: 1;
+    cursor: default; }
+    a.page-web-weibo-load-more.loading .icon {
+      display: block; }
+
 .page-web-weibo-statuses {
-  padding-left: 20px;
+  margin-top: -15px;
+  margin-left: 73px;
   padding-bottom: 30px;
   overflow: hidden; }
+  .page-web-weibo-statuses .weibo-trends, .page-web-weibo-statuses .weibo-user-info, .page-web-weibo-statuses .status .box {
+    -moz-box-shadow: 0 1px 5px #aaaaaa;
+    -webkit-box-shadow: 0 1px 5px #aaaaaa;
+    box-shadow: 0 1px 5px #aaaaaa; }
+  .page-web-weibo-statuses .weibo-trends {
+    margin: 10px;
+    width: 152px;
+    border: solid 1px #ccc;
+    padding: 6px;
+    height: 338px;
+    overflow: hidden;
+    background-color: #fff; }
+    .page-web-weibo-statuses .weibo-trends .t {
+      font-size: 14px;
+      font-weight: bold;
+      padding: 3px 6px;
+      color: #666;
+      margin-bottom: 5px;
+      height: 22px;
+      line-height: 22px; }
+    .page-web-weibo-statuses .weibo-trends a.trend {
+      display: block;
+      line-height: 20px;
+      height: 20px;
+      background-color: #f4f4f4;
+      color: #555;
+      margin-bottom: 5px;
+      padding: 3px 6px; }
   .page-web-weibo-statuses .weibo-user-info {
     margin: 10px;
     width: 338px;
@@ -7562,9 +7651,6 @@ $feed_width_1c:228px; /*240-10-2*/
     border: solid 1px #ccc;
     padding: 6px;
     background-color: #f7f7f7;
-    -moz-box-shadow: 0 3px 9px #aaaaaa;
-    -webkit-box-shadow: 0 3px 9px #aaaaaa;
-    box-shadow: 0 3px 9px #aaaaaa;
     color: #666; }
     .page-web-weibo-statuses .weibo-user-info .avatar {
       float: left; }
@@ -7616,23 +7702,33 @@ $feed_width_1c:228px; /*240-10-2*/
       border: solid 1px #ccc;
       padding: 6px;
       background-color: #f7f7f7;
-      -moz-box-shadow: 0 3px 9px #aaaaaa;
-      -webkit-box-shadow: 0 3px 9px #aaaaaa;
-      box-shadow: 0 3px 9px #aaaaaa;
-      overflow: hidden; }
+      overflow: hidden;
+      cursor: default; }
+      .page-web-weibo-statuses .status .box .avatar {
+        position: absolute;
+        left: -3px;
+        bottom: -3px;
+        font-size: 0;
+        line-height: 0;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        -moz-box-shadow: 0 1px 4px #aaaaaa;
+        -webkit-box-shadow: 0 1px 4px #aaaaaa;
+        box-shadow: 0 1px 4px #aaaaaa; }
+        .page-web-weibo-statuses .status .box .avatar img {
+          height: 32px;
+          width: 32px;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px; }
       .page-web-weibo-statuses .status .box .ops {
         clear: both;
-        padding-top: 7px;
         height: 32px;
-        overflow: hidden; }
-        .page-web-weibo-statuses .status .box .ops .avatar {
-          float: left; }
-          .page-web-weibo-statuses .status .box .ops .avatar img {
-            height: 32px;
-            width: 32px; }
+        padding-top: 7px; }
         .page-web-weibo-statuses .status .box .ops .name {
           float: left;
-          margin-left: 12px;
+          margin-left: 32px;
           height: 32px;
           line-height: 32px;
           font-size: weight;
@@ -7646,7 +7742,6 @@ $feed_width_1c:228px; /*240-10-2*/
             border-radius: 3px; }
       .page-web-weibo-statuses .status .box .detail {
         float: left;
-        border: solid 1px #eee;
         background-color: #fff; }
         .page-web-weibo-statuses .status .box .detail .text {
           width: 120px;
@@ -7656,7 +7751,6 @@ $feed_width_1c:228px; /*240-10-2*/
           color: #777; }
       .page-web-weibo-statuses .status .box .repost {
         float: left;
-        border: solid 1px #eee;
         background-color: #eee; }
         .page-web-weibo-statuses .status .box .repost .text {
           width: 120px;
@@ -7674,58 +7768,59 @@ $feed_width_1c:228px; /*240-10-2*/
             background-image: url(/images/alltu.png);
             background-repeat: no-repeat;
             background-position: -18px -18px;
-            top: 26px;
+            top: 22px;
             left: -16px;
             z-index: 3; }
       .page-web-weibo-statuses .status .box .photo {
         float: left;
         background-color: #fafafa;
         width: 152px;
-        height: 152px; }
-        .page-web-weibo-statuses .status .box .photo .pct {
-          width: 152px;
-          height: 152px;
-          overflow: hidden; }
+        height: 152px;
+        overflow: hidden; }
       .page-web-weibo-statuses .status .box .detail {
-        width: 150px;
-        height: 150px; }
+        width: 152px;
+        height: 152px; }
     .page-web-weibo-statuses .status.with-photo {
       /* 186*2-20-14=338 */ }
       .page-web-weibo-statuses .status.with-photo .box {
         width: 338px; }
         .page-web-weibo-statuses .status.with-photo .box .detail {
-          width: 185px;
-          border-right: none;
-          height: 150px; }
+          width: 186px; }
     .page-web-weibo-statuses .status.with-repost {
       /* 186*2-20-14=338 */ }
       .page-web-weibo-statuses .status.with-repost .box {
         width: 338px; }
         .page-web-weibo-statuses .status.with-repost .box .detail {
-          width: 167px;
-          height: 150px; }
+          width: 169px; }
         .page-web-weibo-statuses .status.with-repost .box .repost {
-          width: 167px;
-          height: 150px; }
+          width: 169px;
+          height: 152px; }
     .page-web-weibo-statuses .status.with-repost.with-photo .box {
       width: 524px; }
       .page-web-weibo-statuses .status.with-repost.with-photo .box .detail {
-        width: 184px; }
+        width: 186px; }
       .page-web-weibo-statuses .status.with-repost.with-photo .box .repost {
-        width: 184px;
-        height: 150px; }
+        width: 186px; }
     .page-web-weibo-statuses .status .box {
-      opacity: .9999999;
-      -moz-transition: all 0.3s ease-out 0s;
-      -webkit-transition: all 0.3s ease-out 0s;
-      transition: all 0.3s ease-out 0s; }
+      -moz-transition: margin 0.2s, height 0.2s;
+      -webkit-transition: margin 0.2s, height 0.2s;
+      transition: margin 0.2s, height 0.2s; }
+      .page-web-weibo-statuses .status .box .avatar {
+        -moz-transition: bottom 0.2s;
+        -webkit-transition: bottom 0.2s;
+        transition: bottom 0.2s; }
       .page-web-weibo-statuses .status .box .ops {
-        opacity: 0; }
+        opacity: 0;
+        -moz-transition: opacity 0.2s;
+        -webkit-transition: opacity 0.2s;
+        transition: opacity 0.2s; }
     .page-web-weibo-statuses .status.boxhover {
       z-index: 4; }
       .page-web-weibo-statuses .status.boxhover .box {
-        margin-top: -10px;
+        margin-top: -5px;
         height: 192px; }
+        .page-web-weibo-statuses .status.boxhover .box .avatar {
+          bottom: 8px; }
         .page-web-weibo-statuses .status.boxhover .box .ops {
           opacity: 1; }
     .page-web-weibo-statuses .status.boxhoverhide .box {
