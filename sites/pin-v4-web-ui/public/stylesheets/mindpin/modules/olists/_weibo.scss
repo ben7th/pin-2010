@@ -106,25 +106,24 @@ a.page-web-weibo-load-more{
     font-size:15px;height:36px;line-height:36px;font-weight:bold;
     float:left;
   }
-  .icon{
-    display:none;
-    float:left;width:53px;height:36px;
-    background:url(/images/loading/11.gif) no-repeat 0px 13px;
-  }
   &:hover{
     opacity:1;text-decoration:none;
   };
   &.loading{
     opacity:1;cursor:default;
-    .icon{display:block;}
+    &::after{
+      content:"";
+      display:block;
+      float:left;width:53px;height:36px;
+      background:url(/images/loading/11.gif) no-repeat 0 13px;
+    }
   }
 }
 
 .page-web-weibo-statuses{
   margin-top:-15px;
   margin-left:73px;
-  padding-bottom:30px;
-  overflow:hidden;
+  margin-bottom:10px;
 
   .weibo-trends, .weibo-user-info, .status .box{
     @include box-shadow(0 1px 5px #aaa);
@@ -207,11 +206,24 @@ a.page-web-weibo-load-more{
       
       .ops{
         clear:both;height:32px;padding-top:7px;
-        .name{margin-left:32px;height:32px;line-height:32px;font-size:weight;color:#666;}
+        .name{margin-left:30px;height:32px;line-height:32px;font-size:weight;color:#666;}
         .cart{
           float:right;
           a.minibutton{@include border-radius(3px);height:30px;line-height:30px;}
-          .added{height:32px;line-height:32px;}
+          .done{height:32px;line-height:32px;display:none;}
+          &.added{
+            a.minibutton{display:none;}
+            .done{display:block;}
+          }
+          &.loading{
+            a.minibutton{display:none;}
+            .done{display:none;}
+            &::after{
+              content:"";
+              display:block;width:32px;height:32px;
+              background:url(/images/loading/progress-dots.gif) no-repeat 7px 14px;
+            }
+          }
         }
       }
       
@@ -227,21 +239,17 @@ a.page-web-weibo-load-more{
       .repost{
         float:left;
         background-color:#eee;
+        position:relative;
         .text{
           width:120px;height:108px;overflow:hidden;
           margin:15px;color:#555;
         }
-        
-        .repost-arrow{
-          position:relative;
-          .icon{
-            position:absolute;
-            width:16px;height:16px;overflow:hidden;
-            @include allimg(-18px, -18px);
-            top:22px;
-            left:-16px;
-            z-index:3;
-          }
+        &::before{
+          content:"";
+          width:0;height:0;
+          border-top:solid 16px #eee;
+          border-left:solid 16px #fff;
+          position:absolute;top:22px;left:-16px;
         }
       }
       

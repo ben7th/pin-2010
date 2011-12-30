@@ -1,22 +1,22 @@
 pie.load(function(){
-
   var statuses_elm = jQuery('.page-web-weibo-statuses');
+  var load_more_elm = jQuery('a.page-web-weibo-load-more');
 
   // 全局排列
-  statuses_elm.isotope({
+  statuses_elm.fadeIn(1000).isotope({
     itemSelector : '.gi',
     masonry : { columnWidth : 186 },
     transformsEnabled: false
   });
 
+  load_more_elm.fadeIn(1000);
+
   var show_olist_overlay = function(){
     jQuery('<div class="page-web-weibo-overlay"></div>')
       .css('height', jQuery(window).height())
-//      .css('opacity', 0.4)
-//      .appendTo(document.body)
       .css('opacity', 0)
       .appendTo(document.body)
-      .animate({'opacity': 0.5}, 600);
+      .animate({'opacity': 0.4}, 600);
   };
 
   var remove_olist_overlay = function(){
@@ -81,7 +81,6 @@ pie.load(function(){
   jQuery(window).bind('scroll', lazy_load_photos);
 
   // 翻页组件
-  var load_more_elm = jQuery('a.page-web-weibo-load-more');
   var load_more = function(){
     if(load_more_elm.hasClass('loading')) return;
 
@@ -108,58 +107,62 @@ pie.load(function(){
     });
   }
   
-  load_more();
   load_more_elm.live('click', load_more);
-
-  var auto_load_more = function(){
+  
+  jQuery(window).bind('scroll', function(){
     if(!_is_out_of_the_bottom(load_more_elm)){
       load_more();
     }
-  }
-  jQuery(window).bind('scroll', auto_load_more);
+  });
 })
 
 pie.load(function(){
 
+  var cart_count_elm = jQuery('.page-web-weibo-toolbar .cart .count');
+  var _left_cc = 56;
+  var _top_cce = 237;
+
   jQuery('.page-web-weibo-statuses .status .cart .add').live('click',function(){
     // /weibo/cart/add
-    var elm      = jQuery(this);
+    var elm        = jQuery(this);
+    var cart_elm   = elm.closest('.cart')
     var status_elm = elm.closest('.status');
-    var mid      = status_elm.data('mid');
+    var mid        = status_elm.data('mid');
 
     var offset = elm.offset();
     var l1= offset.left;
     var t1= offset.top - jQuery(window).scrollTop();
 
-    var l2 = 56;
-    var t2 = 237;
-
-    //pie.log(l1,t1,l2,t2)
-    var added_elm = status_elm.find('.cart .added')
-
-    var ani_elm = jQuery('<div class="page-web-weibo-cart-add-ani">1</div>');
+    var ani_elm = jQuery('<div class="page-web-weibo-cart-add-ani">1</div>').appendTo(document.body);
     ani_elm
-      .css({left:l1, top:t1})
-      .appendTo(document.body)
-      .animate({left:[l2,'easeInSine'], top:[t2,'easeInExpo'], 'opacity':0.6}, 1000, function(){
-        var count_elm = jQuery('.page-web-weibo-toolbar .cart .count');
-        count_elm.html(parseInt(count_elm.html())+1);
+      .css({
+        'left' : l1,
+        'top'  : t1
+      })
+      .animate({
+        'left'    : [_left_cc,'easeInSine'],
+        'top'     : [_top_cce,'easeInExpo'],
+        'opacity' : 0.6
+      }, 1000, function(){
+        cart_count_elm.html(parseInt(cart_count_elm.html())+1);
         ani_elm.remove()
       })
 
-   elm.hide();
-   added_elm.show();
-
-
-//    jQuery.ajax({
-//      url  : '/weibo/cart/add',
-//      data : {'mid':mid},
-//      type : 'POST',
-//      success : function(){
-//        elm.hide();
-//        feed_elm.find('.cart .added').show();
-//      }
-//    })
+    pie.dont_show_loading_bar(); // 防止显示全局ajaxloadingbar
+    jQuery.ajax({
+      url  : '/weibo/cart/add',
+      data : {'mid':mid},
+      type : 'POST',
+      beforeSend : function(){
+        cart_elm.addClass('loading');
+      },
+      success : function(){
+        cart_elm.addClass('added');
+      },
+      complete : function(){
+        cart_elm.removeClass('loading');
+      }
+    })
   });
 
 })

@@ -23,7 +23,7 @@
 .main
   =render 'web_weibo/timeline/part/my_toolbar', :weibo_user_id=>weibo_user_id
 
-  .page-web-weibo-statuses
+  .page-web-weibo-statuses{:style=>'display:none;'}
     .weibo-trends.gi
       .t 热门话题
       -trends.each do |t|
@@ -46,6 +46,6 @@
         .arrow
         %textarea.weibo-ipt
 
-    =#render 'web_weibo/timeline/part/statuses', :statuses=>@statuses
+    =render 'web_weibo/timeline/part/statuses', :statuses=>@statuses
 
-  %a.page-web-weibo-load-more{:href=>'javascript:;',:'data-url'=>'/weibo'} <span>LOAD MORE</span><div class='icon'></div>
+  %a.page-web-weibo-load-more{:href=>'javascript:;',:'data-url'=>'/weibo',:style=>'display:none;'} <span>LOAD MORE</span>

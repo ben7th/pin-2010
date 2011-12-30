@@ -18,37 +18,32 @@
     detail        = h(status.text)
     repost_detail = h(reposted_status.text) if with_repost
 
-    has_cart = WeiboCart.has_cart?(current_user, id)
-
     klass = [
       with_repost    ? 'with-repost' : '' ,
       with_photo     ? 'with-photo' : ''
     ]*' '
 
+    has_cart = WeiboCart.has_cart?(current_user, mid)
+    cart_class = has_cart ? 'added' : ''
+
   .status.gi{:'data-mid'=>mid, :class=>klass}
     .box
       .avatar{:'data-src'=>user_avatar_url}
 
-      .detail.wordwarp
-        .text=detail
+      .detail
+        .text.wordwarp=detail
 
       -if with_repost
-        .repost.wordwarp
-          .repost-arrow
-            .icon
-          .text=repost_detail
+        .repost
+          .text.wordwarp=repost_detail
 
       -if with_photo
         .photo{:'data-src'=>photo_url}
 
       .ops
         -# 顺序不能乱，否则遇到名字长的就会把按钮挤走
-        .cart
-          -if has_cart
-            %a.minibutton.green.add{:href=>'javascript:;',:style=>'display:none'} 收集
-            %span.added.quiet 已收集
-          -else
-            %a.minibutton.green.add{:href=>'javascript:;'} 收集
-            %span.added.quiet{:style=>'display:none'} 已收集
+        .cart{:class=>cart_class}
+          %a.minibutton.green.add{:href=>'javascript:;'} 收集
+          %span.done.quiet 已收集
 
         .name=user_name
