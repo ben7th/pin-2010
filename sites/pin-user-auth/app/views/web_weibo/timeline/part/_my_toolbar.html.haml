@@ -5,8 +5,10 @@
 
 .page-web-weibo-toolbar
   %a.home-tl{:href=>'/weibo', :title=>'微博首页'} <img src="#{user_avatar_url}"/>
-  %a.ti.atmes{:href=>'/weibo/atmes'} <div class='icon'></div>
-  %a.ti.comment{:href=>'/weibo/comments/tome'} <div class='icon'></div>
-  %a.ti{:href=>"/weibo/contacts/#{weibo_user_id}/friends"} 我的关注
-  %a.ti{:href=>"/weibo/contacts/#{weibo_user_id}/followers"} 我的粉丝
-  %a.ti{:href=>"/weibo/cart"} 我的收集
+
+  -# %a.ti.atmes{:href=>'/weibo/atmes', :title=>'@我的'} <div class='icon'></div>
+  -# %a.ti.comment{:href=>'/weibo/comments/tome', :title=>'评论'} <div class='icon'></div>
+  -# %a.ti.friends{:href=>"/weibo/contacts/#{weibo_user_id}/friends", :title=>'人际关系'} <div class='icon'></div>
+
+  %a.ti.refresh{:href=>'javascript:window.location.reload();', :title=>'刷新'} <div class='icon'></div>
+  %a.ti.cart{:href=>'javascript:;', :title=>'微博收集'} <div class='icon'></div><div class='count'>1</div>

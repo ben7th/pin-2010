@@ -249,6 +249,19 @@ class WeiboStatus < UserAuthAbstract
         :most_posted_users     => most_posted_users
       }
     end
+
+    def self.major_words(statuses,count)
+      str = statuses.map do |status|
+        rs = status.retweeted_status
+        if rs.blank?
+          status.text
+        else
+          "#{status.text} #{rs.text}"
+        end
+      end*" "
+      res = str.gsub(URI.regexp,"")
+      KeywordsAnalyzer.new(res).major_words(count)
+    end
   end
 
 end

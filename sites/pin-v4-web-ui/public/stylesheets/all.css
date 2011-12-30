@@ -7550,7 +7550,7 @@ $feed_width_1c:228px; /*240-10-2*/
   transition-duration: 0s; }
 
 .page-web-weibo-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -7559,7 +7559,7 @@ $feed_width_1c:228px; /*240-10-2*/
 
 .page-web-weibo-toolbar {
   float: left;
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   width: 65px;
   margin-top: -4px; }
@@ -7612,6 +7612,59 @@ $feed_width_1c:228px; /*240-10-2*/
         background-image: url(/images/alltu.png);
         background-repeat: no-repeat;
         background-position: -245px -198px; }
+      .page-web-weibo-toolbar a.ti.friends .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -294px -198px; }
+      .page-web-weibo-toolbar a.ti.refresh {
+        margin-top: 32px; }
+        .page-web-weibo-toolbar a.ti.refresh .icon {
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -343px -198px; }
+      .page-web-weibo-toolbar a.ti.cart {
+        position: relative; }
+        .page-web-weibo-toolbar a.ti.cart .icon {
+          background-image: url(/images/alltu.png);
+          background-repeat: no-repeat;
+          background-position: -392px -198px; }
+        .page-web-weibo-toolbar a.ti.cart .count {
+          position: absolute;
+          left: 56px;
+          top: 7px;
+          line-height: 20px;
+          height: 20px;
+          padding: 0 6px;
+          font-weight: bold;
+          color: white;
+          background-color: #34B523;
+          background: -moz-linear-gradient(-90deg, #46d833, #34b523);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#46d833), to(#34b523));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#46d833',endColorstr='#34b523');
+          -moz-border-radius: 5px 5px 5px 0;
+          -webkit-border-radius: 5px 5px 5px 0;
+          border-radius: 5px 5px 5px 0;
+          -moz-transition: opacity 0.3s;
+          -webkit-transition: opacity 0.3s;
+          transition: opacity 0.3s; }
+        .page-web-weibo-toolbar a.ti.cart:hover .count {
+          opacity: 0.5; }
+
+.page-web-weibo-cart-add-ani {
+  position: fixed;
+  z-index: 5;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  background: -moz-linear-gradient(-90deg, #46d833, #34b523);
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#46d833), to(#34b523));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#46d833',endColorstr='#34b523');
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; }
 
 a.page-web-weibo-load-more {
   display: block;
@@ -7685,28 +7738,30 @@ a.page-web-weibo-load-more {
       background-color: #f4f4f4;
       color: #555;
       margin-bottom: 5px;
-      padding: 3px 6px; }
+      padding: 3px 6px;
+      -moz-transition: background-color 0.2s;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s; }
+      .page-web-weibo-statuses .weibo-trends a.trend:hover {
+        color: #f4f4f4;
+        background-color: #555;
+        text-decoration: none; }
   .page-web-weibo-statuses .weibo-user-info {
     margin: 10px;
-    width: 338px;
+    width: 152px;
     height: 152px;
     border: solid 1px #ccc;
     padding: 6px;
     background-color: #f7f7f7;
     color: #666; }
-    .page-web-weibo-statuses .weibo-user-info .avatar {
-      float: left; }
-      .page-web-weibo-statuses .weibo-user-info .avatar img {
-        width: 64px;
-        height: 64px; }
     .page-web-weibo-statuses .weibo-user-info .name {
-      margin-left: 78px;
       font-size: 14px;
       font-weight: bold;
-      line-height: 16px;
+      line-height: 22px;
+      height: 22px;
+      padding: 3px 0;
       margin-bottom: 8px; }
     .page-web-weibo-statuses .weibo-user-info .counts {
-      margin-left: 78px;
       overflow: hidden; }
       .page-web-weibo-statuses .weibo-user-info .counts .count {
         float: left;
@@ -7776,12 +7831,13 @@ a.page-web-weibo-load-more {
           font-size: weight;
           color: #666; }
         .page-web-weibo-statuses .status .box .ops .cart {
-          float: right;
-          margin-top: 8px; }
+          float: right; }
           .page-web-weibo-statuses .status .box .ops .cart a.minibutton {
             -moz-border-radius: 3px;
             -webkit-border-radius: 3px;
-            border-radius: 3px; }
+            border-radius: 3px;
+            height: 30px;
+            line-height: 30px; }
       .page-web-weibo-statuses .status .box .detail {
         float: left;
         background-color: #fff; }
@@ -7844,18 +7900,18 @@ a.page-web-weibo-load-more {
       .page-web-weibo-statuses .status.with-repost.with-photo .box .repost {
         width: 186px; }
     .page-web-weibo-statuses .status .box {
-      -moz-transition: margin 0.2s, height 0.2s;
-      -webkit-transition: margin 0.2s, height 0.2s;
-      transition: margin 0.2s, height 0.2s; }
+      -moz-transition: margin 0.4s, height 0.4s, opacity 0.6s;
+      -webkit-transition: margin 0.4s, height 0.4s, opacity 0.6s;
+      transition: margin 0.4s, height 0.4s, opacity 0.6s; }
       .page-web-weibo-statuses .status .box .avatar {
         -moz-transition: bottom 0.2s;
         -webkit-transition: bottom 0.2s;
         transition: bottom 0.2s; }
       .page-web-weibo-statuses .status .box .ops {
         opacity: 0;
-        -moz-transition: opacity 0.2s;
-        -webkit-transition: opacity 0.2s;
-        transition: opacity 0.2s; }
+        -moz-transition: opacity 0.4s;
+        -webkit-transition: opacity 0.4s;
+        transition: opacity 0.4s; }
     .page-web-weibo-statuses .status.boxhover {
       z-index: 4; }
       .page-web-weibo-statuses .status.boxhover .box {

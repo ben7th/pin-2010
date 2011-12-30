@@ -11,10 +11,12 @@ pie.load(function(){
 
   var show_olist_overlay = function(){
     jQuery('<div class="page-web-weibo-overlay"></div>')
-      .css('height', jQuery(document).height())
+      .css('height', jQuery(window).height())
+//      .css('opacity', 0.4)
+//      .appendTo(document.body)
       .css('opacity', 0)
       .appendTo(document.body)
-      .animate({'opacity': 0.6});
+      .animate({'opacity': 0.5}, 600);
   };
 
   var remove_olist_overlay = function(){
@@ -119,20 +121,45 @@ pie.load(function(){
 
 pie.load(function(){
 
-  jQuery('.feed.tsina .cart .add').live('click',function(){
+  jQuery('.page-web-weibo-statuses .status .cart .add').live('click',function(){
     // /weibo/cart/add
     var elm      = jQuery(this);
-    var feed_elm = elm.closest('.feed');
-    var mid      = feed_elm.domdata('weibo-mid');
-    jQuery.ajax({
-      url  : '/weibo/cart/add',
-      data : {'mid':mid},
-      type : 'POST',
-      success : function(){
-        elm.hide();
-        feed_elm.find('.cart .added').show();
-      }
-    })
+    var status_elm = elm.closest('.status');
+    var mid      = status_elm.data('mid');
+
+    var offset = elm.offset();
+    var l1= offset.left;
+    var t1= offset.top - jQuery(window).scrollTop();
+
+    var l2 = 56;
+    var t2 = 237;
+
+    //pie.log(l1,t1,l2,t2)
+    var added_elm = status_elm.find('.cart .added')
+
+    var ani_elm = jQuery('<div class="page-web-weibo-cart-add-ani">1</div>');
+    ani_elm
+      .css({left:l1, top:t1})
+      .appendTo(added_elm)
+      .animate({left:[l2,'easeInSine'], top:[t2,'easeInExpo'], 'opacity':0.3}, 1000, function(){
+        var count_elm = jQuery('.page-web-weibo-toolbar .cart .count');
+        count_elm.html(parseInt(count_elm.html())+1);
+        setTimeout(function(){ani_elm.remove()},1000)
+      })
+
+   elm.hide();
+   added_elm.show();
+
+
+//    jQuery.ajax({
+//      url  : '/weibo/cart/add',
+//      data : {'mid':mid},
+//      type : 'POST',
+//      success : function(){
+//        elm.hide();
+//        feed_elm.find('.cart .added').show();
+//      }
+//    })
   });
 
 })

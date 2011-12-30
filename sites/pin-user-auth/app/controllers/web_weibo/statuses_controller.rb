@@ -34,14 +34,19 @@ class WebWeibo::StatusesController < ApplicationController
   end
 
   def add_comment
-  # cid	要回复的评论ID。
-  #without_mention 1: 回复中不自动加入“回复@用户名”，0：回复中自动加入“回复@用户名”.默认为0.
-  #  comment_ori	false	int	当评论一条转发微博时，是否评论给原微博。0:不评论给原微博。1：评论给原微博。默认0.
-  weibo_params = {
-    :cid=>params[:cid],
-    :without_mention=>params[:without_mention],
-    :comment_ori=>params[:comment_ori]
-  }
-  current_user.tsina_weibo.comment(params[:mid],params[:comment],weibo_params)
+    # cid	要回复的评论ID。
+    #without_mention 1: 回复中不自动加入“回复@用户名”，0：回复中自动加入“回复@用户名”.默认为0.
+    #  comment_ori	false	int	当评论一条转发微博时，是否评论给原微博。0:不评论给原微博。1：评论给原微博。默认0.
+    weibo_params = {
+      :cid=>params[:cid],
+      :without_mention=>params[:without_mention],
+      :comment_ori=>params[:comment_ori]
+    }
+    current_user.tsina_weibo.comment(params[:mid],params[:comment],weibo_params)
+  end
+
+  # 获取当前的未读微博数
+  def unread
+    current_user.tsina_weibo.send(:perform_get,"/statuses/unread.json",:query=>{:with_new_status=>1,:since_id=>params[:since_id]})
   end
 end

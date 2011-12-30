@@ -226,6 +226,8 @@ def match_weibo_routes(map)
     match_post weibo, '/statuses'                  => 'statuses#create'      # 发一条微博
     match_post weibo, '/statuses/:mid/add_comment' => 'statuses#add_comment' # 发一条评论
 
+    match_get  weibo, '/unread'                    => 'statuses#unread' # 获取当前的未读微博数
+
     match_get  weibo, '/cart'     => 'cart#index'
     match_post weibo, '/cart/add' => 'cart#add'
   end
