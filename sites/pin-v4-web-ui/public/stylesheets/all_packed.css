@@ -1720,8 +1720,16 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .isotope .isotope-item{-moz-transition:top .8s,left .8s,opacity .8s;-webkit-transition:top .8s,left .8s,opacity .8s;transition:top .8s,left .8s,opacity .8s;}
 .isotope.no-transition,.isotope.no-transition .isotope-item,.isotope .isotope-item.no-transition{-webkit-transition-duration:0s;-moz-transition-duration:0s;-o-transition-duration:0s;transition-duration:0s;}
 .page-web-weibo-overlay{position:absolute;top:0;left:0;width:100%;z-index:3;background-color:#eee;}
-.page-web-weibo-toolbar{float:left;z-index:3;position:fixed;width:48px;margin-left:15px;margin-top:-4px;}
-.page-web-weibo-toolbar a{display:block;width:48px;height:48px;margin-bottom:10px;background-color:#000;}
+.page-web-weibo-toolbar{float:left;z-index:3;position:fixed;width:65px;margin-top:-4px;}
+.page-web-weibo-toolbar a{display:block;width:50px;height:50px;margin-bottom:10px;-moz-box-shadow:0 1px 5px #666;-webkit-box-shadow:0 1px 5px #666;box-shadow:0 1px 5px #666;}
+.page-web-weibo-toolbar a.home-tl{margin-left:15px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.page-web-weibo-toolbar a.home-tl img{width:50px;height:50px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+.page-web-weibo-toolbar a.ti{-moz-border-radius:0 3px 3px 0;-webkit-border-radius:0 3px 3px 0;border-radius:0 3px 3px 0;padding-left:15px;background-color:rgba(0,0,0,0.6);-moz-transition:background-color .3s;-webkit-transition:background-color .3s;transition:background-color .3s;}
+.page-web-weibo-toolbar a.ti .icon{width:48px;height:48px;left:-6px;top:1px;position:relative;-moz-transition:left .3s;-webkit-transition:left .3s;transition:left .3s;}
+.page-web-weibo-toolbar a.ti:hover{background-color:rgba(0,0,0,0.8);}
+.page-web-weibo-toolbar a.ti:hover .icon{left:1px;}
+.page-web-weibo-toolbar a.ti.atmes .icon{background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-196px -198px;}
+.page-web-weibo-toolbar a.ti.comment .icon{background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-245px -198px;}
 a.page-web-weibo-load-more{display:block;margin-left:83px;border:solid 1px #ccc;float:left;clear:both;overflow:hidden;background-color:#666;opacity:.6;-moz-box-shadow:0 1px 5px #aaa;-webkit-box-shadow:0 1px 5px #aaa;box-shadow:0 1px 5px #aaa;-moz-transition:all .3s;-webkit-transition:all .3s;transition:all .3s;}
 a.page-web-weibo-load-more span{display:block;color:white;text-align:center;padding:0 10px;font-size:15px;height:36px;line-height:36px;font-weight:bold;float:left;}
 a.page-web-weibo-load-more .icon{display:none;float:left;width:53px;height:36px;background:url(/images/loading/11.gif) no-repeat 0 13px;}

@@ -61,10 +61,18 @@ pie.load(function(){
     statuses_elm.find('.status .photo:not(.-img-loaded-)').each(function(){
       var elm = jQuery(this);
       if(!_is_out_of_the_bottom(elm)){
-        pie.load_cut_img(elm.domdata('src'), elm, elm);
+        pie.load_cut_img(elm.data('src'), elm, elm);
         elm.addClass('-img-loaded-')
       }
     });
+
+    statuses_elm.find('.status .avatar:not(.-img-loaded-)').each(function(){
+      var elm = jQuery(this);
+      if(!_is_out_of_the_bottom(elm)){
+        jQuery('<img/>').attr('src',elm.data('src')).hide().fadeIn(200).appendTo(elm);
+        elm.addClass('-img-loaded-')
+      }
+    })
   }
 
   lazy_load_photos();

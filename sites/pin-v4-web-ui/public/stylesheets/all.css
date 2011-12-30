@@ -7561,15 +7561,57 @@ $feed_width_1c:228px; /*240-10-2*/
   float: left;
   z-index: 3;
   position: fixed;
-  width: 48px;
-  margin-left: 15px;
+  width: 65px;
   margin-top: -4px; }
   .page-web-weibo-toolbar a {
     display: block;
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 10px;
-    background-color: #000; }
+    -moz-box-shadow: 0 1px 5px #666666;
+    -webkit-box-shadow: 0 1px 5px #666666;
+    box-shadow: 0 1px 5px #666666; }
+    .page-web-weibo-toolbar a.home-tl {
+      margin-left: 15px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px; }
+      .page-web-weibo-toolbar a.home-tl img {
+        width: 50px;
+        height: 50px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px; }
+    .page-web-weibo-toolbar a.ti {
+      -moz-border-radius: 0 3px 3px 0;
+      -webkit-border-radius: 0 3px 3px 0;
+      border-radius: 0 3px 3px 0;
+      padding-left: 15px;
+      background-color: rgba(0, 0, 0, 0.6);
+      -moz-transition: background-color 0.3s;
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s; }
+      .page-web-weibo-toolbar a.ti .icon {
+        width: 48px;
+        height: 48px;
+        left: -6px;
+        top: 1px;
+        position: relative;
+        -moz-transition: left 0.3s;
+        -webkit-transition: left 0.3s;
+        transition: left 0.3s; }
+      .page-web-weibo-toolbar a.ti:hover {
+        background-color: rgba(0, 0, 0, 0.8); }
+        .page-web-weibo-toolbar a.ti:hover .icon {
+          left: 1px; }
+      .page-web-weibo-toolbar a.ti.atmes .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -196px -198px; }
+      .page-web-weibo-toolbar a.ti.comment .icon {
+        background-image: url(/images/alltu.png);
+        background-repeat: no-repeat;
+        background-position: -245px -198px; }
 
 a.page-web-weibo-load-more {
   display: block;

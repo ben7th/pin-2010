@@ -34,8 +34,35 @@
 
 .page-web-weibo-toolbar{
   float:left;z-index:3;position:fixed;
-  width:48px;margin-left:15px;margin-top:-4px;
-  a{display:block;width:48px;height:48px;margin-bottom:10px;background-color:#000;}
+  width:65px;margin-top:-4px;
+  a{
+    display:block;width:50px;height:50px;margin-bottom:10px;
+    @include box-shadow(0 1px 5px #666);
+    &.home-tl{
+      margin-left:15px;
+      @include border-radius(3px);
+      img{width:50px;height:50px;@include border-radius(3px);}
+    }
+    
+    &.ti{
+      @include border-radius(0 3px 3px 0);
+      padding-left:15px;
+      background-color:rgba(0,0,0,0.6);
+      .icon{width:48px;height:48px;left:-6px;top:1px;position:relative;
+        @include transition(left .3s);
+      }
+      @include transition(background-color .3s);
+      
+      &:hover{background-color:rgba(0,0,0,0.8);
+        .icon{left:1px;}
+      }
+      
+      
+      
+      &.atmes{.icon{@include allimg(-196px, -198px);}}
+      &.comment{.icon{@include allimg(-245px, -198px);}}
+    }
+  }
 }
 
 a.page-web-weibo-load-more{
@@ -43,7 +70,7 @@ a.page-web-weibo-load-more{
   margin-left:83px;
   border:solid 1px #ccc;float:left;clear:both;overflow:hidden;
   background-color:#666;opacity:0.6;
-  @include box-shadow(0 1px 5px #AAAAAA);
+  @include box-shadow(0 1px 5px #aaa);
   @include transition(all .3s);
   span{
     display:block;

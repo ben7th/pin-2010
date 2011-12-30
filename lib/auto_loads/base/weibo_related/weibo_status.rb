@@ -201,43 +201,53 @@ class WeiboStatus < UserAuthAbstract
     #:most_posted_users => [
     #    {:user=>weibo_user, :count=>..., :statuses=>[...]}
     #]
-    # 第一步 most_posted_users_hash = {
-    #   :user_id=>{:user=>weibo_user, :count=>..., :statuses=>[...]}
-    # }
     def self.analyze(statuses)
-      user = User.find(271).tsina_weibo.friends(:count=>1)[0]
+      original_count = 0
+      repost_count = 0
+      no_reply_count = 0
+      commented_count = 0
+      be_reposted_count = 0
+      statuses_ids_str = statuses.map{|status|status.id}*","
+      # 所有 status 被转发和被评论的数目
+      comment_rt_count_arr = WeiboStatus.public_weibo.counts(:ids=>statuses_ids_str)
+      # 处理 original_count  repost_count
+      statuses.each do |status|
+        rs = status.retweeted_status
+        if rs.blank?
+          original_count+=1
+        else
+          repost_count+=1
+        end
+      end
+      # 处理 no_reply_count commented_count be_reposted_count
+      comment_rt_count_arr.each do |count_mash|
+        comments = count_mash.comments
+        rt = count_mash.rt
+        no_reply_count+=1 if comments == 0 && rt == 0
+        commented_count+=1 if comments !=0
+        be_reposted_count+=1 if rt !=0
+      end
+      #      :most_posted_users_hash => {
+      #        :user_id=>{:user=>user, :count=>20, :statuses=>statuses}
+      #      }
+      most_posted_users_hash = {}
+      statuses.each do |status|
+        user = status.user
+        most_posted_users_hash[user.id]||={}
+        most_posted_users_hash[user.id][:user]||=user
+        most_posted_users_hash[user.id][:count]=(most_posted_users_hash[user.id][:count]||0)+1
+        most_posted_users_hash[user.id][:statuses]=(most_posted_users_hash[user.id][:statuses]||[])+[status]
+      end
+      # 转换 most_posted_users_hash 到 most_posted_users
+      most_posted_users = most_posted_users_hash.values.sort{|a,b|b[:count]<=>a[:count]}
       return {
-        :original_count=>5,
-        :repost_count=>15,
-        :no_reply_count=>2,
-        :commented_count=>15,
-        :be_reposted_count=>18,
-        :most_posted_users => [
-          {:user=>user, :count=>20, :statuses=>statuses}
-        ]
+        :original_count           => original_count,
+        :repost_count             => repost_count,
+        :no_reply_count          => no_reply_count,
+        :commented_count      => commented_count,
+        :be_reposted_count     => be_reposted_count,
+        :most_posted_users     => most_posted_users
       }
-#      original_count = 0
-#      repost_count = 0
-#      no_reply_count = 0
-#      commented_count = 0
-#      be_reposted_count = 0
-#      statuses_ids_str = statuses.map{|status|status.id}*","
-#      # 所有 status 被转发和被评论的数目
-#      comment_rt_count_arr = WeiboStatus.public_weibo.counts(:ids=>statuses_ids_str)
-#      # 处理 original_count  repost_count
-#      statuses.each do |status|
-#        rs = status.retweeted_status
-#        if rs.blank?
-#          original_count+=1
-#        else
-#          repost_count+=1
-#        end
-#      end
-#      # 处理 no_reply_count commented_count be_reposted_count
-#      comment_rt_count_arr.each do |count_mash|
-#        comments = count_mash.comments
-#        rt = count_mash.rt
-#      end
     end
   end
 
