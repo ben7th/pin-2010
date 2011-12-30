@@ -140,11 +140,11 @@ pie.load(function(){
     var ani_elm = jQuery('<div class="page-web-weibo-cart-add-ani">1</div>');
     ani_elm
       .css({left:l1, top:t1})
-      .appendTo(added_elm)
-      .animate({left:[l2,'easeInSine'], top:[t2,'easeInExpo'], 'opacity':0.3}, 1000, function(){
+      .appendTo(document.body)
+      .animate({left:[l2,'easeInSine'], top:[t2,'easeInExpo'], 'opacity':0.6}, 1000, function(){
         var count_elm = jQuery('.page-web-weibo-toolbar .cart .count');
         count_elm.html(parseInt(count_elm.html())+1);
-        setTimeout(function(){ani_elm.remove()},1000)
+        ani_elm.remove()
       })
 
    elm.hide();

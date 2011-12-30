@@ -86,10 +86,11 @@
 // 收集微博时的动画光标
 .page-web-weibo-cart-add-ani{
   position:fixed;z-index:5;
-  width:20px;height:20px;line-height:20px;font-weight:bold;
+  width:24px;height:24px;line-height:24px;font-weight:bold;font-size:14px;
   color:white;text-align:center;
   @include gradient(lighten(#34B523, 10%), #34B523);
   @include border-radius(5px);
+  pointer-events: none;
 }
 
 a.page-web-weibo-load-more{
@@ -206,10 +207,11 @@ a.page-web-weibo-load-more{
       
       .ops{
         clear:both;height:32px;padding-top:7px;
-        .name{float:left;margin-left:32px;height:32px;line-height:32px;font-size:weight;color:#666;}
+        .name{margin-left:32px;height:32px;line-height:32px;font-size:weight;color:#666;}
         .cart{
           float:right;
           a.minibutton{@include border-radius(3px);height:30px;line-height:30px;}
+          .added{height:32px;line-height:32px;}
         }
       }
       

@@ -7653,10 +7653,11 @@ $feed_width_1c:228px; /*240-10-2*/
 .page-web-weibo-cart-add-ani {
   position: fixed;
   z-index: 5;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
   font-weight: bold;
+  font-size: 14px;
   color: white;
   text-align: center;
   background: -moz-linear-gradient(-90deg, #46d833, #34b523);
@@ -7664,7 +7665,8 @@ $feed_width_1c:228px; /*240-10-2*/
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#46d833',endColorstr='#34b523');
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  pointer-events: none; }
 
 a.page-web-weibo-load-more {
   display: block;
@@ -7824,7 +7826,6 @@ a.page-web-weibo-load-more {
         height: 32px;
         padding-top: 7px; }
         .page-web-weibo-statuses .status .box .ops .name {
-          float: left;
           margin-left: 32px;
           height: 32px;
           line-height: 32px;
@@ -7838,6 +7839,9 @@ a.page-web-weibo-load-more {
             border-radius: 3px;
             height: 30px;
             line-height: 30px; }
+          .page-web-weibo-statuses .status .box .ops .cart .added {
+            height: 32px;
+            line-height: 32px; }
       .page-web-weibo-statuses .status .box .detail {
         float: left;
         background-color: #fff; }

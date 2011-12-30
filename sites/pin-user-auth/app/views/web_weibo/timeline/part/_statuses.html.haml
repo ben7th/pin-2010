@@ -42,7 +42,7 @@
         .photo{:'data-src'=>photo_url}
 
       .ops
-        .name=user_name
+        -# 顺序不能乱，否则遇到名字长的就会把按钮挤走
         .cart
           -if has_cart
             %a.minibutton.green.add{:href=>'javascript:;',:style=>'display:none'} 收集
@@ -50,3 +50,5 @@
           -else
             %a.minibutton.green.add{:href=>'javascript:;'} 收集
             %span.added.quiet{:style=>'display:none'} 已收集
+
+        .name=user_name
