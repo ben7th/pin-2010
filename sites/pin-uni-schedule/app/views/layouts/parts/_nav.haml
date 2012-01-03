@@ -1,20 +1,24 @@
+:ruby
+  simple ||= false
+  fullscreen ||= false
+  klass = fullscreen ? 'container_auto' : 'container_24'
+
 .page-header
-  .nav.dark.fixed
-    .container_24
-      .site-logo
-        =link_to 'mindpin','/',:class=>'logo mindpin'
-      .site-name 大学课程表
+  %div{:class=>klass}
+    .site-logo=link_to 'MINDPIN','/',:class=>'logo mindpin'
 
-      -if logged_in?
-        -user = current_user
-        -homepage_link = "/users/#{user.id}"
+    -if logged_in?
 
-        .nav-menu
-          .user-meta>
-            .name>=usersign user
-            .avatar
-              -link_to homepage_link,:tip=>'个人页' do
-                =avatar user,:mini
+      -user = current_user
+      -user_name = user.name
+      -homepage_url = "/users/#{user.id}"
 
-          =link_to '<div class="icon"></div><span>设置</span>',pin_url_for('pin-user-auth','/account'),:class=>'setting',:tip=>'设置'
-          =link_to '<div class="icon"></div><span>退出</span>',pin_url_for('pin-user-auth','/logout'),:class=>'logout',:tip=>'退出'
+      -account_url = pin_url_for('pin-user-auth','/account?call=mindpin')
+      -logout_url  = pin_url_for('pin-user-auth','/logout')
+
+      .nav-menu
+
+        %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
+
+        %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
+        %a{:href=>logout_url,  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>

@@ -38,11 +38,17 @@ class WebWeibo::TimelineController < ApplicationController
     end
   end
 
-  # 某话题的微博
+  # 某话题的微博，通过合并算法整理
   def trend_statuses
-    @statuses = current_user.tsina_weibo.trends_statuses(params[:trend_name],:page=>params[:page],:count=>params[:count])
+    
+    @trend_name = params[:trend_name]
+
     if request.xhr?
-      return render :partial=>'web_weibo/timeline/part/statuses', :locals=>{:statuses=>@statuses}
+      statuses = current_user.tsina_weibo.trends_statuses(@trend_name, :page=>params[:page], :count=>params[:count])
+      return render :partial=>'web_weibo/timeline/part/statuses', :locals=>{:statuses=>statuses}
+    else
+      statuses = current_user.tsina_weibo.trends_statuses(@trend_name, :count=>50) # 最大就是50
+      @bundles = WeiboStatus::Bundle.bundle_statuses(statuses)
     end
   end
 

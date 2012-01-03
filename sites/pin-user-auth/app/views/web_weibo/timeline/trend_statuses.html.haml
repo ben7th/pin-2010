@@ -1,6 +1,8 @@
+-htitle "#{@trend_name} - 新浪微博"
+
 -hjavascript pin_url_for('ui','/singlejs/jquery.isotope.min.js')
 -hjavascript pin_url_for('ui','/singlejs/web_weibo/home_timeline.js')
 
 .main
-  .page-web-weibo-statuses{:style=>'height:0;'}
-    =render 'web_weibo/timeline/part/statuses', :statuses=>@statuses
+  .page-web-weibo-statuses{:style=>'display:none;'}
+    =render 'web_weibo/timeline/part/bundles', :bundles=>@bundles

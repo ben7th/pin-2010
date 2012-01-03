@@ -1,5 +1,7 @@
+-beian_url = 'http://www.miibeian.gov.cn/icp/publish/query/icpMemoInfo_login.action?id=3743960'
+
 .page-footer
   .container_24
-    .ct
-      %span.sitename &copy;2011 MINDPIN.
-      %span.beian 京ICP备06063955号
+    %span.sitename &copy;2011 MINDPIN.
+    %span &nbsp;
+    %span.beian=link_to '京ICP备06063955号', beian_url, :target=>'_blank'

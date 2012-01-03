@@ -1,7 +1,6 @@
-class User < UserBase
+class User < UserAuthAbstract
+  include UserBaseModule
   include UserMethods
-  index :email
-
   include UserCourseItem::UserMethods
   include Profile::UserMethods
 end

@@ -2142,22 +2142,23 @@ body {
     color: #2C6FDD; }
     body a:hover {
       color: #4C8FFD; }
-  body .page-footer .ct {
+  body .page-footer {
     height: 30px;
     line-height: 30px;
     text-align: center; }
+    body .page-footer a {
+      color: #222 !important; }
   body.gray {
     background: url(/images/bodybgs/body_bg_gray_1204.jpg) #eeeeee; }
   body.dark {
     background: url(/images/bodybgs/body_bg_dark.jpg) #343942; }
-    body.dark .page-footer .ct {
+    body.dark .page-footer {
       color: #f1f1f1;
       text-shadow: 0 0 3px black; }
+      body.dark .page-footer a {
+        color: #f1f1f1 !important; }
   body .page-header {
-    background-color: rgba(51, 51, 51, 0.9);
-    background: -moz-linear-gradient(-90deg, rgba(51, 51, 51, 0.9), rgba(17, 17, 17, 0.9));
-    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(rgba(51, 51, 51, 0.9)), to(rgba(17, 17, 17, 0.9)));
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='rgba(51, 51, 51, 0.9)',endColorstr='rgba(17, 17, 17, 0.9)');
+    background-color: rgba(34, 34, 34, 0.9);
     height: 72px;
     width: 100%;
     position: fixed;
@@ -7710,7 +7711,7 @@ a.page-web-weibo-load-more {
 .page-web-weibo-statuses {
   margin-top: -15px;
   margin-left: 73px;
-  margin-bottom: 10px; }
+  padding-bottom: 30px; }
   .page-web-weibo-statuses .weibo-trends, .page-web-weibo-statuses .weibo-user-info, .page-web-weibo-statuses .status .box {
     -moz-box-shadow: 0 1px 5px #aaaaaa;
     -webkit-box-shadow: 0 1px 5px #aaaaaa;
@@ -7856,8 +7857,7 @@ a.page-web-weibo-load-more {
             height: 32px;
             background: url(/images/loading/progress-dots.gif) no-repeat 7px 14px; }
       .page-web-weibo-statuses .status .box .detail {
-        float: left;
-        background-color: #fff; }
+        float: left; }
         .page-web-weibo-statuses .status .box .detail .text {
           width: 120px;
           height: 108px;
@@ -7879,13 +7879,13 @@ a.page-web-weibo-load-more {
           width: 0;
           height: 0;
           border-top: solid 16px #eee;
-          border-left: solid 16px #fff;
+          border-left: solid 16px #F7F7F7;
           position: absolute;
           top: 22px;
           left: -16px; }
       .page-web-weibo-statuses .status .box .photo {
         float: left;
-        background-color: #fafafa;
+        background-color: #f4f4f4;
         width: 152px;
         height: 152px;
         overflow: hidden; }
@@ -7937,6 +7937,15 @@ a.page-web-weibo-load-more {
           opacity: 1; }
     .page-web-weibo-statuses .status.boxhoverhide .box {
       opacity: 0.3; }
+  .page-web-weibo-statuses .status.bundle .repost-count {
+    float: left; }
+  .page-web-weibo-statuses .status.bundle.bundled-repost.with-photo .box {
+    width: 524px; }
+    .page-web-weibo-statuses .status.bundle.bundled-repost.with-photo .box .detail {
+      width: 186px; }
+    .page-web-weibo-statuses .status.bundle.bundled-repost.with-photo .box .repost-count {
+      width: 186px;
+      height: 152px; }
 
 .minibutton {
   -moz-border-radius: 5px;

@@ -124,70 +124,55 @@ class WeiboStatus < UserAuthAbstract
 
   class Bundle
     # 原始内容
-    # [ status, status]
+    # [status, status]
     #  status {
     #    :id=>xx,
     #    :retweeted_status=>status
     # }
     # 最终转换成
-    # [new_status,new_status]
-    # new_status{
-    #  :status=>status,
-    #  :retweeted_status=>status,
-    #  statuses=>[status,status]
+    # [bundle, bundle]
+    # bundle{
+    #  :core => core,    # 主要的一条status
+    #  :has_retweeted => true | false, # 是否有转发
+    #  :statuses => [status, status]   # 所有关于（自身和转发）主要status的statuses
     # }
     def self.bundle_statuses(statuses)
       # 第一步转换成 middle_hash {
-      # :status_id=>{new_status}
+      #   :core_status_id => bundle
       # }
       middle_hash = {}
       statuses.each do |status|
-        rs = status.retweeted_status
-        if rs.blank?
-          middle_hash[status.id] ||= Bundle.new(status.id)
-          middle_hash[status.id].add_status(status)
-        else
-          middle_hash[rs.id] ||= Bundle.new(rs.id)
-          middle_hash[rs.id].add_status(status)
-        end
+        retweeted_status = status.retweeted_status
+        core = retweeted_status.blank? ? status : retweeted_status
+
+        middle_hash[core.id] ||= Bundle.new(core)
+        middle_hash[core.id]._add_status(status)
       end
       # 第二部把  middle_hash 转换成 数组 并 按照 count 排序
-      middle_hash.values.sort{|a,b|b.count<=>a.count}
+      middle_hash.values.sort{|a,b| b.count <=> a.count}
     end
 
-    def initialize(status_id)
-      @status_id = status_id.to_i
-      @hash = {:id=>@status_id}
-    end
+    attr_reader :core, :has_retweeted, :statuses
 
-    def status
-      @hash[:status]
-    end
-
-    def statuses
-      @hash[:statuses]
-    end
-
-    def retweeted_status
-      @hash[:retweeted_status]
+    def has_repost?
+      has_retweeted
     end
 
     def count
-      @hash[:count]
+      @statuses.length
     end
 
-    def add_status(status)
-      rs = status.retweeted_status
-      if rs.blank?
-        raise "错误的操作" if status.id.to_i != @status_id
-        @hash[:status=>status]
-      else
-        raise "错误的操作" if rs.id.to_i != @status_id
-        @hash[:retweeted_status] = rs if @hash[:retweeted_status].blank?
-        @hash[:statuses] = (@hash[:statuses]||[])+[status]
-      end
-      @hash[:count] = (@hash[:count] || 0) + 1
+    def initialize(core_status)
+      @core = core_status
+      @has_retweeted = false
+      @statuses = []
     end
+
+    def _add_status(status)
+      @has_retweeted = true if !status.retweeted_status.blank?
+      @statuses << status
+    end
+    
   end
 
   class Stat

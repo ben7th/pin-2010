@@ -1,0 +1,37 @@
+-bundles.each do |bundle|
+  :ruby
+    status = bundle.core
+
+    mid = status.id
+
+    user = status.user
+    user_name = user.name
+    user_avatar_url = user.profile_image_url
+
+    photo_url = status.bmiddle_pic
+    with_photo = !photo_url.blank?
+    detail        = h(status.text)
+
+    has_repost = bundle.has_repost?
+    count = bundle.count
+
+    klass = [
+      with_photo     ? 'with-photo' : '',
+      has_repost     ? 'bundled-repost' : ''
+    ]*' '
+
+  .status.bundle.gi{:'data-mid'=>mid, :class=>klass}
+    .box
+      .avatar{:'data-src'=>user_avatar_url}
+
+      .detail
+        .text.wordwarp=detail
+
+      -if with_photo
+        .photo{:'data-src'=>photo_url}
+
+      .ops
+        .name=user_name
+
+      -if has_repost
+        .repost-count=count

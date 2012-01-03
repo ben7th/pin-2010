@@ -3,25 +3,22 @@ body{
   a{color:#2C6FDD;&:hover{color:#4C8FFD;}}
       
   .page-footer{
-    .ct{
-      height:30px;line-height:30px;
-      text-align:center;
-    }
+    height:30px;line-height:30px;
+    text-align:center;
+    a{color:#222 !important;}
   }
   
   &.gray{background:url(/images/bodybgs/body_bg_gray_1204.jpg) #eee;}
   &.dark{background:url(/images/bodybgs/body_bg_dark.jpg) #343942;
     .page-footer{
-      .ct{
-        color:#f1f1f1;
-        text-shadow:0 0 3px black;
-      }
+      color:#f1f1f1;
+      text-shadow:0 0 3px black;
+      a{color:#f1f1f1 !important;}
     }
   }
   
   .page-header{
-    background-color:rgba(51,51,51,0.9);
-    @include gradient(rgba(51,51,51,0.9), rgba(17,17,17,0.9));
+    background-color:rgba(34,34,34,0.9);
     
     height:72px;width:100%;
     position:fixed;top:0;z-index:99;

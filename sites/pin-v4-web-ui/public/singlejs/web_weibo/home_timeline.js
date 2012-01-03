@@ -1,30 +1,22 @@
-pie.load(function(){
-  var statuses_elm = jQuery('.page-web-weibo-statuses');
-  var load_more_elm = jQuery('a.page-web-weibo-load-more');
+pie.WEIBO = {};
 
-  // 全局排列
-  statuses_elm.fadeIn(1000).isotope({
-    itemSelector : '.gi',
-    masonry : { columnWidth : 186 },
-    transformsEnabled: false
-  });
-
-  load_more_elm.fadeIn(1000);
-
-  var show_olist_overlay = function(){
+jQuery.extend(pie.WEIBO, {
+  show_olist_overlay : function(){
     jQuery('<div class="page-web-weibo-overlay"></div>')
       .css('height', jQuery(window).height())
       .css('opacity', 0)
       .appendTo(document.body)
       .animate({'opacity': 0.4}, 600);
-  };
+  },
 
-  var remove_olist_overlay = function(){
+  remove_olist_overlay : function(){
     jQuery('.page-web-weibo-overlay').remove();
-  };
+  },
 
   // 绑定鼠标移入移出事件
-  var bind_hover_intent_event = function(elms){
+  bind_hover_intent_event : function(elms){
+    var WEIBO = pie.WEIBO;
+
     elms.hoverIntent({
       sensitivity: 10,
       interval: 250,
@@ -32,37 +24,47 @@ pie.load(function(){
         var elm = jQuery(this);
         var status_elm = elm.closest('.status');
 
-        show_olist_overlay();
-        //jQuery('.page-web-weibo-statuses .status').addClass('boxhoverhide');
-
-        status_elm.removeClass('boxhoverhide').addClass('boxhover');
+        WEIBO.show_olist_overlay();
+        status_elm.addClass('boxhover');
       },
       timeout: 0,
       out: function(){
         var elm = jQuery(this);
         var status_elm = elm.closest('.status');
 
-        remove_olist_overlay();
-        //jQuery('.page-web-weibo-statuses .status').removeClass('boxhoverhide');
-        
+        WEIBO.remove_olist_overlay();
         status_elm.removeClass('boxhover');
       }
     });
   }
+});
 
-  bind_hover_intent_event(statuses_elm.find('.status .box'));
+jQuery.fn._is_in_screen = function(){
+  var bottom = jQuery(window).height() + jQuery(window).scrollTop();
+  var elm_top = this.offset().top;
 
-  var _is_out_of_the_bottom = function(elm){
-    var bottom = jQuery(window).height() + jQuery(window).scrollTop();
-    var elm_top = elm.offset().top;
-    
-    return bottom <= elm_top;
-  }
+  return elm_top < bottom;
+}
 
+pie.load(function(){
+  var WEIBO = pie.WEIBO;
+  
+  var statuses_elm  = jQuery('.page-web-weibo-statuses').fadeIn(1000);
+  var load_more_elm = jQuery('a.page-web-weibo-load-more').fadeIn(1000);
+
+  // 全局排列
+  statuses_elm.isotope({
+    itemSelector : '.gi',
+    masonry : { columnWidth : 186 },
+    transformsEnabled: false
+  });
+
+  // ------ LOAD PHOTOS
+  
   var lazy_load_photos = function(){
     statuses_elm.find('.status .photo:not(.-img-loaded-)').each(function(){
       var elm = jQuery(this);
-      if(!_is_out_of_the_bottom(elm)){
+      if(elm._is_in_screen()){
         pie.load_cut_img(elm.data('src'), elm, elm);
         elm.addClass('-img-loaded-')
       }
@@ -70,7 +72,7 @@ pie.load(function(){
 
     statuses_elm.find('.status .avatar:not(.-img-loaded-)').each(function(){
       var elm = jQuery(this);
-      if(!_is_out_of_the_bottom(elm)){
+      if(elm._is_in_screen()){
         jQuery('<img/>').attr('src',elm.data('src')).hide().fadeIn(200).appendTo(elm);
         elm.addClass('-img-loaded-')
       }
@@ -80,7 +82,9 @@ pie.load(function(){
   lazy_load_photos();
   jQuery(window).bind('scroll', lazy_load_photos);
 
-  // 翻页组件
+  
+
+  // ------------------- 翻页组件
   var load_more = function(){
     if(load_more_elm.hasClass('loading')) return;
 
@@ -98,8 +102,9 @@ pie.load(function(){
       success : function(res){
         var new_elms = jQuery(res);
         jQuery('.page-web-weibo-statuses').append(new_elms).isotope('appended', new_elms);
+        
         lazy_load_photos();
-        bind_hover_intent_event(new_elms.find('.box'))
+        WEIBO.bind_hover_intent_event(new_elms.find('.box'))
       },
       complete : function(){
         load_more_elm.removeClass('loading').find('span').html('LOAD MORE');
@@ -110,12 +115,17 @@ pie.load(function(){
   load_more_elm.live('click', load_more);
   
   jQuery(window).bind('scroll', function(){
-    if(!_is_out_of_the_bottom(load_more_elm)){
+    if(load_more_elm._is_in_screen()){
       load_more();
     }
   });
+
+  // ----------- 移入移出事件绑定
+  WEIBO.bind_hover_intent_event(statuses_elm.find('.status .box'));
 })
 
+
+// 微博收集组件
 pie.load(function(){
 
   var cart_count_elm = jQuery('.page-web-weibo-toolbar .cart .count');
