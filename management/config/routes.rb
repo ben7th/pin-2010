@@ -1,61 +1,27 @@
-ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
+Management::Application.routes.draw do
 
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
+  root :to => 'index#index'
 
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
+  post '/operate_project' => 'index#operate_project'
+  post '/operate_server'  => 'index#operate_server'
+  post '/operate_worker'  => 'index#operate_worker'
+  post '/operate_resque_queue_worker' => 'index#operate_resque_queue_worker'
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
+  get '/memcached_stats' => 'index#memcached_stats'
+  get '/redis_stats'     => 'index#redis_stats'
 
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
+  post '/redis_flushall'    => 'index#redis_flushall'
+  post '/redis_cache_flush' => 'index#redis_cache_flush'
+  post '/redis_tip_flush'   => 'index#redis_tip_flush'
+  post '/redis_queue_flush' => 'index#redis_queue_flush'
 
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
+  get '/project_log' => 'index#project_log'
+  get '/server_log'  => 'index#server_log'
+  get '/worker_log'  => 'index#worker_log'
+  get '/resque_queue_worker_log' => 'index#resque_queue_worker_log'
+
+  get  '/login'    => 'index#login'
+  post '/do_login' => 'index#do_login'
+  get  '/logout'   => 'index#logout'
   
-  # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
-  #   end
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
-
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "index"
-  map.operate_project "operate_project", :controller=>"index",:action=>"operate_project",:conditions=>{:method=>:post}
-  map.operate_server "operate_server", :controller=>"index",:action=>"operate_server",:conditions=>{:method=>:post}
-  map.operate_worker "operate_worker", :controller=>"index",:action=>"operate_worker",:conditions=>{:method=>:post}
-  map.operate_resque_queue_worker "operate_resque_queue_worker",
-    :controller=>"index",:action=>"operate_resque_queue_worker",
-    :conditions=>{:method=>:post}
-
-
-  map.memcached_stats "memcached_stats", :controller=>"index",:action=>"memcached_stats",:conditions=>{:method=>:get}
-
-  map.redis_stats_path "redis_stats", :controller=>"index",:action=>"redis_stats",:conditions=>{:method=>:get}
-  map.redis_flushall_path "redis_flushall", :controller=>"index",:action=>"redis_flushall",:conditions=>{:method=>:post}
-
-  map.redis_cache_flush_path "redis_cache_flush", :controller=>"index",:action=>"redis_cache_flush",:conditions=>{:method=>:post}
-  map.redis_tip_flush_path "redis_tip_flush", :controller=>"index",:action=>"redis_tip_flush",:conditions=>{:method=>:post}
-  map.redis_queue_flush_path "redis_queue_flush", :controller=>"index",:action=>"redis_queue_flush",:conditions=>{:method=>:post}
-
-  map.project_log "project_log", :controller=>"index",:action=>"project_log",:conditions=>{:method=>:get}
-  map.server_log "server_log", :controller=>"index",:action=>"server_log",:conditions=>{:method=>:get}
-  map.worker_log "worker_log", :controller=>"index",:action=>"worker_log",:conditions=>{:method=>:get}
-  map.resque_queue_worker_log "resque_queue_worker_log",:controller=>"index",
-    :action=>"resque_queue_worker_log",:conditions=>{:method=>:get}
-
-  map.login "/login",:controller => "index",:action=>"login"
-  map.login "/do_login",:controller => "index",:action=>"do_login",:conditions=>{:method=>:post}
-  map.login "/logout",:controller => "index",:action=>"logout"
 end

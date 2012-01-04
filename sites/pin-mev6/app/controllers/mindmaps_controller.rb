@@ -22,7 +22,7 @@ class MindmapsController < ApplicationController
 
   # 常用关键词
   def aj_words
-    @user = User.find_by_id(params[:user_id]) if params[:user_id]
+    @user = User.by_id(params[:user_id]) if params[:user_id]
     @user ||= current_user
     render :partial=>'mindmaps/homepage/aj_words',:locals=>{:user=>@user}
   end

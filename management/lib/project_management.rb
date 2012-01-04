@@ -79,7 +79,7 @@ class ProjectManagement
       if !["pin-user-auth","pin-mev6","pin-uni-schedule"].include?(project_name)
         raise "#{project_name} 工程不存在"
       end
-      File.join(PIN_2010_PATH,"sites/#{project_name}/log/#{RAILS_ENV}.log")
+      File.join(PIN_2010_PATH,"sites/#{project_name}/log/#{Rails.env}.log")
     end
   end
 end

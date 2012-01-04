@@ -178,13 +178,11 @@ class Tag < UserAuthAbstract
 
   def self.find_tag_by_another_name(another_name,namespace = nil)
     if namespace.blank?
-      tag = Tag.find(:first,:conditions=>"tag_another_names.name = '#{another_name}' and  tags.namespace is null",
-        :joins=>"inner join tag_another_names on tags.id = tag_another_names.tag_id"
-      )
+      tag = Tag.where("tag_another_names.name = :name and  tags.namespace is null",:name=>another_name).
+        joins("inner join tag_another_names on tags.id = tag_another_names.tag_id").first
     else
-      tag = Tag.find(:first,:conditions=>"tag_another_names.name = '#{another_name}' and  tags.namespace = '#{namespace}' ",
-        :joins=>"inner join tag_another_names on tags.id = tag_another_names.tag_id"
-      )
+      tag = Tag.where("tag_another_names.name = :name and  tags.namespace = :namespace ",:name=>another_name,:namespace=>namespace).
+        joins("inner join tag_another_names on tags.id = tag_another_names.tag_id").first
     end
     return tag
   end

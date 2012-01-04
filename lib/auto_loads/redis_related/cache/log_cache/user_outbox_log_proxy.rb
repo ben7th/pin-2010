@@ -5,7 +5,7 @@ class UserOutboxLogProxy < RedisBaseProxy
   end
 
   def xxxs_ids_db
-    @user.outbox_logs_db.find(:all,:limit=>100).map{|x|x.id}
+    @user.outbox_logs_db.all.limit(100).map{|x|x.id}
   end
 
   def self.rules

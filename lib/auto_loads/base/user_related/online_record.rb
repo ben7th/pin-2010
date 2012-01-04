@@ -16,15 +16,15 @@ class OnlineRecord < UserAuthAbstract
   belongs_to :user
 
   def self.onlines
-    find(:all,:include=>:user,:order=>'created_at desc')
+    all.includes(:user).order('created_at DESC')
   end
 
   def self.online_users
-    find(:all,:conditions=>'user_id is not null',:order=>'created_at desc')
+    all.where('user_id is not null').order('created_at DESC')
   end
 
   def self.online_guests
-    find(:all,:conditions=>'user_id is null',:order=>'created_at desc')
+    all.where('user_id is null').order('created_at DESC')
   end
 
   def self.refresh(user)
@@ -68,13 +68,13 @@ class OnlineRecord < UserAuthAbstract
   # 在线用户数
   def self.usercount
     tidy
-    count(:all,:conditions=>['user_id is not null'])
+    all.where('user_id is not null').count
   end
 
   # 在线非用户数
   def self.anonycount
     tidy
-    count(:all,:conditions=>['user_id is null'])
+    all.where('user_id is null').count
   end
 
   def self.clear_online_key(key)

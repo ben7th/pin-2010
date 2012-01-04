@@ -83,19 +83,19 @@ class UserLog < UserAuthAbstract
     end
 
     def last_add_contact_user
-      ul = UserLog.find(:first,:conditions=>"kind = '#{UserLog::ADD_CONTACT}' and user_id = #{self.id}",:order=>"id desc")
+      ul = UserLog.where(:kind=>UserLog::ADD_CONTACT,:user_id=>self.id).order("id DESC").first
       return if ul.blank?
       User.find_by_id(ul.info_hash["contact_user_id"])
     end
 
     def last_edit_feed
-      ul = UserLog.find(:first,:conditions=>"kind = '#{UserLog::EDIT_FEED}' and user_id = #{self.id}",:order=>"id desc")
+      ul = UserLog.where(:kind=>UserLog::EDIT_FEED,:user_id=>self.id).order("id DESC").first
       return if ul.blank?
       Feed.find_by_id(ul.info_hash["feed_id"])
     end
 
     def last_edit_viewpoint
-      ul = UserLog.find(:first,:conditions=>"kind = '#{UserLog::EDIT_VIEWPOINT}' and user_id = #{self.id}",:order=>"id desc")
+      ul = UserLog.where(:kind=>UserLog::EDIT_VIEWPOINT,:user_id=>self.id).order("id DESC").first
       return if ul.blank?
       Viewpoint.find_by_id(ul.info_hash["viewpoint_id"])
     end

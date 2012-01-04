@@ -15,10 +15,9 @@ class WeiboCart < UserAuthAbstract
     end
 
     def weibo_statuses
-      WeiboStatus.find(:all,:conditions=>"weibo_carts.user_id = #{self.id}",
-        :joins=>"inner join weibo_carts on weibo_carts.mid = weibo_statuses.mid",
-        :order=>"id desc"
-      )
+      WeiboStatus.all.where("weibo_carts.user_id = :id",:id=>self.id).
+        joins("inner join weibo_carts on weibo_carts.mid = weibo_statuses.mid").
+        order("id DESC")
     end
 
     def add_status_to_cart(mid)

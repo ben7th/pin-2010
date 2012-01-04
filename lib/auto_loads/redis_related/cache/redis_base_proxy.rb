@@ -117,7 +117,7 @@ private
   end
 
   def self.base_tidy!(key_class,value_calss)
-    key_items = key_class.find(:all,:select=>"id",:order=>"id desc")
+    key_items = key_class.all.select("id").order("id desc")
     count = key_items.count
     key_items.each_with_index do |ki,index|
       p "处理 #{index+1}/#{count}"
