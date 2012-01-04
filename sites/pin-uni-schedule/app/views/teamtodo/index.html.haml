@@ -1,0 +1,30 @@
+-htitle 'TEAM TODO'
+
+-content_for :javascript do
+  :javascript
+    pie.load(function(){
+      var p_t_t_elm = jQuery('.page-team-todolist');
+
+      var resize = function(){
+        var width = (p_t_t_elm.width() - 100) / 5;
+        p_t_t_elm.find('.list .day').width(width);
+      }
+
+      resize();
+      jQuery(window).bind('resize',resize);
+    })
+
+.page-team-todolist
+  %a.left-nav{:href=>'javascript:;'}
+  %a.right-nav{:href=>'javascript:;'}
+  .list
+    .day
+      .l
+    .day
+      .l
+    .day
+      .l
+    .day
+      .l
+    .day
+      .l

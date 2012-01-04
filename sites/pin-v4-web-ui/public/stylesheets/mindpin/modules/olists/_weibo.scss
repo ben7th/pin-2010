@@ -126,7 +126,7 @@ a.page-web-weibo-load-more{
   padding-bottom:30px; //为了不把最后一排的展开变形遮掉
 
   .weibo-trends, .weibo-user-info, .status .box{
-    @include box-shadow(0 1px 5px #aaa);
+    @include box-shadow(0 1px 5px rgba(#aaa, 0.4));
   }
   
   .weibo-trends{

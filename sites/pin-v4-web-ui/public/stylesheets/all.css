@@ -6729,6 +6729,31 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     .page-olist.course-items .course-item .selection .has_selected {
       color: #666; }
 
+.page-team-todolist {
+  position: relative;
+  margin-top: 30px;
+  min-width: 960px; }
+  .page-team-todolist a.left-nav, .page-team-todolist a.right-nav {
+    display: block;
+    width: 45px;
+    height: 50px;
+    background-color: #000;
+    position: absolute; }
+  .page-team-todolist a.left-nav {
+    top: 0;
+    left: 0; }
+  .page-team-todolist a.right-nav {
+    top: 0;
+    right: 0; }
+  .page-team-todolist .list {
+    margin-left: 50px; }
+    .page-team-todolist .list .day {
+      float: left; }
+      .page-team-todolist .list .day .l {
+        height: 500px;
+        margin: 0 5px;
+        background-color: #444; }
+
 /*modules*/
 .page-mside-avatar {
   border: solid 1px #eee;
@@ -7713,9 +7738,9 @@ a.page-web-weibo-load-more {
   margin-left: 73px;
   padding-bottom: 30px; }
   .page-web-weibo-statuses .weibo-trends, .page-web-weibo-statuses .weibo-user-info, .page-web-weibo-statuses .status .box {
-    -moz-box-shadow: 0 1px 5px #aaaaaa;
-    -webkit-box-shadow: 0 1px 5px #aaaaaa;
-    box-shadow: 0 1px 5px #aaaaaa; }
+    -moz-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+    -webkit-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+    box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4); }
   .page-web-weibo-statuses .weibo-trends {
     margin: 10px;
     width: 152px;

@@ -143,3 +143,31 @@
     }
   }
 }
+
+// team todo ..
+
+.page-team-todolist{
+  position:relative;margin-top:30px;
+  min-width:960px;
+  
+  a.left-nav, a.right-nav{
+    display:block;
+    width:45px;height:50px;
+    background-color:#000;
+    position:absolute;
+  }
+  a.left-nav{top:0;left:0;}
+  a.right-nav{top:0;right:0;}
+  
+  .list{
+    margin-left:50px;
+    .day{
+      float:left;
+      .l{
+        height:500px;
+        margin:0 5px;
+        background-color:#444; 
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+include RoutesMethods
+
 ActionController::Routing::Routes.draw do |map|
   map.root :controller=>'index',:action=>'index'
   map.resources :course_items,:member=>{
@@ -8,4 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :teachers
 
   map.resources :users
+
+  match_get map, '/teamtodo' => 'teamtodo#index'
 end
