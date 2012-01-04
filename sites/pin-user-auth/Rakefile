@@ -6,5 +6,5 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
-# 与resque相关的 To start a worker, add this to your Rakefile in RAILS_ROOT:
+# 与resque相关的 To start a worker, add this to your Rakefile in Rails.root:
 require 'resque/tasks'

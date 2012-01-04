@@ -2,13 +2,13 @@ class RollingController <  ApplicationController
   before_filter :get_majia_user
 
   def get_majia_user
-    if RAILS_ENV == 'production'
+    if Rails.env.production?
       return render_status_page(403,'必须指定用户登陆后才能操作') if !logged_in?
       return render_status_page(403,'只有指定用户才能操作') if ![1002,1018,1012851,1001,1017].include? current_user.id
     end
 
 
-    majia_ids = case RAILS_ENV
+    majia_ids = case Rails.env
     when 'development'
       (1000001..1000029).to_a + [1000035,1000036,1000039,1000040,1000041,1000043,1000044,1000046,1000050,1000051,1000056]
     when 'production'

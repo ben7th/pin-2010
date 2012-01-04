@@ -10,7 +10,7 @@ begin
   COMPRESSION_DISABLED = false
 rescue
   COMPRESSION_DISABLED = true
-  RAILS_DEFAULT_LOGGER.info "Output Compression not available: " + $!
+  Rails.logger.info "Output Compression not available: " + $!
 end
 
 class OutputCompressionFilter

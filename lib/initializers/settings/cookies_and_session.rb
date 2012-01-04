@@ -2,7 +2,7 @@
 ActionController::Base.cookie_verifier_secret = '9f1e67be4945ad700daef99307e8b46313a3c781368e85e3d6ef8fd9142577c22ec4fb0e60f4671ba6939fed090a8bcdf1ebe1a0588120f327fa5e5e110940f6'
 
 # session
-case RAILS_ENV
+case Rails.env
   when 'production'
     ActionController::Base.session = {
       :domain => 'mindpin.com',

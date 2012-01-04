@@ -7,17 +7,13 @@ module PieUi
 
     # 用于其他子工程，引用公共ui
     def require_ui_css
-      case RAILS_ENV
-      when 'development'
-        stylesheet_link_tag [
-          pin_url_for('ui',"stylesheets/all.css?#{_rails_asset_id}")
-        ]
-      when 'production'
-        stylesheet_link_tag [
-          pin_url_for('ui',"stylesheets/all_packed.css?#{_rails_asset_id}")
-        ]
-      end
-      
+      stylesheet_link_tag [
+        pin_url_for('ui',"stylesheets/all.css?#{_rails_asset_id}")
+      ] if Rails.env.development?
+
+      stylesheet_link_tag [
+        pin_url_for('ui',"stylesheets/all_packed.css?#{_rails_asset_id}")
+      ] if Rails.env.production?
     end
 
     def require_lib_js

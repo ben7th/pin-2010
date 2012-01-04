@@ -2,7 +2,7 @@ require 'digest/sha1'
 module UserBaseModule
   # ------- consts define
 
-  ADMIN_USER_EMAILS = case RAILS_ENV
+  ADMIN_USER_EMAILS = case Rails.env
     when "development"
       ["ben7th@126.com"]
     when "test"

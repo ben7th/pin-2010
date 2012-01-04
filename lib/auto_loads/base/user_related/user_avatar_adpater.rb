@@ -1,6 +1,6 @@
 class UserAvatarAdpater
   
-  if RAILS_ENV == "development"
+  if Rails.env.development?
     TEMP_FILE_BASE_DIR = "/web1/2010/upload_user_avatar_tempfile"
   else
     TEMP_FILE_BASE_DIR = "/web/2010/upload_user_avatar_tempfile"

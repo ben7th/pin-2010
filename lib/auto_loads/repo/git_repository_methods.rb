@@ -1,5 +1,5 @@
 module GitRepositoryMethods
-  if RAILS_ENV != "test"
+  if !Rails.env.test?
     GIT_REPO_PATH = '/tmp' # 暂时用不到
   else
     GIT_REPO_PATH = '/tmp' # 暂时用不到

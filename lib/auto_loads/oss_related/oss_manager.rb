@@ -1,7 +1,7 @@
 class OssManager
   YML_FILE_PATH = File.join(File.dirname(File.expand_path(__FILE__)),"oss.yml")
 
-  CONFIG = YAML.load_file(YML_FILE_PATH)[RAILS_ENV]
+  CONFIG = YAML.load_file(YML_FILE_PATH)[Rails.env]
   OSS = Oss.new(CONFIG["access_key_id"],CONFIG["secret_access_key"])
   
   def self.create_bucket

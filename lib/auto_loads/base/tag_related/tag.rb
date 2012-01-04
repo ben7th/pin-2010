@@ -3,7 +3,7 @@ class Tag < UserAuthAbstract
 
   validates_format_of :name,:with=>/^[A-Za-z0-9一-龥]+$/
 
-  case RAILS_ENV
+  case Rails.env
   when "test"
     LOGO_PATH_ROOT = "/tmp/"
     LOGO_URL_ROOT = "http://localhost"
@@ -33,7 +33,7 @@ class Tag < UserAuthAbstract
     self.namespace = self.namespace.downcase unless self.namespace.blank?
   end
 
-  named_scope :has_another_name,:joins=>"inner join tag_another_names on tag_another_names.tag_id = tags.id",
+  scope :has_another_name,:joins=>"inner join tag_another_names on tag_another_names.tag_id = tags.id",
     :group=>"tags.id"
 
 

@@ -3,7 +3,7 @@ module UserlogHelper
   def userlog_partial(log)
     render 'index/userlog/info_userlog',:log=>log
   rescue Exception => ex
-    "用户活动记录解析错误 #{ex}" if RAILS_ENV == 'development'
+    "用户活动记录解析错误 #{ex}" if Rails.env.development?
   end
 
   def userlog_ct(log)

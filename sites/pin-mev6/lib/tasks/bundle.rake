@@ -1,10 +1,8 @@
-RAILS_ROOT ||= ENV["RAILS_ROOT"]
-
 namespace :bundle do
   task :all => [ :editor, :viewer ]
 
   task :editor do
-    closure_path = RAILS_ROOT + '/../pin-v4-web-ui/lib/closure_compiler.jar'
+    closure_path = Rails.root + '/../pin-v4-web-ui/lib/closure_compiler.jar'
     
     files = [
       'pie_mpaccordion.js',
@@ -23,11 +21,11 @@ namespace :bundle do
       'pie_mindmap_cooprate_response_module.js',
       'pie_mindmap_modifying_methods.js',
       'pie_mindmap.js'
-    ].map{|x| RAILS_ROOT + '/public/javascripts/pie/mindmap/' + x}
+    ].map{|x| Rails.root + '/public/javascripts/pie/mindmap/' + x}
     # 顺序是固定的！！
 
     puts files
-    target = RAILS_ROOT + "/public/javascripts/mindmap_editor_packed.js"
+    target = Rails.root + "/public/javascripts/mindmap_editor_packed.js"
 
     `java -jar #{closure_path} --js #{files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
 
@@ -35,7 +33,7 @@ namespace :bundle do
   end
 
   task :viewer do
-    closure_path = RAILS_ROOT + '/../pin-v4-web-ui/lib/closure_compiler.jar'
+    closure_path = Rails.root + '/../pin-v4-web-ui/lib/closure_compiler.jar'
 
     files = [
       'pie_dragdrop.js',
@@ -43,11 +41,11 @@ namespace :bundle do
       'pie_mindmap_canvas_draw_module.js',
       'pie_mindmap_modifying_methods.js', # 这个必须加载，里面有节点折叠展开的相关函数
       'pie_mindmap.js'
-    ].map{|x| RAILS_ROOT + '/public/javascripts/pie/mindmap/' + x}
+    ].map{|x| Rails.root + '/public/javascripts/pie/mindmap/' + x}
     # 顺序是固定的！！
 
     puts files
-    target = RAILS_ROOT + "/public/javascripts/mindmap_viewer_packed.js"
+    target = Rails.root + "/public/javascripts/mindmap_viewer_packed.js"
 
     `java -jar #{closure_path} --js #{files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
 

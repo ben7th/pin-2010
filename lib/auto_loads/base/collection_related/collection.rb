@@ -15,11 +15,11 @@ class Collection < UserAuthAbstract
     Collection::SendStatus::SCOPED
   ]
 
-  named_scope :publics,  :conditions=>['send_status = ?', Collection::SendStatus::PUBLIC]
-  named_scope :privates, :conditions=>['send_status = ?', Collection::SendStatus::PRIVATE]
+  scope :publics,  :conditions=>['send_status = ?', Collection::SendStatus::PUBLIC]
+  scope :privates, :conditions=>['send_status = ?', Collection::SendStatus::PRIVATE]
 
-  named_scope :active, :conditions=>['active = ?', true]
-  named_scope :unactive, :conditions=>['active = ?', false]
+  scope :active, :conditions=>['active = ?', true]
+  scope :unactive, :conditions=>['active = ?', false]
 
   def validate
     channel_ids = self.creator.channel_ids

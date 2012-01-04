@@ -26,7 +26,7 @@ class Mindmap < Mev6Abstract
     Mindmap::SendStatus::PRIVATE
   ]
   
-  MINDMAP_IMAGE_BASE_PATH = case RAILS_ENV
+  MINDMAP_IMAGE_BASE_PATH = case Rails.env
   when "development"
     "/web1/2010/mindmap_images"
   when "test"
@@ -44,14 +44,14 @@ class Mindmap < Mev6Abstract
   has_one :mindmap_file
 
   # name_scopes
-  named_scope :publics,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PUBLIC}'"
-  named_scope :privacy,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PRIVATE}'"
+  scope :publics,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PUBLIC}'"
+  scope :privacy,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PRIVATE}'"
 
-  named_scope :valueable,:conditions => ["weight > 0"]
-  named_scope :of_user_id, lambda {|user_id|
+  scope :valueable,:conditions => ["weight > 0"]
+  scope :of_user_id, lambda {|user_id|
     {:conditions=>['user_id = ?',user_id]}
   }
-  named_scope :is_zero_weight?, lambda {|bool|
+  scope :is_zero_weight?, lambda {|bool|
     if bool
       {:conditions=>'weight = 0'}
     else
@@ -59,7 +59,7 @@ class Mindmap < Mev6Abstract
     end
   }
 
-  named_scope :newest,:order=>'updated_at desc'
+  scope :newest,:order=>'updated_at desc'
   
   
   # 校验部分

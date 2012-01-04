@@ -44,7 +44,7 @@ module ApplicationMethods
   rescue ActiveRecord::RecordNotFound
     render_status_page(404,"正在访问的页面不存在，或者已被删除。")
   rescue Exception => e
-    if RAILS_ENV == 'production'
+    if Rails.env.production?
       return render_status_page(500,e.message)
     else
       raise e
@@ -68,7 +68,7 @@ module ApplicationMethods
   def catch_template_exception
     yield
   rescue ActionView::TemplateError=>ex
-    if RAILS_ENV == "development"
+    if Rails.env.development?
       raise ex
     else
       return render_status_page(500,ex.message)

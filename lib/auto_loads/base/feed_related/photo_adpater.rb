@@ -1,5 +1,5 @@
 class PhotoAdpater
-  if RAILS_ENV == "development"
+  if Rails.env.development?
     ATTACHED_FILE_PATH_ROOT = "/web1/2010/upload_photo_tempfile"
   else
     ATTACHED_FILE_PATH_ROOT = "/web/2010/upload_photo_tempfile"

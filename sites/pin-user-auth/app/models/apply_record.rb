@@ -6,7 +6,7 @@ class ApplyRecord < ActiveRecord::Base
     validates_presence_of :description
     validates_presence_of :activation_code
 
-    named_scope :unactivated,:conditions=>"activation_codes.user_id is null",
+    scope :unactivated,:conditions=>"activation_codes.user_id is null",
       :joins=>"inner join activation_codes on activation_codes.id = apply_records.code_id"
 
     before_validation_on_create :create_a_activation_code

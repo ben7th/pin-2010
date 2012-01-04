@@ -69,10 +69,10 @@ class MindpinRailsLoader
     @config.autoload_paths += Dir["#{AUTO_LOADS_PATH}/**/"]
 
     # 当前工程的lib
-    @config.autoload_paths += Dir["#{RAILS_ROOT}/lib/**/"]
+    @config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
 
     # 当前工程的middleware
-    @config.autoload_paths += ["#{RAILS_ROOT}/app/middleware/"]
+    @config.autoload_paths += ["#{Rails.root}/app/middleware/"]
   end
 
   def load_config

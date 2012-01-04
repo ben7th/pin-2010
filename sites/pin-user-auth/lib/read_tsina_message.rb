@@ -2,7 +2,7 @@ require "weibo"
 Weibo::Config.api_key = Tsina::API_KEY
 Weibo::Config.api_secret = Tsina::API_SECRET
 class ReadTsinaMessage
-  MAX_TSINA_MESSAGE_ID_FILE_PATH = File.join(RAILS_ROOT,"config/max_tsina_message_id")
+  MAX_TSINA_MESSAGE_ID_FILE_PATH = File.join(Rails.root,"config/max_tsina_message_id")
   def self.run
     self.init_max_tsina_message_id_file
     access_token = "a3ac1464078fb0ad509c7a6796159766"

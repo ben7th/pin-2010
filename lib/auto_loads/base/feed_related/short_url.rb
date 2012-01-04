@@ -3,7 +3,7 @@ class ShortUrl < UserAuthAbstract
   validates_uniqueness_of :url
   validates_uniqueness_of :code
 
-  SHORT_SITE = case RAILS_ENV
+  SHORT_SITE = case Rails.env
   when "development" then "d.mup.cc"
   else
     "mup.cc"

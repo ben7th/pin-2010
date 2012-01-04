@@ -4,7 +4,7 @@ begin
   require 'memcache'
   require 'cache_money'
 
-  config = case RAILS_ENV
+  config = case Rails.env
     when 'development'
       {
         :ttl       => 604800,
@@ -23,7 +23,7 @@ begin
       }
     end
 
-  if RAILS_ENV == 'test'
+  if Rails.env.test?
     $memcache = Cash::Mock.new
     p ">>>>> 当前为测试环境，$memcache = Cash::Mock.new"
   else

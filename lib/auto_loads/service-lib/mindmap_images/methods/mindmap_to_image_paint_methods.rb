@@ -8,7 +8,7 @@ module MindmapToImagePaintMethods
   def new_gc
     ps = pointsize
     Magick::Draw.new do |opts|
-      opts.font = RAILS_ENV == "production" ? "/web/2010/pin-2010/yahei.ttf" : "/web1/pin-2010/yahei.ttf"
+      opts.font = Rails.env.production? ? "/web/2010/pin-2010/yahei.ttf" : "/web1/pin-2010/yahei.ttf"
       opts.pointsize = ps
     end
   end

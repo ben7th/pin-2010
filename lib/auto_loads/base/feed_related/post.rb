@@ -24,11 +24,11 @@ class Post < UserAuthAbstract
 
 
   # 查询
-  named_scope :limited, lambda {|count|
+  scope :limited, lambda {|count|
     {:limit=>count.to_i,:order=>"posts.updated_at desc"}
   }
 
-  named_scope :normal,:conditions=>"kind = '#{KIND_NORMAL}'",
+  scope :normal,:conditions=>"kind = '#{KIND_NORMAL}'",
     :order=>"id asc"
 
   def main?

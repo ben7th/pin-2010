@@ -68,7 +68,7 @@ module PieUi
 
     def recursive_file_list(basedir, extname)
       files = []
-      basedir = RAILS_ROOT + "/" + basedir
+      basedir = Rails.root + "/" + basedir
       Find.find(basedir) do |path|
         if FileTest.directory?(path)
           if File.basename(path)[0] == ?.
@@ -77,7 +77,7 @@ module PieUi
             next
           end
         end
-        files << path.gsub(RAILS_ROOT + '/', '') if File.extname(path) == extname
+        files << path.gsub(Rails.root + '/', '') if File.extname(path) == extname
       end
       files.sort
     end

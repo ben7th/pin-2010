@@ -32,7 +32,7 @@ module PieUi
     }
 
     def find_site_url_by_name(site_name)
-      site_url = MINDPIN_URLS[RAILS_ENV][site_name]
+      site_url = MINDPIN_URLS[Rails.env][site_name]
       raise "找不到 site_name 为 #{site_name} 的配置" if site_url.blank?
       site_url
     end

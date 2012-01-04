@@ -4,7 +4,7 @@ class ActivationCode < ActiveRecord::Base
   validates_presence_of :code
   validates_uniqueness_of :code,:case_sensitive=>false
 
-  named_scope :unused,:conditions=>"user_id is null"
+  scope :unused,:conditions=>"user_id is null"
 
   def self.unused_codes
     self.unused.map{|ac|ac.code}

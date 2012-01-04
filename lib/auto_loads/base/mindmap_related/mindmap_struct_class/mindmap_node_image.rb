@@ -77,7 +77,7 @@ class MindmapNodeImage
   end
 
   def defalut_image_path
-    "#{RAILS_ROOT}/public/images/img_attach_deleted.png"
+    "#{Rails.root}/public/images/img_attach_deleted.png"
   end
 
   def defalut_image_url

@@ -3,7 +3,7 @@ class ImageAttachment < Mev6Abstract
   belongs_to :user
   validates_presence_of :user
 
-  if RAILS_ENV == "development"
+  if Rails.env.development?
     IMAGE_PATH = "/web1/2010/:class/:attachment/:id/:style/:basename.:extension"
     IMAGE_URL = "http://dev.mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
   else

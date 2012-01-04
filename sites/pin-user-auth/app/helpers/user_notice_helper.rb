@@ -23,7 +23,7 @@ module UserNoticeHelper
     return re*' '
 
   rescue Exception => ex
-    return "提示信息解析错误#{ex}" if RAILS_ENV == 'development'
+    return "提示信息解析错误#{ex}" if Rails.env.development?
     "<del class='quiet'>通知已失效</del><div style='display:none;'>#{ex}</div>"
   end
 

@@ -1,5 +1,5 @@
 module MindmapNoteMethods
-  NOTE_REPO_BASE_PATH = case RAILS_ENV
+  NOTE_REPO_BASE_PATH = case Rails.env
   when 'development'
     "/root/mindpin_base/note_repo"
   when 'production'

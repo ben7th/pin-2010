@@ -49,8 +49,8 @@ class WeiboStatus < UserAuthAbstract
       if !user.blank? && user.has_binded_tsina?
         return user.tsina_weibo
       else
-        return User.find(1016287).tsina_weibo if RAILS_ENV=='development' # 1016287 漫品 ben7th6@sina.com
-        return User.find(1009).tsina_weibo if RAILS_ENV=='production' # 1009 大灰狼果糖 ben7th@126.com
+        return User.find(1016287).tsina_weibo if Rails.env.development? # 1016287 漫品 ben7th6@sina.com
+        return User.find(1009).tsina_weibo if Rails.env.production? # 1009 大灰狼果糖 ben7th@126.com
       end
     end
     

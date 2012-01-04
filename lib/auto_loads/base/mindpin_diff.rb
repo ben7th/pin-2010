@@ -147,7 +147,7 @@ class MindpinDiff
 
     doc.at_css('div').inner_html
   rescue Exception => ex
-    return '文本解析错误' if RAILS_ENV == 'production'
+    return '文本解析错误' if Rails.env.production?
     raise ex
   end
 
@@ -240,7 +240,7 @@ Epic wolfman fail!
 
     (prefix_del_arr + result_arr).flatten.compact
   rescue Exception => ex
-    return [] if RAILS_ENV == 'production'
+    return [] if Rails.env.production?
     raise ex
   end
 

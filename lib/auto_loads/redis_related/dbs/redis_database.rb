@@ -2,7 +2,7 @@ class RedisDatabase
   QUEUE_DB = '0'
   TIP_DB   = '1'
   
-  if RAILS_ENV == "test"
+  if Rails.env.test?
     CACHE_DB = 3
   else
     CACHE_DB = 2

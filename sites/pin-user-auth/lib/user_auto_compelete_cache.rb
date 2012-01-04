@@ -21,7 +21,7 @@ module UserAutoCompeleteCache
         "namespace"=>"user-autocompelete-cache-production",
         "debug"=>false, 
         "servers"=>"localhost:11211", 
-        "sessions"=>false}}[RAILS_ENV]
+        "sessions"=>false}}[Rails.env]
 
   def self.included(base)
     base.send(:extend,ClassMethods)

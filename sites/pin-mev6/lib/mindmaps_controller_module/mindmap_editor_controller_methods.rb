@@ -97,7 +97,7 @@ module MindmapEditorControllerMethods
 
   def _show_image(format)
     if !has_view_rights?(@mindmap,current_user)
-      return render :file=>File.join(RAILS_ROOT,"public/images/private_mindmap.png"),:status=>403
+      return render :file=>File.join(Rails.root,"public/images/private_mindmap.png"),:status=>403
     end
     zoom = params[:zoom].blank? ? 1 : params[:zoom].to_f
     file_path = MindmapImageCache.new(@mindmap).export(zoom.to_s)

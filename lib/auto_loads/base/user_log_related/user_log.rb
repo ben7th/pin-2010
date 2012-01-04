@@ -10,7 +10,7 @@ class UserLog < UserAuthAbstract
   EDIT_VIEWPOINT = "EDIT_VIEWPOINT"
   ADD_CONTACT = "ADD_CONTACT"
 
-  named_scope :of_user,lambda{|user|
+  scope :of_user,lambda{|user|
     {
       :conditions=>"user_id = #{user.id}",
       :order=>'id desc'

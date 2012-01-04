@@ -44,7 +44,7 @@ class MindmapChangeStruct
     @mindmap.instance_variable_set(:@skip_hook,"skip")
     @mindmap.save_without_timestamping
   rescue Exception=>ex
-    File.open(File.join(RAILS_ROOT,"/log/change_mindmap_log.log"),"a") do |file|
+    File.open(File.join(Rails.root,"/log/change_mindmap_log.log"),"a") do |file|
       file << "#{@mindmap.id} 出错啦"
       file << ex.to_s
       file << "\n"

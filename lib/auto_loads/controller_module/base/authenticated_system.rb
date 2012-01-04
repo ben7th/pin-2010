@@ -67,7 +67,7 @@ module AuthenticatedSystem
     end
 
     def remember_me_cookie_key
-      return :remember_me_token if RAILS_ENV=='production'
+      return :remember_me_token if Rails.env.production?
       return :remember_me_token_devel
     end
 

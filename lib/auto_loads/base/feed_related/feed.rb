@@ -22,14 +22,14 @@ class Feed < UserAuthAbstract
   validates_presence_of :creator
   validates_inclusion_of :from, :in=>FROMS
 
-  named_scope :limited,lambda {|count|
+  scope :limited,lambda {|count|
     {:limit=>count}
   }
 
-  named_scope :normal,   :conditions=>"feeds.hidden IS NOT TRUE", :order=>"feeds.id DESC"
-  named_scope :unhidden, :conditions=>"feeds.hidden IS NOT TRUE", :order=>"feeds.id DESC"
-  named_scope :hidden,   :conditions=>"feeds.hidden IS TRUE",     :order=>"feeds.id DESC"
-  named_scope :no_reply, :conditions=>"posts.feed_id IS NULL AND feeds.hidden IS NOT TRUE",
+  scope :normal,   :conditions=>"feeds.hidden IS NOT TRUE", :order=>"feeds.id DESC"
+  scope :unhidden, :conditions=>"feeds.hidden IS NOT TRUE", :order=>"feeds.id DESC"
+  scope :hidden,   :conditions=>"feeds.hidden IS TRUE",     :order=>"feeds.id DESC"
+  scope :no_reply, :conditions=>"posts.feed_id IS NULL AND feeds.hidden IS NOT TRUE",
     :joins=>"LEFT JOIN posts ON posts.feed_id = feeds.id",
     :order=>"id DESC"
 

@@ -2,11 +2,11 @@ class Message < ActiveRecord::Base
   
   belongs_to :reader,:class_name=>"User",:foreign_key=>:reader_id
 
-  named_scope :reader_is,lambda {|reader|
+  scope :reader_is,lambda {|reader|
     {:conditions=>"reader_id = #{reader.id}"}
   }
 
-  named_scope :unread,:conditions=>"has_read = false"
+  scope :unread,:conditions=>"has_read = false"
 
   def read
     MessageProxy.new(self.reader).delete_from_unread_message_vector_cache(self.other_user,self)

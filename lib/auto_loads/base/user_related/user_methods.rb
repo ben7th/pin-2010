@@ -35,18 +35,18 @@ module UserMethods
     base.validates_confirmation_of :password
     base.validates_length_of :password, :in => 4..32, :allow_blank=>true
 
-    base.named_scope :recent,lambda{|*args|
+    base.scope :recent,lambda{|*args|
       {:limit=>args.first||5}
     }
 
-    base.named_scope :reputation_rank,:conditions=>"users.reputation != 0",
+    base.scope :reputation_rank,:conditions=>"users.reputation != 0",
       :order=>"reputation desc"
 
-    base.named_scope :feeds_rank,:conditions=>"feeds.hidden is not true",
+    base.scope :feeds_rank,:conditions=>"feeds.hidden is not true",
       :joins=>"inner join feeds on feeds.creator_id = users.id",
       :group=>"users.id",:order=>"count(*) desc"
 
-    base.named_scope :posts_rank,:joins=>"inner join posts on posts.user_id = users.id",
+    base.scope :posts_rank,:joins=>"inner join posts on posts.user_id = users.id",
       :group=>"users.id",:order=>"count(*) desc"
 
     base.send(:include, Fav::UserMethods)
