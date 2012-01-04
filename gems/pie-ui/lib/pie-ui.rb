@@ -1,11 +1,5 @@
 module PieUi
   class << self
-    
-    # 加载自定义的类
-    def load_classes
-      require 'pie-ui/classes/ui_asset'
-    end
-
     # 加载各个扩展
     def load_extensions      
       if defined? ActionView::Base
@@ -49,29 +43,12 @@ module PieUi
         ActionView::Base.send :include, PieUi::WeiboHelper
       end
     end
-
-    def load_gems
-      require "haml"
-      require 'coderay'
-      require 'haml-coderay'
-      Haml::Filters::CodeRay.encoder_options = {:css=>:class}
-    end
-
   end
 end
 
 if defined? Rails
-  PieUi.load_classes
   PieUi.load_extensions
-  PieUi.load_gems
-
-  def Rails.production?
-    Rails.env == 'production'
-  end
-
-  def Rails.development?
-    Rails.env == 'development'
-  end  
+  Haml::Filters::CodeRay.encoder_options = {:css=>:class}
 end
 
 # 加载 mindpin_logic 配置
@@ -92,19 +69,10 @@ include PieUi::ProjectLinkModule
 # 字符串扩展
 require 'pie-ui/string_util'
 
-# 翻页补丁
-require "pie-ui/patch/will_paginate_localize_and_add_ajax_link"
-
-# 邮箱联系人解析补丁
-require "pie-ui/patch/contacts_cn_fix"
-
 # grit初始化
 require 'repo/grit_init'
 Grit::Repo.send(:include,RepoInit)
 Grit::Diff.send(:include,DiffInit)
-
-# 声明 asset_id
-ENV['RAILS_ASSET_ID'] = UiAsset.asset_id
 
 # 声明邮件服务配置
 if defined? ActionMailer::Base

@@ -21,7 +21,7 @@ class FlashSessionCookieMiddleware
   end
 end
 
-ActionController::Dispatcher.middleware.insert_before(
-  ActionController::Base.session_store,
+Rails.application.config.middleware.insert_before(
+  ActionDispatch::Session::CookieStore,
   FlashSessionCookieMiddleware
 )

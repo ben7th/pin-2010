@@ -16,18 +16,15 @@ class InvitationEmail
       raise InvitationError,"被邀请邮箱已经注册过了"
     end
     @sender.actor.update_attributes(:send_invite_email=>true)
-#    Thread.start{
     Mailer.deliver_invite(self)
-#    }
   end
 
   # 被邀请人 注册成功后 互相加为联系人
   def done
-    begin
-      @sender.actor.contacts.create(:email=>@receiver.email)
-      @receiver.actor.contacts.create(:email=>@sender.email)
-    rescue Exception=>ex
-    end
+    @sender.actor.contacts.create(:email=>@receiver.email)
+    @receiver.actor.contacts.create(:email=>@sender.email)
+  rescue Exception=>ex
+    p ex
   end
 
 end

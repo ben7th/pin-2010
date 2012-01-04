@@ -15,55 +15,13 @@ class MindpinRailsLoader
   end
 
   def load
-    require 'memcache'
-    require 'ap' # gem awesome_print
-
-    load_gems
     load_codes
     load_config
-
+    
     require File.join(MINDPIN_LIB_PATH, 'mindpin_global_methods.rb')
   end
 
   private
-
-  # 加载常用的一些 gem
-  def load_gems
-    @config.gem 'will_paginate',
-      :version => '2.3.11'
-
-    @config.gem 'haml'
-    @config.gem 'redis'
-    @config.gem 'pacecar'
-    @config.gem 'contacts_cn' # 此gem依赖 hpricot
-    @config.gem 'nokogiri'
-    @config.gem 'oauth'
-    @config.gem 'uuidtools'
-    @config.gem 'responds_to_parent'
-
-    @config.gem 'rubyzip',
-      :version => '0.9.4',
-      :lib     => 'zip/zip'
-
-    # resque的引入
-    @config.gem 'resque'
-
-    # markdown 解析器
-    @config.gem 'redcarpet'
-
-    # paperclip
-    @config.gem 'paperclip',
-      :version => "~> 2.4"
-    @config.gem 'paperclip-meta'
-
-    @config.gem 'weibo'
-
-    # 自己写的 gem
-    @config.gem "pie-ui"
-    # http client
-#    @config.gem "patron"
-  end
-
   def load_codes
     # 加载公共代码
     @config.autoload_paths += Dir["#{AUTO_LOADS_PATH}/**/"]
