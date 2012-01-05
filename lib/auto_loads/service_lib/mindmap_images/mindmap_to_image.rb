@@ -71,7 +71,6 @@ class MindmapToImage
 
   # 尝试导出放大缩小的图片
   def export_zoom(with_sign = true)
-    t1 = Time.now
 
     image_width = _width_of_image(with_sign)
     image_height = _height_of_image
@@ -90,7 +89,6 @@ class MindmapToImage
       gc1.draw(img)
     end
 
-    t2 = Time.now
     return img
   end
 
@@ -125,16 +123,6 @@ class MindmapToImage
     file_path = "/tmp/#{randstr}.png"
     img.write(file_path)
     return file_path
-  end
-
-  def randstr(length=8)
-    base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    size = base.size
-    re = ''<<base[rand(size-10)]
-    (length-1).times  do
-      re<<base[rand(size)]
-    end
-    re
   end
   
 end

@@ -81,7 +81,7 @@ class ResqueQueueWorkerManagement
       return "关闭" if !File.exist?(pid_file_path)
       res = `ps \`cat #{pid_file_path}\``
       res_lines = res.split("\n")
-      return "关闭" if res_lines.count == 1
+      return "关闭" if res_lines.count <= 1
       parse_ps_resque_line(res_lines[1])
     end
 

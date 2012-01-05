@@ -12,8 +12,8 @@ module PieUi
         require 'pie-ui/action_view_ext/mindpin_layout_helper'
         ActionView::Base.send :include, PieUi::MindpinLayoutHelper
 
-        require 'pie-ui/action_view_ext/avatar_helper'
-        ActionView::Base.send :include, PieUi::AvatarHelper
+#        require 'pie-ui/action_view_ext/avatar_helper'
+#        ActionView::Base.send :include, PieUi::AvatarHelper
 
         require 'pie-ui/action_view_ext/datetime_helper'
         ActionView::Base.send :include, PieUi::DatetimeHelper

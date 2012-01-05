@@ -1,4 +1,9 @@
 cn:
+  will_paginate:
+    previous_label: "&laquo; 上一页"
+    next_label: "下一页 &raquo;"
+    page_gap: "&hellip;"
+    
   activerecord:
     attributes:
       mindmap:

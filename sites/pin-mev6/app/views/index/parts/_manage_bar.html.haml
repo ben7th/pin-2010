@@ -1,12 +1,17 @@
--new_url    = '/mindmaps/new'
--import_url = '/mindmaps/import'
+:ruby
+  new_url    = '/mindmaps/new'
+  import_url = '/mindmaps/import'
 
 .page-mindmaps-top
   .avatar
-    -link_to current_user do
-      =avatar current_user
+    =avatar_link current_user
   .arrow
   .box
     .ops
-      =link_to '<div class="icon"></div><div class="txt">新建</div>', new_url,    :class=>'new'
-      =link_to '<div class="icon"></div><div class="txt">导入</div>', import_url, :class=>'import'
+      %a{:href=>new_url, :class=>'new'}
+        .icon=''
+        .txt 新建
+        
+      %a{:href=>import_url, :class=>'import'}
+        .icon=''
+        .txt 导入

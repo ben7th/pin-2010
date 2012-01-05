@@ -2,7 +2,7 @@
 
 .main.grid_17.no-line
   =render 'index/parts/manage_bar'
-  =render 'mindmaps/list/list',:mindmaps=>@mindmaps
+  =render 'mindmaps/list/list', :mindmaps=>@mindmaps
   .grid_16.alpha
     .page-paginate=will_paginate @mindmaps
 
