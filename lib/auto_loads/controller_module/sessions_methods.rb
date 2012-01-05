@@ -15,12 +15,12 @@ module SessionsMethods
   end
 
   def ready_for_online_records_refresh
-    session[:last_time_online_refresh]=nil
+    session[:last_time_online_refresh] = nil
   end
 
   def create_remember_me_cookie_token
     if params[:remember_me]
-      cookies[remember_me_cookie_key]=current_user.create_cookies_token(30)
+      cookies[remember_me_cookie_key] = current_user.create_cookies_token(30)
     end
   end
 
@@ -29,16 +29,16 @@ module SessionsMethods
   end
 
   def reset_session_with_online_key
-    online_key=session[:online_key]
+    online_key = session[:online_key]
     reset_session
-    session[:online_key]=online_key
+    session[:online_key] = online_key
   end
 
   def destroy_remember_me_cookie_token
     cookies[remember_me_cookie_key] = {
-      :value=>nil,
-      :expires=>0.days.from_now,
-      :domain=>ActionController::Base.session_options[:domain]
+      :value   => nil,
+      :expires => 0.days.from_now,
+      :domain  => Mindpin::Application.config.session_options[:domain]
     }
   end
 

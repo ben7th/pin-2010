@@ -1,5 +1,5 @@
 development:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: pin-mindmap-editor-development
   username: root
@@ -9,7 +9,7 @@ development:
   reconnect: true
 
 test:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: pin-mindmap-editor-test
   username: root
@@ -18,11 +18,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: pin-mindmap-editor
   username: root
-  password: root
+  password: [fill in on deploy]
   pool: 5
   timeout: 5000
   reconnect: true

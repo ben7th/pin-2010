@@ -5,9 +5,6 @@ class Channel < UserAuthAbstract
   validates_presence_of :creator
   validates_uniqueness_of :name,:scope=>"creator_id"
 
-  index :creator_id
-  index [:creator_id,:id]
-
   # 给频道增加一个联系人
   # 增加成功返回 true
   # 增加失败返回 false

@@ -79,7 +79,7 @@ class ShortUrl < UserAuthAbstract
 
   module FeedMethods
     def self.included(base)
-      base.before_validation_on_create :replace_url_to_short_url
+      base.before_validation :replace_url_to_short_url, :on=>:create
     end
 
     def replace_url_to_short_url

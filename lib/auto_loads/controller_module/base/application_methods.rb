@@ -4,11 +4,8 @@ module ApplicationMethods
     base.before_filter :hold_ie6
     # 捕捉一些特定异常
     base.around_filter :catch_some_exception
-
-
+    # 检查是否需要强制修改用户名
     base.before_filter :change_user_name_when_need_change_name
-    # 通过插件开启gzip压缩
-    base.after_filter OutputCompressionFilter
     # 修正IE浏览器请求头问题
     base.before_filter :fix_ie_accept
     # 对错误显示友好的页面

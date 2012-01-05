@@ -18,9 +18,6 @@ class Preference < UserAuthAbstract
     Preference.count(:all,:conditions=>"preferences.usage = '#{Usage::MINDMAP}'")
   end
 
-  index :user_id
-
-
   @head_cover_path = "/:class/:attachment/:id/:style/:basename.:extension"
   @head_cover_url  = "http://storage.aliyun.com/#{OssManager::CONFIG["bucket"]}/:class/:attachment/:id/:style/:basename.:extension"
   has_attached_file :head_cover,:styles => {:normal => '1440x300#' },

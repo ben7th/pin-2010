@@ -5,10 +5,6 @@ class ChannelUser < UserAuthAbstract
   validates_presence_of :user
   validates_uniqueness_of :user_id, :scope => :channel_id
 
-  index :channel_id
-  index :user_id
-  index [:user_id,:channel_id]
-
   module ChannelMethods
     def self.included(base)
       base.has_many :channel_users,:dependent=>:destroy

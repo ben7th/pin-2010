@@ -1,3 +1,13 @@
-log
-nbproject
-public/.sass-cache
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore eclipse project files.
+.project
+.settings

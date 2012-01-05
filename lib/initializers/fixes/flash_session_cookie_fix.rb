@@ -9,7 +9,7 @@ class FlashSessionCookieMiddleware
     if env['HTTP_USER_AGENT'] =~ /^(Adobe|Shockwave) Flash/
       req = Rack::Request.new(env)
 
-      session_key   = ActionController::Base.session_options[:key]
+      session_key   = Mindpin::Application.config.session_options[:key]
       session_value = req.params[session_key]
       
       http_accept   = req.params['_http_accept']

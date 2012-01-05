@@ -1,4 +1,3 @@
-require 'digest/sha1'
 module UserBaseModule
   # ------- consts define
 
@@ -112,7 +111,7 @@ module UserBaseModule
       end
       user
     end
-
+    
     # 使用SHA1算法，根据内部密钥和明文密码计算加密后的密码
     def encrypted_password(password, salt)
       Digest::SHA1.hexdigest(password + 'jerry_sun' + salt)

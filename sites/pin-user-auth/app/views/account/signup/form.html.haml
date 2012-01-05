@@ -11,7 +11,7 @@
       .signup-content
         .ct
           .signup-form
-            - form_for @user,:url=>submit_url do |f|
+            = form_for @user,:url=>submit_url do |f|
               .fi=flash_info
               = hidden_field_tag :service,params[:service]
               .field

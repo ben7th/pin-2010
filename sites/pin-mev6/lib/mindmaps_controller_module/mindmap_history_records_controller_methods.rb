@@ -30,13 +30,4 @@ module MindmapHistoryRecordsControllerMethods
     render :text=>res
   end
 
-  def history_records
-    render :json=>@mindmap.history_records
-  end
-
-  def rollback_history_record
-    @mindmap.rollback_history_record(params[:history_record_id])
-    render :text=>"rollback_history_record success"
-  end
-
 end

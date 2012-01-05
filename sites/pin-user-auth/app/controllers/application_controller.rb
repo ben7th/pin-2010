@@ -81,7 +81,12 @@ class ApplicationController < ActionController::Base
       :create
     ],
     :login_wallpapers=>[
-      :index,:new,:create,:destroy,:get_next_wallpaper,:get_prev_wallpaper
+      :index,
+      :new,
+      :create,
+      :destroy,
+      :get_next,
+      :get_prev
     ]
   }
   before_filter :hold_anonymous_free_page

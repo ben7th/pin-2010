@@ -17,13 +17,13 @@ gem 'system_timer'
 gem 'haml'
 gem 'redis'
 
-gem 'memcache-client', '~> 1.8.5'
+gem 'memcache-client', '~> 1.8.5', :require => 'memcache'
 gem 'ap'
 
 gem 'will_paginate', '~> 3.0.2'
 gem 'nokogiri'
 gem 'oauth'
-gem 'uuidtools'
+gem 'uuidtools', :require => 'uuidtools'
 gem 'responds_to_parent'
 gem 'rubyzip', '0.9.4', :require => 'zip/zip'
 gem 'resque'
@@ -38,6 +38,9 @@ gem 'coderay'
 gem 'haml-coderay'
 
 gem 'grit'
+gem 'rmagick', :require => 'RMagick'
+
+gem 'unicorn'
 
 # 自己写的 gem
 gem "pie-ui"

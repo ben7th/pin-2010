@@ -11,16 +11,6 @@ module MindmapManagingControllerMethods
     redirect_to "/mindmaps/new"
   end
 
-  def change_title
-    if(@mindmap.user_id != current_user.id)
-      return render_status_page(503,'当前用户并非导图作者，不能修改导图标题')
-    end
-
-    @mindmap.title = params[:title]
-    @mindmap.save_without_timestamping
-    render :status=>200,:text=>params[:title]
-  end
-
   # DELETE /mindmaps/1
   def destroy
     if(@mindmap.user_id != current_user.id)
@@ -65,10 +55,6 @@ module MindmapManagingControllerMethods
     
     @mindmaps = @user.out_mindmaps_paginate(:page=>params[:page]||1,:per_page=>12)
     @current_channel = 'mindmaps'
-  end
-
-  def mine_private
-    @mindmaps = current_user.private_mindmaps_paginate(:page=>params[:page]||1,:per_page=>12)
   end
 
 end

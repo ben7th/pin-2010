@@ -37,7 +37,8 @@ rails_env=$(get_rails_env)
     exit 5
     ;;
   esac
-
+echo $rails_env
+echo `pwd`
 case "$2" in
 	start)
         assert_process_from_pid_file_not_exist $pid

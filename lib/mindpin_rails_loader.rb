@@ -18,6 +18,8 @@ class MindpinRailsLoader
     load_codes
     load_config
     
+    require 'digest/sha1'
+    
     require File.join(MINDPIN_LIB_PATH, 'mindpin_global_methods.rb')
   end
 

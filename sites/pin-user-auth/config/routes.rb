@@ -1,6 +1,24 @@
-include RoutesMethods
+# -- 用户认证相关 --
+def match_auth_routes
+  get  '/login'  => 'account/sessions#new'
+  post '/login'  => 'account/sessions#create'
+  get  '/logout' => 'account/sessions#destroy'
 
-# -----------------
+  get  '/signup'        => 'account/signup#form'
+  post '/signup_submit' => 'account/signup#form_submit'
+end
+
+def match_login_wallpaper_routes
+  get    '/zhi_ma_kai_men/login_wallpapers/new' => 'login_wallpapers#new'
+  post   '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#create'
+  get    '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#index'
+  delete '/zhi_ma_kai_men/login_wallpapers/:id' => 'login_wallpapers#destroy'
+
+  get '/login/wallpapers/:id/next' => 'login_wallpapers#get_next'
+  get '/login/wallpapers/:id/prev' => 'login_wallpapers#get_prev'
+end
+
+# -- 登录界面壁纸相关 --
 
 def match_activation_routes(map)  
   # 请求参与测试 / 提交请求参与测试表单
@@ -10,16 +28,6 @@ def match_activation_routes(map)
   # 激活页面 / 激活请求表单提交
   match_get  map,'/activation'        => 'activation#activation'
   match_post map,'/activation_submit' => 'activation#activation_submit'
-end
-
-def match_auth_routes(map)
-  # ---------------- 用户认证相关 -----------
-  match_get  map, '/login'  => 'account/sessions#new'
-  match_post map, '/login'  => 'account/sessions#create'
-  match_get  map, '/logout' => 'account/sessions#destroy'
-
-  match_get  map, '/signup'        => 'account/signup#form'
-  match_post map, '/signup_submit' => 'account/signup#form_submit'
 end
 
 def match_user_routes(map)
@@ -241,91 +249,87 @@ end
 
 ######################################
 
-ActionController::Routing::Routes.draw do |map|
+Mindpin::Application.routes.draw do
   # ---------------- 首页和欢迎页面 ---------
-  map.root :controller=>'index', :action=>'index'
-  match_auth_routes(map)
-  match_forgot_password_routes(map)
-  match_account_routes(map)
-  match_connect_tsina_routes(map)
-  match_activation_routes(map)
+  root :to => 'index#index'
   
-
-  match_user_routes(map)
-  match_feeds_routes(map)
-  match_viewpoints_routes(map)
-  map.resources :user_logs,:collection=>{:friends=>:get,:newest=>:get}
-
-  map.resources :messages
-  match_get map,'/messages/user/:user_id' => 'messages#user_messages'
-
-  match_get map,'/short_url/:code'        => 'short_urls#show'
-
-  match_channels_routes(map)
-  match_tags_routes(map)
-
-  map.resources :atmes
-
-  match_collections_routes(map)
-
-  match_photos_and_entries_routes(map)
-
-  match_tsina_app_routes(map)
-
-  map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
-
-  map.resources :post_drafts
-
-  match_get map,'/:user_id/contacts'          => 'contacts#index'
-  match_get map,'/:user_id/feeds'             => 'feeds#index'
-  match_get map,'/:user_id/collections'       => 'collections#index'
-
-  map.namespace(:api0) do |api0|
-    # ---------------- 手机客户端同步数据 ----------
-    match_get api0, 'mobile_data_syn'  => 'api#mobile_data_syn'
-    match_get api0, 'home_timeline'    => 'api#home_timeline'
-
-    # 收集册 collections
-    match_get    api0, 'collections/feeds'  => 'api#collection_feeds'
-    match_get    api0, 'collections/list'   => 'api#collection_list'
-    match_post   api0, 'collections/create' => 'api#create_collection'
-    match_delete api0, 'collections/delete' => 'api#delete_collection'
-    match_put    api0, 'collections/rename' => 'api#rename_collection'
-
-    # 主题 feeds
-    match_get  api0, 'feeds/show'               => 'api#show'
-    match_post api0, 'feeds/create'             => 'api#create'
-    match_post api0, 'feeds/upload_photo'       => 'api#upload_photo'
-
-    # 主题评论 comments
-
-    match_get    api0, 'comments/list'   => 'api#feed_comments'
-    match_post   api0, 'comments/create' => 'api#create_comment'
-    match_delete api0, 'comments/delete' => 'api#delete_comment'
-    match_post   api0, 'comments/reply'  => 'api#reply_comment'
-
-    match_get    api0, 'comments/received' => 'api#comments_received'
-    match_get    api0, 'comments/sent'     => 'api#comments_sent'
-
-    # 人际关系 contacts
-    match_get api0, 'contacts/followings' => 'api#contacts_followings'
-
-    match_get api0, 'test' => "api#test"
-
-  end
-
-  match_get    map, '/zhi_ma_kai_men/login_wallpapers/new' => 'login_wallpapers#new'
-  match_post   map, '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#create'
-  match_get    map, '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#index'
-  match_delete map, '/zhi_ma_kai_men/login_wallpapers/:id' => 'login_wallpapers#destroy'
-
-  match_get map,'/login_get_next_wallpaper' => "login_wallpapers#get_next_wallpaper"
-  match_get map,'/login_get_prev_wallpaper' => "login_wallpapers#get_prev_wallpaper"
-
-  match_weibo_routes(map)
-  match_douban_routes(map)
-
-  map.namespace(:admin) do |admin|
-    admin.resources :apply_records
-  end
+  match_auth_routes
+  match_login_wallpaper_routes
+  
+#  match_forgot_password_routes(map)
+#  match_account_routes(map)
+#  match_connect_tsina_routes(map)
+#  match_activation_routes(map)
+#  
+#
+#  match_user_routes(map)
+#  match_feeds_routes(map)
+#  match_viewpoints_routes(map)
+#  map.resources :user_logs,:collection=>{:friends=>:get,:newest=>:get}
+#
+#  map.resources :messages
+#  match_get map,'/messages/user/:user_id' => 'messages#user_messages'
+#
+#  match_get map,'/short_url/:code'        => 'short_urls#show'
+#
+#  match_channels_routes(map)
+#  match_tags_routes(map)
+#
+#  map.resources :atmes
+#
+#  match_collections_routes(map)
+#
+#  match_photos_and_entries_routes(map)
+#
+#  match_tsina_app_routes(map)
+#
+#  map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
+#
+#  map.resources :post_drafts
+#
+#  match_get map,'/:user_id/contacts'          => 'contacts#index'
+#  match_get map,'/:user_id/feeds'             => 'feeds#index'
+#  match_get map,'/:user_id/collections'       => 'collections#index'
+#
+#  map.namespace(:api0) do |api0|
+#    # ---------------- 手机客户端同步数据 ----------
+#    match_get api0, 'mobile_data_syn'  => 'api#mobile_data_syn'
+#    match_get api0, 'home_timeline'    => 'api#home_timeline'
+#
+#    # 收集册 collections
+#    match_get    api0, 'collections/feeds'  => 'api#collection_feeds'
+#    match_get    api0, 'collections/list'   => 'api#collection_list'
+#    match_post   api0, 'collections/create' => 'api#create_collection'
+#    match_delete api0, 'collections/delete' => 'api#delete_collection'
+#    match_put    api0, 'collections/rename' => 'api#rename_collection'
+#
+#    # 主题 feeds
+#    match_get  api0, 'feeds/show'               => 'api#show'
+#    match_post api0, 'feeds/create'             => 'api#create'
+#    match_post api0, 'feeds/upload_photo'       => 'api#upload_photo'
+#
+#    # 主题评论 comments
+#
+#    match_get    api0, 'comments/list'   => 'api#feed_comments'
+#    match_post   api0, 'comments/create' => 'api#create_comment'
+#    match_delete api0, 'comments/delete' => 'api#delete_comment'
+#    match_post   api0, 'comments/reply'  => 'api#reply_comment'
+#
+#    match_get    api0, 'comments/received' => 'api#comments_received'
+#    match_get    api0, 'comments/sent'     => 'api#comments_sent'
+#
+#    # 人际关系 contacts
+#    match_get api0, 'contacts/followings' => 'api#contacts_followings'
+#
+#    match_get api0, 'test' => "api#test"
+#
+#  end
+#
+#
+#  match_weibo_routes(map)
+#  match_douban_routes(map)
+#
+#  map.namespace(:admin) do |admin|
+#    admin.resources :apply_records
+#  end
 end

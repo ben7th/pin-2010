@@ -1,12 +1,6 @@
-require 'digest/sha1'
-require 'uuidtools'
-require 'RMagick'
 module UserMethods
   def self.included(base)
     base.set_readonly false
-
-    # 缓存策略
-    base.index :email
 
     # 在线状态记录
     base.has_one :online_record,:dependent => :destroy
@@ -86,7 +80,7 @@ module UserMethods
   # 是否需要 修改用户名 用户名不合法
   def need_change_name?
     valid?
-    errors.invalid?(:name)
+    errors.include?(:name)
   end
 
   # 判断该用户在系统中是否有同名
@@ -108,7 +102,11 @@ module UserMethods
   # 创建cookies登录令牌
   def create_cookies_token(expire)
     value=self.email+':'+expire.to_s+':'+User.hashed_token_string(self.email,self.hashed_password)
-    {:value=>value,:expires=>expire.days.from_now,:domain=>ActionController::Base.session_options[:domain]}
+    {
+      :value   => value,
+      :expires => expire.days.from_now,
+      :domain  => Mindpin::Application.config.session_options[:domain]
+    }
   end
 
   def password

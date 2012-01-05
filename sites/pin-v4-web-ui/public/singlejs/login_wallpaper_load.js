@@ -8,10 +8,10 @@ pie.load(function(){
   var wallpaper_box_elm = jQuery('.page-anonymous-wallpaper');
 
   var load_wallpaper = function(){
-    var src = wallpaper_box_elm.domdata('img-src');
+    var src = wallpaper_box_elm.data('img-src');
     wallpaper_box_elm.empty().append('<img style="display:none;" src="'+src+'" />');
     var img_elm = wallpaper_box_elm.find('img');
-    jQuery('.wallpaper-toggle .title').html(wallpaper_box_elm.domdata('title'));
+    jQuery('.wallpaper-toggle .title').html(wallpaper_box_elm.data('title'));
 
     img_elm.bind('load',function(){
       img_elm.fadeIn(500);
@@ -19,19 +19,16 @@ pie.load(function(){
       jQuery('.wallpaper-toggle').fadeIn();
     })
   }
-
+	
   load_wallpaper();
-
-  jQuery(window).resize(function(){
-    i_resize();
-  })
 
   var i_resize = function(){
     var width  = wallpaper_box_elm.width();
     var height = wallpaper_box_elm.height();
 
-    var iw  = wallpaper_box_elm.domdata('width');
-    var ih  = wallpaper_box_elm.domdata('height');
+    var iw  = wallpaper_box_elm.data('width');
+    var ih  = wallpaper_box_elm.data('height');
+		
     var w1, h1, rw, rh, ml, mt;
 
     //step 1
@@ -45,63 +42,55 @@ pie.load(function(){
     //margin
     ml = (width - rw) / 2; mt = (height - rh) / 2;
 
-    var img_elm = wallpaper_box_elm.find('img');
-    img_elm.css('width',rw).css('height',rh);
-    img_elm.css('margin-left',ml).css('margin-top',mt);
+    wallpaper_box_elm.find('img').css({
+			'width'        : rw,
+			'height'       : rh,
+			'margin-left'  : ml,
+			'margin-right' : mt
+		});
   }
-
-  //GET /login/get_next_wallpaper?id=xxx
-  //GET /login/get_prev_wallpaper?id=xxx
+  
+  jQuery(window).resize(i_resize);
+	
+	// 翻上一页和下一页
   jQuery('.wallpaper-toggle .prev').bind('click',function(){
-    var id = wallpaper_box_elm.domdata('id');
+    var id = wallpaper_box_elm.data('id');
 
-
-    jQuery('body')
-      .unbind("ajaxStart")
-      .unbind("ajaxComplete");
-    var old_img_elm = wallpaper_box_elm.find('img');
-    old_img_elm.fadeOut(500,function(){
-      old_img_elm.remove();
-    })
-
+    pie.dont_show_loading_bar();
     jQuery.ajax({
-      url  : '/login_get_prev_wallpaper',
-      data : {'id':id},
+      url  : '/login/wallpapers/'+id+'/prev',
       type : 'GET',
-      success : function(res){
-        load_res(res);
-      }
+			beforeSend : remove_old_img,
+      success : load_res
     })
   })
 
   jQuery('.wallpaper-toggle .next').bind('click',function(){
-    var id = wallpaper_box_elm.domdata('id');
+    var id = wallpaper_box_elm.data('id');
 
-    jQuery('body')
-      .unbind("ajaxStart")
-      .unbind("ajaxComplete");
-    var old_img_elm = wallpaper_box_elm.find('img');
-    old_img_elm.fadeOut(500,function(){
-      old_img_elm.remove();
-    })
-
+    pie.dont_show_loading_bar();
     jQuery.ajax({
-      url  : '/login_get_next_wallpaper',
-      data : {'id':id},
+      url  : '/login/wallpapers/'+id+'/next',
       type : 'GET',
-      success : function(res){
-        load_res(res);
-      }
+			beforeSend : remove_old_img,
+      success : load_res
     })
   })
   
+	var remove_old_img = function(){
+    var old_img_elm = wallpaper_box_elm.find('img');
+    old_img_elm.fadeOut(500,function(){
+      old_img_elm.remove();
+    });
+	}
+	
   var load_res = function(res){
     wallpaper_box_elm
-      .domdata('id',     res.id)
-      .domdata('title',  res.title)
-      .domdata('width',  res.width)
-      .domdata('height', res.height)
-      .domdata('img-src',res.src)
+      .data('id',      res.id)
+      .data('title',   res.title)
+      .data('width',   res.width)
+      .data('height',  res.height)
+      .data('img-src', res.src)
 
     load_wallpaper();
   }

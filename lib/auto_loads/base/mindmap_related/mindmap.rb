@@ -37,9 +37,6 @@ class Mindmap < Mev6Abstract
 
   belongs_to :user
   
-  index :user_id
-  index [:weight,:user_id]
-  
   has_one :visit_counter, :as=>:resource
   has_one :mindmap_file
 

@@ -1,24 +1,10 @@
 module MindmapEditorControllerMethods
   
-  # 导出向导页面
-  def export
-    render_ui.fbox :show,:title=>"导出导图",:partial=>'mindmap_editor/module/box_export',:locals=>{:mindmap=>@mindmap}
-  end
-
   def edit
     if has_edit_rights?(@mindmap,current_user)
       return render :layout=>"mindmap",:template=>'mindmap_editor/editor'
     end
     return render_status_page(403,"当前用户对该导图没有编辑权限。<a href='/mindmaps/#{@mindmap.id}'>点击这里进入查看页</a>")
-  end
-
-  def widget
-    if @mindmap.private?
-      # 私有导图检查权限
-      return render :text=>'当前导图是私人可见，无法以组件模式查看',:status=>403
-    end
-
-    return (render :layout=>"mindmap",:template=>'mindmap_editor/widget')
   end
 
   def show
