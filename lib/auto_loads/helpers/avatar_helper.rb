@@ -22,7 +22,7 @@ module AvatarHelper
     title = user.blank? ? '未知用户' : user.name
     
     link_to href, :title=>title do
-      avatar(user)
+      avatar(user, style)
     end
   end
 end

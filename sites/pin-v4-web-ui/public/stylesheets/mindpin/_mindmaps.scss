@@ -31,7 +31,58 @@
   }
 }
 
-/*------------------------*/
+///////////////////////////////
+
+.page-mindmap-search-form{
+  margin-bottom:20px;
+  height:32px;
+  
+  form{
+    .field{
+      position:relative;padding:0;margin:0;
+      label{
+        position:absolute;
+        line-height:30px;height:30px;
+        color:#a3a7aB;font-size:14px;
+        padding:0;margin:0;
+        left:9px;
+        cursor:text;
+      }
+    
+      input{
+        height:30px !important; line-height:30px !important;
+        @include border-radius(3px);
+        box-shadow:0px 1px 1px rgba(0, 0, 0, 0.1) inset;
+        padding:0 7px !important;
+        width:214px !important;
+        background-color:#eee;
+        border-top:solid 1px #B2B2B2;
+        border-left:solid 1px #D6D6D6;
+        border-right:solid 1px #D6D6D6;
+        border-bottom:solid 1px #F3F3F3;  
+        
+        &.active{
+          background-color:#fff;
+        }
+      }
+      
+      .do-search{
+        overflow:hidden;
+        float:left;
+        @include border-radius(3px);
+        border-left:none;
+        height:24px;width:24px;
+        line-height:22em;
+        background-color:#999;
+        position:absolute;
+        top:4px;right:4px;
+        @include allimg(-85px,-75px);
+      }
+    }
+  }
+}
+
+///////////////////////////////
 
 .page-mindmap-what-is-daotu, .page-mindpin-weibo, .page-based-on-html5{
   padding:9px;margin-bottom:14px;

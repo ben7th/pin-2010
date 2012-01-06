@@ -11,7 +11,7 @@ class MindmapLucene
     begin
       Searcher.new(query,option).search_paged_result
     rescue Exception => ex
-      raise MindmapSearchFailureError,"搜索服务出现异常，或者正在维护。#{ex}"
+      raise MindmapSearchFailureError,"无法连接搜索服务。#{ex}"
     end
   end
 
@@ -19,7 +19,7 @@ class MindmapLucene
     begin
       Searcher.new(query,option).search_paged_result_by_user(user)
     rescue Exception => ex
-      raise MindmapSearchFailureError,"搜索服务出现异常，或者正在维护。#{ex}"
+      raise MindmapSearchFailureError,"无法连接搜索服务。#{ex}"
     end
   end
 

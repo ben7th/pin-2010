@@ -4,13 +4,13 @@
 
 -creator = @mindmap.user
 
-.main.grid_17.no-line
-  =render 'mindmaps/list/list',:mindmaps=>[@mindmap]
+.main.grid_17
+  =render 'index/list/list',:mindmaps=>[@mindmap].paginate
 
-  .push_2.grid_15.alpha
+  .push_2.grid_15
     =render_with_error_msg '新浪微博评论加载错误','/mindmaps/info_parts/weibo_comments',:mindmap=>@mindmap
 
-.mside.grid_6.no-line
+.mside.grid_6
   .page-cooper-closed
     .desc 由于主题社区数据整合缘故，协作编辑功能暂时关闭。原有的协作编辑导图仍然生效。
   =render_with_error_msg '没有找到相关导图','mindmaps/info_parts/similar_mindmaps',:mindmap=>@mindmap

@@ -1,16 +1,4 @@
 module MindmapManagingControllerMethods
-  def new
-    @mindmap = Mindmap.new
-  end
-
-  def create
-    @mindmap = Mindmap.create_by_params(current_user,params[:mindmap])
-    unless @mindmap.id.blank?
-      return redirect_to "/mindmaps/#{@mindmap.id}/info?create=successful"
-    end
-    redirect_to "/mindmaps/new"
-  end
-
   # DELETE /mindmaps/1
   def destroy
     if(@mindmap.user_id != current_user.id)
@@ -40,21 +28,6 @@ module MindmapManagingControllerMethods
     return render :status=>503,:text=>"修改失败"
   rescue
     return render :status=>503,:text=>"修改失败"
-  end
-
-
-  def public_maps
-    @mindmaps = Mindmap.publics.paginate({:order=>"id desc",:page=>params[:page],:per_page=>25})
-  end
-
-  def user_mindmaps
-    @user = User.find(params[:user_id])
-    if @user == current_user
-      redirect_to '/mindmaps'
-    end
-    
-    @mindmaps = @user.out_mindmaps_paginate(:page=>params[:page]||1,:per_page=>12)
-    @current_channel = 'mindmaps'
   end
 
 end

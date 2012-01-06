@@ -26,9 +26,9 @@ class SaveOperationRecordMetal < BaseMetal
         MindmapOperate.new(mindmap,oper,current_user).do_operation
       end
       return [200, {"Content-Type" => "text/x-json"}, [{:revision=>mindmap.revision}.to_json]]
-    rescue MindmapOperate::NodeNotExistError => nnee
+    rescue MindmapOperate::NodeNotExistError
       return [500, {"Content-Type" => "text/x-json"}, [{:code=>MindmapOperate::ErrorCode::NODE_NOT_EXIST}.to_json]]
-    rescue MindmapOperate::MindmapNotSaveError => mns
+    rescue MindmapOperate::MindmapNotSaveError
       return [500, {"Content-Type" => "text/x-json"}, [{:code=>MindmapOperate::ErrorCode::MINDMAP_NOT_SAVE}.to_json]]
     rescue Exception => ex
       puts ex.message

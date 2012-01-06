@@ -19,6 +19,7 @@ class MindpinRailsLoader
     load_config
     
     require 'digest/sha1'
+    require 'will_paginate/array'
     
     require File.join(MINDPIN_LIB_PATH, 'mindpin_global_methods.rb')
   end

@@ -32,10 +32,8 @@ module PieActiveRecordExt
       # class name 有时候会和表名取不一样的。应该允许用户指定连接哪一个表
       def build_database_connection(project_name, options={})
         database = YAML.load_file(File.join(SITES_PATH, project_name, 'config/database.yml'))[Rails.env]
-
-        if !Rails.env.test?
-          establish_connection(database)
-        end
+        
+        establish_connection(database)
 
         unless options[:table_name].blank?
           set_table_name(options[:table_name])

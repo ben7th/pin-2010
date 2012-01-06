@@ -11,7 +11,7 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: pin-mindmap-editor-test
+  database: user_auth_test
   username: root
   password: root
   pool: 5

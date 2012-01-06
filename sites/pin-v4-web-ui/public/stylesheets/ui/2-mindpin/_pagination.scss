@@ -1,52 +1,52 @@
 /*will_pageinate style*/
-
-$color1:#555;
-$radius:3px;
-
 .page-paginate{
   overflow:hidden;
-  .pagination{
-    float:right;
-    padding:5px;
-  }
+  padding:5px 0;
 }
 
+$color1:#555;
 div.pagination{
   overflow:hidden;
   clear:both;
   
-  a, span {
+  a, em, span {
     height:24px;line-height:24px;
     padding:1px 9px;
-    @include border-radius($radius);
-    font-weight:bold;
+    font-weight:bold;font-size:14px;
     float:left;
     margin-right:4px;
-    font-size:14px;
   }
-  a {
+  
+  a{
     text-decoration:none;
     color:$color1;
-    background:#Fafafa;
+    background:#f1f1f1;
     border:solid 1px #ddd;
     padding:0 8px;
-    &:hover,&:active{
-      background:#Fff;
+    &:hover, &:active{
+      background:#fff;
       color:$color1;
     };
   }
-  span{
+  
+  em, span{
+    font-style:normal;
     &.current {
-      background-color:#555;
-      /*@include gradient(#1E5D8F,#103657);*/
-      color:white;
+      background-color:$color1;
+      color:#fff;
     }
     &.disabled {display:none;}
   }
-  .prev_page,.next_page{
-    background:none;
-    border:none;
-    padding:1px 9px;
-    &:hover{text-decoration:underline;};
+  
+  .previous_page, .next_page{
+    font-size:12px;
+    //background:none;
+    //border:none;
+    //padding:1px 9px;
+    //&:hover{
+    //  text-decoration:underline;
+    //  border:solid 1px #ddd;
+    //  padding:0 8px;
+    //};
   }
 }

@@ -1,25 +1,22 @@
 Mindpin::Application.routes.draw do
   # ---------------- 首页和欢迎页面 ---------
   root :to => 'index#index'
-  
   get '/login' => 'index#index'
+  
+  get '/publics' => 'index#public_maps'
+  get '/favs'    => 'index#fav_maps'
+  
+  get '/search'  => 'search#index'
 
   resources :users
   resources :image_attachments
 
-  get '/mindmaps/public' => 'mindmaps#public_maps'
-  get '/mindmaps/users/:user_id' => 'mindmaps#user_mindmaps'
-  get '/mindmaps/import_file_thumb/:upload_temp_id/thumb.png' => 'mindmaps#import_file_thumb'
+  get  '/new'           => 'builder#new'            # 普通新建表单
+  get  '/import'        => 'builder#import'         # 导入表单
+  post '/import_upload' => 'builder#import_upload'  # 上传原始文件
+  post '/create'        => 'builder#create'         # 普通创建和导入创建都提交到这个action
 
   resources :mindmaps do
-    collection do
-      get  :cooperates
-      get  :search
-      get  :import
-      post :do_import
-      post :upload_import_file
-      get  :favs
-    end
     member do
       put :toggle_private
       get :info

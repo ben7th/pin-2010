@@ -2,7 +2,10 @@ development:
   bucket: mindpin_dev
   access_key_id: sx50absmkje4tz91vaph131r
   secret_access_key: 95zX9CFtpQ32W39oDkqGywiw8y4=
-
+test:
+  bucket: mindpin_dev
+  access_key_id: sx50absmkje4tz91vaph131r
+  secret_access_key: 95zX9CFtpQ32W39oDkqGywiw8y4=
 production:
   bucket: mindpin
   access_key_id: xxx

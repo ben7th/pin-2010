@@ -2026,46 +2026,38 @@ input.inline-button, input.inline-button.submit {
 
 /*will_pageinate style*/
 .page-paginate {
-  overflow: hidden; }
-  .page-paginate .pagination {
-    float: right;
-    padding: 5px; }
+  overflow: hidden;
+  padding: 5px 0; }
 
 div.pagination {
   overflow: hidden;
   clear: both; }
-  div.pagination a, div.pagination span {
+  div.pagination a, div.pagination em, div.pagination span {
     height: 24px;
     line-height: 24px;
     padding: 1px 9px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
     font-weight: bold;
+    font-size: 14px;
     float: left;
-    margin-right: 4px;
-    font-size: 14px; }
+    margin-right: 4px; }
   div.pagination a {
     text-decoration: none;
     color: #555555;
-    background: #Fafafa;
+    background: #f1f1f1;
     border: solid 1px #ddd;
     padding: 0 8px; }
     div.pagination a:hover, div.pagination a:active {
-      background: #Fff;
+      background: #fff;
       color: #555555; }
-  div.pagination span.current {
-    background-color: #555;
-    /*@include gradient(#1E5D8F,#103657);*/
-    color: white; }
-  div.pagination span.disabled {
-    display: none; }
-  div.pagination .prev_page, div.pagination .next_page {
-    background: none;
-    border: none;
-    padding: 1px 9px; }
-    div.pagination .prev_page:hover, div.pagination .next_page:hover {
-      text-decoration: underline; }
+  div.pagination em, div.pagination span {
+    font-style: normal; }
+    div.pagination em.current, div.pagination span.current {
+      background-color: #555555;
+      color: #fff; }
+    div.pagination em.disabled, div.pagination span.disabled {
+      display: none; }
+  div.pagination .previous_page, div.pagination .next_page {
+    font-size: 12px; }
 
 .tab-control {
   padding: 4px 0 0 4px;
@@ -2242,60 +2234,6 @@ body {
         background-image: url(/images/alltu.png);
         background-repeat: no-repeat;
         background-position: -469px -75px; }
-    body .page-header .mindmap-search-form {
-      margin: 28px 0 0 30px;
-      overflow: hidden;
-      float: left;
-      height: 32px; }
-      body .page-header .mindmap-search-form form {
-        /* height = 24px*/ }
-        body .page-header .mindmap-search-form form .field {
-          position: relative;
-          padding: 0;
-          margin: 0; }
-          body .page-header .mindmap-search-form form .field label {
-            position: absolute;
-            line-height: 30px;
-            height: 30px;
-            color: #a3a7aB;
-            font-size: 14px;
-            padding: 0;
-            margin: 0;
-            left: 9px;
-            cursor: text; }
-        body .page-header .mindmap-search-form form input {
-          height: 30px !important;
-          line-height: 30px !important;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px;
-          border-radius: 3px;
-          float: left;
-          box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) inset;
-          border: solid 1px #777;
-          border: solid 1px rgba(204, 204, 204, 0.6);
-          padding-left: 7px !important;
-          width: 240px !important;
-          background-color: #555;
-          color: #f1f1f1; }
-          body .page-header .mindmap-search-form form input.active {
-            background-color: #777; }
-        body .page-header .mindmap-search-form form .do-search {
-          overflow: hidden;
-          float: left;
-          -moz-border-radius: 3px;
-          -webkit-border-radius: 3px;
-          border-radius: 3px;
-          border-left: none;
-          height: 24px;
-          width: 24px;
-          line-height: 22em;
-          background-color: #999;
-          position: absolute;
-          top: 4px;
-          right: 4px;
-          background-image: url(/images/alltu.png);
-          background-repeat: no-repeat;
-          background-position: -85px -75px; }
   body .page-content {
     color: #333333;
     padding-top: 72px; }
@@ -5965,7 +5903,57 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       .page-mindmaps-sidemenu a.i-am-here.last {
         margin-top: -1px; }
 
-/*------------------------*/
+.page-mindmap-search-form {
+  margin-bottom: 20px;
+  height: 32px; }
+  .page-mindmap-search-form form .field {
+    position: relative;
+    padding: 0;
+    margin: 0; }
+    .page-mindmap-search-form form .field label {
+      position: absolute;
+      line-height: 30px;
+      height: 30px;
+      color: #a3a7aB;
+      font-size: 14px;
+      padding: 0;
+      margin: 0;
+      left: 9px;
+      cursor: text; }
+    .page-mindmap-search-form form .field input {
+      height: 30px !important;
+      line-height: 30px !important;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1) inset;
+      padding: 0 7px !important;
+      width: 214px !important;
+      background-color: #eee;
+      border-top: solid 1px #B2B2B2;
+      border-left: solid 1px #D6D6D6;
+      border-right: solid 1px #D6D6D6;
+      border-bottom: solid 1px #F3F3F3; }
+      .page-mindmap-search-form form .field input.active {
+        background-color: #fff; }
+    .page-mindmap-search-form form .field .do-search {
+      overflow: hidden;
+      float: left;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      border-left: none;
+      height: 24px;
+      width: 24px;
+      line-height: 22em;
+      background-color: #999;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background-image: url(/images/alltu.png);
+      background-repeat: no-repeat;
+      background-position: -85px -75px; }
+
 .page-mindmap-what-is-daotu, .page-mindpin-weibo, .page-based-on-html5 {
   padding: 9px;
   margin-bottom: 14px;

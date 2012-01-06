@@ -30,11 +30,11 @@ module AuthenticatedSystem
 
     def access_denied(info)
       if request.xhr?
-        render :status=>401,:text=>"ACCESS DENIED 请求需要登录 #{info}"
+        render :status=>401, :text=>"ACCESS DENIED 请求需要登录 #{info}"
       else
         store_location
-        flash[:notice]=info
-        redirect_to pin_url_for("user_auth","login")
+        flash[:notice] = info
+        redirect_to pin_url_for('pin-user-auth','login'), :status=>302
       end
     end
 

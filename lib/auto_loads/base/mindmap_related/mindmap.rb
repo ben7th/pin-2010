@@ -92,7 +92,7 @@ class Mindmap < Mev6Abstract
   rescue Exception => ex
     {:height=>0,:width=>0}
   end
-
+  
   def self.import(user,attrs,struct,original_file_path)
     mindmap = Mindmap.new(attrs)
     mindmap.user = user

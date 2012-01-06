@@ -1,0 +1,18 @@
+:ruby
+  my_url     = pin_url_for 'pin-daotu', '/'
+  public_url = pin_url_for 'pin-daotu', '/publics'
+  favs_url   = pin_url_for 'pin-daotu', '/favs'
+
+.page-mindmaps-sidemenu
+  =daotu_sub_menu_li '我的导图', my_url, :class=>'first'
+  =daotu_sub_menu_li '网站上的导图', public_url, :class=>'last'
+
+.page-mindmaps-sidemenu
+  =daotu_sub_menu_li '我加星的导图', favs_url
+
+.page-mindmap-search-form>
+  %form{:action=>'/search', :method=>'get'}>
+    .field
+      %label 搜索思维导图
+      %input.text{:name=>'q', :type=>"text", :class=>'j-tip'}>
+      =link_to '搜索','javascript:;', :onclick=>'jQuery(this).closest("form").submit();', :class=>'do-search'

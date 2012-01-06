@@ -44,13 +44,25 @@
 %table
   %thead
     %tr
-      %th resque worker name
+      %th user_auth 工程的resque worker name
       %th 状态
       %th 日志大小
       %th 日志最后修改时间
       %th 操作
   %tbody
-    -PathConfig::QUEUES.each do |queue|
-      %tr=render :partial=>"index/parts/resque_queue_worker_stat",:locals=>{:queue_name=>queue}
+    -PathConfig::USER_AUTH_QUEUES.each do |queue,project_name|
+      %tr=render :partial=>"index/parts/resque_queue_worker_stat",:locals=>{:queue_name=>queue,:project_name=>project_name}
+      
+%table
+  %thead
+    %tr
+      %th mev6 工程的resque worker name
+      %th 状态
+      %th 日志大小
+      %th 日志最后修改时间
+      %th 操作
+  %tbody
+    -PathConfig::MEV6_QUEUES.each do |queue,project_name|
+      %tr=render :partial=>"index/parts/resque_queue_worker_stat",:locals=>{:queue_name=>queue,:project_name=>project_name}
 
 =link_to "退出登录","/logout"

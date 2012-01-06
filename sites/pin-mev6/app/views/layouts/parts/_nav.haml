@@ -11,13 +11,6 @@
       -account_url = pin_url_for('pin-user-auth','/account?call=tu')
       -logout_url  = pin_url_for('pin-user-auth','/logout?call=tu')
 
-      .mindmap-search-form>
-        %form{:action=>"/mindmaps/search",:method=>"get"}>
-          .field
-            %label 搜索思维导图
-            %input.inline.text{:name=>"q",:type=>"text",:class=>'j-tip'}>
-            =link_to '搜索','javascript:;',:onclick=>'jQuery(this).closest("form").submit();',:class=>'do-search'
-
       .nav-menu
         %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
 

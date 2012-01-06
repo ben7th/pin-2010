@@ -1,0 +1,75 @@
+# == Schema Information
+# Schema version: 20091223090135
+#
+# Table name: users
+#
+#  id                :integer(4)      not null, primary key
+#  login             :string(255)     default(""), not null
+#  name              :string(255)     default(""), not null
+#  hashed_password   :string(255)     default(""), not null
+#  salt              :string(255)     default(""), not null
+#  email             :string(255)     default(""), not null
+#  sign              :string(255)     
+#  active_code       :string(255)     
+#  activated         :boolean(1)      not null
+#  logo_file_name    :string(255)     
+#  logo_content_type :string(255)     
+#  logo_file_size    :integer(4)      
+#  logo_updated_at   :datetime        
+#  created_at        :datetime        
+#  updated_at        :datetime        
+#
+
+songliang:
+  name: songliang
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: songliang@mindpin.com
+
+lifei:
+  name: lifei
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: lifei@mindpin.com
+
+zhang:
+  name: zhang
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: zhang@mindpin.com
+
+wang:
+  name: wang
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: wang@mindpin.com
+
+zhao:
+  name: zhao
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: zhao@mindpin.com
+
+a:
+  name: usera
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: a@test.com
+
+b:
+  name: userb
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: b@test.com
+
+c:
+  name: userc
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: c@test.com
+
+d:
+  name: userd
+  salt: 267256200.649032
+  hashed_password: <%=User.encrypted_password('123456','267256200.649032')%>
+  email: d@test.com

@@ -17,9 +17,9 @@ module ApplicationMethods
   #-----------------------
   
   def render_status_page(code, text = '')
-    flash.now[:status_text] = text
-    flash.now[:status_code] = code
-    render "layouts/status_page/status_page",:status=>code
+    @status_code = code.to_i
+    @status_text = text.to_s
+    render "layouts/status_page/status_page", :status=>@status_code
   end
 
   #----------------------

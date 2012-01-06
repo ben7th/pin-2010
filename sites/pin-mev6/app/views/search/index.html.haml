@@ -1,9 +1,10 @@
 -htitle "搜索结果"
 
--count = @result.total_count
--items = @result.items
+:ruby
+  count = @result.total_count
+  items = @result.items
 
-.main.grid_23.nl.push_1.alpha
+.main.grid_23.push_1
   .page-mindmaps-searche-result-top
     .title
       关于
@@ -16,16 +17,18 @@
       .list-blank 没有搜索到任何结果
     -else
       -items.each do |item|
-        -mindmap = item.mindmap
-        -mindmap_id = mindmap.id
-        -title = h truncate_u(mindmap.title,8)
-        -info_url = "/mindmaps/#{mindmap_id}/info"
+        :ruby
+          mindmap = item.mindmap
+          mindmap_id = mindmap.id
+          title = h truncate_u(mindmap.title,8)
+          info_url = "/mindmaps/#{mindmap_id}/info"
 
         .mindmap{:'data-id'=>mindmap_id}
           .thumb
-            -link_to info_url do
-              =mindmap_image(mindmap,"120x120")
+            =link_to info_url do
+              =mindmap_image(mindmap,'120x120')
           .title=link_to title, info_url
-          .score="相关度 #{item.score}"
 
-  .page-paginate.fleft=will_paginate @result
+  .page-paginate
+    =will_paginate @result
+  

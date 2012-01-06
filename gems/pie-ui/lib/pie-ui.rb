@@ -15,17 +15,17 @@ module PieUi
 #        require 'pie-ui/action_view_ext/avatar_helper'
 #        ActionView::Base.send :include, PieUi::AvatarHelper
 
-        require 'pie-ui/action_view_ext/datetime_helper'
-        ActionView::Base.send :include, PieUi::DatetimeHelper
+#        require 'pie-ui/action_view_ext/datetime_helper'
+#        ActionView::Base.send :include, PieUi::DatetimeHelper
 
         require 'pie-ui/action_view_ext/dom_util_helper'
         ActionView::Base.send :include, PieUi::DomUtilHelper
 
-        require 'pie-ui/action_view_ext/button_helper'
-        ActionView::Base.send :include, PieUi::ButtonHelper
+#        require 'pie-ui/action_view_ext/button_helper'
+#        ActionView::Base.send :include, PieUi::ButtonHelper
 
-        require 'pie-ui/action_view_ext/status_page_helper'
-        ActionView::Base.send :include, PieUi::StatusPageHelper
+#        require 'pie-ui/action_view_ext/status_page_helper'
+#        ActionView::Base.send :include, PieUi::StatusPageHelper
 
         require 'pie-ui/action_view_ext/git_commit_helper'
         ActionView::Base.send :include, PieUi::GitCommitHelper
@@ -33,8 +33,8 @@ module PieUi
         require 'pie-ui/action_view_ext/auto_link_helper'
         ActionView::Base.send :include, PieUi::AutoLinkHelper
 
-        require 'pie-ui/action_view_ext/link_helper'
-        ActionView::Base.send :include, PieUi::LinkHelper
+#        require 'pie-ui/action_view_ext/link_helper'
+#        ActionView::Base.send :include, PieUi::LinkHelper
 
         require 'pie-ui/action_view_ext/partial_helper'
         ActionView::Base.send :include, PieUi::PartialHelper
