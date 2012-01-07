@@ -63,8 +63,8 @@ if defined? ActiveRecord::Base
 end
 
 # pin_url_for 等方法
-require "pie-ui/project_link_module"
-include PieUi::ProjectLinkModule
+# require "pie-ui/project_link_module"
+# include PieUi::ProjectLinkModule
 
 # 字符串扩展
 require 'pie-ui/string_util'

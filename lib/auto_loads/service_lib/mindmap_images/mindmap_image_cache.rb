@@ -1,13 +1,9 @@
 class MindmapImageCache
-  if Rails.env.development?
-    ATTACHED_FILE_PATH_ROOT = "/web1/2010/cache_images"
-  else
-    ATTACHED_FILE_PATH_ROOT = "/web/2010/cache_images"
-  end
+  ATTACHED_FILE_PATH_ROOT = '/web/2010/daotu_files/thumbs'
 
-  THUMB_500 = "500x500"
-  THUMB_120 = "120x120"
-  ZOOM_1 = "1"
+  THUMB_500 = '500x500'
+  THUMB_120 = '120x120'
+  ZOOM_1 = '1'
 
   attr_reader :mindmap
   def initialize(mindmap)
@@ -34,7 +30,7 @@ class MindmapImageCache
     id = @mindmap.id
 
     asset_id = (id / 1000).to_s
-    return File.join(ATTACHED_FILE_PATH_ROOT, "mindmap_cache_images_#{asset_id}", id.to_s, "#{size_param}.png")
+    return File.join(ATTACHED_FILE_PATH_ROOT, "thumbs_#{asset_id}", id.to_s, "#{size_param}.png")
   end
 
   def export(zoom = 1)

@@ -74,3 +74,22 @@ def truncate_u(text, length = 30, truncate_string = "...")
     end
   end
 end
+
+#############
+
+MINDPIN_DOMAINS = {
+  'pin-user-auth' => 'www.mindpin.com',
+  'pin-daotu'     => 'tu.mindpin.com',
+  'pin-schedule'  => 'schedule.mindpin.com',
+  'ui'            => 'ui.mindpin.com',
+  'dtimg'         => 'dtimg0.mindpin.com'
+}
+
+def pin_url_for(site_name, path = '')
+  domain = MINDPIN_DOMAINS[site_name]
+  raise "找不到名为为 #{site_name} 的 MINDPIN_DOMAINS 配置" if domain.blank?
+  
+  prefix = Rails.env.production? ? 'http://' : 'http://dev.'
+  site_url = "#{prefix}#{domain}"
+  File.join(site_url, path)
+end

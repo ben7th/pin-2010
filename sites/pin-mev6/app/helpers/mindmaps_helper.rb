@@ -1,9 +1,4 @@
 module MindmapsHelper
-  # 在页面上显示导图缩略图固定120x120尺寸
-  def mindmap_thumb(mindmap)
-    mindmap_image(mindmap, '120x120')
-  end
-
   # 在页面上显示导图某尺寸缩略图
   # 12月11日 由于环境迁移 EXT3 文件系统单一目录下子目录数量有限制，因此
   # 分多个文件夹

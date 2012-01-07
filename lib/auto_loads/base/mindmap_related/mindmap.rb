@@ -182,9 +182,9 @@ class Mindmap < Mev6Abstract
     asset_id  = (id / 1000).to_s
     cache_num = self.updated_at.to_i
 
-    src = pin_url_for("pin-mindmap-image-cache","/asset/#{asset_id}/#{id}.#{size_param}.png?#{cache_num}")
+    src = pin_url_for("dtimg","/asset/#{asset_id}/#{id}.#{size_param}.png?#{cache_num}")
 
-    return src.gsub 'mindmap-image-cache',"mindmap-image-cache-#{id % 10}"
+    return src.gsub 'dtimg0',"dtimg#{id % 10}"
   end
 
   module UserMethods
