@@ -9,26 +9,23 @@ class BuilderController < ApplicationController
   end
   
   def import_upload
+    logger.debug("current_user #{current_user.id}")
+    logger.debug(params[:file].original_filename)
+    
     adpater = MindmapImportAdpater.new(current_user)
-    adpater.import(params[:file],params[:Filename])
-    type           = adpater.file_type
-    nodes_count    = adpater.nodes_count
-    filename       = adpater.title
+    adpater.import(params[:file])
     
     render :json=>{
-      :type           => type,
-      :nodes_count    => nodes_count,
-      :filename       => filename
+      :type           => adpater.file_type,
+      :nodes_count    => adpater.nodes_count,
+      :filename       => adpater.title
     }
-  rescue Exception => ex
-    case ex
-      when MindmapImportAdpater::UnSupportFormatError
-      render :status=>510, :text=>"不支持的导图格式"
-      when MindmapImportAdpater::StructError
-      render :status=>511, :text=>"解析文件出错"
-      when MindmapImportAdpater::CreateThumbError
-      render :status=>512, :text=>"导图缩略图生成失败"
-    end
+  rescue MindmapImportAdpater::UnSupportFormatError
+    render :status=>510, :text=>"不支持的导图格式"
+  rescue MindmapImportAdpater::StructError
+    render :status=>511, :text=>"解析文件出错"
+  rescue MindmapImportAdpater::CreateThumbError
+    render :status=>512, :text=>"导图缩略图生成失败"
   end
   
   def create

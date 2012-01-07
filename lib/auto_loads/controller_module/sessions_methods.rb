@@ -38,7 +38,7 @@ module SessionsMethods
     cookies[remember_me_cookie_key] = {
       :value   => nil,
       :expires => 0.days.from_now,
-      :domain  => Mindpin::Application.config.session_options[:domain]
+      :domain  => Rails.application.config.session_options[:domain]
     }
   end
 

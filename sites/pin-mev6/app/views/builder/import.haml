@@ -1,5 +1,16 @@
 -htitle "导入思维导图"
 
+-content_for :javascript do
+  :ruby
+    session_key = Rails.application.config.session_options[:key]
+    session_value = u cookies[session_key]
+    
+  :javascript
+    FLASH_UPLOAD_SCRIPT_DATA = {
+      '_http_accept' : 'application/javascript',
+      #{session_key.to_json} : encodeURIComponent(#{session_value.to_json})
+    }
+
 -hjavascript '/uploadify/upload_mindmap'
 
 .main.grid_18
@@ -28,15 +39,15 @@
         #page-mindmap-import-btn
       .desc 选择要上传的导图文件，不超过4MB。支持 .mm, .mmap, .xmind
 
-    -form_for(@mindmap,:url=>'/mindmaps/do_import',:html=>{:multipart=>true}) do |f|
+    =form_for(Mindmap.new, :url=>'/create', :html=>{:multipart=>true}) do |f|
       =hidden_field_tag 'upload_temp_id',''
       .field.title
         %label 标题
-        .ip=text_field_tag :'mindmap[title]','',:class=>'text disabled',:disabled=>'disabled'
+        .ip=f.text_field :title, :class=>'text disabled', :disabled=>'disabled'
       .field.private
         %label 是否私有
         .ip.pri
-          =f.check_box :private,:class=>'checkbox disabled',:disabled=>'disabled'
+          =f.check_box :private, :class=>'checkbox disabled', :disabled=>'disabled'
           %span.disabled 这个导图只有我自己能看到
       .field.sub
         %a.middlebutton.blue.a-link-submit.disabled{:href=>'javascript:;'} 确定创建

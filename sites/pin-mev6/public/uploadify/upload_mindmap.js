@@ -1,7 +1,7 @@
 pie.load(function(){
   jQuery('#page-mindmap-import-btn').uploadify({
     'uploader'     : '/uploadify/uploadify.swf?'+pie.randstr(),
-    'script'       : '/mindmaps/upload_import_file',
+    'script'       : '/import_upload',
     'cancelImg'    : '/uploadify/cancel.png',
     'buttonImg'    : '/uploadify/upload_mindmap_1.png',
     'width'        : 93,
@@ -14,6 +14,7 @@ pie.load(function(){
     'fileExt'      : '*.mm;*.mmap;*.xmind;',
     'sizeLimit'    : 4194304,// 4.megabytes
     'queueID'      : 'page-mindmap-upload-queue',
+    'scriptData'   : FLASH_UPLOAD_SCRIPT_DATA,
 
     'onComplete'  : function(event, ID, fileObj, response, data) {
       var data_json = jQuery.parseJSON(response)
