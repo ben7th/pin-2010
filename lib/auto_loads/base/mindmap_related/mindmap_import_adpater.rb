@@ -3,17 +3,18 @@ class MindmapImportAdpater
   class StructError<StandardError; end
   class CreateThumbError<StandardError; end
     
-  TEMP_FILE_BASE_DIR = "/web/2010/upload_mindmap_tempfile"
+  TEMP_FILE_BASE_DIR = '/web/2010/daotu_files/mindmap_import_tempfile'
   
-  attr_reader :file_type, :nodes_count, :title
+  attr_reader :file_type, :nodes_count, :title, :thumb_src
   def initialize(user)
     @user = user
     user_id_str = @user.id.to_s
     
     @temp_file_dir    = File.join(TEMP_FILE_BASE_DIR, user_id_str)
-    @thumb_file_path  = File.join(@temp_file_dir, 'thumb_tmp')
-    @struct_file_path = File.join(@temp_file_dir, 'struct.xml')
-    @thumb_file_url   = pin_url_for('ui',"upload_mindmap_tempfile/#{user_id_str}/thumb_tmp")
+    @thumb_file_path  = File.join(@temp_file_dir, 'thumb')      # 缩略图
+    @struct_file_path = File.join(@temp_file_dir, 'struct.xml') # 结构信息
+    
+    @thumb_src   = pin_url_for('dtimg',"mindmap_import_tempfile/#{user_id_str}/thumb")
   end
   
   # 尝试从上传的文件中解析导图
@@ -70,7 +71,6 @@ class MindmapImportAdpater
       end
       
       @nodes_count = Nokogiri::XML(@struct).css("node").count
-      
     rescue UnSupportFormatError => ex
       raise ex
     rescue Exception

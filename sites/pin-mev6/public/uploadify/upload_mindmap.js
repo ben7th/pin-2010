@@ -16,7 +16,7 @@ pie.load(function(){
     'queueID'      : 'page-mindmap-upload-queue',
     'scriptData'   : FLASH_UPLOAD_SCRIPT_DATA,
 
-    'onComplete'  : function(event, ID, fileObj, response, data) {
+    'onComplete' : function(event, ID, fileObj, response, data) {
       var data_json = jQuery.parseJSON(response)
       pie.log(data_json);
       var result_elm = jQuery('.page-upload-mindmap-result');
@@ -30,7 +30,6 @@ pie.load(function(){
       jQuery('.page-new-mindmap-form .upload').hide();
       jQuery('#page-mindmap-upload-queue').hide();
 
-      jQuery('form #upload_temp_id').val(data_json['upload_temp_id']);
       jQuery('form #mindmap_title').val(data_json['filename']);
       jQuery('form input.text').attr("disabled", false).removeClass('disabled');
       jQuery('form textarea').attr("disabled", false).removeClass('disabled');
@@ -39,7 +38,7 @@ pie.load(function(){
       jQuery('form .a-link-submit').removeClass('disabled');
       
     },
-    'onError'     : function (event, ID, fileObj, errorObj) {
+    'onError' : function (event, ID, fileObj, errorObj) {
       pie.log(errorObj)
       var str = ''
       if(errorObj.info == 422){
@@ -69,7 +68,6 @@ pie.load(function(){
     jQuery('.page-new-mindmap-form .upload').show();
     jQuery('#page-mindmap-upload-queue').show();
 
-    jQuery('form #upload_temp_id').val('');
     jQuery('form #mindmap_title').val('');
     jQuery('form input.text').attr("disabled", true).addClass('disabled');
     jQuery('form textarea').attr("disabled", true).addClass('disabled');

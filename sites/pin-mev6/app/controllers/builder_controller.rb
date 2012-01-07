@@ -16,14 +16,15 @@ class BuilderController < ApplicationController
     adpater.import(params[:file])
     
     render :json=>{
-      :type           => adpater.file_type,
-      :nodes_count    => adpater.nodes_count,
-      :filename       => adpater.title
+      :type        => adpater.file_type,
+      :nodes_count => adpater.nodes_count,
+      :filename    => adpater.title,
+      :thumb_src   => adpater.thumb_src
     }
   rescue MindmapImportAdpater::UnSupportFormatError
     render :status=>510, :text=>"不支持的导图格式"
   rescue MindmapImportAdpater::StructError
-    render :status=>511, :text=>"解析文件出错"
+    render :status=>511, :text=>"文件解析出错"
   rescue MindmapImportAdpater::CreateThumbError
     render :status=>512, :text=>"导图缩略图生成失败"
   end

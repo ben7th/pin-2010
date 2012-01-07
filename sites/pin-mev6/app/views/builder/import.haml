@@ -40,7 +40,7 @@
       .desc 选择要上传的导图文件，不超过4MB。支持 .mm, .mmap, .xmind
 
     =form_for(Mindmap.new, :url=>'/create', :html=>{:multipart=>true}) do |f|
-      =hidden_field_tag 'upload_temp_id',''
+      =f.hidden_field :_import, true
       .field.title
         %label 标题
         .ip=f.text_field :title, :class=>'text disabled', :disabled=>'disabled'
