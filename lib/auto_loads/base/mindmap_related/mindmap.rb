@@ -1,22 +1,5 @@
-# == Schema Information
-# Schema version: 20081118030512
-#
-# Table name: mindmaps
-#
-#  id          :integer(4)      not null, primary key
-#  user_id     :integer(4)      not null
-#  title       :string(255)     default(""), not null
-#  description :string(255)     
-#  struct      :text            
-#  logo        :string(255)     
-#  score       :float           
-#  private     :boolean(1)      
-#  created_at  :datetime        
-#  updated_at  :datetime        
-#
-require 'uuidtools'
-
 class Mindmap < Mev6Abstract
+  
   class SendStatus
     PUBLIC = "public"
     PRIVATE = "private"
@@ -93,6 +76,27 @@ class Mindmap < Mev6Abstract
     {:height=>0,:width=>0}
   end
   
+  # 根据传入的导图参数创建思维导图，在controller中被调用
+  def self.new_by_params(user, params_mindmap)
+    mindmap = Mindmap.new(params_mindmap)
+    mindmap.user = user
+    mindmap.document.init_default_struct
+    return mindmap
+  end
+  
+  def self.new_by_import(user, uploaded_file)
+    importer = MindmapImporter.load(uploaded_file)
+    
+    mindmap = Mindmap.new({
+      :user   => user,
+      :title  => importer.title,
+      :struct => importer.struct,
+      :mindmap_file => MindmapFile.new(:file => uploaded_file)
+    })
+
+    return mindmap
+  end
+  
   def self.import(user,attrs,struct,original_file_path)
     mindmap = Mindmap.new(attrs)
     mindmap.user = user
@@ -102,18 +106,6 @@ class Mindmap < Mev6Abstract
     end
     File.open(original_file_path,"r") do |f|
       MindmapFile.create(:mindmap=>mindmap,:file=>f)
-    end
-    mindmap
-  end
-
-  # 根据传入的导图参数创建思维导图，在controller中被调用
-  def self.create_by_params(user,params_mindmap)
-    mindmap = Mindmap.new(params_mindmap)
-    mindmap.user = user
-    if mindmap.valid?
-      MindmapDocument.new(mindmap).init_default_struct
-      mindmap.save
-      return mindmap
     end
     mindmap
   end
@@ -200,8 +192,9 @@ class Mindmap < Mev6Abstract
     def space_capacity
       self.image_attachments.map{|ia|ia.image.size}.sum
     end
-
   end
+
+
 
 
   include MindmapCloneMethods

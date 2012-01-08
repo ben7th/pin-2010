@@ -11,10 +11,8 @@ Mindpin::Application.routes.draw do
   resources :users
   resources :image_attachments
 
-  get  '/new'           => 'builder#new'            # 普通新建表单
-  get  '/import'        => 'builder#import'         # 导入表单
-  post '/import_upload' => 'builder#import_upload'  # 上传原始文件
-  post '/create'        => 'builder#create'         # 普通创建和导入创建都提交到这个action
+  post '/create' => 'builder#create'  # 普通创建
+  post '/import' => 'builder#import'  # 导入
 
   resources :mindmaps do
     member do

@@ -1,10 +1,45 @@
 -htitle '我的思维导图'
 
-.main.grid_17
-  =render 'index/parts/manage_bar'
-  =render 'index/list/list', :mindmaps=>@mindmaps
+-hjavascript pin_url_for('ui','/singlejs/jquery.html5uploader.js')
+-hjavascript pin_url_for('ui','/singlejs/jquery.isotope.min.js')
+-hjavascript pin_url_for('ui','/singlejs/daotu/index_page.js')
 
-.mside.grid_6
-  =render 'index/parts/sub_menu'
-  =render 'index/parts/misc'
+:ruby
+  user = current_user
+  
+  mindmaps_count = user.mindmaps.count
+  mindmaps = user.mindmaps.limit(30);
 
+.page-mindmap-toolbar
+  %a.home-tl{:href=>'/', :title=>'我的思维导图'}
+    =avatar user, :medium
+
+.page-mindmaps-grids{:style=>'display:none;'}
+  .user-info.gi
+    .name=userlink user
+    .mindmaps-count=mindmaps_count
+  
+  .intro.gi
+    .title INTRO
+    .desc 
+      动态网格展示介绍blahblah
+      本网页不支持IE！！
+    
+  .weibo.gi
+    .desc 我们的微博
+    .title FOLLOW IT
+    
+  
+  .create-mindmap.gi
+    =form_for Mindmap.new, :url=>'/create' do |f|
+      .field
+        %label 输入导图标题
+        =f.text_field :title
+      .field
+        %a.submit.minibutton.blue{:href=>'javascript:;'} 确定
+
+  .import-mindmap.gi
+    %input.file{:type=>'file'}
+  
+  .mindmaps
+    =render 'mindmaps/parts/grids', :mindmaps=>mindmaps

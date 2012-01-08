@@ -19,6 +19,10 @@ cn:
         sign: 签名档
     errors:
       models:
+        mindmap:
+          attributes:
+            title:
+              blank: 未填写标题
         user:
           attributes:
             name:

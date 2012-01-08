@@ -1,21 +1,40 @@
 /**** Isotope Filtering ****/
+
 .isotope-item {
   z-index: 2;
-  &.isotope-hidden{
-    pointer-events: none;
-    z-index: 1;
-  }
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
 }
 
 /**** Isotope CSS3 transitions ****/
-.isotope{
-  @include transition((height 0.8s, width 0.8s));
-  .isotope-item{
-    @include transition((top 0.8s, left 0.8s, opacity 0.8s));
-  }
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: top, left, opacity;
+     -moz-transition-property: top, left, opacity;
+       -o-transition-property: top, left, opacity;
+          transition-property: top, left, opacity;
 }
 
 /**** disabling Isotope CSS3 transitions ****/
+
 .isotope.no-transition,
 .isotope.no-transition .isotope-item,
 .isotope .isotope-item.no-transition {
@@ -24,6 +43,8 @@
        -o-transition-duration: 0s;
           transition-duration: 0s;
 }
+
+//////////////////////////
 
 .page-web-weibo-overlay{
   position:fixed;top:0;left:0;

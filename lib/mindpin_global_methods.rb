@@ -80,6 +80,7 @@ end
 MINDPIN_DOMAINS = {
   'pin-user-auth' => 'www.mindpin.com',
   'pin-daotu'     => 'tu.mindpin.com',
+  'daotu'         => 'tu.mindpin.com',
   'pin-schedule'  => 'schedule.mindpin.com',
   'ui'            => 'ui.mindpin.com',
   'dtimg'         => 'dtimg0.mindpin.com'

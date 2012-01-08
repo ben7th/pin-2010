@@ -117,9 +117,11 @@
 .jq-confirm-dialog{
   width:200px;
   position:absolute;
-  @include box-shadow(0 0 6px black);
+  @include box-shadow(0 1px 5px rgba(170, 170, 170, 0.4));
   z-index:10002;
   .d{
+    border:solid 1px #ddd;
+    background-color:#f7f7f7;
     padding:13px;
     overflow:hidden;
     .data{
@@ -128,7 +130,7 @@
       margin:0 0 10px 0;
       .icon{
         display:inline;
-        font-size:18px;
+        font-size:20px;
         height:20px;
         line-height:20px;
         font-weight:bold;

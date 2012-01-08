@@ -1,0 +1,14 @@
+-htitle "创建思维导图"
+
+.main.grid_18
+  =form_for(Mindmap.new, :url=>'/create', :html=>{:multipart=>true}) do |f|
+    .field.title
+      %label 标题
+      .ip=f.text_field :title, :class=>'text'
+    .field
+      %label 是否私有
+      .ip.pri
+        =f.check_box :private, :class=>'checkbox'
+        %span 这个导图只有我自己能看到
+    .field.sub
+      %a.submit{:href=>'javascript:;'} 确定创建
