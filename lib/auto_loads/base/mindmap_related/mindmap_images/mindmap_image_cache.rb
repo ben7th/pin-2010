@@ -56,8 +56,11 @@ class MindmapImageCache
       s500_path = thumb_path_info[:s500]
       s120_path = thumb_path_info[:s120]
     rescue Exception => ex
-      puts ex.backtrace*"\n"
-      puts ex.message
+      
+      puts(ex.message)
+      puts(ex.backtrace*"\n")
+      puts("mindmap #{@mindmap.id}")
+      puts("~~~~~~~")
       # 如果图片生成错误，那么 把一个导图生成错误的提示图片放到 导图图片的硬盘缓存文件
       error_image_path = "#{File.dirname(__FILE__)}/images/data_error.png"
       use_error_image = true
@@ -88,7 +91,7 @@ class MindmapImageCache
     use_error_image = false
     begin
       file_path = MindmapToImage.new(@mindmap).export(1)
-    rescue Exception => ex
+    rescue Exception
       use_error_image = true
       file_path = "#{File.dirname(__FILE__)}/images/data_error.png"
     end

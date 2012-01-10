@@ -39,13 +39,6 @@ jQuery.extend(pie.WEIBO, {
   }
 });
 
-jQuery.fn._is_in_screen = function(){
-  var bottom = jQuery(window).height() + jQuery(window).scrollTop();
-  var elm_top = this.offset().top;
-
-  return elm_top < bottom;
-}
-
 pie.load(function(){
   var WEIBO = pie.WEIBO;
   
@@ -64,7 +57,7 @@ pie.load(function(){
   var lazy_load_photos = function(){
     statuses_elm.find('.status .photo:not(.-img-loaded-)').each(function(){
       var elm = jQuery(this);
-      if(elm._is_in_screen()){
+      if(elm.is_in_screen()){
         pie.load_cut_img(elm.data('src'), elm, elm);
         elm.addClass('-img-loaded-')
       }
@@ -72,7 +65,7 @@ pie.load(function(){
 
     statuses_elm.find('.status .avatar:not(.-img-loaded-)').each(function(){
       var elm = jQuery(this);
-      if(elm._is_in_screen()){
+      if(elm.is_in_screen()){
         jQuery('<img/>').attr('src',elm.data('src')).hide().fadeIn(200).appendTo(elm);
         elm.addClass('-img-loaded-')
       }
@@ -115,7 +108,7 @@ pie.load(function(){
   load_more_elm.live('click', load_more);
   
   jQuery(window).bind('scroll', function(){
-    if(load_more_elm._is_in_screen()){
+    if(load_more_elm.is_in_screen()){
       load_more();
     }
   });

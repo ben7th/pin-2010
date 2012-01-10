@@ -49,7 +49,8 @@ module MindmapToImageHashMethods
   end
 
   def _build_hash_include_id_title_width_height(node)
-    title   = node["title"]
+    title = node["title"] # "\\" 这样的字符串结尾会导致生成图片时出错，参考开发环境 mindmap[id=99]
+    title = "#{title}\\" if title.last == '\\'
     dim = get_text_size(title)
     
     if has_uploaded_img?(node)

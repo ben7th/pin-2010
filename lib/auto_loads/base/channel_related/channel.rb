@@ -64,7 +64,6 @@ class Channel < UserAuthAbstract
   end
 
   include PositionMethods
-  include CooperationChannel::ChannelMethods
   include ChannelUser::ChannelMethods
   include CollectionScope::ChannelMethods
 end

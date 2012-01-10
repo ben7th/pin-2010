@@ -1,0 +1,16 @@
+-htitle " 导图编辑器 v0.8 - #{@mindmap.title}"
+
+-content_for :head do
+  = stylesheet_link_tag '/javascripts/pie/mindmap/css/mindmap_editor_page'
+  = stylesheet_link_tag '/stylesheets/mindmap_mouse_right_menu'
+
+-hjavascript '/javascripts/mindmap_editor_packed.js'
+-hjavascript '/javascripts/excanvas/excanvas.compiled.js'
+-hjavascript '/javascripts/views/mindmap_page_load.js'
+
+=render 'mindmap_toolbar'
+=render 'mindmap_main',:mode=>'editor'
+
+=render 'v6/editor/module/image_editor',:image_attachments=>current_user.image_attachments
+=render 'v6/editor/module/note_editor'
+=render 'v6/editor/module/color_editor'

@@ -1,9 +1,9 @@
 #mindmap-main{:class=>mode,:'data-id'=>@mindmap.id}
   #mindmap-sidebar
-    =render "mindmap_editor/#{mode}_sidebar"
+    =render "#{mode}_sidebar"
 
   #mindmap-resizer
-    =render "mindmap_editor/paper_toolbar",:mode=>mode
+    =render 'paper_toolbar',:mode=>mode
 
     #mindmap-scroller
       #mindmap-canvas

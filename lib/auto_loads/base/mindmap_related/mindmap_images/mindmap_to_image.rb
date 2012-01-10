@@ -44,11 +44,20 @@ class MindmapToImage
     w_120_scale = 120.to_f / img.columns
     h_120_scale = 120.to_f / img.rows
     scale_120 = [w_120_scale, h_120_scale, 1].min
-
+    
+    
     return {
       :s500=>write_to_file(img.resize(scale_500)),
-      :s120=>write_to_file(img.resize(scale_120))
+      :s120=>write_to_file(_fit_size(img, 150, 150))
     }
+  end
+  
+  def _fit_size(img, w, h)
+    img1 = img.resize_to_fit(w, h)
+    x = (img1.columns - w)/2
+    y = (img1.rows - h)/2
+    
+    return img1.extent(w, h, x, y);
   end
 
   # 尝试导出指定尺寸图片

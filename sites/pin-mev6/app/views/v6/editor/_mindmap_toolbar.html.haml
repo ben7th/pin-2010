@@ -1,0 +1,14 @@
+:ruby
+  title = truncate_u @mindmap.title,11
+  muser = @mindmap.user
+
+#mindmap-toolbar
+  .map-title=title
+  .map-creator
+    .avatar=avatar_link muser,:mini
+    .name=userlink muser
+
+  .map-timestamp
+    %span.loud=jtime @mindmap.created_at
+  .map-close
+    =link_to '关闭，返回',pin_url_for("pin-daotu","/")

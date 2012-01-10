@@ -7,6 +7,38 @@ pie.load(function(){
 			transformsEnabled : false
 	  });
 		
+  // ------ LOAD THUMBS
+  var lazy_load_thumbs = function(){
+    grids_elm.find('.mindmaps .thumb:not(.-img-loaded-)').each(function(){
+      var elm = jQuery(this);
+      if(elm.is_in_screen()){
+        pie.load_cut_img(elm.data('src'), elm, elm);
+        elm.addClass('-img-loaded-')
+      }
+    });
+  }
+	
+  lazy_load_thumbs();
+  jQuery(window).bind('scroll', lazy_load_thumbs);
+	
+  // 绑定鼠标移入移出事件
+  var bind_hover_intent_event = function(elms){
+    elms.hoverIntent({
+      sensitivity: 10,
+      interval: 0,
+      over: function(){
+        var elm = jQuery(this);
+				elm.addClass('hover');
+      },
+      timeout: 0,
+      out: function(){
+        var elm = jQuery(this);
+				elm.removeClass('hover');
+      }
+    });
+  }
+	bind_hover_intent_event(grids_elm.find('.mindmap'));
+		
 	// 创建思维导图
 	// POST /create
 	grids_elm.find('.create-mindmap input').val('');

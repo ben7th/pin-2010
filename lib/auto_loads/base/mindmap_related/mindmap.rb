@@ -9,14 +9,7 @@ class Mindmap < Mev6Abstract
     Mindmap::SendStatus::PRIVATE
   ]
   
-  MINDMAP_IMAGE_BASE_PATH = case Rails.env
-  when "development"
-    "/web1/2010/mindmap_images"
-  when "test"
-    "/web1/2010/mindmap_images"
-  when "production"
-    "/web/2010/mindmap_images"
-  end
+  MINDMAP_IMAGE_BASE_PATH = "/web/2010/mindmap_images"
 
   belongs_to :user
   
@@ -97,19 +90,6 @@ class Mindmap < Mev6Abstract
     return mindmap
   end
   
-  def self.import(user,attrs,struct,original_file_path)
-    mindmap = Mindmap.new(attrs)
-    mindmap.user = user
-    mindmap.struct = struct
-    if mindmap.valid?
-      mindmap.save
-    end
-    File.open(original_file_path,"r") do |f|
-      MindmapFile.create(:mindmap=>mindmap,:file=>f)
-    end
-    mindmap
-  end
-
   # 切换导图的 私有/公开 属性
   def toggle_private
     if self.private?
@@ -197,17 +177,11 @@ class Mindmap < Mev6Abstract
 
 
 
-  include MindmapCloneMethods
-  include MindmapExportAndImportMethods
   include MindmapSearchMethods
   include MindmapRevisionMethods
   include MindmapNoteMethods
-  include MindmapSnapshotMethods
-  include MindmapImageMethods
   include MindmapRightsMethods
 
-  include MindmapCooperationMethods
   include MindmapFav::MindmapMethods
-
   include HistoryRecord::MindmapMethods
 end

@@ -8,7 +8,7 @@ module MindmapToImagePaintMethods
   def new_gc
     ps = pointsize
     Magick::Draw.new do |opts|
-      opts.font = Rails.env.production? ? "/web/2010/pin-2010/yahei.ttf" : "/web1/pin-2010/yahei.ttf"
+      opts.font = "/web/2010/pin-2010/yahei.ttf"
       opts.pointsize = ps
     end
   end
@@ -39,6 +39,7 @@ module MindmapToImagePaintMethods
     node_x, node_y = node[:x], node[:y]
     node_width, node_height = node[:width], node[:height]
     node_title = node[:title]
+    node_title = ' ' if node_title.blank?
 
 
     # 画节点边框
@@ -55,13 +56,17 @@ module MindmapToImagePaintMethods
     gc.stroke('transparent')
     gc.fill(node[:textcolor]||'black')
     if(node[:inner_img_filepath])
-      img_path = node[:inner_img_filepath]
-      inner_img = Magick::ImageList.new(img_path)
-      img_width = node[:imgw]
-      img_height = node[:imgh]
-
-      gc.composite(node_x, node_y, img_width, img_height, inner_img)
-      gc.text(node_x, node_y + img_height, node_title)
+      begin
+        img_path = node[:inner_img_filepath]
+        inner_img = Magick::ImageList.new(img_path)
+        img_width = node[:imgw]
+        img_height = node[:imgh]
+  
+        gc.composite(node_x, node_y, img_width, img_height, inner_img)
+        gc.text(node_x, node_y + img_height, node_title)
+      rescue
+        gc.text(node_x, node_y, node_title)
+      end
     else
       gc.text(node_x, node_y, node_title)
     end
@@ -142,6 +147,8 @@ module MindmapToImagePaintMethods
     y_off = node[:y_off]
 
     node_title = node[:title]
+    node_title = ' ' if node_title.blank?
+    
     node_width = node[:width]
     node_height = node[:height]
 
@@ -181,13 +188,17 @@ module MindmapToImagePaintMethods
     gc.stroke('transparent')
     gc.fill(node[:textcolor]||'black')
     if(node[:inner_img_filepath])
-      img_path = node[:inner_img_filepath]
-      inner_img = Magick::ImageList.new(img_path)
-      img_width = node[:imgw]
-      img_height = node[:imgh]
-
-      gc.composite(node_x, node_y, img_width, img_height, inner_img)
-      gc.text(node_x, node_y + img_height, node_title)
+      begin
+        img_path = node[:inner_img_filepath]
+        inner_img = Magick::ImageList.new(img_path)
+        img_width = node[:imgw]
+        img_height = node[:imgh]
+  
+        gc.composite(node_x, node_y, img_width, img_height, inner_img)
+        gc.text(node_x, node_y + img_height, node_title)
+      rescue
+        gc.text(node_x, node_y, node_title)
+      end
     else
       gc.text(node_x, node_y, node_title)
     end

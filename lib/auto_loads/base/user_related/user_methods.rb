@@ -46,7 +46,6 @@ module UserMethods
     base.send(:include, Fav::UserMethods)
     base.send(:include, Feed::UserMethods)
     base.send(:include, Post::UserMethods)
-    base.send(:include, UserCooperationMethods)
     base.send(:include, Channel::UserMethods)
     base.send(:include, ChannelUser::UserMethods)
     base.send(:include, ConnectUser::UserMethods)

@@ -1,10 +1,6 @@
 class UserAvatarAdpater
   
-  if Rails.env.development?
-    TEMP_FILE_BASE_DIR = "/web1/2010/upload_user_avatar_tempfile"
-  else
-    TEMP_FILE_BASE_DIR = "/web/2010/upload_user_avatar_tempfile"
-  end
+  TEMP_FILE_BASE_DIR = "/web/2010/upload_user_avatar_tempfile"
 
   def initialize(user, raw_file)
     @raw_file = raw_file

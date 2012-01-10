@@ -3,12 +3,11 @@ class ImageAttachment < Mev6Abstract
   belongs_to :user
   validates_presence_of :user
 
+  IMAGE_PATH = "/web/2010/daotu_files/:class/:attachment/:id/:style/:basename.:extension"
   if Rails.env.development?
-    IMAGE_PATH = "/web1/2010/:class/:attachment/:id/:style/:basename.:extension"
-    IMAGE_URL = "http://dev.mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
+    IMAGE_URL = "http://dev.dtimg0.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
   else
-    IMAGE_PATH = "/web/2010/:class/:attachment/:id/:style/:basename.:extension"
-    IMAGE_URL = "http://mindmap-image-cache.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
+    IMAGE_URL = "http://dtimg0.mindpin.com/:class/:attachment/:id/:style/:basename.:extension"
   end
 
   # image

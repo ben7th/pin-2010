@@ -1,7 +1,5 @@
 -htitle '我的思维导图'
 
--hjavascript pin_url_for('ui','/singlejs/jquery.html5uploader.js')
--hjavascript pin_url_for('ui','/singlejs/jquery.isotope.min.js')
 -hjavascript pin_url_for('ui','/singlejs/daotu/index_page.js')
 
 :ruby
@@ -27,8 +25,7 @@
     
   .weibo.gi
     .desc 我们的微博
-    .title FOLLOW IT
-    
+    .title FOLLOW IT  
   
   .create-mindmap.gi
     =form_for Mindmap.new, :url=>'/create' do |f|

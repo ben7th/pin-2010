@@ -14,6 +14,14 @@ Mindpin::Application.routes.draw do
   post '/create' => 'builder#create'  # 普通创建
   post '/import' => 'builder#import'  # 导入
 
+  get '/v6/:mindmap_id'      => 'v6/editor#index'
+  get '/v6/:mindmap_id/edit' => 'v6/editor#edit'
+  get '/v6/:mindmap_id/view' => 'v6/editor#view'
+  
+  get '/v7/:mindmap_id'      => 'v7/editor#index'
+  get '/v7/:mindmap_id/edit' => 'v7/editor#edit'
+  get '/v7/:mindmap_id/view' => 'v7/editor#view'
+
   resources :mindmaps do
     member do
       put :toggle_private

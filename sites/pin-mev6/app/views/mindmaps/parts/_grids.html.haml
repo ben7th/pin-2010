@@ -1,23 +1,26 @@
 -mindmaps.each do |mindmap|
   :ruby
     id = mindmap.id
-    title = mindmap.title
+    title = truncate_u mindmap.title,11
     creator = mindmap.user
+    thumb_src = mindmap.thumb_image_url('120x120')
     
     css_class = []
     
-    is_private    = mindmap.private?
+    is_private = mindmap.private?
     css_class << (is_private ? 'private' : 'public')
     
-    open_url = pin_url_for('daotu', "/editor/#{id}")
+    open_url = pin_url_for('daotu', "/v6/#{id}")
     is_owner = (creator == current_user)
     
     css_class = css_class * ' '
     
   .mindmap.gi{:'data-id'=>id, :class=>css_class}
     .title=title
-    .thumb=mindmap_image(mindmap, '120x120')
+    .thumb{:'data-src'=>thumb_src}
+    
+    %a.open{:href=>open_url} 打开
     .ops
       -if is_owner
-        %a.open{:href=>open_url} 打开
         %a.delete{:href=>'javascript:;'} 删除
+        %a.toggle{:href=>'javascript:;'} 切换公开私有

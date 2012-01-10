@@ -11,6 +11,7 @@ article,aside,dialog,figure,footer,header,hgroup, nav, section{display:block;}
 html{
   overflow-x:hidden;
   overflow-y:scroll;
+  -webkit-text-size-adjust:none;
 }
 
 body {line-height:1.5;}

@@ -107,9 +107,6 @@ class MindpinLogicManagement
 
     # ------------------
 
-    # 10 协同导图缓存
-    MindpinLogicManagement.load_redis_proxy UserCooperateMindmapsProxy
-
     # 11 标注导图缓存
     MindpinLogicManagement.load_redis_proxy UserFavMindmapsProxy
     MindpinLogicManagement.load_redis_proxy MindmapFavUsersProxy

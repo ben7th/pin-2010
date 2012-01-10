@@ -55,14 +55,122 @@
   .mindmap{
     width:152px;height:152px;padding:6px;
     position:relative;
-    &.private{
-      &::before{
-        content:"";
-        width:32px;height:32px;
-        @include allimg(-262px, -114px);
-        position:absolute;
-        top:-9px;right:-9px;
-      };
+    
+    $ani-time : .1s;
+    
+    .title{
+      position:absolute;width:152px;
+      left:0;top:0;padding:0 6px;
+      height:24px;line-height:24px;overflow:hidden;
+      color:#fff;
+      background-color:rgba(#000,0.7);
+      @include transition(all ease-out $ani-time);
     }
+    &.hover{.title{
+      background-color:rgba(#000,0.9);
+      height:36px;line-height:36px;
+    }}
+    
+    .thumb{
+      width:150px;height:150px;background-color:#f1f1f1;
+      border:solid 1px #eee;overflow:hidden;
+    }
+
+    a.open{
+      opacity:0;
+      position:absolute;height:48px;width:0;overflow:hidden;
+      left:0;top:50%;margin-top:-24px;background-color:rgba(#000,0.618);
+      @include transition(opacity ease-out $ani-time);
+      color:white;font-size:14px;font-weight:bold;
+      text-align:center;line-height:48px;
+      text-decoration:none;
+      animation:bgtoggle 5s infinite;
+    }
+    @keyframes bgtoggle{
+      from {left:0px;}
+      to {left:200px;}
+    }
+    &.hover{a.open{
+      display:block;opacity:1;
+      width:100%;
+    }}
+    
+    .ops{
+      position:absolute;
+      height:0;line-height:36px;overflow:hidden;
+      background-color:rgba(#000,0.7);
+      bottom:0;left:0;width:150px;padding:0 7px;
+      @include transition(all ease-out $ani-time);
+      
+      a{text-decoration:none;}
+      
+      a.delete{
+        float:left;margin-top:7px;position:relative;
+        height:22px;width:22px;line-height:24em;font-size:0;overflow:hidden;
+        background-color:#111;
+        @include border-radius(2px);
+        box-shadow:0 0 3px rgba(#fff,0.4);
+        
+        $color:#ccc;
+        &::before{
+          content:"";
+          display:block;
+          height:16px;width:2px;background-color:$color;
+          position:absolute;left:10px;top:3px;
+          @include transform(rotate(45deg));
+        };
+        &::after{
+          content:"";
+          display:block;
+          height:16px;width:2px;background-color:$color;
+          position:absolute;right:10px;top:3px;
+          @include transform(rotate(-45deg));
+        };
+        
+        &:hover{
+          &::before, &::after{background-color:#fff;}
+        }
+      }
+      
+      a.toggle{
+        float:right;margin-top:6px;position:relative;
+        height:24px;line-height:26em;font-size:0;overflow:hidden;
+        box-shadow:0 0 2px rgba(#000, 0.6) inset;
+        width:60px;background-color:#222;
+        @include border-radius(3px);
+        
+        &::before{
+          content:"公开";
+          font-size:12px;font-weight:bold;text-align:center;
+          position:absolute;
+          left:2px;top:2px;
+          height:20px;line-height:20px;width:36px;
+          color:white;
+          $bgc : #46D833;
+          @include gradient($bgc, darken($bgc,10%));
+          @include border-radius(2px);
+          box-shadow:0 0 2px rgba(0,0,0,0.4) inset;
+          text-shadow:0 0 2px #444444;
+          @include transition((all ease-in 0.2s));
+        };
+      }
+    }
+    &.hover{.ops{
+      height:36px;
+    }}
+    
+    
+    &.private{
+      a.toggle{
+        &::before{
+          left:auto;
+          right:2px;
+          content:"私有";
+          $bgc : #DF3827;
+          @include gradient($bgc, darken($bgc,10%));
+        }
+      }
+    }
+    
   }
 }

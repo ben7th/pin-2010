@@ -1,9 +1,5 @@
 class PhotoAdpater
-  if Rails.env.development?
-    ATTACHED_FILE_PATH_ROOT = "/web1/2010/upload_photo_tempfile"
-  else
-    ATTACHED_FILE_PATH_ROOT = "/web/2010/upload_photo_tempfile"
-  end
+  ATTACHED_FILE_PATH_ROOT = "/web/2010/upload_photo_tempfile"
 
   # 根据 file 创建 photo
   def self.create_photo_by_upload_file(user, file)

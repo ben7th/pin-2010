@@ -1,6 +1,4 @@
 class MindmapsController < ApplicationController
-  include MindmapRightsHelper
-  include MindmapEditorControllerMethods
   before_filter :per_load
   def per_load
     @mindmap = Mindmap.find(params[:id]) if params[:id]
@@ -20,8 +18,11 @@ class MindmapsController < ApplicationController
     render :text=>@mindmap.thumb_image_url(size_param)
   end
 
-  # destroy
+  include MindmapRightsHelper
+  # destroy toggle_private info
   include MindmapManagingControllerMethods
-  # 查看操作记录，前进，后退操作
+  # undo redo
   include MindmapHistoryRecordsControllerMethods
+  # edit show
+  include MindmapEditorControllerMethods
 end
