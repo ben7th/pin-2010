@@ -14,10 +14,12 @@ Mindpin::Application.routes.draw do
   post '/create' => 'builder#create'  # 普通创建
   post '/import' => 'builder#import'  # 导入
 
+  put '/v6/save'             => 'v6/editor#save'
   get '/v6/:mindmap_id'      => 'v6/editor#index'
   get '/v6/:mindmap_id/edit' => 'v6/editor#edit'
   get '/v6/:mindmap_id/view' => 'v6/editor#view'
   
+  put '/v7/save'             => 'v7/editor#save'
   get '/v7/:mindmap_id'      => 'v7/editor#index'
   get '/v7/:mindmap_id/edit' => 'v7/editor#edit'
   get '/v7/:mindmap_id/view' => 'v7/editor#view'
@@ -36,5 +38,8 @@ Mindpin::Application.routes.draw do
     get 'files/i_editor'     => 'files#show_image_editor'
     get 'files/f_editor'     => 'files#show_font_editor'
   end
+
+  # others...
+  get '/about' => 'help#about'
 
 end

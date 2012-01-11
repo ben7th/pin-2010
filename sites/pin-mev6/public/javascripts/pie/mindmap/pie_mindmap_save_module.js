@@ -49,7 +49,7 @@ pie.mindmap_save_module = {
 
     var info_label;
     jQuery.ajax({
-      url : "/mindmaps/do",
+      url : "/v6/save",
       data : pars,
       type : 'PUT',
       beforeSend : function(){
@@ -70,6 +70,7 @@ pie.mindmap_save_module = {
       },
       error : function(res){
         var code = res.responseText.evalJSON().code;
+				pie.log(code)
         switch(code){
           case '1':{
             mindmap.__on_node_not_exist();

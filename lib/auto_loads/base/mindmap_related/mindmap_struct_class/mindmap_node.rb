@@ -50,7 +50,7 @@ class MindmapNode
   end
 
   def modified_email
-    return @mindmap_document.mindmap.user.email if modified.nil?
+    return "" if modified.nil?
     modified.split(" ")[0]
   end
 

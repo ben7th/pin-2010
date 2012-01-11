@@ -1,8 +1,9 @@
 namespace :bundle do
   task :all => [ :editor, :viewer ]
-
+  
+  closure_path = File.join(Rails.root, '/../pin-v4-web-ui/lib/closure_compiler.jar')
   task :editor do
-    closure_path = Rails.root + '/../pin-v4-web-ui/lib/closure_compiler.jar'
+    #closure_path = File.join(Rails.root, '/../pin-v4-web-ui/lib/closure_compiler.jar')
     
     files = [
       'pie_mpaccordion.js',
@@ -21,19 +22,19 @@ namespace :bundle do
       'pie_mindmap_cooprate_response_module.js',
       'pie_mindmap_modifying_methods.js',
       'pie_mindmap.js'
-    ].map{|x| Rails.root + '/public/javascripts/pie/mindmap/' + x}
+    ].map{|x| File.join(Rails.root, '/public/javascripts/pie/mindmap/', x)}
     # 顺序是固定的！！
 
     puts files
-    target = Rails.root + "/public/javascripts/mindmap_editor_packed.js"
-
+    target = File.join(Rails.root, '/public/javascripts/mindmap_editor_packed.js')
+    p target
     `java -jar #{closure_path} --js #{files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
 
     puts "=> bundled js at #{target}"
   end
 
   task :viewer do
-    closure_path = Rails.root + '/../pin-v4-web-ui/lib/closure_compiler.jar'
+    #closure_path = File.join(Rails.root, '/../pin-v4-web-ui/lib/closure_compiler.jar')
 
     files = [
       'pie_dragdrop.js',
@@ -41,11 +42,11 @@ namespace :bundle do
       'pie_mindmap_canvas_draw_module.js',
       'pie_mindmap_modifying_methods.js', # 这个必须加载，里面有节点折叠展开的相关函数
       'pie_mindmap.js'
-    ].map{|x| Rails.root + '/public/javascripts/pie/mindmap/' + x}
+    ].map{|x| File.join(Rails.root, '/public/javascripts/pie/mindmap/', x)}
     # 顺序是固定的！！
 
     puts files
-    target = Rails.root + "/public/javascripts/mindmap_viewer_packed.js"
+    target = File.join(Rails.root, '/public/javascripts/mindmap_viewer_packed.js')
 
     `java -jar #{closure_path} --js #{files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
 

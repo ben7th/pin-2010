@@ -1,0 +1,58 @@
+.page-mindmap-editor-2012 {
+  height: 100%; }
+  .page-mindmap-editor-2012 .main {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 220px; }
+    .page-mindmap-editor-2012 .main .canvas {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 10px;
+      background-color: #fafafa;
+      border: solid 1px #ccc;
+      box-shadow: 0 0 5px rgba(170, 170, 170, 0.4);
+      overflow: hidden; }
+      .page-mindmap-editor-2012 .main .canvas .paper {
+        position: absolute;
+        overflow: visible; }
+        .page-mindmap-editor-2012 .main .canvas .paper .node {
+          white-space: nowrap;
+          font-family: "Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+          position: absolute;
+          padding: 5px;
+          font-size: 12px;
+          line-height: 16px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+          border: solid 1px #ddd;
+          box-shadow: 0 0 5px rgba(170, 170, 170, 0.4);
+          cursor: pointer;
+          background-color: #fff;
+          color: #333;
+          -moz-transition: background-color ease-out 0.2s, color ease-out 0.2s;
+          -webkit-transition: background-color ease-out 0.2s, color ease-out 0.2s;
+          transition: background-color ease-out 0.2s, color ease-out 0.2s; }
+          .page-mindmap-editor-2012 .main .canvas .paper .node:hover {
+            background-color: #FBEB96; }
+  .page-mindmap-editor-2012 .mside {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 220px; }
+    .page-mindmap-editor-2012 .mside .bar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 10px 10px 10px 0;
+      background-color: #f1f1f1;
+      border: solid 1px #ccc;
+      box-shadow: 0 0 5px rgba(170, 170, 170, 0.4); }

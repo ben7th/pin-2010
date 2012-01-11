@@ -5720,7 +5720,14 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     width: 152px;
     height: 152px;
     padding: 6px;
-    position: relative; }
+    position: relative;
+    @keyframes bgtoggle {
+      from {
+        left: 0px; }
+
+      to {
+        left: 200px; } }
+ }
     .page-mindmaps-grids .mindmap .title {
       position: absolute;
       width: 152px;
@@ -5763,7 +5770,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       font-weight: bold;
       text-align: center;
       line-height: 48px;
-      text-decoration: none; }
+      text-decoration: none;
+      animation: bgtoggle 5s infinite; }
     .page-mindmaps-grids .mindmap.hover a.open {
       display: block;
       opacity: 1;

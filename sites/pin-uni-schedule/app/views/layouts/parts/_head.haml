@@ -2,16 +2,15 @@
   %meta{:charset=>"utf-8"}
   %meta{:"http-equiv"=>"X-UA-Compatible",:content=>"chrome=1"}
   %meta{:"http-equiv"=>"X-UA-Compatible",:content=>"IE=EmulateIE7"}
-  %meta{:name=>"description",:content=>"MINDPIN是一个帮助你收集，整理，撰写和分享图文内容的网络社区"}
-  %meta{:name=>"keywords",:content=>"MINDPIN,社区,知识,创意,图片,收集,问题,想法,计划,协作,NGO"}
+  %meta{:name=>"description",:content=>"TU.MINDPIN是一个简单好用的在线思维导图工具，让你用一种新的有趣方式记录和表达思想。你可以使用它来做笔记，帮助学习和思考，讨论问题，以及进行演示。"}
+  %meta{:name=>"keywords",:content=>"TU.MINDPIN,MINDPIN,思维导图,导图,心智图,脑图,头脑风暴"}
   %meta{:name=>"viewport",:content=>"width=device-width,initial-scale=1"}
-  <meta property="wb:webmaster" content="8b53c190287cde08" />
 
   -tstring = (yield :title) || ''
   -if tstring.blank?
-    %title="MINDPIN"
+    %title='TU.MINDPIN 思维导图 - 改变记录思想的方式'
   -else
-    %title=["#{tstring.gsub("\n",'')}", "MINDPIN"]*' - '
+    %title=["#{tstring.gsub("\n",'')}", 'TU.MINDPIN 思维导图 - 改变记录思想的方式']*' - '
 
   = require_ui_css
   = yield :css

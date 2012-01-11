@@ -1,0 +1,19 @@
+-htitle " 导图编辑器 2012 - #{@mindmap.title}"
+
+-content_for :css do
+  =stylesheet_link_tag 'mindmap'
+
+-content_for :javascript do
+  :javascript
+    PAGE_MINDMAP_ID = #{@mindmap.id};
+    pie.load(function(){
+      jQuery('body').children().last().remove();
+    })
+  =javascript_include_tag 'mindmap'
+    
+.page-mindmap-editor-2012
+  .main
+    .canvas
+  .mside
+    .bar
+  

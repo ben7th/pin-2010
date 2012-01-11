@@ -1,11 +1,6 @@
-:ruby
-  simple ||= false
-  fullscreen ||= false
-  klass = fullscreen ? 'container_auto' : 'container_24'
-
 .page-header
-  %div{:class=>klass}
-    .site-logo=link_to 'MINDPIN','/',:class=>'logo mindpin'
+  .container_auto
+    .site-logo=link_to '思维导图','/',:class=>'logo daotu'
 
     -if logged_in?
 
@@ -13,11 +8,10 @@
       -user_name = user.name
       -homepage_url = "/users/#{user.id}"
 
-      -account_url = pin_url_for('pin-user-auth','/account?call=mindpin')
-      -logout_url  = pin_url_for('pin-user-auth','/logout')
+      -account_url = pin_url_for('pin-user-auth','/account?call=tu')
+      -logout_url  = pin_url_for('pin-user-auth','/logout?call=tu')
 
       .nav-menu
-
         %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
 
         %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>

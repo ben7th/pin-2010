@@ -1,17 +1,10 @@
 module MindmapNoteMethods
-  NOTE_REPO_BASE_PATH = case Rails.env
-  when 'development'
-    "/root/mindpin_base/note_repo"
-  when 'production'
-    '/web/2010/note_repo' # 部署环境下note没有启动，加载不了，直接写了
-  end
+  NOTE_REPO_BASE_PATH = '/web/2010/daotu_files/notes'
 
   # 如果备注版本库不存在，就创建一个
   def create_note_repo_if_unexist
     if !self.note_repo_exist?
-      nid = randstr(20)
-      MpGitTool.init_repo(File.join(NOTE_REPO_BASE_PATH,"notes",nid))
-      self.update_attribute(:note_nid,nid)
+      MpGitTool.init_repo(note_repo_path)
     end
   end
 
@@ -64,12 +57,14 @@ module MindmapNoteMethods
 
   # 备注的版本库路径
   def note_repo_path
-    raise "note_nid is null" if self.note_nid.blank?
-    File.join(NOTE_REPO_BASE_PATH,"notes",self.note_nid)
+    raise "mindmap id is null" if self.id.blank?
+    
+    asset_id = (self.id / 1000).to_s
+    File.join(NOTE_REPO_BASE_PATH,asset_id,self.id.to_s)
   end
 
   def note_repo_exist?
-    !self.note_nid.blank? && File.exist?(File.join(NOTE_REPO_BASE_PATH,"notes",self.note_nid))
+    !self.id.blank? && File.exist?(note_repo_path)
   end
 
 end

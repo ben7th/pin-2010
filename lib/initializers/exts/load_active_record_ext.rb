@@ -43,20 +43,22 @@ module PieActiveRecordExt
     end
   end
 
-  module SaveWithoutTimestamping
-    def save_without_timestamping
-      class << self
-        def record_timestamps; false; end
-      end
-      save
-      class << self
-        remove_method :record_timestamps
-      end
-    end
-  end
-
 end
 
 ActiveRecord::Base.send :include, PieActiveRecordExt::SetReadonly
 ActiveRecord::Base.send :include, PieActiveRecordExt::BuildDatabaseConnection
-ActiveRecord::Base.send :include, PieActiveRecordExt::SaveWithoutTimestamping
+
+module ActiveRecord
+  class Base
+    def save_without_timestamping
+      class << self
+        def record_timestamps; false; end
+      end
+      re = save
+      class << self
+        def record_timestamps; super ; end
+      end
+      return re
+    end
+  end
+end

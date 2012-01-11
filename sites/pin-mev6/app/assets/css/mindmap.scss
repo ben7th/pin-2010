@@ -1,0 +1,64 @@
+@mixin border-radius($radius) {
+     -moz-border-radius : $radius;
+  -webkit-border-radius : $radius;
+          border-radius : $radius;
+}
+
+@mixin transition($params){
+     -moz-transition : $params;
+  -webkit-transition : $params;
+          transition : $params;
+}
+
+.page-mindmap-editor-2012{
+  height:100%;
+  $mside-width:220px;
+  
+  .main{
+    position:absolute;
+    top:0;bottom:0;left:0;right:$mside-width;
+    .canvas{
+      position:absolute;
+      top:0;bottom:0;left:0;right:0;
+      margin:10px;
+      background-color:#fafafa;
+      border:solid 1px #ccc;
+      box-shadow:0 0 5px rgba(#aaa, 0.4);
+      overflow:hidden;
+      
+      .paper{
+        position:absolute;
+        overflow:visible;
+        .node{
+          white-space: nowrap;
+          font-family:"Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+          position:absolute;
+          padding:5px;font-size:12px;line-height:16px;
+          @include border-radius(5px);
+          border:solid 1px #ddd;
+          box-shadow:0 0 5px rgba(#aaa, 0.4);
+          cursor:pointer;
+          background-color:#fff;
+          color:#333;
+          @include transition((background-color ease-out .2s, color ease-out .2s));
+          &:hover{
+            background-color:#FBEB96;
+          };
+        }
+      }
+      
+    }
+  }
+  .mside{
+    position:absolute;
+    top:0;bottom:0;right:0;width:$mside-width;
+    .bar{
+      position:absolute;
+      top:0;bottom:0;left:0;right:0;
+      margin:10px 10px 10px 0;
+      background-color:#f1f1f1;
+      border:solid 1px #ccc;
+      box-shadow:0 0 5px rgba(#aaa, 0.4);
+    }
+  }
+}

@@ -36,18 +36,9 @@ class MindmapToImage
     @map_hash = get_nodes_hash_thumb(mindmap.struct)
 
     img = export_zoom(false)
-
-    w_500_scale = 500.to_f / img.columns
-    h_500_scale = 500.to_f / img.rows
-    scale_500 = [w_500_scale, h_500_scale, 1].min
-
-    w_120_scale = 120.to_f / img.columns
-    h_120_scale = 120.to_f / img.rows
-    scale_120 = [w_120_scale, h_120_scale, 1].min
-    
     
     return {
-      :s500=>write_to_file(img.resize(scale_500)),
+      :s500=>write_to_file(_fit_size(img, 500, 500)),
       :s120=>write_to_file(_fit_size(img, 150, 150))
     }
   end
@@ -133,5 +124,16 @@ class MindmapToImage
     img.write(file_path)
     return file_path
   end
+  
+  # 开发环境1月10日测试
+  # 导出图片错误的导图有 
+  # 59 '\\' 结尾问题
+  # 6135 尺寸过大问题
+  # 2101 这个以及以下的导图，都是格式错误，无法正确获得 struct_json
+  # 6268
+  # 9218
+  # 9219
+  # 25667
+  # 25795
   
 end

@@ -1,15 +1,16 @@
-include RoutesMethods
+Mindpin::Application.routes.draw do
+  root :to => 'index#index'
+  
+  resources :course_items do
+    member do
+      post   :select
+      delete :cancel_select
+    end
+  end
 
-ActionController::Routing::Routes.draw do |map|
-  map.root :controller=>'index',:action=>'index'
-  map.resources :course_items,:member=>{
-    :select=>:post,:cancel_select=>:delete
-  }
+  resource :profile
+  resources :teachers
+  resources :users
 
-  map.resource :profile
-  map.resources :teachers
-
-  map.resources :users
-
-  match_get map, '/teamtodo' => 'teamtodo#index'
+  get '/teamtodo' => 'teamtodo#index'
 end

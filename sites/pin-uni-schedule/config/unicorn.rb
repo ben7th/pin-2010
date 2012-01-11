@@ -7,7 +7,7 @@ stdout_path("/web/2010/logs/unicorn-uni-schedule.log")
 
 # 加载 超时设置 监听
 preload_app true
-timeout 60
+timeout 30
 listen '/web/2010/sockets/unicorn-uni-schedule.sock', :backlog => 2048
 
 pid_file_name = "/web/2010/pids/unicorn-uni-schedule.pid"
