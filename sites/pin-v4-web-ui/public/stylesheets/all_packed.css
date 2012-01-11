@@ -1354,22 +1354,25 @@ form.page-new-feed-form .form-submit .field.subm span.submit-info,form.page-edit
 .page-mindmaps-grids .create-mindmap form input{width:140px;}
 .page-mindmaps-grids .import-mindmap{width:152px;height:152px;padding:6px;}
 .page-mindmaps-grids .import-mindmap input.file{width:140px;}
-.page-mindmaps-grids .mindmap{width:152px;height:152px;padding:6px;position:relative;}
-.page-mindmaps-grids .mindmap .title{position:absolute;height:0;line-height:36px;overflow:hidden;background-color:rgba(0,0,0,0.8);color:#fff;padding:0 7px;width:150px;top:0;left:0;-moz-transition:height ease-out .1s;-webkit-transition:height ease-out .1s;transition:height ease-out .1s;}
-.page-mindmaps-grids .mindmap.hover .title{height:36px;}
+.page-mindmaps-grids .mindmap{width:152px;height:152px;padding:6px;position:relative;@keyframes bgtoggle{from{left:0;}
+to{left:200px;}
+}
+}
+.page-mindmaps-grids .mindmap .title{position:absolute;width:152px;left:0;top:0;padding:0 6px;height:24px;line-height:24px;overflow:hidden;color:#fff;background-color:rgba(0,0,0,0.7);-moz-transition:all ease-out .1s;-webkit-transition:all ease-out .1s;transition:all ease-out .1s;}
+.page-mindmaps-grids .mindmap.hover .title{background-color:rgba(0,0,0,0.9);height:36px;line-height:36px;}
 .page-mindmaps-grids .mindmap .thumb{width:150px;height:150px;background-color:#f1f1f1;border:solid 1px #eee;overflow:hidden;}
+.page-mindmaps-grids .mindmap a.open{opacity:0;position:absolute;height:48px;width:0;overflow:hidden;left:0;top:50%;margin-top:-24px;background-color:rgba(0,0,0,0.618);-moz-transition:opacity ease-out .1s;-webkit-transition:opacity ease-out .1s;transition:opacity ease-out .1s;color:white;font-size:14px;font-weight:bold;text-align:center;line-height:48px;text-decoration:none;animation:bgtoggle 5s infinite;}
+.page-mindmaps-grids .mindmap.hover a.open{display:block;opacity:1;width:100%;}
 .page-mindmaps-grids .mindmap .ops{position:absolute;height:0;line-height:36px;overflow:hidden;background-color:rgba(0,0,0,0.7);bottom:0;left:0;width:150px;padding:0 7px;-moz-transition:all ease-out .1s;-webkit-transition:all ease-out .1s;transition:all ease-out .1s;}
 .page-mindmaps-grids .mindmap .ops a{text-decoration:none;}
-.page-mindmaps-grids .mindmap .ops a.open{display:none;}
-.page-mindmaps-grids .mindmap .ops a.delete{display:block;position:absolute;left:7px;bottom:7px;height:22px;width:22px;line-height:24em;font-size:0;background-color:#111;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;box-shadow:0 0 3px rgba(255,255,255,0.4);}
+.page-mindmaps-grids .mindmap .ops a.delete{float:left;margin-top:7px;position:relative;height:22px;width:22px;line-height:24em;font-size:0;overflow:hidden;background-color:#111;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;box-shadow:0 0 3px rgba(255,255,255,0.4);}
 .page-mindmaps-grids .mindmap .ops a.delete::before{content:"";display:block;height:16px;width:2px;background-color:#ccc;position:absolute;left:10px;top:3px;-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);transform:rotate(45deg);}
 .page-mindmaps-grids .mindmap .ops a.delete::after{content:"";display:block;height:16px;width:2px;background-color:#ccc;position:absolute;right:10px;top:3px;-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);transform:rotate(-45deg);}
 .page-mindmaps-grids .mindmap .ops a.delete:hover::before,.page-mindmaps-grids .mindmap .ops a.delete:hover::after{background-color:#fff;}
-.page-mindmaps-grids .mindmap .ops a.toggle{display:block;position:absolute;right:6px;bottom:6px;overflow:hidden;height:24px;line-height:26em;font-size:0;box-shadow:0 0 2px rgba(0,0,0,0.6) inset;width:60px;background-color:#222;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;text-decoration:none;}
+.page-mindmaps-grids .mindmap .ops a.toggle{float:right;margin-top:6px;position:relative;height:24px;line-height:26em;font-size:0;overflow:hidden;box-shadow:0 0 2px rgba(0,0,0,0.6) inset;width:60px;background-color:#222;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
 .page-mindmaps-grids .mindmap .ops a.toggle::before{content:"公开";font-size:12px;font-weight:bold;text-align:center;position:absolute;left:2px;top:2px;height:20px;line-height:20px;width:36px;color:white;background:-moz-linear-gradient(-90deg,#46d833,#34b523);background:-webkit-gradient(linear,0% 0,0% 100%,from(#46d833),to(#34b523));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#46d833',endColorstr='#34b523');-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;box-shadow:0 0 2px rgba(0,0,0,0.4) inset;text-shadow:0 0 2px #444;-moz-transition:all ease-in .2s;-webkit-transition:all ease-in .2s;transition:all ease-in .2s;}
 .page-mindmaps-grids .mindmap.hover .ops{height:36px;}
-.page-mindmaps-grids .mindmap.private::before{content:"";width:32px;height:32px;background-image:url(/images/alltu.png);background-repeat:no-repeat;background-position:-262px -114px;position:absolute;top:-9px;right:-9px;}
-.page-mindmaps-grids .mindmap.private a.toggle::before{left:auto;right:2px;content:"私有";background:-moz-linear-gradient(-90deg,#df3827,#b82a1b);background:-webkit-gradient(linear,0% 0,0% 100%,from(#df3827),to(#b82a1b));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df3827',endColorstr='#b82a1b');-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;}
+.page-mindmaps-grids .mindmap.private a.toggle::before{left:auto;right:2px;content:"私有";background:-moz-linear-gradient(-90deg,#df3827,#b82a1b);background:-webkit-gradient(linear,0% 0,0% 100%,from(#df3827),to(#b82a1b));filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#df3827',endColorstr='#b82a1b');}
 .page-file-upload{position:relative;}
 .page-file-upload .upload-btn{-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;display:inline-block;padding:0;text-align:center;font-weight:bold;color:#fff!important;background-color:#DD4B39;border:solid 1px #D14836;text-shadow:0 0 2px #444;width:100px;height:30px;line-height:30px;}
 .page-file-upload .upload-btn:hover{text-decoration:none;}

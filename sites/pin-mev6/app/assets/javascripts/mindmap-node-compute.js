@@ -6,7 +6,21 @@ pie.mindmap.shared_node_methods = {
     this.title_elm = jQuery('<div></div>')
       .addClass('title')
       .text(this.title);
-	}
+	},
+	
+	recompute_box_size : function(){
+    this.width  = this.elm.outerWidth();
+    this.height = this.elm.outerHeight();
+	},
+	
+  _util_compute_children_height : function(children){
+    var height = 0;
+    jQuery.each(children, function(index, child){
+      height += child.real_subtree_box_height();
+    })
+    height += children.length < 2 ? 0 : (children.length-1)*this.R.options.node_vertical_gap;
+    return height;
+  }
 }
 
 pie.mindmap.node_methods = {
@@ -37,8 +51,21 @@ pie.mindmap.node_methods = {
 	
 	// 根据节点折叠与否，返回实际的子树高度
 	real_subtree_box_height : function(){
-    return this.closed ? this.height : this.subtree_box_height;
-	}
+    if(this.closed){
+		  return this.height;
+		}
+		
+		var _height = this._util_compute_children_height(this.children);
+		
+		return jQuery.array([this.height, _height]).max();
+	},
+	
+  hide_all_children : function(){
+    jQuery.each(this.children, function(index, child){
+      this.hide_all_children(child);
+      child.elm.hide();
+    })
+  }
 }
 
 pie.mindmap.root_methods = {
@@ -54,42 +81,30 @@ pie.mindmap.root_methods = {
 	
   // 所有左侧子节点
   left_children : function(){
-    var arr = [];
-		jQuery.each(this.children, function(index, child){
-		  if('left' == child.pos) arr.push(child);
-		})
-		return arr;
+    return jQuery.array(this.children).select(function(child){
+      return 'left' == child.pos
+    })
 	},
 	
 	// 所有右侧子节点
 	right_children : function(){
-    var arr = [];
-    jQuery.each(this.children, function(index, child){
-      if('right' == child.pos) arr.push(child);
-    })
-    return arr;
+    return jQuery.array(this.children).select(function(child){
+		  return 'right' == child.pos
+		})
 	},
 	
 	// 所有左侧子节点显示高度（考虑节点被折叠）
 	left_children_boxes_total_height : function(){
-	  var children = this.left_children();
-    var height = 0;
-		jQuery.each(children, function(index, child){
-		  height += child.real_subtree_box_height();
-		})
-		return height + (children.length < 2 ? 0 : (children.length-1)*this.R.options.node_vertical_gap);
+	  return this._util_compute_children_height(this.left_children());
 	},
 	
 	// 所有右侧子节点显示高度（考虑节点被折叠）
   right_children_boxes_total_height : function(){
-    var children = this.right_children();
-    var height = 0;
-    jQuery.each(children, function(index, child){
-      height += child.real_subtree_box_height();
-    })
-    return height + (children.length < 2 ? 0 : (children.length-1)*this.R.options.node_vertical_gap);
+    return this._util_compute_children_height(this.left_children());
   }
 }
+
+/////////////////
 
 jQuery.extend(pie.mindmap, {
 
@@ -98,49 +113,32 @@ jQuery.extend(pie.mindmap, {
   init_data : function(R){
     var root = R.data;
 		
-		var _ch_compute_box_size = function(node){
-      node.width  = node.elm.outerWidth();
-      node.height = node.elm.outerHeight();
-		}
-		
-		var _r = function(node, is_root){
+		var _r = function(node, parent_node){
 		  node.R = R;
       jQuery.extend(node, pie.mindmap.shared_node_methods);
 			
-		  if(is_root){
+		  if(null == parent_node){
 				jQuery.extend(node, pie.mindmap.root_methods);
 			}else{
 				jQuery.extend(node, pie.mindmap.node_methods);
 			}
 			
       node._build_elm();
-			_ch_compute_box_size(node);
+			node.recompute_box_size();
 
-		
-		  node.parent = parent;
+		  node.parent = parent_node;
 			node.root   = root;
 			
 			var children = node.children;
-			var total_children_height = 0;
-			var children_boxes_widths = [0]
       jQuery.each(children, function(index, child){
-        _r(child);
+        _r(child, node);
 				
         child.prev_node = children[index - 1] || null;
         child.next_node = children[index + 1] || null;
-				
-				total_children_height += child.subtree_box_height;
-				children_boxes_widths.push(child.subtree_box_width);
       });
-			
-			total_children_height += children.length < 2 ? 0 : (children.length-1)*R.options.node_vertical_gap;
-			
-			node.subtree_box_height = jQuery.array([node.height, total_children_height]).max();
-			node.subtree_box_width = node.width + jQuery.array(children_boxes_widths).max();
-			
 		}
 		
-		_r(root, true);
+		_r(root, null);
 	}
 	
 })

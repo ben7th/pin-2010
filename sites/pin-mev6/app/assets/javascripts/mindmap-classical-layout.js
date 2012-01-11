@@ -4,7 +4,7 @@ jQuery.extend(pie.mindmap, {
 
   do_layout_classical : function(R){    
 		var root = R.data;
-		/* 喵~ 这就是经典布局的节点排布函数了
+		/* 喵~ 这就是经典布局的节点排布函数乐~~
 		 * 经典布局将一级子节点（first_level_nodes）排布在root节点的左右两侧，均匀地树状展开
 		 */ 
 		
@@ -24,46 +24,47 @@ jQuery.extend(pie.mindmap, {
 		var right_start_left = root.width + R.options.node_horizontal_gap;
 		
 		// 分别递归遍历左右节点，计算坐标，排布
-    var _hide_all_children = function(node){
-      jQuery.each(node.children, function(index, child){
-        _hide_all_children(child);
-        child.elm.hide();
-      })
-    }
-
     var _r_for_left = function(node, left, top){
       var elm = node.elm.addClass('left');
       
+		  var real_left = left - node.width;
+			
       var children = node.children;
       if(node.closed){
-        _hide_all_children(node);
-        node.ch_pos(left-node.width, top);
+        node.hide_all_children();
+        node.ch_pos(real_left, top);
       }else{
 	      var _tmp_height = 0;
 	      jQuery.each(children, function(index, child){
-	        _r_for_left(child, left-node.width-R.options.node_horizontal_gap, top+_tmp_height);
-	        _tmp_height += child.subtree_box_height + R.options.node_vertical_gap;
+				  var new_left = real_left - R.options.node_horizontal_gap;
+					var new_top  = top + _tmp_height;
+	        _r_for_left(child, new_left, new_top);
+	        _tmp_height += child.real_subtree_box_height() + R.options.node_vertical_gap;
 	      })
 	      
-	      node.ch_pos(left-node.width, top + (node.subtree_box_height - node.height)/2);
+	      node.ch_pos(real_left, top + (node.real_subtree_box_height() - node.height)/2);
 			}
     }
 
     var _r_for_right = function(node, left, top){
       var elm = node.elm.addClass('right');
 			
+			var real_left = left;
+			
       var children = node.children;
 			if(node.closed){
-        _hide_all_children(node);
-        node.ch_pos(left, top);
+        node.hide_all_children();
+        node.ch_pos(real_left, top);
 			}else{
 	      var _tmp_height = 0;
 	      jQuery.each(children, function(index, child){
-	        _r_for_right(child, left+node.width+R.options.node_horizontal_gap, top+_tmp_height);
-	        _tmp_height += child.subtree_box_height + R.options.node_vertical_gap;
+				  var new_left = real_left + node.width + R.options.node_horizontal_gap;
+					var new_top  = top + _tmp_height
+	        _r_for_right(child, new_left, new_top);
+	        _tmp_height += child.real_subtree_box_height() + R.options.node_vertical_gap;
 	      })
 				
-				node.ch_pos(left, top + (node.subtree_box_height - node.height)/2);
+				node.ch_pos(real_left, top + (node.real_subtree_box_height() - node.height)/2);
 			}
     }
     
