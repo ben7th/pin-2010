@@ -30,19 +30,62 @@
         position:absolute;
         overflow:visible;
         .node{
-          white-space: nowrap;
           font-family:"Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
           position:absolute;
-          padding:5px;font-size:12px;line-height:16px;
-          @include border-radius(5px);
+          padding:5px 7px;
+          @include border-radius(8px);
           border:solid 1px #ddd;
           box-shadow:0 0 5px rgba(#aaa, 0.4);
           cursor:pointer;
           background-color:#fff;
-          color:#333;
           @include transition((background-color ease-out .2s, color ease-out .2s));
+          .title{
+            font-size:12px; line-height:16px; color:#333; white-space:nowrap;
+          }
+          .fd{
+            position:absolute;
+            width:16px;height:16px;
+            top:50%;margin-top:-8px;
+            background-color:#d3edff;
+            //background-color:#ddd;
+            @include border-radius(8px);
+            &::before{
+              content:"";
+              display:block;
+              background-color:#fff;
+              width:10px;height:2px;
+              position:absolute;left:3px;top:7px;
+            };
+            &.open{}
+            &.close{
+              &::after{
+                content:"";
+                display:block;
+                background-color:#fff;
+                width:2px;height:10px;
+                position:absolute;left:7px;top:3px;
+              };
+            }
+          }
+          &.root{
+            background-color:#666;
+            border:solid 1px #666;
+            padding:5px 8px;
+            .title{
+              line-height:20px;
+              font-size:14px;font-weight:bold;
+              color:white;text-shadow:0 0 2px black;
+            }
+            .fd{display:none;}
+            &:hover{
+              background-color:#888;
+            };
+          }
+          &.left{.fd{left:-18px;}}
+          &.right{.fd{right:-18px;}}
+          
           &:hover{
-            background-color:#FBEB96;
+            background-color:#eee;
           };
         }
       }

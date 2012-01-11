@@ -21,25 +21,72 @@
         position: absolute;
         overflow: visible; }
         .page-mindmap-editor-2012 .main .canvas .paper .node {
-          white-space: nowrap;
           font-family: "Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
           position: absolute;
-          padding: 5px;
-          font-size: 12px;
-          line-height: 16px;
-          -moz-border-radius: 5px;
-          -webkit-border-radius: 5px;
-          border-radius: 5px;
+          padding: 5px 7px;
+          -moz-border-radius: 8px;
+          -webkit-border-radius: 8px;
+          border-radius: 8px;
           border: solid 1px #ddd;
           box-shadow: 0 0 5px rgba(170, 170, 170, 0.4);
           cursor: pointer;
           background-color: #fff;
-          color: #333;
           -moz-transition: background-color ease-out 0.2s, color ease-out 0.2s;
           -webkit-transition: background-color ease-out 0.2s, color ease-out 0.2s;
           transition: background-color ease-out 0.2s, color ease-out 0.2s; }
+          .page-mindmap-editor-2012 .main .canvas .paper .node .title {
+            font-size: 12px;
+            line-height: 16px;
+            color: #333;
+            white-space: nowrap; }
+          .page-mindmap-editor-2012 .main .canvas .paper .node .fd {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            margin-top: -8px;
+            background-color: #d3edff;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px; }
+            .page-mindmap-editor-2012 .main .canvas .paper .node .fd::before {
+              content: "";
+              display: block;
+              background-color: #fff;
+              width: 10px;
+              height: 2px;
+              position: absolute;
+              left: 3px;
+              top: 7px; }
+            .page-mindmap-editor-2012 .main .canvas .paper .node .fd.close::after {
+              content: "";
+              display: block;
+              background-color: #fff;
+              width: 2px;
+              height: 10px;
+              position: absolute;
+              left: 7px;
+              top: 3px; }
+          .page-mindmap-editor-2012 .main .canvas .paper .node.root {
+            background-color: #666;
+            border: solid 1px #666;
+            padding: 5px 8px; }
+            .page-mindmap-editor-2012 .main .canvas .paper .node.root .title {
+              line-height: 20px;
+              font-size: 14px;
+              font-weight: bold;
+              color: white;
+              text-shadow: 0 0 2px black; }
+            .page-mindmap-editor-2012 .main .canvas .paper .node.root .fd {
+              display: none; }
+            .page-mindmap-editor-2012 .main .canvas .paper .node.root:hover {
+              background-color: #888; }
+          .page-mindmap-editor-2012 .main .canvas .paper .node.left .fd {
+            left: -18px; }
+          .page-mindmap-editor-2012 .main .canvas .paper .node.right .fd {
+            right: -18px; }
           .page-mindmap-editor-2012 .main .canvas .paper .node:hover {
-            background-color: #FBEB96; }
+            background-color: #eee; }
   .page-mindmap-editor-2012 .mside {
     position: absolute;
     top: 0;

@@ -9,7 +9,7 @@
 
 jQuery.fn.pie_mindmap = function(options){
   options.node_vertical_gap = 6; // 节点的垂直相邻间距
-  options.node_horizontal_gap = 20; // 节点的水平相邻间距
+  options.node_horizontal_gap = 32; // 节点的水平相邻间距
 
   var R = {
     options    : options,
@@ -37,8 +37,10 @@ jQuery.fn.pie_mindmap = function(options){
 		// 第二步
 		pie.mindmap.do_layout_classical(R);
 	}
+	
+	return R;
 }
 
-jQuery('.main .canvas').pie_mindmap({
+var MINDMAP = jQuery('.main .canvas').pie_mindmap({
   data_url : '/mindmaps/'+PAGE_MINDMAP_ID+'.js'
 });
