@@ -1,23 +1,33 @@
 jQuery.extend({
   __arrayPrototype: {
     max:function(){
+      if(0 == this.arr.length) return null;
       return Math.max.apply(Math, this.arr);
     },
     max_index:function(){
       return jQuery.inArray(this.max(), this.arr);
     },
     min:function(){
+      if(0 == this.arr.length) return null;
       return Math.min.apply(Math, this.arr);
     },
     min_index:function(){
       return jQuery.inArray(this.min(), this.arr);
     },
+    
 		select:function(func){
 		  var re = [];
 			jQuery.each(this.arr, function(index, item){
         if(func(item)) re.push(item);
 			})
-			return re;
+			return jQuery.array(re);
+		},
+		map:function(func){
+		  var re = [];
+		  jQuery.each(this.arr, function(index, item){
+		    re.push(func(item));
+		  })
+		  return jQuery.array(re);
 		}
   },
 	array: function(arr) {

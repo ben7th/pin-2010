@@ -6,7 +6,7 @@ pie.mindmap.shared_node_methods = {
     var title_html = jQuery.string(this.title).escapeHTML().str
 		  .replace(/\n/g, "<br/>")
 			.replace(/\s/g, "&nbsp;")
-			.replace(/>$/, ">&nbsp;");
+			.replace(/>$/,  ">&nbsp;");
 		
     this.title_elm = jQuery('<div class="title"></div>')
       .html(title_html);
@@ -15,12 +15,13 @@ pie.mindmap.shared_node_methods = {
 	_build_image_elm : function(){
     if(null == this.image){
 		  this.image_elm = null;
-		}else{
-	    this.image_elm = jQuery('<div class="image"></div>')
-			  .domdata('src', this.image.url)
-				.domdata('attach-id', this.image.attach_id)
-				.css({'width':this.image.width, 'height':this.image.height})
+		  return;
 		}
+		
+	  this.image_elm = jQuery('<div class="image"></div>')
+		  .domdata('src', this.image.url)
+			.domdata('attach-id', this.image.attach_id)
+			.css({'width':this.image.width, 'height':this.image.height})
 	},
 	
 	recompute_box_size : function(){
@@ -33,16 +34,13 @@ pie.mindmap.shared_node_methods = {
     jQuery.each(children, function(index, child){
       height += child.real_subtree_box_height();
     })
-    height += children.length < 2 ? 0 : (children.length-1)*this.R.options.node_vertical_gap;
-    return height;
+    return height + (children.length<2 ? 0 : (children.length-1)*this.R.options.NODE_Y_GAP);
   },
   
   _util_compute_children_width : function(children){
-    var widths = [0];    
-    jQuery.each(children, function(index, child){
-      widths.push(child.width + child.real_subtree_box_width());
-    });
-    return jQuery.array(widths).max() + this.R.options.node_horizontal_gap;
+    return jQuery.array(children).map(function(child){
+      return child.width + child.real_subtree_box_width();
+    }).max() + this.R.options.NODE_X_GAP;
   }
 }
 
@@ -51,7 +49,7 @@ pie.mindmap.node_methods = {
     this.fd_elm = jQuery('<div class="fd"></div>')
       .addClass(this.closed ? 'close':'open')
 
-    if(this.children.length == 0){this.fd_elm.hide()}
+    if(0 == this.children.length){this.fd_elm.hide()}
 	},
 
   // 构造elm
@@ -74,14 +72,17 @@ pie.mindmap.node_methods = {
     this.left = left;
     this.top  = top;
     this.elm.animate({'left':left, 'top':top}, 800);
+    //this.elm.css({'left':left, 'top':top})
 	},
 	
-	// 所有子节点的盒高度之和
+	// 所有子节点的盒高度之和，包括 Y_GAP
 	children_boxes_total_height : function(){
     return this._util_compute_children_height(this.children);
 	},
 	
 	// 根据节点折叠与否，返回实际的子树高度
+	// 如果折叠，返回节点盒高度
+	// 如果未折叠，返回节点盒和子节点盒中高度较大者
 	real_subtree_box_height : function(){
     if(this.closed){
 		  return this.height;
@@ -131,14 +132,14 @@ pie.mindmap.root_methods = {
   left_children : function(){
     return jQuery.array(this.children).select(function(child){
       return 'left' == child.pos
-    })
+    }).arr;
 	},
 	
 	// 所有右侧子节点
 	right_children : function(){
     return jQuery.array(this.children).select(function(child){
 		  return 'right' == child.pos
-		})
+		}).arr;
 	},
 	
 	// 所有左侧子节点显示高度（考虑节点被折叠）

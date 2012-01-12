@@ -25,16 +25,26 @@
       border:solid 1px #ccc;
       box-shadow:0 0 5px rgba(#aaa, 0.4);
       overflow:hidden;
-      cursor:move;overflow:scroll;
+      overflow:scroll;
       
       .paper{
+        //background-color:rgba(#000,0.1);
         position:absolute;
         overflow:visible;
+        cursor:move;
+        
+        &::before{
+          content:"";
+          display:block;position:absolute;width:200%;height:200%;
+          left:-100%;top:-100%;
+          //background-color:#000;
+        };
+        
         .node{
           font-family:"Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
           position:absolute;
           padding:5px 7px;
-          border:solid 1px rgba(#000, 0.2);
+          border:solid 1px rgba(#000, 0.3);
           box-shadow:0 0 5px rgba(#aaa, 0.4);
           @include border-radius(8px);
           cursor:pointer;
@@ -48,8 +58,13 @@
             width:16px;height:16px;
             top:50%;margin-top:-8px;
             //background-color:#d3edff;
-            background-color:rgba(#000, 0.3);
+            $bgc : darken(#99ddff, 10%);
+            background-color:rgba($bgc, 0.6);
             @include border-radius(8px);
+            @include transition((background-color ease-out .2s));
+            &:hover{
+              background-color:rgba($bgc, 0.8);
+            };
             &::before{
               content:"";
               display:block;
