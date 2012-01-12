@@ -42,7 +42,7 @@ class Account::ForgotPasswordController < ApplicationController
     if _password_valid(user_param)
       @user.password = user_param[:password]
       @user.reset_password_code = nil
-      if @user.save(false)
+      if @user.save(:validate => false)
         flash.now[:success] = "已成功为 #{@user.email} 重设密码"
         render :layout=>'anonymous'
         return

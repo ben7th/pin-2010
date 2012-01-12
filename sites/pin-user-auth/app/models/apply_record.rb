@@ -26,7 +26,7 @@ class ApplyRecord < ActiveRecord::Base
 
   #发送带有激活码的邮件（邮件模板请问我要）
   def send_email
-    Mailer.deliver_apply_confirm(self.email,self.name,self.activation_code.code)
+    Mailer.apply_confirm(self.email,self.name,self.activation_code.code).deliver
   end
 
   def self.create_from_feed(feed)

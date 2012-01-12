@@ -88,10 +88,10 @@ class ConnectUser < UserAuthAbstract
     connect_user = ConnectUser.find_by_connect_type_and_connect_id(type,connect_id)
     raise "#{type}:#{connect_id}已经存在" if connect_user
     user = User.new(:name=>user_name)
-    user.save(false)
+    user.save(:validate => false)
     connect_user = ConnectUser.create(:user_id=>user.id,:connect_type=>type,:connect_id=>connect_id)
     user.email = EmailActor.get_mindpin_email(user)
-    user.save(false)
+    user.save(:validate => false)
     return connect_user
   end
 
@@ -224,7 +224,7 @@ class ConnectUser < UserAuthAbstract
     def update_logo_by_url_when_blank(logo_url)
       if self.logo.path.blank?
         self.logo = open(logo_url)
-        self.save(false)
+        self.save(:validate => false)
       end
     end
   end

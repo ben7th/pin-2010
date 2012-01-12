@@ -8,7 +8,7 @@
 // 经典导图布局
 
 jQuery.fn.pie_mindmap = function(options){
-  options.node_vertical_gap = 6; // 节点的垂直相邻间距
+  options.node_vertical_gap = 8; // 节点的垂直相邻间距
   options.node_horizontal_gap = 32; // 节点的水平相邻间距
 
   var R = {
@@ -25,7 +25,7 @@ jQuery.fn.pie_mindmap = function(options){
 		success : function(res){
 		  R.data = res;
 			draw_map();
-		  
+		  bind_events();
 		}
 	});
 	
@@ -36,6 +36,19 @@ jQuery.fn.pie_mindmap = function(options){
     pie.mindmap.init_data(R);
 		// 第二步
 		pie.mindmap.do_layout_classical(R);
+	}
+	
+	// 绑定各种事件
+	var bind_events = function(){
+	  R.paper_elm
+  	  .drag('start', function(evt, dd){
+  	    R.canvas_elm.data('drag-start-scroll-left', R.canvas_elm.scrollLeft());
+  	    R.canvas_elm.data('drag-start-scroll-top',  R.canvas_elm.scrollTop());
+  	  })
+  	  .drag(function(evt, dd){
+  	    R.canvas_elm.scrollLeft(R.canvas_elm.data('drag-start-scroll-left') - dd.deltaX);
+  	    R.canvas_elm.scrollTop( R.canvas_elm.data('drag-start-scroll-top')  - dd.deltaY);
+  	  })
 	}
 	
 	return R;

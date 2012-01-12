@@ -124,8 +124,8 @@ module UserMethods
   def forgot_password
     @forgotten_password = true
     self.make_password_reset_code
-    self.save(false)
-    Mailer.deliver_forgotpassword(self)
+    self.save(:validate => false)
+    Mailer.forgotpassword(self).deliver
   end
 
   protected

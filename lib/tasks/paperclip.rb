@@ -105,11 +105,7 @@ namespace :paperclip do
             puts instance.id # 处理完一条记录输出一次
             # -----------------------------
             
-            if Rails.version >= "3.0.0"
-              instance.save(:validate => false)
-            else
-              instance.save(false)
-            end
+            instance.save(:validate => false)
           else
             true
           end
@@ -144,11 +140,7 @@ namespace :paperclip do
           attributes = %w(file_size file_name content_type).map{ |suffix| "#{name}_#{suffix}".to_sym }
           if attributes.any?{ |attribute| instance.errors[attribute].present? }
             instance.send("#{name}=", nil)
-            if Rails.version >= "3.0.0"
-              instance.save(:validate => false)
-            else
-              instance.save(false)
-            end
+            instance.save(:validate => false)
           end
         end
       end
@@ -190,11 +182,7 @@ namespace :paperclip do
 #            instance.send("#{name}_file_name=", instance.send("#{name}_file_name").strip)
 #            instance.send("#{name}_content_type=", meta[:content_type].strip)
 #            instance.send("#{name}_file_size=", meta[:content_length]) if instance.respond_to?("#{name}_file_size")
-#            if Rails.version >= "3.0.0"
-#              instance.save(:validate => false)
-#            else
-#              instance.save(false)
-#            end
+#            instance.save(:validate => false)
 #          else
 #            true
 #          end

@@ -3,9 +3,24 @@ pie.mindmap = pie.mindmap || {};
 // _ch 开头的方法都会导致传入对象的值改变
 pie.mindmap.shared_node_methods = {
   _build_title_elm : function(){
-    this.title_elm = jQuery('<div></div>')
-      .addClass('title')
-      .text(this.title);
+    var title_html = jQuery.string(this.title).escapeHTML().str
+		  .replace(/\n/g, "<br/>")
+			.replace(/\s/g, "&nbsp;")
+			.replace(/>$/, ">&nbsp;");
+		
+    this.title_elm = jQuery('<div class="title"></div>')
+      .html(title_html);
+	},
+	
+	_build_image_elm : function(){
+    if(null == this.image){
+		  this.image_elm = null;
+		}else{
+	    this.image_elm = jQuery('<div class="image"></div>')
+			  .domdata('src', this.image.url)
+				.domdata('attach-id', this.image.attach_id)
+				.css({'width':this.image.width, 'height':this.image.height})
+		}
 	},
 	
 	recompute_box_size : function(){
@@ -20,6 +35,14 @@ pie.mindmap.shared_node_methods = {
     })
     height += children.length < 2 ? 0 : (children.length-1)*this.R.options.node_vertical_gap;
     return height;
+  },
+  
+  _util_compute_children_width : function(children){
+    var widths = [0];    
+    jQuery.each(children, function(index, child){
+      widths.push(child.width + child.real_subtree_box_width());
+    });
+    return jQuery.array(widths).max() + this.R.options.node_horizontal_gap;
   }
 }
 
@@ -35,10 +58,14 @@ pie.mindmap.node_methods = {
   _build_elm : function(){
     this._build_title_elm();
     this._build_fd_elm();
+		this._build_image_elm();
+		
     this.elm = jQuery('<div class="node"></div>')
       .domdata('id', this.id)
-      .append(this.title_elm)
+      .append(this.title_elm.css('color', this.textcolor))
       .append(this.fd_elm)
+			.prepend(this.image_elm)
+			.css('background-color', this.bgcolor)
       .appendTo(this.R.paper_elm);
   },
 
@@ -49,15 +76,33 @@ pie.mindmap.node_methods = {
     this.elm.animate({'left':left, 'top':top}, 800);
 	},
 	
+	// 所有子节点的盒高度之和
+	children_boxes_total_height : function(){
+    return this._util_compute_children_height(this.children);
+	},
+	
 	// 根据节点折叠与否，返回实际的子树高度
 	real_subtree_box_height : function(){
     if(this.closed){
 		  return this.height;
 		}
 		
-		var _height = this._util_compute_children_height(this.children);
-		
-		return jQuery.array([this.height, _height]).max();
+		return jQuery.array([this.height, this.children_boxes_total_height()]).max();
+	},
+	
+	// 根据节点折叠与否，返回实际的子树宽度
+	real_subtree_box_width : function(){
+    return this._util_compute_children_width(this.children);
+	},
+	
+	node_box_top_offset : function(){
+    var offset = (this.real_subtree_box_height() - this.height)/2;
+		return offset > 0 ? offset : 0;
+	},
+	
+	children_box_top_offset : function(){
+    var offset = (this.real_subtree_box_height() - this.children_boxes_total_height())/2;
+		return offset > 0 ? offset : 0;
 	},
 	
   hide_all_children : function(){
@@ -72,10 +117,13 @@ pie.mindmap.root_methods = {
   // 构造elm
 	_build_elm : function(){
     this._build_title_elm();
+		this._build_image_elm();
   
     this.elm = jQuery('<div class="node root"></div>')
       .domdata('id', this.id)
-      .append(this.title_elm)
+      .append(this.title_elm.css('color', this.textcolor))
+			.prepend(this.image_elm)
+      .css('background-color', this.bgcolor)
       .appendTo(this.R.paper_elm);
 	},
 	
@@ -100,8 +148,19 @@ pie.mindmap.root_methods = {
 	
 	// 所有右侧子节点显示高度（考虑节点被折叠）
   right_children_boxes_total_height : function(){
-    return this._util_compute_children_height(this.left_children());
+    return this._util_compute_children_height(this.right_children());
+  },
+  
+  // 所有左侧子节点显示宽度
+  left_children_boxes_total_width : function(){
+    return this._util_compute_children_width(this.left_children());
+  },
+  
+  // 所有右侧子节点显示宽度
+  right_children_boxes_total_width : function(){
+    return this._util_compute_children_width(this.right_children());
   }
+  
 }
 
 /////////////////
@@ -139,6 +198,13 @@ jQuery.extend(pie.mindmap, {
 		}
 		
 		_r(root, null);
+		
+		// 加载图片
+		jQuery(R.paper_elm).find('.node .image').each(function(){
+      var elm = jQuery(this);
+      pie.load_cut_img(elm.data('src'), elm, elm);
+      elm.addClass('-img-loaded-')
+		})
 	}
 	
 })
