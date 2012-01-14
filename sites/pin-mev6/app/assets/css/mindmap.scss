@@ -10,6 +10,12 @@
           transition : $params;
 }
 
+@mixin transform($params){
+     -moz-transform : $params;
+  -webkit-transform : $params;
+          transform : $params;
+}
+
 .page-mindmap-editor-2012{
   height:100%;
   $mside-width:220px;
@@ -17,7 +23,7 @@
   .main{
     position:absolute;
     top:0;bottom:0;left:0;right:$mside-width;
-    .canvas{
+    .board{
       position:absolute;
       top:0;bottom:0;left:0;right:0;
       margin:10px;
@@ -26,6 +32,8 @@
       box-shadow:0 0 5px rgba(#aaa, 0.4);
       overflow:hidden;
       overflow:scroll;
+      
+      canvas{position:absolute;/*background-color:rgba(#aaa,0.1);*/}
       
       .paper{
         //background-color:rgba(#000,0.1);
@@ -44,26 +52,29 @@
           font-family:"Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
           position:absolute;
           padding:5px 7px;
-          border:solid 1px rgba(#000, 0.3);
-          box-shadow:0 0 5px rgba(#aaa, 0.4);
+          border:solid 2px rgba(#000, 0.3);
+          //box-shadow:0 0 5px rgba(#aaa, 0.4);
           @include border-radius(8px);
           cursor:pointer;
           background-color:#fff;
           @include transition((background-color ease-out .2s, color ease-out .2s));
+
           .title{
             font-size:12px; line-height:16px; color:#333; white-space:nowrap;
+            // 这里不能用 block 或者 inlin-block 因为尺寸计算会有问题
           }
           .fd{
             position:absolute;
             width:16px;height:16px;
             top:50%;margin-top:-8px;
             //background-color:#d3edff;
-            $bgc : darken(#99ddff, 10%);
-            background-color:rgba($bgc, 0.6);
+            //$bgc : #99ddff;
+            $bgc : #666;
+            background-color:$bgc;
             @include border-radius(8px);
             @include transition((background-color ease-out .2s));
             &:hover{
-              background-color:rgba($bgc, 0.8);
+              background-color:darken($bgc, 10%);
             };
             &::before{
               content:"";
@@ -84,14 +95,47 @@
             }
           }
           .image{
-            margin:2px 0 5px;
+            margin:2px 0;
             @include border-radius(2px);
-            overflow:hidden;
-            box-shadow:0 0 4px rgba(#aaa, 0.4);
+            float:left;
+            position:relative;
+            
+            .box{
+              width:100%;height:100%;
+              padding:2px;background-color:#fff;
+              border:solid 1px rgba(#000,0.3);box-shadow:0px 0px 2px rgba(#000,0.3);
+              position:absolute;
+              left:-12px;top:-11px;
+              z-index:2;
+              
+              &::before{
+                content:"";
+                border:solid 2px #444;
+                border-bottom:none;
+                height:4px;width:6px;
+                @include border-radius(6px 6px 0 0);
+                position:absolute;top:-7px;left:50%;margin-left:-9px;
+              };
+              &::after{
+                content:"";
+                border:solid 2px #666;
+                border-top:none;
+                border-bottom:solid 2px #888;
+                height:10px;width:2px;
+                @include border-radius(0 0 6px 6px);
+                position:absolute;top:-3px;left:50%;margin-left:-9px;
+              }
+
+              @include transition(all ease-out 0.4s);
+              &:hover{
+                @include transform(rotate(-10deg));
+              }
+            }
+            
           }
           
           &.root{
-            background-color:#666;
+            background-color:#0067B8;
             padding:5px 8px;
             .title{
               line-height:20px;

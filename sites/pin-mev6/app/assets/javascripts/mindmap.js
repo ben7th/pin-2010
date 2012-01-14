@@ -8,12 +8,12 @@
 // 经典导图布局
 
 jQuery.fn.pie_mindmap = function(options){
-  options.NODE_Y_GAP =  8; // 节点的垂直相邻间距
+  options.NODE_Y_GAP =  12; // 节点的垂直相邻间距
   options.NODE_X_GAP = 48; // 节点的水平相邻间距
 
   var R = {
     options    : options,
-	  canvas_elm : jQuery(this), // 被初始化的作为画布的dom的jQuery-object对象
+	  board_elm  : jQuery(this), // 被初始化的作为画板的dom的jQuery-object对象
 		paper_elm  : jQuery('<div class="paper"></div>').appendTo(this), // 放置节点的画布对象
 		data       : null, // 从/mindmaps/:id.js 载回的json-object对象
 	}
@@ -42,12 +42,12 @@ jQuery.fn.pie_mindmap = function(options){
 	var bind_events = function(){
 	  R.paper_elm
   	  .drag('start', function(evt, dd){
-  	    R.canvas_elm.data('drag-original-scroll-left', R.canvas_elm.scrollLeft());
-  	    R.canvas_elm.data('drag-original-scroll-top',  R.canvas_elm.scrollTop());
+  	    R.board_elm.data('drag-original-scroll-left', R.board_elm.scrollLeft());
+  	    R.board_elm.data('drag-original-scroll-top',  R.board_elm.scrollTop());
   	  })
   	  .drag(function(evt, dd){
-  	    R.canvas_elm.scrollLeft(R.canvas_elm.data('drag-original-scroll-left') - dd.deltaX);
-  	    R.canvas_elm.scrollTop( R.canvas_elm.data('drag-original-scroll-top')  - dd.deltaY);
+  	    R.board_elm.scrollLeft(R.board_elm.data('drag-original-scroll-left') - dd.deltaX);
+  	    R.board_elm.scrollTop( R.board_elm.data('drag-original-scroll-top')  - dd.deltaY);
   	  })
 	}
 	
@@ -55,7 +55,7 @@ jQuery.fn.pie_mindmap = function(options){
 }
 
 pie.load(function(){
-  var MINDMAP = jQuery('.main .canvas').pie_mindmap({
+  MINDMAP = jQuery('.main .board').pie_mindmap({
     data_url : '/mindmaps/'+PAGE_MINDMAP_ID+'.js'
   })
 });

@@ -10,6 +10,10 @@ pie.mindmap.shared_node_methods = {
 		
     this.title_elm = jQuery('<div class="title"></div>')
       .html(title_html);
+      
+    if(null != this.image){
+		  this.title_elm.css('margin-left', this.image.width);
+		}
 	},
 	
 	_build_image_elm : function(){
@@ -18,7 +22,7 @@ pie.mindmap.shared_node_methods = {
 		  return;
 		}
 		
-	  this.image_elm = jQuery('<div class="image"></div>')
+	  this.image_elm = jQuery('<div class="image"><div class="box"></div></div>')
 		  .domdata('src', this.image.url)
 			.domdata('attach-id', this.image.attach_id)
 			.css({'width':this.image.width, 'height':this.image.height})
@@ -27,6 +31,12 @@ pie.mindmap.shared_node_methods = {
 	recompute_box_size : function(){
     this.width  = this.elm.outerWidth();
     this.height = this.elm.outerHeight();
+    if(null != this.image){
+      var title_height = this.title_elm.height();
+      if(title_height < this.image.height){
+        this.title_elm.css('margin-top', (this.image.height - title_height)/2 + 2);
+      }
+    }
 	},
 	
   _util_compute_children_height : function(children){
@@ -203,7 +213,7 @@ jQuery.extend(pie.mindmap, {
 		// 加载图片
 		jQuery(R.paper_elm).find('.node .image').each(function(){
       var elm = jQuery(this);
-      pie.load_cut_img(elm.data('src'), elm, elm);
+      pie.load_cut_img(elm.data('src'), elm, elm.find('.box'));
       elm.addClass('-img-loaded-')
 		})
 	}
