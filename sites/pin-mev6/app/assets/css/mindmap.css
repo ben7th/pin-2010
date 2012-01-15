@@ -42,10 +42,7 @@
           -webkit-border-radius: 8px;
           border-radius: 8px;
           cursor: pointer;
-          background-color: #fff;
-          -moz-transition: background-color ease-out 0.2s, color ease-out 0.2s;
-          -webkit-transition: background-color ease-out 0.2s, color ease-out 0.2s;
-          transition: background-color ease-out 0.2s, color ease-out 0.2s; }
+          background-color: #fff; }
           .page-mindmap-editor-2012 .main .board .paper .node .title {
             font-size: 12px;
             line-height: 16px;
@@ -57,7 +54,7 @@
             height: 16px;
             top: 50%;
             margin-top: -8px;
-            background-color: #666666;
+            background-color: #555555;
             -moz-border-radius: 8px;
             -webkit-border-radius: 8px;
             border-radius: 8px;
@@ -65,7 +62,7 @@
             -webkit-transition: background-color ease-out 0.2s;
             transition: background-color ease-out 0.2s; }
             .page-mindmap-editor-2012 .main .board .paper .node .fd:hover {
-              background-color: #4d4d4d; }
+              background-color: #888888; }
             .page-mindmap-editor-2012 .main .board .paper .node .fd::before {
               content: "";
               display: block;
@@ -85,7 +82,6 @@
               left: 7px;
               top: 3px; }
           .page-mindmap-editor-2012 .main .board .paper .node .image {
-            margin: 2px 0;
             -moz-border-radius: 2px;
             -webkit-border-radius: 2px;
             border-radius: 2px;
@@ -152,8 +148,6 @@
             left: -18px; }
           .page-mindmap-editor-2012 .main .board .paper .node.right .fd {
             right: -18px; }
-          .page-mindmap-editor-2012 .main .board .paper .node:hover {
-            background-color: #eee; }
   .page-mindmap-editor-2012 .mside {
     position: absolute;
     top: 0;

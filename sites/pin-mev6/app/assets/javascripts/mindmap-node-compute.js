@@ -1,7 +1,8 @@
 pie.mindmap = pie.mindmap || {};
 
-// _ch 开头的方法都会导致传入对象的值改变
-pie.mindmap.shared_node_methods = {
+// 与构造节点dom有关的函数
+pie.mindmap.shared_node_elm_building_methods = {
+  // 文字标题
   _build_title_elm : function(){
     var title_html = jQuery.string(this.title).escapeHTML().str
 		  .replace(/\n/g, "<br/>")
@@ -16,6 +17,7 @@ pie.mindmap.shared_node_methods = {
 		}
 	},
 	
+	// 图片
 	_build_image_elm : function(){
     if(null == this.image){
 		  this.image_elm = null;
@@ -26,15 +28,20 @@ pie.mindmap.shared_node_methods = {
 		  .domdata('src', this.image.url)
 			.domdata('attach-id', this.image.attach_id)
 			.css({'width':this.image.width, 'height':this.image.height})
-	},
+	}
+}
+
+// _ch 开头的方法都会导致传入对象的值改变
+pie.mindmap.shared_node_computing_methods = {
 	
 	recompute_box_size : function(){
     this.width  = this.elm.outerWidth();
     this.height = this.elm.outerHeight();
+    
     if(null != this.image){
       var title_height = this.title_elm.height();
       if(title_height < this.image.height){
-        this.title_elm.css('margin-top', (this.image.height - title_height)/2 + 2);
+        this.title_elm.css('margin-top', (this.image.height - title_height)/2);
       }
     }
 	},
@@ -83,6 +90,8 @@ pie.mindmap.node_methods = {
     this.top  = top;
     this.elm.animate({'left':left, 'top':top}, 800);
     //this.elm.css({'left':left, 'top':top})
+    
+    this.y_center = this.top + this.height/2;
 	},
 	
 	// 所有子节点的盒高度之和，包括 Y_GAP
@@ -94,10 +103,7 @@ pie.mindmap.node_methods = {
 	// 如果折叠，返回节点盒高度
 	// 如果未折叠，返回节点盒和子节点盒中高度较大者
 	real_subtree_box_height : function(){
-    if(this.closed){
-		  return this.height;
-		}
-		
+    if(this.closed){ return this.height; }		
 		return jQuery.array([this.height, this.children_boxes_total_height()]).max();
 	},
 	
@@ -183,9 +189,11 @@ jQuery.extend(pie.mindmap, {
   init_data : function(R){
     var root = R.data;
 		
+    // 递归生成节点doms ，并排布
 		var _r = function(node, parent_node){
 		  node.R = R;
-      jQuery.extend(node, pie.mindmap.shared_node_methods);
+		  jQuery.extend(node, pie.mindmap.shared_node_elm_building_methods);
+      jQuery.extend(node, pie.mindmap.shared_node_computing_methods);
 			
 		  if(null == parent_node){
 				jQuery.extend(node, pie.mindmap.root_methods);
@@ -207,14 +215,19 @@ jQuery.extend(pie.mindmap, {
         child.next_node = children[index + 1] || null;
       });
 		}
-		
 		_r(root, null);
 		
 		// 加载图片
 		jQuery(R.paper_elm).find('.node .image').each(function(){
       var elm = jQuery(this);
       pie.load_cut_img(elm.data('src'), elm, elm.find('.box'));
-      elm.addClass('-img-loaded-')
+      elm.addClass('-img-loaded-');
+		})
+		
+		// 绑定图片事件 绑定事件 live 需用 R.board_elm
+		jQuery(R.board_elm).find('.node .image').live('click', function(){
+		  var elm = jQuery(this);
+		  pie.log(elm.data('src'));
 		})
 	}
 	

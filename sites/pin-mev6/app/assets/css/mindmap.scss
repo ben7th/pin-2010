@@ -57,7 +57,6 @@
           @include border-radius(8px);
           cursor:pointer;
           background-color:#fff;
-          @include transition((background-color ease-out .2s, color ease-out .2s));
 
           .title{
             font-size:12px; line-height:16px; color:#333; white-space:nowrap;
@@ -69,12 +68,12 @@
             top:50%;margin-top:-8px;
             //background-color:#d3edff;
             //$bgc : #99ddff;
-            $bgc : #666;
+            $bgc : #555;
             background-color:$bgc;
             @include border-radius(8px);
             @include transition((background-color ease-out .2s));
             &:hover{
-              background-color:darken($bgc, 10%);
+              background-color:lighten($bgc, 20%);
             };
             &::before{
               content:"";
@@ -95,7 +94,7 @@
             }
           }
           .image{
-            margin:2px 0;
+            //margin:2px 0;
             @include border-radius(2px);
             float:left;
             position:relative;
@@ -149,10 +148,6 @@
           }
           &.left{.fd{left:-18px;}}
           &.right{.fd{right:-18px;}}
-          
-          &:hover{
-            background-color:#eee;
-          };
         }
       }
       

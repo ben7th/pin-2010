@@ -8,13 +8,16 @@
 // 经典导图布局
 
 jQuery.fn.pie_mindmap = function(options){
-  options.NODE_Y_GAP =  12; // 节点的垂直相邻间距
+  options.NODE_Y_GAP = 12; // 节点的垂直相邻间距
   options.NODE_X_GAP = 48; // 节点的水平相邻间距
+  options.FD_RADIUS  = 8;  // 折叠点半径
+  options._FD_CANVAS_OFFSET = 14; // (FD_RADIUS - 1)*2
 
   var R = {
     options    : options,
 	  board_elm  : jQuery(this), // 被初始化的作为画板的dom的jQuery-object对象
 		paper_elm  : jQuery('<div class="paper"></div>').appendTo(this), // 放置节点的画布对象
+		canvas_elm : jQuery('<canvas></canvas>').prependTo(this).hide(),
 		data       : null, // 从/mindmaps/:id.js 载回的json-object对象
 	}
 
@@ -55,7 +58,11 @@ jQuery.fn.pie_mindmap = function(options){
 }
 
 pie.load(function(){
-  MINDMAP = jQuery('.main .board').pie_mindmap({
-    data_url : '/mindmaps/'+PAGE_MINDMAP_ID+'.js'
-  })
+  try{
+    MINDMAP = jQuery('.main .board').pie_mindmap({
+      data_url : '/mindmaps/'+PAGE_MINDMAP_ID+'.js'
+    })
+  }catch(e){
+    pie.log(e);
+  }
 });
