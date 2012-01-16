@@ -137,7 +137,7 @@
             -webkit-transition: all ease-out 0.2s;
             transition: all ease-out 0.2s; }
           .page-mindmap-editor-2012 .main .overlay .image-lightbox .prev:hover, .page-mindmap-editor-2012 .main .overlay .image-lightbox .next:hover {
-            background-color: #111; }
+            background-color: #555; }
             .page-mindmap-editor-2012 .main .overlay .image-lightbox .prev:hover::before, .page-mindmap-editor-2012 .main .overlay .image-lightbox .next:hover::before {
               border-left-color: #f1f1f1;
               border-right-color: #f1f1f1; }

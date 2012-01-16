@@ -328,16 +328,17 @@ jQuery.extend(pie.mindmap, {
 		  R.image_lightbox_elm = jQuery('<div class="image-lightbox"></div>')
 		    .append(box_elm)
 		    .append(jQuery('<div class="title"></div>').text(_title))
-		    .append(jQuery('<a class="close" href="javascript:;"></a>'))
-		    .append(jQuery('<a class="prev" href="javascript:;"></a>'))
-		    .append(jQuery('<a class="next" href="javascript:;"></a>'))
+		    .append(jQuery('<a class="close" href="javascript:;" title="关闭"></a>'))
+		    //.append(jQuery('<a class="prev" href="javascript:;" title="上一个"></a>'))
+		    //.append(jQuery('<a class="next" href="javascript:;" title="下一个"></a>'))
 		    .hide().delay(300).fadeIn(400, load_img)
 		    //.delay(200).animate({'top': init_top})
 		    .appendTo(R.overlay_elm);
 		    
 		  R.image_lightbox_elm
 		    .css('margin-left', -  (init_img_width / 2 + 10))
-		    .css('margin-top',  - (init_img_height / 2 + 50));
+		    .css('margin-top',  - (init_img_height / 2 + 50))
+		    .data('node-id', node_id);
 		});
 		
 		jQuery('.image-lightbox a.close').live('click', function(){
@@ -345,6 +346,10 @@ jQuery.extend(pie.mindmap, {
 		    R.hide_overlay();
 		  });
 		})
+		
+		//jQuery('.image-lightbox a.prev').live('click', function(){
+		//  var current_node = R.image_lightbox_elm.data('node-id');
+		//})
 		
 		R.show_overlay = function(){
 		  if(null != R.overlay_elm){ return; }

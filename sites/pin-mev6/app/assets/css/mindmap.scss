@@ -103,7 +103,7 @@
             @include transition(all ease-out .2s);
           }
           &:hover{
-            background-color:#111;
+            background-color:#555;
             &::before{border-left-color:#f1f1f1;border-right-color:#f1f1f1;}
           }
         }
