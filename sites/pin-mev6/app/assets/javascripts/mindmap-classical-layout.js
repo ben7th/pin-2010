@@ -68,12 +68,12 @@ jQuery.extend(pie.mindmap, {
 		pie.mindmap.draw_lines(R);
   },
   
-  do_relayout_classical : function(R){
-		//pie.mindmap.init_paper(R);
+  do_relayout_classical : function(R, mode){
+		pie.mindmap.init_paper(R);
     pie.mindmap.set_nodes_positions(R);
-    R.next_animation_mode = 'relayout';
+    R.next_animation_mode = mode;
     pie.mindmap.do_nodes_pos_animate(R);
-		//pie.mindmap.draw_lines(R);
+		pie.mindmap.draw_lines(R);
   },
   
   set_nodes_positions : function(R){
@@ -134,13 +134,11 @@ jQuery.extend(pie.mindmap, {
 	    throw "YOU MUST SET R.next_animation_mode VALUE BEFORE CALL do_nodes_pos_animate()";
 	  }
     
-    R.paper_elm.find('.node').each(function(){
+    R.paper_elm.find('.node:not(.root)').each(function(){
       var elm = jQuery(this);
       var node = R.get(elm.data('id'));
-      if(null != node.parent){
-        node.do_pos_animate(R.next_animation_mode);
-      }
-    })
+      node.do_pos_animate(R.next_animation_mode);
+    });
     
     R.next_animation_mode = null;
   },

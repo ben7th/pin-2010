@@ -101,7 +101,7 @@ pie.mindmap.node_methods = {
       .append(this.title_elm)
       .append(this.note_elm)
       .append(this.fd_elm)
-			.css('background-color', this.bgcolor).hide()
+			.css('background-color', this.bgcolor)
       .appendTo(this.R.paper_elm);
   },
 
@@ -126,31 +126,42 @@ pie.mindmap.node_methods = {
 	  var top  = this.top;
 	  var elm  = this.elm;
 	  var animation_flag = this.animation_flag;
+	  var is_visible = elm.is(':visible');
 	  
 	  if('init' == mode){
   	  switch(animation_flag){
   	    case 'show':{
-  	      elm.show()
-  	        .stop().animate({'left':left, 'top':top}, 800);
-  	    };break;
+  	      elm.animate({'left':left, 'top':top}, 800);
+  	      break;
+  	    }
   	    case 'hide':{
-  	      elm.hide().css({'left':left, 'top':top});
-  	    };break;
+  	      elm.hide()
+  	        .css({'left':left, 'top':top});
+  	      break;
+  	    }
   	  }
   	  return; 
 	  }
 	  
-	  if('relayout' == mode){
+	  if('folding' == mode){
   	  switch(animation_flag){
   	    case 'show':{
-  	      elm.show()
-  	        .stop().animate({'left':left, 'top':top}, 400);
+  	      if(is_visible){
+  	        // 如果本来就看得见，则只是移动
+  	        elm.stop().animate({'left':left, 'top':top}, 400);
+	        }else{
+	          // 如果本来看不见，则渐现
+	          elm.show().css('opacity',0).animate({'left':left, 'top':top, 'opacity':1}, 400);
+	        }
   	    };break;
   	    case 'hide':{
-  	      elm
-  	        .stop().animate({'left':left, 'top':top}, 400, function(){
-  	          elm.hide();
-  	        });
+  	      if(is_visible){
+  	        // 如果本来看得见，渐隐
+  	        elm.animate({'left':left, 'top':top, 'opacity':0}, 400, function(){elm.hide()});
+  	      }else{
+  	        // 如果本来看不见，则只是修改属性
+  	        elm.css({'left':left, 'top':top});
+	        }
   	    };break;
   	  }
   	  return; 
@@ -213,7 +224,7 @@ pie.mindmap.node_methods = {
 	    this.closed = true;
 	  }
 	  
-    pie.mindmap.do_relayout_classical(this.R);
+    pie.mindmap.do_relayout_classical(this.R, 'folding');
   }
 }
 
