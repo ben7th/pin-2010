@@ -114,6 +114,10 @@ class Mindmap < Mev6Abstract
   def struct_json
     document.struct_hash.to_json
   end
+  
+  def struct_subtree_hash(node_id)
+    document.struct_subtree_hash(node_id).to_json
+  end
 
   def private=(param)
     if param == "1" || param == 1 || !param

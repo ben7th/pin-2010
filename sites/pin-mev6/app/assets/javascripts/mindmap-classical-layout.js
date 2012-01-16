@@ -77,7 +77,7 @@ jQuery.extend(pie.mindmap, {
 		  var real_left = is_left ? left-node.width : left;
 		  
       if(node.closed){
-        node.hide_all_children();
+        if(!node.left) node.hide_all_children();
         node.ch_pos(real_left, top);
         return;
       }

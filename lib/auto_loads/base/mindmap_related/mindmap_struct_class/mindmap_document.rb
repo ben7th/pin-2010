@@ -70,6 +70,11 @@ class MindmapDocument
     node["closed"] = "false"
     MindmapNode.new(self,node)
   end
+  
+  # 取得思维导图xml  node_id 代表的节点和它的子孙节点 解析出的hash
+  def struct_subtree_hash(node_id)
+    node(node_id).struct_hash
+  end
 
   # 取得思维导图xml解析出的hash
   def struct_hash

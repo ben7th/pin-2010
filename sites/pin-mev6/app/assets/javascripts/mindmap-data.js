@@ -148,6 +148,41 @@ pie.mindmap.node_methods = {
       this.hide_all_children(child);
       child.elm.hide();
     })
+  },
+  
+  // descendants 这个单词太难记了
+  houdai : function(){
+    var re = [];
+    jQuery.each(this.children, function(index, child){
+      re = re.concat([child]).concat(child.houdai());
+    });
+    return re;
+  },
+  
+  toggle_closed : function(){
+    var left = this.left;
+    var top  = this.top; var height = this.height;
+    if(this.closed){
+	  }else{
+		  jQuery.each(this.houdai(), function(index, node){
+		    var n_top = top - (node.height - height) / 2;
+		    node.elm.animate({
+		      'left':[left, 'easeInCubic'], 
+		      'top' :[n_top, 'easeInCubic'], 
+		      'opacity' : [0, 'easeInCubic']
+		    }, 400, function(){
+		      node.elm.hide();
+		    });
+		  });
+		  this.fd_elm.removeClass('open').addClass('close');
+	  }
+	  this.closed = !this.closed;
+	  
+	  var R = this.R;
+	  setTimeout(function(){
+  	  // 重新计算坐标
+	    pie.mindmap.do_layout_classical(R);
+	  },400);
   }
 }
 
@@ -252,6 +287,8 @@ jQuery.extend(pie.mindmap, {
       elm.addClass('-img-loaded-');
 		});
 		
+		/////////////////////////////////////////////////////////////////////////////////
+		
 		// 绑定图片事件 绑定事件 live 需用 R.board_elm
 		jQuery(R.board_elm).find('.node .image').live('click', function(){
 		  var elm = jQuery(this);
@@ -347,9 +384,25 @@ jQuery.extend(pie.mindmap, {
 		  });
 		})
 		
+		//TODO 上一个，下一个稍后实现
+		
 		//jQuery('.image-lightbox a.prev').live('click', function(){
 		//  var current_node = R.image_lightbox_elm.data('node-id');
 		//})
+		
+		////////////////////////////////////////////////////////////////////////////
+		
+		// 绑定折叠展开事件
+		jQuery(R.board_elm).find('.node .fd').live('click', function(){
+		  var elm = jQuery(this);
+		  
+		  var node_id = elm.closest('.node').data('id');
+		  var node = R.get(node_id);
+		  
+		  node.toggle_closed();
+		})
+		
+		////////////////////////////////////////////////////////////////////
 		
 		R.show_overlay = function(){
 		  if(null != R.overlay_elm){ return; }
