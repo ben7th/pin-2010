@@ -2,7 +2,7 @@ pie.mindmap = pie.mindmap || {};
 
 // 与构造节点dom有关的函数
 pie.mindmap.shared_node_elm_building_methods = {
-  note_blank : function(){
+  is_note_blank : function(){
     return jQuery.string(this.note).blank();
   },
   
@@ -21,7 +21,7 @@ pie.mindmap.shared_node_elm_building_methods = {
 		  this.title_elm.css('margin-left', this.image.width);
 		}
 		
-		if(!this.note_blank()){
+		if(!this.is_note_blank()){
 		  this.title_elm.css('margin-right', 18);
 		}
 	},
@@ -41,7 +41,7 @@ pie.mindmap.shared_node_elm_building_methods = {
   
   // 备注
   _build_note_elm : function(){
-    if(this.note_blank()){
+    if(this.is_note_blank()){
       this.note_elm = null;
       return;
     }
@@ -106,14 +106,16 @@ pie.mindmap.node_methods = {
   },
 
   // 设置位置，但并不立刻移动节点，所有节点的后续效果交由do_pos_animate函数统一处理
-  // show_status 节点将发生的展现状态变化，分以下两种：
+  // animation_flag 节点将发生的展现状态变化，分以下两种：
   //  'show', 'hide'
   //  下一次执行 do_nodes_pos_animate 播放全局动画时，根据 R.next_animation_mode 来确定如何执行动画
-  prepare_pos : function(left, top, show_status){
+  prepare_pos : function(left, top, animation_flag){
+    this.old_left = this.left; // 保存旧值，动画中会用到
+    this.old_top  = this.top;
     this.left = left;
     this.top  = top;
     this.y_center = this.top + this.height/2;
-    this.show_status = show_status;
+    this.animation_flag = animation_flag;
 	},
 	
 	// 根据 mode 来确定如何执行动画
@@ -123,9 +125,10 @@ pie.mindmap.node_methods = {
 	  var left = this.left;
 	  var top  = this.top;
 	  var elm  = this.elm;
+	  var animation_flag = this.animation_flag;
 	  
 	  if('init' == mode){
-  	  switch(this.show_status){
+  	  switch(animation_flag){
   	    case 'show':{
   	      elm.show()
   	        .stop().animate({'left':left, 'top':top}, 800);
@@ -138,7 +141,7 @@ pie.mindmap.node_methods = {
 	  }
 	  
 	  if('relayout' == mode){
-  	  switch(this.show_status){
+  	  switch(animation_flag){
   	    case 'show':{
   	      elm.show()
   	        .stop().animate({'left':left, 'top':top}, 400);
