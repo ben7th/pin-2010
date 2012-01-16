@@ -1,3 +1,11 @@
+/*
+z-index 顺序
+
+1 隐藏的节点
+2 显示的节点
+3 节点上的图片 box
+9 overlay
+*/
 .page-mindmap-editor-2012 {
   height: 100%; }
   .page-mindmap-editor-2012 .main {
@@ -177,7 +185,8 @@
           -webkit-border-radius: 8px;
           border-radius: 8px;
           cursor: pointer;
-          background-color: #fff; }
+          background-color: #fff;
+          z-index: 2; }
           .page-mindmap-editor-2012 .main .board .paper .node .title {
             font-size: 12px;
             line-height: 16px;
@@ -230,7 +239,7 @@
               position: absolute;
               left: -12px;
               top: -11px;
-              z-index: 2;
+              z-index: 3;
               -moz-transition: all ease-out 0.4s;
               -webkit-transition: all ease-out 0.4s;
               transition: all ease-out 0.4s; }

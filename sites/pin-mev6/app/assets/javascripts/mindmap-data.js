@@ -101,31 +101,56 @@ pie.mindmap.node_methods = {
       .append(this.title_elm)
       .append(this.note_elm)
       .append(this.fd_elm)
-			.css('background-color', this.bgcolor)
+			.css('background-color', this.bgcolor).hide()
       .appendTo(this.R.paper_elm);
   },
 
-  // 设置位置，但并不立刻移动节点，所有节点的后续效果交由animate函数统一处理
-  // show_status 节点将发生的展现状态变化，分以下几种：
-  //   fadein 渐现出现; fadeout 逐渐消失; show 立即出现; hide 立即消失
+  // 设置位置，但并不立刻移动节点，所有节点的后续效果交由do_pos_animate函数统一处理
+  // show_status 节点将发生的展现状态变化，分以下两种：
+  //  'show', 'hide'
+  //  下一次执行 do_nodes_pos_animate 播放全局动画时，根据 R.next_animation_mode 来确定如何执行动画
   prepare_pos : function(left, top, show_status){
     this.left = left;
     this.top  = top;
-    this.show_status = show_status;
     this.y_center = this.top + this.height/2;
+    this.show_status = show_status;
 	},
 	
-	do_pos_animate : function(){
+	// 根据 mode 来确定如何执行动画
+	// 调用此方法前必须给上述属性赋值
+	// init: show - 动画移动 .8s; hide - 直接隐藏
+	do_pos_animate : function(mode){
 	  var left = this.left;
 	  var top  = this.top;
-	  switch(this.show_status){
-	    case 'show':{
-	      this.elm.show();
-	      this.elm.stop().animate({'left':left, 'top':top}, 800);
-	    };break;
-	    case 'hide':{
-	      this.elm.hide();
-	    };break;
+	  var elm  = this.elm;
+	  
+	  if('init' == mode){
+  	  switch(this.show_status){
+  	    case 'show':{
+  	      elm.show()
+  	        .stop().animate({'left':left, 'top':top}, 800);
+  	    };break;
+  	    case 'hide':{
+  	      elm.hide().css({'left':left, 'top':top});
+  	    };break;
+  	  }
+  	  return; 
+	  }
+	  
+	  if('relayout' == mode){
+  	  switch(this.show_status){
+  	    case 'show':{
+  	      elm.show()
+  	        .stop().animate({'left':left, 'top':top}, 400);
+  	    };break;
+  	    case 'hide':{
+  	      elm
+  	        .stop().animate({'left':left, 'top':top}, 400, function(){
+  	          elm.hide();
+  	        });
+  	    };break;
+  	  }
+  	  return; 
 	  }
 	},
 	
@@ -176,13 +201,16 @@ pie.mindmap.node_methods = {
   toggle_closed : function(){
     var left = this.left;
     var top  = this.top; var height = this.height;
+    
     if(this.closed){
+      this.fd_elm.removeClass('close').addClass('open');
+      this.closed = false;
 	  }else{
+	    this.fd_elm.removeClass('open').addClass('close');
+	    this.closed = true;
 	  }
-	  this.closed = !this.closed;
 	  
-    pie.mindmap.do_layout_classical(this.R);
-    pie.mindmap.do_nodes_pos_animate(this.R);
+    pie.mindmap.do_relayout_classical(this.R);
   }
 }
 

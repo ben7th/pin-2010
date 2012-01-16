@@ -63,8 +63,17 @@ jQuery.extend(pie.mindmap, {
 		 */
 		pie.mindmap.init_paper(R);
     pie.mindmap.set_nodes_positions(R);
+    R.next_animation_mode = 'init';
     pie.mindmap.do_nodes_pos_animate(R);
 		pie.mindmap.draw_lines(R);
+  },
+  
+  do_relayout_classical : function(R){
+		//pie.mindmap.init_paper(R);
+    pie.mindmap.set_nodes_positions(R);
+    R.next_animation_mode = 'relayout';
+    pie.mindmap.do_nodes_pos_animate(R);
+		//pie.mindmap.draw_lines(R);
   },
   
   set_nodes_positions : function(R){
@@ -79,7 +88,8 @@ jQuery.extend(pie.mindmap, {
 		  
       if(node.closed){
         jQuery.each(node.houdai(), function(index, child){
-          child.prepare_pos(real_left, top, 'hide');
+          var n_top = top - (child.height - node.height) / 2;
+          child.prepare_pos(real_left, n_top, 'hide');
         });
         node.prepare_pos(real_left, top, 'show');
         return;
@@ -120,13 +130,19 @@ jQuery.extend(pie.mindmap, {
   },
   
   do_nodes_pos_animate : function(R){
+	  if(null == R.next_animation_mode){
+	    throw "YOU MUST SET R.next_animation_mode VALUE BEFORE CALL do_nodes_pos_animate()";
+	  }
+    
     R.paper_elm.find('.node').each(function(){
       var elm = jQuery(this);
       var node = R.get(elm.data('id'));
       if(null != node.parent){
-        node.do_pos_animate();
+        node.do_pos_animate(R.next_animation_mode);
       }
     })
+    
+    R.next_animation_mode = null;
   },
   
   draw_lines : function(R){

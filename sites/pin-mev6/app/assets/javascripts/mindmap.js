@@ -27,9 +27,13 @@ jQuery.fn.pie_mindmap = function(options){
 		type : 'GET',
 		dataType : 'json',
 		success : function(res){
-		  R.data = res;
-			draw_map();
-		  bind_events();
+		  try{
+		    R.data = res;
+			  draw_map();
+		    bind_events();
+	    }catch(e){
+	      pie.log(e);
+	    }
 		}
 	});
 	
@@ -59,11 +63,7 @@ jQuery.fn.pie_mindmap = function(options){
 }
 
 pie.load(function(){
-  try{
-    MINDMAP = jQuery('.main .board').pie_mindmap({
-      data_url : '/mindmaps/'+PAGE_MINDMAP_ID+'.js'
-    })
-  }catch(e){
-    pie.log(e);
-  }
+  MINDMAP = jQuery('.main .board').pie_mindmap({
+    data_url : '/mindmaps/'+PAGE_MINDMAP_ID+'.js'
+  })
 });
