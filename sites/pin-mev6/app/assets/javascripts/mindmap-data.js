@@ -105,14 +105,28 @@ pie.mindmap.node_methods = {
       .appendTo(this.R.paper_elm);
   },
 
-  // 设置位置，并移动节点
-  ch_pos : function(left, top){
+  // 设置位置，但并不立刻移动节点，所有节点的后续效果交由animate函数统一处理
+  // show_status 节点将发生的展现状态变化，分以下几种：
+  //   fadein 渐现出现; fadeout 逐渐消失; show 立即出现; hide 立即消失
+  prepare_pos : function(left, top, show_status){
     this.left = left;
     this.top  = top;
-    this.elm.animate({'left':left, 'top':top}, 800);
-    //this.elm.css({'left':left, 'top':top})
-    
+    this.show_status = show_status;
     this.y_center = this.top + this.height/2;
+	},
+	
+	do_pos_animate : function(){
+	  var left = this.left;
+	  var top  = this.top;
+	  switch(this.show_status){
+	    case 'show':{
+	      this.elm.show();
+	      this.elm.stop().animate({'left':left, 'top':top}, 800);
+	    };break;
+	    case 'hide':{
+	      this.elm.hide();
+	    };break;
+	  }
 	},
 	
 	// 所有子节点的盒高度之和，包括 Y_GAP
@@ -164,25 +178,11 @@ pie.mindmap.node_methods = {
     var top  = this.top; var height = this.height;
     if(this.closed){
 	  }else{
-		  jQuery.each(this.houdai(), function(index, node){
-		    var n_top = top - (node.height - height) / 2;
-		    node.elm.animate({
-		      'left':[left, 'easeInCubic'], 
-		      'top' :[n_top, 'easeInCubic'], 
-		      'opacity' : [0, 'easeInCubic']
-		    }, 400, function(){
-		      node.elm.hide();
-		    });
-		  });
-		  this.fd_elm.removeClass('open').addClass('close');
 	  }
 	  this.closed = !this.closed;
 	  
-	  var R = this.R;
-	  setTimeout(function(){
-  	  // 重新计算坐标
-	    pie.mindmap.do_layout_classical(R);
-	  },400);
+    pie.mindmap.do_layout_classical(this.R);
+    pie.mindmap.do_nodes_pos_animate(this.R);
   }
 }
 

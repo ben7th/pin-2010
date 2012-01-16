@@ -62,7 +62,8 @@ jQuery.extend(pie.mindmap, {
 		 * 经典布局将一级子节点（first_level_nodes）排布在root节点的左右两侧，均匀地树状展开
 		 */
 		pie.mindmap.init_paper(R);
-    pie.mindmap.set_nodes_positions(R);  
+    pie.mindmap.set_nodes_positions(R);
+    pie.mindmap.do_nodes_pos_animate(R);
 		pie.mindmap.draw_lines(R);
   },
   
@@ -77,8 +78,10 @@ jQuery.extend(pie.mindmap, {
 		  var real_left = is_left ? left-node.width : left;
 		  
       if(node.closed){
-        if(!node.left) node.hide_all_children();
-        node.ch_pos(real_left, top);
+        jQuery.each(node.houdai(), function(index, child){
+          child.prepare_pos(real_left, top, 'hide');
+        });
+        node.prepare_pos(real_left, top, 'show');
         return;
       }
       
@@ -90,7 +93,7 @@ jQuery.extend(pie.mindmap, {
         _tmp_height += child.real_subtree_box_height() + Y_GAP;
       })
       
-      node.ch_pos(real_left, top + node.node_box_top_offset());
+      node.prepare_pos(real_left, top + node.node_box_top_offset(), 'show');
 		}
 		
     // 求出左右两侧坐标排布的起始位置
@@ -114,6 +117,16 @@ jQuery.extend(pie.mindmap, {
 		  _r(child, origin[pos].left, origin[pos].top, is_left);
 		  origin[pos].top += child.real_subtree_box_height() + Y_GAP;
 		});
+  },
+  
+  do_nodes_pos_animate : function(R){
+    R.paper_elm.find('.node').each(function(){
+      var elm = jQuery(this);
+      var node = R.get(elm.data('id'));
+      if(null != node.parent){
+        node.do_pos_animate();
+      }
+    })
   },
   
   draw_lines : function(R){
