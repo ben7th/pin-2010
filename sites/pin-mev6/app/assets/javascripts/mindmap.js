@@ -1,7 +1,7 @@
 //=require jquery.hash.js
 // 使用一个简单的 jQuery hash 来进行一些基本的页面缓存
 
-//=require mindmap-node-compute.js
+//=require mindmap-data.js
 // 用来计算节点宽高的函数库
 
 //=require mindmap-classical-layout.js
@@ -19,6 +19,7 @@ jQuery.fn.pie_mindmap = function(options){
 		paper_elm  : jQuery('<div class="paper"></div>').appendTo(this), // 放置节点的画布对象
 		canvas_elm : jQuery('<canvas></canvas>').prependTo(this).hide(),
 		data       : null, // 从/mindmaps/:id.js 载回的json-object对象
+		data_kv    : {}
 	}
 
   jQuery.ajax({

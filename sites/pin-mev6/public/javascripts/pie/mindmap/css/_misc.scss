@@ -22,7 +22,7 @@
   filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$from}',endColorstr='#{$to}');
 }
 
-@mixin pie-pad($from,$to,$radius=4px){
+@mixin pie-pad($from,$to,$radius:4px){
   @include gradient($from,$to);
   @include border-radius($radius);
   @include box-shadow(0 1px 4px rgba(0,0,0,0.3));
