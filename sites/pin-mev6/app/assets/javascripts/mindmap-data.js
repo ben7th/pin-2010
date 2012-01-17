@@ -154,9 +154,11 @@ pie.mindmap.node_methods = {
   	      if(is_visible){
   	        // 如果本来就看得见，则只是移动
   	        elm.stop().animate({'left':left, 'top':top}, RELAYOUT_ANIMATION_PERIOD);
+  	        //elm.css({'left':left, 'top':top});
 	        }else{
 	          // 如果本来看不见，则渐现
 	          elm.show().css('opacity',0).animate({'left':left, 'top':top, 'opacity':1}, RELAYOUT_ANIMATION_PERIOD);
+	          //elm.show().css({'left':left, 'top':top});
 	        }
 	        break;
   	    }
@@ -164,6 +166,7 @@ pie.mindmap.node_methods = {
   	      if(is_visible){
   	        // 如果本来看得见，渐隐
   	        elm.delay(R._ani_delay).animate({'left':left, 'top':top, 'opacity':0}, RELAYOUT_ANIMATION_PERIOD, function(){elm.hide()});
+  	        //elm.hide().css({'left':left, 'top':top});
   	      }else{
   	        // 如果本来看不见，则只是修改属性
   	        elm.css({'left':left, 'top':top});
