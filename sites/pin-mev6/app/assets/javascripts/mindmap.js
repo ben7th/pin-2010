@@ -12,6 +12,9 @@ jQuery.fn.pie_mindmap = function(options){
   options.NODE_X_GAP = 48; // 节点的水平相邻间距
   options.FD_RADIUS  = 8;  // 折叠点半径
   options._FD_CANVAS_OFFSET = 14; // (FD_RADIUS - 1)*2
+  
+  options.INIT_ANIMATION_PERIOD = 800;
+  options.RELAYOUT_ANIMATION_PERIOD = 400;
 
   var R = {
     options    : options,

@@ -2,58 +2,72 @@ pie.mindmap = pie.mindmap || {};
 
 jQuery.extend(pie.mindmap, {
   
-  init_paper : function(R){
+  init_paper : function(R, is_first_time_load){
     var root = R.data;
     
 		var left_children_boxes_total_width  = root.left_children_boxes_total_width();
-		var right_children_boxes_total_width = root.right_children_boxes_total_width();
 		
 		// 求出导图可见部分的高度和宽度
 		// 设置paper_elm尺寸，根据导图大小乘以一个常数来决定
-		var visible_height = jQuery.array([
-		  root.left_children_boxes_total_height(),
-		  root.height,
-		  root.right_children_boxes_total_height(),
-		]).max();
-		
-		var visible_width = (
-		  left_children_boxes_total_width +
-		  root.width + 
-		  right_children_boxes_total_width
-	  );
+		var visible_height = root.visible_height();
+		var visible_width = root.visible_width();
 	  
 		var paper_height = visible_height * 20;
-		var paper_width  = visible_width * 20;
-
-		// 设置导图的中心点相对画布的偏移量，在经典布局下，导图中心点就是根节点的左上角
-		// 之所导图中心点不对正根节点的中心点，是因为根节点改变大小时，左上角的位置是固定不变的
-		// 这样比较好处理
-		R.paper_elm.css({
-		  'width'  : paper_width,
-		  'height' : paper_height,
-		  'left'   : paper_width, 
-			'top'    : paper_height
-		});
+		var paper_width  = visible_width  * 20;
 		
-		R.board_elm
-		  .scrollLeft(paper_width  + root.width /2 - R.board_elm.width() /2)
-		  .scrollTop( paper_height + root.height/2 - R.board_elm.height()/2);
+		var root_y_off = (visible_height - root.height)/2;
+		// 以上纯计算
+
+		if(is_first_time_load){
+  		// 设置导图的中心点相对画布的偏移量，在经典布局下，导图中心点就是根节点的左上角
+  		// 之所导图中心点不对正根节点的中心点，是因为根节点改变大小时，左上角的位置是固定不变的
+  		// 这样比较好处理
+  		// 这个只设置一次，一般不改了
+		  
+		  // 设置paper的宽高和位置
+  		R.paper_elm.css({
+  		  'width'  : paper_width,
+  		  'height' : paper_height,
+  		  'left'   : paper_width, 
+  			'top'    : paper_height
+  		});
+  		
+  		// 设置board的scroll值，以保证root显示在正中心
+  		R.board_elm
+  		  .scrollLeft(paper_width  + root.width /2 - R.board_elm.width() /2)
+  		  .scrollTop( paper_height + root.height/2 - R.board_elm.height()/2);
     
-    // canvas elm
-	  var top_offset = (root.height - visible_height)/2;
-    
-		R.canvas_elm
-  		.css({
-  		  'left' : paper_width  - left_children_boxes_total_width,
-  		  'top'  : paper_height + top_offset
-  		})
-  		.attr('width',  visible_width)
-  		.attr('height', visible_height)
-  		.delay(800).fadeIn(800);
+      // 设置canvas的位置和宽高
+  		R.canvas_elm
+    		.css({
+    		  'left' : paper_width  - left_children_boxes_total_width,
+    		  'top'  : paper_height - root_y_off
+    		})
+  		
+    	var INIT_ANIMATION_PERIOD = R.options.INIT_ANIMATION_PERIOD
+    	R.canvas_elm
+    		.attr('width',  visible_width)
+    		.attr('height', visible_height)
+    		.delay(INIT_ANIMATION_PERIOD).fadeIn(INIT_ANIMATION_PERIOD);
+    		
+		}else{
+		  // 重新排列时，只重新设置canvas的位置
+  		R.canvas_elm
+    		.css({
+    		  'left' : R.paper_elm.width()  - left_children_boxes_total_width,
+    		  'top'  : R.paper_elm.height() - root_y_off
+    		})
+    	
+    	var RELAYOUT_ANIMATION_PERIOD = R.options.RELAYOUT_ANIMATION_PERIOD
+    	R.canvas_elm
+    		.attr('width',  visible_width)
+    		.attr('height', visible_height)
+    		.hide().delay(RELAYOUT_ANIMATION_PERIOD).fadeIn(RELAYOUT_ANIMATION_PERIOD);
+		}
     
   	R.ctx = R.canvas_elm[0].getContext("2d");
   	R.ctx.clearRect(0, 0, visible_width, visible_height);
-    R.ctx.translate(left_children_boxes_total_width, -top_offset);
+    R.ctx.translate(left_children_boxes_total_width, root_y_off);
     R.ctx.fillStyle = '#555';
   },
   
@@ -61,7 +75,7 @@ jQuery.extend(pie.mindmap, {
 		/* 喵~ 这就是经典布局的节点排布函数乐~~
 		 * 经典布局将一级子节点（first_level_nodes）排布在root节点的左右两侧，均匀地树状展开
 		 */
-		pie.mindmap.init_paper(R);
+		pie.mindmap.init_paper(R, true);
     pie.mindmap.set_nodes_positions(R);
     R.next_animation_mode = 'init';
     pie.mindmap.do_nodes_pos_animate(R);
@@ -69,7 +83,7 @@ jQuery.extend(pie.mindmap, {
   },
   
   do_relayout_classical : function(R, mode){
-		pie.mindmap.init_paper(R);
+    pie.mindmap.init_paper(R, false);
     pie.mindmap.set_nodes_positions(R);
     R.next_animation_mode = mode;
     pie.mindmap.do_nodes_pos_animate(R);

@@ -129,7 +129,10 @@ z-index 顺序
       overflow:hidden;
       overflow:scroll;
       
-      canvas{position:absolute;/*background-color:rgba(#aaa,0.1);*/}
+      canvas{
+        position:absolute;
+        //background-color:rgba(#aaa,0.1);
+      }
       
       .paper{
         //background-color:rgba(#000,0.1);

@@ -127,11 +127,14 @@ pie.mindmap.node_methods = {
 	  var elm  = this.elm;
 	  var animation_flag = this.animation_flag;
 	  var is_visible = elm.is(':visible');
+	  var R = this.R;
+	  
+	  if(left == this.old_left && top == this.old_top) return;
 	  
 	  if('init' == mode){
   	  switch(animation_flag){
   	    case 'show':{
-  	      elm.animate({'left':left, 'top':top}, 800);
+  	      elm.animate({'left':left, 'top':top}, R.options.INIT_ANIMATION_PERIOD);
   	      break;
   	    }
   	    case 'hide':{
@@ -144,25 +147,29 @@ pie.mindmap.node_methods = {
 	  }
 	  
 	  if('folding' == mode){
+	    var RELAYOUT_ANIMATION_PERIOD = R.options.RELAYOUT_ANIMATION_PERIOD;
+	    
   	  switch(animation_flag){
   	    case 'show':{
   	      if(is_visible){
   	        // 如果本来就看得见，则只是移动
-  	        elm.stop().animate({'left':left, 'top':top}, 400);
+  	        elm.stop().animate({'left':left, 'top':top}, RELAYOUT_ANIMATION_PERIOD);
 	        }else{
 	          // 如果本来看不见，则渐现
-	          elm.show().css('opacity',0).animate({'left':left, 'top':top, 'opacity':1}, 400);
+	          elm.show().css('opacity',0).animate({'left':left, 'top':top, 'opacity':1}, RELAYOUT_ANIMATION_PERIOD);
 	        }
-  	    };break;
+	        break;
+  	    }
   	    case 'hide':{
   	      if(is_visible){
   	        // 如果本来看得见，渐隐
-  	        elm.animate({'left':left, 'top':top, 'opacity':0}, 400, function(){elm.hide()});
+  	        elm.animate({'left':left, 'top':top, 'opacity':0}, RELAYOUT_ANIMATION_PERIOD, function(){elm.hide()});
   	      }else{
   	        // 如果本来看不见，则只是修改属性
   	        elm.css({'left':left, 'top':top});
 	        }
-  	    };break;
+	        break;
+  	    }
   	  }
   	  return; 
 	  }
@@ -275,8 +282,23 @@ pie.mindmap.root_methods = {
   // 所有右侧子节点显示宽度
   right_children_boxes_total_width : function(){
     return this._util_compute_children_width(this.right_children());
-  }
+  },
   
+  // 当前可见的部分的高度
+  visible_height : function(){
+    return jQuery.array([
+		  this.left_children_boxes_total_height(),
+		  this.height,
+		  this.right_children_boxes_total_height(),
+		]).max();
+  },
+  
+  // 当前可见的部分的宽度
+  visible_width : function(){
+    return this.left_children_boxes_total_width() +
+  	       this.width + 
+  	       this.right_children_boxes_total_width();
+  }
 }
 
 /////////////////
@@ -351,7 +373,7 @@ jQuery.extend(pie.mindmap, {
   		  var full_image_src = node.image.url.replace('/thumb/','/original/');
   	    var img_elm = jQuery('<img style="display:none;" src="'+full_image_src+'" />');
   	    box_elm.append(img_elm);
-        img_elm.bind('load',function(){    
+        img_elm.bind('load',function(){
           img_elm.fadeIn(500);
           
           var iw = img_elm.width();

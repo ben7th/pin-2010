@@ -162,8 +162,7 @@ z-index 顺序
       overflow: hidden;
       overflow: scroll; }
       .page-mindmap-editor-2012 .main .board canvas {
-        position: absolute;
-        /*background-color:rgba(#aaa,0.1);*/ }
+        position: absolute; }
       .page-mindmap-editor-2012 .main .board .paper {
         position: absolute;
         overflow: visible;
