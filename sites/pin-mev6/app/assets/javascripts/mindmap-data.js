@@ -163,7 +163,7 @@ pie.mindmap.node_methods = {
   	    case 'hide':{
   	      if(is_visible){
   	        // 如果本来看得见，渐隐
-  	        elm.animate({'left':left, 'top':top, 'opacity':0}, RELAYOUT_ANIMATION_PERIOD, function(){elm.hide()});
+  	        elm.delay(R._ani_delay).animate({'left':left, 'top':top, 'opacity':0}, RELAYOUT_ANIMATION_PERIOD, function(){elm.hide()});
   	      }else{
   	        // 如果本来看不见，则只是修改属性
   	        elm.css({'left':left, 'top':top});

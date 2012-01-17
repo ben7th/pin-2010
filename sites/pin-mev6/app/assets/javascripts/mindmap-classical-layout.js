@@ -62,11 +62,11 @@ jQuery.extend(pie.mindmap, {
     	R.canvas_elm
     		.attr('width',  visible_width)
     		.attr('height', visible_height)
-    		.hide().delay(RELAYOUT_ANIMATION_PERIOD).fadeIn(RELAYOUT_ANIMATION_PERIOD);
+    		//.hide().delay(RELAYOUT_ANIMATION_PERIOD).fadeIn(RELAYOUT_ANIMATION_PERIOD);
 		}
     
   	R.ctx = R.canvas_elm[0].getContext("2d");
-  	R.ctx.clearRect(0, 0, visible_width, visible_height);
+  	//R.ctx.clearRect(0, 0, visible_width, visible_height); 由于每次都重设宽高，因此这步免了
     R.ctx.translate(left_children_boxes_total_width, root_y_off);
     R.ctx.fillStyle = '#555';
   },
@@ -87,7 +87,15 @@ jQuery.extend(pie.mindmap, {
     pie.mindmap.set_nodes_positions(R);
     R.next_animation_mode = mode;
     pie.mindmap.do_nodes_pos_animate(R);
-		pie.mindmap.draw_lines(R);
+		// pie.mindmap.draw_lines(R, 0.1); return;
+		// 动画运行400毫秒，取40ms一帧，一共10帧
+		var frame_count = 1;
+		var timer = setInterval(function(){
+		  R.ctx.clearRect(-1000, -1000, 10000, 10000);
+		  pie.mindmap.draw_lines(R, frame_count/10);
+		  frame_count++;
+		  if(frame_count == 11) clearInterval(timer); // 循环10次
+		},0)
   },
   
   set_nodes_positions : function(R){
@@ -157,7 +165,7 @@ jQuery.extend(pie.mindmap, {
     R.next_animation_mode = null;
   },
   
-  draw_lines : function(R){
+  draw_lines : function(R, animation_progress){
     var root = R.data
     var ctx = root.R.ctx;
     
@@ -167,10 +175,15 @@ jQuery.extend(pie.mindmap, {
     jQuery.each(root.children, function(index, child){
       var is_left = ('left' == child.pos);
       
-      pie.mindmap._draw_node(child, is_left);
+      pie.mindmap._draw_node(child, is_left, animation_progress);
       
       var x2 = is_left ? child.left + child.width : child.left;
-      var y2 = child.y_center;
+      var y2;
+      if(animation_progress){
+        y2 = child.old_top + (child.top - child.old_top)*animation_progress + child.height/2;
+      }else{
+        y2 = child.y_center;
+      }
       pie.mindmap._draw_line(ctx, x1, y1, x2, y2, 4);  
     })
   },
@@ -207,7 +220,7 @@ jQuery.extend(pie.mindmap, {
     ctx.fill();
   },
   
-	_draw_node : function(node, is_left){
+	_draw_node : function(node, is_left, animation_progress){
 	  if(node.closed) return;
 	  var R = node.R;
 	  
@@ -215,13 +228,23 @@ jQuery.extend(pie.mindmap, {
 	  var _FD_CANVAS_OFFSET = R.options._FD_CANVAS_OFFSET;
 	  
 	  var x1 = is_left ? node.left - _FD_CANVAS_OFFSET : node.left + node.width + _FD_CANVAS_OFFSET;
-	  var y1 = node.y_center;
+	  var y1;
+    if(animation_progress){
+      y1 = node.old_top + (node.top - node.old_top)*animation_progress + node.height/2;
+    }else{
+      y1 = node.y_center;
+    }
 	  
     jQuery.each(node.children, function(index, child){
       pie.mindmap._draw_node(child, is_left);
       
       var x2 = is_left ? (child.left + child.width) : (child.left);
-      var y2 = child.y_center;
+      var y2;
+      if(animation_progress){
+        y2 = child.old_top + (child.top - child.old_top)*animation_progress + child.height/2;
+      }else{
+        y2 = child.y_center;
+      }
       
       pie.mindmap._draw_line(ctx, x1, y1, x2, y2, 3);
     })
