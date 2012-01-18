@@ -1,5 +1,7 @@
 // 加载导图所需的各个组件。组件互不依赖，逻辑解耦，顺序不限。
 
+//=require jquery.hotkeys.js
+
 //=require mindmap-hash.js
 // 一个简单的Hash类实现 pie.Hash
 
@@ -10,6 +12,9 @@
 //=require mindmap-classical-layout.js
 //=require mindmap-classical-layout-lines.js
 //=require mindmap-folding.js
+//=require mindmap-focus.js
+
+//=require mindmap.edit-event.js
 
 jQuery.fn.pie_mindmap = function(options){
   options.NODE_Y_GAP = 12; // 节点的垂直相邻间距
@@ -28,8 +33,14 @@ jQuery.fn.pie_mindmap = function(options){
     
     // node_hash
     node_hash  : new pie.Hash(),
+    n_count : function(){
+      return R.node_hash.size;
+    },
     enter : function(node){
       R.node_hash.set(node.id, node);
+    },
+    drop : function(node){
+      R.node_hash.remove(node.id);
     },
     get : function(node_id){
       return R.node_hash.get(node_id);
@@ -63,7 +74,10 @@ jQuery.fn.pie_mindmap = function(options){
       load_ext(pie.mindmap.classical_layout);
         load_ext(pie.mindmap.classical_layout_lines);
         load_ext(pie.mindmap.folding);
+      load_ext(pie.mindmap.focus);
   
+  // 编辑相关事件。。
+  //  load_ext(pie.mindmap.edit_events);
   
   // 基础拖拽事件
   R.paper_elm

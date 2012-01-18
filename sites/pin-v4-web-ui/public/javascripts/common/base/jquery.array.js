@@ -28,6 +28,12 @@ jQuery.extend({
 		    re.push(func(item));
 		  })
 		  return jQuery.array(re);
+		},
+		
+		without:function(value){
+		  return this.select(function(item){
+        return value != item;
+			})
 		}
   },
 	array: function(arr) {

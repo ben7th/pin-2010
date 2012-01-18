@@ -110,6 +110,9 @@ pie.mindmap.doms = {
   init : function(R){
     var root = R.data;
     
+    root.left = 0;
+    root.top  = 0;
+    
     R.each_do(function(node){
       node._build_elm();
       node.recompute_box_size();
