@@ -16,9 +16,9 @@ pie.mindmap.folding = {
       
       this.each_zuxian(function(nd){
         nd.canvas_elm.hide();
-        nd.redraw_line = true;
+        nd.will_redraw_self_line = true;
       })
-      this.redraw_all_line = true;
+      this.will_redraw_subtree_line = true;
       //deal in pie.mindmap.classical_layout
       
       FOLDING.do_folding_relayout(this.R);

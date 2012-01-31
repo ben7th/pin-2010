@@ -117,7 +117,10 @@ pie.mindmap.classical_layout = {
     // 根据 mode 来确定如何执行动画
     // 调用此方法前必须给上述属性赋值
     // init: show - 动画移动 .8s; hide - 直接隐藏
-    do_pos_animate : function(mode){      
+    do_pos_animate : function(){
+      var R = this.R;
+      var mode = R.next_animation_mode;
+      
       var left = this.left; var move_x = this.left - this.old_left;
       var top  = this.top;  var move_y = this.top  - this.old_top;
       
@@ -127,7 +130,6 @@ pie.mindmap.classical_layout = {
       var canvas_elm = this.canvas_elm;
       var animation_flag = this.animation_flag;
       var is_visible = elm.is(':visible');
-      var R = this.R;
       var closed = this.closed;
       
       if('init' == mode){
@@ -298,17 +300,17 @@ pie.mindmap.classical_layout = {
     }
     
     R.each_do(function(node){
-      node.do_pos_animate(R.next_animation_mode);
+      node.do_pos_animate();
       
       // see pie.mindmap.folding
-      if(!!node.redraw_line){
+      if(!!node.will_redraw_self_line){
         node.draw_self_lines();
-        node.redraw_line = false;
+        node.will_redraw_self_line = false;
       }
       
-      if(!!node.redraw_all_line){
+      if(!!node.will_redraw_subtree_line){
         node.draw_lines(true);
-        node.redraw_all_line = false;
+        node.will_redraw_subtree_line = false;
       }
     })
     
