@@ -1,3 +1,5 @@
+// 用来包装坐标点的类，此处的坐标并非笛卡尔坐标
+// 而是css中的left和top
 pie.mindmap.point = function(x, y){
   this.x = x;
   this.y = y;
@@ -42,7 +44,7 @@ pie.mindmap.draw = {
 
 pie.mindmap.classical_layout_lines = {
   shared_methods : {
-    draw_lines : function(stop_fadein){
+    draw_subtree_lines : function(stop_fadein){
       if(this.closed) return;
       
       var DRAW = pie.mindmap.draw;
@@ -52,7 +54,7 @@ pie.mindmap.classical_layout_lines = {
       var start_point = this.line_start_point();
       
       jQuery.each(this.children, function(index, child){
-        child.draw_lines(stop_fadein);
+        child.draw_subtree_lines(stop_fadein);
         
         var end_point = child.line_end_point();
         DRAW.draw_a_line(ctx, start_point, end_point, line_width);
@@ -78,7 +80,6 @@ pie.mindmap.classical_layout_lines = {
       })
       
       this.canvas_elm.show();
-      //this.canvas_elm.delay(this.R.options.INIT_ANIMATION_PERIOD).fadeIn(this.R.options.RELAYOUT_ANIMATION_PERIOD);
     }
   },
   
@@ -92,11 +93,12 @@ pie.mindmap.classical_layout_lines = {
       var ch = this.visible_height();
       var ct = - (ch - this.height) / 2;
       
-      this.canvas_elm.css({'left':cl, 'top':ct});
-      this.canvas_elm[0].width = cw;
-      this.canvas_elm[0].height = ch;
+      this.canvas_elm
+        .css({'left':cl, 'top':ct})
+        .attr('width', cw)
+        .attr('height', ch);
       
-      var ctx = this.canvas_elm[0].getContext("2d");
+      var ctx = this.canvas_elm[0].getContext('2d');
       ctx.translate(X_GAP, (ch - this.height)/2);
       ctx.fillStyle = '#555';
       
@@ -124,14 +126,15 @@ pie.mindmap.classical_layout_lines = {
       var ch = this.real_subtree_box_height(); 
       var ct = this.top - this.node_box_top_offset();
       
-      this.canvas_elm.css({'left':cl, 'top':ct});
-      this.canvas_elm[0].width = cw;
-      this.canvas_elm[0].height = ch;
+      this.canvas_elm
+        .css({'left':cl, 'top':ct})
+        .attr('width', cw)
+        .attr('height', ch);
       
-      var ctx = this.canvas_elm[0].getContext("2d");
+      var ctx = this.canvas_elm[0].getContext('2d');
       
       if(is_left){
-        ctx.translate(X_GAP - this.left, this.node_box_top_offset() - this.top)
+        ctx.translate(       X_GAP - this.left, this.node_box_top_offset() - this.top)
       }else{
         ctx.translate(- this.width - this.left, this.node_box_top_offset() - this.top);
       }
@@ -159,6 +162,6 @@ pie.mindmap.classical_layout_lines = {
   init : function(R){
     var LAYOUT_LINES = pie.mindmap.classical_layout_lines;
     
-    R.data.draw_lines();
+    R.data.draw_subtree_lines();
   }
 }

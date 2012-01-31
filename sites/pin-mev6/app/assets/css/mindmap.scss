@@ -184,7 +184,7 @@ z-index 顺序
           border-style:solid;
           border-color:rgba(darken(#3E9EFF, 10%), 0.9);
           border-width:6px 2px 2px;
-          @include border-radius(2px);
+          @include border-radius(1px);
         }
         
         .mousehover_box{

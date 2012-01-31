@@ -11,7 +11,7 @@ pie.mindmap.edit_events = {
   },
   
   root_methods : {
-    do_delete : function(){}
+    do_delete : function(){/* nothing 根节点永远不被删除*/}
   },
   
   node_methods : {    

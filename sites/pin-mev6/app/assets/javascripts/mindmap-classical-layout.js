@@ -309,7 +309,7 @@ pie.mindmap.classical_layout = {
       }
       
       if(!!node.will_redraw_subtree_line){
-        node.draw_lines(true);
+        node.draw_subtree_lines(true);
         node.will_redraw_subtree_line = false;
       }
     })

@@ -19,7 +19,7 @@ pie.mindmap.folding = {
         nd.will_redraw_self_line = true;
       })
       this.will_redraw_subtree_line = true;
-      //deal in pie.mindmap.classical_layout
+      //以上两个状态标记变量在 pie.mindmap.classical_layout 中被处理
       
       FOLDING.do_folding_relayout(this.R);
     }
