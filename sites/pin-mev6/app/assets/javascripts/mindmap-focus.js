@@ -1,19 +1,21 @@
 pie.mindmap.focus = {
   shared_methods :{
     focus : function(){
-      jQuery(this.R.board_elm).find('.node').removeClass('focus');
+      var R = this.R;
       
-      this.R.focus_node = this;
+      jQuery(R.board_elm).find('.node').removeClass('focus');
+      
+      R.focus_node = this;
       this.elm.addClass('focus');
       
-      this.R.focus_elm.css({
+      R.focus_elm.css({
         'left'   : this.left -2-1,
         'top'    : this.top  -6-1,
         'width'  : this.width  +2,
         'height' : this.height +2
       })
       
-      this.R.hover_elm.hide();
+      R.hover_elm.hide();
     },
     
     mousehover : function(){      
@@ -46,7 +48,5 @@ pie.mindmap.focus = {
       .live('mouseleave', function(){
         R.hover_elm.hide();
       })
-    
-    
   }
 }

@@ -152,7 +152,8 @@ z-index 顺序
       position:absolute;
       top:0;bottom:0;left:0;right:0;
       margin:10px;
-      background-color:#fafafa;
+      background:url(mindmap_grid.gif) #fafafa;
+      //background-color:#fafafa;
       border:solid 1px #ccc;
       box-shadow:0 0 5px rgba(#aaa, 0.4);
       overflow:hidden;

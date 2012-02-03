@@ -178,7 +178,7 @@ z-index 顺序
       left: 0;
       right: 0;
       margin: 10px;
-      background-color: #fafafa;
+      background: url(mindmap_grid.gif) #fafafa;
       border: solid 1px #ccc;
       box-shadow: 0 0 5px rgba(170, 170, 170, 0.4);
       overflow: hidden;

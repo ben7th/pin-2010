@@ -133,9 +133,11 @@ pie.mindmap.classical_layout = {
       var closed = this.closed;
       
       if('init' == mode){
+        var PERIOD = R.options.INIT_ANIMATION_PERIOD; //0.8s default
+        
         switch(animation_flag){
           case 'show':{
-            elm.animate({'left':left, 'top':top}, R.options.INIT_ANIMATION_PERIOD);
+            elm.animate({'left':left, 'top':top}, PERIOD);
             break;
           }
           case 'hide':{
@@ -148,28 +150,28 @@ pie.mindmap.classical_layout = {
       }
       
       if('folding' == mode){
-        var RELAYOUT_ANIMATION_PERIOD = R.options.RELAYOUT_ANIMATION_PERIOD;
+        var PERIOD = R.options.RELAYOUT_ANIMATION_PERIOD; //0.4s default
         
         switch(animation_flag){
           case 'show':{
             if(is_visible){
               // 如果本来就看得见，则只是移动
-              elm.stop().animate({'left':left, 'top':top}, RELAYOUT_ANIMATION_PERIOD);
+              elm.stop().animate({'left':left, 'top':top}, PERIOD);
               //elm.css({'left':left, 'top':top});
-              canvas_elm.animate({'left':'+='+move_x, 'top':'+='+move_y},RELAYOUT_ANIMATION_PERIOD);
+              canvas_elm.animate({'left':'+='+move_x, 'top':'+='+move_y}, PERIOD);
             }else{
               // 如果本来看不见，则渐现
-              elm.show().css('opacity',0).animate({'left':left, 'top':top, 'opacity':1}, RELAYOUT_ANIMATION_PERIOD);
+              elm.show().css('opacity',0).animate({'left':left, 'top':top, 'opacity':1}, PERIOD);
               //elm.show().css({'left':left, 'top':top});
-              if(!closed) canvas_elm.delay(RELAYOUT_ANIMATION_PERIOD).fadeIn(RELAYOUT_ANIMATION_PERIOD);
+              if(!closed) canvas_elm.delay(PERIOD).fadeIn(PERIOD);
             }
             break;
           }
           case 'hide':{
             if(is_visible){
               // 如果本来看得见，渐隐
-              elm.delay(R._ani_delay).animate({'left':left, 'top':top, 'opacity':0}, RELAYOUT_ANIMATION_PERIOD, function(){elm.hide()});
-              //canvas_elm.fadeOut(RELAYOUT_ANIMATION_PERIOD);
+              elm.delay(R._ani_delay).animate({'left':left, 'top':top, 'opacity':0}, PERIOD, function(){elm.hide()});
+              //canvas_elm.fadeOut(PERIOD);
               canvas_elm.hide();
               //elm.hide().css({'left':left, 'top':top});
             }else{
@@ -296,13 +298,13 @@ pie.mindmap.classical_layout = {
   
   do_nodes_pos_animate : function(R){
     if(null == R.next_animation_mode){
-      throw "YOU MUST SET R.next_animation_mode VALUE BEFORE CALL do_nodes_pos_animate()";
+      throw 'YOU MUST SET R.next_animation_mode VALUE BEFORE CALL do_nodes_pos_animate()';
     }
     
     R.each_do(function(node){
       node.do_pos_animate();
       
-      // see pie.mindmap.folding
+      // SEE pie.mindmap.folding
       if(!!node.will_redraw_self_line){
         node.draw_self_lines();
         node.will_redraw_self_line = false;
