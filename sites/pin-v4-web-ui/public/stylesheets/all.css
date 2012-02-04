@@ -5680,7 +5680,7 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   margin-left: 73px;
   margin-top: 5px; }
   .page-mindmaps-grids .gi {
-    margin: 10px;
+    margin: 0px;
     background-color: #f7f7f7;
     -moz-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
     -webkit-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
@@ -5689,37 +5689,37 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
   .page-mindmaps-grids .user-info {
     width: 152px;
     height: 152px;
-    padding: 6px; }
+    padding: 16px; }
   .page-mindmaps-grids .intro {
     width: 152px;
     height: 152px;
-    padding: 6px; }
+    padding: 16px; }
     .page-mindmaps-grids .intro .title {
       font-weight: bold;
       font-size: 32px; }
   .page-mindmaps-grids .weibo {
     width: 152px;
     height: 152px;
-    padding: 6px; }
+    padding: 16px; }
     .page-mindmaps-grids .weibo .title {
       font-weight: bold;
       font-size: 24px; }
   .page-mindmaps-grids .create-mindmap {
     width: 152px;
     height: 152px;
-    padding: 6px; }
+    padding: 16px; }
     .page-mindmaps-grids .create-mindmap form input {
       width: 140px; }
   .page-mindmaps-grids .import-mindmap {
     width: 152px;
     height: 152px;
-    padding: 6px; }
+    padding: 16px; }
     .page-mindmaps-grids .import-mindmap input.file {
       width: 140px; }
   .page-mindmaps-grids .mindmap {
     width: 152px;
     height: 152px;
-    padding: 6px;
+    padding: 16px;
     position: relative;
     @keyframes bgtoggle {
       from {

@@ -19,41 +19,41 @@
   // 152 + (1 + 6 + 10) * 2 = 186
   
   .gi{
-    margin:10px;background-color:#f7f7f7;
+    margin:0px;background-color:#f7f7f7;
     @include box-shadow(0 1px 5px rgba(#aaa, 0.4));
     border:solid 1px #ccc;
   }
   
   .user-info{
-    width:152px;height:152px;padding:6px;
+    width:152px;height:152px;padding:16px;
   }
   
   .intro{
-    width:152px;height:152px;padding:6px;
+    width:152px;height:152px;padding:16px;
     .title{font-weight:bold;font-size:32px;}
   }
   
   .weibo{
-    width:152px;height:152px;padding:6px;
+    width:152px;height:152px;padding:16px;
     .title{font-weight:bold;font-size:24px;}
   }
   
   .create-mindmap{
-    width:152px;height:152px;padding:6px;
+    width:152px;height:152px;padding:16px;
     form{
       input{width:140px;}
     }
   }
   
   .import-mindmap{
-    width:152px;height:152px;padding:6px;
+    width:152px;height:152px;padding:16px;
     input.file{
       width:140px;
     }
   }
   
   .mindmap{
-    width:152px;height:152px;padding:6px;
+    width:152px;height:152px;padding:16px;
     position:relative;
     
     $ani-time : .1s;

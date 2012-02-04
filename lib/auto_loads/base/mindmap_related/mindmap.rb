@@ -1,25 +1,20 @@
 class Mindmap < Mev6Abstract
   
-  class SendStatus
-    PUBLIC = "public"
-    PRIVATE = "private"
-  end
-  SEND_STATUSES = [
-    Mindmap::SendStatus::PUBLIC,
-    Mindmap::SendStatus::PRIVATE
-  ]
-  
   MINDMAP_IMAGE_BASE_PATH = "/web/2010/mindmap_images"
 
   belongs_to :user
   
   has_one :visit_counter, :as=>:resource
   has_one :mindmap_file
+  has_many :notes
+  belongs_to :mindmap_album
 
   # name_scopes
-  scope :publics,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PUBLIC}'"
-  scope :privacy,:conditions =>"mindmaps.send_status = '#{Mindmap::SendStatus::PRIVATE}'"
-
+  scope :publics,:conditions =>"mindmap_albums.send_status = '#{MindmapAlbum::SendStatus::PUBLIC}' or mindmap_albums.id is null",
+  :joins=>"left join mindmap_albums on mindmaps.mindmap_album_id = mindmap_albums.id"
+  scope :privacy,:conditions =>"mindmap_albums.send_status = '#{MindmapAlbum::SendStatus::PRIVATE}'",
+  :joins=>"left join mindmap_albums on mindmaps.mindmap_album_id = mindmap_albums.id"
+  
   scope :valueable,:conditions => ["weight > 0"]
   scope :of_user_id, lambda {|user_id|
     {:conditions=>['user_id = ?',user_id]}
@@ -128,11 +123,15 @@ class Mindmap < Mev6Abstract
   end
   
   def public?
-    self.send_status == Mindmap::SendStatus::PUBLIC
+    album = self.mindmap_album
+    return true if album.blank?
+    return album.send_status == MindmapAlbum::SendStatus::PUBLIC
   end
   
   def private?
-    self.send_status == Mindmap::SendStatus::PRIVATE
+    album = self.mindmap_album
+    return false if album.blank?
+    return album.send_status == MindmapAlbum::SendStatus::PRIVATE
   end
 
   def low_value?
