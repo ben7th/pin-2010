@@ -1,0 +1,8 @@
+=flash_info
+=form_tag "/products/#{@product.id}/update_server_develop_description", :method => :put do
+  %div
+    =label_tag "服务开发状态"
+    =text_area_tag "server_develop_description",@product.server_develop_description
+  %div
+    =submit_tag "修改"
+		

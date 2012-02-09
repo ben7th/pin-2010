@@ -41,5 +41,16 @@ Mindpin::Application.routes.draw do
 
   # others...
   get '/about' => 'help#about'
+  
+  # 导图相册
+  resources :albums do
+    member do
+      put :toggle_private
+      post :movein
+    end
+    collection do
+      post :moveout
+    end
+  end
 
 end

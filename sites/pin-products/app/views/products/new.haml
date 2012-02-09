@@ -1,0 +1,15 @@
+=flash_info
+=form_tag "/products", :method => :post do
+  %div
+    =label_tag "产品名"
+    =text_field_tag "name"
+  %div
+    =label_tag "产品代号"
+    =text_field_tag "code"
+  %div
+    =label_tag "产品描述"
+    =text_area_tag "description"
+  %div
+    =submit_tag "创建"
+  
+  

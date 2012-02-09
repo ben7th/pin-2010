@@ -7,7 +7,7 @@ self_dir=`dirname $0`
 . $self_dir/../function.sh
 processor_pid=/web/2010/pids/wake_up_resque_worker.pid
 
-runner_rb=$self_dir/../../sites/pin-user-auth/script/runner
+runner_rb=$self_dir/../../sites/pin-user-auth/script/rails
 
 worker_rb=$self_dir/../../sites/pin-user-auth/script/wake_up_resque_worker.rb
 
@@ -19,7 +19,7 @@ case "$1" in
   start)
     echo "start"
     assert_process_from_pid_file_not_exist $processor_pid
-    ruby $runner_rb -e $rails_env $worker_rb 1>>$log_path 2>>$log_path &
+    ruby $runner_rb runner -e $rails_env $worker_rb 1>>$log_path 2>>$log_path &
     echo $! > $processor_pid
     rc_status -v
   ;;

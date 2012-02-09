@@ -1,0 +1,45 @@
+%div 
+  %span 基本信息
+  =link_to "修改","/products/#{@product.id}/edit"
+%div
+  %span 产品名
+  %span=@product.name
+%div
+  %span 产品代号
+  %span=@product.code
+%div
+  %span 产品描述
+  %span=@product.description
+ 
+%hr
+%div 进度
+%div
+  %span 服务开发状态
+  %span=@product.server_develop_description
+  =link_to "修改","/products/#{@product.id}/edit_server_develop_description"
+%div
+  %span 网页前端开发状态
+  %span=@product.web_ui_develop_description
+  =link_to "修改","/products/#{@product.id}/edit_web_ui_develop_description"
+%div
+  %span 移动客户端开发状态
+  %span=@product.mobile_client_develop_description
+  =link_to "修改","/products/#{@product.id}/edit_mobile_client_develop_description"
+%div
+  %span 部署状态
+  %span=@product.deploy_description
+  =link_to "修改","/products/#{@product.id}/edit_deploy_description"
+%div
+  %span 难点
+  %span=@product.difficulty
+  =link_to "修改","/products/#{@product.id}/edit_difficulty"
+  
+%hr
+  =link_to "new Issue","/products/#{@product.id}/issues/new"
+  %div Issue List
+  -@product.issues.each do |issue|
+    %div
+      =link_to issue.content,"/issues/#{issue.id}"
+      %span=issue.status
+      -if !issue.done?
+        =link_to "解决","/issues/#{issue.id}/done",:method=>:put,:confirm=>"这个问题确定已经解决了吗？"

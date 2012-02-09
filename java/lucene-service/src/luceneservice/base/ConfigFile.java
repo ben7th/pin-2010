@@ -33,14 +33,6 @@ public class ConfigFile {
     return properties.getProperty(key);
   }
 
-  public String getNoteFullIndexPath() {
-    return getProperty("NOTE_FULL_INDEX_PATH");
-  }
-
-  public String getNoteNewestIndexPath() {
-    return getProperty("NOTE_NEWEST_INDEX_PATH");
-  }
-
   public String getMindmapIndexPath() {
     return getProperty("MINDMAP_INDEX_PATH");
   }

@@ -56,6 +56,7 @@ class ProjectManagement
       when "pin-user-auth" then "user"
       when "pin-mev6" then "mev6"
       when "pin-uni-schedule" then "schedule"
+      when "pin-products" then "products"
       else
         raise "#{project_name} 工程不存在"
       end
@@ -70,13 +71,15 @@ class ProjectManagement
         "/web/2010/pids/unicorn-mev6.pid"
       when "pin-uni-schedule"
         "/web/2010/pids/unicorn-uni-schedule.pid"
+      when "pin-products"
+        "/web/2010/pids/unicorn-products.pid"
       else
         raise "#{project_name} 工程不存在"
       end
     end
 
     def find_log_file_path_by_project_name(project_name)
-      if !["pin-user-auth","pin-mev6","pin-uni-schedule"].include?(project_name)
+      if !["pin-user-auth","pin-mev6","pin-uni-schedule","pin-products"].include?(project_name)
         raise "#{project_name} 工程不存在"
       end
       File.join(PIN_2010_PATH,"sites/#{project_name}/log/#{Rails.env}.log")

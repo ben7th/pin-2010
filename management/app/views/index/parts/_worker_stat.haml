@@ -1,14 +1,17 @@
-%td=worker_name
+:ruby
+  state     = WorkerManagement.state(worker_name)
+  has_start = WorkerManagement.start?(worker_name)
+  pid       = WorkerManagement.pid_count(worker_name)
+
+  state_klass = has_start ? 'running' : 'closed'
+
+%td.bold=worker_name
+%td{:class=>state_klass}=state
+%td=pid if has_start
+%td=link_to file_size(WorkerManagement.log_size(worker_name)),worker_log_path(:worker_name=>worker_name)
+%td=jtime(WorkerManagement.log_mtime(worker_name))
 %td
-  -if WorkerManagement.start?(worker_name)
-    ="#{WorkerManagement.state(worker_name)}(pid:#{WorkerManagement.pid_count(worker_name)})"
-  -else
-    =WorkerManagement.state(worker_name)
-%td=WorkerManagement.log_size(worker_name)
-%td=qdatetimefull(WorkerManagement.log_mtime(worker_name))
-%td
-  =link_to "查看日志",worker_log_path(:worker_name=>worker_name)
-  -if WorkerManagement.start?(worker_name)
+  -if has_start
     =link_to "停止",operate_worker_path(:operate=>"stop",:worker=>worker_name),:method=>"post"
   -else
     =link_to "开启",operate_worker_path(:operate=>"start",:worker=>worker_name),:method=>"post"

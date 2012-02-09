@@ -16,11 +16,10 @@
     css_class = css_class * ' '
     
   .mindmap.gi{:'data-id'=>id, :class=>css_class}
-    .title=title
     .thumb{:'data-src'=>thumb_src}
+    .title=title
     
     %a.open{:href=>open_url} 打开
     .ops
       -if is_owner
         %a.delete{:href=>'javascript:;'} 删除
-        %a.toggle{:href=>'javascript:;'} 切换公开私有

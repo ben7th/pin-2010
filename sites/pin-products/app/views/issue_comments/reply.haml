@@ -1,0 +1,11 @@
+=flash_info
+=form_tag "/issue_comments/#{@comment.id}/do_reply", :method => :post do
+  %div
+    =label_tag "原评论内容"
+    =@comment.content
+  %div
+    =label_tag "回复内容"
+    =text_area_tag "content"
+  %div
+    =submit_tag "回复评论"
+		

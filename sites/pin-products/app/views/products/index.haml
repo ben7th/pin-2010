@@ -1,0 +1,27 @@
+=link_to "新建","/products/new"
+%table
+  %thead
+    %tr
+      %th 产品名
+      %th 代号
+      %th 产品用途
+      %th 目前服务开发状态
+      %th 目前网页前段开发状态
+      %th 目前移动客户端开发状态
+      %th 目前部署状态
+      %th 难点
+  %tbody
+    -@products.each do |product|
+      %tr
+        %th=link_to product.name,"/products/#{product.id}"
+        %th=product.code
+        %th=product.description
+        %th=product.server_develop_description
+        %th=product.web_ui_develop_description
+        %th=product.mobile_client_develop_description
+        %th=product.deploy_description
+        %th=product.difficulty
+    
+
+
+

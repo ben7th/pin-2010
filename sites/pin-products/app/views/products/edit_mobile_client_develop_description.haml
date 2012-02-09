@@ -1,0 +1,8 @@
+=flash_info
+=form_tag "/products/#{@product.id}/update_mobile_client_develop_description", :method => :put do
+  %div
+    =label_tag "移动客户端开发状态"
+    =text_area_tag "mobile_client_develop_description",@product.mobile_client_develop_description
+  %div
+    =submit_tag "修改"
+		

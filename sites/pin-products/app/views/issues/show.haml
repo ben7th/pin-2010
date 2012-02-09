@@ -1,0 +1,28 @@
+%div
+  %span 所属产品
+  %span=@issue.product.name
+%div
+  %span 问题
+  %span=@issue.content
+%div
+  %span 状态
+  %span=@issue.status
+  -if !@issue.done?
+    =link_to "解决","/issues/#{@issue.id}/done",:method=>:put,:confirm=>"这个问题确定已经解决了吗？"
+    
+%hr
+  =flash_info
+  =form_tag "/issues/#{@issue.id}/issue_comments", :method => :post do
+    %div
+      =label_tag "评论内容"
+    %div
+      =text_area_tag "content"
+    %div
+      =submit_tag "发表评论"
+  %div 评论列表
+  -@issue.comments.each do |comment|
+    %div
+      %span=comment.content
+      %span=link_to "回复","/issue_comments/#{comment.id}/reply"
+ 
+		

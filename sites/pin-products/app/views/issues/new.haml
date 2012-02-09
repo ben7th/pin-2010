@@ -1,0 +1,11 @@
+=flash_info
+=form_tag "/products/#{@product.id}/issues", :method => :post do
+  %div
+    =label_tag "内容"
+    =text_area_tag "content"
+  %div
+    =submit_tag "创建"
+  
+  
+
+		

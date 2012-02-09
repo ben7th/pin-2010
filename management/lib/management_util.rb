@@ -9,7 +9,7 @@ class ManagementUtil
 
   def self.parse_ps_line(line)
     stat = line.split(" ")[2]
-    return "停止或者僵死" if %w(Z T).include?(stat)
+    return "状态异常" if %w(Z T).include?(stat)
     "正常运行"
   end
 

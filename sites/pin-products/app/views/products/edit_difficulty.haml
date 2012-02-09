@@ -1,0 +1,8 @@
+=flash_info
+=form_tag "/products/#{@product.id}/update_difficulty", :method => :put do
+  %div
+    =label_tag "部署状态"
+    =text_area_tag "difficulty",@product.difficulty
+  %div
+    =submit_tag "修改"
+		

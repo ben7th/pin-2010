@@ -1,0 +1,13 @@
+=flash_info
+=form_tag "/products/#{@product.id}", :method => :put do
+  %div
+    =label_tag "产品名"
+    =text_field_tag "product[name]",@product.name
+  %div
+    =label_tag "产品代号"
+    =text_field_tag "product[code]",@product.code
+  %div
+    =label_tag "产品描述"
+    =text_area_tag "product[description]",@product.description
+  %div
+    =submit_tag "修改"

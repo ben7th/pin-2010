@@ -1,0 +1,8 @@
+=flash_info
+=form_tag "/products/#{@product.id}/update_web_ui_develop_description", :method => :put do
+  %div
+    =label_tag "网页前段开发状态"
+    =text_area_tag "web_ui_develop_description",@product.web_ui_develop_description
+  %div
+    =submit_tag "修改"
+		
