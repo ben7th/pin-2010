@@ -8,6 +8,7 @@ def match_auth_routes
   post '/signup_submit' => 'account/signup#form_submit'
 end
 
+# -- 随机壁纸 --
 def match_login_wallpaper_routes
   get    '/zhi_ma_kai_men/login_wallpapers/new' => 'login_wallpapers#new'
   post   '/zhi_ma_kai_men/login_wallpapers'     => 'login_wallpapers#create'
@@ -18,232 +19,238 @@ def match_login_wallpaper_routes
   get '/login/wallpapers/:id/prev' => 'login_wallpapers#get_prev'
 end
 
-# -- 登录界面壁纸相关 --
-
-def match_activation_routes(map)  
-  # 请求参与测试 / 提交请求参与测试表单
-  match_get  map,'/apply'         => 'activation#apply'
-  match_post map,'/apply_submit'  => 'activation#apply_submit'
-
-  # 激活页面 / 激活请求表单提交
-  match_get  map,'/activation'        => 'activation#activation'
-  match_post map,'/activation_submit' => 'activation#activation_submit'
-end
-
-def match_user_routes(map)
-  map.resources :users,
-    :member=>{
-      :cooperate=>:get,
-      :feeds=>:get,
-      :viewpoints=>:get,
-      :favs=>:get,
-      :logs=>:get
-    },
-    :collection=>{
-      :fans=>:get,
-      :followings=>:get,
-      :reputation_rank=>:get,
-      :feeds_rank=>:get,
-      :viewpoints_rank=>:get
-    }
-
-  match_get  map,'/users/:user_id/fans'       => 'contacts#fans'
-  match_get  map,'/users/:user_id/followings' => 'contacts#followings'
-
-  match_post map,'/contacts/follow_mindpin' => 'contacts#follow_mindpin'
-  match_delete map,'/contacts/unfollow'       => 'contacts#unfollow'
-
-  match_get  map,'/contacts'       => 'contacts#index'
-  match_get  map,'/contacts/tsina' => 'contacts#tsina'
-end
-
-def match_forgot_password_routes(map)
-  map.namespace(:account) do |account|
-    match_get  account, 'forgot_password'                => 'forgot_password#form'
-    match_post account, 'forgot_password/submit'         => 'forgot_password#form_submit'
-    match_get  account, 'reset_password/:pw_code'        => 'forgot_password#reset'
-    match_put  account, 'reset_password_submit/:pw_code' => 'forgot_password#reset_submit'
+# -- 忘记密码 --
+def match_forgot_password_routes
+  namespace :account do
+    get  'forgot_password'                => 'forgot_password#form'
+    post 'forgot_password/submit'         => 'forgot_password#form_submit'
+    get  'reset_password/:pw_code'        => 'forgot_password#reset'
+    put  'reset_password_submit/:pw_code' => 'forgot_password#reset_submit'
   end
 end
 
-def match_account_routes(map)
-  map.namespace(:account) do |account|
+# -- 设置 --
+def match_account_routes
+  namespace :account do
     # 基本信息
-    match_get  account, "/"                     => "setting#base"
-    match_put  account, "/"                     => "setting#base_submit"
+    get  "/"                     => "setting#base"
+    put  "/"                     => "setting#base_submit"
 
     # 头像设置
-    match_get  account, "avatared"               => 'setting#avatared'
-    match_post account, "avatared_submit_raw"    => 'setting#avatared_submit_raw'
-    match_post account, "avatared_submit_copper" => 'setting#avatared_submit_copper'
+    get  "avatared"               => 'setting#avatared'
+    post "avatared_submit_raw"    => 'setting#avatared_submit_raw'
+    post "avatared_submit_copper" => 'setting#avatared_submit_copper'
 
-    match_get  account, "tsina"                 => "tsina#index"
+    get  "tsina"                 => "tsina#index"
     # 设置中点击“关联新浪微博账号”按钮
-    match_get  account, "tsina/connect"         => "tsina#connect"
+    get  "tsina/connect"         => "tsina#connect"
     # 设置中“关联新浪微博账号”的callback
-    match_get  account, "tsina/callback"        => "tsina#callback"
+    get  "tsina/callback"        => "tsina#callback"
     # 设置中“关联新浪微博账号”关联失败，新浪微博账号已经关联过别的账号
-    match_get  account, "tsina/connect_failure" => "tsina#connect_failure"
+    get  "tsina/connect_failure" => "tsina#connect_failure"
     # 关联新浪微博账号之后，在设置中手动更新新浪微博账号信息
-    match_post account, "tsina/update_info"     => "tsina#update_info"
+    post "tsina/update_info"     => "tsina#update_info"
     # 取消新浪微博账号与当前账号关联
-    match_post account, "tsina/disconnect"      => "tsina#disconnect"
+    post "tsina/disconnect"      => "tsina#disconnect"
 
     # --------- 社区用户设置
-    match_get  account, 'head_cover' => 'preferences#head_cover'
-    match_post account, 'head_cover' => 'preferences#head_cover_submit'
+    get  'head_cover' => 'preferences#head_cover'
+    post 'head_cover' => 'preferences#head_cover_submit'
   end
 end
 
-def match_connect_tsina_routes(map)
+# -- 新浪微博连接 --
+def match_connect_tsina_routes
   # 与关联确认和补充账号信息相关的逻辑
-  map.namespace(:account) do |account|
-    match_get  account, "tsina_signup"        => "tsina_signup#index"
-    match_post account, "tsina_signup/bind"   => "tsina_signup#bind"
-    match_post account, "tsina_signup/create" => "tsina_signup#create"
+  namespace :account do
+    get  "tsina_signup"        => "tsina_signup#index"
+    post "tsina_signup/bind"   => "tsina_signup#bind"
+    post "tsina_signup/create" => "tsina_signup#create"
   end
 
-  map.namespace(:account) do |account|
-    match_get  account, "complete"            => "complete#index"
-    match_post account, "complete/submit"     => "complete#submit"
+  namespace :account do
+    get  "complete"            => "complete#index"
+    post "complete/submit"     => "complete#submit"
   end
 end
 
-def match_feeds_routes(map)
-  map.resources :feeds,
-      :member=>{
-      :fav                  =>:post,
-      :unfav                =>:delete,
-      :mine_newer_than      =>:get,
-      :aj_comments          =>:get,
-      :viewpoint            =>:post,
-      :aj_viewpoint_in_list =>:post,
-      :update_detail        =>:put,
-      :update_content       =>:put,
-      :save_viewpoint_draft =>:post,
-      :recover              =>:put,
-      :add_tags             =>:post,
-      :remove_tag           =>:delete,
-      :change_tags          =>:put,
-      :lock                 =>:put,
-      :unlock               =>:put,
-      :repost               =>:get
-    },
-    :collection=>{
-      :friends    =>:get,
-      :newest     =>:get,
-      :recommend  =>:get,
-      :joined     =>:get,
-      :favs       =>:get,
-      :hidden     =>:get,
-      :no_reply   =>:get,
-      :search     =>:get,
-      :incoming   =>:get,
-      :public_timeline => :get
-    }
+# -- 内测与激活 --
+def match_activation_routes 
+  # 请求参与测试 / 提交请求参与测试表单
+  get  '/apply'         => 'activation#apply'
+  post '/apply_submit'  => 'activation#apply_submit'
 
-    match_post map, '/feeds/:feed_id/comments' => 'post_comments#create'
-    map.resources :post_comments, :collection=>{
-      :reply => :post
-    }
+  # 激活页面 / 激活请求表单提交
+  get  '/activation'        => 'activation#activation'
+  post '/activation_submit' => 'activation#activation_submit'
 end
 
-def match_viewpoints_routes(map)
-  map.create_viewpoint_comment "/viewpoints/:viewpoint_id/comments",:controller=>"viewpoint_comments",
-    :action=>"create",:conditions=>{:method=>:post}
-  map.viewpoint_aj_comments "/viewpoints/:viewpoint_id/aj_comments",:controller=>"viewpoint_comments",
-    :action=>"aj_comments"
-  map.destroy_viewpoint_comment "/viewpoint_comments/:id",:controller=>"viewpoint_comments",
-    :action=>"destroy",:conditions=>{:method=>:delete}
-  
-  map.create_viewpoint_feed "/viewpoints/:id/feeds",:controller=>"viewpoints",
-    :action=>"create_feed",:conditions=>{:method=>:post}
-
-end
-
-def match_channels_routes(map)
-  map.resources :channels,:collection=>{
-      :fb_orderlist=>:get,
-      :sort=>:put,
-      :none=>:get
-    },:member=>{
-      :add=>:put,
-      :remove=>:put,
-      :new_blog_post=>:get,
-      :add_users=>:post,
-      :newest_feed_ids=>:get
-    }
-
-  map.fans "/:user_id/channels",:controller=>"channels",:action=>"user_index"
-end
-
-def match_tags_routes(map)
-  map.resources :tags,:member=>{
-    :logo=>:put,:upload_logo=>:get,:atom=>:get,:aj_info=>:get,
-    :fav=>:post,:unfav=>:delete,:update_detail=>:put} do |tag|
-      tag.resources :tag_detail_revisions,:as=>"revisions"
+# -- 用户资源 --
+def match_user_routes
+  resources :users do
+    member do
+      get :cooperate
+      get :feeds
+      get :viewpoints
+      get :favs
+      get :logs
     end
-  map.resources :tag_detail_revisions,:member=>{:rollback=>:put}
+    collection do
+      get :fans
+      get :followings
+      get :reputation_rank
+      get :feeds_rank
+      get :viewpoints_rank
+    end
+  end
+
+  get  '/users/:user_id/fans'       => 'contacts#fans'
+  get  '/users/:user_id/followings' => 'contacts#followings'
+
+  post '/contacts/follow_mindpin'   => 'contacts#follow_mindpin'
+  delete '/contacts/unfollow'       => 'contacts#unfollow'
+
+  get  '/contacts'       => 'contacts#index'
+  get  '/contacts/tsina' => 'contacts#tsina'
 end
 
-def match_collections_routes(map)
-  map.resources :collections,
-    :member=>{
-      :change_name   => :put,
-      :change_sendto => :put,
-      :add_feed      => :put
-    }
-end
+def match_feeds_routes
+  resources :feeds do
+    member do
+      post   :fav
+      delete :unfav
+      get    :mine_newer_than
+      get    :aj_comments
+      post   :viewpoint
+      post   :aj_viewpoint_in_list
+      put    :update_detail
+      put    :update_content
+      post   :save_viewpoint_draft
+      put    :recover
+      post   :add_tags
+      delete :remove_tag
+      put    :change_tags
+      put    :lock
+      put    :unlock
+      get    :repost
+    end
+    collection do
+      get :friends
+      get :newest
+      get :recommend
+      get :joined
+      get :favs
+      get :hidden
+      get :no_reply
+      get :search
+      get :incoming
+      get :public_timeline
+    end
+  end
 
-def match_photos_and_entries_routes(map)
-  match_post map, '/photos/upload_for_feed' => 'photos#upload_for_feed'
-  match_post map, '/photos/import_image_url'=> 'photos#import_image_url'
-end
-
-def match_tsina_app_routes(map)
-  map.namespace(:apps) do |apps|
-    match_get apps, 'tsina/mindpin'              => 'tsina_app_mindpin#index'
-    match_get apps, 'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
-    match_get apps, 'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
-
-    match_get apps, 'tsina/tu'                   => 'tsina_app_tu#index'
-    match_get apps, 'tsina/tu/connect'           => 'tsina_app_tu#connect'
-    match_get apps, 'tsina/tu/callback'          => 'tsina_app_tu#callback'
-
-    match_get apps, 'tsina/schedule'             => 'tsina_app_schedule#index'
-    match_get apps, 'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
-    match_get apps, 'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
+  post '/feeds/:feed_id/comments' => 'post_comments#create'
+  resources :post_comments do
+    collection do
+      post :reply
+    end
   end
 end
 
-def match_weibo_routes(map)
-  map.namespace :web_weibo, :path_prefix=>'weibo' do |weibo|
-    match_get  weibo, '/'                   => 'timeline#home_timeline'  # 微博首页
-    match_get  weibo, '/users/:uid'         => 'timeline#user_timeline'  # 某用户的微博
-    weibo.connect '/trends/:trend_name', :controller=>'timeline', :action=>'trend_statuses', # 某话题的微博
-      :conditions => {:method => :get}, :requirements => {:trend_name => /.+/}
-
-    match_get  weibo, '/atmes'         => 'timeline#atmes'          # @我的
-    match_get  weibo, '/comments/byme' => 'timeline#comments_by_me' # 我发出的评论
-    match_get  weibo, '/comments/tome' => 'timeline#comments_to_me' # 我收到的评论
-
-    match_get  weibo, '/contacts/:uid/friends'   => 'contacts#friends'   #某用户的关注对象
-    match_get  weibo, '/contacts/:uid/followers' => 'contacts#followers' #某用户的粉丝
-
-    match_get  weibo, '/statuses/:mid'             => 'statuses#show'        # 单条微博显示
-    match_post weibo, '/statuses'                  => 'statuses#create'      # 发一条微博
-    match_post weibo, '/statuses/:mid/add_comment' => 'statuses#add_comment' # 发一条评论
-
-    match_get  weibo, '/unread'                    => 'statuses#unread' # 获取当前的未读微博数
-
-    match_get  weibo, '/cart'     => 'cart#index'
-    match_post weibo, '/cart/add' => 'cart#add'
+def match_channels_routes
+  resources :channels do
+    collection do
+      get :fb_orderlist 
+      put :sort
+      get :none
+    end
+    member do
+      put :add
+      put :remove
+      get :new_blog_post
+      post :add_users
+      get :newest_feed_ids
+    end
   end
 end
 
-def match_douban_routes(map)
-  map.namespace :web_douban, :path_prefix=>'douban' do |douban|
-    match_get  douban, '/' => 'events#index'
+def match_tags_routes
+  resources :tags do
+    member do
+      put :logo
+      get :upload_logo
+      get :atom
+      get :aj_info
+      post :fav
+      delete :unfav
+      put :update_detail
+    end
+    resources :tag_detail_revisions,:path=>"revisions"
+  end
+  resources :tag_detail_revisions do
+    member do
+      put :rollback
+    end
+  end
+end
+
+def match_collections_routes
+  resources :collections do
+    member do
+      put  :change_name
+      put :change_sendto
+      put :add_feed
+    end
+  end
+end
+
+def match_photos_and_entries_routes
+  post '/photos/upload_for_feed' => 'photos#upload_for_feed'
+  post '/photos/import_image_url'=> 'photos#import_image_url'
+end
+
+def match_tsina_app_routes
+  namespace(:apps) do
+    get 'tsina/mindpin'              => 'tsina_app_mindpin#index'
+    get 'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
+    get 'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
+
+    get 'tsina/tu'                   => 'tsina_app_tu#index'
+    get 'tsina/tu/connect'           => 'tsina_app_tu#connect'
+    get 'tsina/tu/callback'          => 'tsina_app_tu#callback'
+
+    get 'tsina/schedule'             => 'tsina_app_schedule#index'
+    get 'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
+    get 'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
+  end
+end
+
+def match_weibo_routes
+  namespace :web_weibo, :path=>'weibo' do
+    get '/'                           => 'timeline#home_timeline'  # 微博首页
+    get '/users/:uid'                 => 'timeline#user_timeline'  # 某用户的微博
+    get '/trends/:trend_name'         =>  'timeline#trend_statuses'
+
+    get   '/atmes'         => 'timeline#atmes'          # @我的
+    get   '/comments/byme' => 'timeline#comments_by_me' # 我发出的评论
+    get   '/comments/tome' => 'timeline#comments_to_me' # 我收到的评论
+
+    get   '/contacts/:uid/friends'   => 'contacts#friends'   #某用户的关注对象
+    get   '/contacts/:uid/followers' => 'contacts#followers' #某用户的粉丝
+
+    get   '/statuses/:mid'             => 'statuses#show'        # 单条微博显示
+    post  '/statuses'                  => 'statuses#create'      # 发一条微博
+    post  '/statuses/:mid/add_comment' => 'statuses#add_comment' # 发一条评论
+
+    get  '/unread'                    => 'statuses#unread' # 获取当前的未读微博数
+
+    get  '/cart'     => 'cart#index'
+    post '/cart/add' => 'cart#add'
+  end
+end
+
+def match_douban_routes
+  namespace :web_douban, :path=>'douban' do
+    get  '/' => 'events#index'
   end
 end
 
@@ -256,80 +263,76 @@ Mindpin::Application.routes.draw do
   match_auth_routes
   match_login_wallpaper_routes
   
-#  match_forgot_password_routes(map)
-#  match_account_routes(map)
-#  match_connect_tsina_routes(map)
-#  match_activation_routes(map)
-#  
-#
-#  match_user_routes(map)
-#  match_feeds_routes(map)
-#  match_viewpoints_routes(map)
-#  map.resources :user_logs,:collection=>{:friends=>:get,:newest=>:get}
-#
-#  map.resources :messages
-#  match_get map,'/messages/user/:user_id' => 'messages#user_messages'
-#
-#  match_get map,'/short_url/:code'        => 'short_urls#show'
-#
-#  match_channels_routes(map)
-#  match_tags_routes(map)
-#
-#  map.resources :atmes
-#
-#  match_collections_routes(map)
-#
-#  match_photos_and_entries_routes(map)
-#
-#  match_tsina_app_routes(map)
-#
-#  map.resources :notices,:collection=>{:common=>:get,:invites=>:get}
-#
-#  map.resources :post_drafts
-#
-#  match_get map,'/:user_id/contacts'          => 'contacts#index'
-#  match_get map,'/:user_id/feeds'             => 'feeds#index'
-#  match_get map,'/:user_id/collections'       => 'collections#index'
-#
-#  map.namespace(:api0) do |api0|
-#    # ---------------- 手机客户端同步数据 ----------
-#    match_get api0, 'mobile_data_syn'  => 'api#mobile_data_syn'
-#    match_get api0, 'home_timeline'    => 'api#home_timeline'
-#
-#    # 收集册 collections
-#    match_get    api0, 'collections/feeds'  => 'api#collection_feeds'
-#    match_get    api0, 'collections/list'   => 'api#collection_list'
-#    match_post   api0, 'collections/create' => 'api#create_collection'
-#    match_delete api0, 'collections/delete' => 'api#delete_collection'
-#    match_put    api0, 'collections/rename' => 'api#rename_collection'
-#
-#    # 主题 feeds
-#    match_get  api0, 'feeds/show'               => 'api#show'
-#    match_post api0, 'feeds/create'             => 'api#create'
-#    match_post api0, 'feeds/upload_photo'       => 'api#upload_photo'
-#
-#    # 主题评论 comments
-#
-#    match_get    api0, 'comments/list'   => 'api#feed_comments'
-#    match_post   api0, 'comments/create' => 'api#create_comment'
-#    match_delete api0, 'comments/delete' => 'api#delete_comment'
-#    match_post   api0, 'comments/reply'  => 'api#reply_comment'
-#
-#    match_get    api0, 'comments/received' => 'api#comments_received'
-#    match_get    api0, 'comments/sent'     => 'api#comments_sent'
-#
-#    # 人际关系 contacts
-#    match_get api0, 'contacts/followings' => 'api#contacts_followings'
-#
-#    match_get api0, 'test' => "api#test"
-#
-#  end
-#
-#
-#  match_weibo_routes(map)
-#  match_douban_routes(map)
-#
-#  map.namespace(:admin) do |admin|
-#    admin.resources :apply_records
-#  end
+  match_forgot_password_routes
+  match_account_routes
+  match_connect_tsina_routes
+  match_activation_routes
+  
+  match_user_routes
+  match_feeds_routes
+
+  get '/short_url/:code'        => 'short_urls#show'
+  match_channels_routes
+  match_tags_routes
+
+  resources :atmes
+
+  match_collections_routes
+
+  match_photos_and_entries_routes
+
+  match_tsina_app_routes
+
+  resources :notices do
+    collection do
+      get :common
+      get :invites
+    end
+  end
+
+  resources :post_drafts
+
+  get '/:user_id/contacts'          => 'contacts#index'
+  get '/:user_id/feeds'             => 'feeds#index'
+  get '/:user_id/collections'       => 'collections#index'
+
+  namespace(:api0) do
+    # ---------------- 手机客户端同步数据 ----------
+    get 'mobile_data_syn'  => 'api#mobile_data_syn'
+    get 'home_timeline'    => 'api#home_timeline'
+
+    # 收集册 collections
+    get    'collections/feeds'  => 'api#collection_feeds'
+    get    'collections/list'   => 'api#collection_list'
+    post   'collections/create' => 'api#create_collection'
+    delete 'collections/delete' => 'api#delete_collection'
+    put    'collections/rename' => 'api#rename_collection'
+
+    # 主题 feeds
+    get  'feeds/show'               => 'api#show'
+    post 'feeds/create'             => 'api#create'
+    post 'feeds/upload_photo'       => 'api#upload_photo'
+
+    # 主题评论 comments
+
+    get    'comments/list'   => 'api#feed_comments'
+    post   'comments/create' => 'api#create_comment'
+    delete 'comments/delete' => 'api#delete_comment'
+    post   'comments/reply'  => 'api#reply_comment'
+
+    get    'comments/received' => 'api#comments_received'
+    get    'comments/sent'     => 'api#comments_sent'
+
+    # 人际关系 contacts
+    get 'contacts/followings' => 'api#contacts_followings'
+    get 'test' => "api#test"
+  end
+
+
+  match_weibo_routes
+  match_douban_routes
+    
+  namespace(:admin) do
+    resources :apply_records
+  end
 end

@@ -9,8 +9,8 @@ module PieUi
         require 'pie-ui/action_view_ext/bundle_helper'
         ActionView::Base.send :include, PieUi::BundleHelper
 
-        require 'pie-ui/action_view_ext/mindpin_layout_helper'
-        ActionView::Base.send :include, PieUi::MindpinLayoutHelper
+#        require 'pie-ui/action_view_ext/mindpin_layout_helper'
+#        ActionView::Base.send :include, PieUi::MindpinLayoutHelper
 
 #        require 'pie-ui/action_view_ext/avatar_helper'
 #        ActionView::Base.send :include, PieUi::AvatarHelper
@@ -18,8 +18,8 @@ module PieUi
 #        require 'pie-ui/action_view_ext/datetime_helper'
 #        ActionView::Base.send :include, PieUi::DatetimeHelper
 
-        require 'pie-ui/action_view_ext/dom_util_helper'
-        ActionView::Base.send :include, PieUi::DomUtilHelper
+#        require 'pie-ui/action_view_ext/dom_util_helper'
+#        ActionView::Base.send :include, PieUi::DomUtilHelper
 
 #        require 'pie-ui/action_view_ext/button_helper'
 #        ActionView::Base.send :include, PieUi::ButtonHelper
@@ -36,8 +36,8 @@ module PieUi
 #        require 'pie-ui/action_view_ext/link_helper'
 #        ActionView::Base.send :include, PieUi::LinkHelper
 
-        require 'pie-ui/action_view_ext/partial_helper'
-        ActionView::Base.send :include, PieUi::PartialHelper
+#        require 'pie-ui/action_view_ext/partial_helper'
+#        ActionView::Base.send :include, PieUi::PartialHelper
 
         require 'pie-ui/action_view_ext/weibo_helper'
         ActionView::Base.send :include, PieUi::WeiboHelper

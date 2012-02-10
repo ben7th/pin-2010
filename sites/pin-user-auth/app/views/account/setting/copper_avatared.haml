@@ -5,7 +5,7 @@
 
 - content_for :javascripts do
   = javascript_include_tag '/jsCropperUi/cropper'
-  = javascript_include_tag 'views/image_cut'
+  = javascript_include_tag '/javascripts/views/image_cut'
 
 - width  = @temp_image_size[:width]
 - height = @temp_image_size[:height]
@@ -26,7 +26,7 @@
       #preview_wrap{:style=>'width:48px;height:48px;'}
 
     .form.aj-submit-form
-      - form_tag "/account/avatared_submit_copper",:id=>"copper_form" do
+      = form_tag "/account/avatared_submit_copper",:id=>"copper_form" do
         = hidden_field_tag :x1,     100
         = hidden_field_tag :y1,     100
         = hidden_field_tag :width , 200

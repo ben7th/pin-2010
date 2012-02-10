@@ -11,11 +11,13 @@ module AccountHelper
     selected = current_page?(url)
 
     outer_klass = ['link',klass,selected ? 'selected':'']*' '
-    link_str = link_to "<div class='icon'></div>#{name}",url
+    
+    link_str = link_to url do
+      content_tag(:div, '', :class=>'icon') +
+      content_tag(:span, name)
+    end
 
-    str = "<div class='#{outer_klass}'>#{link_str}</div>"
-
-    return str
+    return content_tag(:div, link_str, :class=>outer_klass)
   end
 
   # 尝试返回尺寸为200的user头像，如果没有（头像更新于9月20日前的，则返回:medium的头像 96x96）

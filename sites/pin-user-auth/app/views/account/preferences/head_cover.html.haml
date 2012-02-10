@@ -14,7 +14,7 @@
     .cover{:style=>'padding:15px;'}
       %img{:src=>cover_url, :alt=>cover_url, :style=>'width:720px;'}
     .form.aj-submit-form
-      - form_tag "/account/head_cover",:multipart=>true do
+      =form_tag "/account/head_cover",:multipart=>true do
         .field
           %label 选择一张图片并上传
           .ip=file_field_tag :file

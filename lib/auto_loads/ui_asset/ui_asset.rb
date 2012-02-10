@@ -6,8 +6,8 @@ class UiAsset
       # 获取用于区分静态文件缓存的asset_id
       # 暂时先硬编码实现，如果将来需要分布在不同的服务器上，再对这个方法进行修改
       
-      randstr if Rails.env.development? # 开发环境的话 不去缓存
-      last_modified_file_id(PRODUCTION_PROJECT_DIR) if Rails.env.production?  # 产品环境 读工程更新时间戳
+      return randstr if Rails.env.development? # 开发环境的话 不去缓存
+      return last_modified_file_id(PRODUCTION_PROJECT_DIR) if Rails.env.production?  # 产品环境 读工程更新时间戳
     end
 
     def last_modified_file_id(project_dir)

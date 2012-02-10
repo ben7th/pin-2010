@@ -223,6 +223,7 @@
         form{
           .field{
             @include dark_bg_field_with_label;
+            input{width:210px;}
           }
           .fi{
             height:24px;margin-bottom:14px;

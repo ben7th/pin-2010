@@ -37,7 +37,7 @@
           .creator
             .avatar=avatar(feed.creator,:tiny)
             .c-meta
-              .name=usersign(feed.creator)
+              .name=userlink(feed.creator)
               .created-at
                 %a{:href=>feed_link}=jtime(feed.created_at)
 

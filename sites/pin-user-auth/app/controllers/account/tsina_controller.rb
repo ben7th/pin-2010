@@ -36,7 +36,7 @@ class Account::TsinaController < ApplicationController
   def update_info
     cu = current_user.tsina_connect_user
     cu.update_account_detail
-    result = @template.render :partial=>"/account/bind_parts/binded_tsina_account_info"
+    result = view_context.render :partial=>"/account/bind_parts/binded_tsina_account_info"
     render :text=>result
   end
 

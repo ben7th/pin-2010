@@ -16,7 +16,7 @@
     .title 基本信息设置
     .form.base.aj-submit-form
       = flash_info
-      - form_for user,:url=>"/account", :html=>{:method=>:put} do |f|
+      = form_for user,:url=>"/account", :html=>{:method=>:put} do |f|
         .field
           %label 电子邮件
           .ip.mail=email

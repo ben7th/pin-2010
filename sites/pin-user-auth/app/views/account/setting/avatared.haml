@@ -11,13 +11,13 @@
     .title 上传一张图片，然后选择要裁切的部分，系统会自动替您裁好！~
     .form.aj-submit-form
       .clearfix
-        = logo current_user,:large
-        = logo current_user,:medium
-        = logo current_user,:normal
-        = logo current_user,:tiny
-        = logo current_user,:mini
+        = avatar current_user,:large
+        = avatar current_user,:medium
+        = avatar current_user,:normal
+        = avatar current_user,:tiny
+        = avatar current_user,:mini
 
-      - form_tag "/account/avatared_submit_raw",:multipart=>true do
+      =form_tag "/account/avatared_submit_raw",:multipart=>true do
         .field
           %label 选择一张图片并上传
           .ip=file_field_tag :logo

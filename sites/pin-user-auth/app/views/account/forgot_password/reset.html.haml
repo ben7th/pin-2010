@@ -24,7 +24,7 @@
             %br
             MINDPIN系统将根据您输入的新密码重新设置你的登录密码。
 
-          - form_for @user,:url=>submit_url do |f|
+          =form_for @user,:url=>submit_url do |f|
             .field
               %label 新密码
               = f.password_field :password,:size=>25,:maxlength=>255,:class=>'text need j-tip'

@@ -11,7 +11,7 @@ end
 
 # 从验证失败的记录中获得错误显示信息
 def get_flash_error(record)
-  arr =  record.errors.to_a
+  arr =  record.errors.to_a.map{|x| x.split(' ')}
   original_title_id = randstr
 
   used_fields = [arr[0][0]]

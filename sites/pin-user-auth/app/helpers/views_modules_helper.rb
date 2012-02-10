@@ -9,11 +9,7 @@ module ViewsModulesHelper
   end
 
   def prender(kind,name,params={})
-    begin
-      render "#{kind.pluralize}/parts/#{name}",params
-    rescue Exception => ex
-      "<div class='render-error'>错误：#{ex}</div>"
-    end
+    render "#{kind.pluralize}/parts/#{name}",params
   end
 
   # 计算宽度为415的大图的尺寸以及容器div尺寸，用在列表里

@@ -5408,6 +5408,8 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
           /*font-family:Microsoft YaHei, 微软雅黑, tahoma, arial, simsun, 宋体;*/ }
           .page-anonymous-wrapper .signup-box .signup-content .ct form .field input.text.active, .page-anonymous-wrapper .signup-box .signup-content .ct form .field textarea.text.active {
             background-color: #16181A; }
+        .page-anonymous-wrapper .signup-box .signup-content .ct form .field input {
+          width: 210px; }
       .page-anonymous-wrapper .signup-box .signup-content .ct form .fi {
         height: 24px;
         margin-bottom: 14px;
