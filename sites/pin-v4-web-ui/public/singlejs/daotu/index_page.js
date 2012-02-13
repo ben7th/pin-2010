@@ -99,3 +99,24 @@ pie.load(function(){
 	})
 	
 });
+
+pie.load(function(){
+  // 点击新建按钮
+	jQuery('.page-mindmap-toolbar a.new').click(function(){
+    var elm = jQuery(this);
+    var offset = elm.offset();
+    
+    pie.show_page_overlay(0.4);
+    var box_elm = elm.next('.new-box').show()
+      .css({
+        left : offset.left - 6,
+        top : offset.top - 6 - jQuery('.page-mindmap-toolbar').offset().top
+      });
+	});
+	
+	jQuery('.page-mindmap-toolbar .new-box a.close').click(function(){
+	  var elm = jQuery(this);
+	  var box_elm = elm.closest('.new-box').hide();
+	  pie.hide_page_overlay();
+	})
+})

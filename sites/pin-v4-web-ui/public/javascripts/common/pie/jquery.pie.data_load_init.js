@@ -33,20 +33,17 @@ pie.load(function(){
   }
 })
 
-pie.show_page_overlay = function(){
-  var overlay_elm = jQuery('<div class="page-overlay"></div>');
-  overlay_elm
-    .css('height',jQuery(document).height())
-    .css('width',jQuery(document).width())
-    .css('opacity',0.6)
-    .hide().fadeIn(200)
-    .appendTo(jQuery(document.body))
+pie.show_page_overlay = function(opacity){
+  var o = opacity || 0.4;
+  jQuery('<div class="page-pie-overlay"></div>')
+    .css('height', jQuery(window).height())
+    .css('opacity', 0)
+    .appendTo(document.body)
+    .animate({'opacity': o}, 300);
 }
 
 pie.hide_page_overlay = function(){
-  jQuery('.page-overlay').fadeOut(200,function(){
-    jQuery('.page-overlay').remove();
-  })
+  jQuery('.page-pie-overlay').remove();
 }
 
 pie.load(function(){

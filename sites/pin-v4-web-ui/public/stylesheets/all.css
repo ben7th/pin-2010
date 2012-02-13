@@ -771,120 +771,6 @@ body {
   color: #333333;
   font-weight: bold; }
 
-.jq-confirm-dialog {
-  width: 200px;
-  position: absolute;
-  -moz-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
-  -webkit-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
-  box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
-  z-index: 10002; }
-  .jq-confirm-dialog .d {
-    border: solid 1px #ddd;
-    background-color: #f7f7f7;
-    padding: 13px;
-    overflow: hidden; }
-    .jq-confirm-dialog .d .data {
-      line-height: 20px;
-      font-size: 12px;
-      margin: 0 0 10px 0; }
-      .jq-confirm-dialog .d .data .icon {
-        display: inline;
-        font-size: 20px;
-        height: 20px;
-        line-height: 20px;
-        font-weight: bold;
-        color: #2DA7EE;
-        margin: 0 12px 0 0; }
-    .jq-confirm-dialog .d .btns {
-      position: relative;
-      left: 30px;
-      overflow: hidden; }
-      .jq-confirm-dialog .d .btns a.editable-submit {
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        display: inline-block;
-        padding: 0;
-        text-align: center;
-        font-weight: bold;
-        color: #fff !important;
-        background-color: #4C8FFD;
-        border: solid 1px #10698D;
-        text-shadow: 0 0 2px #444444;
-        height: 30px;
-        line-height: 30px;
-        width: 80px;
-        font-size: 14px;
-        height: 24px;
-        line-height: 24px;
-        width: 60px;
-        font-size: 12px;
-        float: left;
-        margin-right: 10px;
-        width: 50px; }
-        .jq-confirm-dialog .d .btns a.editable-submit:hover {
-          text-decoration: none; }
-        .jq-confirm-dialog .d .btns a.editable-submit span {
-          display: block; }
-        .jq-confirm-dialog .d .btns a.editable-submit:hover {
-          color: #fff !important;
-          border: solid 1px #0069dd;
-          box-shadow: 0 1px 2px #ccc; }
-      .jq-confirm-dialog .d .btns a.editable-cancel {
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-        display: block;
-        padding: 0;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        width: 80px;
-        font-size: 14px;
-        background: -moz-linear-gradient(-90deg, #e7e7e7, #e3e3e3);
-        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e7e7e7), to(#e3e3e3));
-        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');
-        border: solid 1px #aaa;
-        color: #555;
-        font-weight: bold;
-        text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
-        height: 24px;
-        line-height: 24px;
-        width: 60px;
-        font-size: 12px;
-        float: left;
-        width: 50px; }
-        .jq-confirm-dialog .d .btns a.editable-cancel:hover {
-          color: #555;
-          text-decoration: none;
-          background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
-          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
-          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
-          border: solid 1px #848484; }
-
-.ajax-loading-bar {
-  -moz-border-radius: 0 4px 4px 0;
-  -webkit-border-radius: 0 4px 4px 0;
-  border-radius: 0 4px 4px 0;
-  padding: 6px 10px;
-  background-color: #5C5E4E;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: #F3F8DB;
-  position: fixed;
-  width: 100px;
-  top: 150px;
-  left: 0px;
-  height: auto;
-  line-height: 20px; }
-  .ajax-loading-bar .icon {
-    float: left;
-    width: 18px;
-    height: 4px;
-    position: relative;
-    top: 8px;
-    margin-right: 8px;
-    background: url(/images/icons/progress-dots.gif) no-repeat; }
-
 .clear {
   clear: both;
   display: block;
@@ -2217,13 +2103,128 @@ body {
   background-color: #FAFAFA;
   color: #666; }
 
-/*浮动窗体遮罩*/
-.page-overlay {
-  position: absolute;
-  left: 0;
+/*浮动窗体覆盖层*/
+.page-pie-overlay {
+  position: fixed;
   top: 0;
-  background-color: #fff;
-  z-index: 99; }
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: #f1f1f1; }
+
+.jq-confirm-dialog {
+  width: 200px;
+  position: absolute;
+  -moz-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+  -webkit-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+  box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+  z-index: 10002; }
+  .jq-confirm-dialog .d {
+    border: solid 1px #ddd;
+    background-color: #f7f7f7;
+    padding: 13px;
+    overflow: hidden; }
+    .jq-confirm-dialog .d .data {
+      line-height: 20px;
+      font-size: 12px;
+      margin: 0 0 10px 0; }
+      .jq-confirm-dialog .d .data .icon {
+        display: inline;
+        font-size: 20px;
+        height: 20px;
+        line-height: 20px;
+        font-weight: bold;
+        color: #2DA7EE;
+        margin: 0 12px 0 0; }
+    .jq-confirm-dialog .d .btns {
+      position: relative;
+      left: 30px;
+      overflow: hidden; }
+      .jq-confirm-dialog .d .btns a.editable-submit {
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        font-weight: bold;
+        color: #fff !important;
+        background-color: #4C8FFD;
+        border: solid 1px #10698D;
+        text-shadow: 0 0 2px #444444;
+        height: 30px;
+        line-height: 30px;
+        width: 80px;
+        font-size: 14px;
+        height: 24px;
+        line-height: 24px;
+        width: 60px;
+        font-size: 12px;
+        float: left;
+        margin-right: 10px;
+        width: 50px; }
+        .jq-confirm-dialog .d .btns a.editable-submit:hover {
+          text-decoration: none; }
+        .jq-confirm-dialog .d .btns a.editable-submit span {
+          display: block; }
+        .jq-confirm-dialog .d .btns a.editable-submit:hover {
+          color: #fff !important;
+          border: solid 1px #0069dd;
+          box-shadow: 0 1px 2px #ccc; }
+      .jq-confirm-dialog .d .btns a.editable-cancel {
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        display: block;
+        padding: 0;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 80px;
+        font-size: 14px;
+        background: -moz-linear-gradient(-90deg, #e7e7e7, #e3e3e3);
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e7e7e7), to(#e3e3e3));
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#e7e7e7',endColorstr='#e3e3e3');
+        border: solid 1px #aaa;
+        color: #555;
+        font-weight: bold;
+        text-shadow: 0px 0px 0 rgba(0, 0, 0, 0.3);
+        height: 24px;
+        line-height: 24px;
+        width: 60px;
+        font-size: 12px;
+        float: left;
+        width: 50px; }
+        .jq-confirm-dialog .d .btns a.editable-cancel:hover {
+          color: #555;
+          text-decoration: none;
+          background: -moz-linear-gradient(-90deg, #d7d7d7, #d3d3d3);
+          background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d7d7d7), to(#d3d3d3));
+          filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#d7d7d7',endColorstr='#d3d3d3');
+          border: solid 1px #848484; }
+
+.ajax-loading-bar {
+  -moz-border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+  padding: 6px 10px;
+  background-color: #5C5E4E;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #F3F8DB;
+  position: fixed;
+  width: 100px;
+  top: 150px;
+  left: 0px;
+  height: auto;
+  line-height: 20px; }
+  .ajax-loading-bar .icon {
+    float: left;
+    width: 18px;
+    height: 4px;
+    position: relative;
+    top: 8px;
+    margin-right: 8px;
+    background: url(/images/icons/progress-dots.gif) no-repeat; }
 
 /*创建主题的表单*/
 form.page-new-feed-form h2.main-title, form.page-edit-feed-form h2.main-title {
@@ -5697,6 +5698,107 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       border-radius: 2px; }
+  .page-mindmap-toolbar a.new {
+    display: block;
+    margin-top: 10px;
+    margin-left: 86px;
+    width: 32px;
+    height: 32px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background-color: rgba(3, 87, 224, 0.8);
+    position: relative;
+    -moz-transition: background-color ease-in 0.3s;
+    -webkit-transition: background-color ease-in 0.3s;
+    transition: background-color ease-in 0.3s; }
+    .page-mindmap-toolbar a.new::before {
+      content: "";
+      background-color: #fff;
+      height: 4px;
+      width: 20px;
+      display: block;
+      position: absolute;
+      top: 14px;
+      left: 6px;
+      -moz-border-radius: 1px;
+      -webkit-border-radius: 1px;
+      border-radius: 1px; }
+    .page-mindmap-toolbar a.new::after {
+      content: "";
+      background-color: #fff;
+      height: 20px;
+      width: 4px;
+      display: block;
+      position: absolute;
+      top: 6px;
+      left: 14px;
+      -moz-border-radius: 1px;
+      -webkit-border-radius: 1px;
+      border-radius: 1px; }
+    .page-mindmap-toolbar a.new:hover {
+      background-color: #0357e0; }
+  .page-mindmap-toolbar .new-box {
+    background-color: white;
+    border: solid 1px #ddd;
+    width: 314px;
+    height: 151px;
+    position: absolute;
+    z-index: 15;
+    -moz-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+    -webkit-box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4);
+    box-shadow: 0 1px 5px rgba(170, 170, 170, 0.4); }
+    .page-mindmap-toolbar .new-box .titlebar {
+      overflow: hidden;
+      padding: 5px;
+      border-bottom: solid 1px #ddd;
+      background-color: #f7f7f7; }
+      .page-mindmap-toolbar .new-box .titlebar a.close {
+        float: left;
+        position: relative;
+        margin-right: 10px;
+        background-color: #888;
+        width: 32px;
+        height: 32px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px; }
+        .page-mindmap-toolbar .new-box .titlebar a.close::before {
+          content: "";
+          background-color: #f4f4f4;
+          height: 4px;
+          width: 20px;
+          display: block;
+          position: absolute;
+          top: 14px;
+          left: 6px;
+          -moz-border-radius: 1px;
+          -webkit-border-radius: 1px;
+          border-radius: 1px; }
+      .page-mindmap-toolbar .new-box .titlebar .title {
+        line-height: 32px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #666; }
+    .page-mindmap-toolbar .new-box .buttons {
+      margin-left: 5px;
+      margin-top: 5px;
+      overflow: hidden; }
+      .page-mindmap-toolbar .new-box .buttons a.btn {
+        display: block;
+        width: 96px;
+        height: 96px;
+        float: left;
+        background-color: #eee;
+        margin-right: 5px;
+        border: solid 1px #ddd;
+        color: #444;
+        text-align: center;
+        font-weight: bold;
+        line-height: 170px; }
+        .page-mindmap-toolbar .new-box .buttons a.btn:hover {
+          background-color: #fdf9cf;
+          text-decoration: none; }
 
 .page-mindmaps-grids {
   margin-left: 132px;
@@ -5708,16 +5810,6 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     width: 179px;
     height: 179px;
     padding: 3px; }
-  .page-mindmaps-grids .intro .title {
-    font-weight: bold;
-    font-size: 32px; }
-  .page-mindmaps-grids .weibo .title {
-    font-weight: bold;
-    font-size: 24px; }
-  .page-mindmaps-grids .create-mindmap form input {
-    width: 140px; }
-  .page-mindmaps-grids .import-mindmap input.file {
-    width: 140px; }
   .page-mindmaps-grids .mindmap {
     position: relative; }
     .page-mindmaps-grids .mindmap .title {
