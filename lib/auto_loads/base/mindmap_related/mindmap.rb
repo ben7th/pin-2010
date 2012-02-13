@@ -10,7 +10,7 @@ class Mindmap < Mev6Abstract
   belongs_to :mindmap_album
 
   # name_scopes
-  scope :publics,:conditions =>"mindmap_albums.send_status = '#{MindmapAlbum::SendStatus::PUBLIC}' or mindmap_albums.id is null",
+  scope :publics,:conditions =>"mindmap_albums.send_status = '#{MindmapAlbum::SendStatus::PUBLIC}'",
   :joins=>"left join mindmap_albums on mindmaps.mindmap_album_id = mindmap_albums.id"
   scope :privacy,:conditions =>"mindmap_albums.send_status = '#{MindmapAlbum::SendStatus::PRIVATE}'",
   :joins=>"left join mindmap_albums on mindmaps.mindmap_album_id = mindmap_albums.id"

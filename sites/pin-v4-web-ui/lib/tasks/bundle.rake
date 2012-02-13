@@ -1,37 +1,34 @@
-RAILS_ROOT ||= ENV["RAILS_ROOT"]
-
 namespace :bundle do
   task :all => [ :js, :css ]
 
   # javascript 打包
   task :js do
-    closure_path = RAILS_ROOT + '/lib/closure_compiler.jar'
-    paths = get_top_level_directories('/public/javascripts')
+    closure_path = Rails.root.to_s + '/lib/closure_compiler.jar'
+    
     all_files = []
-
-    paths.each do |bundle_directory|
-      bundle_name = bundle_directory.gsub(RAILS_ROOT + '/public/javascripts/', "")
+    # 顺序不能错！
+    ['mindpin', 'common', 'util'].each do |bundle_name|
+      bundle_directory = "public/javascripts/#{bundle_name}"
+      
       files = recursive_file_list(bundle_directory, ".js")
-      next if files.empty? || !['common','mindpin','util'].include?(bundle_name)
-
-      all_files += files
+      next if files.empty?
+      all_files += files if !files.blank?
     end
 
-    target = RAILS_ROOT + "/public/javascripts/bundle_base.js"
+    target = 'public/javascripts/bundle_base.js'
+    
     `java -jar #{closure_path} --js #{all_files.join(" --js ")} --js_output_file #{target} 2> /dev/null`
     puts "=> bundled js at #{target}"
   end
 
   # css 打包
   task :css do
-    yuipath = RAILS_ROOT + '/lib/yuicompressor-2.4.2.jar'
-    paths = get_top_level_directories('/public/stylesheets')
+    yuipath = 'lib/yuicompressor-2.4.2.jar'
 
-    rawpath = RAILS_ROOT + "/public/stylesheets/all.css"
-    target = RAILS_ROOT + "/public/stylesheets/all_packed.css"
+    rawpath = 'public/stylesheets/all.css'
+    target  = 'public/stylesheets/all_packed.css'
 
     `java -jar #{yuipath} --line-break 0 #{rawpath} -o #{target}`
-
     puts "=> bundled css at #{target}"
   end
 
@@ -49,12 +46,5 @@ namespace :bundle do
       files << path if File.extname(path) == ext
     end
     files.sort
-  end
-
-  def get_top_level_directories(base_path)
-    Dir.entries(RAILS_ROOT + base_path).collect do |path|
-      path = RAILS_ROOT + "#{base_path}/#{path}"
-      File.basename(path)[0] == ?. || !File.directory?(path) ? nil : path # not dot directories or files
-    end - [nil]
   end
 end

@@ -5654,34 +5654,60 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
 
 .page-mindmap-toolbar {
   float: left;
-  z-index: 4;
-  position: fixed;
-  width: 65px;
-  margin-top: 13px; }
-  .page-mindmap-toolbar a {
+  position: fixed; }
+  .page-mindmap-toolbar a.home-tl {
     display: block;
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px; }
-    .page-mindmap-toolbar a.home-tl {
-      margin-left: 13px;
-      border: solid 1px #ccc;
-      padding: 3px;
-      background-color: #f4f4f4; }
-      .page-mindmap-toolbar a.home-tl img {
-        width: 50px;
-        height: 50px; }
+    width: 96px;
+    height: 96px;
+    margin-top: 12px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border: solid 1px #cccccc;
+    padding: 1px;
+    background-color: #f4f4f4; }
+    .page-mindmap-toolbar a.home-tl img {
+      width: 96px;
+      height: 96px; }
+  .page-mindmap-toolbar a.it {
+    display: block;
+    margin-top: 10px;
+    padding-right: 14px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 14px;
+    line-height: 32px;
+    font-weight: bold;
+    -moz-border-radius: 0 2px 2px 0;
+    -webkit-border-radius: 0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
+    width: 104px;
+    text-align: right;
+    -moz-transition: background-color ease-in 0.3s;
+    -webkit-transition: background-color ease-in 0.3s;
+    transition: background-color ease-in 0.3s; }
+    .page-mindmap-toolbar a.it:hover {
+      background-color: #000;
+      text-decoration: none; }
+    .page-mindmap-toolbar a.it span.c {
+      background-color: rgba(255, 255, 255, 0.4);
+      color: #fff;
+      padding: 0 6px;
+      margin-right: 6px;
+      text-shadow: 0 0 2px #444444;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      border-radius: 2px; }
 
 .page-mindmaps-grids {
-  margin-left: 77px;
-  margin-top: 7px; }
+  margin-left: 132px;
+  margin-top: 12px; }
   .page-mindmaps-grids .gi {
-    margin: 6px;
+    margin: 0 12px 12px 0;
     background-color: #f7f7f7;
     border: solid 1px #ccc;
-    width: 152px;
-    height: 182px;
-    padding: 10px; }
+    width: 179px;
+    height: 179px;
+    padding: 3px; }
   .page-mindmaps-grids .intro .title {
     font-weight: bold;
     font-size: 32px; }
@@ -5696,15 +5722,15 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
     position: relative; }
     .page-mindmaps-grids .mindmap .title {
       font-size: 12px;
-      line-height: 20px;
-      margin-top: 10px;
+      line-height: 24px;
+      margin-top: 3px;
       color: #555;
       text-align: center; }
     .page-mindmaps-grids .mindmap .thumb {
-      width: 150px;
+      width: 177px;
       height: 150px;
-      background-color: #f1f1f1;
-      border: solid 1px #eee;
+      background-color: #fff;
+      border: solid 1px #eeeeee;
       overflow: hidden; }
     .page-mindmaps-grids .mindmap a.open {
       opacity: 0;
@@ -5739,9 +5765,9 @@ form.page-new-feed-form .form-submit, form.page-edit-feed-form .form-submit {
       left: 0;
       width: 100%;
       opacity: 0;
-      -moz-transition: all ease-out 0.1s;
-      -webkit-transition: all ease-out 0.1s;
-      transition: all ease-out 0.1s; }
+      -moz-transition: all easeout 0.1s;
+      -webkit-transition: all easeout 0.1s;
+      transition: all easeout 0.1s; }
       .page-mindmaps-grids .mindmap .ops a {
         text-decoration: none; }
       .page-mindmaps-grids .mindmap .ops a.delete {

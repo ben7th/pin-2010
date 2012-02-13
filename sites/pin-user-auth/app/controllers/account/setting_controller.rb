@@ -71,7 +71,9 @@ class Account::SettingController <  ApplicationController
   def avatared_submit_copper
     UserAvatarAdpater.copper_logo(current_user, params[:x1], params[:y1], params[:width], params[:height])
     redirect_to :action=>:avatared
-  rescue
+  rescue Exception=>ex
+    p ex.message
+    puts ex.backtrace*"\n"
     flash[:error] = "头像裁剪失败"
     redirect_to :action=>:avatared
   end

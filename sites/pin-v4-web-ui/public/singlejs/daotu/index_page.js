@@ -1,9 +1,11 @@
 pie.load(function(){
+  var gi_size = 199;
+
 	var grids_elm = jQuery('.page-mindmaps-grids')
 		.fadeIn(1000)
 	  .isotope({
 	    itemSelector : '.gi',
-	    masonry : { columnWidth : 186 },
+	    masonry : { columnWidth : gi_size },
 			transformsEnabled : false
 	  });
 		
@@ -12,7 +14,7 @@ pie.load(function(){
     grids_elm.find('.mindmaps .thumb:not(.-img-loaded-)').each(function(){
       var elm = jQuery(this);
       if(elm.is_in_screen()){
-        pie.load_cut_img(elm.data('src'), elm, elm);
+        pie.load_inner_img(elm.data('src'), elm, elm);
         elm.addClass('-img-loaded-')
       }
     });

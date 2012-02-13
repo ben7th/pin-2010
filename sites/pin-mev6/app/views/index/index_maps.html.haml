@@ -7,16 +7,24 @@
   
   mindmaps_count = user.mindmaps.count
   mindmaps = user.mindmaps.limit(30);
+  
+  albums_count = user.mindmap_albums.count
+  fav_count = user.mindmap_favs.count
 
 .page-mindmap-toolbar
   %a.home-tl{:href=>'/', :title=>'我的思维导图'}
     =avatar user, :medium
+  %a.it.mindmaps
+    %span.c=mindmaps_count
+    %span.t 导图
+  %a.it.albums
+    %span.c=albums_count
+    %span.t 图册
+  %a.it.favs
+    %span.c=fav_count
+    %span.t 喜欢
 
 .page-mindmaps-grids{:style=>'display:none;'}
-  .user-info.gi
-    .name=userlink user
-    .mindmaps-count=mindmaps_count
-  
   .intro.gi
     .title INTRO
     .desc 

@@ -1,30 +1,71 @@
+$avatar-size:96px; // 导图列表侧边头像宽度
+$avatar-margin-top:12px;
+$avatar-margin-left:20px;
+$avatar-padding:1px;
+$avatar-border-width:1px;
+
 .page-mindmap-toolbar{
-  float:left;z-index:4;position:fixed;
-  width:65px;margin-top:13px;
-  a{
-    display:block;width:50px;height:50px;margin-bottom:10px;
-    &.home-tl{
-      margin-left:13px;
-      border:solid 1px #ccc;
-      padding:3px;background-color:#f4f4f4;
-      img{width:50px;height:50px;}
+  float:left;position:fixed;
+  a.home-tl{
+    display:block;
+    width:$avatar-size;height:$avatar-size;
+    margin-top:$avatar-margin-top;
+    margin-left:$avatar-margin-left;
+    margin-bottom:10px;
+    
+    border:solid $avatar-border-width #ccc;
+    padding:$avatar-padding;background-color:#f4f4f4;
+    img{width:$avatar-size;height:$avatar-size;}
+  }
+  
+  $item-padding-right:14px;
+  a.it{
+    display:block;
+    margin-top:10px;
+    padding-right:$item-padding-right;
+    background-color:rgba(#000,0.8);
+    color:#fff;
+    font-size:14px;line-height:32px;
+    font-weight:bold;
+    @include border-radius(0 2px 2px 0);
+    width:$avatar-margin-left + $avatar-size + $avatar-padding*2 - $item-padding-right;
+    text-align:right;
+    //box-shadow:0 1px 3px #666666;
+    @include transition(background-color ease-in .3s);
+    &:hover{
+      background-color:#000;
+      text-decoration:none;
+    };
+    
+    span.c{
+      background-color:rgba(#fff,0.4);
+      color:#fff;padding:0 6px;
+      margin-right:6px;
+      text-shadow:0 0 2px #444444;
+      @include border-radius(2px);
     }
   }
 }
 
+$gi-margin:12px;
+$gi-padding:3px;
+$thumb-size:150px;
+$thumb-border-width:1px;
+$title-line-height:24px;
+$gi-size: $thumb-size + $thumb-border-width*2 + $gi-padding + $title-line-height;
+
 .page-mindmaps-grids{
-  margin-left:77px;margin-top:7px;
-  
-  // 基本单元 186 x 186
+  margin-left:$avatar-size + $avatar-padding*2 + $avatar-border-width*2 + $avatar-margin-left + $gi-margin;
+  margin-top:$avatar-margin-top;
   
   .gi{
-    margin:6px;background-color:#f7f7f7;
+    margin:0 $gi-margin $gi-margin 0;
+    background-color:#f7f7f7;
     border:solid 1px #ccc;
-    
-    width:152px;height:182px;padding:10px;
-  }
-  
-  .user-info{
+    width:$gi-size;
+    height:$gi-size;
+    padding:$gi-padding;
+    //box-shadow:0 0 5px rgba(#666,0.3);
   }
   
   .intro{
@@ -48,19 +89,21 @@
   }
   
   .mindmap{
-    position:relative;
-    
     $ani-time : .1s;
     
+    position:relative;
     .title{
-      font-size:12px;line-height:20px;
-      margin-top:10px;color:#555;
+      font-size:12px;line-height:$title-line-height;
+      margin-top:$gi-padding;color:#555;
       text-align:center;
     }
     
     .thumb{
-      width:150px;height:150px;background-color:#f1f1f1;
-      border:solid 1px #eee;overflow:hidden;
+      width:$gi-size - $thumb-border-width*2;
+      height:$thumb-size;
+      //background-color:#f1f1f1;
+      background-color:#fff;
+      border:solid $thumb-border-width #eee;overflow:hidden;
     }
 
     a.open{
@@ -83,7 +126,7 @@
       height:0;line-height:$ops-height;overflow:hidden;
       background-color:rgba(#000,0.7);
       top:0;left:0;width:100%;opacity:0;
-      @include transition(all ease-out $ani-time);
+      @include transition(all easeout $ani-time);
       
       a{text-decoration:none;}
       
